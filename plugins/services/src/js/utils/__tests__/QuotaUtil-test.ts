@@ -373,4 +373,12 @@ describe("QuotaUtil", () => {
       ).toEqual(true);
     });
   });
+  describe("#formatQuotaID", () => {
+    it("returns the same string if it already starts with a slash", () => {
+      expect(QuotaUtil.formatQuotaID("/test")).toEqual("/test");
+    });
+    it("adds a slash if the string does not have it", () => {
+      expect(QuotaUtil.formatQuotaID("test")).toEqual("/test");
+    });
+  });
 });

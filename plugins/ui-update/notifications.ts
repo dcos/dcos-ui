@@ -2,6 +2,7 @@ import { injectable, inject, Container } from "inversify";
 import { I18n, i18nMark } from "@lingui/core";
 
 import * as semver from "semver";
+import { Unsubscribable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import {
   NotificationService,
@@ -20,17 +21,11 @@ import { rollbackUI, updateUI } from "./commands";
 
 const LOCAL_DEV_VERSION = "0.0.0";
 
-interface UIUpdateNotificationTypes {
-  uiUpdated: boolean;
-  uiUpdateFailed: boolean;
-  uiRollbackFailed: boolean;
-}
-
 interface UIUpdateNotifications {
   _clear(): void;
-  setupUIUpdatedNotification(): void;
-  setupUpdateFailedNotification(): void;
-  setupRollbackFailedNotification(): void;
+  setupUIUpdatedNotification(): Unsubscribable;
+  setupUpdateFailedNotification(): Unsubscribable;
+  setupRollbackFailedNotification(): Unsubscribable;
 }
 
 const UIUpdateNotificationsType = Symbol.for("UIUpdateNotifications");
@@ -51,11 +46,6 @@ class Notifications implements UIUpdateNotifications {
   private readonly _notificationService: NotificationService;
   private readonly _i18n: I18n;
   private _activeNotifications: string[] = [];
-  private setupNotifications: UIUpdateNotificationTypes = {
-    uiUpdated: false,
-    uiUpdateFailed: false,
-    uiRollbackFailed: false
-  };
 
   public constructor(
     @inject(NotificationServiceType) notificationService: NotificationService,
@@ -70,12 +60,8 @@ class Notifications implements UIUpdateNotifications {
     });
   }
 
-  public setupUIUpdatedNotification() {
-    if (this.setupNotifications.uiUpdated) {
-      return;
-    }
-    this.setupNotifications.uiUpdated = true;
-    getUiMetadata$()
+  public setupUIUpdatedNotification(): Unsubscribable {
+    return getUiMetadata$()
       .pipe(
         filter(uiMetadata => {
           const { clientBuild, serverBuild } = uiMetadata;
@@ -118,13 +104,8 @@ class Notifications implements UIUpdateNotifications {
       )
       .subscribe(this._notificationService.push);
   }
-  public setupUpdateFailedNotification() {
-    if (this.setupNotifications.uiUpdateFailed) {
-      return;
-    }
-    this.setupNotifications.uiUpdateFailed = true;
-
-    getAction$()
+  public setupUpdateFailedNotification(): Unsubscribable {
+    return getAction$()
       .pipe(
         filter(
           uiAction =>
@@ -175,13 +156,8 @@ class Notifications implements UIUpdateNotifications {
       )
       .subscribe(this._notificationService.push);
   }
-  public setupRollbackFailedNotification() {
-    if (this.setupNotifications.uiRollbackFailed) {
-      return;
-    }
-    this.setupNotifications.uiRollbackFailed = true;
-
-    getAction$()
+  public setupRollbackFailedNotification(): Unsubscribable {
+    return getAction$()
       .pipe(
         filter(
           uiAction =>
@@ -216,11 +192,6 @@ class Notifications implements UIUpdateNotifications {
     if (this._activeNotifications.length > 0) {
       this._activeNotifications.splice(0, this._activeNotifications.length);
     }
-    this.setupNotifications = {
-      uiUpdated: false,
-      uiUpdateFailed: false,
-      uiRollbackFailed: false
-    };
   }
 
   private removeActiveNotification(id: string) {

@@ -13,7 +13,15 @@ import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
 
+import { Status, actionAllowed, StatusAction } from "../../types/Status";
+import DrainNodeModal from "../../components/modals/DrainNodeModal";
+import DeactivateNodeConfirm from "../../components/modals/DeactivateNodeConfirm";
+import NodeMaintenanceActions from "../../actions/NodeMaintenanceActions";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 
@@ -38,8 +46,13 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     };
 
     this.state = {
-      mesosStateLoaded: false
+      mesosStateLoaded: false,
+      selectedNodeToDrain: null,
+      selectedNodeToDeactivate: null
     };
+
+    this.handleNodeAction = this.handleNodeAction.bind(this);
+    this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
   componentWillMount() {
@@ -128,6 +141,67 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
+  getActions() {
+    const hasMaintenance = findNestedPropertyInObject(
+      ConfigStore.get("config"),
+      "uiConfiguration.features.maintenance"
+    );
+
+    if (!hasMaintenance) {
+      return [];
+    }
+
+    const actions = [];
+    const { node } = this.props;
+    const status = Status.fromNode(node);
+
+    if (actionAllowed(StatusAction.DRAIN, status)) {
+      actions.push({
+        label: "Drain",
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DRAIN)
+      });
+    }
+
+    if (actionAllowed(StatusAction.DEACTIVATE, status)) {
+      actions.push({
+        label: "Deactivate",
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DEACTIVATE)
+      });
+    }
+
+    if (actionAllowed(StatusAction.REACTIVATE, status)) {
+      actions.push({
+        label: "Reactivate",
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.REACTIVATE)
+      });
+    }
+
+    return actions;
+  }
+
+  handleNodeAction(action) {
+    const { node } = this.props;
+
+    // TODO: Status#StatusAction enum
+    if (action === "drain") {
+      this.setState({ selectedNodeToDrain: node });
+    } else if (action === "deactivate") {
+      this.setState({ selectedNodeToDeactivate: node });
+    } else if (action === "reactivate") {
+      NodeMaintenanceActions.reactivateNode(node, {
+        onSuccess: () => {},
+        onError: defaultNetworkErrorHandler
+      });
+    }
+  }
+
+  handleCloseModal() {
+    this.setState({
+      selectedNodeToDeactivate: null,
+      selectedNodeToDrain: null
+    });
+  }
+
   render() {
     if (!this.state.summaryStatesProcessed || !this.state.mesosStateLoaded) {
       return this.getLoadingScreen();
@@ -140,7 +214,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    const { currentTab } = this.state;
+    const {
+      currentTab,
+      selectedNodeToDrain,
+      selectedNodeToDeactivate
+    } = this.state;
+
     const tabs = [
       {
         label: i18nMark("Tasks"),
@@ -168,10 +247,21 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     return (
       <Page>
         <Page.Header
+          actions={this.getActions()}
           breadcrumbs={<NodeBreadcrumbs node={node} />}
           tabs={tabs}
         />
         {React.cloneElement(this.props.children, { node })}
+        <DrainNodeModal
+          open={selectedNodeToDrain !== null}
+          node={selectedNodeToDrain}
+          onClose={this.handleCloseModal}
+        />
+        <DeactivateNodeConfirm
+          open={selectedNodeToDeactivate !== null}
+          node={selectedNodeToDeactivate}
+          onClose={this.handleCloseModal}
+        />
       </Page>
     );
   }
