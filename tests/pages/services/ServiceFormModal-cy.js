@@ -486,6 +486,27 @@ describe("Service Form Modal", function() {
           .should("exist");
       });
     });
+
+    it("persists the state of the JSON editor after a reload", function() {
+      openServiceModal();
+      openServiceForm();
+      // Open JSON Editor.
+      cy.get(".modal .toggle-button + span").click();
+      cy.reload();
+      openServiceForm();
+      cy.get(".modal-full-screen-side-panel").should(
+        "have.class",
+        "is-visible"
+      );
+      // Close JSON Editor.
+      cy.get(".modal .toggle-button + span").click();
+      cy.reload();
+      openServiceForm();
+      cy.get(".modal-full-screen-side-panel").should(
+        "not.have.class",
+        "is-visible"
+      );
+    });
   });
 
   context("Edit", function() {
