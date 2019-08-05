@@ -67,7 +67,7 @@ function DrainNodeForm(props: Props) {
         <FieldInput
           id="max_grace_period"
           name="max_grace_period"
-          type="number"
+          type="text"
           min="0"
           placeholder="Enter in seconds"
           value={formData.maxGracePeriod || ""}
