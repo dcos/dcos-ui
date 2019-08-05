@@ -35,10 +35,10 @@ export function createGroup(
         let message: string;
         switch (reqResp.code) {
           case 409:
-            message = "Conflict";
+            message = "Conflict - Group";
             break;
           case 403:
-            message = "Forbidden";
+            message = "Forbidden - Group";
             break;
           default:
             message = response.message;

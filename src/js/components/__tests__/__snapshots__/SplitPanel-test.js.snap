@@ -1,0 +1,910 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SplitPanel renders SidePanel and PrimaryPanel with className passed 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SplitPanel>
+    <Unknown
+      className="className"
+    >
+      PrimaryPanel
+    </Unknown>
+    <Unknown
+      className="className"
+    >
+      SidePanel
+    </Unknown>
+  </SplitPanel>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Unknown
+          className="className"
+          isResizing={false}
+        >
+          PrimaryPanel
+        </Unknown>,
+        <div
+          className="splitPanels-separator"
+          onMouseDown={[Function]}
+          style={
+            Object {
+              "right": 0,
+              "transform": "translateX(undefinedpx)",
+              "transition": undefined,
+            }
+          }
+        >
+          <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>
+        </div>,
+        <Unknown
+          className="className"
+          isResizing={false}
+          width={undefined}
+        >
+          SidePanel
+        </Unknown>,
+      ],
+      "className": "splitPanels",
+      "onMouseMove": [Function],
+      "onMouseUp": [Function],
+    },
+    "ref": Object {
+      "current": null,
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "primaryPanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "PrimaryPanel",
+          "className": "className",
+          "isResizing": false,
+        },
+        "ref": null,
+        "rendered": "PrimaryPanel",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": "separator",
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>,
+          "className": "splitPanels-separator",
+          "onMouseDown": [Function],
+          "style": Object {
+            "right": 0,
+            "transform": "translateX(undefinedpx)",
+            "transition": undefined,
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />,
+            "className": "splitPanels-resizeIconWrapper",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "shape": "system-resize-horizontal",
+              "size": "12px",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": "sidePanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "SidePanel",
+          "className": "className",
+          "isResizing": false,
+          "width": undefined,
+        },
+        "ref": null,
+        "rendered": "SidePanel",
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Unknown
+            className="className"
+            isResizing={false}
+          >
+            PrimaryPanel
+          </Unknown>,
+          <div
+            className="splitPanels-separator"
+            onMouseDown={[Function]}
+            style={
+              Object {
+                "right": 0,
+                "transform": "translateX(undefinedpx)",
+                "transition": undefined,
+              }
+            }
+          >
+            <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>
+          </div>,
+          <Unknown
+            className="className"
+            isResizing={false}
+            width={undefined}
+          >
+            SidePanel
+          </Unknown>,
+        ],
+        "className": "splitPanels",
+        "onMouseMove": [Function],
+        "onMouseUp": [Function],
+      },
+      "ref": Object {
+        "current": null,
+      },
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "primaryPanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "PrimaryPanel",
+            "className": "className",
+            "isResizing": false,
+          },
+          "ref": null,
+          "rendered": "PrimaryPanel",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "separator",
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>,
+            "className": "splitPanels-separator",
+            "onMouseDown": [Function],
+            "style": Object {
+              "right": 0,
+              "transform": "translateX(undefinedpx)",
+              "transition": undefined,
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />,
+              "className": "splitPanels-resizeIconWrapper",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "shape": "system-resize-horizontal",
+                "size": "12px",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": "sidePanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "SidePanel",
+            "className": "className",
+            "isResizing": false,
+            "width": undefined,
+          },
+          "ref": null,
+          "rendered": "SidePanel",
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;
+
+exports[`SplitPanel renders default 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SplitPanel>
+    <Unknown>
+      PrimaryPanel
+    </Unknown>
+    <Unknown>
+      SidePanel
+    </Unknown>
+  </SplitPanel>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Unknown
+          isResizing={false}
+        >
+          PrimaryPanel
+        </Unknown>,
+        <div
+          className="splitPanels-separator"
+          onMouseDown={[Function]}
+          style={
+            Object {
+              "right": 0,
+              "transform": "translateX(undefinedpx)",
+              "transition": undefined,
+            }
+          }
+        >
+          <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>
+        </div>,
+        <Unknown
+          isResizing={false}
+          width={undefined}
+        >
+          SidePanel
+        </Unknown>,
+      ],
+      "className": "splitPanels",
+      "onMouseMove": [Function],
+      "onMouseUp": [Function],
+    },
+    "ref": Object {
+      "current": null,
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "primaryPanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "PrimaryPanel",
+          "isResizing": false,
+        },
+        "ref": null,
+        "rendered": "PrimaryPanel",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": "separator",
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>,
+          "className": "splitPanels-separator",
+          "onMouseDown": [Function],
+          "style": Object {
+            "right": 0,
+            "transform": "translateX(undefinedpx)",
+            "transition": undefined,
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />,
+            "className": "splitPanels-resizeIconWrapper",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "shape": "system-resize-horizontal",
+              "size": "12px",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": "sidePanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "SidePanel",
+          "isResizing": false,
+          "width": undefined,
+        },
+        "ref": null,
+        "rendered": "SidePanel",
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Unknown
+            isResizing={false}
+          >
+            PrimaryPanel
+          </Unknown>,
+          <div
+            className="splitPanels-separator"
+            onMouseDown={[Function]}
+            style={
+              Object {
+                "right": 0,
+                "transform": "translateX(undefinedpx)",
+                "transition": undefined,
+              }
+            }
+          >
+            <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>
+          </div>,
+          <Unknown
+            isResizing={false}
+            width={undefined}
+          >
+            SidePanel
+          </Unknown>,
+        ],
+        "className": "splitPanels",
+        "onMouseMove": [Function],
+        "onMouseUp": [Function],
+      },
+      "ref": Object {
+        "current": null,
+      },
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "primaryPanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "PrimaryPanel",
+            "isResizing": false,
+          },
+          "ref": null,
+          "rendered": "PrimaryPanel",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "separator",
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>,
+            "className": "splitPanels-separator",
+            "onMouseDown": [Function],
+            "style": Object {
+              "right": 0,
+              "transform": "translateX(undefinedpx)",
+              "transition": undefined,
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />,
+              "className": "splitPanels-resizeIconWrapper",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "shape": "system-resize-horizontal",
+                "size": "12px",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": "sidePanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "SidePanel",
+            "isResizing": false,
+            "width": undefined,
+          },
+          "ref": null,
+          "rendered": "SidePanel",
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;
+
+exports[`SplitPanel renders with SidePanel isActive prop set to true 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SplitPanel>
+    <Unknown>
+      PrimaryPanel
+    </Unknown>
+    <Unknown
+      isActive={true}
+    >
+      SidePanel
+    </Unknown>
+  </SplitPanel>,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Unknown
+          isResizing={false}
+        >
+          PrimaryPanel
+        </Unknown>,
+        <div
+          className="splitPanels-separator splitPanels-separator--active"
+          onMouseDown={[Function]}
+          style={
+            Object {
+              "right": undefined,
+              "transform": "translateX(0px)",
+              "transition": undefined,
+            }
+          }
+        >
+          <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>
+        </div>,
+        <Unknown
+          isActive={true}
+          isResizing={false}
+          width={undefined}
+        >
+          SidePanel
+        </Unknown>,
+      ],
+      "className": "splitPanels",
+      "onMouseMove": [Function],
+      "onMouseUp": [Function],
+    },
+    "ref": Object {
+      "current": null,
+    },
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": "primaryPanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "PrimaryPanel",
+          "isResizing": false,
+        },
+        "ref": null,
+        "rendered": "PrimaryPanel",
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": "separator",
+        "nodeType": "host",
+        "props": Object {
+          "children": <div
+            className="splitPanels-resizeIconWrapper"
+          >
+            <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />
+          </div>,
+          "className": "splitPanels-separator splitPanels-separator--active",
+          "onMouseDown": [Function],
+          "style": Object {
+            "right": undefined,
+            "transform": "translateX(0px)",
+            "transition": undefined,
+          },
+        },
+        "ref": null,
+        "rendered": Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": <Icon
+              shape="system-resize-horizontal"
+              size="12px"
+            />,
+            "className": "splitPanels-resizeIconWrapper",
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "shape": "system-resize-horizontal",
+              "size": "12px",
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          "type": "div",
+        },
+        "type": "div",
+      },
+      Object {
+        "instance": null,
+        "key": "sidePanel",
+        "nodeType": "function",
+        "props": Object {
+          "children": "SidePanel",
+          "isActive": true,
+          "isResizing": false,
+          "width": undefined,
+        },
+        "ref": null,
+        "rendered": "SidePanel",
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Unknown
+            isResizing={false}
+          >
+            PrimaryPanel
+          </Unknown>,
+          <div
+            className="splitPanels-separator splitPanels-separator--active"
+            onMouseDown={[Function]}
+            style={
+              Object {
+                "right": undefined,
+                "transform": "translateX(0px)",
+                "transition": undefined,
+              }
+            }
+          >
+            <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>
+          </div>,
+          <Unknown
+            isActive={true}
+            isResizing={false}
+            width={undefined}
+          >
+            SidePanel
+          </Unknown>,
+        ],
+        "className": "splitPanels",
+        "onMouseMove": [Function],
+        "onMouseUp": [Function],
+      },
+      "ref": Object {
+        "current": null,
+      },
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": "primaryPanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "PrimaryPanel",
+            "isResizing": false,
+          },
+          "ref": null,
+          "rendered": "PrimaryPanel",
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": "separator",
+          "nodeType": "host",
+          "props": Object {
+            "children": <div
+              className="splitPanels-resizeIconWrapper"
+            >
+              <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />
+            </div>,
+            "className": "splitPanels-separator splitPanels-separator--active",
+            "onMouseDown": [Function],
+            "style": Object {
+              "right": undefined,
+              "transform": "translateX(0px)",
+              "transition": undefined,
+            },
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": <Icon
+                shape="system-resize-horizontal"
+                size="12px"
+              />,
+              "className": "splitPanels-resizeIconWrapper",
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "shape": "system-resize-horizontal",
+                "size": "12px",
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            "type": "div",
+          },
+          "type": "div",
+        },
+        Object {
+          "instance": null,
+          "key": "sidePanel",
+          "nodeType": "function",
+          "props": Object {
+            "children": "SidePanel",
+            "isActive": true,
+            "isResizing": false,
+            "width": undefined,
+          },
+          "ref": null,
+          "rendered": "SidePanel",
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+  Symbol(enzyme.__childContext__): null,
+}
+`;

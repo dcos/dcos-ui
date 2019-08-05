@@ -1,5 +1,5 @@
 const ServiceValidatorUtil = {
-  isValidServiceID(serviceID) {
+  isValidServiceID(serviceID: string | unknown): boolean {
     if (typeof serviceID !== "string" || serviceID === "") {
       return false;
     }
@@ -11,7 +11,7 @@ const ServiceValidatorUtil = {
         "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
     );
 
-    return serviceID.split("/").every(function(segment, index) {
+    return serviceID.split("/").every((segment, index) => {
       return (
         (index === 0 && (segment == null || segment === "")) ||
         segment === "." ||
@@ -27,7 +27,7 @@ const ServiceValidatorUtil = {
    * @param {object} data - The server response
    * @returns {boolean} - True if the response refers to a pod
    */
-  isPodResponse(data) {
+  isPodResponse(data: { spec?: { containers?: unknown[] } }): boolean {
     return (
       typeof data.spec === "object" &&
       ServiceValidatorUtil.isPodSpecDefinition(data.spec)
@@ -41,24 +41,24 @@ const ServiceValidatorUtil = {
    * @param {object} data - The definition
    * @returns {boolean} - True if the response refers to a pod
    */
-  isPodSpecDefinition(data) {
+  isPodSpecDefinition(data: { containers?: unknown[] }): boolean {
     return Array.isArray(data.containers);
   },
 
   /**
    * Checks if the given server response is an application
    *
-   * @param {object} data - The server response
+   * @param {object} _data - The server response
    * @returns {boolean} - True if the response refers to a pod
    */
-  isApplicationResponse() {
+  isApplicationResponse(_data: unknown): boolean {
     // TODO: Check how an application can be cleanly identified (DCOS-9618)
     return true;
   },
 
   // Applications and frameworks have no different semantics
   // between their spec and their server response.
-  isApplicationSpecDefinition(data) {
+  isApplicationSpecDefinition(data: unknown): boolean {
     return ServiceValidatorUtil.isApplicationResponse(data);
   },
 
@@ -68,7 +68,7 @@ const ServiceValidatorUtil = {
    * @param {object} data - The server response
    * @returns {boolean} - True if the response refers to a pod
    */
-  isFrameworkResponse(data) {
+  isFrameworkResponse(data: any): boolean {
     // Check the DCOS_PACKAGE_FRAMEWORK_NAME label to determine if the item
     // should be converted to an Application or Framework instance.
     return (
@@ -80,11 +80,11 @@ const ServiceValidatorUtil = {
 
   // Applications and frameworks have no different semantics
   // between their spec and their server response.
-  isFrameworkSpecDefinition(data) {
+  isFrameworkSpecDefinition(data: any): boolean {
     return ServiceValidatorUtil.isFrameworkResponse(data);
   },
 
-  isValidGroupID(groupID) {
+  isValidGroupID(groupID: string | unknown): boolean {
     if (typeof groupID !== "string" || groupID === "") {
       return false;
     }
@@ -96,7 +96,7 @@ const ServiceValidatorUtil = {
         "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
     );
 
-    return groupID.split("/").every(function(segment, index) {
+    return groupID.split("/").every((segment, index) => {
       return (
         index === 0 &&
         !(segment === null || segment === "" || segment === ".") &&
@@ -108,4 +108,4 @@ const ServiceValidatorUtil = {
   }
 };
 
-module.exports = ServiceValidatorUtil;
+export default ServiceValidatorUtil;

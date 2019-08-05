@@ -16,9 +16,11 @@ import {
   getQuotaLimit,
   quotaHasLimit,
   populateResourcesFromRole
-} from "#PLUGINS/services/src/js/utils/QuotaUtil";
+} from "../../utils/QuotaUtil";
 
 import { createGroup } from "../MarathonClient";
+import { updateQuota } from "../MesosClient";
+import { GroupFormData } from "../../types/GroupForm";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -29,16 +31,7 @@ const isGroupArgs = (
   return (args as ServiceGroupQueryArgs).id !== undefined;
 };
 export interface GroupCreateArgs {
-  data: {
-    id: string;
-    enforceRole: boolean;
-    quota?: {
-      cpus?: number;
-      mem?: number;
-      disk?: number;
-      gpus?: number;
-    };
-  };
+  data: GroupFormData;
 }
 const isGroupCreateArgs = (
   args: Record<string, unknown>
@@ -143,6 +136,12 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         return createGroup(args.data.id, args.data.enforceRole).pipe(
           map(() => {
             return "SUCCESS";
+          }),
+          switchMap(groupResp => {
+            if (groupResp !== "SUCCESS") {
+              return of(groupResp);
+            }
+            return updateQuota(args.data.id, args.data.quota);
           })
         );
       }

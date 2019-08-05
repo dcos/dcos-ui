@@ -1,13 +1,16 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
-import classNames from "classnames";
 import * as React from "react";
 import { MountService } from "foundation-ui";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
+import SplitPanel, {
+  PrimaryPanel,
+  SidePanel
+} from "#SRC/js/components/SplitPanel";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
 import Tabs from "#SRC/js/components/Tabs";
@@ -53,13 +56,17 @@ interface JobsFormProps {
   isEdit: boolean;
 }
 
+interface JobsFormState {
+  editorWidth?: number;
+}
+
 interface NavigationItem {
   id: string;
   key: string;
   label: string;
 }
 
-class JobsForm extends React.Component<JobsFormProps> {
+class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
   static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
@@ -73,6 +80,10 @@ class JobsForm extends React.Component<JobsFormProps> {
   constructor(props: Readonly<JobsFormProps>) {
     super(props);
 
+    this.state = {
+      editorWidth: undefined
+    };
+
     this.onInputChange = this.onInputChange.bind(this);
     this.handleJSONChange = this.handleJSONChange.bind(this);
     this.handleJSONErrorStateChange = this.handleJSONErrorStateChange.bind(
@@ -82,6 +93,7 @@ class JobsForm extends React.Component<JobsFormProps> {
     this.handleAddItem = this.handleAddItem.bind(this);
     this.handleRemoveItem = this.handleRemoveItem.bind(this);
     this.getFormOutput = this.getFormOutput.bind(this);
+    this.onEditorResize = this.onEditorResize.bind(this);
   }
 
   getJSONEditorData(jobSpec: JobSpec): JobOutput {
@@ -278,6 +290,10 @@ class JobsForm extends React.Component<JobsFormProps> {
     );
   }
 
+  onEditorResize(newSize: number | undefined) {
+    this.setState({ editorWidth: newSize });
+  }
+
   render() {
     const {
       activeTab,
@@ -298,17 +314,9 @@ class JobsForm extends React.Component<JobsFormProps> {
       />
     ));
 
-    const jsonEditorPlaceholderClasses = classNames(
-      "modal-full-screen-side-panel-placeholder",
-      { "is-visible": isJSONModeActive }
-    );
-    const jsonEditorClasses = classNames("modal-full-screen-side-panel", {
-      "is-visible": isJSONModeActive
-    });
-
     return (
-      <div className="flex flex-item-grow-1">
-        <div className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
+      <SplitPanel onResize={this.onEditorResize}>
+        <PrimaryPanel className="create-service-modal-form__scrollbar-container modal-body-offset gm-scrollbar-container-flex">
           <FluidGeminiScrollbar>
             <div className="modal-body-padding-surrogate create-service-modal-form-container">
               <form
@@ -327,9 +335,8 @@ class JobsForm extends React.Component<JobsFormProps> {
               </form>
             </div>
           </FluidGeminiScrollbar>
-        </div>
-        <div className={jsonEditorPlaceholderClasses} />
-        <div className={jsonEditorClasses}>
+        </PrimaryPanel>
+        <SidePanel isActive={isJSONModeActive} className="jsonEditorWrapper">
           <React.Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
             <JSONEditor
               errors={errors}
@@ -340,11 +347,13 @@ class JobsForm extends React.Component<JobsFormProps> {
               theme="monokai"
               height="100%"
               value={jobJSON}
-              width="100%"
+              width={
+                this.state.editorWidth ? `${this.state.editorWidth}px` : "100%"
+              }
             />
           </React.Suspense>
-        </div>
-      </div>
+        </SidePanel>
+      </SplitPanel>
     );
   }
 }
