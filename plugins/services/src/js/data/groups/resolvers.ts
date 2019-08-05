@@ -67,6 +67,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
     publishReplay(1),
     refCount()
   );
+  const makeGroups$ = () => timer$.pipe(switchMap(fetchServiceGroups));
   const groups$ = timer$.pipe(
     switchMap(fetchServiceGroups),
     publishReplay(1),
@@ -107,7 +108,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
           );
         }
-        return groups$.pipe(
+        return makeGroups$().pipe(
           map(groups => {
             const group = groups.find(
               serviceTree => serviceTree.getId() === args.id
