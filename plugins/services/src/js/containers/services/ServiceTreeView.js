@@ -33,6 +33,7 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
+// TODO: remove feature flag.
 function quotaFeatureEnabled() {
   const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
   return quota === true;
@@ -141,6 +142,15 @@ class ServiceTreeView extends React.Component {
     return [];
   }
 
+  editGroup() {
+    const { router } = this.context;
+    const { serviceTree } = this.props;
+
+    router.push(
+      `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
+    );
+  }
+
   render() {
     const {
       children,
@@ -171,14 +181,30 @@ class ServiceTreeView extends React.Component {
       createGroup = modalHandlers.createGroup;
     }
     const tabs = this.getTabs(hasQuota);
+    const editGroup = this.editGroup.bind(this);
+    const editGroupAction = {
+      onItemSelect: editGroup,
+      label: i18nMark("Edit Group")
+    };
 
     if (isEmpty) {
-      return (
-        <Page>
+      // We don't want an empty "+" dropdown.
+      const pageHeader =
+        serviceTree.isTopLevel() && quotaFeatureEnabled() ? (
+          <Page.Header
+            addButton={editGroupAction}
+            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+            tabs={tabs}
+          />
+        ) : (
           <Page.Header
             breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
             tabs={tabs}
           />
+        );
+      return (
+        <Page>
+          {pageHeader}
           <EmptyServiceTree
             onCreateGroup={createGroup}
             onCreateService={createService}
@@ -201,7 +227,11 @@ class ServiceTreeView extends React.Component {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
-          ]}
+          ].concat(
+            serviceTree.isTopLevel() && quotaFeatureEnabled()
+              ? editGroupAction
+              : []
+          )}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />

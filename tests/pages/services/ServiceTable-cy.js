@@ -889,6 +889,44 @@ describe("Service Table", function() {
             getInput("quota.cpus").should("have.attr", "value", "1");
           });
         });
+
+        it("opens the edit modal from group detail page", function() {
+          cy.visitUrl({ url: "/services/overview" });
+          cy.get(".table-cell-link-primary")
+            .contains("services")
+            .click();
+
+          cy.get("button.button-narrow")
+            .eq(-1)
+            .click();
+          cy.get("li.is-selectable")
+            .contains("Edit Group")
+            .click();
+          cy.get(".modal-full-screen-header-title")
+            .contains("Edit Group")
+            .should("exist");
+        });
+
+        it("does not have an edit action for root level", function() {
+          cy.visitUrl({ url: "/services/overview" });
+          cy.get("button.button-narrow")
+            .eq(-1)
+            .click();
+          cy.get("li.is-selectable")
+            .contains("Edit Group")
+            .should("not.exist");
+        });
+
+        it("does not have an edit action for non-top-level groups", function() {
+          cy.visitUrl({ url: "/services/overview" });
+          cy.get(".table-cell-link-primary")
+            .contains("services")
+            .click();
+          cy.get(".table-cell-link-primary")
+            .contains("services2")
+            .click();
+          cy.get("button.button-narrow").should("not.exist");
+        });
       });
 
       context("Small group modal", function() {

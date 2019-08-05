@@ -1249,6 +1249,32 @@ describe("ServiceTree", function() {
     });
   });
 
+  describe("#isTopLevel", function() {
+    it("returns true when the group is top level", function() {
+      thisInstance = new ServiceTree({
+        id: "/group"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(true);
+    });
+
+    it("returns false when the group is nested", function() {
+      thisInstance = new ServiceTree({
+        id: "/group/group2"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(false);
+    });
+
+    it("returns false when the group is root", function() {
+      thisInstance = new ServiceTree({
+        id: "/"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(false);
+    });
+  });
+
   describe("#getRoleLength", function() {
     it("returns the correct numbers", function() {
       thisInstance = new ServiceTree({
