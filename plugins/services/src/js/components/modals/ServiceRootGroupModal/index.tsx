@@ -99,6 +99,7 @@ interface ServiceRootGroupModalState {
   originalData: GroupFormData | null;
   errors: GroupFormErrors;
   isEdit: boolean;
+  error: boolean;
 }
 
 interface ServiceRootGroupModalProps {
@@ -152,7 +153,8 @@ class ServiceRootGroupModal extends React.Component<
       data: !!props.id ? null : emptyGroupFormData(),
       originalData: null,
       errors: {},
-      isEdit: !!props.id
+      isEdit: !!props.id,
+      error: false
     };
   }
 
@@ -254,14 +256,21 @@ class ServiceRootGroupModal extends React.Component<
               data,
               originalData: JSON.parse(JSON.stringify(data))
             });
+          },
+          error: () => {
+            this.setState({ error: true });
           }
         });
     }
   }
 
   getModalContent() {
-    const { errors, data, isEdit } = this.state;
+    const { errors, data, isEdit, error } = this.state;
     // If id exists, then we must be editing.
+
+    if (error) {
+      return <Trans>Looks Like Something is Wrong. Please try again.</Trans>;
+    }
 
     if (!data) {
       return <Loader />;
