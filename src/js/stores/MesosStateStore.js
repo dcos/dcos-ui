@@ -33,16 +33,15 @@ import * as mesosStreamParsers from "./MesosStream/parsers";
 
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
-const METHODS_TO_BIND = [
-  "setState",
-  "setMaster",
-  "onStreamData",
-  "onStreamError"
-];
+const METHODS_TO_BIND = ["onStreamData", "onStreamError"];
 
 class MesosStateStore extends GetSetBaseStore {
   constructor() {
     super(...arguments);
+
+    this.ready = new Promise(resolve => {
+      this.resolve = resolve;
+    });
 
     this.getSet_data = {
       lastMesosState: {}
@@ -93,16 +92,22 @@ class MesosStateStore extends GetSetBaseStore {
           JSON.parse(response)
         );
         CompositeState.addMasterInfo(master.master_info);
-        this.setMaster(master);
+        this.set({ master });
       })
     );
 
     const parsers = pipe(...Object.values(mesosStreamParsers));
     const data$ = mesos$.pipe(
-      merge(masterRequest$),
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
-      tap(state => this.setState(state), console.error)
+      tap(state => {
+        this.set({ lastMesosState: state });
+
+        // This is the moment that we first have full information from the
+        // mesos-stream. We'll see a couple MESOS_STATE_CHANGED before though
+        // (with empty data) because of the way the stream is currently modeled.
+        this.resolve();
+      }, console.error)
     );
 
     const wait$ = masterRequest$.pipe(zip(mesos$.pipe(take(1))));
@@ -171,18 +176,6 @@ class MesosStateStore extends GetSetBaseStore {
       this.getLastMesosState(),
       pod
     );
-  }
-
-  getServiceFromName(name) {
-    const services = this.getLastMesosState().frameworks;
-
-    if (services) {
-      return services.find(function(service) {
-        return service.name === name;
-      });
-    }
-
-    return null;
   }
 
   getNodeFromID(id) {
@@ -279,18 +272,6 @@ class MesosStateStore extends GetSetBaseStore {
       this.getLastMesosState(),
       overlayName
     );
-  }
-
-  setState(state) {
-    this.set({
-      lastMesosState: state
-    });
-  }
-
-  setMaster(master) {
-    this.set({
-      master
-    });
   }
 
   onStreamData() {
