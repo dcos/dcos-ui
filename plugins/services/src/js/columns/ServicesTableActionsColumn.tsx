@@ -15,6 +15,9 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceTree from "../structs/ServiceTree";
 import { ServiceActionItem } from "../constants/ServiceActionItem";
 
+// @ts-ignore
+import ConfigStore from "#SRC/js/stores/ConfigStore";
+
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
 const MORE = ServiceActionItem.MORE;
@@ -112,6 +115,8 @@ export function actionsRendererFactory(
     const isSDK = isSDKService(service);
 
     const actions = [];
+    // TODO: remove feature flag.
+    const { quota } = ConfigStore.get("config").uiConfiguration.features;
 
     actions.push({
       className: "hidden",
@@ -129,8 +134,8 @@ export function actionsRendererFactory(
       });
     }
 
-    const isRoot = service.getId().split("/").length <= 2;
-    if (!isGroup || isRoot) {
+    const isTopLevel = service.getId().split("/").length <= 2;
+    if (!isGroup || (isTopLevel && quota)) {
       actions.push({
         id: EDIT,
         html: <Trans render="span" id={ServiceActionLabels.edit} />
