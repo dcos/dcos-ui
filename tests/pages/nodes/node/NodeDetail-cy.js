@@ -60,6 +60,51 @@ describe("Nodes Detail Page", function() {
         .configurationSection("Status")
         .configurationMapValue("Status")
         .contains("Draining");
+
+      // "Reactivate" action is available
+      cy.get(".page-header-actions .dropdown")
+        .click()
+        .get(".dropdown-menu-items")
+        .contains("Reactivate");
+    });
+
+    context("Actions", function() {
+      it("allows deactivation of active node", function() {
+        cy.visitUrl({
+          url: `/nodes/20151002-000353-1695027628-5050-1177-S1/details`,
+          identify: true
+        });
+
+        cy.get(".page-header").should(function($title) {
+          expect($title).to.contain("dcos-02");
+        });
+
+        // "Deactivate" action is available
+        cy.get(".page-header-actions .dropdown")
+          .click()
+          .get(".dropdown-menu-items")
+          .contains("Deactivate");
+      });
+
+      it("allows draining of active node", function() {
+        cy.visitUrl({
+          url: `/nodes/20151002-000353-1695027628-5050-1177-S1/details`,
+          identify: true
+        });
+
+        cy.get(".page-header").should(function($title) {
+          expect($title).to.contain("dcos-02");
+        });
+
+        // "Drain" action can be triggered
+        cy.get(".page-header-actions .dropdown")
+          .click()
+          .get(".dropdown-menu-items")
+          .contains("Drain")
+          .click();
+
+        cy.get(".modal").should("contain", "Max Grace Period");
+      });
     });
   });
 });

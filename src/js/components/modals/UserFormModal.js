@@ -13,7 +13,11 @@ import FormModal from "../FormModal";
 import ModalHeading from "../modals/ModalHeading";
 import UserStore from "../../stores/UserStore";
 
-const METHODS_TO_BIND = ["handleNewUserSubmit", "onUserStoreCreateSuccess"];
+const METHODS_TO_BIND = [
+  "handleClose",
+  "handleNewUserSubmit",
+  "onUserStoreCreateSuccess"
+];
 
 class UserFormModal extends mixin(StoreMixin) {
   constructor() {
@@ -53,6 +57,15 @@ class UserFormModal extends mixin(StoreMixin) {
       errorMsg,
       errorCode: xhr.status
     });
+  }
+
+  handleClose() {
+    this.setState({
+      disableNewUser: false,
+      errorMsg: false,
+      errorCode: null
+    });
+    this.props.onClose();
   }
 
   handleNewUserSubmit(model) {
@@ -164,7 +177,7 @@ class UserFormModal extends mixin(StoreMixin) {
           header: this.getHeader(),
           showHeader: true
         }}
-        onClose={this.props.onClose}
+        onClose={this.handleClose}
         onSubmit={this.handleNewUserSubmit}
         open={this.props.open}
         contentFooter={this.getFooter()}
