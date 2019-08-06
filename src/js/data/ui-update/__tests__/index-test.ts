@@ -1,3 +1,5 @@
+import Container from "@extension-kid/core/dist/src/Container";
+
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
   request: mockRequest
@@ -7,13 +9,37 @@ import { marbles, observe } from "rxjs-marbles/jest";
 import { of } from "rxjs";
 import { catchError, take, tap } from "rxjs/operators";
 import gql from "graphql-tag";
-import { graphqlObservable } from "@dcos/data-service";
 
-import { default as schema, makeSchema } from "#SRC/js/data/ui-update";
+import extensionFactory from "#SRC/js/data/ui-update";
+import dataLayerContainerModuleFactory, {
+  DataLayerType
+} from "@extension-kid/data-layer";
+import DataLayer from "@extension-kid/data-layer/dataLayer";
+
+function createTestContainer() {
+  const container = new Container();
+  container.load(dataLayerContainerModuleFactory());
+  const uiUpdateModule = extensionFactory();
+  if (uiUpdateModule) {
+    container.load(uiUpdateModule);
+  } else {
+    throw new Error("Failed to get ui data-layer extension module");
+  }
+  return container;
+}
 
 describe("UI-Update Service data-layer", () => {
+  let container: Container | null = null;
+  let dl: DataLayer | null = null;
   beforeEach(() => {
     jest.clearAllMocks();
+
+    container = createTestContainer();
+    dl = container.get<DataLayer>(DataLayerType);
+  });
+  afterEach(() => {
+    dl = null;
+    container = null;
   });
 
   describe("Query", () => {
@@ -46,10 +72,10 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
-
-          const queryResult$ = graphqlObservable(query, schema, {}).pipe(
-            take(1)
-          );
+          if (dl === null) {
+            throw new Error();
+          }
+          const queryResult$ = dl.query(query, {}).pipe(take(1));
 
           const expected$ = m.cold("--(j|)", {
             j: {
@@ -92,8 +118,11 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          return graphqlObservable(query, makeSchema(), {}).pipe(
+          return dl.query(query, {}).pipe(
             take(1),
             tap(value => {
               expect(mockRequest.mock.calls.length).toEqual(0);
@@ -131,8 +160,11 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          return graphqlObservable(query, makeSchema(), {}).pipe(
+          return dl.query(query, {}).pipe(
             take(1),
             tap(() => {
               expect(mockRequest.mock.calls.length).toEqual(1);
@@ -161,10 +193,11 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const queryResult$ = graphqlObservable(query, makeSchema(), {}).pipe(
-            take(1)
-          );
+          const queryResult$ = dl.query(query, {}).pipe(take(1));
           m.expect(queryResult$).toBeObservable(
             m.cold("#", undefined, {
               message: "There is a problem",
@@ -192,8 +225,11 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          return graphqlObservable(query, makeSchema(), {}).pipe(
+          return dl.query(query, {}).pipe(
             take(1),
             catchError(() => {
               expect(mockRequest.mock.calls.length).toEqual(3);
@@ -241,10 +277,11 @@ describe("UI-Update Service data-layer", () => {
               }
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const queryResult$ = graphqlObservable(query, schema, {}).pipe(
-            take(1)
-          );
+          const queryResult$ = dl.query(query, {}).pipe(take(1));
 
           const expected$ = m.cold("------(j|)", {
             j: {
@@ -282,10 +319,15 @@ describe("UI-Update Service data-layer", () => {
               updateDCOSUI(newVersion: $version)
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const mutationResult$ = graphqlObservable(updateMutation, schema, {
-            version: "1.1.0"
-          }).pipe(take(1));
+          const mutationResult$ = dl
+            .query(updateMutation, {
+              version: "1.1.0"
+            })
+            .pipe(take(1));
 
           m.expect(mutationResult$).toBeObservable(
             m.cold("--(j|)", {
@@ -316,10 +358,15 @@ describe("UI-Update Service data-layer", () => {
               updateDCOSUI(newVersion: $version)
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const mutationResult$ = graphqlObservable(updateMutation, schema, {
-            version: "1.1.0"
-          }).pipe(take(1));
+          const mutationResult$ = dl
+            .query(updateMutation, {
+              version: "1.1.0"
+            })
+            .pipe(take(1));
 
           m.expect(mutationResult$).toBeObservable(
             m.cold("--#", undefined, {
@@ -349,12 +396,11 @@ describe("UI-Update Service data-layer", () => {
               resetDCOSUI
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const mutationResult$ = graphqlObservable(
-            resetMutation,
-            schema,
-            {}
-          ).pipe(take(1));
+          const mutationResult$ = dl.query(resetMutation, {}).pipe(take(1));
 
           m.expect(mutationResult$).toBeObservable(
             m.cold("--(j|)", {
@@ -385,12 +431,11 @@ describe("UI-Update Service data-layer", () => {
               resetDCOSUI
             }
           `;
+          if (dl === null) {
+            throw new Error();
+          }
 
-          const mutationResult$ = graphqlObservable(
-            resetMutation,
-            schema,
-            {}
-          ).pipe(take(1));
+          const mutationResult$ = dl.query(resetMutation, {}).pipe(take(1));
 
           m.expect(mutationResult$).toBeObservable(
             m.cold("--#", undefined, {
