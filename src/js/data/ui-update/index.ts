@@ -15,12 +15,6 @@ import {
 import Config from "#SRC/js/config/Config";
 import { parseVersion } from "./utils";
 
-declare global {
-  interface Window {
-    DCOS_UI_VERSION: string;
-  }
-}
-
 type PossibleMutationArgs = Partial<UIUpdateArgs>;
 
 interface QueryContext {

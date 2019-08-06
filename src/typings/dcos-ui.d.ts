@@ -1,7 +1,6 @@
-declare global {
-  interface Window {
-    DCOS_UI_VERSION: string;
-  }
+interface Window {
+  Cypress?: unknown;
+  DCOS_UI_VERSION: string;
 }
 
 interface Resources {
