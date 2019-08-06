@@ -1,6 +1,11 @@
 interface Window {
   Cypress?: unknown;
   DCOS_UI_VERSION: string;
+  msCrypto?: Crypto;
+}
+
+interface Crypto {
+  readonly webkitSubtle?: SubtleCrypto;
 }
 
 interface Resources {

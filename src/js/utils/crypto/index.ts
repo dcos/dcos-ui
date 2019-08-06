@@ -12,8 +12,8 @@ function arrayBufferToBase64(buffer: ArrayBuffer): string {
 }
 
 function getCryptoApi(): SubtleCrypto {
-  const cryptoLib = window.crypto || (window as any).msCrypto;
-  return cryptoLib.subtle || (cryptoLib as any).webkitSubtle;
+  const cryptoLib = window.crypto || window.msCrypto;
+  return cryptoLib.subtle || cryptoLib.webkitSubtle;
 }
 
 function printableBase64(base64: string): string {
