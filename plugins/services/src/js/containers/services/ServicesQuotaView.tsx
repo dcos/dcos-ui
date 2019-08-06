@@ -70,7 +70,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     const content = isRoot ? (
       <ServicesQuotaOverview />
     ) : (
-      <ServicesQuotaOverviewDetail id={id} />
+      <ServicesQuotaOverviewDetail serviceTree={serviceTree} id={id} />
     );
     let createGroup;
     if (isRoot) {

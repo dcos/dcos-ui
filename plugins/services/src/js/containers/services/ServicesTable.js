@@ -301,6 +301,7 @@ class ServicesTable extends React.Component {
             cellRenderer={nameRenderer.bind(
               null,
               this.props.isFiltered,
+              false,
               ...arguments
             )}
             growToFill={

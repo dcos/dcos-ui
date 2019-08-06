@@ -9,7 +9,7 @@ import { Trans } from "@lingui/macro";
 import Loader from "#SRC/js/components/Loader";
 import container from "#SRC/js/container";
 
-import ServicesQuotaOverviewTable from "./ServicesQuotaOverviewTable";
+import GroupsQuotaOverviewTable from "./GroupsQuotaOverviewTable";
 import EmptyServicesQuotaOverview from "./EmptyServicesQuotaOverview";
 import { groupHasQuotaLimit } from "../utils/QuotaUtil";
 
@@ -33,7 +33,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
       map(({ data: { groups } }) => groups.filter(groupHasQuotaLimit)),
       map(groups => {
         return groups.length > 0 ? (
-          <ServicesQuotaOverviewTable groups={groups} />
+          <GroupsQuotaOverviewTable groups={groups} />
         ) : (
           <EmptyServicesQuotaOverview />
         );
