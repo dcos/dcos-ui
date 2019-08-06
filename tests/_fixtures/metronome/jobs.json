@@ -74,7 +74,7 @@
     ]
   },
   {
-    "id": "foo",
+    "id": "group-foo",
     "description": "Foo Description",
     "labels": {
       "name": "foo",
