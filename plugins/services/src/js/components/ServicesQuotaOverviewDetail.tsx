@@ -1,6 +1,6 @@
 import { Trans, Plural } from "@lingui/macro";
 import React from "react";
-import { of, Observable } from "rxjs";
+import { combineLatest, of, Observable } from "rxjs";
 import {
   map,
   catchError,
@@ -22,6 +22,8 @@ import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 import { ServiceGroup, QuotaResources } from "../types/ServiceGroup";
 import * as QuotaUtil from "../utils/QuotaUtil";
+import ServiceTree from "../structs/ServiceTree";
+import ServicesQuotaOverviewTable from "./ServicesQuotaOverviewTable";
 
 export interface ServicesQuotaOverviewDetailProps {
   id: string;
@@ -162,6 +164,7 @@ function getNoLimitInfobox(group: ServiceGroup) {
 
 export interface ServicesQuotaOverviewDetailProps {
   id: string;
+  serviceTree: ServiceTree;
 }
 
 const ServicesQuotaOverviewDetail = componentFromStream<
@@ -172,6 +175,17 @@ const ServicesQuotaOverviewDetail = componentFromStream<
     map(props => props.id),
     distinctUntilChanged()
   );
+
+  const serviceTree$ = (props$ as Observable<
+    ServicesQuotaOverviewDetailProps
+  >).pipe(
+    map(props => props.serviceTree),
+    distinctUntilChanged()
+  );
+
+  const getRootGroupId = (id: string) => {
+    return "/" + id.split("/")[1];
+  };
 
   const quotaGroupQuery = (id: string) =>
     dl.query(
@@ -184,7 +198,7 @@ const ServicesQuotaOverviewDetail = componentFromStream<
           }
         }
       `,
-      { id }
+      { id: getRootGroupId(id) }
     );
 
   const group$ = id$.pipe(
@@ -192,14 +206,14 @@ const ServicesQuotaOverviewDetail = componentFromStream<
     map(({ data: { group } }) => group)
   );
 
-  return group$.pipe(
-    map(group => {
+  return combineLatest(group$, serviceTree$).pipe(
+    map(([group, serviceTree]) => {
       if (!group) {
         return <Loader />;
       }
 
       return (
-        <div>
+        <React.Fragment>
           {getNoLimitInfobox(group)}
           <div className="quota-details">
             {getCard(group, "cpus")}
@@ -207,7 +221,8 @@ const ServicesQuotaOverviewDetail = componentFromStream<
             {getCard(group, "disk")}
             {getCard(group, "gpus")}
           </div>
-        </div>
+          <ServicesQuotaOverviewTable serviceTree={serviceTree} />
+        </React.Fragment>
       );
     }),
     catchError(() => of(<Trans>Error getting group with Quota</Trans>))
