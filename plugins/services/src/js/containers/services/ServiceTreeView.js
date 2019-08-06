@@ -33,6 +33,7 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
+// TODO: remove feature flag.
 function quotaFeatureEnabled() {
   const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
   return quota === true;
@@ -141,6 +142,15 @@ class ServiceTreeView extends React.Component {
     return [];
   }
 
+  editGroup() {
+    const { router } = this.context;
+    const { serviceTree } = this.props;
+
+    router.push(
+      `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
+    );
+  }
+
   render() {
     const {
       children,
@@ -153,7 +163,8 @@ class ServiceTreeView extends React.Component {
 
     const { modalHandlers } = this.context;
     // Only add id if service is not root
-    const routePath = serviceTree.isRoot()
+    const isRoot = serviceTree.isRoot();
+    const routePath = isRoot
       ? "/services/overview/create"
       : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
     const hasQuota = serviceTreeHasQuota(serviceTree, roles);
@@ -162,7 +173,7 @@ class ServiceTreeView extends React.Component {
       this.context.router.push(routePath);
     };
     let createGroup;
-    if (serviceTree.isRoot() && quotaFeatureEnabled()) {
+    if (isRoot && quotaFeatureEnabled()) {
       createGroup = () => {
         this.context.router.push("/services/overview/create_group");
       };
@@ -170,14 +181,30 @@ class ServiceTreeView extends React.Component {
       createGroup = modalHandlers.createGroup;
     }
     const tabs = this.getTabs(hasQuota);
+    const editGroup = this.editGroup.bind(this);
+    const editGroupAction = {
+      onItemSelect: editGroup,
+      label: i18nMark("Edit Group")
+    };
 
     if (isEmpty) {
-      return (
-        <Page>
+      // We don't want an empty "+" dropdown.
+      const pageHeader =
+        serviceTree.isTopLevel() && quotaFeatureEnabled() ? (
+          <Page.Header
+            addButton={editGroupAction}
+            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+            tabs={tabs}
+          />
+        ) : (
           <Page.Header
             breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
             tabs={tabs}
           />
+        );
+      return (
+        <Page>
+          {pageHeader}
           <EmptyServiceTree
             onCreateGroup={createGroup}
             onCreateService={createService}
@@ -200,7 +227,11 @@ class ServiceTreeView extends React.Component {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
-          ]}
+          ].concat(
+            serviceTree.isTopLevel() && quotaFeatureEnabled()
+              ? editGroupAction
+              : []
+          )}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
@@ -216,7 +247,6 @@ class ServiceTreeView extends React.Component {
             hideTable={this.context.router.routes.some(
               ({ isFullscreenModal }) => isFullscreenModal
             )}
-            serviceTreeId={serviceTree.id}
           />
         </div>
         {children}

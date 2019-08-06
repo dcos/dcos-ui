@@ -130,7 +130,14 @@
           "deployments": []
         }
       ],
-      "groups": [],
+      "groups": [    {
+        "id": "/services/services2",
+        "dependencies": [],
+        "version": "2017-05-04T16:48:10.710Z",
+        "apps": [],
+        "groups": [],
+        "pods": []
+      }],
       "pods": []
     },
     {
