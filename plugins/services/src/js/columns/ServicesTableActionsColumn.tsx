@@ -20,6 +20,7 @@ import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
+const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
 const MORE = ServiceActionItem.MORE;
 const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
@@ -54,6 +55,7 @@ function onActionsItemSelection(
 
   if (
     actionItem.id !== EDIT &&
+    actionItem.id !== VIEW_PLANS &&
     actionItem.id !== DELETE &&
     (containsSDKService || isSDKService(service)) &&
     !Hooks.applyFilter(
@@ -139,6 +141,13 @@ export function actionsRendererFactory(
       actions.push({
         id: EDIT,
         html: <Trans render="span" id={ServiceActionLabels.edit} />
+      });
+    }
+
+    if (isSDK) {
+      actions.push({
+        id: VIEW_PLANS,
+        html: <Trans render="span" id={ServiceActionLabels.view_plans} />
       });
     }
 
