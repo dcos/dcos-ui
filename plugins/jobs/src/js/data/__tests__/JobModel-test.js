@@ -2056,6 +2056,7 @@ describe("JobModel Resolver", () => {
               x: {
                 nodes: [
                   {
+                    concurrencyPolicy: "ALLOW",
                     cron: "* * * * *",
                     enabled: false,
                     id: "default",
