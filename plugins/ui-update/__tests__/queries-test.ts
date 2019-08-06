@@ -1,13 +1,16 @@
-const mockDataLayer = jest.fn();
-jest.mock("@dcos/data-service", () => ({
-  graphqlObservable: mockDataLayer
-}));
-
 import { take } from "rxjs/operators";
 import { of } from "rxjs";
 import { marbles } from "rxjs-marbles/jest";
 
 import { DEFAULT_UI_METADATA } from "#SRC/js/data/ui-update/UIMetadata";
+const mockDataLayer = {
+  query: jest.fn()
+};
+jest.mock("#SRC/js/container", () => {
+  return {
+    get: () => mockDataLayer
+  };
+});
 import {
   queryCosmosForUIVersions,
   queryUIServiceForMetadata
@@ -36,7 +39,7 @@ describe("queries", () => {
             }
           }
         });
-        mockDataLayer.mockReturnValueOnce(queryResp$);
+        mockDataLayer.query.mockReturnValueOnce(queryResp$);
 
         const query$ = queryCosmosForUIVersions();
         const result$ = query$.pipe(take(1));
@@ -57,10 +60,10 @@ describe("queries", () => {
     );
 
     it("makes a single query to data-layer", () => {
-      mockDataLayer.mockReturnValueOnce(of({}));
+      mockDataLayer.query.mockReturnValueOnce(of({}));
 
       queryCosmosForUIVersions();
-      expect(mockDataLayer).toHaveBeenCalledTimes(1);
+      expect(mockDataLayer.query).toHaveBeenCalledTimes(1);
     });
   });
   describe("#queryUIServiceForMetadata", () => {
@@ -79,7 +82,7 @@ describe("queries", () => {
             }
           }
         });
-        mockDataLayer.mockReturnValueOnce(queryResp$);
+        mockDataLayer.query.mockReturnValueOnce(queryResp$);
 
         const query$ = queryUIServiceForMetadata();
         const result$ = query$.pipe(take(1));
@@ -111,10 +114,10 @@ describe("queries", () => {
             }
           }
         });
-        mockDataLayer.mockReturnValueOnce(queryResp$);
+        mockDataLayer.query.mockReturnValueOnce(queryResp$);
 
         queryUIServiceForMetadata();
-        expect(mockDataLayer).toHaveBeenCalledTimes(1);
+        expect(mockDataLayer.query).toHaveBeenCalledTimes(1);
       })
     );
 
@@ -125,7 +128,7 @@ describe("queries", () => {
           message: "Query Failed",
           name: "Error"
         });
-        mockDataLayer.mockReturnValueOnce(queryResp$);
+        mockDataLayer.query.mockReturnValueOnce(queryResp$);
 
         const query$ = queryUIServiceForMetadata();
         const result$ = query$.pipe(take(1));

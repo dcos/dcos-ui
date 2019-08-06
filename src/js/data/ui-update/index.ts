@@ -1,15 +1,19 @@
 import { Observable, of, throwError } from "rxjs";
+import { injectable } from "inversify";
 import { map, publishReplay, refCount, retry, switchMap } from "rxjs/operators";
 import { RequestResponse } from "@dcos/http-service";
-import { makeExecutableSchema } from "graphql-tools";
-import { DCOSUIUpdateClient, UIVersionResponse } from "dcos-ui-update-client";
-import { parseVersion } from "./utils";
+import {
+  DataLayerExtensionInterface,
+  getExtensionModule
+} from "@extension-kid/data-layer";
 
+import { DCOSUIUpdateClient, UIVersionResponse } from "dcos-ui-update-client";
 import {
   UIMetadata,
   UIMetadataSchema
 } from "#SRC/js/data/ui-update/UIMetadata";
 import Config from "#SRC/js/config/Config";
+import { parseVersion } from "./utils";
 
 declare global {
   interface Window {
@@ -117,23 +121,30 @@ export interface Query {
   ui: UIMetadata | null;
 }
 
-const baseSchema = `
-type Query {
+export const schema = `
+${UIMetadataSchema}
+
+extend type Query {
   ui: UIMetadata!
 }
-type Mutation {
+extend type Mutation {
   updateDCOSUI(newVersion: String!): String!
   resetDCOSUI: String!
 }
 `;
+export const UIMetatdataDataLayer = Symbol("UIMetatdataDataLayer");
 
-const schemas = [UIMetadataSchema, baseSchema];
+@injectable()
+class UIMetatdataExtension implements DataLayerExtensionInterface {
+  id = UIMetatdataDataLayer;
 
-export function makeSchema() {
-  return makeExecutableSchema({
-    typeDefs: schemas,
-    resolvers
-  });
+  getResolvers() {
+    return resolvers;
+  }
+
+  getTypeDefinitions() {
+    return schema;
+  }
 }
 
-export default makeSchema();
+export default (_context = {}) => getExtensionModule(UIMetatdataExtension);
