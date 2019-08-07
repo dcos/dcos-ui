@@ -4,6 +4,9 @@ import Config from "#SRC/js/config/Config";
 import { map } from "rxjs/operators";
 import { Observable } from "rxjs";
 
+import { GroupCreateError } from "./errors/GroupCreateError";
+import { GroupEditError } from "./errors/GroupEditError";
+
 function buildMarathonURI(path: string) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
 }
@@ -45,7 +48,7 @@ export function createGroup(
             break;
         }
 
-        throw new Error(message);
+        throw new GroupCreateError(message, code);
       }
       return reqResp.response as CreateGroupResponse;
     })
@@ -76,7 +79,7 @@ export function editGroup(
             break;
         }
 
-        throw new Error(message);
+        throw new GroupEditError(message, code);
       }
       return reqResp.response as CreateGroupResponse;
     })
