@@ -1,11 +1,12 @@
-import { graphqlObservable } from "@dcos/data-service";
 import gql from "graphql-tag";
 import { delay, take } from "rxjs/operators";
+import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
 
-import { default as uiServiceSchema } from "#SRC/js/data/ui-update";
-
+import container from "#SRC/js/container";
 import { getAction$ } from "./streams";
 import { UIActions, UIActionType } from "./types/UIAction";
+
+const dl = container.get<DataLayer>(DataLayerType);
 
 const uiServiceActions$ = getAction$();
 
@@ -17,13 +18,12 @@ function rollbackUI(delayMs: number = 45000) {
       message: ""
     }
   });
-  graphqlObservable<{ resetDCOSUI: string | null }>(
+  dl.query(
     gql`
       mutation {
         resetDCOSUI
       }
     `,
-    uiServiceSchema,
     {}
   )
     .pipe(
@@ -61,13 +61,12 @@ function updateUI(version: string, delayMs: number = 45000) {
       message: ""
     }
   });
-  graphqlObservable<{ updateDCOSUI: string }>(
+  dl.query(
     gql`
       mutation {
         updateDCOSUI(newVersion: $version)
       }
     `,
-    uiServiceSchema,
     {
       version
     }

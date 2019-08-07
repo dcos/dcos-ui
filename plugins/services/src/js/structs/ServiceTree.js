@@ -395,4 +395,8 @@ module.exports = class ServiceTree extends Tree {
   isRoot() {
     return this.getId() === "/";
   }
+
+  isTopLevel() {
+    return !this.isRoot() && this.getId().split("/").length === 2;
+  }
 };
