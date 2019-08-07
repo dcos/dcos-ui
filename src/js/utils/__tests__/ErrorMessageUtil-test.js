@@ -1,4 +1,4 @@
-const ErrorMessageUtil = require("../ErrorMessageUtil");
+import ErrorMessageUtil from "../ErrorMessageUtil";
 
 describe("ErrorMessageUtil", function() {
   describe("#translateErrorMessages", function() {

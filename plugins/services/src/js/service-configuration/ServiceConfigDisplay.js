@@ -4,7 +4,7 @@ import { MountService } from "foundation-ui";
 
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
-import { translateErrorMessages } from "#SRC/js/utils/ErrorMessageUtil";
+import ErrorMessageUtil from "#SRC/js/utils/ErrorMessageUtil";
 import PodContainersConfigSection from "./PodContainersConfigSection";
 import PodEnvironmentVariablesConfigSection from "./PodEnvironmentVariablesConfigSection";
 import PodGeneralConfigSection from "./PodGeneralConfigSection";
@@ -77,7 +77,10 @@ class ServiceConfigDisplay extends React.Component {
   }
 
   getErrors() {
-    return translateErrorMessages(this.props.errors, ServiceErrorMessages);
+    return ErrorMessageUtil.translateErrorMessages(
+      this.props.errors,
+      ServiceErrorMessages
+    );
   }
 
   render() {
