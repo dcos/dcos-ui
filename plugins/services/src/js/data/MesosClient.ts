@@ -56,6 +56,13 @@ function makeUpdateQuota(groupId: string, quotaData: QuotaData): UpdateQuota {
   };
 }
 
+export class UpdateQuotaError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UpdateQuotaError";
+  }
+}
+
 export function updateQuota(
   groupId: string,
   quotaData: QuotaData
@@ -69,7 +76,7 @@ export function updateQuota(
       if (response === "") {
         return "SUCCESS";
       }
-      throw new Error(response);
+      throw new UpdateQuotaError(response);
     })
   );
 }
