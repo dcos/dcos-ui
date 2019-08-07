@@ -31,9 +31,15 @@ const FilterByService = createReactClass({
 
   handleItemSelection(obj) {
     if (obj.id === defaultId) {
-      this.props.handleFilterChange(null);
+      this.props.handleFilterChange(null, null);
     } else {
-      this.props.handleFilterChange(obj.id);
+      let filteredLength = 0;
+      this.props.frameworks.forEach(function(framework) {
+        if (framework.id === obj.id) {
+          filteredLength = framework.getNodeIDs().length;
+        }
+      });
+      this.props.handleFilterChange(obj.id, filteredLength);
     }
   },
 

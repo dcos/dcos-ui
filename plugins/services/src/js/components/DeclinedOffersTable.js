@@ -381,7 +381,7 @@ class DeclinedOffersTable extends React.Component {
           colGroup={this.getColGroup()}
           columns={this.getColumns()}
           data={offers}
-          sortBy={{ prop: "hostname", order: "asc" }}
+          sortBy={{ prop: "timestamp", order: "desc" }}
         />
       </MountService.Mount>
     );
