@@ -141,6 +141,23 @@ module.exports = class Service extends Item {
     return this.get("role") || "";
   }
 
+  getRoleLength(roleName) {
+    return (this.get("tasks") || []).reduce(
+      (roles, item) => {
+        roles.servicesCount++;
+        const itemRole = item.role;
+        if (itemRole) {
+          roles.rolesCount++;
+          if (itemRole === roleName) {
+            roles.groupRolesCount++;
+          }
+        }
+        return roles;
+      },
+      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+    );
+  }
+
   toJSON() {
     return this.get();
   }

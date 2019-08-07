@@ -8,6 +8,7 @@ import Pod from "../structs/Pod";
 import ServiceTree from "../structs/ServiceTree";
 
 import { nameRenderer } from "../columns/ServicesTableNameColumn";
+import { limitRenderer } from "../columns/QuotaOverviewLimitColumn";
 
 import { SortDirection } from "../types/SortDirection";
 
@@ -96,6 +97,17 @@ class ServicesQuotaOverviewTable extends React.Component<
               />
             }
             cellRenderer={nameRenderer.bind(null, false, true)}
+          />
+          <Column
+            key="limit"
+            header={
+              <SortableHeaderCell
+                columnContent={<Trans render="span">Quota Limit</Trans>}
+                sortHandler={this.handleSortClick("limit")}
+                sortDirection={sortColumn === "limit" ? sortDirection : null}
+              />
+            }
+            cellRenderer={limitRenderer}
           />
         </Table>
       </div>

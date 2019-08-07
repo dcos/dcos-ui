@@ -13,18 +13,12 @@ import {
   QuotaLimitStatuses
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 
-export function limitRenderer(group: ServiceGroup) {
-  const limit = group.quota ? group.quota.limitStatus : "N/A";
-  const roles =
-    group.quota && group.quota.serviceRoles
-      ? group.quota.serviceRoles.count
-      : 0;
-  const groupRoles =
-    group.quota && group.quota.serviceRoles
-      ? group.quota.serviceRoles.groupRoleCount
-      : 0;
-  const limitNumber = roles - groupRoles;
+import { getQuotaLimit } from "../utils/QuotaUtil";
 
+import ServiceTree from "../structs/ServiceTree";
+import Service from "../structs/Service";
+
+function getLimit(limit: string, limitNumber: number) {
   let icon = null;
   switch (limit) {
     case QuotaLimitStatuses.enforced:
@@ -96,4 +90,48 @@ export function limitRenderer(group: ServiceGroup) {
       </div>
     </TextCell>
   );
+}
+
+function itemIsServiceGroup(item: any): item is ServiceGroup {
+  return item.quota && item.quota.limitStatus;
+}
+
+function getLimitAndLimitNumber(
+  servicesCount: number,
+  groupRoleCount: number
+): [string, number] {
+  return [
+    getQuotaLimit({
+      count: servicesCount,
+      groupRoleCount
+    }),
+    servicesCount - groupRoleCount
+  ];
+}
+
+export function limitRenderer(item: ServiceGroup | ServiceTree | Service) {
+  var limit: string = "N/A";
+  var limitNumber: number = 0;
+
+  if (itemIsServiceGroup(item)) {
+    if (!item.quota || !item.quota.serviceRoles) {
+      return <React.Fragment />;
+    }
+
+    [limit, limitNumber] = getLimitAndLimitNumber(
+      item.quota.serviceRoles.count,
+      item.quota.serviceRoles.groupRoleCount
+    );
+  } else {
+    const groupName =
+      item instanceof ServiceTree ? item.getName() : item.getRole();
+    const roleLength = item.getRoleLength(groupName);
+
+    [limit, limitNumber] = getLimitAndLimitNumber(
+      roleLength.servicesCount,
+      roleLength.groupRolesCount
+    );
+  }
+
+  return getLimit(limit, limitNumber);
 }
