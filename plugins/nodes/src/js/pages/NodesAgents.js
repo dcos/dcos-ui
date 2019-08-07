@@ -16,7 +16,6 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import EventTypes from "#SRC/js/constants/EventTypes";
-import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
 import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
@@ -59,7 +58,7 @@ var DEFAULT_FILTER_OPTIONS = {
 var NodesAgents = createReactClass({
   displayName: "NodesAgents",
 
-  mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
+  mixins: [QueryParamsMixin, StoreMixin],
 
   statics: {
     routeConfig: {
@@ -88,7 +87,7 @@ var NodesAgents = createReactClass({
   },
 
   componentWillMount() {
-    this.internalStorage_set(getMesosHosts(this.state));
+    this.mesosHosts = getMesosHosts(this.state);
 
     this.store_listeners = [
       {
@@ -141,14 +140,15 @@ var NodesAgents = createReactClass({
   },
 
   onMesosStateChange() {
-    this.internalStorage_update(getMesosHosts(this.state));
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(this.state) };
   },
 
   resetFilter() {
     const state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
 
     this.setState(state);
-    this.internalStorage_update(getMesosHosts(state));
+
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(state) };
 
     this.resetQueryParams([
       "searchString",
@@ -162,7 +162,7 @@ var NodesAgents = createReactClass({
       searchString
     });
 
-    this.internalStorage_update(getMesosHosts(stateChanges));
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(stateChanges) };
     this.setState({ searchString });
     this.setQueryParam("searchString", searchString);
   },
@@ -178,13 +178,16 @@ var NodesAgents = createReactClass({
       byServiceFilter
     });
 
-    this.internalStorage_update(getMesosHosts(stateChanges));
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(stateChanges) };
     this.setState({ byServiceFilter });
     this.setQueryParam("filterService", byServiceFilter);
   },
 
   handleHealthFilterChange(filterExpression, filters) {
-    this.internalStorage_update(getMesosHosts({ filterExpression, filters }));
+    this.mesosHosts = {
+      ...this.mesosHosts,
+      ...getMesosHosts({ filterExpression, filters })
+    };
     this.setState({ filterExpression, filters });
     this.setQueryParam("filterExpression", filterExpression.value);
   },
@@ -268,7 +271,7 @@ var NodesAgents = createReactClass({
       selectedResource,
       DSLFilteredLength
     } = this.state;
-    var data = this.internalStorage_get();
+    const data = this.mesosHosts;
     const nodesList = data.nodes || [];
     const filteredLength = byServiceFilter
       ? DSLFilteredLength
@@ -342,7 +345,7 @@ var NodesAgents = createReactClass({
   },
 
   render() {
-    var data = this.internalStorage_get();
+    var data = this.mesosHosts;
     const statesProcessed = MesosSummaryStore.get("statesProcessed");
     var isEmpty = statesProcessed && data.totalNodes === 0;
 

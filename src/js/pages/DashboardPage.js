@@ -16,7 +16,6 @@ import Loader from "../components/Loader";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 import Page from "../components/Page";
 import Panel from "../components/Panel";
@@ -70,7 +69,7 @@ const DashboardBreadcrumbs = () => {
 var DashboardPage = createReactClass({
   displayName: "DashboardPage",
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   statics: {
     routeConfig: {
@@ -117,15 +116,15 @@ var DashboardPage = createReactClass({
       }
     ];
 
-    this.internalStorage_update(getMesosState());
+    this.mesosState = getMesosState();
   },
 
   onSummaryStoreError() {
-    this.internalStorage_update(getMesosState());
+    this.mesosState = { ...this.mesosState, ...getMesosState() };
   },
 
   onSummaryStoreSuccess() {
-    this.internalStorage_update(getMesosState());
+    this.mesosState = { ...this.mesosState, ...getMesosState() };
   },
 
   onDcosStoreChange() {
@@ -217,7 +216,7 @@ var DashboardPage = createReactClass({
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
     const resourceColors = ResourcesUtil.getResourceColors();
-    var data = this.internalStorage_get();
+    var data = this.mesosState;
 
     return (
       <Page title="Dashboard">

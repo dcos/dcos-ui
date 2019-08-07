@@ -1,8 +1,5 @@
-import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-
-import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 
 const MATCH_OPERATOR_RE = /[|\\{}()[\]^$+*?.]/g;
 
@@ -27,7 +24,7 @@ function escapeStringRegexp(str) {
 
 let debounceTimeout = null;
 
-class Highlight extends mixin(InternalStorageMixin) {
+class Highlight extends React.Component {
   constructor() {
     super(...arguments);
     this.count = 0;
@@ -54,11 +51,7 @@ class Highlight extends mixin(InternalStorageMixin) {
   }
 
   componentDidUpdate() {
-    let { highlightCount } = this.internalStorage_get();
-    if (!this.props.search) {
-      highlightCount = 0;
-    }
-
+    const highlightCount = this.props.search ? this.highlightCount : 0;
     this.props.onCountChange(highlightCount);
   }
 
@@ -147,7 +140,7 @@ class Highlight extends mixin(InternalStorageMixin) {
     while (remaining) {
       if (!search.test(remaining)) {
         children.push(this.renderPlain(remaining));
-        this.internalStorage_set({ highlightCount });
+        this.highlightCount = highlightCount;
 
         return children;
       }
