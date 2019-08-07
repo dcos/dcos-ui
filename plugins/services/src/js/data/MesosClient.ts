@@ -1,7 +1,6 @@
-//@ts-ignore
 import { request } from "@dcos/mesos-client";
 import { Observable } from "rxjs";
-import { map } from "rxjs/operators";
+import { catchError, map } from "rxjs/operators";
 import { QuotaData, quotaFields } from "../types/Quota";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
@@ -57,9 +56,11 @@ function makeUpdateQuota(groupId: string, quotaData: QuotaData): UpdateQuota {
 }
 
 export class UpdateQuotaError extends Error {
-  constructor(message: string) {
+  readonly responseCode: number;
+  constructor(message: string, code: number = 0) {
     super(message);
     this.name = "UpdateQuotaError";
+    this.responseCode = code;
   }
 }
 
@@ -71,12 +72,15 @@ export function updateQuota(
     type: "UPDATE_QUOTA",
     update_quota: makeUpdateQuota(groupId, quotaData)
   };
-  return request(updateQuotaReq).pipe(
+  return request(updateQuotaReq, "/mesos/api/v1?UPDATE_QUOTA").pipe(
     map((response: string) => {
       if (response === "") {
         return "SUCCESS";
       }
       throw new UpdateQuotaError(response);
+    }),
+    catchError(resp => {
+      throw new UpdateQuotaError(resp.response || resp.message, resp.code);
     })
   );
 }
