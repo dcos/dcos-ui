@@ -117,10 +117,6 @@ var DashboardPage = createReactClass({
       }
     ];
 
-    this.internalStorage_set({
-      openServicePanel: false,
-      openTaskPanel: false
-    });
     this.internalStorage_update(getMesosState());
   },
 

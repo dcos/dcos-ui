@@ -89,10 +89,6 @@ var NodesAgents = createReactClass({
 
   componentWillMount() {
     this.internalStorage_set(getMesosHosts(this.state));
-    this.internalStorage_update({
-      openNodePanel: false,
-      openTaskPanel: false
-    });
 
     this.store_listeners = [
       {
@@ -130,18 +126,6 @@ var NodesAgents = createReactClass({
       EventTypes.MESOS_SUMMARY_REQUEST_ERROR,
       this.onMesosStateChange
     );
-
-    this.internalStorage_update({
-      openNodePanel: this.props.params.nodeID != null,
-      openTaskPanel: this.props.params.taskID != null
-    });
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.internalStorage_update({
-      openNodePanel: nextProps.params.nodeID != null,
-      openTaskPanel: nextProps.params.taskID != null
-    });
   },
 
   componentWillUnmount() {
