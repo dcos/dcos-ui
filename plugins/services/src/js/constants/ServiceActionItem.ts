@@ -11,5 +11,6 @@ export enum ServiceActionItem {
   STOP = "stop",
   MORE = "more",
   KILL_POD_INSTANCES = "kill_pod_instances",
-  KILL_TASKS = "kill_tasks"
+  KILL_TASKS = "kill_tasks",
+  VIEW_PLANS = "view_plans"
 }

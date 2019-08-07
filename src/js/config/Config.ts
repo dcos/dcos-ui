@@ -92,4 +92,11 @@ if (Config.environment === "development") {
   Config.useFixtures = false;
 }
 
+// we want to stub requests sometimes.
+// as tests bring their own, we never want to stub if cypress is at work.
+if (window.Cypress) {
+  Config.useFixtures = false;
+  Config.useUIConfigFixtures = false;
+}
+
 export default Config;
