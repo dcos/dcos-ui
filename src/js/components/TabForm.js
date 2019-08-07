@@ -1,13 +1,11 @@
 import classNames from "classnames/dedupe";
 import { Form, Tooltip } from "reactjs-components";
 import GeminiScrollbar from "react-gemini-scrollbar";
-import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
 
@@ -18,7 +16,7 @@ const METHODS_TO_BIND = [
   "handleExternalSubmit"
 ];
 
-class TabForm extends mixin(InternalStorageMixin) {
+class TabForm extends React.Component {
   constructor() {
     super();
 
@@ -63,7 +61,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   handleFormError() {
-    this.internalStorage_update({ isFormValidated: false });
+    this.isFormValidated = false;
   }
 
   handleFormSubmit(formKey, formModel) {
@@ -72,9 +70,7 @@ class TabForm extends mixin(InternalStorageMixin) {
 
   handleExternalSubmit() {
     this.buildModel();
-    const { isFormValidated } = this.internalStorage_get();
-
-    if (isFormValidated) {
+    if (this.isFormValidated) {
       this.props.onSubmit(this.model);
 
       return this.model;
@@ -86,7 +82,7 @@ class TabForm extends mixin(InternalStorageMixin) {
   }
 
   buildModel() {
-    this.internalStorage_update({ isFormValidated: true });
+    this.isFormValidated = true;
 
     Object.keys(this.props.definition).forEach(formKey => {
       this.submitMap[formKey]();
