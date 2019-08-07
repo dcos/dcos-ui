@@ -28,6 +28,7 @@
     "skipLibCheck": true,
     "paths": {
       "@dcos/http-service": ["src/typings/dcos__http-service"],
+      "@dcos/mesos-client": ["src/typings/dcos__mesos-client"],
       "@extension-kid/core": ["node_modules/@extension-kid/core"],
       "@extension-kid/*": ["packages/@extension-kid/*"],
       "*": ["*", "packages/*", "src/typings/*"],

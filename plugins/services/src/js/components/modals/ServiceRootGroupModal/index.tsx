@@ -225,20 +225,24 @@ class ServiceRootGroupModal extends React.Component<
           if (resp.success) {
             return this.handleClose();
           }
-          if (resp.partialSuccess && !isEdit) {
-            // switch to  edit mode
-            const { id, enforceRole } = data as GroupFormData;
-            this.setState({
-              isEdit: true,
-              data,
-              originalData: {
-                ...emptyGroupFormData(),
-                id,
-                enforceRole
-              }
-            });
+          if (resp.partialSuccess) {
+            if (!isEdit) {
+              // switch to  edit mode
+              const { id, enforceRole } = data as GroupFormData;
+              this.setState({
+                isEdit: true,
+                data,
+                originalData: {
+                  ...emptyGroupFormData(),
+                  id,
+                  enforceRole
+                }
+              });
+            }
+            this.handleSaveError(resp.message, true);
+          } else {
+            this.handleSaveError(resp.message);
           }
-          this.handleSaveError(resp.message);
         },
         error: e => {
           // Be done after edit mode supported.
@@ -247,7 +251,20 @@ class ServiceRootGroupModal extends React.Component<
       });
   }
 
-  handleSaveError(message: string) {
+  handleSaveError(message: string, mesos: boolean = false) {
+    if (mesos) {
+      this.setState({
+        errors: {
+          form: [
+            <Trans key="quotaError">
+              Unable to create group's quota: {message}
+            </Trans>
+          ]
+        },
+        isPending: false
+      });
+      return;
+    }
     switch (message) {
       case "Conflict":
         this.setState({
@@ -262,7 +279,7 @@ class ServiceRootGroupModal extends React.Component<
           isPending: false
         });
         return;
-      case "Forbidden - Group":
+      case "Forbidden":
         this.setState({
           errors: {
             form: [
