@@ -4,7 +4,7 @@ import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import * as React from "react";
 import { MountService } from "foundation-ui";
 
-import CreateServiceModalFormUtil from "../../../../services/src/js/utils/CreateServiceModalFormUtil";
+import FormErrorUtil from "#SRC/js/utils/FormErrorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
@@ -306,7 +306,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       errors,
       i18n
     } = this.props;
-    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+    const errorsByTab = FormErrorUtil.getTopLevelTabErrors(
       errors,
       JobErrorTabPathRegexes,
       ServiceErrorPathMapping,
