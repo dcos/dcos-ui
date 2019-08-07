@@ -156,7 +156,7 @@
     "less-loader": "4.0.5",
     "license-checker": "5.1.2",
     "localStorage": "1.0.4",
-    "marked": "0.6.1",
+    "marked": "0.7.0",
     "mini-css-extract-plugin": "0.5.0",
     "node": "10.15.2",
     "postcss": "6.0.19",
