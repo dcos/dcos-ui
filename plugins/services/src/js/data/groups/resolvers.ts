@@ -18,7 +18,7 @@ import {
   populateResourcesFromRole
 } from "../../utils/QuotaUtil";
 
-import { createGroup } from "../MarathonClient";
+import { createGroup, editGroup } from "../MarathonClient";
 import { updateQuota } from "../MesosClient";
 import { GroupFormData } from "../../types/GroupForm";
 
@@ -33,7 +33,7 @@ const isGroupArgs = (
 export interface GroupCreateArgs {
   data: GroupFormData;
 }
-const isGroupCreateArgs = (
+const isGroupMutationArgs = (
   args: Record<string, unknown>
 ): args is GroupCreateArgs => {
   return (args as GroupCreateArgs).data !== undefined;
@@ -67,6 +67,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
     publishReplay(1),
     refCount()
   );
+  const makeGroups$ = () => timer$.pipe(switchMap(fetchServiceGroups));
   const groups$ = timer$.pipe(
     switchMap(fetchServiceGroups),
     publishReplay(1),
@@ -107,7 +108,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
           );
         }
-        return groups$.pipe(
+        return makeGroups$().pipe(
           map(groups => {
             const group = groups.find(
               serviceTree => serviceTree.getId() === args.id
@@ -128,12 +129,34 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
         _parent = {},
         args: Record<string, unknown> = {}
       ): Observable<string> {
-        if (!isGroupCreateArgs(args)) {
+        if (!isGroupMutationArgs(args)) {
           return throwError(
             "createGroup mutation arguments aren't valid for type GroupCreateArgs"
           );
         }
         return createGroup(args.data.id, args.data.enforceRole).pipe(
+          map(() => {
+            return "SUCCESS";
+          }),
+          switchMap(groupResp => {
+            if (groupResp !== "SUCCESS") {
+              return of(groupResp);
+            }
+            return updateQuota(args.data.id, args.data.quota);
+          })
+        );
+      },
+      editGroup(
+        _parent = {},
+        args: Record<string, unknown> = {}
+      ): Observable<string> {
+        if (!isGroupMutationArgs(args)) {
+          return throwError(
+            "editGroup mutation arguments aren't valid for type GroupCreateArgs"
+          );
+        }
+        // TODO: Check types and be smart about API calls.
+        return editGroup(args.data.id, args.data.enforceRole).pipe(
           map(() => {
             return "SUCCESS";
           }),
