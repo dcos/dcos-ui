@@ -34,6 +34,7 @@ declare class ServiceTree extends Tree<Service> {
   filterItems(callback: (a: Service) => boolean): Tree<Service>;
   getInstancesCount(): number;
   getName(): string;
+  getRootGroupName(): string;
   getResources(): object;
   getStatus(): string | null;
   getServiceTreeStatusSummary(): ServiceTreeStatusSummary;

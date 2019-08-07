@@ -124,7 +124,7 @@ export function limitRenderer(item: ServiceGroup | ServiceTree | Service) {
     );
   } else {
     const groupName =
-      item instanceof ServiceTree ? item.getName() : item.getRole();
+      item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
     const roleLength = item.getRoleLength(groupName);
 
     [limit, limitNumber] = getLimitAndLimitNumber(
