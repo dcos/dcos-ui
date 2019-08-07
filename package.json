@@ -128,7 +128,7 @@
     "compression-webpack-plugin": "1.1.6",
     "console": "0.7.2",
     "css-loader": "0.28.10",
-    "cypress": "3.2.0",
+    "cypress": "3.4.1",
     "enzyme": "3.9.0",
     "enzyme-adapter-react-16": "1.11.2",
     "eslint": "3.19.0",
