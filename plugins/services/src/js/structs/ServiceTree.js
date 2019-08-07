@@ -215,6 +215,10 @@ module.exports = class ServiceTree extends Tree {
       .pop();
   }
 
+  getRootGroupName() {
+    return this.getId().split("/")[1];
+  }
+
   getResources() {
     return this.reduceItems(
       function(resources, item) {
