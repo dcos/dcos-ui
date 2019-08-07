@@ -4,6 +4,8 @@ import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import * as React from "react";
 import { MountService } from "foundation-ui";
 
+import CreateServiceModalFormUtil from "../../../../services/src/js/utils/CreateServiceModalFormUtil";
+import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ErrorsAlert from "#SRC/js/components/ErrorsAlert";
 import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
@@ -36,6 +38,7 @@ import {
   jobSpecToFormOutputParser
 } from "./form/helpers/JobParsers";
 import { translateErrorMessages } from "./form/helpers/ErrorUtil";
+import JobErrorTabPathRegexes from "../constants/JobErrorTabPathRegexes";
 
 const ServiceErrorPathMapping: any[] = [];
 
@@ -300,19 +303,39 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       handleTabChange,
       isJSONModeActive,
       jobSpec,
-      errors
+      errors,
+      i18n
     } = this.props;
+    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+      errors,
+      JobErrorTabPathRegexes,
+      ServiceErrorPathMapping,
+      i18n
+    );
     const jobJSON = this.getJSONEditorData(jobSpec);
     const tabList = Hooks.applyFilter(
       "createJobTabList",
       JobsForm.navigationItems
-    ).map((item: NavigationItem) => (
-      <TabButton
-        id={item.id}
-        label={<Trans render="span" id={item.label} />}
-        key={item.key}
-      />
-    ));
+    ).map((item: NavigationItem) => {
+      const issueCount = findNestedPropertyInObject(
+        errorsByTab,
+        `${item.id}.length`
+      );
+
+      return (
+        <TabButton
+          id={item.id}
+          label={<Trans render="span" id={item.label} />}
+          key={item.key}
+          count={issueCount}
+          showErrorBadge={Boolean(issueCount) && this.props.showAllErrors}
+          description={
+            // TODO: pluralize
+            <Trans render="span">{issueCount} issues need addressing</Trans>
+          }
+        />
+      );
+    });
 
     return (
       <SplitPanel onResize={this.onEditorResize}>

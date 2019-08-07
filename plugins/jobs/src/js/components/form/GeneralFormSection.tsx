@@ -78,7 +78,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput type="number" name="job.run.cpus" value={formData.cpus} />
+          <FieldInput
+            type="number"
+            name="job.run.cpus"
+            value={formData.cpus}
+            autoFocus={showErrors && cpusError}
+          />
           <FieldError>{cpusError}</FieldError>
         </FormGroup>
 
@@ -90,7 +95,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput name="job.run.mem" type="number" value={formData.mem} />
+          <FieldInput
+            name="job.run.mem"
+            type="number"
+            value={formData.mem}
+            autoFocus={showErrors && memError}
+          />
           <FieldError>{memError}</FieldError>
         </FormGroup>
 
@@ -102,7 +112,12 @@ class GeneralFormSection extends React.Component<GeneralProps> {
               </FormGroupHeadingContent>
             </FormGroupHeading>
           </FieldLabel>
-          <FieldInput name="job.run.disk" type="number" value={formData.disk} />
+          <FieldInput
+            name="job.run.disk"
+            type="number"
+            value={formData.disk}
+            autoFocus={showErrors && diskError}
+          />
           <FieldError>{diskError}</FieldError>
         </FormGroup>
 
@@ -129,6 +144,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
             type="number"
             disabled={gpusDisabled}
             value={formData.gpus}
+            autoFocus={showErrors && gpusError}
           />
           <FieldError>{gpusError}</FieldError>
         </FormGroup>
