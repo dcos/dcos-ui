@@ -5,7 +5,7 @@ import Node from "#SRC/js/structs/Node";
 
 interface MesosDrainAgentOptions {
   max_grace_period?: { seconds: number };
-  mark_gone?: { value: boolean };
+  mark_gone?: boolean;
 }
 
 const NodeMaintenanceActions = {
@@ -71,13 +71,12 @@ const NodeMaintenanceActions = {
     }
 
     if (drainOptions.decommission) {
-      options.mark_gone = { value: true };
+      options.mark_gone = true;
     }
 
     return request({
       type: "DRAIN_AGENT",
-      drain_agent: { agent_id: { value: node.getID() } },
-      ...options
+      drain_agent: { agent_id: { value: node.getID() }, ...options }
     }).subscribe({
       next: onSuccess,
       error: onError
