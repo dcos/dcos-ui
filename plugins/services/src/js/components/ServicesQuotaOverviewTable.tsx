@@ -4,7 +4,6 @@ import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";
 
 import Service from "../structs/Service";
-import Pod from "../structs/Pod";
 import ServiceTree from "../structs/ServiceTree";
 
 import { nameRenderer } from "../columns/ServicesTableNameColumn";
@@ -16,17 +15,15 @@ export interface ServicesQuotaOverviewTableProps {
   serviceTree: ServiceTree;
 }
 
-type QuotaThing = Service | Pod | ServiceTree;
-
 interface ServicesQuotaOverviewTableState {
-  items: QuotaThing[];
+  items: Array<Service | ServiceTree>;
   sortDirection: SortDirection;
   sortColumn: string;
 }
 
 function sortForColumn(
   columnName: string
-): (a: QuotaThing, b: QuotaThing) => number {
+): (a: Service | ServiceTree, b: Service | ServiceTree) => number {
   switch (columnName) {
     case "name":
       return (a, b) => a.getName().localeCompare(b.getName());
@@ -69,10 +66,10 @@ class ServicesQuotaOverviewTable extends React.Component<
   };
 
   sortData = (
-    items: QuotaThing[],
+    items: Array<Service | ServiceTree>,
     sortColumn: string = this.state.sortColumn,
     sortDirection: SortDirection = this.state.sortDirection
-  ): QuotaThing[] =>
+  ): Array<Service | ServiceTree> =>
     sort(items.slice(), sortForColumn(sortColumn), {
       reverse: sortDirection !== "ASC"
     });
