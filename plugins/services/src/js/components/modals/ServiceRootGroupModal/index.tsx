@@ -320,7 +320,8 @@ class ServiceRootGroupModal extends React.Component<
             const data = groupFormDataFromGraphql(groupData.data.group);
             this.setState({
               data,
-              originalData: JSON.parse(JSON.stringify(data))
+              originalData: JSON.parse(JSON.stringify(data)),
+              expandAdvancedSettings: !data.enforceRole
             });
           },
           error: () => {
