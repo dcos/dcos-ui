@@ -375,7 +375,7 @@ module.exports = class ServiceTree extends Tree {
     }, []);
   }
 
-  getRoleLength(roleName = null) {
+  getQuotaRoleStats(roleName = null) {
     const name = roleName || this.getName();
     return this.reduceItems(
       (roles, item) => {

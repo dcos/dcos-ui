@@ -2,7 +2,7 @@ import * as QuotaUtil from "../QuotaUtil";
 import {
   ServiceGroup,
   ServiceGroupQuota,
-  ServiceGroupQuotaRoles
+  QuotaRolesStats
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import { MesosRole } from "#PLUGINS/services/src/js/types/MesosRoles";
 import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
@@ -304,7 +304,7 @@ describe("QuotaUtil", () => {
       expect(QuotaUtil.getQuotaLimit(undefined)).toEqual("N/A");
     });
     it("return Enforced for 0 roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 0,
         groupRoleCount: 0
       };
@@ -312,14 +312,14 @@ describe("QuotaUtil", () => {
     });
 
     it("return Enforced for all roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 10
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Enforced");
     });
     it("return Not Enforced for 0 group roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 0
       };
@@ -327,7 +327,7 @@ describe("QuotaUtil", () => {
     });
 
     it("return Partially Enforced for > 0 group roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 5
       };

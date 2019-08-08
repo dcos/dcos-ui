@@ -12,7 +12,7 @@ interface ServiceTreeStatusSummary {
   };
 }
 
-interface ServiceTreeRoleLength {
+interface QuotaRolesStats {
   servicesCount: number;
   rolesCount: number;
   groupRolesCount: number;
@@ -50,7 +50,7 @@ declare class ServiceTree extends Tree<Service> {
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
-  getRoleLength(roleName: string | null = null): ServiceTreeRoleLength;
+  getQuotaRoleStats(roleName: string | null = null): QuotaRolesStats;
   isRoot(): boolean;
   isTopLevel(): boolean;
 }

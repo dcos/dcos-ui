@@ -141,7 +141,7 @@ module.exports = class Service extends Item {
     return this.get("role") || "";
   }
 
-  getRoleLength(roleName) {
+  getQuotaRoleStats(roleName) {
     return (this.get("tasks") || []).reduce(
       (roles, item) => {
         roles.servicesCount++;
