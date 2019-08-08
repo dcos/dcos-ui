@@ -341,11 +341,6 @@ describe("QuotaUtil", () => {
         false
       );
     });
-    it("returns false if serviceTree is not a top-level group", () => {
-      expect(
-        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev/test" }), [])
-      ).toEqual(false);
-    });
     it("returns false if there is no matching role", () => {
       expect(
         QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [])
@@ -371,6 +366,30 @@ describe("QuotaUtil", () => {
           { name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }
         ])
       ).toEqual(true);
+    });
+    it("returns true groups parent has a role with quota", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          [{ name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }]
+        )
+      ).toEqual(true);
+    });
+    it("returns false if groups parent doesn't have a role", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          []
+        )
+      ).toEqual(false);
+    });
+    it("returns false if groups parent doesn't have a role with limits", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          [{ name: "dev", weight: 1.0, quota: { limit: {} } }]
+        )
+      ).toEqual(false);
     });
   });
   describe("#formatQuotaID", () => {
