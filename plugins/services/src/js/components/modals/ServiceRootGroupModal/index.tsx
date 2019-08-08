@@ -36,7 +36,8 @@ import Loader from "#SRC/js/components/Loader";
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
   GroupFormData,
-  GroupFormErrors
+  GroupFormErrors,
+  GroupMutationResponse
 } from "#PLUGINS/services/src/js/types/GroupForm";
 
 import GroupModalHeader from "./Header";
@@ -47,6 +48,7 @@ import {
   getPathFromGroupId,
   validateGroupFormData
 } from "./utils";
+import { Observable } from "rxjs";
 
 const dl = container.get<DataLayer>(DataLayerType);
 const i18n = container.get<I18n>(TYPES.I18n);
@@ -63,12 +65,18 @@ const groupEditMutation = gql`
   }
 `;
 
-function getSaveAction(data: GroupFormData, isEdit: boolean) {
+function getSaveAction(
+  data: GroupFormData,
+  isEdit: boolean
+): Observable<{
+  data: {
+    createGroup?: GroupMutationResponse;
+    editGroup: GroupMutationResponse;
+  };
+}> {
   if (!isEdit) {
-    const newID = formatQuotaID(data.id);
-    const newData = (({ id, ...other }) => ({ id: newID, ...other }))(data);
     return dl.query(groupCreateMutation, {
-      data: newData
+      data
     });
   }
   return dl.query(groupEditMutation, {
@@ -113,6 +121,7 @@ const METHODS_TO_BIND: string[] = [
   "handleClose",
   "handleFormChange",
   "handleSave",
+  "handleSaveError",
   "getGroupFormData"
 ];
 
@@ -171,8 +180,9 @@ class ServiceRootGroupModal extends React.Component<
   }
 
   handleSave() {
-    const { isPending, data, originalData, isEdit } = this.state;
-    if (isPending || !data) {
+    let data: GroupFormData | null = this.state.data;
+    const { isPending, originalData, isEdit } = this.state;
+    if (isPending || data === null) {
       return;
     }
 
@@ -187,55 +197,111 @@ class ServiceRootGroupModal extends React.Component<
     }
 
     this.setState({ isPending: true });
+    if (!isEdit) {
+      //Format id
+      const newID = formatQuotaID(data.id);
+      data = (({ id, ...other }: GroupFormData): GroupFormData => ({
+        id: newID,
+        ...other
+      }))(data);
+    }
     getSaveAction(data, isEdit)
       .pipe(take(1))
       .subscribe({
-        next: () => this.handleClose(),
-        error: e => {
-          //TODO: If error creating quota switch to Edit Mode for group, must
-          // Be done after edit mode supported.
-          switch (e.message) {
-            case "Conflict":
-              this.setState({
-                errors: {
-                  id: <Trans>Name already exists. Try a different name.</Trans>,
-                  form: [
-                    <Trans key="groupIdConflict">
-                      A group with the same name already exists. Try a different
-                      name.
-                    </Trans>
-                  ]
-                },
-                isPending: false
-              });
-              return;
-            case "Forbidden - Group":
-              this.setState({
-                errors: {
-                  form: [
-                    <Trans key="groupPermission">
-                      You do not have permission to create a group.
-                    </Trans>
-                  ]
-                },
-                isPending: false
-              });
-              return;
-            default:
-              this.setState({
-                errors: {
-                  form: [
-                    <Trans key="miscGroup">
-                      Unable to create group: {e.message}
-                    </Trans>
-                  ]
-                },
-                isPending: false
-              });
-              return;
+        next: mutationResponse => {
+          let resp: GroupMutationResponse;
+          if (mutationResponse.data.createGroup) {
+            resp = mutationResponse.data.createGroup;
+          } else if (mutationResponse.data.editGroup) {
+            resp = mutationResponse.data.editGroup;
+          } else {
+            resp = {
+              code: 0,
+              success: false,
+              partialSuccess: false,
+              message: "Unknown response"
+            };
           }
+          if (resp.success) {
+            return this.handleClose();
+          }
+          if (resp.partialSuccess) {
+            if (!isEdit) {
+              // switch to  edit mode
+              const { id, enforceRole } = data as GroupFormData;
+              this.setState({
+                isEdit: true,
+                data,
+                originalData: {
+                  ...emptyGroupFormData(),
+                  id,
+                  enforceRole
+                }
+              });
+            }
+            this.handleSaveError(resp.message, true);
+          } else {
+            this.handleSaveError(resp.message);
+          }
+        },
+        error: e => {
+          // Be done after edit mode supported.
+          this.handleSaveError(e.message);
         }
       });
+  }
+
+  handleSaveError(message: string, mesos: boolean = false) {
+    if (mesos) {
+      this.setState({
+        errors: {
+          form: [
+            <Trans key="quotaError">
+              Unable to create group's quota: {message}
+            </Trans>
+          ]
+        },
+        isPending: false
+      });
+      return;
+    }
+    switch (message) {
+      case "Conflict":
+        this.setState({
+          errors: {
+            id: <Trans>Name already exists. Try a different name.</Trans>,
+            form: [
+              <Trans key="groupIdConflict">
+                A group with the same name already exists. Try a different name.
+              </Trans>
+            ]
+          },
+          isPending: false
+        });
+        return;
+      case "Forbidden":
+        this.setState({
+          errors: {
+            form: [
+              <Trans key="groupPermission">
+                You do not have permission to create a group.
+              </Trans>
+            ]
+          },
+          isPending: false
+        });
+        return;
+      default:
+        this.setState({
+          errors: {
+            form: [
+              <Trans key="miscGroup">Unable to create group: {message}</Trans>
+            ]
+          },
+          isPending: false
+        });
+        return;
+    }
   }
 
   handleAdvancedSectionClick() {

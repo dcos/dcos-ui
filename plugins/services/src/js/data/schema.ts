@@ -13,7 +13,7 @@ export const typeDefs = `
   }
   
   extend type Mutation {
-    createGroup(data: GroupWithQuota!): String!
+    createGroup(data: GroupWithQuota!): GroupMutationResponse!
     editGroup(data: GroupWithQuota!): String!
   }
 `;

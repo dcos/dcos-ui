@@ -22,6 +22,18 @@ type Query {
 type Mutation {
   noOpMutation(input: String): Boolean
 }
+
+interface MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
+
+type BaseMutationResponse implements MutationResponse {
+  code: Int!
+  success: Boolean!
+  message: String!
+}
 `;
 
 const baseResolver = {

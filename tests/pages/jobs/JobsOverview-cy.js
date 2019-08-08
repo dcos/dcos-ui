@@ -32,5 +32,14 @@ describe("Jobs Overview", function() {
         expect($tableRows[2].children[2].textContent).to.equal("Success");
       });
     });
+
+    it("does not show duplicate jobs inside group", function() {
+      cy.get(".table-cell-link-primary")
+        .contains("group")
+        .click();
+      // It should contain group.alpha and group.beta,
+      // but not group-foo.
+      cy.get("tbody tr:visible").should("to.have.length", 2);
+    });
   });
 });

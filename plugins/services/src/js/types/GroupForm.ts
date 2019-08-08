@@ -17,3 +17,10 @@ export interface GroupFormErrors {
   };
   form?: JSX.Element[];
 }
+
+export interface GroupMutationResponse {
+  code: number;
+  success: boolean;
+  message: string;
+  partialSuccess: boolean;
+}

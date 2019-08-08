@@ -14,9 +14,6 @@ import Node from "#SRC/js/structs/Node";
 import Loader from "#SRC/js/components/Loader";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-// @ts-ignore
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import { SortDirection } from "../types/SortDirection";
 
@@ -172,11 +169,6 @@ export default class NodesTable extends React.Component<
     if (data === null) {
       return <Loader />;
     }
-
-    const hasMaintenance = findNestedPropertyInObject(
-      ConfigStore.get("config"),
-      "uiConfiguration.features.maintenance"
-    );
 
     const columns = [
       <Column
@@ -368,16 +360,14 @@ export default class NodesTable extends React.Component<
         onResize={this.handleResize("gpu")}
         width={hasCustomWidth("gpu") ? customWidthFor("gpu") : undefined}
       />,
-      hasMaintenance ? (
-        <Column
-          key="actions"
-          header=""
-          cellRenderer={generateActionsRenderer(this.props.onNodeAction)}
-          growToFill={true}
-          minWidth={24}
-          maxWidth={36}
-        />
-      ) : null
+      <Column
+        key="actions"
+        header=""
+        cellRenderer={generateActionsRenderer(this.props.onNodeAction)}
+        growToFill={true}
+        minWidth={24}
+        maxWidth={36}
+      />
     ].filter((col): col is React.ReactElement => col !== null);
 
     return (
