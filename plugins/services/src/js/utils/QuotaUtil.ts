@@ -3,7 +3,7 @@ import {
   ServiceGroup,
   ServiceGroupQuota,
   QuotaLimitStatuses,
-  ServiceGroupQuotaRoles
+  QuotaRolesStats
 } from "../types/ServiceGroup";
 import { MesosRole } from "../types/MesosRoles";
 import ServiceTree from "../structs/ServiceTree";
@@ -74,7 +74,7 @@ export function populateResourcesFromRole(
 }
 
 export function getQuotaLimit(
-  roles: ServiceGroupQuotaRoles | undefined | null
+  roles: QuotaRolesStats | undefined | null
 ): string {
   if (roles === undefined || roles === null) {
     return QuotaLimitStatuses.na;

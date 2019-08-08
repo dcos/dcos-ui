@@ -7,7 +7,10 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 
 import { nameRenderer } from "../columns/ServicesTableNameColumn";
-import { limitRenderer } from "../columns/QuotaOverviewLimitColumn";
+import {
+  limitRenderer,
+  getLimitInfoForService
+} from "../columns/QuotaOverviewLimitColumn";
 
 import { SortDirection } from "../types/SortDirection";
 
@@ -28,7 +31,12 @@ function sortForColumn(
     case "name":
       return (a, b) => a.getName().localeCompare(b.getName());
     default:
-      return () => 0;
+      return (a, b) => {
+        const aText = getLimitInfoForService(a).limitText;
+        const bText = getLimitInfoForService(b).limitText;
+
+        return aText.localeCompare(bText);
+      };
   }
 }
 

@@ -18,9 +18,14 @@ import { getQuotaLimit } from "../utils/QuotaUtil";
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 
-function getLimit(limit: string, limitNumber: number) {
+interface LimitInfo {
+  limitText: string;
+  servicesNotLimited: number;
+}
+
+function renderLimitLabel(limitInfo: LimitInfo) {
   let icon = null;
-  switch (limit) {
+  switch (limitInfo.limitText) {
     case QuotaLimitStatuses.enforced:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
@@ -46,7 +51,7 @@ function getLimit(limit: string, limitNumber: number) {
             }
           >
             <Plural
-              value={limitNumber}
+              value={limitInfo.servicesNotLimited}
               one="# service has no quota limit."
               other="# services have no quota limit."
             />
@@ -83,7 +88,7 @@ function getLimit(limit: string, limitNumber: number) {
       <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
         <span className="icon-margin-right">{icon}</span>
         <Trans
-          id={limit}
+          id={limitInfo.limitText}
           render="span"
           className="table-cell-value table-cell-flex-box"
         />
@@ -96,42 +101,39 @@ function itemIsServiceGroup(item: any): item is ServiceGroup {
   return item.quota && item.quota.limitStatus;
 }
 
-function getLimitAndLimitNumber(
-  servicesCount: number,
-  groupRoleCount: number
-): [string, number] {
-  return [
-    getQuotaLimit({
-      count: servicesCount,
-      groupRoleCount
+export function getLimitInfoForService(item: Service | ServiceTree): LimitInfo {
+  const groupName =
+    item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
+  const stats = item.getQuotaRoleStats(groupName);
+
+  return {
+    limitText: getQuotaLimit({
+      count: stats.servicesCount,
+      groupRoleCount: stats.groupRolesCount
     }),
-    servicesCount - groupRoleCount
-  ];
+    servicesNotLimited: stats.servicesCount - stats.groupRolesCount
+  };
+}
+
+export function getLimitInfoForServiceGroup(item: ServiceGroup): LimitInfo {
+  if (!item.quota || !item.quota.serviceRoles) {
+    return {
+      limitText: "N/A",
+      servicesNotLimited: 0
+    };
+  }
+
+  return {
+    limitText: getQuotaLimit(item.quota.serviceRoles),
+    servicesNotLimited:
+      item.quota.serviceRoles.count - item.quota.serviceRoles.groupRoleCount
+  };
 }
 
 export function limitRenderer(item: ServiceGroup | ServiceTree | Service) {
-  var limit: string = "N/A";
-  var limitNumber: number = 0;
-
-  if (itemIsServiceGroup(item)) {
-    if (!item.quota || !item.quota.serviceRoles) {
-      return <React.Fragment />;
-    }
-
-    [limit, limitNumber] = getLimitAndLimitNumber(
-      item.quota.serviceRoles.count,
-      item.quota.serviceRoles.groupRoleCount
-    );
-  } else {
-    const groupName =
-      item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
-    const roleLength = item.getRoleLength(groupName);
-
-    [limit, limitNumber] = getLimitAndLimitNumber(
-      roleLength.servicesCount,
-      roleLength.groupRolesCount
-    );
-  }
-
-  return getLimit(limit, limitNumber);
+  return renderLimitLabel(
+    itemIsServiceGroup(item)
+      ? getLimitInfoForServiceGroup(item)
+      : getLimitInfoForService(item)
+  );
 }
