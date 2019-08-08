@@ -70,16 +70,16 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       <Page dontScroll={true} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
-          actions={[
+          addButton={[
+            {
+              onItemSelect: createService,
+              label: i18nMark("Run a Service")
+            },
             {
               onItemSelect: modalHandlers.createGroup,
               label: i18nMark("Create Group")
             }
           ]}
-          addButton={{
-            onItemSelect: createService,
-            label: i18nMark("Run a Service")
-          }}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
