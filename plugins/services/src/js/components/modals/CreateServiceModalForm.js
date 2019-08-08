@@ -564,7 +564,7 @@ class CreateServiceModalForm extends Component {
     return navigationItems.map(item => {
       const finalErrorCount = item.isContainer
         ? findNestedPropertyInObject(
-            CreateServiceModalFormUtil.getContainerTabErrors(errorsByTab),
+            FormErrorUtil.getContainerTabErrors(errorsByTab),
             `${item.id}.length`
           )
         : findNestedPropertyInObject(errorsByTab, `${item.id}.length`);
