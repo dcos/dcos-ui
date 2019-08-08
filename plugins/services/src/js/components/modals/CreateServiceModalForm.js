@@ -28,6 +28,7 @@ import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 import Transaction from "#SRC/js/structs/Transaction";
 import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import FormErrorUtil from "#SRC/js/utils/FormErrorUtil";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import ArtifactsSection from "../forms/ArtifactsSection";
@@ -553,7 +554,7 @@ class CreateServiceModalForm extends Component {
       return null;
     }
 
-    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+    const errorsByTab = FormErrorUtil.getTopLevelTabErrors(
       this.props.errors,
       ServiceErrorTabPathRegexes,
       ServiceErrorPathMapping,
