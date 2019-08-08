@@ -104,11 +104,12 @@ export function serviceTreeHasQuota(
   if (item.isRoot()) {
     return false;
   }
-  if (item.getId().split("/").length > 2) {
-    //This is not a top-level group, don't bother checking for quota
+  const splitId = item.getId().split("/");
+  if (splitId.length < 2) {
     return false;
   }
-  const role = roles.find(role => role.name === item.getName());
+  let roleName = splitId[1];
+  const role = roles.find(role => role.name === roleName);
   if (!role) {
     return false;
   }

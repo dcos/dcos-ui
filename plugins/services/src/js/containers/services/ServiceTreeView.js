@@ -76,7 +76,7 @@ class ServiceTreeView extends React.Component {
     }
     const { serviceTree } = this.props;
     const id = serviceTree.getId();
-    if (serviceTree.isRoot() || hasQuota) {
+    if (hasQuota) {
       return [
         {
           label: i18nMark("Services"),
