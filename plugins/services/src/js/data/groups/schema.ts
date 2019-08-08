@@ -62,4 +62,11 @@ export const GroupTypes = `
     enforceRole: Boolean!
     quota: GroupQuota
   }
+  
+  type GroupMutationResponse implements MutationResponse {
+    code: Int!
+    success: Boolean!
+    message: String!
+    partialSuccess: Boolean!
+  }
 `;

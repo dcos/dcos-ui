@@ -5,7 +5,8 @@ import {
   exhaustMap,
   publishReplay,
   refCount,
-  switchMap
+  switchMap,
+  catchError
 } from "rxjs/operators";
 
 import { fetchServiceGroups, fetchRoles } from "./fetchers";
@@ -19,8 +20,10 @@ import {
 } from "../../utils/QuotaUtil";
 
 import { createGroup, editGroup } from "../MarathonClient";
-import { updateQuota } from "../MesosClient";
-import { GroupFormData } from "../../types/GroupForm";
+import { updateQuota, UpdateQuotaError } from "../MesosClient";
+import { GroupFormData, GroupMutationResponse } from "../../types/GroupForm";
+import { GroupCreateError } from "../errors/GroupCreateError";
+import { GroupEditError } from "../errors/GroupEditError";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -128,7 +131,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
       createGroup(
         _parent = {},
         args: Record<string, unknown> = {}
-      ): Observable<string> {
+      ): Observable<GroupMutationResponse> {
         if (!isGroupMutationArgs(args)) {
           return throwError(
             "createGroup mutation arguments aren't valid for type GroupCreateArgs"
@@ -138,18 +141,47 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           map(() => {
             return "SUCCESS";
           }),
-          switchMap(groupResp => {
-            if (groupResp !== "SUCCESS") {
-              return of(groupResp);
+          switchMap(() => {
+            return updateQuota(args.data.id, args.data.quota).pipe(
+              map(updateResp => ({
+                code: 200,
+                success: true,
+                message: updateResp,
+                partialSuccess: false
+              }))
+            );
+          }),
+          catchError((err: Error | GroupCreateError) => {
+            if (err.name === "GroupCreateError") {
+              const createError = err as GroupCreateError;
+              return of({
+                code: createError.responseCode,
+                success: false,
+                message: createError.message,
+                partialSuccess: false
+              });
+            } else if (err.name === "UpdateQuotaError") {
+              const quotaErr = err as UpdateQuotaError;
+              return of({
+                code: 0,
+                success: false,
+                message: quotaErr.message,
+                partialSuccess: true
+              });
             }
-            return updateQuota(args.data.id, args.data.quota);
+            return of({
+              code: 0,
+              success: false,
+              message: err.message,
+              partialSuccess: false
+            });
           })
         );
       },
       editGroup(
         _parent = {},
         args: Record<string, unknown> = {}
-      ): Observable<string> {
+      ): Observable<GroupMutationResponse> {
         if (!isGroupMutationArgs(args)) {
           return throwError(
             "editGroup mutation arguments aren't valid for type GroupCreateArgs"
@@ -162,9 +194,46 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           }),
           switchMap(groupResp => {
             if (groupResp !== "SUCCESS") {
-              return of(groupResp);
+              return of({
+                code: 0,
+                success: false,
+                message: groupResp,
+                partialSuccess: false
+              });
             }
-            return updateQuota(args.data.id, args.data.quota);
+            return updateQuota(args.data.id, args.data.quota).pipe(
+              map(updateResp => ({
+                code: 200,
+                success: true,
+                message: updateResp,
+                partialSuccess: true
+              }))
+            );
+          }),
+          catchError((err: Error | GroupEditError) => {
+            if (err.name === "GroupEditError") {
+              const createError = err as GroupEditError;
+              return of({
+                code: createError.responseCode,
+                success: false,
+                message: createError.message,
+                partialSuccess: false
+              });
+            } else if (err.name === "UpdateQuotaError") {
+              const quotaErr = err as UpdateQuotaError;
+              return of({
+                code: 0,
+                success: false,
+                message: quotaErr.message,
+                partialSuccess: true
+              });
+            }
+            return of({
+              code: 0,
+              success: false,
+              message: err.message,
+              partialSuccess: false
+            });
           })
         );
       }

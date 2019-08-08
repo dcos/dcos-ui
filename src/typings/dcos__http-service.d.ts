@@ -14,6 +14,14 @@ export interface RequestResponse<T> {
   response: T;
 }
 
+export interface RequestResponseError<T> {
+  code: number;
+  message: string;
+  response: T;
+  responseType: string;
+  responseHeaders: object;
+}
+
 export function request<T>(
   url: string,
   options?: RequestOptions
