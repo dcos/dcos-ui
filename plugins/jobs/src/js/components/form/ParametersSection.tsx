@@ -80,6 +80,9 @@ class ParametersSection extends React.Component<
               name={`value.${index}.dockerParams`}
               type="text"
               value={parameter.value || ""}
+              autoFocus={Boolean(
+                showErrors && (valueErrors || generalParamError)
+              )}
             />
             <FieldError>{valueErrors}</FieldError>
           </FormGroup>

@@ -86,6 +86,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               name="id.schedules"
               type="text"
               value={formData.scheduleId}
+              autoFocus={Boolean(showErrors && idErrors)}
             />
             <FieldError>{idErrors}</FieldError>
           </FormGroup>
@@ -107,6 +108,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               type="text"
               placeholder="* * * * *"
               value={formData.cronSchedule}
+              autoFocus={Boolean(showErrors && cronErrors)}
             />
             <FieldHelp>
               <Trans render="span">
@@ -138,6 +140,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               type="text"
               value={formData.timezone}
               placeholder={JobDataPlaceholders.timezone}
+              autoFocus={Boolean(showErrors && timezoneErrors)}
             />
             <FieldError>{timezoneErrors}</FieldError>
           </FormGroup>
@@ -162,6 +165,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
               type="number"
               value={formData.startingDeadline}
               placeholder={JobDataPlaceholders.startingDeadlineSeconds}
+              autoFocus={Boolean(showErrors && deadlineErrors)}
             />
             <FieldHelp>
               <Trans render="span">
