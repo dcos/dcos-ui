@@ -108,17 +108,17 @@ export function getLimitInfoForService(item: Service | ServiceTree): LimitInfo {
 
   return {
     limitText: getQuotaLimit({
-      count: stats.servicesCount,
+      count: stats.count,
       groupRoleCount: stats.groupRolesCount
     }),
-    servicesNotLimited: stats.servicesCount - stats.groupRolesCount
+    servicesNotLimited: stats.count - stats.groupRolesCount
   };
 }
 
 export function getLimitInfoForServiceGroup(item: ServiceGroup): LimitInfo {
   if (!item.quota || !item.quota.serviceRoles) {
     return {
-      limitText: "N/A",
+      limitText: QuotaLimitStatuses.na,
       servicesNotLimited: 0
     };
   }

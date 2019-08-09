@@ -1287,7 +1287,7 @@ describe("ServiceTree", function() {
       });
 
       expect(thisInstance.getQuotaRoleStats()).toEqual({
-        servicesCount: 1,
+        count: 1,
         rolesCount: 1,
         groupRolesCount: 0
       });
@@ -1318,7 +1318,7 @@ describe("ServiceTree", function() {
       });
 
       expect(thisInstance.getQuotaRoleStats()).toEqual({
-        servicesCount: 4,
+        count: 4,
         rolesCount: 4,
         groupRolesCount: 2
       });

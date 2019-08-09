@@ -144,7 +144,7 @@ module.exports = class Service extends Item {
   getQuotaRoleStats(roleName) {
     return (this.get("tasks") || []).reduce(
       (roles, item) => {
-        roles.servicesCount++;
+        roles.count++;
         const itemRole = item.role;
         if (itemRole) {
           roles.rolesCount++;
@@ -154,7 +154,7 @@ module.exports = class Service extends Item {
         }
         return roles;
       },
-      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+      { count: 0, rolesCount: 0, groupRolesCount: 0 }
     );
   }
 
