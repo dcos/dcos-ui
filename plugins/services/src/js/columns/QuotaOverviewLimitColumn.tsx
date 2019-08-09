@@ -17,6 +17,7 @@ import { getQuotaLimit } from "../utils/QuotaUtil";
 
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
+import Pod from "../structs/Pod";
 
 interface LimitInfo {
   limitText: string;
@@ -101,7 +102,23 @@ function itemIsServiceGroup(item: any): item is ServiceGroup {
   return item.quota && item.quota.limitStatus;
 }
 
-export function getLimitInfoForService(item: Service | ServiceTree): LimitInfo {
+export function getLimitInfoForPod(item: Pod): LimitInfo {
+  return {
+    limitText:
+      item.getRole() === item.getRootGroupName()
+        ? QuotaLimitStatuses.enforced
+        : QuotaLimitStatuses.notEnforced,
+    servicesNotLimited: 0
+  };
+}
+
+export function getLimitInfoForService(
+  item: Pod | Service | ServiceTree
+): LimitInfo {
+  if (item instanceof Pod) {
+    return getLimitInfoForPod(item);
+  }
+
   const groupName =
     item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
   const stats = item.getQuotaRoleStats(groupName);
@@ -130,7 +147,9 @@ export function getLimitInfoForServiceGroup(item: ServiceGroup): LimitInfo {
   };
 }
 
-export function limitRenderer(item: ServiceGroup | ServiceTree | Service) {
+export function limitRenderer(
+  item: ServiceGroup | ServiceTree | Service | Pod
+) {
   return renderLimitLabel(
     itemIsServiceGroup(item)
       ? getLimitInfoForServiceGroup(item)

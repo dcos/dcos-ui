@@ -141,6 +141,10 @@ module.exports = class Service extends Item {
     return this.get("role") || "";
   }
 
+  getRootGroupName() {
+    return this.getId().split("/")[1];
+  }
+
   getQuotaRoleStats(roleName) {
     return (this.get("tasks") || []).reduce(
       (roles, item) => {
