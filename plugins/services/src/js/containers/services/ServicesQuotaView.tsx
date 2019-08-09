@@ -77,7 +77,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     }
 
     return (
-      <Page dontScroll={true} flushBottom={true}>
+      <Page dontScroll={serviceTree.isRoot()} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
           addButton={[
