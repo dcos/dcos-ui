@@ -91,6 +91,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           >
             <span
               className="css-nb6agm"
+              data-cy={undefined}
               onClick={[Function]}
               onKeyPress={[Function]}
               role="button"
@@ -117,6 +118,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           >
             <span
               className="css-nb6agm"
+              data-cy={undefined}
               onClick={[Function]}
               onKeyPress={[Function]}
               role="button"
