@@ -1,4 +1,5 @@
-const UserSettingsStore = require("../UserSettingsStore");
+import UserSettingsStore from "../UserSettingsStore";
+
 const UserLanguageStore = require("../UserLanguageStore");
 const savedStateKey = require("../../constants/UserSettings").SAVED_STATE_KEY;
 

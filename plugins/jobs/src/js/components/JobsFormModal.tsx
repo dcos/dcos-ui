@@ -45,6 +45,8 @@ import {
 } from "./form/helpers/JobParsers";
 import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
+
 interface JobFormModalProps {
   job?: JobResponse;
   isEdit: boolean;
@@ -157,7 +159,7 @@ class JobFormModal extends React.Component<
       serverErrors: [],
       processing: false,
       confirmOpen: false,
-      isJSONModeActive: false,
+      isJSONModeActive: UserSettingsStore.JSONEditorExpandedSetting,
       showValidationErrors: false,
       formInvalid: false,
       submitFailed: false,
@@ -236,6 +238,9 @@ class JobFormModal extends React.Component<
   }
 
   handleJSONToggle() {
+    UserSettingsStore.setJSONEditorExpandedSetting(
+      !this.state.isJSONModeActive
+    );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
