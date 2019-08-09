@@ -382,7 +382,7 @@ module.exports = class ServiceTree extends Tree {
         if (item instanceof ServiceTree) {
           return roles;
         }
-        roles.servicesCount++;
+        roles.count++;
         const itemRole = item.getRole();
         if (itemRole) {
           roles.rolesCount++;
@@ -392,7 +392,7 @@ module.exports = class ServiceTree extends Tree {
         }
         return roles;
       },
-      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+      { count: 0, rolesCount: 0, groupRolesCount: 0 }
     );
   }
 

@@ -52,7 +52,7 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
       enforced: serviceTree.getEnforceRole() === true,
       limitStatus: "N/A",
       serviceRoles: {
-        count: serviceRoles.servicesCount,
+        count: serviceRoles.count,
         groupRoleCount: serviceRoles.groupRolesCount
       }
     }

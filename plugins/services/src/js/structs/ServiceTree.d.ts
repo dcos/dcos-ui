@@ -1,8 +1,10 @@
-import Service from "./Service";
 import { StatusCategories } from "#SRC/js/constants/StatusIcon";
 import List from "#SRC/js/structs/List";
 import Tree from "#SRC/js/structs/Tree";
+
+import Service from "./Service";
 import { StatusCategory } from "../constants/ServiceStatus";
+import { ServiceQuotaRolesStats } from "../types/ServiceQuotaRolesStats";
 
 interface ServiceTreeStatusSummary {
   status: StatusCategory;
@@ -10,12 +12,6 @@ interface ServiceTreeStatusSummary {
     total: number;
     status: Record<StatusCategory, number>;
   };
-}
-
-interface QuotaRolesStats {
-  servicesCount: number;
-  rolesCount: number;
-  groupRolesCount: number;
 }
 
 declare class ServiceTree extends Tree<Service> {
@@ -50,7 +46,7 @@ declare class ServiceTree extends Tree<Service> {
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
-  getQuotaRoleStats(roleName: string | null = null): QuotaRolesStats;
+  getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
   isRoot(): boolean;
   isTopLevel(): boolean;
 }

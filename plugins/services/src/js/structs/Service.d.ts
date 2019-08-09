@@ -1,18 +1,13 @@
 import Item from "#SRC/js/structs/Item";
 import { Status } from "#PLUGINS/services/src/js/constants/ServiceStatus";
-
-interface QuotaRolesStats {
-  servicesCount: number;
-  rolesCount: number;
-  groupRolesCount: number;
-}
+import { ServiceQuotaRolesStats } from "../types/ServiceQuotaRolesStats";
 
 export default class Service extends Item {
   getId(): string;
   getMesosId(): string;
   getName(): string;
   getRole(): string;
-  getQuotaRoleStats(roleName: string | null = null): QuotaRolesStats;
+  getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
   getSpec(): any;
   getHealth(): string;
   getLabels(): object;
