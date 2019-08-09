@@ -1,5 +1,6 @@
+import UserSettingsStore from "../../stores/UserSettingsStore";
+
 const SaveStateMixin = require("../SaveStateMixin");
-const UserSettingsStore = require("../../stores/UserSettingsStore");
 
 let thisInstance, thisPrevGetKey, thisPrevSetKey;
 

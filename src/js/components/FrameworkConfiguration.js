@@ -19,6 +19,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import FrameworkConfigurationForm from "#SRC/js/components/FrameworkConfigurationForm";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 
 const METHODS_TO_BIND = [
   "handleJSONToggle",
@@ -44,7 +45,7 @@ class FrameworkConfiguration extends Component {
       reviewActive: false,
       activeTab,
       focusField,
-      jsonEditorActive: false,
+      jsonEditorActive: UserSettingsStore.JSONEditorExpandedSetting,
       isConfirmOpen: false,
       isOpen: true,
       liveValidate: false
@@ -91,6 +92,9 @@ class FrameworkConfiguration extends Component {
   }
 
   handleJSONToggle() {
+    UserSettingsStore.setJSONEditorExpandedSetting(
+      !this.state.jsonEditorActive
+    );
     this.setState({ jsonEditorActive: !this.state.jsonEditorActive });
   }
 
