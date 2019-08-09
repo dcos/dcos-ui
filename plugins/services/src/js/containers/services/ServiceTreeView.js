@@ -10,7 +10,6 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import Page from "#SRC/js/components/Page";
 
@@ -32,12 +31,6 @@ const DSL_FORM_SECTIONS = [
   ServiceOtherDSLSection,
   FuzzyTextDSLSection
 ];
-
-// TODO: remove feature flag.
-function quotaFeatureEnabled() {
-  const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
-  return quota === true;
-}
 
 class ServiceTreeView extends React.Component {
   getFilterBar() {
@@ -173,7 +166,7 @@ class ServiceTreeView extends React.Component {
       this.context.router.push(routePath);
     };
     let createGroup;
-    if (isRoot && quotaFeatureEnabled()) {
+    if (isRoot) {
       createGroup = () => {
         this.context.router.push("/services/overview/create_group");
       };
@@ -189,19 +182,18 @@ class ServiceTreeView extends React.Component {
 
     if (isEmpty) {
       // We don't want an empty "+" dropdown.
-      const pageHeader =
-        serviceTree.isTopLevel() && quotaFeatureEnabled() ? (
-          <Page.Header
-            addButton={editGroupAction}
-            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-            tabs={tabs}
-          />
-        ) : (
-          <Page.Header
-            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-            tabs={tabs}
-          />
-        );
+      const pageHeader = serviceTree.isTopLevel() ? (
+        <Page.Header
+          addButton={editGroupAction}
+          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          tabs={tabs}
+        />
+      ) : (
+        <Page.Header
+          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          tabs={tabs}
+        />
+      );
       return (
         <Page>
           {pageHeader}
@@ -227,11 +219,7 @@ class ServiceTreeView extends React.Component {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
-          ].concat(
-            serviceTree.isTopLevel() && quotaFeatureEnabled()
-              ? editGroupAction
-              : []
-          )}
+          ].concat(serviceTree.isTopLevel() ? editGroupAction : [])}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
