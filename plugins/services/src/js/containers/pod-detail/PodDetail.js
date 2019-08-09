@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
+import Helmet from "react-helmet";
 
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -249,6 +250,11 @@ class PodDetail extends mixin(TabsMixin) {
 
     return (
       <Page>
+        <Helmet>
+          <title>{`${i18nMark(
+            "Multi Container Detail"
+          )} - ${pod.getId()} - ${i18nMark("Services")}`}</title>
+        </Helmet>
         <Page.Header
           actions={this.getActions()}
           breadcrumbs={breadcrumbs}

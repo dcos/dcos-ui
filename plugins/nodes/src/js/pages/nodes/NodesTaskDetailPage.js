@@ -6,6 +6,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
@@ -67,6 +68,11 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
           tabs={tabs}
           iconID={ProductIcons.Servers}
         />
+        <Helmet>
+          <title>{`${i18nMark("Node Task Detail")} - ${
+            task ? task.getName() : ""
+          } - ${i18nMark("Nodes")}`}</title>
+        </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

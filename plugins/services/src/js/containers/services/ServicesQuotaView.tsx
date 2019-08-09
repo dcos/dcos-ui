@@ -12,6 +12,7 @@ import ServicesQuotaOverview from "../../components/ServicesQuotaOverview";
 import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewDetail";
 
 import ServiceTree from "../../structs/ServiceTree";
+import Helmet from "react-helmet";
 
 interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
@@ -98,6 +99,11 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
+        <Helmet>
+          <title>{`${i18nMark("Services Quota")} - ${i18nMark(
+            "Services"
+          )}`}</title>
+        </Helmet>
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {content}
         </div>

@@ -1,7 +1,9 @@
+import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import React from "react";
 import createReactClass from "create-react-class";
+import { Helmet } from "react-helmet";
 
 import AlertPanel from "../components/AlertPanel";
 import AlertPanelHeader from "../components/AlertPanelHeader";
@@ -24,6 +26,9 @@ var NotFoundPage = createReactClass({
   render() {
     return (
       <Page title="Page Not Found">
+        <Helmet>
+          <title>{i18nMark("Page Not Found")}</title>
+        </Helmet>
         <AlertPanel>
           <AlertPanelHeader>
             <Trans render="span">Page not found</Trans>

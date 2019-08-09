@@ -6,6 +6,7 @@ import { Icon } from "@dcos/ui-kit";
 import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { Helmet } from "react-helmet";
 
 // @ts-ignore
 import RouterUtil from "#SRC/js/utils/RouterUtil";
@@ -51,7 +52,14 @@ class ServicesPage extends mixin(StoreMixin) {
   }
 
   render() {
-    return this.props.children;
+    return (
+      <React.Fragment>
+        <Helmet>
+          <title>{i18nMark("Services")}</title>
+        </Helmet>
+        {this.props.children}
+      </React.Fragment>
+    );
   }
 }
 

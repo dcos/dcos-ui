@@ -7,6 +7,7 @@ import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { Helmet } from "react-helmet";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -225,6 +226,9 @@ var DashboardPage = createReactClass({
     return (
       <Page title="Dashboard">
         <Page.Header breadcrumbs={<DashboardBreadcrumbs />} />
+        <Helmet>
+          <title>{i18nMark("Dashboard")}</title>
+        </Helmet>
         <div className="panel-grid row">
           <div className={columnClasses}>
             <Panel

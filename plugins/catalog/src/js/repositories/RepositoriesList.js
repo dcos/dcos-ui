@@ -9,6 +9,7 @@ import {
   debounceTime,
   startWith
 } from "rxjs/operators";
+import { Helmet } from "react-helmet";
 
 import { DataLayerType } from "@extension-kid/data-layer";
 import { componentFromStream } from "@dcos/data-service";
@@ -59,17 +60,38 @@ const components$ = searchTerm$.pipe(
   // We map over the data and return a component to render
   map(data => {
     return (
-      <RepositoriesTabUI
-        repositories={data.packageRepository}
-        searchTerm={data.searchTerm}
-        onSearch={value => searchTerm$.next(value)}
-      />
+      <React.Fragment>
+        <Helmet>
+          <title>{i18nMark("Package Repositories")}</title>
+        </Helmet>
+        <RepositoriesTabUI
+          repositories={data.packageRepository}
+          searchTerm={data.searchTerm}
+          onSearch={value => searchTerm$.next(value)}
+        />
+      </React.Fragment>
     );
   }),
   // The first component is the loading
-  startWith(<RepositoriesLoading />),
+  startWith(
+    <React.Fragment>
+      <Helmet>
+        <title>{i18nMark("Package Repositories")}</title>
+      </Helmet>
+      <RepositoriesLoading />
+    </React.Fragment>
+  ),
   // If anything goes wrong, we render an error component
-  catchError(err => of(<RepositoriesError err={err} />))
+  catchError(err =>
+    of(
+      <React.Fragment>
+        <Helmet>
+          <title>{i18nMark("Package Repositories")}</title>
+        </Helmet>
+        <RepositoriesError err={err} />
+      </React.Fragment>
+    )
+  )
 );
 
 // componentFromStream create a single component who render the latest emitted

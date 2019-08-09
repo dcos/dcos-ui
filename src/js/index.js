@@ -2,11 +2,13 @@
 import React from "react";
 /* eslint-enable no-unused-vars */
 import ReactDOM from "react-dom";
-import { I18nProvider } from "@lingui/react";
+import { I18nProvider, i18nMark } from "@lingui/react";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import { Router, hashHistory } from "react-router";
 import { Provider } from "react-redux";
 import PluginSDK from "PluginSDK";
+import { Helmet } from "react-helmet";
+import { MountService } from "foundation-ui";
 
 // This polyfills Symbol.observable which is required for rxjs to recognize the object received
 // from componentFromStream as an Observable, otherwise it throws the TypeError.
@@ -53,9 +55,18 @@ RequestUtil.json = function(options = {}) {
 (function() {
   function renderApplication() {
     function renderAppToDOM(content) {
-      ReactDOM.render(content, domElement, function() {
-        PluginSDK.Hooks.doAction("applicationRendered");
-      });
+      ReactDOM.render(
+        <React.Fragment>
+          <MountService.Mount type="General:PageTitle">
+            <Helmet titleTemplate={"%s | " + i18nMark("Mesosphere DC/OS")} />
+          </MountService.Mount>
+          {content}
+        </React.Fragment>,
+        domElement,
+        function() {
+          PluginSDK.Hooks.doAction("applicationRendered");
+        }
+      );
     }
 
     // Allow overriding of application contents

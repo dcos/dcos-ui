@@ -9,6 +9,7 @@ import { Hooks } from "PluginSDK";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { Helmet } from "react-helmet";
 
 import Breadcrumb from "../components/Breadcrumb";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
@@ -64,13 +65,23 @@ class NetworkPage extends mixin(TabsMixin) {
     if (!this.state.networkPageReady) {
       return (
         <Page>
+          <Helmet>
+            <title>{i18nMark("Networking")}</title>
+          </Helmet>
           <Page.Header breadcrumbs={<NetworkingBreadcrumbs />} />
           <Loader />
         </Page>
       );
     }
 
-    return this.props.children;
+    return (
+      <React.Fragment>
+        <Helmet>
+          <title>{i18nMark("Networking")}</title>
+        </Helmet>
+        {this.props.children}
+      </React.Fragment>
+    );
   }
 }
 

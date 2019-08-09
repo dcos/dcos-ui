@@ -7,6 +7,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import Breadcrumb from "../../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
@@ -182,6 +183,11 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
           breadcrumbs={<NetworksDetailBreadcrumbs overlay={overlay} />}
           tabs={tabs}
         />
+        <Helmet>
+          <title>{`${i18nMark("Networks")} - ${
+            tabs.find(x => x.isActive).label
+          } - ${i18nMark("Networking")}`}</title>
+        </Helmet>
         {React.cloneElement(this.props.children, { overlay })}
       </Page>
     );

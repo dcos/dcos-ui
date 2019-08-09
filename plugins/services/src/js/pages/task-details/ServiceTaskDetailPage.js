@@ -2,6 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -50,6 +51,11 @@ class ServiceTaskDetailPage extends React.PureComponent {
           tabs={tabs}
           iconID={ProductIcons.Services}
         />
+        <Helmet>
+          <title>{`${i18nMark("Services Task Detail")} - ${
+            task ? task.getId() : id
+          } - ${i18nMark("Services")}`}</title>
+        </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

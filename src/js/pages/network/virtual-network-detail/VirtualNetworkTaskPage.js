@@ -3,6 +3,7 @@ import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
+import Helmet from "react-helmet";
 
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
@@ -126,6 +127,11 @@ class VirtualNetworkTaskPage extends React.Component {
           tabs={tabs}
           iconID={ProductIcons.Network}
         />
+        <Helmet>
+          <title>{`${i18nMark("Network Task Detail")} - ${taskID} - ${i18nMark(
+            "Networking"
+          )}`}</title>
+        </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

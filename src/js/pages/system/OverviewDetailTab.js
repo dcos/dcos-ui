@@ -9,6 +9,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { request } from "@dcos/mesos-client";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -344,6 +345,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
           actions={this.getPageHeaderActions()}
           breadcrumbs={<SystemOverviewBreadcrumbs />}
         />
+        <Helmet>
+          <title>{i18nMark("Cluster Details")}</title>
+        </Helmet>
         <div className="container">
           <ConfigurationMap>
             <Trans render={<ConfigurationMapHeading className="flush-top" />}>

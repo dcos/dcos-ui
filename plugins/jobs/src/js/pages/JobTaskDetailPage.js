@@ -4,6 +4,7 @@ import { Link } from "react-router";
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import Page from "#SRC/js/components/Page";
@@ -79,6 +80,11 @@ class JobTaskDetailPage extends React.Component {
           tabs={tabs}
           iconID={ProductIcons.Jobs}
         />
+        <Helmet>
+          <title>{`${i18nMark(
+            "Job Task Detail"
+          )} - ${task.getName()} - ${i18nMark("Jobs")}`}</title>
+        </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
         </TaskDetail>

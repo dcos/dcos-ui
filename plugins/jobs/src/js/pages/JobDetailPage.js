@@ -5,6 +5,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
+import Helmet from "react-helmet";
 
 import mixin from "reactjs-mixin";
 
@@ -124,6 +125,11 @@ class JobDetailPage extends mixin(TabsMixin) {
           }
           tabs={this.getTabs()}
         />
+        <Helmet>
+          <title>{`${i18nMark("Job Detail")} - ${job.name} - ${i18nMark(
+            "Jobs"
+          )}`}</title>
+        </Helmet>
         {this.tabs_getTabView(job)}
         <JobFormModal
           isEdit={true}

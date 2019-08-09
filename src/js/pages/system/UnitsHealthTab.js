@@ -9,6 +9,7 @@ import React from "react";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import { Badge } from "@dcos/ui-kit";
 import Breadcrumb from "../../components/Breadcrumb";
@@ -206,6 +207,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     return (
       <Page>
         <Page.Header breadcrumbs={<UnitHealthBreadcrumbs />} />
+        <Helmet>
+          <title>{i18nMark("Components")}</title>
+        </Helmet>
         <div className="flex-container-col">
           <div className="units-health-table-header">
             {/* L10NTODO: Pluralize

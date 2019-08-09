@@ -5,6 +5,7 @@ import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import Page from "#SRC/js/components/Page";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
@@ -298,6 +299,11 @@ class ServiceDetail extends mixin(TabsMixin) {
             service.getServiceStatus() === ServiceStatus.DELETING
           }
         />
+        <Helmet>
+          <title>{`${i18nMark(
+            "Service Detail"
+          )} - ${service.getId()} - ${i18nMark("Services")}`}</title>
+        </Helmet>
         {clonedChildren}
         <ServiceActionDisabledModal
           actionID={actionDisabledID}

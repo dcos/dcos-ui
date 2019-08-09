@@ -6,6 +6,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
+import Helmet from "react-helmet";
 
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
@@ -239,6 +240,11 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
           breadcrumbs={<NodeBreadcrumbs node={node} />}
           tabs={tabs}
         />
+        <Helmet>
+          <title>{`${i18nMark("Node Detail")} - ${nodeID} - ${i18nMark(
+            "Nodes"
+          )}`}</title>
+        </Helmet>
         {React.cloneElement(this.props.children, { node })}
         <DrainNodeModal
           open={selectedNodeToDrain !== null}

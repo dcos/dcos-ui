@@ -3,6 +3,7 @@ import { Trans, t } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
+import { Helmet } from "react-helmet";
 
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
@@ -59,6 +60,9 @@ class UISettingsPage extends React.Component {
         <Page.Header
           breadcrumbs={<UISettingsBreadcrumbs i18n={this.props.i18n} />}
         />
+        <Helmet>
+          <title>{i18nMark("UI Settings")}</title>
+        </Helmet>
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">

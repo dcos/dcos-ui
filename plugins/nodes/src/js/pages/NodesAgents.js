@@ -9,6 +9,7 @@ import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import Helmet from "react-helmet";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
@@ -296,9 +297,14 @@ var NodesAgents = createReactClass({
     const statesProcessed = MesosSummaryStore.get("statesProcessed");
     const isEmpty = statesProcessed && this.mesosHosts.totalNodes === 0;
 
-    return isEmpty
-      ? this.getEmptyHostsPageContent()
-      : this.getHostsPageContent();
+    return (
+      <React.Fragment>
+        <Helmet>
+          <title>{`${i18nMark("Nodes Agents")} - ${i18nMark("Nodes")}`}</title>
+        </Helmet>
+        {isEmpty ? this.getEmptyHostsPageContent() : this.getHostsPageContent()}
+      </React.Fragment>
+    );
   }
 });
 

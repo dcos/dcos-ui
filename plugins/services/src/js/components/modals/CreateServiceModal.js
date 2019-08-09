@@ -7,6 +7,7 @@ import React, { Component } from "react";
 import { Confirm } from "reactjs-components";
 import { Hooks } from "PluginSDK";
 import { routerShape } from "react-router";
+import Helmet from "react-helmet";
 
 import { combineParsers } from "#SRC/js/utils/ParserUtil";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
@@ -752,27 +753,39 @@ class CreateServiceModal extends Component {
         );
       }
 
+      const isEdit = this.isLocationEdit(location);
       return (
-        <CreateServiceModalForm
-          activeTab={this.state.activeTab}
-          errors={this.getAllErrors()}
-          expandAdvancedSettings={expandAdvancedSettings}
-          jsonParserReducers={jsonParserReducers}
-          jsonConfigReducers={jsonConfigReducers}
-          handleTabChange={this.handleTabChange}
-          inputConfigReducers={inputConfigReducers}
-          isEdit={this.isLocationEdit(location)}
-          isJSONModeActive={isJSONModeActive}
-          ref={ref => {
-            return (this.createComponent = ref);
-          }}
-          onChange={this.handleServiceChange}
-          onConvertToPod={this.handleConvertToPod}
-          onErrorsChange={this.handleServiceErrorsChange}
-          service={serviceSpec}
-          showAllErrors={showAllErrors}
-          resetExpandAdvancedSettings={this.resetExpandAdvancedSettings}
-        />
+        <React.Fragment>
+          <Helmet>
+            <title>
+              {`${
+                isEdit
+                  ? `${i18nMark("Edit Service")} - ${serviceSpec.getId()}`
+                  : i18nMark("Create Service")
+              } - ${i18nMark("Services")}`}
+            </title>
+          </Helmet>
+          <CreateServiceModalForm
+            activeTab={this.state.activeTab}
+            errors={this.getAllErrors()}
+            expandAdvancedSettings={expandAdvancedSettings}
+            jsonParserReducers={jsonParserReducers}
+            jsonConfigReducers={jsonConfigReducers}
+            handleTabChange={this.handleTabChange}
+            inputConfigReducers={inputConfigReducers}
+            isEdit={isEdit}
+            isJSONModeActive={isJSONModeActive}
+            ref={ref => {
+              return (this.createComponent = ref);
+            }}
+            onChange={this.handleServiceChange}
+            onConvertToPod={this.handleConvertToPod}
+            onErrorsChange={this.handleServiceErrorsChange}
+            service={serviceSpec}
+            showAllErrors={showAllErrors}
+            resetExpandAdvancedSettings={this.resetExpandAdvancedSettings}
+          />
+        </React.Fragment>
       );
     }
 

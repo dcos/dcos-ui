@@ -1,5 +1,7 @@
 import React from "react";
 import { i18nMark } from "@lingui/react";
+import Helmet from "react-helmet";
+
 import Page from "#SRC/js/components/Page";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
 import MesosMasters from "../data/MesosMasters";
@@ -22,6 +24,9 @@ export default class NodesMasters extends React.Component {
   render() {
     return (
       <NodesMastersPage>
+        <Helmet>
+          <title>{`${i18nMark("Nodes Masters")} - ${i18nMark("Nodes")}`}</title>
+        </Helmet>
         <MesosMasters />
       </NodesMastersPage>
     );

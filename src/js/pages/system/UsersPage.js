@@ -9,6 +9,7 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import Helmet from "react-helmet";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
@@ -116,7 +117,14 @@ class UsersPage extends mixin(StoreMixin) {
   }
 
   render() {
-    return this.getContents();
+    return (
+      <React.Fragment>
+        <Helmet>
+          <title>{i18nMark("Users")}</title>
+        </Helmet>
+        {this.getContents()}
+      </React.Fragment>
+    );
   }
 }
 

@@ -46,6 +46,7 @@ import {
 import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
 import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
+import Helmet from "react-helmet";
 
 interface JobFormModalProps {
   job?: JobResponse;
@@ -392,12 +393,12 @@ class JobFormModal extends React.Component<
     const { isEdit } = this.props;
     const { scheduleFailure } = this.state;
 
-    const title =
-      isEdit || scheduleFailure ? (
-        <Trans render="span">Edit Job</Trans>
-      ) : (
-        <Trans render="span">New Job</Trans>
-      );
+    const isEditing = isEdit || scheduleFailure;
+    const title = isEditing ? (
+      <Trans render="span">Edit Job</Trans>
+    ) : (
+      <Trans render="span">New Job</Trans>
+    );
 
     return (
       <FullScreenModalHeader>
@@ -410,6 +411,13 @@ class JobFormModal extends React.Component<
           actions={this.getPrimaryActions()}
           type="primary"
         />
+        <Helmet>
+          <title>
+            {`${
+              isEditing ? i18nMark("Edit Job") : i18nMark("Create Job")
+            } - ${i18nMark("Jobs")}`}
+          </title>
+        </Helmet>
       </FullScreenModalHeader>
     );
   }
