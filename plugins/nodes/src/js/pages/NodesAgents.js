@@ -79,10 +79,7 @@ var NodesAgents = createReactClass({
   },
 
   getInitialState() {
-    return Object.assign(
-      { selectedResource: "cpus", nodesHealth: [] },
-      DEFAULT_FILTER_OPTIONS
-    );
+    return { selectedResource: "cpus", ...DEFAULT_FILTER_OPTIONS };
   },
 
   componentWillMount() {
@@ -97,19 +94,12 @@ var NodesAgents = createReactClass({
     ];
   },
 
-  updateNodeHealth() {
-    this.setState({
-      nodesHealth: CompositeState.getNodesList()
-        .getItems()
-        .map(node => node.getHealth())
-    });
-  },
   onNodeHealthStoreSuccess() {
-    this.updateNodeHealth();
+    this.forceUpdate();
   },
 
   onNodeHealthStoreError() {
-    this.updateNodeHealth();
+    this.forceUpdate();
   },
 
   componentDidMount() {
