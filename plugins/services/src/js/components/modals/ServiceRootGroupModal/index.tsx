@@ -117,7 +117,6 @@ interface ServiceRootGroupModalProps {
 const METHODS_TO_BIND: string[] = [
   "getAdvancedSettings",
   "getModalContent",
-  "handleAdvancedSectionClick",
   "handleClose",
   "handleFormChange",
   "handleSave",
@@ -304,12 +303,6 @@ class ServiceRootGroupModal extends React.Component<
     }
   }
 
-  handleAdvancedSectionClick() {
-    this.setState({
-      expandAdvancedSettings: !this.state.expandAdvancedSettings
-    });
-  }
-
   getGroupFormData(): void {
     const { id } = this.props;
     if (!!id) {
@@ -320,7 +313,8 @@ class ServiceRootGroupModal extends React.Component<
             const data = groupFormDataFromGraphql(groupData.data.group);
             this.setState({
               data,
-              originalData: JSON.parse(JSON.stringify(data))
+              originalData: JSON.parse(JSON.stringify(data)),
+              expandAdvancedSettings: !data.enforceRole
             });
           },
           error: () => {
@@ -511,8 +505,8 @@ class ServiceRootGroupModal extends React.Component<
     const isDisabled = isEdit && originalData && originalData.enforceRole;
 
     return (
-      <AdvancedSection shouldExpand={expandAdvancedSettings}>
-        <AdvancedSectionLabel onClick={this.handleAdvancedSectionClick}>
+      <AdvancedSection initialIsExpanded={expandAdvancedSettings}>
+        <AdvancedSectionLabel>
           <Trans>Advanced Settings</Trans>
         </AdvancedSectionLabel>
         <AdvancedSectionContent>

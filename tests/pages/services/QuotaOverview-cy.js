@@ -5,6 +5,7 @@ describe("Quota Tab", function() {
         mesos: "1-task-healthy-with-region",
         nodeHealth: true
       });
+      cy.visitUrl({ url: "/services/quota" });
     });
 
     it("Shows the quota tab", function() {
@@ -15,18 +16,54 @@ describe("Quota Tab", function() {
     });
 
     it("Shows the no quota message", function() {
-      cy.visitUrl({ url: "/services/quota" });
       cy.get(".panel-content")
         .contains("No quota defined")
         .should("exist");
     });
 
     it("Shows a working back to services button", function() {
-      cy.visitUrl({ url: "/services/quota" });
       cy.get(".button-primary")
         .contains("Back to Services")
         .click();
       cy.get(".service-table").should("exist");
+    });
+
+    it("Shows actions dropdown", function() {
+      cy.get(".button-narrow")
+        .eq(0)
+        .click();
+      cy.get("li.is-selectable")
+        .contains("Run a Service")
+        .should("exist");
+      cy.get("li.is-selectable")
+        .contains("Create Group")
+        .should("exist");
+    });
+
+    it("Opens create service modal", function() {
+      cy.get(".button-narrow")
+        .eq(0)
+        .click();
+      cy.get("li.is-selectable")
+        .contains("Run a Service")
+        .click();
+      cy.get(".create-service-modal-service-picker-options").should("exist");
+      cy.get(".text-align-center")
+        .contains("Single Container")
+        .should("exist");
+    });
+
+    it("Opens create group modal", function() {
+      cy.get(".button-narrow")
+        .eq(0)
+        .click();
+      cy.get("li.is-selectable")
+        .contains("Create Group")
+        .click();
+      cy.get(".create-service-modal-form-container").should("exist");
+      cy.get(".modal-full-screen-header-title")
+        .contains("New Group")
+        .should("exist");
     });
   });
 
