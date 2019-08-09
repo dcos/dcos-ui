@@ -7,6 +7,7 @@ export default class Service extends Item {
   getMesosId(): string;
   getName(): string;
   getRole(): string;
+  getRootGroupName(): string;
   getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
   getSpec(): any;
   getHealth(): string;
