@@ -60,26 +60,36 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     };
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
-    const content = serviceTree.isRoot() ? (
+    const isRoot = serviceTree.isRoot();
+
+    const content = isRoot ? (
       <ServicesQuotaOverview />
     ) : (
       <ServicesQuotaOverviewDetail id={id} />
     );
+    let createGroup;
+    if (isRoot) {
+      createGroup = () => {
+        this.context.router.push("/services/overview/create_group");
+      };
+    } else {
+      createGroup = modalHandlers.createGroup;
+    }
 
     return (
       <Page dontScroll={true} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
-          actions={[
+          addButton={[
             {
-              onItemSelect: modalHandlers.createGroup,
+              onItemSelect: createService,
+              label: i18nMark("Run a Service")
+            },
+            {
+              onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
           ]}
-          addButton={{
-            onItemSelect: createService,
-            label: i18nMark("Run a Service")
-          }}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />

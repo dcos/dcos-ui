@@ -138,6 +138,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
                 name={`hostPath.${index}.volumes`}
                 type="text"
                 value={volume.hostPath || ""}
+                autoFocus={Boolean(showErrors && hostPathErrors)}
               />
               <FieldError>{hostPathErrors}</FieldError>
             </FormGroup>

@@ -46,7 +46,12 @@ function getEnvironmentLines(
           required={false}
           showError={Boolean(showErrors && valueError)}
         >
-          <FieldInput name={`1.${i}.env`} type="text" value={value || ""} />
+          <FieldInput
+            name={`1.${i}.env`}
+            type="text"
+            value={value || ""}
+            autoFocus={Boolean(showErrors && valueError)}
+          />
           <FieldError>{valueError}</FieldError>
         </FormGroup>
         <FormGroup hasNarrowMargins={true}>

@@ -117,8 +117,6 @@ export function actionsRendererFactory(
     const isSDK = isSDKService(service);
 
     const actions = [];
-    // TODO: remove feature flag.
-    const { quota } = ConfigStore.get("config").uiConfiguration.features;
 
     actions.push({
       className: "hidden",
@@ -137,7 +135,7 @@ export function actionsRendererFactory(
     }
 
     const isTopLevel = service.getId().split("/").length <= 2;
-    if (!isGroup || (isTopLevel && quota)) {
+    if (!isGroup || isTopLevel) {
       actions.push({
         id: EDIT,
         html: <Trans render="span" id={ServiceActionLabels.edit} />
