@@ -4,7 +4,6 @@ const Application = require("../Application");
 const Framework = require("../Framework");
 const HealthStatus = require("../../constants/HealthStatus");
 const ServiceTree = require("../ServiceTree");
-const VolumeList = require("../../structs/VolumeList");
 
 let thisInstance;
 
@@ -1042,7 +1041,7 @@ describe("ServiceTree", function() {
       thisInstance = new ServiceTree();
     });
 
-    it("returns a VolumeList with all the volumes in the group", function() {
+    it("returns a List with all the volumes in the group", function() {
       thisInstance.add(
         new Application({
           id: "/persistent",
@@ -1070,8 +1069,7 @@ describe("ServiceTree", function() {
       );
 
       const volumeList = thisInstance.getVolumes();
-      expect(volumeList).toEqual(jasmine.any(VolumeList));
-      expect(volumeList.getItems().length).toEqual(2);
+      expect(volumeList.length).toEqual(2);
     });
   });
 

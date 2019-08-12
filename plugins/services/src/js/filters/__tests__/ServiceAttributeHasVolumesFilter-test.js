@@ -1,7 +1,6 @@
 var List = require("#SRC/js/structs/List");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
-var VolumeList = require("../../structs/VolumeList");
 
 let thisMockItems;
 
@@ -10,17 +9,17 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     thisMockItems = [
       {
         getVolumes() {
-          return new VolumeList({ items: [] });
+          return [];
         }
       },
       {
         getVolumes() {
-          return new VolumeList({ items: ["foo"] });
+          return ["foo"];
         }
       },
       {
         getVolumes() {
-          return new VolumeList({ items: ["foo", "bar"] });
+          return ["foo", "bar"];
         }
       }
     ];

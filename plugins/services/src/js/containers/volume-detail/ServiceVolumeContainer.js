@@ -68,9 +68,9 @@ class ServiceVolumeContainer extends React.Component {
       );
     }
 
-    const volume = service.getVolumes().findItem(volume => {
-      return volume.getId() === volumeId;
-    });
+    const volume = service
+      .getVolumes()
+      .find(volume => volume.getId() === volumeId);
 
     if (!volume) {
       return (

@@ -6,7 +6,6 @@ import HealthStatus from "../constants/HealthStatus";
 import ServiceImages from "../constants/ServiceImages";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
-import VolumeList from "./VolumeList";
 
 module.exports = class Service extends Item {
   constructor() {
@@ -43,7 +42,7 @@ module.exports = class Service extends Item {
   }
 
   getVolumes() {
-    return new VolumeList({ items: [] });
+    return [];
   }
 
   getStatus() {

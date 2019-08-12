@@ -169,7 +169,7 @@ class VolumeTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getData(this.props.service.getVolumes().getItems())}
+        data={this.getData(this.props.service.getVolumes())}
         sortBy={{ prop: "id", order: "asc" }}
       />
     );

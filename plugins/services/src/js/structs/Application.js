@@ -7,7 +7,6 @@ import HealthStatus from "../constants/HealthStatus";
 import Service from "./Service";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
-import VolumeList from "./VolumeList";
 
 module.exports = class Application extends Service {
   constructor() {
@@ -218,7 +217,7 @@ module.exports = class Application extends Service {
    * @override
    */
   getVolumes() {
-    return new VolumeList({ items: this.get("volumes") || [] });
+    return this.get("volumes") || [];
   }
 
   findTaskById(taskId) {
