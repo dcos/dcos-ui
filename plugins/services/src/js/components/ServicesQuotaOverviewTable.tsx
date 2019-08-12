@@ -48,7 +48,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     super(props);
 
     this.state = {
-      items: props.serviceTree.getItems(),
+      items: this.sortData(props.serviceTree.getItems(), "name", "ASC"),
       sortColumn: "name",
       sortDirection: "ASC"
     };
