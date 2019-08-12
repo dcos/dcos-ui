@@ -3,10 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
-import { Trans, Plural } from "@lingui/macro";
-import { InfoBoxInline, Icon, SpacingBox } from "@dcos/ui-kit";
-import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { Trans } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
@@ -52,43 +49,6 @@ class ServiceTreeView extends React.Component {
           />
         </div>
       </div>
-    );
-  }
-
-  getNoLimitInfobox(hasQuota) {
-    if (!hasQuota) {
-      return null;
-    }
-    const { serviceTree } = this.props;
-
-    const { servicesCount, groupRolesCount } = serviceTree.getRoleLength();
-    const nonLimited = servicesCount - groupRolesCount;
-
-    if (!nonLimited) {
-      return null;
-    }
-
-    return (
-      <SpacingBox side="bottom" spacingSize="l">
-        <InfoBoxInline
-          appearance="default"
-          message={
-            <React.Fragment>
-              <Icon
-                shape={SystemIcons.CircleInformation}
-                size={iconSizeXs}
-                color="currentColor"
-              />
-              <Plural
-                render={<span id="quota-no-limit-infobox" />}
-                value={nonLimited}
-                one={`# service is not limited by quota. Update role to have quota enforced.`}
-                other={`# services are not limited by quota. Update role to have quota enforced.`}
-              />
-            </React.Fragment>
-          }
-        />
-      </SpacingBox>
     );
   }
 
@@ -226,10 +186,8 @@ class ServiceTreeView extends React.Component {
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
-          {this.getNoLimitInfobox(hasQuota)}
           <ServicesTable
             isFiltered={filterExpression.defined}
-            hasQuota={hasQuota}
             modalHandlers={modalHandlers}
             services={services}
             hideTable={this.context.router.routes.some(
