@@ -6,8 +6,8 @@ import { Table } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-import Volume from "../structs/Volume";
-import VolumeStatus from "../constants/VolumeStatus";
+import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
+import { profileFromVolume } from "../constants/VolumeProfile";
 
 const METHODS_TO_BIND = ["renderIDColumn"];
 
@@ -22,13 +22,13 @@ class VolumeTable extends React.Component {
 
   getData(volumes) {
     return volumes.map(volume => ({
-      id: volume.getId(),
-      host: volume.getHost(),
-      type: volume.getType(),
-      profile: volume.getProfile(),
-      path: volume.getContainerPath(),
-      size: volume.getSize(),
-      status: volume.getStatus()
+      id: volume.id,
+      host: volume.host,
+      type: volume.type,
+      profile: profileFromVolume(volume),
+      path: volume.containerPath,
+      size: volume.size,
+      status: statusFromVolume(volume)
     }));
   }
 
@@ -134,7 +134,7 @@ class VolumeTable extends React.Component {
     const currentroutePath = RouterUtil.reconstructPathFromRoutes(
       this.props.routes
     );
-    let routePath = null;
+    let routePath: string | null = null;
 
     if (currentroutePath === "/services/detail/:id/volumes") {
       routePath = `/services/detail/${serviceID}/volumes/${volumeID}`;
@@ -169,7 +169,7 @@ class VolumeTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getData(this.props.service.getVolumes().getItems())}
+        data={this.getData(this.props.service.getVolumes())}
         sortBy={{ prop: "id", order: "asc" }}
       />
     );
@@ -177,7 +177,7 @@ class VolumeTable extends React.Component {
 }
 
 VolumeTable.propTypes = {
-  volumes: PropTypes.arrayOf(PropTypes.instanceOf(Volume)),
+  volumes: PropTypes.array.isRequired,
   params: PropTypes.object.isRequired,
   routes: PropTypes.array.isRequired
 };

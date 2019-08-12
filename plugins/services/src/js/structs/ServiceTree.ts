@@ -10,7 +10,6 @@ import Service from "./Service";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceUtil from "../utils/ServiceUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
-import VolumeList from "../structs/VolumeList";
 
 export default class ServiceTree extends Tree {
   /*
@@ -337,9 +336,9 @@ export default class ServiceTree extends Tree {
   }
 
   getVolumes() {
-    const items = this.reduceItems((serviceTreeVolumes, item) => {
+    return this.reduceItems((serviceTreeVolumes, item) => {
       if (item instanceof Service) {
-        const itemVolumes = item.getVolumes().getItems();
+        const itemVolumes = item.getVolumes();
         if (itemVolumes && itemVolumes.length) {
           serviceTreeVolumes.push(itemVolumes);
         }
@@ -347,8 +346,6 @@ export default class ServiceTree extends Tree {
 
       return serviceTreeVolumes;
     }, []);
-
-    return new VolumeList({ items });
   }
 
   getLabels() {

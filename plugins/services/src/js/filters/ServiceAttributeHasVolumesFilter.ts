@@ -30,7 +30,7 @@ class ServiceAttributeHasVolumesFilter extends DSLFilter {
     return resultset.filterItems(service => {
       const volumes = service.getVolumes();
 
-      return volumes.list && volumes.list.length > 0;
+      return volumes && volumes.length > 0;
     });
   }
 }

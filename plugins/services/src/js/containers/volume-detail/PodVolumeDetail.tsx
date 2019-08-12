@@ -14,7 +14,8 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import Page from "#SRC/js/components/Page";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
-import VolumeStatus from "../../constants/VolumeStatus";
+import { profileFromVolume } from "../../constants/VolumeProfile";
+import VolumeStatus, { statusFromVolume } from "../../constants/VolumeStatus";
 
 class PodVolumeDetail extends React.Component {
   getSizeLabel() {
@@ -28,7 +29,7 @@ class PodVolumeDetail extends React.Component {
   renderSubHeader() {
     const { volume } = this.props;
 
-    const status = volume.getStatus();
+    const status = statusFromVolume(volume);
     const classes = classNames({
       "text-danger": status === VolumeStatus.DETACHED,
       "text-success": status === VolumeStatus.ATTACHED
@@ -42,7 +43,7 @@ class PodVolumeDetail extends React.Component {
 
     const serviceID = service.getId();
     const encodedServiceId = encodeURIComponent(serviceID);
-    const volumeId = volume.getId();
+    const volumeId = volume.id;
 
     const extraCrumbs = [
       <Breadcrumb key={-1} title="Services">
@@ -69,7 +70,7 @@ class PodVolumeDetail extends React.Component {
         <DetailViewHeader subTitle={this.renderSubHeader()} title={volumeId} />
         <ConfigurationMap>
           <ConfigurationMapSection>
-            {volume.getMounts().map(({ containerName, mountPath }) => (
+            {(volume.mounts || []).map(({ containerName, mountPath }) => (
               <ConfigurationMapRow>
                 <Trans render={<ConfigurationMapLabel />}>
                   {containerName} Path
@@ -81,7 +82,7 @@ class PodVolumeDetail extends React.Component {
               <ConfigurationMapLabel>
                 {this.getSizeLabel()}
               </ConfigurationMapLabel>
-              <ConfigurationMapValue>{volume.getSize()}</ConfigurationMapValue>
+              <ConfigurationMapValue>{volume.size}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
               <Trans render={<ConfigurationMapLabel />}>Application</Trans>
@@ -90,18 +91,16 @@ class PodVolumeDetail extends React.Component {
             <ConfigurationMapRow>
               <Trans render={<ConfigurationMapLabel />}>Profile Name</Trans>
               <ConfigurationMapValue>
-                {volume.getProfile()}
+                {profileFromVolume(volume)}
               </ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
               <Trans render={<ConfigurationMapLabel />}>Task ID</Trans>
-              <ConfigurationMapValue>
-                {volume.getTaskID()}
-              </ConfigurationMapValue>
+              <ConfigurationMapValue>{volume.taskID}</ConfigurationMapValue>
             </ConfigurationMapRow>
             <ConfigurationMapRow>
               <Trans render={<ConfigurationMapLabel />}>Host</Trans>
-              <ConfigurationMapValue>{volume.getHost()}</ConfigurationMapValue>
+              <ConfigurationMapValue>{volume.host}</ConfigurationMapValue>
             </ConfigurationMapRow>
           </ConfigurationMapSection>
         </ConfigurationMap>

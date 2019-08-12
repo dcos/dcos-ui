@@ -6,8 +6,8 @@ import { Table } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-import Volume from "../structs/Volume";
-import VolumeStatus from "../constants/VolumeStatus";
+import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
+import { profileFromVolume } from "../constants/VolumeProfile";
 import VolumeDefinitions from "../constants/VolumeDefinitions";
 
 const METHODS_TO_BIND = ["renderIDColumn"];
@@ -23,13 +23,13 @@ class PodVolumeTable extends React.Component {
 
   getData(volumes) {
     return volumes.map(volume => ({
-      id: volume.getId(),
-      host: volume.getHost(),
-      type: volume.getType(),
-      profile: volume.getProfile(),
-      name: volume.getContainerPath(),
-      size: volume.getSize(),
-      status: volume.getStatus()
+      id: volume.id,
+      host: volume.host,
+      type: volume.type,
+      profile: profileFromVolume(volume),
+      name: volume.containerPath,
+      size: volume.size,
+      status: statusFromVolume(volume)
     }));
   }
 
@@ -136,7 +136,7 @@ class PodVolumeTable extends React.Component {
     const currentroutePath = RouterUtil.reconstructPathFromRoutes(
       this.props.routes
     );
-    let routePath = null;
+    let routePath: string | null = null;
 
     if (currentroutePath === "/services/detail/:id/podvolumes") {
       routePath = `/services/detail/${serviceID}/podvolumes/${volumeID}`;
@@ -185,7 +185,7 @@ class PodVolumeTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getData(this.props.service.getVolumesData().getItems())}
+        data={this.getData(this.props.service.getVolumesData())}
         sortBy={{ prop: "id", order: "asc" }}
       />
     );
@@ -193,7 +193,7 @@ class PodVolumeTable extends React.Component {
 }
 
 PodVolumeTable.propTypes = {
-  volumes: PropTypes.arrayOf(PropTypes.instanceOf(Volume)),
+  volumes: PropTypes.array,
   params: PropTypes.object.isRequired,
   routes: PropTypes.array.isRequired
 };

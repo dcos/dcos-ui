@@ -4,7 +4,6 @@ import Application from "../Application";
 import Framework from "../Framework";
 import HealthStatus from "../../constants/HealthStatus";
 import ServiceTree from "../ServiceTree";
-import VolumeList from "../../structs/VolumeList";
 
 let thisInstance;
 
@@ -1038,7 +1037,7 @@ describe("ServiceTree", () => {
       thisInstance = new ServiceTree();
     });
 
-    it("returns a VolumeList with all the volumes in the group", () => {
+    it("returns a List with all the volumes in the group", () => {
       thisInstance.add(
         new Application({
           id: "/persistent",
@@ -1066,8 +1065,7 @@ describe("ServiceTree", () => {
       );
 
       const volumeList = thisInstance.getVolumes();
-      expect(volumeList).toEqual(jasmine.any(VolumeList));
-      expect(volumeList.getItems().length).toEqual(2);
+      expect(volumeList.length).toEqual(2);
     });
   });
 
