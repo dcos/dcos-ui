@@ -9,7 +9,6 @@ import PodUtil from "../utils/PodUtil";
 import Service from "./Service";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceImages from "../constants/ServiceImages";
-import VolumeList from "./VolumeList";
 
 module.exports = class Pod extends Service {
   constructor() {
@@ -219,7 +218,7 @@ module.exports = class Pod extends Service {
   }
 
   getVolumesData() {
-    return new VolumeList({ items: this.get("volumeData") || [] });
+    return this.get("volumeData") || [];
   }
 
   /**

@@ -199,9 +199,7 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   hasVolumes() {
-    return (
-      !!this.props.pod && this.props.pod.getVolumesData().getItems().length > 0
-    );
+    return !!this.props.pod && this.props.pod.getVolumesData().length > 0;
   }
 
   getTabs() {

@@ -185,7 +185,7 @@ class PodVolumeTable extends React.Component {
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
         colGroup={this.getColGroup()}
-        data={this.getData(this.props.service.getVolumesData().getItems())}
+        data={this.getData(this.props.service.getVolumesData())}
         sortBy={{ prop: "id", order: "asc" }}
       />
     );
