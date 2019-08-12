@@ -147,13 +147,6 @@ var NodesAgents = createReactClass({
     });
   },
 
-  handleSearchStringChange(searchString = "") {
-    const params = { ...this.state, searchString };
-    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
-    this.setState({ searchString });
-    this.setQueryParam("searchString", searchString);
-  },
-
   setQueryParam(paramKey, paramValue) {
     const query = { ...this.props.location.query };
     if (paramValue) {
