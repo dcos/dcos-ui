@@ -20,27 +20,6 @@ describe("Node", function() {
     });
   });
 
-  describe("#sumTaskTypesByState", function() {
-    it("default to returning 0", function() {
-      const node = new Node({});
-      expect(node.sumTaskTypesByState("active")).toEqual(0);
-    });
-
-    it("sums tasks that match state", function() {
-      const node = new Node({
-        TASK_STAGING: 1,
-        TASK_STARTING: 3,
-        TASK_FAILED: 4
-      });
-      expect(node.sumTaskTypesByState("active")).toEqual(4);
-    });
-
-    it("returns 0 if there's tasks that match requested state", function() {
-      const node = new Node({ TASK_FAILED: 4 });
-      expect(node.sumTaskTypesByState("active")).toEqual(0);
-    });
-  });
-
   describe("#getDomain", function() {
     it("returns the domain object of the node", function() {
       const node = new Node({
