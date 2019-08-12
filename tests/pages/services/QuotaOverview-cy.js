@@ -302,6 +302,26 @@ describe("Quota Tab", function() {
       it("Shows progress bars", function() {
         cy.get(".quota-progress-bar").should("have.length", 4);
       });
+
+      context("Quota detail table", function() {
+        beforeEach(function() {
+          cy.visitUrl({ url: "/services/quota/%2F2_apps" });
+          cy.get(".service-quota-table").scrollIntoView();
+        });
+
+        it("Shows quota table", function() {
+          cy.get(".service-quota-table").should("exist");
+        });
+
+        it("Shows table values", function() {
+          cy.get(".table-cell-link-primary")
+            .contains("podEFGH")
+            .should("exist");
+          cy.get(".table-cell-value")
+            .contains("Enforced")
+            .should("exist");
+        });
+      });
     });
   });
 });
