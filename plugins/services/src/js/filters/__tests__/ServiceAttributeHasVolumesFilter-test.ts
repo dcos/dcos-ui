@@ -1,6 +1,5 @@
 import List from "#SRC/js/structs/List";
 import ServiceAttributeHasVolumesFilter from "../ServiceAttributeHasVolumesFilter";
-import VolumeList from "../../structs/VolumeList";
 
 const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
@@ -11,17 +10,17 @@ describe("ServiceAttributeHasVolumesFilter", () => {
     thisMockItems = [
       {
         getVolumes() {
-          return new VolumeList({ items: [] });
+          return [];
         }
       },
       {
         getVolumes() {
-          return new VolumeList({ items: ["foo"] });
+          return ["foo"];
         }
       },
       {
         getVolumes() {
-          return new VolumeList({ items: ["foo", "bar"] });
+          return ["foo", "bar"];
         }
       }
     ];

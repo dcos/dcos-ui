@@ -6,4 +6,7 @@ const VolumeStatus = {
   UNAVAILABLE: i18nMark("N/A")
 };
 
+export const statusFromVolume = volume =>
+  volume.status || VolumeStatus.UNAVAILABLE;
+
 export default VolumeStatus;

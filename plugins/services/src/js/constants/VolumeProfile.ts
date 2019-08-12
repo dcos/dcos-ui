@@ -5,3 +5,6 @@ const VolumeProfile = {
 };
 
 export default VolumeProfile;
+
+export const profileFromVolume = volume =>
+  volume.profileName || VolumeProfile.UNAVAILABLE;

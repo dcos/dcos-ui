@@ -1027,10 +1027,7 @@ plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'props' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'props' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'state' does not exist on type 'MesosLogContainer'.
-plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: Type 'null' is not assignable to type *.
+plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/PodVolumeTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/PodVolumeTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/RecentOffersSummary.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -1144,10 +1141,7 @@ plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2607: JSX ele
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2554: Expected 5 arguments, but got 2.
-plugins/services/src/js/components/VolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/VolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/VolumeTable.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
-plugins/services/src/js/components/VolumeTable.tsx: error TS2322: Type 'null' is not assignable to type *.
+plugins/services/src/js/components/VolumeTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/VolumeTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
@@ -3027,8 +3021,8 @@ plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2345:
 plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2416: Property 'getTasksSummary' in type 'Application' is not assignable to the same property in base type 'Service'.
-plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksOverCapacity' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
+plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksOverCapacity' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
@@ -3088,9 +3082,9 @@ plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'labels' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'push' does not exist on type '{}'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
@@ -3110,7 +3104,6 @@ plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Pro
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
@@ -3121,6 +3114,7 @@ plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Exp
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.

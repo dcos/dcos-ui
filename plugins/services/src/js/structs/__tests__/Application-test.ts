@@ -1,9 +1,7 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
-
 import Application from "../Application";
 import HealthStatus from "../../constants/HealthStatus";
 import TaskStats from "../TaskStats";
-import VolumeList from "../VolumeList";
 
 import ServiceImages from "../../constants/ServiceImages";
 
@@ -490,28 +488,10 @@ describe("Application", () => {
   });
 
   describe("#getVolumes", () => {
-    it("returns volume list", () => {
-      const service = new Application({
-        volumes: [
-          {
-            containerPath: "path",
-            host: "0.0.0.1",
-            id: "volume-id",
-            mode: "RW",
-            size: 2048,
-            status: "Attached",
-            type: "Persistent"
-          }
-        ]
-      });
-
-      expect(service.getVolumes() instanceof VolumeList).toBeTruthy();
-    });
-
-    it("returns empty volume list if volumes data is undefined", () => {
+    it("returns empty list if volumes data is undefined", () => {
       const service = new Application({});
 
-      expect(service.getVolumes().getItems().length).toEqual(0);
+      expect(service.getVolumes().length).toEqual(0);
     });
   });
 

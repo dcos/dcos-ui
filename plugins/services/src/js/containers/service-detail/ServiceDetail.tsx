@@ -139,10 +139,7 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   hasVolumes() {
-    return (
-      !!this.props.service &&
-      this.props.service.getVolumes().getItems().length > 0
-    );
+    return !!this.props.service && this.props.service.getVolumes().length > 0;
   }
 
   checkForVolumes() {
@@ -273,7 +270,7 @@ class ServiceDetail extends mixin(TabsMixin) {
       errors: MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT]),
       onClearError: this.handleEditClearError,
       onEditClick: actions.editService,
-      volumes: service.getVolumes().getItems()
+      volumes: service.getVolumes()
     };
 
     // TODO (DCOS_OSS-1038): Move cloned props to route parameters

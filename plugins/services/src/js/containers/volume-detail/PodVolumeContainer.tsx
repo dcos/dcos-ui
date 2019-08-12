@@ -70,7 +70,7 @@ class PodVolumeContainer extends React.Component {
 
     const volume = service
       .getVolumesData()
-      .findItem(volume => volume.getId() === volumeId);
+      .find(volume => volume.id === volumeId);
 
     if (!volume) {
       return (
