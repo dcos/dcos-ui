@@ -8,14 +8,17 @@ import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModa
 interface GroupModalHeaderProps {
   i18n: I18n;
   isEdit: boolean;
+  isForce: boolean;
   onClose: () => void;
   onSave: () => void;
 }
 
 export default (props: GroupModalHeaderProps) => {
-  const { i18n, isEdit, onClose, onSave } = props;
+  const { i18n, isEdit, isForce, onClose, onSave } = props;
   const cancelLabel = i18n._(i18nMark("Cancel"));
-  const saveLabel = isEdit
+  const saveLabel = isForce
+    ? i18n._(i18nMark("Force Update"))
+    : isEdit
     ? i18n._(i18nMark("Update"))
     : i18n._(i18nMark("Create"));
   return (
@@ -36,7 +39,9 @@ export default (props: GroupModalHeaderProps) => {
       <FullScreenModalHeaderActions
         actions={[
           {
-            className: "button-primary flush-vertical",
+            className: isForce
+              ? "button-danger flush-vertical"
+              : "button-primary flush-vertical",
             clickHandler: onSave,
             label: saveLabel
           }
