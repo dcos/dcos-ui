@@ -546,28 +546,4 @@ describe("Service Table", function() {
       cy.get(".tooltip").contains("1 Stopped");
     });
   });
-
-  context("Quota groups", function() {
-    beforeEach(function() {
-      cy.configureCluster({
-        mesos: "1-task-healthy-with-quota",
-        nodeHealth: true
-      });
-      cy.visitUrl({ url: "/services/overview" });
-    });
-
-    it("Shows no limit banner and badge if services have no quota enforced", function() {
-      cy.get(".table-cell-link-primary")
-        .contains("2_apps")
-        .click();
-      cy.get("#quota-no-limit-infobox")
-        .contains(
-          "1 service is not limited by quota. Update role to have quota enforced."
-        )
-        .should("exist");
-      cy.get(".quota-no-limit")
-        .contains("No Limit")
-        .should("exist");
-    });
-  });
 });
