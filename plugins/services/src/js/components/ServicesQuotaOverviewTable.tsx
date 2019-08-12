@@ -90,7 +90,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     }
 
     return (
-      <div className="table-wrapper service-quota-table">
+      <div className="table-wrapper quota-table service-quota-table">
         <Table data={items}>
           <Column
             key="name"

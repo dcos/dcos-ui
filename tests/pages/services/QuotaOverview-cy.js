@@ -318,7 +318,7 @@ describe("Quota Tab", function() {
             .contains("podEFGH")
             .should("exist");
           cy.get(".table-cell-value")
-            .contains("Enforced")
+            .contains("Not Enforced")
             .should("exist");
         });
       });
