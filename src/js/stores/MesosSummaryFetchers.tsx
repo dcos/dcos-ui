@@ -41,7 +41,7 @@ export function withNode<P extends object>(
       });
     }
 
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
       MesosSummaryStore.addChangeListener(
         MESOS_SUMMARY_CHANGE,
         this.receiveNewSummary

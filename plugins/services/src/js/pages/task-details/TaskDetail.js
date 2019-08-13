@@ -82,7 +82,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     this.onTaskDirectoryStoreNodeStateSuccess = this.onTaskDirectoryStoreSuccess;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount(...arguments);
 
     const { routes } = this.props;
@@ -116,7 +116,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     const { innerPath, taskID } = this.props.params;
     if (

@@ -76,7 +76,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     };
   }
 
-  componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
     this.setState({ groups: this.sortData(nextProps.groups || []) });
   }
 

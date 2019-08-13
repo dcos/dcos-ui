@@ -29,6 +29,9 @@ module.exports = {
       );
     });
 
+    if (!Array.isArray(portMappings)) {
+      return [];
+    }
     // Look at portMappings and add accepted fields
     // but translate them into portDefinitions
     return portMappings.reduce(function(memo, item, index) {

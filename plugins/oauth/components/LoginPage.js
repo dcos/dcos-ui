@@ -13,7 +13,7 @@ const SDK = require("../SDK").getSDK();
 const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
 
 class LoginPage extends mixin(StoreMixin) {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount();
 
     if (AuthStore.getUser()) {

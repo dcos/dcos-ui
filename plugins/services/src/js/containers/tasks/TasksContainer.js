@@ -51,7 +51,7 @@ class TasksContainer extends React.Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.propsToState(this.props);
   }
 
@@ -61,7 +61,7 @@ class TasksContainer extends React.Component {
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.propsToState(nextProps);
   }
 

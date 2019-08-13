@@ -932,6 +932,7 @@
   "Version": "版本",
   "View Cluster Configuration": "查看集群配置",
   "View Documentation": "查看文档",
+  "View Plans": "",
   "View Services": "查看服务",
   "View all {componentCount} {componentCountWord}": "查看全部 {componentCount} {componentCountWord}",
   "View all {servicesCount} Services": "查看全部 {servicesCount} 服务",

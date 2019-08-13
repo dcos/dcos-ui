@@ -59,11 +59,11 @@ class HostsPageContent extends React.PureComponent {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.propsToState(this.props);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.propsToState(nextProps);
   }
 
@@ -92,18 +92,11 @@ class HostsPageContent extends React.PureComponent {
 
   propsToState(props) {
     const { allHosts } = props;
-    const {
-      defaultFilterData: { regions },
-      defaultFilterData: { zones }
-    } = this.state;
+    const { regions, zones } = this.state.defaultFilterData;
 
-    let query = props.location.query["filterExpression"];
-
-    if (query === undefined) {
-      query = "";
-    } else {
-      query = decodeURIComponent(query);
-    }
+    const query = decodeURIComponent(
+      props.location.query["filterExpression"] || ""
+    );
 
     const newZones = Array.from(
       new Set(
@@ -243,9 +236,7 @@ class HostsPageContent extends React.PureComponent {
 
 HostsPageContent.propTypes = {
   byServiceFilter: PropTypes.string,
-  filterButtonContent: PropTypes.func,
   filterInputText: PropTypes.node,
-  filterItemList: PropTypes.array.isRequired,
   filteredNodeCount: PropTypes.number.isRequired,
   handleFilterChange: PropTypes.func.isRequired,
   hosts: PropTypes.instanceOf(NodesList).isRequired,

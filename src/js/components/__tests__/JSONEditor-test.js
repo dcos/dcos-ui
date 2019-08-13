@@ -54,7 +54,7 @@ describe("JSONEditor", function() {
       const nextState = instance.state;
 
       instance.handleChange(JSON.stringify(updatedValue));
-      instance.componentWillReceiveProps(nextProps);
+      instance.UNSAFE_componentWillReceiveProps(nextProps);
 
       expect(instance.shouldComponentUpdate(nextProps, nextState)).toBe(true);
     });
@@ -151,7 +151,7 @@ describe("JSONEditor", function() {
         // Run all pending timers to reset internal `isTyping` state
         jest.runOnlyPendingTimers();
 
-        instance.componentWillReceiveProps({
+        instance.UNSAFE_componentWillReceiveProps({
           value: JSON.parse(initialJSONText)
         });
       });

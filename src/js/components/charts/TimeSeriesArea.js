@@ -26,7 +26,7 @@ var TimeSeriesArea = createReactClass({
       .attr("transform", "translate(" + props.position + ")");
   },
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     d3.select(ReactDOM.findDOMNode(this))
       .interrupt()
       .attr("transform", null)

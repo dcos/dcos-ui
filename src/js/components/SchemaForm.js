@@ -42,7 +42,7 @@ class SchemaForm extends mixin(StoreMixin) {
     this.isValidated = true;
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount(...arguments);
 
     if (this.props.definition) {

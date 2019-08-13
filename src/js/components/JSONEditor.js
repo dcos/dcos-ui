@@ -86,7 +86,7 @@ class JSONEditor extends React.Component {
 
     //
     // The following properties are part of the `internal`, non-react state
-    // and is synchronized with the react through `componentWillReceiveProps`
+    // and is synchronized with the react through `UNSAFE_componentWillReceiveProps`
     //
     this.externalErrors = (this.props.errors || []).slice();
     this.jsonError = null;
@@ -113,7 +113,7 @@ class JSONEditor extends React.Component {
   /**
    * @override
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Synchronize error updates
     if (!isEqual(this.externalErrors, nextProps.errors)) {
       this.externalErrors = (nextProps.errors || []).slice();

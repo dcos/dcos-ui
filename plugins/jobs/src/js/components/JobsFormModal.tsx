@@ -113,7 +113,7 @@ class JobFormModal extends React.Component<
     this.validateSpec = this.validateSpec.bind(this);
   }
 
-  componentWillReceiveProps(nextProps: JobFormModalProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: JobFormModalProps) {
     if (!isEqual(nextProps.job, this.props.job)) {
       const jobSpec = nextProps.job
         ? this.getJobSpecFromResponse(nextProps.job)
