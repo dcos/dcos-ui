@@ -570,6 +570,76 @@ describe("Group Modals", () => {
     });
   });
 
+  context("Group Edit", () => {
+    it("closes modal on successful creation", () => {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true,
+        groups: {
+          marathonEdit: "create-success",
+          mesosQuotaUpdate: "updateQuotaSuccess"
+        }
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("s");
+      clickDropdownAction("Edit");
+
+      // Shows correct title.
+      cy.get(".modal-full-screen-header-title")
+        .contains("Edit Group")
+        .should("exist");
+
+      getInput("quota.cpus").type("1.0");
+      getInput("quota.mem").type("2048");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Update")
+        .click();
+
+      cy.wait("@updateQuota");
+
+      cy.get(".modal-full-screen").should("not.exist");
+    });
+    it("shows force update if mesos returns overcommit error", () => {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true,
+        groups: {
+          marathonEdit: "create-success",
+          mesosQuotaUpdate: "updateQuotaOvercommit",
+          mesosQuotaUpdateStatus: 400
+        }
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("s");
+      clickDropdownAction("Edit");
+
+      // Shows correct title.
+      cy.get(".modal-full-screen-header-title")
+        .contains("Edit Group")
+        .should("exist");
+
+      getInput("quota.cpus").type("1.0");
+      getInput("quota.mem").type("2048");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Update")
+        .click();
+
+      cy.wait("@updateQuota");
+
+      cy.get(".errorsAlert-list").should("exist");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Force Update")
+        .should("exist");
+    });
+  });
+
   context("Small group modal", () => {
     beforeEach(() => {
       cy.configureCluster({
