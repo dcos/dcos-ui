@@ -157,7 +157,10 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         />
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
-      <FormGroup className="column-auto flush-left" key="assign-automatically">
+      <FormGroup
+        className="column-auto flush-left flex flex-direction-top-to-bottom flex-justify-items-end"
+        key="assign-automatically"
+      >
         <FieldLabel />
         <FieldLabel matchInputHeight={true}>
           <FieldInput
