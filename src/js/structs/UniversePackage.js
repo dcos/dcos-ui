@@ -4,30 +4,8 @@ import Util from "../utils/Util";
 import StringUtil from "../utils/StringUtil";
 
 class UniversePackage extends Item {
-  getActiveBlock() {
-    return Math.floor(Math.random() * 10) + 1;
-  }
-
-  getActiveDecisionPoint() {
-    return this.getActiveBlock();
-  }
-
   getAppId() {
     return this.get("appId");
-  }
-
-  getAppIdName() {
-    let appId = this.getAppId();
-    // Remove initial slash if present
-    if (appId.charAt(0) === "/") {
-      appId = appId.slice(1);
-    }
-
-    return appId;
-  }
-
-  getBlockCount() {
-    return this.getActiveBlock() + 10;
   }
 
   getConfig() {
@@ -36,10 +14,6 @@ class UniversePackage extends Item {
 
   getDescription() {
     return this.get("description");
-  }
-
-  getDecisionPointCount() {
-    return this.getActiveBlock() + 10;
   }
 
   getIcons() {
