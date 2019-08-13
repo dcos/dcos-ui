@@ -68,7 +68,7 @@ class PodInstancesTable extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { checkedItems } = this.state;
     const prevInstances = this.props.instances;
     const nextInstances = nextProps.instances;

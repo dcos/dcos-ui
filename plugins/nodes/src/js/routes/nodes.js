@@ -23,7 +23,7 @@ import TaskVolumeContainer from "../../../../services/src/js/containers/volume-d
 import NodesUnitsHealthDetailPage from "../pages/nodes/NodesUnitsHealthDetailPage";
 import VolumeTable from "../../../../services/src/js/components/VolumeTable";
 
-const nodesRoutes = [
+export default [
   {
     type: Redirect,
     from: "/nodes",
@@ -181,5 +181,3 @@ const nodesRoutes = [
     ]
   }
 ];
-
-module.exports = nodesRoutes;

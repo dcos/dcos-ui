@@ -21,6 +21,7 @@ import FullScreenModalHeaderTitle from "#SRC/js/components/modals/FullScreenModa
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import PodValidators from "#SRC/resources/raml/marathon/v2/types/pod.raml";
 import ToggleButton from "#SRC/js/components/ToggleButton";
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 import Util from "#SRC/js/utils/Util";
 
 import Application from "../../structs/Application";
@@ -152,7 +153,7 @@ class CreateServiceModal extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { location, params } = this.props;
     // Skip update if there was no change to props
     if (
@@ -373,6 +374,9 @@ class CreateServiceModal extends Component {
   }
 
   handleJSONToggle() {
+    UserSettingsStore.setJSONEditorExpandedSetting(
+      !this.state.isJSONModeActive
+    );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
@@ -892,7 +896,7 @@ class CreateServiceModal extends Component {
       formErrors: [], // Errors detected by form validation
       hasChangesApplied: false,
       isConfirmOpen: false,
-      isJSONModeActive: false,
+      isJSONModeActive: UserSettingsStore.JSONEditorExpandedSetting,
       isOpen: true,
       isPending: false,
       submitDisabled: false,

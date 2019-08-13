@@ -8,7 +8,6 @@ import gql from "graphql-tag";
 
 import MesosSummaryActions from "#SRC/js/events/MesosSummaryActions";
 import CompositeState from "#SRC/js/structs/CompositeState";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
@@ -18,7 +17,7 @@ import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeMod
 import DeactivateNodeConfirm from "#PLUGINS/nodes/src/js/components/modals/DeactivateNodeConfirm";
 import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
 
-class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
+class NodesTableContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -45,7 +44,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.onStateStoreSuccess();
     const { location, hosts, networks } = this.props;
 
@@ -58,7 +57,7 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.setFilters(hosts, networks, filters);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { location, hosts, networks } = nextProps;
     const filters = {
       health: location.query.filterHealth || "all",

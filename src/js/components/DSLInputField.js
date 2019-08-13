@@ -59,7 +59,7 @@ class DSLInputField extends React.Component {
    *
    * @override
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { expression } = nextProps;
 
     if (expression !== this.state.expression) {

@@ -6,7 +6,6 @@ import { routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 
 import NodesGridView from "../../../components/NodesGridView";
@@ -15,7 +14,7 @@ const MAX_SERVICES_TO_SHOW = 32;
 const METHODS_TO_BIND = [];
 const OTHER_SERVICES_COLOR = 32;
 
-class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
+class NodesGridContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -48,7 +47,7 @@ class NodesGridContainer extends mixin(StoreMixin, QueryParamsMixin) {
     });
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const {
       services,
       location: { query },

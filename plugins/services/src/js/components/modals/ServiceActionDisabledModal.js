@@ -40,7 +40,7 @@ class ServiceActionDisabledModal extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (this.props.open !== nextProps.open) {
       this.setState({ copiedCommand: false });
     }

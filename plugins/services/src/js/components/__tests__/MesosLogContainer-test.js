@@ -59,9 +59,9 @@ describe("MesosLogContainer", function() {
     });
   });
 
-  describe("#componentWillReceiveProps", function() {
+  describe("#UNSAFE_componentWillReceiveProps", function() {
     it("calls startTailing when new path is provided", function() {
-      thisInstance.componentWillReceiveProps({
+      thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
       });
@@ -69,7 +69,7 @@ describe("MesosLogContainer", function() {
     });
 
     it("calls stopTailing when new path is provided", function() {
-      thisInstance.componentWillReceiveProps({
+      thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
       });
@@ -77,7 +77,7 @@ describe("MesosLogContainer", function() {
     });
 
     it("doesn't call startTailing when same path is provided", function() {
-      thisInstance.componentWillReceiveProps({
+      thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
       });
@@ -85,7 +85,7 @@ describe("MesosLogContainer", function() {
     });
 
     it("doesn't call stopTailing when same path is provided", function() {
-      thisInstance.componentWillReceiveProps({
+      thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
       });

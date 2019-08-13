@@ -50,12 +50,12 @@ class TasksView extends mixin(SaveStateMixin) {
     }, this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.saveState_key = `tasksView#${this.props.itemID}`;
     super.componentWillMount();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const prevCheckedItems = this.state.checkedItems;
     const checkedItems = {};
 

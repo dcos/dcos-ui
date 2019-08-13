@@ -44,7 +44,7 @@ var Index = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     MetadataStore.init();
     SidebarStore.init();
     MesosStateStore.addChangeListener(

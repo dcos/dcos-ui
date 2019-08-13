@@ -3,14 +3,10 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
-import { Trans, Plural } from "@lingui/macro";
-import { InfoBoxInline, Icon, SpacingBox } from "@dcos/ui-kit";
-import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
-import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { Trans } from "@lingui/macro";
 
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-import ConfigStore from "#SRC/js/stores/ConfigStore";
 
 import Page from "#SRC/js/components/Page";
 
@@ -33,12 +29,6 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
-// TODO: remove feature flag.
-function quotaFeatureEnabled() {
-  const { quota } = ConfigStore.get("config").uiConfiguration.features || {};
-  return quota === true;
-}
-
 class ServiceTreeView extends React.Component {
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
@@ -59,43 +49,6 @@ class ServiceTreeView extends React.Component {
           />
         </div>
       </div>
-    );
-  }
-
-  getNoLimitInfobox(hasQuota) {
-    if (!hasQuota) {
-      return null;
-    }
-    const { serviceTree } = this.props;
-
-    const { servicesCount, groupRolesCount } = serviceTree.getRoleLength();
-    const nonLimited = servicesCount - groupRolesCount;
-
-    if (!nonLimited) {
-      return null;
-    }
-
-    return (
-      <SpacingBox side="bottom" spacingSize="l">
-        <InfoBoxInline
-          appearance="default"
-          message={
-            <React.Fragment>
-              <Icon
-                shape={SystemIcons.CircleInformation}
-                size={iconSizeXs}
-                color="currentColor"
-              />
-              <Plural
-                render={<span id="quota-no-limit-infobox" />}
-                value={nonLimited}
-                one={`# service is not limited by quota. Update role to have quota enforced.`}
-                other={`# services are not limited by quota. Update role to have quota enforced.`}
-              />
-            </React.Fragment>
-          }
-        />
-      </SpacingBox>
     );
   }
 
@@ -173,7 +126,7 @@ class ServiceTreeView extends React.Component {
       this.context.router.push(routePath);
     };
     let createGroup;
-    if (isRoot && quotaFeatureEnabled()) {
+    if (isRoot) {
       createGroup = () => {
         this.context.router.push("/services/overview/create_group");
       };
@@ -189,19 +142,18 @@ class ServiceTreeView extends React.Component {
 
     if (isEmpty) {
       // We don't want an empty "+" dropdown.
-      const pageHeader =
-        serviceTree.isTopLevel() && quotaFeatureEnabled() ? (
-          <Page.Header
-            addButton={editGroupAction}
-            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-            tabs={tabs}
-          />
-        ) : (
-          <Page.Header
-            breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-            tabs={tabs}
-          />
-        );
+      const pageHeader = serviceTree.isTopLevel() ? (
+        <Page.Header
+          addButton={editGroupAction}
+          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          tabs={tabs}
+        />
+      ) : (
+        <Page.Header
+          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          tabs={tabs}
+        />
+      );
       return (
         <Page>
           {pageHeader}
@@ -227,21 +179,15 @@ class ServiceTreeView extends React.Component {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
-          ].concat(
-            serviceTree.isTopLevel() && quotaFeatureEnabled()
-              ? editGroupAction
-              : []
-          )}
+          ].concat(serviceTree.isTopLevel() ? editGroupAction : [])}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
           {this.getSearchHeader()}
-          {this.getNoLimitInfobox(hasQuota)}
           <ServicesTable
             isFiltered={filterExpression.defined}
-            hasQuota={hasQuota}
             modalHandlers={modalHandlers}
             services={services}
             hideTable={this.context.router.routes.some(

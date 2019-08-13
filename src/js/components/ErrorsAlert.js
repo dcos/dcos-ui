@@ -6,7 +6,7 @@ import { Icon, InfoBoxInline } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import { getUnanchoredErrorMessage } from "../utils/ErrorMessageUtil";
+import ErrorMessageUtil from "../utils/ErrorMessageUtil";
 
 const ErrorsAlert = function(props) {
   const {
@@ -34,7 +34,11 @@ const ErrorsAlert = function(props) {
 
   // De-duplicate error messages that have exactly the same translated output
   const errorMessages = showErrors.reduce(function(messages, error) {
-    const message = getUnanchoredErrorMessage(error, pathMapping, i18n);
+    const message = ErrorMessageUtil.getUnanchoredErrorMessage(
+      error,
+      pathMapping,
+      i18n
+    );
     if (messages.indexOf(message) !== -1) {
       return messages;
     }

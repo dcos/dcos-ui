@@ -52,7 +52,7 @@ class Sidebar extends React.Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const pathnameSegments = this.props.location.pathname.split("/");
 
     // If the user loaded the UI from a route other than `/`, we want to display

@@ -1,4 +1,4 @@
-const LocalStorageUtil = require("../LocalStorageUtil");
+import LocalStorageUtil from "../../utils/LocalStorageUtil";
 
 describe("LocalStorageUtil", function() {
   beforeEach(function() {

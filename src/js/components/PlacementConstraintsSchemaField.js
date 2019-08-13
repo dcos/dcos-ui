@@ -57,7 +57,7 @@ export default class PlacementConstraintsSchemaField extends Component {
     this.handleBatchChange = this.handleBatchChange.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.fieldProps.formData !== this.props.fieldProps.formData) {
       this.setState({
         batch: this.generateBatchFromInput(nextProps)
