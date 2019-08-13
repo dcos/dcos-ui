@@ -44,11 +44,13 @@ import GroupModalHeader from "./Header";
 import ErrorsPanel from "./ErrorsPanel";
 import {
   emptyGroupFormData,
+  errorsFromOvercommitData,
   groupFormDataFromGraphql,
   getPathFromGroupId,
   validateGroupFormData
 } from "./utils";
 import { Observable } from "rxjs";
+import { OvercommittedQuotaResource } from "#PLUGINS/services/src/js/data/errors/OvercommitQuotaError";
 
 const dl = container.get<DataLayer>(DataLayerType);
 const i18n = container.get<I18n>(TYPES.I18n);
@@ -245,7 +247,7 @@ class ServiceRootGroupModal extends React.Component<
                 }
               });
             }
-            this.handleSaveError(resp.message, true);
+            this.handleSaveError(resp.message, true, resp.data || null);
           } else {
             this.handleSaveError(resp.message);
           }
@@ -257,18 +259,15 @@ class ServiceRootGroupModal extends React.Component<
       });
   }
 
-  handleSaveError(message: string, mesos: boolean = false) {
+  handleSaveError(
+    message: string,
+    mesos: boolean = false,
+    data: null | OvercommittedQuotaResource[] = null
+  ) {
     if (mesos) {
       if (message === "Overcommit") {
         this.setState({
-          errors: {
-            form: [
-              <Trans key="quotaOvercommit">
-                Quota value(s) exceed currently consumed resources. Please save
-                again to force Quota limits.
-              </Trans>
-            ]
-          },
+          errors: errorsFromOvercommitData(data),
           isPending: false,
           isForce: true
         });

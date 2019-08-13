@@ -63,10 +63,17 @@ export const GroupTypes = `
     quota: GroupQuota
   }
   
+  type QuotaOvercommitResource {
+    resourceName: String!
+    consumed: Float!
+    requestedLimit: Float!
+  }
+  
   type GroupMutationResponse implements MutationResponse {
     code: Int!
     success: Boolean!
     message: String!
     partialSuccess: Boolean!
+    data: [QuotaOvercommitResource]
   }
 `;

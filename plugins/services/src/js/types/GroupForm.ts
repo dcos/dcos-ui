@@ -1,4 +1,5 @@
 import { QuotaData } from "./Quota";
+import { OvercommittedQuotaResource } from "../data/errors/OvercommitQuotaError";
 
 export interface GroupFormData {
   id: string;
@@ -23,4 +24,5 @@ export interface GroupMutationResponse {
   success: boolean;
   message: string;
   partialSuccess: boolean;
+  data?: OvercommittedQuotaResource[];
 }
