@@ -37,7 +37,7 @@ class ActionsModal extends mixin(StoreMixin) {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setState({
       requestsRemaining: this.props.selectedItems.length
     });

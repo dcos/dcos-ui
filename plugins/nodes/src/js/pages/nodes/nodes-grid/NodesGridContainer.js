@@ -47,7 +47,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
     });
   }
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     const {
       services,
       location: { query },

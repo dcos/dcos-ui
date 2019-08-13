@@ -36,7 +36,7 @@ var AnimationCircle = createReactClass({
     );
   },
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const node = ReactDOM.findDOMNode(this);
 
     // Handle first position to not animate into position

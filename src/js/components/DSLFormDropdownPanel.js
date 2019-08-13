@@ -42,7 +42,7 @@ class DSLFormDropdownPanel extends React.Component {
    *
    * @override
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     if (
       this.props.expression !== nextProps.expression ||
       (!this.props.isVisible && nextProps.isVisible)

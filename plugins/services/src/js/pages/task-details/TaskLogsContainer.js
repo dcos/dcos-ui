@@ -29,7 +29,7 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     ];
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     // We already have a configuration, so stop loading. No need to fetch
     if (this.state.isLoading && ConfigStore.get("config") != null) {
       this.setState({ isLoading: false });

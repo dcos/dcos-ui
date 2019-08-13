@@ -29,7 +29,7 @@ class ImageViewerModal extends React.Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { props } = this;
     if (props.open && !nextProps.open) {
       // Closes

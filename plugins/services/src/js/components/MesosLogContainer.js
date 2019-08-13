@@ -57,7 +57,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
     MesosLogStore.startTailing(task.slave_id, filePath);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     const { props } = this;
     if (props.filePath === nextProps.filePath) {

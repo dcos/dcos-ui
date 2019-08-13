@@ -155,7 +155,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
 
     this.retrievePackageInfo(

@@ -58,13 +58,13 @@ class ServiceDetail extends mixin(TabsMixin) {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount(...arguments);
     this.updateCurrentTab();
     this.checkForVolumes();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
     this.updateCurrentTab(nextProps);
     this.checkForVolumes();

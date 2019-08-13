@@ -66,7 +66,7 @@ class ServiceDestroyModal extends React.PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { i18n } = this.props;
     const { errors } = nextProps;
     const defaultErrorMsg = i18n._(

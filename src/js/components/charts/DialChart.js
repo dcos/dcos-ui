@@ -30,7 +30,7 @@ var DialChart = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     var value = this.props.value;
     var data = Object.assign(
       {

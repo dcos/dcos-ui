@@ -18,7 +18,7 @@ class Image extends React.Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { src, fallbackSrc } = this.props;
     let newSrc;
     if (src !== nextProps.src) {
