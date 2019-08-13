@@ -105,7 +105,7 @@ var DashboardPage = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },

@@ -153,7 +153,7 @@ class CreateServiceModal extends Component {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { location, params } = this.props;
     // Skip update if there was no change to props
     if (

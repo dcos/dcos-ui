@@ -27,7 +27,7 @@ class ExpandingTable extends React.Component {
     this.state = initialState;
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     // Check for new rows and expand them if expandRowsByDefault is true.
     if (nextProps.expandRowsByDefault) {
       let shouldSetState = false;

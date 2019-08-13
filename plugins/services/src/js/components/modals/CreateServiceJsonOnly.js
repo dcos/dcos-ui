@@ -36,7 +36,7 @@ class CreateServiceJsonOnly extends React.Component {
   /**
    * @override
    */
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { service } = nextProps;
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(service);

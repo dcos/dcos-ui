@@ -100,12 +100,12 @@ class OrganizationTab extends mixin(StoreMixin) {
     this.selectedIDSet = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount();
     this.resetTablewideCheckboxTabulations();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
 
     if (nextProps.items.length !== this.props.items.length) {

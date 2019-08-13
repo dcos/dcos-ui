@@ -156,7 +156,7 @@ export default class NodesTable extends React.Component<
     return !isEqual(this.props, nextProps) || !isEqual(this.state, nextState);
   }
 
-  componentWillReceiveProps(nextProps: NodesTableProps): void {
+  UNSAFE_componentWillReceiveProps(nextProps: NodesTableProps): void {
     this.setState({
       data: nextProps.hosts ? this.sortData(nextProps.hosts.getItems()) : null
     });

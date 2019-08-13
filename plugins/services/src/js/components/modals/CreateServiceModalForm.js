@@ -146,7 +146,7 @@ class CreateServiceModalForm extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     const isPod = nextProps.service instanceof PodSpec;

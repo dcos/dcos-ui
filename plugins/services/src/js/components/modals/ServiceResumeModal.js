@@ -38,7 +38,7 @@ class ServiceResumeModal extends React.PureComponent {
     }
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { errors, open } = nextProps;
 
     if (open && !this.props.open) {

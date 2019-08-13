@@ -44,7 +44,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.onStateStoreSuccess();
     const { location, hosts, networks } = this.props;
 
@@ -57,7 +57,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
     this.setFilters(hosts, networks, filters);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { location, hosts, networks } = nextProps;
     const filters = {
       health: location.query.filterHealth || "all",
