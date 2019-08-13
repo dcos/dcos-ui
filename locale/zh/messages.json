@@ -125,7 +125,7 @@
   "Cannot run without {0} package.": "",
   "Catalog": "目录",
   "Certified": "已认证",
-  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": "已认证的包经 Mesosphere 验证，可与 DC/OS 互操作。",
+  "Certified packages are verified by D2iQ for interoperability with DC/OS.": "",
   "Checking for new version": "",
   "Choose your operating system and follow the instructions. For any issues or questions, please refer to our <0>documentation</0>.": "选择操作系统并遵循说明。如有任何问题或疑问，请参阅我们的 <0>文档</0>.",
   "Click the <0>Services tab</0> to install services.": "单击 <0>服务选项卡，</0> 以安装服务。",

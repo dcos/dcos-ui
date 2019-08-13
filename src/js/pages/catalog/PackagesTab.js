@@ -208,8 +208,8 @@ class PackagesTab extends mixin(StoreMixin) {
           Certified
         </Trans>
         <Trans render="p" className="tall flush-top">
-          Certified packages are verified by Mesosphere for interoperability
-          with DC/OS.
+          Certified packages are verified by D2iQ for interoperability with
+          DC/OS.
         </Trans>
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
