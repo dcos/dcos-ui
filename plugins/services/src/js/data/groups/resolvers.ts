@@ -233,7 +233,8 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                   code: commitErr.responseCode,
                   success: false,
                   message: "Overcommit",
-                  partialSuccess: true
+                  partialSuccess: true,
+                  data: commitErr.overcommittedResources
                 });
               default:
                 return of({

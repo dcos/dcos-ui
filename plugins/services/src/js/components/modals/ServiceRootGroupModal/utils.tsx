@@ -4,7 +4,8 @@ import { Trans } from "@lingui/macro";
 import {
   QuotaFieldLabels,
   quotaFields,
-  QuotaFields
+  QuotaFields,
+  QuotaFieldUnit
 } from "#PLUGINS/services/src/js/types/Quota";
 import {
   GroupFormData,
@@ -15,6 +16,7 @@ import ServiceValidatorUtil from "#PLUGINS/services/src/js/utils/ServiceValidato
 
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import { OvercommittedQuotaResource } from "#PLUGINS/services/src/js/data/errors/OvercommitQuotaError";
 
 export function emptyGroupFormData(): GroupFormData {
   return {
@@ -57,17 +59,34 @@ export function getPathFromGroupId(id: string): string {
   return `/${id}`;
 }
 
+function addFormError(
+  errors: GroupFormErrors,
+  formError: JSX.Element
+): GroupFormErrors {
+  if (!errors.form) {
+    errors.form = [];
+  }
+  errors.form.push(formError);
+  return errors;
+}
+
+function setQuotaError(
+  errors: GroupFormErrors,
+  field: QuotaFields,
+  error: JSX.Element
+): GroupFormErrors {
+  if (!errors.quota) {
+    errors.quota = {};
+  }
+  errors.quota[field] = error;
+  return errors;
+}
+
 export function validateGroupFormData(
   data: GroupFormData,
   isEdit: boolean
 ): void | {} {
-  const errors: GroupFormErrors = {};
-  const addFormError = (error: JSX.Element) => {
-    if (!errors.form) {
-      errors.form = [];
-    }
-    errors.form.push(error);
-  };
+  let errors: GroupFormErrors = {};
   if (!isEdit) {
     // Validate Name
     if (!ServiceValidatorUtil.isValidGroupID(data.id)) {
@@ -79,6 +98,7 @@ export function validateGroupFormData(
         </Trans>
       );
       addFormError(
+        errors,
         <Trans>
           Group name must be at least 1 character and may only contain digits
           (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may
@@ -89,25 +109,27 @@ export function validateGroupFormData(
   }
 
   //Validate Quota values
-  const setQuotaError = (field: QuotaFields, error: JSX.Element) => {
-    if (!errors.quota) {
-      errors.quota = {};
-    }
-    errors.quota[field] = error;
-  };
-  for (const field of quotaFields) {
+  for (let field of quotaFields) {
     const value = (data.quota[field] + "").trim();
     if (ValidatorUtil.isEmpty(value)) {
       continue;
     }
     if (!ValidatorUtil.isNumber(value)) {
-      setQuotaError(field, <Trans>Must be a number</Trans>);
-      addFormError(<Trans>{QuotaFieldLabels[field]} must be a number</Trans>);
+      errors = setQuotaError(errors, field, <Trans>Must be a number</Trans>);
+      addFormError(
+        errors,
+        <Trans>{QuotaFieldLabels[field]} must be a number</Trans>
+      );
     } else {
       const numberValue = parseFloat(value);
       if (numberValue < 0) {
-        setQuotaError(field, <Trans>Must be bigger than or equal to 0</Trans>);
+        errors = setQuotaError(
+          errors,
+          field,
+          <Trans>Must be bigger than or equal to 0</Trans>
+        );
         addFormError(
+          errors,
           <Trans>
             {QuotaFieldLabels[field]} must be bigger than or equal to 0
           </Trans>
@@ -119,4 +141,41 @@ export function validateGroupFormData(
   if (Object.keys(errors).length > 0) {
     return errors;
   }
+}
+
+export function errorsFromOvercommitData(
+  data: OvercommittedQuotaResource[] | null
+): GroupFormErrors {
+  if (data === null) {
+    return {
+      form: [
+        <Trans key="quotaOvercommit">
+          Quota value(s) exceed currently consumed resources. Please save again
+          to force Quota limits.
+        </Trans>
+      ]
+    };
+  }
+  let result: GroupFormErrors = {};
+  data.forEach(resource => {
+    const resourceName = resource.resourceName as QuotaFields;
+    result = addFormError(
+      result,
+      <Trans key={`resourceOvercommit-${resourceName}`}>
+        {QuotaFieldLabels[resourceName]} exceeds limit. Press save again to
+        force {QuotaFieldLabels[resourceName]} limit.
+      </Trans>
+    );
+    const { consumed, requestedLimit } = resource;
+    const unit = QuotaFieldUnit[resourceName];
+    result = setQuotaError(
+      result,
+      resourceName,
+      <Trans>
+        Exceeds limit ({requestedLimit} of {consumed} {unit})
+      </Trans>
+    );
+  });
+
+  return result;
 }

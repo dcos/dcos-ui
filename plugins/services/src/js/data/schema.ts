@@ -14,6 +14,6 @@ export const typeDefs = `
   
   extend type Mutation {
     createGroup(data: GroupWithQuota!): GroupMutationResponse!
-    editGroup(data: GroupWithQuota!): String!
+    editGroup(data: GroupWithQuota!): GroupMutationResponse!
   }
 `;
