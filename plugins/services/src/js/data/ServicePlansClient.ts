@@ -1,16 +1,7 @@
 import { request, RequestResponse } from "@dcos/http-service";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
-
-export type ServicePlanStatus =
-  | "ERROR"
-  | "WAITING"
-  | "PENDING"
-  | "PREPARED"
-  | "STARTING"
-  | "STARTED"
-  | "COMPLETE"
-  | "IN_PROGRESS";
+import { ServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 
 export interface ServicePlanStepResponse {
   id: string;

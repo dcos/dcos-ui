@@ -318,6 +318,7 @@
   "Error getting groups with Quota": "",
   "Executable": "",
   "Execution experienced an error.": "",
+  "Execution has been delayed.": "",
   "Execution has been interrupted.": "",
   "Execution has completed.": "",
   "Execution has performed and has received feedback, but not all success requirements (e.g. readiness checks) have been satisfied.": "",
