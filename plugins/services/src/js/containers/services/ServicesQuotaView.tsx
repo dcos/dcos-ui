@@ -55,13 +55,18 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   render() {
     const { children, serviceTree } = this.props;
     const { modalHandlers } = this.context;
-    const createService = () => {
-      this.context.router.push("/services/overview/create");
-    };
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
     const isRoot = serviceTree.isRoot();
-
+    const createService = () => {
+      isRoot
+        ? this.context.router.push("/services/overview/create")
+        : this.context.router.push(
+            "/services/overview/" +
+              encodeURIComponent(serviceTree.getId()) +
+              "/create"
+          );
+    };
     const content = isRoot ? (
       <ServicesQuotaOverview />
     ) : (
