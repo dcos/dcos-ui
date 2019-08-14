@@ -10,6 +10,7 @@ import AppLockedMessage from "./AppLockedMessage";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
+import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
 class ServiceScaleFormModal extends React.PureComponent {
   constructor() {
@@ -76,7 +77,11 @@ class ServiceScaleFormModal extends React.PureComponent {
     }
 
     return (
-      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+      <Trans
+        render="h4"
+        className="text-align-center text-danger flush-top"
+        id={getActionModalReadableError(errorMsg)}
+      />
     );
   }
 
