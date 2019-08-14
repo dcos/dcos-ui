@@ -20,7 +20,7 @@ export function quotaHasLimit(
     quota.disk,
     quota.gpus
   ];
-  for (let metric of metrics) {
+  for (const metric of metrics) {
     if (metric && (metric.limit !== null && metric.limit !== undefined)) {
       return true;
     }
@@ -108,7 +108,7 @@ export function serviceTreeHasQuota(
   if (splitId.length < 2) {
     return false;
   }
-  let roleName = splitId[1];
+  const roleName = splitId[1];
   const role = roles.find(role => role.name === roleName);
   if (!role) {
     return false;

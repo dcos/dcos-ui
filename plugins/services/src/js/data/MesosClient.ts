@@ -32,7 +32,7 @@ function limitsFromQuotaFormData(
   quotaData: QuotaData
 ): Record<string, QuotaRequestValue> {
   const result: Record<string, QuotaRequestValue> = {};
-  for (let field of quotaFields) {
+  for (const field of quotaFields) {
     const value = (quotaData[field] + "").trim();
     if (!ValidatorUtil.isEmpty(value)) {
       result[field] = {
