@@ -55,12 +55,12 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.componentWillMount(...arguments);
+    super.UNSAFE_componentWillMount(...arguments);
     this.updateCurrentTab();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
+    super.UNSAFE_componentWillReceiveProps(...arguments);
     this.updateCurrentTab(nextProps);
   }
 

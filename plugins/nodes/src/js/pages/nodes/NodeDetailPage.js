@@ -53,7 +53,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.componentWillMount(...arguments);
+    super.UNSAFE_componentWillMount(...arguments);
 
     const { node } = this.props;
     if (node) {
@@ -83,8 +83,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     this.updateCurrentTab(nextProps);
   }
 
-  componentWillUpdate() {
-    super.componentWillUpdate(...arguments);
+  UNSAFE_componentWillUpdate() {
+    super.UNSAFE_componentWillUpdate(...arguments);
 
     const { node } = this.props;
     if (node) {

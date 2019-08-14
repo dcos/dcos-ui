@@ -101,12 +101,12 @@ class OrganizationTab extends mixin(StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.componentWillMount();
+    super.UNSAFE_componentWillMount();
     this.resetTablewideCheckboxTabulations();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
+    super.UNSAFE_componentWillReceiveProps(...arguments);
 
     if (nextProps.items.length !== this.props.items.length) {
       this.resetTablewideCheckboxTabulations();
