@@ -166,7 +166,7 @@ class CreateServiceModal extends Component {
     this.setState(this.getResetState(nextProps));
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     const requestCompleted = this.state.isPending && !nextState.isPending;
     const shouldClose = requestCompleted && !nextState.apiErrors.length;
 

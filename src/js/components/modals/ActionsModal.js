@@ -43,7 +43,7 @@ class ActionsModal extends mixin(StoreMixin) {
     });
   }
 
-  componentWillUpdate(nextProps, nextState) {
+  UNSAFE_componentWillUpdate(nextProps, nextState) {
     const { requestsRemaining, requestErrors } = nextState;
 
     if (requestsRemaining === 0 && !requestErrors.length) {

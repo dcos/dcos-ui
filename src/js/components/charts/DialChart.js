@@ -47,7 +47,7 @@ var DialChart = createReactClass({
     this.data = data;
   },
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     var slice = this.getSlice(this.props);
     var arcs = this.getArcs(this.props);
     var innerArc = arcs.innerArc;

@@ -56,7 +56,7 @@ class ServiceDestroyModal extends React.PureComponent {
     });
   }
 
-  componentWillUpdate(nextProps) {
+  UNSAFE_componentWillUpdate(nextProps) {
     const requestCompleted = this.props.isPending && !nextProps.isPending;
 
     const shouldClose = requestCompleted && !nextProps.errors;

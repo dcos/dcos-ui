@@ -83,7 +83,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.componentWillMount(...arguments);
+    super.UNSAFE_componentWillMount(...arguments);
 
     const { routes } = this.props;
 
@@ -117,7 +117,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
+    super.UNSAFE_componentWillReceiveProps(...arguments);
     const { innerPath, taskID } = this.props.params;
     if (
       nextProps.params.innerPath !== innerPath ||

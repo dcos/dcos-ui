@@ -52,7 +52,7 @@ class TasksView extends mixin(SaveStateMixin) {
 
   UNSAFE_componentWillMount() {
     this.saveState_key = `tasksView#${this.props.itemID}`;
-    super.componentWillMount();
+    super.UNSAFE_componentWillMount();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
