@@ -87,7 +87,9 @@ const UsersActions = {
 };
 
 if (Config.useFixtures) {
-  const usersFixtureImportPromise = import(/* usersFixture */ "../stores/__tests__/fixtures/users-unicode.json");
+  const usersFixtureImportPromise = import(
+    /* usersFixture */ "../stores/__tests__/fixtures/users-unicode.json"
+  );
 
   if (!global.actionTypes) {
     global.actionTypes = {};

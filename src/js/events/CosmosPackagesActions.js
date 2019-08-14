@@ -465,12 +465,24 @@ const CosmosPackagesActions = {
 
 if (Config.useFixtures) {
   const methodFixtureMapping = {
-    fetchPackageDescription: import(/* webpackChunkName: "packageDescribeFixture" */ "../../../tests/_fixtures/cosmos/package-describe.json"),
-    fetchPackageVersions: import(/* webpackChunkName: "packageListVersionsFixture" */ "../../../tests/_fixtures/cosmos/package-list-versions.json"),
-    fetchServiceDescription: import(/* webpackChunkName: "serviceDescribeFixture" */ "../../../tests/_fixtures/cosmos/service-describe.json"),
-    fetchInstalledPackages: import(/* webpackChunkName: "packagesListFixture" */ "../../../tests/_fixtures/cosmos/packages-list.json"),
-    fetchAvailablePackages: import(/* webpackChunkName: "packagesSearchFixture" */ "../../../tests/_fixtures/cosmos/packages-search.json"),
-    fetchRepositories: import(/* webpackChunkName: "packagesRepositoriesFixture" */ "../../../tests/_fixtures/cosmos/packages-repositories.json")
+    fetchPackageDescription: import(
+      /* webpackChunkName: "packageDescribeFixture" */ "../../../tests/_fixtures/cosmos/package-describe.json"
+    ),
+    fetchPackageVersions: import(
+      /* webpackChunkName: "packageListVersionsFixture" */ "../../../tests/_fixtures/cosmos/package-list-versions.json"
+    ),
+    fetchServiceDescription: import(
+      /* webpackChunkName: "serviceDescribeFixture" */ "../../../tests/_fixtures/cosmos/service-describe.json"
+    ),
+    fetchInstalledPackages: import(
+      /* webpackChunkName: "packagesListFixture" */ "../../../tests/_fixtures/cosmos/packages-list.json"
+    ),
+    fetchAvailablePackages: import(
+      /* webpackChunkName: "packagesSearchFixture" */ "../../../tests/_fixtures/cosmos/packages-search.json"
+    ),
+    fetchRepositories: import(
+      /* webpackChunkName: "packagesRepositoriesFixture" */ "../../../tests/_fixtures/cosmos/packages-repositories.json"
+    )
   };
 
   if (!global.actionTypes) {

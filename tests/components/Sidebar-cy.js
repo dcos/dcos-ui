@@ -60,9 +60,7 @@ describe("Sidebar", function() {
     });
 
     nestedRoutesToTest.forEach(function(nestedRoute) {
-      it(`renders nested route ${
-        nestedRoute.url
-      } with parent selected when visiting directly`, function() {
+      it(`renders nested route ${nestedRoute.url} with parent selected when visiting directly`, function() {
         cy.visitUrl({ url: nestedRoute.url, identify: true });
 
         cy.get(".sidebar-sections .sidebar-menu-item")

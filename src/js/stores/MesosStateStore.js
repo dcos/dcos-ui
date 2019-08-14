@@ -299,8 +299,12 @@ class MesosStateStore extends GetSetBaseStore {
 }
 
 if (Config.useFixtures) {
-  const getMasterFixture = import(/* getMasterFixture */ "../../../tests/_fixtures/v1/get_master.json");
-  const subscribeFixture = import(/* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe.js");
+  const getMasterFixture = import(
+    /* getMasterFixture */ "../../../tests/_fixtures/v1/get_master.json"
+  );
+  const subscribeFixture = import(
+    /* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe.js"
+  );
 
   const { MesosStreamType } = require("../core/MesosStream");
 

@@ -29,7 +29,9 @@ const JSONEditor = lazy(() =>
 );
 
 const YamlEditorSchemaField = lazy(() =>
-  import(/* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField")
+  import(
+    /* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField"
+  )
 );
 
 const YamlEditorSchemaFieldWrapper = props => (

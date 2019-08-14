@@ -48,9 +48,7 @@ class LoginPage extends mixin(StoreMixin) {
   onMessageReceived(event) {
     if (event.origin !== SDK.config.authHost) {
       console.warn(
-        `Event Origin "${event.origin}" does not match allowed origin "${
-          SDK.config.authHost
-        }"`
+        `Event Origin "${event.origin}" does not match allowed origin "${SDK.config.authHost}"`
       );
 
       return;
