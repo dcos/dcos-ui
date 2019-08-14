@@ -1,3 +1,5 @@
+@import '~@dcos/ui-kit/dist/packages/design-tokens/build/less/_designTokens';
+
 & when (@login-modal-enabled) {
 
   .modal-backdrop.login-modal-backdrop {
@@ -5,6 +7,15 @@
       radial-gradient(circle at 0% 90%, rgba(125, 88, 255, 0.5), transparent 50%),
       radial-gradient(circle at 100% 10%, rgba(255, 0, 125, 0.3) 0%, transparent 60%),
       #251a4c;
+  }
+
+  .login-logo {
+    display: block;
+    height: @iconSize-l;
+    left: 50%;
+    position: absolute;
+    top: @login-modal-logo-name-vertical-offset;
+    transform: translate(-50%, -100%);
   }
 
   .modal {
@@ -32,163 +43,16 @@
         position: relative;
       }
 
-      .login-modal-product-logo {
-        background-image: url('@{login-modal-logo-src}');
-        background-size: (@login-modal-logo-scale * @login-modal-logo-src-width) (@login-modal-logo-scale * @login-modal-logo-src-height);
-        display: block;
-        height: (@login-modal-logo-scale * @login-modal-logo-src-height);
-        left: 50%;
-        position: absolute;
-        top: @login-modal-logo-name-vertical-offset;
-        transform: translateX(-50%);
-        width: (@login-modal-logo-scale * @login-modal-logo-src-width);
-
-        &.inverse {
-          background-image: url('@{login-modal-logo-inverse-src}');
-        }
-      }
-
       .login-modal-product-name {
         left: 50%;
         position: absolute;
-        top: @login-modal-product-name-vertical-offset;
-        transform: translateX(-50%);
+        top: @space-m;
+        transform: translate(-50%, 100%);
         width: 100%;
       }
 
       .login-modal-product-name a {
         color: inherit;
-      }
-    }
-  }
-}
-
-& when (@layout-screen-small-enabled) {
-
-  @media (min-width: @layout-screen-small-min-width) {
-
-    & when (@login-modal-enabled) and (@login-modal-screen-small-enabled) {
-
-      .modal {
-
-        &.login-modal {
-          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-small;
-
-          .login-modal-product-logo {
-            background-size: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-small * @login-modal-logo-src-height);
-            height: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-height);
-            top: @login-modal-logo-name-vertical-offset-screen-small;
-            width: (@login-modal-logo-scale-screen-small * @login-modal-logo-src-width);
-          }
-
-          .login-modal-product-name {
-            top: @login-modal-product-name-vertical-offset-screen-small;
-          }
-        }
-      }
-    }
-  }
-}
-
-& when (@layout-screen-medium-enabled) {
-
-  @media (min-width: @layout-screen-medium-min-width) {
-
-    & when (@login-modal-enabled) and (@login-modal-screen-medium-enabled) {
-
-      .modal {
-
-        &.login-modal {
-          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-medium;
-
-          .login-modal-product-logo {
-            background-size: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-height);
-            height: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-height);
-            top: @login-modal-logo-name-vertical-offset-screen-medium;
-            width: (@login-modal-logo-scale-screen-medium * @login-modal-logo-src-width);
-          }
-
-          .login-modal-product-name {
-            top: @login-modal-product-name-vertical-offset-screen-medium;
-          }
-        }
-      }
-    }
-  }
-}
-
-& when (@layout-screen-large-enabled) {
-
-  @media (min-width: @layout-screen-large-min-width) {
-
-    & when (@login-modal-enabled) and (@login-modal-screen-large-enabled) {
-
-      .modal {
-
-        &.login-modal {
-          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-large;
-
-          .login-modal-product-logo {
-            background-size: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-large * @login-modal-logo-src-height);
-            height: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-height);
-            top: @login-modal-logo-name-vertical-offset-screen-large;
-            width: (@login-modal-logo-scale-screen-large * @login-modal-logo-src-width);
-          }
-
-          .login-modal-product-name {
-            top: @login-modal-product-name-vertical-offset-screen-large;
-          }
-        }
-      }
-    }
-  }
-}
-
-& when (@layout-screen-jumbo-enabled) {
-
-  @media (min-width: @layout-screen-jumbo-min-width) {
-
-    & when (@login-modal-enabled) and (@login-modal-screen-jumbo-enabled) {
-
-      .modal {
-
-        &.login-modal {
-          margin-top: -0.5 * @login-modal-logo-name-vertical-offset-screen-jumbo;
-
-          .login-modal-product-logo {
-            background-size: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-width) (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-height);
-            height: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-height);
-            top: @login-modal-logo-name-vertical-offset-screen-jumbo;
-            width: (@login-modal-logo-scale-screen-jumbo * @login-modal-logo-src-width);
-          }
-
-          .login-modal-product-name {
-            top: @login-modal-product-name-vertical-offset-screen-jumbo;
-          }
-        }
-      }
-    }
-  }
-}
-
-& when (@screen-resolution-2x-enabled) {
-
-  @media only screen and (min-resolution: 2dppx) {
-
-    & when (@login-modal-enabled) {
-
-      .modal {
-
-        &.login-modal {
-
-          .login-modal-product-logo {
-            background-image: url('@{login-modal-logo-src2x}');
-
-            &.inverse {
-              background-image: url('@{login-modal-logo-inverse-src2x}');
-            }
-          }
-        }
       }
     }
   }
