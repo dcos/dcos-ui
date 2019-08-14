@@ -61,7 +61,7 @@ export function validateGroupFormData(
   data: GroupFormData,
   isEdit: boolean
 ): void | {} {
-  let errors: GroupFormErrors = {};
+  const errors: GroupFormErrors = {};
   const addFormError = (error: JSX.Element) => {
     if (!errors.form) {
       errors.form = [];
@@ -95,7 +95,7 @@ export function validateGroupFormData(
     }
     errors.quota[field] = error;
   };
-  for (let field of quotaFields) {
+  for (const field of quotaFields) {
     const value = (data.quota[field] + "").trim();
     if (ValidatorUtil.isEmpty(value)) {
       continue;

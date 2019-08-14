@@ -28,7 +28,7 @@ export const volumesReducers = {
   },
   [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
     const stateCopy = deepCopy(state);
-    let volumes = stateCopy.job.run.volumes;
+    const volumes = stateCopy.job.run.volumes;
     const [prop, i] = path;
     const index = parseFloat(i);
     if (volumes && Array.isArray(volumes) && volumes.length >= index + 1) {

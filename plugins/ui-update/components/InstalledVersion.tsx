@@ -22,7 +22,7 @@ function refreshPage() {
 }
 
 function renderRollbackAction(uiAction: UIAction): React.ReactNode {
-  let defaultContent = <Trans>Rollback</Trans>;
+  const defaultContent = <Trans>Rollback</Trans>;
   if (uiAction.type !== UIActionType.Reset) {
     return defaultContent;
   }

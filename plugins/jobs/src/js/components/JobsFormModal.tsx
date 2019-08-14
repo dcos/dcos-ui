@@ -392,7 +392,7 @@ class JobFormModal extends React.Component<
     const { isEdit } = this.props;
     const { scheduleFailure } = this.state;
 
-    let title =
+    const title =
       isEdit || scheduleFailure ? (
         <Trans render="span">Edit Job</Trans>
       ) : (
@@ -478,7 +478,7 @@ class JobFormModal extends React.Component<
   render() {
     const { isOpen, i18n } = this.props;
     const { isConfirmOpen } = this.state;
-    let useGemini = false;
+    const useGemini = false;
 
     return (
       <FullScreenModal
