@@ -125,7 +125,7 @@
   "Cannot run without {0} package.": "",
   "Catalog": "",
   "Certified": "",
-  "Certified packages are verified by Mesosphere for interoperability with DC/OS.": "",
+  "Certified packages are verified by D2iQ for interoperability with DC/OS.": "",
   "Checking for new version": "",
   "Choose your operating system and follow the instructions. For any issues or questions, please refer to our <0>documentation</0>.": "",
   "Click the <0>Services tab</0> to install services.": "",
