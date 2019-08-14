@@ -12,9 +12,7 @@ import {
 import { request } from "@dcos/http-service";
 
 function fetchUnit(unitID) {
-  const unitUrl = `${Config.rootUrl}${
-    Config.unitHealthAPIPrefix
-  }/units/${unitID}/nodes`;
+  const unitUrl = `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}/nodes`;
 
   return request(unitUrl).pipe(
     map(({ response }) => response.nodes),

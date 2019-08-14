@@ -543,9 +543,7 @@ describe("MarathonActions", function() {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
         expect(thisConfiguration.url).toEqual(
-          `${
-            Config.rootUrl
-          }/service/marathon/v2/apps//test?force=true&partialUpdate=false`
+          `${Config.rootUrl}/service/marathon/v2/apps//test?force=true&partialUpdate=false`
         );
       });
 
@@ -622,9 +620,7 @@ describe("MarathonActions", function() {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
         expect(thisConfiguration.url).toEqual(
-          `${
-            Config.rootUrl
-          }/service/marathon/v2/pods//test?force=true&partialUpdate=false`
+          `${Config.rootUrl}/service/marathon/v2/pods//test?force=true&partialUpdate=false`
         );
       });
 
@@ -1163,9 +1159,7 @@ describe("MarathonActions", function() {
 
     it("fetches data from the correct URL", function() {
       expect(thisConfiguration.url).toEqual(
-        `${
-          Config.rootUrl
-        }/service/marathon/v2/apps/${serviceID}/versions/${versionID}`
+        `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions/${versionID}`
       );
     });
 

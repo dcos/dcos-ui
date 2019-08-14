@@ -57,9 +57,7 @@ const UnitHealthActions = {
 
   fetchUnitNodes(unitID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${
-        Config.unitHealthAPIPrefix
-      }/units/${unitID}/nodes`,
+      url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}/nodes`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODES_SUCCESS,
@@ -80,9 +78,7 @@ const UnitHealthActions = {
 
   fetchUnitNode(unitID, nodeID) {
     RequestUtil.json({
-      url: `${Config.rootUrl}${
-        Config.unitHealthAPIPrefix
-      }/units/${unitID}/nodes/${nodeID}`,
+      url: `${Config.rootUrl}${Config.unitHealthAPIPrefix}/units/${unitID}/nodes/${nodeID}`,
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_UNIT_NODE_SUCCESS,
@@ -106,10 +102,18 @@ const UnitHealthActions = {
 
 if (Config.useFixtures) {
   const methodFixtureMapping = {
-    fetchUnits: import(/* unitsFixture */ "../../../tests/_fixtures/unit-health/units.json"),
-    fetchUnit: import(/* unitFixture */ "../../../tests/_fixtures/unit-health/unit.json"),
-    fetchUnitNodes: import(/* unitNodesFixture */ "../../../tests/_fixtures/unit-health/unit-nodes.json"),
-    fetchUnitNode: import(/* unitNodeFixture */ "../../../tests/_fixtures/unit-health/unit-node.json")
+    fetchUnits: import(
+      /* unitsFixture */ "../../../tests/_fixtures/unit-health/units.json"
+    ),
+    fetchUnit: import(
+      /* unitFixture */ "../../../tests/_fixtures/unit-health/unit.json"
+    ),
+    fetchUnitNodes: import(
+      /* unitNodesFixture */ "../../../tests/_fixtures/unit-health/unit-nodes.json"
+    ),
+    fetchUnitNode: import(
+      /* unitNodeFixture */ "../../../tests/_fixtures/unit-health/unit-node.json"
+    )
   };
 
   if (!global.actionTypes) {

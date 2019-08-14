@@ -41,10 +41,14 @@ function getMesosState() {
 }
 
 const ResourceTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart")
+  import(
+    /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
+  )
 );
 const HostTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart")
+  import(
+    /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
+  )
 );
 const TasksChart = lazy(() =>
   import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")

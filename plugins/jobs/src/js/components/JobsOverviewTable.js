@@ -23,7 +23,9 @@ import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
 
 const JobsCronTooltip = lazy(() =>
-  import(/* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip")
+  import(
+    /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
+  )
 );
 
 // TODO: DCOS-38858

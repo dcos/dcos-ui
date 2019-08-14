@@ -566,7 +566,9 @@ var MarathonActions = {
 };
 
 if (Config.useFixtures) {
-  const groupsFixtureImportPromise = import(/* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups.js");
+  const groupsFixtureImportPromise = import(
+    /* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups.js"
+  );
 
   if (!global.actionTypes) {
     global.actionTypes = {};

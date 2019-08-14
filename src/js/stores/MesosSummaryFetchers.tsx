@@ -60,7 +60,7 @@ export function withNode<P extends object>(
       const nodeID = this.props.params.nodeID;
       const node = getNodeFromSummary(nodeID, summary);
 
-      return <ComponentWithNode node={node} {...this.props as P} />;
+      return <ComponentWithNode node={node} {...(this.props as P)} />;
     }
   };
 }
