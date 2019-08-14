@@ -12,6 +12,7 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import AppLockedMessage from "./AppLockedMessage";
 import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
+import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
 const METHODS_TO_BIND = ["handleConfirmation", "handleInstancesFieldChange"];
 
@@ -100,7 +101,11 @@ class ServiceResumeModal extends React.PureComponent {
     }
 
     return (
-      <h4 className="text-align-center text-danger flush-top">{errorMsg}</h4>
+      <Trans
+        render="h4"
+        className="text-align-center text-danger flush-top"
+        id={getActionModalReadableError(errorMsg)}
+      />
     );
   }
 
