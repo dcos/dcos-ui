@@ -35,11 +35,11 @@ class Mount extends React.Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     MountService.addListener(CHANGE, this.onMountServiceChange);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { type } = nextProps;
 
     if (this.props.type === type) {

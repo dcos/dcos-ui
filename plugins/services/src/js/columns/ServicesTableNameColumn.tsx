@@ -21,6 +21,7 @@ const ServiceName = React.memo(
     isFiltered,
     id,
     isGroup,
+    linkToQuota,
     name,
     image,
     webUrl
@@ -28,12 +29,15 @@ const ServiceName = React.memo(
     isFiltered: boolean;
     id: string;
     isGroup: boolean;
+    linkToQuota: boolean;
     name: string;
     image: string | null;
     webUrl: string | null;
   }) => {
     const serviceLink = isGroup
-      ? `/services/overview/${id}`
+      ? linkToQuota
+        ? `/services/quota/${id}`
+        : `/services/overview/${id}`
       : `/services/detail/${id}`;
 
     return (
@@ -46,7 +50,7 @@ const ServiceName = React.memo(
             className="table-cell-value table-cell-flex-box"
             style={{ marginRight: "7px" }}
           >
-            {getServiceLink(id, name, isGroup, isFiltered)}
+            {getServiceLink(id, name, isGroup, linkToQuota, isFiltered)}
             {getOpenInNewWindowLink(webUrl)}
           </span>
         </div>
@@ -57,6 +61,7 @@ const ServiceName = React.memo(
 
 export function nameRenderer(
   isFiltered: boolean,
+  linkToQuota: boolean,
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   // These do not work with instanceof ServiceTree due to TS
@@ -77,6 +82,7 @@ export function nameRenderer(
       image={image}
       webUrl={webUrl}
       isFiltered={isFiltered}
+      linkToQuota={linkToQuota}
     />
   );
 }
@@ -103,11 +109,15 @@ function getServiceLink(
   id: string,
   name: string,
   isGroup: boolean,
+  linkToQuota: boolean,
   isFiltered: boolean
 ): React.ReactNode {
   const serviceLink = isGroup
-    ? `/services/overview/${id}`
+    ? linkToQuota
+      ? `/services/quota/${id}`
+      : `/services/overview/${id}`
     : `/services/detail/${id}`;
+
   if (isFiltered) {
     return (
       <NestedServiceLinks

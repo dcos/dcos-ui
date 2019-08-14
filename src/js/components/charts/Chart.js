@@ -22,7 +22,7 @@ var Chart = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       {
         name: "sidebar",

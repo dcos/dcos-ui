@@ -13,20 +13,20 @@ import {
   QuotaLimitStatuses
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 
-export function limitRenderer(group: ServiceGroup) {
-  const limit = group.quota ? group.quota.limitStatus : "N/A";
-  const roles =
-    group.quota && group.quota.serviceRoles
-      ? group.quota.serviceRoles.count
-      : 0;
-  const groupRoles =
-    group.quota && group.quota.serviceRoles
-      ? group.quota.serviceRoles.groupRoleCount
-      : 0;
-  const limitNumber = roles - groupRoles;
+import { getQuotaLimit } from "../utils/QuotaUtil";
 
+import ServiceTree from "../structs/ServiceTree";
+import Service from "../structs/Service";
+import Pod from "../structs/Pod";
+
+interface LimitInfo {
+  limitText: string;
+  servicesNotLimited: number;
+}
+
+function renderLimitLabel(limitInfo: LimitInfo) {
   let icon = null;
-  switch (limit) {
+  switch (limitInfo.limitText) {
     case QuotaLimitStatuses.enforced:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
@@ -52,7 +52,7 @@ export function limitRenderer(group: ServiceGroup) {
             }
           >
             <Plural
-              value={limitNumber}
+              value={limitInfo.servicesNotLimited}
               one="# service has no quota limit."
               other="# services have no quota limit."
             />
@@ -89,11 +89,70 @@ export function limitRenderer(group: ServiceGroup) {
       <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
         <span className="icon-margin-right">{icon}</span>
         <Trans
-          id={limit}
+          id={limitInfo.limitText}
           render="span"
           className="table-cell-value table-cell-flex-box"
         />
       </div>
     </TextCell>
+  );
+}
+
+function itemIsServiceGroup(item: any): item is ServiceGroup {
+  return item.quota && item.quota.limitStatus;
+}
+
+export function getLimitInfoForPod(item: Pod): LimitInfo {
+  return {
+    limitText:
+      item.getRole() === item.getRootGroupName()
+        ? QuotaLimitStatuses.enforced
+        : QuotaLimitStatuses.notEnforced,
+    servicesNotLimited: 0
+  };
+}
+
+export function getLimitInfoForService(
+  item: Pod | Service | ServiceTree
+): LimitInfo {
+  if (item instanceof Pod) {
+    return getLimitInfoForPod(item);
+  }
+
+  const groupName =
+    item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
+  const stats = item.getQuotaRoleStats(groupName);
+
+  return {
+    limitText: getQuotaLimit({
+      count: stats.count,
+      groupRoleCount: stats.groupRolesCount
+    }),
+    servicesNotLimited: stats.count - stats.groupRolesCount
+  };
+}
+
+export function getLimitInfoForServiceGroup(item: ServiceGroup): LimitInfo {
+  if (!item.quota || !item.quota.serviceRoles) {
+    return {
+      limitText: QuotaLimitStatuses.na,
+      servicesNotLimited: 0
+    };
+  }
+
+  return {
+    limitText: getQuotaLimit(item.quota.serviceRoles),
+    servicesNotLimited:
+      item.quota.serviceRoles.count - item.quota.serviceRoles.groupRoleCount
+  };
+}
+
+export function limitRenderer(
+  item: ServiceGroup | ServiceTree | Service | Pod
+) {
+  return renderLimitLabel(
+    itemIsServiceGroup(item)
+      ? getLimitInfoForServiceGroup(item)
+      : getLimitInfoForService(item)
   );
 }

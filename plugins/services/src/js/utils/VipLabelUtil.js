@@ -29,6 +29,9 @@ const VipLabelUtil = {
   },
 
   findVip(labels = {}) {
+    if (typeof labels !== "object" || labels === null) {
+      return undefined;
+    }
     return Object.entries(labels).find(([key, _]) => key.match(/^(vip|VIP)/));
   },
 

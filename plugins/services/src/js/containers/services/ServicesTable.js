@@ -171,7 +171,7 @@ class ServicesTable extends React.Component {
     CompositeState.enable();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
 
     this.setState(
@@ -301,6 +301,7 @@ class ServicesTable extends React.Component {
             cellRenderer={nameRenderer.bind(
               null,
               this.props.isFiltered,
+              false,
               ...arguments
             )}
             growToFill={

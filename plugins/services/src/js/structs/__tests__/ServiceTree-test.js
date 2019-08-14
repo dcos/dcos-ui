@@ -1275,7 +1275,7 @@ describe("ServiceTree", function() {
     });
   });
 
-  describe("#getRoleLength", function() {
+  describe("#getQuotaRoleStats", function() {
     it("returns the correct numbers", function() {
       thisInstance = new ServiceTree({
         id: "/group",
@@ -1286,8 +1286,8 @@ describe("ServiceTree", function() {
         ]
       });
 
-      expect(thisInstance.getRoleLength()).toEqual({
-        servicesCount: 1,
+      expect(thisInstance.getQuotaRoleStats()).toEqual({
+        count: 1,
         rolesCount: 1,
         groupRolesCount: 0
       });
@@ -1317,8 +1317,8 @@ describe("ServiceTree", function() {
         ]
       });
 
-      expect(thisInstance.getRoleLength()).toEqual({
-        servicesCount: 4,
+      expect(thisInstance.getQuotaRoleStats()).toEqual({
+        count: 4,
         rolesCount: 4,
         groupRolesCount: 2
       });

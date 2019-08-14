@@ -2,7 +2,7 @@ import * as QuotaUtil from "../QuotaUtil";
 import {
   ServiceGroup,
   ServiceGroupQuota,
-  ServiceGroupQuotaRoles
+  QuotaRolesStats
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import { MesosRole } from "#PLUGINS/services/src/js/types/MesosRoles";
 import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
@@ -304,7 +304,7 @@ describe("QuotaUtil", () => {
       expect(QuotaUtil.getQuotaLimit(undefined)).toEqual("N/A");
     });
     it("return Enforced for 0 roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 0,
         groupRoleCount: 0
       };
@@ -312,14 +312,14 @@ describe("QuotaUtil", () => {
     });
 
     it("return Enforced for all roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 10
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Enforced");
     });
     it("return Not Enforced for 0 group roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 0
       };
@@ -327,7 +327,7 @@ describe("QuotaUtil", () => {
     });
 
     it("return Partially Enforced for > 0 group roles", () => {
-      const value: ServiceGroupQuotaRoles = {
+      const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 5
       };
@@ -340,11 +340,6 @@ describe("QuotaUtil", () => {
       expect(QuotaUtil.serviceTreeHasQuota(new ServiceTree(), [])).toEqual(
         false
       );
-    });
-    it("returns false if serviceTree is not a top-level group", () => {
-      expect(
-        QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev/test" }), [])
-      ).toEqual(false);
     });
     it("returns false if there is no matching role", () => {
       expect(
@@ -371,6 +366,30 @@ describe("QuotaUtil", () => {
           { name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }
         ])
       ).toEqual(true);
+    });
+    it("returns true groups parent has a role with quota", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          [{ name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }]
+        )
+      ).toEqual(true);
+    });
+    it("returns false if groups parent doesn't have a role", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          []
+        )
+      ).toEqual(false);
+    });
+    it("returns false if groups parent doesn't have a role with limits", () => {
+      expect(
+        QuotaUtil.serviceTreeHasQuota(
+          new ServiceTree({ id: "/dev/test/thing" }),
+          [{ name: "dev", weight: 1.0, quota: { limit: {} } }]
+        )
+      ).toEqual(false);
     });
   });
   describe("#formatQuotaID", () => {

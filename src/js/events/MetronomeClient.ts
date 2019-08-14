@@ -164,9 +164,7 @@ export function createJob(
 
 export function fetchJobs(): Observable<RequestResponse<JobResponse[]>> {
   return request(
-    `${
-      Config.metronomeAPI
-    }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
+    `${Config.metronomeAPI}/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
   );
 }
 
@@ -174,9 +172,7 @@ export function fetchJobDetail(
   jobID: string
 ): Observable<RequestResponse<JobDetailResponse>> {
   return request(
-    `${
-      Config.metronomeAPI
-    }/v1/jobs/${jobID}?embed=activeRuns&embed=history&embed=schedules`
+    `${Config.metronomeAPI}/v1/jobs/${jobID}?embed=activeRuns&embed=history&embed=schedules`
   );
 }
 
@@ -185,9 +181,7 @@ export function deleteJob(
   stopCurrentJobRuns = false
 ): Observable<RequestResponse<any>> {
   return request(
-    `${
-      Config.metronomeAPI
-    }/v1/jobs/${jobID}?stopCurrentJobRuns=${stopCurrentJobRuns}`,
+    `${Config.metronomeAPI}/v1/jobs/${jobID}?stopCurrentJobRuns=${stopCurrentJobRuns}`,
     { method: "DELETE", headers: defaultHeaders }
   );
 }
@@ -214,9 +208,7 @@ export function updateJob(
 
 export function runJob(jobID: string): Observable<RequestResponse<any>> {
   return request(
-    `${
-      Config.metronomeAPI
-    }/v1/jobs/${jobID}/runs?embed=activeRuns&embed=history&embed=schedules`,
+    `${Config.metronomeAPI}/v1/jobs/${jobID}/runs?embed=activeRuns&embed=history&embed=schedules`,
     {
       headers: defaultHeaders,
       method: "POST",

@@ -17,7 +17,7 @@ describe("SaveStateMixin", function() {
     thisInstance.constructor.displayName = "FakeInstance";
   });
 
-  describe("#componentWillMount", function() {
+  describe("#UNSAFE_componentWillMount", function() {
     beforeEach(function() {
       thisPrevGetKey = UserSettingsStore.getKey;
       UserSettingsStore.getKey = function() {
@@ -34,7 +34,7 @@ describe("SaveStateMixin", function() {
     });
 
     it("sets the previous state", function() {
-      thisInstance.componentWillMount();
+      thisInstance.UNSAFE_componentWillMount();
       expect(thisInstance.setState).toHaveBeenCalledWith({ open: false });
     });
   });

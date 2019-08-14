@@ -44,7 +44,7 @@ const isGroupMutationArgs = (
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   const groupName = serviceTree.getName();
-  const serviceRoles = serviceTree.getRoleLength();
+  const serviceRoles = serviceTree.getQuotaRoleStats();
   return {
     id: serviceTree.getId(),
     name: groupName,
@@ -52,7 +52,7 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
       enforced: serviceTree.getEnforceRole() === true,
       limitStatus: "N/A",
       serviceRoles: {
-        count: serviceRoles.servicesCount,
+        count: serviceRoles.count,
         groupRoleCount: serviceRoles.groupRolesCount
       }
     }

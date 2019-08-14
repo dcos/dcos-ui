@@ -52,7 +52,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount(...arguments);
 
     const { node } = this.props;
@@ -79,7 +79,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     this.updateCurrentTab();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.updateCurrentTab(nextProps);
   }
 

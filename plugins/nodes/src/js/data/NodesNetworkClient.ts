@@ -43,9 +43,7 @@ export function fetchNodesNetwork(): Observable<
             ? JSON.stringify(response.response)
             : response.response;
         throw new Error(
-          `Network Nodes API request failed: ${response.code} ${
-            response.message
-          }:${responseMessage}`
+          `Network Nodes API request failed: ${response.code} ${response.message}:${responseMessage}`
         );
       })
     )

@@ -30,7 +30,7 @@ class SearchLog extends React.PureComponent {
     });
   }
 
-  componentWillReceiveProps(nextProps, nextState) {
+  UNSAFE_componentWillReceiveProps(nextProps, nextState) {
     const nextSearchString = nextState.searchString;
     const nextTotalFound = nextState.totalFound;
     const updatedState = {};

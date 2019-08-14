@@ -3,7 +3,7 @@ import {
   ServiceGroup,
   ServiceGroupQuota,
   QuotaLimitStatuses,
-  ServiceGroupQuotaRoles
+  QuotaRolesStats
 } from "../types/ServiceGroup";
 import { MesosRole } from "../types/MesosRoles";
 import ServiceTree from "../structs/ServiceTree";
@@ -20,7 +20,7 @@ export function quotaHasLimit(
     quota.disk,
     quota.gpus
   ];
-  for (let metric of metrics) {
+  for (const metric of metrics) {
     if (metric && (metric.limit !== null && metric.limit !== undefined)) {
       return true;
     }
@@ -74,7 +74,7 @@ export function populateResourcesFromRole(
 }
 
 export function getQuotaLimit(
-  roles: ServiceGroupQuotaRoles | undefined | null
+  roles: QuotaRolesStats | undefined | null
 ): string {
   if (roles === undefined || roles === null) {
     return QuotaLimitStatuses.na;
@@ -104,11 +104,12 @@ export function serviceTreeHasQuota(
   if (item.isRoot()) {
     return false;
   }
-  if (item.getId().split("/").length > 2) {
-    //This is not a top-level group, don't bother checking for quota
+  const splitId = item.getId().split("/");
+  if (splitId.length < 2) {
     return false;
   }
-  const role = roles.find(role => role.name === item.getName());
+  const roleName = splitId[1];
+  const role = roles.find(role => role.name === roleName);
   if (!role) {
     return false;
   }

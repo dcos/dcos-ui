@@ -82,7 +82,7 @@ var NodesAgents = createReactClass({
     return { selectedResource: "cpus", ...DEFAULT_FILTER_OPTIONS };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.mesosHosts = getMesosHosts(this.state);
 
     this.store_listeners = [

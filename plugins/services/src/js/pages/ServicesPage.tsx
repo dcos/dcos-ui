@@ -30,7 +30,7 @@ class ServicesPage extends mixin(StoreMixin, TabsMixin) {
     this.state = this.getInitialState();
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "notification", events: ["change"], suppressUpdate: true }
     ];

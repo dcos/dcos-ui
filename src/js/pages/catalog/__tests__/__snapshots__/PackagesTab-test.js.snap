@@ -106,7 +106,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
       <p
         className="tall flush-top"
       >
-        Certified packages are verified by Mesosphere for interoperability with DC/OS.
+        Certified packages are verified by D2iQ for interoperability with DC/OS.
       </p>
       <div
         className="panel-grid row"

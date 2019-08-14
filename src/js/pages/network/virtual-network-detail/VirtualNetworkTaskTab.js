@@ -181,9 +181,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   getTitle(portMappings) {
     return portMappings
       .map(function(mapping) {
-        return `${
-          mapping.container_port
-        } > ${mapping.host_port} (${mapping.protocol})`;
+        return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
       })
       .join(", ");
   }

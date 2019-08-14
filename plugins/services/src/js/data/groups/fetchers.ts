@@ -54,7 +54,9 @@ export function fetchRoles(): Observable<MesosRole[]> {
 
 function rolesFromFixtures(): Observable<MesosRole[]> {
   // @ts-ignore
-  const quotaRolesFixture = import(/* quotaRolesFixture */ "../../../../../../tests/_fixtures/quota-management/roles.json");
+  const quotaRolesFixture = import(
+    /* quotaRolesFixture */ "../../../../../../tests/_fixtures/quota-management/roles.json"
+  );
   return from(quotaRolesFixture).pipe(
     map(response => response.roles as MesosRole[])
   );

@@ -161,9 +161,7 @@ describe("MetronomeClient", () => {
         return createJob(createUpdateWithSchedule).pipe(
           tap(() =>
             expect(mockRequest).toHaveBeenLastCalledWith(
-              `${Config.metronomeAPI}/v1/jobs/${
-                createUpdateWithSchedule.job.id
-              }/schedules`,
+              `${Config.metronomeAPI}/v1/jobs/${createUpdateWithSchedule.job.id}/schedules`,
               expect.anything()
             )
           )
@@ -216,9 +214,7 @@ describe("MetronomeClient", () => {
       mockRequest.mockReturnValueOnce(of({}));
       fetchJobs();
       expect(mockRequest).toHaveBeenCalledWith(
-        `${
-          Config.metronomeAPI
-        }/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
+        `${Config.metronomeAPI}/v1/jobs?embed=activeRuns&embed=schedules&embed=historySummary`
       );
     });
 
@@ -250,9 +246,7 @@ describe("MetronomeClient", () => {
     it("sends data to the correct URL", () => {
       fetchJobDetail(jobId);
       expect(mockRequest).toHaveBeenCalledWith(
-        `${
-          Config.metronomeAPI
-        }/v1/jobs/${jobId}?embed=activeRuns&embed=history&embed=schedules`
+        `${Config.metronomeAPI}/v1/jobs/${jobId}?embed=activeRuns&embed=history&embed=schedules`
       );
     });
 
@@ -356,9 +350,7 @@ describe("MetronomeClient", () => {
         return updateJob(id, createUpdateWithSchedule).pipe(
           tap(() =>
             expect(mockRequest).toHaveBeenLastCalledWith(
-              `${Config.metronomeAPI}/v1/jobs/${
-                createUpdateWithSchedule.job.id
-              }/schedules/${createUpdateWithSchedule.schedule.id}`,
+              `${Config.metronomeAPI}/v1/jobs/${createUpdateWithSchedule.job.id}/schedules/${createUpdateWithSchedule.schedule.id}`,
               expect.anything()
             )
           )
@@ -408,9 +400,7 @@ describe("MetronomeClient", () => {
     it("sends data to the correct URL", () => {
       runJob(jobId);
       expect(mockRequest).toHaveBeenCalledWith(
-        `${
-          Config.metronomeAPI
-        }/v1/jobs/${jobId}/runs?embed=activeRuns&embed=history&embed=schedules`,
+        `${Config.metronomeAPI}/v1/jobs/${jobId}/runs?embed=activeRuns&embed=history&embed=schedules`,
         expect.anything()
       );
     });

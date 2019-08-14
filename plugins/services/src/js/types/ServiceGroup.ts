@@ -9,7 +9,7 @@ export type QuotaResources = {
   consumed?: number;
 };
 
-export type ServiceGroupQuotaRoles = {
+export type QuotaRolesStats = {
   count: number;
   groupRoleCount: number;
 };
@@ -29,7 +29,7 @@ export const QuotaLimitStatuses: {
 export type ServiceGroupQuota = {
   enforced: boolean;
   limitStatus: string;
-  serviceRoles?: ServiceGroupQuotaRoles;
+  serviceRoles?: QuotaRolesStats;
   cpus?: QuotaResources;
   memory?: QuotaResources;
   disk?: QuotaResources;

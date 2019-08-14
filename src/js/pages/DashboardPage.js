@@ -41,10 +41,14 @@ function getMesosState() {
 }
 
 const ResourceTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart")
+  import(
+    /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
+  )
 );
 const HostTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart")
+  import(
+    /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
+  )
 );
 const TasksChart = lazy(() =>
   import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
@@ -105,7 +109,7 @@ var DashboardPage = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },

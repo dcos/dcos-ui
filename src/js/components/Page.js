@@ -80,7 +80,7 @@ const Page = createReactClass({
     title: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       {
         name: "sidebar",

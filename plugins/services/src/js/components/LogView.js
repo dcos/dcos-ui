@@ -60,7 +60,7 @@ class LogView extends React.Component {
     this.handleUpdateScrollPosition();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.handleUpdateScrollPosition(nextProps);
   }
 

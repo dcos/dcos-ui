@@ -3,7 +3,7 @@ import UserSettingsStore from "../stores/UserSettingsStore";
 import { SAVED_STATE_KEY } from "../constants/UserSettings";
 
 const SaveStateMixin = {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const key = this.saveState_key;
     if (!key) {
       return;

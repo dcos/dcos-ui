@@ -38,7 +38,10 @@ export const placementReducers = {
   },
   [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
     const stateCopy = deepCopy(state);
-    let placement = findNestedPropertyInObject(stateCopy, "job.run.placement");
+    const placement = findNestedPropertyInObject(
+      stateCopy,
+      "job.run.placement"
+    );
     const [prop, i] = path;
     const index = parseFloat(i);
     if (

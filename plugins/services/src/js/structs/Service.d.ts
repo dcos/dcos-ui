@@ -1,11 +1,14 @@
 import Item from "#SRC/js/structs/Item";
 import { Status } from "#PLUGINS/services/src/js/constants/ServiceStatus";
+import { ServiceQuotaRolesStats } from "../types/ServiceQuotaRolesStats";
 
 export default class Service extends Item {
   getId(): string;
   getMesosId(): string;
   getName(): string;
   getRole(): string;
+  getRootGroupName(): string;
+  getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
   getSpec(): any;
   getHealth(): string;
   getLabels(): object;
@@ -21,6 +24,5 @@ export default class Service extends Item {
   getRunningInstancesCount(): number;
   getTasksSummary(): object;
   getResources(): any;
-  getRole(): string;
   toJSON(): any;
 }

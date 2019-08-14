@@ -45,7 +45,7 @@ var Modals = createReactClass({
     };
   },
 
-  componentWillReceiveProps(props) {
+  UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       modalErrorMsg: props.modalErrorMsg,
       showErrorModal: props.showErrorModal

@@ -57,7 +57,7 @@ const TimeSeriesChart = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.clipPathID = `clip-${Util.uniqueID()}`;
     this.maskID = `mask-${Util.uniqueID()}`;
   },
