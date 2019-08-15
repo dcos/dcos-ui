@@ -264,27 +264,6 @@ class ServiceRootGroupModal extends React.Component<
     mesos: boolean = false,
     data: null | OvercommittedQuotaResource[] = null
   ) {
-    if (mesos) {
-      if (message === "Overcommit") {
-        this.setState({
-          errors: errorsFromOvercommitData(data),
-          isPending: false,
-          isForce: true
-        });
-      } else {
-        this.setState({
-          errors: {
-            form: [
-              <Trans key="quotaError">
-                Unable to create group's quota: {message}
-              </Trans>
-            ]
-          },
-          isPending: false
-        });
-      }
-      return;
-    }
     switch (message) {
       case "Conflict":
         this.setState({
@@ -311,7 +290,26 @@ class ServiceRootGroupModal extends React.Component<
           isPending: false
         });
         return;
+      case "Overcommit":
+        this.setState({
+          errors: errorsFromOvercommitData(data),
+          isPending: false,
+          isForce: true
+        });
+        return;
       default:
+        if (mesos) {
+          this.setState({
+            errors: {
+              form: [
+                <Trans key="quotaError">
+                  Unable to create group's quota: {message}
+                </Trans>
+              ]
+            },
+            isPending: false
+          });
+        }
         this.setState({
           errors: {
             form: [
