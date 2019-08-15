@@ -637,8 +637,7 @@ class ServiceRootGroupModal extends React.Component<
         header={
           <GroupModalHeader
             i18n={i18n}
-            isEdit={isEdit}
-            isForce={isForce}
+            mode={isForce ? "force" : isEdit ? "edit" : "create"}
             onClose={this.handleClose}
             onSave={this.handleSave}
           />
