@@ -34,18 +34,14 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 
   handleButtonConfirm() {
-    const { selectedItems, jobID } = this.props;
-    // TODO DCOS-8763 introduce support for multiple job run IDs
+    const { selectedItem, jobID } = this.props;
+    const jobRunID = selectedItem;
 
-    if (selectedItems.length === 1) {
-      const jobRunID = selectedItems[0];
-
-      if (jobID == null || jobRunID == null) {
-        return;
-      }
-
-      MetronomeClient.stopJobRun(jobID, jobRunID).subscribe();
+    if (jobID == null || jobRunID == null) {
+      return;
     }
+
+    MetronomeClient.stopJobRun(jobID, jobRunID).subscribe();
 
     this.setState({ pendingRequest: true });
   }
@@ -60,59 +56,45 @@ class JobStopRunModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  getContentHeader(selectedItems, selectedItemsLength) {
-    // L10NTODO: Pluralize
-    const headerContent =
-      selectedItemsLength === 1 ? (
+  getContentHeader() {
+    return (
+      <ModalHeading key="confirmHeader">
         <Trans render="span">Are you sure you want to stop this?</Trans>
-      ) : (
-        <Trans render="span">
-          Are you sure you want to stop {selectedItemsLength} Job Runs?
-        </Trans>
-      );
-
-    return <ModalHeading key="confirmHeader">{headerContent}</ModalHeading>;
+      </ModalHeading>
+    );
   }
 
-  getConfirmTextBody(selectedItems, selectedItemsLength) {
+  getConfirmTextBody(selectedItem) {
     const bodyText =
-      selectedItemsLength === 1
-        ? i18nMark("You are about to stop the job run with id") +
-          ` ${selectedItems[0]}.`
-        : i18nMark("You are about to stop the selected job runs.");
+      i18nMark("You are about to stop the job run with id") +
+      ` ${selectedItem}.`;
 
     return <Trans render="span" id={bodyText} />;
   }
 
   getModalContents() {
-    const { selectedItems } = this.props;
-    const selectedItemsLength = selectedItems.length;
+    const { selectedItem } = this.props;
 
     return (
       <div className="text-align-center">
-        {this.getConfirmTextBody(selectedItems, selectedItemsLength)}
+        {this.getConfirmTextBody(selectedItem)}
       </div>
     );
   }
 
   render() {
-    const { onClose, open, selectedItems, i18n } = this.props;
+    const { onClose, open, i18n } = this.props;
     // L10NTODO: Pluralize
-    const affirmText =
-      selectedItems.length > 1
-        ? i18n._(t`Stop Job Runs`)
-        : i18n._(t`Stop Job Run`);
+    const affirmText = i18n._(t`Stop Job Run`);
     const rightButtonText = this.state.pendingRequest
       ? i18n._(t`Stopping...`)
       : affirmText;
-
-    const selectedItemsLength = selectedItems.length;
 
     return (
       <Confirm
         closeByBackdropClick={true}
         disabled={this.state.pendingRequest}
-        header={this.getContentHeader(selectedItems, selectedItemsLength)}
+        header={this.getContentHeader()}
         open={open}
         onClose={onClose}
         leftButtonText={i18n._(t`Cancel`)}
@@ -138,7 +120,7 @@ JobStopRunModal.propTypes = {
   onClose: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
   open: PropTypes.bool.isRequired,
-  selectedItems: PropTypes.array.isRequired
+  selectedItem: PropTypes.string.isRequired
 };
 
 export default withI18n()(JobStopRunModal);
