@@ -67,7 +67,7 @@ describe("Job Details", function() {
         .first()
         .click();
       cy.get("@tableRows")
-        .last()
+        .eq(1)
         .click();
 
       cy.get(".job-run-history-table-column-id .expanding-table-child").should(
@@ -81,10 +81,10 @@ describe("Job Details", function() {
     it("expands a row for already finished job runs", function() {
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
       cy.get("@tableRows")
-        .eq(1)
+        .eq(2)
         .as("successfulHistoricRun");
       cy.get("@tableRows")
-        .eq(2)
+        .last()
         .as("failedHistoricRun");
 
       // make sure that we don't render those tasks in the dom already
@@ -102,6 +102,23 @@ describe("Job Details", function() {
       // check that the tooltip is present as the tasks from above are not
       // present in MesosStateStore
       cy.contains("The data related to this task has already been cleaned up.");
+    });
+
+    it("Shows the actions dropdown for running jobs", function() {
+      cy.get(".actions-dropdown");
+    });
+
+    it("Shows the stop job run modal", function() {
+      cy.get(".actions-dropdown").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Stop")
+        .click();
+      cy.get(".modal-header-title").contains(
+        "Are you sure you want to stop this?"
+      );
+      cy.get(".modal-body").contains(
+        "You are about to stop the job run with id"
+      );
     });
   });
 
