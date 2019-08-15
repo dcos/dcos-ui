@@ -14,6 +14,7 @@ exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
       <svg
         aria-label="product-servers icon"
         className="css-zgvqkl"
+        data-cy="icon"
         height={24}
         preserveAspectRatio="xMinYMin meet"
         role="img"
@@ -32,6 +33,7 @@ exports[`NodeBreadcrumbs renders no unitID breadcrumbs without nodeID 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -74,6 +76,7 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
       <svg
         aria-label="product-servers icon"
         className="css-zgvqkl"
+        data-cy="icon"
         height={24}
         preserveAspectRatio="xMinYMin meet"
         role="img"
@@ -92,6 +95,7 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -123,6 +127,7 @@ exports[`NodeBreadcrumbs renders with node breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -165,6 +170,7 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
       <svg
         aria-label="product-servers icon"
         className="css-zgvqkl"
+        data-cy="icon"
         height={24}
         preserveAspectRatio="xMinYMin meet"
         role="img"
@@ -183,6 +189,7 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -214,6 +221,7 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -245,6 +253,7 @@ exports[`NodeBreadcrumbs renders with taskID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -287,6 +296,7 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
       <svg
         aria-label="product-servers icon"
         className="css-zgvqkl"
+        data-cy="icon"
         height={24}
         preserveAspectRatio="xMinYMin meet"
         role="img"
@@ -305,6 +315,7 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -336,6 +347,7 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -367,6 +379,7 @@ exports[`NodeBreadcrumbs renders with unitID breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"
@@ -416,6 +429,7 @@ exports[`NodeBreadcrumbs renders without breadcrumbs 1`] = `
       <svg
         aria-label="product-servers icon"
         className="css-zgvqkl"
+        data-cy="icon"
         height={24}
         preserveAspectRatio="xMinYMin meet"
         role="img"
@@ -434,6 +448,7 @@ exports[`NodeBreadcrumbs renders without breadcrumbs 1`] = `
     <svg
       aria-label="system-caret-right icon"
       className="css-1vunjz0"
+      data-cy="icon"
       height={16}
       preserveAspectRatio="xMinYMin meet"
       role="img"

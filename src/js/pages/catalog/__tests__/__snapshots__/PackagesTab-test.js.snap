@@ -74,6 +74,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             <svg
               aria-label="system-search icon"
               className="css-1vunjz0"
+              data-cy="icon"
               height={16}
               preserveAspectRatio="xMinYMin meet"
               role="img"
@@ -150,6 +151,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -195,6 +197,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -240,6 +243,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -285,6 +289,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -330,6 +335,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -375,6 +381,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -420,6 +427,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -465,6 +473,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -510,6 +519,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-11hyrb9"
+                data-cy="badge"
               >
                 Certified
               </span>
@@ -577,6 +587,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -622,6 +633,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -667,6 +679,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -712,6 +725,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -757,6 +771,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -802,6 +817,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -847,6 +863,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -892,6 +909,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -937,6 +955,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -982,6 +1001,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1027,6 +1047,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1072,6 +1093,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1117,6 +1139,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1162,6 +1185,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1207,6 +1231,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1252,6 +1277,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1297,6 +1323,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1342,6 +1369,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1387,6 +1415,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1432,6 +1461,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1477,6 +1507,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1522,6 +1553,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1567,6 +1599,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1612,6 +1645,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1657,6 +1691,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1702,6 +1737,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1747,6 +1783,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1792,6 +1829,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1837,6 +1875,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1882,6 +1921,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1927,6 +1967,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -1972,6 +2013,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2017,6 +2059,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2062,6 +2105,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2107,6 +2151,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2152,6 +2197,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2197,6 +2243,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2242,6 +2289,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2287,6 +2335,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2332,6 +2381,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2377,6 +2427,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2422,6 +2473,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2467,6 +2519,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2512,6 +2565,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2557,6 +2611,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2602,6 +2657,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2647,6 +2703,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2692,6 +2749,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2737,6 +2795,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2782,6 +2841,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2827,6 +2887,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2872,6 +2933,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2917,6 +2979,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -2962,6 +3025,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3007,6 +3071,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3052,6 +3117,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3097,6 +3163,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3142,6 +3209,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3187,6 +3255,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3232,6 +3301,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3277,6 +3347,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3322,6 +3393,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3367,6 +3439,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3412,6 +3485,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3457,6 +3531,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3502,6 +3577,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3547,6 +3623,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3592,6 +3669,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3637,6 +3715,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3682,6 +3761,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3727,6 +3807,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3772,6 +3853,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3817,6 +3899,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3862,6 +3945,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3907,6 +3991,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3952,6 +4037,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -3997,6 +4083,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4042,6 +4129,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4087,6 +4175,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4132,6 +4221,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4177,6 +4267,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4222,6 +4313,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4267,6 +4359,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4312,6 +4405,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4357,6 +4451,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4402,6 +4497,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4447,6 +4543,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
@@ -4492,6 +4589,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
             >
               <span
                 className="css-17jd12v"
+                data-cy="badge"
               >
                 Community
               </span>
