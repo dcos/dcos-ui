@@ -1,5 +1,6 @@
 import { Trans, Plural } from "@lingui/macro";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
+import { Tooltip } from "@dcos/ui-kit";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
@@ -246,7 +247,16 @@ class ServiceBreadcrumbs extends React.Component {
             <BreadcrumbTextContent
               ref={ref => (this.primaryBreadcrumbTextRef = ref)}
             >
-              <Link to={routePath}>{id}</Link>
+              <Link to={routePath}>
+                <Tooltip
+                  id="service-breadcrumb-tooltip"
+                  trigger={
+                    <div className="service-breadcrumb-tooltip">{id}</div>
+                  }
+                >
+                  {id}
+                </Tooltip>
+              </Link>
             </BreadcrumbTextContent>
             {breadcrumbStatus}
           </Breadcrumb>
