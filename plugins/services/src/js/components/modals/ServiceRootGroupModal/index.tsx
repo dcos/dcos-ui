@@ -298,22 +298,16 @@ class ServiceRootGroupModal extends React.Component<
         });
         return;
       default:
-        if (mesos) {
-          this.setState({
-            errors: {
-              form: [
-                <Trans key="quotaError">
-                  Unable to create group's quota: {message}
-                </Trans>
-              ]
-            },
-            isPending: false
-          });
-        }
         this.setState({
           errors: {
             form: [
-              <Trans key="miscGroup">Unable to create group: {message}</Trans>
+              mesos ? (
+                <Trans key="quotaError">
+                  Unable to create group's quota: {message}
+                </Trans>
+              ) : (
+                <Trans key="miscGroup">Unable to create group: {message}</Trans>
+              )
             ]
           },
           isPending: false
