@@ -23,10 +23,10 @@ function parseResources(resources: string): Record<string, number> {
         value: parseFloat(parts[1])
       };
     })
-    .filter(resource => resource !== null && !Number.isNaN(resource.value))
     .reduce((resources, resource) => {
-      //@ts-ignore
-      resources[resource.resourceName] = resource.value;
+      if (resource !== null && !Number.isNaN(resource.value)) {
+        resources[resource.resourceName] = resource.value;
+      }
       return resources;
     }, result);
 }
