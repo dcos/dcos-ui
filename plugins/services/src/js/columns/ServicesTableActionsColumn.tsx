@@ -21,6 +21,7 @@ import ConfigStore from "#SRC/js/stores/ConfigStore";
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
 const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
+const VIEW_ENDPOINTS = ServiceActionItem.VIEW_ENDPOINTS;
 const MORE = ServiceActionItem.MORE;
 const OPEN = ServiceActionItem.OPEN;
 const RESTART = ServiceActionItem.RESTART;
@@ -56,6 +57,7 @@ function onActionsItemSelection(
   if (
     actionItem.id !== EDIT &&
     actionItem.id !== VIEW_PLANS &&
+    actionItem.id !== VIEW_ENDPOINTS &&
     actionItem.id !== DELETE &&
     (containsSDKService || isSDKService(service)) &&
     !Hooks.applyFilter(
@@ -126,6 +128,13 @@ export function actionsRendererFactory(
         <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
       )
     });
+
+    if (!isGroup) {
+      actions.push({
+        id: VIEW_ENDPOINTS,
+        html: <Trans render="span" id={ServiceActionLabels.view_endpoints} />
+      });
+    }
 
     if (hasWebUI(service)) {
       actions.push({

@@ -64,6 +64,7 @@ const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
+const VIEW_ENDPOINTS = ServiceActionItem.VIEW_ENDPOINTS;
 
 const METHODS_TO_BIND = [
   "handleServiceAction",
@@ -195,6 +196,11 @@ class ServicesTable extends React.Component {
       case VIEW_PLANS:
         router.push(
           `/services/detail/${encodeURIComponent(service.getId())}/plans/`
+        );
+        break;
+      case VIEW_ENDPOINTS:
+        router.push(
+          `/services/detail/${encodeURIComponent(service.getId())}/endpoints/`
         );
         break;
       case SCALE:
