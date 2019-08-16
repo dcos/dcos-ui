@@ -147,6 +147,24 @@ class ServiceConnectionEndpointList extends React.Component {
     });
   }
 
+  getEndpoints(webUrl) {
+    return (
+      <ConfigurationMapSection>
+        <ConfigurationMapHeading>
+          <Trans>Web Endpoints</Trans>
+        </ConfigurationMapHeading>
+        <ConfigurationMapRow>
+          <Trans render={<ConfigurationMapLabel />}>Web URL</Trans>
+          <ConfigurationMapValue>
+            <EndpointClipboardTrigger
+              command={webUrl[0] === "/" ? location.origin + webUrl : webUrl}
+            />
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    );
+  }
+
   render() {
     const { service } = this.props;
     let endpoints = [];
@@ -175,11 +193,13 @@ class ServiceConnectionEndpointList extends React.Component {
         />
       );
     }
+    const webUrl = service.getWebURL();
 
     return (
       <div className="container">
         <ConfigurationMap>
           {this.getPortDefinitions(endpoints, service)}
+          {webUrl ? this.getEndpoints(webUrl) : null}
         </ConfigurationMap>
       </div>
     );
