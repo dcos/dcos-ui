@@ -101,18 +101,6 @@ class ServiceConnectionEndpointList extends React.Component {
     return getDisplayValue(portValue);
   }
 
-  getServicePortValue(portDefinition) {
-    if (portDefinition.servicePort) {
-      return (
-        <EndpointClipboardTrigger
-          command={getDisplayValue(portDefinition.servicePort.toString())}
-        />
-      );
-    }
-
-    return getDisplayValue(portDefinition.servicePort);
-  }
-
   getPortDefinitionDetails(portDefinition, service) {
     return (
       <div>
@@ -132,12 +120,6 @@ class ServiceConnectionEndpointList extends React.Component {
           <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
           <ConfigurationMapValue>
             {this.getHostPortValue(portDefinition, service)}
-          </ConfigurationMapValue>
-        </ConfigurationMapRow>
-        <ConfigurationMapRow key="service-port">
-          <Trans render={<ConfigurationMapLabel />}>Service Port</Trans>
-          <ConfigurationMapValue>
-            {this.getServicePortValue(portDefinition)}
           </ConfigurationMapValue>
         </ConfigurationMapRow>
         <ConfigurationMapRow key="load-balanced-address">
