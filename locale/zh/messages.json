@@ -961,6 +961,8 @@
   "Warning": "警告",
   "Warning:": "警告：",
   "We are unable to retrieve the version {0} versions. Please try again.": "我们无法检索版本中的版本 {0}。请重试。",
+  "Web Enpoints": "",
+  "Web URL": "",
   "When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <0>Learn more</0>.": "当您尝试部署服务时，DC/OS 等待 offer，以匹配您的服务所需的资源。如果 offer 不能满足要求，则会被拒绝，而 DC/OS 会进行重试。<0>了解更多</0>.",
   "Will not enforce quota on all services in the group.": "",
   "With Latest Config": "附带最新配置",
