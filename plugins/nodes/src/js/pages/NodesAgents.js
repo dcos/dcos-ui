@@ -4,7 +4,6 @@ import classNames from "classnames";
 import React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -19,6 +18,7 @@ import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
 import SidebarActions from "#SRC/js/events/SidebarActions";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Util from "#SRC/js/utils/Util";
 
 import HostsPageContent from "./nodes-overview/HostsPageContent";

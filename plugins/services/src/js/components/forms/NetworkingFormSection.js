@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import { SET } from "#SRC/js/constants/TransactionTypes";
@@ -22,6 +21,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import SingleContainerPortDefinitions from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";

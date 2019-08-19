@@ -2,11 +2,11 @@ import { Trans } from "@lingui/macro";
 import React from "react";
 import { routerShape } from "react-router";
 import mixin from "reactjs-mixin";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Modal } from "reactjs-components";
 
 import AuthStore from "#SRC/js/stores/AuthStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 const SDK = require("../SDK").getSDK();
 

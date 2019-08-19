@@ -3,13 +3,13 @@ import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React, { Suspense, lazy } from "react";
 import createReactClass from "create-react-class";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import Breadcrumb from "../components/Breadcrumb";
 import Loader from "../components/Loader";

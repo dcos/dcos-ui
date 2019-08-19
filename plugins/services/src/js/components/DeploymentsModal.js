@@ -4,10 +4,7 @@ import classNames from "classnames";
 import { Confirm, Dropdown, Modal } from "reactjs-components";
 import { hashHistory } from "react-router";
 import mixin from "reactjs-mixin";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -23,6 +20,7 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import ServiceUtil from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import ProgressBar from "#SRC/js/components/ProgressBar";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import TableUtil from "#SRC/js/utils/TableUtil";

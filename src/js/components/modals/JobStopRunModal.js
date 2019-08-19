@@ -4,8 +4,8 @@ import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ModalHeading from "../modals/ModalHeading";
 
 import * as MetronomeClient from "../../events/MetronomeClient";

@@ -3,10 +3,7 @@ import { i18nMark } from "@lingui/react";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Dropdown, Tooltip, Modal } from "reactjs-components";
 import { Badge, Icon, InfoBoxInline } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -28,6 +25,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";

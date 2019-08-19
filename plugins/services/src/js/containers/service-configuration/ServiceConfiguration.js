@@ -3,7 +3,6 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Trans, DateFormat } from "@lingui/macro";
 import { Badge, Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -19,6 +18,7 @@ import {
   getDefinitionFromSpec
 } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ApplicationSpec from "../../structs/ApplicationSpec";

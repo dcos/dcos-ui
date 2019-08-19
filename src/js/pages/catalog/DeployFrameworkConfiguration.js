@@ -3,7 +3,6 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import qs from "query-string";
 import isEqual from "lodash.isequal";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { routerShape } from "react-router";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
@@ -11,6 +10,8 @@ import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import Page from "#SRC/js/components/Page";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
+
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 const METHODS_TO_BIND = [
   "handleGoBack",

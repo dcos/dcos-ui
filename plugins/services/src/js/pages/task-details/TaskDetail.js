@@ -2,11 +2,8 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
 import React from "react";
 import { routerShape, formatPattern } from "react-router";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
@@ -15,6 +12,7 @@ import ManualBreadcrumbs from "#SRC/js/components/ManualBreadcrumbs";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";

@@ -3,10 +3,7 @@ import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { request } from "@dcos/mesos-client";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
@@ -14,6 +11,7 @@ import MarathonStore from "#PLUGINS/services/src/js/stores/MarathonStore";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import { MesosMasterRequestType } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";

@@ -2,9 +2,9 @@ import { Confirm, Dropdown } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { Badge } from "@dcos/ui-kit";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ModalHeading from "./ModalHeading";
 import StringUtil from "../../utils/StringUtil";
 import Util from "../../utils/Util";

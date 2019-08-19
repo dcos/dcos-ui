@@ -1,6 +1,5 @@
 import mixin from "reactjs-mixin";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { map, catchError } from "rxjs/operators";
 import { combineLatest, of } from "rxjs";
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";
@@ -16,6 +15,7 @@ import NodesTable from "#PLUGINS/nodes/src/js/components/NodesTable";
 import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeModal";
 import DeactivateNodeConfirm from "#PLUGINS/nodes/src/js/components/modals/DeactivateNodeConfirm";
 import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class NodesTableContainer extends mixin(StoreMixin) {
   constructor() {

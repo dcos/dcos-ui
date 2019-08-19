@@ -1,15 +1,13 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import TaskDetail from "../../../../../services/src/js/pages/task-details/TaskDetail";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";

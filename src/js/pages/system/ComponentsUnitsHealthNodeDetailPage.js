@@ -1,12 +1,10 @@
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import Loader from "../../components/Loader";

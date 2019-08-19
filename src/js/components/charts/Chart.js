@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import DOMUtils from "../../utils/DOMUtils";
 
 var Chart = createReactClass({

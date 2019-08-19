@@ -4,7 +4,6 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -13,6 +12,7 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import DeploymentsModal from "./DeploymentsModal";
 

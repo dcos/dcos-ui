@@ -1,7 +1,6 @@
 import { i18nMark } from "@lingui/react";
 import * as React from "react";
 import { routerShape } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
@@ -13,6 +12,7 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 // @ts-ignore
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class ServicesPage extends mixin(StoreMixin) {
   static contextTypes = {
