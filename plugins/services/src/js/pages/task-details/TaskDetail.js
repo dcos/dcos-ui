@@ -81,8 +81,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.UNSAFE_componentWillMount(...arguments);
-
     const { routes } = this.props;
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
@@ -115,7 +113,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.UNSAFE_componentWillReceiveProps(...arguments);
     const { innerPath, taskID } = this.props.params;
     if (
       nextProps.params.innerPath !== innerPath ||

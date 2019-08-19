@@ -43,8 +43,6 @@ class NetworkPage extends mixin(TabsMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.UNSAFE_componentWillMount(...arguments);
-
     const networkPageReady = Hooks.applyFilter(
       "networkPageReady",
       Promise.resolve({ isReady: true })

@@ -14,8 +14,6 @@ const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
 
 class LoginPage extends mixin(StoreMixin) {
   UNSAFE_componentWillMount() {
-    super.UNSAFE_componentWillMount();
-
     if (AuthStore.getUser()) {
       this.context.router.push("/");
     }
