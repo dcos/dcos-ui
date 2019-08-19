@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import mixin from "reactjs-mixin";
 import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
@@ -15,7 +14,6 @@ import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
-import SaveStateMixin from "#SRC/js/mixins/SaveStateMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
@@ -37,7 +35,7 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
-class TasksView extends mixin(SaveStateMixin) {
+class TasksView extends React.Component {
   constructor() {
     super();
 
@@ -48,11 +46,6 @@ class TasksView extends mixin(SaveStateMixin) {
     METHODS_TO_BIND.forEach(function(method) {
       this[method] = this[method].bind(this);
     }, this);
-  }
-
-  UNSAFE_componentWillMount() {
-    this.saveState_key = `tasksView#${this.props.itemID}`;
-    super.UNSAFE_componentWillMount();
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {

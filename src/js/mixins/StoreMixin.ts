@@ -189,12 +189,8 @@ export default {
       typeof this.forceUpdate === "function"
     ) {
       if (process.env.NODE_ENV === "performance") {
-        let warning = "Forced upates are an antipattern. ";
-        if (this.saveState_key != null) {
-          warning += "Check the render method of " + this.saveState_key + ".";
-        }
         /* tslint:disable */
-        console.warn(warning);
+        console.warn("Forced upates are an antipattern.");
         /* tslint:enable */
       }
       this.forceUpdate();
