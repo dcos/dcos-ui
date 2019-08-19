@@ -1,10 +1,8 @@
 import mixin from "reactjs-mixin";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import Page from "#SRC/js/components/Page";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import UnitsHealthNodeDetail from "#SRC/js/components/UnitsHealthNodeDetail";
 import UnitHealthStore from "#SRC/js/stores/UnitHealthStore";
 import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";

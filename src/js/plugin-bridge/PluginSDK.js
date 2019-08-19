@@ -1,5 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import { StoreMixin } from "mesosphere-shared-reactjs";
+
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import { APPLICATION, PLUGIN_LOAD_TIMEOUT } from "../constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";

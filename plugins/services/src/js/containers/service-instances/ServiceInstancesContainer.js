@@ -2,11 +2,11 @@ import mixin from "reactjs-mixin";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import Loader from "#SRC/js/components/Loader";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Service from "../../structs/Service";
 import TasksContainer from "../tasks/TasksContainer";
 

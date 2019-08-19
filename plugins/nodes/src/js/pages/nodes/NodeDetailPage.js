@@ -1,18 +1,16 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
 import { routerShape } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
+import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
 
 import { Status, actionAllowed, StatusAction } from "../../types/Status";

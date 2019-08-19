@@ -1,6 +1,6 @@
 import mixin from "reactjs-mixin";
 import { ReactElement, Component } from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 type SchemaDefinition = any[];
 
@@ -22,13 +22,13 @@ export default class SchemaForm<SchemaFormProps> extends Component<
 > {
   handleFormChange(formData: object, eventObj: object): void;
   handleExternalSubmit(): DataTriple;
-  handleRemoveRow(definition: SchemaDefinition, prop: string, id: Number): void;
+  handleRemoveRow(definition: SchemaDefinition, prop: string, id: number): void;
   handleTabClick(): void;
   handleAddRow(
     prop: string,
     definition: SchemaDefinition,
     newDefinition: SchemaDefinition,
-    index: Number
+    index: number
   ): void;
   getAddNewRowButton(
     prop: string,
@@ -36,11 +36,11 @@ export default class SchemaForm<SchemaFormProps> extends Component<
     definition: SchemaDefinition,
     labelText: string
   ): ReactElement<any>;
-  getIndexFromDefinition(definition: SchemaDefinition): Number;
+  getIndexFromDefinition(definition: SchemaDefinition): number;
   getRemoveRowButton(
     generalDefinition: SchemaDefinition,
     prop: string,
-    id: Number,
+    id: number,
     title?: string
   ): ReactElement<any>;
   getDataTriple(): DataTriple;
@@ -50,7 +50,7 @@ export default class SchemaForm<SchemaFormProps> extends Component<
   getSubHeader(
     name: string,
     description: string,
-    levelsDeep: Number
+    levelsDeep: number
   ): ReactElement<any>;
   getLabel(
     description: string,

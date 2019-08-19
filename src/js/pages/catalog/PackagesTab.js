@@ -5,15 +5,13 @@ import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 import { Link, routerShape } from "react-router";
 import { MountService } from "foundation-ui";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Badge } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import FilterBar from "#SRC/js/components/FilterBar";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import AlertPanel from "../../components/AlertPanel";
 import AlertPanelHeader from "../../components/AlertPanelHeader";
 import Breadcrumb from "../../components/Breadcrumb";

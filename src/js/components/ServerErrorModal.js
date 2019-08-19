@@ -2,12 +2,10 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { Hooks } from "PluginSDK";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import ModalHeading from "./modals/ModalHeading";
 

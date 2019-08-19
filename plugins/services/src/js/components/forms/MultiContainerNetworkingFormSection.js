@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -25,9 +24,10 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
-import Networking from "#SRC/js/constants/Networking";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import Networking from "#SRC/js/constants/Networking";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 

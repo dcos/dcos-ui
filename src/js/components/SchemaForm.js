@@ -2,13 +2,13 @@ import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import defaultServiceImage from "../../../plugins/services/src/img/icon-service-default-small@2x.png";
 import FormUtil from "../utils/FormUtil";

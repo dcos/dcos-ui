@@ -3,10 +3,10 @@ import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import NodesList from "#SRC/js/structs/NodesList";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import NodesGridView from "../../../components/NodesGridView";
 

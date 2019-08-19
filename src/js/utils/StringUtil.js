@@ -1,7 +1,5 @@
 import marked from "marked";
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
+import "react";
 
 import search from "./search";
 

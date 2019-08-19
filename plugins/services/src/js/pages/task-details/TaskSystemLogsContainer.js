@@ -4,7 +4,6 @@ import isEqual from "lodash.isequal";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -13,6 +12,7 @@ import { APPEND, PREPEND } from "#SRC/js/constants/SystemLogTypes";
 import Loader from "#SRC/js/components/Loader";
 import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import SystemLogStore from "#SRC/js/stores/SystemLogStore";
 import SystemLogUtil from "#SRC/js/utils/SystemLogUtil";
 

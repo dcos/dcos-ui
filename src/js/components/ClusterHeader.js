@@ -2,7 +2,6 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import * as React from "react";
 import mixin from "reactjs-mixin";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { MountService } from "foundation-ui";
 import { routerShape } from "react-router";
 
@@ -11,6 +10,7 @@ import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import SidebarActions from "#SRC/js/events/SidebarActions";
 import ClipboardTrigger from "#SRC/js/components/ClipboardTrigger";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import ClusterDropdown from "./ClusterDropdown";
 

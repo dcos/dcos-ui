@@ -1,9 +1,6 @@
 import { MountService } from "foundation-ui";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
 import { Redirect, Route, hashHistory } from "react-router";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import AccessDeniedPage from "#SRC/js/components/AccessDeniedPage";
 import ApplicationUtil from "#SRC/js/utils/ApplicationUtil";
@@ -13,6 +10,7 @@ import ConfigStore from "#SRC/js/stores/ConfigStore";
 import CookieUtils from "#SRC/js/utils/CookieUtils";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import UsersPage from "#SRC/js/pages/system/UsersPage";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";

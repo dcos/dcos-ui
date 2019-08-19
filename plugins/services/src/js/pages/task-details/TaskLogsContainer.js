@@ -1,10 +1,10 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Loader from "#SRC/js/components/Loader";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { SYSTEM_LOGS } from "#SRC/js/constants/MesosLoggingStrategy";
 

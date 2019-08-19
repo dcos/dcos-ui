@@ -3,14 +3,12 @@ import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import { Badge } from "@dcos/ui-kit";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Breadcrumb from "../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../components/BreadcrumbTextContent";
 import FilterBar from "../../components/FilterBar";

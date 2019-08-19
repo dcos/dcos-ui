@@ -2,11 +2,11 @@ import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import { APPEND } from "#SRC/js/constants/SystemLogTypes";
 import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import LogView from "./LogView";
 import MesosLogStore from "../stores/MesosLogStore";

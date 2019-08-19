@@ -1,7 +1,7 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
-import { StoreMixin } from "mesosphere-shared-reactjs";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
   constructor() {

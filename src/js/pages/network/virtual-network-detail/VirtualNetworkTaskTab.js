@@ -4,15 +4,13 @@ import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
-import { StoreMixin } from "mesosphere-shared-reactjs";
 import { Table } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import FilterBar from "../../../components/FilterBar";
 import FilterHeadline from "../../../components/FilterHeadline";
 import FilterInputText from "../../../components/FilterInputText";

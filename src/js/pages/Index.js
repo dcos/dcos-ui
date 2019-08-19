@@ -4,7 +4,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { CSSTransition } from "react-transition-group";
 
-import { StoreMixin } from "mesosphere-shared-reactjs";
+import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import Config from "../config/Config";
 import ConfigStore from "../stores/ConfigStore";
