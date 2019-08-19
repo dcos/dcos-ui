@@ -191,11 +191,14 @@ export function updateJob(
   data: JobAPIOutput,
   existingSchedule: boolean = true
 ): Observable<RequestResponse<JobDetailResponse>> {
-  const updateJobRequest = request(`${Config.metronomeAPI}/v1/jobs/${jobID}`, {
-    method: "PUT",
-    body: JSON.stringify(data.job),
-    headers: defaultHeaders
-  });
+  const updateJobRequest = request<JobDetailResponse>(
+    `${Config.metronomeAPI}/v1/jobs/${jobID}`,
+    {
+      method: "PUT",
+      body: JSON.stringify(data.job),
+      headers: defaultHeaders
+    }
+  );
   const scheduleRequest = () =>
     existingSchedule
       ? updateSchedule(jobID, data.schedule as JobSchedule)
@@ -203,7 +206,7 @@ export function updateJob(
 
   return data.schedule
     ? updateJobRequest.pipe(switchMap(() => scheduleRequest()))
-    : (updateJobRequest as Observable<RequestResponse<JobDetailResponse>>);
+    : updateJobRequest;
 }
 
 export function runJob(jobID: string): Observable<RequestResponse<any>> {
@@ -238,9 +241,12 @@ export function updateSchedule(
 }
 
 export function createSchedule(jobID: string, schedule: JobSchedule) {
-  return request(`${Config.metronomeAPI}/v1/jobs/${jobID}/schedules`, {
-    method: "POST",
-    body: JSON.stringify(schedule),
-    headers: defaultHeaders
-  }).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
+  return request<JobDetailResponse>(
+    `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules`,
+    {
+      method: "POST",
+      body: JSON.stringify(schedule),
+      headers: defaultHeaders
+    }
+  ).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
 }

@@ -14,7 +14,7 @@ import TabsMixin from "#SRC/js/mixins/TabsMixin";
 // @ts-ignore
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 
-class ServicesPage extends mixin(StoreMixin, TabsMixin) {
+class ServicesPage extends mixin(StoreMixin) {
   static contextTypes = {
     router: routerShape
   };
@@ -25,50 +25,21 @@ class ServicesPage extends mixin(StoreMixin, TabsMixin) {
     matches: /^\/services/
   };
 
+  store_listeners: Array<{
+    name: string;
+    events: string[];
+    suppressUpdate: boolean;
+  }>;
+
   constructor() {
     super(...arguments);
-    this.state = this.getInitialState();
-  }
-
-  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "notification", events: ["change"], suppressUpdate: true }
     ];
-    this.tabs_tabs = {
-      "/services/overview": i18nMark("Services")
-    };
-    this.updateCurrentTab();
   }
 
   componentDidMount() {
     CosmosPackagesStore.fetchAvailablePackages();
-  }
-
-  componentDidUpdate() {
-    this.updateCurrentTab();
-  }
-
-  getInitialState() {
-    return {
-      currentTab: "/services/overview"
-    };
-  }
-
-  updateCurrentTab() {
-    let currentTab = RouterUtil.reconstructPathFromRoutes(this.props.routes);
-    // `/services/overview` tab also contains routes for '/services/overview/:id'
-    if (currentTab === "/services/overview/:id" || currentTab == null) {
-      currentTab = "/services/overview";
-    }
-    // Disguise `/services/detail` tab under `/services/overview`
-    // eventhough it is an actual sibling
-    if (currentTab === "/services/detail/:id" || currentTab == null) {
-      currentTab = "/services/overview";
-    }
-
-    if (this.state.currentTab !== currentTab) {
-      this.setState({ currentTab });
-    }
   }
 
   getNavigation() {

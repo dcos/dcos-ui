@@ -32,6 +32,7 @@ exports[`ServiceList #getServices returns services that have a value of two elem
           <svg
             aria-label="system-circle-minus icon"
             className="css-ed86y8"
+            data-cy="icon"
             height={16}
             preserveAspectRatio="xMinYMin meet"
             role="img"

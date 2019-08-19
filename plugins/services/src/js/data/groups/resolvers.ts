@@ -36,11 +36,8 @@ const isGroupArgs = (
 export interface GroupCreateArgs {
   data: GroupFormData;
 }
-const isGroupMutationArgs = (
-  args: Record<string, unknown>
-): args is GroupCreateArgs => {
-  return (args as GroupCreateArgs).data !== undefined;
-};
+const isGroupMutationArgs = (args: object): args is GroupCreateArgs =>
+  args.hasOwnProperty("data");
 
 function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
   const groupName = serviceTree.getName();
