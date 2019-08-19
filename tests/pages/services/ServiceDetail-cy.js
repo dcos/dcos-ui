@@ -76,6 +76,77 @@ describe("Service Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
       });
 
+      it("shows endpoints tab when clicked", function() {
+        cy.visitUrl({
+          url: "/services/detail/%2Fsleep"
+        });
+
+        cy.get(".menu-tabbed-item")
+          .contains("Endpoints")
+          .click();
+
+        cy.get("h1.configuration-map-heading")
+          .contains("124")
+          .should("exist");
+
+        cy.get(".configuration-map-label")
+          .contains("Protocol")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Protocol")
+          .next(".configuration-map-value")
+          .contains("tcp")
+          .should("exist");
+
+        cy.get(".configuration-map-label")
+          .contains("Container Port")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Container Port")
+          .next(".configuration-map-value")
+          .contains("—")
+          .should("exist");
+
+        cy.get(".configuration-map-label")
+          .contains("Host Port")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Host Port")
+          .next(".configuration-map-value")
+          .contains("Auto Assigned")
+          .should("exist");
+
+        cy.get(".configuration-map-label")
+          .contains("Service Port")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Service Port")
+          .next(".configuration-map-value")
+          .contains("—")
+          .should("exist");
+
+        cy.get(".configuration-map-label")
+          .contains("Load Balanced Address")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Load Balanced Address")
+          .next(".configuration-map-value")
+          .contains("new-service-1.marathon.l4lb.thisdcos.directory:126")
+          .should("exist");
+
+        cy.get("h1.configuration-map-heading")
+          .contains("Web Endpoints")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Web URL")
+          .should("exist");
+        cy.get(".configuration-map-label")
+          .contains("Web URL")
+          .next(".configuration-map-value")
+          .contains("http://localhost:4200/service/undefined/web-path")
+          .should("exist");
+      });
+
       it("shows volumes tab when clicked", function() {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
