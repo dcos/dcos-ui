@@ -51,8 +51,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.UNSAFE_componentWillMount(...arguments);
-
     const { node } = this.props;
     if (node) {
       NodeHealthStore.fetchNodeUnits(node.hostname);
@@ -82,8 +80,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
   }
 
   UNSAFE_componentWillUpdate() {
-    super.UNSAFE_componentWillUpdate(...arguments);
-
     const { node } = this.props;
     if (node) {
       NodeHealthStore.fetchNodeUnits(node.hostname);

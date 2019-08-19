@@ -43,8 +43,6 @@ class SchemaForm extends mixin(StoreMixin) {
   }
 
   UNSAFE_componentWillMount() {
-    super.UNSAFE_componentWillMount(...arguments);
-
     if (this.props.definition) {
       this.multipleDefinition = this.props.definition;
     } else {

@@ -58,7 +58,6 @@ class MesosLogContainer extends mixin(StoreMixin) {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.UNSAFE_componentWillReceiveProps(...arguments);
     const { props } = this;
     if (props.filePath === nextProps.filePath) {
       return;

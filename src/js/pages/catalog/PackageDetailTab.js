@@ -154,8 +154,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
-    super.UNSAFE_componentWillReceiveProps(...arguments);
-
     this.retrievePackageInfo(
       nextProps.params.packageName,
       nextProps.location.query.version
