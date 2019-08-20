@@ -4,6 +4,7 @@ export default class List<A> {
   add(item: any): number;
   getItems(): A[];
   getFilterProperties(): object;
+  isEmpty(): boolean;
   last(): A;
   combine(list: List<A>): List<A>;
   filterItems(
