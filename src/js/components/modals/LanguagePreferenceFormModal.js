@@ -19,7 +19,7 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
     this.handleLanguagePrefSubmit = this.handleLanguagePrefSubmit.bind(this);
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { isOpen } = nextProps;
     if (isOpen !== this.state.isOpen) {
       this.setState({ isOpen });

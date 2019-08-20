@@ -45,6 +45,8 @@ import {
 } from "./form/helpers/JobParsers";
 import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
+
 interface JobFormModalProps {
   job?: JobResponse;
   isEdit: boolean;
@@ -111,7 +113,7 @@ class JobFormModal extends React.Component<
     this.validateSpec = this.validateSpec.bind(this);
   }
 
-  componentWillReceiveProps(nextProps: JobFormModalProps) {
+  UNSAFE_componentWillReceiveProps(nextProps: JobFormModalProps) {
     if (!isEqual(nextProps.job, this.props.job)) {
       const jobSpec = nextProps.job
         ? this.getJobSpecFromResponse(nextProps.job)
@@ -157,7 +159,7 @@ class JobFormModal extends React.Component<
       serverErrors: [],
       processing: false,
       confirmOpen: false,
-      isJSONModeActive: false,
+      isJSONModeActive: UserSettingsStore.JSONEditorExpandedSetting,
       showValidationErrors: false,
       formInvalid: false,
       submitFailed: false,
@@ -236,6 +238,9 @@ class JobFormModal extends React.Component<
   }
 
   handleJSONToggle() {
+    UserSettingsStore.setJSONEditorExpandedSetting(
+      !this.state.isJSONModeActive
+    );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
@@ -387,7 +392,7 @@ class JobFormModal extends React.Component<
     const { isEdit } = this.props;
     const { scheduleFailure } = this.state;
 
-    let title =
+    const title =
       isEdit || scheduleFailure ? (
         <Trans render="span">Edit Job</Trans>
       ) : (
@@ -473,7 +478,7 @@ class JobFormModal extends React.Component<
   render() {
     const { isOpen, i18n } = this.props;
     const { isConfirmOpen } = this.state;
-    let useGemini = false;
+    const useGemini = false;
 
     return (
       <FullScreenModal

@@ -28,7 +28,7 @@ import NotificationStore from "../stores/NotificationStore";
  *       currentTab: 'defined-route-1'
  *     }
  *   }
- *   componentWillMount() {
+ *   UNSAFE_componentWillMount() {
  *     // The keys to this object must be defined routes
  *     this.tabs_tabs = {
  *      'defined-route-1': 'Tab Title 1',

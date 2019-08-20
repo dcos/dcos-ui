@@ -5,7 +5,6 @@ jest.mock("#SRC/js/stores/DCOSStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
 
 const JestUtil = require("#SRC/js/utils/JestUtil");
-const DSLExpression = require("#SRC/js/structs/DSLExpression");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const Service = require("#PLUGINS/services/src/js/structs/Service");
@@ -19,12 +18,7 @@ describe("ServicesContainer", function() {
     thisStoreChangeListener = MesosStateStore.addChangeListener;
     MesosStateStore.addChangeListener = function() {};
 
-    thisRouterStubs = {
-      getCurrentPathname() {
-        return "test";
-      },
-      push: jasmine.createSpy()
-    };
+    thisRouterStubs = { push: jasmine.createSpy() };
     const WrappedComponent = JestUtil.stubRouterContext(
       ServicesContainer,
       thisRouterStubs
@@ -41,26 +35,6 @@ describe("ServicesContainer", function() {
 
   afterEach(function() {
     MesosStateStore.addChangeListener = thisStoreChangeListener;
-  });
-
-  describe("#setQueryParams", function() {
-    it("updates window location with correct query params", function() {
-      thisInstance
-        .instance()
-        .handleFilterExpressionChange(new DSLExpression("foo"));
-
-      expect(thisRouterStubs.push.calls.mostRecent().args).toEqual([
-        { pathname: "/test", query: { q: "foo" } }
-      ]);
-
-      thisInstance
-        .instance()
-        .handleFilterExpressionChange(new DSLExpression("bar"));
-
-      expect(thisRouterStubs.push.calls.mostRecent().args).toEqual([
-        { pathname: "/test", query: { q: "bar" } }
-      ]);
-    });
   });
 
   describe("#getCorrectedModalProps", function() {

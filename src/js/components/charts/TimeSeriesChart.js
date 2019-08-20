@@ -8,7 +8,6 @@ import ReactDOM from "react-dom";
 import AnimationCircle from "./AnimationCircle";
 import ChartMixin from "../../mixins/ChartMixin";
 import ChartStripes from "./ChartStripes";
-import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Maths from "../../utils/Maths";
 import TimeSeriesArea from "./TimeSeriesArea";
 import TimeSeriesMouseOver from "./TimeSeriesMouseOver";
@@ -35,7 +34,7 @@ const TimeSeriesChart = createReactClass({
     width: PropTypes.number
   },
 
-  mixins: [ChartMixin, InternalStorageMixin],
+  mixins: [ChartMixin],
 
   getDefaultProps() {
     return {
@@ -58,11 +57,9 @@ const TimeSeriesChart = createReactClass({
     };
   },
 
-  componentWillMount() {
-    this.internalStorage_set({
-      clipPathID: `clip-${Util.uniqueID()}`,
-      maskID: `mask-${Util.uniqueID()}`
-    });
+  UNSAFE_componentWillMount() {
+    this.clipPathID = `clip-${Util.uniqueID()}`;
+    this.maskID = `mask-${Util.uniqueID()}`;
   },
 
   componentDidMount() {
@@ -113,23 +110,18 @@ const TimeSeriesChart = createReactClass({
   },
 
   createClipPath(width, height) {
-    const data = this.internalStorage_get();
-    const el = this.movingElsRef;
-
     // create clip path for areas and x-axis
-    d3.select(el)
+    d3.select(this.movingElsRef)
       .append("defs")
       .append("clipPath")
-      .attr("id", data.clipPathID)
+      .attr("id", this.clipPathID)
       .append("rect");
 
     this.updateClipPath(width, height);
   },
 
   updateClipPath(width, height) {
-    const data = this.internalStorage_get();
-
-    d3.select("#" + data.clipPathID + " rect").attr({
+    d3.select("#" + this.clipPathID + " rect").attr({
       width,
       height
     });
@@ -441,14 +433,13 @@ const TimeSeriesChart = createReactClass({
       yFormat,
       y
     } = this.props;
-    const store = this.internalStorage_get();
     const stripeHeight = this.getHeight(this.props);
     const stripeWidth = this.getWidth(this.props);
     const xScale = this.getXScale(data, stripeWidth, refreshRate);
     const xTimeScale = this.getXTimeScale(data, stripeWidth);
     const yScale = this.getYScale(stripeHeight, maxY);
-    const clipPath = "url(#" + store.clipPathID + ")";
-    const maskID = this.internalStorage_get().maskID;
+    const clipPath = "url(#" + this.clipPathID + ")";
+    const maskID = this.maskID;
 
     return (
       <div className="timeseries-chart">

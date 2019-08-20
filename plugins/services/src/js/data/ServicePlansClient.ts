@@ -45,9 +45,7 @@ export function fetchPlans(
             ? JSON.stringify(reqResp.response)
             : reqResp.response;
         throw new Error(
-          `Service Plans API request failed: ${reqResp.code} ${
-            reqResp.message
-          }:${respMessage}`
+          `Service Plans API request failed: ${reqResp.code} ${reqResp.message}:${respMessage}`
         );
       }
       return reqResp;
@@ -67,9 +65,7 @@ export function fetchPlanDetails(
             ? JSON.stringify(reqResp.response)
             : reqResp.response;
         throw new Error(
-          `Service Plan Detail API request failed: ${reqResp.code} ${
-            reqResp.message
-          }:${respMessage}`
+          `Service Plan Detail API request failed: ${reqResp.code} ${reqResp.message}:${respMessage}`
         );
       }
       return reqResp;

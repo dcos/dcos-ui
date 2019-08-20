@@ -215,6 +215,10 @@ module.exports = class ServiceTree extends Tree {
       .pop();
   }
 
+  getRootGroupName() {
+    return this.getId().split("/")[1];
+  }
+
   getResources() {
     return this.reduceItems(
       function(resources, item) {
@@ -371,14 +375,14 @@ module.exports = class ServiceTree extends Tree {
     }, []);
   }
 
-  getRoleLength(roleName = null) {
+  getQuotaRoleStats(roleName = null) {
     const name = roleName || this.getName();
     return this.reduceItems(
       (roles, item) => {
         if (item instanceof ServiceTree) {
           return roles;
         }
-        roles.servicesCount++;
+        roles.count++;
         const itemRole = item.getRole();
         if (itemRole) {
           roles.rolesCount++;
@@ -388,11 +392,15 @@ module.exports = class ServiceTree extends Tree {
         }
         return roles;
       },
-      { servicesCount: 0, rolesCount: 0, groupRolesCount: 0 }
+      { count: 0, rolesCount: 0, groupRolesCount: 0 }
     );
   }
 
   isRoot() {
     return this.getId() === "/";
+  }
+
+  isTopLevel() {
+    return !this.isRoot() && this.getId().split("/").length === 2;
   }
 };

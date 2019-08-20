@@ -18,7 +18,6 @@ import BulkOptions from "../../constants/BulkOptions";
 import FilterBar from "../../components/FilterBar";
 import FilterHeadline from "../../components/FilterHeadline";
 import FilterInputText from "../../components/FilterInputText";
-import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 import Page from "../../components/Page";
 import ResourceTableUtil from "../../utils/ResourceTableUtil";
 import StringUtil from "../../utils/StringUtil";
@@ -64,7 +63,7 @@ const UsersBreadcrumbs = () => {
   );
 };
 
-class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
+class OrganizationTab extends mixin(StoreMixin) {
   constructor() {
     super(arguments);
 
@@ -98,15 +97,15 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       this[event] = this.onUsersChange;
     });
 
-    this.internalStorage_update({ selectedIDSet: {} });
+    this.selectedIDSet = {};
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     super.componentWillMount();
     this.resetTablewideCheckboxTabulations();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     super.componentWillReceiveProps(...arguments);
 
     if (nextProps.items.length !== this.props.items.length) {
@@ -145,10 +144,10 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   handleCheckboxChange(prevCheckboxState, eventObject) {
     const isChecked = eventObject.fieldValue;
     const checkedCount = this.state.checkedCount + (isChecked || -1);
-    const selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const selectedIDSet = this.selectedIDSet;
 
     selectedIDSet[eventObject.fieldName] = isChecked;
-    this.internalStorage_update({ selectedIDSet });
+    this.selectedIDSet = selectedIDSet;
 
     this.setState({
       checkedCount,
@@ -190,7 +189,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   renderCheckbox(prop, row) {
     const rowID = row[this.props.itemID];
-    const remoteIDSet = this.internalStorage_get().remoteIDSet;
+    const remoteIDSet = this.remoteIDSet;
     const { checkableCount, checkedCount } = this.state;
     const disabled = remoteIDSet[rowID] === true;
     let checked = null;
@@ -200,7 +199,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
     } else if (checkedCount === checkableCount) {
       checked = true;
     } else {
-      checked = this.internalStorage_get().selectedIDSet[rowID];
+      checked = this.selectedIDSet[rowID];
     }
 
     return (
@@ -357,7 +356,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   getCheckedItemObjects(items, itemIDName) {
     if (this.state.selectedAction) {
-      const checkboxStates = this.internalStorage_get().selectedIDSet;
+      const checkboxStates = this.selectedIDSet;
       const selectedItems = {};
 
       Object.keys(checkboxStates).forEach(function(id) {
@@ -416,7 +415,7 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
   }
 
   getTableRowOptions(row) {
-    const selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const selectedIDSet = this.selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
       return { className: "selected" };
     }
@@ -426,12 +425,12 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
 
   bulkCheck(isChecked) {
     let checkedCount = 0;
-    const selectedIDSet = this.internalStorage_get().selectedIDSet;
+    const selectedIDSet = this.selectedIDSet;
 
     Object.keys(selectedIDSet).forEach(function(id) {
       selectedIDSet[id] = isChecked;
     });
-    this.internalStorage_update({ selectedIDSet });
+    this.selectedIDSet = selectedIDSet;
 
     if (isChecked) {
       checkedCount = this.state.checkableCount;
@@ -457,7 +456,8 @@ class OrganizationTab extends mixin(StoreMixin, InternalStorageMixin) {
       selectedIDSet[id] = false;
     });
 
-    this.internalStorage_update({ selectedIDSet, remoteIDSet });
+    this.selectedIDSet = selectedIDSet;
+    this.remoteIDSet = remoteIDSet;
     this.setState({ checkableCount });
   }
 

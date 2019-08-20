@@ -7,7 +7,6 @@ import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Page from "#SRC/js/components/Page";
-import RouterUtil from "#SRC/js/utils/RouterUtil";
 import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
@@ -49,8 +48,7 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     this.state = {
       actionDisabledID: null,
-      actionDisabledModalOpen: false,
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      actionDisabledModalOpen: false
     };
 
     METHODS_TO_BIND.forEach(method => {
@@ -58,24 +56,12 @@ class ServiceDetail extends mixin(TabsMixin) {
     });
   }
 
-  componentWillMount() {
-    super.componentWillMount(...arguments);
-    this.updateCurrentTab();
+  componentDidMount() {
     this.checkForVolumes();
   }
 
-  componentWillReceiveProps(nextProps) {
-    super.componentWillReceiveProps(...arguments);
-    this.updateCurrentTab(nextProps);
+  componentDidUpdate() {
     this.checkForVolumes();
-  }
-
-  updateCurrentTab(props = this.props) {
-    const { routes } = props;
-    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
-    if (currentTab != null) {
-      this.setState({ currentTab });
-    }
   }
 
   handleEditClearError() {
@@ -238,9 +224,7 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
-    const {
-      service: { id }
-    } = this.props;
+    const { id } = this.props.service;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [

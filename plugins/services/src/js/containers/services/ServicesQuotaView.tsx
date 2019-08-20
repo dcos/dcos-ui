@@ -55,31 +55,46 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   render() {
     const { children, serviceTree } = this.props;
     const { modalHandlers } = this.context;
-    const createService = () => {
-      this.context.router.push("/services/overview/create");
-    };
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
-    const content = serviceTree.isRoot() ? (
+    const isRoot = serviceTree.isRoot();
+    const createService = () => {
+      isRoot
+        ? this.context.router.push("/services/overview/create")
+        : this.context.router.push(
+            "/services/overview/" +
+              encodeURIComponent(serviceTree.getId()) +
+              "/create"
+          );
+    };
+    const content = isRoot ? (
       <ServicesQuotaOverview />
     ) : (
-      <ServicesQuotaOverviewDetail id={id} />
+      <ServicesQuotaOverviewDetail serviceTree={serviceTree} id={id} />
     );
+    let createGroup;
+    if (isRoot) {
+      createGroup = () => {
+        this.context.router.push("/services/overview/create_group");
+      };
+    } else {
+      createGroup = modalHandlers.createGroup;
+    }
 
     return (
-      <Page dontScroll={true} flushBottom={true}>
+      <Page dontScroll={false} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
-          actions={[
+          addButton={[
             {
-              onItemSelect: modalHandlers.createGroup,
+              onItemSelect: createService,
+              label: i18nMark("Run a Service")
+            },
+            {
+              onItemSelect: createGroup,
               label: i18nMark("Create Group")
             }
           ]}
-          addButton={{
-            onItemSelect: createService,
-            label: i18nMark("Run a Service")
-          }}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />

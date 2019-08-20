@@ -66,7 +66,7 @@ export const dockerParamsReducers = {
   },
   [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
     const stateCopy = deepCopy(state);
-    let docker = stateCopy.job.run.docker;
+    const docker = stateCopy.job.run.docker;
     const [prop, i] = path;
     const index = parseFloat(i);
     if (

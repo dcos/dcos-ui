@@ -1,5 +1,4 @@
 import Item from "./Item";
-import TaskStates from "../../../plugins/services/src/js/constants/TaskStates";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 import { findNestedPropertyInObject } from "../utils/Util";
 
@@ -85,24 +84,6 @@ class Node extends Item {
     }
 
     return this.get("output") || "OK";
-  }
-
-  sumTaskTypesByState(state) {
-    let sum = 0;
-
-    Object.keys(TaskStates).forEach(function(taskType) {
-      if (
-        TaskStates[taskType] &&
-        TaskStates[taskType].stateTypes.indexOf(state) !== -1
-      ) {
-        // Make sure there's a value
-        if (this[taskType]) {
-          sum += this[taskType];
-        }
-      }
-    }, this);
-
-    return sum;
   }
 
   getResources() {

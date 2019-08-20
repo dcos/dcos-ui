@@ -16,7 +16,6 @@ import Loader from "../components/Loader";
 import BreadcrumbTextContent from "../components/BreadcrumbTextContent";
 import ComponentList from "../components/ComponentList";
 import Config from "../config/Config";
-import InternalStorageMixin from "../mixins/InternalStorageMixin";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 import Page from "../components/Page";
 import Panel from "../components/Panel";
@@ -42,10 +41,14 @@ function getMesosState() {
 }
 
 const ResourceTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart")
+  import(
+    /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
+  )
 );
 const HostTimeSeriesChart = lazy(() =>
-  import(/* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart")
+  import(
+    /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
+  )
 );
 const TasksChart = lazy(() =>
   import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
@@ -70,7 +73,7 @@ const DashboardBreadcrumbs = () => {
 var DashboardPage = createReactClass({
   displayName: "DashboardPage",
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   statics: {
     routeConfig: {
@@ -106,7 +109,7 @@ var DashboardPage = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },
@@ -117,19 +120,15 @@ var DashboardPage = createReactClass({
       }
     ];
 
-    this.internalStorage_set({
-      openServicePanel: false,
-      openTaskPanel: false
-    });
-    this.internalStorage_update(getMesosState());
+    this.mesosState = getMesosState();
   },
 
   onSummaryStoreError() {
-    this.internalStorage_update(getMesosState());
+    this.mesosState = { ...this.mesosState, ...getMesosState() };
   },
 
   onSummaryStoreSuccess() {
-    this.internalStorage_update(getMesosState());
+    this.mesosState = { ...this.mesosState, ...getMesosState() };
   },
 
   onDcosStoreChange() {
@@ -221,7 +220,7 @@ var DashboardPage = createReactClass({
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
     const resourceColors = ResourcesUtil.getResourceColors();
-    var data = this.internalStorage_get();
+    var data = this.mesosState;
 
     return (
       <Page title="Dashboard">

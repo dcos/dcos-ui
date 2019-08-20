@@ -9,7 +9,7 @@ describe("Jobs", function() {
 
   it("creates a simple job", function() {
     const jobName = "simple";
-    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -86,7 +86,7 @@ describe("Jobs", function() {
 
   it("creates a job with default ucr config", function() {
     const jobName = "ucr";
-    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs
@@ -172,7 +172,7 @@ describe("Jobs", function() {
   it("runs, stops and deletes a job", function() {
     // first create a simple job
     const jobName = "delete";
-    const fullJobName = `${Cypress.env("TEST_UUID")}${jobName}`;
+    const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
     // Visit jobs

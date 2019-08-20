@@ -23,7 +23,9 @@ import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
 
 const JobsCronTooltip = lazy(() =>
-  import(/* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip")
+  import(
+    /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
+  )
 );
 
 // TODO: DCOS-38858
@@ -89,6 +91,9 @@ export default class JobsOverviewTable extends React.Component {
   getData(data) {
     return Object.values(
       data.nodes.reduce((acc, job) => {
+        if (job.path.length < data.path.length) {
+          return acc;
+        }
         /*
          * we can find out if current job is nested in another path by
          * comparing the job.path array with our given data.path
@@ -130,14 +135,16 @@ export default class JobsOverviewTable extends React.Component {
 
         // to avoid duplicates in our listing, we need to hack this… (again, this whole thing needs refactoring…)
         // we're getting an array back with the wrapping Object.values(…)
-        acc[isGroup ? `path:${id}` : `job:${id}`] = {
-          id,
-          isGroup,
-          name,
-          schedules,
-          status,
-          lastRun
-        };
+        if (!isGroup || acc[`path:${id}`] === undefined) {
+          acc[isGroup ? `path:${id}` : `job:${id}`] = {
+            id,
+            isGroup,
+            name,
+            schedules,
+            status,
+            lastRun
+          };
+        }
 
         return acc;
       }, {})

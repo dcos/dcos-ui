@@ -4,12 +4,11 @@ import createReactClass from "create-react-class";
 import { StoreMixin } from "mesosphere-shared-reactjs";
 
 import DOMUtils from "../../utils/DOMUtils";
-import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
 var Chart = createReactClass({
   displayName: "Chart",
 
-  mixins: [InternalStorageMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   propTypes: {
     calcHeight: PropTypes.func,
@@ -23,7 +22,7 @@ var Chart = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.store_listeners = [
       {
         name: "sidebar",
@@ -32,7 +31,7 @@ var Chart = createReactClass({
       }
     ];
 
-    this.internalStorage_set({ width: null });
+    this.dimensions = { width: null };
   },
 
   componentDidMount() {
@@ -62,18 +61,16 @@ var Chart = createReactClass({
       return;
     }
     var dimensions = DOMUtils.getComputedDimensions(this.chartRef);
-    var data = this.internalStorage_get();
+    var { width, height } = this.dimensions;
 
-    if (data.width !== dimensions.width || data.height !== dimensions.height) {
-      this.internalStorage_set(dimensions);
+    if (width !== dimensions.width || height !== dimensions.height) {
+      this.dimensions = dimensions;
       this.forceUpdate();
     }
   },
 
   getChildren() {
-    var data = this.internalStorage_get();
-    var width = data.width;
-    var height = data.height;
+    let { width, height } = this.dimensions;
     if (width != null) {
       var calcHeight = this.props.calcHeight;
 

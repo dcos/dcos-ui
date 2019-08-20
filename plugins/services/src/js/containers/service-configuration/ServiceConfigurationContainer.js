@@ -8,13 +8,13 @@ import Service from "../../structs/Service";
 import ServiceConfiguration from "./ServiceConfiguration";
 
 class ServiceConfigurationContainer extends React.Component {
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { service } = this.props;
 
     DCOSStore.fetchServiceVersions(service.getId());
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const { service: nextService } = nextProps;
     const { service } = this.props;
 

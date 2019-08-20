@@ -1,7 +1,6 @@
 import * as React from "react";
-import { TextCell, Icon, Badge } from "@dcos/ui-kit";
+import { TextCell, Icon } from "@dcos/ui-kit";
 import { Link } from "react-router";
-import { Trans } from "@lingui/macro";
 
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -20,35 +19,26 @@ import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 const ServiceName = React.memo(
   ({
     isFiltered,
-    hasQuota,
     id,
     isGroup,
-    isNoLimit,
+    linkToQuota,
     name,
     image,
     webUrl
   }: {
     isFiltered: boolean;
-    hasQuota: boolean;
     id: string;
     isGroup: boolean;
-    isNoLimit: boolean;
+    linkToQuota: boolean;
     name: string;
     image: string | null;
     webUrl: string | null;
   }) => {
     const serviceLink = isGroup
-      ? `/services/overview/${id}`
+      ? linkToQuota
+        ? `/services/quota/${id}`
+        : `/services/overview/${id}`
       : `/services/detail/${id}`;
-
-    const badge =
-      hasQuota && isNoLimit ? (
-        <Badge>
-          <Trans render="span" className="quota-no-limit">
-            No Limit
-          </Trans>
-        </Badge>
-      ) : null;
 
     return (
       <TextCell>
@@ -60,10 +50,9 @@ const ServiceName = React.memo(
             className="table-cell-value table-cell-flex-box"
             style={{ marginRight: "7px" }}
           >
-            {getServiceLink(id, name, isGroup, isFiltered)}
+            {getServiceLink(id, name, isGroup, linkToQuota, isFiltered)}
             {getOpenInNewWindowLink(webUrl)}
           </span>
-          {badge}
         </div>
       </TextCell>
     );
@@ -72,7 +61,7 @@ const ServiceName = React.memo(
 
 export function nameRenderer(
   isFiltered: boolean,
-  hasQuota: boolean,
+  linkToQuota: boolean,
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   // These do not work with instanceof ServiceTree due to TS
@@ -85,27 +74,15 @@ export function nameRenderer(
       ? service.getWebURL()
       : null;
 
-  const IDArray = service.getId().split("/");
-  // If the service is in a top-level group,
-  // IDArray would look like ["","group-name","service-name"]
-
-  const isNoLimit =
-    service instanceof Pod || service instanceof Service
-      ? IDArray.length > 2 &&
-        service.getRole() !== IDArray[1] &&
-        service.getName() === IDArray[2]
-      : false;
-
   return (
     <ServiceName
       id={encodeURIComponent(service.getId().toString())}
       isGroup={service instanceof ServiceTree}
-      isNoLimit={isNoLimit}
       name={service.getName()}
       image={image}
       webUrl={webUrl}
       isFiltered={isFiltered}
-      hasQuota={hasQuota}
+      linkToQuota={linkToQuota}
     />
   );
 }
@@ -132,11 +109,15 @@ function getServiceLink(
   id: string,
   name: string,
   isGroup: boolean,
+  linkToQuota: boolean,
   isFiltered: boolean
 ): React.ReactNode {
   const serviceLink = isGroup
-    ? `/services/overview/${id}`
+    ? linkToQuota
+      ? `/services/quota/${id}`
+      : `/services/overview/${id}`
     : `/services/detail/${id}`;
+
   if (isFiltered) {
     return (
       <NestedServiceLinks

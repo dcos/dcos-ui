@@ -32,7 +32,7 @@ class PodDebugTabView extends React.Component {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     MarathonStore.setShouldEmbedLastUnusedOffers(true);
   }
 

@@ -31,15 +31,16 @@ const FilterByService = createReactClass({
 
   handleItemSelection(obj) {
     if (obj.id === defaultId) {
-      this.props.handleFilterChange(null);
+      this.props.handleFilterChange(null, null);
     } else {
-      this.props.handleFilterChange(obj.id);
+      const framework = this.props.frameworks.find(f => f.id === obj.id);
+      const filteredLength = framework ? framework.getNodeIDs().length : 0;
+
+      this.props.handleFilterChange(obj.id, filteredLength);
     }
   },
 
-  getItemHtml(framework, isSelected = false) {
-    const appearance = isSelected ? "outline" : "default";
-
+  getItemHtml(framework, appearance = "default") {
     return (
       <span className="badge-container">
         <span className="badge-container-text">{framework.get("name")}</span>
@@ -72,7 +73,7 @@ const FilterByService = createReactClass({
       };
 
       if (frameworkId === this.props.byFrameworkFilter) {
-        item.selectedHtml = this.getItemHtml(framework, true);
+        item.selectedHtml = this.getItemHtml(framework, "outline");
       }
 
       if (frameworkId === defaultId) {
@@ -83,18 +84,8 @@ const FilterByService = createReactClass({
     });
   },
 
-  getSelectedId(id) {
-    if (id == null) {
-      return defaultId;
-    }
-
-    return id;
-  },
-
   setDropdownValue(id) {
-    this.dropdown.setState({
-      selectedID: id
-    });
+    this.dropdown.setState({ selectedID: id });
   },
 
   render() {
@@ -106,7 +97,7 @@ const FilterByService = createReactClass({
         dropdownMenuListItemClassName="clickable"
         wrapperClassName="dropdown"
         items={this.getDropdownItems()}
-        initialID={this.getSelectedId(this.props.byFrameworkFilter)}
+        initialID={this.props.byFrameworkFilter || defaultId}
         onItemSelection={this.handleItemSelection}
         ref={ref => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
@@ -118,4 +109,4 @@ const FilterByService = createReactClass({
   }
 });
 
-module.exports = FilterByService;
+export default FilterByService;

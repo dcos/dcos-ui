@@ -67,7 +67,7 @@ class PodInstancesContainer extends React.Component {
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.setFilterOptions(this.props);
   }
 

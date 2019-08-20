@@ -5,7 +5,6 @@ import createReactClass from "create-react-class";
 import ReactDOM from "react-dom";
 
 import DialSlice from "./DialSlice";
-import InternalStorageMixin from "../../mixins/InternalStorageMixin";
 
 // the data to render a single grey circle
 function getEmptyState() {
@@ -14,8 +13,6 @@ function getEmptyState() {
 
 var DialChart = createReactClass({
   displayName: "DialChart",
-
-  mixins: [InternalStorageMixin],
 
   propTypes: {
     // [{colorIndex: 0, name: 'Some Name', value: 4}]
@@ -33,7 +30,7 @@ var DialChart = createReactClass({
     };
   },
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     var value = this.props.value;
     var data = Object.assign(
       {
@@ -47,7 +44,7 @@ var DialChart = createReactClass({
       this.getArcs(this.props)
     );
 
-    this.internalStorage_set(data);
+    this.data = data;
   },
 
   componentWillUpdate(nextProps) {
@@ -116,7 +113,7 @@ var DialChart = createReactClass({
   },
 
   getSlice(props) {
-    var data = this.internalStorage_get();
+    var data = this.data;
     var normalizedData = this.getNormalizedData(props.slices, props.data);
 
     return d3
@@ -157,7 +154,7 @@ var DialChart = createReactClass({
   },
 
   getWedges() {
-    var data = this.internalStorage_get();
+    var data = this.data;
     var innerArc = data.innerArc;
     var pie = data.pie;
     var normalizedData = this.getNormalizedData(

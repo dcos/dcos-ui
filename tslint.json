@@ -5,6 +5,7 @@
     "interface-over-type-literal": false,
     "jsx-wrap-multiline": false,
     "no-submodule-imports": [false],
+    "prefer-const": true,
     "react-hooks-nesting": "error"
   }
 }

@@ -52,7 +52,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     });
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     const { service } = this.props;
     const versionID = service.getVersion();
 

@@ -8,7 +8,6 @@ import gql from "graphql-tag";
 
 import MesosSummaryActions from "#SRC/js/events/MesosSummaryActions";
 import CompositeState from "#SRC/js/structs/CompositeState";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import NodesList from "#SRC/js/structs/NodesList";
 import Node from "#SRC/js/structs/Node";
 import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
@@ -18,7 +17,7 @@ import DrainNodeModal from "#PLUGINS/nodes/src/js/components/modals/DrainNodeMod
 import DeactivateNodeConfirm from "#PLUGINS/nodes/src/js/components/modals/DeactivateNodeConfirm";
 import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanceActions";
 
-class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
+class NodesTableContainer extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
 
@@ -45,20 +44,25 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     this.handleCloseModal = this.handleCloseModal.bind(this);
   }
 
-  componentWillMount() {
+  UNSAFE_componentWillMount() {
     this.onStateStoreSuccess();
+    const { location, hosts, networks } = this.props;
+
+    const filters = {
+      health: location.query.filterHealth || "all",
+      name: location.query.searchString || "",
+      service: location.query.filterService || null
+    };
+
+    this.setFilters(hosts, networks, filters);
   }
 
-  componentWillReceiveProps(nextProps) {
-    const {
-      location: { query },
-      hosts,
-      networks
-    } = nextProps;
+  UNSAFE_componentWillReceiveProps(nextProps) {
+    const { location, hosts, networks } = nextProps;
     const filters = {
-      health: query.filterHealth || "all",
-      name: query.searchString || "",
-      service: query.filterService || null
+      health: location.query.filterHealth || "all",
+      name: location.query.searchString || "",
+      service: location.query.filterService || null
     };
 
     // when trying to optimize here, please account for data that may change in `hosts`,
@@ -70,20 +74,18 @@ class NodesTableContainer extends mixin(StoreMixin, QueryParamsMixin) {
     const { networks = [] } = this.props;
 
     return new NodesList({
-      items: CompositeState.getNodesList()
-        .getItems()
-        .map(node => {
-          const hostname = node.getHostName();
-          const network = networks.find(
-            network => network.private_ip === hostname
-          );
+      items: this.props.hosts.getItems().map(node => {
+        const hostname = node.getHostName();
+        const network = networks.find(
+          network => network.private_ip === hostname
+        );
 
-          if (network == null) {
-            return node;
-          }
+        if (network == null) {
+          return node;
+        }
 
-          return new Node({ ...node.toJSON(), network });
-        })
+        return new Node({ ...node.toJSON(), network });
+      })
     }).filter(filters);
   }
 

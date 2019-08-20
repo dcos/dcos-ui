@@ -1249,7 +1249,33 @@ describe("ServiceTree", function() {
     });
   });
 
-  describe("#getRoleLength", function() {
+  describe("#isTopLevel", function() {
+    it("returns true when the group is top level", function() {
+      thisInstance = new ServiceTree({
+        id: "/group"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(true);
+    });
+
+    it("returns false when the group is nested", function() {
+      thisInstance = new ServiceTree({
+        id: "/group/group2"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(false);
+    });
+
+    it("returns false when the group is root", function() {
+      thisInstance = new ServiceTree({
+        id: "/"
+      });
+
+      expect(thisInstance.isTopLevel()).toEqual(false);
+    });
+  });
+
+  describe("#getQuotaRoleStats", function() {
     it("returns the correct numbers", function() {
       thisInstance = new ServiceTree({
         id: "/group",
@@ -1260,8 +1286,8 @@ describe("ServiceTree", function() {
         ]
       });
 
-      expect(thisInstance.getRoleLength()).toEqual({
-        servicesCount: 1,
+      expect(thisInstance.getQuotaRoleStats()).toEqual({
+        count: 1,
         rolesCount: 1,
         groupRolesCount: 0
       });
@@ -1291,8 +1317,8 @@ describe("ServiceTree", function() {
         ]
       });
 
-      expect(thisInstance.getRoleLength()).toEqual({
-        servicesCount: 4,
+      expect(thisInstance.getQuotaRoleStats()).toEqual({
+        count: 4,
         rolesCount: 4,
         groupRolesCount: 2
       });

@@ -63,6 +63,7 @@ const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
+const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
 
 const METHODS_TO_BIND = [
   "handleServiceAction",
@@ -170,7 +171,7 @@ class ServicesTable extends React.Component {
     CompositeState.enable();
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
 
     this.setState(
@@ -189,6 +190,11 @@ class ServicesTable extends React.Component {
       case EDIT:
         router.push(
           `/services/detail/${encodeURIComponent(service.getId())}/edit/`
+        );
+        break;
+      case VIEW_PLANS:
+        router.push(
+          `/services/detail/${encodeURIComponent(service.getId())}/plans/`
         );
         break;
       case SCALE:
@@ -295,7 +301,7 @@ class ServicesTable extends React.Component {
             cellRenderer={nameRenderer.bind(
               null,
               this.props.isFiltered,
-              this.props.hasQuota,
+              false,
               ...arguments
             )}
             growToFill={
@@ -467,7 +473,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">CPU</Trans>}
+                columnContent={<Trans render="span">CPU Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "cpus")}
                 sortDirection={sortColumn === "cpus" ? sortDirection : null}
                 textAlign="right"
@@ -499,7 +505,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">Mem</Trans>}
+                columnContent={<Trans render="span">Mem Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "mem")}
                 sortDirection={sortColumn === "mem" ? sortDirection : null}
                 textAlign="right"
@@ -531,7 +537,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">Disk</Trans>}
+                columnContent={<Trans render="span">Disk Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "disk")}
                 sortDirection={sortColumn === "disk" ? sortDirection : null}
                 textAlign="right"
@@ -563,7 +569,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">GPU</Trans>}
+                columnContent={<Trans render="span">GPU Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "gpu")}
                 sortDirection={sortColumn === "gpus" ? sortDirection : null}
                 textAlign="right"
@@ -631,7 +637,6 @@ ServicesTable.defaultProps = {
 
 ServicesTable.propTypes = {
   isFiltered: PropTypes.bool,
-  hasQuota: PropTypes.bool,
   services: PropTypes.array
 };
 

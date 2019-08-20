@@ -6,6 +6,8 @@ import dataLayerExtensionFactory from "@extension-kid/data-layer";
 import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
 import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js";
 import servicesExtensionFactory from "#PLUGINS/services/src/js/data/extension";
+import cosmosExtensionFactory from "./data/cosmos";
+import uiMetadataExtensionFactor from "./data/ui-update";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
 import mesosMasterRequest, {
@@ -25,7 +27,9 @@ const factories = {
   dataLayer: dataLayerExtensionFactory,
   jobs: jobsExtensionFactory,
   repositoriesExtension: repositoriesExtensionFactory,
-  services: servicesExtensionFactory
+  services: servicesExtensionFactory,
+  cosmos: cosmosExtensionFactory,
+  uiMetadata: uiMetadataExtensionFactor
 };
 
 Object.entries(factories).forEach(([name, factory]) => {

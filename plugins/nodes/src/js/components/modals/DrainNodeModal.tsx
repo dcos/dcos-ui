@@ -26,7 +26,7 @@ const DEFAULT_DRAIN_OPTIONS: DrainOptions = {
 function DrainNodeModal(props: Props) {
   const { open, onClose, node } = props;
 
-  let [prevOpenState, setPrevOpenState] = useState<boolean | null>(null);
+  const [prevOpenState, setPrevOpenState] = useState<boolean | null>(null);
 
   const [drainOptions, setDrainOptions] = useState<DrainOptions>(
     DEFAULT_DRAIN_OPTIONS

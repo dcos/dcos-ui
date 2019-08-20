@@ -50,7 +50,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
     SDKEndpointActions.fetchEndpoints(service.getId());
   }
 
-  componentWillReceiveProps() {
+  UNSAFE_componentWillReceiveProps() {
     const { service } = this.props;
     const { servicePreviousState } = this.state;
     const serviceStatus = service.getStatus();

@@ -1,8 +1,11 @@
-const mockDataLayer = jest.fn();
-jest.mock("@dcos/data-service", () => ({
-  graphqlObservable: mockDataLayer
-}));
-
+const mockDataLayer = {
+  query: jest.fn()
+};
+jest.mock("#SRC/js/container", () => {
+  return {
+    get: () => mockDataLayer
+  };
+});
 import { marbles } from "rxjs-marbles/jest";
 
 import { getAction$ } from "../streams";
@@ -10,14 +13,14 @@ import { rollbackUI, updateUI } from "../commands";
 
 describe("commands", () => {
   beforeEach(() => {
-    jest.resetAllMocks();
+    jest.clearAllMocks();
   });
 
   describe("#rollbackUI", () => {
     it(
       "emits two actions",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -36,7 +39,7 @@ describe("commands", () => {
     it(
       "emits Reset started action",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -60,7 +63,7 @@ describe("commands", () => {
     it(
       "emits Reset completed action",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -85,7 +88,7 @@ describe("commands", () => {
     it(
       "emits error if mutation fails",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-#", undefined, {
             message: "On No Something bad happened",
             name: "Error"
@@ -109,7 +112,7 @@ describe("commands", () => {
     it(
       "emits two actions",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -128,7 +131,7 @@ describe("commands", () => {
     it(
       "emits Update started action",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -155,7 +158,7 @@ describe("commands", () => {
     it(
       "emits Update completed action",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
@@ -180,7 +183,7 @@ describe("commands", () => {
     it(
       "emits error if mutation fails",
       marbles(m => {
-        mockDataLayer.mockReturnValueOnce(
+        mockDataLayer.query.mockReturnValueOnce(
           m.cold("-#", undefined, {
             message: "On No Something bad happened",
             name: "Error"

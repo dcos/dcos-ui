@@ -24,7 +24,7 @@ export function createTestContainer(
 
 describe("DataLayer - Services Extension", () => {
   it("can load container module", () => {
-    let container = createTestContainer();
+    const container = createTestContainer();
 
     const dl = container.get<DataLayer>(DataLayerType);
     expect(dl).not.toBeNull();

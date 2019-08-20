@@ -5,7 +5,7 @@ import React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { Badge, Icon } from "@dcos/ui-kit";
+import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -16,12 +16,10 @@ import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import EventTypes from "#SRC/js/constants/EventTypes";
-import InternalStorageMixin from "#SRC/js/mixins/InternalStorageMixin";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
-import QueryParamsMixin from "#SRC/js/mixins/QueryParamsMixin";
 import SidebarActions from "#SRC/js/events/SidebarActions";
-import StringUtil from "#SRC/js/utils/StringUtil";
+import Util from "#SRC/js/utils/Util";
 
 import HostsPageContent from "./nodes-overview/HostsPageContent";
 import NodeBreadcrumbs from "../components/NodeBreadcrumbs";
@@ -51,13 +49,15 @@ function getMesosHosts(state) {
 }
 
 var DEFAULT_FILTER_OPTIONS = {
-  filterExpression: new DSLExpression("")
+  filterExpression: new DSLExpression(""),
+  byServiceFilter: null,
+  DSLFilteredLength: null
 };
 
 var NodesAgents = createReactClass({
   displayName: "NodesAgents",
 
-  mixins: [InternalStorageMixin, QueryParamsMixin, StoreMixin],
+  mixins: [StoreMixin],
 
   statics: {
     routeConfig: {
@@ -79,18 +79,11 @@ var NodesAgents = createReactClass({
   },
 
   getInitialState() {
-    return Object.assign(
-      { selectedResource: "cpus", nodesHealth: [] },
-      DEFAULT_FILTER_OPTIONS
-    );
+    return { selectedResource: "cpus", ...DEFAULT_FILTER_OPTIONS };
   },
 
-  componentWillMount() {
-    this.internalStorage_set(getMesosHosts(this.state));
-    this.internalStorage_update({
-      openNodePanel: false,
-      openTaskPanel: false
-    });
+  UNSAFE_componentWillMount() {
+    this.mesosHosts = getMesosHosts(this.state);
 
     this.store_listeners = [
       {
@@ -101,21 +94,12 @@ var NodesAgents = createReactClass({
     ];
   },
 
-  updateNodeHealth() {
-    const nodesHealth = CompositeState.getNodesList()
-      .getItems()
-      .map(function(node) {
-        return node.getHealth();
-      });
-
-    this.setState({ nodesHealth });
-  },
   onNodeHealthStoreSuccess() {
-    this.updateNodeHealth();
+    this.forceUpdate();
   },
 
   onNodeHealthStoreError() {
-    this.updateNodeHealth();
+    this.forceUpdate();
   },
 
   componentDidMount() {
@@ -128,18 +112,6 @@ var NodesAgents = createReactClass({
       EventTypes.MESOS_SUMMARY_REQUEST_ERROR,
       this.onMesosStateChange
     );
-
-    this.internalStorage_update({
-      openNodePanel: this.props.params.nodeID != null,
-      openTaskPanel: this.props.params.taskID != null
-    });
-  },
-
-  componentWillReceiveProps(nextProps) {
-    this.internalStorage_update({
-      openNodePanel: nextProps.params.nodeID != null,
-      openTaskPanel: nextProps.params.taskID != null
-    });
   },
 
   componentWillUnmount() {
@@ -155,44 +127,53 @@ var NodesAgents = createReactClass({
   },
 
   onMesosStateChange() {
-    this.internalStorage_update(getMesosHosts(this.state));
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(this.state) };
   },
 
   resetFilter() {
-    const state = Object.assign({}, DEFAULT_FILTER_OPTIONS);
+    const state = { ...DEFAULT_FILTER_OPTIONS };
 
     this.setState(state);
-    this.internalStorage_update(getMesosHosts(state));
 
-    this.resetQueryParams(["searchString", "filterExpression"]);
-  },
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(state) };
 
-  handleSearchStringChange(searchString = "") {
-    var stateChanges = Object.assign({}, this.state, {
-      searchString
+    this.context.router.push({
+      pathname: this.props.location.pathname,
+      query: Util.omit(this.props.location.query, [
+        "searchString",
+        "filterExpression",
+        "filterService"
+      ])
     });
-
-    this.internalStorage_update(getMesosHosts(stateChanges));
-    this.setState({ searchString });
-    this.setQueryParam("searchString", searchString);
   },
 
-  handleByServiceFilterChange(byServiceFilter) {
+  setQueryParam(paramKey, paramValue) {
+    const query = { ...this.props.location.query };
+    if (paramValue) {
+      query[paramKey] = paramValue;
+    } else {
+      delete query[paramKey];
+    }
+
+    this.context.router.push({ pathname: this.props.location.pathname, query });
+  },
+
+  handleByServiceFilterChange(byServiceFilter, filteredLength) {
+    this.setState({ DSLFilteredLength: filteredLength });
+
     if (byServiceFilter === "") {
       byServiceFilter = null;
     }
 
-    var stateChanges = Object.assign({}, this.state, {
-      byServiceFilter
-    });
-
-    this.internalStorage_update(getMesosHosts(stateChanges));
+    const params = { ...this.state, byServiceFilter };
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ byServiceFilter });
     this.setQueryParam("filterService", byServiceFilter);
   },
 
   handleHealthFilterChange(filterExpression, filters) {
-    this.internalStorage_update(getMesosHosts({ filterExpression, filters }));
+    const params = { filterExpression, filters };
+    this.mesosHosts = { ...this.mesosHosts, ...getMesosHosts(params) };
     this.setState({ filterExpression, filters });
     this.setQueryParam("filterExpression", filterExpression.value);
   },
@@ -203,25 +184,8 @@ var NodesAgents = createReactClass({
     }
   },
 
-  getButtonContent(filterName, count) {
-    const dotClassSet = classNames({
-      dot: filterName !== "all",
-      danger: filterName === "unhealthy",
-      success: filterName === "healthy"
-    });
-
-    return (
-      <span className="badge-container button-align-content label flush">
-        <span className={dotClassSet} />
-        <span className="badge-container-text">
-          <span>{StringUtil.capitalize(filterName)}</span>
-        </span>
-        <Badge>{count || 0}</Badge>
-      </span>
-    );
-  },
-
-  getViewTypeRadioButtons(resetFilter) {
+  getViewTypeRadioButtons() {
+    const { filterExpression, byServiceFilter } = this.state;
     const isGridActive = /\/nodes\/agents\/grid\/?/i.test(
       this.props.location.pathname
     );
@@ -234,19 +198,22 @@ var NodesAgents = createReactClass({
       active: isGridActive
     });
 
+    const isFiltering =
+      (filterExpression && filterExpression.defined) || !!byServiceFilter;
+
+    const params = isFiltering
+      ? "?filterExpression=" + encodeURIComponent(filterExpression.value)
+      : "";
+
     return (
       <div className="flush-bottom">
-        <Link className={listClassSet} onClick={resetFilter} to="/nodes/agents">
+        <Link className={listClassSet} to={`/nodes/agents${params}`}>
           <Trans render="span" className="invisible">
             List
           </Trans>
           <Icon shape={SystemIcons.List} size={iconSizeXs} />
         </Link>
-        <Link
-          className={gridClassSet}
-          onClick={resetFilter}
-          to="/nodes/agents/grid"
-        >
+        <Link className={gridClassSet} to={`/nodes/agents/grid${params}`}>
           <Trans render="span" className="invisible">
             Grid
           </Trans>
@@ -257,12 +224,20 @@ var NodesAgents = createReactClass({
   },
 
   getHostsPageContent() {
-    const { filterExpression, byServiceFilter, selectedResource } = this.state;
-    var data = this.internalStorage_get();
+    const {
+      filterExpression,
+      byServiceFilter,
+      selectedResource,
+      DSLFilteredLength
+    } = this.state;
+    const data = this.mesosHosts;
     const nodesList = data.nodes || [];
+    const filteredLength = byServiceFilter
+      ? DSLFilteredLength
+      : nodesList.getItems().length;
 
-    const nodesHealth = this.state.nodesHealth;
-    const isFiltering = filterExpression && filterExpression.defined;
+    const isFiltering =
+      (filterExpression && filterExpression.defined) || !!byServiceFilter;
 
     const isNodesTableContainer =
       this.props.children && this.props.children.type === NodesTableContainer;
@@ -281,12 +256,7 @@ var NodesAgents = createReactClass({
         />
         <HostsPageContent
           byServiceFilter={byServiceFilter}
-          filterButtonContent={this.getButtonContent}
-          filterItemList={nodesHealth}
-          filteredNodeCount={Math.min(
-            nodesList.getItems().length,
-            NODES_DISPLAY_LIMIT
-          )}
+          filteredNodeCount={Math.min(filteredLength, NODES_DISPLAY_LIMIT)}
           handleFilterChange={this.handleByServiceFilterChange}
           hosts={nodesList}
           allHosts={CompositeState.getNodesList()}
@@ -298,7 +268,7 @@ var NodesAgents = createReactClass({
           selectedResource={selectedResource}
           services={data.services}
           totalNodeCount={data.totalNodes}
-          viewTypeRadioButtons={this.getViewTypeRadioButtons(this.resetFilter)}
+          viewTypeRadioButtons={this.getViewTypeRadioButtons()}
         >
           {this.props.children}
         </HostsPageContent>
@@ -322,20 +292,13 @@ var NodesAgents = createReactClass({
     );
   },
 
-  getContents(isEmpty) {
-    if (isEmpty) {
-      return this.getEmptyHostsPageContent();
-    } else {
-      return this.getHostsPageContent();
-    }
-  },
-
   render() {
-    var data = this.internalStorage_get();
     const statesProcessed = MesosSummaryStore.get("statesProcessed");
-    var isEmpty = statesProcessed && data.totalNodes === 0;
+    const isEmpty = statesProcessed && this.mesosHosts.totalNodes === 0;
 
-    return this.getContents(isEmpty);
+    return isEmpty
+      ? this.getEmptyHostsPageContent()
+      : this.getHostsPageContent();
   }
 });
 

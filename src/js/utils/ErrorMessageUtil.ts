@@ -1,3 +1,11 @@
+import { ErrorPathMapping, ErrorTypes, FormError } from "./FormErrorUtil";
+
+interface PathTranslationRules {
+  path: RegExp;
+  type: ErrorTypes;
+  message: string;
+}
+
 const MESSAGE_VARIABLE = /\|\|([^|]+)\|\|/g;
 
 const ErrorMessageUtil = {
@@ -11,11 +19,15 @@ const ErrorMessageUtil = {
    * @param {object} i18n - lingui internationalization instance object
    * @returns {String} Returns the composed error string
    */
-  getUnanchoredErrorMessage(error, pathTranslationRules, i18n = null) {
+  getUnanchoredErrorMessage(
+    error: FormError,
+    pathTranslationRules: ErrorPathMapping[],
+    i18n: any = null
+  ) {
     const { message, path = [] } = error;
     const pathString = path.join(".");
-    const rule = pathTranslationRules.find(function(rule) {
-      return rule.match.exec(pathString);
+    const rule = pathTranslationRules.find((rule: ErrorPathMapping) => {
+      return Boolean(rule.match && rule.match.exec(pathString));
     });
 
     if (error.isUnanchored) {
@@ -49,13 +61,20 @@ const ErrorMessageUtil = {
    * @param {object} i18n - lingui internationalization instance object
    * @returns {Array} Returns a new list with the translated error messages
    */
-  translateErrorMessages(errors, translationRules, i18n = null) {
-    return errors.map(function(error) {
+  translateErrorMessages(
+    errors: FormError[],
+    translationRules: PathTranslationRules[],
+    i18n: any = null
+  ): FormError[] {
+    return errors.map(error => {
       const { path = [], type, variables } = error;
       const pathString = path.join(".");
 
-      const rule = translationRules.find(function(rule) {
-        return rule.type === type && rule.path.exec(pathString);
+      const rule = translationRules.find(rule => {
+        if (rule.path && rule.type === type) {
+          return Boolean(rule.path.exec(pathString));
+        }
+        return false;
       });
 
       // If there is no translation rule, pass-through the message
@@ -70,9 +89,15 @@ const ErrorMessageUtil = {
 
       // Return the translated message
       return {
-        message: message.replace(MESSAGE_VARIABLE, function(match, variable) {
-          return "" + variables[variable] || "";
-        }),
+        message: message
+          ? message.replace(MESSAGE_VARIABLE, (_match, variable) => {
+              if (variables) {
+                return "" + variables[variable];
+              } else {
+                return "";
+              }
+            })
+          : "",
         path,
         type,
         variables
@@ -81,4 +106,4 @@ const ErrorMessageUtil = {
   }
 };
 
-module.exports = ErrorMessageUtil;
+export default ErrorMessageUtil;

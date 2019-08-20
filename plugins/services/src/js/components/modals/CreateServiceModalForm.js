@@ -28,6 +28,7 @@ import TabView from "#SRC/js/components/TabView";
 import TabViewList from "#SRC/js/components/TabViewList";
 import Transaction from "#SRC/js/structs/Transaction";
 import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import FormErrorUtil from "#SRC/js/utils/FormErrorUtil";
 
 import { getContainerNameWithIcon } from "../../utils/ServiceConfigDisplayUtil";
 import ArtifactsSection from "../forms/ArtifactsSection";
@@ -145,7 +146,7 @@ class CreateServiceModalForm extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  UNSAFE_componentWillReceiveProps(nextProps) {
     const prevJSON = ServiceUtil.getServiceJSON(this.props.service);
     const nextJSON = ServiceUtil.getServiceJSON(nextProps.service);
     const isPod = nextProps.service instanceof PodSpec;
@@ -553,7 +554,7 @@ class CreateServiceModalForm extends Component {
       return null;
     }
 
-    const errorsByTab = CreateServiceModalFormUtil.getTopLevelTabErrors(
+    const errorsByTab = FormErrorUtil.getTopLevelTabErrors(
       this.props.errors,
       ServiceErrorTabPathRegexes,
       ServiceErrorPathMapping,
@@ -563,7 +564,7 @@ class CreateServiceModalForm extends Component {
     return navigationItems.map(item => {
       const finalErrorCount = item.isContainer
         ? findNestedPropertyInObject(
-            CreateServiceModalFormUtil.getContainerTabErrors(errorsByTab),
+            FormErrorUtil.getContainerTabErrors(errorsByTab),
             `${item.id}.length`
           )
         : findNestedPropertyInObject(errorsByTab, `${item.id}.length`);

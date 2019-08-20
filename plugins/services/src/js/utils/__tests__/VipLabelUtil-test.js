@@ -113,6 +113,10 @@ describe("VipLabelUtil", function() {
         })
       ).toEqual(undefined);
     });
+
+    it("does not crash when labels is null", function() {
+      expect(VipLabelUtil.findVip(null)).toEqual(undefined);
+    });
   });
 
   describe("#defaultVip", function() {

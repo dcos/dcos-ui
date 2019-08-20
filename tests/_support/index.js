@@ -766,6 +766,42 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }
   }
 
+  if (configuration.groups) {
+    const {
+      marathonCreate,
+      marathonCreateStatus,
+      marathonEdit,
+      marathonEditStatus,
+      mesosQuotaUpdate,
+      mesosQuotaUpdateStatus
+    } = configuration.groups;
+
+    if (marathonCreate) {
+      cy.route({
+        method: "POST",
+        url: /service\/marathon\/v2\/groups/,
+        status: marathonCreateStatus || 200,
+        response: `fx:marathon-group-management/${marathonCreate}`
+      }).as("createGroup");
+    }
+    if (marathonEdit) {
+      cy.route({
+        method: "PUT",
+        url: /service\/marathon\/v2\/groups/,
+        status: marathonEditStatus || 200,
+        response: `fx:marathon-group-management/${marathonEdit}`
+      }).as("editGroup");
+    }
+    if (mesosQuotaUpdate) {
+      cy.route({
+        method: "POST",
+        url: /mesos\/api\/v1\?UPDATE_QUOTA/,
+        status: mesosQuotaUpdateStatus || 201,
+        response: `fx:quota-management/${mesosQuotaUpdate}`
+      }).as("updateQuota");
+    }
+  }
+
   // The app won't load until plugins are loaded
   var pluginsFixture = configuration.plugins || "no-plugins";
   router.route(/ui-config/, "fx:config/" + pluginsFixture + ".json");
@@ -797,4 +833,15 @@ Cypress.Commands.add("visitUrl", function(options) {
 
 Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
   router.getAPIResponse(endpoint, callback);
+});
+
+beforeEach(function() {
+  // now this runs prior to every test
+  // across all files no matter what
+  const settings = JSON.parse(localStorage.getItem("dcosUserSettings"));
+
+  if (settings && settings.JSONEditor) {
+    delete settings.JSONEditor;
+    localStorage.setItem("dcosUserSettings", JSON.stringify(settings));
+  }
 });

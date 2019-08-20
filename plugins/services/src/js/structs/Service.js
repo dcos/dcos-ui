@@ -141,6 +141,27 @@ module.exports = class Service extends Item {
     return this.get("role") || "";
   }
 
+  getRootGroupName() {
+    return this.getId().split("/")[1];
+  }
+
+  getQuotaRoleStats(roleName) {
+    return (this.get("tasks") || []).reduce(
+      (roles, item) => {
+        roles.count++;
+        const itemRole = item.role;
+        if (itemRole) {
+          roles.rolesCount++;
+          if (itemRole === roleName) {
+            roles.groupRolesCount++;
+          }
+        }
+        return roles;
+      },
+      { count: 0, rolesCount: 0, groupRolesCount: 0 }
+    );
+  }
+
   toJSON() {
     return this.get();
   }
