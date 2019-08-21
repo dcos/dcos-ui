@@ -319,22 +319,16 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     const packages = CosmosPackagesStore.getAvailablePackages();
-    if (!packages.getItems() || packages.getItems().length === 0) {
+    if (packages.isEmpty()) {
       return renderPage(<PackagesEmptyState />);
     }
 
-    const {
-      nonSelectedPackages,
-      selectedPackages
-    } = packages.getSelectedAndNonSelectedPackages();
-
-    const communityPackages = searchString
-      ? nonSelectedPackages.filterItemsByText(searchString)
-      : nonSelectedPackages;
-
-    const certifiedPackages = searchString
-      ? selectedPackages.filterItemsByText(searchString)
-      : selectedPackages;
+    const certifiedPackages = packages
+      .filterItems(el => el.isCertified())
+      .filterItemsByText(searchString);
+    const communityPackages = packages
+      .filterItems(el => !el.isCertified())
+      .filterItemsByText(searchString);
 
     const hasNoResults = () => {
       switch (searchFilter) {
@@ -365,11 +359,11 @@ class PackagesTab extends mixin(StoreMixin) {
             )}
           </FilterBar>
         </div>
-        {certifiedPackages.getItems().length &&
+        {!certifiedPackages.isEmpty() &&
         (searchFilter === Filters.all || searchFilter === Filters.certified)
           ? this.getCertifiedPackagesGrid(certifiedPackages)
           : null}
-        {communityPackages.getItems().length &&
+        {!communityPackages.isEmpty() &&
         (searchFilter === Filters.all || searchFilter === Filters.community)
           ? this.getCommunityPackagesGrid(communityPackages)
           : null}
