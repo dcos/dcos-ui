@@ -85,66 +85,33 @@ describe("Service Detail Page", function() {
           .contains("Endpoints")
           .click();
 
-        cy.get("h1.configuration-map-heading")
-          .contains("124")
-          .should("exist");
+        cy.get("h1.configuration-map-heading").contains("124");
 
-        cy.get(".configuration-map-label")
-          .contains("Protocol")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Protocol")
-          .next(".configuration-map-value")
-          .contains("tcp")
-          .should("exist");
+        cy.get(".table-row")
+          .should("contain", "Protocol")
+          .and("contain", "tcp");
 
-        cy.get(".configuration-map-label")
-          .contains("Container Port")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Container Port")
-          .next(".configuration-map-value")
-          .contains("—")
-          .should("exist");
+        cy.get(".table-row")
+          .should("contain", "Container Port")
+          .and("contain", "-");
 
-        cy.get(".configuration-map-label")
-          .contains("Host Port")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Host Port")
-          .next(".configuration-map-value")
-          .contains("Auto Assigned")
-          .should("exist");
+        cy.get(".table-row")
+          .should("contain", "Host Port")
+          .and("contain", "Auto Assigned");
 
-        cy.get(".configuration-map-label")
-          .contains("Service Port")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Service Port")
-          .next(".configuration-map-value")
-          .contains("—")
-          .should("exist");
+        cy.get(".table-row")
+          .should("contain", "Service Port")
+          .and("contain", "-");
 
-        cy.get(".configuration-map-label")
-          .contains("Load Balanced Address")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Load Balanced Address")
-          .next(".configuration-map-value")
-          .contains("new-service-1.marathon.l4lb.thisdcos.directory:126")
-          .should("exist");
+        cy.get(".table-row")
+          .should("contain", "Load Balanced Address")
+          .and("contain", "new-service-1.marathon.l4lb.thisdcos.directory:126");
 
-        cy.get("h1.configuration-map-heading")
-          .contains("Web Endpoints")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Web URL")
-          .should("exist");
-        cy.get(".configuration-map-label")
-          .contains("Web URL")
-          .next(".configuration-map-value")
-          .contains("http://localhost:4200/service/undefined/web-path")
-          .should("exist");
+        cy.get("h1.configuration-map-heading").contains("Web Endpoints");
+
+        cy.get(".table-row")
+          .should("contain", "Web URL")
+          .and("contain", "http://localhost:4200/service/undefined/web-path");
       });
 
       it("shows volumes tab when clicked", function() {
