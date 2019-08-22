@@ -300,7 +300,9 @@ class CosmosPackagesStore extends GetSetBaseStore {
 
   /* Reducers */
   getAvailablePackages() {
-    return new UniversePackagesList({ items: this.get("availablePackages") });
+    return new UniversePackagesList({
+      items: this.get("availablePackages") || []
+    });
   }
 
   getInstalledPackages() {
