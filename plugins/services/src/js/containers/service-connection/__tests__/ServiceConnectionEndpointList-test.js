@@ -22,7 +22,7 @@ describe("ServiceConnectionEndpointList", function() {
 
       const endpointRows = instance.find(".configuration-map-row");
 
-      expect(endpointRows.length).toEqual(5);
+      expect(endpointRows.length).toEqual(4);
     });
 
     it("renders the no endpoints area", function() {
