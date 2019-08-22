@@ -82,7 +82,7 @@ module.exports = class Service extends Item {
   }
 
   getWebURL() {
-    return getWebURL(this.getLabels(), Config.rootUrl) || "";
+    return getWebURL(this.getLabels(), Config.rootUrl);
   }
 
   getVersion() {

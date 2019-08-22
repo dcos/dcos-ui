@@ -147,13 +147,7 @@ class ServiceConnectionEndpointList extends React.Component {
     });
   }
 
-  getEndpoints(service) {
-    const webUrl = service.getWebURL();
-
-    if (webUrl === "") {
-      return null;
-    }
-
+  getEndpoints(webUrl) {
     return (
       <ConfigurationMapSection>
         <ConfigurationMapHeading>
@@ -199,12 +193,13 @@ class ServiceConnectionEndpointList extends React.Component {
         />
       );
     }
+    const webUrl = service.getWebURL();
 
     return (
       <div className="container">
         <ConfigurationMap>
           {this.getPortDefinitions(endpoints, service)}
-          {this.getEndpoints(service)}
+          {webUrl ? this.getEndpoints(webUrl) : null}
         </ConfigurationMap>
       </div>
     );
