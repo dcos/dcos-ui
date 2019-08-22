@@ -473,7 +473,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">CPU</Trans>}
+                columnContent={<Trans render="span">CPU Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "cpus")}
                 sortDirection={sortColumn === "cpus" ? sortDirection : null}
                 textAlign="right"
@@ -505,7 +505,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">Mem</Trans>}
+                columnContent={<Trans render="span">Mem Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "mem")}
                 sortDirection={sortColumn === "mem" ? sortDirection : null}
                 textAlign="right"
@@ -537,7 +537,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">Disk</Trans>}
+                columnContent={<Trans render="span">Disk Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "disk")}
                 sortDirection={sortColumn === "disk" ? sortDirection : null}
                 textAlign="right"
@@ -569,7 +569,7 @@ class ServicesTable extends React.Component {
           <Column
             header={
               <SortableHeaderCell
-                columnContent={<Trans render="span">GPU</Trans>}
+                columnContent={<Trans render="span">GPU Allocated</Trans>}
                 sortHandler={this.handleSortClick.bind(null, "gpu")}
                 sortDirection={sortColumn === "gpus" ? sortDirection : null}
                 textAlign="right"

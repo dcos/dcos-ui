@@ -9,6 +9,25 @@
     }
   }
 
+  .filter-bar-item {
+
+    .button-outline {
+
+      span {
+        margin: @base-spacing-unit * 1/6;
+        padding: 1px 6px;
+      }
+
+      &.active {
+
+        span {
+          background-color: @white;
+          border-color: @white;
+        }
+      }
+    }
+  }
+
   @media (min-width: @layout-screen-medium-min-width) {
 
     .package-action-buttons {

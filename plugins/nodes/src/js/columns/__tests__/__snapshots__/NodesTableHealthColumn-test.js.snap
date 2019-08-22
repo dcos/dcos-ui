@@ -2,7 +2,8 @@
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Healthy' 1`] = `
 <div
-  className="css-6zxkm"
+  className="css-1vszq0g"
+  title={undefined}
 >
   <span
     className="text-success"
@@ -14,7 +15,8 @@ exports[`NodesTableHealthColumn renderer renders with health status 'Healthy' 1`
 
 exports[`NodesTableHealthColumn renderer renders with health status 'NA' 1`] = `
 <div
-  className="css-6zxkm"
+  className="css-1vszq0g"
+  title={undefined}
 >
   <span
     className="text-mute"
@@ -26,7 +28,8 @@ exports[`NodesTableHealthColumn renderer renders with health status 'NA' 1`] = `
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Unhealthy' 1`] = `
 <div
-  className="css-6zxkm"
+  className="css-1vszq0g"
+  title={undefined}
 >
   <span
     className="text-danger"
@@ -38,7 +41,8 @@ exports[`NodesTableHealthColumn renderer renders with health status 'Unhealthy' 
 
 exports[`NodesTableHealthColumn renderer renders with health status 'Warn' 1`] = `
 <div
-  className="css-6zxkm"
+  className="css-1vszq0g"
+  title={undefined}
 >
   <span
     className="text-warning"
