@@ -205,4 +205,8 @@ module.exports = class List {
       return callback(previousValue, currentValue, index, this);
     }, initialValue);
   }
+
+  isEmpty() {
+    return !this.getItems() || !this.getItems().length;
+  }
 };
