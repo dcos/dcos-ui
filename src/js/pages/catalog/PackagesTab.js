@@ -9,6 +9,7 @@ import React from "react";
 import { Badge } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
+import FilterBar from "#SRC/js/components/FilterBar";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import AlertPanel from "../../components/AlertPanel";
@@ -26,6 +27,12 @@ import Page from "../../components/Page";
 import StringUtil from "../../utils/StringUtil";
 import CatalogPackageOption from "./CatalogPackageOption";
 import MetadataStore from "../../stores/MetadataStore";
+
+const Filters = {
+  all: "all",
+  certified: "certified",
+  community: "community"
+};
 
 const PackagesBreadcrumbs = () => {
   const crumbs = [
@@ -72,7 +79,12 @@ const PackagesEmptyState = () => {
   );
 };
 
-const METHODS_TO_BIND = ["handleSearchStringChange", "clearInput"];
+const METHODS_TO_BIND = [
+  "handleSearchStringChange",
+  "showAll",
+  "getFilterButtons",
+  "renderNoResults"
+];
 
 const shouldRenderCatalogOption = Hooks.applyFilter(
   "hasCapability",
@@ -88,6 +100,15 @@ if (shouldRenderCatalogOption) {
   );
 }
 
+function renderPage(content) {
+  return (
+    <Page>
+      <Page.Header breadcrumbs={<PackagesBreadcrumbs />} />
+      {content}
+    </Page>
+  );
+}
+
 class PackagesTab extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -96,7 +117,8 @@ class PackagesTab extends mixin(StoreMixin) {
       errorMessage: false,
       installModalPackage: null,
       isLoading: true,
-      searchString: ""
+      searchString: "",
+      searchFilter: Filters.certified
     };
 
     this.store_listeners = [
@@ -139,8 +161,11 @@ class PackagesTab extends mixin(StoreMixin) {
     this.setState({ searchString });
   }
 
-  clearInput() {
-    this.handleSearchStringChange("");
+  showAll() {
+    this.setState({
+      searchString: "",
+      searchFilter: Filters.all
+    });
   }
 
   getErrorScreen() {
@@ -196,10 +221,6 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getCertifiedPackagesGrid(packages) {
-    if (this.state.searchString || packages.getItems().length === 0) {
-      return null;
-    }
-
     return (
       <div className="pod flush-top flush-horizontal clearfix">
         <Trans render="h1" className="short flush-top">
@@ -216,102 +237,136 @@ class PackagesTab extends mixin(StoreMixin) {
 
   getCommunityPackagesGrid(packages) {
     const isSearchActive = this.state.searchString !== "";
-    if (!isSearchActive && packages.getItems().length === 0) {
-      return null;
-    }
-
-    let subtitle = (
-      <Trans render="p" className="tall flush-top">
-        Community packages are unverified and unreviewed content from the
-        community.
-      </Trans>
-    );
-    let title = <Trans render="span">Community</Trans>;
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
       tall: isSearchActive
     });
 
-    if (isSearchActive) {
-      const foundPackagesLength = packages.getItems().length;
-      if (foundPackagesLength < 1) {
-        return (
-          <Trans render="div" className="clearfix">
-            No results were found for your search: "{this.state.searchString}" (
-            <a className="clickable" onClick={this.clearInput}>
-              view all
-            </a>
-            )
-          </Trans>
-        );
-      }
-
-      // L10NTODO: Pluralize
-      const packagesWord = StringUtil.pluralize("service", foundPackagesLength);
-      subtitle = null;
-      title = (
-        <Trans render="span">
-          {packages.getItems().length} {packagesWord} found
-        </Trans>
-      );
-    }
-
     return (
       <div className="clearfix">
-        <h1 className={titleClasses}>{title}</h1>
-        {subtitle}
+        <h1 className={titleClasses}>
+          <Trans render="span">Community</Trans>
+        </h1>
+        <Trans render="p" className="tall flush-top">
+          Community packages are unverified and unreviewed content from the
+          community.
+        </Trans>
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
   }
 
+  getFilterButtons(selectedLength, communityLength) {
+    const numbers = {
+      [Filters.all]: selectedLength + communityLength,
+      [Filters.certified]: selectedLength,
+      [Filters.community]: communityLength
+    };
+
+    const currentFilter = this.state.searchFilter;
+
+    const buttons = Object.entries(numbers).map(([filter, number]) => {
+      const classSet = classNames("button button-outline", {
+        active: filter === currentFilter
+      });
+
+      const name = StringUtil.capitalize(filter);
+      return (
+        <button
+          key={filter}
+          className={classSet}
+          onClick={this.getSearchFilterChangeHandler(filter)}
+        >
+          <Trans render="b" id={name} />
+          <Badge>
+            <b>{number}</b>
+          </Badge>
+        </button>
+      );
+    });
+
+    return <span className="button-group flush-bottom">{buttons}</span>;
+  }
+
+  getSearchFilterChangeHandler(searchFilter) {
+    return () => {
+      this.setState({ searchFilter });
+    };
+  }
+
+  renderNoResults() {
+    return (
+      <Trans render="div" className="clearfix">
+        No results were found for your search: "{this.state.searchString}" (
+        <a className="clickable" onClick={this.showAll}>
+          view all
+        </a>
+        )
+      </Trans>
+    );
+  }
+
   render() {
-    const { state } = this;
-    let content;
+    const { errorMessage, isLoading, searchString, searchFilter } = this.state;
 
-    if (state.errorMessage) {
-      content = this.getErrorScreen();
-    } else if (state.isLoading) {
-      content = this.getLoadingScreen();
-    } else {
-      const packages = CosmosPackagesStore.getAvailablePackages();
-
-      if (packages.getItems() == null || packages.getItems().length === 0) {
-        content = <PackagesEmptyState />;
-      } else {
-        const splitPackages = packages.getSelectedAndNonSelectedPackages();
-
-        let communityPackages = splitPackages.nonSelectedPackages;
-        const selectedPackages = splitPackages.selectedPackages;
-
-        if (state.searchString) {
-          communityPackages = packages.filterItemsByText(state.searchString);
-        }
-
-        content = (
-          <div className="container">
-            <div className="pod flush-horizontal flush-top">
-              <FieldAutofocus>
-                <FilterInputText
-                  className="flex-grow"
-                  placeholder="Search catalog"
-                  searchString={state.searchString}
-                  handleFilterChange={this.handleSearchStringChange}
-                />
-              </FieldAutofocus>
-            </div>
-            {this.getCertifiedPackagesGrid(selectedPackages)}
-            {this.getCommunityPackagesGrid(communityPackages)}
-          </div>
-        );
-      }
+    if (errorMessage) {
+      return renderPage(this.getErrorScreen());
+    }
+    if (isLoading) {
+      return renderPage(this.getLoadingScreen());
     }
 
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<PackagesBreadcrumbs />} />
-        {content}
-      </Page>
+    const packages = CosmosPackagesStore.getAvailablePackages();
+    if (packages.isEmpty()) {
+      return renderPage(<PackagesEmptyState />);
+    }
+
+    const certifiedPackages = packages
+      .filterItems(el => el.isCertified())
+      .filterItemsByText(searchString);
+    const communityPackages = packages
+      .filterItems(el => !el.isCertified())
+      .filterItemsByText(searchString);
+
+    const hasNoResults = () => {
+      switch (searchFilter) {
+        case Filters.community:
+          return communityPackages.isEmpty();
+        case Filters.certified:
+          return certifiedPackages.isEmpty();
+        case Filters.all:
+          return certifiedPackages.isEmpty() && communityPackages.isEmpty();
+      }
+    };
+
+    return renderPage(
+      <div className="container">
+        <div className="pod flush-horizontal flush-top">
+          <FilterBar>
+            <FieldAutofocus>
+              <FilterInputText
+                className="flush-bottom"
+                placeholder="Search catalog"
+                searchString={searchString}
+                handleFilterChange={this.handleSearchStringChange}
+              />
+            </FieldAutofocus>
+            {this.getFilterButtons(
+              certifiedPackages.list.length,
+              communityPackages.list.length
+            )}
+          </FilterBar>
+        </div>
+        {!certifiedPackages.isEmpty() &&
+        (searchFilter === Filters.all || searchFilter === Filters.certified)
+          ? this.getCertifiedPackagesGrid(certifiedPackages)
+          : null}
+        {!communityPackages.isEmpty() &&
+        (searchFilter === Filters.all || searchFilter === Filters.community)
+          ? this.getCommunityPackagesGrid(communityPackages)
+          : null}
+        {hasNoResults() ? this.renderNoResults() : null}
+      </div>
     );
   }
 }

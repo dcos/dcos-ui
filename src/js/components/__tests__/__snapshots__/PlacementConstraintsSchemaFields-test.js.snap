@@ -47,6 +47,7 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
         <svg
           aria-label="system-circle-question icon"
           className="css-ed86y8"
+          data-cy="icon"
           height={16}
           preserveAspectRatio="xMinYMin meet"
           role="img"
@@ -77,6 +78,7 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
             <svg
               aria-label="system-plus icon"
               className="css-e3vtaz"
+              data-cy="icon"
               height={12}
               preserveAspectRatio="xMinYMin meet"
               role="img"
