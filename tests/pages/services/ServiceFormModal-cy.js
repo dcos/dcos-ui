@@ -290,13 +290,13 @@ describe("Service Form Modal", function() {
             cy.get(".button")
               .contains("Review & Run")
               .click(); // Try to submit.
-            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".ace_error"); // Verify errors in the JSON.
             cy.get(".modal-header button")
               .contains("Back")
               .click(); // Go back.
             cy.contains("button", "Discard").click(); // Confirm.
             openServiceForm(); // Select "Single container" again.
-            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_editor"); // The JSON Editor should be open.
             cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
           });
 
@@ -311,7 +311,7 @@ describe("Service Form Modal", function() {
             cy.get(".button")
               .contains("Review & Run")
               .click(); // Try to submit.
-            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".ace_error"); // Verify errors in the JSON.
             cy.get(".modal-header button")
               .contains("Back")
               .click(); // Go back.
@@ -319,7 +319,7 @@ describe("Service Form Modal", function() {
             cy.get(".create-service-modal-service-picker-option")
               .contains("Multi-container (Pod)")
               .click(); // Select "Pod" again.
-            cy.get(".ace_editor").should("exist"); // The JSON Editor should be open.
+            cy.get(".ace_editor"); // The JSON Editor should be open.
             cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
           });
 
@@ -330,7 +330,7 @@ describe("Service Form Modal", function() {
             cy.get(".button")
               .contains("Review & Run")
               .click(); // Try to submit.
-            cy.get(".ace_error").should("exist"); // Verify errors in the JSON.
+            cy.get(".ace_error"); // Verify errors in the JSON.
             cy.get(".modal-header button")
               .contains("Back")
               .click(); // Go back.
@@ -423,9 +423,7 @@ describe("Service Form Modal", function() {
       });
 
       it("successfully switches to multi-container", function() {
-        cy.get("span")
-          .contains("Add Container")
-          .should("exist");
+        cy.get("span").contains("Add Container");
       });
 
       it("successfully adds a container and opens the container tab", function() {
@@ -434,56 +432,44 @@ describe("Service Form Modal", function() {
           .click();
         cy.get(".pod-narrow")
           .contains("container-1")
-          .should("exist")
+
           .click();
-        cy.get("h1")
-          .contains("Container")
-          .should("exist");
+        cy.get("h1").contains("Container");
       });
 
       it("successfully opens the placement tab", function() {
         cy.get(".menu-tabbed-item-label")
           .contains("Placement")
           .click();
-        cy.get(".form-group-heading-content")
-          .contains("Placement")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Placement");
       });
 
       it("successfully opens the networking tab", function() {
         cy.get(".menu-tabbed-item-label")
           .contains("Networking")
           .click();
-        cy.get("h1.flush-top")
-          .contains("Networking")
-          .should("exist");
+        cy.get("h1.flush-top").contains("Networking");
       });
 
       it("successfully opens the volumes tab", function() {
         cy.get(".menu-tabbed-item-label")
           .contains("Volumes")
           .click();
-        cy.get(".form-group-heading-content")
-          .contains("Volumes")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Volumes");
       });
 
       it("successfully opens the health checks tab", function() {
         cy.get(".menu-tabbed-item-label")
           .contains("Health Checks")
           .click();
-        cy.get(".form-group-heading-content")
-          .contains("Health Checks")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Health Checks");
       });
 
       it("successfully opens the environment variables tab", function() {
         cy.get(".menu-tabbed-item-label")
           .contains("Environment")
           .click();
-        cy.get(".form-group-heading-content")
-          .contains("Environment")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Environment");
       });
     });
 
@@ -1014,9 +1000,7 @@ describe("Service Form Modal", function() {
 
         it('Should add row with an input when "Add Artifact" link clicked', function() {
           // artifact uri
-          cy.get("@tabView")
-            .find('.form-control[name="fetch.0.uri"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="fetch.0.uri"]');
         });
 
         it("Should Autofocus on the first input element of the Artifact", function() {
@@ -1099,7 +1083,7 @@ describe("Service Form Modal", function() {
         cy.get(".button")
           .contains("Review & Run")
           .click();
-        cy.get(".infoBoxWrapper").should("exist");
+        cy.get(".infoBoxWrapper");
         cy.get(".gm-scroll-view")
           .last()
           .scrollTo("bottom");
@@ -1158,19 +1142,15 @@ describe("Service Form Modal", function() {
 
         it('Should add rows when "Add Placement Constraint" link clicked', function() {
           // Field
-          cy.get("@tabView")
-            .find('.form-control[name="constraints.0.fieldName"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="constraints.0.fieldName"]'
+          );
 
           // operator
-          cy.get("@tabView")
-            .find('[name="constraints.0.operator"]')
-            .should("exist");
+          cy.get("@tabView").find('[name="constraints.0.operator"]');
 
           // value
-          cy.get("@tabView")
-            .find('.form-control[name="constraints.0.value"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="constraints.0.value"]');
         });
 
         it("Should remove rows when remove button clicked", function() {
@@ -1339,9 +1319,9 @@ describe("Service Form Modal", function() {
         });
 
         it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {
-          cy.get("@tabView")
-            .find('.form-control[name="portDefinitions.0.name"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="portDefinitions.0.name"]'
+          );
         });
 
         it('Should remove "Service Endpoint" form fields when remove button clicked', function() {
@@ -1390,25 +1370,25 @@ describe("Service Form Modal", function() {
           it('hides "Container Port"', function() {
             cy.get('select[name="networks.0.network"]').select("HOST");
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.name"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.name"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.hostPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.hostPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.udp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.tcp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.loadBalanced"]'
+            );
           });
         });
 
@@ -1416,29 +1396,29 @@ describe("Service Form Modal", function() {
           it('shows "Container Port" and "Protocol"', function() {
             cy.get('select[name="networks.0.network"]').select("BRIDGE");
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.containerPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.containerPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.name"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.name"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.hostPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.hostPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.udp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.tcp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.loadBalanced"]'
+            );
           });
         });
 
@@ -1448,13 +1428,13 @@ describe("Service Form Modal", function() {
               "CONTAINER.dcos-1"
             );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.containerPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.containerPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.name"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.name"]'
+            );
 
             cy.get("@tabView")
               .find('.form-control[name="portDefinitions.0.hostPort"]')
@@ -1468,9 +1448,9 @@ describe("Service Form Modal", function() {
               .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
               .should("not.exist");
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.loadBalanced"]'
+            );
           });
 
           it('doesnt hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
@@ -1484,29 +1464,29 @@ describe("Service Form Modal", function() {
               .parents("label")
               .click();
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.containerPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.containerPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.name"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.name"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.hostPort"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.hostPort"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.udp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.udp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.protocol.tcp"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.protocol.tcp"]'
+            );
 
-            cy.get("@tabView")
-              .find('.form-control[name="portDefinitions.0.loadBalanced"]')
-              .should("exist");
+            cy.get("@tabView").find(
+              '.form-control[name="portDefinitions.0.loadBalanced"]'
+            );
           });
         });
       });
@@ -1572,7 +1552,7 @@ describe("Service Form Modal", function() {
           cy.get('.form-control[name="volumes.0.containerPath"]').should(
             "exist"
           );
-          cy.get('.form-control[name="volumes.0.size"]').should("exist");
+          cy.get('.form-control[name="volumes.0.size"]');
         });
 
         it('Should remove "Volume" form fields when remove button clicked', function() {
@@ -1640,9 +1620,7 @@ describe("Service Form Modal", function() {
           });
 
         // Command input
-        cy.get("@tabView")
-          .find('.form-control[name="healthChecks.0.command"]')
-          .should("exist");
+        cy.get("@tabView").find('.form-control[name="healthChecks.0.command"]');
       });
 
       it('Should display row of fields when selected Protocol is "HTTP"', function() {
@@ -1653,19 +1631,13 @@ describe("Service Form Modal", function() {
           });
 
         // Service Endpoint Select
-        cy.get("@tabView")
-          .find('select[name="healthChecks.0.portIndex"]')
-          .should("exist");
+        cy.get("@tabView").find('select[name="healthChecks.0.portIndex"]');
 
         // Path input
-        cy.get("@tabView")
-          .find('.form-control[name="healthChecks.0.path"]')
-          .should("exist");
+        cy.get("@tabView").find('.form-control[name="healthChecks.0.path"]');
 
         // Https input
-        cy.get("@tabView")
-          .find('.form-control[name="healthChecks.0.https"]')
-          .should("exist");
+        cy.get("@tabView").find('.form-control[name="healthChecks.0.https"]');
       });
 
       context("Advanced Health Check Section", function() {
@@ -1685,24 +1657,24 @@ describe("Service Form Modal", function() {
           toggleAdvancedHealthCheckSettings();
 
           // Grace Period
-          cy.get("@tabView")
-            .find('.form-control[name="healthChecks.0.gracePeriodSeconds"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="healthChecks.0.gracePeriodSeconds"]'
+          );
 
           // Interval
-          cy.get("@tabView")
-            .find('.form-control[name="healthChecks.0.intervalSeconds"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="healthChecks.0.intervalSeconds"]'
+          );
 
           // Timeout
-          cy.get("@tabView")
-            .find('.form-control[name="healthChecks.0.timeoutSeconds"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="healthChecks.0.timeoutSeconds"]'
+          );
 
           // Max Failures
-          cy.get("@tabView")
-            .find('.form-control[name="healthChecks.0.maxConsecutiveFailures"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="healthChecks.0.maxConsecutiveFailures"]'
+          );
         });
 
         it('Should remove new set of form fields when "Advanced Health Check Settings" link clicked again', function() {
@@ -1762,14 +1734,10 @@ describe("Service Form Modal", function() {
           // Key focused
           // cy.get('.form-control[name="env.0.key"]:focus');
           // Key
-          cy.get("@tabView")
-            .find('.form-control[name="env.0.key"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="env.0.key"]');
 
           // Value
-          cy.get("@tabView")
-            .find('.form-control[name="env.0.value"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="env.0.value"]');
         });
 
         it('Should remove "Environment Variable" form fields when remove button clicked', function() {
@@ -1803,14 +1771,10 @@ describe("Service Form Modal", function() {
           // Key focused
           // cy.get('.form-control[name="labels.0.key"]:focus');
           // Key
-          cy.get("@tabView")
-            .find('.form-control[name="labels.0.key"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="labels.0.key"]');
 
           // Value
-          cy.get("@tabView")
-            .find('.form-control[name="labels.0.value"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="labels.0.value"]');
         });
 
         it('Should remove "Label" form fields when remove button clicked', function() {
@@ -2210,7 +2174,7 @@ describe("Service Form Modal", function() {
     }
 
     function errorMessageShouldContain(text) {
-      cy.get(".infoBoxWrapper").should("exist");
+      cy.get(".infoBoxWrapper");
       cy.get(".infoBoxWrapper").should("contain", text);
     }
 

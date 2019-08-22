@@ -54,6 +54,6 @@ describe("Installed Packages Tab", function() {
       .should("contain", "Delete Repository")
       .click();
     cy.get(".modal").should("not.exist");
-    cy.get("table").should("exist");
+    cy.get("table");
   });
 });

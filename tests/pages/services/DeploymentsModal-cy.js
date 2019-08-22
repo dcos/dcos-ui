@@ -198,25 +198,21 @@ describe("Deployments Modal", function() {
         .click();
       cy.get(".caret--visible")
         .prev()
-        .contains("Started")
-        .should("exist");
+        .contains("Started");
 
       // First, second and third row.
       cy.get("tbody")
         .children()
         .eq(0)
-        .contains("b4f69082-6f96-4c92-a778-37bf61c59686")
-        .should("exist"); // July 2016
+        .contains("b4f69082-6f96-4c92-a778-37bf61c59686"); // July 2016
       cy.get("tbody")
         .children()
         .eq(1)
-        .contains("staleId")
-        .should("exist"); // November 2018
+        .contains("staleId"); // November 2018
       cy.get("tbody")
         .children()
         .eq(2)
-        .contains("staleId-2")
-        .should("exist"); // January 2019
+        .contains("staleId-2"); // January 2019
 
       cy.get(".table-header-title")
         .contains("Started")
@@ -224,18 +220,15 @@ describe("Deployments Modal", function() {
       cy.get("tbody")
         .children()
         .eq(2)
-        .contains("b4f69082-6f96-4c92-a778-37bf61c59686")
-        .should("exist");
+        .contains("b4f69082-6f96-4c92-a778-37bf61c59686");
       cy.get("tbody")
         .children()
         .eq(1)
-        .contains("staleId")
-        .should("exist");
+        .contains("staleId");
       cy.get("tbody")
         .children()
         .eq(0)
-        .contains("staleId-2")
-        .should("exist");
+        .contains("staleId-2");
     });
   });
 });

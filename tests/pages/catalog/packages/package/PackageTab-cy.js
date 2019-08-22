@@ -192,19 +192,15 @@ describe("Package Detail Tab", function() {
 
         it('Should add rows when "Add Placement Constraint" link clicked', function() {
           // Field
-          cy.get("@tabView")
-            .find('.form-control[name="constraints.0.fieldName"]')
-            .should("exist");
+          cy.get("@tabView").find(
+            '.form-control[name="constraints.0.fieldName"]'
+          );
 
           // operator
-          cy.get("@tabView")
-            .find('[name="constraints.0.operator"]')
-            .should("exist");
+          cy.get("@tabView").find('[name="constraints.0.operator"]');
 
           // value
-          cy.get("@tabView")
-            .find('.form-control[name="constraints.0.value"]')
-            .should("exist");
+          cy.get("@tabView").find('.form-control[name="constraints.0.value"]');
         });
 
         it("Should remove rows when remove button clicked", function() {

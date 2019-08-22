@@ -125,7 +125,7 @@ describe("Page Header Component", function() {
     });
 
     it("header actions is visible", function() {
-      cy.get(".page-header-actions").should("exist");
+      cy.get(".page-header-actions");
     });
   });
 });

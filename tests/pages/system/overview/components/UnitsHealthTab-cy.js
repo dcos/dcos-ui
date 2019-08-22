@@ -75,9 +75,7 @@ describe("Units Tab [0e2]", function() {
     });
 
     it("renders unit title [0ea]", function() {
-      cy.get(".page-header")
-        .contains("Mesos DNS")
-        .should("exist");
+      cy.get(".page-header").contains("Mesos DNS");
     });
 
     it("renders unit health [0eb]", function() {
@@ -124,9 +122,7 @@ describe("Units Tab [0e2]", function() {
     });
 
     it("renders health check title [0ei]", function() {
-      cy.get(".page-header")
-        .contains("Mesos DNS")
-        .should("exist");
+      cy.get(".page-header").contains("Mesos DNS");
     });
 
     it("renders node health [0ej]", function() {
