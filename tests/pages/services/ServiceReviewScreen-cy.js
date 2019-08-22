@@ -343,13 +343,11 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("80")
-        .should("exist");
+        .getTableRowThatContains("80");
 
       cy.root()
         .configurationSection("Command Health Checks")
-        .getTableRowThatContains("sleep 5; exit 0")
-        .should("exist");
+        .getTableRowThatContains("sleep 5; exit 0");
     });
 
     it("renders proper review screen and JSON for an app with docker config", function() {
@@ -473,12 +471,10 @@ describe("Services", function() {
         .contains("container/bridge");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
+        .getTableRowThatContains("http");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .getTableRowThatContains("8080");
     });
 
     it("renders proper review screen and JSON for an app with ucr config and docker container", function() {
@@ -608,12 +604,10 @@ describe("Services", function() {
         .contains("container/bridge");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
+        .getTableRowThatContains("http");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .getTableRowThatContains("8080");
     });
 
     it("renders proper review screen and JSON for app with ucr config and command", function() {
@@ -737,12 +731,10 @@ describe("Services", function() {
         .contains("container/bridge");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("http")
-        .should("exist");
+        .getTableRowThatContains("http");
       cy.root()
         .configurationSection("Service Endpoints")
-        .getTableRowThatContains("8080")
-        .should("exist");
+        .getTableRowThatContains("8080");
     });
 
     it("renders proper review screen and JSON for an app with environment variables", function() {

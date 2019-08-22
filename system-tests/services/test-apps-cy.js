@@ -1,5 +1,5 @@
 require("../_support/utils/ServicesUtil");
-const { Timeouts } = require("../_support/constants");
+
 // creates an app with ucr config and command
 // creates an app with persistent volume
 describe("Services", function() {
@@ -52,25 +52,15 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -131,25 +121,15 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Also no Error should exist
-      cy.get(".infoBoxWrapper", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-        .contains(dangerMessage, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".infoBoxWrapper").contains(dangerMessage);
     });
 
     it("creates an app with artifacts", function() {
@@ -193,25 +173,15 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -301,31 +271,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist")
+        .contains(serviceName)
         .as("serviceName");
 
       cy.get(".page-body-content .service-table")
         .contains(serviceName)
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -431,32 +391,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(10) // first cell in second row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -568,32 +517,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(28) // first cell in forth row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -702,32 +640,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(28) // first cell in forth row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -831,32 +758,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(19) // first cell in third row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -961,33 +877,23 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist")
+        .contains(serviceName)
         .as("serviceName");
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(37) // first cell in fifth row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -1106,32 +1012,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(37) // first cell in fifth row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -1229,32 +1124,21 @@ describe("Services", function() {
       // Click Review and Run
       cy.get("button.button-primary")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Run service
       cy.get("button.button-primary")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Status cell should show running
       cy.get(".ReactVirtualized__Grid")
         .eq(-1) // bottom right grid
         .children(46) // first cell in sixth row
-        .contains("Running", {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+        .contains("Running");
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -1347,25 +1231,15 @@ describe("Services", function() {
 
       cy.get("button")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       cy.get("button")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, {
-          timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-        })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
     });
 
     it("creates an app with virtual network", function() {
@@ -1427,23 +1301,13 @@ describe("Services", function() {
 
       cy.get("button")
         .contains("Review & Run")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
       cy.get("button")
         .contains("Run Service")
-        .click({
-          timeout: Timeouts.ANIMATION_TIMEOUT
-        });
+        .click();
 
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .should("exist");
-
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName)
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
     });
   });
 });

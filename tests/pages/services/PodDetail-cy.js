@@ -74,45 +74,31 @@ describe("Pod Detail Page", function() {
         });
 
         it("shows endpoint name correctly", function() {
-          cy.get(".configuration-map-heading")
-            .contains("ping")
-            .should("exist");
+          cy.get(".configuration-map-heading").contains("ping");
         });
 
         it("shows procotol correctly", function() {
-          cy.get(".configuration-map-label")
-            .contains("Protocol")
-            .should("exist");
-          cy.get(".configuration-map-value")
-            .contains("tcp")
-            .should("exist");
+          cy.get(".configuration-map-label").contains("Protocol");
+
+          cy.get(".configuration-map-value").contains("tcp");
         });
 
         it("shows container port correctly", function() {
-          cy.get(".configuration-map-label")
-            .contains("Container Port")
-            .should("exist");
-          cy.get(".configuration-map-value")
-            .contains("80")
-            .should("exist");
+          cy.get(".configuration-map-label").contains("Container Port");
+
+          cy.get(".configuration-map-value").contains("80");
         });
 
         it("shows host port correctly", function() {
-          cy.get(".configuration-map-label")
-            .contains("Host Port")
-            .should("exist");
-          cy.get(".configuration-map-value")
-            .contains("Auto Assigned")
-            .should("exist");
+          cy.get(".configuration-map-label").contains("Host Port");
+
+          cy.get(".configuration-map-value").contains("Auto Assigned");
         });
 
         it("shows container correctly", function() {
-          cy.get(".configuration-map-label")
-            .contains("Container")
-            .should("exist");
-          cy.get(".configuration-map-value")
-            .contains("container-1")
-            .should("exist");
+          cy.get(".configuration-map-label").contains("Container");
+
+          cy.get(".configuration-map-value").contains("container-1");
         });
       });
     });
@@ -230,7 +216,7 @@ describe("Pod Detail Page", function() {
         url: /marathon\/v2\/queue\/\/podses\/delay/,
         response: []
       });
-      cy.get(".toasts-container").should("exist");
+      cy.get(".toasts-container");
       cy.hash().should("match", /services\/detail\/%2Fpodses\/debug.*/);
     });
   });
@@ -266,7 +252,7 @@ describe("Pod Detail Page", function() {
             url: /marathon\/v2\/queue\/\/podses\/delay/,
             response: []
           });
-          cy.get(".toasts-container").should("exist");
+          cy.get(".toasts-container");
         });
       });
 

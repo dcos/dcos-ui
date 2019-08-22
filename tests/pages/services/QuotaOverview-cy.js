@@ -16,28 +16,22 @@ describe("Quota Tab", function() {
     });
 
     it("Shows the no quota message", function() {
-      cy.get(".panel-content")
-        .contains("No quota defined")
-        .should("exist");
+      cy.get(".panel-content").contains("No quota defined");
     });
 
     it("Shows a working back to services button", function() {
       cy.get(".button-primary")
         .contains("Back to Services")
         .click();
-      cy.get(".service-table").should("exist");
+      cy.get(".service-table");
     });
 
     it("Shows actions dropdown", function() {
       cy.get(".button-narrow")
         .eq(0)
         .click();
-      cy.get("li.is-selectable")
-        .contains("Run a Service")
-        .should("exist");
-      cy.get("li.is-selectable")
-        .contains("Create Group")
-        .should("exist");
+      cy.get("li.is-selectable").contains("Run a Service");
+      cy.get("li.is-selectable").contains("Create Group");
     });
 
     it("Opens create service modal", function() {
@@ -47,10 +41,8 @@ describe("Quota Tab", function() {
       cy.get("li.is-selectable")
         .contains("Run a Service")
         .click();
-      cy.get(".create-service-modal-service-picker-options").should("exist");
-      cy.get(".text-align-center")
-        .contains("Single Container")
-        .should("exist");
+      cy.get(".create-service-modal-service-picker-options");
+      cy.get(".text-align-center").contains("Single Container");
     });
 
     it("Opens create group modal", function() {
@@ -60,10 +52,8 @@ describe("Quota Tab", function() {
       cy.get("li.is-selectable")
         .contains("Create Group")
         .click();
-      cy.get(".create-service-modal-form-container").should("exist");
-      cy.get(".modal-full-screen-header-title")
-        .contains("New Group")
-        .should("exist");
+      cy.get(".create-service-modal-form-container");
+      cy.get(".modal-full-screen-header-title").contains("New Group");
     });
   });
 
@@ -104,35 +94,24 @@ describe("Quota Tab", function() {
       }
 
       it("Shows the quota table", function() {
-        cy.get(".quota-table").should("exist");
+        cy.get(".quota-table");
       });
 
       it("Shows the info banner for services with no limit", function() {
-        cy.get("#quota-no-limit-infobox")
-          .contains(
-            "1 group has services not limited by quota. Update service roles to have quota enforced."
-          )
-          .should("exist");
+        cy.get("#quota-no-limit-infobox").contains(
+          "1 group has services not limited by quota. Update service roles to have quota enforced."
+        );
       });
 
       it("Shows the correct headings", function() {
         cy.get(".ReactVirtualized__Grid")
           .eq(0)
-          .contains("Name")
-          .should("exist");
+          .contains("Name");
         cy.get(".TopRightGrid_ScrollWrapper").contains("Quota Limit");
-        cy.get(".TopRightGrid_ScrollWrapper")
-          .contains("CPU Consumed")
-          .should("exist");
-        cy.get(".TopRightGrid_ScrollWrapper")
-          .contains("Memory Consumed")
-          .should("exist");
-        cy.get(".TopRightGrid_ScrollWrapper")
-          .contains("Disk Consumed")
-          .should("exist");
-        cy.get(".TopRightGrid_ScrollWrapper")
-          .contains("GPU Consumed")
-          .should("exist");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("CPU Consumed");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("Memory Consumed");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("Disk Consumed");
+        cy.get(".TopRightGrid_ScrollWrapper").contains("GPU Consumed");
       });
 
       it("Shows the correct number of rows", function() {
@@ -219,27 +198,21 @@ describe("Quota Tab", function() {
       });
 
       it("Opens the quota detail page when we click on a group", function() {
-        cy.get(".breadcrumb__content--text")
-          .contains("10_apps")
-          .should("exist");
-        cy.get(".quota-details").should("exist");
+        cy.get(".breadcrumb__content--text").contains("10_apps");
+        cy.get(".quota-details");
       });
 
       it("Open the quota detail tab when we visit the correct url", function() {
         cy.visitUrl({ url: "/services/quota/%2F10000_apps" });
-        cy.get(".breadcrumb__content--text")
-          .contains("10000_apps")
-          .should("exist");
-        cy.get(".quota-details").should("exist");
+        cy.get(".breadcrumb__content--text").contains("10000_apps");
+        cy.get(".quota-details");
       });
 
       it("Shows the info banner for services with no limit", function() {
         cy.visitUrl({ url: "/services/quota/%2F2_apps" });
-        cy.get(".quota-info")
-          .contains(
-            "1 service is not limited by quota. Update role to have quota enforced."
-          )
-          .should("exist");
+        cy.get(".quota-info").contains(
+          "1 service is not limited by quota. Update role to have quota enforced."
+        );
       });
 
       it("Shows the correct number of cards", function() {
@@ -247,56 +220,40 @@ describe("Quota Tab", function() {
       });
 
       it("Shows the correct card titles", function() {
-        cy.get(".quota-card-title")
-          .contains("CPU")
-          .should("exist");
-        cy.get(".quota-card-title")
-          .contains("Memory")
-          .should("exist");
-        cy.get(".quota-card-title")
-          .contains("Disk")
-          .should("exist");
-        cy.get(".quota-card-title")
-          .contains("GPU")
-          .should("exist");
+        cy.get(".quota-card-title").contains("CPU");
+        cy.get(".quota-card-title").contains("Memory");
+        cy.get(".quota-card-title").contains("Disk");
+        cy.get(".quota-card-title").contains("GPU");
       });
 
       it("Shows percent or N/A for each card", function() {
         cy.get(".quota-card-main")
           .eq(0)
-          .contains("25%")
-          .should("exist");
+          .contains("25%");
         cy.get(".quota-card-main")
           .eq(1)
-          .contains("13%")
-          .should("exist");
+          .contains("13%");
         cy.get(".quota-card-main")
           .eq(2)
-          .contains("50%")
-          .should("exist");
+          .contains("50%");
         cy.get(".quota-card-main")
           .eq(3)
-          .contains("N/A")
-          .should("exist");
+          .contains("N/A");
       });
 
       it("Shows consumed of limit or no limit for each card", function() {
         cy.get(".quota-card-label")
           .eq(0)
-          .contains("0.5 of 2 Cores")
-          .should("exist");
+          .contains("0.5 of 2 Cores");
         cy.get(".quota-card-label")
           .eq(1)
-          .contains("128 of 1024 MiB")
-          .should("exist");
+          .contains("128 of 1024 MiB");
         cy.get(".quota-card-label")
           .eq(2)
-          .contains("5 of 10 MiB")
-          .should("exist");
+          .contains("5 of 10 MiB");
         cy.get(".quota-card-label")
           .eq(3)
-          .contains("No Limit")
-          .should("exist");
+          .contains("No Limit");
       });
 
       it("Shows progress bars", function() {
@@ -310,16 +267,12 @@ describe("Quota Tab", function() {
         });
 
         it("Shows quota table", function() {
-          cy.get(".service-quota-table").should("exist");
+          cy.get(".service-quota-table");
         });
 
         it("Shows table values", function() {
-          cy.get(".table-cell-link-primary")
-            .contains("podEFGH")
-            .should("exist");
-          cy.get(".table-cell-value")
-            .contains("Not Enforced")
-            .should("exist");
+          cy.get(".table-cell-link-primary").contains("podEFGH");
+          cy.get(".table-cell-value").contains("Not Enforced");
         });
       });
     });

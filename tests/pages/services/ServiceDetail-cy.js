@@ -280,7 +280,7 @@ describe("Service Detail Page", function() {
         url: /marathon\/v2\/queue\/\/sleep\/delay/,
         response: []
       });
-      cy.get(".toasts-container").should("exist");
+      cy.get(".toasts-container");
       cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
     });
   });
@@ -316,7 +316,7 @@ describe("Service Detail Page", function() {
             url: /marathon\/v2\/queue\/\/sleep\/delay/,
             response: []
           });
-          cy.get(".toasts-container").should("exist");
+          cy.get(".toasts-container");
         });
       });
 

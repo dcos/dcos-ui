@@ -34,9 +34,7 @@ describe("Job Create Form", function() {
       cy.get(".button.button-primary-link.button-narrow").click();
 
       // Wait for the 'New Job' dialog to appear
-      cy.get(".modal-header")
-        .contains("New Job")
-        .should("exist");
+      cy.get(".modal-header").contains("New Job");
     });
 
     context("General tab", function() {
@@ -84,9 +82,7 @@ describe("Job Create Form", function() {
           .click();
         typeInInput("key.0.dockerParams", " ");
         submit();
-        getActiveTabErrorBadge()
-          .contains("1")
-          .should("exist");
+        getActiveTabErrorBadge().contains("1");
         typeInInput("key.0.dockerParams", "{selectall}{backspace}");
         getActiveTabErrorBadge().should("not.exist");
       });
@@ -97,9 +93,7 @@ describe("Job Create Form", function() {
         openTab("Schedule");
         typeInInput("id.schedules", " ");
         submit();
-        getActiveTabErrorBadge()
-          .contains("2")
-          .should("exist");
+        getActiveTabErrorBadge().contains("2");
         typeInInput("id.schedules", "{selectall}{backspace}");
         getActiveTabErrorBadge().should("not.exist");
       });
@@ -113,9 +107,7 @@ describe("Job Create Form", function() {
           .click();
         typeInInput("0.0.env", " ");
         submit();
-        getActiveTabErrorBadge()
-          .contains("1")
-          .should("exist");
+        getActiveTabErrorBadge().contains("1");
         typeInInput("0.0.env", "{selectall}{backspace}");
         getActiveTabErrorBadge().should("not.exist");
       });
@@ -129,9 +121,7 @@ describe("Job Create Form", function() {
           .click();
         typeInInput("containerPath.0.volumes", " ");
         submit();
-        getActiveTabErrorBadge()
-          .contains("2")
-          .should("exist");
+        getActiveTabErrorBadge().contains("2");
         typeInInput("containerPath.0.volumes", "{selectall}{backspace}");
         getActiveTabErrorBadge().should("not.exist");
       });
@@ -145,9 +135,7 @@ describe("Job Create Form", function() {
           .click();
         typeInInput("attribute.0.placementConstraints", " ");
         submit();
-        getActiveTabErrorBadge()
-          .contains("2")
-          .should("exist");
+        getActiveTabErrorBadge().contains("2");
         typeInInput(
           "attribute.0.placementConstraints",
           "{selectall}{backspace}"
