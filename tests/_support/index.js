@@ -599,7 +599,6 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         response: "fx:cosmos/repositories-list"
       });
   }
-
   if (configuration.universePackages === "communityPackage") {
     router
       // Packages
@@ -619,6 +618,27 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         url: /package\/describe/,
         status: 200,
         response: "fx:cosmos/dependency-package-describe"
+      });
+  }
+
+  if (configuration.universePackages === "old") {
+    router
+      // Packages
+      .route({
+        method: "POST",
+        url: /package\/describe/,
+        status: 200,
+        response: "fx:cosmos/old-package-describe"
+      });
+  }
+  if (configuration.universePackages === "older") {
+    router
+      // Packages
+      .route({
+        method: "POST",
+        url: /package\/describe/,
+        status: 200,
+        response: "fx:cosmos/older-package-describe"
       });
   }
 

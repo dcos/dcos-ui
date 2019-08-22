@@ -20,6 +20,9 @@ import CosmosErrorMessage from "#SRC/js/components/CosmosErrorMessage";
 import FrameworkConfigurationForm from "#SRC/js/components/FrameworkConfigurationForm";
 import FrameworkConfigurationReviewScreen from "#SRC/js/components/FrameworkConfigurationReviewScreen";
 import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
+import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
+import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
+import * as LastUpdated from "#SRC/js/components/LastUpdated";
 
 const METHODS_TO_BIND = [
   "handleJSONToggle",
@@ -307,6 +310,9 @@ class FrameworkConfiguration extends Component {
       ? i18nMark("Review Configuration")
       : i18nMark("Edit Configuration");
 
+    const cosmosPackage = CosmosPackagesStore.getPackageDetails();
+    const lastUpdated = FrameworkUtil.getLastUpdated(cosmosPackage);
+
     return (
       <FullScreenModalHeader>
         <FullScreenModalHeaderActions
@@ -316,6 +322,7 @@ class FrameworkConfiguration extends Component {
         <FullScreenModalHeaderTitle className="modal-full-screen-header-with-sub-title">
           <Trans id={title} render="span" />
           <FullScreenModalHeaderSubTitle>
+            {lastUpdated ? LastUpdated.warningIcon(lastUpdated) : null}{" "}
             {StringUtil.capitalize(packageDetails.getName()) +
               " " +
               packageDetails.getVersion()}

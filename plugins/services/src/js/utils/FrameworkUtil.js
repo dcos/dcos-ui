@@ -1,4 +1,5 @@
 import Util from "#SRC/js/utils/Util";
+import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ServiceImages from "../constants/ServiceImages";
 
@@ -76,6 +77,27 @@ const FrameworkUtil = {
     }
 
     return splitVersion.slice(1).join("-");
+  },
+
+  /**
+   * Return a warning or an error label
+   * if the pacakge has cosmosPackage been updated soon.
+   * @param {object} cosmosPackage The cosmos package to check.
+   * @param {Boolean} withLabel Indicates whether we want the "Last Updated: " label or not.
+   * @returns {null | String | React.ReactNode} Null or string or an HTML element saying when was the last update of this package
+   */
+  getLastUpdated(cosmosPackage) {
+    try {
+      // This looks like magic, but we are only decoding the package configuration into a string,
+      // and then finding the PACKAGE_BUILD_TIME_STR property.
+      return DateUtil.msToUTCDay(
+        window
+          .atob(cosmosPackage.marathon.v2AppMustacheTemplate)
+          .match(/PACKAGE_BUILD_TIME_STR": "(.*)"/)[1]
+      );
+    } catch (_e) {
+      return null;
+    }
   }
 };
 
