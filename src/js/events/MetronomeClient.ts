@@ -3,7 +3,8 @@ import { Observable, throwError } from "rxjs";
 import Config from "../config/Config";
 import {
   JobSchedule,
-  JobAPIOutput
+  JobAPIOutput,
+  ConcurrentPolicy
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap, catchError } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
@@ -61,7 +62,7 @@ export interface JobDocker {
 }
 
 export interface Schedule {
-  concurrencyPolicy: string;
+  concurrencyPolicy: ConcurrentPolicy;
   cron: string;
   enabled: boolean;
   id: string;
