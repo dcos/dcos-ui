@@ -120,21 +120,20 @@ describe("Packages Tab", function() {
   context("searching", function() {
     beforeEach(function() {
       cy.visitUrl({ url: "/catalog", logIn: true });
-      cy.get("input").type("cass");
+      cy.get("button")
+        .contains("All")
+        .click();
+      cy.get("input").type("bitbuck");
     });
 
     it("hides certified panels", function() {
       cy.get("h1")
         .contains("Certified")
-        .should(function($certifiedHeading) {
-          expect($certifiedHeading.length).to.equal(0);
-        });
+        .should("not.exist");
     });
 
-    it("shows only cassandra in panels", function() {
-      cy.get(".panel").should(function($panels) {
-        expect($panels.length).to.equal(1);
-      });
+    it("shows only bitbucket in panels", function() {
+      cy.get(".panel").should("exist");
     });
 
     it("shows message when no matching packages found", function() {

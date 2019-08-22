@@ -134,37 +134,29 @@ describe("Universe", function() {
   });
 
   it("installs a community package", function() {
-    const packageName = "bitbucket";
+    cy.get("button")
+      .contains("Community")
+      .click();
 
-    // Click 'Find a the kafka package'
-    cy.contains(packageName).click();
+    cy.contains("bitbucket").click();
 
-    // Check that this package is certified
+    // Check that this package is not certified
     cy.contains("Community");
 
-    // Click the Review & Run button
+    // Move to the config screen
     cy.contains("Review & Run").click();
-
     // Move to the review screen
     cy.contains("Review & Run").click();
 
-    // Click the Run Service button
     cy.contains("Run Service").click();
 
-    // Click the Open Service button
     cy.contains("Open Service").click();
 
     // Go to the root services page
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".page-body-content .service-table").contains("bitbucket");
   });
 
   it("uses advanced install to deploy a certified package", function() {
@@ -217,16 +209,16 @@ describe("Universe", function() {
     const packageName = "bitbucket";
     const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
-    // Click 'Find a the kafka package'
+    cy.get("button")
+      .contains("Community")
+      .click();
+
     cy.contains(packageName).click();
 
     // Check that this package is certified
     cy.contains("Community");
 
-    // Click the Review & Run button
     cy.contains("Review & Run").click();
-
-    // Click Edit Config button
     cy.contains("Edit Config").click();
 
     // Find name input
