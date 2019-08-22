@@ -174,6 +174,52 @@ describe("Package Detail Tab", function() {
         );
       });
     });
+
+    context("Last updated", function() {
+      it("Shows no label for packages with no last updated information", function() {
+        cy.get("[data-cy=outdated-warning]").should("not.exist");
+        cy.get("[data-cy=last-updated]").should("not.exist");
+        cy.get(".page-body-content .package-action-buttons button")
+          .contains("Review & Run")
+          .click();
+        cy.get("[data-cy=outdated-warning]").should("not.exist");
+      });
+
+      it("Shows a label if the package has information about when it was last updated", function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          universePackages: "old"
+        }).visitUrl({
+          url: "/catalog/packages/marathon?version=1.4.6"
+        });
+
+        cy.get("[data-cy=last-updated]");
+        cy.get(".page-body-content .package-action-buttons button")
+          .contains("Review & Run")
+          .click();
+        cy.get("[data-cy=outdated-warning]").should("not.exist");
+      });
+
+      it("Shows a yellow warning if the package has not been updated for over a year", function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          universePackages: "older"
+        }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
+
+        cy.get("[data-cy=outdated-warning]");
+        cy.get(".tooltip").contains(
+          "This service has not been updated for at least 1 year. We recommend you update if possible."
+        );
+
+        cy.get(".page-body-content .package-action-buttons button")
+          .contains("Review & Run")
+          .click();
+        cy.get("[data-cy=outdated-warning]");
+        cy.get(".tooltip").contains(
+          "This service has not been updated for at least 1 year. We recommend you update if possible."
+        );
+      });
+    });
   });
 
   context("Package Configuration", function() {

@@ -76,6 +76,18 @@ const DateUtil = {
   },
 
   /**
+   * Creates a UTC time string from time provided
+   * @param  {Date|Number} ms number to convert to UTC time string
+   * @return {String} time string with the format 'YYYY-MM-DD'
+   */
+  msToUTCDay(ms: Date | number): string {
+    return format(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
+      "YYYY-MM-DD"
+    );
+  },
+
+  /**
    * Creates a log timestamp string from time provided
    * @param  {Date|Number} ms number to convert to ANSI C time string
    * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'

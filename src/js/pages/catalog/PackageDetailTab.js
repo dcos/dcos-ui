@@ -29,6 +29,8 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-large@2x.png";
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
+import * as LastUpdated from "#SRC/js/components/LastUpdated";
+import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
 
 const semver = require("semver");
 
@@ -279,6 +281,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
         <a key={key} href={value} target="_blank">
           {value}
         </a>
+      );
+    }
+
+    if (!label) {
+      return (
+        <p key={key} className="short">
+          {content}
+        </p>
       );
     }
 
@@ -544,7 +554,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       preInstallNotesParsed.__html =
         "<strong>Preinstall Notes: </strong>" + preInstallNotesParsed.__html;
     }
-
+    const updatedAt = FrameworkUtil.getLastUpdated(cosmosPackage);
     const definition = [
       {
         label: "Description",
@@ -573,7 +583,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
         type: "subItems",
         value: [
           { label: "SCM", value: cosmosPackage.getSCM() },
-          { label: "Maintainer", value: cosmosPackage.getMaintainer() }
+          { label: "Maintainer", value: cosmosPackage.getMaintainer() },
+          { value: updatedAt ? LastUpdated.render(updatedAt) : null }
         ]
       },
       {

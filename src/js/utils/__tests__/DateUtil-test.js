@@ -125,4 +125,10 @@ describe("DateUtil", function() {
       expect(DateUtil.isValidDate(null)).toEqual(false);
     });
   });
+
+  describe("#msToUTCDay", function() {
+    it("return the day from a milliseconds value", function() {
+      expect(DateUtil.msToUTCDay(631324800000)).toEqual("1990-01-03");
+    });
+  });
 });
