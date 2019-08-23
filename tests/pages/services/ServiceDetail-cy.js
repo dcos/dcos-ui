@@ -76,6 +76,40 @@ describe("Service Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
       });
 
+      it("shows endpoints tab when clicked", function() {
+        cy.visitUrl({
+          url: "/services/detail/%2Fsleep"
+        });
+
+        cy.get(".menu-tabbed-item")
+          .contains("Endpoints")
+          .click();
+
+        cy.get("h1.configuration-map-heading").contains("124");
+
+        cy.get(".table-row")
+          .should("contain", "Protocol")
+          .and("contain", "tcp");
+
+        cy.get(".table-row")
+          .should("contain", "Container Port")
+          .and("contain", "-");
+
+        cy.get(".table-row")
+          .should("contain", "Host Port")
+          .and("contain", "Auto Assigned");
+
+        cy.get(".table-row")
+          .should("contain", "Load Balanced Address")
+          .and("contain", "new-service-1.marathon.l4lb.thisdcos.directory:126");
+
+        cy.get("h1.configuration-map-heading").contains("Web Endpoints");
+
+        cy.get(".table-row")
+          .should("contain", "Web URL")
+          .and("contain", "http://localhost:4200/service/undefined/web-path");
+      });
+
       it("shows volumes tab when clicked", function() {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"

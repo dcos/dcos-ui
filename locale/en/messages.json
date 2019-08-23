@@ -961,6 +961,8 @@
   "Warning": "",
   "Warning:": "",
   "We are unable to retrieve the version {0} versions. Please try again.": "",
+  "Web Endpoints": "",
+  "Web URL": "",
   "When you attempt to deploy a service, DC/OS waits for offers to match the resources your service requires. If the offer does not satisfy the requirement, it is declined and DC/OS retries. <0>Learn more</0>.": "",
   "Will not enforce quota on all services in the group.": "",
   "With Latest Config": "",
