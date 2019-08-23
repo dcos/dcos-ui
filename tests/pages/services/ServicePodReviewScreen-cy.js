@@ -189,8 +189,7 @@ describe("Services", function() {
       // Ensure the name changes to 'Services'
       cy.root()
         .get(".menu-tabbed-item")
-        .contains("Services")
-        .should("exist");
+        .contains("Services");
 
       // Select second container
       cy.root()
@@ -1137,8 +1136,7 @@ describe("Services", function() {
       // Ensure the name changes to 'Services'
       cy.root()
         .get(".menu-tabbed-item")
-        .contains("Services")
-        .should("exist");
+        .contains("Services");
 
       // Select second container
       cy.root()

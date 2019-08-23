@@ -112,9 +112,9 @@ describe("Packages Tab", function() {
     }).visitUrl({ url: "/catalog", logIn: true });
 
     cy.get(".panel-content h2").should("contain", "An Error Occurred");
-    cy.get(".errorsAlert-message")
-      .contains("Looks Like Something is Wrong. Please try again.")
-      .should("exist");
+    cy.get(".errorsAlert-message").contains(
+      "Looks Like Something is Wrong. Please try again."
+    );
   });
 
   context("searching", function() {

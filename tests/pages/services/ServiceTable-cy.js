@@ -31,12 +31,10 @@ describe("Service Table", function() {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get(".service-status-icon-wrapper")
-        .contains("Delayed")
-        .should("exist"); // Text
-      cy.get(".service-status-icon-wrapper")
-        .find('svg[aria-label="system-yield icon"]')
-        .should("exist"); // Icon
+      cy.get(".service-status-icon-wrapper").contains("Delayed");
+      cy.get(".service-status-icon-wrapper").find(
+        'svg[aria-label="system-yield icon"]'
+      );
     });
 
     it("shows correct status and icon for a delayed pod", function() {
@@ -47,12 +45,10 @@ describe("Service Table", function() {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get(".service-status-icon-wrapper")
-        .contains("Delayed")
-        .should("exist"); // Text
-      cy.get(".service-status-icon-wrapper")
-        .find('svg[aria-label="system-yield icon"]')
-        .should("exist"); // Icon
+      cy.get(".service-status-icon-wrapper").contains("Delayed");
+      cy.get(".service-status-icon-wrapper").find(
+        'svg[aria-label="system-yield icon"]'
+      );
     });
   });
 
@@ -251,7 +247,7 @@ describe("Service Table", function() {
           url: /marathon\/v2\/queue\/\/sleep\/delay/,
           response: []
         });
-        cy.get(".toasts-container").should("exist");
+        cy.get(".toasts-container");
       });
     });
 
@@ -291,7 +287,7 @@ describe("Service Table", function() {
           url: /marathon\/v2\/queue\/\/podses\/delay/,
           response: []
         });
-        cy.get(".toasts-container").should("exist");
+        cy.get(".toasts-container");
       });
     });
 
@@ -327,15 +323,15 @@ describe("Service Table", function() {
       const imageUrl = "foo.png";
       const serviceName = "sdk-sleep-with-image";
 
-      cy.get(".service-table")
-        .find(`.icon-image-container img[src="${imageUrl}"]`)
-        .should("exist");
+      cy.get(".service-table").find(
+        `.icon-image-container img[src="${imageUrl}"]`
+      );
 
       cy.contains(serviceName).click();
 
-      cy.get(".breadcrumb")
-        .find(`.icon-image-container img[src="${imageUrl}"]`)
-        .should("exist");
+      cy.get(".breadcrumb").find(
+        `.icon-image-container img[src="${imageUrl}"]`
+      );
     });
 
     it("opens the destroy dialog", function() {
@@ -347,7 +343,7 @@ describe("Service Table", function() {
         .should("to.have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
-      cy.get(".modal .filter-input-text").should("exist");
+      cy.get(".modal .filter-input-text");
 
       cy.get(".modal button")
         .contains("Cancel")
@@ -394,9 +390,7 @@ describe("Service Table", function() {
     it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", function() {
       openDropdown("sdk-sleep-with-image");
 
-      cy.get(".dropdown-menu-items")
-        .contains("Open Service")
-        .should("exist");
+      cy.get(".dropdown-menu-items").contains("Open Service");
     });
 
     it("shows the full version for a framework", function() {

@@ -19,19 +19,13 @@ describe("Service Detail Page", function() {
       cy.get(".page-body-content")
         .parent()
         .scrollTo("bottom");
-      cy.get("h2")
-        .contains("Summary")
-        .should("exist"); // contains a summary section
+      cy.get("h2").contains("Summary"); // contains a summary section
       cy.get("h2")
         .contains("Summary")
         .next()
         .should("have.class", "funnel-graph"); // contains a graph
-      cy.get("h2")
-        .contains("Details")
-        .should("exist"); // contains a details section
-      cy.get(".table")
-        .contains("Host")
-        .should("exist"); // contains details table
+      cy.get("h2").contains("Details"); // contains a details section
+      cy.get(".table").contains("Host"); // contains details table
       cy.get(".table")
         .contains("Host")
         .contains("a")

@@ -1,5 +1,4 @@
 require("../_support/utils/ServicesUtil");
-const { Timeouts } = require("../_support/constants");
 
 describe("Universe", function() {
   beforeEach(() => {
@@ -34,13 +33,7 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".page-body-content .service-table").contains(packageName);
   });
 
   it("fails to install a package with the same name", function() {
@@ -62,75 +55,27 @@ describe("Universe", function() {
     cy.contains("Run Service").click();
 
     // Should give error that package already installed
-    cy.get(".cosmosErrorMsg")
-      .contains(
-        "A service with the same name already exists. Try a different name."
-      )
-      .should("exist");
-  });
-
-  it("has the service", () => {
-    const packageName = "confluent-kafka";
-    cy.visitUrl("services/overview");
-
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
-  });
-
-  it("has a plans tab", () => {
-    const packageName = "confluent-kafka";
-    cy.visitUrl(`services/detail/%2F${packageName}/tasks`);
-
-    cy.get(".menu-tabbed-item")
-      .contains("Plans", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".cosmosErrorMsg").contains(
+      "A service with the same name already exists. Try a different name."
+    );
   });
 
   it("plan is displayed", () => {
     const packageName = "confluent-kafka";
-    const phaseSelector =
-      ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer strong";
 
     // Go to the root services page
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(packageName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content .service-table")
+      .contains(packageName)
       .click();
 
-    // TODO: Check scheduler is running after Mesos Stream is fixed
-    // cy.contains("#application table", packageName)
-    //   .parent("tr")
-    //   .contains("Running", {
-    //     timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    //   });
-
-    cy.get(".menu-tabbed-item")
-      .contains("Plans", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .wait(Timeouts.SERVICE_DEPLOYMENT_TIMEOUT) // workaround for part above
+    cy.get(".page-header-navigation-tabs")
+      .contains("Plans")
       .click();
 
-    cy.get(phaseSelector, {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains("broker", {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.contains("broker (serial)");
   });
 
   it("installs a community package", function() {
@@ -196,13 +141,7 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(serviceName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".page-body-content .service-table").contains(serviceName);
   });
 
   it("uses advanced install to deploy a community package", function() {
@@ -242,13 +181,7 @@ describe("Universe", function() {
     cy.visitUrl("services/overview");
 
     // Check that it appears in the service list
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(serviceName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
-      .should("exist");
+    cy.get(".page-body-content .service-table").contains(serviceName);
   });
 
   it("deletes an already installed package", function() {
@@ -274,20 +207,12 @@ describe("Universe", function() {
 
     // Confirm the deletion
     cy.get(".modal.modal-small input").type(serviceName);
-    cy.get(".modal.modal-small button.button-danger", {
-      timeout: Timeouts.ANIMATION_TIMEOUT
-    })
-      .contains("Delete Service", {
-        timeout: Timeouts.ANIMATION_TIMEOUT
-      })
+    cy.get(".modal.modal-small button.button-danger")
+      .contains("Delete Service")
       .click();
 
-    cy.get(".page-body-content .service-table", {
-      timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-    })
-      .contains(serviceName, {
-        timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT
-      })
+    cy.get(".page-body-content .service-table")
+      .contains(serviceName)
       .should("not.exist");
   });
 });

@@ -1,5 +1,3 @@
-const { Timeouts } = require("../_support/constants");
-
 describe("Jobs", function() {
   afterEach(() => {
     cy.window().then(win => {
@@ -20,9 +18,7 @@ describe("Jobs", function() {
     cy.contains("Create a Job").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -53,7 +49,7 @@ describe("Jobs", function() {
 
     // Wait for the table and the service to appear
     cy.get(".page-body-content table")
-      .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
+      .contains(jobName)
       .get("a.table-cell-link-primary")
       .contains(`${jobName}`)
       .click();
@@ -97,9 +93,7 @@ describe("Jobs", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -136,7 +130,7 @@ describe("Jobs", function() {
 
     // Wait for the table and the service to appear
     cy.get(".page-body-content table")
-      .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
+      .contains(jobName)
       .get("a.table-cell-link-primary")
       .contains(`${jobName}`)
       .click();
@@ -178,9 +172,7 @@ describe("Jobs", function() {
     // Visit jobs
     cy.visitUrl("jobs/overview");
     cy.get(".button.button-primary-link.button-narrow").click();
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -203,7 +195,7 @@ describe("Jobs", function() {
 
     // Wait for the table and the service to appear
     cy.get(".page-body-content table")
-      .contains(jobName, { timeout: Timeouts.JOB_DEPLOYMENT_TIMEOUT })
+      .contains(jobName)
       .get("a.table-cell-link-primary")
       .contains(`${jobName}`)
       .click();

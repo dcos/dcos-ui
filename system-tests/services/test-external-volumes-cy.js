@@ -1,6 +1,5 @@
 require("../_support");
 require("../_support/utils/ServicesUtil");
-const { Timeouts } = require("../_support/constants");
 
 describe("Services", function() {
   /**
@@ -83,9 +82,7 @@ describe("Services", function() {
         .click();
 
       // Wait for the table and the service to appear
-      cy.get(".page-body-content .service-table")
-        .contains(serviceName, { timeout: Timeouts.SERVICE_DEPLOYMENT_TIMEOUT })
-        .should("exist");
+      cy.get(".page-body-content .service-table").contains(serviceName);
 
       // Now click on the name
       cy.get(".page-body-content .service-table")
@@ -147,7 +144,7 @@ describe("Services", function() {
       cy.contains("Logs").click();
       cy.contains("button", "Output (stdout)").click();
 
-      cy.contains(message).should("exist");
+      cy.contains(message);
 
       cy.visitUrl(
         `services/detail/%2F${Cypress.env("TEST_UUID")}%2F${serviceName}`
@@ -179,7 +176,7 @@ describe("Services", function() {
       cy.contains("Logs").click();
       cy.contains("button", "Output (stdout)").click();
 
-      cy.contains(message + "\n" + message).should("exist");
+      cy.contains(message + "\n" + message);
     });
   });
 });

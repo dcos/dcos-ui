@@ -18,9 +18,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -75,9 +73,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -188,9 +184,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -305,9 +299,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -389,9 +381,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -484,9 +474,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -578,9 +566,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -674,9 +660,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -749,9 +733,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()
@@ -826,9 +808,7 @@ describe("Job JSON Editor", function() {
     cy.get(".button.button-primary-link.button-narrow").click();
 
     // Wait for the 'New Job' dialog to appear
-    cy.get(".modal-header")
-      .contains("New Job")
-      .should("exist");
+    cy.get(".modal-header").contains("New Job");
 
     // Fill-in the input elements
     cy.root()

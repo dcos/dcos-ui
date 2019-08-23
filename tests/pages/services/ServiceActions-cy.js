@@ -716,7 +716,7 @@ describe("Service Actions", function() {
         .should("to.have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
-      cy.get(".modal .filter-input-text").should("exist");
+      cy.get(".modal .filter-input-text");
 
       cy.get(".modal button")
         .contains("Cancel")
@@ -733,7 +733,7 @@ describe("Service Actions", function() {
         .should("to.have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
-      cy.get(".modal .filter-input-text").should("exist");
+      cy.get(".modal .filter-input-text");
 
       cy.get(".modal .filter-input-text").type("sdk-sleep{enter}");
       cy.get(".modal .filter-input-text").should("be.empty");
