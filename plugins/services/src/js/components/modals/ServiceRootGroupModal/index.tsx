@@ -298,17 +298,34 @@ class ServiceRootGroupModal extends React.Component<
         });
         return;
       default:
+        const { isEdit } = this.state;
+        const form = [];
+        if (mesos) {
+          if (isEdit) {
+            form.push(
+              <Trans key="quotaError">
+                Unable to update group's quota: {message}
+              </Trans>
+            );
+          } else {
+            form.push(
+              <Trans key="quotaError">
+                Unable to create group's quota: {message}
+              </Trans>
+            );
+          }
+        } else if (isEdit) {
+          form.push(
+            <Trans key="miscGroup">Unable to update group: {message}</Trans>
+          );
+        } else {
+          form.push(
+            <Trans key="miscGroup">Unable to create group: {message}</Trans>
+          );
+        }
         this.setState({
           errors: {
-            form: [
-              mesos ? (
-                <Trans key="quotaError">
-                  Unable to create group's quota: {message}
-                </Trans>
-              ) : (
-                <Trans key="miscGroup">Unable to create group: {message}</Trans>
-              )
-            ]
+            form
           },
           isPending: false
         });
