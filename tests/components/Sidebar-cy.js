@@ -111,7 +111,7 @@ describe("Sidebar", function() {
 
       // open sidebar
       cy.get(".header-bar-sidebar-toggle").click();
-      cy.get(".sidebar-visible").should("exist");
+      cy.get(".sidebar-visible");
     });
 
     it("automatically close sidebar when view is mobile/tablet", function() {
@@ -125,8 +125,8 @@ describe("Sidebar", function() {
     it("display overlay when sidebar is open on mobile/tablet", function() {
       cy.viewport("iphone-6");
 
-      cy.get(".sidebar-visible.sidebar-docked").should("exist");
-      cy.get(".sidebar-backdrop").should("exist");
+      cy.get(".sidebar-visible.sidebar-docked");
+      cy.get(".sidebar-backdrop");
     });
 
     it("close Sidebar clicking on overlay when sidebar is open on mobile/tablet", function() {

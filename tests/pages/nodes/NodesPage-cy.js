@@ -117,9 +117,7 @@ describe("Nodes Page", function() {
             .should("contain", "dcos-01")
             .should("not.contain", "167.114.218.156")
             .should("not.contain", "167.114.218.155");
-          cy.get(".flush")
-            .contains("Showing 1 of 3 Nodes")
-            .should("exist");
+          cy.get(".flush").contains("Showing 1 of 3 Nodes");
         });
 
         it("filters correctly for cassandra-na", function() {
@@ -128,9 +126,7 @@ describe("Nodes Page", function() {
             .should("not.contain", "dcos-01")
             .should("not.contain", "167.114.218.156")
             .should("not.contain", "167.114.218.155");
-          cy.get(".flush")
-            .contains("Showing 0 of 3 Nodes")
-            .should("exist");
+          cy.get(".flush").contains("Showing 0 of 3 Nodes");
         });
 
         it("clears the filter when clicking Clear", function() {
@@ -138,9 +134,7 @@ describe("Nodes Page", function() {
           cy.get(".small")
             .contains("(Clear)")
             .click();
-          cy.get(".flush")
-            .contains("3 Nodes")
-            .should("exist");
+          cy.get(".flush").contains("3 Nodes");
         });
 
         it("clears the filter when clicking All Frameworks", function() {
@@ -151,9 +145,7 @@ describe("Nodes Page", function() {
           cy.get("a")
             .contains("All Frameworks")
             .click();
-          cy.get(".flush")
-            .contains("3 Nodes")
-            .should("exist");
+          cy.get(".flush").contains("3 Nodes");
         });
       });
     });

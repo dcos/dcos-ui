@@ -48,16 +48,12 @@ describe("Group Modals", () => {
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
         .click();
-      cy.get(".errorsAlert-list")
-        .contains(
-          "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
-      cy.get(".form-control-feedback")
-        .contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
+      cy.get(".errorsAlert-list").contains(
+        "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
+      cy.get(".form-control-feedback").contains(
+        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
     });
 
     it("displays an error for a group name ending with a dot", () => {
@@ -67,11 +63,9 @@ describe("Group Modals", () => {
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
         .click();
-      cy.get(".form-control-feedback")
-        .contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
+      cy.get(".form-control-feedback").contains(
+        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
     });
 
     it("displays an error for a group name starting with a dash", () => {
@@ -81,11 +75,9 @@ describe("Group Modals", () => {
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
         .click();
-      cy.get(".form-control-feedback")
-        .contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
+      cy.get(".form-control-feedback").contains(
+        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
     });
 
     it("displays an error for a group name ending with a dash", () => {
@@ -95,11 +87,9 @@ describe("Group Modals", () => {
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
         .click();
-      cy.get(".form-control-feedback")
-        .contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
+      cy.get(".form-control-feedback").contains(
+        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
     });
 
     it("displays an error for a group name containing unallowed symbols", () => {
@@ -109,109 +99,82 @@ describe("Group Modals", () => {
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
         .click();
-      cy.get(".form-control-feedback")
-        .contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        )
-        .should("exist");
+      cy.get(".form-control-feedback").contains(
+        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+      );
     });
 
     context("Create modal", () => {
       it("displays a fullscreen modal for top level groups", () => {
-        cy.get(".modal-full-screen").should("exist");
+        cy.get(".modal-full-screen");
       });
 
       it("displays the fullscreen modal when visiting the url", () => {
         cy.visitUrl({ url: "/services/overview/create_group" });
-        cy.get(".modal-full-screen").should("exist");
+        cy.get(".modal-full-screen");
       });
 
       it("displays a header", () => {
-        cy.get(".modal-full-screen-header-title")
-          .contains("New Group")
-          .should("exist");
+        cy.get(".modal-full-screen-header-title").contains("New Group");
       });
 
       it("displays a General section", () => {
-        cy.get("h1")
-          .contains("General")
-          .should("exist");
+        cy.get("h1").contains("General");
       });
 
       it("displays a name label input", () => {
-        cy.get(".form-group-heading-content")
-          .contains("Name")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Name");
         cy.get(".form-group-heading-content")
           .contains("Name")
           .siblings()
           .eq(0) // First sibling.
-          .contains("*")
-          .should("exist");
-        getInput("id").should("exist");
+          .contains("*");
+        getInput("id");
         getInput("id").type("group-name");
         getInput("id").should("have.value", "group-name");
       });
 
       it("displays a path", () => {
-        cy.get(".form-group-heading-content")
-          .contains("Path")
-          .should("exist");
-        cy.get("div")
-          .contains("/")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Path");
+        cy.get("div").contains("/");
         getInput("id").type("group-name");
-        cy.get("div")
-          .contains("/group-name")
-          .should("exist");
+        cy.get("div").contains("/group-name");
       });
 
       it("displays a Quota section", () => {
-        cy.get(".form-group-heading-content")
-          .contains("Quota")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Quota");
       });
 
       it("displays a CPUs label and input", () => {
-        cy.get(".form-group-heading-content")
-          .contains("CPUs")
-          .should("exist");
-        getInput("quota.cpus").should("exist");
+        cy.get(".form-group-heading-content").contains("CPUs");
+        getInput("quota.cpus");
         getInput("quota.cpus").type("1");
         getInput("quota.cpus").should("have.value", "1");
       });
 
       it("displays a Memory label and input", () => {
-        cy.get(".form-group-heading-content")
-          .contains("Mem (MiB)")
-          .should("exist");
-        getInput("quota.mem").should("exist");
+        cy.get(".form-group-heading-content").contains("Mem (MiB)");
+        getInput("quota.mem");
         getInput("quota.mem").type("10");
         getInput("quota.mem").should("have.value", "10");
       });
 
       it("displays a Disk label and input", () => {
-        cy.get(".form-group-heading-content")
-          .contains("Disk (MiB)")
-          .should("exist");
-        getInput("quota.disk").should("exist");
+        cy.get(".form-group-heading-content").contains("Disk (MiB)");
+        getInput("quota.disk");
         getInput("quota.disk").type("5");
         getInput("quota.disk").should("have.value", "5");
       });
 
       it("displays a GPUs label and input", () => {
-        cy.get(".form-group-heading-content")
-          .contains("GPUs")
-          .should("exist");
-        getInput("quota.gpus").should("exist");
+        cy.get(".form-group-heading-content").contains("GPUs");
+        getInput("quota.gpus");
         getInput("quota.gpus").type("0.5");
         getInput("quota.gpus").should("have.value", "0.5");
       });
 
       it("displays advanced settings", () => {
-        cy.get(".advanced-section-label")
-          .contains("Advanced Settings")
-          .should("exist");
+        cy.get(".advanced-section-label").contains("Advanced Settings");
       });
 
       it("shows and hides the advanced settings", () => {
@@ -219,7 +182,7 @@ describe("Group Modals", () => {
         cy.get(".advanced-section-label")
           .contains("Advanced Settings")
           .click();
-        cy.get(".advanced-section-content").should("exist");
+        cy.get(".advanced-section-content");
         cy.get(".advanced-section-label")
           .contains("Advanced Settings")
           .click();
@@ -230,26 +193,16 @@ describe("Group Modals", () => {
         cy.get(".advanced-section-label")
           .contains("Advanced Settings")
           .click();
-        cy.get(".form-group-heading-content")
-          .contains("Role Enforcement")
-          .should("exist");
-        cy.get(".form-control-toggle")
-          .contains("Use Group Role")
-          .should("exist");
-        cy.get(".form-control-toggle")
-          .contains("Recommended")
-          .should("exist");
-        cy.get(".form-control-toggle")
-          .contains(
-            "Allows Quota to be enforced on all the services in the group."
-          )
-          .should("exist");
-        cy.get(".form-control-toggle")
-          .contains("Use Legacy Role")
-          .should("exist");
-        cy.get(".form-control-toggle")
-          .contains("Will not enforce quota on all services in the group.")
-          .should("exist");
+        cy.get(".form-group-heading-content").contains("Role Enforcement");
+        cy.get(".form-control-toggle").contains("Use Group Role");
+        cy.get(".form-control-toggle").contains("Recommended");
+        cy.get(".form-control-toggle").contains(
+          "Allows Quota to be enforced on all the services in the group."
+        );
+        cy.get(".form-control-toggle").contains("Use Legacy Role");
+        cy.get(".form-control-toggle").contains(
+          "Will not enforce quota on all services in the group."
+        );
       });
 
       it("fails to submit if name value is invalid", () => {
@@ -257,19 +210,15 @@ describe("Group Modals", () => {
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains(
-            "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-          )
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains(
-            "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-          )
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains(
+          "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+        );
+        cy.get(".form-control-feedback").contains(
+          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
+        );
       });
 
       it("fails to submit if CPUs value is invalid", () => {
@@ -277,29 +226,25 @@ describe("Group Modals", () => {
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("CPU must be bigger than or equal to 0")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be bigger than or equal to 0")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains(
+          "CPU must be bigger than or equal to 0"
+        );
+        cy.get(".form-control-feedback").contains(
+          "Must be bigger than or equal to 0"
+        );
 
         getInput("quota.cpus").type("a");
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("CPU must be a number")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be a number")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains("CPU must be a number");
+        cy.get(".form-control-feedback").contains("Must be a number");
       });
 
       it("fails to submit if memory value is invalid", () => {
@@ -307,29 +252,25 @@ describe("Group Modals", () => {
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("Mem must be bigger than or equal to 0")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be bigger than or equal to 0")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains(
+          "Mem must be bigger than or equal to 0"
+        );
+        cy.get(".form-control-feedback").contains(
+          "Must be bigger than or equal to 0"
+        );
 
         getInput("quota.mem").type("a");
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("Mem must be a number")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be a number")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains("Mem must be a number");
+        cy.get(".form-control-feedback").contains("Must be a number");
       });
 
       it("fails to submit if disk value is invalid", () => {
@@ -337,29 +278,25 @@ describe("Group Modals", () => {
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("Disk must be bigger than or equal to 0")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be bigger than or equal to 0")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains(
+          "Disk must be bigger than or equal to 0"
+        );
+        cy.get(".form-control-feedback").contains(
+          "Must be bigger than or equal to 0"
+        );
 
         getInput("quota.disk").type("a");
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("Disk must be a number")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be a number")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains("Disk must be a number");
+        cy.get(".form-control-feedback").contains("Must be a number");
       });
 
       it("fails to submit if GPUs value is invalid", () => {
@@ -367,29 +304,25 @@ describe("Group Modals", () => {
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("GPU must be bigger than or equal to 0")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be bigger than or equal to 0")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains(
+          "GPU must be bigger than or equal to 0"
+        );
+        cy.get(".form-control-feedback").contains(
+          "Must be bigger than or equal to 0"
+        );
 
         getInput("quota.gpus").type("a");
         cy.get(".button-primary")
           .contains("Create")
           .click();
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
-        cy.get(".errorsAlert-message")
-          .contains("GPU must be a number")
-          .should("exist");
-        cy.get(".form-control-feedback")
-          .contains("Must be a number")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
+        cy.get(".errorsAlert-message").contains("GPU must be a number");
+        cy.get(".form-control-feedback").contains("Must be a number");
       });
 
       it("fails to create a group for a user with insufficient permissions", () => {
@@ -403,9 +336,9 @@ describe("Group Modals", () => {
           .contains("Create")
           .click();
 
-        cy.get(".errorsAlert-message")
-          .contains("An error occurred with your configuration.")
-          .should("exist");
+        cy.get(".errorsAlert-message").contains(
+          "An error occurred with your configuration."
+        );
       });
     });
 
@@ -416,18 +349,14 @@ describe("Group Modals", () => {
       });
 
       it("shows edit action for top-level groups", () => {
-        cy.get(".dropdown-menu-items li")
-          .contains("Edit")
-          .should("exist");
+        cy.get(".dropdown-menu-items li").contains("Edit");
       });
 
       it("opens the edit modal", () => {
         clickDropdownAction("Edit");
 
         // Shows correct title.
-        cy.get(".modal-full-screen-header-title")
-          .contains("Edit Group")
-          .should("exist");
+        cy.get(".modal-full-screen-header-title").contains("Edit Group");
       });
 
       it("shows the correct id and the input is disabled", () => {
@@ -439,17 +368,15 @@ describe("Group Modals", () => {
 
       it("shows the correct path", () => {
         clickDropdownAction("Edit");
-        cy.get("div")
-          .contains("/services")
-          .should("exist");
+        cy.get("div").contains("/services");
       });
 
       it("shows the correct Quota inputs", () => {
         clickDropdownAction("Edit");
-        getInput("quota.cpus").should("exist");
-        getInput("quota.mem").should("exist");
-        getInput("quota.disk").should("exist");
-        getInput("quota.gpus").should("exist");
+        getInput("quota.cpus");
+        getInput("quota.mem");
+        getInput("quota.disk");
+        getInput("quota.gpus");
       });
 
       it("allows Quota values to be changed", () => {
@@ -472,9 +399,7 @@ describe("Group Modals", () => {
       cy.get("li.is-selectable")
         .contains("Edit Group")
         .click();
-      cy.get(".modal-full-screen-header-title")
-        .contains("Edit Group")
-        .should("exist");
+      cy.get(".modal-full-screen-header-title").contains("Edit Group");
     });
 
     it("does not have an edit action for root level", () => {
@@ -519,7 +444,7 @@ describe("Group Modals", () => {
         .contains("Create Group")
         .click();
 
-      cy.get(".modal-full-screen").should("exist");
+      cy.get(".modal-full-screen");
 
       getInput("id").type("test");
       getInput("quota.cpus").type("1");
@@ -552,7 +477,7 @@ describe("Group Modals", () => {
         .contains("Create Group")
         .click();
 
-      cy.get(".modal-full-screen").should("exist");
+      cy.get(".modal-full-screen");
 
       getInput("id").type("test");
 
@@ -562,15 +487,13 @@ describe("Group Modals", () => {
 
       cy.wait("@createGroup");
 
-      cy.get(".form-control-feedback")
-        .contains("Name already exists. Try a different name.")
-        .should("exist");
+      cy.get(".form-control-feedback").contains(
+        "Name already exists. Try a different name."
+      );
 
-      cy.get(".errorsAlert-list")
-        .contains(
-          "A group with the same name already exists. Try a different name."
-        )
-        .should("exist");
+      cy.get(".errorsAlert-list").contains(
+        "A group with the same name already exists. Try a different name."
+      );
     });
 
     it("displays a generic error if group create fails", () => {
@@ -592,7 +515,7 @@ describe("Group Modals", () => {
         .contains("Create Group")
         .click();
 
-      cy.get(".modal-full-screen").should("exist");
+      cy.get(".modal-full-screen");
 
       getInput("id").type("test");
 
@@ -602,9 +525,7 @@ describe("Group Modals", () => {
 
       cy.wait("@createGroup");
 
-      cy.get(".errorsAlert-list")
-        .contains("Unable to create group:")
-        .should("exist");
+      cy.get(".errorsAlert-list").contains("Unable to create group:");
     });
 
     it("changes to edit mode if quota update fails", () => {
@@ -627,7 +548,7 @@ describe("Group Modals", () => {
         .contains("Create Group")
         .click();
 
-      cy.get(".modal-full-screen").should("exist");
+      cy.get(".modal-full-screen");
 
       getInput("id").type("test");
       getInput("quota.cpus").type("1");
@@ -638,14 +559,10 @@ describe("Group Modals", () => {
 
       cy.wait("@updateQuota");
 
-      cy.get(".errorsAlert-list")
-        .contains("Unable to create group's quota:")
-        .should("exist");
+      cy.get(".errorsAlert-list").contains("Unable to create group's quota:");
 
       // Changes title.
-      cy.get(".modal-full-screen-header-title")
-        .contains("Edit Group")
-        .should("exist");
+      cy.get(".modal-full-screen-header-title").contains("Edit Group");
 
       getInput("id")
         .should("have.attr", "value", "/test")
@@ -672,7 +589,7 @@ describe("Group Modals", () => {
       cy.get("li.is-selectable")
         .contains("Create Group")
         .click();
-      cy.get(".modal-small").should("exist");
+      cy.get(".modal-small");
       cy.get(".modal-full-screen").should("not.exist");
     });
 

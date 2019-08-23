@@ -15,12 +15,10 @@ describe("Services", function() {
 
     it("contains no running services", function() {
       // We should have the 'No running services' panel
-      cy.contains("No running services").should("exist");
+      cy.contains("No running services");
 
       // That should contain a 'Run a Service' button
-      cy.get(".page-body-content .button-primary")
-        .contains("Run a Service")
-        .should("exist");
+      cy.get(".page-body-content .button-primary").contains("Run a Service");
     });
   });
 });
