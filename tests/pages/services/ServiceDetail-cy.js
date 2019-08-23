@@ -100,10 +100,6 @@ describe("Service Detail Page", function() {
           .and("contain", "Auto Assigned");
 
         cy.get(".table-row")
-          .should("contain", "Service Port")
-          .and("contain", "-");
-
-        cy.get(".table-row")
           .should("contain", "Load Balanced Address")
           .and("contain", "new-service-1.marathon.l4lb.thisdcos.directory:126");
 
