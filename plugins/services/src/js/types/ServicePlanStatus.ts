@@ -8,7 +8,8 @@ export type ServicePlanStatus =
   | "STARTING"
   | "STARTED"
   | "COMPLETE"
-  | "IN_PROGRESS";
+  | "IN_PROGRESS"
+  | "DELAYED";
 
 export const ServicePlanStatusSchema = `
 enum ServicePlanStatus {
@@ -20,6 +21,7 @@ enum ServicePlanStatus {
   STARTED
   COMPLETE
   IN_PROGRESS
+  DELAYED
 }
 `;
 
@@ -41,5 +43,7 @@ export function formatServicePlanStatus(status: ServicePlanStatus): string {
       return i18nMark("Complete");
     case "IN_PROGRESS":
       return i18nMark("In Progress");
+    case "DELAYED":
+      return i18nMark("Delayed");
   }
 }

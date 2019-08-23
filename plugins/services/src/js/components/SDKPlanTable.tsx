@@ -89,6 +89,8 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
       return null;
     case "COMPLETE":
       return <Trans render="span">Execution has completed.</Trans>;
+    case "DELAYED":
+      return <Trans render="span">Execution has been delayed.</Trans>;
     default:
       return null;
   }
@@ -119,6 +121,10 @@ export const getStatusIcon = (status: ServicePlanStatus): React.ReactNode => {
     case "COMPLETE":
       return (
         <Icon shape={SystemIcons.CircleCheck} size={iconSizeXs} color={green} />
+      );
+    case "DELAYED":
+      return (
+        <Icon shape={SystemIcons.Yield} size={iconSizeXs} color={yellow} />
       );
     default:
       return <Icon shape={SystemIcons.CircleQuestion} size={iconSizeXs} />;
