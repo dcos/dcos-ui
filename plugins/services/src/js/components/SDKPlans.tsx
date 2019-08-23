@@ -123,7 +123,7 @@ const SDKPlans = componentFromStream(props$ => {
     retryWhen(errors =>
       errors.pipe(
         delay(1000),
-        take(10),
+        take(60),
         concat(throwError(errors))
       )
     ),

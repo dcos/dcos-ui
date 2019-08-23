@@ -188,7 +188,8 @@
         "maximumOverCapacity": 1
       },
       "labels": {
-        "MARATHON_SINGLE_INSTANCE_APP": "true"
+        "MARATHON_SINGLE_INSTANCE_APP": "true",
+        "DCOS_SERVICE_WEB_PATH": "web-path"
       },
       "acceptedResourceRoles": null,
       "version": "2015-08-28T01:26:14.620Z",
@@ -202,6 +203,16 @@
       "tasksUnhealthy": 0,
       "deployments": [
 
+      ],
+      "portDefinitions": [
+        {
+          "labels": {
+            "VIP_0": "/new-service-1:126"
+          },
+          "name": "124",
+          "protocol": "tcp",
+          "port": 125
+        }
       ]
     }
   ],
