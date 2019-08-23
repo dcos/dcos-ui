@@ -93,7 +93,7 @@ export function editGroup(
   };
 
   return request(buildMarathonURI(`/groups/${id}`), {
-    method: "PUT",
+    method: "PATCH",
     body: JSON.stringify({ enforceRole })
   }).pipe(
     map(reqResp => {
