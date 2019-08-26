@@ -50,7 +50,7 @@
   ],
 
   "rules": {
-    "prettier/prettier": "error",
+    "prettier/prettier": "off",
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
@@ -97,7 +97,10 @@
     "dot-notation": "off",
     "func-names": "off",
     "global-require": "off",
+    "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": "off",
+    "import/no-named-as-default": "off",
+    "import/no-named-as-default-member": "off",
     "import/no-unresolved": "off",
     "jsx-a11y/img-has-alt": "off",
     "jsx-a11y/label-has-for": "off",
@@ -107,6 +110,7 @@
     "newline-per-chained-call": "off",
     "no-case-declarations": "off",
     "no-console": "off",
+    "no-duplicate-imports": "error",
     "no-else-return": "off",
     "no-empty": ["error", { "allowEmptyCatch": true }],
     "no-extra-label": "off",
