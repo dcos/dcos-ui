@@ -239,16 +239,5 @@ describe("PackageDetailTab", function() {
       thisInstance.state.isLoadingSelectedVersion = true;
       expect(thisInstance.render()).toMatchSnapshot();
     });
-
-    it("renders an infobox, when a dependency of the service has not been installed yet.", function() {
-      const packageData = packageDescribeFixtures;
-      packageData.manager = { packageName: "someDep" };
-      CosmosPackagesStore.getPackageDetails = jest.fn(
-        () => new UniversePackage(packageData)
-      );
-
-      thisInstance.state.runningPackageNames = [];
-      expect(thisInstance.render()).toMatchSnapshot();
-    });
   });
 });

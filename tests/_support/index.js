@@ -534,7 +534,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     );
   }
 
-  if (configuration.universePackages) {
+  if (configuration.universePackages === true) {
     router
       // Packages
       .route({
@@ -597,6 +597,28 @@ Cypress.Commands.add("configureCluster", function(configuration) {
         url: /repository\/delete/,
         status: 200,
         response: "fx:cosmos/repositories-list"
+      });
+  }
+
+  if (configuration.universePackages === "communityPackage") {
+    router
+      // Packages
+      .route({
+        method: "POST",
+        url: /package\/describe/,
+        status: 200,
+        response: "fx:cosmos/community-package-describe"
+      });
+  }
+
+  if (configuration.universePackages === "dependencyPackage") {
+    router
+      // Packages
+      .route({
+        method: "POST",
+        url: /package\/describe/,
+        status: 200,
+        response: "fx:cosmos/dependency-package-describe"
       });
   }
 

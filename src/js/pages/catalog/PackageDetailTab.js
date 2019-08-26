@@ -4,7 +4,7 @@ import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
 import React from "react";
-import { Dropdown, Tooltip, Modal } from "reactjs-components";
+import { Dropdown, Tooltip, Modal, Confirm } from "reactjs-components";
 import { Badge, Icon, InfoBoxInline } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
@@ -70,6 +70,8 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
 
 const METHODS_TO_BIND = [
   "renderReviewAndRunButton",
+  "handleConfirmClick",
+  "handleConfirmClose",
   "handlePackageVersionChange",
   "handleReviewAndRunClick",
   "hasUnresolvedDependency",
@@ -85,6 +87,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     this.state = {
       hasError: 0,
+      isConfirmOpen: false,
       isLoadingSelectedVersion: false,
       isLoadingVersions: false,
       runningPackageNames: { state: "loading" }
@@ -175,7 +178,15 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.setState({ isLoadingVersions: false });
   }
 
-  handleReviewAndRunClick() {
+  handleReviewAndRunClick(isCertified) {
+    if (isCertified) {
+      return this.handleConfirmClick();
+    }
+
+    this.setState({ isConfirmOpen: true });
+  }
+
+  handleConfirmClick() {
     const { router } = this.context;
     const { params, location } = this.props;
 
@@ -184,6 +195,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
         params.packageName
       )}/deploy?${qs.stringify({ version: location.query.version })}`
     );
+  }
+
+  handleConfirmClose() {
+    this.setState({ isConfirmOpen: false });
   }
 
   handlePackageVersionChange(selection) {
@@ -320,11 +335,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  renderInstallButton({ tooltipContent, disabled }) {
+  renderInstallButton({ tooltipContent, disabled }, isCertified) {
     const button = (
       <button
         className={classNames("button button-primary", { disabled })}
-        onClick={() => disabled || this.handleReviewAndRunClick()}
+        onClick={() => disabled || this.handleReviewAndRunClick(isCertified)}
       >
         <Trans render="span">Review & Run</Trans>
       </button>
@@ -352,21 +367,30 @@ class PackageDetailTab extends mixin(StoreMixin) {
     if (cosmosPackage.isCLIOnly()) {
       return this.renderCliHint();
     }
+    const isCertified = cosmosPackage.isCertified();
 
     if (this.state.isLoadingSelectedVersion) {
-      return this.renderInstallButton({
-        disabled: true,
-        tooltipContent: <Trans>Loading selected version</Trans>
-      });
+      return this.renderInstallButton(
+        {
+          disabled: true,
+          tooltipContent: <Trans>Loading selected version</Trans>
+        },
+        isCertified
+      );
     }
 
     if (this.hasUnresolvedDependency(cosmosPackage)) {
-      return this.renderInstallButton({
-        disabled: true,
-        tooltipContent: (
-          <Trans>Cannot run without {dependency(cosmosPackage)} package.</Trans>
-        )
-      });
+      return this.renderInstallButton(
+        {
+          disabled: true,
+          tooltipContent: (
+            <Trans>
+              Cannot run without {dependency(cosmosPackage)} package.
+            </Trans>
+          )
+        },
+        isCertified
+      );
     }
 
     if (
@@ -377,19 +401,25 @@ class PackageDetailTab extends mixin(StoreMixin) {
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
-      return this.renderInstallButton({
-        disabled: true,
-        tooltipContent: (
-          <Trans>
-            This version of {cosmosPackage.getName()} requires DC/OS version{" "}
-            {cosmosPackage.minDcosReleaseVersion} or higher, but you are running
-            DC/OS version {semver.coerce(MetadataStore.version)}
-          </Trans>
-        )
-      });
+      return this.renderInstallButton(
+        {
+          disabled: true,
+          tooltipContent: (
+            <Trans>
+              This version of {cosmosPackage.getName()} requires DC/OS version{" "}
+              {cosmosPackage.minDcosReleaseVersion} or higher, but you are
+              running DC/OS version {semver.coerce(MetadataStore.version)}
+            </Trans>
+          )
+        },
+        isCertified
+      );
     }
 
-    return this.renderInstallButton({ tooltipContent: "", disabled: false });
+    return this.renderInstallButton(
+      { tooltipContent: "", disabled: false },
+      isCertified
+    );
   }
 
   getPackageVersionsDropdown() {
@@ -600,6 +630,27 @@ class PackageDetailTab extends mixin(StoreMixin) {
                       </div>
                     </div>
                   )}
+                  <Confirm
+                    open={state.isConfirmOpen}
+                    onClose={this.handleConfirmClose}
+                    leftButtonText={<Trans>Cancel</Trans>}
+                    leftButtonClassName="button button-primary-link flush-left"
+                    leftButtonCallback={this.handleConfirmClose}
+                    rightButtonText={<Trans>Continue</Trans>}
+                    rightButtonClassName="button button-primary"
+                    rightButtonCallback={this.handleConfirmClick}
+                  >
+                    <Trans render="h2" className="text-align-center flush-top">
+                      Install Community Package
+                    </Trans>
+                    <Trans>
+                      <p>
+                        This package is not tested for production environments
+                        and technical support is not provided.
+                      </p>
+                      <p>Would you like to proceed?</p>
+                    </Trans>
+                  </Confirm>
                   <div className="media-object-item package-action-buttons">
                     {this.renderReviewAndRunButton(cosmosPackage)}
                   </div>
