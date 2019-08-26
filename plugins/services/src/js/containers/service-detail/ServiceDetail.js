@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import Helmet from "react-helmet";
 
@@ -256,7 +256,15 @@ class ServiceDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const { children, actions, errors, params, routes, service } = this.props;
+    const {
+      children,
+      actions,
+      errors,
+      params,
+      routes,
+      service,
+      i18n
+    } = this.props;
     const { actionDisabledModalOpen, actionDisabledID } = this.state;
     const breadcrumbs = (
       <ServiceBreadcrumbs
@@ -300,9 +308,9 @@ class ServiceDetail extends mixin(TabsMixin) {
           }
         />
         <Helmet>
-          <title>{`${i18nMark(
-            "Service Detail"
-          )} - ${service.getId()} - ${i18nMark("Services")}`}</title>
+          <title>{`${i18n._(
+            i18nMark("Service Detail")
+          )} - ${service.getId()} - ${i18n._(i18nMark("Services"))}`}</title>
         </Helmet>
         {clonedChildren}
         <ServiceActionDisabledModal
@@ -338,4 +346,4 @@ ServiceDetail.propTypes = {
   children: PropTypes.node
 };
 
-module.exports = ServiceDetail;
+module.exports = withI18n()(ServiceDetail);

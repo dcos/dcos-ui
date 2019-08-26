@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { Link } from "react-router";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import Helmet from "react-helmet";
@@ -32,7 +32,7 @@ class JobTaskDetailPage extends React.Component {
       return <Loader />;
     }
 
-    const { location, params, routes } = this.props;
+    const { location, params, routes, i18n } = this.props;
     const { id, taskID } = params;
 
     const routePrefix = `/jobs/detail/${encodeURIComponent(
@@ -81,9 +81,9 @@ class JobTaskDetailPage extends React.Component {
           iconID={ProductIcons.Jobs}
         />
         <Helmet>
-          <title>{`${i18nMark(
-            "Job Task Detail"
-          )} - ${task.getName()} - ${i18nMark("Jobs")}`}</title>
+          <title>{`${i18n._(
+            i18nMark("Job Task Detail")
+          )} - ${task.getName()} - ${i18n._(i18nMark("Jobs"))}`}</title>
         </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
@@ -98,4 +98,4 @@ JobTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = JobTaskDetailPage;
+module.exports = withI18n()(JobTaskDetailPage);

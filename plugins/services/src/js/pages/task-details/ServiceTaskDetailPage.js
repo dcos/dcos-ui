@@ -1,6 +1,6 @@
 import PropTypes from "prop-types";
 import React from "react";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import Helmet from "react-helmet";
 
@@ -14,7 +14,7 @@ const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class ServiceTaskDetailPage extends React.PureComponent {
   render() {
-    const { location, params, routes } = this.props;
+    const { location, params, routes, i18n } = this.props;
     const { id, taskID } = params;
 
     const routePrefix = `/services/detail/${encodeURIComponent(
@@ -52,9 +52,9 @@ class ServiceTaskDetailPage extends React.PureComponent {
           iconID={ProductIcons.Services}
         />
         <Helmet>
-          <title>{`${i18nMark("Services Task Detail")} - ${
+          <title>{`${i18n._(i18nMark("Services Task Detail"))} - ${
             task ? task.getId() : id
-          } - ${i18nMark("Services")}`}</title>
+          } - ${i18n._(i18nMark("Services"))}`}</title>
         </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
@@ -69,4 +69,4 @@ ServiceTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = ServiceTaskDetailPage;
+module.exports = withI18n()(ServiceTaskDetailPage);

@@ -1,4 +1,4 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 
 /* eslint-disable no-unused-vars */
 import React from "react";
@@ -110,7 +110,7 @@ class JobDetailPage extends mixin(TabsMixin) {
       return this.props.children;
     }
 
-    const { job, params } = this.props;
+    const { job, params, i18n } = this.props;
 
     return (
       <Page>
@@ -126,8 +126,8 @@ class JobDetailPage extends mixin(TabsMixin) {
           tabs={this.getTabs()}
         />
         <Helmet>
-          <title>{`${i18nMark("Job Detail")} - ${job.name} - ${i18nMark(
-            "Jobs"
+          <title>{`${i18n._(i18nMark("Job Detail"))} - ${job.name} - ${i18n._(
+            i18nMark("Jobs")
           )}`}</title>
         </Helmet>
         {this.tabs_getTabView(job)}
@@ -164,4 +164,4 @@ JobDetailPage.propTypes = {
   jobActionDialog: PropTypes.any
 };
 
-module.exports = JobDetailPage;
+module.exports = withI18n()(JobDetailPage);

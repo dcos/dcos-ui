@@ -1,4 +1,4 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
 /* eslint-disable no-unused-vars */
@@ -196,7 +196,7 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getLoadingScreen();
     }
 
-    const { node } = this.props;
+    const { node, i18n } = this.props;
     const { nodeID } = this.props.params;
 
     if (!node) {
@@ -241,8 +241,8 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
           tabs={tabs}
         />
         <Helmet>
-          <title>{`${i18nMark("Node Detail")} - ${nodeID} - ${i18nMark(
-            "Nodes"
+          <title>{`${i18n._(i18nMark("Node Detail"))} - ${nodeID} - ${i18n._(
+            i18nMark("Nodes")
           )}`}</title>
         </Helmet>
         {React.cloneElement(this.props.children, { node })}
@@ -265,4 +265,4 @@ NodeDetailPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = withNode(NodeDetailPage);
+module.exports = withI18n()(withNode(NodeDetailPage));

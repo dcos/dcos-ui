@@ -1,4 +1,4 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import React, { Suspense, lazy } from "react";
@@ -227,7 +227,7 @@ var DashboardPage = createReactClass({
       <Page title="Dashboard">
         <Page.Header breadcrumbs={<DashboardBreadcrumbs />} />
         <Helmet>
-          <title>{i18nMark("Dashboard")}</title>
+          <title>{this.props.i18n._(i18nMark("Dashboard"))}</title>
         </Helmet>
         <div className="panel-grid row">
           <div className={columnClasses}>
@@ -352,4 +352,4 @@ var DashboardPage = createReactClass({
   }
 });
 
-module.exports = DashboardPage;
+module.exports = withI18n()(DashboardPage);

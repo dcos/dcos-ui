@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 
 import Page, { Header } from "#SRC/js/components/Page";
 //@ts-ignore
@@ -16,6 +16,7 @@ import Helmet from "react-helmet";
 
 interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
+  i18n: any;
 }
 
 class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
@@ -54,7 +55,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   }
 
   render() {
-    const { children, serviceTree } = this.props;
+    const { children, serviceTree, i18n } = this.props;
     const { modalHandlers } = this.context;
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
@@ -100,8 +101,8 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
           tabs={tabs}
         />
         <Helmet>
-          <title>{`${i18nMark("Services Quota")} - ${i18nMark(
-            "Services"
+          <title>{`${i18n._(i18nMark("Services Quota"))} - ${i18n._(
+            i18nMark("Services")
           )}`}</title>
         </Helmet>
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
@@ -113,4 +114,4 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   }
 }
 
-export default ServicesQuotaView;
+export default withI18n()(ServicesQuotaView);

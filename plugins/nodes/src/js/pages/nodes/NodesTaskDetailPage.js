@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import React from "react";
 /* eslint-enable no-unused-vars */
 import { StoreMixin } from "mesosphere-shared-reactjs";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import Helmet from "react-helmet";
 
@@ -31,7 +31,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
   }
 
   render() {
-    const { location, params, routes, node } = this.props;
+    const { location, params, routes, node, i18n } = this.props;
     const { nodeID, taskID } = params;
 
     const routePrefix = `/nodes/${encodeURIComponent(
@@ -69,9 +69,9 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
           iconID={ProductIcons.Servers}
         />
         <Helmet>
-          <title>{`${i18nMark("Node Task Detail")} - ${
+          <title>{`${i18n._(i18nMark("Node Task Detail"))} - ${
             task ? task.getName() : ""
-          } - ${i18nMark("Nodes")}`}</title>
+          } - ${i18n._(i18nMark("Nodes"))}`}</title>
         </Helmet>
         <TaskDetail params={params} routes={routes}>
           {this.props.children}
@@ -86,4 +86,4 @@ NodesTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = withNode(NodesTaskDetailPage);
+module.exports = withI18n()(withNode(NodesTaskDetailPage));

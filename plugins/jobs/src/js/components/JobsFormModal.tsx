@@ -390,7 +390,7 @@ class JobFormModal extends React.Component<
 
   getHeader() {
     // TODO: This should say edit if the component is given a job to edit
-    const { isEdit } = this.props;
+    const { isEdit, i18n } = this.props;
     const { scheduleFailure } = this.state;
 
     const isEditing = isEdit || scheduleFailure;
@@ -414,8 +414,10 @@ class JobFormModal extends React.Component<
         <Helmet>
           <title>
             {`${
-              isEditing ? i18nMark("Edit Job") : i18nMark("Create Job")
-            } - ${i18nMark("Jobs")}`}
+              isEditing
+                ? i18n._(i18nMark("Edit Job"))
+                : i18n._(i18nMark("Create Job"))
+            } - ${i18n._(i18nMark("Jobs"))}`}
           </title>
         </Helmet>
       </FullScreenModalHeader>

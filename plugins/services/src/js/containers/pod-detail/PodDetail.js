@@ -1,4 +1,4 @@
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
@@ -232,7 +232,7 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   render() {
-    const { children, pod } = this.props;
+    const { children, pod, i18n } = this.props;
     const { actionDisabledModalOpen, actionDisabledID } = this.state;
 
     const breadcrumbs = <ServiceBreadcrumbs serviceID={pod.id} />;
@@ -251,9 +251,9 @@ class PodDetail extends mixin(TabsMixin) {
     return (
       <Page>
         <Helmet>
-          <title>{`${i18nMark(
-            "Multi Container Detail"
-          )} - ${pod.getId()} - ${i18nMark("Services")}`}</title>
+          <title>{`${i18n._(
+            i18nMark("Multi Container Detail")
+          )} - ${pod.getId()} - ${i18n._(i18nMark("Services"))}`}</title>
         </Helmet>
         <Page.Header
           actions={this.getActions()}
@@ -295,4 +295,4 @@ PodDetail.propTypes = {
   pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodDetail;
+module.exports = withI18n()(PodDetail);

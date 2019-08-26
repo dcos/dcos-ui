@@ -651,6 +651,7 @@ class CreateServiceModal extends Component {
       serviceReviewActive,
       expandAdvancedSettings
     } = this.state;
+    const { i18n } = this.props;
 
     // NOTE: Always prioritize review screen check
     if (serviceReviewActive) {
@@ -760,9 +761,11 @@ class CreateServiceModal extends Component {
             <title>
               {`${
                 isEdit
-                  ? `${i18nMark("Edit Service")} - ${serviceSpec.getId()}`
-                  : i18nMark("Create Service")
-              } - ${i18nMark("Services")}`}
+                  ? `${i18n._(
+                      i18nMark("Edit Service")
+                    )} - ${serviceSpec.getId()}`
+                  : i18n._(i18nMark("Create Service"))
+              } - ${i18n._(i18nMark("Services"))}`}
             </title>
           </Helmet>
           <CreateServiceModalForm

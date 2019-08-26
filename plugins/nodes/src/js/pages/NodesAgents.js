@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import React from "react";
 import createReactClass from "create-react-class";
@@ -294,13 +294,16 @@ var NodesAgents = createReactClass({
   },
 
   render() {
+    const { i18n } = this.props;
     const statesProcessed = MesosSummaryStore.get("statesProcessed");
     const isEmpty = statesProcessed && this.mesosHosts.totalNodes === 0;
 
     return (
       <React.Fragment>
         <Helmet>
-          <title>{`${i18nMark("Nodes Agents")} - ${i18nMark("Nodes")}`}</title>
+          <title>{`${i18n._(i18nMark("Nodes Agents"))} - ${i18n._(
+            i18nMark("Nodes")
+          )}`}</title>
         </Helmet>
         {isEmpty ? this.getEmptyHostsPageContent() : this.getHostsPageContent()}
       </React.Fragment>
@@ -308,4 +311,4 @@ var NodesAgents = createReactClass({
   }
 });
 
-module.exports = NodesAgents;
+module.exports = withI18n()(NodesAgents);
