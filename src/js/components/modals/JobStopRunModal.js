@@ -1,63 +1,33 @@
 import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
-import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import React from "react";
 
-import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ModalHeading from "../modals/ModalHeading";
 
 import * as MetronomeClient from "../../events/MetronomeClient";
 
-const METHODS_TO_BIND = ["handleButtonConfirm"];
-
-class JobStopRunModal extends mixin(StoreMixin) {
+class JobStopRunModal extends React.Component {
   constructor() {
     super(...arguments);
-
-    this.store_listeners = [
-      {
-        name: "metronome",
-        events: ["jobStopRunSuccess", "jobStopRunError"],
-        suppressUpdate: true
-      }
-    ];
 
     this.state = {
       pendingRequest: false
     };
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+    this.handleButtonConfirm = this.handleButtonConfirm.bind(this);
   }
 
   handleButtonConfirm() {
-    const { selectedItem, jobID } = this.props;
-    const jobRunID = selectedItem;
-
-    if (jobID == null || jobRunID == null) {
-      return;
-    }
-
-    MetronomeClient.stopJobRun(jobID, jobRunID).subscribe();
+    MetronomeClient.stopJobRun(
+      this.props.jobID,
+      this.props.jobRunID
+    ).subscribe();
 
     this.setState({ pendingRequest: true });
   }
 
-  onMetronomeStoreJobStopRunSuccess() {
-    this.setState({ pendingRequest: false });
-    this.props.onClose();
-    this.props.onSuccess();
-  }
-
-  onMetronomeStoreJobStopRunError() {
-    this.props.onClose();
-  }
-
   render() {
-    const { onClose } = this.props;
-
     return (
       <Confirm
         closeByBackdropClick={true}
@@ -67,10 +37,10 @@ class JobStopRunModal extends mixin(StoreMixin) {
             <Trans render="span">Are you sure you want to stop this?</Trans>
           </ModalHeading>
         }
-        open={open}
-        onClose={onClose}
+        open={true}
+        onClose={this.props.onClose}
         leftButtonText={<Trans id="Cancel" />}
-        leftButtonCallback={onClose}
+        leftButtonCallback={this.props.onClose}
         leftButtonClassName="button button-primary-link"
         rightButtonText={
           this.state.pendingRequest ? (
@@ -85,7 +55,7 @@ class JobStopRunModal extends mixin(StoreMixin) {
       >
         <div className="text-align-center">
           <Trans render="span">
-            You are about to stop the job run with id {this.props.selectedItem}.
+            You are about to stop the job run with id {this.props.jobRunID}.
           </Trans>
         </div>
       </Confirm>
@@ -93,16 +63,10 @@ class JobStopRunModal extends mixin(StoreMixin) {
   }
 }
 
-JobStopRunModal.defaultProps = {
-  onSuccess() {}
-};
-
 JobStopRunModal.propTypes = {
   jobID: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-  selectedItem: PropTypes.string.isRequired
+  jobRunID: PropTypes.string.isRequired
 };
 
 export default JobStopRunModal;

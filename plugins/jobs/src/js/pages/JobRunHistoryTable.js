@@ -1,5 +1,5 @@
-import { Trans, t } from "@lingui/macro";
-import { i18nMark, withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
@@ -37,7 +37,6 @@ const columnClasses = {
 const METHODS_TO_BIND = [
   "renderJobIDColumn",
   "handleStopJobRunModalClose",
-  "handleStopJobRunSuccess",
   "renderActionsColumn"
 ];
 
@@ -50,6 +49,17 @@ function calculateRunTime(startedAt, finishedAt) {
 
   return finishedAt - startedAt;
 }
+
+const colGroup = (
+  <colgroup>
+    <col className={columnClasses.jobID} />
+    <col className={columnClasses.status} />
+    <col className={columnClasses.startedAt} />
+    <col className={columnClasses.finishedAt} />
+    <col className={columnClasses.runTime} />
+    <col className={columnClasses.actions} />
+  </colgroup>
+);
 
 class JobRunHistoryTable extends React.Component {
   constructor() {
@@ -76,23 +86,6 @@ class JobRunHistoryTable extends React.Component {
 
   handleStopJobRunModalClose() {
     this.setState({ isStopRunModalShown: false });
-  }
-
-  handleStopJobRunSuccess() {
-    this.setState({ selectedID: null });
-  }
-
-  getColGroup() {
-    return (
-      <colgroup>
-        <col className={columnClasses.jobID} />
-        <col className={columnClasses.status} />
-        <col className={columnClasses.startedAt} />
-        <col className={columnClasses.finishedAt} />
-        <col className={columnClasses.runTime} />
-        <col className={columnClasses.actions} />
-      </colgroup>
-    );
   }
 
   getColumnHeading(prop, order, sortBy) {
@@ -211,24 +204,6 @@ class JobRunHistoryTable extends React.Component {
 
       return memo;
     }, {});
-  }
-
-  getStopRunModal(selectedID) {
-    if (!selectedID) {
-      return null;
-    }
-
-    const { isStopRunModalShown } = this.state;
-
-    return (
-      <JobStopRunModal
-        jobID={this.props.job.id}
-        selectedItem={selectedID}
-        onClose={this.handleStopJobRunModalClose}
-        onSuccess={this.handleStopJobRunSuccess}
-        open={isStopRunModalShown}
-      />
-    );
   }
 
   renderJobIDColumn(prop, row, rowOptions = {}) {
@@ -392,7 +367,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   render() {
-    const { job, i18n } = this.props;
+    const { job } = this.props;
     const { selectedID } = this.state;
     const totalRunCount = job.jobRuns.nodes.length;
     const disabledIDs = this.getDisabledItemsMap(job);
@@ -405,8 +380,8 @@ class JobRunHistoryTable extends React.Component {
         <FilterBar>
           <FilterHeadline
             currentLength={totalRunCount}
-            name={i18n._(t`Run`)}
-            onReset={function() {}}
+            name={i18nMark("Run")}
+            onReset={() => {}}
             totalLength={totalRunCount}
           />
         </FilterBar>
@@ -414,10 +389,16 @@ class JobRunHistoryTable extends React.Component {
           className="expanding-table table table-hover table-flush table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="expanding-table-child"
           columns={this.getColumns()}
-          colGroup={this.getColGroup()}
+          colGroup={colGroup}
           data={this.getData(job)}
         />
-        {this.getStopRunModal(selectedID)}
+        {selectedID && this.props.job.id ? (
+          <JobStopRunModal
+            jobID={this.props.job.id}
+            jobRunID={selectedID}
+            onClose={this.handleStopJobRunModalClose}
+          />
+        ) : null}
       </div>
     );
   }
@@ -427,4 +408,4 @@ JobRunHistoryTable.propTypes = {
   params: PropTypes.object
 };
 
-module.exports = withI18n()(JobRunHistoryTable);
+export default JobRunHistoryTable;
