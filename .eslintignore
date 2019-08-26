@@ -1,4 +1,7 @@
-node_modules/**
-dist/**
-docs/**
-cypress/**
+/.git/**
+/cypress/**
+/dist/**
+/docs/**
+/locale/**
+/node_modules/**
+/schema/**

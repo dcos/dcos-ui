@@ -8,7 +8,4 @@ source "${SCRIPT_PATH}/utils/message"
 title "Run post-rewrite hook..."
 
 header "Run lint..."
-npm run lint &&
-if [ "undefined" != `npm config get externalplugins` ]; then
-  npm run lint:plugins || exit $?
-fi
+npm run lint

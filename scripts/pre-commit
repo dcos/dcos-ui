@@ -14,6 +14,9 @@ staged_javascript_files=$(get_staged_files_with_name '*.js');
 staged_less_files=$(get_staged_files_with_name '*.less');
 staged_typescript_files=$(get_staged_files_with_name '*.ts*');
 
+# run pretty-quick
+npm run pretty-quick -- --staged || exit $?
+
 # Validate staged tests
 if [ -n "${staged_javascript_files}" ]
 then
