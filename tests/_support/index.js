@@ -808,7 +808,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
     }
     if (marathonEdit) {
       cy.route({
-        method: "PUT",
+        method: "PATCH",
         url: /service\/marathon\/v2\/groups/,
         status: marathonEditStatus || 200,
         response: `fx:marathon-group-management/${marathonEdit}`
