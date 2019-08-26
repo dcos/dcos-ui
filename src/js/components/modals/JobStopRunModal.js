@@ -1,5 +1,4 @@
-import { Trans, t } from "@lingui/macro";
-import { i18nMark, withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
 import { Confirm } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
@@ -56,56 +55,39 @@ class JobStopRunModal extends mixin(StoreMixin) {
     this.props.onClose();
   }
 
-  getContentHeader() {
-    return (
-      <ModalHeading key="confirmHeader">
-        <Trans render="span">Are you sure you want to stop this?</Trans>
-      </ModalHeading>
-    );
-  }
-
-  getConfirmTextBody(selectedItem) {
-    const bodyText =
-      i18nMark("You are about to stop the job run with id") +
-      ` ${selectedItem}.`;
-
-    return <Trans render="span" id={bodyText} />;
-  }
-
-  getModalContents() {
-    const { selectedItem } = this.props;
-
-    return (
-      <div className="text-align-center">
-        {this.getConfirmTextBody(selectedItem)}
-      </div>
-    );
-  }
-
   render() {
-    const { onClose, open, i18n } = this.props;
-    // L10NTODO: Pluralize
-    const affirmText = i18n._(t`Stop Job Run`);
-    const rightButtonText = this.state.pendingRequest
-      ? i18n._(t`Stopping...`)
-      : affirmText;
+    const { onClose } = this.props;
 
     return (
       <Confirm
         closeByBackdropClick={true}
         disabled={this.state.pendingRequest}
-        header={this.getContentHeader()}
+        header={
+          <ModalHeading key="confirmHeader">
+            <Trans render="span">Are you sure you want to stop this?</Trans>
+          </ModalHeading>
+        }
         open={open}
         onClose={onClose}
-        leftButtonText={i18n._(t`Cancel`)}
+        leftButtonText={<Trans id="Cancel" />}
         leftButtonCallback={onClose}
         leftButtonClassName="button button-primary-link"
-        rightButtonText={rightButtonText}
+        rightButtonText={
+          this.state.pendingRequest ? (
+            <Trans id="Stopping..." />
+          ) : (
+            <Trans id="Stop Job Run" />
+          )
+        }
         rightButtonClassName="button button-danger"
         rightButtonCallback={this.handleButtonConfirm}
         showHeader={true}
       >
-        {this.getModalContents()}
+        <div className="text-align-center">
+          <Trans render="span">
+            You are about to stop the job run with id {this.props.selectedItem}.
+          </Trans>
+        </div>
       </Confirm>
     );
   }
@@ -123,4 +105,4 @@ JobStopRunModal.propTypes = {
   selectedItem: PropTypes.string.isRequired
 };
 
-export default withI18n()(JobStopRunModal);
+export default JobStopRunModal;
