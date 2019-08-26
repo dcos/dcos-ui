@@ -90,6 +90,12 @@ describe("Universe", function() {
 
     // Move to the config screen
     cy.contains("Review & Run").click();
+
+    // Click the Continue button
+    cy.get(".button-primary")
+      .contains("Continue")
+      .click();
+
     // Move to the review screen
     cy.contains("Review & Run").click();
 
@@ -158,6 +164,13 @@ describe("Universe", function() {
     cy.contains("Community");
 
     cy.contains("Review & Run").click();
+
+    // Click the Continue button
+    cy.get(".button-primary")
+      .contains("Continue")
+      .click();
+
+    // Click Edit Config button
     cy.contains("Edit Config").click();
 
     // Find name input

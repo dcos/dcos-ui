@@ -110,6 +110,70 @@ describe("Package Detail Tab", function() {
         expect(result).to.equal(true);
       });
     });
+
+    it("Does not ask for confirmation for certified packages", function() {
+      cy.get(".page-body-content .package-action-buttons button")
+        .contains("Review & Run")
+        .click();
+      cy.get(".modal-body")
+        .contains("Install Community Package")
+        .should("not.exist");
+      cy.get(".modal-full-screen-header-title").contains("Edit Configuration");
+    });
+
+    context("Unmet dependency", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          universePackages: "dependencyPackage"
+        }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
+      });
+
+      it("Displays a warning", function() {
+        cy.get(".infoBoxWrapper").contains(
+          "This service cannot run without the marathon-cluster package. Please run marathon-cluster package to enable this service."
+        );
+      });
+
+      it("Disables the review and run button", function() {
+        cy.get(".disabled").contains("Review & Run");
+      });
+    });
+
+    context("Community Packages", function() {
+      beforeEach(function() {
+        cy.configureCluster({
+          mesos: "1-task-healthy",
+          universePackages: "communityPackage"
+        }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
+        cy.get(".page-body-content .package-action-buttons button")
+          .contains("Review & Run")
+          .click();
+      });
+
+      it("Asks for confirmation for community packages", function() {
+        cy.get(".modal-body").contains("Install Community Package");
+        cy.get(".modal-body").contains(
+          "This package is not tested for production environments and technical support is not provided."
+        );
+      });
+
+      it("Goes back when Cancel is clicked", function() {
+        cy.get(".button-primary-link")
+          .contains("Cancel")
+          .click();
+        cy.get(".breadcrumb__content--text").contains("marathon");
+      });
+
+      it("Goes to package configuration when Continue is clicked", function() {
+        cy.get(".button-primary")
+          .contains("Continue")
+          .click();
+        cy.get(".modal-full-screen-header-title").contains(
+          "Edit Configuration"
+        );
+      });
+    });
   });
 
   context("Package Configuration", function() {
