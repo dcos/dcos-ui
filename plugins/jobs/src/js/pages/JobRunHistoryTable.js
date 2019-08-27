@@ -67,7 +67,6 @@ class JobRunHistoryTable extends React.Component {
 
     this.state = {
       selectedID: null,
-      isStopRunModalShown: null,
       mesosStateStoreLoaded: false
     };
 
@@ -81,11 +80,11 @@ class JobRunHistoryTable extends React.Component {
   }
 
   handleItemSelect(id) {
-    this.setState({ isStopRunModalShown: true, selectedID: id });
+    this.setState({ selectedID: id });
   }
 
   handleStopJobRunModalClose() {
-    this.setState({ isStopRunModalShown: false });
+    this.setState({ selectedID: null });
   }
 
   getColumnHeading(prop, order, sortBy) {

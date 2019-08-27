@@ -120,6 +120,17 @@ describe("Job Details", function() {
         "You are about to stop the job run with id"
       );
     });
+
+    it("Closes the stop job run modal", function() {
+      cy.get(".actions-dropdown").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Stop")
+        .click();
+      cy.get(".button-primary-link")
+        .contains("Cancel")
+        .click();
+      cy.get(".modal-small").should("not.exist");
+    });
   });
 
   context("Configuration Tab", function() {
