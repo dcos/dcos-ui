@@ -68,9 +68,7 @@ pipeline {
 
     stage("Build") {
       steps {
-        // check that all translatable elements have been extracted
-        // sh "npm run util:lingui:extract"
-        // sh "git diff-index --quiet HEAD locale || ( echo 'found elements that have not been extracted. please run `npm run util:lingui:extract` and commit the changes'; exit 1 )"
+        sh "npm run util:lingui:check"
         sh "npm run build"
       }
     }
