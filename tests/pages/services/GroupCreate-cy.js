@@ -24,7 +24,7 @@ describe("Group Modals", () => {
     return cy.get(".form-group").find('.form-control[name="' + id + '"]');
   }
 
-  context("Fullscreen group modal", () => {
+  context.skip("Fullscreen group modal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
@@ -559,7 +559,7 @@ describe("Group Modals", () => {
 
       cy.wait("@updateQuota");
 
-      cy.get(".errorsAlert-list").contains("Unable to create group's quota:");
+      cy.get(".errorsAlert-list").contains("Unable to update group's quota:");
 
       // Changes title.
       cy.get(".modal-full-screen-header-title").contains("Edit Group");
@@ -570,7 +570,77 @@ describe("Group Modals", () => {
     });
   });
 
-  context("Small group modal", () => {
+  context.skip("Group Edit", () => {
+    it("closes modal on successful creation", () => {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true,
+        groups: {
+          marathonEdit: "create-success",
+          mesosQuotaUpdate: "updateQuotaSuccess"
+        }
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("s");
+      clickDropdownAction("Edit");
+
+      // Shows correct title.
+      cy.get(".modal-full-screen-header-title")
+        .contains("Edit Group")
+        .should("exist");
+
+      getInput("quota.cpus").type("1.0");
+      getInput("quota.mem").type("2048");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Update")
+        .click();
+
+      cy.wait("@updateQuota");
+
+      cy.get(".modal-full-screen").should("not.exist");
+    });
+    it("shows force update if mesos returns overcommit error", () => {
+      cy.configureCluster({
+        mesos: "1-sdk-service",
+        nodeHealth: true,
+        groups: {
+          marathonEdit: "create-success",
+          mesosQuotaUpdate: "updateQuotaOvercommit",
+          mesosQuotaUpdateStatus: 400
+        }
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+
+      openDropdown("s");
+      clickDropdownAction("Edit");
+
+      // Shows correct title.
+      cy.get(".modal-full-screen-header-title")
+        .contains("Edit Group")
+        .should("exist");
+
+      getInput("quota.cpus").type("1.0");
+      getInput("quota.mem").type("2048");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Update")
+        .click();
+
+      cy.wait("@updateQuota");
+
+      cy.get(".errorsAlert-list").should("exist");
+
+      cy.get(".modal-full-screen-actions-primary")
+        .contains("Force Update")
+        .should("exist");
+    });
+  });
+
+  context.skip("Small group modal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",

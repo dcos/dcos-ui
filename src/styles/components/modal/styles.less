@@ -1,5 +1,23 @@
 & when (@modal-enabled) {
 
+  // using flexbox for centering fixes the blurry subpixel 
+  // rendering of dialog modals on low resolution screens
+  .modal-wrapper {
+    align-items: center;
+    bottom: 0;
+    display: flex;
+    justify-content: center;
+    left: 0;
+    right: 0;
+    top: 0;
+  }
+
+  // part of the flexbox centering fix
+  .modal-small {
+    position: unset !important;
+    transform: none !important;
+  }
+
   .modal {
     // We need the extra specificity here, so we have to nest.
     .modal-header,

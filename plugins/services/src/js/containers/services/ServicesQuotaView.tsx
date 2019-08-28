@@ -80,6 +80,14 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     } else {
       createGroup = modalHandlers.createGroup;
     }
+    const editGroupAction = {
+      onItemSelect: () => {
+        this.context.router.push(
+          `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
+        );
+      },
+      label: i18nMark("Edit Group")
+    };
 
     return (
       <Page dontScroll={false} flushBottom={true}>
@@ -93,7 +101,8 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
             {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
-            }
+            },
+            ...(serviceTree.isTopLevel() ? [editGroupAction] : [])
           ]}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}

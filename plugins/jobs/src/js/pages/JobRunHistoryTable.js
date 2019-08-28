@@ -1,11 +1,12 @@
-import { Trans, t } from "@lingui/macro";
-import { i18nMark, withI18n } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 import { Icon, Tooltip } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+import { Dropdown } from "reactjs-components";
 
 import {
   greyDark,
@@ -16,7 +17,6 @@ import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 
 import CollapsingString from "#SRC/js/components/CollapsingString";
-import CheckboxTable from "#SRC/js/components/CheckboxTable";
 import ExpandingTable from "#SRC/js/components/ExpandingTable";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
@@ -26,21 +26,21 @@ import TimeAgo from "#SRC/js/components/TimeAgo";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 const columnClasses = {
-  checkbox: "job-run-history-table-column-checkbox",
   jobID: "job-run-history-table-column-id",
   status: "job-run-history-table-column-status",
   startedAt: "job-run-history-table-column-started",
   finishedAt: "job-run-history-table-column-finished",
-  runTime: "job-run-history-table-column-run-time"
+  runTime: "job-run-history-table-column-run-time",
+  actions: "job-run-history-table-column-actions"
 };
 
 const METHODS_TO_BIND = [
   "renderJobIDColumn",
-  "handleItemCheck",
-  "handleStopClick",
   "handleStopJobRunModalClose",
-  "handleStopJobRunSuccess"
+  "renderActionsColumn"
 ];
+
+const STOP = "Stop";
 
 function calculateRunTime(startedAt, finishedAt) {
   if (finishedAt == null) {
@@ -50,13 +50,23 @@ function calculateRunTime(startedAt, finishedAt) {
   return finishedAt - startedAt;
 }
 
+const colGroup = (
+  <colgroup>
+    <col className={columnClasses.jobID} />
+    <col className={columnClasses.status} />
+    <col className={columnClasses.startedAt} />
+    <col className={columnClasses.finishedAt} />
+    <col className={columnClasses.runTime} />
+    <col className={columnClasses.actions} />
+  </colgroup>
+);
+
 class JobRunHistoryTable extends React.Component {
   constructor() {
     super(...arguments);
 
     this.state = {
-      checkedItems: {},
-      isStopRunModalShown: null,
+      selectedID: null,
       mesosStateStoreLoaded: false
     };
 
@@ -69,38 +79,12 @@ class JobRunHistoryTable extends React.Component {
     });
   }
 
-  handleItemCheck(idsChecked) {
-    const checkedItems = {};
-
-    idsChecked.forEach(function(id) {
-      checkedItems[id] = true;
-    });
-    this.setState({ checkedItems });
-  }
-
-  handleStopClick() {
-    this.setState({ isStopRunModalShown: true });
+  handleItemSelect(id) {
+    this.setState({ selectedID: id });
   }
 
   handleStopJobRunModalClose() {
-    this.setState({ isStopRunModalShown: false });
-  }
-
-  handleStopJobRunSuccess() {
-    this.setState({ checkedItems: {}, isStopRunModalShown: false });
-  }
-
-  getColGroup() {
-    return (
-      <colgroup>
-        <col className={columnClasses.checkbox} />
-        <col className={columnClasses.jobID} />
-        <col className={columnClasses.status} />
-        <col className={columnClasses.startedAt} />
-        <col className={columnClasses.finishedAt} />
-        <col className={columnClasses.runTime} />
-      </colgroup>
-    );
+    this.setState({ selectedID: null });
   }
 
   getColumnHeading(prop, order, sortBy) {
@@ -168,6 +152,13 @@ class JobRunHistoryTable extends React.Component {
         prop: "runTime",
         render: this.renderRunTimeColumn,
         sortable: true
+      },
+      {
+        className: this.getColumnClassName,
+        heading: "",
+        prop: "actions",
+        render: this.renderActionsColumn,
+        sortable: false
       }
     ];
   }
@@ -212,42 +203,6 @@ class JobRunHistoryTable extends React.Component {
 
       return memo;
     }, {});
-  }
-
-  getStopButton(hasCheckedTasks) {
-    if (!hasCheckedTasks) {
-      return null;
-    }
-
-    return (
-      <div className="button-collection flush-bottom">
-        <div
-          className="button button-outline button-danger"
-          onClick={this.handleStopClick}
-        >
-          <Trans>Stop</Trans>
-        </div>
-      </div>
-    );
-  }
-
-  getStopRunModal(checkedItems, hasCheckedTasks) {
-    if (!hasCheckedTasks) {
-      return null;
-    }
-
-    const { isStopRunModalShown } = this.state;
-    const jobRuns = Object.keys(checkedItems);
-
-    return (
-      <JobStopRunModal
-        jobID={this.props.job.id}
-        selectedItems={jobRuns}
-        onClose={this.handleStopJobRunModalClose}
-        onSuccess={this.handleStopJobRunSuccess}
-        open={isStopRunModalShown}
-      />
-    );
   }
 
   renderJobIDColumn(prop, row, rowOptions = {}) {
@@ -365,65 +320,84 @@ class JobRunHistoryTable extends React.Component {
     return <div>{runTimeFormat}</div>;
   }
 
+  renderActionsColumn(prop, row) {
+    if (!["ACTIVE", "INITIAL", "STARTING"].includes(row.status)) {
+      return;
+    }
+
+    const actions = [
+      {
+        className: "hidden",
+        id: "default",
+        html: "",
+        selectedHtml: (
+          <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
+        )
+      },
+      {
+        id: STOP,
+        html: <Trans render="span" className="text-danger" id={STOP} />
+      }
+    ];
+
+    return (
+      <Dropdown
+        anchorRight={true}
+        buttonClassName="button button-mini button-link"
+        dropdownMenuClassName="dropdown-menu"
+        dropdownMenuListClassName="dropdown-menu-list"
+        dropdownMenuListItemClassName="clickable"
+        wrapperClassName="dropdown flush-bottom table-cell-icon actions-dropdown"
+        items={actions}
+        persistentID={"default"}
+        onItemSelection={this.handleItemSelect.bind(this, row.id)}
+        scrollContainer=".gm-scroll-view"
+        scrollContainerParentSelector=".gm-prevented"
+        transition={true}
+        transitionName="dropdown-menu"
+        disabled={false}
+      />
+    );
+  }
+
   renderTimeColumn(prop, row) {
     // L10NTODO: Relative time
     return <TimeAgo time={row[prop]} autoUpdate={false} />;
   }
 
   render() {
-    const { job, i18n } = this.props;
-    let { checkedItems } = this.state;
-    const disabledItems = this.getDisabledItemsMap(job);
+    const { job } = this.props;
+    const { selectedID } = this.state;
     const totalRunCount = job.jobRuns.nodes.length;
-    let rightAlignLastNChildren = 0;
-    let hasCheckedTasks = false;
-
-    // Remove all disabled items from the checkedItems.
-    checkedItems = Object.keys(checkedItems).reduce(function(
-      filteredItems,
-      key
-    ) {
-      if (!disabledItems[key]) {
-        filteredItems[key] = checkedItems[key];
-        hasCheckedTasks = true;
-      }
-
-      return filteredItems;
-    },
-    {});
-
-    if (hasCheckedTasks) {
-      rightAlignLastNChildren = 1;
+    const disabledIDs = this.getDisabledItemsMap(job);
+    if (disabledIDs[selectedID]) {
+      this.handleItemSelect(null);
     }
 
     return (
       <div>
-        <FilterBar rightAlignLastNChildren={rightAlignLastNChildren}>
+        <FilterBar>
           <FilterHeadline
             currentLength={totalRunCount}
-            name={i18n._(t`Run`)}
-            onReset={function() {}}
+            name={i18nMark("Run")}
+            onReset={() => {}}
             totalLength={totalRunCount}
           />
-          {this.getStopButton(hasCheckedTasks)}
         </FilterBar>
         <ExpandingTable
-          allowMultipleSelect={false}
           className="expanding-table table table-hover table-flush table-borderless-outer table-borderless-inner-columns flush-bottom"
           childRowClassName="expanding-table-child"
           columns={this.getColumns()}
-          colGroup={this.getColGroup()}
+          colGroup={colGroup}
           data={this.getData(job)}
-          getColGroup={this.getColGroup}
-          uniqueProperty="id"
-          checkedItemsMap={this.state.checkedItems}
-          disabledItemsMap={disabledItems}
-          onCheckboxChange={this.handleItemCheck}
-          sortOrder="desc"
-          sortProp="startedAt"
-          tableComponent={CheckboxTable}
         />
-        {this.getStopRunModal(checkedItems, hasCheckedTasks)}
+        {selectedID && this.props.job.id ? (
+          <JobStopRunModal
+            jobID={this.props.job.id}
+            jobRunID={selectedID}
+            onClose={this.handleStopJobRunModalClose}
+          />
+        ) : null}
       </div>
     );
   }
@@ -433,4 +407,4 @@ JobRunHistoryTable.propTypes = {
   params: PropTypes.object
 };
 
-module.exports = withI18n()(JobRunHistoryTable);
+export default JobRunHistoryTable;

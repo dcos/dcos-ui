@@ -20,10 +20,12 @@ import {
 } from "../../utils/QuotaUtil";
 
 import { createGroup, editGroup } from "../MarathonClient";
-import { updateQuota, UpdateQuotaError } from "../MesosClient";
+import { updateQuota } from "../MesosClient";
 import { GroupFormData, GroupMutationResponse } from "../../types/GroupForm";
 import { GroupCreateError } from "../errors/GroupCreateError";
 import { GroupEditError } from "../errors/GroupEditError";
+import { UpdateQuotaError } from "../errors/UpdateQuotaError";
+import { OvercommitQuotaError } from "../errors/OvercommitQuotaError";
 
 export interface ServiceGroupQueryArgs {
   id: string;
@@ -208,29 +210,40 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             );
           }),
           catchError((err: Error | GroupEditError) => {
-            if (err.name === "GroupEditError") {
-              const createError = err as GroupEditError;
-              return of({
-                code: createError.responseCode,
-                success: false,
-                message: createError.message,
-                partialSuccess: false
-              });
-            } else if (err.name === "UpdateQuotaError") {
-              const quotaErr = err as UpdateQuotaError;
-              return of({
-                code: 0,
-                success: false,
-                message: quotaErr.message,
-                partialSuccess: true
-              });
+            switch (err.name) {
+              case "GroupEditError":
+                const createError = err as GroupEditError;
+                return of({
+                  code: createError.responseCode,
+                  success: false,
+                  message: createError.message,
+                  partialSuccess: false
+                });
+              case "UpdateQuotaError":
+                const quotaErr = err as UpdateQuotaError;
+                return of({
+                  code: quotaErr.responseCode,
+                  success: false,
+                  message: quotaErr.message,
+                  partialSuccess: true
+                });
+              case "OvercommitQuotaError":
+                const commitErr = err as OvercommitQuotaError;
+                return of({
+                  code: commitErr.responseCode,
+                  success: false,
+                  message: "Overcommit",
+                  partialSuccess: true,
+                  data: commitErr.overcommittedResources
+                });
+              default:
+                return of({
+                  code: 0,
+                  success: false,
+                  message: err.message,
+                  partialSuccess: false
+                });
             }
-            return of({
-              code: 0,
-              success: false,
-              message: err.message,
-              partialSuccess: false
-            });
           })
         );
       }

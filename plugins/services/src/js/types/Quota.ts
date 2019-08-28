@@ -14,3 +14,9 @@ export const QuotaFieldLabels = {
   disk: "Disk",
   gpus: "GPU"
 };
+export const QuotaFieldUnit = {
+  cpus: "cores",
+  mem: "MiB",
+  disk: "MiB",
+  gpus: "cores"
+};

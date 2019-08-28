@@ -178,8 +178,9 @@ class ServiceTreeView extends React.Component {
             {
               onItemSelect: createGroup,
               label: i18nMark("Create Group")
-            }
-          ].concat(serviceTree.isTopLevel() ? editGroupAction : [])}
+            },
+            ...(serviceTree.isTopLevel() ? [editGroupAction] : [])
+          ]}
           supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />

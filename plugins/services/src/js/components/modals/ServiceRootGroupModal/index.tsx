@@ -44,11 +44,13 @@ import GroupModalHeader from "./Header";
 import ErrorsPanel from "./ErrorsPanel";
 import {
   emptyGroupFormData,
+  errorsFromOvercommitData,
   groupFormDataFromGraphql,
   getPathFromGroupId,
   validateGroupFormData
 } from "./utils";
 import { Observable } from "rxjs";
+import { OvercommittedQuotaResource } from "#PLUGINS/services/src/js/data/errors/OvercommitQuotaError";
 
 const dl = container.get<DataLayer>(DataLayerType);
 const i18n = container.get<I18n>(TYPES.I18n);
@@ -108,6 +110,8 @@ interface ServiceRootGroupModalState {
   errors: GroupFormErrors;
   isEdit: boolean;
   error: boolean;
+  isForce: boolean;
+  hasValidated: boolean;
 }
 
 interface ServiceRootGroupModalProps {
@@ -162,7 +166,9 @@ class ServiceRootGroupModal extends React.Component<
       originalData: null,
       errors: {},
       isEdit: !!props.id,
-      error: false
+      error: false,
+      isForce: false,
+      hasValidated: false
     };
   }
 
@@ -180,7 +186,7 @@ class ServiceRootGroupModal extends React.Component<
 
   handleSave() {
     let data: GroupFormData | null = this.state.data;
-    const { isPending, originalData, isEdit } = this.state;
+    const { isPending, originalData, isEdit, isForce } = this.state;
     if (isPending || data === null) {
       return;
     }
@@ -191,11 +197,11 @@ class ServiceRootGroupModal extends React.Component<
     }
     const errors = validateGroupFormData(data, isEdit);
     if (errors) {
-      this.setState({ errors });
+      this.setState({ errors, hasValidated: true });
       return;
     }
 
-    this.setState({ isPending: true });
+    this.setState({ isPending: true, hasValidated: true });
     if (!isEdit) {
       //Format id
       const newID = formatQuotaID(data.id);
@@ -203,6 +209,9 @@ class ServiceRootGroupModal extends React.Component<
         id: newID,
         ...other
       }))(data);
+    }
+    if (isForce) {
+      data.quota.force = true;
     }
     getSaveAction(data, isEdit)
       .pipe(take(1))
@@ -238,7 +247,7 @@ class ServiceRootGroupModal extends React.Component<
                 }
               });
             }
-            this.handleSaveError(resp.message, true);
+            this.handleSaveError(resp.message, true, resp.data || null);
           } else {
             this.handleSaveError(resp.message);
           }
@@ -250,20 +259,11 @@ class ServiceRootGroupModal extends React.Component<
       });
   }
 
-  handleSaveError(message: string, mesos: boolean = false) {
-    if (mesos) {
-      this.setState({
-        errors: {
-          form: [
-            <Trans key="quotaError">
-              Unable to create group's quota: {message}
-            </Trans>
-          ]
-        },
-        isPending: false
-      });
-      return;
-    }
+  handleSaveError(
+    message: string,
+    mesos: boolean = false,
+    data: null | OvercommittedQuotaResource[] = null
+  ) {
     switch (message) {
       case "Conflict":
         this.setState({
@@ -290,12 +290,42 @@ class ServiceRootGroupModal extends React.Component<
           isPending: false
         });
         return;
+      case "Overcommit":
+        this.setState({
+          errors: errorsFromOvercommitData(data),
+          isPending: false,
+          isForce: true
+        });
+        return;
       default:
+        const { isEdit } = this.state;
+        const form = [];
+        if (mesos) {
+          if (isEdit) {
+            form.push(
+              <Trans key="quotaError">
+                Unable to update group's quota: {message}
+              </Trans>
+            );
+          } else {
+            form.push(
+              <Trans key="quotaError">
+                Unable to create group's quota: {message}
+              </Trans>
+            );
+          }
+        } else if (isEdit) {
+          form.push(
+            <Trans key="miscGroup">Unable to update group: {message}</Trans>
+          );
+        } else {
+          form.push(
+            <Trans key="miscGroup">Unable to create group: {message}</Trans>
+          );
+        }
         this.setState({
           errors: {
-            form: [
-              <Trans key="miscGroup">Unable to create group: {message}</Trans>
-            ]
+            form
           },
           isPending: false
         });
@@ -597,18 +627,28 @@ class ServiceRootGroupModal extends React.Component<
         break;
     }
 
-    const { data } = this.state;
-    this.setState({ data: set(data, fieldName, value) });
+    const { data, isEdit, hasValidated } = this.state;
+    const newData = set(data, fieldName, value);
+    if (hasValidated) {
+      const newErrors = validateGroupFormData(newData, isEdit);
+      this.setState({
+        data: newData,
+        errors: newErrors || {},
+        isForce: false
+      });
+    } else {
+      this.setState({ data: newData });
+    }
   }
 
   render() {
-    const isEdit = this.state.isEdit;
+    const { isEdit, isForce } = this.state;
     return (
       <FullScreenModal
         header={
           <GroupModalHeader
             i18n={i18n}
-            isEdit={isEdit}
+            mode={isForce ? "force" : isEdit ? "edit" : "create"}
             onClose={this.handleClose}
             onSave={this.handleSave}
           />
