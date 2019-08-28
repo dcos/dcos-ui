@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+npm run util:lingui:extract
+
+if [[ $(git ls-files -m locale) ]]; then
+  echo 'found elements that have not been extracted. please run `npm run util:lingui:extract` and commit the changes'
+  exit 1
+fi
