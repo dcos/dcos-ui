@@ -230,6 +230,7 @@
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
     "util:lingui:extract": "./scripts/lingui-extract",
     "util:lingui:compile": "./scripts/lingui-compile",
+    "util:lingui:check": "./scripts/lingui-ensure-extracted",
     "util:scaffold": "node ./scripts/ensureConfig.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)"
   },
