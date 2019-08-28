@@ -121,6 +121,11 @@ describe("Package Detail Tab", () => {
       cy.get(".modal-full-screen-header-title").contains("Edit Configuration");
     });
 
+    it("Does not shows a knownIssues-warning ", () => {
+      cy.get("h1").contains("marathon");
+      cy.get("[aria-describedby=has-known-issues]").should("not.exist");
+    });
+
     context("Unmet dependency", () => {
       beforeEach(() => {
         cy.configureCluster({
@@ -172,6 +177,9 @@ describe("Package Detail Tab", () => {
         cy.get(".modal-full-screen-header-title").contains(
           "Edit Configuration"
         );
+      });
+      it("Shows a warning in case the package is known to have issues", () => {
+        cy.get("[aria-describedby=has-known-issues]");
       });
     });
 

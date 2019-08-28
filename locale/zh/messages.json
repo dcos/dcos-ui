@@ -872,6 +872,7 @@
   "This host port will be accessible as an environment variable called '$PORT{index}'. <0>More information</0>.": "此主机端口可以作为一个名为 '$PORT{index}' 的环境变量进行访问。<0>更多信息</0>.",
   "This host port will be accessible as an environment variable called {environmentVariableName}. <0>More information</0>.": "此主机端口可以作为一个名为 {environmentVariableName} 的环境变量进行访问。<0>更多信息</0>.",
   "This package can only be installed using the CLI. See the <0>documentation</0>.": "此包仅可使用 CLI 进行安装。查看 <0>文档</0>.",
+  "This package is known to have issues when started with its default settings.": "",
   "This port will be used to load balance this service address internally": "此端口将用于在内部负载均衡此服务地址",
   "This repository": "此存储库",
   "This service cannot run without the {dependency} package. Please run <0>{dependency} package</0> to enable this service.": "没有 {dependency} 包，此服务无法运行。请运行 <0>{dependency} 包，</0> 以启用此服务。",

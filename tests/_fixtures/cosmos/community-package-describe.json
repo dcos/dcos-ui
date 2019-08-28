@@ -6,16 +6,14 @@
     "releaseVersion": 10,
     "maintainer": "support@mesosphere.io",
     "description": "A container orchestration platform for Mesos and DCOS. Documentation: https://docs.mesosphere.com/1.11/deploying-services/marathon-api/",
-    "tags": [
-      "init",
-      "long-running"
-    ],
+    "tags": ["init", "long-running"],
     "selected": false,
     "scm": "https://github.com/mesosphere/marathon.git",
     "framework": true,
     "preInstallNotes": "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service. More information: https://mesosphere.github.io/marathon/",
     "postInstallNotes": "Marathon DCOS Service has been successfully installed!\n\n\tDocumentation: https://mesosphere.github.io/marathon\n\tIssues: https://github.com/mesosphere/marathon/issues\n",
     "postUninstallNotes": "The Marathon DCOS Service has been uninstalled and will no longer run.\nPlease follow the instructions at http://docs.mesosphere.com/services/marathon/#uninstall to clean up any persisted state",
+    "hasKnownIssues": true,
     "licenses": [
       {
         "name": "Apache License Version 2.0",
@@ -95,9 +93,7 @@
               "type": "integer"
             },
             "uris": {
-              "default": [
-
-              ],
+              "default": [],
               "description": "List of URIs that will be downloaded and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
               "items": {
                 "pattern": "^[\\s]+",
@@ -122,11 +118,7 @@
               "default": "[]"
             }
           },
-          "required": [
-            "cpus",
-            "mem",
-            "instances"
-          ],
+          "required": ["cpus", "mem", "instances"],
           "type": "object"
         },
         "jvm": {
@@ -150,10 +142,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "heap-min",
-            "heap-max"
-          ],
+          "required": ["heap-min", "heap-max"],
           "type": "object"
         },
         "marathon": {
@@ -528,17 +517,11 @@
               "default": 10000
             }
           },
-          "required": [
-            "master"
-          ],
+          "required": ["master"],
           "type": "object"
         }
       },
-      "required": [
-        "service",
-        "jvm",
-        "marathon"
-      ],
+      "required": ["service", "jvm", "marathon"],
       "type": "object"
     }
   }

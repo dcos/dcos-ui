@@ -25,6 +25,10 @@ class UniversePackage extends Item {
     );
   }
 
+  getHasKnownIssues() {
+    return this.get("hasKnownIssues");
+  }
+
   getName() {
     return this.get("name");
   }

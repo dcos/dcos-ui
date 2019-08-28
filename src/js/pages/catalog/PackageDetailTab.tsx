@@ -5,11 +5,18 @@ import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
 import * as React from "react";
 import { Dropdown, Tooltip, Modal, Confirm } from "reactjs-components";
-import { Badge, Icon, InfoBoxInline } from "@dcos/ui-kit";
+import {
+  Badge,
+  Box,
+  Icon,
+  InfoBoxInline,
+  Tooltip as UIKitTooltip
+} from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import {
   green,
+  red,
   iconSizeL,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -626,7 +633,27 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   </div>
                   {!state.isLoadingSelectedVersion && (
                     <div className="media-object-item media-object-item-grow ">
-                      <h1 className="short flush-top flush-bottom">{name}</h1>
+                      <h1 className="short flush-top flush-bottom">
+                        {cosmosPackage.getHasKnownIssues() ? (
+                          <Box display="inline-block">
+                            <UIKitTooltip
+                              id="has-known-issues"
+                              preferredDirections={["top-left"]}
+                              trigger={
+                                <span>
+                                  <Icon color={red} shape={SystemIcons.Yield} />
+                                </span>
+                              }
+                            >
+                              <Trans render="span">
+                                This package is known to have issues when
+                                started with its default settings.
+                              </Trans>
+                            </UIKitTooltip>{" "}
+                          </Box>
+                        ) : null}
+                        {name}
+                      </h1>
                       <div className="flex flex-align-items-center">
                         <span className="package-version-label">
                           <Trans>Version</Trans>:

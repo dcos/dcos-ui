@@ -1261,18 +1261,21 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/pages/catalog/PackageDetailTab.tsx - require statement not part of an import statement
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Shadowed name: 'dependency'
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
