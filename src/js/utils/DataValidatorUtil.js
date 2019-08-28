@@ -14,7 +14,7 @@ function path2lens(path, strategy = Objektiv.resolve.tryhard) {
     } else {
       return parent.then(Objektiv.makeAtLens(segment, strategy));
     }
-  }, Objektiv.full);
+  }, Objektiv.identity);
 }
 
 const DataValidatorUtil = {
