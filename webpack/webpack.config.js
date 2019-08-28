@@ -115,7 +115,10 @@ module.exports = {
       },
       {
         test: /\.js$/,
-        exclude: /node_modules/,
+        exclude: absPath =>
+          absPath.includes("/node_modules/") &&
+          // this package needs to be babelized to work in browsers.
+          !absPath.includes("/objektiv/"),
         use: [babelLoader]
       },
       {
