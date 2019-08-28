@@ -626,6 +626,7 @@ export function constraintOperatorsArePermitted(formData: JobSpec) {
   );
 
   return validation(
+    // @ts-ignore
     op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
     i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ")
   )(i => `${path}.${i}.operator`, operators)([]);
