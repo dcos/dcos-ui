@@ -11,7 +11,7 @@
     "@dcos/http-service": "2.0.0"
   },
   "devDependencies": {
-    "@types/events": "1.2.0",
+    "@types/events": "3.0.0",
     "@types/jest": "22.2.3",
     "jest-cli": "22.4.0"
   },

@@ -95,7 +95,7 @@
     "@semantic-release/exec": "3.3.6",
     "@sentry/cli": "1.47.1",
     "@types/classnames": "2.2.9",
-    "@types/events": "1.2.0",
+    "@types/events": "3.0.0",
     "@types/graphql": "14.2.3",
     "@types/jest": "22.2.3",
     "@types/lingui__core": "2.2.1",
