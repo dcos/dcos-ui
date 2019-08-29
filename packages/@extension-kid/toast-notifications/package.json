@@ -11,7 +11,7 @@
   "peerDependencies": {
     "@extension-kid/core": "^0.2.4",
     "@extension-kid/notification-service": "^0.1.0",
-    "inversify": "4.13.0",
+    "inversify": "5.0.1",
     "rxjs": "^6.3.0",
     "react": "^16.8.2"
   },

@@ -54,7 +54,7 @@
     "graphql-tag": "2.10.1",
     "graphql-tools": "2.23.1",
     "intl": "1.2.5",
-    "inversify": "4.13.0",
+    "inversify": "5.0.1",
     "ip-to-int": "0.3.1",
     "less-color-lighten": "0.0.1",
     "lodash.isequal": "4.5.0",
