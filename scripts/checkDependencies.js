@@ -29,7 +29,7 @@ checker.init(
   {
     start: "./"
   },
-  (json, error) => {
+  (error, json) => {
     if (error) {
       console.log(error);
       process.exit(1);
