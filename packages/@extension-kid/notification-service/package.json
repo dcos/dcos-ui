@@ -12,7 +12,7 @@
   },
   "peerDependencies": {
     "@extension-kid/core": "0.2.4",
-    "inversify": "4.13.0"
+    "inversify": "5.0.1"
   },
   "devDependencies": {
     "@types/md5": "2.1.33"
