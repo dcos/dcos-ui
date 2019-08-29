@@ -79,7 +79,7 @@
     "reactjs-mixin": "0.0.2",
     "recompose": "0.30.0",
     "redux": "3.3.1",
-    "reflect-metadata": "0.1.12",
+    "reflect-metadata": "0.1.13",
     "rxjs": "6.3.3",
     "semver": "5.5.0",
     "svg-inline-loader": "0.8.0",
