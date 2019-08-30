@@ -16,6 +16,11 @@ import ClusterDropdown from "./ClusterDropdown";
 
 const METHODS_TO_BIND = ["handleItemSelect", "handleTextCopy"];
 
+MountService.MountService.registerComponent(
+  ClusterDropdown,
+  "Header:ClusterDropdown"
+);
+
 export default class ClusterHeader extends mixin(StoreMixin) {
   constructor() {
     super(...arguments);
@@ -40,18 +45,6 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-
-    MountService.MountService.registerComponent(
-      ClusterDropdown,
-      "Header:ClusterDropdown"
-    );
-  }
-
-  componentWillUnmount() {
-    MountService.MountService.unregisterComponent(
-      ClusterDropdown,
-      "Header:ClusterDropdown"
-    );
   }
 
   getClusterName() {
