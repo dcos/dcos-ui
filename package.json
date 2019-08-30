@@ -227,8 +227,6 @@
     "test:validate": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/validate-tests",
     "test:watch": "npm test -- --watch",
     "test": "./scripts/lingui-compile && NODE_PATH=node_modules jest --config=jest.config.js --no-cache",
-    "util:env:link-externalplugins": "test -L ./plugins-ee || ln -s \"${npm_config_externalplugins}\" ./plugins-ee",
-    "util:env:unlink-externalplugins": "unlink plugins-ee",
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
     "util:lingui:extract": "./scripts/lingui-extract",
     "util:lingui:compile": "./scripts/lingui-compile",
