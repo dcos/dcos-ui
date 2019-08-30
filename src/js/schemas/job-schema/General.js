@@ -3,8 +3,12 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 import JobValidatorUtil from "../../utils/JobValidatorUtil";
 import ValidatorUtil from "../../utils/ValidatorUtil";
-import MesosConstants from "../../../../plugins/services/src/js/constants/MesosConstants";
 import JobResources from "../../constants/JobResources";
+
+// Minimum number of cpus per offer.
+const MIN_CPUS = 0.01;
+// Minimum amount of memory per offer.
+const MIN_MEM = 32;
 
 const General = {
   title: "General",
@@ -53,13 +57,10 @@ const General = {
           },
           externalValidator({ general }, definition) {
             if (
-              !ValidatorUtil.isNumberInRange(general.cpus, {
-                min: MesosConstants.MIN_CPUS
-              })
+              !ValidatorUtil.isNumberInRange(general.cpus, { min: MIN_CPUS })
             ) {
               definition.showError =
-                "CPUs must be a number at least equal to " +
-                MesosConstants.MIN_CPUS;
+                "CPUs must be a number at least equal to " + MIN_CPUS;
 
               return false;
             }
@@ -75,19 +76,10 @@ const General = {
             return `${job.getMem()}`;
           },
           externalValidator({ general }, definition) {
-            if (
-              !ValidatorUtil.isNumberInRange(general.mem, {
-                min: MesosConstants.MIN_MEM
-              })
-            ) {
-              definition.showError =
-                "Mem must be a number and at least " +
-                MesosConstants.MIN_MEM +
-                " MiB";
-
+            if (!ValidatorUtil.isNumberInRange(general.mem, { min: MIN_MEM })) {
+              definition.showError = `Mem must be a number and at least ${MIN_MEM} MiB`;
               return false;
             }
-
             return true;
           }
         },
