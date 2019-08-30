@@ -8,8 +8,9 @@ import EventTypes from "#SRC/js/constants/EventTypes";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Util from "#SRC/js/utils/Util";
 
-import { ANALYTICS_LOAD_TIMEOUT } from "./constants/PluginConstants";
 import Actions from "./actions/Actions";
+
+const ANALYTICS_LOAD_TIMEOUT = 2000;
 
 const SDK = require("./SDK").getSDK();
 
