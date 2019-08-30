@@ -119,8 +119,7 @@ export function getLimitInfoForService(
     return getLimitInfoForPod(item);
   }
 
-  const groupName =
-    item instanceof ServiceTree ? item.getRootGroupName() : item.getRole();
+  const groupName = item.getRootGroupName();
   const stats = item.getQuotaRoleStats(groupName);
 
   return {
