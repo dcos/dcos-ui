@@ -1,5 +1,5 @@
+import { APPLICATION } from "#SRC/js/constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";
-import { APPLICATION } from "../constants/PluginConstants";
 import StructUtil from "../utils/StructUtil";
 
 const initialState = {};
