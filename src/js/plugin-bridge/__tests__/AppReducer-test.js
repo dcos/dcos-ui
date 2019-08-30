@@ -1,13 +1,14 @@
+import { APPLICATION } from "#SRC/js/constants/PluginConstants";
+
 const isEqual = require("deep-equal");
 
 const EventTypes = require("../../constants/EventTypes");
 const PluginSDK = require("PluginSDK");
-const PluginConstants = require("../../constants/PluginConstants");
 const PluginTestUtils = require("PluginTestUtils");
 
 // Get State specific to Application
 function getApplicationState() {
-  return PluginSDK.Store.getState()[PluginConstants.APPLICATION];
+  return PluginSDK.Store.getState()[APPLICATION];
 }
 
 describe("AppReducer", function() {

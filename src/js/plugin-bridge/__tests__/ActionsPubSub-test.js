@@ -1,4 +1,5 @@
-const APPLICATION = require("../../constants/PluginConstants").APPLICATION;
+import { APPLICATION } from "#SRC/js/constants/PluginConstants";
+
 const PluginSDK = require("PluginSDK");
 
 let thisMockFn, thisMockFn1, thisUnsubscribe;

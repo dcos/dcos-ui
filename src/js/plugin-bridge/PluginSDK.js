@@ -2,7 +2,10 @@ import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
-import { APPLICATION, PLUGIN_LOAD_TIMEOUT } from "../constants/PluginConstants";
+import {
+  APPLICATION,
+  PLUGIN_LOAD_TIMEOUT
+} from "#SRC/js/constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";
 import ActionsPubSub from "./middleware/ActionsPubSub";
 import AppReducer from "./AppReducer";
