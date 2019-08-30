@@ -480,12 +480,12 @@ class ServicesTable extends React.Component {
             minWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
                 ? undefined
-                : 70
+                : 135
             }
             maxWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
                 ? undefined
-                : 100
+                : 150
             }
             growToFill={
               !TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
@@ -515,12 +515,12 @@ class ServicesTable extends React.Component {
             minWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
                 ? undefined
-                : 120
+                : 140
             }
             maxWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
                 ? undefined
-                : 150
+                : 155
             }
             resizable={true}
             onResize={this.handleResize.bind(null, "mem")}
@@ -547,12 +547,12 @@ class ServicesTable extends React.Component {
             minWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
                 ? undefined
-                : 100
+                : 140
             }
             maxWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
                 ? undefined
-                : 120
+                : 150
             }
             resizable={true}
             onResize={this.handleResize.bind(null, "disk")}
@@ -579,12 +579,12 @@ class ServicesTable extends React.Component {
             minWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
                 ? undefined
-                : 50
+                : 135
             }
             maxWidth={
               TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
                 ? undefined
-                : 70
+                : 135
             }
             resizable={true}
             onResize={this.handleResize.bind(null, "gpu")}

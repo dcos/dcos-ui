@@ -10,9 +10,12 @@ describe("Service Table", () => {
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
-    cy.get(".ReactVirtualized__Grid")
-      .eq(-1) // bottom right grid
-      .scrollTo("right"); // scroll to the actions column
+    // scrolling right several times, as we (or react virtualized) seem to change the width of the table while scrolling as of today
+    for (const i of [1, 2, 3]) {
+      cy.get(".ReactVirtualized__Grid")
+        .eq(-1) // bottom right grid
+        .scrollTo("right", { duration: i * 200 }); // scroll to the actions column
+    }
     cy.get(".actions-dropdown").should("not.to.have.length", 0);
     cy.get(".actions-dropdown")
       .eq(0)
