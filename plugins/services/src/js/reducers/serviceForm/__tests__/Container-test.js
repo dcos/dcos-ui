@@ -1164,6 +1164,24 @@ describe("Container", function() {
         volumes: []
       });
     });
+
+    it("keeps unknown container values", function() {
+      let batch = new Batch();
+      batch = batch.add(
+        new Transaction(
+          ["container"],
+          {
+            type: "MESOS",
+            linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } }
+          },
+          SET
+        )
+      );
+      expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
+        type: "MESOS",
+        linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } }
+      });
+    });
   });
 
   describe("Volumes", function() {
