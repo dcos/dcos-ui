@@ -245,20 +245,23 @@ module.exports = {
       this.isMesosRuntime = value === MESOS;
     }
 
-    const newState = Object.assign(
+    let newState = Object.assign(
       {},
       containerJSONReducer.apply(this, [this.internalState, ...args])
     );
 
     this.internalState = newState;
+    if (type === SET && path.join(".") === "container") {
+      newState = value;
+    }
 
     if (ValidatorUtil.isEmpty(newState.docker)) {
       delete newState.docker;
     }
 
     if (
-      ValidatorUtil.isEmpty(newState.docker.image) &&
-      newState.type !== DOCKER
+      ValidatorUtil.isEmpty(newState.docker) ||
+      (ValidatorUtil.isEmpty(newState.docker.image) && newState.type !== DOCKER)
     ) {
       delete newState.docker;
     }
@@ -310,6 +313,9 @@ module.exports = {
   },
 
   JSONParser: combineParsers([
+    function(state) {
+      return new Transaction(["container"], state.container);
+    },
     function(state) {
       let value = findNestedPropertyInObject(state, "container.type");
 
