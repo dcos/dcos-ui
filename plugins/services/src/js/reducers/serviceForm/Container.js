@@ -251,7 +251,7 @@ module.exports = {
     );
 
     this.internalState = newState;
-    if (type === SET && path.join(".") === "container") {
+    if (type === SET && path.join(".") === "container" && value) {
       newState = value;
     }
 
