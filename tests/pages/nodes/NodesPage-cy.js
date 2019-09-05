@@ -102,6 +102,11 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.156");
       });
 
+      it("does not crash when filtering a %", function() {
+        cy.get(".filter-input-text").type("%");
+        cy.get(".filter-headline").contains("Showing 0 of 3 Nodes");
+      });
+
       context("Filters by Framework", function() {
         function selectFramework(framework) {
           cy.get(".dropdown-toggle")
