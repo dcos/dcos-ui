@@ -24,7 +24,7 @@ describe("Group Modals", () => {
     return cy.get(".form-group").find('.form-control[name="' + id + '"]');
   }
 
-  context.skip("Fullscreen group modal", () => {
+  context("Fullscreen group modal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
@@ -33,10 +33,10 @@ describe("Group Modals", () => {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
     });
@@ -393,9 +393,7 @@ describe("Group Modals", () => {
         .contains("services")
         .click();
 
-      cy.get("button.button-narrow")
-        .eq(-1)
-        .click();
+      cy.get(".page-header-actions button.button-narrow").click();
       cy.get("li.is-selectable")
         .contains("Edit Group")
         .click();
@@ -404,12 +402,7 @@ describe("Group Modals", () => {
 
     it("does not have an edit action for root level", () => {
       cy.visitUrl({ url: "/services/overview" });
-      cy.get("button.button-narrow")
-        .eq(-1)
-        .click();
-      cy.get("li.is-selectable")
-        .contains("Edit Group")
-        .should("not.exist");
+      cy.get(".page-header-actions button.button-narrow").should("not.exist");
     });
 
     it("does not have an edit action for non-top-level groups", () => {
@@ -437,10 +430,10 @@ describe("Group Modals", () => {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
 
@@ -470,10 +463,10 @@ describe("Group Modals", () => {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
 
@@ -508,10 +501,10 @@ describe("Group Modals", () => {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
 
@@ -541,10 +534,10 @@ describe("Group Modals", () => {
 
       cy.visitUrl({ url: "/services/overview" });
 
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
 
@@ -570,7 +563,7 @@ describe("Group Modals", () => {
     });
   });
 
-  context.skip("Group Edit", () => {
+  context("Group Edit", () => {
     it("closes modal on successful creation", () => {
       cy.configureCluster({
         mesos: "1-sdk-service",
@@ -602,6 +595,7 @@ describe("Group Modals", () => {
 
       cy.get(".modal-full-screen").should("not.exist");
     });
+
     it("shows force update if mesos returns overcommit error", () => {
       cy.configureCluster({
         mesos: "1-sdk-service",
@@ -640,7 +634,7 @@ describe("Group Modals", () => {
     });
   });
 
-  context.skip("Small group modal", () => {
+  context("Small group modal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
@@ -653,12 +647,13 @@ describe("Group Modals", () => {
         .click();
     });
     it("displays a small group modal for non-top-level groups", () => {
-      cy.get("button.button-narrow")
-        .eq(-1)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
+
       cy.get(".modal-small");
       cy.get(".modal-full-screen").should("not.exist");
     });
