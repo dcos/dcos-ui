@@ -5,6 +5,14 @@ import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 
+import {
+  DropdownMenu,
+  DropdownSection,
+  DropdownMenuItem,
+  PrimaryDropdownButton
+} from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
+
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 
@@ -117,10 +125,11 @@ class ServiceTreeView extends React.Component {
     const { modalHandlers } = this.context;
     // Only add id if service is not root
     const isRoot = serviceTree.isRoot();
+    const hasQuota = serviceTreeHasQuota(serviceTree, roles);
+
     const routePath = isRoot
       ? "/services/overview/create"
       : `/services/overview/${encodeURIComponent(serviceTree.id)}/create`;
-    const hasQuota = serviceTreeHasQuota(serviceTree, roles);
 
     const createService = () => {
       this.context.router.push(routePath);
@@ -133,24 +142,75 @@ class ServiceTreeView extends React.Component {
     } else {
       createGroup = modalHandlers.createGroup;
     }
-    const tabs = this.getTabs(hasQuota);
-    const editGroup = this.editGroup.bind(this);
-    const editGroupAction = {
-      onItemSelect: editGroup,
-      label: i18nMark("Edit Group")
+
+    const onAddSelect = selectedItem => {
+      switch (selectedItem) {
+        case "runService":
+          createService();
+          break;
+        case "createGroup":
+          createGroup();
+          break;
+        default:
+          break;
+      }
     };
+
+    const onEditSelect = () => {
+      this.context.router.push(
+        `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
+      );
+    };
+
+    const actionMenu = (
+      <React.Fragment>
+        <DropdownMenu
+          trigger={
+            <PrimaryDropdownButton
+              className="button-transparent"
+              iconStart={SystemIcons.Plus}
+            >
+              <Trans render="span">New</Trans>
+            </PrimaryDropdownButton>
+          }
+          onSelect={onAddSelect}
+        >
+          <DropdownSection>
+            <DropdownMenuItem key="runService" value="runService">
+              <Trans render="span">Run a Service</Trans>
+            </DropdownMenuItem>
+            <DropdownMenuItem key="createGroup" value="createGroup">
+              <Trans render="span">Create Group</Trans>
+            </DropdownMenuItem>
+          </DropdownSection>
+        </DropdownMenu>
+      </React.Fragment>
+    );
+    const tabs = this.getTabs(hasQuota);
+    const editGroupActions = [
+      {
+        onItemSelect: onEditSelect,
+        label: i18nMark("Edit Group")
+      }
+    ];
 
     if (isEmpty) {
       // We don't want an empty "+" dropdown.
       const pageHeader = serviceTree.isTopLevel() ? (
         <Page.Header
-          addButton={editGroupAction}
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          supplementalContent={
+            <React.Fragment>
+              <DeploymentStatusIndicator />
+            </React.Fragment>
+          }
+          actions={editGroupActions}
           tabs={tabs}
         />
       ) : (
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
+          supplementalContent={<DeploymentStatusIndicator />}
           tabs={tabs}
         />
       );
@@ -170,19 +230,14 @@ class ServiceTreeView extends React.Component {
       <Page dontScroll={true} flushBottom={true}>
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-          addButton={[
-            {
-              onItemSelect: createService,
-              label: i18nMark("Run a Service")
-            },
-            {
-              onItemSelect: createGroup,
-              label: i18nMark("Create Group")
-            },
-            ...(serviceTree.isTopLevel() ? [editGroupAction] : [])
-          ]}
-          supplementalContent={<DeploymentStatusIndicator />}
+          supplementalContent={
+            <React.Fragment>
+              <DeploymentStatusIndicator />
+              {actionMenu}
+            </React.Fragment>
+          }
           tabs={tabs}
+          actions={serviceTree.isTopLevel() ? editGroupActions : []}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}

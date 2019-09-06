@@ -2,11 +2,19 @@ import PropTypes from "prop-types";
 import React from "react";
 import { routerShape } from "react-router";
 import { i18nMark } from "@lingui/react";
+import { Trans } from "@lingui/macro";
+import {
+  DropdownMenu,
+  DropdownSection,
+  DropdownMenuItem,
+  PrimaryDropdownButton
+} from "@dcos/ui-kit";
+import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
 import Page, { Header } from "#SRC/js/components/Page";
-//@ts-ignore
+// @ts-ignore
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
-//@ts-ignore
+// @ts-ignore
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServicesQuotaOverview from "../../components/ServicesQuotaOverview";
 import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewDetail";
@@ -58,53 +66,90 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     const tabs = this.getTabs();
     const id: string = serviceTree.getId();
     const isRoot = serviceTree.isRoot();
-    const createService = () => {
-      isRoot
-        ? this.context.router.push("/services/overview/create")
-        : this.context.router.push(
-            "/services/overview/" +
-              encodeURIComponent(serviceTree.getId()) +
-              "/create"
-          );
-    };
+
     const content = isRoot ? (
       <ServicesQuotaOverview />
     ) : (
       <ServicesQuotaOverviewDetail serviceTree={serviceTree} id={id} />
     );
-    let createGroup;
-    if (isRoot) {
-      createGroup = () => {
-        this.context.router.push("/services/overview/create_group");
-      };
-    } else {
-      createGroup = modalHandlers.createGroup;
-    }
-    const editGroupAction = {
-      onItemSelect: () => {
-        this.context.router.push(
-          `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
-        );
-      },
-      label: i18nMark("Edit Group")
+    const onAddSelectRoot = (selectedItem: string) => {
+      switch (selectedItem) {
+        case "runService":
+          this.context.router.push("/services/overview/create");
+          break;
+        case "createGroup":
+          this.context.router.push("/services/overview/create_group");
+          break;
+        default:
+          break;
+      }
     };
+
+    const onAddSelectTree = (selectedItem: string) => {
+      switch (selectedItem) {
+        case "runService":
+          this.context.router.push(
+            "/services/overview/" +
+              encodeURIComponent(serviceTree.getId()) +
+              "/create"
+          );
+          break;
+        case "createGroup":
+          modalHandlers.createGroup();
+          break;
+        default:
+          break;
+      }
+    };
+
+    const onEditSelect = () => {
+      this.context.router.push(
+        `/services/detail/${encodeURIComponent(serviceTree.getId())}/edit/`
+      );
+    };
+
+    const actionMenu = (
+      <React.Fragment>
+        <DropdownMenu
+          trigger={
+            <PrimaryDropdownButton iconStart={SystemIcons.Plus}>
+              <Trans render="span">New</Trans>
+            </PrimaryDropdownButton>
+          }
+          onSelect={isRoot ? onAddSelectRoot : onAddSelectTree}
+        >
+          <DropdownSection>
+            <DropdownMenuItem key="runService" value="runService">
+              <Trans render="span">Run a Service</Trans>
+            </DropdownMenuItem>
+            <DropdownMenuItem key="createGroup" value="createGroup">
+              <Trans render="span">Create Group</Trans>
+            </DropdownMenuItem>
+          </DropdownSection>
+        </DropdownMenu>
+      </React.Fragment>
+    );
 
     return (
       <Page dontScroll={false} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
-          addButton={[
-            {
-              onItemSelect: createService,
-              label: i18nMark("Run a Service")
-            },
-            {
-              onItemSelect: createGroup,
-              label: i18nMark("Create Group")
-            },
-            ...(serviceTree.isTopLevel() ? [editGroupAction] : [])
-          ]}
-          supplementalContent={<DeploymentStatusIndicator />}
+          supplementalContent={
+            <React.Fragment>
+              <DeploymentStatusIndicator />
+              {actionMenu}
+            </React.Fragment>
+          }
+          actions={
+            serviceTree.isTopLevel()
+              ? [
+                  {
+                    onItemSelect: onEditSelect,
+                    label: i18nMark("Edit Group")
+                  }
+                ]
+              : []
+          }
           tabs={tabs}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
