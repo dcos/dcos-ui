@@ -11,8 +11,8 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
-import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import Service from "../../structs/Service";
+import MesosDNSList from "./MesosDNSList";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
@@ -134,19 +134,11 @@ class ServicePodConnectionEndpointList extends React.Component {
       });
     }
 
-    if (!endpoints || endpoints.length === 0) {
-      return (
-        <ServiceNoEndpointsPanel
-          serviceId={service.getId()}
-          onClick={this.handleOpenEditConfigurationModal}
-        />
-      );
-    }
-
     return (
       <div className="container">
         <ConfigurationMap>
           {this.getPortDefinitions(endpoints)}
+          <MesosDNSList service={service} />
         </ConfigurationMap>
       </div>
     );

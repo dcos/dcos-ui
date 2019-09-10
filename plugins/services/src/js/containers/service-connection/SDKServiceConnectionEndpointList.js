@@ -17,9 +17,9 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 import Service from "../../structs/Service";
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
-import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
+import MesosDNSList from "./MesosDNSList";
 
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
@@ -183,20 +183,12 @@ class SDKServiceConnectionEndpointList extends React.Component {
       return this.getAlertPanelSDKDeploying();
     }
 
-    if (!sdkServiceEndpoints || sdkServiceEndpoints.length === 0) {
-      return (
-        <ServiceNoEndpointsPanel
-          serviceId={service.getId()}
-          onClick={this.handleOpenEditConfigurationModal}
-        />
-      );
-    }
-
     return (
       <div className="container">
         <ConfigurationMap>
           {this.getJSONEndpoints(sdkServiceEndpoints)}
           {this.getFileEndpoints(sdkServiceEndpoints)}
+          <MesosDNSList service={service} />
         </ConfigurationMap>
       </div>
     );

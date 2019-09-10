@@ -65,40 +65,34 @@ describe("Pod Detail Page", function() {
             .click();
         });
 
-        it("shows endpoints tab when clicked", function() {
+        it("shows endpoints tab with correct values when clicked", function() {
           cy.get(".menu-tabbed-item .active")
             .contains("Endpoints")
             .get(".configuration-map");
 
           cy.hash().should("match", /services\/detail\/%2Fpodses\/endpoints.*/);
-        });
 
-        it("shows endpoint name correctly", function() {
           cy.get(".configuration-map-heading").contains("ping");
-        });
 
-        it("shows procotol correctly", function() {
-          cy.get(".configuration-map-label").contains("Protocol");
+          cy.get(".table-row")
+            .eq(0)
+            .should("contain", "Protocol")
+            .and("contain", "tcp");
 
-          cy.get(".configuration-map-value").contains("tcp");
-        });
+          cy.get(".table-row")
+            .eq(1)
+            .should("contain", "Container Port")
+            .and("contain", "80");
 
-        it("shows container port correctly", function() {
-          cy.get(".configuration-map-label").contains("Container Port");
+          cy.get(".table-row")
+            .eq(2)
+            .should("contain", "Host Port")
+            .and("contain", "Auto Assigned");
 
-          cy.get(".configuration-map-value").contains("80");
-        });
-
-        it("shows host port correctly", function() {
-          cy.get(".configuration-map-label").contains("Host Port");
-
-          cy.get(".configuration-map-value").contains("Auto Assigned");
-        });
-
-        it("shows container correctly", function() {
-          cy.get(".configuration-map-label").contains("Container");
-
-          cy.get(".configuration-map-value").contains("container-1");
+          cy.get(".table-row")
+            .eq(3)
+            .should("contain", "Container")
+            .and("contain", "container-1");
         });
       });
     });
