@@ -88,26 +88,37 @@ describe("Service Detail Page", function() {
         cy.get("h1.configuration-map-heading").contains("124");
 
         cy.get(".table-row")
+          .eq(0)
           .should("contain", "Protocol")
           .and("contain", "tcp");
 
         cy.get(".table-row")
+          .eq(1)
           .should("contain", "Container Port")
-          .and("contain", "-");
+          .and("contain", "—");
 
         cy.get(".table-row")
+          .eq(2)
           .should("contain", "Host Port")
           .and("contain", "Auto Assigned");
 
         cy.get(".table-row")
+          .eq(3)
           .should("contain", "Load Balanced Address")
           .and("contain", "new-service-1.marathon.l4lb.thisdcos.directory:126");
 
         cy.get("h1.configuration-map-heading").contains("Web Endpoints");
 
         cy.get(".table-row")
+          .eq(4)
           .should("contain", "Web URL")
           .and("contain", "http://localhost:4200/service/undefined/web-path");
+
+        cy.get("h1.configuration-map-heading").contains("Mesos DNS");
+        cy.get(".table-row")
+          .eq(5)
+          .should("contain", "marathon")
+          .and("contain", "sleep.marathon.mesos");
       });
 
       it("shows volumes tab when clicked", function() {

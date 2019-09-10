@@ -11,10 +11,10 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
-import ServiceNoEndpointsPanel from "./ServiceNoEndpointsPanel";
 import Service from "../../structs/Service";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
+import MesosDNSList from "./MesosDNSList";
 
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
@@ -185,14 +185,6 @@ class ServiceConnectionEndpointList extends React.Component {
       endpoints = endpoints.concat(service.container.portMappings);
     }
 
-    if (!endpoints || endpoints.length === 0) {
-      return (
-        <ServiceNoEndpointsPanel
-          serviceId={service.getId()}
-          onClick={this.handleOpenEditConfigurationModal}
-        />
-      );
-    }
     const webUrl = service.getWebURL();
 
     return (
@@ -200,6 +192,7 @@ class ServiceConnectionEndpointList extends React.Component {
         <ConfigurationMap>
           {this.getPortDefinitions(endpoints, service)}
           {webUrl ? this.getEndpoints(webUrl) : null}
+          <MesosDNSList service={service} />
         </ConfigurationMap>
       </div>
     );

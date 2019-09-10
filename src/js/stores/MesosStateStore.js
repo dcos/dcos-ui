@@ -228,6 +228,12 @@ class MesosStateStore extends GetSetBaseStore {
     return new Task(task);
   }
 
+  getFrameworkByTask(task) {
+    const { frameworks } = this.getLastMesosState();
+
+    return frameworks.find(framework => framework.id === task.framework_id);
+  }
+
   getTasksByService(service) {
     const { frameworks, tasks = [] } = this.getLastMesosState();
     const serviceName = service.getName();
