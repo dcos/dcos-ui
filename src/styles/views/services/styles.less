@@ -1,5 +1,6 @@
 & when (@services-view-enabled) {
-  button[data-cy="primaryDropdownButton"] {
+
+  button[data-cy='primaryDropdownButton'] {
     color: #fff;
   }
 
@@ -20,9 +21,13 @@
   }
 
   .services-version-select {
+
     &-toggle {
+
       .services-version-select {
+
         &-icon {
+
           &-selected {
             display: none;
           }
@@ -31,12 +36,15 @@
     }
 
     &-menu {
+
       .badge-container {
         display: inline-flex;
       }
 
       .services-version-select {
+
         &-icon {
+
           &-selected {
             visibility: hidden;
           }
@@ -44,8 +52,11 @@
       }
 
       .is-selected {
+
         .services-version-select {
+
           &-icon {
+
             &-selected {
               visibility: visible;
             }
@@ -78,6 +89,7 @@
 }
 
 .filter-tasks-bar {
+
   .filter-bar,
   .filter-bar-left,
   .filter-bar-item {
@@ -90,7 +102,9 @@
 }
 
 @media (min-width: @layout-screen-medium-min-width) {
+
   .filter-tasks-bar {
+
     .filter-bar {
       height: 70px;
       position: relative;
@@ -106,8 +120,11 @@
 }
 
 & when (@services-view-enabled) and (@layout-screen-small-enabled) {
+
   @media (min-width: @layout-screen-small-min-width) {
+
     .services-version-select {
+
       &-icon {
         margin-right: @base-spacing-unit-screen-small * 1/4;
       }
@@ -116,8 +133,11 @@
 }
 
 & when (@services-view-enabled) and (@layout-screen-medium-enabled) {
+
   @media (min-width: @layout-screen-medium-min-width) {
+
     .services-version-select {
+
       &-icon {
         margin-right: @base-spacing-unit-screen-medium * 1/4;
       }
@@ -126,12 +146,15 @@
 }
 
 & when (@services-view-enabled) and (@layout-screen-large-enabled) {
+
   @media (min-width: @layout-screen-large-min-width) {
+
     .services-sidebar {
       max-width: @service-sidebar-width-screen-large;
     }
 
     .services-version-select {
+
       &-icon {
         margin-right: @base-spacing-unit-screen-large * 1/4;
       }
@@ -140,12 +163,15 @@
 }
 
 & when (@services-view-enabled) and (@layout-screen-jumbo-enabled) {
+
   @media (min-width: @layout-screen-jumbo-min-width) {
+
     .services-sidebar {
       max-width: @service-sidebar-width-screen-jumbo;
     }
 
     .services-version-select {
+
       &-icon {
         margin-right: @base-spacing-unit-screen-jumbo * 1/4;
       }
