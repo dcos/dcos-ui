@@ -27,18 +27,20 @@ describe("Quota Tab", function() {
     });
 
     it("Shows actions dropdown", function() {
-      cy.get(".button-narrow")
-        .eq(0)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable").contains("Run a Service");
-      cy.get("li.is-selectable").contains("Create Group");
+
+      cy.get("[data-cy='PopoverListItem']").contains("Run a Service");
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group");
     });
 
     it("Opens create service modal", function() {
-      cy.get(".button-narrow")
-        .eq(0)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Run a Service")
         .click();
       cy.get(".create-service-modal-service-picker-options");
@@ -46,10 +48,11 @@ describe("Quota Tab", function() {
     });
 
     it("Opens create group modal", function() {
-      cy.get(".button-narrow")
-        .eq(0)
+      cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
+        .contains("New")
         .click();
-      cy.get("li.is-selectable")
+
+      cy.get("[data-cy='PopoverListItem']")
         .contains("Create Group")
         .click();
       cy.get(".create-service-modal-form-container");

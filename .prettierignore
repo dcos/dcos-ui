@@ -1,0 +1,3 @@
+**/*.less
+locale/en/messages.json
+locale/zh/messages.json
