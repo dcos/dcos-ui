@@ -147,7 +147,7 @@ function getNoLimitInfobox(group: ServiceGroup) {
               shape={SystemIcons.CircleInformation}
               size={iconSizeXs}
               color="currentColor"
-            />
+            />{" "}
             <Plural
               value={nonLimited}
               one="# service is not limited by quota. Update role to have quota
