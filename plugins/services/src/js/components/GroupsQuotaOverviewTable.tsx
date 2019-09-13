@@ -122,7 +122,7 @@ class GroupsQuotaOverviewTable extends React.Component<
                 shape={SystemIcons.CircleInformation}
                 size={iconSizeXs}
                 color="currentColor"
-              />
+              />{" "}
               <Plural
                 render={<span id="quota-no-limit-infobox" />}
                 value={noLimitGroups.length}
