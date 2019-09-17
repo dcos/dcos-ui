@@ -15,14 +15,14 @@ export type QuotaRolesStats = {
 };
 
 export const QuotaLimitStatuses: {
-  enforced: string;
-  notEnforced: string;
-  partiallyEnforced: string;
+  applied: string;
+  notApplied: string;
+  partiallyApplied: string;
   na: string;
 } = {
-  enforced: i18nMark("Enforced"),
-  notEnforced: i18nMark("Not Enforced"),
-  partiallyEnforced: i18nMark("Partially Enforced"),
+  applied: i18nMark("Applied"),
+  notApplied: i18nMark("Not Applied"),
+  partiallyApplied: i18nMark("Partially Applied"),
   na: i18nMark("N/A")
 };
 

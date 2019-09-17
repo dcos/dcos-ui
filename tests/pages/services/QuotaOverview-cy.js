@@ -275,7 +275,7 @@ describe("Quota Tab", function() {
 
         it("Shows table values", function() {
           cy.get(".table-cell-link-primary").contains("podEFGH");
-          cy.get(".table-cell-value").contains("Not Enforced");
+          cy.get(".table-cell-value").contains("Not Applied");
         });
       });
     });

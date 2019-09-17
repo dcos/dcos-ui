@@ -16,7 +16,7 @@ import { take } from "rxjs/operators";
 import { createTestContainer } from "../../__tests__/extension-test";
 import TestModule, { TestResolverArgs } from "../../__tests__/test-module";
 import ServiceTree from "../../../structs/ServiceTree";
-//@ts-ignore
+// @ts-ignore
 import MarathonUtil from "../../../utils/MarathonUtil";
 
 const marathonGroups = require("./_fixtures/marathon-groups.json");
@@ -167,7 +167,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "dev",
                   quota: {
                     enforced: true,
-                    limitStatus: "Enforced",
+                    limitStatus: "Applied",
                     serviceRoles: {
                       count: 2,
                       groupRoleCount: 2
@@ -199,7 +199,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "staging",
                   quota: {
                     enforced: true,
-                    limitStatus: "Partially Enforced",
+                    limitStatus: "Partially Applied",
                     serviceRoles: {
                       count: 2,
                       groupRoleCount: 1
@@ -231,7 +231,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "prod",
                   quota: {
                     enforced: true,
-                    limitStatus: "Not Enforced",
+                    limitStatus: "Not Applied",
                     serviceRoles: {
                       count: 1,
                       groupRoleCount: 0
@@ -300,7 +300,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "dev",
                   quota: {
                     enforced: true,
-                    limitStatus: "Enforced",
+                    limitStatus: "Applied",
                     serviceRoles: {
                       count: 2,
                       groupRoleCount: 2
@@ -332,7 +332,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "staging",
                   quota: {
                     enforced: true,
-                    limitStatus: "Partially Enforced",
+                    limitStatus: "Partially Applied",
                     serviceRoles: {
                       count: 2,
                       groupRoleCount: 1
@@ -364,7 +364,7 @@ describe("Services Data Layer - Groups", () => {
                   name: "prod",
                   quota: {
                     enforced: true,
-                    limitStatus: "Not Enforced",
+                    limitStatus: "Not Applied",
                     serviceRoles: {
                       count: 1,
                       groupRoleCount: 0
@@ -432,7 +432,7 @@ describe("Services Data Layer - Groups", () => {
                 id: "/dev",
                 quota: {
                   enforced: true,
-                  limitStatus: "Enforced",
+                  limitStatus: "Applied",
                   serviceRoles: {
                     count: 0,
                     groupRoleCount: 0
