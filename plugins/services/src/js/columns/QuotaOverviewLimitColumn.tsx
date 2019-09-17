@@ -27,7 +27,7 @@ interface LimitInfo {
 function renderLimitLabel(limitInfo: LimitInfo) {
   let icon = null;
   switch (limitInfo.limitText) {
-    case QuotaLimitStatuses.enforced:
+    case QuotaLimitStatuses.applied:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Icon
@@ -38,7 +38,7 @@ function renderLimitLabel(limitInfo: LimitInfo) {
         </div>
       );
       break;
-    case QuotaLimitStatuses.partiallyEnforced:
+    case QuotaLimitStatuses.partiallyApplied:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Tooltip
@@ -60,7 +60,7 @@ function renderLimitLabel(limitInfo: LimitInfo) {
         </div>
       );
       break;
-    case QuotaLimitStatuses.notEnforced:
+    case QuotaLimitStatuses.notApplied:
       icon = (
         <div className="table-content-spacing-right table-content-inline-block">
           <Icon
@@ -106,8 +106,8 @@ export function getLimitInfoForPod(item: Pod): LimitInfo {
   return {
     limitText:
       item.getRole() === item.getRootGroupName()
-        ? QuotaLimitStatuses.enforced
-        : QuotaLimitStatuses.notEnforced,
+        ? QuotaLimitStatuses.applied
+        : QuotaLimitStatuses.notApplied,
     servicesNotLimited: 0
   };
 }

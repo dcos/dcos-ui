@@ -303,35 +303,35 @@ describe("QuotaUtil", () => {
     it("returns N/A for undefined roles", () => {
       expect(QuotaUtil.getQuotaLimit(undefined)).toEqual("N/A");
     });
-    it("return Enforced for 0 roles", () => {
+    it("return Applied for 0 roles", () => {
       const value: QuotaRolesStats = {
         count: 0,
         groupRoleCount: 0
       };
-      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Enforced");
+      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Applied");
     });
 
-    it("return Enforced for all roles", () => {
+    it("return Applied for all roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 10
       };
-      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Enforced");
+      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Applied");
     });
-    it("return Not Enforced for 0 group roles", () => {
+    it("return Not Applied for 0 group roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 0
       };
-      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Not Enforced");
+      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Not Applied");
     });
 
-    it("return Partially Enforced for > 0 group roles", () => {
+    it("return Partially Applied for > 0 group roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
         groupRoleCount: 5
       };
-      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Partially Enforced");
+      expect(QuotaUtil.getQuotaLimit(value)).toEqual("Partially Applied");
     });
   });
 

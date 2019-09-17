@@ -14,7 +14,7 @@ import sort from "array-sort";
 
 import Loader from "#SRC/js/components/Loader";
 
-import { ServiceGroup } from "../types/ServiceGroup";
+import { ServiceGroup, QuotaLimitStatuses } from "../types/ServiceGroup";
 import { nameRenderer } from "../columns/QuotaOverviewNameColumn";
 import { limitRenderer } from "../columns/QuotaOverviewLimitColumn";
 import { cpuRenderer } from "../columns/QuotaOverviewCPUConsumedColumn";
@@ -46,8 +46,8 @@ function sortForColumn(
       return (a, b) => a.name.localeCompare(b.name);
     case "limit":
       return (a, b) =>
-        (a.quota ? a.quota.limitStatus : "N/A").localeCompare(
-          b.quota ? b.quota.limitStatus : "N/A"
+        (a.quota ? a.quota.limitStatus : QuotaLimitStatuses.na).localeCompare(
+          b.quota ? b.quota.limitStatus : QuotaLimitStatuses.na
         );
     case "cpus":
       return compatatorFor("cpus");
@@ -105,7 +105,8 @@ class GroupsQuotaOverviewTable extends React.Component<
   getNoLimitInfobox() {
     const { groups } = this.state;
     const noLimitGroups = groups.filter(
-      group => group.quota && group.quota.limitStatus !== "Enforced"
+      group =>
+        group.quota && group.quota.limitStatus !== QuotaLimitStatuses.applied
     );
 
     if (!noLimitGroups.length) {

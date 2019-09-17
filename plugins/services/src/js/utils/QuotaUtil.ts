@@ -81,17 +81,17 @@ export function getQuotaLimit(
   }
   // All roles are group role or 0 roles.
   if (!roles.count || roles.count === roles.groupRoleCount) {
-    return QuotaLimitStatuses.enforced;
+    return QuotaLimitStatuses.applied;
   }
 
   // At least one role and 0 group roles.
   if (roles.count && !roles.groupRoleCount) {
-    return QuotaLimitStatuses.notEnforced;
+    return QuotaLimitStatuses.notApplied;
   }
 
   // At least one group role, at least one non-group role.
   if (roles.groupRoleCount && roles.count > roles.groupRoleCount) {
-    return QuotaLimitStatuses.partiallyEnforced;
+    return QuotaLimitStatuses.partiallyApplied;
   }
 
   return QuotaLimitStatuses.na;
