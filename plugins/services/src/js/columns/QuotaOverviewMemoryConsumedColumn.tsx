@@ -5,7 +5,7 @@ import { Cell, Tooltip } from "@dcos/ui-kit";
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
-import { formatQuotaValueForDisplay } from "../utils/QuotaUtil";
+import Units from "#SRC/js/utils/Units";
 
 const className = `color-${ResourcesUtil.getResourceColor("mem")}`;
 
@@ -31,8 +31,8 @@ export function memRenderer(group: ServiceGroup) {
               }
             >
               <Trans render="span">
-                {formatQuotaValueForDisplay(quota.consumed || 0)} of{" "}
-                {formatQuotaValueForDisplay(quota.limit)} MiB
+                {Units.filesize((quota.consumed || 0) * 1024 * 1024, 0)} of{" "}
+                {Units.filesize(quota.limit * 1024 * 1024, 0)}
               </Trans>
             </Tooltip>
           </div>

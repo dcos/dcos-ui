@@ -250,10 +250,10 @@ describe("Quota Tab", function() {
           .contains("0.5 of 2 Cores");
         cy.get(".quota-card-label")
           .eq(1)
-          .contains("128 of 1024 MiB");
+          .contains("128 MiB of 1 GiB");
         cy.get(".quota-card-label")
           .eq(2)
-          .contains("5 of 10 MiB");
+          .contains("5 MiB of 10 MiB");
         cy.get(".quota-card-label")
           .eq(3)
           .contains("No Limit");
