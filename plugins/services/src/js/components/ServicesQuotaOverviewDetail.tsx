@@ -17,6 +17,7 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 import Loader from "#SRC/js/components/Loader";
 import container from "#SRC/js/container";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
+import Units from "#SRC/js/utils/Units";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
@@ -71,7 +72,16 @@ function getQuotaConsumedOfLimit(
   if (resource === "cpus" || resource === "gpus") {
     return <Trans id="{0} of {1} Cores" values={{ 0: consumed, 1: limit }} />;
   }
-  return <Trans id="{0} of {1} MiB" values={{ 0: consumed, 1: limit }} />;
+
+  return (
+    <Trans
+      id="{0} of {1}"
+      values={{
+        0: Units.filesize(consumed * 1024 * 1024, 0),
+        1: Units.filesize(limit * 1024 * 1024, 0)
+      }}
+    />
+  );
 }
 
 const titleFor = (resource: string): string => {
