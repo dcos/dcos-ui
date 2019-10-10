@@ -533,7 +533,7 @@
   "Must be smaller than or equal to ||value||": "必须小于或等于 ||value||",
   "Must be specified when using UCR": "在使用 UCR 时必须指定",
   "Must be specified when using the Docker Engine runtime": "在使用 Docker 引擎运行时的时候必须指定",
-  "Must be specified when using the Docker Engine runtime. You can change runtimes under \"Advanced Settings\"": "在使用 Docker 引擎运行时的时候必须指定。您可以在\“高级设置\”下更改运行时",
+  "Must be specified when using the Docker Engine runtime. You can change runtimes under \"Advanced Settings\"": "在使用 Docker 引擎运行时的时候必须指定。您可以在“高级设置”下更改运行时",
   "Must be unique": "必须唯一",
   "Must be valid": "必须有效",
   "Must contain a property that matches `||pattern||`": "必须包含匹配 `||pattern||` 的属性",
