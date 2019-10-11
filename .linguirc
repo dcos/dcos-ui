@@ -17,7 +17,6 @@
       "js/events",
       "js/routes",
       "js/stores",
-      "js/utils",
       "js/vendor"
   ],
   "format": "minimal",

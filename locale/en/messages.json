@@ -122,6 +122,7 @@
   "Cache": "",
   "Caches recent cluster history in-memory so that the {0} web interface can show recent data": "",
   "Cancel": "",
+  "Cannot Reactivate Node": "",
   "Cannot have multiple environment variables with the same key": "",
   "Cannot have multiple labels with the same key": "",
   "Cannot run without {0} package.": "",
