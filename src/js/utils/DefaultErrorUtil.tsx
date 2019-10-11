@@ -36,9 +36,9 @@ const defaultNetworkErrorHandler = ({
           ? i18n._(i18nMark("Network is offline"))
           : i18n._(
               i18nMark(
-                "Unable to complete request. Please try again. The error returned was: {message}"
+                "Unable to complete request. Please try again. The error returned was {code} {message}"
               ),
-              { message: ` ${code} ${message}` }
+              { code, message }
             )
     })
   );
