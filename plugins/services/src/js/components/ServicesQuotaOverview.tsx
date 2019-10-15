@@ -13,6 +13,10 @@ import GroupsQuotaOverviewTable from "./GroupsQuotaOverviewTable";
 import EmptyServicesQuotaOverview from "./EmptyServicesQuotaOverview";
 import { groupHasQuotaLimit } from "../utils/QuotaUtil";
 
+// @ts-ignore
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
+
 const ServicesQuotaOverview = componentFromStream(() => {
   const dl = container.get<DataLayer>(DataLayerType);
 
@@ -27,7 +31,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
           }
         }
       `,
-      {}
+      { mesosStateStore: MesosStateStore }
     )
     .pipe(
       map(({ data: { groups } }) => groups.filter(groupHasQuotaLimit)),
@@ -43,4 +47,45 @@ const ServicesQuotaOverview = componentFromStream(() => {
     );
 });
 
-export default ServicesQuotaOverview;
+class ServicesQuotaOverviewWithMesosState extends React.Component<
+  {},
+  { mesosStateLoaded: boolean }
+> {
+  constructor(props: {}) {
+    super(props);
+    this.onMesosStateChange = this.onMesosStateChange.bind(this);
+
+    this.state = {
+      mesosStateLoaded: false
+    };
+  }
+
+  componentDidMount() {
+    MesosStateStore.addChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+    this.onMesosStateChange();
+  }
+
+  componentWillUnmount() {
+    MesosStateStore.removeChangeListener(
+      MESOS_STATE_CHANGE,
+      this.onMesosStateChange
+    );
+  }
+
+  onMesosStateChange() {
+    this.setState({ mesosStateLoaded: true });
+  }
+
+  render() {
+    if (this.state.mesosStateLoaded) {
+      return <ServicesQuotaOverview />;
+    } else {
+      return <Loader />;
+    }
+  }
+}
+
+export default ServicesQuotaOverviewWithMesosState;

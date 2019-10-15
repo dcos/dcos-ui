@@ -41,9 +41,16 @@ export interface GroupCreateArgs {
 const isGroupMutationArgs = (args: object): args is GroupCreateArgs =>
   args.hasOwnProperty("data");
 
-function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
+function processServiceGroup(
+  context: { mesosStateStore: any },
+  serviceTree: ServiceTree
+): ServiceGroup {
   const groupName = serviceTree.getName();
-  const serviceRoles = serviceTree.getQuotaRoleStats();
+  const serviceRoles = serviceTree.getQuotaRoleStats(
+    null,
+    context.mesosStateStore.getTasksByService.bind(context.mesosStateStore)
+  );
+
   return {
     id: serviceTree.getId(),
     name: groupName,
@@ -52,7 +59,7 @@ function processServiceGroup(serviceTree: ServiceTree): ServiceGroup {
       limitStatus: "N/A",
       serviceRoles: {
         count: serviceRoles.count,
-        groupRoleCount: serviceRoles.groupRolesCount
+        groupRoleCount: serviceRoles.groupRoleCount
       }
     }
   };
@@ -104,7 +111,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
       }
     },
     Query: {
-      group(_parent = {}, args: Record<string, unknown> = {}) {
+      group(_parent = {}, args: Record<string, unknown> = {}, context) {
         if (!isGroupArgs(args)) {
           return throwError(
             "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
@@ -115,12 +122,14 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             const group = groups.find(
               serviceTree => serviceTree.getId() === args.id
             );
-            return group ? processServiceGroup(group) : null;
+            return group ? processServiceGroup(context, group) : null;
           })
         );
       },
-      groups() {
-        return groups$.pipe(map(groups => groups.map(processServiceGroup)));
+      groups(_parent, _args, context) {
+        return groups$.pipe(
+          map(groups => groups.map(processServiceGroup.bind(null, context)))
+        );
       },
       roles() {
         return roles$;

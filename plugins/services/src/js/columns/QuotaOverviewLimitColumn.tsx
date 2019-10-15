@@ -13,6 +13,9 @@ import {
   QuotaLimitStatuses
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 
+// @ts-ignore
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+
 import { getQuotaLimit } from "../utils/QuotaUtil";
 
 import ServiceTree from "../structs/ServiceTree";
@@ -53,8 +56,8 @@ function renderLimitLabel(limitInfo: LimitInfo) {
           >
             <Plural
               value={limitInfo.servicesNotLimited}
-              one="# service has no quota limit."
-              other="# services have no quota limit."
+              one="# service or task has no quota limit."
+              other="# services or tasks have no quota limit."
             />
           </Tooltip>
         </div>
@@ -120,14 +123,17 @@ export function getLimitInfoForService(
   }
 
   const groupName = item.getRootGroupName();
-  const stats = item.getQuotaRoleStats(groupName);
+  const stats = item.getQuotaRoleStats(
+    groupName,
+    MesosStateStore.getTasksByService.bind(MesosStateStore)
+  );
 
   return {
     limitText: getQuotaLimit({
       count: stats.count,
-      groupRoleCount: stats.groupRolesCount
+      groupRoleCount: stats.groupRoleCount
     }),
-    servicesNotLimited: stats.count - stats.groupRolesCount
+    servicesNotLimited: stats.count - stats.groupRoleCount
   };
 }
 

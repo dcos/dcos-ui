@@ -145,20 +145,29 @@ module.exports = class Service extends Item {
     return this.getId().split("/")[1];
   }
 
-  getQuotaRoleStats(roleName) {
-    return (this.get("tasks") || []).reduce(
-      (roles, item) => {
+  getQuotaRoleStats(roleName, getMesosTasksByService) {
+    const mesosTasks = getMesosTasksByService(this);
+    const tasks = this.get("tasks");
+
+    return mesosTasks.reduce(
+      (roles, mesosTask) => {
+        const item = tasks.find(t => t.id === mesosTask.id);
         roles.count++;
+
+        if (!item) {
+          return roles;
+        }
+
         const itemRole = item.role;
         if (itemRole) {
           roles.rolesCount++;
           if (itemRole === roleName) {
-            roles.groupRolesCount++;
+            roles.groupRoleCount++;
           }
         }
         return roles;
       },
-      { count: 0, rolesCount: 0, groupRolesCount: 0 }
+      { count: 0, rolesCount: 0, groupRoleCount: 0 }
     );
   }
 

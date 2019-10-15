@@ -33,6 +33,9 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import Loader from "#SRC/js/components/Loader";
 
+// @ts-ignore
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
   GroupFormData,
@@ -97,7 +100,7 @@ function getGroup(id: string) {
         }
       }
     `,
-    { id }
+    { id, mesosStateStore: MesosStateStore }
   );
 }
 
