@@ -56,8 +56,8 @@ function renderLimitLabel(limitInfo: LimitInfo) {
           >
             <Plural
               value={limitInfo.servicesNotLimited}
-              one="# service or task has no quota limit."
-              other="# services or tasks have no quota limit."
+              one="# service has no quota limit."
+              other="# services have no quota limit."
             />
           </Tooltip>
         </div>
