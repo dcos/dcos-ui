@@ -21,6 +21,9 @@ import Units from "#SRC/js/utils/Units";
 import ProgressBar from "#SRC/js/components/ProgressBar";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
+// @ts-ignore
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+
 import { ServiceGroup, QuotaResources } from "../types/ServiceGroup";
 import * as QuotaUtil from "../utils/QuotaUtil";
 import ServiceTree from "../structs/ServiceTree";
@@ -208,7 +211,7 @@ const ServicesQuotaOverviewDetail = componentFromStream<
           }
         }
       `,
-      { id: getRootGroupId(id) }
+      { id: getRootGroupId(id), mesosStateStore: MesosStateStore }
     );
 
   const group$ = id$.pipe(

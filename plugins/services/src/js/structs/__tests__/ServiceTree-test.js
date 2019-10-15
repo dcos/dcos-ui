@@ -1289,7 +1289,7 @@ describe("ServiceTree", function() {
       expect(thisInstance.getQuotaRoleStats()).toEqual({
         count: 1,
         rolesCount: 1,
-        groupRolesCount: 0
+        groupRoleCount: 0
       });
     });
 
@@ -1320,7 +1320,7 @@ describe("ServiceTree", function() {
       expect(thisInstance.getQuotaRoleStats()).toEqual({
         count: 4,
         rolesCount: 4,
-        groupRolesCount: 2
+        groupRoleCount: 2
       });
     });
   });

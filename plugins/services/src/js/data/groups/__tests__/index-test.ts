@@ -28,6 +28,17 @@ function makeServiceTree(groupsResponse = {}): ServiceTree {
   return new ServiceTree(MarathonUtil.parseGroups(groupsResponse));
 }
 
+const getTasksByService = () => {
+  return [
+    {
+      id: "/fake_1",
+      isStartedByMarathon: true,
+      state: "TASK_RUNNING",
+      resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
+    }
+  ];
+};
+
 describe("Services Data Layer - Groups", () => {
   let container: Container | null = null;
   let dl: DataLayer | null = null;
@@ -129,7 +140,11 @@ describe("Services Data Layer - Groups", () => {
             }
           }
         });
-        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+        m.expect(
+          dl
+            .query(query, { mesosStateStore: { getTasksByService } })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
       })
     );
 
@@ -262,7 +277,11 @@ describe("Services Data Layer - Groups", () => {
             }
           }
         });
-        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+        m.expect(
+          dl
+            .query(query, { mesosStateStore: { getTasksByService } })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
       })
     );
 
@@ -395,7 +414,11 @@ describe("Services Data Layer - Groups", () => {
             }
           }
         });
-        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+        m.expect(
+          dl
+            .query(query, { mesosStateStore: { getTasksByService } })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
       })
     );
   });
@@ -462,7 +485,11 @@ describe("Services Data Layer - Groups", () => {
             }
           }
         });
-        m.expect(dl.query(query, {}).pipe(take(1))).toBeObservable(expected$);
+        m.expect(
+          dl
+            .query(query, { mesosStateStore: { getTasksByService } })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
       })
     );
 
@@ -486,7 +513,11 @@ describe("Services Data Layer - Groups", () => {
           undefined,
           "Group resolver arguments aren't valid for type ServiceGroupQueryArgs"
         );
-        m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
+        m.expect(
+          dl
+            .query(query, { mesosStateStore: { getTasksByService } })
+            .pipe(take(1))
+        ).toBeObservable(expected$);
       })
     );
   });

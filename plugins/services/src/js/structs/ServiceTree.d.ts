@@ -46,7 +46,10 @@ declare class ServiceTree extends Tree<Service> {
   getFrameworks(): any;
   getVolumes(): any;
   getLabels(): any;
-  getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
+  getQuotaRoleStats(
+    roleName: string | null = null,
+    getMesosTasksByService: (service: Service) => any[]
+  ): ServiceQuotaRolesStats;
   isRoot(): boolean;
   isTopLevel(): boolean;
 }

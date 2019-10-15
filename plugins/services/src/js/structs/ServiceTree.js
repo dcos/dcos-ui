@@ -375,24 +375,50 @@ module.exports = class ServiceTree extends Tree {
     }, []);
   }
 
-  getQuotaRoleStats(roleName = null) {
+  getQuotaRoleStats(roleName = null, getMesosTasksByService) {
     const name = roleName || this.getName();
     return this.reduceItems(
       (roles, item) => {
         if (item instanceof ServiceTree) {
           return roles;
         }
+
         roles.count++;
         const itemRole = item.getRole();
         if (itemRole) {
           roles.rolesCount++;
           if (itemRole === name) {
-            roles.groupRolesCount++;
+            roles.groupRoleCount++;
           }
         }
+
+        if (item instanceof Framework) {
+          const tasks = getMesosTasksByService(item);
+          if (tasks) {
+            tasks.forEach(t => {
+              roles.count++;
+
+              const marathonTask = (item.get("tasks") || []).find(
+                marathonTask => marathonTask.id === t.id
+              );
+
+              if (marathonTask) {
+                const taskRole = marathonTask.role;
+
+                if (taskRole) {
+                  roles.rolesCount++;
+                  if (taskRole === name) {
+                    roles.groupRoleCount++;
+                  }
+                }
+              }
+            });
+          }
+        }
+
         return roles;
       },
-      { count: 0, rolesCount: 0, groupRolesCount: 0 }
+      { count: 0, rolesCount: 0, groupRoleCount: 0 }
     );
   }
 

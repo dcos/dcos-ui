@@ -8,7 +8,10 @@ export default class Service extends Item {
   getName(): string;
   getRole(): string;
   getRootGroupName(): string;
-  getQuotaRoleStats(roleName: string | null = null): ServiceQuotaRolesStats;
+  getQuotaRoleStats(
+    roleName: string | null = null,
+    getMesosTasksByService: (service: Service) => any[]
+  ): ServiceQuotaRolesStats;
   getSpec(): any;
   getHealth(): string;
   getLabels(): object;

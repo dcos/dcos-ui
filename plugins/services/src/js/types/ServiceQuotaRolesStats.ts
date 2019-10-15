@@ -1,5 +1,5 @@
 export interface ServiceQuotaRolesStats {
   count: number;
   rolesCount: number;
-  groupRolesCount: number;
+  groupRoleCount: number;
 }
