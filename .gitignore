@@ -25,3 +25,4 @@ src/resources/raml
 locale/_build/
 locale/*/messages.js
 .dcos-ui-plugins-private
+plugins-ee
