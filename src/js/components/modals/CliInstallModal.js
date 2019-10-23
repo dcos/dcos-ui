@@ -69,8 +69,9 @@ class CliInstallModal extends React.Component {
 
     // Starting from DC/OS >=2.0, users can stick to the "latest" CLI.
     // However on DC/OS 1.x we must use the correct CLI for the given version of DC/OS.
-    let dcosVersion = MetadataStore.parsedVersion
-    cliVersion = dcosVersion.substring(0, 2) == '1.' ? `dcos-${dcosVersion}` : "latest";
+    const dcosVersion = MetadataStore.parsedVersion;
+    const cliVersion =
+      dcosVersion.substring(0, 2) === "1." ? `dcos-${dcosVersion}` : "latest";
 
     const downloadUrl = `https://downloads.dcos.io/cli/releases/binaries/dcos/${osTypes[selectedOS]}/x86-64/${cliVersion}/dcos`;
     if (selectedOS === "Windows") {
