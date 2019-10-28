@@ -1,4 +1,4 @@
-import DSLFilterTypes from "../constants/DSLFilterTypes";
+import DSLFilterTypes from "./DSLFilterTypes";
 import { FilterNode } from "./DSLASTNodes";
 
 /**
@@ -42,7 +42,7 @@ import { FilterNode } from "./DSLASTNodes";
  * }
  *
  */
-class DSLExpressionPart {
+export default class DSLExpressionPart {
   static attribute(label, text = undefined) {
     return new FilterNode(0, 0, DSLFilterTypes.ATTRIB, { label, text });
   }
@@ -55,5 +55,3 @@ class DSLExpressionPart {
     return new FilterNode(0, 0, DSLFilterTypes.FUZZY, {});
   }
 }
-
-module.exports = DSLExpressionPart;

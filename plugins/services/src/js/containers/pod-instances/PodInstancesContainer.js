@@ -2,11 +2,12 @@ import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { DSLExpression } from "@d2iq/dsl-filter";
+
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
-import DSLExpression from "#SRC/js/structs/DSLExpression";
 
 import Util from "#SRC/js/utils/Util";
 

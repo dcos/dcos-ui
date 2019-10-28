@@ -3,9 +3,9 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 import isEqual from "lodash.isequal";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 import DSLForm from "./DSLForm";
-import DSLExpression from "../structs/DSLExpression";
 
 const METHODS_TO_BIND = ["handleApply", "handleChange"];
 

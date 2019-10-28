@@ -1,0 +1,16 @@
+{
+  "name": "@d2iq/dsl-filter",
+  "main": "index.js",
+  "version": "0.1.0",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "jest",
+    "test:watch": "npm test -- --watch"
+  },
+  "peerDependencies": {},
+  "devDependencies": {},
+  "jest-webpack-alias": {},
+  "dependencies": {
+    "jison": "^0.4.18"
+  }
+}

@@ -1,5 +1,5 @@
 var List = require("#SRC/js/structs/List");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import { SearchDSL } from "@d2iq/dsl-filter";
 var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
 var VolumeList = require("../../structs/VolumeList");
 

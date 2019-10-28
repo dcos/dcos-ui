@@ -32,6 +32,8 @@
       "@dcos/mesos-client": ["src/typings/dcos__mesos-client"],
       "@extension-kid/core": ["node_modules/@extension-kid/core"],
       "@extension-kid/*": ["packages/@extension-kid/*"],
+      "@d2iq/*": ["packages/@d2iq/*"],
+      "@d2iq/dsl-filter": ["src/typings/d2iq__dsl-filter"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#LOCALE/*": ["locale/*"],

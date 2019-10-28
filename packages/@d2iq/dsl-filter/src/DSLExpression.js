@@ -1,9 +1,9 @@
-import SearchDSL from "../../resources/grammar/SearchDSL";
+import SearchDSL from "./grammar/SearchDSL";
 
 /**
  * This is a high-level compnent that wraps
  */
-class DSLExpression {
+export default class DSLExpression {
   /**
    * Construct an immutable DSL expression
    *
@@ -58,5 +58,3 @@ class DSLExpression {
     });
   }
 }
-
-module.exports = DSLExpression;

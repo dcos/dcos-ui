@@ -15,12 +15,13 @@ import {
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
 
+import { DSLExpression } from "@d2iq/dsl-filter";
+
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import DSLExpression from "#SRC/js/structs/DSLExpression";
 
 import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";

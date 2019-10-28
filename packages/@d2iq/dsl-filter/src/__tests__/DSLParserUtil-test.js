@@ -1,10 +1,10 @@
-import DSLFilter from "../../structs/DSLFilter";
-import DSLFilterTypes from "../../constants/DSLFilterTypes";
-import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
+import { CombinerNode, FilterNode } from "../DSLASTNodes";
+import DSLFilter from "../DSLFilter";
+import DSLFilterTypes from "../DSLFilterTypes";
+import DSLCombinerTypes from "../DSLCombinerTypes";
+import * as DSLParserUtil from "../DSLParserUtil";
 
-const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLParserUtil = require("../DSLParserUtil");
-const List = require("../../structs/List");
+const List = require("#SRC/js/structs/List");
 
 class AttribFilter extends DSLFilter {
   filterCanHandle(filterType) {
@@ -60,7 +60,7 @@ describe("DSLParserUtil", function() {
 
     it("creates the correct ast node", function() {
       const { ast } = thisOp;
-      expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
+      expect(ast instanceof FilterNode).toBeTruthy();
 
       // ASTNode properties
       expect(ast.children).toEqual([]);
@@ -81,7 +81,7 @@ describe("DSLParserUtil", function() {
 
       const filters = [new AttribFilter()];
 
-      expect(filter(filters, thisMockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData)).toEqual([
         { text: "attribute" },
         { text: "attribute fuzzy" }
       ]);
@@ -95,7 +95,7 @@ describe("DSLParserUtil", function() {
 
     it("creates the correct ast node", function() {
       const { ast } = thisOp;
-      expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
+      expect(ast instanceof FilterNode).toBeTruthy();
 
       // ASTNode properties
       expect(ast.children).toEqual([]);
@@ -115,9 +115,7 @@ describe("DSLParserUtil", function() {
 
       const filters = [new ExactFilter()];
 
-      expect(filter(filters, thisMockData).getItems()).toEqual([
-        { text: "exact" }
-      ]);
+      expect(filter(filters, thisMockData)).toEqual([{ text: "exact" }]);
     });
   });
 
@@ -128,7 +126,7 @@ describe("DSLParserUtil", function() {
 
     it("creates the correct ast node", function() {
       const { ast } = thisOp;
-      expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
+      expect(ast instanceof FilterNode).toBeTruthy();
 
       // ASTNode properties
       expect(ast.children).toEqual([]);
@@ -148,7 +146,7 @@ describe("DSLParserUtil", function() {
 
       const filters = [new FuzzyFilter()];
 
-      expect(filter(filters, thisMockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData)).toEqual([
         { text: "fuzzy" },
         { text: "attribute fuzzy" }
       ]);
@@ -171,7 +169,7 @@ describe("DSLParserUtil", function() {
 
     it("creates the correct ast node", function() {
       const { ast } = thisOp;
-      expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
+      expect(ast instanceof CombinerNode).toBeTruthy();
 
       // ASTNode properties
       expect(ast.children).toEqual([thisOpLeft.ast, thisOpRight.ast]);
@@ -188,7 +186,7 @@ describe("DSLParserUtil", function() {
 
       const filters = [new AttribFilter(), new FuzzyFilter()];
 
-      expect(filter(filters, thisMockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData)).toEqual([
         { text: "attribute fuzzy" }
       ]);
     });
@@ -210,7 +208,7 @@ describe("DSLParserUtil", function() {
 
     it("creates the correct ast node", function() {
       const { ast } = thisOp;
-      expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
+      expect(ast instanceof CombinerNode).toBeTruthy();
 
       // ASTNode properties
       expect(ast.children).toEqual([thisOpLeft.ast, thisOpRight.ast]);
@@ -227,7 +225,7 @@ describe("DSLParserUtil", function() {
 
       const filters = [new AttribFilter(), new FuzzyFilter()];
 
-      expect(filter(filters, thisMockData).getItems()).toEqual([
+      expect(filter(filters, thisMockData)).toEqual([
         { text: "attribute" },
         { text: "attribute fuzzy" },
         { text: "fuzzy" }

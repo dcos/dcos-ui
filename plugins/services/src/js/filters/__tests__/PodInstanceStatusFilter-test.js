@@ -1,4 +1,4 @@
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import { SearchDSL } from "@d2iq/dsl-filter";
 var PodInstanceStatusFilter = require("../PodInstanceStatusFilter");
 var List = require("#SRC/js/structs/List");
 

@@ -1,5 +1,4 @@
-import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
-import DSLFilter from "#SRC/js/structs/DSLFilter";
+import { DSLFilterTypes, DSLFilter } from "@d2iq/dsl-filter";
 
 const LABEL = "zone";
 

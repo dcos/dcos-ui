@@ -1,6 +1,6 @@
 jest.mock("../../utils/TaskUtil");
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import { SearchDSL } from "@d2iq/dsl-filter";
 var TasksZoneFilter = require("../TasksZoneFilter");
 var List = require("#SRC/js/structs/List");
 var TaskUtil = require("../../utils/TaskUtil");

@@ -1,9 +1,8 @@
-import DSLFilterTypes from "../../constants/DSLFilterTypes";
-
-const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLExpression = require("../../structs/DSLExpression");
-const DSLExpressionPart = require("../../structs/DSLExpressionPart");
-const DSLUtil = require("../DSLUtil");
+import * as DSLUtil from "../DSLUtil";
+import { FilterNode } from "../DSLASTNodes";
+import DSLFilterTypes from "../DSLFilterTypes";
+import DSLExpression from "../DSLExpression";
+import DSLExpressionPart from "../DSLExpressionPart";
 
 let thisParts, thisAst, thisAttribs, thisFuzzy, thisExact;
 
@@ -228,7 +227,7 @@ describe("DSLUtil", function() {
 
   describe("#getNodeString", function() {
     it("returns the string of attribute nodes", function() {
-      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
+      const node = new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
         text: "text"
       });
@@ -237,7 +236,7 @@ describe("DSLUtil", function() {
     });
 
     it("returns the string of fuzzy nodes", function() {
-      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
+      const node = new FilterNode(0, 0, DSLFilterTypes.FUZZY, {
         text: "text"
       });
 
@@ -245,7 +244,7 @@ describe("DSLUtil", function() {
     });
 
     it("returns the string of exact nodes", function() {
-      const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
+      const node = new FilterNode(0, 0, DSLFilterTypes.EXACT, {
         text: "text"
       });
 

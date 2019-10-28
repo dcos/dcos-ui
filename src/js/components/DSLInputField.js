@@ -12,7 +12,7 @@ import {
   greyDark
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import DSLExpression from "../structs/DSLExpression";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 const METHODS_TO_BIND = [
   "handleBlur",

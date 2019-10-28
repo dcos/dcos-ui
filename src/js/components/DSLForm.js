@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import DSLExpression from "../structs/DSLExpression";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 /**
  * This component wraps one or more DSLOptionSection components and

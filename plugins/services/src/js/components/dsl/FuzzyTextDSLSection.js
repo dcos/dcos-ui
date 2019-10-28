@@ -3,18 +3,21 @@ import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 import React from "react";
 
-import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
-import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
+import {
+  DSLCombinerTypes,
+  DSLExpression,
+  DSLExpressionPart,
+  DSLUtil,
+  DSLFilterTypes,
+  FilterNode,
+  DSLUpdateUtil
+} from "@d2iq/dsl-filter";
+
 import DSLFormWithExpressionUpdates from "#SRC/js/components/DSLFormWithExpressionUpdates";
-import DSLUtil from "#SRC/js/utils/DSLUtil";
+
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
-
-import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
-import { FilterNode } from "#SRC/js/structs/DSLASTNodes";
-import DSLUpdateUtil from "#SRC/js/utils/DSLUpdateUtil";
 
 const EXPRESSION_PARTS = {
   text: DSLExpressionPart.fuzzy

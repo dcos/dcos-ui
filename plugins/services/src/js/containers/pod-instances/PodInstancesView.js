@@ -8,10 +8,9 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
+import { DSLFilterTypes } from "@d2iq/dsl-filter";
+
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
-
-import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
-
 import FilterHeadline from "#SRC/js/components/FilterHeadline";
 import FilterBar from "#SRC/js/components/FilterBar";
 import Pod from "../../structs/Pod";

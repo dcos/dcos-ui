@@ -1,9 +1,9 @@
-import DSLFilterTypes from "../../../js/constants/DSLFilterTypes";
-import DSLFilter from "../../../js/structs/DSLFilter";
-import DSLCombinerTypes from "../../../js/constants/DSLCombinerTypes";
+import DSLFilterTypes from "../../DSLFilterTypes";
+import DSLFilter from "../../DSLFilter";
+import DSLCombinerTypes from "../../DSLCombinerTypes";
+import SearchDSL from "../SearchDSL";
 
-const List = require("../../../js/structs/List");
-const SearchDSL = require("../SearchDSL");
+import List from "#SRC/js/structs/List";
 
 // Handles 'attrib:?'
 class AttribFilter extends DSLFilter {

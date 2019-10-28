@@ -1,15 +1,10 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
 
-import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 // @ts-ignore
-import DSLExpression from "#SRC/js/structs/DSLExpression";
-// @ts-ignore
-import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
+import { DSLCombinerTypes, DSLExpressionPart, DSLUtil } from "@d2iq/dsl-filter";
 // @ts-ignore
 import DSLFormWithExpressionUpdates from "#SRC/js/components/DSLFormWithExpressionUpdates";
-// @ts-ignore
-import DSLUtil from "#SRC/js/utils/DSLUtil";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";

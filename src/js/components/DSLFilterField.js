@@ -1,8 +1,8 @@
 import PropTypes from "prop-types";
 import React from "react";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 import DSLInputField from "./DSLInputField";
-import DSLExpression from "../structs/DSLExpression";
 import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
 
 const METHODS_TO_BIND = [

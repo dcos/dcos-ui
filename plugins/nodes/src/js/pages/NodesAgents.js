@@ -8,12 +8,12 @@ import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
-import DSLExpression from "#SRC/js/structs/DSLExpression";
 import EventTypes from "#SRC/js/constants/EventTypes";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";

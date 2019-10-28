@@ -1,6 +1,6 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import { SearchDSL } from "@d2iq/dsl-filter";
 var ServiceAttributeIsFilter = require("../ServiceAttributeIsFilter");
 var List = require("#SRC/js/structs/List");
 

@@ -13,11 +13,11 @@ import {
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
-import DSLExpression from "#SRC/js/structs/DSLExpression";
-import DSLFilterField from "#SRC/js/components/DSLFilterField";
+import { DSLExpression } from "@d2iq/dsl-filter";
 
 import Page from "#SRC/js/components/Page";
 
+import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
 import EmptyServiceTree from "./EmptyServiceTree";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";

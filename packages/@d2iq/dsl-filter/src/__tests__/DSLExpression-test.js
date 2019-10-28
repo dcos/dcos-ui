@@ -1,5 +1,5 @@
-const DSLExpression = require("../DSLExpression");
-const DSLASTNodes = require("../DSLASTNodes");
+import { FilterNode } from "../DSLASTNodes";
+import DSLExpression from "../DSLExpression";
 
 describe("DSLExpression", function() {
   describe("#value", function() {
@@ -36,7 +36,7 @@ describe("DSLExpression", function() {
     it("returns the ast tree", function() {
       const expression = new DSLExpression("foo");
 
-      expect(expression.ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
+      expect(expression.ast instanceof FilterNode).toBeTruthy();
     });
   });
 });

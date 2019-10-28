@@ -10,7 +10,7 @@ Afterwards you want to make the output compliant to our linting-rules:
 */
 
 %{
-var DSLParserUtil = require('../../js/utils/DSLParserUtil');
+var DSLParserUtil = require('../DSLParserUtil');
 var Merge = DSLParserUtil.Merge;
 var Operator = DSLParserUtil.Operator;
 %}

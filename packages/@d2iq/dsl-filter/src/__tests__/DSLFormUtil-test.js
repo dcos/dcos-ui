@@ -1,8 +1,7 @@
-import DSLFilterTypes from "../../constants/DSLFilterTypes";
-
-const DSLFormUtil = require("../DSLFormUtil");
-const DSLExpressionPart = require("../../structs/DSLExpressionPart");
-const FilterNode = require("../../structs/DSLASTNodes").FilterNode;
+import * as DSLFormUtil from "../DSLFormUtil";
+import { FilterNode } from "../DSLASTNodes";
+import DSLFilterTypes from "../DSLFilterTypes";
+import DSLExpressionPart from "../DSLExpressionPart";
 
 describe("DSLFormUtil", function() {
   describe("#createNodeComparisionFunction", function() {

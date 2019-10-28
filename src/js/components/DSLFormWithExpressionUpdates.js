@@ -1,15 +1,16 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
-
-import DSLCombinerTypes from "../constants/DSLCombinerTypes";
-import DSLFilterTypes from "../constants/DSLFilterTypes";
-import DSLUpdatePolicy from "../constants/DSLUpdatePolicy";
-import DSLExpression from "../structs/DSLExpression";
-import DSLUpdateUtil from "../utils/DSLUpdateUtil";
-import DSLUtil from "../utils/DSLUtil";
-import { FilterNode } from "../structs/DSLASTNodes";
-import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
+import {
+  DSLCombinerTypes,
+  DSLFilterTypes,
+  DSLUpdatePolicy,
+  DSLExpression,
+  DSLUpdateUtil,
+  DSLUtil,
+  DSLFormUtil,
+  FilterNode
+} from "@d2iq/dsl-filter";
 
 const METHODS_TO_BIND = [
   "handleFormBlur",
@@ -142,7 +143,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
               allMatchingNodes,
               [updateNode],
               {
-                nodeCompareFunction: createNodeComparisionFunction(parts),
+                nodeCompareFunction: DSLFormUtil.createNodeComparisionFunction(
+                  parts
+                ),
                 itemCombiner,
                 newCombiner: groupCombiner
               }
@@ -156,7 +159,9 @@ class DSLFormWithExpressionUpdates extends React.Component {
         // On 'Checkbox' policy, we just add/remove the matching AST node
         if (value) {
           expression = DSLUpdateUtil.applyAdd(expression, [updateNode], {
-            nodeCompareFunction: createNodeComparisionFunction(parts),
+            nodeCompareFunction: DSLFormUtil.createNodeComparisionFunction(
+              parts
+            ),
             itemCombiner,
             newCombiner: groupCombiner
           });

@@ -1,4 +1,5 @@
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import { SearchDSL } from "@d2iq/dsl-filter";
+
 var TasksStatusFilter = require("../TasksStatusFilter");
 var List = require("#SRC/js/structs/List");
 

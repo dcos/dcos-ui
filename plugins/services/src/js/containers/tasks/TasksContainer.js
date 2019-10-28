@@ -2,9 +2,10 @@ import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 import React from "react";
 
+import { DSLExpression } from "@d2iq/dsl-filter";
+
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
-import DSLExpression from "#SRC/js/structs/DSLExpression";
 
 import Tree from "#SRC/js/structs/Tree";
 

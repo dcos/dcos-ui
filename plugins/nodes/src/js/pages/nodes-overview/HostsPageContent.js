@@ -3,7 +3,8 @@ import React from "react";
 import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 
-import DSLExpression from "#SRC/js/structs/DSLExpression";
+import { DSLExpression } from "@d2iq/dsl-filter";
+
 import DSLFilterField from "#SRC/js/components/DSLFilterField";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterHeadline from "#SRC/js/components/FilterHeadline";

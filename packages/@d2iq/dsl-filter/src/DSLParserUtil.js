@@ -1,6 +1,6 @@
-import DSLFilterTypes from "../constants/DSLFilterTypes";
-import DSLCombinerTypes from "../constants/DSLCombinerTypes";
-import { FilterNode, CombinerNode } from "../structs/DSLASTNodes";
+import DSLFilterTypes from "./DSLFilterTypes";
+import DSLCombinerTypes from "./DSLCombinerTypes";
+import { FilterNode, CombinerNode } from "./DSLASTNodes";
 
 /**
  * Factory for filter-combining functions (operators)
@@ -119,113 +119,112 @@ function filterFunctionFactory(ast) {
  *
  * @name DSLParserUtil
  */
-module.exports = {
+
+/**
+ * Namespace for the merge operator
+ *
+ * @namespace
+ */
+export const Merge = {
   /**
-   * Namespace for the merge operator
+   * Combines two filter functions using the AND operator
    *
-   * @namespace
+   * @param {Function} f1 - The first operation function
+   * @param {Function} f2 - The second operation function
+   *
+   * @returns {Function} Returns a combined filter function
    */
-  Merge: {
-    /**
-     * Combines two filter functions using the AND operator
-     *
-     * @param {Function} f1 - The first operation function
-     * @param {Function} f2 - The second operation function
-     *
-     * @returns {Function} Returns a combined filter function
-     */
-    and(f1, f2) {
-      const ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
+  and(f1, f2) {
+    const ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
 
-      return {
-        filter: combineFunctionFactory(ast, f1.filter, f2.filter),
-        ast
-      };
-    },
-
-    /**
-     * Combines two filter functions using the OR operator
-     *
-     * @param {Function} f1 - The first operation function
-     * @param {Function} f2 - The second operation function
-     *
-     * @returns {Function} Returns a combined filter function
-     */
-    or(f1, f2) {
-      const ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
-
-      return {
-        filter: combineFunctionFactory(ast, f1.filter, f2.filter),
-        ast
-      };
-    }
+    return {
+      filter: combineFunctionFactory(ast, f1.filter, f2.filter),
+      ast
+    };
   },
 
   /**
-   * Operator namespace
+   * Combines two filter functions using the OR operator
    *
-   * @namespace
+   * @param {Function} f1 - The first operation function
+   * @param {Function} f2 - The second operation function
+   *
+   * @returns {Function} Returns a combined filter function
    */
-  Operator: {
-    /**
-     * Return filter function for an attribute operator
-     *
-     * @param {String} label - The attribute label
-     * @param {String} text - The attribute value
-     * @param {Number} lstart - The starting position of the label token
-     * @param {Number} lend - The ending position of the label token
-     * @param {Number} vstart - The starting position of the value token
-     * @param {Number} vend - The ending position of the value token
-     *
-     * @returns {Function} Returns a filter function
-     */
-    attribute(label, text, lstart, lend, vstart, vend) {
-      const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {
-        text,
-        label
-      });
-      ast.position.push([vstart, vend]);
+  or(f1, f2) {
+    const ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
 
-      return {
-        filter: filterFunctionFactory(ast),
-        ast
-      };
-    },
+    return {
+      filter: combineFunctionFactory(ast, f1.filter, f2.filter),
+      ast
+    };
+  }
+};
 
-    /**
-     * Return a filter function for exact string matching
-     *
-     * @param {String} text - The fuzzy filter text input
-     * @param {Number} start - The starting position of the filter token
-     * @param {Number} end - The ending position of the filter token
-     *
-     * @returns {Function} Returns a filter function
-     */
-    exact(text, start, end) {
-      const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, { text });
+/**
+ * Operator namespace
+ *
+ * @namespace
+ */
+export const Operator = {
+  /**
+   * Return filter function for an attribute operator
+   *
+   * @param {String} label - The attribute label
+   * @param {String} text - The attribute value
+   * @param {Number} lstart - The starting position of the label token
+   * @param {Number} lend - The ending position of the label token
+   * @param {Number} vstart - The starting position of the value token
+   * @param {Number} vend - The ending position of the value token
+   *
+   * @returns {Function} Returns a filter function
+   */
+  attribute(label, text, lstart, lend, vstart, vend) {
+    const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {
+      text,
+      label
+    });
+    ast.position.push([vstart, vend]);
 
-      return {
-        filter: filterFunctionFactory(ast),
-        ast
-      };
-    },
+    return {
+      filter: filterFunctionFactory(ast),
+      ast
+    };
+  },
 
-    /**
-     * Return a filter function for fuzzy-text matching
-     *
-     * @param {String} text - The fuzzy filter text input
-     * @param {Number} start - The starting position of the filter token
-     * @param {Number} end - The ending position of the filter token
-     *
-     * @returns {Function} Returns a filter function
-     */
-    fuzzy(text, start, end) {
-      const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, { text });
+  /**
+   * Return a filter function for exact string matching
+   *
+   * @param {String} text - The fuzzy filter text input
+   * @param {Number} start - The starting position of the filter token
+   * @param {Number} end - The ending position of the filter token
+   *
+   * @returns {Function} Returns a filter function
+   */
+  exact(text, start, end) {
+    const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, { text });
 
-      return {
-        filter: filterFunctionFactory(ast),
-        ast
-      };
-    }
+    return {
+      filter: filterFunctionFactory(ast),
+      ast
+    };
+  },
+
+  /**
+   * Return a filter function for fuzzy-text matching
+   *
+   * @param {String} text - The fuzzy filter text input
+   * @param {Number} start - The starting position of the filter token
+   * @param {Number} end - The ending position of the filter token
+   *
+   * @returns {Function} Returns a filter function
+   */
+  fuzzy(text, start, end) {
+    const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, { text });
+
+    return {
+      filter: filterFunctionFactory(ast),
+      ast
+    };
   }
 };

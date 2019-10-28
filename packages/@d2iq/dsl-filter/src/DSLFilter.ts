@@ -1,6 +1,7 @@
-import { FilterType } from "#SRC/js/constants/DSLFilterTypes";
 import List from "#SRC/js/structs/List";
 import Node from "#SRC/js/structs/Node";
+
+import { FilterType } from "./DSLFilterTypes";
 
 type Arguments = {
   label: string;

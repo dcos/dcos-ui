@@ -1,7 +1,7 @@
-import NodesRegionFilter from "../NodesRegionFilter";
+import { SearchDSL } from "@d2iq/dsl-filter";
+import List from "#SRC/js/structs/List";
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var List = require("#SRC/js/structs/List");
+import NodesRegionFilter from "../NodesRegionFilter";
 
 let thisMockItems;
 
