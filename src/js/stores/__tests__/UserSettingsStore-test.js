@@ -1,5 +1,5 @@
-const LocalStorageUtil = require("../../utils/LocalStorageUtil");
-const UserSettingsStore = require("../UserSettingsStore");
+import LocalStorageUtil from "../../utils/LocalStorageUtil";
+import UserSettingsStore from "../UserSettingsStore";
 
 let thisPrevGet, thisPrevSet;
 
