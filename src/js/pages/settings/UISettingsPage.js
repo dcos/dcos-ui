@@ -19,6 +19,9 @@ import Loader from "#SRC/js/components/Loader";
 import Page from "#SRC/js/components/Page";
 import LanguageModalActions from "#SRC/js/events/LanguageModalActions";
 import UserLanguageStore from "#SRC/js/stores/UserLanguageStore";
+import Config from "#SRC/js/config/Config";
+import FormModal from "#SRC/js/components/FormModal";
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 
 const Loading = () => <Loader size="small" type="ballBeat" />;
 
@@ -49,16 +52,31 @@ const ConfigurationRow = ({ keyValue, title, value, action }) => {
 };
 
 class UISettingsPage extends React.Component {
+  constructor() {
+    super(arguments);
+    this.state = {
+      configRefreshRateOpen: false
+    };
+    this.toggleRefreshModal = this.toggleRefreshModal.bind(this);
+    this.saveRefreshRate = this.saveRefreshRate.bind(this);
+  }
   openModal() {
     LanguageModalActions.open();
   }
+  toggleRefreshModal() {
+    this.setState({ configRefreshRateOpen: !this.state.configRefreshRateOpen });
+  }
+  saveRefreshRate(config) {
+    UserSettingsStore.setRefreshRateSetting(parseInt(config.refreshRate, 10));
+    location.reload();
+  }
 
   render() {
+    const { i18n } = this.props;
+
     return (
       <Page>
-        <Page.Header
-          breadcrumbs={<UISettingsBreadcrumbs i18n={this.props.i18n} />}
-        />
+        <Page.Header breadcrumbs={<UISettingsBreadcrumbs i18n={i18n} />} />
         <div className="container">
           <ConfigurationMap>
             <ConfigurationMapHeading className="flush-top">
@@ -83,8 +101,58 @@ class UISettingsPage extends React.Component {
                 }
               />
             </ConfigurationMapSection>
+            <ConfigurationMapSection>
+              <ConfigurationRow
+                keyValue="refreshRate"
+                title={<Trans>Refresh Rate</Trans>}
+                value={i18n._(t`${Config.getRefreshRate() / 1000} seconds`)}
+                action={
+                  <button
+                    className="button button-primary-link"
+                    onClick={this.toggleRefreshModal}
+                  >
+                    <Trans>Edit</Trans>
+                  </button>
+                }
+              />
+            </ConfigurationMapSection>
           </ConfigurationMap>
         </div>
+        <FormModal
+          buttonDefinition={[
+            {
+              text: i18n._(t`Cancel`),
+              className: "button button-primary-link flush-left",
+              isClose: true
+            },
+            {
+              text: i18n._(t`Save`),
+              className: "button button-primary",
+              isSubmit: true
+            }
+          ]}
+          definition={[
+            {
+              fieldType: "select",
+              label: i18n._(t`Select your Refresh Rate`),
+              showLabel: true,
+              options: [2, 5, 10, 15, 30, 60].map(refreshRate => ({
+                html: i18n._(t`${refreshRate} seconds`),
+                id: `${refreshRate}seconds`
+              })),
+              value: `${Config.getRefreshRate() / 1000}seconds`,
+              name: "refreshRate",
+              formElementClass: "languageDropdown-wrapper"
+            }
+          ]}
+          modalProps={{
+            header: i18n._(t`Configure Refresh Rate`),
+            showHeader: true
+          }}
+          onClose={this.toggleRefreshModal}
+          onSubmit={this.saveRefreshRate}
+          open={this.state.configRefreshRateOpen}
+        />
       </Page>
     );
   }
