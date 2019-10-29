@@ -4,6 +4,7 @@ import LocalStorageUtil from "../utils/LocalStorageUtil";
 
 const LOCAL_STORAGE_KEY: string = "dcosUserSettings";
 const JSON_EDITOR_SETTING: string = "JSONEditor";
+const REFRESH_RATE_SETTING: string = "RefreshRate";
 const isObject = (data: unknown): data is Record<string, unknown> =>
   typeof data === "object" && data != null;
 
@@ -56,6 +57,16 @@ class UserSettingsStore extends EventEmitter {
       JSON_EDITOR_SETTING,
       isObject(settings) ? { ...settings, expanded } : { expanded }
     );
+  }
+
+  get RefreshRateSetting(): number | null {
+    const settings = this.getKey(REFRESH_RATE_SETTING);
+
+    return typeof settings === "number" ? settings : null;
+  }
+
+  setRefreshRateSetting(refreshRate: number) {
+    this.setKey(REFRESH_RATE_SETTING, refreshRate);
   }
 }
 
