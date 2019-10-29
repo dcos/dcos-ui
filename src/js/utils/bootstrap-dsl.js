@@ -1,6 +1,4 @@
-import DSLFilterTypes from "./DSLFilterTypes";
-import DSLCombinerTypes from "./DSLCombinerTypes";
-import { FilterNode, CombinerNode } from "./DSLASTNodes";
+import { DSLParserUtil, DSLCombinerTypes } from "@d2iq/dsl-filter";
 
 /**
  * Factory for filter-combining functions (operators)
@@ -55,18 +53,14 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        * on which the filers have to be applied.
        *
        * @param {Object} filters - An object containing the valid filters that can be used
-       * @param {Array} resultset - An instance of List or Tree containing the items to filter
-       * @returns {Array} resultset - A new instance of a List, containing the results
+       * @param {List} resultset - An instance of List or Tree containing the items to filter
+       * @returns {List} resultset - A new instance of a List, containing the results
        */
       return function(filters, resultset) {
         // We are interested in the union of the results of the two filters
         const intermediateResultset = leftFilterFn(filters, resultset);
 
-        return Array(
-          ...new Set(
-            intermediateResultset.concat(rightFilterFn(filters, resultset))
-          )
-        );
+        return intermediateResultset.combine(rightFilterFn(filters, resultset));
       };
   }
 }
@@ -110,139 +104,11 @@ function filterFunctionFactory(ast) {
     return filters
       .filter(f => f.filterCanHandle(ast.filterType, ast.filterParams))
       .reduce(function(currentResultset, filter) {
-        return Array(
-          ...new Set(
-            currentResultset.concat(
-              filter.filterApply(resultset, ast.filterType, ast.filterParams)
-            )
-          )
+        return currentResultset.combine(
+          filter.filterApply(resultset, ast.filterType, ast.filterParams)
         );
       }, new resultset.constructor());
   };
 }
 
-const factories = {
-  combineFunctionFactory,
-  filterFunctionFactory
-};
-
-/**
- * The following functions are used by the JISON generated code in order to parse
- * the expression into a properly nested set of functions and AST nodes.
- *
- * @name DSLParserUtil
- */
-
-/**
- * Namespace for the merge operator
- *
- * @namespace
- */
-export const Merge = {
-  /**
-   * Combines two filter functions using the AND operator
-   *
-   * @param {Function} f1 - The first operation function
-   * @param {Function} f2 - The second operation function
-   *
-   * @returns {Function} Returns a combined filter function
-   */
-  and(f1, f2) {
-    const ast = new CombinerNode(DSLCombinerTypes.AND, f1.ast, f2.ast);
-
-    return {
-      filter: factories.combineFunctionFactory(ast, f1.filter, f2.filter),
-      ast
-    };
-  },
-
-  /**
-   * Combines two filter functions using the OR operator
-   *
-   * @param {Function} f1 - The first operation function
-   * @param {Function} f2 - The second operation function
-   *
-   * @returns {Function} Returns a combined filter function
-   */
-  or(f1, f2) {
-    const ast = new CombinerNode(DSLCombinerTypes.OR, f1.ast, f2.ast);
-
-    return {
-      filter: factories.combineFunctionFactory(ast, f1.filter, f2.filter),
-      ast
-    };
-  }
-};
-
-/**
- * Operator namespace
- *
- * @namespace
- */
-export const Operator = {
-  /**
-   * Return filter function for an attribute operator
-   *
-   * @param {String} label - The attribute label
-   * @param {String} text - The attribute value
-   * @param {Number} lstart - The starting position of the label token
-   * @param {Number} lend - The ending position of the label token
-   * @param {Number} vstart - The starting position of the value token
-   * @param {Number} vend - The ending position of the value token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  attribute(label, text, lstart, lend, vstart, vend) {
-    const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {
-      text,
-      label
-    });
-    ast.position.push([vstart, vend]);
-
-    return {
-      filter: factories.filterFunctionFactory(ast),
-      ast
-    };
-  },
-
-  /**
-   * Return a filter function for exact string matching
-   *
-   * @param {String} text - The fuzzy filter text input
-   * @param {Number} start - The starting position of the filter token
-   * @param {Number} end - The ending position of the filter token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  exact(text, start, end) {
-    const ast = new FilterNode(start, end, DSLFilterTypes.EXACT, { text });
-
-    return {
-      filter: factories.filterFunctionFactory(ast),
-      ast
-    };
-  },
-
-  /**
-   * Return a filter function for fuzzy-text matching
-   *
-   * @param {String} text - The fuzzy filter text input
-   * @param {Number} start - The starting position of the filter token
-   * @param {Number} end - The ending position of the filter token
-   *
-   * @returns {Function} Returns a filter function
-   */
-  fuzzy(text, start, end) {
-    const ast = new FilterNode(start, end, DSLFilterTypes.FUZZY, { text });
-
-    return {
-      filter: factories.filterFunctionFactory(ast),
-      ast
-    };
-  }
-};
-
-export function setFactories(combineFunctionFactory, filterFunctionFactory) {
-  factories.combineFunctionFactory = combineFunctionFactory;
-  factories.filterFunctionFactory = filterFunctionFactory;
-}
+DSLParserUtil.setFactories(combineFunctionFactory, filterFunctionFactory);

@@ -4,14 +4,12 @@ import DSLFilterTypes from "../DSLFilterTypes";
 import DSLCombinerTypes from "../DSLCombinerTypes";
 import * as DSLParserUtil from "../DSLParserUtil";
 
-const List = require("#SRC/js/structs/List");
-
 class AttribFilter extends DSLFilter {
   filterCanHandle(filterType) {
     return filterType === DSLFilterTypes.ATTRIB;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
+    return resultset.filter(item => {
       return item.text.indexOf("attribute") !== -1;
     });
   }
@@ -22,7 +20,7 @@ class ExactFilter extends DSLFilter {
     return filterType === DSLFilterTypes.EXACT;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
+    return resultset.filter(item => {
       return item.text.indexOf("exact") !== -1;
     });
   }
@@ -33,7 +31,7 @@ class FuzzyFilter extends DSLFilter {
     return filterType === DSLFilterTypes.FUZZY;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
+    return resultset.filter(item => {
       return item.text.indexOf("fuzzy") !== -1;
     });
   }
@@ -43,14 +41,12 @@ let thisMockData, thisOp, thisOpLeft, thisOpRight;
 
 describe("DSLParserUtil", function() {
   beforeEach(function() {
-    thisMockData = new List({
-      items: [
-        { text: "attribute" },
-        { text: "fuzzy" },
-        { text: "exact" },
-        { text: "attribute fuzzy" }
-      ]
-    });
+    thisMockData = [
+      { text: "attribute" },
+      { text: "fuzzy" },
+      { text: "exact" },
+      { text: "attribute fuzzy" }
+    ];
   });
 
   describe("#Operator.attribute", function() {
