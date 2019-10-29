@@ -2,6 +2,7 @@
 
 import ConfigDev from "./Config.dev";
 import ConfigTest from "./Config.test";
+import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 
 interface IConfiguration {
   acsAPIPrefix: string;
@@ -75,7 +76,9 @@ let Config: IConfiguration = {
   version: "@@VERSION",
   virtualNetworksApi: "/mesos/overlay-master",
   getRefreshRate() {
-    return this.stateRefresh;
+    return UserSettingsStore.RefreshRateSetting === null
+      ? this.stateRefresh
+      : UserSettingsStore.RefreshRateSetting * 1000;
   },
   getLongPollingInterval() {
     return this.stateLongPoll;
