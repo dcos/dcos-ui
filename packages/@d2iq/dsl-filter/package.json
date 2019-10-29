@@ -11,6 +11,9 @@
   "devDependencies": {},
   "jest-webpack-alias": {},
   "dependencies": {
-    "jison": "^0.4.18"
+    "@types/jest": "22.2.3",
+    "jest-cli": "22.4.0",
+    "jison": "0.4.18",
+    "ts-jest": "22.4.6"
   }
 }
