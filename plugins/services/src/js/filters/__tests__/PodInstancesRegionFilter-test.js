@@ -1,6 +1,7 @@
+import { SearchDSL } from "@d2iq/dsl-filter";
+
 jest.mock("../../utils/TaskUtil");
 
-import { SearchDSL } from "@d2iq/dsl-filter";
 var PodInstancesRegionFilter = require("../PodInstancesRegionFilter");
 var List = require("#SRC/js/structs/List");
 var InstanceUtil = require("../../utils/InstanceUtil");

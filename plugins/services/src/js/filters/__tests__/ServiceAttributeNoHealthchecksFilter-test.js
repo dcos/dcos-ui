@@ -1,4 +1,5 @@
 import { SearchDSL } from "@d2iq/dsl-filter";
+
 var HealthStatus = require("../../constants/HealthStatus");
 var ServiceAttributeNoHealthchecksFilter = require("../ServiceAttributeNoHealthchecksFilter");
 var List = require("#SRC/js/structs/List");

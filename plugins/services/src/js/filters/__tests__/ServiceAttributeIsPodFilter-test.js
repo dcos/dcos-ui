@@ -1,9 +1,10 @@
+import { SearchDSL } from "@d2iq/dsl-filter";
+
 var Application = require("../../structs/Application");
 
 var Framework = require("../../structs/Framework");
 var List = require("#SRC/js/structs/List");
 var Pod = require("../../structs/Pod");
-import { SearchDSL } from "@d2iq/dsl-filter";
 var ServiceAttributeIsPodFilter = require("../ServiceAttributeIsPodFilter");
 
 let thisMockItems;

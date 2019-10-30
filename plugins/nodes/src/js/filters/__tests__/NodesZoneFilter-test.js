@@ -1,4 +1,5 @@
 import { SearchDSL } from "@d2iq/dsl-filter";
+
 var NodesZoneFilter = require("../NodesZoneFilter");
 var List = require("#SRC/js/structs/List");
 

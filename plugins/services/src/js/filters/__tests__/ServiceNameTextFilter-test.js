@@ -1,4 +1,5 @@
 import { SearchDSL } from "@d2iq/dsl-filter";
+
 var ServiceNameTextFilter = require("../ServiceNameTextFilter");
 var List = require("#SRC/js/structs/List");
 
