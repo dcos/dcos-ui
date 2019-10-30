@@ -1,5 +1,7 @@
 require("babel-polyfill");
 require("reflect-metadata");
+require("../src/js/utils/bootstrap-dsl");
+
 var EventEmitter = require("events").EventEmitter;
 
 // Tests should just mock responses for the json API
