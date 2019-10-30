@@ -29,6 +29,7 @@
     "externalplugins": ""
   },
   "dependencies": {
+    "@d2iq/dsl-filter": "^0.2.1",
     "@dcos/data-service": "2.0.0",
     "@dcos/http-service": "2.3.1",
     "@dcos/mesos-client": "1.0.0",

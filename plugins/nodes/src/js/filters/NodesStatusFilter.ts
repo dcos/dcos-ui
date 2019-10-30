@@ -1,3 +1,4 @@
+// @ts-ignore
 import { DSLFilterTypes, DSLFilter } from "@d2iq/dsl-filter";
 import { Status } from "../types/Status";
 
