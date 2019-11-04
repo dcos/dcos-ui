@@ -1022,7 +1022,7 @@
   "{0} must be bigger than or equal to 0": "{0} 必须大于或等于 0",
   "{0} of {1}": "{0}/{1}",
   "{0} of {1} Cores": "{0}/{1} 个核心",
-  "{0} seconds": "",
+  "{0} seconds": "{0} 秒",
   "{0} your group by {updateDescription} from the DC/OS CLI.": "从  DC/OS CLI 通过{updateDescription} {0} 组",
   "{completedSteps} out of {totalSteps} steps completed.": "已完成 {totalSteps} 个步骤中的 {completedSteps} 个。",
   "{containerName} Path": "{containerName} 路径",
@@ -1031,7 +1031,7 @@
   "{itemType} is currently locked by one or more deployments. Press the button again to forcefully change and deploy the new configuration.": "{itemType} 当前被一个或多个部署锁定。再次按下按钮，以强制更改和部署新配置。",
   "{logName} Log is Currently Empty": "{logName} 日志当前为空",
   "{nonLimited, plural, one {# service is not limited by quota. Update role to have quota enforced.} other {# services are not limited by quota. Update role to have quota enforced.}}": "{nonLimited, plural, one {# 服务不受配额限制。更新角色以执行配额。} other {# 组的服务不受配额限制。更新角色以执行配额。}}",
-  "{refreshRate} seconds": "",
+  "{refreshRate} seconds": "{refreshRate} 秒",
   "{runningInstances, plural, one {# instance running out of {instancesCount}} other {# instances running out of {instancesCount}}}": "{runningInstances, plural, one {# 实例将用完 {instancesCount}} other {# 实例将用完 {instancesCount}}}",
   "{runningInstances} {0} running out of {instancesCount}": "{runningInstances} {0} 将用完 {instancesCount}",
   "{watching} out of {totalFound}": "{watching} 用完 {totalFound}"
