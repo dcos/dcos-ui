@@ -1,46 +1,6 @@
 describe("ValidatorUtil", () => {
   const ValidatorUtil = require("../ValidatorUtil");
 
-  describe("#isCallable", function() {
-    describe("with a function", function() {
-      it("returns true", function() {
-        expect(ValidatorUtil.isCallable(function() {})).toBe(true);
-      });
-    });
-
-    describe("with a callable object", function() {
-      it("returns true", function() {
-        const callable = {
-          call() {}
-        };
-
-        expect(ValidatorUtil.isCallable(callable)).toBe(true);
-      });
-    });
-
-    describe("with an instance of a callable class", function() {
-      it("returns true", function() {
-        class Callable {
-          call() {}
-        }
-
-        expect(ValidatorUtil.isCallable(new Callable())).toBe(true);
-      });
-    });
-
-    describe("with a scalar value", function() {
-      it("returns false", function() {
-        expect(ValidatorUtil.isCallable("string")).toBe(false);
-      });
-    });
-
-    describe("with a null value", function() {
-      it("returns false", function() {
-        expect(ValidatorUtil.isCallable(null)).toBe(false);
-      });
-    });
-  });
-
   describe("#isDefined", () => {
     it("handles empty strings", () => {
       expect(ValidatorUtil.isDefined("")).toBe(false);
@@ -61,66 +21,6 @@ describe("ValidatorUtil", () => {
       expect(ValidatorUtil.isDefined(1)).toBe(true);
       expect(ValidatorUtil.isDefined({})).toBe(true);
       expect(ValidatorUtil.isDefined([])).toBe(true);
-    });
-  });
-
-  describe("#isEmail", function() {
-    // RFC822 email address validator
-    // http://sphinx.mythic-beasts.com/~pdw/cgi-bin/emailvalidate?address=
-
-    it("has at least an username, an @ and one period", function() {
-      expect(ValidatorUtil.isEmail("user@foo.bar")).toBe(true);
-      expect(ValidatorUtil.isEmail("Abc.123@example.com")).toBe(true);
-      expect(ValidatorUtil.isEmail("!#$%&'*+-/=?^_`.{|}~@example.com")).toBe(
-        true
-      );
-      expect(ValidatorUtil.isEmail('"Abc@def"@example.com')).toBe(true);
-      expect(
-        ValidatorUtil.isEmail("user+mailbox/department=shipping@example.com")
-      ).toBe(true);
-      expect(ValidatorUtil.isEmail('"Joe.\\Blow"@example.com')).toBe(true);
-    });
-
-    it("has an @", function() {
-      expect(ValidatorUtil.isEmail("foobar")).toBe(false);
-      expect(ValidatorUtil.isEmail("userfoo.bar")).toBe(false);
-    });
-
-    it("has an username", function() {
-      expect(ValidatorUtil.isEmail("@foo.bar")).toBe(false);
-      expect(ValidatorUtil.isEmail("user@foo.bar")).toBe(true);
-    });
-
-    it("has at least one period after @", function() {
-      expect(ValidatorUtil.isEmail("user@foobar")).toBe(false);
-      expect(ValidatorUtil.isEmail("Abc.123@examplecom")).toBe(false);
-      expect(ValidatorUtil.isEmail("user@foo.bar")).toBe(true);
-      expect(ValidatorUtil.isEmail("user@baz.foo.bar")).toBe(true);
-    });
-
-    it("treats IDN emails as valid", function() {
-      expect(ValidatorUtil.isEmail("伊昭傑@郵件.商務")).toBe(true);
-      expect(ValidatorUtil.isEmail("θσερ@εχαμπλε.ψομ")).toBe(true);
-      expect(ValidatorUtil.isEmail("test@könig.de")).toBe(true);
-      expect(ValidatorUtil.isEmail("伊昭傑郵件.商務")).toBe(false);
-      expect(ValidatorUtil.isEmail("θσερ@εχαμπλεψομ")).toBe(false);
-      expect(ValidatorUtil.isEmail("@könig.de")).toBe(false);
-    });
-
-    it("treats long unknown TLDs as valid", function() {
-      expect(ValidatorUtil.isEmail("user@foobar.hamburg")).toBe(true);
-      expect(ValidatorUtil.isEmail("user@foobar.københavn")).toBe(true);
-      expect(
-        ValidatorUtil.isEmail(
-          "test@asdf.com.asd.fasd.f.asdf.asd.fa.xn--sdf-x68do18h"
-        )
-      ).toBe(true);
-    });
-
-    it("doesn't have whitespaces", function() {
-      expect(ValidatorUtil.isEmail('"Fred Bloggs"@example.com')).toBe(false);
-      expect(ValidatorUtil.isEmail("user@f o o.om")).toBe(false);
-      expect(ValidatorUtil.isEmail("  user  @foo.com")).toBe(false);
     });
   });
 
