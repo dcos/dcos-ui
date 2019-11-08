@@ -1,19 +1,6 @@
 var ValidatorUtil = {
-  isCallable(value) {
-    return Boolean(value && typeof value.call === "function");
-  },
-
   isDefined(value) {
     return (value != null && value !== "") || typeof value === "number";
-  },
-
-  isEmail(email) {
-    return (
-      email != null &&
-      email.length > 0 &&
-      !/\s/.test(email) &&
-      /.+@.+\..+/.test(email)
-    );
   },
 
   isEmpty(data) {
