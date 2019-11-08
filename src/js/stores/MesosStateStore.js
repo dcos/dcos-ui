@@ -24,7 +24,6 @@ import {
   MESOS_STATE_REQUEST_ERROR
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
-import pipe from "../utils/pipe";
 import { linearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
 import { MesosMasterRequestType } from "../core/MesosMasterRequest";
@@ -34,6 +33,9 @@ import * as mesosStreamParsers from "./MesosStream/parsers";
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = ["onStreamData", "onStreamError"];
+
+const pipe = callables => (state, ...rest) =>
+  callables.reduce((acc, c) => c.call(c, acc, ...rest), state);
 
 class MesosStateStore extends GetSetBaseStore {
   constructor(...args) {
@@ -96,7 +98,7 @@ class MesosStateStore extends GetSetBaseStore {
       })
     );
 
-    const parsers = pipe(...Object.values(mesosStreamParsers));
+    const parsers = pipe(Object.values(mesosStreamParsers));
     const data$ = mesos$.pipe(
       distinctUntilChanged(),
       map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
