@@ -8,8 +8,6 @@
   "(Optional. Default: 60): Number of seconds to wait between health checks.": "（可选。默认值：60）：运行状况检查之间等待的秒数。",
   "(Role: <0>{0}</0>)": "（角色： <0>{0}</0>）",
   "(Role: {0})": "（角色： {0}）",
-  "(Show less)": "（显示较少）",
-  "(Show more)": "（显示更多）",
   "({priorityStatusCount} of {totalCount})": "({priorityStatusCount}/{totalCount})",
   "<0/> Download": "<0/> 下载",
   "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes.": "<0>重要信息：</0> 因为遥测被禁用，您必须手动通知用户 ACL 的更改。",

@@ -8,8 +8,6 @@
   "(Optional. Default: 60): Number of seconds to wait between health checks.": "",
   "(Role: <0>{0}</0>)": "",
   "(Role: {0})": "",
-  "(Show less)": "",
-  "(Show more)": "",
   "({priorityStatusCount} of {totalCount})": "",
   "<0/> Download": "",
   "<0>Important:</0> Because telemetry is disabled you must manually notify users of ACL changes.": "",

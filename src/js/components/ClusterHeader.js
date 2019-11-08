@@ -1,4 +1,3 @@
-import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import * as React from "react";
 import mixin from "reactjs-mixin";
@@ -14,8 +13,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import ClusterDropdown from "./ClusterDropdown";
 
-const METHODS_TO_BIND = ["handleItemSelect", "handleTextCopy"];
-
 MountService.MountService.registerComponent(
   ClusterDropdown,
   "Header:ClusterDropdown"
@@ -25,33 +22,15 @@ export default class ClusterHeader extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
-    this.state = {
-      isTextCopied: false
-    };
-
     this.store_listeners = [
-      {
-        name: "metadata",
-        events: ["success"],
-        listenAlways: false
-      },
-      {
-        name: "summary",
-        events: ["success"],
-        listenAlways: false
-      }
+      { name: "metadata", events: ["success"], listenAlways: false },
+      { name: "summary", events: ["success"], listenAlways: false }
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getClusterName() {
-    const states = MesosSummaryStore.get("states");
-    const clusterName = states.getClusterName();
-
-    return clusterName || <Trans render="span">Cluster</Trans>;
+    const name = MesosSummaryStore.get("states").getClusterName();
+    return name || <Trans render="span">Cluster</Trans>;
   }
 
   getPublicIP() {
@@ -66,18 +45,6 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     }
 
     return metadata.PUBLIC_IPV4;
-  }
-
-  handleTextCopy() {
-    this.setState({ isTextCopied: true });
-  }
-
-  handleItemSelect() {
-    this.setState({ isTextCopied: false });
-  }
-
-  getCopyStatusText() {
-    return this.state.isTextCopied ? i18nMark("Copied!") : i18nMark("Copy");
   }
 
   getMenuItems() {
@@ -97,18 +64,16 @@ export default class ClusterHeader extends mixin(StoreMixin) {
           <ClipboardTrigger
             className="dropdown-menu-item-padding-surrogate clickable"
             copyText={publicIP}
-            onTextCopy={this.handleTextCopy}
           >
             {publicIP}
             <Trans
-              id={this.getCopyStatusText()}
+              id="Copy"
               render="span"
               className="user-account-dropdown-menu-copy-text"
             />
           </ClipboardTrigger>
         ),
-        id: "public-ip",
-        onClick: this.handleItemSelect
+        id: "public-ip"
       },
       {
         html: <Trans render="span">Overview</Trans>,
