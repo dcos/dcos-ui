@@ -3,7 +3,6 @@ import React from "react";
 /* eslint-enable no-unused-vars */
 
 import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
-import ExecutorTypes from "#SRC/js/constants/ExecutorTypes";
 import Node from "#SRC/js/structs/Node";
 import Util from "#SRC/js/utils/Util";
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -186,7 +185,7 @@ const TaskUtil = {
           // Use the executor task path construct if it's a "pod" / TaskGroup
           // executor (type: DEFAULT), otherwise fallback to the default
           // app/framework behavior.
-          if (executor.type === ExecutorTypes.DEFAULT) {
+          if (executor.type === "DEFAULT") {
             // For a detail documentation on how to construct the task path
             // please see: https://reviews.apache.org/r/52376/
             taskPath = `${executor.directory}/tasks/${taskID}/${path}`;

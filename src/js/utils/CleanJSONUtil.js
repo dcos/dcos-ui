@@ -1,22 +1,55 @@
-import JobConfig from "../constants/JobConfig";
-import ServiceSpecConstants from "../../../plugins/services/src/js/constants/ServiceSpecConstants";
+export const cleanJobJSON = spec =>
+  cleanJSON(spec, ["activeRuns", "history", "historySummary"]);
 
-export function cleanJobJSON(jsonSpec) {
-  return cleanJSON(jsonSpec, JobConfig);
-}
+/*
+ *  List of service `_itemData` keys that don't belong to a service spec
+ *  as the data is either describing the service state or from sources
+ *  other than Marathon.
+ *
+ * @type {array.<string>}
+ */
+export const cleanServiceJSON = spec =>
+  cleanJSON(spec, [
+    "uris",
+    "ports",
+    "version",
+    "versions",
+    "versionInfo",
+    "deployments",
+    "queue",
+    "lastTaskFailure",
+    "tasks",
+    "taskStats",
+    "tasksHealthy",
+    "tasksRunning",
+    "tasksStaged",
+    "tasksUnhealthy",
+    "name",
+    "pid",
+    "used_resources",
+    "offered_resources",
+    "capabilities",
+    "hostname",
+    "webui_url",
+    "active",
+    "TASK_STAGING",
+    "TASK_STARTING",
+    "TASK_RUNNING",
+    "TASK_KILLING",
+    "TASK_FINISHED",
+    "TASK_KILLED",
+    "TASK_FAILED",
+    "TASK_LOST",
+    "TASK_ERROR",
+    "slave_ids",
+    "volumes"
+  ]);
 
-export function cleanServiceJSON(jsonDefinition) {
-  return cleanJSON(jsonDefinition, ServiceSpecConstants);
-}
-
-function cleanJSON(json, config) {
+function cleanJSON(json, blacklist) {
   return Object.keys(json)
-    .filter(function(key) {
-      return !config.BLACKLIST.includes(key);
-    })
-    .reduce(function(memo, key) {
+    .filter(key => !blacklist.includes(key))
+    .reduce((memo, key) => {
       memo[key] = json[key];
-
       return memo;
     }, {});
 }
