@@ -193,6 +193,7 @@ class ServicesContainer extends React.Component {
         this.forceUpdate();
       }
     });
+    this.onStoreChange();
   }
 
   componentDidMount() {
