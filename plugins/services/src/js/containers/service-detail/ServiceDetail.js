@@ -37,8 +37,8 @@ const METHODS_TO_BIND = [
 ];
 
 class ServiceDetail extends mixin(TabsMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.tabs_tabs = {
       "/services/overview/:id/tasks": i18nMark("Tasks"),

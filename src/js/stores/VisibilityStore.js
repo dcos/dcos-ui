@@ -37,8 +37,8 @@ const Visibility = (() => {
 })();
 
 class VisibilityStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       isTabVisible: true,

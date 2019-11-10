@@ -16,8 +16,8 @@ const METHODS_TO_BIND = ["handleApply", "handleChange"];
  * This component synchronizes
  */
 class DSLFormDropdownPanel extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       expression: this.props.expression

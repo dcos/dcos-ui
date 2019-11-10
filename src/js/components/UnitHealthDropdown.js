@@ -13,8 +13,8 @@ const DEFAULT_ITEM = {
 };
 
 class UnitHealthDropdown extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this.state = { dropdownItems: this.getDropdownItems() };
   }
 

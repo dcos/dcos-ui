@@ -21,8 +21,8 @@ const ACTION_DISPLAY_NAMES_CONTINUOUS = {
 };
 
 class KillPodInstanceModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorMsg: null

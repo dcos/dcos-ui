@@ -14,8 +14,8 @@ const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
 class ManualBreadcrumbs extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       availableWidth: null,

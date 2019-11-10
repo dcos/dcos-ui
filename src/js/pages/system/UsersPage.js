@@ -35,8 +35,8 @@ const UsersBreadcrumbs = () => {
 };
 
 class UsersPage extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = Hooks.applyFilter("usersPageStoreListeners", [
       { name: "users", events: ["success", "error"], suppressUpdate: true }

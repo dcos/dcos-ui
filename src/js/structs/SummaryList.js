@@ -8,8 +8,8 @@ class SummaryList extends List {
     this.maxLength = options.maxLength || null;
   }
 
-  add() {
-    super.add(...arguments);
+  add(...args) {
+    super.add(...args);
 
     if (this.maxLength && this.list.length > this.maxLength) {
       this.list.shift();

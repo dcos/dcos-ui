@@ -12,8 +12,8 @@ import PodVolumeDetail from "./PodVolumeDetail";
 const METHODS_TO_BIND = ["onStoreChange"];
 
 class PodVolumeContainer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       isLoading: !DCOSStore.serviceDataReceived,

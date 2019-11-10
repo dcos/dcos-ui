@@ -86,9 +86,9 @@ const SystemLogUtil = {
     let timeoutID;
     let accumulatedData = [];
 
-    return function() {
+    return function(...args) {
       // Gather data for each call
-      accumulatedData.push(arguments);
+      accumulatedData.push(args);
 
       if (!timeoutID) {
         const context = this;

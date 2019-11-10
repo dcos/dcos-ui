@@ -157,7 +157,7 @@ const TabsMixin = {
    *
    * @return {Component} the result of the appropriate render function
    */
-  tabs_getTabView() {
+  tabs_getTabView(...args) {
     // Replace spaces in the currentTab string because we are calling the string
     // as a function on the component, and functions cannot have spaces.
     const currentTab = this.tabs_tabs[this.state.currentTab].replace(" ", "");
@@ -167,7 +167,7 @@ const TabsMixin = {
       return null;
     }
 
-    return renderFunction.apply(this, arguments);
+    return renderFunction.apply(this, args);
   },
 
   tabs_handleTabClick(nextTab) {

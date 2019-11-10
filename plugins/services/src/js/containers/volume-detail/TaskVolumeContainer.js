@@ -13,8 +13,8 @@ import VolumeDetail from "./VolumeDetail";
 const METHODS_TO_BIND = ["onStoreChange"];
 
 class TaskVolumeContainer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       isLoading: !DCOSStore.serviceDataReceived,

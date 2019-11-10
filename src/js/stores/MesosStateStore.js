@@ -36,8 +36,8 @@ const MAX_RETRY_DELAY = 5000;
 const METHODS_TO_BIND = ["onStreamData", "onStreamError"];
 
 class MesosStateStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.ready = new Promise(resolve => {
       this.resolve = resolve;

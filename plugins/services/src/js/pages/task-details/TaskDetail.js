@@ -46,8 +46,8 @@ const HIDE_BREADCRUMBS = [
 );
 
 class TaskDetail extends mixin(TabsMixin, StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.tabs_tabs = {};
 
@@ -127,8 +127,8 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
     this.store_removeEventListenerForStoreID("summary", "success");
   }
 
@@ -257,11 +257,11 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
-  tabs_handleTabClick() {
+  tabs_handleTabClick(...args) {
     this.setState({ selectedLogFile: null });
 
     // Only call super after we are done removing/adding listeners
-    super.tabs_handleTabClick(...arguments);
+    super.tabs_handleTabClick(...args);
   }
 
   getNotFound(item, itemID) {

@@ -41,8 +41,8 @@ function getLogParameters(task, options) {
 }
 
 class TaskSystemLogsContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       direction: APPEND,

@@ -27,8 +27,8 @@ import UserSettingsStore from "../stores/UserSettingsStore";
 import Util from "../utils/Util";
 
 class SidebarStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

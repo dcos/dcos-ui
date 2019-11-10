@@ -17,8 +17,8 @@ import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil
 const METHODS_TO_BIND = ["handleConfirmation", "handleInstancesFieldChange"];
 
 class ServiceResumeModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       instancesFieldValue: 1,

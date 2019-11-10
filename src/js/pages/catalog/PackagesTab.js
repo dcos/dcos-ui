@@ -132,8 +132,8 @@ class PackagesTab extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
     CosmosPackagesStore.fetchAvailablePackages();
   }
 

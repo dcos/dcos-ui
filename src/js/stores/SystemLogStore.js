@@ -27,8 +27,8 @@ import DateUtil from "../utils/DateUtil";
 const { msToLogTime } = DateUtil;
 
 class SystemLogStore extends BaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.logs = {};
 

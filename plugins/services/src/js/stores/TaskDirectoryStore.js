@@ -41,8 +41,8 @@ function startPolling(task, innerPath) {
 }
 
 class TaskDirectoryStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       directory: null,

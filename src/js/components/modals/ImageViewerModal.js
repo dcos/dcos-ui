@@ -15,8 +15,8 @@ import { keyCodes } from "../../utils/KeyboardUtil";
 const METHODS_TO_BIND = ["handleClick", "handleKeyPress"];
 
 class ImageViewerModal extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = { isLoadingImage: false };
 

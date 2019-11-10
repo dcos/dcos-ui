@@ -60,8 +60,8 @@ const METHODS_TO_BIND = [
 ];
 
 class UnitsHealthDetail extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {

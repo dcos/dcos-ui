@@ -14,8 +14,8 @@ import TaskFileViewer from "./TaskFileViewer";
 import TaskSystemLogsContainer from "./TaskSystemLogsContainer";
 
 class TaskLogsContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this.state = {
       isLoading: true
     };

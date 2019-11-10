@@ -123,8 +123,8 @@ function poll() {
 }
 
 class MarathonStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       apps: {},
@@ -338,64 +338,64 @@ class MarathonStore extends GetSetBaseStore {
     );
   }
 
-  changeService() {
-    return MarathonActions.changeService(...arguments);
+  changeService(...args) {
+    return MarathonActions.changeService(...args);
   }
 
-  createGroup() {
-    return MarathonActions.createGroup(...arguments);
+  createGroup(...args) {
+    return MarathonActions.createGroup(...args);
   }
 
-  deleteGroup() {
-    return MarathonActions.deleteGroup(...arguments);
+  deleteGroup(...args) {
+    return MarathonActions.deleteGroup(...args);
   }
 
-  editGroup() {
-    return MarathonActions.editGroup(...arguments);
+  editGroup(...args) {
+    return MarathonActions.editGroup(...args);
   }
 
-  createService() {
-    return MarathonActions.createService(...arguments);
+  createService(...args) {
+    return MarathonActions.createService(...args);
   }
 
-  deleteService() {
-    return MarathonActions.deleteService(...arguments);
+  deleteService(...args) {
+    return MarathonActions.deleteService(...args);
   }
 
-  editService() {
-    return MarathonActions.editService(...arguments);
+  editService(...args) {
+    return MarathonActions.editService(...args);
   }
 
-  resetDelayedService() {
-    return MarathonActions.resetDelayedService(...arguments);
+  resetDelayedService(...args) {
+    return MarathonActions.resetDelayedService(...args);
   }
 
-  restartService() {
-    return MarathonActions.restartService(...arguments);
+  restartService(...args) {
+    return MarathonActions.restartService(...args);
   }
 
-  fetchQueue() {
-    return MarathonActions.fetchQueue(...arguments);
+  fetchQueue(...args) {
+    return MarathonActions.fetchQueue(...args);
   }
 
-  fetchServiceVersion() {
-    return MarathonActions.fetchServiceVersion(...arguments);
+  fetchServiceVersion(...args) {
+    return MarathonActions.fetchServiceVersion(...args);
   }
 
-  fetchServiceVersions() {
-    return MarathonActions.fetchServiceVersions(...arguments);
+  fetchServiceVersions(...args) {
+    return MarathonActions.fetchServiceVersions(...args);
   }
 
-  fetchMarathonInstanceInfo() {
-    return MarathonActions.fetchMarathonInstanceInfo(...arguments);
+  fetchMarathonInstanceInfo(...args) {
+    return MarathonActions.fetchMarathonInstanceInfo(...args);
   }
 
-  killPodInstances() {
-    return MarathonActions.killPodInstances(...arguments);
+  killPodInstances(...args) {
+    return MarathonActions.killPodInstances(...args);
   }
 
-  killTasks() {
-    return MarathonActions.killTasks(...arguments);
+  killTasks(...args) {
+    return MarathonActions.killTasks(...args);
   }
 
   hasProcessedApps() {

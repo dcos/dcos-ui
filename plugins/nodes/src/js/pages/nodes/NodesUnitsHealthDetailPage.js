@@ -10,8 +10,8 @@ import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 
 class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {
@@ -21,8 +21,8 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
     ];
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
     const { unitID, unitNodeID } = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);

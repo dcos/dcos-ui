@@ -53,8 +53,8 @@ function stopPolling() {
 }
 
 class NodeHealthStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       nodes: [],
@@ -175,20 +175,20 @@ class NodeHealthStore extends GetSetBaseStore {
     return new HealthUnit(this.get("unitsByID")[unitID] || []);
   }
 
-  fetchNodes() {
-    return NodeHealthActions.fetchNodes(...arguments);
+  fetchNodes(...args) {
+    return NodeHealthActions.fetchNodes(...args);
   }
 
-  fetchNode() {
-    return NodeHealthActions.fetchNode(...arguments);
+  fetchNode(...args) {
+    return NodeHealthActions.fetchNode(...args);
   }
 
-  fetchNodeUnits() {
-    return NodeHealthActions.fetchNodeUnits(...arguments);
+  fetchNodeUnits(...args) {
+    return NodeHealthActions.fetchNodeUnits(...args);
   }
 
-  fetchNodeUnit() {
-    return NodeHealthActions.fetchNodeUnit(...arguments);
+  fetchNodeUnit(...args) {
+    return NodeHealthActions.fetchNodeUnit(...args);
   }
 
   processNodes(nodes) {

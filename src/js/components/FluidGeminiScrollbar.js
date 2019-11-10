@@ -34,8 +34,8 @@ let componentMountCount = 0;
 let styleElement = null;
 
 class FluidGeminiScrollbar extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.geminiRef = null;
   }

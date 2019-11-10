@@ -18,8 +18,8 @@ const METHODS_TO_BIND = [
  * filtering function when there is a change.
  */
 class DSLFilterField extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       dropdownVisible: false

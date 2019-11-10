@@ -849,8 +849,8 @@ var SearchDSL = (() => {
 if (typeof require !== "undefined" && typeof exports !== "undefined") {
   exports.parser = SearchDSL;
   exports.Parser = SearchDSL.Parser;
-  exports.parse = function() {
-    return SearchDSL.parse.apply(SearchDSL, arguments);
+  exports.parse = function(...args) {
+    return SearchDSL.parse.apply(SearchDSL, args);
   };
   exports.main = function commonjsMain(args) {
     if (!args[1]) {

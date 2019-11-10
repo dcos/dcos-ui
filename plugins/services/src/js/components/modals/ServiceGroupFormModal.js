@@ -10,8 +10,8 @@ import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 const METHODS_TO_BIND = ["handleNewGroupSubmit"];
 
 class ServiceGroupFormModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

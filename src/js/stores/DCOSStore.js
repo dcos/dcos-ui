@@ -32,8 +32,8 @@ const METHODS_TO_BIND = [
 const EVENT_DEBOUNCE_TIME = 250;
 
 class DCOSStore extends EventEmitter {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

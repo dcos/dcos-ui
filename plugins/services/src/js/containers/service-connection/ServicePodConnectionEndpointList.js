@@ -18,8 +18,8 @@ import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
 class ServicePodConnectionEndpointList extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

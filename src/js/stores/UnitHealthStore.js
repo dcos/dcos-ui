@@ -52,8 +52,8 @@ function stopPolling() {
 }
 
 class UnitHealthStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       units: [],
@@ -179,20 +179,20 @@ class UnitHealthStore extends GetSetBaseStore {
     return `${Config.rootUrl}${Config.unitHealthAPIPrefix}/report/download`;
   }
 
-  fetchUnits() {
-    return UnitHealthActions.fetchUnits(...arguments);
+  fetchUnits(...args) {
+    return UnitHealthActions.fetchUnits(...args);
   }
 
-  fetchUnit() {
-    return UnitHealthActions.fetchUnit(...arguments);
+  fetchUnit(...args) {
+    return UnitHealthActions.fetchUnit(...args);
   }
 
-  fetchUnitNodes() {
-    return UnitHealthActions.fetchUnitNodes(...arguments);
+  fetchUnitNodes(...args) {
+    return UnitHealthActions.fetchUnitNodes(...args);
   }
 
-  fetchUnitNode() {
-    return UnitHealthActions.fetchUnitNode(...arguments);
+  fetchUnitNode(...args) {
+    return UnitHealthActions.fetchUnitNode(...args);
   }
 
   processUnits(units) {

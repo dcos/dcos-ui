@@ -19,8 +19,8 @@ import CookieUtils from "../utils/CookieUtils";
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class AuthStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -70,12 +70,12 @@ class AuthStore extends GetSetBaseStore {
     this.removeListener(eventName, callback);
   }
 
-  login() {
-    AuthActions.login(...arguments);
+  login(...args) {
+    AuthActions.login(...args);
   }
 
-  logout() {
-    AuthActions.logout(...arguments);
+  logout(...args) {
+    AuthActions.logout(...args);
   }
 
   isLoggedIn() {

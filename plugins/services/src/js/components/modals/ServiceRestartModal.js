@@ -12,8 +12,8 @@ import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceRestartModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorMsg: null

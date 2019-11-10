@@ -56,8 +56,8 @@ const METHODS_TO_BIND = [
 ];
 
 class PodInstancesTable extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       checkedItems: {}

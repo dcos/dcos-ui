@@ -8,8 +8,8 @@ import StringUtil from "../utils/StringUtil";
 const METHODS_TO_BIND = ["handleReset"];
 
 class FilterHeadline extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

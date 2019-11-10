@@ -19,8 +19,8 @@ import DeploymentsModal from "./DeploymentsModal";
 const METHODS_TO_BIND = ["handleDeploymentsButtonClick", "handleModalClose"];
 
 class DeploymentStatusIndicator extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {

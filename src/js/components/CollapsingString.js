@@ -8,8 +8,8 @@ import DOMUtils from "../utils/DOMUtils";
 const METHODS_TO_BIND = ["updateDimensions"];
 
 class CollapsingString extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       collapsed: false,

@@ -59,8 +59,8 @@ const containerRuntimes = {
 };
 
 class GeneralServiceFormSection extends Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = { convertToPodModalOpen: false };
 

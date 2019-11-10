@@ -25,8 +25,8 @@ import JobDelete from "../JobDelete";
 import jobsMenu from "../jobsMenu";
 
 class JobDetailPage extends mixin(TabsMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
 
     this.tabs_tabs = {

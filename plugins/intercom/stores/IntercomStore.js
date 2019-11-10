@@ -21,8 +21,8 @@ const METHODS_TO_BIND = [
   "onClusterCCIDSuccess"
 ];
 class IntercomStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

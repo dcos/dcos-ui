@@ -22,8 +22,8 @@ const METHODS_TO_BIND = [
 ];
 
 class MesosLogContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       direction: APPEND,
@@ -47,8 +47,8 @@ class MesosLogContainer extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
     const { filePath, task } = this.props;
     if (!filePath) {
       return;
@@ -80,8 +80,8 @@ class MesosLogContainer extends mixin(StoreMixin) {
     }
   }
 
-  componentWillUnmount() {
-    super.componentWillUnmount(...arguments);
+  componentWillUnmount(...args) {
+    super.componentWillUnmount(...args);
     MesosLogStore.stopTailing(this.props.filePath, true);
   }
 

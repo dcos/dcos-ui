@@ -38,8 +38,8 @@ function fetchVersion(service, versionID) {
 }
 
 class ServiceConfiguration extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       selectedVersionID: null

@@ -6,8 +6,8 @@ import ReactDOM from "react-dom";
 const METHODS_TO_BIND = ["onImageError"];
 
 class Image extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       imageErrorCount: 0

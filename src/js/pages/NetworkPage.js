@@ -37,8 +37,8 @@ const NetworkingBreadcrumbs = () => {
 };
 
 class NetworkPage extends mixin(TabsMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this.state = {};
   }
 

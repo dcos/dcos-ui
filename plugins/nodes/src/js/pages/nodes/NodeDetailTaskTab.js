@@ -10,8 +10,8 @@ import TasksContainer from "../../../../../services/src/js/containers/tasks/Task
 const METHODS_TO_BIND = ["onStoreChange"];
 
 class NodeDetailTaskTab extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       isLoading: true,

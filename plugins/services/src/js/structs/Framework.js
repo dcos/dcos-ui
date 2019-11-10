@@ -23,8 +23,8 @@ const getHighestPriorityStatus = tasks => {
 };
 
 module.exports = class Framework extends Application {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // The variable is prefixed because `Item` will expose all the properties
     // it gets as a properties of this object and we want to avoid any naming

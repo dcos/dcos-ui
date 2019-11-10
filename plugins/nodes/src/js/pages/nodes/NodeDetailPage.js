@@ -21,8 +21,8 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 
 class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       { name: "summary", events: ["success"], suppressUpdate: true },

@@ -84,8 +84,8 @@ const METHODS_TO_BIND = [
 ];
 
 class PackageDetailTab extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       hasError: 0,
@@ -144,8 +144,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
 
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
     this.retrievePackageInfo(

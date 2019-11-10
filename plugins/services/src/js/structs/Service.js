@@ -9,8 +9,8 @@ import ServiceSpec from "./ServiceSpec";
 import VolumeList from "./VolumeList";
 
 module.exports = class Service extends Item {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this._regions = undefined;
   }
   getId() {

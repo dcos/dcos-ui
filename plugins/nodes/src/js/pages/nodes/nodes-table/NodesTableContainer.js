@@ -18,8 +18,8 @@ import NodeMaintenanceActions from "#PLUGINS/nodes/src/js/actions/NodeMaintenanc
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class NodesTableContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       filteredNodes: null,
