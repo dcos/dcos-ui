@@ -5,32 +5,32 @@ const ChartStripes = require("../ChartStripes");
 
 let thisInstance;
 
-describe("ChartStripes", function() {
-  beforeEach(function() {
+describe("ChartStripes", () => {
+  beforeEach(() => {
     thisInstance = shallow(<ChartStripes count={6} height={10} width={300} />);
   });
 
-  it("displays the correct number of stripes", function() {
+  it("displays the correct number of stripes", () => {
     expect(thisInstance.find(".background").length).toEqual(6);
   });
 
-  it("has correct width on each stripe", function() {
+  it("has correct width on each stripe", () => {
     const stripes = thisInstance.find(".background");
 
-    stripes.forEach(function(stripe) {
+    stripes.forEach(stripe => {
       expect(parseInt(stripe.props().width, 10)).toEqual(25);
     });
   });
 
-  it("has correct x value on each stripe", function() {
+  it("has correct x value on each stripe", () => {
     const stripes = thisInstance.find(".background");
 
-    stripes.forEach(function(stripe, i) {
+    stripes.forEach((stripe, i) => {
       expect(parseInt(stripe.props().x, 10)).toEqual(25 + i * 50);
     });
   });
 
-  it("updates to parameter change accordingly", function() {
+  it("updates to parameter change accordingly", () => {
     let stripes = thisInstance.find(".background");
     expect(stripes.length).toEqual(6);
 
@@ -39,11 +39,11 @@ describe("ChartStripes", function() {
     stripes = thisInstance.find(".background");
     expect(stripes.length).toEqual(5);
 
-    stripes.forEach(function(stripe) {
+    stripes.forEach(stripe => {
       expect(parseInt(stripe.props().width, 10)).toEqual(30);
     });
 
-    stripes.forEach(function(stripe, i) {
+    stripes.forEach((stripe, i) => {
       expect(parseInt(stripe.props().x, 10)).toEqual(30 + i * 60);
     });
   });

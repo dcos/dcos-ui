@@ -26,20 +26,20 @@ function masterMessage() {
   };
 }
 
-describe("#getMaster", function() {
-  it("flattens elected_time", function() {
+describe("#getMaster", () => {
+  it("flattens elected_time", () => {
     const newState = getMaster({}, masterMessage());
 
     expect(newState.master_info.elected_time).toBe(1532340694.04573);
   });
 
-  it("flattens start_time", function() {
+  it("flattens start_time", () => {
     const newState = getMaster({}, masterMessage());
 
     expect(newState.master_info.start_time).toBe(1532339115.87122);
   });
 
-  it("flattens copies the full master info", function() {
+  it("flattens copies the full master info", () => {
     const newState = getMaster({}, masterMessage());
 
     expect(newState.master_info).toEqual({
@@ -62,7 +62,7 @@ describe("#getMaster", function() {
     });
   });
 
-  it("ignores non master message", function() {
+  it("ignores non master message", () => {
     const message = masterMessage();
     message.type = "GET_NODES";
     const newState = getMaster({}, message);
@@ -70,14 +70,14 @@ describe("#getMaster", function() {
     expect(newState).toEqual({});
   });
 
-  it("preserves state", function() {
+  it("preserves state", () => {
     const message = masterMessage();
     const newState = getMaster({ something: "something" }, message);
 
     expect(newState.something).toEqual("something");
   });
 
-  it("copies state", function() {
+  it("copies state", () => {
     const message = masterMessage();
     const state = { something: "something" };
     const newState = getMaster(state, message);
@@ -87,7 +87,7 @@ describe("#getMaster", function() {
     expect(newState.something).toEqual("something");
   });
 
-  it("copies message", function() {
+  it("copies message", () => {
     const message = masterMessage();
     const newState = getMaster({}, message);
 

@@ -71,7 +71,7 @@ class PodDebugTabView extends React.Component {
       );
     }
 
-    return history.reduce(function(acc, item, index) {
+    return history.reduce((acc, item, index) => {
       let headline;
       const startedAt = item.getStartedAt();
       const terminatedAt = item.getTerminatedAt();

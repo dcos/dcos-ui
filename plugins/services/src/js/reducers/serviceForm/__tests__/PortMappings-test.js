@@ -7,9 +7,9 @@ const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const {
   type: { DOCKER }
 } = ContainerConstants;
-describe("#JSONParser", function() {
-  describe("PortMappings", function() {
-    it("adds portDefinition with details", function() {
+describe("#JSONParser", () => {
+  describe("PortMappings", () => {
+    it("adds portDefinition with details", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -36,7 +36,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("doesn't add existing, but update details", function() {
+    it("doesn't add existing, but update details", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -69,7 +69,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("adds Transaction for automaticPort and hostPort", function() {
+    it("adds Transaction for automaticPort and hostPort", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -90,7 +90,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("adds Transaction for loadBalanced ports", function() {
+    it("adds Transaction for loadBalanced ports", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -116,7 +116,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("adds loadBalanced for any vip-label", function() {
+    it("adds loadBalanced for any vip-label", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -142,7 +142,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("adds Transaction for protocol", function() {
+    it("adds Transaction for protocol", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -163,7 +163,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("merges info from portMappings and portDefinitions", function() {
+    it("merges info from portMappings and portDefinitions", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,
@@ -218,7 +218,7 @@ describe("#JSONParser", function() {
       ]);
     });
 
-    it("does not add more from portMappings when less than portDefinitions", function() {
+    it("does not add more from portMappings when less than portDefinitions", () => {
       expect(
         PortMappings.JSONParser({
           type: DOCKER,

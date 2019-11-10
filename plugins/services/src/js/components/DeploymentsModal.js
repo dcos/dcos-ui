@@ -146,13 +146,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
   getChildTableData(deployment) {
     return [
-      ...deployment.getAffectedServices().map(function(service) {
+      ...deployment.getAffectedServices().map(service => {
         service.deployment = deployment;
         service.isStale = false;
 
         return service;
       }),
-      ...deployment.getStaleServiceIds().map(function(serviceID) {
+      ...deployment.getStaleServiceIds().map(serviceID => {
         return {
           deployment,
           serviceID,
@@ -174,7 +174,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 
   getColumns() {
-    const sortFunction = TableUtil.getSortFunction("id", function(item, prop) {
+    const sortFunction = TableUtil.getSortFunction("id", (item, prop) => {
       return item[prop];
     });
 
@@ -212,7 +212,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
   getRollbackModalText(deploymentToRollback) {
     const serviceNames = deploymentToRollback
       .getAffectedServices()
-      .map(function(service) {
+      .map(service => {
         return StringUtil.capitalize(service.getName());
       });
     const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
@@ -285,7 +285,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const { children = [] } = deployment;
     const { i18n } = this.props;
 
-    const doesDeploymentContainSDKService = children.some(function(service) {
+    const doesDeploymentContainSDKService = children.some(service => {
       return ServiceUtil.isSDKService(service);
     });
 
@@ -479,15 +479,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
       item.deployment.currentActions &&
       item.deployment.currentActions.length > 0
     ) {
-      currentActions = item.deployment.currentActions.reduce(function(
-        memo,
-        action
-      ) {
+      currentActions = item.deployment.currentActions.reduce((memo, action) => {
         memo[action.app] = action.action;
 
         return memo;
-      },
-      {});
+      }, {});
     }
 
     let statusText = !item.isStale && item.getStatus ? item.getStatus() : null;

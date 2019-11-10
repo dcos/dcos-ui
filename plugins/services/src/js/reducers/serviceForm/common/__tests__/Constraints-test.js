@@ -5,9 +5,9 @@ const Batch = require("#SRC/js/structs/Batch");
 
 const Constraints = require("../Constraints");
 
-describe("Constraints", function() {
-  describe("#JSONReducer", function() {
-    it("add unique constraint", function() {
+describe("Constraints", () => {
+  describe("#JSONReducer", () => {
+    it("add unique constraint", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
@@ -23,7 +23,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("changes operator value from UNIQUE to CLUSTER", function() {
+    it("changes operator value from UNIQUE to CLUSTER", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
@@ -40,7 +40,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("adds error transaction if constraints are a list of objects", function() {
+    it("adds error transaction if constraints are a list of objects", () => {
       expect(
         Constraints.JSONParser({ fieldName: "hostname", operator: "UNIQUE" })
       ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
@@ -48,7 +48,7 @@ describe("Constraints", function() {
 
     // Top level JSONParser whould already have converted
     // ["hostname","UNIQUE"] => {filedName: "hostname", operator: "UNIQUE"}
-    it("adds error transaction when constraint is not passed as an array", function() {
+    it("adds error transaction when constraint is not passed as an array", () => {
       expect(Constraints.JSONParser([["hostname", "JOIN"]])).toEqual([
         new Transaction(
           ["constraints", 0, "value"],
@@ -58,13 +58,13 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("adds error transaction when constraint is an invalid item", function() {
+    it("adds error transaction when constraint is an invalid item", () => {
       expect(Constraints.JSONParser([1])).toEqual([
         new Transaction(["constraints", 0, "value"], "value-not-object", ERROR)
       ]);
     });
 
-    it("adds error transaction when item flagged as error", function() {
+    it("adds error transaction when item flagged as error", () => {
       expect(Constraints.JSONParser([new Error("value-is-malformed")])).toEqual(
         [
           new Transaction(

@@ -130,7 +130,7 @@ if (Config.useFixtures) {
       responses
     );
 
-    Object.keys(global.actionTypes.UnitHealthActions).forEach(function(method) {
+    Object.keys(global.actionTypes.UnitHealthActions).forEach(method => {
       UnitHealthActions[method] = RequestUtil.stubRequest(
         UnitHealthActions,
         "UnitHealthActions",

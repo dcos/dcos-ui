@@ -7,9 +7,9 @@ var TaskUtil = require("../../utils/TaskUtil");
 
 let thisMockItems;
 
-describe("TaskRegionFilter", function() {
-  beforeEach(function() {
-    TaskUtil.getNode = function(item) {
+describe("TaskRegionFilter", () => {
+  beforeEach(() => {
+    TaskUtil.getNode = item => {
       return item;
     };
     thisMockItems = [
@@ -26,7 +26,7 @@ describe("TaskRegionFilter", function() {
     ];
   });
 
-  it("keeps tasks with specific region mentioned", function() {
+  it("keeps tasks with specific region mentioned", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 

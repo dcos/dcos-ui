@@ -4,7 +4,7 @@ import React from "react";
 import { mount } from "enzyme";
 
 jest.mock("../../../utils/ScrollbarUtil");
-jest.mock("../../../components/Page", function() {
+jest.mock("../../../components/Page", () => {
   const Page = ({ children }) => <div>{children}</div>;
   Page.Header = ({ children }) => <div>{children}</div>;
 
@@ -30,20 +30,20 @@ let thisInstance,
   thisPackages,
   thisGetAvailablePackages,
   thisFetchAvailablePackages;
-describe("PackagesTab", function() {
-  beforeEach(function() {
+describe("PackagesTab", () => {
+  beforeEach(() => {
     thisInstance = mount(<PackagesTab />);
   });
 
-  describe("#handleDetailOpen", function() {
-    beforeEach(function() {
+  describe("#handleDetailOpen", () => {
+    beforeEach(() => {
       thisInstance.instance().handleDetailOpen = jasmine.createSpy(
         "handleDetailOpen"
       );
       jest.runAllTimers();
     });
 
-    it("calls handler when panel is clicked", function() {
+    it("calls handler when panel is clicked", () => {
       thisInstance.setState({ loading: false });
       thisInstance
         .find(".panel.clickable")
@@ -59,25 +59,25 @@ describe("PackagesTab", function() {
     });
   });
 
-  describe("#getPackageGrid", function() {
-    beforeEach(function() {
+  describe("#getPackageGrid", () => {
+    beforeEach(() => {
       thisCosmosPackagesStoreGetAvailablePackages =
         CosmosPackagesStore.getAvailablePackages;
       thisPackages = CosmosPackagesStore.getAvailablePackages();
     });
 
-    afterEach(function() {
+    afterEach(() => {
       CosmosPackagesStore.getAvailablePackages = thisCosmosPackagesStoreGetAvailablePackages;
     });
 
-    it("returns packages", function() {
+    it("returns packages", () => {
       expect(
         thisInstance.instance().getPackageGrid(thisPackages).length
       ).toEqual(97);
     });
 
-    it("doesn't return packages", function() {
-      CosmosPackagesStore.getAvailablePackages = function() {
+    it("doesn't return packages", () => {
+      CosmosPackagesStore.getAvailablePackages = () => {
         return new UniversePackagesList();
       };
 
@@ -88,8 +88,8 @@ describe("PackagesTab", function() {
     });
   });
 
-  describe("with empty state", function() {
-    beforeEach(function() {
+  describe("with empty state", () => {
+    beforeEach(() => {
       thisGetAvailablePackages = CosmosPackagesStore.getAvailablePackages;
       thisFetchAvailablePackages = CosmosPackagesStore.fetchAvailablePackages;
       CosmosPackagesStore.getAvailablePackages = () => {
@@ -98,12 +98,12 @@ describe("PackagesTab", function() {
       CosmosPackagesStore.fetchAvailablePackages = () => {};
     });
 
-    afterEach(function() {
+    afterEach(() => {
       CosmosPackagesStore.getAvailablePackages = thisGetAvailablePackages;
       CosmosPackagesStore.fetchAvailablePackages = thisFetchAvailablePackages;
     });
 
-    it("displays AlertPanel with action to Package Repositories", function() {
+    it("displays AlertPanel with action to Package Repositories", () => {
       thisInstance = renderer.create(<PackagesTab />);
       thisInstance.getInstance().onCosmosPackagesStoreAvailableSuccess();
 
@@ -112,8 +112,8 @@ describe("PackagesTab", function() {
     });
   });
 
-  describe("with packages on the list", function() {
-    it("displays the catalog with packages", function() {
+  describe("with packages on the list", () => {
+    it("displays the catalog with packages", () => {
       thisInstance = renderer.create(<PackagesTab />);
       thisInstance.getInstance().onCosmosPackagesStoreAvailableSuccess();
 

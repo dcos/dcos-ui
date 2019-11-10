@@ -30,20 +30,20 @@ const masters = [
   }
 ];
 
-describe("LeaderGrid", function() {
-  it("renders loading", function() {
+describe("LeaderGrid", () => {
+  it("renders loading", () => {
     expect(
       renderer.create(<NonLeadersGrid masters={undefined} />).toJSON()
     ).toMatchSnapshot();
   });
 
-  it("renders empty", function() {
+  it("renders empty", () => {
     expect(
       renderer.create(<NonLeadersGrid masters={[]} />).toJSON()
     ).toMatchSnapshot();
   });
 
-  it("renders masters", function() {
+  it("renders masters", () => {
     expect(
       renderer.create(<NonLeadersGrid masters={masters} />).toJSON()
     ).toMatchSnapshot();

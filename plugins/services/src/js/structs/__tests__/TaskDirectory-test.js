@@ -3,25 +3,25 @@ const TaskDirectory = require("../TaskDirectory");
 
 let thisDirectory;
 
-describe("TaskDirectory", function() {
-  beforeEach(function() {
+describe("TaskDirectory", () => {
+  beforeEach(() => {
     var items = [{ path: "/some/path/to/bar" }];
     thisDirectory = new TaskDirectory({ items });
   });
 
-  describe("#constructor", function() {
-    it("creates instances of DirectoryItem", function() {
+  describe("#constructor", () => {
+    it("creates instances of DirectoryItem", () => {
       var items = thisDirectory.getItems();
       expect(items[0] instanceof DirectoryItem).toBeTruthy();
     });
   });
 
-  describe("#findFile", function() {
-    it("returns undefined when item is not is list", function() {
+  describe("#findFile", () => {
+    it("returns undefined when item is not is list", () => {
       expect(thisDirectory.findFile("quis")).toEqual(undefined);
     });
 
-    it("returns the file when item is not is list", function() {
+    it("returns the file when item is not is list", () => {
       expect(thisDirectory.findFile("bar").get("path")).toEqual(
         "/some/path/to/bar"
       );

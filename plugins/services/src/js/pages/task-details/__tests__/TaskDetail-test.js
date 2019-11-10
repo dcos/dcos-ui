@@ -1,6 +1,6 @@
 jest.mock("#SRC/js/stores/MetadataStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
-jest.mock("#SRC/js/utils/RouterUtil", function() {
+jest.mock("#SRC/js/utils/RouterUtil", () => {
   return {
     reconstructPathFromRoutes: jest.fn()
   };
@@ -21,8 +21,8 @@ let thisStoreGetDirectory,
 
 let mockThis;
 
-describe("TaskDetail", function() {
-  beforeEach(function() {
+describe("TaskDetail", () => {
+  beforeEach(() => {
     // Store original versions
     thisStoreGetDirectory = TaskDirectoryStore.fetchDirectory;
     thisStoreSetPath = TaskDirectoryStore.setPath;
@@ -30,13 +30,13 @@ describe("TaskDetail", function() {
     thisStoreChangeListener = MesosStateStore.addChangeListener;
 
     // Create mock functions
-    MesosStateStore.get = function(key) {
+    MesosStateStore.get = key => {
       if (key === "lastMesosState") {
         return {};
       }
     };
-    MesosStateStore.addChangeListener = function() {};
-    MesosStateStore.getTaskFromTaskID = function() {
+    MesosStateStore.addChangeListener = () => {};
+    MesosStateStore.getTaskFromTaskID = () => {
       return new Task({
         id: "bar",
         state: "TASK_RUNNING"
@@ -61,7 +61,7 @@ describe("TaskDetail", function() {
     };
   });
 
-  afterEach(function() {
+  afterEach(() => {
     // Restore original functions
     MesosStateStore.get = thisStoreGet;
     MesosStateStore.addChangeListener = thisStoreChangeListener;
@@ -69,15 +69,15 @@ describe("TaskDetail", function() {
     TaskDirectoryStore.setPath = thisStoreSetPath;
   });
 
-  describe("#componentDidMount", function() {
-    it("calls fetchDirectory after onStateStoreSuccess is called", function() {
+  describe("#componentDidMount", () => {
+    it("calls fetchDirectory after onStateStoreSuccess is called", () => {
       TaskDetail.prototype.onStateStoreSuccess.call(mockThis);
       expect(mockThis.handleFetchDirectory).toHaveBeenCalled();
     });
   });
 
-  describe("#onTaskDirectoryStoreError", function() {
-    it("increments taskDirectoryErrorCount state", function() {
+  describe("#onTaskDirectoryStoreError", () => {
+    it("increments taskDirectoryErrorCount state", () => {
       mockThis.state = { taskDirectoryErrorCount: 1 };
       TaskDetail.prototype.onTaskDirectoryStoreError.call(mockThis);
       expect(mockThis.setState).toHaveBeenCalledWith({
@@ -86,8 +86,8 @@ describe("TaskDetail", function() {
     });
   });
 
-  describe("#onTaskDirectoryStoreSuccess", function() {
-    it("increments onTaskDirectoryStoreSuccess state", function() {
+  describe("#onTaskDirectoryStoreSuccess", () => {
+    it("increments onTaskDirectoryStoreSuccess state", () => {
       const directory = new TaskDirectory({
         items: [{ nlink: 1, path: "/stdout" }]
       });
@@ -107,15 +107,15 @@ describe("TaskDetail", function() {
     });
   });
 
-  describe("#handleFetchDirectory", function() {
-    it("calls TaskDirectoryStore.fetchDirectory", function() {
+  describe("#handleFetchDirectory", () => {
+    it("calls TaskDirectoryStore.fetchDirectory", () => {
       delete mockThis.handleFetchDirectory;
       TaskDetail.prototype.handleFetchDirectory.call(mockThis);
       expect(TaskDirectoryStore.fetchDirectory).toHaveBeenCalled();
     });
 
-    it("does not call TaskDirectoryStore.fetchDirectory", function() {
-      MesosStateStore.getTaskFromTaskID = function() {
+    it("does not call TaskDirectoryStore.fetchDirectory", () => {
+      MesosStateStore.getTaskFromTaskID = () => {
         return null;
       };
       TaskDetail.prototype.handleFetchDirectory.call(mockThis);
@@ -123,14 +123,14 @@ describe("TaskDetail", function() {
     });
   });
 
-  describe("#handleBreadcrumbClick", function() {
-    it("calls TaskDirectoryStore.setPath", function() {
+  describe("#handleBreadcrumbClick", () => {
+    it("calls TaskDirectoryStore.setPath", () => {
       TaskDetail.prototype.handleBreadcrumbClick.call(mockThis);
       expect(TaskDirectoryStore.setPath).toHaveBeenCalled();
     });
 
-    it("does not call TaskDirectoryStore.setPath", function() {
-      MesosStateStore.getTaskFromTaskID = function() {
+    it("does not call TaskDirectoryStore.setPath", () => {
+      MesosStateStore.getTaskFromTaskID = () => {
         return null;
       };
       TaskDetail.prototype.handleBreadcrumbClick.call(mockThis);
@@ -138,13 +138,13 @@ describe("TaskDetail", function() {
     });
   });
 
-  describe("#getSubView", function() {
-    it("calls getErrorScreen when error occurred", function() {
+  describe("#getSubView", () => {
+    it("calls getErrorScreen when error occurred", () => {
       const mockGetErrorScreen = jest.fn();
       TaskDetail.prototype.getSubView.call({
         ...mockThis,
         getErrorScreen: mockGetErrorScreen,
-        hasLoadingError: jest.fn(function() {
+        hasLoadingError: jest.fn(() => {
           return true;
         })
       });
@@ -152,12 +152,12 @@ describe("TaskDetail", function() {
       expect(mockGetErrorScreen).toHaveBeenCalled();
     });
 
-    it("ignores getErrorScreen when error has not occurred", function() {
+    it("ignores getErrorScreen when error has not occurred", () => {
       const mockGetErrorScreen = jest.fn();
       TaskDetail.prototype.getSubView.call({
         ...mockThis,
         getErrorScreen: mockGetErrorScreen,
-        hasLoadingError: jest.fn(function() {
+        hasLoadingError: jest.fn(() => {
           return false;
         })
       });
@@ -165,18 +165,18 @@ describe("TaskDetail", function() {
       expect(mockGetErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("returns loading indicator if there are no nodes", function() {
+    it("returns loading indicator if there are no nodes", () => {
       expect(
         TaskDetail.prototype.getSubView.call({
           ...mockThis,
-          getLoadingScreen: jest.fn(function() {
+          getLoadingScreen: jest.fn(() => {
             return "loading";
           })
         })
       ).toEqual("loading");
     });
 
-    it("returns an element if there is a node", function() {
+    it("returns an element if there is a node", () => {
       expect(
         TaskDetail.prototype.getSubView.call({
           ...mockThis,
@@ -189,16 +189,16 @@ describe("TaskDetail", function() {
     });
   });
 
-  describe("#getBasicInfo", function() {
-    it("returns null if task is null", function() {
-      MesosStateStore.getTaskFromTaskID = function() {
+  describe("#getBasicInfo", () => {
+    it("returns null if task is null", () => {
+      MesosStateStore.getTaskFromTaskID = () => {
         return null;
       };
 
       expect(TaskDetail.prototype.getBasicInfo.call(mockThis)).toEqual(null);
     });
 
-    it("returns an element if task is not null", function() {
+    it("returns an element if task is not null", () => {
       expect(TaskDetail.prototype.getBasicInfo.call(mockThis)).not.toEqual(
         null
       );

@@ -173,7 +173,7 @@ export default class JobsOverviewTable extends React.Component {
       score = -1;
     }
 
-    return function(a, b) {
+    return (a, b) => {
       // Hoist group trees to the top
       if (a.isGroup && !b.isGroup) {
         return score * -1;

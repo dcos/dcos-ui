@@ -85,7 +85,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return tasks;
     }
 
-    return tasks.filter(function(task) {
+    return tasks.filter(task => {
       return task.name.includes(searchString) || task.id.includes(searchString);
     });
   }
@@ -178,7 +178,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getTitle(portMappings) {
     return portMappings
-      .map(function(mapping) {
+      .map(mapping => {
         return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
       })
       .join(", ");
@@ -192,7 +192,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     return ipAddresses
-      .map(function(ipAddress) {
+      .map(ipAddress => {
         return ipAddress.ip_address;
       })
       .join(", ");

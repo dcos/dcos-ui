@@ -1,8 +1,8 @@
 const Deployment = require("../Deployment");
 
-describe("Deployment", function() {
-  describe("#get...", function() {
-    it("calls through to `Item.get`", function() {
+describe("Deployment", () => {
+  describe("#get...", () => {
+    it("calls through to `Item.get`", () => {
       const deployment = new Deployment({
         id: "deployment-id",
         version: "2001-01-01T01:01:01.001Z",
@@ -17,8 +17,8 @@ describe("Deployment", function() {
     });
   });
 
-  describe("#getStartTime", function() {
-    it("returns a Date object derived from the version property", function() {
+  describe("#getStartTime", () => {
+    it("returns a Date object derived from the version property", () => {
       const version = "2001-01-01T01:01:01.001Z";
       const deployment = new Deployment({ version });
       expect(deployment.getStartTime()).toEqual(jasmine.any(Date));
@@ -26,19 +26,19 @@ describe("Deployment", function() {
     });
   });
 
-  describe("#getAffectedServices", function() {
-    it("returns an empty array by default", function() {
+  describe("#getAffectedServices", () => {
+    it("returns an empty array by default", () => {
       const deployment = new Deployment();
       const affectedServices = deployment.getAffectedServices();
       expect(affectedServices).toEqual([]);
     });
 
-    it("throws an error if service IDs are set but services are not", function() {
+    it("throws an error if service IDs are set but services are not", () => {
       const deployment = new Deployment({ affectedApps: ["app1", "app2"] });
       expect(deployment.getAffectedServices.bind(deployment)).toThrow();
     });
 
-    it("returns the populated list of services if it is up-to-date", function() {
+    it("returns the populated list of services if it is up-to-date", () => {
       const deployment = new Deployment({
         affectedApps: ["app1", "app2"],
         affectedPods: ["pod1", "pod2"],
@@ -54,8 +54,8 @@ describe("Deployment", function() {
     });
   });
 
-  describe("#isStarting", function() {
-    it("flags deployments of newly-created services", function() {
+  describe("#isStarting", () => {
+    it("flags deployments of newly-created services", () => {
       const deployment = new Deployment({
         id: "deployment-id",
         affectedApps: ["app1"],
@@ -72,7 +72,7 @@ describe("Deployment", function() {
       expect(deployment.isStarting()).toEqual(true);
     });
 
-    it("flags deployments which update services", function() {
+    it("flags deployments which update services", () => {
       const deployment = new Deployment({
         id: "deployment-id",
         affectedApps: ["app1"],
@@ -86,7 +86,7 @@ describe("Deployment", function() {
       expect(deployment.isStarting()).toEqual(false);
     });
 
-    it("gracefully handles deployments without steps", function() {
+    it("gracefully handles deployments without steps", () => {
       const deployment = new Deployment({ id: "deployment-id" });
       expect(deployment.isStarting.bind(deployment)).not.toThrow();
     });

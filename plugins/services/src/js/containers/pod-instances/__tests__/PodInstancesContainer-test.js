@@ -12,7 +12,7 @@ const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture
 
 let thisStoreChangeListener, thisInstance;
 
-describe("PodInstancesContainer", function() {
+describe("PodInstancesContainer", () => {
   // Fix the dates in order to test the relative date field
   const fixture = Util.deepCopy(PodFixture);
   fixture.instances[0].lastUpdated = new Date(
@@ -54,18 +54,18 @@ describe("PodInstancesContainer", function() {
 
   const pod = new Pod(fixture);
 
-  beforeEach(function() {
+  beforeEach(() => {
     thisStoreChangeListener = MesosStateStore.addChangeListener;
-    MesosStateStore.addChangeListener = function() {};
+    MesosStateStore.addChangeListener = () => {};
   });
 
-  afterEach(function() {
+  afterEach(() => {
     MesosStateStore.addChangeListener = thisStoreChangeListener;
   });
 
-  describe("#render", function() {
-    describe("search with instance name", function() {
-      beforeEach(function() {
+  describe("#render", () => {
+    describe("search with instance name", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -79,10 +79,10 @@ describe("PodInstancesContainer", function() {
         );
       });
 
-      it("returns matching instances", function() {
+      it("returns matching instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -90,8 +90,8 @@ describe("PodInstancesContainer", function() {
       });
     });
 
-    describe("search with container name", function() {
-      beforeEach(function() {
+    describe("search with container name", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -106,10 +106,10 @@ describe("PodInstancesContainer", function() {
         );
       });
 
-      it("returns matching instances and containers", function() {
+      it("returns matching instances and containers", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -127,10 +127,10 @@ describe("PodInstancesContainer", function() {
         ]);
       });
 
-      it("always shows instance total resources", function() {
+      it("always shows instance total resources", () => {
         const mem = thisInstance
           .find("td.task-table-column-mem span")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -138,8 +138,8 @@ describe("PodInstancesContainer", function() {
       });
     });
 
-    describe("show all", function() {
-      beforeEach(function() {
+    describe("show all", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -154,10 +154,10 @@ describe("PodInstancesContainer", function() {
         );
       });
 
-      it("shows all instances", function() {
+      it("shows all instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -165,8 +165,8 @@ describe("PodInstancesContainer", function() {
       });
     });
 
-    describe("show completed", function() {
-      beforeEach(function() {
+    describe("show completed", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -181,10 +181,10 @@ describe("PodInstancesContainer", function() {
         );
       });
 
-      it("shows no instances", function() {
+      it("shows no instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 

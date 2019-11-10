@@ -86,7 +86,7 @@ class PodInstancesTable extends React.Component {
   }
 
   triggerSelectionChange(checkedItems, instances) {
-    const checkedItemInstances = instances.filter(function(item) {
+    const checkedItemInstances = instances.filter(item => {
       return checkedItems[item.getId()];
     });
     this.props.onSelectionChange(checkedItemInstances);
@@ -95,7 +95,7 @@ class PodInstancesTable extends React.Component {
   handleItemCheck(idsChecked) {
     const checkedItems = {};
 
-    idsChecked.forEach(function(id) {
+    idsChecked.forEach(id => {
       checkedItems[id] = true;
     });
     this.setState({ checkedItems });
@@ -167,9 +167,7 @@ class PodInstancesTable extends React.Component {
         prop: "region",
         render: this.renderRegion,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, function(
-          instance
-        ) {
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance => {
           return InstanceUtil.getRegionName(instance);
         })
       },
@@ -179,9 +177,7 @@ class PodInstancesTable extends React.Component {
         prop: "zone",
         render: this.renderZone,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, function(
-          instance
-        ) {
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance => {
           return InstanceUtil.getZoneName(instance);
         })
       },
@@ -238,7 +234,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getContainersWithResources(podSpec, containers, agentAddress) {
-    const children = containers.map(function(container) {
+    const children = containers.map(container => {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
@@ -247,22 +243,20 @@ class PodInstancesTable extends React.Component {
         containerResources = containerSpec.resources;
       }
 
-      const addressComponents = container
-        .getEndpoints()
-        .map(function(endpoint, i) {
-          return [
-            <a
-              className="text-muted"
-              href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
-              key={i}
-              target="_blank"
-              title="Open in a new window"
-            >
-              {endpoint.allocatedHostPort}
-            </a>,
-            " "
-          ];
-        });
+      const addressComponents = container.getEndpoints().map((endpoint, i) => {
+        return [
+          <a
+            className="text-muted"
+            href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
+            key={i}
+            target="_blank"
+            title="Open in a new window"
+          >
+            {endpoint.allocatedHostPort}
+          </a>,
+          " "
+        ];
+      });
 
       return {
         id: container.getId(),
@@ -281,7 +275,7 @@ class PodInstancesTable extends React.Component {
   }
 
   getDisabledItemsMap(instances) {
-    return instances.reduce(function(acc, instance) {
+    return instances.reduce((acc, instance) => {
       if (!instance.isRunning()) {
         acc[instance.getId()] = true;
       }
@@ -294,7 +288,7 @@ class PodInstancesTable extends React.Component {
     const podSpec = this.props.pod.getSpec();
 
     return instances.map(instance => {
-      const containers = instance.getContainers().filter(function(container) {
+      const containers = instance.getContainers().filter(container => {
         return PodUtil.isContainerMatchingText(container, filterText);
       });
       const children = this.getContainersWithResources(

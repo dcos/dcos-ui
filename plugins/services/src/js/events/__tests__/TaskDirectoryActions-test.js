@@ -10,11 +10,11 @@ let thisConfiguration,
   thisConfigRootUrl,
   thisConfigUseFixtures;
 
-describe("TaskDirectoryActions", function() {
-  beforeEach(function() {
+describe("TaskDirectoryActions", () => {
+  beforeEach(() => {
     thisConfiguration = null;
     thisRequestUtilJSON = RequestUtil.json;
-    RequestUtil.json = function(configuration) {
+    RequestUtil.json = configuration => {
       thisConfiguration = configuration;
     };
     thisConfigRootUrl = Config.rootUrl;
@@ -23,14 +23,14 @@ describe("TaskDirectoryActions", function() {
     Config.useFixtures = false;
   });
 
-  afterEach(function() {
+  afterEach(() => {
     RequestUtil.json = thisRequestUtilJSON;
     Config.rootUrl = thisConfigRootUrl;
     Config.useFixtures = thisConfigUseFixtures;
   });
 
-  describe("#fetchNodeState", function() {
-    beforeEach(function() {
+  describe("#fetchNodeState", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       TaskDirectoryActions.fetchNodeState(
         { framework_id: "foo", id: "bar", slave_id: "baz" },
@@ -40,18 +40,18 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         thisConfigRootUrl + "/agent/baz/foobar/state"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_SUCCESS);
@@ -64,8 +64,8 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration.success("some response");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_ERROR);
@@ -77,8 +77,8 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration.error({ message: "foo" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -94,8 +94,8 @@ describe("TaskDirectoryActions", function() {
     });
   });
 
-  describe("#fetchDirectory", function() {
-    beforeEach(function() {
+  describe("#fetchDirectory", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       TaskDirectoryActions.fetchDirectory(
         { framework_id: "foo", id: "bar", slave_id: "baz" },
@@ -109,22 +109,22 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         thisConfigRootUrl + "/agent/baz/files/browse"
       );
     });
 
-    it("fetches data with path in data", function() {
+    it("fetches data with path in data", () => {
       expect(thisConfiguration.data).toEqual({ path: "quis/" });
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS);
@@ -136,8 +136,8 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration.success("directory");
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_ERROR);
@@ -148,8 +148,8 @@ describe("TaskDirectoryActions", function() {
       thisConfiguration.error({ message: "foo" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

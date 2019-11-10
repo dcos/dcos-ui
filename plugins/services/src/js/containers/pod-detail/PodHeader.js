@@ -130,7 +130,7 @@ class PodHeader extends React.Component {
         label: <ServiceStatusProgressBar service={pod} />,
         shouldShow: true
       }
-    ].map(function(item, index) {
+    ].map((item, index) => {
       if (!item.shouldShow) {
         return null;
       }

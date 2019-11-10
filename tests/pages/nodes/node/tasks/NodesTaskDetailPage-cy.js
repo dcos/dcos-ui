@@ -1,13 +1,13 @@
-describe("Nodes Task Detail Page", function() {
-  beforeEach(function() {
+describe("Nodes Task Detail Page", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-service-with-executor-task",
       nodeHealth: true
     });
   });
 
-  context("Navigate to node task detail page", function() {
-    it("navigates to node task detail page", function() {
+  context("Navigate to node task detail page", () => {
+    it("navigates to node task detail page", () => {
       cy.visitUrl({ url: "/nodes", identify: true });
       cy.get("a.table-cell-link-primary")
         .eq(0)
@@ -20,7 +20,7 @@ describe("Nodes Task Detail Page", function() {
       cy.get("h1.configuration-map-heading").contains("Configuration");
     });
 
-    it("loads page with data after hard reload", function() {
+    it("loads page with data after hard reload", () => {
       cy.visitUrl({ url: "/nodes", identify: true });
       cy.get("a.table-cell-link-primary")
         .eq(0)

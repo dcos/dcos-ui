@@ -199,7 +199,7 @@ class ServiceActionDisabledModal extends React.Component {
       .flattenItems()
       .getItems()
       .reduce(
-        function(memo, item) {
+        (memo, item) => {
           if (testFunction(item)) {
             memo.selectedServices.push(item);
           } else {
@@ -213,7 +213,7 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceList(services) {
-    return services.map(function(item, index) {
+    return services.map((item, index) => {
       const comma = index === services.length - 1 ? "" : ", ";
       const itemID = item.getId();
 
@@ -228,7 +228,7 @@ class ServiceActionDisabledModal extends React.Component {
 
   getServiceListCommand(services, commandFunction) {
     return services
-      .map(function(item) {
+      .map(item => {
         return commandFunction(item);
       })
       .join(" &&\n");

@@ -7,7 +7,7 @@ module.exports = {
   JSONReducer(state, transaction) {
     const constraints = JSONReducer.bind(this)(state, transaction);
 
-    return constraints.map(function({ fieldName, operator, value }) {
+    return constraints.map(({ fieldName, operator, value }) => {
       if (!isEmpty(value)) {
         return { fieldName, operator, value };
       }

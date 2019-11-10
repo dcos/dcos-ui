@@ -3,8 +3,8 @@ const Pod = require("../../structs/Pod");
 
 let thisPod;
 
-describe("PodUtil", function() {
-  beforeEach(function() {
+describe("PodUtil", () => {
+  beforeEach(() => {
     thisPod = new Pod({
       instances: [
         {
@@ -24,15 +24,15 @@ describe("PodUtil", function() {
     });
   });
 
-  describe("#isContainerMatchingText", function() {
-    it("matches text on container name", function() {
+  describe("#isContainerMatchingText", () => {
+    it("matches text on container name", () => {
       const instance = thisPod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
       expect(PodUtil.isContainerMatchingText(container, "c1")).toBeTruthy();
     });
 
-    it("does not match wrong text on container name", function() {
+    it("does not match wrong text on container name", () => {
       const instance = thisPod.getInstanceList().getItems()[0];
       const container = instance.getContainers()[0];
 
@@ -40,8 +40,8 @@ describe("PodUtil", function() {
     });
   });
 
-  describe("#isInstanceOrChildrenMatchingText", function() {
-    it("matches text on instance id", function() {
+  describe("#isInstanceOrChildrenMatchingText", () => {
+    it("matches text on instance id", () => {
       const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
@@ -49,7 +49,7 @@ describe("PodUtil", function() {
       ).toBeTruthy();
     });
 
-    it("matches text on container names", function() {
+    it("matches text on container names", () => {
       const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
@@ -57,7 +57,7 @@ describe("PodUtil", function() {
       ).toBeTruthy();
     });
 
-    it("does not match if text is not present anywhere", function() {
+    it("does not match if text is not present anywhere", () => {
       const instance = thisPod.getInstanceList().getItems()[0];
 
       expect(
@@ -66,8 +66,8 @@ describe("PodUtil", function() {
     });
   });
 
-  describe("#mergeHistoricalInstanceList", function() {
-    it("appends new instances", function() {
+  describe("#mergeHistoricalInstanceList", () => {
+    it("appends new instances", () => {
       let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
@@ -90,7 +90,7 @@ describe("PodUtil", function() {
       expect(instances.getItems()[1].get()).toEqual(historicalInstances[0]);
     });
 
-    it("appends new containers on existing items", function() {
+    it("appends new containers on existing items", () => {
       let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
@@ -123,7 +123,7 @@ describe("PodUtil", function() {
       );
     });
 
-    it("does not duplicate containers", function() {
+    it("does not duplicate containers", () => {
       let instances = thisPod.getInstanceList();
       const historicalInstances = [
         {
@@ -153,8 +153,8 @@ describe("PodUtil", function() {
     });
   });
 
-  describe("#getInstanceIdFromTaskId", function() {
-    it("returns instance id", function() {
+  describe("#getInstanceIdFromTaskId", () => {
+    it("returns instance id", () => {
       expect(
         PodUtil.getInstanceIdFromTaskId(
           "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a.container-1"
@@ -162,7 +162,7 @@ describe("PodUtil", function() {
       ).toEqual("foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a");
     });
 
-    it("returns an empty string", function() {
+    it("returns an empty string", () => {
       expect(PodUtil.getInstanceIdFromTaskId("")).toEqual("");
     });
   });

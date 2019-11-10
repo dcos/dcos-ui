@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("TaskNameTextFilter", function() {
-  beforeEach(function() {
+describe("TaskNameTextFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         id: "cassandra.d9a2318d",
@@ -22,7 +22,7 @@ describe("TaskNameTextFilter", function() {
     ];
   });
 
-  it("matches parts of task name", function() {
+  it("matches parts of task name", () => {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("node");
 
@@ -34,7 +34,7 @@ describe("TaskNameTextFilter", function() {
     ]);
   });
 
-  it("matches parts of task id", function() {
+  it("matches parts of task id", () => {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("d9a23");
 
@@ -43,7 +43,7 @@ describe("TaskNameTextFilter", function() {
     expect(expr.filter(filters, tasks).getItems()).toEqual([thisMockItems[0]]);
   });
 
-  it("matches exact parts of task name", function() {
+  it("matches exact parts of task name", () => {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"cassandra"');
 

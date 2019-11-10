@@ -25,7 +25,7 @@ class NodeRegionDSLSection extends React.Component {
       return null;
     }
 
-    regions.forEach(function(region) {
+    regions.forEach(region => {
       EXPRESSION_PARTS[`region_${region}`] = DSLExpressionPart.attribute(
         "region",
         region

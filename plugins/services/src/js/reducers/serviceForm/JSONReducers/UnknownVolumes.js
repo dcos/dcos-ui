@@ -8,7 +8,7 @@ module.exports = {
     }
 
     return state.container.volumes
-      .filter(function(item) {
+      .filter(item => {
         return (
           item.persistent == null &&
           item.external == null &&
@@ -16,7 +16,7 @@ module.exports = {
           item.mode == null
         );
       })
-      .reduce(function(memo, item) {
+      .reduce((memo, item) => {
         return memo.concat(new Transaction(["unknownVolumes"], item, ADD_ITEM));
       }, []);
   }

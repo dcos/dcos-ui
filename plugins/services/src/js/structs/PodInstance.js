@@ -59,7 +59,7 @@ module.exports = class PodInstance extends Item {
         const containers = this.getContainers();
         const isFinished =
           containers.length > 0 &&
-          containers.every(function(container) {
+          containers.every(container => {
             return (
               container.getContainerStatus() === PodContainerStatus.FINISHED
             );
@@ -128,7 +128,7 @@ module.exports = class PodInstance extends Item {
     }
 
     // If there are containers ALL of them must have health checks
-    return containers.every(function(container) {
+    return containers.every(container => {
       return container.hasHealthChecks();
     });
   }
@@ -138,7 +138,7 @@ module.exports = class PodInstance extends Item {
       return false;
     }
 
-    return this.getContainers().every(function(container) {
+    return this.getContainers().every(container => {
       return container.isHealthy();
     });
   }

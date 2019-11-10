@@ -1,9 +1,9 @@
 const Framework = require("../Framework");
 const ServicesList = require("../ServicesList");
 
-describe("ServicesList", function() {
-  describe("#constructor", function() {
-    it("creates instances of Framework", function() {
+describe("ServicesList", () => {
+  describe("#constructor", () => {
+    it("creates instances of Framework", () => {
       let items = [{ foo: "bar" }];
       const list = new ServicesList({ items });
       items = list.getItems();
@@ -11,14 +11,14 @@ describe("ServicesList", function() {
     });
   });
 
-  describe("#filter", function() {
-    it("returns unfiltered list", function() {
+  describe("#filter", () => {
+    it("returns unfiltered list", () => {
       const items = [{ a: 1 }, { b: 2 }];
       const list = new ServicesList({ items });
       expect(list.filter().getItems().length).toEqual(2);
     });
 
-    it("filters by ids", function() {
+    it("filters by ids", () => {
       const items = [
         { id: 1, name: "marathon" },
         { id: 2, name: "metronome" },
@@ -31,7 +31,7 @@ describe("ServicesList", function() {
       expect(filteredList[1].get("name")).toEqual("marathon-user");
     });
 
-    it("filters by name", function() {
+    it("filters by name", () => {
       const items = [
         { name: "marathon" },
         { name: "metronome" },
@@ -44,7 +44,7 @@ describe("ServicesList", function() {
       expect(filteredList[1].get("name")).toEqual("marathon-user");
     });
 
-    it("filters by health", function() {
+    it("filters by health", () => {
       const items = [
         {
           name: "marathon",
@@ -73,8 +73,8 @@ describe("ServicesList", function() {
     });
   });
 
-  describe("#sumUsedResources", function() {
-    it("returns all resources as 0 when there's no services", function() {
+  describe("#sumUsedResources", () => {
+    it("returns all resources as 0 when there's no services", () => {
       const list = new ServicesList();
       expect(list.sumUsedResources()).toEqual({
         cpus: 0,
@@ -84,7 +84,7 @@ describe("ServicesList", function() {
       });
     });
 
-    it("returns used resources when there's one service", function() {
+    it("returns used resources when there's one service", () => {
       const list = new ServicesList({
         items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }]
       });
@@ -96,7 +96,7 @@ describe("ServicesList", function() {
       });
     });
 
-    it("sums used resources for services", function() {
+    it("sums used resources for services", () => {
       const list = new ServicesList({
         items: [
           { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
@@ -112,8 +112,8 @@ describe("ServicesList", function() {
     });
   });
 
-  describe("#sumTaskStates", function() {
-    it("returns an empty hash when there's no services", function() {
+  describe("#sumTaskStates", () => {
+    it("returns an empty hash when there's no services", () => {
       const list = new ServicesList();
       const expectedList = {
         TASK_STAGING: 0,
@@ -127,7 +127,7 @@ describe("ServicesList", function() {
       expect(list.sumTaskStates()).toEqual(expectedList);
     });
 
-    it("sums tasks for one service", function() {
+    it("sums tasks for one service", () => {
       const list = new ServicesList({
         items: [{ TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5 }]
       });
@@ -143,7 +143,7 @@ describe("ServicesList", function() {
       expect(list.sumTaskStates()).toEqual(expectedList);
     });
 
-    it("sums tasks for many services", function() {
+    it("sums tasks for many services", () => {
       const list = new ServicesList({
         items: [
           { TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5 },

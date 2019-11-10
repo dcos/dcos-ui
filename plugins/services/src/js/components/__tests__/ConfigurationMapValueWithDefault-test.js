@@ -3,8 +3,8 @@ import { mount } from "enzyme";
 
 const ConfigurationMapValueWithDefault = require("../ConfigurationMapValueWithDefault");
 
-describe("ConfigurationMapValueWithDefault", function() {
-  it("renders value if specified", function() {
+describe("ConfigurationMapValueWithDefault", () => {
+  it("renders value if specified", () => {
     const instance = mount(<ConfigurationMapValueWithDefault value={"foo"} />);
 
     expect(
@@ -15,7 +15,7 @@ describe("ConfigurationMapValueWithDefault", function() {
     ).toEqual("foo");
   });
 
-  it("renders `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", () => {
     const instance = mount(
       <ConfigurationMapValueWithDefault value={null} defaultValue="-" />
     );

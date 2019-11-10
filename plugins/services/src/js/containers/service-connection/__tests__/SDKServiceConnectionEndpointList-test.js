@@ -12,11 +12,11 @@ const SDKServiceEndpoints = require("./fixtures/SDKServiceEndpoints.json");
 
 let thisInstance;
 
-describe("SDKServiceConnectionEndpointList", function() {
+describe("SDKServiceConnectionEndpointList", () => {
   const service = new Framework(SDKService);
 
-  beforeEach(function() {
-    SDKEndpointStore.getServiceEndpoints = function() {
+  beforeEach(() => {
+    SDKEndpointStore.getServiceEndpoints = () => {
       return Object.entries(SDKServiceEndpoints).map(
         ([endpointName, endpoint]) =>
           new ServiceEndpoint({
@@ -26,7 +26,7 @@ describe("SDKServiceConnectionEndpointList", function() {
           })
       );
     };
-    SDKEndpointStore.getServiceError = function() {
+    SDKEndpointStore.getServiceError = () => {
       return "";
     };
     thisInstance = mount(
@@ -34,8 +34,8 @@ describe("SDKServiceConnectionEndpointList", function() {
     );
   });
 
-  describe("#render", function() {
-    it("renders the correct endpoints tables", function() {
+  describe("#render", () => {
+    it("renders the correct endpoints tables", () => {
       const elements = thisInstance.find(".configuration-map-section");
 
       expect(elements.length).toEqual(4);

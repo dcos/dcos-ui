@@ -7,7 +7,7 @@ import React from "react";
 import Pod from "../../structs/Pod";
 import ServiceTree from "../../structs/ServiceTree";
 
-const AppLockedMessage = function({ service }) {
+const AppLockedMessage = ({ service }) => {
   let itemType = "Service";
 
   if (service instanceof Pod) {

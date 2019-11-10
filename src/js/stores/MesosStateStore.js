@@ -182,7 +182,7 @@ class MesosStateStore extends GetSetBaseStore {
     const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
-      return nodes.find(function(node) {
+      return nodes.find(node => {
         return node.id === id;
       });
     }
@@ -194,7 +194,7 @@ class MesosStateStore extends GetSetBaseStore {
     const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
-      return nodes.find(function(node) {
+      return nodes.find(node => {
         return node.hostname === hostname;
       });
     }
@@ -255,7 +255,7 @@ class MesosStateStore extends GetSetBaseStore {
     // the scheduler tasks or a list of Marathon application tasks.
     let serviceTasks = [];
     if (serviceIsFramework) {
-      const framework = frameworks.find(function(framework) {
+      const framework = frameworks.find(framework => {
         return framework.active && framework.name === serviceFrameworkName;
       });
 

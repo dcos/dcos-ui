@@ -4,9 +4,9 @@ import {
   agentRemovedAction
 } from "../agents";
 
-describe("agents parser", function() {
-  describe("#getAgentsAction", function() {
-    it("parses the correct message", function() {
+describe("agents parser", () => {
+  describe("#getAgentsAction", () => {
+    it("parses the correct message", () => {
       const state = {};
       const message = {
         type: "GET_AGENTS",
@@ -43,8 +43,8 @@ describe("agents parser", function() {
     });
   });
 
-  describe("#agentAddedAction", function() {
-    it("parses the correct message", function() {
+  describe("#agentAddedAction", () => {
+    it("parses the correct message", () => {
       const state = { slaves: [] };
       const message = {
         type: "AGENT_ADDED",
@@ -79,8 +79,8 @@ describe("agents parser", function() {
     });
   });
 
-  describe("#agentRemovedAction", function() {
-    it("parses the correct message", function() {
+  describe("#agentRemovedAction", () => {
+    it("parses the correct message", () => {
       const state = {
         slaves: [
           {

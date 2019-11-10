@@ -6,8 +6,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("ServiceAttributeIsFilter", function() {
-  beforeEach(function() {
+describe("ServiceAttributeIsFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getServiceStatus() {
@@ -32,7 +32,7 @@ describe("ServiceAttributeIsFilter", function() {
     ];
   });
 
-  it("keeps services in deploying state", function() {
+  it("keeps services in deploying state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:deploying");
 
@@ -43,7 +43,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("keeps services in running state", function() {
+  it("keeps services in running state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:running");
 
@@ -54,7 +54,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("keeps services in stopped state", function() {
+  it("keeps services in stopped state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:stopped");
 
@@ -65,7 +65,7 @@ describe("ServiceAttributeIsFilter", function() {
     ]);
   });
 
-  it("keeps nothing on unknown states", function() {
+  it("keeps nothing on unknown states", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -74,7 +74,7 @@ describe("ServiceAttributeIsFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("is case-insensitive", function() {
+  it("is case-insensitive", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:dEpLOYING");
 

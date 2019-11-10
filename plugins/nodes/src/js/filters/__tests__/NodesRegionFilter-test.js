@@ -5,15 +5,15 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("NodesRegionFilter", function() {
-  beforeEach(function() {
+describe("NodesRegionFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       { getRegionName: () => "region-1" },
       { getRegionName: () => "region-22" }
     ];
   });
 
-  it("keeps nodes with specific region mentioned", function() {
+  it("keeps nodes with specific region mentioned", () => {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 

@@ -315,8 +315,8 @@ var MarathonActions = {
 
   fetchGroups: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function(resolve, reject) {
-      return function() {
+    (resolve, reject) => {
+      return () => {
         const url = buildURI("/groups");
         const embed = [
           { name: "embed", value: "group.groups" },
@@ -360,8 +360,8 @@ var MarathonActions = {
 
   fetchDeployments: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function(resolve, reject) {
-      return function() {
+    (resolve, reject) => {
+      return () => {
         RequestUtil.json({
           url: buildURI("/deployments"),
           success(response) {
@@ -450,8 +450,8 @@ var MarathonActions = {
 
   fetchQueue: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function(resolve, reject) {
-      return function(options = {}) {
+    (resolve, reject) => {
+      return (options = {}) => {
         const queryParams = options.params || "";
 
         RequestUtil.json({
@@ -598,7 +598,7 @@ if (Config.useFixtures) {
       }
     };
 
-    Object.keys(global.actionTypes.MarathonActions).forEach(function(method) {
+    Object.keys(global.actionTypes.MarathonActions).forEach(method => {
       MarathonActions[method] = RequestUtil.stubRequest(
         MarathonActions,
         "MarathonActions",

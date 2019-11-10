@@ -1,8 +1,8 @@
 import { getTasksAction, taskAddedAction, taskUpdatedAction } from "../tasks";
 
-describe("tasks parser", function() {
-  describe("#getTasksAction", function() {
-    it("parses the correct message", function() {
+describe("tasks parser", () => {
+  describe("#getTasksAction", () => {
+    it("parses the correct message", () => {
       const state = {};
       const message = require("./fixtures/getTasksMessage.json");
 
@@ -97,8 +97,8 @@ describe("tasks parser", function() {
     });
   });
 
-  describe("#taskAddedAction", function() {
-    it("parses the correct message", function() {
+  describe("#taskAddedAction", () => {
+    it("parses the correct message", () => {
       const state = { tasks: [] };
       const message = {
         type: "TASK_ADDED",
@@ -141,8 +141,8 @@ describe("tasks parser", function() {
     });
   });
 
-  describe("#taskUpdatedAction", function() {
-    it("parses the correct message", function() {
+  describe("#taskUpdatedAction", () => {
+    it("parses the correct message", () => {
       const state = {
         tasks: [
           {

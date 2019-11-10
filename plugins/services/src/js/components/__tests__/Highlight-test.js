@@ -3,15 +3,15 @@ import { mount } from "enzyme";
 
 const Highlight = require("../Highlight");
 
-describe("Highlight instance", function() {
-  it("is what it says it is", function() {
+describe("Highlight instance", () => {
+  it("is what it says it is", () => {
     const instance = mount(<Highlight search="world">Hello World</Highlight>);
 
     expect(instance.type()).toEqual(Highlight);
     expect(instance.find(".highlight").text()).toEqual("World");
   });
 
-  it("has children", function() {
+  it("has children", () => {
     const instance = mount(
       <Highlight search="fox">
         The quick brown fox jumped over the lazy dog.
@@ -22,7 +22,7 @@ describe("Highlight instance", function() {
     expect(instance.find(".highlight").length).toBe(1);
   });
 
-  it("supports custom HTML tag for matching elements", function() {
+  it("supports custom HTML tag for matching elements", () => {
     const instance = mount(
       <Highlight matchElement="em" search="world">
         Hello World
@@ -32,7 +32,7 @@ describe("Highlight instance", function() {
     expect(instance.find("em").length).toEqual(1);
   });
 
-  it("supports custom className for matching element", function() {
+  it("supports custom className for matching element", () => {
     const instance = mount(
       <Highlight matchClass="fffffound" search="Seek">
         Hide and Seek
@@ -42,7 +42,7 @@ describe("Highlight instance", function() {
     expect(instance.find(".fffffound").length).toEqual(1);
   });
 
-  it("supports passing props to parent element", function() {
+  it("supports passing props to parent element", () => {
     const instance = mount(
       <Highlight className="myHighlighter" search="world">
         Hello World
@@ -53,14 +53,14 @@ describe("Highlight instance", function() {
     expect(instance.find("strong").prop("className")).toEqual("highlight");
   });
 
-  it("supports regular expressions in search", function() {
+  it("supports regular expressions in search", () => {
     const instance = mount(
       <Highlight className="myHighlighter" search={/[A-Za-z]+/}>
         Easy as 123, ABC...
       </Highlight>
     );
 
-    const matches = instance.find("strong").map(function(match) {
+    const matches = instance.find("strong").map(match => {
       return match.text();
     });
 

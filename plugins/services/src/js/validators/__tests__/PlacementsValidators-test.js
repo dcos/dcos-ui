@@ -7,18 +7,18 @@ const {
   SYNTAX_ERROR
 } = require("../../constants/ServiceErrorTypes");
 
-describe("PlacementsValidators", function() {
-  describe("#validateConstraints", function() {
-    it("returns no errors when there is no constraints", function() {
+describe("PlacementsValidators", () => {
+  describe("#validateConstraints", () => {
+    it("returns no errors when there is no constraints", () => {
       expect(PlacementsValidators.validateConstraints([])).toEqual([]);
     });
 
-    it("returns no errors when all constraints are correctly defined", function() {
+    it("returns no errors when all constraints are correctly defined", () => {
       const constraints = [["hostname", "UNIQUE"], ["CPUS", "MAX_PER", "123"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });
 
-    it("returns an error when constraints is not an array", function() {
+    it("returns an error when constraints is not an array", () => {
       const constraints = ":)";
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -29,7 +29,7 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("returns an error when a constraint is not an array", function() {
+    it("returns an error when a constraint is not an array", () => {
       const constraints = [":)"];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -40,7 +40,7 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("returns an error when a constraint definition is wrong", function() {
+    it("returns an error when a constraint definition is wrong", () => {
       const constraints = [["CPUS", "LIKE"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -52,7 +52,7 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("returns an error when empty parameter is required", function() {
+    it("returns an error when empty parameter is required", () => {
       const constraints = [["CPUS", "UNIQUE", "foo"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -64,7 +64,7 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("returns an error when wrong characters are applied", function() {
+    it("returns an error when wrong characters are applied", () => {
       const constraints = [["CPUS", "GROUP_BY", "2foo"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -77,12 +77,12 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("does not return an error for empty optional fields", function() {
+    it("does not return an error for empty optional fields", () => {
       const constraints = [["hostname", "GROUP_BY"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });
 
-    it("returns an error when wrong characters are applied", function() {
+    it("returns an error when wrong characters are applied", () => {
       const constraints = [["CPUS", "MAX_PER", "foo"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([
         {
@@ -95,14 +95,14 @@ describe("PlacementsValidators", function() {
       ]);
     });
 
-    it("accepts number strings for number-string fields", function() {
+    it("accepts number strings for number-string fields", () => {
       const constraints = [["CPUS", "MAX_PER", "2"]];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });
   });
 
-  describe("#validateNoBatchError", function() {
-    it("accepts a list of non error transactions", function() {
+  describe("#validateNoBatchError", () => {
+    it("accepts a list of non error transactions", () => {
       const transactions = [
         new Transaction(["root"], "any", ADD),
         new Transaction(["root"], "any", ADD)
@@ -113,7 +113,7 @@ describe("PlacementsValidators", function() {
       );
     });
 
-    it("does not accepts a list with any error transaction", function() {
+    it("does not accepts a list with any error transaction", () => {
       const transactions = [
         new Transaction(["root"], "any", ADD),
         new Transaction(["root"], "any", ERROR)

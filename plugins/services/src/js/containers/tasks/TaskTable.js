@@ -225,14 +225,14 @@ class TaskTable extends React.Component {
 
   getDisabledItemsMap(tasks) {
     return tasks
-      .filter(function(task) {
+      .filter(task => {
         return (
           task.state !== "TASK_UNREACHABLE" &&
           (TaskStates[task.state].stateTypes.includes("completed") ||
             !task.isStartedByMarathon)
         );
       })
-      .reduce(function(acc, task) {
+      .reduce((acc, task) => {
         acc[task.id] = true;
 
         return acc;
@@ -240,7 +240,7 @@ class TaskTable extends React.Component {
   }
 
   getInactiveItemsMap(tasks) {
-    return tasks.reduce(function(acc, task) {
+    return tasks.reduce((acc, task) => {
       if (TaskStates[task.state].stateTypes.includes("completed")) {
         acc[task.id] = true;
       }

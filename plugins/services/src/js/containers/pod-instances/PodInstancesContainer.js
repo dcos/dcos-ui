@@ -113,7 +113,7 @@ class PodInstancesContainer extends React.Component {
     );
 
     const newZones = Object.keys(
-      mergedInstances.reduce(function(prev, instance) {
+      mergedInstances.reduce((prev, instance) => {
         const node = InstanceUtil.getNode(instance);
 
         if (!node || node.getZoneName() === "N/A") {
@@ -126,7 +126,7 @@ class PodInstancesContainer extends React.Component {
     );
 
     const newRegions = Object.keys(
-      mergedInstances.reduce(function(prev, instance) {
+      mergedInstances.reduce((prev, instance) => {
         const node = InstanceUtil.getNode(instance);
 
         if (!node || node.getRegionName() === "N/A") {
@@ -307,7 +307,7 @@ class PodInstancesContainer extends React.Component {
 
     const totalInstances = instances.getItems().length;
 
-    instances = instances.mapItems(function(instance) {
+    instances = instances.mapItems(instance => {
       const instanceAgent = MesosStateStore.getNodeFromHostname(
         instance.getAgentAddress()
       );
@@ -320,7 +320,7 @@ class PodInstancesContainer extends React.Component {
     });
 
     if (filterExpression.defined) {
-      instances = instances.mapItems(function(instance) {
+      instances = instances.mapItems(instance => {
         instance.podSpec = pod.getSpec();
 
         return instance;

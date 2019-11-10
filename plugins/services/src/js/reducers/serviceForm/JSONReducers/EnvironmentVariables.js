@@ -64,10 +64,10 @@ module.exports = {
     }
 
     return Object.keys(state.env)
-      .filter(function(key) {
+      .filter(key => {
         return state.env[key] == null || typeof state.env[key] === "string";
       })
-      .reduce(function(memo, key, index) {
+      .reduce((memo, key, index) => {
         /**
          * For the environment variables which are a key => value based object
          * we want to create a new item and fill it with the key and the

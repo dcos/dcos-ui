@@ -7,24 +7,24 @@ const mockUnitHealthStore = {
   getUnit: jest.fn(),
   getNode: jest.fn()
 };
-jest.mock("#SRC/js/stores/UnitHealthStore", function() {
+jest.mock("#SRC/js/stores/UnitHealthStore", () => {
   return mockUnitHealthStore;
 });
 
 const NodeBreadcrumbs = require("../NodeBreadcrumbs");
 
-describe("NodeBreadcrumbs", function() {
-  beforeEach(function() {
+describe("NodeBreadcrumbs", () => {
+  beforeEach(() => {
     mockUnitHealthStore.getUnit = jest.fn();
     mockUnitHealthStore.getNode = jest.fn();
   });
 
-  it("renders without breadcrumbs", function() {
+  it("renders without breadcrumbs", () => {
     const tree = renderer.create(<NodeBreadcrumbs />).toJSON();
     expect(tree).toMatchSnapshot();
   });
 
-  it("renders with node breadcrumbs", function() {
+  it("renders with node breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
       hostname: "foo.bar.baz"
@@ -34,7 +34,7 @@ describe("NodeBreadcrumbs", function() {
     expect(tree).toMatchSnapshot();
   });
 
-  it("renders with taskID breadcrumbs", function() {
+  it("renders with taskID breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
       hostname: "foo.bar.baz"
@@ -52,7 +52,7 @@ describe("NodeBreadcrumbs", function() {
     expect(tree).toMatchSnapshot();
   });
 
-  it("renders with unitID breadcrumbs", function() {
+  it("renders with unitID breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
       hostname: "foo.bar.baz"
@@ -64,7 +64,7 @@ describe("NodeBreadcrumbs", function() {
       })
     );
     mockUnitHealthStore.getNode.mockReturnValue({
-      getHealth: jest.fn(function() {
+      getHealth: jest.fn(() => {
         return {
           classNames: "green",
           title: "All green"
@@ -81,7 +81,7 @@ describe("NodeBreadcrumbs", function() {
     expect(tree).toMatchSnapshot();
   });
 
-  it("renders no unitID breadcrumbs without nodeID", function() {
+  it("renders no unitID breadcrumbs without nodeID", () => {
     const tree = renderer
       .create(<NodeBreadcrumbs unitID="unit-ids-are-nice" />)
       .toJSON();

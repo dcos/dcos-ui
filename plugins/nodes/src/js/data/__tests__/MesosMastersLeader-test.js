@@ -26,11 +26,11 @@ function masterData(faultDomain) {
   };
 }
 
-describe("MesosMastersLeader", function() {
-  describe("#mesosMasterInfo", function() {
+describe("MesosMastersLeader", () => {
+  describe("#mesosMasterInfo", () => {
     it(
       "emits correct master",
-      marbles(function(m) {
+      marbles(m => {
         const expectedData = {
           electedTime: 12345789,
           hostPort: "127.0.0.1:8080",
@@ -52,14 +52,14 @@ describe("MesosMastersLeader", function() {
     );
   });
 
-  describe("#getRegion", function() {
-    it("retrieves region correctly", function() {
+  describe("#getRegion", () => {
+    it("retrieves region correctly", () => {
       const master = masterData(faultDomainData()).master_info;
 
       expect(getRegion(master)).toBe("us-east-1");
     });
 
-    it("returns N/A for missing region", function() {
+    it("returns N/A for missing region", () => {
       const master = masterData().master_info;
 
       expect(getRegion(master)).toBe("N/A");

@@ -4,11 +4,11 @@ const appID = "/some-app";
 const vipLabel = "VIP_0";
 const vipPort = 7070;
 
-describe("VipLabelUtil", function() {
-  describe("#generateVipLabel", function() {
-    describe("when port is not load balanced", function() {
-      describe("when there is a vip label", function() {
-        it("deletes vip label from labels", function() {
+describe("VipLabelUtil", () => {
+  describe("#generateVipLabel", () => {
+    describe("when port is not load balanced", () => {
+      describe("when there is a vip label", () => {
+        it("deletes vip label from labels", () => {
           var portDefinition = {
             loadBalanced: false,
             labels: {
@@ -26,8 +26,8 @@ describe("VipLabelUtil", function() {
         });
       });
 
-      describe("when there is no vip labels", function() {
-        it("returns labels unchanged", function() {
+      describe("when there is no vip labels", () => {
+        it("returns labels unchanged", () => {
           var portDefinition = {
             loadBalanced: false,
             labels: {
@@ -46,9 +46,9 @@ describe("VipLabelUtil", function() {
       });
     });
 
-    describe("when port is load balanced", function() {
-      describe("when no vip has been given", function() {
-        it("generates VIP", function() {
+    describe("when port is load balanced", () => {
+      describe("when no vip has been given", () => {
+        it("generates VIP", () => {
           var portDefinition = {
             loadBalanced: true,
             vip: undefined
@@ -64,8 +64,8 @@ describe("VipLabelUtil", function() {
         });
       });
 
-      describe("when vip has been given", function() {
-        it("generates VIP with new port value", function() {
+      describe("when vip has been given", () => {
+        it("generates VIP with new port value", () => {
           var portDefinition = {
             loadBalanced: true,
             vip: "service-address:9091"
@@ -83,8 +83,8 @@ describe("VipLabelUtil", function() {
     });
   });
 
-  describe("#findVip", function() {
-    it("returns the first occurance with VIP prefix", function() {
+  describe("#findVip", () => {
+    it("returns the first occurance with VIP prefix", () => {
       expect(
         VipLabelUtil.findVip({
           other: "not_vip",
@@ -94,7 +94,7 @@ describe("VipLabelUtil", function() {
       ).toEqual(["VIP1", "vip"]);
     });
 
-    it("returns the first occurance with vip prefix", function() {
+    it("returns the first occurance with vip prefix", () => {
       expect(
         VipLabelUtil.findVip({
           other: "not_vip",
@@ -104,7 +104,7 @@ describe("VipLabelUtil", function() {
       ).toEqual(["vip1", "vip1"]);
     });
 
-    it("ignores mixed case variants", function() {
+    it("ignores mixed case variants", () => {
       expect(
         VipLabelUtil.findVip({
           Vip: "not_vip",
@@ -114,13 +114,13 @@ describe("VipLabelUtil", function() {
       ).toEqual(undefined);
     });
 
-    it("does not crash when labels is null", function() {
+    it("does not crash when labels is null", () => {
       expect(VipLabelUtil.findVip(null)).toEqual(undefined);
     });
   });
 
-  describe("#defaultVip", function() {
-    it("constructs the value", function() {
+  describe("#defaultVip", () => {
+    it("constructs the value", () => {
       expect(VipLabelUtil.defaultVip(1)).toEqual("VIP_1");
     });
   });

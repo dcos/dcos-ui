@@ -26,7 +26,7 @@ function processTask(task) {
     task.executor_id = scalar(task.executor_id);
   }
   task.labels = task.labels && task.labels.labels;
-  task.resources = task.resources.reduce(function(acc, resource) {
+  task.resources = task.resources.reduce((acc, resource) => {
     acc[resource.name] = convertResource(resource);
 
     return acc;
@@ -92,7 +92,7 @@ export function taskUpdatedAction(state, message) {
 
   const taskUpdate = message.task_updated;
   const task_id = scalar(taskUpdate.status.task_id);
-  const tasks = state.tasks.map(function(task) {
+  const tasks = state.tasks.map(task => {
     if (task.id === task_id) {
       const statuses = task.statuses || [];
 

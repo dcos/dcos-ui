@@ -4,9 +4,9 @@ const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Constraints = require("../Constraints");
 
-describe("Constraints", function() {
-  describe("#JSONReducer", function() {
-    it("emits correct JSON", function() {
+describe("Constraints", () => {
+  describe("#JSONReducer", () => {
+    it("emits correct JSON", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -19,7 +19,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("skips value required to be empty after operator was set", function() {
+    it("skips value required to be empty after operator was set", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -32,7 +32,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("skips value required to be empty before operator was set", function() {
+    it("skips value required to be empty before operator was set", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -46,8 +46,8 @@ describe("Constraints", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("parses constraints correctly", function() {
+  describe("#JSONParser", () => {
+    it("parses constraints correctly", () => {
       expect(
         Constraints.JSONParser({
           constraints: [["hostname", "JOIN", "param"]]
@@ -60,11 +60,11 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("ignores null/undefined states", function() {
+    it("ignores null/undefined states", () => {
       expect(Constraints.JSONParser(null)).toEqual([]);
     });
 
-    it("skips value if not set", function() {
+    it("skips value if not set", () => {
       expect(
         Constraints.JSONParser({
           constraints: [["hostname", "JOIN"]]
@@ -76,7 +76,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("adds error transaction if constraints are not a list", function() {
+    it("adds error transaction if constraints are not a list", () => {
       expect(
         Constraints.JSONParser({
           constraints: { fieldName: "hostname", operator: "JOIN" }
@@ -84,7 +84,7 @@ describe("Constraints", function() {
       ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
     });
 
-    it("adds error transaction when constraint item is not a list", function() {
+    it("adds error transaction when constraint item is not a list", () => {
       expect(
         Constraints.JSONParser({
           constraints: [{ error: true }]

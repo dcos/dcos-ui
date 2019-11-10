@@ -3,8 +3,8 @@ const TaskTableUtil = require("../TaskTableUtil");
 
 let thisFoo, thisBar, thisFooStruct, thisBarStruct, thisGetComparator;
 
-describe("TaskTableUtil", function() {
-  beforeEach(function() {
+describe("TaskTableUtil", () => {
+  beforeEach(() => {
     thisFoo = {
       name: "foo",
       statuses: [{ timestamp: 1 }, { timestamp: 2 }],
@@ -46,53 +46,53 @@ describe("TaskTableUtil", function() {
     thisGetComparator = TaskTableUtil.getSortFunction("name");
   });
 
-  describe("#getSortFunction for regular items", function() {
-    it("returns a function", function() {
+  describe("#getSortFunction for regular items", () => {
+    it("returns a function", () => {
       expect(typeof thisGetComparator).toEqual("function");
     });
 
-    it("compares the most recent timestamps when prop is updated", function() {
+    it("compares the most recent timestamps when prop is updated", () => {
       var compareFunction = thisGetComparator("updated");
       expect(compareFunction(thisFoo, thisBar)).toEqual(-1);
     });
 
-    it("compares tieBreaker values", function() {
+    it("compares tieBreaker values", () => {
       var compareFunction = thisGetComparator("name");
 
       // 'foo' > 'bar' will equal true and compareValues returns 1
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("compares resource values", function() {
+    it("compares resource values", () => {
       var compareFunction = thisGetComparator("cpus");
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("compares last resource values", function() {
+    it("compares last resource values", () => {
       var compareFunction = thisGetComparator("mem");
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
   });
 
-  describe("#getSortFunction for structs", function() {
-    it("compares the most recent timestamps when prop is updated", function() {
+  describe("#getSortFunction for structs", () => {
+    it("compares the most recent timestamps when prop is updated", () => {
       var compareFunction = thisGetComparator("updated");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(-1);
     });
 
-    it("compares tieBreaker values", function() {
+    it("compares tieBreaker values", () => {
       var compareFunction = thisGetComparator("name");
 
       // 'foo' > 'bar' will equal true and compareValues returns 1
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });
 
-    it("compares resource values", function() {
+    it("compares resource values", () => {
       var compareFunction = thisGetComparator("cpus");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });
 
-    it("compares last resource values", function() {
+    it("compares last resource values", () => {
       var compareFunction = thisGetComparator("mem");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });

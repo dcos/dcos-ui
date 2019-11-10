@@ -231,7 +231,7 @@ class CreateServiceModal extends Component {
   }
 
   shouldForceSubmit() {
-    return this.state.apiErrors.some(function(error) {
+    return this.state.apiErrors.some(error => {
       return error.type === ServiceErrorTypes.SERVICE_DEPLOYING;
     });
   }
@@ -307,7 +307,7 @@ class CreateServiceModal extends Component {
     if (serviceReviewActive) {
       // Remove the 'Application is deploying' error when we havigate back
       // since it's not related to the form
-      const apiErrors = this.state.apiErrors.filter(function(error) {
+      const apiErrors = this.state.apiErrors.filter(error => {
         return error.type !== ServiceErrorTypes.SERVICE_DEPLOYING;
       });
 

@@ -58,7 +58,7 @@ class RepositoriesTable extends React.Component {
     const heading = ResourceTableUtil.renderHeading(
       RepositoriesTableHeaderLabels
     );
-    const sortFunction = TableUtil.getSortFunction("uri", function(item, prop) {
+    const sortFunction = TableUtil.getSortFunction("uri", (item, prop) => {
       if (prop === "priority") {
         return repositories.getPriority(item);
       }

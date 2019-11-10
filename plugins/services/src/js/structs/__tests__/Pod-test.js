@@ -7,84 +7,84 @@ const HealthStatus = require("../../constants/HealthStatus");
 const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
 const ServiceImages = require("../../constants/ServiceImages");
 
-describe("Pod", function() {
-  describe("#constructor", function() {
-    it("creates instances", function() {
+describe("Pod", () => {
+  describe("#constructor", () => {
+    it("creates instances", () => {
       const instance = new Pod(Object.assign({}, PodFixture));
       expect(instance.get()).toEqual(PodFixture);
     });
   });
 
-  describe("#countRunningInstances", function() {
-    it("returns the correct value", function() {
+  describe("#countRunningInstances", () => {
+    it("returns the correct value", () => {
       const pod = new Pod(PodFixture);
       expect(pod.getRunningInstancesCount()).toEqual(2);
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const pod = new Pod();
       expect(pod.getRunningInstancesCount()).toEqual(0);
     });
   });
 
-  describe("#countNonTerminalInstances", function() {
-    it("returns the correct value", function() {
+  describe("#countNonTerminalInstances", () => {
+    it("returns the correct value", () => {
       const pod = new Pod(PodFixture);
       expect(pod.countNonTerminalInstances()).toEqual(3);
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const pod = new Pod();
       expect(pod.countNonTerminalInstances()).toEqual(0);
     });
   });
 
-  describe("#countTotalInstances", function() {
-    it("returns the correct value", function() {
+  describe("#countTotalInstances", () => {
+    it("returns the correct value", () => {
       const pod = new Pod(PodFixture);
       expect(pod.countTotalInstances()).toEqual(3);
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const pod = new Pod();
       expect(pod.countTotalInstances()).toEqual(0);
     });
   });
 
-  describe("#getHealth", function() {
-    it("returns the correct value when DEGRADED", function() {
+  describe("#getHealth", () => {
+    it("returns the correct value when DEGRADED", () => {
       const pod = new Pod({ status: "degraded" });
       expect(pod.getHealth()).toEqual(HealthStatus.UNHEALTHY);
     });
 
-    it("returns the correct value when STABLE", function() {
+    it("returns the correct value when STABLE", () => {
       const pod = new Pod({ status: "stable" });
       expect(pod.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const pod = new Pod();
       expect(pod.getHealth()).toEqual(HealthStatus.NA);
     });
   });
 
-  describe("#getImages", function() {
-    it("returns the correct value", function() {
+  describe("#getImages", () => {
+    it("returns the correct value", () => {
       const pod = new Pod();
       expect(pod.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
   });
 
-  describe("#getRegions", function() {
-    it("returns empty array for empty Pod object", function() {
+  describe("#getRegions", () => {
+    it("returns empty array for empty Pod object", () => {
       const pod = new Pod();
       expect(pod.getRegions()).toEqual([]);
     });
-    it("returns correct region for one instance", function() {
+    it("returns correct region for one instance", () => {
       const pod = new Pod({ instances: [{ agentRegion: "Region-1" }] });
       expect(pod.getRegions()).toEqual(["Region-1"]);
     });
-    it("returns correct region for multiple instance", function() {
+    it("returns correct region for multiple instance", () => {
       const pod = new Pod({
         instances: [
           { agentRegion: "Region-1" },
@@ -96,8 +96,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getInstancesCount", function() {
-    it("passes through from specs", function() {
+  describe("#getInstancesCount", () => {
+    it("passes through from specs", () => {
       const pod = new Pod(PodFixture);
       expect(pod.getInstancesCount()).toEqual(
         pod.getSpec().getScalingInstances()
@@ -105,8 +105,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getVersion", function() {
-    it("returns correct version", function() {
+  describe("#getVersion", () => {
+    it("returns correct version", () => {
       const pod = new Pod({
         spec: {
           version: "2016-03-22T10:46:07.354Z"
@@ -117,15 +117,15 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getLabels", function() {
-    it("passes through from specs", function() {
+  describe("#getLabels", () => {
+    it("passes through from specs", () => {
       const pod = new Pod(PodFixture);
       expect(pod.getLabels()).toEqual(pod.getSpec().getLabels());
     });
   });
 
-  describe("#getMesosId", function() {
-    it("returns correct id", function() {
+  describe("#getMesosId", () => {
+    it("returns correct id", () => {
       const pod = new Pod({
         id: "/test/cmd"
       });
@@ -134,8 +134,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns correct resource data", function() {
+  describe("#getResources", () => {
+    it("returns correct resource data", () => {
       const pod = new Pod({
         spec: {
           containers: [
@@ -163,7 +163,7 @@ describe("Pod", function() {
       });
     });
 
-    it("multiplies resources by the number of instances", function() {
+    it("multiplies resources by the number of instances", () => {
       const pod = new Pod({
         spec: {
           containers: [
@@ -191,8 +191,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getServiceStatus", function() {
-    it("detects STOPPED", function() {
+  describe("#getServiceStatus", () => {
+    it("detects STOPPED", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -206,7 +206,7 @@ describe("Pod", function() {
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
     });
 
-    it("detects DEPLOYING", function() {
+    it("detects DEPLOYING", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -219,7 +219,7 @@ describe("Pod", function() {
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
     });
 
-    it("detects RUNNING", function() {
+    it("detects RUNNING", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -232,7 +232,7 @@ describe("Pod", function() {
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it("detects NA", function() {
+    it("detects NA", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -246,8 +246,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#getTasksSummary", function() {
-    it("counts healthy instances", function() {
+  describe("#getTasksSummary", () => {
+    it("counts healthy instances", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -287,7 +287,7 @@ describe("Pod", function() {
       });
     });
 
-    it("counts unhealthy instances", function() {
+    it("counts unhealthy instances", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -327,7 +327,7 @@ describe("Pod", function() {
       });
     });
 
-    it("counts unknown instances", function() {
+    it("counts unknown instances", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -367,7 +367,7 @@ describe("Pod", function() {
       });
     });
 
-    it("counts staged instances", function() {
+    it("counts staged instances", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -399,7 +399,7 @@ describe("Pod", function() {
       });
     });
 
-    it("counts over-capacity instances", function() {
+    it("counts over-capacity instances", () => {
       const pod = new Pod({
         spec: {
           scaling: {
@@ -457,8 +457,8 @@ describe("Pod", function() {
     });
   });
 
-  describe("#findInstanceByTaskId", function() {
-    it("returns PodInstance", function() {
+  describe("#findInstanceByTaskId", () => {
+    it("returns PodInstance", () => {
       const pod = new Pod({
         instances: [
           {
@@ -478,7 +478,7 @@ describe("Pod", function() {
       );
     });
 
-    it("returns undefined", function() {
+    it("returns undefined", () => {
       const pod = new Pod({
         instances: [
           {
@@ -494,8 +494,8 @@ describe("Pod", function() {
       ).toEqual(undefined);
     });
   });
-  describe("#isDelayed", function() {
-    it("return false when not delayed", function() {
+  describe("#isDelayed", () => {
+    it("return false when not delayed", () => {
       const pod = new Pod({
         queue: {
           delay: {
@@ -506,7 +506,7 @@ describe("Pod", function() {
       expect(pod.isDelayed()).toEqual(false);
     });
 
-    it("return false when property is missing", function() {
+    it("return false when property is missing", () => {
       const pod = new Pod({
         queue: {
           delay: {}
@@ -515,7 +515,7 @@ describe("Pod", function() {
       expect(pod.isDelayed()).toEqual(false);
     });
 
-    it("return true when delayed", function() {
+    it("return true when delayed", () => {
       const pod = new Pod({
         queue: {
           delay: {

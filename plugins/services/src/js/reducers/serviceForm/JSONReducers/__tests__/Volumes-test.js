@@ -8,15 +8,15 @@ const {
 const Batch = require("#SRC/js/structs/Batch");
 const Volumes = require("../Volumes");
 
-describe("Volumes", function() {
-  describe("#JSONReducer", function() {
-    it("returns an empty array if no volumes are set", function() {
+describe("Volumes", () => {
+  describe("#JSONReducer", () => {
+    it("returns an empty array if no volumes are set", () => {
       const batch = new Batch();
 
       expect(batch.reduce(Volumes.JSONReducer.bind({}), [])).toEqual([]);
     });
 
-    it("returns a local volume", function() {
+    it("returns a local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -35,7 +35,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("parses wrong values in local volume", function() {
+    it("parses wrong values in local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -59,7 +59,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("parses wrong values in local volume", function() {
+    it("parses wrong values in local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -80,7 +80,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("returns an external volume", function() {
+    it("returns an external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -101,7 +101,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("parses wrong values in external volume", function() {
+    it("parses wrong values in external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -132,7 +132,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("will change from host to external volume", function() {
+    it("will change from host to external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(
@@ -163,7 +163,7 @@ describe("Volumes", function() {
         }
       ]);
     });
-    it("returns a local and an external volume", function() {
+    it("returns a local and an external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -197,7 +197,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("returns a fully filled local volume", function() {
+    it("returns a fully filled local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -221,7 +221,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("returns a fully filled external volume", function() {
+    it("returns a fully filled external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -256,7 +256,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("removes the right local volume", function() {
+    it("removes the right local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -289,7 +289,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("removes the right external volume", function() {
+    it("removes the right external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -331,7 +331,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("contains a mixed combination of volumes", function() {
+    it("contains a mixed combination of volumes", () => {
       let batch = new Batch();
 
       // Add the first external Volume
@@ -414,13 +414,13 @@ describe("Volumes", function() {
       ]);
     });
   });
-  describe("Volumes", function() {
-    describe("#JSONParser", function() {
-      it("returns an empty array", function() {
+  describe("Volumes", () => {
+    describe("#JSONParser", () => {
+      it("returns an empty array", () => {
         expect(Volumes.JSONParser({})).toEqual([]);
       });
 
-      it("returns an empty array for unknown values", function() {
+      it("returns an empty array for unknown values", () => {
         const state = {
           container: {
             volumes: [
@@ -433,7 +433,7 @@ describe("Volumes", function() {
         expect(Volumes.JSONParser(state)).toEqual([]);
       });
 
-      it("returns an array consisting of one transaction", function() {
+      it("returns an array consisting of one transaction", () => {
         const state = {
           container: {
             volumes: [
@@ -459,7 +459,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("contains the transaction for one local volume", function() {
+      it("contains the transaction for one local volume", () => {
         const state = {
           container: {
             volumes: [
@@ -492,7 +492,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("includes a unknown value for modes", function() {
+      it("includes a unknown value for modes", () => {
         const state = {
           container: {
             volumes: [
@@ -526,9 +526,9 @@ describe("Volumes", function() {
       });
     });
   });
-  describe("External Volumes", function() {
-    describe("#JSONParser", function() {
-      it("contains the transaction for one external volume", function() {
+  describe("External Volumes", () => {
+    describe("#JSONParser", () => {
+      it("contains the transaction for one external volume", () => {
         const state = {
           container: {
             volumes: [
@@ -581,7 +581,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("includes a unknown value for provider", function() {
+      it("includes a unknown value for provider", () => {
         const state = {
           container: {
             volumes: [
@@ -638,7 +638,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("includes a unknown value for options", function() {
+      it("includes a unknown value for options", () => {
         const state = {
           container: {
             volumes: [
@@ -695,7 +695,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("includes a size value", function() {
+      it("includes a size value", () => {
         const state = {
           container: {
             volumes: [
@@ -752,9 +752,9 @@ describe("Volumes", function() {
       });
     });
   });
-  describe("DSS Volumes", function() {
-    describe("#JSONParser", function() {
-      it("contains the transaction for one external volume", function() {
+  describe("DSS Volumes", () => {
+    describe("#JSONParser", () => {
+      it("contains the transaction for one external volume", () => {
         const state = {
           container: {
             volumes: [
@@ -796,8 +796,8 @@ describe("Volumes", function() {
         ]);
       });
     });
-    describe("#JSONReducer", function() {
-      it("returns a DSS volume", function() {
+    describe("#JSONReducer", () => {
+      it("returns a DSS volume", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -816,7 +816,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("returns DSS volume after changing the type", function() {
+      it("returns DSS volume after changing the type", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -846,7 +846,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("persists persists volume type", function() {
+      it("persists persists volume type", () => {
         let batch = new Batch();
 
         batch = batch.add(
@@ -885,7 +885,7 @@ describe("Volumes", function() {
         ]);
       });
 
-      it("returns a DSS volume with profileName", function() {
+      it("returns a DSS volume with profileName", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));

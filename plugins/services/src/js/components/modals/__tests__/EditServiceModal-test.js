@@ -13,8 +13,8 @@ jest.mock("#SRC/js/stores/DCOSStore");
 const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const EditServiceModal = require("../EditServiceModal").default;
 
-describe("EditServiceModal", function() {
-  it("renders an empty modal if the service is loaded", function() {
+describe("EditServiceModal", () => {
+  it("renders an empty modal if the service is loaded", () => {
     DCOSStore.serviceDataReceived = false;
     DCOSStore.serviceTree = {
       findItemById() {
@@ -28,7 +28,7 @@ describe("EditServiceModal", function() {
     expect(wrapper.type().name).toBe("FullScreenModal");
   });
 
-  it("renders an error if the service could not be found", function() {
+  it("renders an error if the service could not be found", () => {
     DCOSStore.serviceDataReceived = true;
     DCOSStore.serviceTree = {
       findItemById() {
@@ -41,7 +41,7 @@ describe("EditServiceModal", function() {
     expect(pushMock).toHaveBeenCalled();
   });
 
-  it("renders an edit modal if the service has been created", function() {
+  it("renders an edit modal if the service has been created", () => {
     DCOSStore.serviceDataReceived = true;
     DCOSStore.serviceTree = {
       findItemById() {
@@ -59,7 +59,7 @@ describe("EditServiceModal", function() {
     expect(wrapper.type().name).toBe("EditFrameworkConfiguration");
   });
 
-  it("renders a create modal if the service has not been created", function() {
+  it("renders a create modal if the service has not been created", () => {
     DCOSStore.serviceDataReceived = true;
     DCOSStore.serviceTree = {
       findItemById() {

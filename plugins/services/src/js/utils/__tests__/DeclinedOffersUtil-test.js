@@ -1,12 +1,12 @@
 const DeclinedOffersUtil = require("../DeclinedOffersUtil");
 
-describe("DeclinedOffersUtil", function() {
-  describe("#getSummaryFromQueue", function() {
-    it("returns null when processedOffersSummary undefined", function() {
+describe("DeclinedOffersUtil", () => {
+  describe("#getSummaryFromQueue", () => {
+    it("returns null when processedOffersSummary undefined", () => {
       expect(DeclinedOffersUtil.getSummaryFromQueue({})).toEqual(null);
     });
 
-    it("returns null when unusedOffersCount is 0", function() {
+    it("returns null when unusedOffersCount is 0", () => {
       expect(
         DeclinedOffersUtil.getSummaryFromQueue({
           processedOffersSummary: {
@@ -16,7 +16,7 @@ describe("DeclinedOffersUtil", function() {
       ).toEqual(null);
     });
 
-    it("transforms the API response into the expected format for a service", function() {
+    it("transforms the API response into the expected format for a service", () => {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         app: {
           cpus: 0.5,
@@ -119,7 +119,7 @@ describe("DeclinedOffersUtil", function() {
       });
     });
 
-    it("transforms the API response into the expected format for pods", function() {
+    it("transforms the API response into the expected format for pods", () => {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         pod: {
           containers: [
@@ -250,7 +250,7 @@ describe("DeclinedOffersUtil", function() {
       });
     });
 
-    it("adds executorResources to a pod's requested resources", function() {
+    it("adds executorResources to a pod's requested resources", () => {
       const summary = DeclinedOffersUtil.getSummaryFromQueue({
         pod: {
           containers: [
@@ -386,8 +386,8 @@ describe("DeclinedOffersUtil", function() {
     });
   });
 
-  describe("#getOffersFromQueue", function() {
-    it("returns null when lastUnusedOffers is undefined or empty array", function() {
+  describe("#getOffersFromQueue", () => {
+    it("returns null when lastUnusedOffers is undefined or empty array", () => {
       expect(DeclinedOffersUtil.getOffersFromQueue({})).toEqual(null);
       expect(
         DeclinedOffersUtil.getOffersFromQueue({
@@ -396,7 +396,7 @@ describe("DeclinedOffersUtil", function() {
       ).toEqual(null);
     });
 
-    it("defaults undefined scalar values to 0", function() {
+    it("defaults undefined scalar values to 0", () => {
       const unusedOffers = DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: [
           {
@@ -450,7 +450,7 @@ describe("DeclinedOffersUtil", function() {
       ]);
     });
 
-    it("defaults null scalar values to 0", function() {
+    it("defaults null scalar values to 0", () => {
       const unusedOffers = DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: [
           {
@@ -505,7 +505,7 @@ describe("DeclinedOffersUtil", function() {
       ]);
     });
 
-    it("returns an array of offer details from API response", function() {
+    it("returns an array of offer details from API response", () => {
       const unusedOffers = DeclinedOffersUtil.getOffersFromQueue({
         lastUnusedOffers: [
           {

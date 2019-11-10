@@ -13,8 +13,8 @@ const PackageDetailTab = require("../PackageDetailTab");
 
 let thisContainer, thisInstance;
 
-describe("PackageDetailTab", function() {
-  beforeEach(function() {
+describe("PackageDetailTab", () => {
+  beforeEach(() => {
     thisContainer = global.document.createElement("div");
     thisInstance = ReactDOM.render(
       <PackageDetailTab
@@ -25,12 +25,12 @@ describe("PackageDetailTab", function() {
     );
   });
 
-  afterEach(function() {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("#retrievePackageInfo", function() {
-    it("call fetchPackageVersions with package name", function() {
+  describe("#retrievePackageInfo", () => {
+    it("call fetchPackageVersions with package name", () => {
       CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
         "fetchPackageVersions"
       );
@@ -41,7 +41,7 @@ describe("PackageDetailTab", function() {
       );
     });
 
-    it("do NOT call fetchPackageVersions when package versions is cached", function() {
+    it("do NOT call fetchPackageVersions when package versions is cached", () => {
       CosmosPackagesStore.getPackageVersions = jest.fn(() => {
         return new UniversePackageVersions({
           packageVersions: {
@@ -58,7 +58,7 @@ describe("PackageDetailTab", function() {
       expect(CosmosPackagesStore.fetchPackageVersions).not.toHaveBeenCalled();
     });
 
-    it("call fetchPackageDescription with package name and package version", function() {
+    it("call fetchPackageDescription with package name and package version", () => {
       CosmosPackagesStore.fetchPackageDescription = jasmine.createSpy(
         "fetchPackageDescription"
       );
@@ -71,9 +71,9 @@ describe("PackageDetailTab", function() {
     });
   });
 
-  describe("#getItems", function() {
-    describe("#getItem", function() {
-      it("returns empty array with null values provided", function() {
+  describe("#getItems", () => {
+    describe("#getItem", () => {
+      it("returns empty array with null values provided", () => {
         expect(
           thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
@@ -82,7 +82,7 @@ describe("PackageDetailTab", function() {
         ).toEqual([]);
       });
 
-      it("returns only entries with defined values", function() {
+      it("returns only entries with defined values", () => {
         expect(
           thisInstance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -91,7 +91,7 @@ describe("PackageDetailTab", function() {
         ).toEqual(1);
       });
 
-      it("renders entries with keys and values", function() {
+      it("renders entries with keys and values", () => {
         var subItem = ReactDOM.render(
           thisInstance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -104,8 +104,8 @@ describe("PackageDetailTab", function() {
       });
     });
 
-    describe("#getSubItem", function() {
-      it("returns empty array with only null values provided", function() {
+    describe("#getSubItem", () => {
+      it("returns empty array with only null values provided", () => {
         expect(
           thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
@@ -114,7 +114,7 @@ describe("PackageDetailTab", function() {
         ).toEqual([]);
       });
 
-      it("returns only entries with defined values", function() {
+      it("returns only entries with defined values", () => {
         expect(
           thisInstance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -123,7 +123,7 @@ describe("PackageDetailTab", function() {
         ).toEqual(1);
       });
 
-      it("renders entries with keys and values", function() {
+      it("renders entries with keys and values", () => {
         var subItem = ReactDOM.render(
           thisInstance.getItems(
             [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
@@ -137,8 +137,8 @@ describe("PackageDetailTab", function() {
     });
   });
 
-  describe("#getSubItem", function() {
-    it("renders link if url is defined", function() {
+  describe("#getSubItem", () => {
+    it("renders link if url is defined", () => {
       var link = ReactDOM.render(
         thisInstance.getSubItem("url", "http://foo"),
         thisContainer
@@ -149,7 +149,7 @@ describe("PackageDetailTab", function() {
       expect(link.querySelector("a").tagName).toEqual("A");
     });
 
-    it("renders link with prefix if defined", function() {
+    it("renders link with prefix if defined", () => {
       var link = ReactDOM.render(
         thisInstance.getSubItem("email", "foo@bar.com"),
         thisContainer
@@ -161,12 +161,12 @@ describe("PackageDetailTab", function() {
     });
   });
 
-  describe("#mapLicenses", function() {
-    it("returns array for empty array", function() {
+  describe("#mapLicenses", () => {
+    it("returns array for empty array", () => {
       expect(thisInstance.mapLicenses([])).toEqual([]);
     });
 
-    it("returns all entries of array", function() {
+    it("returns all entries of array", () => {
       var licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: "qux" },
@@ -176,7 +176,7 @@ describe("PackageDetailTab", function() {
       expect(licenses.length).toEqual(3);
     });
 
-    it("returns all entries even with undefined values", function() {
+    it("returns all entries even with undefined values", () => {
       var licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: null },
@@ -187,8 +187,8 @@ describe("PackageDetailTab", function() {
     });
   });
 
-  describe("#render", function() {
-    it("calls getErrorScreen when error occurred", function() {
+  describe("#render", () => {
+    it("calls getErrorScreen when error occurred", () => {
       thisInstance.state.hasError = true;
       thisInstance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -196,7 +196,7 @@ describe("PackageDetailTab", function() {
       expect(thisInstance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it("ignores getErrorScreen when error has not occurred", function() {
+    it("ignores getErrorScreen when error has not occurred", () => {
       thisInstance.state.hasError = false;
       thisInstance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -204,7 +204,7 @@ describe("PackageDetailTab", function() {
       expect(thisInstance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("calls getLoadingScreen when loading", function() {
+    it("calls getLoadingScreen when loading", () => {
       thisInstance.state.isLoading = true;
       thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
@@ -212,7 +212,7 @@ describe("PackageDetailTab", function() {
       expect(thisInstance.getLoadingScreen).toHaveBeenCalled();
     });
 
-    it("ignores getLoadingScreen when not loading", function() {
+    it("ignores getLoadingScreen when not loading", () => {
       thisInstance.isSelectedVersionLoading = () => false;
       thisInstance.state.isLoading = false;
       thisInstance.state.isLoadingSelectedVersion = false;
@@ -226,7 +226,7 @@ describe("PackageDetailTab", function() {
       expect(thisInstance.getLoadingScreen).not.toHaveBeenCalled();
     });
 
-    it("ignores getLoadingScreen when error has occurred", function() {
+    it("ignores getLoadingScreen when error has occurred", () => {
       thisInstance.state.hasError = true;
       thisInstance.state.isLoading = true;
       thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
@@ -235,7 +235,7 @@ describe("PackageDetailTab", function() {
       expect(thisInstance.getLoadingScreen).not.toHaveBeenCalled();
     });
 
-    it("does not render stale data when the service is changed", function() {
+    it("does not render stale data when the service is changed", () => {
       thisInstance.state.isLoadingSelectedVersion = true;
       expect(thisInstance.render()).toMatchSnapshot();
     });

@@ -63,7 +63,7 @@ module.exports = {
       return [];
     }
 
-    return Object.keys(state.labels).reduce(function(memo, key, index) {
+    return Object.keys(state.labels).reduce((memo, key, index) => {
       /**
        * For the labels which are a key => value based object we want to
        * create a new item and fill it with the key and the value. So we

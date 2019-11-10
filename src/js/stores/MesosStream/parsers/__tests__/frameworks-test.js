@@ -5,9 +5,9 @@ import {
   frameworkRemovedAction
 } from "../frameworks";
 
-describe("frameworks parser", function() {
-  describe("#getFrameworksAction", function() {
-    it("parses the correct message", function() {
+describe("frameworks parser", () => {
+  describe("#getFrameworksAction", () => {
+    it("parses the correct message", () => {
       const state = {};
       const message = {
         type: "GET_FRAMEWORKS",
@@ -40,8 +40,8 @@ describe("frameworks parser", function() {
     });
   });
 
-  describe("#frameworkAddedAction", function() {
-    it("parses the correct message", function() {
+  describe("#frameworkAddedAction", () => {
+    it("parses the correct message", () => {
       const state = { frameworks: [] };
       const message = {
         type: "FRAMEWORK_ADDED",
@@ -72,8 +72,8 @@ describe("frameworks parser", function() {
     });
   });
 
-  describe("#frameworkUpdatedAction", function() {
-    it("parses the correct message", function() {
+  describe("#frameworkUpdatedAction", () => {
+    it("parses the correct message", () => {
       const state = {
         frameworks: [
           {
@@ -112,8 +112,8 @@ describe("frameworks parser", function() {
     });
   });
 
-  describe("#frameworkRemovedAction", function() {
-    it("parses the correct message", function() {
+  describe("#frameworkRemovedAction", () => {
+    it("parses the correct message", () => {
       const state = {
         frameworks: [
           {

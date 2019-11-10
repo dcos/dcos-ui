@@ -52,7 +52,7 @@ class TasksView extends React.Component {
     const prevCheckedItems = this.state.checkedItems;
     const checkedItems = {};
 
-    nextProps.tasks.forEach(function(task) {
+    nextProps.tasks.forEach(task => {
       if (prevCheckedItems[task.id]) {
         checkedItems[task.id] = true;
       }
@@ -63,7 +63,7 @@ class TasksView extends React.Component {
 
   handleItemCheck(idsChecked) {
     const checkedItems = {};
-    idsChecked.forEach(function(id) {
+    idsChecked.forEach(id => {
       checkedItems[id] = true;
     });
 
@@ -124,13 +124,13 @@ class TasksView extends React.Component {
     }
 
     // Only allow restarting the task if the service isn't deploying.
-    const isDeploying = Object.keys(checkedItems).some(function(taskId) {
+    const isDeploying = Object.keys(checkedItems).some(taskId => {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
       return service && service.getServiceStatus() === ServiceStatus.DEPLOYING;
     });
 
-    const isSDK = Object.keys(checkedItems).some(function(taskId) {
+    const isSDK = Object.keys(checkedItems).some(taskId => {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
       return service && isSDKService(service);
@@ -145,8 +145,8 @@ class TasksView extends React.Component {
     // being correctly called, preventing correct dismissal of the Tooltip.
     //
     // So we overwrite the click handlers manually.
-    let handleRestartClick = function() {};
-    let handleStopClick = function() {};
+    let handleRestartClick = () => {};
+    let handleStopClick = () => {};
 
     if (!isDeploying && !isSDK) {
       handleRestartClick = this.handleActionClick.bind(this, "restart");

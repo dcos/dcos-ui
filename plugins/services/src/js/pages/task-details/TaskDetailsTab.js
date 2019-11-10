@@ -59,10 +59,7 @@ class TaskDetailsTab extends React.Component {
     if (mesosTask.resources != null) {
       const resourceLabels = ResourcesUtil.getResourceLabels();
 
-      resourceRows = ResourcesUtil.getDefaultResources().map(function(
-        resource,
-        index
-      ) {
+      resourceRows = ResourcesUtil.getDefaultResources().map((resource, index) => {
         return (
           <ConfigurationMapRow key={index}>
             <ConfigurationMapLabel>
@@ -157,7 +154,7 @@ class TaskDetailsTab extends React.Component {
     let labelRows = null;
 
     if (mesosTask.labels) {
-      labelRows = mesosTask.labels.map(function({ key, value }) {
+      labelRows = mesosTask.labels.map(({ key, value }) => {
         return (
           <ConfigurationMapRow key={key}>
             <ConfigurationMapLabel>{key}</ConfigurationMapLabel>

@@ -1,8 +1,8 @@
 const Service = require("../Service");
 
-describe("Service", function() {
-  describe("#getId", function() {
-    it("returns correct id", function() {
+describe("Service", () => {
+  describe("#getId", () => {
+    it("returns correct id", () => {
       const service = new Service({
         id: "/test/cmd"
       });
@@ -11,8 +11,8 @@ describe("Service", function() {
     });
   });
 
-  describe("#getMesosId", function() {
-    it("returns correct id prefix", function() {
+  describe("#getMesosId", () => {
+    it("returns correct id prefix", () => {
       const service = new Service({
         id: "/test/cmd"
       });
@@ -21,8 +21,8 @@ describe("Service", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns default correct resource data", function() {
+  describe("#getResources", () => {
+    it("returns default correct resource data", () => {
       expect(new Service().getResources()).toEqual({
         cpus: 0,
         mem: 0,
@@ -31,7 +31,7 @@ describe("Service", function() {
       });
     });
 
-    it("returns correct resource data for a single instance", function() {
+    it("returns correct resource data for a single instance", () => {
       expect(
         new Service({
           getSpec() {
@@ -61,7 +61,7 @@ describe("Service", function() {
       });
     });
 
-    it("returns correct resource data for multiple instances", function() {
+    it("returns correct resource data for multiple instances", () => {
       expect(
         new Service({
           getSpec() {
@@ -91,7 +91,7 @@ describe("Service", function() {
       });
     });
 
-    it("returns correct resource data for a single instance with executor resources", function() {
+    it("returns correct resource data for a single instance with executor resources", () => {
       expect(
         new Service({
           getSpec() {
@@ -127,7 +127,7 @@ describe("Service", function() {
       });
     });
 
-    it("returns correct resource data for multiple instances with executor resources", function() {
+    it("returns correct resource data for multiple instances with executor resources", () => {
       expect(
         new Service({
           getSpec() {
@@ -164,8 +164,8 @@ describe("Service", function() {
     });
   });
 
-  describe("#getRegions", function() {
-    it("returns default correct regions data", function() {
+  describe("#getRegions", () => {
+    it("returns default correct regions data", () => {
       expect(
         new Service({
           tasks: [
@@ -179,13 +179,13 @@ describe("Service", function() {
         }).getRegions()
       ).toEqual(["a", "b"]);
     });
-    it("returns empty array for service without tasks", function() {
+    it("returns empty array for service without tasks", () => {
       expect(new Service({}).getRegions()).toEqual([]);
     });
   });
 
-  describe("#getRunningInstancesCount", function() {
-    it("returns the number of reported tasks", function() {
+  describe("#getRunningInstancesCount", () => {
+    it("returns the number of reported tasks", () => {
       const service = new Service({
         tasks: [{ foo: "bar" }, { bar: "baz" }]
       });
@@ -193,7 +193,7 @@ describe("Service", function() {
       expect(service.getRunningInstancesCount()).toEqual(2);
     });
 
-    it("returns 0 when the tasks array is empty", function() {
+    it("returns 0 when the tasks array is empty", () => {
       const service = new Service({
         tasks: []
       });
@@ -201,7 +201,7 @@ describe("Service", function() {
       expect(service.getRunningInstancesCount()).toEqual(0);
     });
 
-    it("defaults to 0 if the tasks key is omitted", function() {
+    it("defaults to 0 if the tasks key is omitted", () => {
       const service = new Service({
         id: "/foo/bar"
       });
@@ -210,13 +210,13 @@ describe("Service", function() {
     });
   });
 
-  describe("#toJSON", function() {
-    it("returns a object with the values in _itemData", function() {
+  describe("#toJSON", () => {
+    it("returns a object with the values in _itemData", () => {
       const item = new Service({ foo: "bar", baz: "qux" });
       expect(item.toJSON()).toEqual({ foo: "bar", baz: "qux" });
     });
 
-    it("returns a JSON string with the values in _itemData", function() {
+    it("returns a JSON string with the values in _itemData", () => {
       const item = new Service({ foo: "bar", baz: "qux" });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });

@@ -38,9 +38,9 @@ module.exports = {
       return [];
     }
 
-    return state.fetch.reduce(function(memo, item, index) {
+    return state.fetch.reduce((memo, item, index) => {
       memo.push(new Transaction(["fetch"], item, ADD_ITEM));
-      Object.keys(item).forEach(function(key) {
+      Object.keys(item).forEach(key => {
         memo.push(new Transaction(["fetch", index, key], item[key], SET));
       });
 

@@ -34,7 +34,7 @@ module.exports = {
     }
     // Look at portMappings and add accepted fields
     // but translate them into portDefinitions
-    return portMappings.reduce(function(memo, item, index) {
+    return portMappings.reduce((memo, item, index) => {
       if (item.name != null) {
         memo.push(
           new Transaction(["portDefinitions", index, "name"], item.name, SET)

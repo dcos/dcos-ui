@@ -5,11 +5,11 @@ const Application = require("../../../structs/Application");
 const ServiceConnectionEndpointList = require("../ServiceConnectionEndpointList");
 const ServiceWithEndpoints = require("./fixtures/ServiceWithEndpoints.json");
 
-describe("ServiceConnectionEndpointList", function() {
+describe("ServiceConnectionEndpointList", () => {
   const serviceWithEndpoints = new Application(ServiceWithEndpoints);
 
-  describe("#render", function() {
-    it("renders the correct endpoints page with tables", function() {
+  describe("#render", () => {
+    it("renders the correct endpoints page with tables", () => {
       const instance = mount(
         <ServiceConnectionEndpointList service={serviceWithEndpoints} />
       );

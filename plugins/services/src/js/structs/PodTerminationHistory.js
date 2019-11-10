@@ -5,7 +5,7 @@ module.exports = class PodTerminationHistory extends Item {
   getContainers() {
     const containers = this.get("containers") || [];
 
-    return containers.map(function(container) {
+    return containers.map(container => {
       return new PodContainerTerminationHistory(container);
     });
   }

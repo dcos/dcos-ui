@@ -2,8 +2,8 @@ const ServiceEndpoint = require("../ServiceEndpoint");
 
 let thisEndpointJSON, thisEndpointFile;
 
-describe("ServiceEndpoint", function() {
-  beforeEach(function() {
+describe("ServiceEndpoint", () => {
+  beforeEach(() => {
     thisEndpointJSON = new ServiceEndpoint({
       serviceId: "/elastic",
       contentType: "application/json",
@@ -22,36 +22,36 @@ describe("ServiceEndpoint", function() {
         "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>"
     });
   });
-  describe("#getName", function() {
-    it("returns correct endpoint name", function() {
+  describe("#getName", () => {
+    it("returns correct endpoint name", () => {
       expect(thisEndpointJSON.getName()).toEqual("master-http");
       expect(thisEndpointFile.getName()).toEqual("core-site.xml");
     });
   });
 
-  describe("#getVip", function() {
-    it("returns correct vip", function() {
+  describe("#getVip", () => {
+    it("returns correct vip", () => {
       expect(thisEndpointJSON.getVip()).toEqual("vip1");
     });
   });
 
-  describe("#getAddress", function() {
-    it("returns correct address", function() {
+  describe("#getAddress", () => {
+    it("returns correct address", () => {
       expect(thisEndpointJSON.getAddress()).toEqual("address1,address2");
     });
   });
 
-  describe("#getDns", function() {
-    it("returns correct dns", function() {
+  describe("#getDns", () => {
+    it("returns correct dns", () => {
       expect(thisEndpointJSON.getDns()).toEqual("dns1,dns2");
     });
   });
 
-  describe("#isJSON", function() {
-    it("returns true for the JSON type", function() {
+  describe("#isJSON", () => {
+    it("returns true for the JSON type", () => {
       expect(thisEndpointJSON.isJSON()).toEqual(true);
     });
-    it("returns false for the File type", function() {
+    it("returns false for the File type", () => {
       expect(thisEndpointFile.isJSON()).toEqual(false);
     });
   });

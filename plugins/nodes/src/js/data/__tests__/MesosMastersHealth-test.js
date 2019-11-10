@@ -62,11 +62,11 @@ const nonLeadersWithHealth = [
   }
 ];
 
-describe("MesosMastersHealth", function() {
-  describe("#mesosMasterInfo", function() {
+describe("MesosMastersHealth", () => {
+  describe("#mesosMasterInfo", () => {
     it(
       "emits correct master",
-      marbles(function(m) {
+      marbles(m => {
         const master$ = mesosMastersHealthQuery(
           () => of(nonLeaders),
           m.time("--|")

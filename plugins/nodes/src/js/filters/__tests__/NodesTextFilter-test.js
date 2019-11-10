@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("NodesTextFilter", function() {
-  beforeEach(function() {
+describe("NodesTextFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getHostName: () => "10.0.1.214"
@@ -19,7 +19,7 @@ describe("NodesTextFilter", function() {
     ];
   });
 
-  it("matches parts of host name", function() {
+  it("matches parts of host name", () => {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("10.0");
 
@@ -31,7 +31,7 @@ describe("NodesTextFilter", function() {
     ]);
   });
 
-  it("matches exact parts of host name", function() {
+  it("matches exact parts of host name", () => {
     const tasks = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"10.1.8.229"');
 

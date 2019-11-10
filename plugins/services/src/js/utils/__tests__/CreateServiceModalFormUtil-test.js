@@ -10,18 +10,18 @@ function getTypeName(type) {
   return JSON.stringify(type);
 }
 
-describe("CreateServiceModalFormUtil", function() {
-  describe("#stripEmptyProperties", function() {
-    EMPTY_TYPES.forEach(function(emptyType) {
+describe("CreateServiceModalFormUtil", () => {
+  describe("#stripEmptyProperties", () => {
+    EMPTY_TYPES.forEach(emptyType => {
       const emptyTypeStr = getTypeName(emptyType);
 
-      it(`removes ${emptyTypeStr} object properties`, function() {
+      it(`removes ${emptyTypeStr} object properties`, () => {
         const data = { a: "foo", b: emptyType };
         const clean = CreateServiceModalFormUtil.stripEmptyProperties(data);
         expect(clean).toEqual({ a: "foo" });
       });
 
-      it(`removes ${emptyTypeStr} array items`, function() {
+      it(`removes ${emptyTypeStr} array items`, () => {
         const data = ["foo", emptyType];
         const clean = CreateServiceModalFormUtil.stripEmptyProperties(data);
         expect(clean).toEqual(["foo"]);

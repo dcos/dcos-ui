@@ -100,15 +100,13 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const didSlaveIdChange =
       nextProps.task && task.slave_id !== nextProps.task.slave_id;
 
-    return (
-      didHighlightTextChange ||
-      didWatchingChange ||
-      didSlaveIdChange ||
-      stateToCheck.some(function(key) {
-        return curState[key] !== nextState[key];
-      }) ||
-      !isEqual(curState.streams, nextState.streams)
-    );
+    return didHighlightTextChange ||
+    didWatchingChange ||
+    didSlaveIdChange ||
+    stateToCheck.some(key => {
+      return curState[key] !== nextState[key];
+    }) ||
+    !isEqual(curState.streams, nextState.streams);
   }
 
   onSystemLogStoreError(subscriptionID, direction) {
@@ -255,7 +253,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
   }
 
   getDropdownItems() {
-    return this.state.streams.map(function(name) {
+    return this.state.streams.map(name => {
       const selectedHtml = (
         <span className="flush dropdown-header">{name}</span>
       );

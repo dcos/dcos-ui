@@ -4,9 +4,9 @@ const MultiContainerScaling = require("../MultiContainerScaling");
 const Batch = require("#SRC/js/structs/Batch");
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 
-describe("MultiContainerScaling", function() {
-  describe("#JSONReducer", function() {
-    it("does not return anything with an empty batch", function() {
+describe("MultiContainerScaling", () => {
+  describe("#JSONReducer", () => {
+    it("does not return anything with an empty batch", () => {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerScaling.JSONReducer.bind({}))).toEqual(
@@ -14,7 +14,7 @@ describe("MultiContainerScaling", function() {
       );
     });
 
-    it("returns a fixed scaling block when instances defined", function() {
+    it("returns a fixed scaling block when instances defined", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["instances"], 1));
@@ -27,7 +27,7 @@ describe("MultiContainerScaling", function() {
       });
     });
 
-    it("returns different scaling kinds if defined", function() {
+    it("returns different scaling kinds if defined", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["scaling.kind"], "wrong"));
@@ -55,14 +55,14 @@ describe("MultiContainerScaling", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("does not populate transactions on empty config", function() {
+  describe("#JSONParser", () => {
+    it("does not populate transactions on empty config", () => {
       const expectedObject = [];
 
       expect(MultiContainerScaling.JSONParser({})).toEqual(expectedObject);
     });
 
-    it("supports instances = 0", function() {
+    it("supports instances = 0", () => {
       const expectedObject = [{ type: SET, value: 0, path: ["instances"] }];
 
       expect(
@@ -70,7 +70,7 @@ describe("MultiContainerScaling", function() {
       ).toEqual(expectedObject);
     });
 
-    it("populates instances and scaling.kind", function() {
+    it("populates instances and scaling.kind", () => {
       const expectedObject = [
         { type: SET, value: 2, path: ["instances"] },
         { type: SET, value: "random", path: ["scaling", "kind"] }

@@ -7,17 +7,17 @@ const ServicePodWithEndpoints = require("./fixtures/ServicePodWithEndpoints.json
 
 let thisInstance;
 
-describe("ServicePodConnectionEndpointList", function() {
+describe("ServicePodConnectionEndpointList", () => {
   const service = new Pod(ServicePodWithEndpoints);
 
-  beforeEach(function() {
+  beforeEach(() => {
     thisInstance = mount(
       <ServicePodConnectionEndpointList service={service} />
     );
   });
 
-  describe("#render", function() {
-    it("renders the correct endpoints page with tables", function() {
+  describe("#render", () => {
+    it("renders the correct endpoints page with tables", () => {
       const elements = thisInstance.find(".configuration-map-section");
       expect(elements.length).toEqual(2);
 

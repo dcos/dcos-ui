@@ -723,7 +723,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (networks != null && networks.length > 1) {
-      networks = networks.map(function({ mode, name }) {
+      networks = networks.map(({ mode, name }) => {
         return {
           name,
           mode: Networking.internalToJson[mode]

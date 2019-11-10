@@ -71,7 +71,7 @@ module.exports = {
 
       let protocol = null;
       if (portDefinition.protocol) {
-        protocol = PROTOCOLS.filter(function(protocol) {
+        protocol = PROTOCOLS.filter(protocol => {
           return portDefinition.protocol[protocol];
         }).join(",");
       }
@@ -105,7 +105,7 @@ module.exports = {
     }
 
     // Look at portDefinitions and add accepted fields
-    return state.portDefinitions.reduce(function(memo, item, index) {
+    return state.portDefinitions.reduce((memo, item, index) => {
       memo.push(new Transaction(["portDefinitions"], item, ADD_ITEM));
 
       if (item.name != null) {

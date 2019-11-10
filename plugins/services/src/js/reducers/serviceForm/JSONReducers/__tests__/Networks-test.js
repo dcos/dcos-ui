@@ -1,13 +1,13 @@
 const Networks = require("../Networks");
 const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
 
-describe("Networks", function() {
-  describe("#JSONParser", function() {
-    it("returns an empty array", function() {
+describe("Networks", () => {
+  describe("#JSONParser", () => {
+    it("returns an empty array", () => {
       expect(Networks.JSONParser({})).toEqual([]);
     });
 
-    it("defaults mode to CONTAINER when name is defined", function() {
+    it("defaults mode to CONTAINER when name is defined", () => {
       const state = {
         networks: [
           {
@@ -30,7 +30,7 @@ describe("Networks", function() {
       ]);
     });
 
-    it("sets BRIDGE mode", function() {
+    it("sets BRIDGE mode", () => {
       const state = {
         networks: [{ mode: "container/bridge" }]
       };
@@ -44,7 +44,7 @@ describe("Networks", function() {
       ]);
     });
 
-    it("sets HOST mode", function() {
+    it("sets HOST mode", () => {
       const state = {
         networks: [{ mode: "host" }]
       };
@@ -54,7 +54,7 @@ describe("Networks", function() {
       ]);
     });
 
-    it("keeps unknown attributes", function() {
+    it("keeps unknown attributes", () => {
       const network = {
         mode: "container",
         name: "dcos",

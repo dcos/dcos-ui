@@ -78,107 +78,107 @@ const NOTBOTHCMDARGS_ERRORS = [
   }
 ];
 
-describe("MarathonAppValidators", function() {
-  describe("#containsCmdArgsOrContainer", function() {
-    it("returns no errors if `cmd` defined", function() {
+describe("MarathonAppValidators", () => {
+  describe("#containsCmdArgsOrContainer", () => {
+    it("returns no errors if `cmd` defined", () => {
       const spec = { cmd: "foo" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("returns no errors if `args` defined", function() {
+    it("returns no errors if `args` defined", () => {
       const spec = { args: ["foo"] };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("returns no errors if `container.docker.image` defined", function() {
+    it("returns no errors if `container.docker.image` defined", () => {
       const spec = { container: { docker: { image: "foo" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("returns no errors if `container.appc.image` defined", function() {
+    it("returns no errors if `container.appc.image` defined", () => {
       const spec = { container: { appc: { image: "foo" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
       );
     });
 
-    it("returns error if both `args` and `cmd` are defined", function() {
+    it("returns error if both `args` and `cmd` are defined", () => {
       const spec = { args: ["foo"], cmd: "bar" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         NOTBOTHCMDARGS_ERRORS
       );
     });
 
-    it("returns all errors if neither is defined", function() {
+    it("returns all errors if neither is defined", () => {
       const spec = {};
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `cmd` is null", function() {
+    it("returns errors if `cmd` is null", () => {
       const spec = { cmd: null };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `cmd` is {}", function() {
+    it("returns errors if `cmd` is {}", () => {
       const spec = { cmd: {} };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `cmd` is []", function() {
+    it("returns errors if `cmd` is []", () => {
       const spec = { cmd: [] };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `cmd` is empty string", function() {
+    it("returns errors if `cmd` is empty string", () => {
       const spec = { cmd: "" };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `container` is empty", function() {
+    it("returns errors if `container` is empty", () => {
       const spec = { container: {} };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `container.docker` is empty", function() {
+    it("returns errors if `container.docker` is empty", () => {
       const spec = { container: { docker: {} } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it("returns errors if `container.appc` is empty", function() {
+    it("returns errors if `container.appc` is empty", () => {
       const spec = { container: { appc: {} } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         CMDORDOCKERIMAGE_ERRORS
       );
     });
 
-    it('returns errors if `container.appc.id` does not start with "sha512-"', function() {
+    it('returns errors if `container.appc.id` does not start with "sha512-"', () => {
       const spec = { container: { appc: { image: "foo", id: "sha256-test" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         APPCONTAINERID_ERRORS
       );
     });
 
-    it("does not return errors if `container.appc` correctly defined", function() {
+    it("does not return errors if `container.appc` correctly defined", () => {
       const spec = { container: { appc: { image: "foo", id: "sha512-test" } } };
       expect(MarathonAppValidators.containsCmdArgsOrContainer(spec)).toEqual(
         []
@@ -186,8 +186,8 @@ describe("MarathonAppValidators", function() {
     });
   });
 
-  describe("#mustContainImageOnDocker", function() {
-    it("returns error if runtime is docker but image is missing", function() {
+  describe("#mustContainImageOnDocker", () => {
+    it("returns error if runtime is docker but image is missing", () => {
       const spec = {
         container: {
           type: "DOCKER"
@@ -198,7 +198,7 @@ describe("MarathonAppValidators", function() {
       );
     });
 
-    it("does not return error if runtime is not docker and image is missing", function() {
+    it("does not return error if runtime is not docker and image is missing", () => {
       const spec = {
         container: {
           type: "MESOS"
@@ -207,7 +207,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
 
-    it("does not return error if runtime docker and image is specified", function() {
+    it("does not return error if runtime docker and image is specified", () => {
       const spec = {
         container: {
           type: "DOCKER",
@@ -220,19 +220,19 @@ describe("MarathonAppValidators", function() {
     });
   });
 
-  describe("#validateConstraints", function() {
-    it("returns no errors when there is no constraints", function() {
+  describe("#validateConstraints", () => {
+    it("returns no errors when there is no constraints", () => {
       expect(MarathonAppValidators.validateConstraints({})).toEqual([]);
     });
 
-    it("returns no errors when all constraints are correctly defined", function() {
+    it("returns no errors when all constraints are correctly defined", () => {
       const spec = {
         constraints: [["hostname", "UNIQUE"], ["CPUS", "MAX_PER", "123"]]
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
 
-    it("returns an error when constraints is not an array", function() {
+    it("returns an error when constraints is not an array", () => {
       const spec = {
         constraints: ":)"
       };
@@ -245,7 +245,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("returns an error when a constraint is not an array", function() {
+    it("returns an error when a constraint is not an array", () => {
       const spec = {
         constraints: [":)"]
       };
@@ -258,7 +258,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("returns an error when a constraint definition is wrong", function() {
+    it("returns an error when a constraint definition is wrong", () => {
       const spec = {
         constraints: [["CPUS", "LIKE"]]
       };
@@ -272,7 +272,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("returns an error when empty parameter is required", function() {
+    it("returns an error when empty parameter is required", () => {
       const spec = {
         constraints: [["CPUS", "UNIQUE", "foo"]]
       };
@@ -286,7 +286,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("returns an error when wrong characters are applied", function() {
+    it("returns an error when wrong characters are applied", () => {
       const spec = {
         constraints: [["CPUS", "GROUP_BY", "2foo"]]
       };
@@ -301,14 +301,14 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("doesn't return an error for empty optional fields", function() {
+    it("doesn't return an error for empty optional fields", () => {
       const spec = {
         constraints: [["hostname", "GROUP_BY"]]
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
 
-    it("returns an error when wrong characters are applied", function() {
+    it("returns an error when wrong characters are applied", () => {
       const spec = {
         constraints: [["CPUS", "MAX_PER", "foo"]]
       };
@@ -323,7 +323,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("accepts number strings for number-string fields", function() {
+    it("accepts number strings for number-string fields", () => {
       const spec = {
         constraints: [["CPUS", "MAX_PER", "2"]]
       };
@@ -331,13 +331,13 @@ describe("MarathonAppValidators", function() {
     });
   });
 
-  describe("#validateLabels", function() {
-    it("does not return error if labels are not specified", function() {
+  describe("#validateLabels", () => {
+    it("does not return error if labels are not specified", () => {
       const spec = {};
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
     });
 
-    it("does not return error if label keys do not start or end with spaces", function() {
+    it("does not return error if label keys do not start or end with spaces", () => {
       const spec = {
         labels: {
           foo: "bar",
@@ -347,7 +347,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
     });
 
-    it("returns errors if any label key starts with a space", function() {
+    it("returns errors if any label key starts with a space", () => {
       const spec = {
         labels: {
           " foo": "bar",
@@ -366,7 +366,7 @@ describe("MarathonAppValidators", function() {
       ]);
     });
 
-    it("returns errors if any label key ends with a space", function() {
+    it("returns errors if any label key ends with a space", () => {
       const spec = {
         labels: {
           "foo ": "bar",
@@ -386,18 +386,18 @@ describe("MarathonAppValidators", function() {
     });
   });
 
-  describe("#validateProfileVolumes", function() {
-    it("does not return error if container ist not specified", function() {
+  describe("#validateProfileVolumes", () => {
+    it("does not return error if container ist not specified", () => {
       const spec = {};
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error if volumes is not specified", function() {
+    it("does not return error if volumes is not specified", () => {
       const spec = { container: {} };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for local host volumes", function() {
+    it("does not return error for local host volumes", () => {
       const spec = {
         container: {
           volumes: [
@@ -411,7 +411,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for external volumes", function() {
+    it("does not return error for external volumes", () => {
       const spec = {
         container: {
           volumes: [
@@ -433,7 +433,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for local persistent volumes", function() {
+    it("does not return error for local persistent volumes", () => {
       const spec = {
         container: {
           volumes: [
@@ -450,7 +450,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error if volume type is `mount`", function() {
+    it("does not return error if volume type is `mount`", () => {
       const spec = {
         container: {
           volumes: [
@@ -469,7 +469,7 @@ describe("MarathonAppValidators", function() {
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("returns error if volume type is not `mount`", function() {
+    it("returns error if volume type is not `mount`", () => {
       const spec = {
         container: {
           volumes: [

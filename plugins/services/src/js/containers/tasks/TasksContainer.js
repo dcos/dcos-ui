@@ -125,7 +125,7 @@ class TasksContainer extends React.Component {
 
     const newZones = Array.from(
       new Set(
-        props.tasks.reduce(function(prev, task) {
+        props.tasks.reduce((prev, task) => {
           const node = TaskUtil.getNode(task);
 
           if (!node || node.getZoneName() === "N/A") {
@@ -140,7 +140,7 @@ class TasksContainer extends React.Component {
 
     const newRegions = Array.from(
       new Set(
-        props.tasks.reduce(function(prev, task) {
+        props.tasks.reduce((prev, task) => {
           const node = TaskUtil.getNode(task);
 
           if (!node || node.getRegionName() === "N/A") {

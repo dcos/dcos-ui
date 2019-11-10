@@ -4,9 +4,9 @@ const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Artifacts = require("../Artifacts");
 
-describe("Artifacts", function() {
-  describe("#FromReducer", function() {
-    it("emits correct JSON", function() {
+describe("Artifacts", () => {
+  describe("#FromReducer", () => {
+    it("emits correct JSON", () => {
       const batch = new Batch([
         new Transaction(["fetch"], { uri: "http://example.io" }, ADD_ITEM),
         new Transaction(["fetch", 0, "uri"], "http://example.io", SET),

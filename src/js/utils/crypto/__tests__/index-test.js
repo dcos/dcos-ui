@@ -5,26 +5,26 @@ function MockCryptoKeyPair() {
   this.privateKey = jest.fn();
 }
 
-describe("supportsWebCryptography", function() {
-  it("returns false", function() {
+describe("supportsWebCryptography", () => {
+  it("returns false", () => {
     expect(supportsWebCryptography()).toEqual(false);
   });
 
-  describe("when window.subtle exists", function() {
-    beforeEach(function() {
+  describe("when window.subtle exists", () => {
+    beforeEach(() => {
       window.crypto = {
         subtle: {}
       };
     });
 
-    it("returns true", function() {
+    it("returns true", () => {
       expect(supportsWebCryptography()).toEqual(true);
     });
   });
 });
 
-describe("generatePrintableRSAKeypair", function() {
-  beforeEach(function() {
+describe("generatePrintableRSAKeypair", () => {
+  beforeEach(() => {
     window.crypto = {
       subtle: {
         exportKey: (_type, _key) => {
@@ -49,12 +49,12 @@ describe("generatePrintableRSAKeypair", function() {
     };
   });
 
-  describe("when overriding defaults", function() {
-    beforeEach(function() {
+  describe("when overriding defaults", () => {
+    beforeEach(() => {
       window.crypto.subtle.generateKey = jest.fn();
     });
 
-    it("calls generateKey with options and defaults", function() {
+    it("calls generateKey with options and defaults", () => {
       generatePrintableRSAKeypair({ modulusLength: 4096 });
       expect(window.crypto.subtle.generateKey).toHaveBeenCalledWith(
         {
@@ -69,7 +69,7 @@ describe("generatePrintableRSAKeypair", function() {
     });
   });
 
-  it("resolves to two base 64 encoded strings", function(done) {
+  it("resolves to two base 64 encoded strings", done => {
     expect(generatePrintableRSAKeypair()).resolves.toHaveLength(2);
 
     generatePrintableRSAKeypair()
@@ -83,7 +83,7 @@ describe("generatePrintableRSAKeypair", function() {
       });
   });
 
-  it("generates a printable string, each line no longer than 64 characters", function(done) {
+  it("generates a printable string, each line no longer than 64 characters", done => {
     generatePrintableRSAKeypair()
       .then(([privateKey, publicKey]) => {
         expect(privateKey.split("\n").every(line => line.length <= 64)).toBe(

@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("ServiceNameTextFilter", function() {
-  beforeEach(function() {
+describe("ServiceNameTextFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getName() {
@@ -25,7 +25,7 @@ describe("ServiceNameTextFilter", function() {
     ];
   });
 
-  it("matches parts of service name", function() {
+  it("matches parts of service name", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("foo");
 
@@ -37,7 +37,7 @@ describe("ServiceNameTextFilter", function() {
     ]);
   });
 
-  it("matches exact parts of service name", function() {
+  it("matches exact parts of service name", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse('"foo bar"');
 

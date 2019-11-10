@@ -77,7 +77,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     if (isGroup) {
       containsSDKService =
-        pod.findItem(function(item) {
+        pod.findItem(item => {
           return item instanceof Service && isSDKService(item);
         }) != null;
     }
@@ -236,7 +236,7 @@ class PodDetail extends mixin(TabsMixin) {
 
     // TODO (DCOS_OSS-1038): Move cloned props to route parameters
     const clonedProps = { service: pod };
-    const clonedChildren = React.Children.map(children, function(child) {
+    const clonedChildren = React.Children.map(children, child => {
       // Only add props to children that are not ServiceModals
       if (child.type === ServiceModals) {
         return child;

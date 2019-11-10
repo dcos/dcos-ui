@@ -3,15 +3,15 @@ const FrameworkUtil = require("../FrameworkUtil");
 
 let thisImages, thisLabels;
 
-describe("FrameworkUtil", function() {
-  describe("#getImageSizeFromImagesObject", function() {
-    beforeEach(function() {
+describe("FrameworkUtil", () => {
+  describe("#getImageSizeFromImagesObject", () => {
+    beforeEach(() => {
       thisImages = {
         "icon-medium": "foo.png"
       };
     });
 
-    it("finds the requested size of image", function() {
+    it("finds the requested size of image", () => {
       var image = FrameworkUtil.getImageSizeFromImagesObject(
         thisImages,
         "medium"
@@ -19,12 +19,12 @@ describe("FrameworkUtil", function() {
       expect(image).toEqual("foo.png");
     });
 
-    it("returns null if there are no images", function() {
+    it("returns null if there are no images", () => {
       var image = FrameworkUtil.getImageSizeFromImagesObject({}, "medium");
       expect(image).toEqual(null);
     });
 
-    it("returns null if image doesn't exist", function() {
+    it("returns null if image doesn't exist", () => {
       var image = FrameworkUtil.getImageSizeFromImagesObject(
         thisImages,
         "large"
@@ -32,7 +32,7 @@ describe("FrameworkUtil", function() {
       expect(image).toEqual(null);
     });
 
-    it("returns null if image value is empty", function() {
+    it("returns null if image value is empty", () => {
       var images = {
         images: {
           "icon-large": ""
@@ -44,8 +44,8 @@ describe("FrameworkUtil", function() {
     });
   });
 
-  describe("#getServiceImages", function() {
-    beforeEach(function() {
+  describe("#getServiceImages", () => {
+    beforeEach(() => {
       thisImages = {
         "icon-small": "foo.png",
         "icon-medium": "foo.png",
@@ -53,25 +53,25 @@ describe("FrameworkUtil", function() {
       };
     });
 
-    it("returns parsed images when all images are defined", function() {
+    it("returns parsed images when all images are defined", () => {
       var images = FrameworkUtil.getServiceImages(thisImages);
       expect(images).toEqual(thisImages);
     });
 
-    it("returns default images when one size is missing", function() {
+    it("returns default images when one size is missing", () => {
       delete thisImages["icon-large"];
       var images = FrameworkUtil.getServiceImages(thisImages);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
 
-    it("returns default images when images is null", function() {
+    it("returns default images when images is null", () => {
       var images = FrameworkUtil.getServiceImages(null);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
   });
 
-  describe("#getMetadataFromLabels", function() {
-    beforeEach(function() {
+  describe("#getMetadataFromLabels", () => {
+    beforeEach(() => {
       thisLabels = {
         DCOS_PACKAGE_METADATA:
           "eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29" +
@@ -81,13 +81,13 @@ describe("FrameworkUtil", function() {
       };
     });
 
-    it("defaults to empty object", function() {
+    it("defaults to empty object", () => {
       expect(
         FrameworkUtil.getMetadataFromLabels({ DCOS_PACKAGE_METADATA: "" })
       ).toEqual({});
     });
 
-    it("returns correct metadata", function() {
+    it("returns correct metadata", () => {
       expect(FrameworkUtil.getMetadataFromLabels(thisLabels)).toEqual({
         name: "service",
         images: {

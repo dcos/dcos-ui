@@ -4,9 +4,9 @@ const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Volumes = require("../Volumes");
 
-describe("Volumes", function() {
-  describe("#FormReducer", function() {
-    it("returns an Array with one item", function() {
+describe("Volumes", () => {
+  describe("#FormReducer", () => {
+    it("returns an Array with one item", () => {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
@@ -21,7 +21,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("contains one full local Volumes item", function() {
+    it("contains one full local Volumes item", () => {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))
@@ -38,7 +38,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("parses wrong typed values correctly", function() {
+    it("parses wrong typed values correctly", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumes", 0, "type"], 123));
@@ -58,7 +58,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("contains two full local Volumes items", function() {
+    it("contains two full local Volumes items", () => {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes"], null, ADD_ITEM))
@@ -86,7 +86,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("removes the right row.", function() {
+    it("removes the right row.", () => {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes"], null, ADD_ITEM))
@@ -109,7 +109,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("sets the right mode.", function() {
+    it("sets the right mode.", () => {
       const batch = new Batch()
         .add(new Transaction(["volumes"], null, ADD_ITEM))
         .add(new Transaction(["volumes", 0, "type"], "PERSISTENT"))

@@ -98,7 +98,7 @@ class HostsPageContent extends React.PureComponent {
 
     const newZones = Array.from(
       new Set(
-        allHosts.getItems().reduce(function(prev, host) {
+        allHosts.getItems().reduce((prev, host) => {
           if (host.getZoneName() === "N/A") {
             return prev;
           }

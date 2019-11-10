@@ -4,10 +4,10 @@ const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Endpoints = require("../Endpoints");
 
-describe("Endpoints", function() {
-  describe("#JSONReducer", function() {
-    describe("Host Mode", function() {
-      it("has one endpoint", function() {
+describe("Endpoints", () => {
+  describe("#JSONReducer", () => {
+    describe("Host Mode", () => {
+      it("has one endpoint", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -39,7 +39,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("has one endpoint with name", function() {
+      it("has one endpoint with name", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -75,7 +75,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("has one endpoint with name and a hostport", function() {
+      it("has one endpoint with name and a hostport", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -122,7 +122,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the protocol right", function() {
+      it("sets the protocol right", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -163,7 +163,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets protocol to unknown value", function() {
+      it("sets protocol to unknown value", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -206,8 +206,8 @@ describe("Endpoints", function() {
       });
     });
 
-    describe("container Mode", function() {
-      it("has one endpoint", function() {
+    describe("container Mode", () => {
+      it("has one endpoint", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -241,7 +241,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("has one endpoint with name", function() {
+      it("has one endpoint with name", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -279,7 +279,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("has one endpoint with name and a hostport", function() {
+      it("has one endpoint with name and a hostport", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -328,7 +328,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the protocol right", function() {
+      it("sets the protocol right", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -369,7 +369,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets protocol to unknown value", function() {
+      it("sets protocol to unknown value", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -411,7 +411,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the right container Port", function() {
+      it("sets the right container Port", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -452,7 +452,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the right vip", function() {
+      it("sets the right vip", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -501,7 +501,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the right custom vip", function() {
+      it("sets the right custom vip", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -561,7 +561,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the right vip after id change", function() {
+      it("sets the right vip after id change", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -612,7 +612,7 @@ describe("Endpoints", function() {
         ]);
       });
 
-      it("sets the right custom vip even after id change", function() {
+      it("sets the right custom vip even after id change", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));

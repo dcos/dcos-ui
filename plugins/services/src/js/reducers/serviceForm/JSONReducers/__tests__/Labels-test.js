@@ -8,9 +8,9 @@ const {
 const Batch = require("#SRC/js/structs/Batch");
 const Labels = require("../Labels");
 
-describe("Labels", function() {
-  describe("#JSONReducer", function() {
-    it("returns a key value object", function() {
+describe("Labels", () => {
+  describe("#JSONReducer", () => {
+    it("returns a key value object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -20,7 +20,7 @@ describe("Labels", function() {
         key: "value"
       });
     });
-    it("keeps the last value if they have the same key", function() {
+    it("keeps the last value if they have the same key", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "key"));
@@ -33,7 +33,7 @@ describe("Labels", function() {
         key: "value2"
       });
     });
-    it("keeps remove the first item", function() {
+    it("keeps remove the first item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["labels"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["labels", 0, "key"], "first"));
@@ -48,11 +48,11 @@ describe("Labels", function() {
       });
     });
   });
-  describe("#JSONParser", function() {
-    it("returns an empty array", function() {
+  describe("#JSONParser", () => {
+    it("returns an empty array", () => {
       expect(Labels.JSONParser({})).toEqual([]);
     });
-    it("returns an array of transactions", function() {
+    it("returns an array of transactions", () => {
       expect(Labels.JSONParser({ labels: { key: "value" } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["labels"] },
         { type: SET, value: "key", path: ["labels", 0, "key"] },

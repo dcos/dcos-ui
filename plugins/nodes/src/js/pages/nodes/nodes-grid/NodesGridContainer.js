@@ -53,7 +53,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
       location: { query },
       hosts
     } = props;
-    const ids = services.map(function(service) {
+    const ids = services.map(service => {
       return service.id;
     });
 
@@ -75,7 +75,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   computeServiceColors(services) {
     var colors = {};
 
-    services.forEach(function(service, index) {
+    services.forEach((service, index) => {
       // Drop all others into the same 'other' color
       if (index < MAX_SERVICES_TO_SHOW) {
         colors[service.id] = index;
@@ -88,7 +88,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   }
 
   computeShownServices(services) {
-    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(function(service) {
+    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(service => {
       return service.id;
     });
 

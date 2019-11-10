@@ -66,7 +66,7 @@ const CosmosPackagesActions = {
         const packages = response.packages || [];
         const packageImages = {};
 
-        const data = packages.map(function(cosmosPackage) {
+        const data = packages.map(cosmosPackage => {
           if (!cosmosPackage.resource) {
             cosmosPackage.resource = {};
           }
@@ -120,7 +120,7 @@ const CosmosPackagesActions = {
       success(response) {
         const packages = response.packages || [];
         // Map list data to match other endpoint structures
-        const data = packages.map(function(item) {
+        const data = packages.map(item => {
           const cosmosPackage =
             Util.findNestedPropertyInObject(
               item,
@@ -505,9 +505,7 @@ if (Config.useFixtures) {
       }
     );
 
-    Object.keys(global.actionTypes.CosmosPackagesActions).forEach(function(
-      method
-    ) {
+    Object.keys(global.actionTypes.CosmosPackagesActions).forEach(method => {
       CosmosPackagesActions[method] = RequestUtil.stubRequest(
         CosmosPackagesActions,
         "CosmosPackagesActions",
