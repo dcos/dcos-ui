@@ -12,8 +12,8 @@ import ServiceImages from "../constants/ServiceImages";
 import VolumeList from "./VolumeList";
 
 module.exports = class Pod extends Service {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // The variable is prefixed because `Item` will expose
     // all the properties it gets as a properties of this object

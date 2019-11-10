@@ -20,8 +20,8 @@ const METHODS_TO_BIND = [
 ];
 
 class LogView extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // Using variable on component to avoid the asynchronous `setState`
     this.updatingScrollPosition = false;

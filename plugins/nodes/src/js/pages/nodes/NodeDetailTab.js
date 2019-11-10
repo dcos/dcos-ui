@@ -23,8 +23,8 @@ import Loader from "#SRC/js/components/Loader";
 import { Status } from "../../types/Status";
 
 class NodeDetailTab extends PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.onMesosStateChange = this.onMesosStateChange.bind(this);
 

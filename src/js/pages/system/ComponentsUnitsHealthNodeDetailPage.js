@@ -64,8 +64,8 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
 };
 
 class UnitsHealthNodeDetail extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       hasError: false,
@@ -82,8 +82,8 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     ];
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
     const { unitID, unitNodeID } = this.props.params;
 
     UnitHealthStore.fetchUnit(unitID);

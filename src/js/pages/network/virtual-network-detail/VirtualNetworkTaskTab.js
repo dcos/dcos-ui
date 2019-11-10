@@ -38,8 +38,8 @@ const METHODS_TO_BIND = [
 const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorMessage: null,

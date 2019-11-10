@@ -8,8 +8,8 @@ import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";
 
 class UsersActionsModal extends ActionsModal {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {

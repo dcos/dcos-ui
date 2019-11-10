@@ -62,8 +62,8 @@ const UsersBreadcrumbs = () => {
 };
 
 class OrganizationTab extends mixin(StoreMixin) {
-  constructor() {
-    super(arguments);
+  constructor(...args) {
+    super(args);
 
     this.store_listeners = [
       {

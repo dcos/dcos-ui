@@ -19,8 +19,8 @@ import {
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class ConfigStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       ccid: {},
@@ -96,12 +96,12 @@ class ConfigStore extends GetSetBaseStore {
     this.emit(CLUSTER_CCID_SUCCESS);
   }
 
-  fetchConfig() {
-    return ConfigActions.fetchConfig(...arguments);
+  fetchConfig(...args) {
+    return ConfigActions.fetchConfig(...args);
   }
 
-  fetchCCID() {
-    return ConfigActions.fetchCCID(...arguments);
+  fetchCCID(...args) {
+    return ConfigActions.fetchCCID(...args);
   }
 
   get storeID() {

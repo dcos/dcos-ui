@@ -59,8 +59,8 @@ import UniversePackageVersions from "../structs/UniversePackageVersions";
 import UniversePackagesList from "../structs/UniversePackagesList";
 
 class CosmosPackagesStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       availablePackages: [],
@@ -254,48 +254,48 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   /* API */
-  fetchAvailablePackages() {
-    return CosmosPackagesActions.fetchAvailablePackages(...arguments);
+  fetchAvailablePackages(...args) {
+    return CosmosPackagesActions.fetchAvailablePackages(...args);
   }
 
-  fetchInstalledPackages() {
-    return CosmosPackagesActions.fetchInstalledPackages(...arguments);
+  fetchInstalledPackages(...args) {
+    return CosmosPackagesActions.fetchInstalledPackages(...args);
   }
 
-  fetchPackageDescription() {
-    return CosmosPackagesActions.fetchPackageDescription(...arguments);
+  fetchPackageDescription(...args) {
+    return CosmosPackagesActions.fetchPackageDescription(...args);
   }
 
-  fetchPackageVersions() {
-    return CosmosPackagesActions.fetchPackageVersions(...arguments);
+  fetchPackageVersions(...args) {
+    return CosmosPackagesActions.fetchPackageVersions(...args);
   }
 
-  fetchServiceDescription() {
-    return CosmosPackagesActions.fetchServiceDescription(...arguments);
+  fetchServiceDescription(...args) {
+    return CosmosPackagesActions.fetchServiceDescription(...args);
   }
 
-  installPackage() {
-    return CosmosPackagesActions.installPackage(...arguments);
+  installPackage(...args) {
+    return CosmosPackagesActions.installPackage(...args);
   }
 
-  uninstallPackage() {
-    return CosmosPackagesActions.uninstallPackage(...arguments);
+  uninstallPackage(...args) {
+    return CosmosPackagesActions.uninstallPackage(...args);
   }
 
-  fetchRepositories() {
-    return CosmosPackagesActions.fetchRepositories(...arguments);
+  fetchRepositories(...args) {
+    return CosmosPackagesActions.fetchRepositories(...args);
   }
 
-  addRepository() {
-    return CosmosPackagesActions.addRepository(...arguments);
+  addRepository(...args) {
+    return CosmosPackagesActions.addRepository(...args);
   }
 
-  deleteRepository() {
-    return CosmosPackagesActions.deleteRepository(...arguments);
+  deleteRepository(...args) {
+    return CosmosPackagesActions.deleteRepository(...args);
   }
 
-  updateService() {
-    return CosmosPackagesActions.updateService(...arguments);
+  updateService(...args) {
+    return CosmosPackagesActions.updateService(...args);
   }
 
   /* Reducers */

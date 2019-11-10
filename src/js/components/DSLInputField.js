@@ -41,8 +41,8 @@ const METHODS_TO_BIND = [
  *   />
  */
 class DSLInputField extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       expression: this.props.expression,

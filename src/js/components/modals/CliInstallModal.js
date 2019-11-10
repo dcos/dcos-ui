@@ -22,8 +22,8 @@ const osTypes = {
 };
 
 class CliInstallModal extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     let selectedOS = browserInfo().os;
     if (!Object.keys(osTypes).includes(selectedOS)) {

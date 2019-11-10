@@ -17,8 +17,8 @@ import TaskDirectory from "../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
 export default class TaskFileViewer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = { currentFile: null };
   }

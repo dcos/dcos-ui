@@ -15,8 +15,8 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class NodesTaskDetailPage extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {

@@ -170,8 +170,8 @@ const METHODS_TO_BIND = [
 ];
 
 class ServicesContainer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       actionErrors: {},
@@ -256,52 +256,52 @@ class ServicesContainer extends React.Component {
     }
   }
 
-  revertDeployment() {
+  revertDeployment(...args) {
     this.setPendingAction(ActionKeys.REVERT_DEPLOYMENT);
 
-    return MarathonActions.revertDeployment(...arguments);
+    return MarathonActions.revertDeployment(...args);
   }
 
-  createGroup() {
+  createGroup(...args) {
     this.setPendingAction(ActionKeys.GROUP_CREATE);
 
-    return MarathonActions.createGroup(...arguments);
+    return MarathonActions.createGroup(...args);
   }
 
-  deleteGroup() {
+  deleteGroup(...args) {
     this.setPendingAction(ActionKeys.GROUP_DELETE);
 
-    return ServiceActions.deleteGroup(...arguments);
+    return ServiceActions.deleteGroup(...args);
   }
 
-  editGroup() {
+  editGroup(...args) {
     this.setPendingAction(ActionKeys.GROUP_EDIT);
 
-    return MarathonActions.editGroup(...arguments);
+    return MarathonActions.editGroup(...args);
   }
 
-  deleteService() {
+  deleteService(...args) {
     this.setPendingAction(ActionKeys.SERVICE_DELETE);
 
-    return ServiceActions.deleteService(...arguments);
+    return ServiceActions.deleteService(...args);
   }
 
-  editService() {
+  editService(...args) {
     this.setPendingAction(ActionKeys.SERVICE_EDIT);
 
-    return MarathonActions.editService(...arguments);
+    return MarathonActions.editService(...args);
   }
 
-  restartService() {
+  restartService(...args) {
     this.setPendingAction(ActionKeys.SERVICE_RESTART);
 
-    return MarathonActions.restartService(...arguments);
+    return MarathonActions.restartService(...args);
   }
 
-  resetDelayedService() {
+  resetDelayedService(...args) {
     this.setPendingAction(ActionKeys.SERVICE_RESET_DELAY);
 
-    return MarathonActions.resetDelayedService(...arguments);
+    return MarathonActions.resetDelayedService(...args);
   }
 
   handleServerAction(payload) {

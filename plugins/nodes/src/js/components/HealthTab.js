@@ -22,8 +22,8 @@ const METHODS_TO_BIND = [
 ];
 
 class HealthTab extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       healthFilter: "all",

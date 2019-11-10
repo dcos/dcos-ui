@@ -16,8 +16,8 @@ import SDKEndpointActions from "../events/SDKEndpointActions";
 import ServiceEndpoint from "../structs/ServiceEndpoint";
 
 class SDKEndpointStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       services: {}

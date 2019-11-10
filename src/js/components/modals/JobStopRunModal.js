@@ -8,8 +8,8 @@ import ModalHeading from "../modals/ModalHeading";
 import * as MetronomeClient from "../../events/MetronomeClient";
 
 class JobStopRunModal extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       pendingRequest: false

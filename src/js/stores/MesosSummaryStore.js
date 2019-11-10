@@ -61,8 +61,8 @@ function stopPolling() {
 }
 
 class MesosSummaryStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

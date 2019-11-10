@@ -10,8 +10,8 @@ import TaskStats from "./TaskStats";
 import VolumeList from "./VolumeList";
 
 module.exports = class Application extends Service {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // The variable is prefixed because `Item` will expose all the properties
     // it gets as a properties of this object and we want to avoid any naming

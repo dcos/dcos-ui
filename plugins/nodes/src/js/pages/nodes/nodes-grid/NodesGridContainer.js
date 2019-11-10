@@ -15,8 +15,8 @@ const METHODS_TO_BIND = [];
 const OTHER_SERVICES_COLOR = 32;
 
 class NodesGridContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       filteredNodes: new NodesList([]),

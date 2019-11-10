@@ -39,8 +39,8 @@ const { CONTAINER, HOST } = Networking.type;
 const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
 
 class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

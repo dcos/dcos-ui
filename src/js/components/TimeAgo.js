@@ -9,9 +9,9 @@ const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
 const METHODS_TO_BIND = ["updateTime"];
 
-class TimeAgo extends React.Component {
-  constructor() {
-    super(...arguments);
+export default class TimeAgo extends React.Component {
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -94,5 +94,3 @@ TimeAgo.propTypes = {
   suppressSuffix: PropTypes.bool,
   time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };
-
-module.exports = TimeAgo;

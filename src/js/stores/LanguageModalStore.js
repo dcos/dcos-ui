@@ -14,8 +14,8 @@ import AppDispatcher from "../events/AppDispatcher";
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class LanguageModalStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

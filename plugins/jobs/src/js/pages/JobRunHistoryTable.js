@@ -62,8 +62,8 @@ const colGroup = (
 );
 
 class JobRunHistoryTable extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       selectedID: null,

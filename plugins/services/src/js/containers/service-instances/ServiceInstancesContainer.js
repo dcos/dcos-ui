@@ -13,8 +13,8 @@ import TasksContainer from "../tasks/TasksContainer";
 const METHODS_TO_BIND = ["onStateStoreSuccess", "onStateStoreError"];
 
 class ServiceInstancesContainer extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       lastUpdate: 0,

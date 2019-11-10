@@ -9,8 +9,8 @@ import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTr
 import UserLanguageStore from "#SRC/js/stores/UserLanguageStore";
 
 export default class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.userLabel = AuthStore.getUserLabel();
   }

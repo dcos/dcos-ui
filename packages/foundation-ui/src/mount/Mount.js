@@ -22,8 +22,8 @@ const METHODS_TO_BIND = ["onMountServiceChange"];
  *
  */
 class Mount extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // Get components and init state
     this.state = {

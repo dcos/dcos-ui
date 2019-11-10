@@ -34,8 +34,8 @@ const METHODS_TO_BIND = [
 ];
 
 class TasksContainer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     const filters = [new TasksStatusFilter(), new TaskNameTextFilter()];
     this.state = {
@@ -75,10 +75,10 @@ class TasksContainer extends React.Component {
     };
   }
 
-  killTasks() {
+  killTasks(...args) {
     this.setPendingAction(ActionKeys.TASK_KILL);
 
-    return MarathonActions.killTasks(...arguments);
+    return MarathonActions.killTasks(...args);
   }
 
   handleServerAction(payload) {

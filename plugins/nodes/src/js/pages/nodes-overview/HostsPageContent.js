@@ -37,8 +37,8 @@ const dslFormSections = () => [
 ];
 
 class HostsPageContent extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     const filters = [
       new NodesHealthFilter(),
@@ -67,8 +67,8 @@ class HostsPageContent extends React.PureComponent {
     this.propsToState(nextProps);
   }
 
-  onResetFilter() {
-    this.props.onResetFilter(...arguments);
+  onResetFilter(...args) {
+    this.props.onResetFilter(...args);
 
     this.setState({
       filterExpression: new DSLExpression("")

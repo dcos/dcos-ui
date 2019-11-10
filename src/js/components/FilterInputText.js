@@ -24,8 +24,8 @@ const METHODS_TO_BIND = [
 ];
 
 class FilterInputText extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       focus: false

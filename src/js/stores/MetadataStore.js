@@ -20,8 +20,8 @@ import GetSetBaseStore from "./GetSetBaseStore";
 import MetadataActions from "../events/MetadataActions";
 
 class MetadataStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,

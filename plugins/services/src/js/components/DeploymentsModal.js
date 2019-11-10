@@ -62,8 +62,8 @@ function columnClassNameGetter(prop, sortBy, row) {
 }
 
 class DeploymentsModal extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       dcosServiceDataReceived: false,

@@ -7,8 +7,8 @@ import { BadgeButton } from "@dcos/ui-kit";
 const METHODS_TO_BIND = ["handleClick"];
 
 class TabButton extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

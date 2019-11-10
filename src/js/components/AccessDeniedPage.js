@@ -10,8 +10,8 @@ import MetadataStore from "../stores/MetadataStore";
 const METHODS_TO_BIND = ["handleUserLogout"];
 
 module.exports = class AccessDeniedPage extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

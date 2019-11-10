@@ -7,8 +7,8 @@ const markdownRenderer = {
   rendererReady: false,
   prepareMarkdownRenderer() {
     const renderer = new marked.Renderer();
-    renderer.link = function() {
-      const out = marked.Renderer.prototype.link.apply(this, arguments);
+    renderer.link = function(...args) {
+      const out = marked.Renderer.prototype.link.apply(this, args);
 
       return out.replace(/^<a/, '<a target="_blank"');
     };

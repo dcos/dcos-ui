@@ -266,7 +266,7 @@ class ServicesTable extends React.Component {
     });
   }
 
-  render() {
+  render(...args) {
     const {
       actionDisabledService,
       actionDisabledID,
@@ -307,7 +307,7 @@ class ServicesTable extends React.Component {
               null,
               this.props.isFiltered,
               false,
-              ...arguments
+              ...args
             )}
             growToFill={
               !TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")

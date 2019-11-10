@@ -4,8 +4,8 @@ import Transaction from "#SRC/js/structs/Transaction";
 import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
 
 export default class BatchContainer extends Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);

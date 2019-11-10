@@ -12,8 +12,8 @@ import UsersActions from "../events/UsersActions";
 import UsersList from "../structs/UsersList";
 
 class UsersStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       users: []
@@ -49,8 +49,8 @@ class UsersStore extends GetSetBaseStore {
     });
   }
 
-  fetchUsers() {
-    return UsersActions.fetch(...arguments);
+  fetchUsers(...args) {
+    return UsersActions.fetch(...args);
   }
 
   getUsers() {

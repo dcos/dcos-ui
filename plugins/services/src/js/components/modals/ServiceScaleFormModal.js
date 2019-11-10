@@ -13,8 +13,8 @@ import ServiceTree from "../../structs/ServiceTree";
 import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
 class ServiceScaleFormModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorMsg: null

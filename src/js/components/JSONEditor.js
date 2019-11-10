@@ -67,8 +67,8 @@ const IS_TYPING_TIMEOUT = 2000;
  *
  */
 class JSONEditor extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     // Clone the given initial value
     const jsonText = JSON.stringify(this.props.value || {}, null, 2);
 

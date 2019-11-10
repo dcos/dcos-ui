@@ -55,8 +55,8 @@ const METHODS_TO_BIND = [
 ];
 
 class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorCount: 0,

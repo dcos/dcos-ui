@@ -114,8 +114,8 @@ const JSONEditor = lazy(() =>
 );
 
 class CreateServiceModalForm extends Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     // Hint: When you add something to the state, make sure to update the
     //       shouldComponentUpdate function, since we are trying to reduce

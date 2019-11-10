@@ -23,8 +23,8 @@ const EXPRESSION_PARTS = {
 const METHODS_TO_BIND = ["handleTextChange"];
 
 class FuzzyTextDSLSection extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       data: {

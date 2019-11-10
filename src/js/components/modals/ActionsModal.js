@@ -21,8 +21,8 @@ const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
 class ActionsModal extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       pendingRequest: false,

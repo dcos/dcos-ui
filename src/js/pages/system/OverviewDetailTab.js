@@ -56,8 +56,8 @@ const SystemOverviewBreadcrumbs = () => {
 };
 
 class OverviewDetailTab extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       isClusterBuildInfoOpen: false,
@@ -88,8 +88,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     });
   }
 
-  componentDidMount() {
-    super.componentDidMount(...arguments);
+  componentDidMount(...args) {
+    super.componentDidMount(...args);
 
     MarathonStore.fetchMarathonInstanceInfo();
     MetadataStore.fetchDCOSBuildInfo();

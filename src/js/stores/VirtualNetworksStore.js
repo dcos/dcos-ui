@@ -18,8 +18,8 @@ import VirtualNetworksActions from "../events/VirtualNetworksActions";
 let fetchInterval = null;
 
 class VirtualNetworksStore extends BaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.data = { overlays: [] };
 
@@ -98,8 +98,8 @@ class VirtualNetworksStore extends BaseStore {
     return new OverlayList({ items: this.data.overlays });
   }
 
-  fetch() {
-    return VirtualNetworksActions.fetch(...arguments);
+  fetch(...args) {
+    return VirtualNetworksActions.fetch(...args);
   }
 
   processVirtualNetworks({

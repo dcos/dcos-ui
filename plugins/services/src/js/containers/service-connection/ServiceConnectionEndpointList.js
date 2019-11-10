@@ -19,8 +19,8 @@ import MesosDNSList from "./MesosDNSList";
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
 class ServiceConnectionEndpointList extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

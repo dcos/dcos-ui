@@ -40,8 +40,8 @@ const METHODS_TO_BIND = [
 ];
 
 class PodInstancesContainer extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       actionErrors: {},
@@ -169,10 +169,10 @@ class PodInstancesContainer extends React.Component {
     };
   }
 
-  killPodInstances() {
+  killPodInstances(...args) {
     this.setPendingAction(ActionKeys.POD_INSTANCES_KILL);
 
-    return MarathonActions.killPodInstances(...arguments);
+    return MarathonActions.killPodInstances(...args);
   }
 
   handleMesosStateChange() {

@@ -4,8 +4,8 @@ import GetSetBaseStore from "./GetSetBaseStore";
 import { NOTIFICATION_CHANGE } from "../constants/EventTypes";
 
 class NotificationStore extends GetSetBaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.getSet_data = {
       notificationMap: {}

@@ -24,8 +24,8 @@ import MesosDNSList from "./MesosDNSList";
 const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
 
 class SDKServiceConnectionEndpointList extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       servicePreviousState: ""

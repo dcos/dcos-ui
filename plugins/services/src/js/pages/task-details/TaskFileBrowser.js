@@ -7,8 +7,8 @@ import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 const METHODS_TO_BIND = ["handleFileClick"];
 
 class TaskFileBrowser extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

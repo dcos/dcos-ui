@@ -43,8 +43,8 @@ function i18nTranslate(id, values) {
 }
 
 class ServiceDestroyModal extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       errorMsg: null,

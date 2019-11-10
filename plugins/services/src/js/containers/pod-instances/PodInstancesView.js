@@ -32,8 +32,8 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class PodInstancesView extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       selectedItems: []

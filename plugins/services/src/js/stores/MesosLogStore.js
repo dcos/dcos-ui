@@ -27,8 +27,8 @@ import MesosLogActions from "../events/MesosLogActions";
 const MAX_FILE_SIZE = 50000;
 
 class MesosLogStore extends BaseStore {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.logs = {};
 

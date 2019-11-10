@@ -22,8 +22,8 @@ MountService.MountService.registerComponent(
 );
 
 export default class ClusterHeader extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       isTextCopied: false

@@ -21,8 +21,8 @@ import UsersActions from "../events/UsersActions";
  * This store will keep track of users and their details
  */
 class UserStore extends EventEmitter {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -64,16 +64,16 @@ class UserStore extends EventEmitter {
     });
   }
 
-  fetchUsers() {
-    return UsersActions.fetch(...arguments);
+  fetchUsers(...args) {
+    return UsersActions.fetch(...args);
   }
 
-  addUser() {
-    return UsersActions.addUser(...arguments);
+  addUser(...args) {
+    return UsersActions.addUser(...args);
   }
 
-  deleteUser() {
-    return UsersActions.deleteUser(...arguments);
+  deleteUser(...args) {
+    return UsersActions.deleteUser(...args);
   }
 
   addChangeListener(eventName, callback) {

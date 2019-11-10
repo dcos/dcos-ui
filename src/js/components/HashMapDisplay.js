@@ -10,8 +10,8 @@ import ConfigurationMapValue from "./ConfigurationMapValue";
 const METHODS_TO_BIND = ["formatValue", "isHashMap"];
 
 class HashMapDisplay extends React.PureComponent {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

@@ -25,8 +25,8 @@ function escapeStringRegexp(str) {
 let debounceTimeout = null;
 
 class Highlight extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
     this.count = 0;
   }
 

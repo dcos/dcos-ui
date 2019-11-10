@@ -109,8 +109,8 @@ const POD_VALIDATORS = [
 ];
 
 class CreateServiceModal extends Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = this.getResetState(this.props);
 

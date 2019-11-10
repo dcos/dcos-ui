@@ -4,8 +4,8 @@ import React from "react";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.store_listeners = [
       {

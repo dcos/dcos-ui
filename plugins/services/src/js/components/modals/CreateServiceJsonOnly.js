@@ -21,8 +21,8 @@ const JSONEditor = lazy(() =>
 const METHODS_TO_BIND = ["handleJSONChange", "handleJSONErrorStateChange"];
 
 class CreateServiceJsonOnly extends React.Component {
-  constructor() {
-    super(...arguments);
+  constructor(...args) {
+    super(...args);
 
     this.state = {
       appConfig: ServiceUtil.getServiceJSON(this.props.service)
