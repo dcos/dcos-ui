@@ -18,7 +18,7 @@ const performComplexMath = (Store, prevState, action, factor) => {
   return Object.assign({}, prevState, newState);
 };
 
-module.exports = PluginSDK => {
+export default PluginSDK => {
   const { Hooks, config, Store, dispatch } = PluginSDK;
 
   // Set plugin's hooks
