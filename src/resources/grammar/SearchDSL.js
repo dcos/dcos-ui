@@ -850,7 +850,7 @@ if (typeof require !== "undefined" && typeof exports !== "undefined") {
   exports.parser = SearchDSL;
   exports.Parser = SearchDSL.Parser;
   exports.parse = function(...args) {
-    return SearchDSL.parse.apply(SearchDSL, args);
+    return SearchDSL.parse(...args);
   };
   exports.main = function commonjsMain(args) {
     if (!args[1]) {

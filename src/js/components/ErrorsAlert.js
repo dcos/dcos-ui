@@ -16,7 +16,7 @@ const ErrorsAlert = props => {
     pathMapping,
     i18n
   } = props;
-  let showErrors = [].concat.apply([], errors);
+  let showErrors = [].concat(...errors);
 
   if (hidePermissiveErrors) {
     showErrors = showErrors.filter(error => !error.isPermissive);

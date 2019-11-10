@@ -44,7 +44,7 @@ class RoutingService extends EventEmitter {
 
         // If Task is unable to resolve at this point of time it will re-defer itself
         tasks.forEach(args => {
-          this.instance.registerTab.apply(this.instance, args);
+          this.instance.registerTab(...args);
         });
       }
     };

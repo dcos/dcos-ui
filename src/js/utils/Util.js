@@ -140,7 +140,7 @@ const Util = {
       }
 
       timeoutID = global.setTimeout(() => {
-        func.apply(null, args);
+        func(...args);
       }, wait);
     };
   },
