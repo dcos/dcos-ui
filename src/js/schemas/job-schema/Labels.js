@@ -11,7 +11,7 @@ const Labels = {
       getter(job) {
         const labels = job.getLabels() || {};
 
-        return Object.keys(labels).map(function(key) {
+        return Object.keys(labels).map(key => {
           return {
             key,
             value: labels[key]

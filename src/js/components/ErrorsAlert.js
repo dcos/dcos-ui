@@ -8,7 +8,7 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 
 import ErrorMessageUtil from "../utils/ErrorMessageUtil";
 
-const ErrorsAlert = function(props) {
+const ErrorsAlert = props => {
   const {
     errors,
     hideTopLevelErrors,
@@ -23,7 +23,7 @@ const ErrorsAlert = function(props) {
   }
 
   if (hideTopLevelErrors) {
-    showErrors = showErrors.filter(function(error) {
+    showErrors = showErrors.filter(error => {
       return error.path.length === 0;
     });
   }
@@ -33,7 +33,7 @@ const ErrorsAlert = function(props) {
   }
 
   // De-duplicate error messages that have exactly the same translated output
-  const errorMessages = showErrors.reduce(function(messages, error) {
+  const errorMessages = showErrors.reduce((messages, error) => {
     const message = ErrorMessageUtil.getUnanchoredErrorMessage(
       error,
       pathMapping,

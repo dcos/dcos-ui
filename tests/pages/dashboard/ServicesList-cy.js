@@ -1,14 +1,14 @@
-describe("ServicesList", function() {
-  context("Service List Widget", function() {
-    beforeEach(function() {
+describe("ServicesList", () => {
+  context("Service List Widget", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy"
       }).visitUrl({ url: "/dashboard", identify: true });
     });
 
-    it("shows an acceptable number of components", function() {
-      cy.get(".dashboard-panel-list-service-health").within(function() {
-        cy.get("li").should(function($components) {
+    it("shows an acceptable number of components", () => {
+      cy.get(".dashboard-panel-list-service-health").within(() => {
+        cy.get("li").should($components => {
           expect($components.length)
             .to.be.at.least(1)
             .and.to.be.lte(5);
@@ -16,7 +16,7 @@ describe("ServicesList", function() {
       });
     });
 
-    it("navigates to services page", function() {
+    it("navigates to services page", () => {
       cy.get(".dashboard-panel-list-service-health .button")
         .contains("View all")
         .click();

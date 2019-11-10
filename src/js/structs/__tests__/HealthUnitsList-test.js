@@ -1,9 +1,9 @@
 const HealthUnit = require("../HealthUnit");
 const HealthUnitsList = require("../HealthUnitsList");
 
-describe("HealthUnitsList", function() {
-  describe("#constructor", function() {
-    it("creates instances of HealthUnit", function() {
+describe("HealthUnitsList", () => {
+  describe("#constructor", () => {
+    it("creates instances of HealthUnit", () => {
       let items = [{ foo: "bar" }];
       const list = new HealthUnitsList({ items });
       items = list.getItems();
@@ -11,14 +11,14 @@ describe("HealthUnitsList", function() {
     });
   });
 
-  describe("#filter", function() {
-    it("returns unfiltered list", function() {
+  describe("#filter", () => {
+    it("returns unfiltered list", () => {
       const items = [{ a: 1 }, { b: 2 }];
       const list = new HealthUnitsList({ items });
       expect(list.filter().getItems().length).toEqual(2);
     });
 
-    it("filters by title", function() {
+    it("filters by title", () => {
       const items = [{ id: "foo" }, { id: "foobar" }, { id: "baz" }];
       const list = new HealthUnitsList({ items });
       const filteredList = list.filter({ title: "ba" }).getItems();
@@ -27,7 +27,7 @@ describe("HealthUnitsList", function() {
       expect(filteredList[1].get("id")).toEqual("foobar");
     });
 
-    it("filters by unit health title", function() {
+    it("filters by unit health title", () => {
       const items = [
         { id: "foo", health: 0 },
         { id: "bar", health: 0 },

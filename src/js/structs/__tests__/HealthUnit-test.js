@@ -4,9 +4,9 @@ const UnitHealthTypes = require("../../constants/UnitHealthTypes");
 
 let thisUnit;
 
-describe("HealthUnit", function() {
-  describe("#getHealth", function() {
-    it("returns a UnitHealthStatus object", function() {
+describe("HealthUnit", () => {
+  describe("#getHealth", () => {
+    it("returns a UnitHealthStatus object", () => {
       var healthItem = new HealthUnit({
         id: "service_manager",
         description: "Service Manager",
@@ -22,7 +22,7 @@ describe("HealthUnit", function() {
       });
     });
 
-    it("returns NA when healthType not found", function() {
+    it("returns NA when healthType not found", () => {
       var healthItem = new HealthUnit({});
       expect(healthItem.getHealth()).toEqual(
         UnitHealthStatus[UnitHealthTypes.SERVER_NA]
@@ -30,8 +30,8 @@ describe("HealthUnit", function() {
     });
   });
 
-  describe("#getTitle", function() {
-    beforeEach(function() {
+  describe("#getTitle", () => {
+    beforeEach(() => {
       thisUnit = new HealthUnit({
         id: "foo",
         name: "Foo Unit",
@@ -39,15 +39,15 @@ describe("HealthUnit", function() {
       });
     });
 
-    it("returns a string", function() {
+    it("returns a string", () => {
       expect(typeof thisUnit.getTitle()).toEqual("string");
     });
 
-    it("returns the name if available", function() {
+    it("returns the name if available", () => {
       expect(thisUnit.getTitle()).toEqual("Foo Unit");
     });
 
-    it("returns pretty print title if name not available", function() {
+    it("returns pretty print title if name not available", () => {
       thisUnit = new HealthUnit({
         id: "foo",
         health: "0"
@@ -56,8 +56,8 @@ describe("HealthUnit", function() {
     });
   });
 
-  describe("#getPrettyPrintID", function() {
-    it("removes dcos prefix from ID", function() {
+  describe("#getPrettyPrintID", () => {
+    it("removes dcos prefix from ID", () => {
       thisUnit = new HealthUnit({
         id: "dcos-foo",
         health: "0"
@@ -65,7 +65,7 @@ describe("HealthUnit", function() {
       expect(thisUnit.getTitle()).toEqual("Foo");
     });
 
-    it("removes dashes", function() {
+    it("removes dashes", () => {
       thisUnit = new HealthUnit({
         id: "foo-bar",
         health: "0"
@@ -73,7 +73,7 @@ describe("HealthUnit", function() {
       expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
 
-    it("removes dots", function() {
+    it("removes dots", () => {
       thisUnit = new HealthUnit({
         id: "foo.bar",
         health: "0"
@@ -81,7 +81,7 @@ describe("HealthUnit", function() {
       expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
 
-    it("removes dashes and dots", function() {
+    it("removes dashes and dots", () => {
       thisUnit = new HealthUnit({
         id: "foo-bar.qqq",
         health: "0"
@@ -89,7 +89,7 @@ describe("HealthUnit", function() {
       expect(thisUnit.getTitle()).toEqual("Foo Bar Qqq");
     });
 
-    it("removes capitalizes DNS", function() {
+    it("removes capitalizes DNS", () => {
       thisUnit = new HealthUnit({
         id: "foo-dns-bar",
         health: "0"

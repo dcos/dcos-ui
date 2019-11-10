@@ -1,27 +1,27 @@
 const Node = require("../Node");
 
-describe("Node", function() {
-  describe("#getServices", function() {
-    it("returns ids of services running on node", function() {
+describe("Node", () => {
+  describe("#getServices", () => {
+    it("returns ids of services running on node", () => {
       const node = new Node({ framework_ids: [1, 2, 3] });
       expect(node.getServiceIDs()).toEqual([1, 2, 3]);
     });
   });
 
-  describe("#getActive", function() {
-    it("return false when node is inactive", function() {
+  describe("#getActive", () => {
+    it("return false when node is inactive", () => {
       const node = new Node({ active: false });
       expect(node.isActive()).toBeFalsy();
     });
 
-    it("return true when node is inactive", function() {
+    it("return true when node is inactive", () => {
       const node = new Node({ active: true });
       expect(node.isActive()).toBeTruthy();
     });
   });
 
-  describe("#getDomain", function() {
-    it("returns the domain object of the node", function() {
+  describe("#getDomain", () => {
+    it("returns the domain object of the node", () => {
       const node = new Node({
         domain: {
           fault_domain: {
@@ -48,8 +48,8 @@ describe("Node", function() {
     });
   });
 
-  describe("#getRegionName", function() {
-    it("returns name of the region of the node", function() {
+  describe("#getRegionName", () => {
+    it("returns name of the region of the node", () => {
       const node = new Node({
         domain: {
           fault_domain: {
@@ -67,8 +67,8 @@ describe("Node", function() {
     });
   });
 
-  describe("#getZoneName", function() {
-    it("returns name of the zone of the node", function() {
+  describe("#getZoneName", () => {
+    it("returns name of the zone of the node", () => {
       const node = new Node({
         domain: {
           fault_domain: {
@@ -86,9 +86,9 @@ describe("Node", function() {
     });
   });
 
-  describe("#getUsageStats", function() {
-    describe("with resources from mesos", function() {
-      it("returns usage stats for given resource", function() {
+  describe("#getUsageStats", () => {
+    describe("with resources from mesos", () => {
+      it("returns usage stats for given resource", () => {
         const node = new Node({
           resources: { cpus: 10 },
           used_resources: { cpus: 5 }
@@ -103,8 +103,8 @@ describe("Node", function() {
       });
     });
 
-    describe("without resources from mesos", function() {
-      it("returns empty resources and used_resources", function() {
+    describe("without resources from mesos", () => {
+      it("returns empty resources and used_resources", () => {
         const node = new Node({
           resources: null,
           used_resources: undefined
@@ -120,8 +120,8 @@ describe("Node", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns empty obj when resources are falsey", function() {
+  describe("#getResources", () => {
+    it("returns empty obj when resources are falsey", () => {
       const node = new Node({
         used_resources: null
       });
@@ -135,7 +135,7 @@ describe("Node", function() {
     });
   });
 
-  describe("#isPublic", function() {
+  describe("#isPublic", () => {
     const testCases = [
       {
         name: "returns true if attributes.public_ip is true",
@@ -159,8 +159,8 @@ describe("Node", function() {
       }
     ];
 
-    testCases.forEach(function(test) {
-      it(test.name, function() {
+    testCases.forEach(test => {
+      it(test.name, () => {
         const node = new Node(test.value);
         expect(node.isPublic()).toEqual(test.expected);
       });

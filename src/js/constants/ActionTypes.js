@@ -82,7 +82,7 @@ const ActionTypes = {};
   "SERVER_ACTION",
   "SIDEBAR_ACTION",
   "LANGUAGE_MODAL_ACTION"
-].forEach(function(actionType) {
+].forEach(actionType => {
   ActionTypes[actionType] = actionType;
 });
 

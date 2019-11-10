@@ -1,10 +1,10 @@
 import search, { tokenize } from "../search";
 
-describe("search util", function() {
-  describe("search", function() {
+describe("search util", () => {
+  describe("search", () => {
     const fooExtractor = thing => thing.foo;
 
-    it("sorts by relevance, word distance from beginning of string", function() {
+    it("sorts by relevance, word distance from beginning of string", () => {
       const _return = search(
         "baz",
         [
@@ -21,7 +21,7 @@ describe("search util", function() {
       expect(_return[2].obj.foo).toEqual("community-baz");
     });
 
-    it("sorts by relevance, combining relevance of multiple search tokens", function() {
+    it("sorts by relevance, combining relevance of multiple search tokens", () => {
       const _return = search(
         "foo baz",
         [
@@ -40,26 +40,26 @@ describe("search util", function() {
     });
   });
 
-  describe("tokenize", function() {
-    it("return a lowercase array", function() {
+  describe("tokenize", () => {
+    it("return a lowercase array", () => {
       expect(tokenize("Hello, World")).toEqual(["hello", "world"]);
     });
 
-    it("does not break on dash", function() {
+    it("does not break on dash", () => {
       expect(tokenize("Hello-World")).toEqual(["hello-world"]);
     });
 
-    it("does not break on slash", function() {
+    it("does not break on slash", () => {
       expect(tokenize("Hello/World")).toEqual(["hello/world"]);
     });
 
-    describe("null input", function() {
-      it("returns empty array", function() {
+    describe("null input", () => {
+      it("returns empty array", () => {
         expect(tokenize(null)).toEqual([]);
       });
     });
 
-    it("splits on non-word characters, but not slashes", function() {
+    it("splits on non-word characters, but not slashes", () => {
       expect(
         tokenize(
           "foo/bar\\.baz.quis,qux quux[quuz]corge grault,garply\twaldo\bfred"
@@ -79,11 +79,11 @@ describe("search util", function() {
       ]);
     });
 
-    it("returns converts input to string if not a string", function() {
+    it("returns converts input to string if not a string", () => {
       expect(tokenize(10)).toEqual(["10"]);
     });
 
-    it("removes empty strings", function() {
+    it("removes empty strings", () => {
       expect(tokenize("bar\\.baz")).toEqual(["bar", "baz"]);
     });
   });

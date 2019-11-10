@@ -4,13 +4,13 @@ const RouterUtil = require("../RouterUtil");
 
 let thisComponent;
 
-describe("RouterUtil", function() {
-  describe("#createComponentsFromRoutes", function() {
-    beforeEach(function() {
-      thisComponent = function() {};
+describe("RouterUtil", () => {
+  describe("#createComponentsFromRoutes", () => {
+    beforeEach(() => {
+      thisComponent = () => {};
     });
 
-    it("creates a react component", function() {
+    it("creates a react component", () => {
       const components = RouterUtil.createComponentsFromRoutes([
         {
           type: Route,
@@ -22,7 +22,7 @@ describe("RouterUtil", function() {
       expect(components[0]).toBeInstanceOf(Object);
     });
 
-    it("creates a react component of correct type", function() {
+    it("creates a react component of correct type", () => {
       const components = RouterUtil.createComponentsFromRoutes([
         {
           type: Route,
@@ -34,7 +34,7 @@ describe("RouterUtil", function() {
       expect(components[0].type.displayName).toBe("Route");
     });
 
-    it("sets props correctly", function() {
+    it("sets props correctly", () => {
       const components = RouterUtil.createComponentsFromRoutes([
         {
           type: Route,
@@ -48,7 +48,7 @@ describe("RouterUtil", function() {
       expect(props.path).toEqual("foo");
     });
 
-    it("creates child route components", function() {
+    it("creates child route components", () => {
       const components = RouterUtil.createComponentsFromRoutes([
         {
           type: Route,
@@ -69,8 +69,8 @@ describe("RouterUtil", function() {
     });
   });
 
-  describe("#buildRoutes", function() {
-    it("builds routes correctly", function() {
+  describe("#buildRoutes", () => {
+    it("builds routes correctly", () => {
       const routeConfiguration = [
         {
           type: Route,
@@ -119,16 +119,16 @@ describe("RouterUtil", function() {
     });
   });
 
-  describe("#reconstructPathFromRoutes", function() {
-    it("constructs path correctly", function() {
+  describe("#reconstructPathFromRoutes", () => {
+    it("constructs path correctly", () => {
       const routes = [{ path: "foo" }, { path: ":id" }, { path: ":bar/baz" }];
       const path = RouterUtil.reconstructPathFromRoutes(routes);
       expect(path).toEqual("/foo/:id/:bar/baz");
     });
   });
 
-  describe("#getCorrectedFilePathRoute", function() {
-    it("does not augment the path if there is a :filePath placeholder", function() {
+  describe("#getCorrectedFilePathRoute", () => {
+    it("does not augment the path if there is a :filePath placeholder", () => {
       expect(
         RouterUtil.getCorrectedFileRoutePath(
           "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))"
@@ -138,7 +138,7 @@ describe("RouterUtil", function() {
       );
     });
 
-    it("does augment the path without a / if there is no placeholder", function() {
+    it("does augment the path without a / if there is no placeholder", () => {
       expect(
         RouterUtil.getCorrectedFileRoutePath(
           "/services/detail/:id/tasks/:taskID/files/view"
@@ -146,7 +146,7 @@ describe("RouterUtil", function() {
       ).toBe("/services/detail/:id/tasks/:taskID/files/view/:filePath");
     });
 
-    it("does augment the path with a / if there is no placeholder and no /", function() {
+    it("does augment the path with a / if there is no placeholder and no /", () => {
       expect(
         RouterUtil.getCorrectedFileRoutePath(
           "/services/detail/:id/tasks/:taskID/files/view/"
@@ -155,8 +155,8 @@ describe("RouterUtil", function() {
     });
   });
 
-  describe("#redirect", function() {
-    it("domain in redirect is valid", function() {
+  describe("#redirect", () => {
+    it("domain in redirect is valid", () => {
       const expectedResult = true;
       const url = "http://localhost:4200/";
 
@@ -165,7 +165,7 @@ describe("RouterUtil", function() {
       );
     });
 
-    it("domain in redirect is invalid", function() {
+    it("domain in redirect is invalid", () => {
       const expectedResult = false;
       const url = "http://malicious.domain.com/pwned?localhost:4200";
 
@@ -174,7 +174,7 @@ describe("RouterUtil", function() {
       );
     });
 
-    it("get relative path", function() {
+    it("get relative path", () => {
       const expectedResult = "/services/detail/%2Fmlancaster/configuration";
 
       expect(
@@ -184,7 +184,7 @@ describe("RouterUtil", function() {
       ).toEqual(expectedResult);
     });
 
-    it("get redirectTo", function() {
+    it("get redirectTo", () => {
       const expectedResult = "http://www.google.com/";
 
       expect(
@@ -195,7 +195,7 @@ describe("RouterUtil", function() {
     });
   });
 
-  describe("#getQueryStringInUrl", function() {
+  describe("#getQueryStringInUrl", () => {
     const expectedResult = {
       redirect: "http://www.google.com/",
       something: "foo"
@@ -203,21 +203,21 @@ describe("RouterUtil", function() {
     const searchQuery = "?redirect=http://www.google.com/&something=foo";
     const hash = `#/some/path${searchQuery}`;
 
-    it("get object from search query", function() {
+    it("get object from search query", () => {
       expect(RouterUtil.getQueryStringInUrl(searchQuery)).toEqual(
         expectedResult
       );
     });
 
-    it("get object from hash query", function() {
+    it("get object from hash query", () => {
       expect(RouterUtil.getQueryStringInUrl(searchQuery, hash)).toEqual(
         expectedResult
       );
     });
   });
 
-  describe("#getResourceDownloadPath", function() {
-    it("constructs path correctly", function() {
+  describe("#getResourceDownloadPath", () => {
+    it("constructs path correctly", () => {
       const path = RouterUtil.getResourceDownloadPath(
         "text/plain",
         "text.txt",
@@ -227,7 +227,7 @@ describe("RouterUtil", function() {
         "data:text/plain;content-disposition=attachment;filename=text.txt;charset=utf-8,Some%20Text"
       );
     });
-    it("returns empty string when data is not declared", function() {
+    it("returns empty string when data is not declared", () => {
       const path = RouterUtil.getResourceDownloadPath("text/plain", "text.txt");
       expect(path).toEqual("");
     });

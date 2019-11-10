@@ -3,7 +3,7 @@ const hostnameSelector =
 const healthySelector =
   ".ReactVirtualized__Grid__innerScrollContainer .text-success";
 
-describe("Nodes", function() {
+describe("Nodes", () => {
   afterEach(() => {
     cy.window().then(win => {
       win.location.href = "about:blank";

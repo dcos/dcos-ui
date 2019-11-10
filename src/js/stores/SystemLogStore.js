@@ -111,7 +111,7 @@ class SystemLogStore extends BaseStore {
       .filter(entry => {
         return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
       })
-      .map(function(entry) {
+      .map(entry => {
         const { fields = {} } = entry;
         const lineData = [];
         // entry.realtime_timestamp returns a unix time in microseconds

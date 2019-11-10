@@ -39,12 +39,12 @@ function getTaskCountElement() {
     .find(".unit-primary");
 }
 
-describe("Dashboard", function() {
-  describe("Create service tests", function() {
+describe("Dashboard", () => {
+  describe("Create service tests", () => {
     beforeEach(() => {
       cy.visitUrl("dashboard");
       const label = getAllocationElementFor("CPU Allocation");
-      label.should(function($label) {
+      label.should($label => {
         expect(parseFloat($label.text())).to.equal(0);
       });
     });
@@ -56,40 +56,40 @@ describe("Dashboard", function() {
       });
     });
 
-    it("increments CPU usage when service is started", function() {
+    it("increments CPU usage when service is started", () => {
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(serviceDefinition.cpus);
       });
     });
 
-    it("increments memory usage when service is started", function() {
+    it("increments memory usage when service is started", () => {
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(serviceDefinition.mem);
       });
     });
 
-    it("increments disk usage when service is started", function() {
+    it("increments disk usage when service is started", () => {
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(serviceDefinition.disk);
       });
     });
 
-    it("new service shows in services list on dashboard when started", function() {
+    it("new service shows in services list on dashboard when started", () => {
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
@@ -103,30 +103,30 @@ describe("Dashboard", function() {
         .contains(serviceName);
     });
 
-    it("new service increments task count in dashboard", function() {
+    it("new service increments task count in dashboard", () => {
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();
-      taskCountElement.should(function($tasksCount) {
+      taskCountElement.should($tasksCount => {
         const newValue = parseFloat($tasksCount.text());
         expect(newValue).to.eq(1);
       });
     });
   });
 
-  describe("Delete service tests", function() {
+  describe("Delete service tests", () => {
     beforeEach(() => {
       cy.visitUrl("dashboard");
       let label = getAllocationElementFor("CPU Allocation");
-      label.should(function($label) {
+      label.should($label => {
         expect(parseFloat($label.text())).to.equal(0);
       });
 
       createService(serviceDefinition);
       cy.visitUrl("dashboard");
       label = getAllocationElementFor("CPU Allocation");
-      label.should(function($label) {
+      label.should($label => {
         expect(parseFloat($label.text())).to.equal(serviceDefinition.cpus);
       });
     });
@@ -137,40 +137,40 @@ describe("Dashboard", function() {
       });
     });
 
-    it("decrements CPU usage when service is stopped", function() {
+    it("decrements CPU usage when service is stopped", () => {
       deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("CPU Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(0);
       });
     });
 
-    it("decrements memory usage when service is stopped", function() {
+    it("decrements memory usage when service is stopped", () => {
       deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Memory Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(0);
       });
     });
 
-    it("decrements disk usage when service is stopped", function() {
+    it("decrements disk usage when service is stopped", () => {
       deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const label = getAllocationElementFor("Disk Allocation");
-      label.should(function($label) {
+      label.should($label => {
         const newValue = parseFloat($label.text());
         expect(newValue).to.eq(0);
       });
     });
 
-    it("new service disapears in services list on dashboard when stopped", function() {
+    it("new service disapears in services list on dashboard when stopped", () => {
       deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
@@ -184,12 +184,12 @@ describe("Dashboard", function() {
         .should("not.exist");
     });
 
-    it("new service decrements task count in dashboard when removed", function() {
+    it("new service decrements task count in dashboard when removed", () => {
       deleteService(serviceDefinition.id);
       cy.visitUrl("dashboard");
 
       const taskCountElement = getTaskCountElement();
-      taskCountElement.should(function($tasksCount) {
+      taskCountElement.should($tasksCount => {
         const newValue = parseFloat($tasksCount.text());
         expect(newValue).to.eq(0);
       });

@@ -10,20 +10,20 @@ const unitsFixture = require("../../../../tests/_fixtures/unit-health/units.json
 
 let thisRequestFn, thisUnitsFixture;
 
-describe("UnitHealthStore", function() {
-  beforeEach(function() {
+describe("UnitHealthStore", () => {
+  beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = function(handlers) {
+    RequestUtil.json = handlers => {
       handlers.success(unitsFixture);
     };
     thisUnitsFixture = Object.assign({}, unitsFixture);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     RequestUtil.json = thisRequestFn;
   });
 
-  it("returns an instance of HealthUnitsList", function() {
+  it("returns an instance of HealthUnitsList", () => {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
     var units = UnitHealthStore.getUnits("units");
@@ -31,7 +31,7 @@ describe("UnitHealthStore", function() {
     Config.useFixtures = false;
   });
 
-  it("returns all of the units it was given", function() {
+  it("returns all of the units it was given", () => {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
     var units = UnitHealthStore.getUnits().getItems();
@@ -39,8 +39,8 @@ describe("UnitHealthStore", function() {
     Config.useFixtures = false;
   });
 
-  describe("dispatcher", function() {
-    it("stores units when event is dispatched", function() {
+  describe("dispatcher", () => {
+    it("stores units when event is dispatched", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_UNITS_SUCCESS,
         data: [
@@ -58,7 +58,7 @@ describe("UnitHealthStore", function() {
       expect(units[0].name).toEqual("Mesos");
     });
 
-    it("dispatches the correct event upon success", function() {
+    it("dispatches the correct event upon success", () => {
       var mockedFn = jasmine.createSpy();
       UnitHealthStore.addChangeListener(
         EventTypes.HEALTH_UNITS_CHANGE,
@@ -72,7 +72,7 @@ describe("UnitHealthStore", function() {
       expect(mockedFn.calls.count()).toEqual(2);
     });
 
-    it("dispatches the correct event upon error", function() {
+    it("dispatches the correct event upon error", () => {
       var mockedFn = jasmine.createSpy();
       UnitHealthStore.addChangeListener(
         EventTypes.HEALTH_UNITS_ERROR,

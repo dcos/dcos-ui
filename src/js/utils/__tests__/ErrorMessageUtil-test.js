@@ -1,8 +1,8 @@
 import ErrorMessageUtil from "../ErrorMessageUtil";
 
-describe("ErrorMessageUtil", function() {
-  describe("#translateErrorMessages", function() {
-    it("passes through if there is no translation", function() {
+describe("ErrorMessageUtil", () => {
+  describe("#translateErrorMessages", () => {
+    it("passes through if there is no translation", () => {
       const errorInput = [
         {
           message: "message1",
@@ -25,7 +25,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("passes through if no path matches", function() {
+    it("passes through if no path matches", () => {
       const errorInput = [
         {
           message: "message1",
@@ -54,7 +54,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("passes through if no type matches", function() {
+    it("passes through if no type matches", () => {
       const errorInput = [
         {
           message: "message1",
@@ -83,7 +83,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("translates if path and type matches", function() {
+    it("translates if path and type matches", () => {
       const errorInput = [
         {
           message: "message1",
@@ -112,7 +112,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("does not modify path if a rule matches", function() {
+    it("does not modify path if a rule matches", () => {
       const errorInput = [
         {
           message: "message1",
@@ -141,7 +141,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("picks the first translation that passes", function() {
+    it("picks the first translation that passes", () => {
       const errorInput = [
         {
           message: "message1",
@@ -175,7 +175,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("replaces variables", function() {
+    it("replaces variables", () => {
       const errorInput = [
         {
           message: "message1 is 3",
@@ -208,7 +208,7 @@ describe("ErrorMessageUtil", function() {
       ]);
     });
 
-    it("is able to handle errors with no path", function() {
+    it("is able to handle errors with no path", () => {
       const errorInput = [{ message: "message" }];
       const translationRules = [];
 
@@ -219,7 +219,7 @@ describe("ErrorMessageUtil", function() {
       expect(translatedErrors).toEqual([{ message: "message" }]);
     });
 
-    it("is able to handle errors with null messages", function() {
+    it("is able to handle errors with null messages", () => {
       const errorInput = [{ message: null }];
       const translationRules = [];
 
@@ -231,8 +231,8 @@ describe("ErrorMessageUtil", function() {
     });
   });
 
-  describe("#getUnanchoredErrorMessage", function() {
-    it("passes through if error.isUnanchored", function() {
+  describe("#getUnanchoredErrorMessage", () => {
+    it("passes through if error.isUnanchored", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: true,
@@ -254,7 +254,7 @@ describe("ErrorMessageUtil", function() {
       ).toEqual("An error message");
     });
 
-    it("passes through if a rule is not found and path is empty", function() {
+    it("passes through if a rule is not found and path is empty", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
@@ -270,7 +270,7 @@ describe("ErrorMessageUtil", function() {
       ).toEqual("An error message");
     });
 
-    it("passes through if path is empty", function() {
+    it("passes through if path is empty", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
@@ -291,7 +291,7 @@ describe("ErrorMessageUtil", function() {
       ).toEqual("An error message");
     });
 
-    it("appends path string if rule not found", function() {
+    it("appends path string if rule not found", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
@@ -307,7 +307,7 @@ describe("ErrorMessageUtil", function() {
       ).toEqual("foo.bar: An error message");
     });
 
-    it("builds error message from name and message", function() {
+    it("builds error message from name and message", () => {
       const errorInput = {
         message: "Error occurred doing stuff",
         isUnanchored: false,
@@ -329,9 +329,9 @@ describe("ErrorMessageUtil", function() {
     });
   });
 
-  describe("Localization", function() {
-    describe("#getUnanchoredErrorMessage", function() {
-      it("translated name if i18n given", function() {
+  describe("Localization", () => {
+    describe("#getUnanchoredErrorMessage", () => {
+      it("translated name if i18n given", () => {
         const errorInput = {
           message: "Error occurred doing stuff",
           isUnanchored: false,
@@ -359,8 +359,8 @@ describe("ErrorMessageUtil", function() {
       });
     });
 
-    describe("#translateErrorMessages", function() {
-      it("translates if path and type matches", function() {
+    describe("#translateErrorMessages", () => {
+      it("translates if path and type matches", () => {
         const errorInput = [
           {
             message: "message1",
@@ -398,7 +398,7 @@ describe("ErrorMessageUtil", function() {
         ]);
       });
 
-      it("replaces variables", function() {
+      it("replaces variables", () => {
         const errorInput = [
           {
             message: "message1 is 3",

@@ -6,7 +6,7 @@ import PodDebugContainer from "../containers/pod-debug/PodDebugContainer";
 import Service from "../structs/Service";
 import ServiceDebugContainer from "../containers/service-debug/ServiceDebugContainer";
 
-const HighOrderServiceDebug = function(props) {
+const HighOrderServiceDebug = props => {
   const { service } = props;
   if (service instanceof Pod) {
     return <PodDebugContainer pod={service} />;

@@ -4,9 +4,9 @@ const DSLFormUtil = require("../DSLFormUtil");
 const DSLExpressionPart = require("../../structs/DSLExpressionPart");
 const FilterNode = require("../../structs/DSLASTNodes").FilterNode;
 
-describe("DSLFormUtil", function() {
-  describe("#createNodeComparisionFunction", function() {
-    it("returns `true` for FUZZY nodes, for any text", function() {
+describe("DSLFormUtil", () => {
+  describe("#createNodeComparisionFunction", () => {
+    it("returns `true` for FUZZY nodes, for any text", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         fuzzy: DSLExpressionPart.fuzzy
       });
@@ -19,7 +19,7 @@ describe("DSLFormUtil", function() {
       expect(fn(unusedNode, astNode)).toBeTruthy();
     });
 
-    it("returns `false` for FUZZY nodes, if missing", function() {
+    it("returns `false` for FUZZY nodes, if missing", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         fuzzy: DSLExpressionPart.fuzzy
       });
@@ -32,7 +32,7 @@ describe("DSLFormUtil", function() {
       expect(fn(unusedNode, astNode)).toBeFalsy();
     });
 
-    it("returns `true` for EXACT nodes, for any text", function() {
+    it("returns `true` for EXACT nodes, for any text", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         exact: DSLExpressionPart.exact
       });
@@ -45,7 +45,7 @@ describe("DSLFormUtil", function() {
       expect(fn(unusedNode, astNode)).toBeTruthy();
     });
 
-    it("returns `true` for EXACT nodes, if missing", function() {
+    it("returns `true` for EXACT nodes, if missing", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         exact: DSLExpressionPart.exact
       });
@@ -58,7 +58,7 @@ describe("DSLFormUtil", function() {
       expect(fn(unusedNode, astNode)).toBeFalsy();
     });
 
-    it("returns `true` for ATTRIB nodes that match fully", function() {
+    it("returns `true` for ATTRIB nodes that match fully", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         attrib: DSLExpressionPart.attribute("is", "value")
       });
@@ -72,7 +72,7 @@ describe("DSLFormUtil", function() {
       expect(fn(unusedNode, astNode)).toBeTruthy();
     });
 
-    it("returns `false` for ATTRIB nodes that match partially", function() {
+    it("returns `false` for ATTRIB nodes that match partially", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
         attrib: DSLExpressionPart.attribute("is", "value")
       });

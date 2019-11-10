@@ -1,5 +1,5 @@
-describe("Job Details", function() {
-  beforeEach(function() {
+describe("Job Details", () => {
+  beforeEach(() => {
     cy.configureCluster({
       jobDetails: true,
       mesos: "1-for-each-health",
@@ -8,40 +8,40 @@ describe("Job Details", function() {
     cy.visitUrl({ url: "/jobs/detail/foo" });
   });
 
-  context("Job Details Header", function() {
-    it("renders the proper job name", function() {
+  context("Job Details Header", () => {
+    it("renders the proper job name", () => {
       cy.get(".breadcrumbs").should("contain", "foo");
     });
   });
 
-  context("Run History Tab", function() {
-    it("shows the correct number of jobs in the filter header", function() {
+  context("Run History Tab", () => {
+    it("shows the correct number of jobs in the filter header", () => {
       cy.get(".page-body-content .list-inline.list-unstyled").should(
         "contain",
         "13 Runs"
       );
     });
 
-    it("renders the correct number of jobs in the table", function() {
-      cy.get(".page table tbody tr").should(function($rows) {
+    it("renders the correct number of jobs in the table", () => {
+      cy.get(".page table tbody tr").should($rows => {
         expect($rows.length).to.equal(13);
       });
     });
 
-    it("does not show table children when row is not expanded", function() {
-      cy.get(".page table tbody tr").then(function() {
+    it("does not show table children when row is not expanded", () => {
+      cy.get(".page table tbody tr").then(() => {
         // Four rows, two for the virtual list padding and two for the data.
         cy.get(".page table tbody tr:nth-child(2)").as("tableRow");
 
         cy.get("@tableRow")
           .find("td:first-child .expanding-table-child")
-          .should(function($children) {
+          .should($children => {
             expect($children.length).to.equal(0);
           });
       });
     });
 
-    it("expands the table row when clicking a job run", function() {
+    it("expands the table row when clicking a job run", () => {
       cy.get(".page table tbody tr").as("tableRow");
 
       cy.get("@tableRow")
@@ -61,7 +61,7 @@ describe("Job Details", function() {
         });
     });
 
-    it("expands a second table row when clicking another job run", function() {
+    it("expands a second table row when clicking another job run", () => {
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
       cy.get("@tableRows")
         .first()
@@ -78,7 +78,7 @@ describe("Job Details", function() {
       );
     });
 
-    it("expands a row for already finished job runs", function() {
+    it("expands a row for already finished job runs", () => {
       cy.get(".page table tbody tr .is-expandable").as("tableRows");
       cy.get("@tableRows")
         .eq(2)
@@ -104,11 +104,11 @@ describe("Job Details", function() {
       cy.contains("The data related to this task has already been cleaned up.");
     });
 
-    it("Shows the actions dropdown for running jobs", function() {
+    it("Shows the actions dropdown for running jobs", () => {
       cy.get(".actions-dropdown");
     });
 
-    it("Shows the stop job run modal", function() {
+    it("Shows the stop job run modal", () => {
       cy.get(".actions-dropdown").click();
       cy.get(".dropdown-menu-items")
         .contains("Stop")
@@ -121,7 +121,7 @@ describe("Job Details", function() {
       );
     });
 
-    it("Closes the stop job run modal", function() {
+    it("Closes the stop job run modal", () => {
       cy.get(".actions-dropdown").click();
       cy.get(".dropdown-menu-items")
         .contains("Stop")
@@ -133,19 +133,17 @@ describe("Job Details", function() {
     });
   });
 
-  context("Configuration Tab", function() {
-    it("renders the correct amount of job configuration details", function() {
+  context("Configuration Tab", () => {
+    it("renders the correct amount of job configuration details", () => {
       cy.get(".menu-tabbed-item")
         .contains("Configuration")
         .click();
-      cy.get(".page-body-content .configuration-map-row").should(function(
-        $elements
-      ) {
+      cy.get(".page-body-content .configuration-map-row").should($elements => {
         expect($elements.length).to.equal(16);
       });
     });
 
-    it("renders the job configuration data", function() {
+    it("renders the job configuration data", () => {
       cy.get(".menu-tabbed-item")
         .contains("Configuration")
         .click();

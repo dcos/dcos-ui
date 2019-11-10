@@ -106,7 +106,7 @@ const MetronomeUtil = {
       jobs = [jobs];
     }
 
-    jobs.forEach(function(job) {
+    jobs.forEach(job => {
       addJob(MetronomeUtil.parseJob(job), jobsMap, namespacesMap);
     });
 
@@ -122,11 +122,11 @@ const MetronomeUtil = {
 
     let { failedFinishedRuns = [], successfulFinishedRuns = [] } = history;
 
-    failedFinishedRuns = failedFinishedRuns.map(function(jobRun) {
+    failedFinishedRuns = failedFinishedRuns.map(jobRun => {
       return Object.assign({}, jobRun, { status: "FAILED", jobId: job.id });
     });
 
-    successfulFinishedRuns = successfulFinishedRuns.map(function(jobRun) {
+    successfulFinishedRuns = successfulFinishedRuns.map(jobRun => {
       return Object.assign({}, jobRun, { status: "COMPLETED", jobId: job.id });
     });
 

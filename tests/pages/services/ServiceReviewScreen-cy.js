@@ -1,11 +1,11 @@
 require("../../_support/utils/ServicesUtil");
 
-describe("Services", function() {
+describe("Services", () => {
   /**
    * Test the applications
    */
-  describe("Applications", function() {
-    beforeEach(function() {
+  describe("Applications", () => {
+    beforeEach(() => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
@@ -23,7 +23,7 @@ describe("Services", function() {
         .click();
     }
 
-    it("renders proper review screen and JSON for a simple app", function() {
+    it("renders proper review screen and JSON for a simple app", () => {
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
       // Select 'Single Container'
@@ -96,7 +96,7 @@ describe("Services", function() {
         .contains("\u2014");
     });
 
-    it("renders proper review screen and JSON for an app with artifacts", function() {
+    it("renders proper review screen and JSON for an app with artifacts", () => {
       const serviceName = "app-with-artifacts";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -215,7 +215,7 @@ describe("Services", function() {
         ]);
     });
 
-    it("renders proper review screen and JSON for an app with command health check", function() {
+    it("renders proper review screen and JSON for an app with command health check", () => {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
@@ -350,7 +350,7 @@ describe("Services", function() {
         .getTableRowThatContains("sleep 5; exit 0");
     });
 
-    it("renders proper review screen and JSON for an app with docker config", function() {
+    it("renders proper review screen and JSON for an app with docker config", () => {
       const serviceName = "app-with-docker-config";
       const cmdline = "python3 -m http.server 8080";
 
@@ -477,7 +477,7 @@ describe("Services", function() {
         .getTableRowThatContains("8080");
     });
 
-    it("renders proper review screen and JSON for an app with ucr config and docker container", function() {
+    it("renders proper review screen and JSON for an app with ucr config and docker container", () => {
       const serviceName = "app-with-ucr-config-and-docker-container";
       const cmdline = "python3 -m http.server 8080";
 
@@ -610,7 +610,7 @@ describe("Services", function() {
         .getTableRowThatContains("8080");
     });
 
-    it("renders proper review screen and JSON for app with ucr config and command", function() {
+    it("renders proper review screen and JSON for app with ucr config and command", () => {
       const serviceName = "app-with-ucr-config-and-command";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -737,7 +737,7 @@ describe("Services", function() {
         .getTableRowThatContains("8080");
     });
 
-    it("renders proper review screen and JSON for an app with environment variables", function() {
+    it("renders proper review screen and JSON for an app with environment variables", () => {
       const serviceName = "app-with-environment-variables";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -862,7 +862,7 @@ describe("Services", function() {
         .should("deep.equal", ["test", "test", "test", "test"]);
     });
 
-    it("renders proper review screen and JSON for an app with HTTP health check", function() {
+    it("renders proper review screen and JSON for an app with HTTP health check", () => {
       const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
@@ -1018,7 +1018,7 @@ describe("Services", function() {
         .should("deep.equal", ["Auto Assigned"]);
     });
 
-    it("renders proper review screen and JSON for an app with labels", function() {
+    it("renders proper review screen and JSON for an app with labels", () => {
       const serviceName = "app-with-labels";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -1143,7 +1143,7 @@ describe("Services", function() {
         .should("deep.equal", ["test", "test", "test", "test"]);
     });
 
-    it("renders proper review screen and JSON for an app with persistent volume", function() {
+    it("renders proper review screen and JSON for an app with persistent volume", () => {
       const serviceName = "app-with-persistent-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
@@ -1256,7 +1256,7 @@ describe("Services", function() {
         .contains("128 MiB");
     });
 
-    it("renders proper review screen and JSON for an app with service address", function() {
+    it("renders proper review screen and JSON for an app with service address", () => {
       const serviceName = "app-with-service-address";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -1443,7 +1443,7 @@ describe("Services", function() {
         ]);
     });
 
-    it("renders proper review screen and JSON for an app with virtual network", function() {
+    it("renders proper review screen and JSON for an app with virtual network", () => {
       const serviceName = "app-with-virtual-network";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";

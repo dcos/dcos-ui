@@ -37,7 +37,7 @@ var DialChart = createReactClass({
         pie: d3.layout
           .pie()
           .sort(null)
-          .value(function(d) {
+          .value(d => {
             return d[value];
           })
       },
@@ -68,11 +68,11 @@ var DialChart = createReactClass({
       .attrTween("d", function(d) {
         var interpolate = d3.interpolate(this._current, d);
 
-        return function(t) {
+        return t => {
           this._current = interpolate(t);
 
           return innerArc(this._current);
-        }.bind(this);
+        };
       })
       .each("end", function(d) {
         if (d.value === 0) {
@@ -87,13 +87,13 @@ var DialChart = createReactClass({
     }
 
     // Zero-length defaults are populated with actual data if available
-    var namedSlices = slices.reduce(function(indexByName, slice) {
+    var namedSlices = slices.reduce((indexByName, slice) => {
       indexByName[slice.name] = slice;
 
       return indexByName;
     }, {});
 
-    var namedData = data.reduce(function(indexByName, datum) {
+    var namedData = data.reduce((indexByName, datum) => {
       indexByName[datum.name] = datum;
 
       return indexByName;
@@ -105,7 +105,7 @@ var DialChart = createReactClass({
   },
 
   isEmpty(data) {
-    var sumOfData = data.reduce(function(memo, datum) {
+    var sumOfData = data.reduce((memo, datum) => {
       return memo + datum.value;
     }, 0);
 
@@ -163,7 +163,7 @@ var DialChart = createReactClass({
     );
     var normalizedPie = pie(normalizedData);
 
-    return normalizedPie.map(function(element, i) {
+    return normalizedPie.map((element, i) => {
       return (
         <DialSlice
           key={i}

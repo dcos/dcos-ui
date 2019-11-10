@@ -26,7 +26,7 @@ export const DIALOGS = {
   DESTROY: "destroy"
 };
 
-const LoadingScreen = function() {
+const LoadingScreen = () => {
   return (
     <Page>
       <Page.Header breadcrumbs={[]} />
@@ -35,7 +35,7 @@ const LoadingScreen = function() {
   );
 };
 
-const ErrorScreen = function() {
+const ErrorScreen = () => {
   return (
     <Page>
       <Page.Header breadcrumbs={[]} />

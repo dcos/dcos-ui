@@ -301,7 +301,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   mapLicenses(licenses) {
-    return licenses.map(function(license) {
+    return licenses.map(license => {
       const item = {
         label: license.name,
         value: license.url

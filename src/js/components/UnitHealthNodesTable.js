@@ -38,10 +38,7 @@ class UnitHealthNodesTable extends React.Component {
       role: i18nMark("Role")
     });
 
-    const sortFunction = TableUtil.getSortFunction("host_ip", function(
-      node,
-      prop
-    ) {
+    const sortFunction = TableUtil.getSortFunction("host_ip", (node, prop) => {
       if (prop === "health") {
         return UnitHealthUtil.getHealthSorting(node);
       }

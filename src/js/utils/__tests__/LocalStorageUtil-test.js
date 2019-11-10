@@ -1,17 +1,17 @@
 import LocalStorageUtil from "../../utils/LocalStorageUtil";
 
-describe("LocalStorageUtil", function() {
-  beforeEach(function() {
+describe("LocalStorageUtil", () => {
+  beforeEach(() => {
     global.localStorage.clear();
   });
 
-  describe("#get", function() {
-    it("gets value from localStorage", function() {
+  describe("#get", () => {
+    it("gets value from localStorage", () => {
       global.localStorage.setItem("foo", "bar");
       expect(LocalStorageUtil.get("foo")).toEqual("bar");
     });
 
-    it("does not mutate", function() {
+    it("does not mutate", () => {
       global.localStorage.setItem("foo", "bar");
       LocalStorageUtil.get("foo");
 
@@ -19,8 +19,8 @@ describe("LocalStorageUtil", function() {
     });
   });
 
-  describe("#set", function() {
-    it("gets value from localStorage", function() {
+  describe("#set", () => {
+    it("gets value from localStorage", () => {
       LocalStorageUtil.set("foo", "bar");
       expect(LocalStorageUtil.get("foo")).toEqual("bar");
     });

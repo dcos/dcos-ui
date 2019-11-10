@@ -1,9 +1,9 @@
-describe("Cluster Details", function() {
-  beforeEach(function() {
+describe("Cluster Details", () => {
+  beforeEach(() => {
     cy.configureCluster({ mesos: "cluster-overview" });
   });
 
-  it("displays Mesos Details", function() {
+  it("displays Mesos Details", () => {
     cy.visitUrl({ url: "/" });
     cy.get(".breadcrumb__content").contains("Dashboard");
 

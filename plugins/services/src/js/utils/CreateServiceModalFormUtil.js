@@ -19,7 +19,7 @@ const CreateServiceModalFormUtil = {
       baseObject = [];
     }
 
-    return Object.keys(object).reduce(function(memo, key) {
+    return Object.keys(object).reduce((memo, key) => {
       if (
         (!ValidatorUtil.isEmpty(object[key]) && !Number.isNaN(object[key])) ||
         Array.isArray(object[key])

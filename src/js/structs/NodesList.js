@@ -11,7 +11,7 @@ class NodesList extends List {
     if (filters) {
       // Marathon API
       if (filters.ids) {
-        hosts = hosts.filter(function(host) {
+        hosts = hosts.filter(host => {
           return filters.ids.includes(host.id);
         });
       }
@@ -42,7 +42,7 @@ class NodesList extends List {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(function(service) {
+    const resourcesList = services.map(service => {
       return service.used_resources;
     });
 
@@ -51,7 +51,7 @@ class NodesList extends List {
 
   sumResources() {
     const services = this.getItems();
-    const resourcesList = services.map(function(service) {
+    const resourcesList = services.map(service => {
       return service.resources;
     });
 

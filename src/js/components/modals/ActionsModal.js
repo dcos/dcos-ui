@@ -124,10 +124,10 @@ class ActionsModal extends mixin(StoreMixin) {
 
       // Create a string concatenating n-1 items
       const selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      const itemIDs = selectedItemsShownMinusOne.map(function(item) {
+      const itemIDs = selectedItemsShownMinusOne.map(item => {
         return item[itemID];
       });
-      itemIDs.forEach(function(_itemID) {
+      itemIDs.forEach(_itemID => {
         selectedItemsString += `${_itemID}, `;
       });
 
@@ -196,7 +196,7 @@ class ActionsModal extends mixin(StoreMixin) {
 
   getRequestErrorMessage(errors) {
     if (errors.length > 0) {
-      const errorMap = errors.reduce(function(memo, error) {
+      const errorMap = errors.reduce((memo, error) => {
         if (memo[error] == null) {
           memo[error] = 0;
         }
@@ -206,7 +206,7 @@ class ActionsModal extends mixin(StoreMixin) {
       }, {});
 
       // Compose error messages
-      const errorMessages = Object.keys(errorMap).map(function(error, index) {
+      const errorMessages = Object.keys(errorMap).map((error, index) => {
         const repeatTimes = errorMap[error];
 
         if (repeatTimes === 1) {

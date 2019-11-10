@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-const AlertPanelHeader = function(props) {
+const AlertPanelHeader = props => {
   return <h2 className="flush-top">{props.children}</h2>;
 };
 

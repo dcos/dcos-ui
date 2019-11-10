@@ -23,7 +23,7 @@ module.exports = class Pod extends Service {
   }
 
   getRunningInstancesCount() {
-    return this.getInstanceList().reduceItems(function(counter, instance) {
+    return this.getInstanceList().reduceItems((counter, instance) => {
       if (instance.isRunning()) {
         return counter + 1;
       }
@@ -33,7 +33,7 @@ module.exports = class Pod extends Service {
   }
 
   countNonTerminalInstances() {
-    return this.getInstanceList().reduceItems(function(counter, instance) {
+    return this.getInstanceList().reduceItems((counter, instance) => {
       if (!instance.isTerminating()) {
         return counter + 1;
       }
@@ -170,7 +170,7 @@ module.exports = class Pod extends Service {
       tasksOverCapacity: 0
     };
 
-    this.getInstanceList().mapItems(function(instance) {
+    this.getInstanceList().mapItems(instance => {
       if (instance.isRunning()) {
         taskSummary.tasksRunning++;
         if (instance.hasHealthChecks()) {

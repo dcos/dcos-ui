@@ -41,7 +41,7 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
   }
 
   let combinedEnv = Object.keys(environment)
-    .filter(function(key) {
+    .filter(key => {
       return typeof environment[key] === "string";
     })
     .reduce((memo, key) => {

@@ -6,12 +6,12 @@ const TabButtonList = require("../TabButtonList");
 
 let thisChangeHandler, thisInstance;
 
-describe("TabButtonList", function() {
-  beforeEach(function() {
+describe("TabButtonList", () => {
+  beforeEach(() => {
     thisChangeHandler = jasmine.createSpy("change handler");
   });
 
-  it("passes onChange as click handler for each TabButton instance", function() {
+  it("passes onChange as click handler for each TabButton instance", () => {
     thisInstance = shallow(
       <TabButtonList onChange={thisChangeHandler}>
         <TabButton id="foo" />
@@ -27,7 +27,7 @@ describe("TabButtonList", function() {
     });
   });
 
-  it("sets only first child to active if no active tab is defined", function() {
+  it("sets only first child to active if no active tab is defined", () => {
     thisInstance = shallow(
       <TabButtonList>
         <TabButton id="foo" />
@@ -38,7 +38,7 @@ describe("TabButtonList", function() {
 
     const instances = thisInstance.find(TabButton);
 
-    instances.forEach(function(tabButtonInstance, index) {
+    instances.forEach((tabButtonInstance, index) => {
       if (index === 0) {
         expect(tabButtonInstance.prop("active")).toBeTruthy();
       } else {
@@ -47,7 +47,7 @@ describe("TabButtonList", function() {
     });
   });
 
-  it("passes active prop to instance whose ID matches activeTab", function() {
+  it("passes active prop to instance whose ID matches activeTab", () => {
     thisInstance = shallow(
       <TabButtonList activeTab="bar">
         <TabButton id="foo" />
@@ -58,7 +58,7 @@ describe("TabButtonList", function() {
 
     const instances = thisInstance.find(TabButton);
 
-    instances.forEach(function(tabButtonInstance) {
+    instances.forEach(tabButtonInstance => {
       if (tabButtonInstance.prop("id") === "bar") {
         expect(tabButtonInstance.prop("active")).toBeTruthy();
       } else {

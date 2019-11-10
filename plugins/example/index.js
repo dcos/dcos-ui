@@ -6,7 +6,7 @@ const initialPluginState = {
   countSoFar: 0
 };
 
-const performComplexMath = function(Store, prevState, action, factor) {
+const performComplexMath = (Store, prevState, action, factor) => {
   const newState = {};
   // Can access entire state tree (e.g. services etc)
   // let globalState = Store.getState();
@@ -18,14 +18,14 @@ const performComplexMath = function(Store, prevState, action, factor) {
   return Object.assign({}, prevState, newState);
 };
 
-module.exports = function(PluginSDK) {
+module.exports = PluginSDK => {
   const { Hooks, config, Store, dispatch } = PluginSDK;
 
   // Set plugin's hooks
   PluginHooks.initialize(Hooks);
 
   if (config.enabled) {
-    setInterval(function() {
+    setInterval(() => {
       dispatch({
         type: EXAMPLE_PLUGIN_EVENT,
         payload: 1

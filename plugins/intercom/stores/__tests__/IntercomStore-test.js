@@ -10,22 +10,22 @@ const IntercomStore = require("../IntercomStore");
 
 jest.mock("#SRC/js/stores/AuthStore");
 
-describe("IntercomStore", function() {
-  it("adds attribute", function() {
+describe("IntercomStore", () => {
+  it("adds attribute", () => {
     IntercomStore.addAttribute("foo", "bar");
     expect(IntercomStore.attributes).toEqual({ foo: "bar" });
   });
 
-  describe("#addChangeListener", function() {
+  describe("#addChangeListener", () => {
     const addIntercomChangeListener = () => {
       IntercomStore.addChangeListener(INTERCOM_CHANGE, jest.genMockFunction());
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       IntercomStore.removeAllListeners(INTERCOM_CHANGE);
     });
 
-    it("triggers an action upon dcos metadata change", function() {
+    it("triggers an action upon dcos metadata change", () => {
       const mockedFn = jest.genMockFunction();
       IntercomStore.onDCOSMetadataChange = mockedFn;
 
@@ -36,7 +36,7 @@ describe("IntercomStore", function() {
       expect(mockedFn.mock.calls.length).toEqual(1);
     });
 
-    it("triggers an action upon metadata change", function() {
+    it("triggers an action upon metadata change", () => {
       const mockedFn = jest.genMockFunction();
       IntercomStore.onMetadataChange = mockedFn;
 
@@ -47,7 +47,7 @@ describe("IntercomStore", function() {
       expect(mockedFn.mock.calls.length).toEqual(1);
     });
 
-    it("triggers an action upon node health change", function() {
+    it("triggers an action upon node health change", () => {
       const mockedFn = jest.genMockFunction();
       IntercomStore.onHealthNodesChange = mockedFn;
 
@@ -58,7 +58,7 @@ describe("IntercomStore", function() {
       expect(mockedFn.mock.calls.length).toEqual(1);
     });
 
-    it("triggers an action upon ccid success", function() {
+    it("triggers an action upon ccid success", () => {
       const mockedFn = jest.genMockFunction();
       IntercomStore.onClusterCCIDSuccess = mockedFn;
 

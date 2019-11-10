@@ -3,13 +3,13 @@ const ReactRouter = require("react-router");
 
 let thisInstance;
 
-describe("RoutingService", function() {
-  beforeEach(function() {
+describe("RoutingService", () => {
+  beforeEach(() => {
     thisInstance = new RoutingService();
   });
 
-  describe("#registerRedirect", function() {
-    it("registers Redirect", function() {
+  describe("#registerRedirect", () => {
+    it("registers Redirect", () => {
       thisInstance.registerRedirect("/test", "/stage");
 
       expect(thisInstance.getDefinition()).toEqual([
@@ -22,8 +22,8 @@ describe("RoutingService", function() {
     });
   });
 
-  describe("#registerPage", function() {
-    it("registers Page", function() {
+  describe("#registerPage", () => {
+    it("registers Page", () => {
       thisInstance.registerPage("/test", Object);
 
       expect(thisInstance.getDefinition()).toEqual([
@@ -36,8 +36,8 @@ describe("RoutingService", function() {
     });
   });
 
-  describe("#registerTab", function() {
-    it("registers Tab", function() {
+  describe("#registerTab", () => {
+    it("registers Tab", () => {
       thisInstance.registerPage("/test", Object);
       thisInstance.registerTab("/test", "path", Object);
 
@@ -58,9 +58,9 @@ describe("RoutingService", function() {
     });
   });
 
-  describe("override protection", function() {
-    describe("#registerRedirect", function() {
-      it("does not add a duplicate Redirect", function() {
+  describe("override protection", () => {
+    describe("#registerRedirect", () => {
+      it("does not add a duplicate Redirect", () => {
         thisInstance.registerRedirect("test", "testB");
 
         expect(() => {
@@ -71,8 +71,8 @@ describe("RoutingService", function() {
       });
     });
 
-    describe("#registerPage", function() {
-      it("throws on an attempt to override a page with a different component", function() {
+    describe("#registerPage", () => {
+      it("throws on an attempt to override a page with a different component", () => {
         thisInstance.registerPage("test", Object);
 
         expect(() => {
@@ -81,8 +81,8 @@ describe("RoutingService", function() {
       });
     });
 
-    describe("#registerTab", function() {
-      it("throws on an attempt to override a Tab", function() {
+    describe("#registerTab", () => {
+      it("throws on an attempt to override a Tab", () => {
         thisInstance.registerPage("/test", Object);
 
         thisInstance.registerTab("/test", "path", Object);

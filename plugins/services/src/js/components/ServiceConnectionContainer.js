@@ -8,7 +8,7 @@ import ServiceConnectionEndpointList from "../containers/service-connection/Serv
 import ServicePodConnectionEndpointList from "../containers/service-connection/ServicePodConnectionEndpointList";
 import SDKServiceConnectionEndpointList from "../containers/service-connection/SDKServiceConnectionEndpointList";
 
-const ServiceConnectionContainer = function(props) {
+const ServiceConnectionContainer = props => {
   const { service } = props;
   if (isSDKService(service)) {
     return <SDKServiceConnectionEndpointList service={service} />;

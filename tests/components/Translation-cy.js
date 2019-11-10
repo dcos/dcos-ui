@@ -1,4 +1,4 @@
-describe("Translation", function() {
+describe("Translation", () => {
   function changeEnToZh() {
     cy.visitUrl({
       url: "/dashboard"
@@ -17,7 +17,7 @@ describe("Translation", function() {
       .click();
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy"
     });
@@ -29,14 +29,14 @@ describe("Translation", function() {
     });
   });
 
-  context("zh - dashboard", function() {
-    it("translates header", function() {
+  context("zh - dashboard", () => {
+    it("translates header", () => {
       cy.contains("仪表板");
     });
   });
 
-  context("zh - sidebar", function() {
-    it("translates 'Dashboard' link", function() {
+  context("zh - sidebar", () => {
+    it("translates 'Dashboard' link", () => {
       cy.get(".sidebar-wrapper").contains("仪表板");
     });
   });

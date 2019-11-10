@@ -113,8 +113,8 @@ class TaskDirectoryTable extends React.Component {
   }
 
   getDirectorySortFunction(baseProp) {
-    return function(prop, order) {
-      return function(a, b) {
+    return (prop, order) => {
+      return (a, b) => {
         const aIsDirectory = a.isDirectory();
         const bIsDirectory = b.isDirectory();
 
@@ -181,7 +181,7 @@ class TaskDirectoryTable extends React.Component {
         render: this.renderDate,
         sortFunction
       }
-    ].map(function(columnSetting) {
+    ].map(columnSetting => {
       return Object.assign({}, defaultColumnSettings, columnSetting);
     });
   }

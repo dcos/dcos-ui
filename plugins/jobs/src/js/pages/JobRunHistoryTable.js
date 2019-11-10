@@ -164,8 +164,8 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getData(job) {
-    return job.jobRuns.nodes.map(function(jobRun) {
-      const children = jobRun.tasks.nodes.map(function(jobTask) {
+    return job.jobRuns.nodes.map(jobRun => {
+      const children = jobRun.tasks.nodes.map(jobTask => {
         const startedAt = jobTask.dateStarted;
         const finishedAt = jobTask.dateCompleted;
         const runTime = calculateRunTime(startedAt, finishedAt);
@@ -196,7 +196,7 @@ class JobRunHistoryTable extends React.Component {
   }
 
   getDisabledItemsMap(job) {
-    return job.jobRuns.nodes.reduce(function(memo, jobRun) {
+    return job.jobRuns.nodes.reduce((memo, jobRun) => {
       const isDisabled =
         ["ACTIVE", "INITIAL", "STARTING"].indexOf(jobRun.status) < 0;
       memo[jobRun.jobID] = isDisabled;

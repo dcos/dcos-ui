@@ -4,8 +4,8 @@ const EventTypes = require("../../constants/EventTypes");
 const OverlayList = require("../../structs/OverlayList");
 const VirtualNetworksStore = require("../VirtualNetworksStore");
 
-describe("VirtualNetworksStore", function() {
-  beforeEach(function() {
+describe("VirtualNetworksStore", () => {
+  beforeEach(() => {
     const changeHandler = jasmine.createSpy("changeHandler");
     VirtualNetworksStore.addChangeListener(
       EventTypes.VIRTUAL_NETWORKS_CHANGE,
@@ -13,13 +13,13 @@ describe("VirtualNetworksStore", function() {
     );
   });
 
-  afterEach(function() {
+  afterEach(() => {
     VirtualNetworksStore.removeAllListeners();
     VirtualNetworksStore.stopPolling();
   });
 
-  describe("#getOverlays", function() {
-    it("returns the overlays", function() {
+  describe("#getOverlays", () => {
+    it("returns the overlays", () => {
       const data = {
         overlays: [
           { info: { name: "foo", prefix: 0, subnet: "bar" } },
@@ -49,9 +49,9 @@ describe("VirtualNetworksStore", function() {
     });
   });
 
-  describe("dispatcher", function() {
-    describe("fetch", function() {
-      it("stores overlays when event is dispatched", function() {
+  describe("dispatcher", () => {
+    describe("fetch", () => {
+      it("stores overlays when event is dispatched", () => {
         const data = {
           overlays: [
             { info: { name: "foo", prefix: 0, subnet: "bar" } },
@@ -76,7 +76,7 @@ describe("VirtualNetworksStore", function() {
         ).toEqual("bar");
       });
 
-      it("emits event after success event is dispatched", function() {
+      it("emits event after success event is dispatched", () => {
         const mockFn = jasmine.createSpy("listener");
         VirtualNetworksStore.addChangeListener(
           EventTypes.VIRTUAL_NETWORKS_CHANGE,
@@ -96,7 +96,7 @@ describe("VirtualNetworksStore", function() {
         expect(mockFn.calls.count()).toBe(1);
       });
 
-      it("emits event after error event is dispatched", function() {
+      it("emits event after error event is dispatched", () => {
         const mockFn = jasmine.createSpy("listener");
         VirtualNetworksStore.addChangeListener(
           EventTypes.VIRTUAL_NETWORKS_REQUEST_ERROR,

@@ -1,7 +1,7 @@
 require("../_support");
 require("../_support/utils/ServicesUtil");
 
-describe("Services", function() {
+describe("Services", () => {
   /**
    * Test the external volumes
    *
@@ -10,14 +10,14 @@ describe("Services", function() {
    * REMEMBER TO UPDATE num_vols_delete IN external-volumes/teardown
    * WHENEVER YOU ADD OR REMOVE A TEST CASE
    */
-  describe("External Volumes", function() {
+  describe("External Volumes", () => {
     afterEach(() => {
       cy.window().then(win => {
         win.location.href = "about:blank";
       });
     });
 
-    it("create an app with external volume", function() {
+    it("create an app with external volume", () => {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
       cy.server()
         .route("POST", /\/service\/marathon\/v2\/apps/)
@@ -127,7 +127,7 @@ describe("Services", function() {
         .should("have.value", "test");
     });
 
-    it.skip("create an app that is persistent after suspension", function() {
+    it.skip("create an app that is persistent after suspension", () => {
       // This service is created using the external-volumes/setup script
       const serviceName = "external-volumes-single";
       const message = `TEST_OUTPUT_${Cypress.env("TEST_UUID")}`;

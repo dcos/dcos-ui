@@ -20,36 +20,36 @@ let thisConfigUseFixture,
   thisPackageDescribeFixture,
   thisPackageListVersionsFixture;
 
-describe("CosmosPackagesStore", function() {
-  beforeEach(function() {
+describe("CosmosPackagesStore", () => {
+  beforeEach(() => {
     thisConfigUseFixture = Config.useFixtures;
     Config.useFixtures = true;
   });
 
-  afterEach(function() {
+  afterEach(() => {
     Config.useFixtures = thisConfigUseFixture;
   });
 
-  describe("#fetchAvailablePackages", function() {
-    beforeEach(function() {
+  describe("#fetchAvailablePackages", () => {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, packagesSearchFixture));
       };
       thisPackagesSearchFixture = Object.assign({}, packagesSearchFixture);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("returns an instance of UniversePackagesList", function() {
+    it("returns an instance of UniversePackagesList", () => {
       CosmosPackagesStore.fetchAvailablePackages("foo");
       var availablePackages = CosmosPackagesStore.getAvailablePackages();
       expect(availablePackages instanceof UniversePackagesList).toBeTruthy();
     });
 
-    it("returns all of the availablePackages it was given", function() {
+    it("returns all of the availablePackages it was given", () => {
       CosmosPackagesStore.fetchAvailablePackages("foo");
       var availablePackages = CosmosPackagesStore.getAvailablePackages().getItems();
       expect(availablePackages.length).toEqual(
@@ -57,7 +57,7 @@ describe("CosmosPackagesStore", function() {
       );
     });
 
-    it("passes though query parameters", function() {
+    it("passes though query parameters", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchAvailablePackages("foo");
       expect(
@@ -65,8 +65,8 @@ describe("CosmosPackagesStore", function() {
       ).toEqual({ query: "foo" });
     });
 
-    describe("dispatcher", function() {
-      it("stores availablePackages when event is dispatched", function() {
+    describe("dispatcher", () => {
+      it("stores availablePackages when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { packages: [{ gid: "foo", bar: "baz" }] },
@@ -78,7 +78,7 @@ describe("CosmosPackagesStore", function() {
         expect(availablePackages[0].get("bar")).toEqual("baz");
       });
 
-      it("stores packageImages when event is dispatched", function() {
+      it("stores packageImages when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { images: { gid: "foo", bar: "baz" } },
@@ -90,7 +90,7 @@ describe("CosmosPackagesStore", function() {
         expect(packageImages["bar"]).toEqual("baz");
       });
 
-      it("dispatches the correct event upon success", function() {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SEARCH_CHANGE,
@@ -105,7 +105,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SEARCH_ERROR,
@@ -123,26 +123,26 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#fetchPackageDescription", function() {
-    beforeEach(function() {
+  describe("#fetchPackageDescription", () => {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, packageDescribeFixture));
       };
       thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("returns an instance of UniversePackage", function() {
+    it("returns an instance of UniversePackage", () => {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var packageDetails = CosmosPackagesStore.getPackageDetails();
       expect(packageDetails instanceof UniversePackage).toBeTruthy();
     });
 
-    it("returns the packageDetails it was given", function() {
+    it("returns the packageDetails it was given", () => {
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       var pkg = CosmosPackagesStore.getPackageDetails();
       expect(pkg.getName()).toEqual(thisPackageDescribeFixture.package.name);
@@ -151,7 +151,7 @@ describe("CosmosPackagesStore", function() {
       );
     });
 
-    it("passes though query parameters", function() {
+    it("passes though query parameters", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchPackageDescription("foo", "bar");
       expect(
@@ -159,8 +159,8 @@ describe("CosmosPackagesStore", function() {
       ).toEqual({ packageName: "foo", packageVersion: "bar" });
     });
 
-    describe("dispatcher", function() {
-      it("stores packageDetails when event is dispatched", function() {
+    describe("dispatcher", () => {
+      it("stores packageDetails when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
@@ -173,7 +173,7 @@ describe("CosmosPackagesStore", function() {
         expect(pkg.get("bar")).toEqual("baz");
       });
 
-      it("dispatches the correct event upon success", function() {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_PACKAGE_DESCRIBE_CHANGE,
@@ -189,7 +189,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_PACKAGE_DESCRIBE_ERROR,
@@ -212,7 +212,7 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#fetchPackageVersions", function() {
+  describe("#fetchPackageVersions", () => {
     const packageVersions = {
       results: {
         "0.4.0": "2",
@@ -221,31 +221,31 @@ describe("CosmosPackagesStore", function() {
       }
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, packageVersions));
       };
       thisPackageListVersionsFixture = Object.assign({}, packageVersions);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("returns an instance of UniversePackage", function() {
+    it("returns an instance of UniversePackage", () => {
       CosmosPackagesStore.fetchPackageVersions("foo");
       const packageVersions = CosmosPackagesStore.getPackageVersions("foo");
       expect(packageVersions instanceof UniversePackageVersions).toBeTruthy();
     });
 
-    it("returns an null if packageName not in packageVersions", function() {
+    it("returns an null if packageName not in packageVersions", () => {
       CosmosPackagesStore.fetchPackageVersions("foo");
       const packageVersions = CosmosPackagesStore.getPackageVersions("bar");
       expect(packageVersions).toEqual(null);
     });
 
-    it("returns all package versions it was given", function() {
+    it("returns all package versions it was given", () => {
       const packageName = "foo";
       CosmosPackagesStore.fetchPackageVersions(packageName);
       const versions = CosmosPackagesStore.getPackageVersions("foo");
@@ -254,7 +254,7 @@ describe("CosmosPackagesStore", function() {
       );
     });
 
-    it("send correct body", function() {
+    it("send correct body", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchPackageVersions("foo");
       expect(
@@ -265,8 +265,8 @@ describe("CosmosPackagesStore", function() {
       });
     });
 
-    describe("dispatcher", function() {
-      it("stores packageVersions and packageName when event is dispatched", function() {
+    describe("dispatcher", () => {
+      it("stores packageVersions and packageName when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
           data: {
@@ -286,7 +286,7 @@ describe("CosmosPackagesStore", function() {
         });
       });
 
-      it("dispatches the correct event upon success", function() {
+      it("dispatches the correct event upon success", () => {
         const mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_VERSIONS_CHANGE,
@@ -304,7 +304,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         const mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_VERSIONS_ERROR,
@@ -321,41 +321,41 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#fetchServiceDescription", function() {
-    beforeEach(function() {
+  describe("#fetchServiceDescription", () => {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, serviceDescribeFixture));
       };
       Object.assign({}, serviceDescribeFixture);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("returns the field package within response", function() {
+    it("returns the field package within response", () => {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var packageField = response.package;
       expect(packageField.name).toEqual("marathon");
     });
 
-    it("returns the field resolvedOptions within the response", function() {
+    it("returns the field resolvedOptions within the response", () => {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var resolvedOptions = response.resolvedOptions;
       expect(resolvedOptions.name).toEqual("marathon-1");
     });
 
-    it("returns the field userProvidedOptions within the response", function() {
+    it("returns the field userProvidedOptions within the response", () => {
       CosmosPackagesStore.fetchServiceDescription("foo");
       var response = CosmosPackagesStore.getServiceDetails();
       var userOptions = response.userProvidedOptions;
       expect(userOptions.name).toEqual("marathon-1");
     });
 
-    it("passes though query parameters", function() {
+    it("passes though query parameters", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchServiceDescription("foo");
       expect(
@@ -363,8 +363,8 @@ describe("CosmosPackagesStore", function() {
       ).toEqual({ appId: "foo" });
     });
 
-    describe("dispatcher", function() {
-      it("stores packageDetails when event is dispatched", function() {
+    describe("dispatcher", () => {
+      it("stores packageDetails when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
@@ -376,7 +376,7 @@ describe("CosmosPackagesStore", function() {
         expect(serviceDetails["bar"]).toEqual("baz");
       });
 
-      it("dispatches the correct event upon success", function() {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_DESCRIBE_CHANGE,
@@ -391,7 +391,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_DESCRIBE_ERROR,
@@ -409,20 +409,20 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#updateService", function() {
-    beforeEach(function() {
+  describe("#updateService", () => {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, packageDescribeFixture));
       };
       thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("passes though query parameters", function() {
+    it("passes though query parameters", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.updateService("foo", { cpus: 3 });
       expect(
@@ -430,8 +430,8 @@ describe("CosmosPackagesStore", function() {
       ).toEqual({ appId: "foo", options: { cpus: 3 }, replace: true });
     });
 
-    describe("dispatcher", function() {
-      it("dispatches the correct event upon success", function() {
+    describe("dispatcher", () => {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_UPDATE_SUCCESS,
@@ -444,7 +444,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_SERVICE_UPDATE_ERROR,
@@ -459,20 +459,20 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#fetchInstalledPackages", function() {
-    beforeEach(function() {
+  describe("#fetchInstalledPackages", () => {
+    beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = function(handlers) {
+      RequestUtil.json = handlers => {
         handlers.success(Object.assign({}, packagesListFixture));
       };
       Object.assign({}, packagesListFixture);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       RequestUtil.json = thisRequestFn;
     });
 
-    it("returns an instance of UniverseInstalledPackagesList", function() {
+    it("returns an instance of UniverseInstalledPackagesList", () => {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       var installedPackages = CosmosPackagesStore.getInstalledPackages();
       expect(
@@ -480,20 +480,20 @@ describe("CosmosPackagesStore", function() {
       ).toBeTruthy();
     });
 
-    it("returns all of the installedPackages it was given", function() {
+    it("returns all of the installedPackages it was given", () => {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       var installedPackages = CosmosPackagesStore.getInstalledPackages().getItems();
       expect(installedPackages.length).toEqual(2);
     });
 
-    it("stores the installedPackages it was given", function() {
+    it("stores the installedPackages it was given", () => {
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       var installedPackages = CosmosPackagesStore.getInstalledPackages().getItems();
       expect(installedPackages[0].getName()).toEqual("marathon");
       expect(installedPackages[0].getAppId()).toEqual("/marathon-user");
     });
 
-    it("passes though query parameters", function() {
+    it("passes though query parameters", () => {
       RequestUtil.json = jasmine.createSpy("RequestUtil#json");
       CosmosPackagesStore.fetchInstalledPackages("foo", "bar");
       expect(
@@ -501,8 +501,8 @@ describe("CosmosPackagesStore", function() {
       ).toEqual({ packageName: "foo", appId: "bar" });
     });
 
-    describe("dispatcher", function() {
-      it("stores installedPackages when event is dispatched", function() {
+    describe("dispatcher", () => {
+      it("stores installedPackages when event is dispatched", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
           data: [{ appId: "bar", gid: "foo", bar: "baz" }],
@@ -516,7 +516,7 @@ describe("CosmosPackagesStore", function() {
         expect(installedPackages[0].get("appId")).toEqual("bar");
       });
 
-      it("dispatches the correct event upon success", function() {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_CHANGE,
@@ -532,7 +532,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_LIST_ERROR,
@@ -555,9 +555,9 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#installPackage", function() {
-    describe("dispatcher", function() {
-      it("dispatches the correct event upon success", function() {
+  describe("#installPackage", () => {
+    describe("dispatcher", () => {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_INSTALL_SUCCESS,
@@ -573,7 +573,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_INSTALL_ERROR,
@@ -596,9 +596,9 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#uninstallPackage", function() {
-    describe("dispatcher", function() {
-      it("dispatches the correct event upon success", function() {
+  describe("#uninstallPackage", () => {
+    describe("dispatcher", () => {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_UNINSTALL_SUCCESS,
@@ -615,7 +615,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jasmine.createSpy("mockedFn");
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_UNINSTALL_ERROR,
@@ -640,23 +640,23 @@ describe("CosmosPackagesStore", function() {
     });
   });
 
-  describe("#processRepositoriesSuccess", function() {
-    beforeEach(function() {
+  describe("#processRepositoriesSuccess", () => {
+    beforeEach(() => {
       CosmosPackagesStore.processRepositoriesSuccess([
         { foo: "bar" },
         { baz: "qux" }
       ]);
     });
 
-    it("stores repositories", function() {
+    it("stores repositories", () => {
       var repos = CosmosPackagesStore.getRepositories();
       expect(repos.getItems().length).toEqual(2);
     });
   });
 
-  describe("dispatcher", function() {
-    describe("repositories fetch", function() {
-      it("dispatches the correct event on success", function() {
+  describe("dispatcher", () => {
+    describe("repositories fetch", () => {
+      it("dispatches the correct event on success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORIES_SUCCESS,
@@ -670,7 +670,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls.length).toEqual(1);
       });
 
-      it("dispatches the correct event on error", function() {
+      it("dispatches the correct event on error", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORIES_ERROR,
@@ -688,8 +688,8 @@ describe("CosmosPackagesStore", function() {
       });
     });
 
-    describe("repository add", function() {
-      it("dispatches the correct event on success", function() {
+    describe("repository add", () => {
+      it("dispatches the correct event on success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_ADD_SUCCESS,
@@ -706,7 +706,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls[0]).toEqual([{ foo: "bar" }, "baz", "qux"]);
       });
 
-      it("dispatches the correct event on error", function() {
+      it("dispatches the correct event on error", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_ADD_ERROR,
@@ -724,8 +724,8 @@ describe("CosmosPackagesStore", function() {
       });
     });
 
-    describe("repository delete", function() {
-      it("dispatches the correct event on success", function() {
+    describe("repository delete", () => {
+      it("dispatches the correct event on success", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_DELETE_SUCCESS,
@@ -742,7 +742,7 @@ describe("CosmosPackagesStore", function() {
         expect(mockedFn.mock.calls[0]).toEqual([{ foo: "bar" }, "baz", "qux"]);
       });
 
-      it("dispatches the correct event on error", function() {
+      it("dispatches the correct event on error", () => {
         var mockedFn = jest.genMockFunction();
         CosmosPackagesStore.addChangeListener(
           EventTypes.COSMOS_REPOSITORY_DELETE_ERROR,

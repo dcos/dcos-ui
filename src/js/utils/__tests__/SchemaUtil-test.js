@@ -2,10 +2,10 @@ const SchemaUtil = require("../SchemaUtil");
 
 let thisSubheaderRender, thisResult;
 
-describe("SchemaUtil", function() {
-  describe("#schemaToMultipleDefinition", function() {
-    describe("not nested schema", function() {
-      beforeEach(function() {
+describe("SchemaUtil", () => {
+  describe("#schemaToMultipleDefinition", () => {
+    describe("not nested schema", () => {
+      beforeEach(() => {
         var schema = {
           properties: {
             application: {
@@ -27,32 +27,32 @@ describe("SchemaUtil", function() {
         });
       });
 
-      it("sets the title of the definition", function() {
+      it("sets the title of the definition", () => {
         expect(thisResult.application.title).toEqual("Application");
       });
 
-      it("creates a field for the property", function() {
+      it("creates a field for the property", () => {
         expect(thisResult.application).not.toEqual(undefined);
       });
 
-      it("turns a schema to a definition", function() {
+      it("turns a schema to a definition", () => {
         expect(thisResult.application.description).toEqual(
           "This is a description"
         );
       });
 
-      it("creates a definition for the field", function() {
+      it("creates a definition for the field", () => {
         expect(Array.isArray(thisResult.application.definition)).toEqual(true);
       });
 
-      it("does not call subheaderRender because schema is flat", function() {
+      it("does not call subheaderRender because schema is flat", () => {
         expect(thisSubheaderRender).not.toHaveBeenCalled();
       });
     });
 
-    describe("schema with no second level properties", function() {
+    describe("schema with no second level properties", () => {
       const $scope = {};
-      beforeEach(function() {
+      beforeEach(() => {
         var schema = {
           properties: {
             application: {
@@ -68,13 +68,13 @@ describe("SchemaUtil", function() {
         });
       });
 
-      it("creates the definition", function() {
+      it("creates the definition", () => {
         expect($scope.result.application.definition).toEqual([]);
       });
     });
 
-    describe("nested schema", function() {
-      beforeEach(function() {
+    describe("nested schema", () => {
+      beforeEach(() => {
         var schema = {
           properties: {
             application: {
@@ -99,13 +99,13 @@ describe("SchemaUtil", function() {
         });
       });
 
-      it("creates a nested definition correctly", function() {
+      it("creates a nested definition correctly", () => {
         expect(thisResult.application.definition[0].definition).not.toEqual(
           undefined
         );
       });
 
-      it("creates render property with a render function", function() {
+      it("creates render property with a render function", () => {
         expect(typeof thisResult.application.definition[0].render).toEqual(
           "function"
         );
@@ -113,8 +113,8 @@ describe("SchemaUtil", function() {
     });
   });
 
-  describe("#definitionToJSONDocument", function() {
-    beforeEach(function() {
+  describe("#definitionToJSONDocument", () => {
+    beforeEach(() => {
       var definition = {
         application: {
           title: "Application",
@@ -153,16 +153,16 @@ describe("SchemaUtil", function() {
       thisResult = SchemaUtil.definitionToJSONDocument(definition);
     });
 
-    it("creates Application at the top level", function() {
+    it("creates Application at the top level", () => {
       expect(typeof thisResult.application).toEqual("object");
     });
 
-    it("creates properties for application", function() {
+    it("creates properties for application", () => {
       expect(thisResult.application.Name).toEqual("nameValue");
       expect(thisResult.application.CPU).toEqual("CPU Value");
     });
 
-    it("creates a nested json document correctly", function() {
+    it("creates a nested json document correctly", () => {
       var definition = {
         application: {
           title: "Application",
@@ -195,13 +195,13 @@ describe("SchemaUtil", function() {
     });
   });
 
-  describe("#validateSchema", function() {
-    it("returns false for an invalid schema", function() {
+  describe("#validateSchema", () => {
+    it("returns false for an invalid schema", () => {
       var result = SchemaUtil.validateSchema({ random: "properties" });
       expect(result).toEqual(false);
     });
 
-    it("returns true for valid schema", function() {
+    it("returns true for valid schema", () => {
       var schema = {
         properties: {
           application: {

@@ -30,7 +30,7 @@ var ValidatorUtil = {
     }
 
     return (
-      Object.keys(data).reduce(function(memo, key) {
+      Object.keys(data).reduce((memo, key) => {
         if (Object.prototype.hasOwnProperty.call(data, key)) {
           memo++;
         }

@@ -22,12 +22,7 @@ function parseApp(app) {
 
   // Parse container volumes to extract external volumes
   // and persistent volume definitions
-  container.volumes.forEach(function({
-    containerPath,
-    external,
-    mode,
-    persistent
-  }) {
+  container.volumes.forEach(({ containerPath, external, mode, persistent }) => {
     if (external != null) {
       volumes.push(
         Object.assign(
@@ -58,7 +53,7 @@ function parseApp(app) {
     return Object.assign({ volumes }, app);
   }
 
-  tasks.forEach(function({ host, id: taskID, localVolumes, startedAt }) {
+  tasks.forEach(({ host, id: taskID, localVolumes, startedAt }) => {
     let status = VolumeStatus.DETACHED;
     if (startedAt != null) {
       status = VolumeStatus.ATTACHED;
@@ -68,7 +63,7 @@ function parseApp(app) {
       return;
     }
 
-    localVolumes.forEach(function({ containerPath, persistenceId: id }) {
+    localVolumes.forEach(({ containerPath, persistenceId: id }) => {
       const volumeDefinition = volumeDefinitionMap.get(containerPath);
       const volume = Object.assign({}, volumeDefinition, {
         status,
@@ -107,7 +102,7 @@ function parsePod(pod) {
   // and persistent volume definitions
   volumes
     .filter(({ persistent }) => persistent != null)
-    .forEach(function({ name, mode, persistent }) {
+    .forEach(({ name, mode, persistent }) => {
       const { size } = persistent;
 
       volumeDefinitionMap.set(name, {
@@ -121,58 +116,55 @@ function parsePod(pod) {
     return Object.assign({ volumeData }, pod);
   }
 
-  instances.forEach(function({
-    agentId: host,
-    id: taskID,
-    localVolumes,
-    status: statusCode
-  }) {
-    let status = VolumeStatus.DETACHED;
-    if (statusCode === "STABLE") {
-      status = VolumeStatus.ATTACHED;
-    }
+  instances.forEach(
+    ({ agentId: host, id: taskID, localVolumes, status: statusCode }) => {
+      let status = VolumeStatus.DETACHED;
+      if (statusCode === "STABLE") {
+        status = VolumeStatus.ATTACHED;
+      }
 
-    if (!Array.isArray(localVolumes)) {
-      return;
-    }
+      if (!Array.isArray(localVolumes)) {
+        return;
+      }
 
-    const containers = findNestedPropertyInObject(pod, "spec.containers");
+      const containers = findNestedPropertyInObject(pod, "spec.containers");
 
-    const mounts = containers
-      .filter(({ volumeMounts = [] }) => volumeMounts.length > 0)
-      .reduce(function(memo, { name: containerName, volumeMounts = [] }) {
-        volumeMounts.forEach(function({ name, mountPath }) {
-          if (memo[name] == null) {
-            memo[name] = [];
-          }
-
-          memo[name] = [
-            ...memo[name],
-            {
-              containerName,
-              mountPath
+      const mounts = containers
+        .filter(({ volumeMounts = [] }) => volumeMounts.length > 0)
+        .reduce((memo, { name: containerName, volumeMounts = [] }) => {
+          volumeMounts.forEach(({ name, mountPath }) => {
+            if (memo[name] == null) {
+              memo[name] = [];
             }
-          ];
-        });
 
-        return memo;
-      }, {});
+            memo[name] = [
+              ...memo[name],
+              {
+                containerName,
+                mountPath
+              }
+            ];
+          });
 
-    volumeData.push(
-      ...localVolumes.map(function({ containerPath, persistenceId: id }) {
-        const volumeDefinition = volumeDefinitionMap.get(containerPath);
+          return memo;
+        }, {});
 
-        return Object.assign({}, volumeDefinition, {
-          status,
-          host,
-          containerPath,
-          id,
-          mounts: mounts[containerPath],
-          taskID
-        });
-      })
-    );
-  });
+      volumeData.push(
+        ...localVolumes.map(({ containerPath, persistenceId: id }) => {
+          const volumeDefinition = volumeDefinitionMap.get(containerPath);
+
+          return Object.assign({}, volumeDefinition, {
+            status,
+            host,
+            containerPath,
+            id,
+            mounts: mounts[containerPath],
+            taskID
+          });
+        })
+      );
+    }
+  );
 
   return Object.assign({ volumeData }, pod);
 }

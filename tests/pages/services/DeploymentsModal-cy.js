@@ -1,11 +1,11 @@
-describe("Deployments Modal", function() {
+describe("Deployments Modal", () => {
   function openDeploymentsModal() {
     cy.get(".button")
       .contains("deployment")
       .click();
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-for-each-health",
       deployments: "one-deployment",
@@ -15,54 +15,54 @@ describe("Deployments Modal", function() {
     cy.visitUrl({ url: "/services/overview/" });
   });
 
-  context("Modal Trigger", function() {
-    it("has a deployments button", function() {
+  context("Modal Trigger", () => {
+    it("has a deployments button", () => {
       cy.get(".button")
         .contains("1 deployment")
         .should("to.have.length", 1);
     });
 
-    it("opens the modal when clicking the deployments button", function() {
+    it("opens the modal when clicking the deployments button", () => {
       openDeploymentsModal();
 
-      cy.get(".modal").then(function($modal) {
+      cy.get(".modal").then($modal => {
         expect($modal.get().length).to.equal(1);
       });
     });
   });
 
-  context("Modal Content", function() {
-    beforeEach(function() {
+  context("Modal Content", () => {
+    beforeEach(() => {
       openDeploymentsModal();
     });
 
-    it("closes when the close button is clicked", function() {
-      cy.get(".modal").then(function($modal) {
+    it("closes when the close button is clicked", () => {
+      cy.get(".modal").then($modal => {
         expect($modal.get().length).to.equal(1);
       });
       cy.get(".modal-footer button")
         .contains("Close")
         .click();
-      cy.wait(700).then(function() {
+      cy.wait(700).then(() => {
         expect(document.querySelectorAll(".modal").length).to.equal(0);
       });
     });
 
-    it("renders the deployments count", function() {
-      cy.get(".modal-header-title").then(function($header) {
+    it("renders the deployments count", () => {
+      cy.get(".modal-header-title").then($header => {
         expect($header.get(0).textContent).to.contain("1 Active Deployment");
       });
     });
 
-    it("renders one row per deployment", function() {
-      cy.get(".modal tbody tr:visible").then(function($tableRows) {
+    it("renders one row per deployment", () => {
+      cy.get(".modal tbody tr:visible").then($tableRows => {
         expect($tableRows.get().length).to.equal(1);
       });
     });
 
-    it("renders the `id` column", function() {
-      cy.get(".modal tbody tr:visible td").then(function($tableCells) {
-        cy.getAPIResponse("marathon/v2/deployments", function(response) {
+    it("renders the `id` column", () => {
+      cy.get(".modal tbody tr:visible td").then($tableCells => {
+        cy.getAPIResponse("marathon/v2/deployments", response => {
           expect(
             $tableCells.get(0).querySelector(".collapsing-string-full-string")
               .textContent
@@ -71,9 +71,9 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("renders the `started` column", function() {
-      cy.get(".modal tbody tr:visible td").then(function($tableCells) {
-        cy.getAPIResponse("marathon/v2/deployments", function(response) {
+    it("renders the `started` column", () => {
+      cy.get(".modal tbody tr:visible td").then($tableCells => {
+        cy.getAPIResponse("marathon/v2/deployments", response => {
           expect(
             $tableCells
               .get(1)
@@ -84,19 +84,19 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("renders the `status` column", function() {
-      cy.get(".modal tbody tr:visible td").then(function($tableCells) {
+    it("renders the `status` column", () => {
+      cy.get(".modal tbody tr:visible td").then($tableCells => {
         expect(
           $tableCells.get(2).querySelectorAll(".status-bar").length
         ).to.equal(1);
       });
     });
 
-    it("is auto-expanded to show services", function() {
+    it("is auto-expanded to show services", () => {
       cy.get(
         ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
-      ).then(function($expandedChildText) {
-        cy.getAPIResponse("marathon/v2/deployments", function(response) {
+      ).then($expandedChildText => {
+        cy.getAPIResponse("marathon/v2/deployments", response => {
           expect($expandedChildText.get(0).textContent).to.equal(
             response[0].affectedApps[0].replace(/^\//, "")
           );
@@ -104,8 +104,8 @@ describe("Deployments Modal", function() {
       });
     });
 
-    it("dismisses both modals when the rollback is performed", function() {
-      cy.getAPIResponse("marathon/v2/deployments", function(response) {
+    it("dismisses both modals when the rollback is performed", () => {
+      cy.getAPIResponse("marathon/v2/deployments", response => {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/deployments/,
@@ -124,26 +124,26 @@ describe("Deployments Modal", function() {
           .contains("Continue Rollback")
           .click();
 
-        cy.wait(700).then(function() {
+        cy.wait(700).then(() => {
           expect(document.querySelectorAll(".modal").length).to.equal(0);
         });
       });
     });
   });
 
-  context("Rollback modal", function() {
-    it("displays the rollback modal when clicked", function() {
+  context("Rollback modal", () => {
+    it("displays the rollback modal when clicked", () => {
       openDeploymentsModal();
       cy.get(".modal tbody tr:visible td .dropdown").click();
       cy.get(".dropdown-menu-items")
         .contains("Rollback")
         .click();
-      cy.get(".modal").then(function($modals) {
+      cy.get(".modal").then($modals => {
         expect($modals.get().length).to.equal(2);
       });
     });
 
-    it("displays a revert message for a non-starting deployment", function() {
+    it("displays a revert message for a non-starting deployment", () => {
       openDeploymentsModal();
       cy.get(".modal tbody tr:visible td .dropdown").click();
       cy.get(".dropdown-menu-items")
@@ -152,7 +152,7 @@ describe("Deployments Modal", function() {
       cy.contains("revert the affected service");
     });
 
-    it("displays a removal message for a starting deployment", function() {
+    it("displays a removal message for a starting deployment", () => {
       cy.server().route(
         /marathon\/v2\/deployments/,
         "fx:deployments/starting-deployment"
@@ -166,8 +166,8 @@ describe("Deployments Modal", function() {
     });
   });
 
-  context("Stale Deployments", function() {
-    beforeEach(function() {
+  context("Stale Deployments", () => {
+    beforeEach(() => {
       cy.server().route(
         /marathon\/v2\/deployments/,
         "fx:deployments/two-deployments-one-stale"
@@ -175,16 +175,16 @@ describe("Deployments Modal", function() {
       openDeploymentsModal();
     });
 
-    it("shows stale deployment in modal", function() {
+    it("shows stale deployment in modal", () => {
       cy.get(".deployments-table-column-id").contains("spark-history-stale");
     });
-    it("shows status of stale deployment", function() {
+    it("shows status of stale deployment", () => {
       cy.get(".deployments-table-column-status").contains("StopApplication");
     });
   });
 
-  context("Sorting", function() {
-    beforeEach(function() {
+  context("Sorting", () => {
+    beforeEach(() => {
       cy.server().route(
         /marathon\/v2\/deployments/,
         "fx:deployments/three-deployments"
@@ -192,7 +192,7 @@ describe("Deployments Modal", function() {
       openDeploymentsModal();
     });
 
-    it("sorts by started", function() {
+    it("sorts by started", () => {
       cy.get(".table-header-title")
         .contains("Started")
         .click();

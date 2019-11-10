@@ -82,7 +82,7 @@ var Actions = {
     this.stintID = md5(`session_${this.createdAt}`);
 
     hashHistory.listen(
-      Util.debounce(function(location) {
+      Util.debounce(location => {
         Actions.setActivePage(location.pathname + location.search);
       }, 200)
     );
@@ -200,7 +200,7 @@ var Actions = {
               nextState.routes
             );
             if (nextState.params) {
-              Object.keys(nextState.params).forEach(function(param) {
+              Object.keys(nextState.params).forEach(param => {
                 pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);
                 pathMatcher = pathMatcher.replace(`:${param}`, `[${param}]`);
               });

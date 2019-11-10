@@ -47,8 +47,8 @@ const JestUtil = {
       tag = [tag];
     }
 
-    return function(element) {
-      return tag.some(function(tagName) {
+    return element => {
+      return tag.some(tagName => {
         return element.tagName === tagName;
       });
     };
@@ -94,7 +94,7 @@ const JestUtil = {
       60;
 
     /* eslint-disable no-extend-native */
-    Date.prototype.getTimezoneOffset = function() {
+    Date.prototype.getTimezoneOffset = () => {
       return timezoneOffset;
     };
     Date.prototype.toLocaleString = function(locale = undefined, options = {}) {
@@ -190,10 +190,10 @@ const JestUtil = {
    * @returns {function} Returns a callback function to be passed on .reduce()
    */
   reduceTextContentOfSelector(selector) {
-    return function(strings, element) {
+    return (strings, element) => {
       const matchedElements = Array.from(element.querySelectorAll(selector));
 
-      matchedElements.forEach(function(stringElement) {
+      matchedElements.forEach(stringElement => {
         strings.push(stringElement.textContent);
       });
 

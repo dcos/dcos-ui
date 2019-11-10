@@ -30,11 +30,11 @@ class UsersActionsModal extends ActionsModal {
 
   handleButtonConfirm() {
     const { itemID, selectedItems } = this.props;
-    const itemsByID = selectedItems.map(function(item) {
+    const itemsByID = selectedItems.map(item => {
       return item[itemID];
     });
 
-    itemsByID.forEach(function(userID) {
+    itemsByID.forEach(userID => {
       UserStore.deleteUser(userID);
     });
 

@@ -213,7 +213,7 @@ function addTransImport(j, root) {
   }
 }
 
-module.exports = function(file, api) {
+module.exports = (file, api) => {
   var j = api.jscodeshift; // alias the jscodeshift API
   var root = j(file.source); // parse JS code into an AST
 

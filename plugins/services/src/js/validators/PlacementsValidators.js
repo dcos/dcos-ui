@@ -15,7 +15,7 @@ function checkDuplicateOperatorField(constraints) {
 
   const errors = [];
   const visitedOperatorFieldPairs = [];
-  constraints.map(function(constraint, index) {
+  constraints.map((constraint, index) => {
     if (
       !Array.isArray(constraint) &&
       !(constraint.operator && constraint.fieldName)

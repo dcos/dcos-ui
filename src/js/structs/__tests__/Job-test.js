@@ -5,25 +5,25 @@ const {
   DEFAULT_MEM
 } = require("../../constants/JobResources");
 
-describe("Job", function() {
-  describe("#getCommand", function() {
-    it("returns the command", function() {
+describe("Job", () => {
+  describe("#getCommand", () => {
+    it("returns the command", () => {
       const job = new Job({ id: "foo", run: { cmd: "foo" } });
 
       expect(job.getCommand()).toEqual("foo");
     });
 
-    it("does't throw and error if run configuration is undefined", function() {
+    it("does't throw and error if run configuration is undefined", () => {
       const job = new Job({});
 
-      expect(function() {
+      expect(() => {
         job.getCommand();
       }).not.toThrow();
     });
   });
 
-  describe("#getCpus", function() {
-    it("returns the correct cpus", function() {
+  describe("#getCpus", () => {
+    it("returns the correct cpus", () => {
       const job = new Job({
         run: {
           cpus: 2
@@ -33,7 +33,7 @@ describe("Job", function() {
       expect(job.getCpus()).toEqual(2);
     });
 
-    it("defaults to the correct value if property is undefined", function() {
+    it("defaults to the correct value if property is undefined", () => {
       const job = new Job({
         run: {}
       });
@@ -41,43 +41,43 @@ describe("Job", function() {
       expect(job.getCpus()).toEqual(DEFAULT_CPUS);
     });
 
-    it("defaults to the correct value if run configuration is undefined", function() {
+    it("defaults to the correct value if run configuration is undefined", () => {
       const job = new Job({});
 
       expect(job.getCpus()).toEqual(DEFAULT_CPUS);
     });
   });
 
-  describe("#getDescription", function() {
-    it("returns the description", function() {
+  describe("#getDescription", () => {
+    it("returns the description", () => {
       const job = new Job({ id: "foo", description: "bar" });
 
       expect(job.getDescription()).toEqual("bar");
     });
   });
 
-  describe("#getDocker", function() {
-    it("returns the docker configuration", function() {
+  describe("#getDocker", () => {
+    it("returns the docker configuration", () => {
       const job = new Job({ id: "foo", run: { docker: { image: "busybox" } } });
 
       expect(job.getDocker()).toEqual({ image: "busybox" });
     });
 
-    it("defaults to an empty object if property is undefined", function() {
+    it("defaults to an empty object if property is undefined", () => {
       const job = new Job({ run: {} });
 
       expect(job.getDocker()).toEqual({});
     });
 
-    it("defaults to an empty object  if run configuration is undefined", function() {
+    it("defaults to an empty object  if run configuration is undefined", () => {
       const job = new Job({ run: {} });
 
       expect(job.getDocker()).toEqual({});
     });
   });
 
-  describe("#getDisk", function() {
-    it("returns the correct disk", function() {
+  describe("#getDisk", () => {
+    it("returns the correct disk", () => {
       const job = new Job({
         run: {
           disk: 125
@@ -87,7 +87,7 @@ describe("Job", function() {
       expect(job.getDisk()).toEqual(125);
     });
 
-    it("defaults to the correct value if property is undefined", function() {
+    it("defaults to the correct value if property is undefined", () => {
       const job = new Job({
         run: {}
       });
@@ -95,23 +95,23 @@ describe("Job", function() {
       expect(job.getDisk()).toEqual(DEFAULT_DISK);
     });
 
-    it("defaults to the correct value if run configuration is undefined", function() {
+    it("defaults to the correct value if run configuration is undefined", () => {
       const job = new Job({});
 
       expect(job.getDisk()).toEqual(DEFAULT_DISK);
     });
   });
 
-  describe("#getId", function() {
-    it("returns correct id", function() {
+  describe("#getId", () => {
+    it("returns correct id", () => {
       const job = new Job({ id: "test.job" });
 
       expect(job.getId()).toEqual("test.job");
     });
   });
 
-  describe("#getLabels", function() {
-    it("returns the correct labels", function() {
+  describe("#getLabels", () => {
+    it("returns the correct labels", () => {
       const job = new Job({
         labels: {
           foo: "bar"
@@ -121,7 +121,7 @@ describe("Job", function() {
       expect(job.getLabels()).toEqual({ foo: "bar" });
     });
 
-    it("defaults to an empty object if property is undefined", function() {
+    it("defaults to an empty object if property is undefined", () => {
       const job = new Job({
         run: {}
       });
@@ -130,8 +130,8 @@ describe("Job", function() {
     });
   });
 
-  describe("#getMem", function() {
-    it("returns the correct mem", function() {
+  describe("#getMem", () => {
+    it("returns the correct mem", () => {
       const job = new Job({
         run: {
           mem: 49
@@ -141,7 +141,7 @@ describe("Job", function() {
       expect(job.getMem()).toEqual(49);
     });
 
-    it("defaults to the correct value if property is undefined", function() {
+    it("defaults to the correct value if property is undefined", () => {
       const job = new Job({
         run: {}
       });
@@ -149,47 +149,47 @@ describe("Job", function() {
       expect(job.getMem()).toEqual(DEFAULT_MEM);
     });
 
-    it("defaults to the correct value if run configuration is undefined", function() {
+    it("defaults to the correct value if run configuration is undefined", () => {
       const job = new Job({});
 
       expect(job.getMem()).toEqual(DEFAULT_MEM);
     });
   });
 
-  describe("#getName", function() {
-    it("returns correct name", function() {
+  describe("#getName", () => {
+    it("returns correct name", () => {
       const job = new Job({ id: "test.job" });
 
       expect(job.getName()).toEqual("job");
     });
   });
 
-  describe("#getSchedules", function() {
-    it("returns the schedules", function() {
+  describe("#getSchedules", () => {
+    it("returns the schedules", () => {
       const job = new Job({ id: "foo", schedules: ["bar"] });
 
       expect(job.getSchedules()).toEqual(["bar"]);
     });
 
-    it("returns an empty array if schedules is undefined", function() {
+    it("returns an empty array if schedules is undefined", () => {
       const job = new Job({ id: "/foo" });
 
       expect(job.getSchedules()).toEqual([]);
     });
   });
 
-  describe("#toJSON", function() {
-    it("returns a object with the values in _itemData", function() {
+  describe("#toJSON", () => {
+    it("returns a object with the values in _itemData", () => {
       const item = new Job({ foo: "bar", baz: "qux" });
       expect(item.toJSON()).toEqual({ foo: "bar", baz: "qux" });
     });
 
-    it("returns a JSON string with the values in _itemData", function() {
+    it("returns a JSON string with the values in _itemData", () => {
       const item = new Job({ foo: "bar", baz: "qux" });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
 
-    it("drops blacklisted keys", function() {
+    it("drops blacklisted keys", () => {
       const item = new Job({ foo: "bar", baz: "qux", history: [] });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });

@@ -18,7 +18,7 @@ function stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion) {
   let maxSize = 0;
   let maxIndex = 0;
   // Find new Max (could be different after we've stolen from a portion already)
-  barSizes.forEach(function(relativeSize, index) {
+  barSizes.forEach((relativeSize, index) => {
     if (relativeSize > maxSize) {
       maxSize = relativeSize;
       maxIndex = index;
@@ -61,7 +61,7 @@ class ProgressBar extends React.PureComponent {
   }
 
   getBars(data) {
-    let max = data.reduce(function(sum, item) {
+    let max = data.reduce((sum, item) => {
       return sum + item.value;
     }, 0);
     const unassignedValue = this.props.total - max;
@@ -74,7 +74,7 @@ class ProgressBar extends React.PureComponent {
     const indexesLessThanThreshold = [];
     const unassignedPortion = (unassignedValue / max) * 100;
 
-    const barSizes = data.map(function(status, index) {
+    const barSizes = data.map((status, index) => {
       const { value } = status;
 
       const relativeSize = (value / max) * 100;
@@ -89,7 +89,7 @@ class ProgressBar extends React.PureComponent {
     // Fudge barSizes to ensure small portions are visible
     stealPortion(barSizes, indexesLessThanThreshold, unassignedPortion);
 
-    return data.map(function(status, index) {
+    return data.map((status, index) => {
       let { className, style = {} } = status;
       const scale = barSizes[index];
 

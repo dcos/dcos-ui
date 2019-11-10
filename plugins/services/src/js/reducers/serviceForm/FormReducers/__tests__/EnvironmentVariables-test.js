@@ -4,9 +4,9 @@ const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const EnvironmentVariables = require("../EnvironmentVariables");
 
-describe("Environment Variables", function() {
-  describe("#FormReducer", function() {
-    it("returns a array containing key value objects", function() {
+describe("Environment Variables", () => {
+  describe("#FormReducer", () => {
+    it("returns a array containing key value objects", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -17,7 +17,7 @@ describe("Environment Variables", function() {
       ).toEqual([{ key: "key", value: "value" }]);
     });
 
-    it("returns multiple items if they have the same key", function() {
+    it("returns multiple items if they have the same key", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -34,7 +34,7 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("removes the first item", function() {
+    it("removes the first item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "first"));

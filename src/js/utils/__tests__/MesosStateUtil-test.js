@@ -7,9 +7,9 @@ const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
 
 let thisInstance, thisMesosState, executorResources;
 
-describe("MesosStateUtil", function() {
-  describe("#getFrameworkToServicesMap", function() {
-    it("maps frameworks to services", function() {
+describe("MesosStateUtil", () => {
+  describe("#getFrameworkToServicesMap", () => {
+    it("maps frameworks to services", () => {
       const frameworks = [{ name: "foo", id: "foo_1" }];
       const fooFramework = new Framework({
         name: "foo",
@@ -25,7 +25,7 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#getFramework", function() {
+  describe("#getFramework", () => {
     const state = {
       frameworks: [
         {
@@ -39,25 +39,25 @@ describe("MesosStateUtil", function() {
       ]
     };
 
-    it("returns the matching framework", function() {
+    it("returns the matching framework", () => {
       expect(MesosStateUtil.getFramework(state, "framework-123").name).toEqual(
         "test-1"
       );
     });
 
-    it('returns the matching "completed" framework', function() {
+    it('returns the matching "completed" framework', () => {
       expect(MesosStateUtil.getFramework(state, "framework-abc").name).toEqual(
         "test-2"
       );
     });
 
-    it("returns nothing if no matching framework was found", function() {
+    it("returns nothing if no matching framework was found", () => {
       expect(MesosStateUtil.getFramework(state, "unknown")).not.toBeDefined();
     });
   });
 
-  describe("#getRunningTasksFromVirtualNetworkName", function() {
-    beforeEach(function() {
+  describe("#getRunningTasksFromVirtualNetworkName", () => {
+    beforeEach(() => {
       thisInstance = MesosStateUtil.getRunningTasksFromVirtualNetworkName(
         {
           frameworks: [
@@ -85,29 +85,29 @@ describe("MesosStateUtil", function() {
       );
     });
 
-    it("handles empty object well", function() {
+    it("handles empty object well", () => {
       expect(
         MesosStateUtil.getRunningTasksFromVirtualNetworkName({}, "foo")
       ).toEqual([]);
     });
 
-    it("throws when a null state is provided", function() {
-      expect(function() {
+    it("throws when a null state is provided", () => {
+      expect(() => {
         MesosStateUtil.getRunningTasksFromVirtualNetworkName(null, "foo");
       }).toThrow();
     });
 
-    it("handles empty undefined well", function() {
+    it("handles empty undefined well", () => {
       expect(
         MesosStateUtil.getRunningTasksFromVirtualNetworkName(undefined, "foo")
       ).toEqual([]);
     });
 
-    it("filters running tasks that doesn't have the overlay name", function() {
+    it("filters running tasks that doesn't have the overlay name", () => {
       expect(thisInstance.length).toEqual(1);
     });
 
-    it("finds running tasks from different frameworks", function() {
+    it("finds running tasks from different frameworks", () => {
       expect(thisInstance).toEqual([
         {
           state: "TASK_RUNNING",
@@ -117,10 +117,10 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#getPodHistoricalInstances", function() {
+  describe("#getPodHistoricalInstances", () => {
     const state = MESOS_STATE_WITH_HISTORY;
 
-    it("returns only pod-related tasks", function() {
+    it("returns only pod-related tasks", () => {
       const pod = new Pod({ id: "/pod-p0" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
@@ -129,7 +129,7 @@ describe("MesosStateUtil", function() {
       expect(instances[1].id).toEqual("pod-p0.instance-inst-a2");
     });
 
-    it("adds `containerID` property on containers", function() {
+    it("adds `containerID` property on containers", () => {
       const pod = new Pod({ id: "/pod-p1" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
@@ -138,28 +138,28 @@ describe("MesosStateUtil", function() {
       );
     });
 
-    it("adds `status` property on containers", function() {
+    it("adds `status` property on containers", () => {
       const pod = new Pod({ id: "/pod-p1" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].status).toEqual("TASK_FINISHED");
     });
 
-    it("adds `lastChanged` property on containers", function() {
+    it("adds `lastChanged` property on containers", () => {
       const pod = new Pod({ id: "/pod-p1" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].lastChanged).toEqual(1008 * 1000);
     });
 
-    it("adds `lastUpdated` property on containers", function() {
+    it("adds `lastUpdated` property on containers", () => {
       const pod = new Pod({ id: "/pod-p1" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
       expect(instances[0].containers[0].lastUpdated).toEqual(1008 * 1000);
     });
 
-    it("summarizes resources", function() {
+    it("summarizes resources", () => {
       const pod = new Pod({ id: "/pod-p0" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
@@ -178,7 +178,7 @@ describe("MesosStateUtil", function() {
       });
     });
 
-    it("picks the latest timestamp for lastChanged", function() {
+    it("picks the latest timestamp for lastChanged", () => {
       const pod = new Pod({ id: "/pod-p0" });
       const instances = MesosStateUtil.getPodHistoricalInstances(state, pod);
 
@@ -190,20 +190,20 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#isPodTaskId", function() {
-    it("matches pod (PodDefinition) task ID", function() {
+  describe("#isPodTaskId", () => {
+    it("matches pod (PodDefinition) task ID", () => {
       expect(
         MesosStateUtil.isPodTaskId("podname.instance-instancename.taskname")
       ).toBeTruthy();
     });
 
-    it("does not match marathon (AppDefinition) task ID", function() {
+    it("does not match marathon (AppDefinition) task ID", () => {
       expect(
         MesosStateUtil.isPodTaskId("podname.marathon-instancename.taskname")
       ).toBeFalsy();
     });
 
-    it("does not match anything else that looks close", function() {
+    it("does not match anything else that looks close", () => {
       expect(
         MesosStateUtil.isPodTaskId("podname.marathon-instancename")
       ).toBeFalsy();
@@ -223,8 +223,8 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#decomposePodTaskId", function() {
-    it("decomposes task id into parts", function() {
+  describe("#decomposePodTaskId", () => {
+    it("decomposes task id into parts", () => {
       expect(
         MesosStateUtil.decomposePodTaskId(
           "failing-pod.instance-c4a70195-5aaa-11e9-bc3e-5abede31217b.container-1.8"
@@ -237,8 +237,8 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#extractExecutorResources", function() {
-    beforeEach(function() {
+  describe("#extractExecutorResources", () => {
+    beforeEach(() => {
       executorResources = [
         {
           name: "cpus",
@@ -264,7 +264,7 @@ describe("MesosStateUtil", function() {
       ];
     });
 
-    it("extracts resources from executor resource object", function() {
+    it("extracts resources from executor resource object", () => {
       expect(
         MesosStateUtil.extractExecutorResources(executorResources)
       ).toEqual({
@@ -275,8 +275,8 @@ describe("MesosStateUtil", function() {
     });
   });
 
-  describe("#getHostResourcesByFramework", function() {
-    beforeEach(function() {
+  describe("#getHostResourcesByFramework", () => {
+    beforeEach(() => {
       thisMesosState = {
         executors: [
           {
@@ -344,7 +344,7 @@ describe("MesosStateUtil", function() {
       };
     });
 
-    it("aggregates resources by framework", function() {
+    it("aggregates resources by framework", () => {
       expect(
         MesosStateUtil.getHostResourcesByFramework(thisMesosState)
       ).toEqual({
@@ -368,7 +368,7 @@ describe("MesosStateUtil", function() {
       });
     });
 
-    it("groups filtered frameworks into other", function() {
+    it("groups filtered frameworks into other", () => {
       const filteredFrameworks = ["marathon_2", "marathon_3"];
       expect(
         MesosStateUtil.getHostResourcesByFramework(
@@ -391,7 +391,7 @@ describe("MesosStateUtil", function() {
       });
     });
 
-    it("ignores tasks on termination states", function() {
+    it("ignores tasks on termination states", () => {
       thisMesosState.tasks.push({
         name: "spark",
         framework_id: "marathon_1",
@@ -423,7 +423,7 @@ describe("MesosStateUtil", function() {
       });
     });
 
-    it("does not overwrite the resources of the original object", function() {
+    it("does not overwrite the resources of the original object", () => {
       const previousMesosState = JSON.parse(JSON.stringify(thisMesosState));
       MesosStateUtil.getHostResourcesByFramework(thisMesosState);
 

@@ -7,7 +7,7 @@ const mockMesosSummaryStore = {
   getLastSuccessfulSummarySnapshot: jest.fn(),
   addChangeListener: jest.fn()
 };
-jest.mock("#SRC/js/stores/MesosSummaryStore", function() {
+jest.mock("#SRC/js/stores/MesosSummaryStore", () => {
   return mockMesosSummaryStore;
 });
 
@@ -21,7 +21,7 @@ let Component;
 
 describe("MesosHooks", () => {
   describe("#withNode", () => {
-    beforeEach(function() {
+    beforeEach(() => {
       Component = MesosFetchers.withNode(PlaceholderComponent);
       mockMesosSummaryStore.getLastSuccessfulSummarySnapshot = jest.fn();
     });

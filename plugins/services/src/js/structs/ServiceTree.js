@@ -72,7 +72,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getDeployments() {
-    return this.reduceItems(function(deployments, item) {
+    return this.reduceItems((deployments, item) => {
       if (item instanceof Service && item.getDeployments() != null) {
         deployments = deployments.concat(item.getDeployments());
       }
@@ -90,7 +90,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getHealth() {
-    return this.reduceItems(function(aggregatedHealth, item) {
+    return this.reduceItems((aggregatedHealth, item) => {
       if (item instanceof Service) {
         const health = item.getHealth();
         if (HealthTypes[aggregatedHealth.key] > HealthTypes[health.key]) {
@@ -121,7 +121,7 @@ module.exports = class ServiceTree extends Tree {
       return null;
     }
 
-    return service.tasks.find(function(task) {
+    return service.tasks.find(task => {
       return task.id === taskID;
     });
   }
@@ -160,13 +160,13 @@ module.exports = class ServiceTree extends Tree {
       return this;
     }
 
-    return this.findItem(function(item) {
+    return this.findItem(item => {
       return item.getId() === id;
     });
   }
 
   getInstancesCount() {
-    return this.reduceItems(function(instances, item) {
+    return this.reduceItems((instances, item) => {
       if (item instanceof Service) {
         instances += item.getInstancesCount();
       }
@@ -181,7 +181,7 @@ module.exports = class ServiceTree extends Tree {
       total: 0
     };
 
-    return this.reduceItems(function(counts, item) {
+    return this.reduceItems((counts, item) => {
       if (item instanceof Service) {
         const itemStatus = item.getServiceStatus();
         if (itemStatus === null) {
@@ -221,7 +221,7 @@ module.exports = class ServiceTree extends Tree {
 
   getResources() {
     return this.reduceItems(
-      function(resources, item) {
+      (resources, item) => {
         if (item instanceof Service) {
           const { cpus = 0, mem = 0, disk = 0, gpus = 0 } = item.getResources();
 
@@ -242,7 +242,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServiceStatus() {
-    return this.reduceItems(function(serviceTreeStatus, item) {
+    return this.reduceItems((serviceTreeStatus, item) => {
       if (item instanceof Service) {
         const status = item.getServiceStatus();
         if (status == null) {
@@ -259,7 +259,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getServices() {
-    const items = this.reduceItems(function(services, item) {
+    const items = this.reduceItems((services, item) => {
       if (item instanceof Service) {
         services.push(item);
       }
@@ -271,7 +271,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getGroups() {
-    const items = this.reduceItems(function(groups, item) {
+    const items = this.reduceItems((groups, item) => {
       if (item instanceof ServiceTree) {
         groups.push(item);
       }
@@ -284,7 +284,7 @@ module.exports = class ServiceTree extends Tree {
 
   getTasksSummary() {
     return this.reduceItems(
-      function(taskSummary, item) {
+      (taskSummary, item) => {
         if (item instanceof Service) {
           const {
             tasksHealthy = 0,
@@ -320,7 +320,7 @@ module.exports = class ServiceTree extends Tree {
   getRunningInstancesCount() {
     return this.flattenItems()
       .getItems()
-      .reduce(function(memo, service) {
+      .reduce((memo, service) => {
         if (service instanceof ServiceTree) {
           return memo;
         }
@@ -330,7 +330,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getFrameworks() {
-    return this.reduceItems(function(frameworks, item) {
+    return this.reduceItems((frameworks, item) => {
       if (item instanceof Framework) {
         frameworks.push(item);
       }
@@ -340,7 +340,7 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getVolumes() {
-    const items = this.reduceItems(function(serviceTreeVolumes, item) {
+    const items = this.reduceItems((serviceTreeVolumes, item) => {
       if (item instanceof Service) {
         const itemVolumes = item.getVolumes().getItems();
         if (itemVolumes && itemVolumes.length) {
@@ -355,15 +355,15 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getLabels() {
-    return this.reduceItems(function(serviceTreeLabels, item) {
+    return this.reduceItems((serviceTreeLabels, item) => {
       const labels = Object.entries(item.getLabels()).map(([key, value]) => ({
         key,
         value
       }));
 
-      labels.forEach(function({ key, value }) {
+      labels.forEach(({ key, value }) => {
         if (
-          serviceTreeLabels.findIndex(function(label) {
+          serviceTreeLabels.findIndex(label => {
             return label.key === key && label.value === value;
           }) < 0
         ) {

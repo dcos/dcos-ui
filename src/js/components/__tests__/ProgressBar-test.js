@@ -20,18 +20,18 @@ const testData = [
 
 let thisContainer;
 
-describe("#ProgressBar", function() {
-  beforeEach(function() {
+describe("#ProgressBar", () => {
+  beforeEach(() => {
     thisContainer = global.document.createElement("div");
     ReactDOM.render(<ProgressBar data={testData} />, thisContainer);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("PropTypes", function() {
-    it("throws an error if no data prop is provided", function() {
+  describe("PropTypes", () => {
+    it("throws an error if no data prop is provided", () => {
       spyOn(console, "error");
       ReactDOM.render(<ProgressBar />, thisContainer);
       expect(console.error).toHaveBeenCalledWith(
@@ -42,7 +42,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("throws an error if a data item is missing a value", function() {
+    it("throws an error if a data item is missing a value", () => {
       spyOn(console, "error");
       ReactDOM.render(
         <ProgressBar
@@ -62,7 +62,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("throws an error if one data item is missing a value", function() {
+    it("throws an error if one data item is missing a value", () => {
       spyOn(console, "error");
       ReactDOM.render(
         <ProgressBar
@@ -86,7 +86,7 @@ describe("#ProgressBar", function() {
       );
     });
 
-    it("does not throw an error if data does only contain a value field", function() {
+    it("does not throw an error if data does only contain a value field", () => {
       spyOn(console, "error");
       ReactDOM.render(
         <ProgressBar
@@ -102,14 +102,14 @@ describe("#ProgressBar", function() {
     });
   });
 
-  describe("className", function() {
-    it("contains status-bar (default)", function() {
+  describe("className", () => {
+    it("contains status-bar (default)", () => {
       expect(
         thisContainer.querySelector("div").classList.contains("status-bar")
       ).toBeTruthy();
     });
 
-    it("contains test-bar (custom)", function() {
+    it("contains test-bar (custom)", () => {
       ReactDOM.render(
         <ProgressBar data={testData} className="test-bar" />,
         thisContainer
@@ -120,15 +120,15 @@ describe("#ProgressBar", function() {
     });
   });
 
-  describe("bars", function() {
-    it("contains 2 .bars", function() {
+  describe("bars", () => {
+    it("contains 2 .bars", () => {
       expect(thisContainer.querySelectorAll(".bar").length).toEqual(
         testData.length
       );
     });
 
-    describe("First .bar", function() {
-      it("contains class name status", function() {
+    describe("First .bar", () => {
+      it("contains class name status", () => {
         expect(
           thisContainer
             .querySelector(".bar:first-child")
@@ -136,7 +136,7 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("has the class element-{index} if no classname is provided", function() {
+      it("has the class element-{index} if no classname is provided", () => {
         ReactDOM.render(
           <ProgressBar
             data={[
@@ -152,15 +152,15 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("has a width of 40%", function() {
+      it("has a width of 40%", () => {
         expect(
           thisContainer.querySelector(".bar:first-child").style.width
         ).toEqual("40%");
       });
     });
 
-    describe("Second .bar", function() {
-      it("contains class name failed", function() {
+    describe("Second .bar", () => {
+      it("contains class name failed", () => {
         expect(
           thisContainer
             .querySelector(".bar:nth-child(2)")
@@ -168,15 +168,15 @@ describe("#ProgressBar", function() {
         ).toBeTruthy();
       });
 
-      it("has a width of 60%", function() {
+      it("has a width of 60%", () => {
         expect(
           thisContainer.querySelector(".bar:nth-child(2)").style.width
         ).toEqual("60%");
       });
     });
 
-    describe("Growing small .bar portions to be visible when below threshold", function() {
-      it("does not have .bar elements < 7% width", function() {
+    describe("Growing small .bar portions to be visible when below threshold", () => {
+      it("does not have .bar elements < 7% width", () => {
         ReactDOM.render(
           <ProgressBar
             data={[
@@ -192,16 +192,14 @@ describe("#ProgressBar", function() {
           thisContainer
         );
         const percentages = [];
-        [].slice
-          .call(thisContainer.querySelectorAll(".bar"))
-          .forEach(function(el) {
-            percentages.push(parseInt(el.style.width.replace("%", ""), 10));
-          });
+        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach(el => {
+          percentages.push(parseInt(el.style.width.replace("%", ""), 10));
+        });
         expect(percentages.length).toBe(2);
         expect(percentages.filter(percent => percent < 7).length).toBe(0);
       });
 
-      it("does not have .bar elements < 7% width when using scale", function() {
+      it("does not have .bar elements < 7% width when using scale", () => {
         ReactDOM.render(
           <ProgressBar
             data={[
@@ -224,11 +222,9 @@ describe("#ProgressBar", function() {
           thisContainer
         );
         const percentages = [];
-        [].slice
-          .call(thisContainer.querySelectorAll(".bar"))
-          .forEach(function(el) {
-            percentages.push(parseInt(el.style.width.replace("%", ""), 10));
-          });
+        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach(el => {
+          percentages.push(parseInt(el.style.width.replace("%", ""), 10));
+        });
         expect(percentages.length).toBe(3);
         expect(percentages.filter(percent => percent < 7).length).toBe(0);
       });

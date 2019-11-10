@@ -11,10 +11,10 @@ const usersFixture = require("./fixtures/users-unicode.json");
 
 let thisRequestFn, thisUsersFixture, thisUseFixtures;
 
-describe("UsersStore", function() {
-  beforeEach(function() {
+describe("UsersStore", () => {
+  beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = function(handlers) {
+    RequestUtil.json = handlers => {
       handlers.success(usersFixture);
     };
     thisUsersFixture = Object.assign({}, usersFixture);
@@ -22,25 +22,25 @@ describe("UsersStore", function() {
     Config.useFixtures = true;
   });
 
-  afterEach(function() {
+  afterEach(() => {
     RequestUtil.json = thisRequestFn;
     Config.useFixtures = thisUseFixtures;
   });
 
-  it("returns an instance of UsersList", function() {
+  it("returns an instance of UsersList", () => {
     UsersStore.fetchUsers();
     var users = UsersStore.getUsers();
     expect(users instanceof UsersList).toBeTruthy();
   });
 
-  it("returns all of the users it was given", function() {
+  it("returns all of the users it was given", () => {
     UsersStore.fetchUsers();
     var users = UsersStore.getUsers().getItems();
     expect(users.length).toEqual(thisUsersFixture.array.length);
   });
 
-  describe("dispatcher", function() {
-    it("stores users when event is dispatched", function() {
+  describe("dispatcher", () => {
+    it("stores users when event is dispatched", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_SUCCESS,
         data: [{ gid: "foo", bar: "baz" }]
@@ -51,7 +51,7 @@ describe("UsersStore", function() {
       expect(users[0].get("bar")).toEqual("baz");
     });
 
-    it("dispatches the correct event upon success", function() {
+    it("dispatches the correct event upon success", () => {
       var mockedFn = jest.genMockFunction();
       UsersStore.addChangeListener(EventTypes.USERS_CHANGE, mockedFn);
       AppDispatcher.handleServerAction({
@@ -62,7 +62,7 @@ describe("UsersStore", function() {
       expect(mockedFn.mock.calls.length).toEqual(1);
     });
 
-    it("dispatches the correct event upon error", function() {
+    it("dispatches the correct event upon error", () => {
       var mockedFn = jasmine.createSpy();
       UsersStore.addChangeListener(EventTypes.USERS_REQUEST_ERROR, mockedFn);
       AppDispatcher.handleServerAction({

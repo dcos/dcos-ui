@@ -64,7 +64,7 @@ if (Config.useFixtures || Config.useUIConfigFixtures) {
     }
   };
 
-  Object.keys(global.actionTypes.ConfigActions).forEach(function(method) {
+  Object.keys(global.actionTypes.ConfigActions).forEach(method => {
     ConfigActions[method] = RequestUtil.stubRequest(
       ConfigActions,
       "ConfigActions",

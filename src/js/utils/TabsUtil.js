@@ -17,7 +17,7 @@ const TabsUtil = {
   getTabs(tabs, currentTab, getElement) {
     const tabSet = Object.keys(tabs);
 
-    return tabSet.map(function(tab, index) {
+    return tabSet.map((tab, index) => {
       const tabClass = classNames({
         "menu-tabbed-item": true,
         active: !!currentTab && currentTab.startsWith(tab)

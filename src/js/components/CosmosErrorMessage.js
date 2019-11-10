@@ -78,7 +78,7 @@ class CosmosErrorMessage extends React.Component {
     }
 
     // Get an array of array of errors for every individual path
-    const errorsDetails = error.data.errors.map(function(errorDetail) {
+    const errorsDetails = error.data.errors.map(errorDetail => {
       // Return early on unexpected error object format
       if (!errorDetail) {
         return [];
@@ -93,13 +93,13 @@ class CosmosErrorMessage extends React.Component {
         return [];
       }
 
-      return errors.map(function(error) {
+      return errors.map(error => {
         return (ErrorPaths[path] || path) + "." + error;
       });
     });
 
     // Flatten elements in array and return
-    return errorsDetails.reduce(function(a, b) {
+    return errorsDetails.reduce((a, b) => {
       return a.concat(b);
     });
   }

@@ -9,9 +9,7 @@ import Util from "./Util";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 
-const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(function(
-  taskState
-) {
+const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(taskState => {
   return TaskStates[taskState].stateTypes.includes("completed");
 });
 
@@ -47,11 +45,9 @@ const MesosStateUtil = {
   getFramework(state, frameworkID) {
     const { frameworks, completed_frameworks = [] } = state;
 
-    return []
-      .concat(frameworks, completed_frameworks)
-      .find(function(framework) {
-        return framework != null && framework.id === frameworkID;
-      });
+    return [].concat(frameworks, completed_frameworks).find(framework => {
+      return framework != null && framework.id === frameworkID;
+    });
   },
 
   /**
@@ -94,7 +90,7 @@ const MesosStateUtil = {
           };
         })
       )
-      .reduce(function(memo, element) {
+      .reduce((memo, element) => {
         if (memo[element.slave_id] == null) {
           memo[element.slave_id] = {};
         }
@@ -111,7 +107,7 @@ const MesosStateUtil = {
           );
         } else {
           // Aggregates used resources from each executor
-          RESOURCE_KEYS.forEach(function(key) {
+          RESOURCE_KEYS.forEach(key => {
             memo[element.slave_id][frameworkKey][key] += resources[key];
           });
         }
@@ -121,7 +117,7 @@ const MesosStateUtil = {
   },
 
   getRunningTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
-    return tasks.filter(function(task) {
+    return tasks.filter(task => {
       const appPath = "container.network_infos.0.name";
       const podPath = "statuses.0.container_status.network_infos.0.name";
 
@@ -143,7 +139,7 @@ const MesosStateUtil = {
    */
   getPodHistoricalInstances(state, pod) {
     const { frameworks = [], tasks = [] } = state;
-    const marathon = frameworks.find(function(framework) {
+    const marathon = frameworks.find(framework => {
       return framework.name === "marathon";
     });
 
@@ -157,7 +153,7 @@ const MesosStateUtil = {
           task.framework_id === marathon.id &&
           COMPLETED_TASK_STATES.includes(task.state)
       )
-      .reduce(function(memo, task) {
+      .reduce((memo, task) => {
         if (MesosStateUtil.isPodTaskId(task.id)) {
           const { podID, instanceID } = MesosStateUtil.decomposePodTaskId(
             task.id
@@ -171,17 +167,13 @@ const MesosStateUtil = {
 
             // The last status can give us information about the time the
             // container was last updated, so we need the latest status item
-            const lastStatus = (task.statuses || []).reduce(function(
-              memo,
-              status
-            ) {
+            const lastStatus = (task.statuses || []).reduce((memo, status) => {
               if (!memo || status.timestamp > memo.timestamp) {
                 return status;
               }
 
               return memo;
-            },
-            null);
+            }, null);
 
             // Add additional fields to the task structure in order to make it
             // as close as possible to something a PodContainer will understand.
@@ -209,10 +201,10 @@ const MesosStateUtil = {
     // Try to compose actual PodInstance structures from the information we
     // have so far. Obviously we don't have any details, but we can populate
     // most of the UI-interesting fields by summarizing container details
-    return Object.keys(instancesMap).map(function(instanceID) {
+    return Object.keys(instancesMap).map(instanceID => {
       const containers = instancesMap[instanceID];
       const summaryProperties = containers.reduce(
-        function(memo, instance) {
+        (memo, instance) => {
           const { resources = {}, lastChanged = 0 } = instance;
 
           memo.resources.cpus += resources.cpus || 0;
@@ -293,7 +285,7 @@ const MesosStateUtil = {
 
   getFrameworkToServicesMap(frameworks, serviceTree) {
     return frameworks.reduce((acc, framework) => {
-      acc[framework.id] = serviceTree.findItem(function(item) {
+      acc[framework.id] = serviceTree.findItem(item => {
         return (
           item instanceof Framework &&
           item.getFrameworkName() === framework.name

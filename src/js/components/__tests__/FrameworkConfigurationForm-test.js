@@ -23,9 +23,9 @@ function createWrapper(formData, packageDetails) {
   );
 }
 
-describe("FrameworkConfigurationForm", function() {
-  describe("validate", function() {
-    it("add error is required key is empty", function() {
+describe("FrameworkConfigurationForm", () => {
+  describe("validate", () => {
+    it("add error is required key is empty", () => {
       const addError = jest.fn();
       const formData = {
         foo: "",
@@ -62,7 +62,7 @@ describe("FrameworkConfigurationForm", function() {
       expect(addError).toHaveBeenCalledWith("Expecting a string here, eg: foo");
     });
 
-    it("handle an array value", function() {
+    it("handle an array value", () => {
       const addError = jest.fn();
       const formData = {
         foo: "",

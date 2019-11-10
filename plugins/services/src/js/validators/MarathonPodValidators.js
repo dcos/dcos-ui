@@ -8,7 +8,7 @@ const MarathonPodValidators = {
    */
   validateProfileVolumes(pod) {
     if (ValidatorUtil.isDefined(pod.volumes)) {
-      return pod.volumes.reduce(function(accumulator, volume, index) {
+      return pod.volumes.reduce((accumulator, volume, index) => {
         if (
           !ValidatorUtil.isDefined(volume.persistent) ||
           !ValidatorUtil.isDefined(volume.persistent.profileName)

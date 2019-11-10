@@ -5,7 +5,7 @@ import Util from "../utils/Util";
 
 const UnitHealthUtil = {
   getHealthSortFunction(...args) {
-    return TableUtil.getSortFunction("id", function(item, prop) {
+    return TableUtil.getSortFunction("id", (item, prop) => {
       // TODO: Deprecate sorting conditions by prop
       if (prop === "health") {
         return UnitHealthUtil.getHealthSorting(item);
@@ -30,7 +30,7 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    const healthKey = Object.keys(UnitHealthStatus).find(function(key) {
+    const healthKey = Object.keys(UnitHealthStatus).find(key => {
       return UnitHealthStatus[key].value === health;
     });
 
@@ -52,7 +52,7 @@ const UnitHealthUtil = {
       return items;
     }
 
-    return items.filter(function(datum) {
+    return items.filter(datum => {
       if (health.length > 1) {
         return Util.toLowerCaseIfString(datum.getHealth().title) === health;
       }

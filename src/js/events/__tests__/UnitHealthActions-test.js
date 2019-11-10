@@ -7,26 +7,26 @@ const UnitHealthActions = require("../UnitHealthActions");
 
 let thisConfiguration;
 
-describe("UnitHealthActions", function() {
-  describe("#fetchUnits", function() {
-    beforeEach(function() {
+describe("UnitHealthActions", () => {
+  describe("#fetchUnits", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnits();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_SUCCESS);
@@ -35,8 +35,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.success({ bar: "bar" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_ERROR);
@@ -45,8 +45,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -62,25 +62,25 @@ describe("UnitHealthActions", function() {
     });
   });
 
-  describe("#fetchUnit", function() {
-    beforeEach(function() {
+  describe("#fetchUnit", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnit("foo");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_SUCCESS);
@@ -90,8 +90,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.success({ bar: "baz" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_ERROR);
@@ -101,8 +101,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -118,25 +118,25 @@ describe("UnitHealthActions", function() {
     });
   });
 
-  describe("#fetchUnitNodes", function() {
-    beforeEach(function() {
+  describe("#fetchUnitNodes", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnitNodes("foo");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo/nodes"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -148,8 +148,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.success({ bar: "baz" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -161,8 +161,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -178,25 +178,25 @@ describe("UnitHealthActions", function() {
     });
   });
 
-  describe("#fetchUnitNode", function() {
-    beforeEach(function() {
+  describe("#fetchUnitNode", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UnitHealthActions.fetchUnitNode("foo", "bar");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.unitHealthAPIPrefix + "/units/foo/nodes/bar"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -208,8 +208,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.success({ bar: "baz" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_NODE_ERROR);
@@ -220,8 +220,8 @@ describe("UnitHealthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

@@ -10,25 +10,25 @@ const USER_COOKIE_KEY = "dcos-acs-info-cookie";
 
 global.atob =
   global.atob ||
-  function() {
+  (() => {
     return JSON.stringify({ uid: "joe", description: "Joe Doe" });
-  };
+  });
 
 let thisCookieParse, thisDocument;
 
-describe("AuthStore", function() {
-  beforeEach(function() {
+describe("AuthStore", () => {
+  beforeEach(() => {
     thisCookieParse = cookie.parse;
     global.document = { cookie: "" };
   });
 
-  afterEach(function() {
+  afterEach(() => {
     cookie.parse = thisCookieParse;
   });
 
-  describe("#isLoggedIn", function() {
-    it("returns false if there is no cookie set", function() {
-      cookie.parse = function() {
+  describe("#isLoggedIn", () => {
+    it("returns false if there is no cookie set", () => {
+      cookie.parse = () => {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = "";
 
@@ -37,8 +37,8 @@ describe("AuthStore", function() {
       expect(AuthStore.isLoggedIn()).toEqual(false);
     });
 
-    it("returns true if there is a cookie set", function() {
-      cookie.parse = function() {
+    it("returns true if there is a cookie set", () => {
+      cookie.parse = () => {
         var cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = "aRandomCode";
 
@@ -48,34 +48,34 @@ describe("AuthStore", function() {
     });
   });
 
-  describe("#processLogoutSuccess", function() {
-    beforeEach(function() {
+  describe("#processLogoutSuccess", () => {
+    beforeEach(() => {
       thisDocument = global.document;
       spyOn(cookie, "serialize");
       spyOn(AuthStore, "emit");
       AuthStore.processLogoutSuccess();
     });
 
-    afterEach(function() {
+    afterEach(() => {
       global.document = thisDocument;
     });
 
-    it("sets the cookie to an empty string", function() {
+    it("sets the cookie to an empty string", () => {
       var args = cookie.serialize.calls.mostRecent().args;
 
       expect(args[0]).toEqual(USER_COOKIE_KEY);
       expect(args[1]).toEqual("");
     });
 
-    it("emits a logout event", function() {
+    it("emits a logout event", () => {
       var args = AuthStore.emit.calls.mostRecent().args;
 
       expect(args[0]).toEqual(EventTypes.AUTH_USER_LOGOUT_SUCCESS);
     });
   });
 
-  describe("#login", function() {
-    it("makes a request to login", function() {
+  describe("#login", () => {
+    it("makes a request to login", () => {
       RequestUtil.json = jasmine.createSpy();
       AuthStore.login({});
 
@@ -83,9 +83,9 @@ describe("AuthStore", function() {
     });
   });
 
-  describe("#getUser", function() {
-    beforeEach(function() {
-      cookie.parse = function() {
+  describe("#getUser", () => {
+    beforeEach(() => {
+      cookie.parse = () => {
         var cookieObj = {};
         // {uid: 'joe', description: 'Joe Doe'}
         cookieObj[USER_COOKIE_KEY] =
@@ -95,11 +95,11 @@ describe("AuthStore", function() {
       };
     });
 
-    afterEach(function() {
+    afterEach(() => {
       AuthStore.set({ role: undefined });
     });
 
-    it("gets the user", function() {
+    it("gets the user", () => {
       expect(AuthStore.getUser()).toEqual({
         uid: "joe",
         description: "Joe Doe"
@@ -107,9 +107,9 @@ describe("AuthStore", function() {
     });
   });
 
-  describe("dispatcher", function() {
-    describe("login", function() {
-      it("dispatches the correct event upon error", function() {
+  describe("dispatcher", () => {
+    describe("login", () => {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jest.genMockFunction();
         AuthStore.addChangeListener(EventTypes.AUTH_USER_LOGIN_ERROR, mockedFn);
         AppDispatcher.handleServerAction({
@@ -126,8 +126,8 @@ describe("AuthStore", function() {
       });
     });
 
-    describe("logout", function() {
-      it("dispatches the correct event upon success", function() {
+    describe("logout", () => {
+      it("dispatches the correct event upon success", () => {
         var mockedFn = jasmine.createSpy();
         AuthStore.addChangeListener(
           EventTypes.AUTH_USER_LOGOUT_SUCCESS,
@@ -140,7 +140,7 @@ describe("AuthStore", function() {
         expect(mockedFn.calls.count()).toEqual(1);
       });
 
-      it("dispatches the correct event upon error", function() {
+      it("dispatches the correct event upon error", () => {
         var mockedFn = jest.genMockFunction();
         AuthStore.addChangeListener(
           EventTypes.AUTH_USER_LOGOUT_ERROR,

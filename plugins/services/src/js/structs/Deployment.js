@@ -78,8 +78,8 @@ module.exports = class Deployment extends Item {
   isStarting() {
     const steps = this.get("steps");
     if (steps != null) {
-      return this.get("steps").some(function(step) {
-        return step.actions.some(function(action) {
+      return this.get("steps").some(step => {
+        return step.actions.some(action => {
           return action.type === "StartApplication";
         });
       });

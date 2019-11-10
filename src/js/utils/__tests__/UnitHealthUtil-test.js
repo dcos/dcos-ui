@@ -6,20 +6,20 @@ const NodesList = require("../../structs/NodesList");
 
 let thisHealthWeight;
 
-describe("UnitHealthUnit", function() {
-  describe("#getHealthSorting", function() {
-    beforeEach(function() {
+describe("UnitHealthUnit", () => {
+  describe("#getHealthSorting", () => {
+    beforeEach(() => {
       const unit = new HealthUnit({ health: 0, id: "aaa" });
       thisHealthWeight = UnitHealthUtil.getHealthSorting(unit);
     });
 
-    it("returns a number", function() {
+    it("returns a number", () => {
       expect(typeof thisHealthWeight).toEqual("number");
     });
   });
 
-  describe("#getHealth", function() {
-    it("returns a UnitHealthStatus object", function() {
+  describe("#getHealth", () => {
+    it("returns a UnitHealthStatus object", () => {
       var health = 1;
 
       expect(UnitHealthUtil.getHealth(health)).toEqual({
@@ -31,7 +31,7 @@ describe("UnitHealthUnit", function() {
       });
     });
 
-    it("returns NA when health not valid", function() {
+    it("returns NA when health not valid", () => {
       var health = "wtf";
       expect(UnitHealthUtil.getHealth(health)).toEqual(
         UnitHealthStatus[UnitHealthTypes.SERVER_NA]
@@ -39,8 +39,8 @@ describe("UnitHealthUnit", function() {
     });
   });
 
-  describe("#filterByHealth", function() {
-    it("filters by unit health title", function() {
+  describe("#filterByHealth", () => {
+    it("filters by unit health title", () => {
       const items = [
         { id: "food", health: 0 },
         { id: "bard", health: 0 },

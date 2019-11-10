@@ -21,7 +21,7 @@ class VolumeTable extends React.Component {
   }
 
   getData(volumes) {
-    return volumes.map(function(volume) {
+    return volumes.map(volume => {
       return {
         id: volume.getId(),
         host: volume.getHost(),

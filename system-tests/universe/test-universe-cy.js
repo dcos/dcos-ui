@@ -1,6 +1,6 @@
 require("../_support/utils/ServicesUtil");
 
-describe("Universe", function() {
+describe("Universe", () => {
   beforeEach(() => {
     cy.visitUrl("catalog/packages");
   });
@@ -11,7 +11,7 @@ describe("Universe", function() {
     });
   });
 
-  it("installs a certified package", function() {
+  it("installs a certified package", () => {
     const packageName = "confluent-kafka";
 
     // Click 'Find a the kafka package'
@@ -36,7 +36,7 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table").contains(packageName);
   });
 
-  it("fails to install a package with the same name", function() {
+  it("fails to install a package with the same name", () => {
     const packageName = "confluent-kafka";
 
     // Click 'Find a the kafka package'
@@ -78,7 +78,7 @@ describe("Universe", function() {
     cy.contains("broker (serial)");
   });
 
-  it("installs a community package", function() {
+  it("installs a community package", () => {
     cy.get("button")
       .contains("Community")
       .click();
@@ -110,7 +110,7 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table").contains("bitbucket");
   });
 
-  it("uses advanced install to deploy a certified package", function() {
+  it("uses advanced install to deploy a certified package", () => {
     const packageName = "confluent-kafka";
     const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
@@ -150,7 +150,7 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table").contains(serviceName);
   });
 
-  it("uses advanced install to deploy a community package", function() {
+  it("uses advanced install to deploy a community package", () => {
     const packageName = "bitbucket";
     const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
@@ -197,7 +197,7 @@ describe("Universe", function() {
     cy.get(".page-body-content .service-table").contains(serviceName);
   });
 
-  it("deletes an already installed package", function() {
+  it("deletes an already installed package", () => {
     const packageName = "bitbucket";
     const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 

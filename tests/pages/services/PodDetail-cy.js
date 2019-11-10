@@ -1,27 +1,27 @@
-describe("Pod Detail Page", function() {
-  beforeEach(function() {
+describe("Pod Detail Page", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-pod",
       nodeHealth: true
     });
   });
 
-  context("Navigate to service detail page", function() {
-    it("shows the Service Not Found alert panel in page contents", function() {
+  context("Navigate to service detail page", () => {
+    it("shows the Service Not Found alert panel in page contents", () => {
       cy.visitUrl({
         url: "/services/detail/non-existing-service"
       });
       cy.get(".page-body-content").contains("Service not found");
     });
 
-    context("Show tabs", function() {
-      beforeEach(function() {
+    context("Show tabs", () => {
+      beforeEach(() => {
         cy.visitUrl({
           url: "/services/detail/%2Fpodses"
         });
       });
 
-      it("shows instances tab per default", function() {
+      it("shows instances tab per default", () => {
         cy.get(".menu-tabbed-item .active")
           .contains("Tasks")
           .get(".table")
@@ -30,7 +30,7 @@ describe("Pod Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fpodses\/tasks.*/);
       });
 
-      it("shows configuration tab when clicked", function() {
+      it("shows configuration tab when clicked", () => {
         cy.get(".menu-tabbed-item")
           .contains("Configuration")
           .click();
@@ -45,7 +45,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("shows debug tab when clicked", function() {
+      it("shows debug tab when clicked", () => {
         cy.get(".menu-tabbed-item")
           .contains("Debug")
           .click();
@@ -58,14 +58,14 @@ describe("Pod Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fpodses\/debug.*/);
       });
 
-      context("Endpoints tab", function() {
-        beforeEach(function() {
+      context("Endpoints tab", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-item")
             .contains("Endpoints")
             .click();
         });
 
-        it("shows endpoints tab with correct values when clicked", function() {
+        it("shows endpoints tab with correct values when clicked", () => {
           cy.get(".menu-tabbed-item .active")
             .contains("Endpoints")
             .get(".configuration-map");
@@ -97,14 +97,14 @@ describe("Pod Detail Page", function() {
       });
     });
 
-    context("Sorting", function() {
-      beforeEach(function() {
+    context("Sorting", () => {
+      beforeEach(() => {
         cy.visitUrl({
           url: "/services/detail/%2Fpodses"
         });
       });
 
-      it("sorts by host/port ASC", function() {
+      it("sorts by host/port ASC", () => {
         cy.get("th.task-table-column-host-address").click();
 
         cy.get(":nth-child(1) > .task-table-column-host-address").contains(
@@ -115,7 +115,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("sorts by host/port DESC", function() {
+      it("sorts by host/port DESC", () => {
         cy.get("th.task-table-column-host-address").click();
         cy.get("th.task-table-column-host-address").click();
 
@@ -127,7 +127,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("sorts by region ASC", function() {
+      it("sorts by region ASC", () => {
         cy.get("th.task-table-column-region").click();
 
         cy.get(":nth-child(1) > .task-table-column-region").contains(
@@ -138,7 +138,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("sorts by region DESC", function() {
+      it("sorts by region DESC", () => {
         cy.get("th.task-table-column-region").click();
         cy.get("th.task-table-column-region").click();
 
@@ -150,7 +150,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("sorts by zone ASC", function() {
+      it("sorts by zone ASC", () => {
         cy.get("th.task-table-column-zone").click();
 
         cy.get(":nth-child(1) > .task-table-column-zone").contains(
@@ -161,7 +161,7 @@ describe("Pod Detail Page", function() {
         );
       });
 
-      it("sorts by zone DESC", function() {
+      it("sorts by zone DESC", () => {
         cy.get("th.task-table-column-zone").click();
         cy.get("th.task-table-column-zone").click();
 
@@ -175,15 +175,15 @@ describe("Pod Detail Page", function() {
     });
   });
 
-  context("Delayed pod", function() {
-    beforeEach(function() {
+  context("Delayed pod", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-pod-delayed",
         nodeHealth: true
       });
     });
 
-    it("shows debug tab when clicked", function() {
+    it("shows debug tab when clicked", () => {
       cy.visitUrl({
         url: "/services/detail/%2Fpodses"
       });
@@ -215,7 +215,7 @@ describe("Pod Detail Page", function() {
     });
   });
 
-  context("Actions", function() {
+  context("Actions", () => {
     function openDropdown() {
       cy.get(".button-narrow").click();
     }
@@ -226,9 +226,9 @@ describe("Pod Detail Page", function() {
         .click();
     }
 
-    context("Reset Delay Action", function() {
-      context("Delayed pod", function() {
-        beforeEach(function() {
+    context("Reset Delay Action", () => {
+      context("Delayed pod", () => {
+        beforeEach(() => {
           cy.configureCluster({
             mesos: "1-pod-delayed",
             nodeHealth: true
@@ -240,7 +240,7 @@ describe("Pod Detail Page", function() {
           clickDropdownAction("Reset Delay");
         });
 
-        it("shows a toast notification", function() {
+        it("shows a toast notification", () => {
           cy.route({
             method: "DELETE",
             url: /marathon\/v2\/queue\/\/podses\/delay/,
@@ -250,8 +250,8 @@ describe("Pod Detail Page", function() {
         });
       });
 
-      context("Non-delayed pod", function() {
-        beforeEach(function() {
+      context("Non-delayed pod", () => {
+        beforeEach(() => {
           cy.configureCluster({
             mesos: "1-pod",
             nodeHealth: true
@@ -262,7 +262,7 @@ describe("Pod Detail Page", function() {
           openDropdown("podses");
         });
 
-        it("doesn't have a reset delayed action", function() {
+        it("doesn't have a reset delayed action", () => {
           cy.get(".dropdown-menu-items")
             .contains("Reset Delay")
             .should("not.exist");

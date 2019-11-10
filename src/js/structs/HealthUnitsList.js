@@ -11,7 +11,7 @@ class HealthUnitsList extends List {
       if (filters.title) {
         components = StringUtil.filterByString(
           components,
-          function(component) {
+          component => {
             return component.getTitle();
           },
           filters.title

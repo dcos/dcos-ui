@@ -100,7 +100,7 @@ const MarathonErrorUtil = {
     }
 
     // `details` can be an array of errors
-    return error.details.reduce(function(memo, { errors = [], path }) {
+    return error.details.reduce((memo, { errors = [], path }) => {
       // Convert marathon path components to a dot-separated string
       // and then split it into an array
       //
@@ -113,7 +113,7 @@ const MarathonErrorUtil = {
       // Don't create array with empty first item when we have an empty path
       let pathComponents = [];
       if (pathString !== "") {
-        pathComponents = pathString.split("/").map(function(component) {
+        pathComponents = pathString.split("/").map(component => {
           if (ValidatorUtil.isNumber(component)) {
             return Number(component);
           }
@@ -127,7 +127,7 @@ const MarathonErrorUtil = {
       }
 
       // For every error, create the correct message
-      return errors.reduce(function(memo, errorMessage) {
+      return errors.reduce((memo, errorMessage) => {
         memo.push({
           path: pathComponents,
           message: errorMessage,

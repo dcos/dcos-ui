@@ -1,15 +1,15 @@
 const MesosSummaryUtil = require("../MesosSummaryUtil");
 
-describe("MesosSummaryUtil", function() {
-  describe("#stateResourcesToResourceStates", function() {
-    it("returns empty resource states lists", function() {
+describe("MesosSummaryUtil", () => {
+  describe("#stateResourcesToResourceStates", () => {
+    it("returns empty resource states lists", () => {
       const resourceStates = MesosSummaryUtil.stateResourcesToResourceStates(
         []
       );
       expect(resourceStates).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
     });
 
-    it("sets fields to null indicating unsuccessful snapshot", function() {
+    it("sets fields to null indicating unsuccessful snapshot", () => {
       const stateResources = [
         {
           date: 1,
@@ -48,7 +48,7 @@ describe("MesosSummaryUtil", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("transposes state resources to resource states", function() {
+    it("transposes state resources to resource states", () => {
       const stateResources = [
         {
           date: 1,
@@ -70,7 +70,7 @@ describe("MesosSummaryUtil", function() {
       expect(resourceStates).toEqual(expectedResult);
     });
 
-    it("transposes multiple state resources to resource states", function() {
+    it("transposes multiple state resources to resource states", () => {
       const stateResources = [
         {
           date: 1,

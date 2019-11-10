@@ -9,33 +9,33 @@ const TabsUtil = require("../../utils/TabsUtil");
 
 let thisInstance;
 
-describe("TabsMixin", function() {
-  beforeEach(function() {
+describe("TabsMixin", () => {
+  beforeEach(() => {
     TabsMixin.tabs_tabs = { foo: "bar", baz: "qux", corge: "Grault" };
   });
 
-  describe("#tabs_getRoutedItem", function() {
-    beforeEach(function() {
+  describe("#tabs_getRoutedItem", () => {
+    beforeEach(() => {
       thisInstance = shallow(
         TabsMixin.tabs_getRoutedItem({ classNames: "foo" }, "baz")
       );
     });
 
-    it("returns an element", function() {
+    it("returns an element", () => {
       expect(thisInstance.exists());
     });
 
-    it("returns an element containing a link", function() {
+    it("returns an element containing a link", () => {
       expect(thisInstance.find(Link).exists());
     });
 
-    it("adds custom props to span", function() {
+    it("adds custom props to span", () => {
       expect(
         TabsMixin.tabs_getRoutedItem({ other: true }, "foo").props.other
       ).toEqual(true);
     });
 
-    it("removes existing className", function() {
+    it("removes existing className", () => {
       expect(
         TabsMixin.tabs_getUnroutedItem(
           { classNames: { "menu-tabbed-item-label": false } },
@@ -44,35 +44,35 @@ describe("TabsMixin", function() {
       ).toEqual("");
     });
 
-    it("adds custom class to link", function() {
+    it("adds custom class to link", () => {
       expect(thisInstance.prop("className")).toEqual(
         "menu-tabbed-item-label foo"
       );
     });
   });
 
-  describe("#tabs_getUnroutedItem", function() {
-    beforeEach(function() {
+  describe("#tabs_getUnroutedItem", () => {
+    beforeEach(() => {
       thisInstance = shallow(
         TabsMixin.tabs_getUnroutedItem({ classNames: "hux" }, "baz")
       );
     });
 
-    it("returns an element", function() {
+    it("returns an element", () => {
       expect(thisInstance.exists());
     });
 
-    it("returns an element containing a span", function() {
+    it("returns an element containing a span", () => {
       expect(thisInstance.type()).toEqual("span");
     });
 
-    it("adds custom props to span", function() {
+    it("adds custom props to span", () => {
       expect(
         TabsMixin.tabs_getUnroutedItem({ other: true }, "baz").props.other
       ).toEqual(true);
     });
 
-    it("removes existing className", function() {
+    it("removes existing className", () => {
       expect(
         TabsMixin.tabs_getUnroutedItem(
           { classNames: { "menu-tabbed-item-label": false } },
@@ -81,19 +81,19 @@ describe("TabsMixin", function() {
       ).toEqual("");
     });
 
-    it("adds custom class to span", function() {
+    it("adds custom class to span", () => {
       expect(thisInstance.prop("className")).toEqual(
         "menu-tabbed-item-label hux"
       );
     });
   });
 
-  describe("#tabs_getUnroutedTabs", function() {
-    beforeEach(function() {
+  describe("#tabs_getUnroutedTabs", () => {
+    beforeEach(() => {
       TabsMixin.state = { currentTab: "baz" };
     });
 
-    it("calls getTabs with appropriate arguments", function() {
+    it("calls getTabs with appropriate arguments", () => {
       spyOn(TabsUtil, "getTabs");
       TabsMixin.tabs_getUnroutedTabs(null);
 
@@ -105,7 +105,7 @@ describe("TabsMixin", function() {
       expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual("baz");
     });
 
-    it("calls tabs_getUnroutedItem with appropriate arguments", function() {
+    it("calls tabs_getUnroutedItem with appropriate arguments", () => {
       spyOn(TabsMixin, "tabs_getUnroutedItem");
       TabsMixin.tabs_getUnroutedTabs({ classNames: "quix" });
 
@@ -117,12 +117,12 @@ describe("TabsMixin", function() {
     });
   });
 
-  describe("#tabs_getRoutedTabs", function() {
-    beforeEach(function() {
+  describe("#tabs_getRoutedTabs", () => {
+    beforeEach(() => {
       TabsMixin.state = { currentTab: "foo" };
     });
 
-    it("calls getTabs with appropriate arguments", function() {
+    it("calls getTabs with appropriate arguments", () => {
       spyOn(TabsUtil, "getTabs");
       TabsMixin.tabs_getRoutedTabs(null);
 
@@ -134,7 +134,7 @@ describe("TabsMixin", function() {
       expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual("foo");
     });
 
-    it("calls tabs_getRoutedItem with appropriate arguments", function() {
+    it("calls tabs_getRoutedItem with appropriate arguments", () => {
       spyOn(TabsMixin, "tabs_getRoutedItem");
       TabsMixin.tabs_getRoutedTabs({ classNames: "quilt" });
 
@@ -146,35 +146,35 @@ describe("TabsMixin", function() {
     });
   });
 
-  describe("#tabs_getTabView", function() {
-    beforeEach(function() {
+  describe("#tabs_getTabView", () => {
+    beforeEach(() => {
       TabsMixin.state = { currentTab: "corge" };
-      TabsMixin.renderGraultTabView = function() {
+      TabsMixin.renderGraultTabView = () => {
         return "test";
       };
     });
 
-    it("does not call render function before called", function() {
+    it("does not call render function before called", () => {
       spyOn(TabsMixin, "renderGraultTabView");
       expect(TabsMixin.renderGraultTabView).not.toHaveBeenCalled();
     });
 
-    it("calls appropriate render function when called", function() {
+    it("calls appropriate render function when called", () => {
       spyOn(TabsMixin, "renderGraultTabView");
       TabsMixin.tabs_getTabView();
       expect(TabsMixin.renderGraultTabView).toHaveBeenCalled();
     });
 
-    it("calls appropriate render function when called", function() {
+    it("calls appropriate render function when called", () => {
       spyOn(TabsMixin, "renderGraultTabView");
       TabsMixin.tabs_getTabView("foo", "bar");
       expect(TabsMixin.renderGraultTabView).toHaveBeenCalledWith("foo", "bar");
     });
 
-    it("removes spaces and call render function", function() {
+    it("removes spaces and call render function", () => {
       TabsMixin.tabs_tabs = { qux: "Quux Garply" };
       TabsMixin.state = { currentTab: "qux" };
-      TabsMixin.renderQuuxGarplyTabView = function() {
+      TabsMixin.renderQuuxGarplyTabView = () => {
         return "test";
       };
       spyOn(TabsMixin, "renderQuuxGarplyTabView");
@@ -182,18 +182,18 @@ describe("TabsMixin", function() {
       expect(TabsMixin.renderQuuxGarplyTabView).toHaveBeenCalled();
     });
 
-    it("returns result of function when called", function() {
+    it("returns result of function when called", () => {
       var result = TabsMixin.tabs_getTabView();
       expect(result).toEqual("test");
     });
 
-    it("nulls if it doesn't exist", function() {
+    it("nulls if it doesn't exist", () => {
       TabsMixin.renderGraultTabView = undefined;
       var result = TabsMixin.tabs_getTabView();
       expect(result).toEqual(null);
     });
 
-    it("does not call render function if it doesn't exist", function() {
+    it("does not call render function if it doesn't exist", () => {
       TabsMixin.renderGraultTabView = undefined;
       var fn = TabsMixin.tabs_getTabView.bind(TabsMixin);
       expect(fn).not.toThrow();

@@ -52,7 +52,7 @@ class PlacementConstraintsPartial extends Component {
       this.props.errors,
       "constraints"
     );
-    const hideValueColumn = data.every(function(constraint) {
+    const hideValueColumn = data.every(constraint => {
       return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
     });
 

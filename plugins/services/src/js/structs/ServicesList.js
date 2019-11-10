@@ -10,7 +10,7 @@ class ServicesList extends List {
 
     if (filters) {
       if (filters.ids) {
-        services = services.filter(function(service) {
+        services = services.filter(service => {
           return filters.ids.includes(service.id);
         });
       }
@@ -20,8 +20,8 @@ class ServicesList extends List {
       }
 
       if (filters.health != null && filters.health.length !== 0) {
-        services = services.filter(function(service) {
-          return filters.health.some(function(healthValue) {
+        services = services.filter(service => {
+          return filters.health.some(healthValue => {
             return service.getHealth().value === parseInt(healthValue, 10);
           });
         });
@@ -33,7 +33,7 @@ class ServicesList extends List {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(function(service) {
+    const resourcesList = services.map(service => {
       return service.used_resources;
     });
 
@@ -59,8 +59,8 @@ class ServicesList extends List {
 
     const taskTypes = Object.keys(tasks);
 
-    services.forEach(function(service) {
-      taskTypes.forEach(function(taskType) {
+    services.forEach(service => {
+      taskTypes.forEach(taskType => {
         if (service[taskType]) {
           tasks[taskType] += service[taskType];
         }

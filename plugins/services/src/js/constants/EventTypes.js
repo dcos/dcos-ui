@@ -44,7 +44,7 @@ const EventTypes = {};
   "TASK_DIRECTORY_ERROR",
   "NODE_STATE_ERROR",
   "NODE_STATE_SUCCESS"
-].forEach(function(eventType) {
+].forEach(eventType => {
   EventTypes[eventType] = eventType;
 });
 

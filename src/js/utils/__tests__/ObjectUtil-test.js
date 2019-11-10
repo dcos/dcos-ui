@@ -1,8 +1,8 @@
 const ObjectUtil = require("../ObjectUtil");
 
-describe("ObjectUtil", function() {
-  describe("#markObject", function() {
-    it("marks an object", function() {
+describe("ObjectUtil", () => {
+  describe("#markObject", () => {
+    it("marks an object", () => {
       const obj = {};
       const mark = "mark";
 
@@ -10,7 +10,7 @@ describe("ObjectUtil", function() {
       expect(obj.___object_mark___).toEqual(mark);
     });
 
-    it("overwrites previous mark", function() {
+    it("overwrites previous mark", () => {
       const obj = {};
       const previousMark = "mork";
       const mark = "mark";
@@ -21,14 +21,14 @@ describe("ObjectUtil", function() {
     });
   });
 
-  describe("#objectHasMark", function() {
-    it("returns false on unmarked objects", function() {
+  describe("#objectHasMark", () => {
+    it("returns false on unmarked objects", () => {
       const obj = {};
       const mark = "mark";
       expect(ObjectUtil.objectHasMark(obj, mark)).toBeFalsy();
     });
 
-    it("returns true on correctly marked objects", function() {
+    it("returns true on correctly marked objects", () => {
       const obj = {};
       const mark = "mark";
 
@@ -36,7 +36,7 @@ describe("ObjectUtil", function() {
       expect(ObjectUtil.objectHasMark(obj, mark)).toBeTruthy();
     });
 
-    it("returns false on wrongly marked objects", function() {
+    it("returns false on wrongly marked objects", () => {
       const obj = {};
       const mark = "mark";
       const wrongMark = "mork";
@@ -45,7 +45,7 @@ describe("ObjectUtil", function() {
       expect(ObjectUtil.objectHasMark(obj, mark)).toBeFalsy();
     });
 
-    it("handles objects as marks", function() {
+    it("handles objects as marks", () => {
       const obj = {};
       const mark = {};
       const wrongMark = {};

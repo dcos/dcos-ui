@@ -7,7 +7,7 @@ require("./formChildCommands");
  *
  * @param {String} visitUrl - The URL to visit
  */
-Cypress.Commands.add("visitUrl", { prevSubject: false }, function(visitUrl) {
+Cypress.Commands.add("visitUrl", { prevSubject: false }, visitUrl => {
   var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
   var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 

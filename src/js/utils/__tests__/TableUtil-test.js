@@ -4,8 +4,8 @@ const HealthSorting = require("../../../../plugins/services/src/js/constants/Hea
 
 let thisFoo, thisBar, thisGetProp, thisSortFunction;
 
-describe("TableUtil", function() {
-  beforeEach(function() {
+describe("TableUtil", () => {
+  beforeEach(() => {
     thisFoo = {
       equal: 0,
       id: "foo",
@@ -22,9 +22,9 @@ describe("TableUtil", function() {
     };
   });
 
-  describe("#getSortFunction", function() {
-    beforeEach(function() {
-      thisGetProp = function(obj, prop) {
+  describe("#getSortFunction", () => {
+    beforeEach(() => {
+      thisGetProp = (obj, prop) => {
         if (prop === "timestamp") {
           return Util.last(obj.statuses)[prop];
         }
@@ -35,50 +35,50 @@ describe("TableUtil", function() {
       thisSortFunction = TableUtil.getSortFunction("id", thisGetProp);
     });
 
-    it("returns a function", function() {
+    it("returns a function", () => {
       expect(typeof thisSortFunction).toEqual("function");
     });
 
-    it("compares ids values", function() {
+    it("compares ids values", () => {
       var sortPropFunction = thisSortFunction("id");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("handles null values", function() {
+    it("handles null values", () => {
       var sortPropFunction = thisSortFunction("name");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("handles undefined values", function() {
+    it("handles undefined values", () => {
       var sortPropFunction = thisSortFunction("version");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("handles nested properties through getter function", function() {
+    it("handles nested properties through getter function", () => {
       var sortPropFunction = thisSortFunction("timestamp");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(-1);
     });
 
-    it("uses if values are equal tiebreaker", function() {
+    it("uses if values are equal tiebreaker", () => {
       var sortPropFunction = thisSortFunction("equal");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(1);
     });
 
-    it("handles alternative tiebreaker", function() {
+    it("handles alternative tiebreaker", () => {
       var sortFunction = TableUtil.getSortFunction("timestamp", thisGetProp);
       var sortPropFunction = sortFunction("equal");
       expect(sortPropFunction(thisFoo, thisBar)).toEqual(-1);
     });
   });
 
-  describe("#getHealthSortingOrder", function() {
-    it("returns a function", function() {
+  describe("#getHealthSortingOrder", () => {
+    it("returns a function", () => {
       expect(typeof TableUtil.getHealthSortingOrder()).toEqual("function");
     });
   });
 
-  describe("#getHealthSortingValue", function() {
-    it("returns sorting value when receives string value", function() {
+  describe("#getHealthSortingValue", () => {
+    it("returns sorting value when receives string value", () => {
       const healthStatus = "Unhealthy";
 
       expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(
@@ -86,7 +86,7 @@ describe("TableUtil", function() {
       );
     });
 
-    it("returns sorting value when receives number value", function() {
+    it("returns sorting value when receives number value", () => {
       const expectedSortingValue = 0;
       const healthStatus = 1;
       const getHealthSortingValueResult = TableUtil.getHealthSortingValue(
@@ -96,7 +96,7 @@ describe("TableUtil", function() {
       expect(getHealthSortingValueResult).toEqual(expectedSortingValue);
     });
 
-    it("returns default sorting value", function() {
+    it("returns default sorting value", () => {
       const healthStatus = "nada";
 
       expect(TableUtil.getHealthSortingValue(healthStatus)).toEqual(
@@ -109,8 +109,8 @@ describe("TableUtil", function() {
    * sort health status by visibility importance order top to bottom
    * unhealthy > NA > warn/idle > healthy
    */
-  describe("#sortHealthValues", function() {
-    it("returns health sorted by visibility importance when health is string", function() {
+  describe("#sortHealthValues", () => {
+    it("returns health sorted by visibility importance when health is string", () => {
       const units = [
         { id: "aa", health: "NA" },
         { id: "bb", health: "Healthy" },
@@ -126,7 +126,7 @@ describe("TableUtil", function() {
       expect(sortingResult).toEqual(expectedResult);
     });
 
-    it("returns health sorted by visibility importance when health is number", function() {
+    it("returns health sorted by visibility importance when health is number", () => {
       const units = [
         { id: "aa", health: 3 },
         { id: "bb", health: 0 },

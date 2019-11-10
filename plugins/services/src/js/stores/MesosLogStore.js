@@ -154,7 +154,7 @@ class MesosLogStore extends BaseStore {
 
   processOffsetError(slaveID, path) {
     // Try to re-initialize from where we left off
-    setTimeout(function() {
+    setTimeout(() => {
       MesosLogActions.requestOffset(slaveID, path);
     }, Config.tailRefresh);
 
@@ -183,7 +183,7 @@ class MesosLogStore extends BaseStore {
       // since that might mean that there is more data to show
       MesosLogActions.fetchLog(slaveID, path, end, MAX_FILE_SIZE);
     } else {
-      setTimeout(function() {
+      setTimeout(() => {
         MesosLogActions.fetchLog(slaveID, path, end, MAX_FILE_SIZE);
       }, Config.tailRefresh);
     }
@@ -210,7 +210,7 @@ class MesosLogStore extends BaseStore {
     }
 
     // Try to re-start from where we left off
-    setTimeout(function() {
+    setTimeout(() => {
       MesosLogActions.fetchLog(
         slaveID,
         path,

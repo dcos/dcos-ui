@@ -5,12 +5,12 @@ const TabButton = require("../TabButton");
 
 let thisClickHandler, thisInstance;
 
-describe("TabButton", function() {
-  beforeEach(function() {
+describe("TabButton", () => {
+  beforeEach(() => {
     thisClickHandler = jasmine.createSpy("click handler");
   });
 
-  it("calls the onClick prop with ID when clicked", function() {
+  it("calls the onClick prop with ID when clicked", () => {
     thisInstance = mount(
       <TabButton label="foo" onClick={thisClickHandler} id="foo" />
     );
@@ -21,7 +21,7 @@ describe("TabButton", function() {
     expect(thisClickHandler).toHaveBeenCalledWith("foo");
   });
 
-  it("clones nested TabButton instances with onClick and activeTab props", function() {
+  it("clones nested TabButton instances with onClick and activeTab props", () => {
     thisInstance = shallow(
       <TabButton
         activeTab="foo"
@@ -39,7 +39,7 @@ describe("TabButton", function() {
     expect(nestedInstance.prop("onClick")).toEqual(thisClickHandler);
   });
 
-  it("calls the parent onClick when clicking a nested TabButton", function() {
+  it("calls the parent onClick when clicking a nested TabButton", () => {
     thisInstance = mount(
       <TabButton
         activeTab="foo"

@@ -40,7 +40,7 @@ const Util = {
   pluck(object, allowKeys) {
     const allow = new Set(allowKeys);
 
-    return Object.keys(object).reduce(function(newObject, key) {
+    return Object.keys(object).reduce((newObject, key) => {
       if (allow.has(key)) {
         newObject[key] = object[key];
       }
@@ -58,7 +58,7 @@ const Util = {
   omit(object, denyKeys) {
     const deny = new Set(denyKeys);
 
-    return Object.keys(object).reduce(function(newObject, key) {
+    return Object.keys(object).reduce((newObject, key) => {
       if (!deny.has(key)) {
         newObject[key] = object[key];
       }
@@ -99,7 +99,7 @@ const Util = {
   },
 
   getLocaleCompareSortFn(prop) {
-    return function(a, b) {
+    return (a, b) => {
       return a[prop].localeCompare(b[prop]);
     };
   },
@@ -116,7 +116,7 @@ const Util = {
       return null;
     }
 
-    return propertyPath.split(".").reduce(function(current, nextProp) {
+    return propertyPath.split(".").reduce((current, nextProp) => {
       if (current == null) {
         return current;
       }
@@ -136,12 +136,12 @@ const Util = {
   debounce(func, wait) {
     let timeoutID = null;
 
-    return function(...args) {
+    return (...args) => {
       if (timeoutID) {
         global.clearTimeout(timeoutID);
       }
 
-      timeoutID = global.setTimeout(function() {
+      timeoutID = global.setTimeout(() => {
         func.apply(null, args);
       }, wait);
     };
@@ -190,10 +190,10 @@ const Util = {
    */
   filterEmptyValues(obj) {
     return Object.keys(obj)
-      .filter(function(key) {
+      .filter(key => {
         return !ValidatorUtil.isEmpty(obj[key]);
       })
-      .reduce(function(memo, key) {
+      .reduce((memo, key) => {
         memo[key] = obj[key];
 
         return memo;
@@ -202,10 +202,10 @@ const Util = {
 
   objectToGetParams(obj) {
     const queryString = Object.keys(obj)
-      .filter(function(param) {
+      .filter(param => {
         return obj[param] != null;
       })
-      .map(function(param) {
+      .map(param => {
         return `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`;
       })
       .join("&");

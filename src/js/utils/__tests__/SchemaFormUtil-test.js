@@ -2,9 +2,9 @@ const SchemaFormUtil = require("../SchemaFormUtil");
 
 let thisDefinition, thisGetDefinitionFromPath;
 
-describe("SchemaFormUtil", function() {
-  describe("#getDefinitionFromPath", function() {
-    beforeEach(function() {
+describe("SchemaFormUtil", () => {
+  describe("#getDefinitionFromPath", () => {
+    beforeEach(() => {
       thisDefinition = {
         application: {
           definition: [
@@ -25,14 +25,14 @@ describe("SchemaFormUtil", function() {
       };
     });
 
-    it("finds 'treasure' definition", function() {
+    it("finds 'treasure' definition", () => {
       var path = ["application", "there", "treasure"];
       var result = SchemaFormUtil.getDefinitionFromPath(thisDefinition, path);
 
       expect(result).toEqual({ name: "treasure" });
     });
 
-    it("finds 'hello' definition", function() {
+    it("finds 'hello' definition", () => {
       var path = ["application", "hello"];
       var result = SchemaFormUtil.getDefinitionFromPath(thisDefinition, path);
 
@@ -40,19 +40,19 @@ describe("SchemaFormUtil", function() {
     });
   });
 
-  describe("#processFormModel", function() {
-    beforeEach(function() {
+  describe("#processFormModel", () => {
+    beforeEach(() => {
       var definition = (thisDefinition = {
         isRequired: false,
         valueType: "string"
       });
       thisGetDefinitionFromPath = SchemaFormUtil.getDefinitionFromPath;
-      SchemaFormUtil.getDefinitionFromPath = function() {
+      SchemaFormUtil.getDefinitionFromPath = () => {
         return definition;
       };
     });
 
-    afterEach(function() {
+    afterEach(() => {
       thisDefinition = {
         isRequired: false,
         valueType: "string"
@@ -60,7 +60,7 @@ describe("SchemaFormUtil", function() {
       SchemaFormUtil.getDefinitionFromPath = thisGetDefinitionFromPath;
     });
 
-    it("returns a model with same values", function() {
+    it("returns a model with same values", () => {
       var model = {
         key: "value",
         key2: "value2"
@@ -70,7 +70,7 @@ describe("SchemaFormUtil", function() {
       expect(model).toEqual(result);
     });
 
-    it("replaces undefined with [] when valueType is array", function() {
+    it("replaces undefined with [] when valueType is array", () => {
       thisDefinition.valueType = "array";
       var model = {
         key: undefined,
@@ -81,7 +81,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual([]);
     });
 
-    it("omits null values for non-required fields", function() {
+    it("omits null values for non-required fields", () => {
       var model = {
         key: null,
         key2: "value2"
@@ -91,7 +91,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(undefined);
     });
 
-    it("doesn't omit null values for required fields", function() {
+    it("doesn't omit null values for required fields", () => {
       thisDefinition.isRequired = true;
       var model = {
         key: null,
@@ -102,7 +102,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(null);
     });
 
-    it("replaces string with a number if integer", function() {
+    it("replaces string with a number if integer", () => {
       thisDefinition.valueType = "integer";
       var model = {
         key: "10",
@@ -113,7 +113,7 @@ describe("SchemaFormUtil", function() {
       expect(result.key).toEqual(10);
     });
 
-    it("splits string if array", function() {
+    it("splits string if array", () => {
       thisDefinition.valueType = "array";
       var model = {
         key: "10, 20, 30, 40",
@@ -125,8 +125,8 @@ describe("SchemaFormUtil", function() {
     });
   });
 
-  describe("#parseTV4Error", function() {
-    it("returns an object with error message and path", function() {
+  describe("#parseTV4Error", () => {
+    it("returns an object with error message and path", () => {
       var tv4Error = {
         dataPath: "application/data/path",
         message: "this is an error message",
@@ -140,7 +140,7 @@ describe("SchemaFormUtil", function() {
       });
     });
 
-    it("appends param if code is 302", function() {
+    it("appends param if code is 302", () => {
       var tv4Error = {
         code: 302,
         dataPath: "application/data/path",
@@ -156,7 +156,7 @@ describe("SchemaFormUtil", function() {
       });
     });
 
-    it("removes the last path if it is part of an array", function() {
+    it("removes the last path if it is part of an array", () => {
       var tv4Error = {
         dataPath: "application/data/path/0",
         message: "this is an error message",

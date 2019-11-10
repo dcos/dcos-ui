@@ -107,7 +107,7 @@ class NotificationStore extends GetSetBaseStore {
 
     notificationMap = notificationMap[tabName];
 
-    return Object.values(notificationMap).reduce(function(tally, count) {
+    return Object.values(notificationMap).reduce((tally, count) => {
       return (tally += count);
     }, 0);
   }

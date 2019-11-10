@@ -1,6 +1,6 @@
-describe("Edit Framework Configuration", function() {
-  context("Missing package", function() {
-    beforeEach(function() {
+describe("Edit Framework Configuration", () => {
+  context("Missing package", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-for-each-health"
       });
@@ -17,7 +17,7 @@ describe("Edit Framework Configuration", function() {
       }).as("describeService");
     });
 
-    it("contains correct error message", function() {
+    it("contains correct error message", () => {
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy/edit" });
 
       cy.wait("@describeService");

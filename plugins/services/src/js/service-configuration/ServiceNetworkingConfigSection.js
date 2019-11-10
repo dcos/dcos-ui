@@ -163,14 +163,14 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               });
             }
 
-            const containsServicePorts = portDefinitions.some(function(
-              portDefinition
-            ) {
-              return (
-                portDefinition.servicePort != null &&
-                portDefinition.servicePort !== 0
-              );
-            });
+            const containsServicePorts = portDefinitions.some(
+              portDefinition => {
+                return (
+                  portDefinition.servicePort != null &&
+                  portDefinition.servicePort !== 0
+                );
+              }
+            );
 
             if (containsServicePorts) {
               const hostPortIndex = columns.findIndex(column => {

@@ -18,7 +18,7 @@ const TASK_INFO = {
 const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
 function getEmptyTaskData() {
-  return DISPLAYED_TASK_KEYS.map(function(key) {
+  return DISPLAYED_TASK_KEYS.map(key => {
     return {
       name: key,
       colorIndex: TASK_INFO[key].colorIndex,
@@ -50,9 +50,9 @@ var TasksChart = createReactClass({
 
     var numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
-    return DISPLAYED_TASK_KEYS.map(function(key) {
+    return DISPLAYED_TASK_KEYS.map(key => {
       const info = TASK_INFO[key];
-      var task = tasks.find(function(task) {
+      var task = tasks.find(task => {
         return task.name === key;
       });
       if (task === undefined) {
@@ -89,13 +89,13 @@ var TasksChart = createReactClass({
   },
 
   getTotal(tasks) {
-    return tasks.reduce(function(acc, task) {
+    return tasks.reduce((acc, task) => {
       return acc + task.value;
     }, 0);
   },
 
   getTasks(tasks = {}) {
-    return DISPLAYED_TASK_KEYS.map(function(key) {
+    return DISPLAYED_TASK_KEYS.map(key => {
       return {
         colorIndex: TASK_INFO[key].colorIndex,
         name: key,

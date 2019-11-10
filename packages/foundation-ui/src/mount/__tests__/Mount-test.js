@@ -6,25 +6,25 @@ import { shallow } from "enzyme";
 const Mount = require("../Mount");
 const { MountService } = require("../index");
 
-describe("Mount", function() {
-  const FirstTestComponent = function(props) {
+describe("Mount", () => {
+  const FirstTestComponent = props => {
     return <div className="component">{props.message}</div>;
   };
 
-  const SecondTestComponent = function(props) {
+  const SecondTestComponent = props => {
     return <div className="component">{props.message}</div>;
   };
 
-  beforeEach(function() {
+  beforeEach(() => {
     MountService.registerComponent(FirstTestComponent, "mount-test");
   });
 
-  afterEach(function() {
+  afterEach(() => {
     MountService.unregisterComponent(FirstTestComponent, "mount-test");
     MountService.unregisterComponent(SecondTestComponent, "mount-test");
   });
 
-  it("renders one by default", function() {
+  it("renders one by default", () => {
     const result = shallow(
       <Mount type="children-test">
         <span>foo</span>
@@ -34,7 +34,7 @@ describe("Mount", function() {
     expect(result.containsAllMatchingElements([<span>foo</span>])).toBeTruthy();
   });
 
-  it("renders multiple children by default", function() {
+  it("renders multiple children by default", () => {
     const result = shallow(
       <Mount type="children-test">
         <strong>foo</strong>
@@ -47,13 +47,13 @@ describe("Mount", function() {
     ).toBeTruthy();
   });
 
-  it("renders null if no component is registered and no children defined", function() {
+  it("renders null if no component is registered and no children defined", () => {
     const result = shallow(<Mount type="children-test" />);
 
     expect(result.children().exists()).toBeFalsy();
   });
 
-  it("doesnt wrap a single child", function() {
+  it("doesnt wrap a single child", () => {
     const result = shallow(
       <Mount type="foo">
         <span>foo</span>
@@ -63,7 +63,7 @@ describe("Mount", function() {
     expect(result.type()).toBe("span");
   });
 
-  it("always wraps elements if configured", function() {
+  it("always wraps elements if configured", () => {
     const result = shallow(
       <Mount type="foo" alwaysWrap>
         <span>foo</span>
@@ -73,7 +73,7 @@ describe("Mount", function() {
     expect(result.type()).toBe("div");
   });
 
-  it("wraps elements with provided wrapper", function() {
+  it("wraps elements with provided wrapper", () => {
     const result = shallow(
       <Mount type="foo" wrapper="p" alwaysWrap={true}>
         <span>foo</span>
@@ -83,7 +83,7 @@ describe("Mount", function() {
     expect(result.find("p").exists()).toBeTruthy();
   });
 
-  it("renders registered components", function() {
+  it("renders registered components", () => {
     const dom = shallow(
       <Mount type="mount-test">
         <span>foo</span>
@@ -93,7 +93,7 @@ describe("Mount", function() {
     expect(dom.find(FirstTestComponent).exists()).toBeTruthy();
   });
 
-  it("replaces children with registered components", function() {
+  it("replaces children with registered components", () => {
     const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -105,7 +105,7 @@ describe("Mount", function() {
     ).toBeFalsy();
   });
 
-  it("updates if new component was registered", function() {
+  it("updates if new component was registered", () => {
     const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -121,7 +121,7 @@ describe("Mount", function() {
     expect(dom.find(SecondTestComponent).exists()).toBeTruthy();
   });
 
-  it("updates if new component was unregistered", function() {
+  it("updates if new component was unregistered", () => {
     const dom = shallow(
       <Mount type="mount-test">
         <span className="child">foo</span>
@@ -136,7 +136,7 @@ describe("Mount", function() {
     expect(dom.find(FirstTestComponent).exists()).toBeFalsy();
   });
 
-  it("passes down properties", function() {
+  it("passes down properties", () => {
     const dom = shallow(
       <Mount type="mount-test" message="hello world">
         <span>foo</span>

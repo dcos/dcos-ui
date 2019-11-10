@@ -7,26 +7,26 @@ const SystemLogActions = require("../SystemLogActions");
 
 let thisEventSource, thisMessageSpy, thisConfiguration;
 
-describe("SystemLogActions", function() {
-  beforeEach(function() {
+describe("SystemLogActions", () => {
+  beforeEach(() => {
     // Mock EventSource
     thisEventSource = new global.EventSource();
     spyOn(global, "EventSource").and.returnValue(thisEventSource);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     thisEventSource.close();
   });
 
-  describe("#startTail", function() {
-    beforeEach(function() {
+  describe("#startTail", () => {
+    beforeEach(() => {
       SystemLogActions.startTail("foo", {
         cursor: "bar",
         subscriptionID: "subscriptionID"
       });
     });
 
-    it("calls #addEventListener from the global.EventSource", function() {
+    it("calls #addEventListener from the global.EventSource", () => {
       thisEventSource.addEventListener = jasmine
         .createSpy("addEventListener")
         .and.callThrough();
@@ -34,15 +34,15 @@ describe("SystemLogActions", function() {
       expect(thisEventSource.addEventListener).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0]).toEqual(
         "/system/v1/agent/foo/logs/v1/stream/?cursor=bar"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS);
@@ -56,8 +56,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("message", event);
     });
 
-    it("dispatches the correct information when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct information when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([{}]);
@@ -72,8 +72,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("message", event);
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_ERROR);
@@ -82,8 +82,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", {});
     });
 
-    it("dispatches the correct information when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct information when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({});
@@ -94,21 +94,21 @@ describe("SystemLogActions", function() {
     });
   });
 
-  describe("#stopTail", function() {
-    beforeEach(function() {
+  describe("#stopTail", () => {
+    beforeEach(() => {
       SystemLogActions.startTail("foo", {
         cursor: "bar",
         subscriptionID: "subscriptionID"
       });
     });
 
-    it("calls #close on the EventSource", function() {
+    it("calls #close on the EventSource", () => {
       thisEventSource.close = jasmine.createSpy("close");
       SystemLogActions.stopTail("subscriptionID");
       expect(thisEventSource.close).toHaveBeenCalled();
     });
 
-    it("unsubscribes event listeners on message", function() {
+    it("unsubscribes event listeners on message", () => {
       thisMessageSpy = jasmine.createSpy("message");
       thisEventSource.addEventListener("message", thisMessageSpy);
       SystemLogActions.stopTail("subscriptionID");
@@ -124,8 +124,8 @@ describe("SystemLogActions", function() {
     });
   });
 
-  describe("#fetchRange", function() {
-    beforeEach(function() {
+  describe("#fetchRange", () => {
+    beforeEach(() => {
       SystemLogActions.fetchRange("foo", {
         cursor: "bar",
         limit: 3,
@@ -133,7 +133,7 @@ describe("SystemLogActions", function() {
       });
     });
 
-    it("calls #addEventListener from the EventSource", function() {
+    it("calls #addEventListener from the EventSource", () => {
       thisEventSource.addEventListener = jasmine
         .createSpy("addEventListener")
         .and.callThrough();
@@ -141,15 +141,15 @@ describe("SystemLogActions", function() {
       expect(thisEventSource.addEventListener).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       const mostRecent = global.EventSource.calls.mostRecent();
       expect(mostRecent.args[0]).toEqual(
         "/system/v1/agent/foo/logs/v1/range/?cursor=bar&limit=3&read_reverse=true"
       );
     });
 
-    it("dispatches the correct action when closing connection", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when closing connection", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -165,8 +165,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", event);
     });
 
-    it("dispatches the correct information when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct information when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(3);
@@ -190,8 +190,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
-    it("tells when the top has been reached", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("tells when the top has been reached", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(2);
@@ -216,8 +216,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
-    it("reverses received data", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("reverses received data", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data[0].foo).toEqual(1);
@@ -244,8 +244,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -257,8 +257,8 @@ describe("SystemLogActions", function() {
       thisEventSource.dispatchEvent("error", event);
     });
 
-    it("dispatches the correct information when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct information when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({
@@ -272,25 +272,25 @@ describe("SystemLogActions", function() {
     });
   });
 
-  describe("#fetchStreamTypes", function() {
-    beforeEach(function() {
+  describe("#fetchStreamTypes", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       SystemLogActions.fetchStreamTypes("foo");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.logsAPIPrefix + "/foo/logs/v1/fields/STREAM"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -301,8 +301,8 @@ describe("SystemLogActions", function() {
       thisConfiguration.success(["one", "two"]);
     });
 
-    it("dispatches the correct data when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct data when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual(["one", "two"]);
@@ -311,8 +311,8 @@ describe("SystemLogActions", function() {
       thisConfiguration.success(["one", "two"]);
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -323,8 +323,8 @@ describe("SystemLogActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct error when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct error when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -333,8 +333,8 @@ describe("SystemLogActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the message when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the message when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("baz");
@@ -346,8 +346,8 @@ describe("SystemLogActions", function() {
       });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

@@ -12,7 +12,7 @@ import {
 class PageHeaderNavigationDropdown extends React.Component {
   getActiveItemID() {
     const { items } = this.props;
-    const activeTab = items.find(function(item) {
+    const activeTab = items.find(item => {
       return item.isActive;
     });
 
@@ -26,7 +26,7 @@ class PageHeaderNavigationDropdown extends React.Component {
   }
 
   getItems() {
-    return this.props.items.map(function(item) {
+    return this.props.items.map(item => {
       const { label } = item;
 
       return Object.assign({}, item, {

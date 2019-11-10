@@ -4,9 +4,9 @@ const ReducerUtil = require("../ReducerUtil");
 
 let thisItems, thisReducers;
 
-describe("ReducerUtil", function() {
-  describe("#combineReducers", function() {
-    const idReducer = function(state = "", action) {
+describe("ReducerUtil", () => {
+  describe("#combineReducers", () => {
+    const idReducer = (state = "", action) => {
       if (action.path.join("") === "id") {
         state = action.value;
       }
@@ -14,7 +14,7 @@ describe("ReducerUtil", function() {
       return state;
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       thisItems = [
         {
           path: ["id"],
@@ -26,23 +26,23 @@ describe("ReducerUtil", function() {
       });
     });
 
-    it("returns a function", function() {
+    it("returns a function", () => {
       expect(typeof ReducerUtil.combineReducers()).toBe("function");
     });
 
-    it("works with a simple reducer object", function() {
+    it("works with a simple reducer object", () => {
       const state = thisItems.reduce(thisReducers, {});
 
       expect(state).toEqual({ id: "foo" });
     });
 
-    it("does not remove existing values", function() {
+    it("does not remove existing values", () => {
       const state = thisItems.reduce(thisReducers, { bar: "bar" });
 
       expect(state).toEqual({ id: "foo", bar: "bar" });
     });
 
-    it("uses context", function() {
+    it("uses context", () => {
       const reducers = ReducerUtil.combineReducers({
         id: idReducer,
         vip(state, action) {
@@ -89,7 +89,7 @@ describe("ReducerUtil", function() {
       ]);
     });
 
-    it("uses context in nested combineReducers", function() {
+    it("uses context in nested combineReducers", () => {
       const reducers = ReducerUtil.combineReducers({
         id: idReducer,
         container: ReducerUtil.combineReducers({
@@ -144,7 +144,7 @@ describe("ReducerUtil", function() {
       ]);
     });
 
-    it("properlies apply a set of user actions", function() {
+    it("properlies apply a set of user actions", () => {
       const dockerReduce = ReducerUtil.combineReducers({
         id(state, action) {
           if (
@@ -207,7 +207,7 @@ describe("ReducerUtil", function() {
         }
       ];
 
-      state = actions.reduce(function(state, action) {
+      state = actions.reduce((state, action) => {
         state = reducers(state, action);
 
         return state;
@@ -220,7 +220,7 @@ describe("ReducerUtil", function() {
       });
     });
 
-    it("runs reducers that have not been configured", function() {
+    it("runs reducers that have not been configured", () => {
       const reducers = ReducerUtil.combineReducers({ id: idReducer });
 
       const state = thisItems.reduce(reducers, { bar: "bar" });
@@ -229,30 +229,30 @@ describe("ReducerUtil", function() {
     });
   });
 
-  describe("#parseIntValue", function() {
-    it("returns the integer value parsed", function() {
+  describe("#parseIntValue", () => {
+    it("returns the integer value parsed", () => {
       expect(ReducerUtil.parseIntValue("10")).toEqual(10);
     });
 
-    it("returns empty string as-is", function() {
+    it("returns empty string as-is", () => {
       expect(ReducerUtil.parseIntValue("")).toEqual("");
     });
 
-    it("returns unparsable number string as-is", function() {
+    it("returns unparsable number string as-is", () => {
       expect(ReducerUtil.parseIntValue("foo")).toEqual("foo");
     });
 
-    it("returns numbers as-is", function() {
+    it("returns numbers as-is", () => {
       expect(ReducerUtil.parseIntValue(123)).toEqual(123);
     });
   });
 
-  describe("#simpleReducer", function() {
-    it("returns a function", function() {
+  describe("#simpleReducer", () => {
+    it("returns a function", () => {
       expect(typeof ReducerUtil.simpleReducer()).toBe("function");
     });
 
-    it("returns default state if path doesn't match", function() {
+    it("returns default state if path doesn't match", () => {
       const simpleReducer = ReducerUtil.simpleReducer("path", "default");
       const action = {
         path: ["something", "else"],
@@ -262,7 +262,7 @@ describe("ReducerUtil", function() {
       expect(simpleReducer(undefined, action)).toEqual("default");
     });
 
-    it("returns new value if path does match", function() {
+    it("returns new value if path does match", () => {
       const simpleReducer = ReducerUtil.simpleReducer("path", "default");
       const action = {
         path: ["path"],
@@ -272,7 +272,7 @@ describe("ReducerUtil", function() {
       expect(simpleReducer(undefined, action)).toEqual("something");
     });
 
-    it("returns new value of deep nested path", function() {
+    it("returns new value of deep nested path", () => {
       const simpleReducer = ReducerUtil.simpleReducer(
         "foo.bar.deep.nest",
         "default"
@@ -286,12 +286,12 @@ describe("ReducerUtil", function() {
     });
   });
 
-  describe("#simpleIntReducer", function() {
-    it("returns a function", function() {
+  describe("#simpleIntReducer", () => {
+    it("returns a function", () => {
       expect(typeof ReducerUtil.simpleIntReducer()).toBe("function");
     });
 
-    it("returns default state if path doesn't match", function() {
+    it("returns default state if path doesn't match", () => {
       const simpleIntReducer = ReducerUtil.simpleIntReducer("baz", "default");
       const action = {
         path: ["foo", "bar"],
@@ -301,7 +301,7 @@ describe("ReducerUtil", function() {
       expect(simpleIntReducer(undefined, action)).toEqual("default");
     });
 
-    it("returns string if cannot be parsed to integer", function() {
+    it("returns string if cannot be parsed to integer", () => {
       const simpleIntReducer = ReducerUtil.simpleIntReducer(
         "foo.bar",
         "default"
@@ -314,7 +314,7 @@ describe("ReducerUtil", function() {
       expect(simpleIntReducer(undefined, action)).toEqual("a1bc");
     });
 
-    it("returns number if value can be parsed to integer", function() {
+    it("returns number if value can be parsed to integer", () => {
       const simpleIntReducer = ReducerUtil.simpleIntReducer(
         "foo.bar",
         "default"
@@ -328,12 +328,12 @@ describe("ReducerUtil", function() {
     });
   });
 
-  describe("#simpleFloatReducer", function() {
-    it("returns a function", function() {
+  describe("#simpleFloatReducer", () => {
+    it("returns a function", () => {
       expect(typeof ReducerUtil.simpleFloatReducer()).toBe("function");
     });
 
-    it("returns default state if path doesn't match", function() {
+    it("returns default state if path doesn't match", () => {
       const simpleFloatReducer = ReducerUtil.simpleFloatReducer(
         "baz",
         "default"
@@ -346,7 +346,7 @@ describe("ReducerUtil", function() {
       expect(simpleFloatReducer(undefined, action)).toEqual("default");
     });
 
-    it("returns string if cannot be parsed to float", function() {
+    it("returns string if cannot be parsed to float", () => {
       const simpleFloatReducer = ReducerUtil.simpleFloatReducer(
         "foo.bar",
         "default"
@@ -359,7 +359,7 @@ describe("ReducerUtil", function() {
       expect(simpleFloatReducer(undefined, action)).toEqual("a1.05bc");
     });
 
-    it("returns number if value can be parsed to float", function() {
+    it("returns number if value can be parsed to float", () => {
       const simpleFloatReducer = ReducerUtil.simpleFloatReducer(
         "foo.bar",
         "default"
@@ -373,7 +373,7 @@ describe("ReducerUtil", function() {
     });
   });
 
-  it("returns the old state if action does not fit", function() {
+  it("returns the old state if action does not fit", () => {
     const simpleReducer = ReducerUtil.simpleReducer("path", "default");
     const action = {
       path: ["something", "else"],
@@ -383,7 +383,7 @@ describe("ReducerUtil", function() {
     expect(simpleReducer("old", action)).toEqual("old");
   });
 
-  it("returns the new state if action does fit", function() {
+  it("returns the new state if action does fit", () => {
     const simpleReducer = ReducerUtil.simpleReducer("path", "default");
     const action = {
       path: ["path"],

@@ -10,19 +10,19 @@ const PlacementValidators = require("#PLUGINS/services/src/js/validators/Placeme
 
 let thisValidateNoBatchErrorRestore, thisInstance;
 
-describe("PlacementConstraintsSchemaField", function() {
-  describe("with valid content", function() {
-    beforeEach(function() {
+describe("PlacementConstraintsSchemaField", () => {
+  describe("with valid content", () => {
+    beforeEach(() => {
       thisValidateNoBatchErrorRestore =
         PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => true;
     });
 
-    afterEach(function() {
+    afterEach(() => {
       PlacementValidators.validateNoBatchError = thisValidateNoBatchErrorRestore;
     });
 
-    it("displays edit constraints area", function() {
+    it("displays edit constraints area", () => {
       const fieldProps = {
         formData: "[['hostname', 'MAX_PER', '1']]",
         disabled: false,
@@ -42,18 +42,18 @@ describe("PlacementConstraintsSchemaField", function() {
     });
   });
 
-  describe("with invalid content", function() {
-    beforeEach(function() {
+  describe("with invalid content", () => {
+    beforeEach(() => {
       thisValidateNoBatchErrorRestore =
         PlacementValidators.validateNoBatchError;
       PlacementValidators.validateNoBatchError = () => false;
     });
 
-    afterEach(function() {
+    afterEach(() => {
       PlacementValidators.validateNoBatchError = thisValidateNoBatchErrorRestore;
     });
 
-    it("displays form to edit constraints", function() {
+    it("displays form to edit constraints", () => {
       const fieldProps = {
         formData: "['hostname', 'MAX_PER', '2']",
         disabled: false,

@@ -3,36 +3,36 @@ const RepositoryList = require("../RepositoryList");
 
 let thisInstance;
 
-describe("RepositoryList", function() {
-  beforeEach(function() {
+describe("RepositoryList", () => {
+  beforeEach(() => {
     var items = [{ foo: "bar" }, { baz: "qux" }];
     thisInstance = new RepositoryList({ items });
   });
 
-  describe("#constructor", function() {
-    it("creates instances of Item", function() {
+  describe("#constructor", () => {
+    it("creates instances of Item", () => {
       var items = thisInstance.getItems();
       expect(items[0] instanceof Item).toBeTruthy();
     });
   });
 
-  describe("#getPriority", function() {
-    it("returns correct priority of existing item", function() {
+  describe("#getPriority", () => {
+    it("returns correct priority of existing item", () => {
       var priority = thisInstance.getPriority(thisInstance.getItems()[1]);
       expect(priority).toEqual(1);
     });
 
-    it("returns -1 for non-existing item", function() {
+    it("returns -1 for non-existing item", () => {
       var priority = thisInstance.getPriority({ not: "available" });
       expect(priority).toEqual(-1);
     });
 
-    it("returns -1 for undefined", function() {
+    it("returns -1 for undefined", () => {
       var priority = thisInstance.getPriority(undefined);
       expect(priority).toEqual(-1);
     });
 
-    it("returns -1 for null", function() {
+    it("returns -1 for null", () => {
       var priority = thisInstance.getPriority(null);
       expect(priority).toEqual(-1);
     });

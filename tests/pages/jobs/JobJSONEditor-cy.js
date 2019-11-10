@@ -1,5 +1,5 @@
-describe("Job JSON Editor", function() {
-  beforeEach(function() {
+describe("Job JSON Editor", () => {
+  beforeEach(() => {
     cy.configureCluster({
       jobDetails: true,
       mesos: "1-for-each-health",
@@ -8,7 +8,7 @@ describe("Job JSON Editor", function() {
     cy.visitUrl({ url: "/jobs/overview" });
   });
 
-  it("renders proper JSON for a simple job", function() {
+  it("renders proper JSON for a simple job", () => {
     const jobName = "simple";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -63,7 +63,7 @@ describe("Job JSON Editor", function() {
       ]);
   });
 
-  it("renders proper JSON for a job with default container image", function() {
+  it("renders proper JSON for a job with default container image", () => {
     const jobName = "default";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";

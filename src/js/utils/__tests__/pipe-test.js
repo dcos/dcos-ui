@@ -7,8 +7,8 @@ function square(x) {
   return x * x;
 }
 
-describe("#pipe", function() {
-  it("composes two functions", function() {
+describe("#pipe", () => {
+  it("composes two functions", () => {
     expect(
       pipe(
         duplicate,
@@ -17,7 +17,7 @@ describe("#pipe", function() {
     ).toEqual(square(duplicate(1)));
   });
 
-  it("composes a function with a sub-pipe", function() {
+  it("composes a function with a sub-pipe", () => {
     expect(
       pipe(
         duplicate,

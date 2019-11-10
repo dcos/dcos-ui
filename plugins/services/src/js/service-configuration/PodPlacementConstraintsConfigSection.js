@@ -41,7 +41,7 @@ class PodPlacementConstraintsConfigSection extends React.Component {
         "scheduling.placement.constraints"
       ) || [];
 
-    return constraints.map(function({ fieldName, operator, value }) {
+    return constraints.map(({ fieldName, operator, value }) => {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
         value = <Trans render="em">Not Applicable</Trans>;
       }

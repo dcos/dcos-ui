@@ -36,7 +36,7 @@ const DSLFormUtil = {
      * @param {FilterNode} astNode - The node in the AST to compare against
      * @returns {Boolean} Return true if the two nodes are compatible
      */
-    return function(nodeAdded, astNode) {
+    return (nodeAdded, astNode) => {
       return referenceNodes.some(referenceNode => {
         if (referenceNode.filterType !== astNode.filterType) {
           return false;

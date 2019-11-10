@@ -1,11 +1,11 @@
 require("../../_support/utils/ServicesUtil");
 
-describe("Services", function() {
+describe("Services", () => {
   /**
    * Test the pods
    */
-  describe("Pods", function() {
-    beforeEach(function() {
+  describe("Pods", () => {
+    beforeEach(() => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
@@ -16,7 +16,7 @@ describe("Services", function() {
       });
     });
 
-    it("renders proper review screen and JSON for a simple pod", function() {
+    it("renders proper review screen and JSON for a simple pod", () => {
       const serviceName = "pod-with-inline-shell-script";
       const command = "while true ; do echo 'test' ; sleep 100 ;";
 
@@ -142,7 +142,7 @@ describe("Services", function() {
         .contains(command);
     });
 
-    it("renders proper review screen and JSON for a pod with multiple containers", function() {
+    it("renders proper review screen and JSON for a pod with multiple containers", () => {
       const serviceName = "pod-with-multiple-containers";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -331,7 +331,7 @@ describe("Services", function() {
         .contains(cmdline);
     });
 
-    it("renders proper review screen and JSON for a pod with service address", function() {
+    it("renders proper review screen and JSON for a pod with service address", () => {
       const serviceName = "pod-with-service-address";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -511,12 +511,12 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Service Endpoints")
-        .then(function($serviceEndpointsSection) {
+        .then($serviceEndpointsSection => {
           // Ensure the section itself exists.
           expect($serviceEndpointsSection.get().length).to.equal(1);
           const $tableRows = $serviceEndpointsSection
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
 
@@ -536,7 +536,7 @@ describe("Services", function() {
         });
     });
 
-    it("renders proper review screen and JSON for a pod with artifacts", function() {
+    it("renders proper review screen and JSON for a pod with artifacts", () => {
       const serviceName = "pod-with-artifacts";
       const command = "while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -705,13 +705,13 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Container Artifacts")
-        .then(function($containerArtifacts) {
+        .then($containerArtifacts => {
           // Ensure the section itself exists.
           expect($containerArtifacts.get().length).to.equal(1);
 
           const $tableRows = $containerArtifacts
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
 
@@ -723,7 +723,7 @@ describe("Services", function() {
             ["http://lorempicsum.com/simpsons/600/400/3", "Edit"]
           ];
 
-          $tableRows.each(function(rowIndex, row) {
+          $tableRows.each((rowIndex, row) => {
             const $tableCells = Cypress.$(row).find("td");
 
             $tableCells.each(function(cellIndex) {
@@ -735,7 +735,7 @@ describe("Services", function() {
         });
     });
 
-    it("renders proper review screen and JSON for a pod with virtual network", function() {
+    it("renders proper review screen and JSON for a pod with virtual network", () => {
       const serviceName = "pod-with-virtual-network";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -903,10 +903,10 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Service Endpoints")
-        .then(function($serviceEndpointsSection) {
+        .then($serviceEndpointsSection => {
           const $tableRow = $serviceEndpointsSection
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
           const $tableCells = $tableRow.find("td");
@@ -920,7 +920,7 @@ describe("Services", function() {
         });
     });
 
-    it("renders proper review screen and JSON for a pod with ephemeral volume", function() {
+    it("renders proper review screen and JSON for a pod with ephemeral volume", () => {
       const serviceName = "pod-with-ephemeral-volume";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -1074,10 +1074,10 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Volumes")
-        .then(function($storageSection) {
+        .then($storageSection => {
           const $tableRow = $storageSection
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
           const $tableCells = $tableRow.find("td");
@@ -1098,7 +1098,7 @@ describe("Services", function() {
         });
     });
 
-    it("renders proper review screen and JSON for a pod with two containers and ephemeral volume", function() {
+    it("renders proper review screen and JSON for a pod with two containers and ephemeral volume", () => {
       const serviceName = "pod-with-ephemeral-volume";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -1327,10 +1327,10 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Volumes")
-        .then(function($storageSection) {
+        .then($storageSection => {
           const $tableRow = $storageSection
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
           const $tableCells = $tableRow.find("td");
@@ -1356,7 +1356,7 @@ describe("Services", function() {
           });
         });
     });
-    it("renders proper review screen and JSON for a pod with environment variable", function() {
+    it("renders proper review screen and JSON for a pod with environment variable", () => {
       const serviceName = "pod-with-environment-variable";
       const command = "`while true ; do echo 'test' ; sleep 100 ; done";
 
@@ -1544,12 +1544,12 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Environment Variables")
-        .then(function($envSection) {
+        .then($envSection => {
           expect($envSection.get().length).to.equal(1);
 
           const $tableRows = $envSection
             .find("tbody tr")
-            .filter(function(index, row) {
+            .filter((index, row) => {
               return row.style.display !== "none";
             });
           const cellValues = [
@@ -1559,7 +1559,7 @@ describe("Services", function() {
             ["UPPERCASE", "test", "Shared", "Edit"]
           ];
 
-          $tableRows.each(function(rowIndex, row) {
+          $tableRows.each((rowIndex, row) => {
             const $tableCells = Cypress.$(row).find("td");
 
             expect($tableCells.length).to.equal(4);
@@ -1573,7 +1573,7 @@ describe("Services", function() {
         });
     });
 
-    it("renders proper review screen and JSON for a pod with labels", function() {
+    it("renders proper review screen and JSON for a pod with labels", () => {
       const serviceName = "pod-with-labels";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
       const containerName = "container-1";
@@ -1736,14 +1736,12 @@ describe("Services", function() {
 
       cy.root()
         .configurationSection("Labels")
-        .then(function($section) {
+        .then($section => {
           expect($section.get().length).to.equal(1);
 
-          const $tableRows = $section
-            .find("tbody tr")
-            .filter(function(index, row) {
-              return row.style.display !== "none";
-            });
+          const $tableRows = $section.find("tbody tr").filter((index, row) => {
+            return row.style.display !== "none";
+          });
           const cellValues = [
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],
@@ -1751,7 +1749,7 @@ describe("Services", function() {
             ["UPPERCASE", "test", "Shared", "Edit"]
           ];
 
-          $tableRows.each(function(rowIndex, row) {
+          $tableRows.each((rowIndex, row) => {
             const $tableCells = Cypress.$(row).find("td");
 
             expect($tableCells.length).to.equal(4);

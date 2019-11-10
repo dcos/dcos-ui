@@ -91,10 +91,10 @@ const TimeSeriesChart = createReactClass({
     const prevVal = props.data[0].values;
     const nextVal = nextProps.data[0].values;
 
-    const prevY = prevVal.map(function(value) {
+    const prevY = prevVal.map(value => {
       return value[props.y];
     });
-    const nextY = nextVal.map(function(value) {
+    const nextY = nextVal.map(value => {
       return value[props.y];
     });
 
@@ -138,7 +138,7 @@ const TimeSeriesChart = createReactClass({
       .area()
       .x(d => xTimeScale(d.date))
       .y0(() => yScale(0))
-      .y1(function(d) {
+      .y1(d => {
         if (d[y] != null) {
           successfulValue = yScale(d[y]);
         }
@@ -160,7 +160,7 @@ const TimeSeriesChart = createReactClass({
       .line()
       .defined(d => d[y] != null)
       .x(d => xTimeScale(d.date))
-      .y(function(d) {
+      .y(d => {
         if (d[y] != null) {
           successfulValue = yScale(d[y] || 0.1);
         }
@@ -181,7 +181,7 @@ const TimeSeriesChart = createReactClass({
     return d3.svg
       .line()
       .x(d => xTimeScale(d.date))
-      .y(function(d) {
+      .y(d => {
         if (d[y] != null) {
           successfulValue = yScale(d[y] || 0.1);
         }
@@ -247,7 +247,7 @@ const TimeSeriesChart = createReactClass({
         .linear()
         .tickFormat(ticksY, ".0" + this.getYCaption(yFormat));
 
-      return function(d) {
+      return d => {
         if (d >= maxY) {
           return "100%";
         }
@@ -256,7 +256,7 @@ const TimeSeriesChart = createReactClass({
       };
     }
 
-    return function(d) {
+    return d => {
       if (d >= maxY) {
         return maxY;
       }
@@ -397,7 +397,7 @@ const TimeSeriesChart = createReactClass({
   getBoundingBox(props) {
     const margin = props.margin;
 
-    return function() {
+    return () => {
       const el = ReactDOM.findDOMNode(this);
       const elPosition = el.getBoundingClientRect();
 
@@ -407,7 +407,7 @@ const TimeSeriesChart = createReactClass({
         bottom: elPosition.top + props.height - margin.bottom,
         left: elPosition.left + margin.left
       };
-    }.bind(this);
+    };
   },
 
   addMouseHandler(handleMouseMove, handleMouseOut) {

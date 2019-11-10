@@ -1,23 +1,23 @@
 const UniversePackage = require("../UniversePackage");
 const UniverseInstalledPackagesList = require("../UniverseInstalledPackagesList");
 
-describe("UniverseInstalledPackagesList", function() {
-  describe("#constructor", function() {
-    it("creates instances of UniversePackage", function() {
+describe("UniverseInstalledPackagesList", () => {
+  describe("#constructor", () => {
+    it("creates instances of UniversePackage", () => {
       var items = [{ appId: "baz", foo: "bar" }];
       var list = new UniverseInstalledPackagesList({ items });
       items = list.getItems();
       expect(items[0] instanceof UniversePackage).toBeTruthy();
     });
 
-    it("stores appId in UniversePackage", function() {
+    it("stores appId in UniversePackage", () => {
       var items = [{ appId: "baz", foo: "bar" }];
       var list = new UniverseInstalledPackagesList({ items });
       items = list.getItems();
       expect(items[0].get("appId")).toEqual("baz");
     });
 
-    it("stores packageInformation in UniversePackage", function() {
+    it("stores packageInformation in UniversePackage", () => {
       var items = [{ appId: "baz", foo: "bar" }];
       var list = new UniverseInstalledPackagesList({ items });
       items = list.getItems();
@@ -25,8 +25,8 @@ describe("UniverseInstalledPackagesList", function() {
     });
   });
 
-  describe("#filterItemsByText", function() {
-    it("filters by name", function() {
+  describe("#filterItemsByText", () => {
+    it("filters by name", () => {
       var items = [
         { appId: "baz", name: "foo" },
         { appId: "baz", name: "bar" }
@@ -37,7 +37,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[0].getName()).toEqual("bar");
     });
 
-    it("filters by description", function() {
+    it("filters by description", () => {
       var items = [
         { appId: "baz", description: "foo" },
         { appId: "baz", description: "bar" }
@@ -48,7 +48,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[0].getDescription()).toEqual("foo");
     });
 
-    it("filters by tags", function() {
+    it("filters by tags", () => {
       var items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },
@@ -61,7 +61,7 @@ describe("UniverseInstalledPackagesList", function() {
       expect(items[1].getTags()).toEqual(["foo"]);
     });
 
-    it("handles filter by tags with null elements", function() {
+    it("handles filter by tags with null elements", () => {
       var items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },

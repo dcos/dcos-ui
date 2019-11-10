@@ -26,33 +26,33 @@ var DCOS_METADATA = {
 
 var routes = [{ path: "/foo" }];
 
-describe("Actions", function() {
+describe("Actions", () => {
   Actions.initialize();
 
-  describe("#log", function() {
-    beforeEach(function() {
+  describe("#log", () => {
+    beforeEach(() => {
       spyOn(global.analytics, "track");
     });
 
-    afterEach(function() {
-      global.analytics.track = function() {};
+    afterEach(() => {
+      global.analytics.track = () => {};
     });
 
-    it("calls analytics#track", function() {
+    it("calls analytics#track", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       Actions.log("foo");
       expect(global.analytics.track.calls.count()).toEqual(1);
     });
 
-    it("calls analytics#track with correct eventID", function() {
+    it("calls analytics#track with correct eventID", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       Actions.log("baz");
       expect(global.analytics.track.calls.mostRecent().args[0]).toEqual("baz");
     });
 
-    it("calls analytics#track with correct log", function() {
+    it("calls analytics#track with correct log", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       Actions.log("foo");
@@ -66,24 +66,24 @@ describe("Actions", function() {
     });
   });
 
-  describe("#setDcosMetadata", function() {
-    beforeEach(function() {
+  describe("#setDcosMetadata", () => {
+    beforeEach(() => {
       Actions.dcosMetadata = null;
       spyOn(global.analytics, "track");
     });
 
-    it("doesn't track any logs when there's no metadata", function() {
+    it("doesn't track any logs when there's no metadata", () => {
       Actions.log("Test");
       expect(global.analytics.track).not.toHaveBeenCalled();
     });
 
-    it("sets the dcosMetadata", function() {
+    it("sets the dcosMetadata", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       expect(Actions.dcosMetadata).toEqual(DCOS_METADATA);
     });
 
-    it("runs queued logs when metadata is set", function() {
+    it("runs queued logs when metadata is set", () => {
       Actions.log("foo");
       Actions.log("bar");
       Actions.log("baz");
@@ -92,31 +92,31 @@ describe("Actions", function() {
       Actions.setRoutes(routes);
       expect(Actions.log.calls.count()).toEqual(3);
       var calls = Actions.log.calls.all();
-      ["foo", "bar", "baz"].forEach(function(log, i) {
+      ["foo", "bar", "baz"].forEach((log, i) => {
         expect(calls[i].args[0]).toEqual(log);
       });
     });
   });
 
-  describe("#setRoutes", function() {
-    beforeEach(function() {
+  describe("#setRoutes", () => {
+    beforeEach(() => {
       Actions.dcosMetadata = null;
       Actions.routes = null;
       spyOn(global.analytics, "track");
     });
 
-    it("doesn't track any logs when there's no router", function() {
+    it("doesn't track any logs when there's no router", () => {
       Actions.log("Test");
       expect(global.analytics.track).not.toHaveBeenCalled();
     });
 
-    it("sets the routes", function() {
+    it("sets the routes", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       expect(Actions.routes).toEqual([{ path: "/foo" }]);
     });
 
-    it("runs queued logs when metadata is set", function() {
+    it("runs queued logs when metadata is set", () => {
       Actions.log("foo");
       Actions.log("bar");
       Actions.log("baz");
@@ -125,7 +125,7 @@ describe("Actions", function() {
       Actions.setRoutes(routes);
       expect(Actions.log.calls.count()).toEqual(3);
       var calls = Actions.log.calls.all();
-      ["foo", "bar", "baz"].forEach(function(log, i) {
+      ["foo", "bar", "baz"].forEach((log, i) => {
         expect(calls[i].args[0]).toEqual(log);
       });
     });

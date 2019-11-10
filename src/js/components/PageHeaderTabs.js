@@ -39,7 +39,7 @@ class PageHeaderTabs extends React.Component {
       props: { tabs }
     } = this;
 
-    const tabElements = tabs.map(function(tab, index) {
+    const tabElements = tabs.map((tab, index) => {
       const { isActive, callback, label, routePath } = tab;
       const classes = classNames("menu-tabbed-item", { active: isActive });
       const linkClasses = classNames("menu-tabbed-item-label", {

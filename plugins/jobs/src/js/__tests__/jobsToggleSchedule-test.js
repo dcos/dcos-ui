@@ -17,24 +17,24 @@ const disabledJob = {
   schedules: { nodes: [{ enabled: false }] }
 };
 
-describe("JobsToggleSchedule", function() {
-  describe("#jobsToggleSchedule", function() {
-    describe("label", function() {
-      it("Enable Schedule if job is disabled", function() {
+describe("JobsToggleSchedule", () => {
+  describe("#jobsToggleSchedule", () => {
+    describe("label", () => {
+      it("Enable Schedule if job is disabled", () => {
         const label = jobsToggleSchedule(disabledJob).label;
 
         expect(label).toEqual("Enable Schedule");
       });
 
-      it("Disable Schedule if job is enabled", function() {
+      it("Disable Schedule if job is enabled", () => {
         const label = jobsToggleSchedule(enabledJob).label;
 
         expect(label).toEqual("Disable Schedule");
       });
     });
 
-    describe("onItemSelect", function() {
-      it("triggers a graphql mutation to disable schedule", function() {
+    describe("onItemSelect", () => {
+      it("triggers a graphql mutation to disable schedule", () => {
         graphqlObservable.mockReturnValue(of("response"));
         jobsToggleSchedule(enabledJob).onItemSelect();
 
@@ -48,7 +48,7 @@ describe("JobsToggleSchedule", function() {
         );
       });
 
-      it("triggers a graphql mutation to enable schedule", function() {
+      it("triggers a graphql mutation to enable schedule", () => {
         graphqlObservable.mockReturnValue(of("response"));
         jobsToggleSchedule(disabledJob).onItemSelect();
 

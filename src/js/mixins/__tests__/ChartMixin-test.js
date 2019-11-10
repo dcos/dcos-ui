@@ -2,8 +2,8 @@ const ChartMixin = require("../ChartMixin");
 
 let thisProps;
 
-describe("ChartMixin", function() {
-  beforeEach(function() {
+describe("ChartMixin", () => {
+  beforeEach(() => {
     var now = Date.now();
     var interval = 2000;
 
@@ -12,7 +12,7 @@ describe("ChartMixin", function() {
         id: "used_resources",
         values: Array(31)
           .fill(0)
-          .map(function(value, i) {
+          .map((value, i) => {
             return {
               date: now + interval * i,
               percentage: 0,
@@ -36,8 +36,8 @@ describe("ChartMixin", function() {
     };
   });
 
-  describe("#formatXAxis", function() {
-    beforeEach(function() {
+  describe("#formatXAxis", () => {
+    beforeEach(() => {
       thisProps = {
         axisConfiguration: {
           x: {
@@ -47,46 +47,46 @@ describe("ChartMixin", function() {
       };
     });
 
-    it("parses strings to numbers", function() {
+    it("parses strings to numbers", () => {
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, "0");
       expect(result).toEqual("0");
     });
 
-    it("parses numbers", function() {
+    it("parses numbers", () => {
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, 3);
       expect(result).toEqual("3s");
     });
 
-    it("does not format zeros", function() {
+    it("does not format zeros", () => {
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, 0);
       expect(result).toEqual(0);
     });
 
-    it("formats positive numbers", function() {
+    it("formats positive numbers", () => {
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, 3);
       expect(result).toEqual("3s");
     });
 
-    it("formats negative numbers", function() {
+    it("formats negative numbers", () => {
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, -3);
       expect(result).toEqual("-3s");
     });
 
-    it("returns an empty string if it matches the value", function() {
+    it("returns an empty string if it matches the value", () => {
       thisProps.axisConfiguration.x.hideMatch = /^0$/;
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, 0);
       expect(result).toEqual("");
     });
 
-    it("returns value if there's no match", function() {
+    it("returns value if there's no match", () => {
       thisProps.axisConfiguration.x.hideMatch = /^10$/;
       const result = ChartMixin.formatXAxis.call({ props: thisProps }, 0);
       expect(result).toEqual(0);
     });
   });
 
-  describe("#getXScale", function() {
-    it("builds the correct amount of ticks", function() {
+  describe("#getXScale", () => {
+    it("builds the correct amount of ticks", () => {
       var props = thisProps;
       var xScale = ChartMixin.getXScale(
         props.data,
@@ -96,7 +96,7 @@ describe("ChartMixin", function() {
       expect(xScale.ticks(4)).toEqual([-60, -40, -20, 0]);
     });
 
-    it("has the correct domain range", function() {
+    it("has the correct domain range", () => {
       var props = thisProps;
       var xScale = ChartMixin.getXScale(
         props.data,
@@ -107,13 +107,13 @@ describe("ChartMixin", function() {
     });
   });
 
-  describe("#getHeight", function() {
-    it("returns 0 given 0 height and 0 margin", function() {
+  describe("#getHeight", () => {
+    it("returns 0 given 0 height and 0 margin", () => {
       var height = ChartMixin.getHeight(thisProps);
       expect(height).toEqual(0);
     });
 
-    it("returns NaN when given a NaN argument", function() {
+    it("returns NaN when given a NaN argument", () => {
       var height = ChartMixin.getHeight({
         margin: {
           top: 10,
@@ -124,7 +124,7 @@ describe("ChartMixin", function() {
       expect(isNaN(height)).toEqual(true);
     });
 
-    it("returns a number when given a null argument", function() {
+    it("returns a number when given a null argument", () => {
       var height = ChartMixin.getHeight({
         margin: {
           top: null,
@@ -135,7 +135,7 @@ describe("ChartMixin", function() {
       expect(height).toEqual(90);
     });
 
-    it("yields positive view height given node height > margins", function() {
+    it("yields positive view height given node height > margins", () => {
       var height = ChartMixin.getHeight({
         margin: {
           top: 10,
@@ -150,7 +150,7 @@ describe("ChartMixin", function() {
       expect(height).toEqual(9);
     });
 
-    it("yields negative view height given node height < margins", function() {
+    it("yields negative view height given node height < margins", () => {
       var height = ChartMixin.getHeight({
         margin: {
           top: 100,
@@ -163,14 +163,14 @@ describe("ChartMixin", function() {
     });
   });
 
-  describe("#getWidth", function() {
-    it("returns 0 given 0 width and 0 margin", function() {
+  describe("#getWidth", () => {
+    it("returns 0 given 0 width and 0 margin", () => {
       var width = ChartMixin.getWidth(thisProps);
 
       expect(width).toEqual(0);
     });
 
-    it("returns NaN when given NaN argument", function() {
+    it("returns NaN when given NaN argument", () => {
       var width = ChartMixin.getWidth({
         margin: {
           left: 9,
@@ -181,7 +181,7 @@ describe("ChartMixin", function() {
       expect(isNaN(width)).toEqual(true);
     });
 
-    it("returns a number when given a null argument", function() {
+    it("returns a number when given a null argument", () => {
       var width = ChartMixin.getWidth({
         margin: {
           left: 9,
@@ -192,7 +192,7 @@ describe("ChartMixin", function() {
       expect(width).toEqual(-19);
     });
 
-    it("yields positive view width given node width > margins", function() {
+    it("yields positive view width given node width > margins", () => {
       var width = ChartMixin.getWidth({
         margin: {
           top: 8,
@@ -207,7 +207,7 @@ describe("ChartMixin", function() {
       expect(width).toEqual(25);
     });
 
-    it("yields negative view width given node width < margins", function() {
+    it("yields negative view width given node width < margins", () => {
       var width = ChartMixin.getWidth({
         margin: {
           left: 90,

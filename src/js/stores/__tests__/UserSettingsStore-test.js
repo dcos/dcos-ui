@@ -3,43 +3,43 @@ import LocalStorageUtil from "../../utils/LocalStorageUtil";
 
 let thisPrevGet, thisPrevSet;
 
-describe("UserSettingsStore", function() {
-  beforeEach(function() {
+describe("UserSettingsStore", () => {
+  beforeEach(() => {
     thisPrevGet = LocalStorageUtil.get;
 
-    LocalStorageUtil.get = function() {
+    LocalStorageUtil.get = () => {
       return JSON.stringify({ hello: "there" });
     };
   });
 
-  afterEach(function() {
+  afterEach(() => {
     LocalStorageUtil.get = thisPrevGet;
   });
 
-  describe("getKey", function() {
-    it("returns the correct value", function() {
+  describe("getKey", () => {
+    it("returns the correct value", () => {
       var result = UserSettingsStore.getKey("hello");
       expect(result).toEqual("there");
     });
 
-    it("returns undefined if key doesn't exist", function() {
+    it("returns undefined if key doesn't exist", () => {
       var result = UserSettingsStore.getKey("doesNotExist");
       expect(result).toEqual(undefined);
     });
   });
 
-  describe("setKey", function() {
-    beforeEach(function() {
+  describe("setKey", () => {
+    beforeEach(() => {
       thisPrevSet = LocalStorageUtil.set;
 
       LocalStorageUtil.set = jasmine.createSpy();
     });
 
-    afterEach(function() {
+    afterEach(() => {
       LocalStorageUtil.set = thisPrevSet;
     });
 
-    it("sets the key", function() {
+    it("sets the key", () => {
       UserSettingsStore.setKey("boom", "ski");
       expect(LocalStorageUtil.set).toHaveBeenCalledWith(
         "dcosUserSettings",
@@ -48,21 +48,21 @@ describe("UserSettingsStore", function() {
     });
   });
 
-  describe("setJSONEditorExpandedSetting", function() {
-    beforeEach(function() {
+  describe("setJSONEditorExpandedSetting", () => {
+    beforeEach(() => {
       thisPrevSet = LocalStorageUtil.set;
 
-      LocalStorageUtil.get = function() {
+      LocalStorageUtil.get = () => {
         return JSON.stringify({});
       };
       LocalStorageUtil.set = jasmine.createSpy();
     });
 
-    afterEach(function() {
+    afterEach(() => {
       LocalStorageUtil.set = thisPrevSet;
     });
 
-    it("sets the JSONEditor key to true", function() {
+    it("sets the JSONEditor key to true", () => {
       UserSettingsStore.setJSONEditorExpandedSetting(true);
       expect(LocalStorageUtil.set).toHaveBeenCalledWith(
         "dcosUserSettings",
@@ -70,7 +70,7 @@ describe("UserSettingsStore", function() {
       );
     });
 
-    it("sets the JSONEditor key to false", function() {
+    it("sets the JSONEditor key to false", () => {
       UserSettingsStore.setJSONEditorExpandedSetting(false);
       expect(LocalStorageUtil.set).toHaveBeenCalledWith(
         "dcosUserSettings",
@@ -79,29 +79,29 @@ describe("UserSettingsStore", function() {
     });
   });
 
-  describe("get JSONEditorExpandedSetting", function() {
-    it("returns false if undefined in localStorage", function() {
-      LocalStorageUtil.get = function() {
+  describe("get JSONEditorExpandedSetting", () => {
+    it("returns false if undefined in localStorage", () => {
+      LocalStorageUtil.get = () => {
         return JSON.stringify({});
       };
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
-    it("returns false if expended is undefined in localStorage", function() {
-      LocalStorageUtil.get = function() {
+    it("returns false if expended is undefined in localStorage", () => {
+      LocalStorageUtil.get = () => {
         return JSON.stringify({ JSONEditor: {} });
       };
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
 
-    it("returns false if false in localStorage", function() {
-      LocalStorageUtil.get = function() {
+    it("returns false if false in localStorage", () => {
+      LocalStorageUtil.get = () => {
         return JSON.stringify({ JSONEditor: { expanded: false } });
       };
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
 
-    it("returns true if true in localStorage", function() {
-      LocalStorageUtil.get = function() {
+    it("returns true if true in localStorage", () => {
+      LocalStorageUtil.get = () => {
         return JSON.stringify({ JSONEditor: { expanded: true } });
       };
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(true);

@@ -3,8 +3,8 @@ import { shallow } from "enzyme";
 
 const ToggleValue = require("../ToggleValue");
 
-describe("ToggleValue", function() {
-  it("render the initial text value", function() {
+describe("ToggleValue", () => {
+  it("render the initial text value", () => {
     const instance = shallow(
       <ToggleValue primaryValue="primary" secondaryValue="secondary" />
     );
@@ -13,7 +13,7 @@ describe("ToggleValue", function() {
     expect(content.html()).toContain("primary");
   });
 
-  it("render the toggled text value after clicked", function() {
+  it("render the toggled text value after clicked", () => {
     const instance = shallow(
       <ToggleValue primaryValue="primary" secondaryValue="secondary" />
     );

@@ -37,7 +37,7 @@ const initialLanguage = UserLanguageStore.get();
 
 // Patch json
 const oldJSON = RequestUtil.json;
-RequestUtil.json = function(options = {}) {
+RequestUtil.json = (options = {}) => {
   // Proxy error function so that we can trigger a plugin event
   const oldHandler = options.error;
   options.error = function() {
@@ -50,10 +50,10 @@ RequestUtil.json = function(options = {}) {
   oldJSON(options);
 };
 
-(function() {
+(() => {
   function renderApplication() {
     function renderAppToDOM(content) {
-      ReactDOM.render(content, domElement, function() {
+      ReactDOM.render(content, domElement, () => {
         PluginSDK.Hooks.doAction("applicationRendered");
       });
     }
@@ -66,7 +66,7 @@ RequestUtil.json = function(options = {}) {
       if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
         // Let's make sure we get Mesos Summary data before we render app
         // Mesos may unreachable, so we will render even on request failure
-        ApplicationUtil.beginTemporaryPolling(function() {
+        ApplicationUtil.beginTemporaryPolling(() => {
           ApplicationUtil.invokeAfterPageLoad(renderApplicationToDOM);
         });
       } else {
@@ -154,7 +154,7 @@ RequestUtil.json = function(options = {}) {
   }
 
   if (!global.Intl) {
-    require.ensure(["intl", "intl/locale-data/jsonp/en.js"], function(require) {
+    require.ensure(["intl", "intl/locale-data/jsonp/en.js"], require => {
       require("intl");
       require("intl/locale-data/jsonp/en.js");
 

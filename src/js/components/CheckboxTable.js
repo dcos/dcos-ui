@@ -62,12 +62,12 @@ class CheckboxTable extends React.Component {
       disabledItemsMap
     } = this.props;
 
-    data = data.filter(function(datum) {
+    data = data.filter(datum => {
       return !disabledItemsMap[datum[uniqueProperty]];
     });
 
     if (isChecked) {
-      data.forEach(function(datum) {
+      data.forEach(datum => {
         checkedIDs.push(datum[uniqueProperty]);
       });
 

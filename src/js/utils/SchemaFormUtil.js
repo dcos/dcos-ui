@@ -4,7 +4,7 @@ import FormUtil from "./FormUtil";
 import Util from "./Util";
 
 function filteredPaths(combinedPath) {
-  return combinedPath.split("/").filter(function(path) {
+  return combinedPath.split("/").filter(path => {
     return path.length > 0;
   });
 }
@@ -12,9 +12,9 @@ function filteredPaths(combinedPath) {
 function getErroredFieldPositions(definition) {
   const fieldsWithError = [];
 
-  definition.forEach(function(rowDefinition, indexInForm) {
+  definition.forEach((rowDefinition, indexInForm) => {
     if (Array.isArray(rowDefinition)) {
-      rowDefinition.forEach(function(columnDefinition, indexInRow) {
+      rowDefinition.forEach((columnDefinition, indexInRow) => {
         const hasError = !!columnDefinition.showError;
 
         if (hasError) {
@@ -42,7 +42,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
     const prop = path[path.length - 1];
 
     let firstIndex = 0;
-    definitionToSet.definition.find(function(field, i) {
+    definitionToSet.definition.find((field, i) => {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         firstIndex = i;
 
@@ -56,7 +56,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
 
     FormUtil.removePropID(definitionToSet.definition, prop);
 
-    value.forEach(function(item, index) {
+    value.forEach((item, index) => {
       // Use index for key, so we can re-use same key for same field,
       // to not make react think it is a completely new field
       const propID = Util.uniqueID(prop);
@@ -91,7 +91,7 @@ function setDefinitionValue(thingToSet, definition, renderRemove, model) {
       definitionToSet.definition.splice(firstIndex++, 0, instanceDefinition);
     });
 
-    indexesToError.forEach(function(indexToError) {
+    indexesToError.forEach(indexToError => {
       let needsToError = definitionToSet.definition[indexToError.indexInForm];
       if (needsToError) {
         needsToError = needsToError[indexToError.indexInRow];
@@ -123,7 +123,7 @@ function getThingsToSet(model, path) {
     return thingsToSet;
   }
 
-  Object.keys(model).forEach(function(key) {
+  Object.keys(model).forEach(key => {
     const pathCopy = path.concat([key]);
     const value = model[key];
 
@@ -159,10 +159,10 @@ function processValue(value, valueType) {
   if (valueType === "array" && typeof value === "string") {
     return value
       .split(",")
-      .map(function(val) {
+      .map(val => {
         return val.trim();
       })
-      .filter(function(val) {
+      .filter(val => {
         return val !== "";
       });
   }
@@ -198,14 +198,14 @@ function unnestGroupsInDefinition(definition) {
   defClone.properties = Object.assign({}, defClone.properties);
 
   // Import group children
-  Object.keys(defClone.properties).forEach(function(propName) {
+  Object.keys(defClone.properties).forEach(propName => {
     const prop = unnestGroupsInDefinition(defClone.properties[propName]);
 
     // If we encountered a group in our properties,
     // merge its properties in our properties
     if (prop.type === "group") {
       // Adopt properties
-      Object.keys(prop.properties).forEach(function(propName) {
+      Object.keys(prop.properties).forEach(propName => {
         defClone.properties[propName] = prop.properties[propName];
       });
 
@@ -230,7 +230,7 @@ function unnestGroupsInDefinition(definition) {
 /**
  * Introduce custom validation function to tv4
  */
-tv4.defineKeyword("validator", function(data, validationFunction) {
+tv4.defineKeyword("validator", (data, validationFunction) => {
   //
   // Call the validation function and return:
   //
@@ -318,14 +318,14 @@ const SchemaFormUtil = {
       paths = paths.slice(1);
     }
 
-    paths.forEach(function(path) {
+    paths.forEach(path => {
       if (definition.definition == null) {
         return;
       }
 
       const nextDefinition = Array.prototype.concat
         .apply([], definition.definition)
-        .find(function(definitionField) {
+        .find(definitionField => {
           return (
             definitionField.name === path || definitionField.title === path
           );
@@ -357,7 +357,7 @@ const SchemaFormUtil = {
   processFormModel(model, multipleDefinition, prevPath = []) {
     const newModel = {};
 
-    Object.keys(model).forEach(function(key) {
+    Object.keys(model).forEach(key => {
       const value = model[key];
       const path = prevPath.concat([key]);
 
@@ -403,7 +403,7 @@ const SchemaFormUtil = {
   mergeModelIntoDefinition(model, definition, renderRemove) {
     const thingsToSet = getThingsToSet(model);
 
-    thingsToSet.forEach(function(thingToSet) {
+    thingsToSet.forEach(thingToSet => {
       setDefinitionValue(thingToSet, definition, renderRemove, model);
     });
   },
@@ -457,7 +457,7 @@ const SchemaFormUtil = {
       return [];
     }
 
-    return result.errors.map(function(error) {
+    return result.errors.map(error => {
       return SchemaFormUtil.parseTV4Error(error);
     });
   }

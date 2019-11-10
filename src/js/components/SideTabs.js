@@ -27,7 +27,7 @@ class SideTabs extends React.Component {
   }
 
   getSelectedTabTitle(selectedTab, tabs) {
-    const selectedTabDefinition = tabs.find(function(tab) {
+    const selectedTabDefinition = tabs.find(tab => {
       return tab.selectValue === selectedTab;
     });
 
@@ -45,7 +45,7 @@ class SideTabs extends React.Component {
       // Check if at least one field has errors
       const hasErrors =
         definition &&
-        definition.reduce(function(lastErrors, field) {
+        definition.reduce((lastErrors, field) => {
           return lastErrors || !!field.showError;
         }, false);
 

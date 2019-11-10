@@ -1,4 +1,4 @@
-describe("Job Create Form", function() {
+describe("Job Create Form", () => {
   function openTab(tab) {
     cy.get(".menu-tabbed-item-label")
       .contains(tab)
@@ -19,7 +19,7 @@ describe("Job Create Form", function() {
     return cy.get('.active > .menu-tabbed-item-label span[role="button"]');
   }
 
-  beforeEach(function() {
+  beforeEach(() => {
     cy.configureCluster({
       jobDetails: true,
       mesos: "1-for-each-health",
@@ -28,8 +28,8 @@ describe("Job Create Form", function() {
     cy.visitUrl({ url: "/jobs/overview" });
   });
 
-  context("Error badges for the jobs tabs", function() {
-    beforeEach(function() {
+  context("Error badges for the jobs tabs", () => {
+    beforeEach(() => {
       // Click 'Create a job'
       cy.get(".button.button-primary-link.button-narrow").click();
 
@@ -37,8 +37,8 @@ describe("Job Create Form", function() {
       cy.get(".modal-header").contains("New Job");
     });
 
-    context("General tab", function() {
-      it("displays an error badge for the missing id", function() {
+    context("General tab", () => {
+      it("displays an error badge for the missing id", () => {
         // Fill-in the input elements
         cy.root()
           .get("label")
@@ -52,7 +52,7 @@ describe("Job Create Form", function() {
         submit();
 
         // Error banner lists errors
-        cy.get(".errorsAlert-listItem").should(function($items) {
+        cy.get(".errorsAlert-listItem").should($items => {
           expect($items.length).to.equal(1);
         });
 
@@ -71,8 +71,8 @@ describe("Job Create Form", function() {
       });
     });
 
-    context("Container Runtime tab", function() {
-      it("displays an error badge for parameters", function() {
+    context("Container Runtime tab", () => {
+      it("displays an error badge for parameters", () => {
         openTab("Container Runtime");
         cy.get(".form-control-toggle")
           .contains("Docker Engine")
@@ -88,8 +88,8 @@ describe("Job Create Form", function() {
       });
     });
 
-    context("Schedule tab", function() {
-      it("displays an error badge for missing schedule id", function() {
+    context("Schedule tab", () => {
+      it("displays an error badge for missing schedule id", () => {
         openTab("Schedule");
         typeInInput("id.schedules", " ");
         submit();
@@ -99,8 +99,8 @@ describe("Job Create Form", function() {
       });
     });
 
-    context("Environment tab", function() {
-      it("displays an error badge for environment variables", function() {
+    context("Environment tab", () => {
+      it("displays an error badge for environment variables", () => {
         openTab("Environment");
         cy.get(".button-primary-link")
           .contains("Add Environment Variable")
@@ -113,8 +113,8 @@ describe("Job Create Form", function() {
       });
     });
 
-    context("Volumes tab", function() {
-      it("displays an error badge for volume", function() {
+    context("Volumes tab", () => {
+      it("displays an error badge for volume", () => {
         openTab("Volumes");
         cy.get(".button-primary-link")
           .contains("Add Volume")
@@ -127,8 +127,8 @@ describe("Job Create Form", function() {
       });
     });
 
-    context("Placement tab", function() {
-      it("displays an error badge for constraints", function() {
+    context("Placement tab", () => {
+      it("displays an error badge for constraints", () => {
         openTab("Placement");
         cy.get(".button-primary-link")
           .contains("Add Placement Constraint")

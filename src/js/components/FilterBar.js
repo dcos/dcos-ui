@@ -33,7 +33,7 @@ class FilterBar extends React.PureComponent {
   }
 
   getFilterItems(filterItemArray) {
-    return filterItemArray.map(function(item, index) {
+    return filterItemArray.map((item, index) => {
       return (
         <div className="filter-bar-item" key={index}>
           {item}

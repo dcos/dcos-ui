@@ -1,6 +1,6 @@
 import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
-describe("Service Table", function() {
+describe("Service Table", () => {
   function openDropdown(serviceName) {
     cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
     cy.get(".form-control-group-add-on")
@@ -22,8 +22,8 @@ describe("Service Table", function() {
       .click();
   }
 
-  context("Service status", function() {
-    it("shows correct status and icon for a delayed service", function() {
+  context("Service status", () => {
+    it("shows correct status and icon for a delayed service", () => {
       cy.configureCluster({
         mesos: "1-service-delayed",
         nodeHealth: true
@@ -37,7 +37,7 @@ describe("Service Table", function() {
       );
     });
 
-    it("shows correct status and icon for a delayed pod", function() {
+    it("shows correct status and icon for a delayed pod", () => {
       cy.configureCluster({
         mesos: "1-pod-delayed",
         nodeHealth: true
@@ -52,8 +52,8 @@ describe("Service Table", function() {
     });
   });
 
-  context("Destroy Action", function() {
-    beforeEach(function() {
+  context("Destroy Action", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         nodeHealth: true
@@ -64,7 +64,7 @@ describe("Service Table", function() {
       clickDropdownAction("Delete");
     });
 
-    it("disables button during API request", function() {
+    it("disables button during API request", () => {
       cy.route({
         method: "DELETE",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -75,8 +75,8 @@ describe("Service Table", function() {
     });
   });
 
-  context("Resume Action", function() {
-    beforeEach(function() {
+  context("Resume Action", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-service-suspended",
         nodeHealth: true
@@ -85,7 +85,7 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    it("hides the stop option in the service action dropdown", function() {
+    it("hides the stop option in the service action dropdown", () => {
       openDropdown("sleep");
 
       cy.get(".dropdown-menu-items li")
@@ -93,7 +93,7 @@ describe("Service Table", function() {
         .should("not.exist");
     });
 
-    it("shows the resume option in the service action dropdown", function() {
+    it("shows the resume option in the service action dropdown", () => {
       openDropdown("sleep");
 
       cy.get(".dropdown-menu-items li")
@@ -101,7 +101,7 @@ describe("Service Table", function() {
         .should("not.have.class", "hidden");
     });
 
-    it("opens the resume dialog", function() {
+    it("opens the resume dialog", () => {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
@@ -110,14 +110,14 @@ describe("Service Table", function() {
         .should("have.length", 1);
     });
 
-    it("opens the resume dialog with the instances textbox if the single app instance label does not exist", function() {
+    it("opens the resume dialog with the instances textbox if the single app instance label does not exist", () => {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
       cy.get('input[name="instances"]').should("have.length", 1);
     });
 
-    it("opens the resume dialog without the instances textbox if the single app instance label exists", function() {
+    it("opens the resume dialog without the instances textbox if the single app instance label exists", () => {
       cy.configureCluster({
         mesos: "1-service-suspended-single-instance",
         nodeHealth: true
@@ -129,7 +129,7 @@ describe("Service Table", function() {
       cy.get('input[name="instances"]').should("have.length", 0);
     });
 
-    it("disables button during API request", function() {
+    it("disables button during API request", () => {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -145,7 +145,7 @@ describe("Service Table", function() {
         .should("have.class", "disabled");
     });
 
-    it("closes dialog on successful API request", function() {
+    it("closes dialog on successful API request", () => {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -159,7 +159,7 @@ describe("Service Table", function() {
       cy.get(".modal-body").should("to.have.length", 0);
     });
 
-    it("shows error message on conflict", function() {
+    it("shows error message on conflict", () => {
       cy.route({
         method: "PUT",
         status: 409,
@@ -179,7 +179,7 @@ describe("Service Table", function() {
       );
     });
 
-    it("shows error message on not authorized", function() {
+    it("shows error message on not authorized", () => {
       cy.route({
         method: "PUT",
         status: 403,
@@ -199,7 +199,7 @@ describe("Service Table", function() {
       );
     });
 
-    it("reenables button after faulty request", function() {
+    it("reenables button after faulty request", () => {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -217,7 +217,7 @@ describe("Service Table", function() {
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
 
-    it("closes dialog on secondary button click", function() {
+    it("closes dialog on secondary button click", () => {
       openDropdown("sleep");
       clickDropdownAction("Resume");
 
@@ -228,9 +228,9 @@ describe("Service Table", function() {
     });
   });
 
-  context("Reset Delay Action", function() {
-    context("Delayed service", function() {
-      beforeEach(function() {
+  context("Reset Delay Action", () => {
+    context("Delayed service", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-delayed",
           nodeHealth: true
@@ -241,7 +241,7 @@ describe("Service Table", function() {
         clickDropdownAction("Reset Delay");
       });
 
-      it("shows a toast notification", function() {
+      it("shows a toast notification", () => {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/queue\/\/sleep\/delay/,
@@ -251,8 +251,8 @@ describe("Service Table", function() {
       });
     });
 
-    context("Non-delayed service", function() {
-      beforeEach(function() {
+    context("Non-delayed service", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
@@ -262,15 +262,15 @@ describe("Service Table", function() {
         openDropdown("sleep");
       });
 
-      it("doesn't have a reset delayed action", function() {
+      it("doesn't have a reset delayed action", () => {
         cy.get(".dropdown-menu-items")
           .contains("Reset Delay")
           .should("not.exist");
       });
     });
 
-    context("Delayed pod", function() {
-      beforeEach(function() {
+    context("Delayed pod", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-pod-delayed",
           nodeHealth: true
@@ -281,7 +281,7 @@ describe("Service Table", function() {
         clickDropdownAction("Reset Delay");
       });
 
-      it("shows a toast notification", function() {
+      it("shows a toast notification", () => {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/queue\/\/podses\/delay/,
@@ -291,8 +291,8 @@ describe("Service Table", function() {
       });
     });
 
-    context("Non-delayed pod", function() {
-      beforeEach(function() {
+    context("Non-delayed pod", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-pod",
           nodeHealth: true
@@ -301,7 +301,7 @@ describe("Service Table", function() {
         openDropdown("podses");
       });
 
-      it("doesn't have a reset delayed action", function() {
+      it("doesn't have a reset delayed action", () => {
         cy.get(".dropdown-menu-items")
           .contains("Reset Delay")
           .should("not.exist");
@@ -309,8 +309,8 @@ describe("Service Table", function() {
     });
   });
 
-  context("SDK Services", function() {
-    beforeEach(function() {
+  context("SDK Services", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
         nodeHealth: true
@@ -319,7 +319,7 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview/%2Fservices" });
     });
 
-    it("updates package icon", function() {
+    it("updates package icon", () => {
       const imageUrl = "foo.png";
       const serviceName = "sdk-sleep-with-image";
 
@@ -334,7 +334,7 @@ describe("Service Table", function() {
       );
     });
 
-    it("opens the destroy dialog", function() {
+    it("opens the destroy dialog", () => {
       openDropdown("sdk-sleep");
       clickDropdownAction("Delete");
 
@@ -352,7 +352,7 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the scale dialog", function() {
+    it("opens the scale dialog", () => {
       openDropdown("sdk-sleep");
       clickDropdownAction("Scale");
 
@@ -371,7 +371,7 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("restart does not exist", function() {
+    it("restart does not exist", () => {
       openDropdown("sdk-sleep");
 
       cy.get(".dropdown-menu-items")
@@ -379,7 +379,7 @@ describe("Service Table", function() {
         .should("not.exist");
     });
 
-    it("stop does not exist", function() {
+    it("stop does not exist", () => {
       openDropdown("sdk-sleep");
 
       cy.get(".dropdown-menu-items")
@@ -387,13 +387,13 @@ describe("Service Table", function() {
         .should("not.exist");
     });
 
-    it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", function() {
+    it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", () => {
       openDropdown("sdk-sleep-with-image");
 
       cy.get(".dropdown-menu-items").contains("Open Service");
     });
 
-    it("shows the full version for a framework", function() {
+    it("shows the full version for a framework", () => {
       cy.get(".ReactVirtualized__Grid__innerScrollContainer")
         .last() // Bottom right part of the table.
         .children()
@@ -402,8 +402,8 @@ describe("Service Table", function() {
     });
   });
 
-  context("SDK Groups", function() {
-    beforeEach(function() {
+  context("SDK Groups", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
         nodeHealth: true
@@ -412,7 +412,7 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    it("opens the cannot delete group dialog", function() {
+    it("opens the cannot delete group dialog", () => {
       openDropdown("services");
       clickDropdownAction("Delete");
 
@@ -432,7 +432,7 @@ describe("Service Table", function() {
       cy.get(".modal").should("not.exist");
     });
 
-    it("opens the scale dialog", function() {
+    it("opens the scale dialog", () => {
       openDropdown("services");
       clickDropdownAction("Scale");
 
@@ -456,9 +456,9 @@ describe("Service Table", function() {
     });
   });
 
-  context("Region Column", function() {
+  context("Region Column", () => {
     context("Single Region", () => {
-      beforeEach(function() {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy-with-region",
           regions: 1,
@@ -467,7 +467,7 @@ describe("Service Table", function() {
         cy.visitUrl({ url: "/services/overview" });
       });
 
-      it("does contain the right region", function() {
+      it("does contain the right region", () => {
         cy.get(".filter-input-text").type("sleep");
         cy.get(".form-control-group-add-on")
           .eq(-1)
@@ -481,7 +481,7 @@ describe("Service Table", function() {
     });
 
     context("Multiple Regions", () => {
-      beforeEach(function() {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy-with-region",
           regions: 2,
@@ -490,7 +490,7 @@ describe("Service Table", function() {
         cy.visitUrl({ url: "/services/overview" });
       });
 
-      it("does contain the right region", function() {
+      it("does contain the right region", () => {
         cy.get(".filter-input-text").type("sleep");
         cy.get(".form-control-group-add-on")
           .eq(-1)
@@ -504,8 +504,8 @@ describe("Service Table", function() {
     });
   });
 
-  context("Groups", function() {
-    beforeEach(function() {
+  context("Groups", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
         nodeHealth: true
@@ -514,26 +514,26 @@ describe("Service Table", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    it("group status is an aggregate of children", function() {
+    it("group status is an aggregate of children", () => {
       cy.get(".status-bar-text")
         .eq(1)
         .contains("Running (3 of 3)");
     });
 
-    it("shows service status counts in group tooltip", function() {
+    it("shows service status counts in group tooltip", () => {
       cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(1)
         .trigger("mouseover");
       cy.get(".tooltip").contains("3 Running");
     });
 
-    it("group status shows the highest priority", function() {
+    it("group status shows the highest priority", () => {
       cy.get(".status-bar-text")
         .eq(0)
         .contains("Running (1 of 2)");
     });
 
-    it("shows service status counts in group tooltip", function() {
+    it("shows service status counts in group tooltip", () => {
       cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
         .eq(0)
         .trigger("mouseover");

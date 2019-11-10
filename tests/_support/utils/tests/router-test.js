@@ -1,13 +1,13 @@
 const router = require("../router");
 
-describe("router", function() {
+describe("router", () => {
   beforeEach(function() {
     this.originalCy = cy;
 
     global.cy = {
       route: cy.spy(),
       fixture(fixtureString) {
-        return new Promise(function(resolve) {
+        return new Promise(resolve => {
           resolve(fixtureString);
         });
       }
@@ -18,18 +18,18 @@ describe("router", function() {
     global.cy = this.originalCy;
   });
 
-  describe("#clearRoutes", function() {
-    it("clears previously defined routes", function(done) {
+  describe("#clearRoutes", () => {
+    it("clears previously defined routes", done => {
       router.route(/foo/, "fx:bar");
       router.clearRoutes();
-      router.getAPIResponse("foo", function(foundFixture) {
+      router.getAPIResponse("foo", foundFixture => {
         expect(foundFixture).to.equal(null);
         done();
       });
     });
   });
 
-  describe("#route", function() {
+  describe("#route", () => {
     beforeEach(function() {
       this.fooRegEx = /foo/;
       this.returnValue = router.route(this.fooRegEx, "fx:bar");
@@ -51,17 +51,17 @@ describe("router", function() {
     });
   });
 
-  describe("#getAPIResponse", function() {
-    it("calls the callback with the fixture when found", function(done) {
+  describe("#getAPIResponse", () => {
+    it("calls the callback with the fixture when found", done => {
       router.route(/foo/, "fx:bar");
-      router.getAPIResponse("foo", function(foundFixture) {
+      router.getAPIResponse("foo", foundFixture => {
         expect(foundFixture).to.equal("bar");
         done();
       });
     });
 
-    it("calls the callback with null when the fixture is not found", function(done) {
-      router.getAPIResponse("baz", function(foundFixture) {
+    it("calls the callback with null when the fixture is not found", done => {
+      router.getAPIResponse("baz", foundFixture => {
         expect(foundFixture).to.equal(null);
         done();
       });

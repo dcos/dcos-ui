@@ -1,6 +1,6 @@
-describe("UI Settings", function() {
-  describe("Versions displayed", function() {
-    it("displays UI version details", function() {
+describe("UI Settings", () => {
+  describe("Versions displayed", () => {
+    it("displays UI version details", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "ui-settings": "default"
@@ -23,7 +23,7 @@ describe("UI Settings", function() {
         .contains("0.1.1");
     });
 
-    it("doesn't display update when there is no update", function() {
+    it("doesn't display update when there is no update", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
@@ -47,7 +47,7 @@ describe("UI Settings", function() {
         .should("not.exist");
     });
 
-    it("displays update when not on default version", function() {
+    it("displays update when not on default version", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "ui-settings": "v0.1.0"
@@ -66,7 +66,7 @@ describe("UI Settings", function() {
         .contains("0.1.1");
     });
 
-    it("displays update when not on default version", function() {
+    it("displays update when not on default version", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "ui-settings": "v0.1.1"
@@ -85,7 +85,7 @@ describe("UI Settings", function() {
         .should("not.exist");
     });
 
-    it("displays fallback ui on cosmos error", function() {
+    it("displays fallback ui on cosmos error", () => {
       cy.configureCluster({
         cosmos: "error",
         plugins: "ui-update-enabled",
@@ -113,8 +113,8 @@ describe("UI Settings", function() {
     });
   });
 
-  describe("Actions", function() {
-    it("Displays Rollback, Update, Refresh", function() {
+  describe("Actions", () => {
+    it("Displays Rollback, Update, Refresh", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "ui-settings": "v0.1.0"
@@ -137,7 +137,7 @@ describe("UI Settings", function() {
         .should("not.be.disabled");
     });
 
-    it("Displays only rollback if version is current", function() {
+    it("Displays only rollback if version is current", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
@@ -155,7 +155,7 @@ describe("UI Settings", function() {
       cy.get("#uiDetailsRefreshVersion").should("not.exist");
     });
 
-    it("Can perform a version rollback", function() {
+    it("Can perform a version rollback", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
@@ -194,7 +194,7 @@ describe("UI Settings", function() {
       cy.get("#uiDetailsRollback").should("not.be.disabled");
     });
 
-    it("Can handle a rollback failure", function() {
+    it("Can handle a rollback failure", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
@@ -220,7 +220,7 @@ describe("UI Settings", function() {
       cy.get("#uiDetailsRollback").should("be.disabled");
     });
 
-    it("Can perform a version update", function() {
+    it("Can perform a version update", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "update-service": "update-pass",
@@ -277,7 +277,7 @@ describe("UI Settings", function() {
       cy.get("#uiDetailsRollback").should("not.be.disabled");
     });
 
-    it("Can handle a version update failure", function() {
+    it("Can handle a version update failure", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "update-service": "update-fail",

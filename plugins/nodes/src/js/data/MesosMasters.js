@@ -35,7 +35,7 @@ export function combineMasterData(leaderDataSource, mesosMastersHealth) {
   );
   const mesosMasters$ = mesosMastersHealth().pipe(startWith(undefined));
 
-  return function() {
+  return () => {
     return mesosLeader$.pipe(
       combineLatest(mesosMasters$, (leader, masters) => ({
         leader,

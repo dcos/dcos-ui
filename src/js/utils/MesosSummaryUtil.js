@@ -4,12 +4,12 @@ import Maths from "../utils/Maths";
 const MesosSummaryUtil = {
   sumResources(resourceList) {
     return resourceList.reduce(
-      function(memo, resource) {
+      (memo, resource) => {
         if (resource == null) {
           return memo;
         }
 
-        Object.keys(memo).forEach(function(key) {
+        Object.keys(memo).forEach(key => {
           memo[key] = memo[key] + resource[key];
         });
 
@@ -27,8 +27,8 @@ const MesosSummaryUtil = {
 
     stateResources
       .sort((a, b) => (a.date > b.date ? 1 : -1))
-      .forEach(function(stateResource) {
-        resourceTypes.forEach(function(resourceType) {
+      .forEach(stateResource => {
+        resourceTypes.forEach(resourceType => {
           let percentage = null,
             value = null;
 
@@ -50,7 +50,7 @@ const MesosSummaryUtil = {
   },
 
   filterHostsByService(hosts, frameworkId) {
-    return hosts.filter(function({ framework_ids = [] }) {
+    return hosts.filter(({ framework_ids = [] }) => {
       return framework_ids.includes(frameworkId);
     });
   },
@@ -64,7 +64,7 @@ const MesosSummaryUtil = {
       reverseRange.push(-i);
     }
 
-    return reverseRange.map(function(i) {
+    return reverseRange.map(i => {
       return Object.assign(MesosSummaryUtil.getEmptyState(), {
         date: currentDate + i * Config.getRefreshRate()
       });
@@ -84,7 +84,7 @@ const MesosSummaryUtil = {
     var length = data.length;
     var timeNow = Date.now() + timeStep;
 
-    return data.map(function(datum, i) {
+    return data.map((datum, i) => {
       var timeDelta = (-length + i) * timeStep;
       datum.date = timeNow + timeDelta;
 

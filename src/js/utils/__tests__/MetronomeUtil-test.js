@@ -2,9 +2,9 @@ const MetronomeUtil = require("../MetronomeUtil");
 
 let thisJobs, thisJob;
 
-describe("MetronomeUtil", function() {
-  describe("#parseJobs", function() {
-    beforeEach(function() {
+describe("MetronomeUtil", () => {
+  describe("#parseJobs", () => {
+    beforeEach(() => {
       thisJobs = MetronomeUtil.parseJobs([
         { id: "name.foo" },
         { id: "name.bar" },
@@ -15,25 +15,25 @@ describe("MetronomeUtil", function() {
       ]);
     });
 
-    it("throws an error if the provided id  starts with a dot", function() {
-      expect(function() {
+    it("throws an error if the provided id  starts with a dot", () => {
+      expect(() => {
         MetronomeUtil.parseJobs({ id: ".malformed.id" });
       }).toThrow();
     });
 
-    it("throws an error if the provided id ends with a dot", function() {
-      expect(function() {
+    it("throws an error if the provided id ends with a dot", () => {
+      expect(() => {
         MetronomeUtil.parseJobs({ id: "malformed.id." });
       }).toThrow();
     });
 
-    it("adds a job to the namespace", function() {
+    it("adds a job to the namespace", () => {
       var jobs = MetronomeUtil.parseJobs({ id: "alpha" });
 
       expect(jobs.items[0].id).toEqual("alpha");
     });
 
-    it("adds nested items at the correct location based on id/path matching", function() {
+    it("adds nested items at the correct location based on id/path matching", () => {
       var jobs = MetronomeUtil.parseJobs({ id: "name.foo.bar" });
 
       expect(jobs.items[0].id).toEqual("name");
@@ -41,47 +41,47 @@ describe("MetronomeUtil", function() {
       expect(jobs.items[0].items[0].items[0].id).toEqual("name.foo.bar");
     });
 
-    it("throws an error if item is not an object with id", function() {
-      expect(function() {
+    it("throws an error if item is not an object with id", () => {
+      expect(() => {
         MetronomeUtil.parseJobs({});
       }).toThrow();
-      expect(function() {
+      expect(() => {
         MetronomeUtil.parseJobs(NaN);
       }).toThrow();
-      expect(function() {
+      expect(() => {
         MetronomeUtil.parseJobs();
       }).toThrow();
     });
 
-    it("returns root namespace if empty array is passed", function() {
+    it("returns root namespace if empty array is passed", () => {
       const jobs = MetronomeUtil.parseJobs([]);
 
       expect(jobs.id).toEqual("");
       expect(jobs.items).toEqual([]);
     });
 
-    it("nests everything under root", function() {
+    it("nests everything under root", () => {
       expect(thisJobs.id).toEqual("");
       expect(thisJobs.items.length).toEqual(1);
     });
 
-    it("consolidates jobs into common parent", function() {
+    it("consolidates jobs into common parent", () => {
       expect(thisJobs.items[0].id).toEqual("name");
     });
 
-    it("sets correct namespace id", function() {
+    it("sets correct namespace id", () => {
       expect(thisJobs.items[0].id).toEqual("name");
     });
 
-    it("accepts nested namespaces", function() {
+    it("accepts nested namespaces", () => {
       expect(thisJobs.items[0].items[4].items.length).toEqual(1);
     });
 
-    it("doesn't add items to jobs with no nested items", function() {
+    it("doesn't add items to jobs with no nested items", () => {
       expect(thisJobs.items[0].items[2].items).toEqual(undefined);
     });
 
-    it("converts a single item into a subitem of root", function() {
+    it("converts a single item into a subitem of root", () => {
       const jobs = MetronomeUtil.parseJobs({ id: "name.job" });
 
       expect(jobs.id).toEqual("");
@@ -89,7 +89,7 @@ describe("MetronomeUtil", function() {
       expect(jobs.items[0].items[0].id).toEqual("name.job");
     });
 
-    it("merges data of items that are defined multiple times", function() {
+    it("merges data of items that are defined multiple times", () => {
       const jobs = thisJobs.items[0].items[3];
       expect(jobs).toEqual({
         id: "name.beta",
@@ -99,7 +99,7 @@ describe("MetronomeUtil", function() {
       });
     });
 
-    it("doesn't merge jobs and namespaces", function() {
+    it("doesn't merge jobs and namespaces", () => {
       const jobs = MetronomeUtil.parseJobs([
         { id: "name.foo", cmd: "./foo" },
         { id: "name.foo.bar", cmd: "./bar" }
@@ -122,7 +122,7 @@ describe("MetronomeUtil", function() {
       });
     });
 
-    it("applies parse job to all jobs", function() {
+    it("applies parse job to all jobs", () => {
       const fooSpec = {
         id: "foo",
         history: {
@@ -160,8 +160,8 @@ describe("MetronomeUtil", function() {
     });
   });
 
-  describe("#parseJob", function() {
-    beforeEach(function() {
+  describe("#parseJob", () => {
+    beforeEach(() => {
       thisJob = MetronomeUtil.parseJob({
         id: "foo",
         history: {
@@ -183,27 +183,27 @@ describe("MetronomeUtil", function() {
       });
     });
 
-    it("does nothing if history is undefined", function() {
+    it("does nothing if history is undefined", () => {
       const job = MetronomeUtil.parseJob({ id: "foo" });
 
       expect(job).toEqual({ id: "foo" });
     });
 
-    it("adds the proper status to the failed finished runs", function() {
+    it("adds the proper status to the failed finished runs", () => {
       expect(thisJob.history.failedFinishedRuns[0].status).toEqual("FAILED");
     });
 
-    it("adds the job id to the failed finished runs", function() {
+    it("adds the job id to the failed finished runs", () => {
       expect(thisJob.history.failedFinishedRuns[0].jobId).toEqual("foo");
     });
 
-    it("adds the proper status to the successful finished runs", function() {
+    it("adds the proper status to the successful finished runs", () => {
       expect(thisJob.history.successfulFinishedRuns[0].status).toEqual(
         "COMPLETED"
       );
     });
 
-    it("adds the job id to the successful finished runs", function() {
+    it("adds the job id to the successful finished runs", () => {
       expect(thisJob.history.successfulFinishedRuns[0].jobId).toEqual("foo");
     });
   });

@@ -20,7 +20,7 @@ function removeListener(store, hook, listener) {
   }
 
   // Find and remove listener in hook values
-  Object.values(store[hook]).forEach(function(listeners) {
+  Object.values(store[hook]).forEach(listeners => {
     if (!Array.isArray(listeners)) {
       return;
     }
@@ -105,9 +105,9 @@ module.exports = function Hooks() {
       const priorities = Object.keys(listeners);
       priorities.sort();
 
-      priorities.forEach(function(priority) {
+      priorities.forEach(priority => {
         // Clone and call all listeners
-        listeners[priority].slice(0).forEach(function(listener) {
+        listeners[priority].slice(0).forEach(listener => {
           // Creates new arguments array to call the listener with
           const groupedArgs = args.slice();
           groupedArgs.unshift(value);
@@ -162,9 +162,9 @@ module.exports = function Hooks() {
       const priorities = Object.keys(listeners);
       priorities.sort();
 
-      priorities.forEach(function(priority) {
+      priorities.forEach(priority => {
         // Clone and call all listeners
-        listeners[priority].slice(0).forEach(function(listener) {
+        listeners[priority].slice(0).forEach(listener => {
           listener.apply(null, args);
         });
       });

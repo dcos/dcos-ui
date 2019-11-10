@@ -4,14 +4,14 @@ const NETWORK_MODES = [
   ["container/bridge", "BRIDGE"]
 ];
 
-const jsonToInternal = NETWORK_MODES.reduce(function(memo, tuple) {
+const jsonToInternal = NETWORK_MODES.reduce((memo, tuple) => {
   const [jsonType, internalType] = tuple;
   memo[jsonType] = internalType;
 
   return memo;
 }, {});
 
-const internalToJson = NETWORK_MODES.reduce(function(memo, tuple) {
+const internalToJson = NETWORK_MODES.reduce((memo, tuple) => {
   const [jsonType, internalType] = tuple;
   memo[internalType] = jsonType;
 

@@ -14,7 +14,7 @@ const VirtualNetworksActions = {
       success(response) {
         let { overlays, vtep_mac_oui, vtep_subnet } = response.network;
         // Map structure to mimic agents overlays
-        overlays = overlays.map(function(overlay) {
+        overlays = overlays.map(overlay => {
           return { info: overlay };
         });
 
@@ -45,9 +45,7 @@ if (Config.useFixtures) {
     fetch: { event: "success", success: { response: virtualNetworksFixture } }
   };
 
-  Object.keys(global.actionTypes.VirtualNetworksActions).forEach(function(
-    method
-  ) {
+  Object.keys(global.actionTypes.VirtualNetworksActions).forEach(method => {
     VirtualNetworksActions[method] = RequestUtil.stubRequest(
       VirtualNetworksActions,
       "VirtualNetworksActions",

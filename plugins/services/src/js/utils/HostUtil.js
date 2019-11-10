@@ -16,7 +16,7 @@ const HostUtil = {
 
     return string
       .split(".")
-      .filter(function(string) {
+      .filter(string => {
         return string !== "";
       })
       .map(HostUtil.stringToLabel)
@@ -43,7 +43,7 @@ const HostUtil = {
 
     // Strip all invalid character including leading and trailing dashes
     // or replace them with dashes.
-    string = string.replace(/(_)|^-+|-+$|[^a-z0-9-]/g, function(match, p1) {
+    string = string.replace(/(_)|^-+|-+$|[^a-z0-9-]/g, (match, p1) => {
       // Replace underscores (first capture group) with dashes
       if (p1 != null) {
         return "-";
@@ -58,7 +58,7 @@ const HostUtil = {
       // Remove all dashes and groups of dashes that have an offset larger or
       // equal to the allowed max length before trimming the label to ensure
       // that no label ends with a dash.
-      string = string.replace(/[-]+/g, function(match, offset) {
+      string = string.replace(/[-]+/g, (match, offset) => {
         if (offset + match.length >= LABEL_MAX_LENGTH) {
           return "";
         }

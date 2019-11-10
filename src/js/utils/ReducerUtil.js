@@ -25,13 +25,13 @@ module.exports = {
    *   the passed object, and builds a state object with the same shape.
    */
   combineReducers(reducers = {}) {
-    const reducerKeys = Object.keys(reducers).filter(function(reducerKey) {
+    const reducerKeys = Object.keys(reducers).filter(reducerKey => {
       return typeof reducers[reducerKey] === "function";
     });
     // This is creating the context for this combined reducer.
     const context = new WeakMap();
 
-    return function(state, action, index = 0) {
+    return (state, action, index = 0) => {
       let reducerIndex = reducerKeys.length;
       const localState = Object.assign({}, state);
 
@@ -81,7 +81,7 @@ module.exports = {
   },
 
   simpleReducer(needle, defaultState = "") {
-    return function(state = defaultState, { path, type, value }) {
+    return (state = defaultState, { path, type, value }) => {
       if (type === TransactionTypes.SET && path.join(".") === needle) {
         return value;
       }
@@ -91,7 +91,7 @@ module.exports = {
   },
 
   simpleIntReducer(needle, defaultState = "") {
-    return function(state = defaultState, { path, type, value }) {
+    return (state = defaultState, { path, type, value }) => {
       const parsedValue = parseInt(value, 10);
       if (type === TransactionTypes.SET && path.join(".") === needle) {
         if (!isNaN(parsedValue)) {
@@ -106,7 +106,7 @@ module.exports = {
   },
 
   simpleFloatReducer(needle, defaultState = "") {
-    return function(state = defaultState, { path, type, value }) {
+    return (state = defaultState, { path, type, value }) => {
       const parsedValue = parseFloat(value);
       if (type === TransactionTypes.SET && path.join(".") === needle) {
         if (!isNaN(parsedValue)) {

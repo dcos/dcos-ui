@@ -1,9 +1,9 @@
 const UniversePackage = require("../UniversePackage");
 const UniversePackagesList = require("../UniversePackagesList");
 
-describe("UniversePackagesList", function() {
-  describe("#constructor", function() {
-    it("creates instances of UniversePackage", function() {
+describe("UniversePackagesList", () => {
+  describe("#constructor", () => {
+    it("creates instances of UniversePackage", () => {
       var items = [{ foo: "bar" }];
       var list = new UniversePackagesList({ items });
       items = list.getItems();
@@ -11,8 +11,8 @@ describe("UniversePackagesList", function() {
     });
   });
 
-  describe("#filterItemsByText", function() {
-    it("filters by name", function() {
+  describe("#filterItemsByText", () => {
+    it("filters by name", () => {
       var items = [{ name: "foo" }, { name: "bar" }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("bar").getItems();
@@ -20,7 +20,7 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("name")).toEqual("bar");
     });
 
-    it("sorts exact matches first", function() {
+    it("sorts exact matches first", () => {
       var items = [{ name: "kafka-beta" }, { name: "kafka" }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("kafka").getItems();
@@ -28,7 +28,7 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("name")).toEqual("kafka");
     });
 
-    it("filters by description", function() {
+    it("filters by description", () => {
       var items = [{ description: "foo" }, { description: "bar" }];
       var list = new UniversePackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
@@ -36,7 +36,7 @@ describe("UniversePackagesList", function() {
       expect(items[0].get("description")).toEqual("foo");
     });
 
-    it("filters by tags", function() {
+    it("filters by tags", () => {
       var items = [
         { tags: ["word", "foo", "bar"] },
         { tags: ["foo"] },
@@ -50,7 +50,7 @@ describe("UniversePackagesList", function() {
       expect(items[1].get("tags")).toEqual(["word", "foo", "bar"]);
     });
 
-    it("handles filter by tags with null elements", function() {
+    it("handles filter by tags with null elements", () => {
       var items = [{ tags: ["foo", "bar"] }, { tags: ["foo"] }, { tags: null }];
       var list = new UniversePackagesList({ items });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();

@@ -4,12 +4,12 @@ import Transaction from "../structs/Transaction";
 module.exports = {
   combineParsers(parsers = []) {
     parsers = parsers
-      .filter(function(parser) {
+      .filter(parser => {
         return typeof parser === "function";
       })
       .reverse();
 
-    return function(state = {}) {
+    return (state = {}) => {
       let index = parsers.length;
 
       const transactionLog = [];
@@ -33,7 +33,7 @@ module.exports = {
   simpleParser(path) {
     const searchPath = path.join(".");
 
-    return function(state) {
+    return state => {
       const value = findNestedPropertyInObject(state, searchPath);
 
       if (value == null) {

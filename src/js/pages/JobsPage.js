@@ -23,7 +23,7 @@ JobsPage.routeConfig = {
   matches: /^\/jobs/
 };
 
-JobsPage.willTransitionTo = function() {
+JobsPage.willTransitionTo = () => {
   SidebarActions.close();
 };
 

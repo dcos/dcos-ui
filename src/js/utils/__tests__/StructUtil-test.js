@@ -3,8 +3,8 @@ const Item = require("../../structs/Item");
 const List = require("../../structs/List");
 const StructUtil = require("../StructUtil");
 
-describe("StructUtil", function() {
-  describe("#copyRawObject", function() {
+describe("StructUtil", () => {
+  describe("#copyRawObject", () => {
     var expectedArrayItems = [
       1,
       "foo",
@@ -20,33 +20,33 @@ describe("StructUtil", function() {
     // Create Item struct with embedded List Struct
     var itemStruct = new Item({ qux: "foo", items: listStruct });
 
-    it("returns original data if no structs", function() {
-      var fn = function() {};
+    it("returns original data if no structs", () => {
+      var fn = () => {};
       var originalObject = [1, "string", fn, true];
       var newObj = StructUtil.copyRawObject(originalObject);
       expect(isEqual(newObj, originalObject)).toBeTruthy();
     });
 
-    it("returns original data from List struct", function() {
+    it("returns original data from List struct", () => {
       var newObj = StructUtil.copyRawObject(listStruct);
       expect(isEqual(newObj, expectedArrayItems)).toBeTruthy();
     });
 
-    it("clones Objects", function() {
+    it("clones Objects", () => {
       var array = [];
       var object = {};
       expect(StructUtil.copyRawObject(array) !== array).toBeTruthy();
       expect(StructUtil.copyRawObject(object) !== object).toBeTruthy();
     });
 
-    it("clones Objects with structs", function() {
+    it("clones Objects with structs", () => {
       var newObj = StructUtil.copyRawObject(itemStruct);
       expect(itemStruct._itemData !== newObj).toBeTruthy();
       expect(newObj.items !== expectedArrayItems).toBeTruthy();
     });
 
-    it("returns original data with nested structs", function() {
-      var fn = function() {};
+    it("returns original data with nested structs", () => {
+      var fn = () => {};
       var nestedObj = {
         foo: listStruct,
         bar: itemStruct,
