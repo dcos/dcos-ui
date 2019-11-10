@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
+import Authenticated from "../Authenticated";
 
-const Authenticated = require("../Authenticated");
 const AuthStore = require("../../stores/AuthStore");
 const Hooks = require("PluginSDK").Hooks;
 

@@ -197,7 +197,7 @@ const networks$ = graphqlObservable(
   catchError(() => of([]))
 );
 
-module.exports = componentFromStream(props$ =>
+export default componentFromStream(props$ =>
   combineLatest(props$, networks$).pipe(
     map(([props, networks]) => (
       <NodesTableContainer {...props} networks={networks} />
