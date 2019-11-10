@@ -10,9 +10,7 @@ const MarathonActions = require("../MarathonActions");
 const Pod = require("../../structs/Pod");
 const PodSpec = require("../../structs/PodSpec");
 
-Hooks.addFilter("hasCapability", () => {
-  return true;
-});
+Hooks.addFilter("hasCapability", () => true);
 
 let thisConfiguration;
 

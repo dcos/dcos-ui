@@ -46,9 +46,7 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
           state.push(Object.assign(definition, value || defaults));
           break;
         case REMOVE_ITEM:
-          state = state.filter((item, index) => {
-            return index !== value;
-          });
+          state = state.filter((item, index) => index !== value);
           break;
       }
     }

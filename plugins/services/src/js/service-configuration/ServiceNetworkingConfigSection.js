@@ -148,9 +148,9 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
             // We add the container port column if the network type is anything
             // but HOST.
             if (networkType !== Networking.type.HOST) {
-              const hostPortIndex = columns.findIndex(column => {
-                return column.prop === keys.port;
-              });
+              const hostPortIndex = columns.findIndex(
+                column => column.prop === keys.port
+              );
 
               columns.splice(hostPortIndex, 0, {
                 heading: getColumnHeadingFn(i18nMark("Container Port")),
@@ -164,18 +164,15 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             const containsServicePorts = portDefinitions.some(
-              portDefinition => {
-                return (
-                  portDefinition.servicePort != null &&
-                  portDefinition.servicePort !== 0
-                );
-              }
+              portDefinition =>
+                portDefinition.servicePort != null &&
+                portDefinition.servicePort !== 0
             );
 
             if (containsServicePorts) {
-              const hostPortIndex = columns.findIndex(column => {
-                return column.prop === keys.port;
-              });
+              const hostPortIndex = columns.findIndex(
+                column => column.prop === keys.port
+              );
               const servicePortsPosition = hostPortIndex + 1;
 
               columns.splice(servicePortsPosition, 0, {

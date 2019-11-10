@@ -91,12 +91,8 @@ const TimeSeriesChart = createReactClass({
     const prevVal = props.data[0].values;
     const nextVal = nextProps.data[0].values;
 
-    const prevY = prevVal.map(value => {
-      return value[props.y];
-    });
-    const nextY = nextVal.map(value => {
-      return value[props.y];
-    });
+    const prevY = prevVal.map(value => value[props.y]);
+    const nextY = nextVal.map(value => value[props.y]);
 
     return !isEqual(prevY, nextY);
   },

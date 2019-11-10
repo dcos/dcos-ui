@@ -9,9 +9,7 @@ let thisMockItems;
 
 describe("PodInstancesZoneFilter", () => {
   beforeEach(() => {
-    InstanceUtil.getNode = item => {
-      return item;
-    };
+    InstanceUtil.getNode = item => item;
     thisMockItems = [
       {
         getZoneName() {

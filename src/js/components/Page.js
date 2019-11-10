@@ -20,18 +20,16 @@ const PageHeader = ({
   supplementalContent,
   tabs,
   actionsDisabled
-}) => {
-  return (
-    <BasePageHeader
-      actions={actions}
-      addButton={addButton}
-      breadcrumbs={breadcrumbs}
-      supplementalContent={supplementalContent}
-      tabs={tabs}
-      actionsDisabled={actionsDisabled}
-    />
-  );
-};
+}) => (
+  <BasePageHeader
+    actions={actions}
+    addButton={addButton}
+    breadcrumbs={breadcrumbs}
+    supplementalContent={supplementalContent}
+    tabs={tabs}
+    actionsDisabled={actionsDisabled}
+  />
+);
 
 TemplateUtil.defineChildren(PageHeader, {
   Breadcrumbs: BasePageHeader.Breadcrumbs,

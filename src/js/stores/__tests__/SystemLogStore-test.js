@@ -40,11 +40,13 @@ describe("SystemLogStore", () => {
         SystemLogTypes.APPEND
       );
 
-      expect(
-        result.entries.map(entry => {
-          return entry.fields.MESSAGE;
-        })
-      ).toEqual(["one", "two", "foo", "bar", "baz"]);
+      expect(result.entries.map(entry => entry.fields.MESSAGE)).toEqual([
+        "one",
+        "two",
+        "foo",
+        "bar",
+        "baz"
+      ]);
       expect(result.totalSize).toEqual(15);
     });
 
@@ -68,9 +70,7 @@ describe("SystemLogStore", () => {
         SystemLogTypes.APPEND
       );
 
-      const entries = result.entries.map(entry => {
-        return entry.fields.MESSAGE;
-      });
+      const entries = result.entries.map(entry => entry.fields.MESSAGE);
 
       expect(entries).toEqual(["one", "two", "", "", ""]);
       expect(result.totalSize).toEqual(500000);
@@ -95,9 +95,7 @@ describe("SystemLogStore", () => {
         SystemLogTypes.PREPEND
       );
 
-      const entries = result.entries.map(entry => {
-        return entry.fields.MESSAGE;
-      });
+      const entries = result.entries.map(entry => entry.fields.MESSAGE);
 
       expect(entries).toEqual(["foo", "bar", "baz", "one", "two"]);
       expect(result.totalSize).toEqual(15);
@@ -123,11 +121,13 @@ describe("SystemLogStore", () => {
         SystemLogTypes.PREPEND
       );
 
-      expect(
-        result.entries.map(entry => {
-          return entry.fields.MESSAGE;
-        })
-      ).toEqual(["", "", "", "one", "two"]);
+      expect(result.entries.map(entry => entry.fields.MESSAGE)).toEqual([
+        "",
+        "",
+        "",
+        "one",
+        "two"
+      ]);
       expect(result.totalSize).toEqual(500000);
     });
   });

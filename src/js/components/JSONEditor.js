@@ -429,9 +429,9 @@ class JSONEditor extends React.Component {
 
       // Check if there is a token that matches the path completely
       const errorPath = error.path.join(".");
-      const token = this.jsonMeta.find(token => {
-        return token.path.join(".") === errorPath;
-      });
+      const token = this.jsonMeta.find(
+        token => token.path.join(".") === errorPath
+      );
 
       if (token) {
         return {
@@ -448,9 +448,9 @@ class JSONEditor extends React.Component {
       //
       const candidates = this.jsonMeta.reduce(
         (memo, token) => {
-          const isMatch = token.path.every((component, i) => {
-            return path[i] === component;
-          });
+          const isMatch = token.path.every(
+            (component, i) => path[i] === component
+          );
 
           if (isMatch) {
             memo.push({
@@ -465,9 +465,9 @@ class JSONEditor extends React.Component {
       );
 
       // Find the most specific token line
-      const candidate = candidates.sort((a, b) => {
-        return b.path.length - a.path.length;
-      })[0];
+      const candidate = candidates.sort(
+        (a, b) => b.path.length - a.path.length
+      )[0];
 
       // Keep the difference between the original and the new path and display
       // it as prefix in the error message:

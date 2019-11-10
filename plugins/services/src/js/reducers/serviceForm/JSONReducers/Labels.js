@@ -25,9 +25,7 @@ module.exports = {
             this.labels.push({ key: null, value: "" });
             break;
           case REMOVE_ITEM:
-            this.labels = this.labels.filter((item, index) => {
-              return index !== value;
-            });
+            this.labels = this.labels.filter((item, index) => index !== value);
             break;
         }
 

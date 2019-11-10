@@ -121,9 +121,7 @@ module.exports = class ServiceTree extends Tree {
       return null;
     }
 
-    return service.tasks.find(task => {
-      return task.id === taskID;
-    });
+    return service.tasks.find(task => task.id === taskID);
   }
 
   getItemParent(id, parent = null) {
@@ -160,9 +158,7 @@ module.exports = class ServiceTree extends Tree {
       return this;
     }
 
-    return this.findItem(item => {
-      return item.getId() === id;
-    });
+    return this.findItem(item => item.getId() === id);
   }
 
   getInstancesCount() {
@@ -363,9 +359,9 @@ module.exports = class ServiceTree extends Tree {
 
       labels.forEach(({ key, value }) => {
         if (
-          serviceTreeLabels.findIndex(label => {
-            return label.key === key && label.value === value;
-          }) < 0
+          serviceTreeLabels.findIndex(
+            label => label.key === key && label.value === value
+          ) < 0
         ) {
           serviceTreeLabels = serviceTreeLabels.concat([{ key, value }]);
         }

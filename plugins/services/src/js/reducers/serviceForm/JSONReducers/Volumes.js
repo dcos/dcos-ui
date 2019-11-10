@@ -112,9 +112,7 @@ function reduceVolumes(state, { type, path, value }) {
           );
           break;
         case REMOVE_ITEM:
-          this.volumes = this.volumes.filter((item, index) => {
-            return index !== value;
-          });
+          this.volumes = this.volumes.filter((item, index) => index !== value);
           break;
       }
 
@@ -182,14 +180,13 @@ module.exports = {
     }
 
     return state.container.volumes
-      .filter(item => {
-        return (
+      .filter(
+        item =>
           item.persistent != null ||
           item.external != null ||
           item.hostPath != null ||
           item.mode != null
-        );
-      })
+      )
       .reduce((memo, item, index) => {
         /**
          * For the volumes we have a special case as all the volumes

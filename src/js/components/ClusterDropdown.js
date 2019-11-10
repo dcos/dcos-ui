@@ -1,15 +1,13 @@
 import { Dropdown } from "reactjs-components";
 import React from "react";
 
-const ClusterDropdownTrigger = ({ onTrigger, children }) => {
-  return (
-    <span className="header-bar-dropdown-trigger" onClick={onTrigger}>
-      <span className="header-bar-dropdown-trigger-content text-overflow">
-        {children}
-      </span>
+const ClusterDropdownTrigger = ({ onTrigger, children }) => (
+  <span className="header-bar-dropdown-trigger" onClick={onTrigger}>
+    <span className="header-bar-dropdown-trigger-content text-overflow">
+      {children}
     </span>
-  );
-};
+  </span>
+);
 
 class ClusterDropdown extends React.Component {
   getMenuItems() {

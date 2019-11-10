@@ -20,17 +20,13 @@ const fakeUsedResources = Object.keys(DefaultResourceTypes).reduce(
 );
 const fakeNode = new Node({ used_resources: fakeUsedResources });
 
-const usedColors = Object.keys(DefaultResourceTypes).map(resource => {
-  return DefaultResourceTypes[resource].colorID;
-});
+const usedColors = Object.keys(DefaultResourceTypes).map(
+  resource => DefaultResourceTypes[resource].colorID
+);
 const availableColors = Array(9)
   .fill()
-  .map((value, index) => {
-    return index;
-  })
-  .filter(value => {
-    return usedColors.indexOf(value) === -1;
-  });
+  .map((value, index) => index)
+  .filter(value => usedColors.indexOf(value) === -1);
 
 function getAvailableColors() {
   const colors = availableColors.slice(0);
@@ -64,10 +60,11 @@ const ResourcesUtil = {
     let resources = Object.keys(usedResources);
 
     if (excludeList.length > 0) {
-      resources = resources.filter(resource => {
-        // If it's not in the exclude list, we want it
-        return excludeList.indexOf(resource) === -1;
-      });
+      resources = resources.filter(
+        (
+          resource // If it's not in the exclude list, we want it
+        ) => excludeList.indexOf(resource) === -1
+      );
     }
 
     return resources;

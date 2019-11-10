@@ -15,9 +15,7 @@ describe("DSLUtil", () => {
 
       DSLUtil.reduceAstFilters(ast, handler);
 
-      const texts = handler.mock.calls.map(call => {
-        return call[1].filterParams.text;
-      });
+      const texts = handler.mock.calls.map(call => call[1].filterParams.text);
 
       expect(texts).toEqual(["foo", "bar", "attribute", "exact"]);
     });
@@ -26,9 +24,7 @@ describe("DSLUtil", () => {
       const ast = new DSLExpression('foo bar (is:attribute "exact")').ast;
       const texts = DSLUtil.reduceAstFilters(
         ast,
-        (memo, filter) => {
-          return memo.concat(filter.filterParams.text);
-        },
+        (memo, filter) => memo.concat(filter.filterParams.text),
         []
       );
 

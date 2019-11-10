@@ -42,30 +42,31 @@ const searchResults$ = searchTerm$.pipe(
     const query = packageRepositoryQuery(searchTerm);
 
     return dataLayer.query(query).pipe(
-      map(result => {
-        // Backwards compatible with the previous struct/RepositoryList for packages
-        return new RepositoryList({
-          items: result.data.packageRepository
-        });
-      })
+      map(
+        (
+          result // Backwards compatible with the previous struct/RepositoryList for packages
+        ) =>
+          new RepositoryList({
+            items: result.data.packageRepository
+          })
+      )
     );
   })
 );
 
 const components$ = searchTerm$.pipe(
-  combineLatest(searchResults$, (searchTerm, packageRepository) => {
-    return { packageRepository, searchTerm };
-  }),
+  combineLatest(searchResults$, (searchTerm, packageRepository) => ({
+    packageRepository,
+    searchTerm
+  })),
   // We map over the data and return a component to render
-  map(data => {
-    return (
-      <RepositoriesTabUI
-        repositories={data.packageRepository}
-        searchTerm={data.searchTerm}
-        onSearch={value => searchTerm$.next(value)}
-      />
-    );
-  }),
+  map(data => (
+    <RepositoriesTabUI
+      repositories={data.packageRepository}
+      searchTerm={data.searchTerm}
+      onSearch={value => searchTerm$.next(value)}
+    />
+  )),
   // The first component is the loading
   startWith(<RepositoriesLoading />),
   // If anything goes wrong, we render an error component

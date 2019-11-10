@@ -42,22 +42,20 @@ function requestFromMesos(resolve, reject) {
 var MesosSummaryActions = {
   fetchSummary: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    (resolve, reject) => {
-      return () => {
-        const canAccessMesosAPI = Hooks.applyFilter(
-          "hasCapability",
-          false,
-          "mesosAPI"
-        );
-        if (canAccessMesosAPI) {
-          requestFromMesos(resolve, reject);
-        } else {
-          AppDispatcher.handleServerAction({
-            type: REQUEST_SUMMARY_SUCCESS,
-            data: MesosSummaryUtil.getEmptyState()
-          });
-        }
-      };
+    (resolve, reject) => () => {
+      const canAccessMesosAPI = Hooks.applyFilter(
+        "hasCapability",
+        false,
+        "mesosAPI"
+      );
+      if (canAccessMesosAPI) {
+        requestFromMesos(resolve, reject);
+      } else {
+        AppDispatcher.handleServerAction({
+          type: REQUEST_SUMMARY_SUCCESS,
+          data: MesosSummaryUtil.getEmptyState()
+        });
+      }
     },
     { delayAfterCount: Config.delayAfterErrorCount }
   )

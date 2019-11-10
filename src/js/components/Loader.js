@@ -45,9 +45,9 @@ const typeMap = {
 
 class Loader extends React.Component {
   getDivs(length) {
-    return Array.from({ length }).map((_, index) => {
-      return <div className="loader-element" key={index} />;
-    });
+    return Array.from({ length }).map((_, index) => (
+      <div className="loader-element" key={index} />
+    ));
   }
 
   render() {

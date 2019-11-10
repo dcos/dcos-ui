@@ -54,9 +54,9 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
       breadcrumbs = <NodeBreadcrumbs node={node} />;
     }
 
-    const dontScroll = dontScrollRoutes.some(regex => {
-      return regex.test(location.pathname);
-    });
+    const dontScroll = dontScrollRoutes.some(regex =>
+      regex.test(location.pathname)
+    );
 
     return (
       <Page dontScroll={dontScroll}>

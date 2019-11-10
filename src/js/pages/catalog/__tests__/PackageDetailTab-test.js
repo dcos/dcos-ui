@@ -42,13 +42,14 @@ describe("PackageDetailTab", () => {
     });
 
     it("do NOT call fetchPackageVersions when package versions is cached", () => {
-      CosmosPackagesStore.getPackageVersions = jest.fn(() => {
-        return new UniversePackageVersions({
-          packageVersions: {
-            "1": "1"
-          }
-        });
-      });
+      CosmosPackagesStore.getPackageVersions = jest.fn(
+        () =>
+          new UniversePackageVersions({
+            packageVersions: {
+              "1": "1"
+            }
+          })
+      );
 
       CosmosPackagesStore.fetchPackageVersions = jasmine.createSpy(
         "fetchPackageVersions"
@@ -218,9 +219,9 @@ describe("PackageDetailTab", () => {
       thisInstance.state.isLoadingSelectedVersion = false;
       thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
-      CosmosPackagesStore.getPackageDetails = jest.fn(() => {
-        return new UniversePackage(packageDescribeFixtures);
-      });
+      CosmosPackagesStore.getPackageDetails = jest.fn(
+        () => new UniversePackage(packageDescribeFixtures)
+      );
 
       thisInstance.render();
       expect(thisInstance.getLoadingScreen).not.toHaveBeenCalled();

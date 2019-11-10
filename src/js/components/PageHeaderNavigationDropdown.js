@@ -12,9 +12,7 @@ import {
 class PageHeaderNavigationDropdown extends React.Component {
   getActiveItemID() {
     const { items } = this.props;
-    const activeTab = items.find(item => {
-      return item.isActive;
-    });
+    const activeTab = items.find(item => item.isActive);
 
     if (activeTab) {
       return activeTab.id;

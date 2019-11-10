@@ -28,9 +28,10 @@ describe("FilterButtons", () => {
   describe("#getFilterButtons", () => {
     it("returns an array of buttons", () => {
       var buttons = thisInstance.instance().getFilterButtons();
-      var areButtons = buttons.reduce((accumulated, element) => {
-        return accumulated && element.type === "button";
-      }, true);
+      var areButtons = buttons.reduce(
+        (accumulated, element) => accumulated && element.type === "button",
+        true
+      );
 
       expect(Array.isArray(buttons)).toEqual(true);
       expect(areButtons).toEqual(true);
@@ -38,9 +39,10 @@ describe("FilterButtons", () => {
 
     it('creates an "all" button when "all" is listed as filter', () => {
       var buttons = thisInstance.instance().getFilterButtons();
-      var hasAll = buttons.reduce((accumulated, element) => {
-        return accumulated || element.key === "all";
-      }, false);
+      var hasAll = buttons.reduce(
+        (accumulated, element) => accumulated || element.key === "all",
+        false
+      );
 
       expect(hasAll).toEqual(true);
     });

@@ -30,9 +30,9 @@ const UnitHealthUtil = {
    * @return {Object}       - UnitHealthStatus object.
    */
   getHealth(health) {
-    const healthKey = Object.keys(UnitHealthStatus).find(key => {
-      return UnitHealthStatus[key].value === health;
-    });
+    const healthKey = Object.keys(UnitHealthStatus).find(
+      key => UnitHealthStatus[key].value === health
+    );
 
     return (
       UnitHealthStatus[healthKey] || UnitHealthStatus[UnitHealthTypes.SERVER_NA]

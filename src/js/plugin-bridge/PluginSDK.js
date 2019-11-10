@@ -111,14 +111,12 @@ const initialize = pluginsConfig => {
  * @param  {String} pluginID Plugin pluginID
  * @return {Function}    Dispatch method
  */
-const createDispatcher = pluginID => {
-  return action => {
-    // Inject origin namespace if simple Object
-    if (action === Object(action)) {
-      action = Object.assign({}, action, { __origin: pluginID });
-    }
-    Store.dispatch(action);
-  };
+const createDispatcher = pluginID => action => {
+  // Inject origin namespace if simple Object
+  if (action === Object(action)) {
+    action = Object.assign({}, action, { __origin: pluginID });
+  }
+  Store.dispatch(action);
 };
 
 /**
@@ -128,39 +126,37 @@ const createDispatcher = pluginID => {
  * @param  {PluginSDK} SDK - PluginSDK
  * @return {Object}     - API for registering/requesting actions
  */
-const getActionsAPI = SDK => {
-  return {
-    registerActions(actions, name) {
-      if (SDK.pluginID in REGISTERED_ACTIONS) {
-        throw new Error(`${SDK.pluginID} already has registered actions.`);
-      }
-      // Allow Application to name it's actions. Plugins have actions
-      // registered under their pluginID
-      if (SDK.pluginID !== APPLICATION) {
-        name = SDK.pluginID;
-      }
-      REGISTERED_ACTIONS[name] = actions;
-    },
-
-    getActions(name, defaultValue) {
-      if (!name || typeof name !== "string") {
-        throw new Error(`Name not valid. Passed in ${name}`);
-      }
-      // Return Actions instantiated with SDK.
-      // Actions will now use Plugin's own dispatch
-      if (!REGISTERED_ACTIONS[name]) {
-        if (defaultValue !== undefined) {
-          return defaultValue;
-        }
-        throw Error(
-          `No registered actions for ${name}. Make sure plugin is loaded or actions are registered`
-        );
-      }
-
-      return REGISTERED_ACTIONS[name];
+const getActionsAPI = SDK => ({
+  registerActions(actions, name) {
+    if (SDK.pluginID in REGISTERED_ACTIONS) {
+      throw new Error(`${SDK.pluginID} already has registered actions.`);
     }
-  };
-};
+    // Allow Application to name it's actions. Plugins have actions
+    // registered under their pluginID
+    if (SDK.pluginID !== APPLICATION) {
+      name = SDK.pluginID;
+    }
+    REGISTERED_ACTIONS[name] = actions;
+  },
+
+  getActions(name, defaultValue) {
+    if (!name || typeof name !== "string") {
+      throw new Error(`Name not valid. Passed in ${name}`);
+    }
+    // Return Actions instantiated with SDK.
+    // Actions will now use Plugin's own dispatch
+    if (!REGISTERED_ACTIONS[name]) {
+      if (defaultValue !== undefined) {
+        return defaultValue;
+      }
+      throw Error(
+        `No registered actions for ${name}. Make sure plugin is loaded or actions are registered`
+      );
+    }
+
+    return REGISTERED_ACTIONS[name];
+  }
+});
 
 /**
  * Create a flux store that exposes events to components. This store
@@ -191,11 +187,7 @@ const addStoreConfig = definition => {
  * @param  {String} root - root of the slice to return
  * @return {Function}      Returns state at root
  */
-const getStateRootedAt = root => {
-  return () => {
-    return Store.getState()[root];
-  };
-};
+const getStateRootedAt = root => () => Store.getState()[root];
 
 /**
  * Extends the PluginSDK
@@ -305,12 +297,12 @@ const __addReducer = (pluginID, reducer) => {
  * @param  {Function} callback - Function invoked with action as argument for all dispatched Actions.
  * @returns {Function} - unsubscribe
  */
-const onDispatch = callback => {
-  // Add ability to react to actions outside of a reducer.
+const onDispatch = (
+  callback // Add ability to react to actions outside of a reducer.
+) =>
   // This will most likely be deprecated at some point but for now it gives
   // us backwards compatibility with much of our existing dispatcher code
-  return ActionsPubSub.sub(callback);
-};
+  ActionsPubSub.sub(callback);
 
 // Subscribe to Store config change and call initialize with
 // new plugin configuration

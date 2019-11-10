@@ -104,17 +104,15 @@ describe("JSONMultiContainer", () => {
       const reducers = combineReducers(JSONMultiContainerReducers).bind({});
       const parser = combineParsers(JSONMultiContainerParser);
       const batch = parser(JSON.parse(JSON.stringify(podDefinition))).reduce(
-        (batch, item) => {
-          return batch.add(item);
-        },
+        (batch, item) => batch.add(item),
         new Batch()
       );
       const jsonFromBatch = batch.reduce(reducers, {});
       expect(jsonFromBatch).toEqual(podDefinition);
-      const batchFromJSONFromBatch = parser(jsonFromBatch).reduce((batch, item) => {
-        return batch.add(item);
-      },
-      new Batch());
+      const batchFromJSONFromBatch = parser(jsonFromBatch).reduce(
+        (batch, item) => batch.add(item),
+        new Batch()
+      );
       const jsonFromBatchFromJSONFromBatch = batchFromJSONFromBatch.reduce(
         reducers,
         {}

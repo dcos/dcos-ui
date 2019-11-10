@@ -22,9 +22,7 @@ describe("Tree", () => {
     });
 
     it("throws when initialized with a non-array argument", () => {
-      const fn = () => {
-        return new Tree({ items: "foo" });
-      };
+      const fn = () => new Tree({ items: "foo" });
 
       expect(fn).toThrow();
     });
@@ -129,25 +127,19 @@ describe("Tree", () => {
     });
 
     it("returns an instance of Tree", () => {
-      var filteredTree = thisInstance.filterItems(() => {
-        return true;
-      });
+      var filteredTree = thisInstance.filterItems(() => true);
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
     it("filters items", () => {
-      var filteredTree = thisInstance.filterItems(item => {
-        return item.name === "bar";
-      });
+      var filteredTree = thisInstance.filterItems(item => item.name === "bar");
 
       expect(filteredTree.getItems().length).toEqual(1);
       expect(filteredTree.getItems()[0]).toEqual({ name: "bar" });
     });
 
     it("filters sub items", () => {
-      var filteredTree = thisInstance.filterItems(item => {
-        return item.name === "one";
-      });
+      var filteredTree = thisInstance.filterItems(item => item.name === "one");
 
       expect(
         filteredTree
@@ -305,19 +297,13 @@ describe("Tree", () => {
     });
 
     it("returns undefined if no matching item was found", () => {
-      expect(
-        thisInstance.findItem(() => {
-          return false;
-        })
-      ).toEqual(undefined);
+      expect(thisInstance.findItem(() => false)).toEqual(undefined);
     });
 
     it("returns matching item", () => {
-      expect(
-        thisInstance.findItem(item => {
-          return item.name === "beta";
-        })
-      ).toEqual({ name: "beta" });
+      expect(thisInstance.findItem(item => item.name === "beta")).toEqual({
+        name: "beta"
+      });
     });
   });
 
@@ -333,9 +319,7 @@ describe("Tree", () => {
     });
 
     it("returns an instance of Tree", () => {
-      var tree = thisInstance.mapItems(item => {
-        return item;
-      });
+      var tree = thisInstance.mapItems(item => item);
       expect(tree instanceof Tree).toBeTruthy();
     });
 

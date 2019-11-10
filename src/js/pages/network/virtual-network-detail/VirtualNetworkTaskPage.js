@@ -97,9 +97,9 @@ class VirtualNetworkTaskPage extends React.Component {
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-    const overlay = VirtualNetworksStore.getOverlays().findItem(overlay => {
-      return overlay.getName() === overlayName;
-    });
+    const overlay = VirtualNetworksStore.getOverlays().findItem(
+      overlay => overlay.getName() === overlayName
+    );
 
     let breadcrumbs;
     if (task != null) {
@@ -115,9 +115,9 @@ class VirtualNetworkTaskPage extends React.Component {
       breadcrumbs = <NetworksDetailTaskBreadcrumbs />;
     }
 
-    const dontScroll = dontScrollRoutes.some(regex => {
-      return regex.test(location.pathname);
-    });
+    const dontScroll = dontScrollRoutes.some(regex =>
+      regex.test(location.pathname)
+    );
 
     return (
       <Page dontScroll={dontScroll}>

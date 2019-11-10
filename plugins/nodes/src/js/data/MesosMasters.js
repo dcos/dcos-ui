@@ -35,14 +35,13 @@ export function combineMasterData(leaderDataSource, mesosMastersHealth) {
   );
   const mesosMasters$ = mesosMastersHealth().pipe(startWith(undefined));
 
-  return () => {
-    return mesosLeader$.pipe(
+  return () =>
+    mesosLeader$.pipe(
       combineLatest(mesosMasters$, (leader, masters) => ({
         leader,
         masters: filterLeader(leader, masters)
       }))
     );
-  };
 }
 
 // This is an attempt of the mediator pattern without componentFromStream

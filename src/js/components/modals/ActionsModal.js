@@ -124,9 +124,7 @@ class ActionsModal extends mixin(StoreMixin) {
 
       // Create a string concatenating n-1 items
       const selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      const itemIDs = selectedItemsShownMinusOne.map(item => {
-        return item[itemID];
-      });
+      const itemIDs = selectedItemsShownMinusOne.map(item => item[itemID]);
       itemIDs.forEach(_itemID => {
         selectedItemsString += `${_itemID}, `;
       });

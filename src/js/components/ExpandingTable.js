@@ -66,9 +66,9 @@ class ExpandingTable extends React.Component {
 
   getColumns(columns) {
     // Replace the #render method on each column.
-    return columns.map(column => {
-      return Object.assign({}, column, { render: this.getRenderer(column) });
-    });
+    return columns.map(column =>
+      Object.assign({}, column, { render: this.getRenderer(column) })
+    );
   }
 
   getRenderer(column) {

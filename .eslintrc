@@ -109,6 +109,7 @@
     "new-cap": "off",
     "newline-per-chained-call": "off",
     "no-case-declarations": "off",
+    "no-confusing-arrow": "off",
     "no-console": "off",
     "no-duplicate-imports": "error",
     "no-else-return": "off",

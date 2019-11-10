@@ -26,23 +26,19 @@ export const DIALOGS = {
   DESTROY: "destroy"
 };
 
-const LoadingScreen = () => {
-  return (
-    <Page>
-      <Page.Header breadcrumbs={[]} />
-      <Loader />
-    </Page>
-  );
-};
+const LoadingScreen = () => (
+  <Page>
+    <Page.Header breadcrumbs={[]} />
+    <Loader />
+  </Page>
+);
 
-const ErrorScreen = () => {
-  return (
-    <Page>
-      <Page.Header breadcrumbs={[]} />
-      <RequestErrorMsg />
-    </Page>
-  );
-};
+const ErrorScreen = () => (
+  <Page>
+    <Page.Header breadcrumbs={[]} />
+    <RequestErrorMsg />
+  </Page>
+);
 
 const disabledDialog$ = new BehaviorSubject(null);
 const disableDialog = () => {

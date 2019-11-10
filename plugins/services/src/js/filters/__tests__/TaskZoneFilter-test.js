@@ -9,9 +9,7 @@ let thisMockItems;
 
 describe("TasksZoneFilter", () => {
   beforeEach(() => {
-    TaskUtil.getNode = item => {
-      return item;
-    };
+    TaskUtil.getNode = item => item;
     thisMockItems = [
       {
         getZoneName() {

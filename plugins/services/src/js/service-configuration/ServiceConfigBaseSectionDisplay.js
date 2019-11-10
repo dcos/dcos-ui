@@ -40,10 +40,11 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
     const { values, tabViewID } = this.getDefinition();
 
     const configurationMapRows = values
-      .filter(row => {
-        // Some rows must be excluded if relevant data is missing.
-        return !this.shouldExcludeItem(row);
-      })
+      .filter(
+        (
+          row // Some rows must be excluded if relevant data is missing.
+        ) => !this.shouldExcludeItem(row)
+      )
       .map((row, rowIndex) => {
         const reactKey = `${rowIndex}`;
         let value = findNestedPropertyInObject(appConfig, row.key);

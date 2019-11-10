@@ -36,8 +36,8 @@ const DSLFormUtil = {
      * @param {FilterNode} astNode - The node in the AST to compare against
      * @returns {Boolean} Return true if the two nodes are compatible
      */
-    return (nodeAdded, astNode) => {
-      return referenceNodes.some(referenceNode => {
+    return (nodeAdded, astNode) =>
+      referenceNodes.some(referenceNode => {
         if (referenceNode.filterType !== astNode.filterType) {
           return false;
         }
@@ -53,7 +53,6 @@ const DSLFormUtil = {
           referenceNode.filterParams.text === astNode.filterParams.text
         );
       });
-    };
   }
 };
 

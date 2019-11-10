@@ -231,9 +231,9 @@ class CreateServiceModal extends Component {
   }
 
   shouldForceSubmit() {
-    return this.state.apiErrors.some(error => {
-      return error.type === ServiceErrorTypes.SERVICE_DEPLOYING;
-    });
+    return this.state.apiErrors.some(
+      error => error.type === ServiceErrorTypes.SERVICE_DEPLOYING
+    );
   }
 
   handleRouterWillLeave() {
@@ -307,9 +307,9 @@ class CreateServiceModal extends Component {
     if (serviceReviewActive) {
       // Remove the 'Application is deploying' error when we havigate back
       // since it's not related to the form
-      const apiErrors = this.state.apiErrors.filter(error => {
-        return error.type !== ServiceErrorTypes.SERVICE_DEPLOYING;
-      });
+      const apiErrors = this.state.apiErrors.filter(
+        error => error.type !== ServiceErrorTypes.SERVICE_DEPLOYING
+      );
 
       // Just hide review screen. Form or JSON mode will be
       // activated automatically depending on their last state
@@ -763,9 +763,7 @@ class CreateServiceModal extends Component {
           inputConfigReducers={inputConfigReducers}
           isEdit={this.isLocationEdit(location)}
           isJSONModeActive={isJSONModeActive}
-          ref={ref => {
-            return (this.createComponent = ref);
-          }}
+          ref={ref => (this.createComponent = ref)}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
@@ -785,9 +783,7 @@ class CreateServiceModal extends Component {
           onChange={this.handleServiceChange}
           onErrorsChange={this.handleServiceErrorsChange}
           onPropertyChange={this.handleServicePropertyChange}
-          ref={ref => {
-            return (this.createComponent = ref);
-          }}
+          ref={ref => (this.createComponent = ref)}
           service={serviceSpec}
         />
       );

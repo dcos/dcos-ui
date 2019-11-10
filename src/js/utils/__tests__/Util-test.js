@@ -10,9 +10,9 @@ describe("Util", () => {
         ids[index] = Util.uniqueID("100");
       });
 
-      const result = ids.every((id, index, array) => {
-        return !array.includes(id, index + 1);
-      });
+      const result = ids.every(
+        (id, index, array) => !array.includes(id, index + 1)
+      );
 
       expect(result).toBeTruthy();
     });
@@ -149,23 +149,17 @@ describe("Util", () => {
   describe("#findLastIndex", () => {
     it("returns -1 if empty array", () => {
       var array = [];
-      var index = Util.findLastIndex(array, obj => {
-        return obj === 1;
-      });
+      var index = Util.findLastIndex(array, obj => obj === 1);
       expect(index).toEqual(-1);
     });
     it("returns -1 if not found", () => {
       var array = [1, 2, 3, 4, 5];
-      var index = Util.findLastIndex(array, obj => {
-        return obj === 6;
-      });
+      var index = Util.findLastIndex(array, obj => obj === 6);
       expect(index).toEqual(-1);
     });
     it("returns 4", () => {
       var array = [3, 3, 2, 3, 3, 5];
-      var index = Util.findLastIndex(array, obj => {
-        return obj === 3;
-      });
+      var index = Util.findLastIndex(array, obj => obj === 3);
       expect(index).toEqual(4);
     });
     it("returns 1", () => {
@@ -174,9 +168,7 @@ describe("Util", () => {
         { a: "a", b: "bbb" },
         { a: "a", b: "b" }
       ];
-      var index = Util.findLastIndex(array, obj => {
-        return obj.b === "bbb";
-      });
+      var index = Util.findLastIndex(array, obj => obj.b === "bbb");
       expect(index).toEqual(1);
     });
   });

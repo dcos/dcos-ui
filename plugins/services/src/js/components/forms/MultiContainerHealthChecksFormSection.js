@@ -239,13 +239,11 @@ class MultiContainerHealthChecksFormSection extends Component {
       return [];
     }
 
-    return container.endpoints.map((endpoint, index) => {
-      return (
-        <option key={endpoint} value={endpoint.name}>
-          {HealthCheckUtil.getEndpointText(index, endpoint, data)}
-        </option>
-      );
-    });
+    return container.endpoints.map((endpoint, index) => (
+      <option key={endpoint} value={endpoint.name}>
+        {HealthCheckUtil.getEndpointText(index, endpoint, data)}
+      </option>
+    ));
   }
 
   getHTTPFields(healthCheck, container, path, errorsLens) {
@@ -438,29 +436,27 @@ class MultiContainerHealthChecksFormSection extends Component {
   }
 
   getContainerHealthChecks(containers) {
-    return containers.map((container, index) => {
-      return (
-        <div key={container.name}>
-          <div className="form-row-element">
-            <h3 className="form-header short-bottom">
-              <FormGroupHeading>
-                <FormGroupHeadingContent>
-                  <Icon
-                    shape={SystemIcons.Container}
-                    size={iconSizeXs}
-                    color={purple}
-                  />
-                </FormGroupHeadingContent>
-                <FormGroupHeadingContent primary={true}>
-                  {container.name}
-                </FormGroupHeadingContent>
-              </FormGroupHeading>
-            </h3>
-          </div>
-          {this.getHealthChecksBody(container, index)}
+    return containers.map((container, index) => (
+      <div key={container.name}>
+        <div className="form-row-element">
+          <h3 className="form-header short-bottom">
+            <FormGroupHeading>
+              <FormGroupHeadingContent>
+                <Icon
+                  shape={SystemIcons.Container}
+                  size={iconSizeXs}
+                  color={purple}
+                />
+              </FormGroupHeadingContent>
+              <FormGroupHeadingContent primary={true}>
+                {container.name}
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
+          </h3>
         </div>
-      );
-    });
+        {this.getHealthChecksBody(container, index)}
+      </div>
+    ));
   }
 
   render() {

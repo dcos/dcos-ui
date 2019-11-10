@@ -43,9 +43,9 @@ class NodesZoneFilter extends DSLFilter {
       zone = filterArgumentsText;
     }
 
-    return resultSet.filterItems(node => {
-      return node.getZoneName().toLowerCase() === zone;
-    });
+    return resultSet.filterItems(
+      node => node.getZoneName().toLowerCase() === zone
+    );
   }
 }
 

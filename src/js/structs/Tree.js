@@ -87,9 +87,10 @@ module.exports = class Tree extends List {
       const regex = StringUtil.escapeForRegExp(filterText);
       const searchPattern = new RegExp(regex, "i");
 
-      return this.filterItems(item => {
-        // Filter items by property values
-        return Object.keys(filterProperties).some(prop => {
+      return this.filterItems((
+        item // Filter items by property values
+      ) =>
+        Object.keys(filterProperties).some(prop => {
           // We need different handlers for item getters since the property
           // there can be different ways of getting the value needed
 
@@ -110,8 +111,8 @@ module.exports = class Tree extends List {
           // Some of the items in lists are not always of instance Item and
           // therefore we might need to get it directly on the object
           return searchPattern.test(item[prop] || "");
-        });
-      });
+        })
+      );
     }
 
     return new this.constructor(

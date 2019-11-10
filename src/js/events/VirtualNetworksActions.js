@@ -14,9 +14,9 @@ const VirtualNetworksActions = {
       success(response) {
         let { overlays, vtep_mac_oui, vtep_subnet } = response.network;
         // Map structure to mimic agents overlays
-        overlays = overlays.map(overlay => {
-          return { info: overlay };
-        });
+        overlays = overlays.map(overlay => ({
+          info: overlay
+        }));
 
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_SUCCESS,

@@ -35,9 +35,9 @@ var PodUtil = {
       return true;
     }
 
-    return instance.getContainers().some(container => {
-      return PodUtil.isContainerMatchingText(container, text);
-    });
+    return instance
+      .getContainers()
+      .some(container => PodUtil.isContainerMatchingText(container, text));
   },
 
   /**
@@ -107,9 +107,9 @@ var PodUtil = {
     );
 
     // Re-compose PodInstances from plain objects
-    const instances = Object.values(combinedInstanceMap).map(instance => {
-      return new PodInstance(instance);
-    });
+    const instances = Object.values(combinedInstanceMap).map(
+      instance => new PodInstance(instance)
+    );
 
     return new PodInstanceList({ items: instances });
   },

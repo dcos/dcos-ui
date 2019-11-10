@@ -85,18 +85,15 @@ class FrameworkConfigurationForm extends Component {
     const { formData, handleFocusFieldChange } = this.props;
 
     const fieldsWithErrors = Object.keys(errorSchema[activeTab]).filter(
-      field => {
-        return (
-          errorSchema[activeTab][field].__errors &&
-          errorSchema[activeTab][field].__errors.length > 0
-        );
-      }
+      field =>
+        errorSchema[activeTab][field].__errors &&
+        errorSchema[activeTab][field].__errors.length > 0
     );
 
     // first field with errors in the current tab
-    const fieldToFocus = Object.keys(formData[activeTab]).find(field => {
-      return fieldsWithErrors.includes(field);
-    });
+    const fieldToFocus = Object.keys(formData[activeTab]).find(field =>
+      fieldsWithErrors.includes(field)
+    );
 
     handleFocusFieldChange(activeTab, fieldToFocus);
   }
@@ -138,13 +135,11 @@ class FrameworkConfigurationForm extends Component {
     const { packageDetails, activeTab } = this.props;
     const schema = packageDetails.getConfig();
 
-    return Object.keys(schema.properties).map(tabName => {
-      return {
-        id: tabName,
-        isActive: activeTab === tabName,
-        label: tabName
-      };
-    });
+    return Object.keys(schema.properties).map(tabName => ({
+      id: tabName,
+      isActive: activeTab === tabName,
+      label: tabName
+    }));
   }
 
   getUiSchema() {
@@ -257,9 +252,10 @@ class FrameworkConfigurationForm extends Component {
     if (!errorSchema.__errors) {
       return [];
     }
-    const currentLevelErrors = errorSchema.__errors.map(message => {
-      return { message, path };
-    });
+    const currentLevelErrors = errorSchema.__errors.map(message => ({
+      message,
+      path
+    }));
 
     return Object.keys(errorSchema)
       .map(key => this.formatErrorForJSON(errorSchema[key], path.concat(key)))
@@ -281,17 +277,18 @@ class FrameworkConfigurationForm extends Component {
     // capitalize error messages
     return errorSchema
       .filter(({ name }) => name !== "type")
-      .map(({ message, ...rest }) => {
-        return { message: StringUtil.capitalize(message), ...rest };
-      });
+      .map(({ message, ...rest }) => ({
+        message: StringUtil.capitalize(message),
+        ...rest
+      }));
   }
 
   jsonSchemaErrorList(props) {
     return (
       <ErrorsAlert
-        errors={props.errors.map(error => {
-          return { message: error.stack };
-        })}
+        errors={props.errors.map(error => ({
+          message: error.stack
+        }))}
       />
     );
   }

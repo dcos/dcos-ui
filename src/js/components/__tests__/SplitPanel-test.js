@@ -42,16 +42,14 @@ describe("SplitPanel", () => {
     const resizeAmount = 10;
 
     beforeEach(() => {
-      Element.prototype.getBoundingClientRect = jest.fn(() => {
-        return {
-          width: mockContainerWidth,
-          height: 0,
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0
-        };
-      });
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        width: mockContainerWidth,
+        height: 0,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }));
     });
     it("calls onResize callback when finished dragging", () => {
       const onResizeCallback = jest.fn();
@@ -64,16 +62,14 @@ describe("SplitPanel", () => {
       const separator = component.find(".splitPanels-separator");
       const panelContainer = component.find(".splitPanels"); // target the documentElement
 
-      Element.prototype.getBoundingClientRect = jest.fn(() => {
-        return {
-          width: mockContainerWidth,
-          height: 0,
-          top: 0,
-          left: 0,
-          bottom: 0,
-          right: 0
-        };
-      });
+      Element.prototype.getBoundingClientRect = jest.fn(() => ({
+        width: mockContainerWidth,
+        height: 0,
+        top: 0,
+        left: 0,
+        bottom: 0,
+        right: 0
+      }));
 
       separator.simulate("mousedown");
       panelContainer.simulate("mousemove", { clientX: resizeAmount });

@@ -24,9 +24,10 @@ export function getAgentsAction(state, message) {
     return state;
   }
 
-  const agents = Object.keys(message.get_agents).reduce((acc, key) => {
-    return acc.concat(message.get_agents[key].map(processAgent));
-  }, []);
+  const agents = Object.keys(message.get_agents).reduce(
+    (acc, key) => acc.concat(message.get_agents[key].map(processAgent)),
+    []
+  );
 
   return Object.assign({}, state, { slaves: agents });
 }

@@ -3,11 +3,7 @@ import Transaction from "../structs/Transaction";
 
 module.exports = {
   combineParsers(parsers = []) {
-    parsers = parsers
-      .filter(parser => {
-        return typeof parser === "function";
-      })
-      .reverse();
+    parsers = parsers.filter(parser => typeof parser === "function").reverse();
 
     return (state = {}) => {
       let index = parsers.length;

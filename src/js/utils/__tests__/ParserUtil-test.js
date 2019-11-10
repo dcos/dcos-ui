@@ -30,13 +30,11 @@ describe("ParserUtil", () => {
     it("has the right ordered TransactionLog with multiple parsers", () => {
       const parser = ParserUtil.combineParsers([
         idParser,
-        state => {
-          return {
-            type: SET,
-            path: "cmd",
-            value: state.cmd
-          };
-        }
+        state => ({
+          type: SET,
+          path: "cmd",
+          value: state.cmd
+        })
       ]);
       const appDefinition = {
         id: "test",
@@ -59,13 +57,11 @@ describe("ParserUtil", () => {
       const containerParser = state => {
         if (state.container != null && state.container.docker != null) {
           return ParserUtil.combineParsers([
-            state => {
-              return {
-                type: SET,
-                path: "container.docker.image",
-                value: state.container.docker.image
-              };
-            }
+            state => ({
+              type: SET,
+              path: "container.docker.image",
+              value: state.container.docker.image
+            })
           ])(state);
         }
 

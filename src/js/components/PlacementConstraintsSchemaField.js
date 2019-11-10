@@ -85,9 +85,10 @@ export default class PlacementConstraintsSchemaField extends Component {
 
     const parsedInput = CreateServiceModalFormUtil.stripEmptyProperties(json);
 
-    return JSONParser({ constraints: parsedInput }).reduce((batch, item) => {
-      return batch.add(item);
-    }, new Batch());
+    return JSONParser({ constraints: parsedInput }).reduce(
+      (batch, item) => batch.add(item),
+      new Batch()
+    );
   }
 
   handleBatchChange(batch) {

@@ -315,77 +315,73 @@ var MarathonActions = {
 
   fetchGroups: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    (resolve, reject) => {
-      return () => {
-        const url = buildURI("/groups");
-        const embed = [
-          { name: "embed", value: "group.groups" },
-          { name: "embed", value: "group.apps" },
-          { name: "embed", value: "group.pods" },
-          { name: "embed", value: "group.apps.deployments" },
-          { name: "embed", value: "group.apps.counts" },
-          { name: "embed", value: "group.apps.tasks" },
-          { name: "embed", value: "group.apps.taskStats" },
-          { name: "embed", value: "group.apps.lastTaskFailure" }
-        ];
+    (resolve, reject) => () => {
+      const url = buildURI("/groups");
+      const embed = [
+        { name: "embed", value: "group.groups" },
+        { name: "embed", value: "group.apps" },
+        { name: "embed", value: "group.pods" },
+        { name: "embed", value: "group.apps.deployments" },
+        { name: "embed", value: "group.apps.counts" },
+        { name: "embed", value: "group.apps.tasks" },
+        { name: "embed", value: "group.apps.taskStats" },
+        { name: "embed", value: "group.apps.lastTaskFailure" }
+      ];
 
-        RequestUtil.json({
-          url,
-          data: embed,
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_SUCCESS,
-              data: MarathonUtil.parseGroups(response)
-            });
-            resolve();
-          },
-          error(xhr) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ERROR,
-              data: xhr.message,
-              xhr
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_GROUPS_ONGOING
-            });
-          }
-        });
-      };
+      RequestUtil.json({
+        url,
+        data: embed,
+        success(response) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_GROUPS_SUCCESS,
+            data: MarathonUtil.parseGroups(response)
+          });
+          resolve();
+        },
+        error(xhr) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_GROUPS_ERROR,
+            data: xhr.message,
+            xhr
+          });
+          reject();
+        },
+        hangingRequestCallback() {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_GROUPS_ONGOING
+          });
+        }
+      });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
   ),
 
   fetchDeployments: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    (resolve, reject) => {
-      return () => {
-        RequestUtil.json({
-          url: buildURI("/deployments"),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(xhr) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-              data: xhr.message,
-              xhr
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
-            });
-          }
-        });
-      };
+    (resolve, reject) => () => {
+      RequestUtil.json({
+        url: buildURI("/deployments"),
+        success(response) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
+            data: response
+          });
+          resolve();
+        },
+        error(xhr) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
+            data: xhr.message,
+            xhr
+          });
+          reject();
+        },
+        hangingRequestCallback() {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
+          });
+        }
+      });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
   ),
@@ -450,34 +446,32 @@ var MarathonActions = {
 
   fetchQueue: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    (resolve, reject) => {
-      return (options = {}) => {
-        const queryParams = options.params || "";
+    (resolve, reject) => (options = {}) => {
+      const queryParams = options.params || "";
 
-        RequestUtil.json({
-          url: buildURI(`/queue${queryParams}`),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_SUCCESS,
-              data: response
-            });
-            resolve();
-          },
-          error(xhr) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ERROR,
-              data: xhr.message,
-              xhr
-            });
-            reject();
-          },
-          hangingRequestCallback() {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_MARATHON_QUEUE_ONGOING
-            });
-          }
-        });
-      };
+      RequestUtil.json({
+        url: buildURI(`/queue${queryParams}`),
+        success(response) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_QUEUE_SUCCESS,
+            data: response
+          });
+          resolve();
+        },
+        error(xhr) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_QUEUE_ERROR,
+            data: xhr.message,
+            xhr
+          });
+          reject();
+        },
+        hangingRequestCallback() {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_MARATHON_QUEUE_ONGOING
+          });
+        }
+      });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
   ),

@@ -67,11 +67,11 @@ Cypress.Commands.add(
   (elements, contents) => {
     let matchedRows = elements.find("tr");
 
-    matchedRows = matchedRows.filter((index, row) => {
-      return Array.prototype.slice.apply(row.childNodes).some(child => {
-        return child.innerText.indexOf(contents) !== -1;
-      });
-    });
+    matchedRows = matchedRows.filter((index, row) =>
+      Array.prototype.slice
+        .apply(row.childNodes)
+        .some(child => child.innerText.indexOf(contents) !== -1)
+    );
 
     return Cypress.$(matchedRows);
   }
@@ -109,12 +109,8 @@ Cypress.Commands.add(
     // Collect all visible rows
     return matchedRows
       .slice(1)
-      .filter((index, element) => {
-        return element.style.display !== "none";
-      })
-      .map((index, element) => {
-        return element.querySelectorAll("td")[columnIndex];
-      });
+      .filter((index, element) => element.style.display !== "none")
+      .map((index, element) => element.querySelectorAll("td")[columnIndex]);
   }
 );
 
@@ -130,8 +126,8 @@ Cypress.Commands.add(
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.Commands.add("contents", { prevSubject: true }, elements => {
-  return elements
+Cypress.Commands.add("contents", { prevSubject: true }, elements =>
+  elements
     .map((index, element) => {
       const doc = element.ownerDocument;
       const win = doc.defaultView || doc.parentWindow;
@@ -144,8 +140,8 @@ Cypress.Commands.add("contents", { prevSubject: true }, elements => {
         return element.innerText;
       }
     })
-    .get();
-});
+    .get()
+);
 
 /**
  * Sets given JSONString as value for ACE Editor
@@ -178,9 +174,7 @@ Cypress.Commands.add(
  */
 Cypress.Commands.add("asJson", { prevSubject: true }, contents => {
   if (contents.length != null) {
-    return contents.map(content => {
-      return JSON.parse(content);
-    });
+    return contents.map(content => JSON.parse(content));
   } else {
     return JSON.parse(contents);
   }

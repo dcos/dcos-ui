@@ -12,9 +12,7 @@ function transformContainers(memo, container, containerIndex) {
     return memo;
   }
 
-  const tuples = container.volumeMounts.map(mount => {
-    return [containerIndex, mount];
-  });
+  const tuples = container.volumeMounts.map(mount => [containerIndex, mount]);
 
   return memo.concat(tuples);
 }

@@ -10,9 +10,7 @@ class ServicesList extends List {
 
     if (filters) {
       if (filters.ids) {
-        services = services.filter(service => {
-          return filters.ids.includes(service.id);
-        });
+        services = services.filter(service => filters.ids.includes(service.id));
       }
 
       if (filters.name) {
@@ -20,11 +18,12 @@ class ServicesList extends List {
       }
 
       if (filters.health != null && filters.health.length !== 0) {
-        services = services.filter(service => {
-          return filters.health.some(healthValue => {
-            return service.getHealth().value === parseInt(healthValue, 10);
-          });
-        });
+        services = services.filter(service =>
+          filters.health.some(
+            healthValue =>
+              service.getHealth().value === parseInt(healthValue, 10)
+          )
+        );
       }
     }
 
@@ -33,9 +32,7 @@ class ServicesList extends List {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => {
-      return service.used_resources;
-    });
+    const resourcesList = services.map(service => service.used_resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }

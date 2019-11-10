@@ -47,11 +47,7 @@ const JestUtil = {
       tag = [tag];
     }
 
-    return element => {
-      return tag.some(tagName => {
-        return element.tagName === tagName;
-      });
-    };
+    return element => tag.some(tagName => element.tagName === tagName);
   },
 
   /**
@@ -94,9 +90,7 @@ const JestUtil = {
       60;
 
     /* eslint-disable no-extend-native */
-    Date.prototype.getTimezoneOffset = () => {
-      return timezoneOffset;
-    };
+    Date.prototype.getTimezoneOffset = () => timezoneOffset;
     Date.prototype.toLocaleString = function(locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
 

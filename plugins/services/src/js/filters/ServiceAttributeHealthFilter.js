@@ -35,9 +35,7 @@ class ServiceAttribHealthFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
-    return resultset.filterItems(service => {
-      return service.getHealth() === testStatus;
-    });
+    return resultset.filterItems(service => service.getHealth() === testStatus);
   }
 }
 

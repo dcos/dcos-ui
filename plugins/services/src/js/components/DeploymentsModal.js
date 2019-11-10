@@ -152,13 +152,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
         return service;
       }),
-      ...deployment.getStaleServiceIds().map(serviceID => {
-        return {
-          deployment,
-          serviceID,
-          isStale: true
-        };
-      })
+      ...deployment.getStaleServiceIds().map(serviceID => ({
+        deployment,
+        serviceID,
+        isStale: true
+      }))
     ];
   }
 
@@ -174,9 +172,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 
   getColumns() {
-    const sortFunction = TableUtil.getSortFunction("id", (item, prop) => {
-      return item[prop];
-    });
+    const sortFunction = TableUtil.getSortFunction(
+      "id",
+      (item, prop) => item[prop]
+    );
 
     return [
       {
@@ -212,9 +211,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
   getRollbackModalText(deploymentToRollback) {
     const serviceNames = deploymentToRollback
       .getAffectedServices()
-      .map(service => {
-        return StringUtil.capitalize(service.getName());
-      });
+      .map(service => StringUtil.capitalize(service.getName()));
     const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
     const serviceCount = serviceNames.length;
 
@@ -285,9 +282,9 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const { children = [] } = deployment;
     const { i18n } = this.props;
 
-    const doesDeploymentContainSDKService = children.some(service => {
-      return ServiceUtil.isSDKService(service);
-    });
+    const doesDeploymentContainSDKService = children.some(service =>
+      ServiceUtil.isSDKService(service)
+    );
 
     if (
       !doesDeploymentContainSDKService &&

@@ -140,48 +140,45 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     const versions = service.getVersions();
 
     const versionItems = Array.from(versions.keys())
-      .sort((a, b) => {
-        return new Date(a) - new Date(b);
-      })
-      .map(version => {
-        return {
-          id: version,
-          html: (
-            <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
-              <span className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0">
-                <Icon
-                  shape={SystemIcons.Check}
-                  size={iconSizeXs}
-                  color={greyDark}
-                />
-              </span>
-              <span className="services-version-select-icon button-split-content-item flex-item-shrink-0">
-                <Icon
-                  shape={SystemIcons.Commit}
-                  size={iconSizeXs}
-                  color={greyDark}
-                />
-              </span>
-              <span
-                className="button-split-content-item flex-item-grow-1 text-overflow"
-                title={version}
-              >
-                <span className="badge-container flex">
-                  <span className="badge-container-text services-version-text text-overflow">
-                    <DateFormat
-                      value={version}
-                      format={DateUtil.getFormatOptions()}
-                    />
-                  </span>
-                  {version === service.getVersion() && (
-                    <Trans render={<Badge />}>Active</Trans>
-                  )}
+      .sort((a, b) => new Date(a) - new Date(b))
+      .map(version => ({
+        id: version,
+
+        html: (
+          <div className="service-version-dropdown-wrapper button-split-content-wrapper flex">
+            <span className="services-version-select-icon services-version-select-icon-selected button-split-content-item flex-item-shrink-0">
+              <Icon
+                shape={SystemIcons.Check}
+                size={iconSizeXs}
+                color={greyDark}
+              />
+            </span>
+            <span className="services-version-select-icon button-split-content-item flex-item-shrink-0">
+              <Icon
+                shape={SystemIcons.Commit}
+                size={iconSizeXs}
+                color={greyDark}
+              />
+            </span>
+            <span
+              className="button-split-content-item flex-item-grow-1 text-overflow"
+              title={version}
+            >
+              <span className="badge-container flex">
+                <span className="badge-container-text services-version-text text-overflow">
+                  <DateFormat
+                    value={version}
+                    format={DateUtil.getFormatOptions()}
+                  />
                 </span>
+                {version === service.getVersion() && (
+                  <Trans render={<Badge />}>Active</Trans>
+                )}
               </span>
-            </div>
-          )
-        };
-      });
+            </span>
+          </div>
+        )
+      }));
 
     return (
       <Tooltip

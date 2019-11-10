@@ -37,11 +37,9 @@ class TasksStatusFilter extends DSLFilter {
   filterApply(resultSet, filterType, filterArguments) {
     const testStatus = LABEL_TO_STATUS[filterArguments.text.toLowerCase()];
 
-    return resultSet.filterItems(task => {
-      return TaskStates[task.state].stateTypes.includes(
-        testStatus.toLowerCase()
-      );
-    });
+    return resultSet.filterItems(task =>
+      TaskStates[task.state].stateTypes.includes(testStatus.toLowerCase())
+    );
   }
 }
 

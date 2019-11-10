@@ -12,34 +12,28 @@ import StringUtil from "../../../../../src/js/utils/StringUtil";
 
 const Loading = () => <Loader size="small" type="ballBeat" />;
 
-const ConfigurationRow = ({ keyValue, title, value }) => {
-  return (
-    <ConfigurationMapRow key={keyValue}>
-      <ConfigurationMapLabel>{title}</ConfigurationMapLabel>
-      <ConfigurationMapValue>
-        <span className={value.classNames}>
-          {StringUtil.capitalize(value.title)}
-        </span>
-      </ConfigurationMapValue>
-    </ConfigurationMapRow>
-  );
-};
+const ConfigurationRow = ({ keyValue, title, value }) => (
+  <ConfigurationMapRow key={keyValue}>
+    <ConfigurationMapLabel>{title}</ConfigurationMapLabel>
+    <ConfigurationMapValue>
+      <span className={value.classNames}>
+        {StringUtil.capitalize(value.title)}
+      </span>
+    </ConfigurationMapValue>
+  </ConfigurationMapRow>
+);
 
-const NonLeader = ({ master }) => {
-  return (
-    <ConfigurationRow
-      keyValue={master.host_ip}
-      title={master.host_ip}
-      value={master.healthDescription}
-    />
-  );
-};
+const NonLeader = ({ master }) => (
+  <ConfigurationRow
+    keyValue={master.host_ip}
+    title={master.host_ip}
+    value={master.healthDescription}
+  />
+);
 
-const EmptyLeaderList = () => {
-  return (
-    <Trans render="div">There are no more known masters in this cluster.</Trans>
-  );
-};
+const EmptyLeaderList = () => (
+  <Trans render="div">There are no more known masters in this cluster.</Trans>
+);
 
 const NonLeaderList = ({ masters }) => {
   if (masters.length === 0) {

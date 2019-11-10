@@ -52,9 +52,9 @@ class PlacementConstraintsPartial extends Component {
       this.props.errors,
       "constraints"
     );
-    const hideValueColumn = data.every(constraint => {
-      return PlacementConstraintsUtil.requiresEmptyValue(constraint.operator);
-    });
+    const hideValueColumn = data.every(constraint =>
+      PlacementConstraintsUtil.requiresEmptyValue(constraint.operator)
+    );
 
     return data.map((constraint, index) => {
       let fieldLabel = null;
@@ -123,26 +123,24 @@ class PlacementConstraintsPartial extends Component {
               value={String(constraint.operator)}
               placeholder={selectPlaceholder}
             >
-              {Object.keys(OperatorTypes).map((type, index) => {
-                return (
-                  <SelectOption
-                    key={index}
-                    value={type}
-                    label={i18n._(OperatorTypes[type].name)}
-                  >
-                    <Trans
-                      render="span"
-                      id={OperatorTypes[type].name}
-                      className="dropdown-select-item-title"
-                    />
-                    <Trans
-                      render="span"
-                      id={OperatorTypes[type].description}
-                      className="dropdown-select-item-description"
-                    />
-                  </SelectOption>
-                );
-              })}
+              {Object.keys(OperatorTypes).map((type, index) => (
+                <SelectOption
+                  key={index}
+                  value={type}
+                  label={i18n._(OperatorTypes[type].name)}
+                >
+                  <Trans
+                    render="span"
+                    id={OperatorTypes[type].name}
+                    className="dropdown-select-item-title"
+                  />
+                  <Trans
+                    render="span"
+                    id={OperatorTypes[type].description}
+                    className="dropdown-select-item-description"
+                  />
+                </SelectOption>
+              ))}
             </Select>
 
             {operatorError && <FieldError>{operatorError}</FieldError>}

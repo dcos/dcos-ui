@@ -30,13 +30,14 @@ describe("PluginSDK", () => {
 
       it("creates a namespace in Store for plugin if reducer returned", () => {
         // Mock a fake plugin
-        thisMockPlugin = jest.genMockFunction().mockImplementation(() => {
+        thisMockPlugin = jest.genMockFunction().mockImplementation(() =>
           // Return reducer
-          return () => {
+          () =>
             // Return an initial state
-            return { foo: "bar" };
-          };
-        });
+            ({
+              foo: "bar"
+            })
+        );
         PluginTestUtils.loadPlugins({
           fakePlugin2: {
             module: thisMockPlugin,
@@ -52,10 +53,10 @@ describe("PluginSDK", () => {
 
       it("throws an error if reducer is not a function", () => {
         // Mock a fake plugin
-        var mockPlugin = jest.genMockFunction().mockImplementation(() => {
+        var mockPlugin = jest.genMockFunction().mockImplementation(() =>
           // Return invalid reducer
-          return {};
-        });
+          ({})
+        );
         expect(() => {
           PluginTestUtils.loadPlugins({
             badFakePlugin: {

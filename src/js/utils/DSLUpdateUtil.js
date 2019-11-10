@@ -62,9 +62,7 @@ const DSLUpdateUtil = {
 
     // Put strings back
     /* eslint-disable no-control-regex */
-    src = src.replace(/\x01/g, () => {
-      return strings.pop(0);
-    });
+    src = src.replace(/\x01/g, () => strings.pop(0));
     /* eslint-enable no-control-regex */
 
     return src.trim();
@@ -398,9 +396,10 @@ const DSLUpdateUtil = {
       // Note that the offsets in the `nodes` array point to the old expression
       // so they have to be updated in order to match the new expression
       const deleteNodes = nodes.slice(updateCount).map(node => {
-        node.position = node.position.map(([start, end]) => {
-          return [start + offset, end + offset];
-        });
+        node.position = node.position.map(([start, end]) => [
+          start + offset,
+          end + offset
+        ]);
 
         return node;
       });

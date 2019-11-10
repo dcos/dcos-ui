@@ -149,9 +149,7 @@ describe("TabsMixin", () => {
   describe("#tabs_getTabView", () => {
     beforeEach(() => {
       TabsMixin.state = { currentTab: "corge" };
-      TabsMixin.renderGraultTabView = () => {
-        return "test";
-      };
+      TabsMixin.renderGraultTabView = () => "test";
     });
 
     it("does not call render function before called", () => {
@@ -174,9 +172,7 @@ describe("TabsMixin", () => {
     it("removes spaces and call render function", () => {
       TabsMixin.tabs_tabs = { qux: "Quux Garply" };
       TabsMixin.state = { currentTab: "qux" };
-      TabsMixin.renderQuuxGarplyTabView = () => {
-        return "test";
-      };
+      TabsMixin.renderQuuxGarplyTabView = () => "test";
       spyOn(TabsMixin, "renderQuuxGarplyTabView");
       TabsMixin.tabs_getTabView();
       expect(TabsMixin.renderQuuxGarplyTabView).toHaveBeenCalled();

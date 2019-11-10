@@ -22,12 +22,11 @@ class TaskNameTextFilter extends DSLFilter {
    * @override
    */
   filterApply(resultSet, filterType, filterArguments) {
-    return resultSet.filterItems(task => {
-      return (
+    return resultSet.filterItems(
+      task =>
         (task.id && task.id.includes(filterArguments.text)) ||
         (task.name && task.name.includes(filterArguments.text))
-      );
-    });
+    );
   }
 }
 

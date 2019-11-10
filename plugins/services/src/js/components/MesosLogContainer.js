@@ -112,12 +112,8 @@ class MesosLogContainer extends mixin(StoreMixin) {
     }
 
     return (
-      propsToCheck.some(key => {
-        return curProps[key] !== nextProps[key];
-      }) ||
-      stateToCheck.some(key => {
-        return curState[key] !== nextState[key];
-      })
+      propsToCheck.some(key => curProps[key] !== nextProps[key]) ||
+      stateToCheck.some(key => curState[key] !== nextState[key])
     );
   }
 

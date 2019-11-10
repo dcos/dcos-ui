@@ -68,9 +68,10 @@ class DCOSStore extends EventEmitter {
   }
 
   getTotalListenerCount() {
-    return Object.values(this.getEvents()).reduce((memo, name) => {
-      return memo + this.listeners(name).length;
-    }, 0);
+    return Object.values(this.getEvents()).reduce(
+      (memo, name) => memo + this.listeners(name).length,
+      0
+    );
   }
 
   getProxyListeners() {

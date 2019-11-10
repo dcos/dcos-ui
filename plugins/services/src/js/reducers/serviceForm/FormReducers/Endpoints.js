@@ -40,9 +40,7 @@ module.exports = {
         newState.push(endpointDefinition);
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => {
-          return index !== value;
-        });
+        newState = newState.filter((item, index) => index !== value);
         break;
     }
 

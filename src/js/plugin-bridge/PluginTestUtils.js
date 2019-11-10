@@ -47,12 +47,10 @@ Loader.__setMockPlugins = __setMockPlugins;
 
 // Rewire so PluginSDK loads the mocked version. But still provide access
 // to original method for PluginTestUtils to load actual plugins
-Loader.__getAvailablePlugins = () => {
-  return {
-    pluginsList,
-    externalPluginsList
-  };
-};
+Loader.__getAvailablePlugins = () => ({
+  pluginsList,
+  externalPluginsList
+});
 
 Loader.getAvailablePlugins = __getAvailablePlugins;
 

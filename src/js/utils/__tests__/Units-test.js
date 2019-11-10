@@ -140,85 +140,65 @@ describe("Units", () => {
   });
 
   describe("#contractNumber", () => {
-    it("formats 999,999,999,999,999 correctly ", () => {
-      return expect(Units.contractNumber(999999999999999)).toEqual("> 999T");
-    });
+    it("formats 999,999,999,999,999 correctly ", () =>
+      expect(Units.contractNumber(999999999999999)).toEqual("> 999T"));
 
-    it("formats 15,000,000,000 correctly", () => {
-      return expect(Units.contractNumber(15000000000)).toEqual("15B");
-    });
+    it("formats 15,000,000,000 correctly", () =>
+      expect(Units.contractNumber(15000000000)).toEqual("15B"));
 
-    it("formats 15,555,555,555 correctly", () => {
-      return expect(Units.contractNumber(15555555555)).toEqual("16B");
-    });
+    it("formats 15,555,555,555 correctly", () =>
+      expect(Units.contractNumber(15555555555)).toEqual("16B"));
 
-    it("formats 9,700,000,000 correctly ", () => {
-      return expect(Units.contractNumber(9700000000)).toEqual("10B");
-    });
+    it("formats 9,700,000,000 correctly ", () =>
+      expect(Units.contractNumber(9700000000)).toEqual("10B"));
 
-    it("formats 1,000,000,000 correctly ", () => {
-      return expect(Units.contractNumber(1000000000)).toEqual("1B");
-    });
+    it("formats 1,000,000,000 correctly ", () =>
+      expect(Units.contractNumber(1000000000)).toEqual("1B"));
 
-    it("formats 999,999,999 correctly ", () => {
-      return expect(Units.contractNumber(999999999)).toEqual("1B");
-    });
+    it("formats 999,999,999 correctly ", () =>
+      expect(Units.contractNumber(999999999)).toEqual("1B"));
 
-    it("formats 999,000,000 correctly ", () => {
-      return expect(Units.contractNumber(999000000)).toEqual("999M");
-    });
+    it("formats 999,000,000 correctly ", () =>
+      expect(Units.contractNumber(999000000)).toEqual("999M"));
 
-    it("formats 700,000,000 correctly ", () => {
-      return expect(Units.contractNumber(700000000)).toEqual("700M");
-    });
+    it("formats 700,000,000 correctly ", () =>
+      expect(Units.contractNumber(700000000)).toEqual("700M"));
 
-    it("formats 15,000,000 correctly", () => {
-      return expect(Units.contractNumber(15000000)).toEqual("15M");
-    });
+    it("formats 15,000,000 correctly", () =>
+      expect(Units.contractNumber(15000000)).toEqual("15M"));
 
-    it("formats 15,555,555 correctly", () => {
-      return expect(Units.contractNumber(15555555)).toEqual("16M");
-    });
+    it("formats 15,555,555 correctly", () =>
+      expect(Units.contractNumber(15555555)).toEqual("16M"));
 
-    it("formats 1,500,000 correctly", () => {
-      return expect(Units.contractNumber(1500000)).toEqual("1.5M");
-    });
+    it("formats 1,500,000 correctly", () =>
+      expect(Units.contractNumber(1500000)).toEqual("1.5M"));
 
-    it("formats 1,555,555 correctly", () => {
-      return expect(Units.contractNumber(1555555)).toEqual("1.6M");
-    });
+    it("formats 1,555,555 correctly", () =>
+      expect(Units.contractNumber(1555555)).toEqual("1.6M"));
 
-    it("formats 998,000 correctly ", () => {
-      return expect(Units.contractNumber(998000)).toEqual("998K");
-    });
+    it("formats 998,000 correctly ", () =>
+      expect(Units.contractNumber(998000)).toEqual("998K"));
 
-    it("formats 15,000 correctly", () => {
-      return expect(Units.contractNumber(15000)).toEqual("15K");
-    });
+    it("formats 15,000 correctly", () =>
+      expect(Units.contractNumber(15000)).toEqual("15K"));
 
-    it("formats 15,555 correctly", () => {
-      return expect(Units.contractNumber(15555)).toEqual("16K");
-    });
+    it("formats 15,555 correctly", () =>
+      expect(Units.contractNumber(15555)).toEqual("16K"));
 
-    it("formats 5,500 correctly", () => {
-      return expect(Units.contractNumber(5500)).toEqual("5.5K");
-    });
+    it("formats 5,500 correctly", () =>
+      expect(Units.contractNumber(5500)).toEqual("5.5K"));
 
-    it("formats 5,555 correctly", () => {
-      return expect(Units.contractNumber(5555)).toEqual("5.6K");
-    });
+    it("formats 5,555 correctly", () =>
+      expect(Units.contractNumber(5555)).toEqual("5.6K"));
 
-    it("formats 1,900 correctly ", () => {
-      return expect(Units.contractNumber(1900)).toEqual("1900");
-    });
+    it("formats 1,900 correctly ", () =>
+      expect(Units.contractNumber(1900)).toEqual("1900"));
 
-    it("formats 999 correctly ", () => {
-      return expect(Units.contractNumber(999)).toEqual("999");
-    });
+    it("formats 999 correctly ", () =>
+      expect(Units.contractNumber(999)).toEqual("999"));
 
-    it("formats 10 correctly ", () => {
-      return expect(Units.contractNumber(10)).toEqual("10");
-    });
+    it("formats 10 correctly ", () =>
+      expect(Units.contractNumber(10)).toEqual("10"));
 
     it("formats small 1.123456 correctly ", () => {
       expect(Units.contractNumber(1.123456)).toEqual("1.12");
@@ -250,27 +230,23 @@ describe("Units", () => {
       ).toEqual("1");
     });
 
-    it("forces the default fixed precision when forceFixedPrecision is true", () => {
-      return expect(
+    it("forces the default fixed precision when forceFixedPrecision is true", () =>
+      expect(
         Units.contractNumber(0.123456, { forceFixedPrecision: true })
-      ).toEqual("0.12");
-    });
+      ).toEqual("0.12"));
 
-    it("forces a defined precision when forceFixedPrecision is true", () => {
-      return expect(
+    it("forces a defined precision when forceFixedPrecision is true", () =>
+      expect(
         Units.contractNumber(0.123456, {
           forceFixedPrecision: true,
           decimalPlaces: 3
         })
-      ).toEqual("0.123");
-    });
+      ).toEqual("0.123"));
 
-    it("returns a string given an input string", () => {
-      return expect(Units.contractNumber("foobar")).toEqual("foobar");
-    });
+    it("returns a string given an input string", () =>
+      expect(Units.contractNumber("foobar")).toEqual("foobar"));
 
-    return it('returns "undefined" given no input', () => {
-      return expect(Units.contractNumber()).toEqual(undefined);
-    });
+    return it('returns "undefined" given no input', () =>
+      expect(Units.contractNumber()).toEqual(undefined));
   });
 });

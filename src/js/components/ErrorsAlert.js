@@ -23,9 +23,7 @@ const ErrorsAlert = props => {
   }
 
   if (hideTopLevelErrors) {
-    showErrors = showErrors.filter(error => {
-      return error.path.length === 0;
-    });
+    showErrors = showErrors.filter(error => error.path.length === 0);
   }
 
   if (showErrors.length === 0) {
@@ -48,13 +46,11 @@ const ErrorsAlert = props => {
     return messages;
   }, []);
 
-  const errorItems = errorMessages.map((message, index) => {
-    return (
-      <li key={index} className="errorsAlert-listItem">
-        {message}.
-      </li>
-    );
-  });
+  const errorItems = errorMessages.map((message, index) => (
+    <li key={index} className="errorsAlert-listItem">
+      {message}.
+    </li>
+  ));
 
   return (
     <div className="infoBoxWrapper">

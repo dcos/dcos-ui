@@ -61,9 +61,7 @@ class ProgressBar extends React.PureComponent {
   }
 
   getBars(data) {
-    let max = data.reduce((sum, item) => {
-      return sum + item.value;
-    }, 0);
+    let max = data.reduce((sum, item) => sum + item.value, 0);
     const unassignedValue = this.props.total - max;
 
     max = Math.max(this.props.total, max);

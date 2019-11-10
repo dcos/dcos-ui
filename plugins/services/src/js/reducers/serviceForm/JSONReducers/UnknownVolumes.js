@@ -8,16 +8,17 @@ module.exports = {
     }
 
     return state.container.volumes
-      .filter(item => {
-        return (
+      .filter(
+        item =>
           item.persistent == null &&
           item.external == null &&
           item.hostPath == null &&
           item.mode == null
-        );
-      })
-      .reduce((memo, item) => {
-        return memo.concat(new Transaction(["unknownVolumes"], item, ADD_ITEM));
-      }, []);
+      )
+      .reduce(
+        (memo, item) =>
+          memo.concat(new Transaction(["unknownVolumes"], item, ADD_ITEM)),
+        []
+      );
   }
 };

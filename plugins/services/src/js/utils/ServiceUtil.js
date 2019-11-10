@@ -3,8 +3,8 @@ import isEqual from "lodash.isequal";
 
 import ApplicationSpec from "../structs/ApplicationSpec";
 
-const getFindPropertiesRecursive = (service, item) => {
-  return Object.keys(item).reduce((memo, subItem) => {
+const getFindPropertiesRecursive = (service, item) =>
+  Object.keys(item).reduce((memo, subItem) => {
     if (item[subItem].type === "group") {
       Object.keys(item[subItem].properties).forEach(key => {
         memo[key] = item[subItem].properties[key].default;
@@ -37,7 +37,6 @@ const getFindPropertiesRecursive = (service, item) => {
 
     return memo;
   }, {});
-};
 
 const ServiceUtil = {
   isEqual(serviceA, serviceB) {

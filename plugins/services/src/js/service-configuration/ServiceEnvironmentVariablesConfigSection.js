@@ -52,9 +52,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                   i18nMark("Key")
                 ),
                 prop: "key",
-                render: (prop, row) => {
-                  return <code>{row[prop]}</code>;
-                },
+                render: (prop, row) => <code>{row[prop]}</code>,
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
@@ -98,12 +96,11 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
             }
 
             const data = Object.keys(envData)
-              .map(envKey => {
-                return { key: envKey, value: envData[envKey] };
-              })
-              .filter(({ value }) => {
-                return typeof value === "string";
-              });
+              .map(envKey => ({
+                key: envKey,
+                value: envData[envKey]
+              }))
+              .filter(({ value }) => typeof value === "string");
 
             return (
               <Table

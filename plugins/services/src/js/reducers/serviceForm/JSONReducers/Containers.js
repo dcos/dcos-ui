@@ -39,9 +39,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       labels
     } = endpoint;
 
-    protocol = Object.keys(protocol).filter(key => {
-      return protocol[key];
-    });
+    protocol = Object.keys(protocol).filter(key => protocol[key]);
 
     if (automaticPort) {
       hostPort = 0;
@@ -160,12 +158,13 @@ function containersParser(state) {
         }
 
         memo = memo.concat(
-          Object.keys(artifact).map(key => {
-            return new Transaction(
-              ["containers", index, "artifacts", artifactIndex, key],
-              artifact[key]
-            );
-          })
+          Object.keys(artifact).map(
+            key =>
+              new Transaction(
+                ["containers", index, "artifacts", artifactIndex, key],
+                artifact[key]
+              )
+          )
         );
       });
     }
@@ -410,15 +409,11 @@ module.exports = {
           this.endpoints.push([]);
           break;
         case REMOVE_ITEM:
-          newState = newState.filter((item, index) => {
-            return index !== value;
-          });
-          this.cache = this.cache.filter((item, index) => {
-            return index !== value;
-          });
-          this.endpoints = this.endpoints.filter((item, index) => {
-            return index !== value;
-          });
+          newState = newState.filter((item, index) => index !== value);
+          this.cache = this.cache.filter((item, index) => index !== value);
+          this.endpoints = this.endpoints.filter(
+            (item, index) => index !== value
+          );
           break;
       }
 
@@ -434,15 +429,14 @@ module.exports = {
     newState = state.map((container, index) => {
       if (this.volumeMounts.length !== 0) {
         container.volumeMounts = this.volumeMounts
-          .filter(volumeMount => {
-            return volumeMount.name != null && volumeMount.mountPath[index];
-          })
-          .map(volumeMount => {
-            return {
-              name: volumeMount.name,
-              mountPath: volumeMount.mountPath[index]
-            };
-          });
+          .filter(
+            volumeMount =>
+              volumeMount.name != null && volumeMount.mountPath[index]
+          )
+          .map(volumeMount => ({
+            name: volumeMount.name,
+            mountPath: volumeMount.mountPath[index]
+          }));
       }
 
       if (this.volumeMounts.length === 0 && container.volumeMounts != null) {

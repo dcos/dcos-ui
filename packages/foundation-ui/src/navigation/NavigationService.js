@@ -86,9 +86,9 @@ class NavigationService extends EventEmitter {
       return this.defer(this.instance.registerPrimary, arguments);
     }
 
-    const existingElement = categoryElement.children.find(element => {
-      return element.path === path;
-    });
+    const existingElement = categoryElement.children.find(
+      element => element.path === path
+    );
 
     if (existingElement) {
       if (process.env.NODE_ENV !== "production") {
@@ -120,9 +120,10 @@ class NavigationService extends EventEmitter {
    */
   registerSecondary(parentPath, path, label, options = {}) {
     // flatten categories
-    const primaryElements = this.definition.reduce((result, category) => {
-      return result.concat(category.children);
-    }, []);
+    const primaryElements = this.definition.reduce(
+      (result, category) => result.concat(category.children),
+      []
+    );
 
     const parentElement = primaryElements.find(
       element => element.path === parentPath
@@ -132,9 +133,9 @@ class NavigationService extends EventEmitter {
       return this.defer(this.instance.registerSecondary, arguments);
     }
 
-    const existingElement = parentElement.children.find(element => {
-      return element.path === path;
-    });
+    const existingElement = parentElement.children.find(
+      element => element.path === path
+    );
 
     if (existingElement) {
       if (process.env.NODE_ENV !== "production") {

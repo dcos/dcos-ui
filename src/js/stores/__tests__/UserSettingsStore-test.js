@@ -7,9 +7,7 @@ describe("UserSettingsStore", () => {
   beforeEach(() => {
     thisPrevGet = LocalStorageUtil.get;
 
-    LocalStorageUtil.get = () => {
-      return JSON.stringify({ hello: "there" });
-    };
+    LocalStorageUtil.get = () => JSON.stringify({ hello: "there" });
   });
 
   afterEach(() => {
@@ -52,9 +50,7 @@ describe("UserSettingsStore", () => {
     beforeEach(() => {
       thisPrevSet = LocalStorageUtil.set;
 
-      LocalStorageUtil.get = () => {
-        return JSON.stringify({});
-      };
+      LocalStorageUtil.get = () => JSON.stringify({});
       LocalStorageUtil.set = jasmine.createSpy();
     });
 
@@ -81,29 +77,23 @@ describe("UserSettingsStore", () => {
 
   describe("get JSONEditorExpandedSetting", () => {
     it("returns false if undefined in localStorage", () => {
-      LocalStorageUtil.get = () => {
-        return JSON.stringify({});
-      };
+      LocalStorageUtil.get = () => JSON.stringify({});
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
     it("returns false if expended is undefined in localStorage", () => {
-      LocalStorageUtil.get = () => {
-        return JSON.stringify({ JSONEditor: {} });
-      };
+      LocalStorageUtil.get = () => JSON.stringify({ JSONEditor: {} });
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
 
     it("returns false if false in localStorage", () => {
-      LocalStorageUtil.get = () => {
-        return JSON.stringify({ JSONEditor: { expanded: false } });
-      };
+      LocalStorageUtil.get = () =>
+        JSON.stringify({ JSONEditor: { expanded: false } });
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(false);
     });
 
     it("returns true if true in localStorage", () => {
-      LocalStorageUtil.get = () => {
-        return JSON.stringify({ JSONEditor: { expanded: true } });
-      };
+      LocalStorageUtil.get = () =>
+        JSON.stringify({ JSONEditor: { expanded: true } });
       expect(UserSettingsStore.JSONEditorExpandedSetting).toEqual(true);
     });
   });

@@ -47,11 +47,9 @@ describe("AppReducer", () => {
       data: { foo: "bar" }
     });
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(() => {
-      return () => {
-        return { foo: "bar" };
-      };
-    });
+    var mockPlugin = jest.genMockFunction().mockImplementation(() => () => ({
+      foo: "bar"
+    }));
 
     PluginTestUtils.loadPlugins({
       fakePlugin: {

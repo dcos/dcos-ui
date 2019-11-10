@@ -25,9 +25,7 @@ global.analytics = {
   log() {}
 };
 
-Hooks.addFilter("hasCapability", () => {
-  return true;
-});
+Hooks.addFilter("hasCapability", () => true);
 
 describe("Mesos State Actions", () => {
   beforeEach(() => {

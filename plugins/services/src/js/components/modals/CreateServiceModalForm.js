@@ -243,9 +243,7 @@ class CreateServiceModalForm extends Component {
     // Regenerate batch
     newState.batch = this.props
       .jsonParserReducers(deepCopy(baseConfig))
-      .reduce((batch, item) => {
-        return batch.add(item);
-      }, new Batch());
+      .reduce((batch, item) => batch.add(item), new Batch());
 
     // Update appConfig
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
@@ -799,9 +797,9 @@ class CreateServiceModalForm extends Component {
       }
 
       // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
-      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(rule => {
-        return rule.test(errorPath);
-      });
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(rule =>
+        rule.test(errorPath)
+      );
 
       return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
     });

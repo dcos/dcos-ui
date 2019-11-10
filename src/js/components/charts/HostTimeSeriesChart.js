@@ -32,9 +32,7 @@ var HostTimeSeriesChart = createReactClass({
   getMaxY() {
     var props = this.props;
     var roundUpValue = props.roundUpValue;
-    const slavesCounts = props.data.map(agent => {
-      return agent.slavesCount;
-    });
+    const slavesCounts = props.data.map(agent => agent.slavesCount);
     const maxSlavesCount = Math.max(...slavesCounts);
 
     var maxY =

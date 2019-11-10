@@ -29,9 +29,9 @@ class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset) {
-    return resultset.filterItems(service => {
-      return service.getHealth() === HealthStatus.NA;
-    });
+    return resultset.filterItems(
+      service => service.getHealth() === HealthStatus.NA
+    );
   }
 }
 

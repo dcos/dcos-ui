@@ -47,9 +47,7 @@ describe("SchemaFormUtil", () => {
         valueType: "string"
       });
       thisGetDefinitionFromPath = SchemaFormUtil.getDefinitionFromPath;
-      SchemaFormUtil.getDefinitionFromPath = () => {
-        return definition;
-      };
+      SchemaFormUtil.getDefinitionFromPath = () => definition;
     });
 
     afterEach(() => {

@@ -7,16 +7,13 @@ const mockMesosSummaryStore = {
   getLastSuccessfulSummarySnapshot: jest.fn(),
   addChangeListener: jest.fn()
 };
-jest.mock("#SRC/js/stores/MesosSummaryStore", () => {
-  return mockMesosSummaryStore;
-});
+jest.mock("#SRC/js/stores/MesosSummaryStore", () => mockMesosSummaryStore);
 
 const MesosFetchers = require("../MesosSummaryFetchers");
 
-const PlaceholderComponent = ({ node }) => {
-  // Cannot return object as child
-  return JSON.stringify(node);
-};
+const PlaceholderComponent = (
+  { node } // Cannot return object as child
+) => JSON.stringify(node);
 let Component;
 
 describe("MesosHooks", () => {

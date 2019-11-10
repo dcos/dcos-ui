@@ -97,9 +97,7 @@ class SchemaForm extends mixin(StoreMixin) {
     );
 
     const deleteButtonTop = Object.values(definition.itemShapes || {}).some(
-      itemShape => {
-        return itemShape.deleteButtonTop;
-      }
+      itemShape => itemShape.deleteButtonTop
     );
 
     // Default to prepending.

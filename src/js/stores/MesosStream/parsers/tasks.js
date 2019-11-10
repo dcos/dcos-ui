@@ -58,17 +58,19 @@ export function getTasksAction(state, message) {
 
   const marathonId = getMarathonId(state.frameworks);
 
-  const tasks = Object.keys(message.get_tasks).reduce((acc, key) => {
-    return acc.concat(
-      message.get_tasks[key].map(task => {
-        const processedTask = processTask(task);
-        processedTask.isStartedByMarathon =
-          marathonId === processedTask.framework_id;
+  const tasks = Object.keys(message.get_tasks).reduce(
+    (acc, key) =>
+      acc.concat(
+        message.get_tasks[key].map(task => {
+          const processedTask = processTask(task);
+          processedTask.isStartedByMarathon =
+            marathonId === processedTask.framework_id;
 
-        return processedTask;
-      })
-    );
-  }, []);
+          return processedTask;
+        })
+      ),
+    []
+  );
 
   return Object.assign({}, state, { tasks });
 }

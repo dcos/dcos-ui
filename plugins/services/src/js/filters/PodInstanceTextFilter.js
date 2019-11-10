@@ -22,9 +22,9 @@ class PodInstanceTextFilter extends DSLFilter {
    * @override
    */
   filterApply(resultSet, filterType, filterArguments) {
-    const filteredItems = resultSet.filterItems(instance => {
-      return instance.id.indexOf(filterArguments.text) !== -1;
-    });
+    const filteredItems = resultSet.filterItems(
+      instance => instance.id.indexOf(filterArguments.text) !== -1
+    );
 
     if (
       filteredItems.getItems().length !== 0 &&

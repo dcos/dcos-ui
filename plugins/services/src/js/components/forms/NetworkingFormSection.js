@@ -566,16 +566,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           virtualNetworkIsAvailable(mesosContainer, virtualNetwork.subnet6)
       )
       .getItems()
-      .map((virtualNetwork, index) => {
-        return (
-          <Trans
-            key={index}
-            render={<option key={index} value={virtualNetwork.value} />}
-          >
-            Virtual Network: {virtualNetwork.text}
-          </Trans>
-        );
-      });
+      .map((virtualNetwork, index) => (
+        <Trans
+          key={index}
+          render={<option key={index} value={virtualNetwork.value} />}
+        >
+          Virtual Network: {virtualNetwork.text}
+        </Trans>
+      ));
   }
 
   getTypeSelections() {
@@ -723,12 +721,10 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
 
     if (networks != null && networks.length > 1) {
-      networks = networks.map(({ mode, name }) => {
-        return {
-          name,
-          mode: Networking.internalToJson[mode]
-        };
-      });
+      networks = networks.map(({ mode, name }) => ({
+        name,
+        mode: Networking.internalToJson[mode]
+      }));
 
       return (
         <div>

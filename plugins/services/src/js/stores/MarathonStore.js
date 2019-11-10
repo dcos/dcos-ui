@@ -562,9 +562,9 @@ class MarathonStore extends GetSetBaseStore {
   processMarathonDeploymentRollback(data) {
     const id = data.originalDeploymentID;
     if (id != null) {
-      const deployments = this.get("deployments").filterItems(deployment => {
-        return deployment.getId() !== id;
-      });
+      const deployments = this.get("deployments").filterItems(
+        deployment => deployment.getId() !== id
+      );
       this.set({ deployments });
       this.emit(MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, data);
       this.emit(MARATHON_DEPLOYMENTS_CHANGE);
@@ -591,9 +591,7 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonServiceVersions(service) {
     let { serviceID, versions } = service;
-    versions = versions.reduce((map, version) => {
-      return map.set(version);
-    }, new Map());
+    versions = versions.reduce((map, version) => map.set(version), new Map());
 
     this.emit(MARATHON_SERVICE_VERSIONS_CHANGE, { serviceID, versions });
   }

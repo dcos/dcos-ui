@@ -10,9 +10,7 @@ const mockAuthStore = {
   isLoggedIn: jest.fn()
 };
 
-jest.mock("#SRC/js/stores/AuthStore", () => {
-  return mockAuthStore;
-});
+jest.mock("#SRC/js/stores/AuthStore", () => mockAuthStore);
 
 const PluginTestUtils = require("PluginTestUtils");
 const DOMUtils = require("#SRC/js/utils/DOMUtils");

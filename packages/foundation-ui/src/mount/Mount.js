@@ -75,9 +75,9 @@ class Mount extends React.Component {
     }, {});
 
     // Limit the number of components as configured and create elements
-    const elements = components.slice(0, limit).map((Component, index) => {
-      return <Component {...filteredProps} key={index} />;
-    });
+    const elements = components
+      .slice(0, limit)
+      .map((Component, index) => <Component {...filteredProps} key={index} />);
 
     // Don't render prop.children if elements is defined
     if (elements.length > 0) {

@@ -117,9 +117,9 @@ module.exports = class List {
    * @return {List} List (or child class) containing mapped items
    */
   filterItems(callback) {
-    const items = this.getItems().filter((item, index) => {
-      return callback(item, index, this);
-    });
+    const items = this.getItems().filter((item, index) =>
+      callback(item, index, this)
+    );
 
     return new this.constructor({ items });
   }
@@ -185,9 +185,9 @@ module.exports = class List {
    * @return {List} List (or child class) containing mapped items
    */
   mapItems(callback) {
-    const items = this.getItems().map((item, index) => {
-      return callback(item, index, this);
-    });
+    const items = this.getItems().map((item, index) =>
+      callback(item, index, this)
+    );
 
     return new this.constructor({ items });
   }
@@ -199,9 +199,11 @@ module.exports = class List {
    * @returns {*} returnValue
    */
   reduceItems(callback, initialValue) {
-    return this.getItems().reduce((previousValue, currentValue, index) => {
-      return callback(previousValue, currentValue, index, this);
-    }, initialValue);
+    return this.getItems().reduce(
+      (previousValue, currentValue, index) =>
+        callback(previousValue, currentValue, index, this),
+      initialValue
+    );
   }
 
   isEmpty() {

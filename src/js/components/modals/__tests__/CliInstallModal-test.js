@@ -7,9 +7,7 @@ const CliInstallModal = require("../CliInstallModal");
 
 // Set a new Getter. Navigator doesn't have a Setter.
 function setUserAgent(agent) {
-  global.navigator.__defineGetter__("userAgent", () => {
-    return agent;
-  });
+  global.navigator.__defineGetter__("userAgent", () => agent);
 }
 
 let thisCallback,

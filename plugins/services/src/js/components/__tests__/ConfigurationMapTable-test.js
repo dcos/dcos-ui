@@ -5,9 +5,7 @@ const { EmptyStates } = require("#SRC/js/constants/EmptyStates");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 function mapValuesOfType(instance, type) {
-  return instance.find(type).map(item => {
-    return item.text();
-  });
+  return instance.find(type).map(item => item.text());
 }
 
 describe("ConfigurationMapTable", () => {

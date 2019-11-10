@@ -60,9 +60,7 @@ describe("Highlight instance", () => {
       </Highlight>
     );
 
-    const matches = instance.find("strong").map(match => {
-      return match.text();
-    });
+    const matches = instance.find("strong").map(match => match.text());
 
     expect(matches).toEqual(["Easy", "as", "ABC"]);
   });

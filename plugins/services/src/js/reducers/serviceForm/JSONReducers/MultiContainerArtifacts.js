@@ -21,9 +21,7 @@ module.exports = {
         break;
       case REMOVE_ITEM:
         this.artifactState[index] = this.artifactState[index].filter(
-          (item, index) => {
-            return index !== value;
-          }
+          (item, index) => index !== value
         );
         break;
       case SET:

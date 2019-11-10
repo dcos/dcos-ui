@@ -24,9 +24,7 @@ function processTransaction(state, { type, path, value }) {
     newState.push({ fieldName: null, operator: null, value: null });
   }
   if (type === REMOVE_ITEM) {
-    newState = newState.filter((item, index) => {
-      return index !== value;
-    });
+    newState = newState.filter((item, index) => index !== value);
   }
   if (
     type === SET &&
@@ -115,16 +113,14 @@ module.exports = {
     });
 
     return this.constraints
-      .filter((item = {}) => {
-        return !isEmpty(item.fieldName) && !isEmpty(item.operator);
-      })
-      .map(({ fieldName, operator, value }) => {
-        return {
-          fieldName,
-          value,
-          operator: operator.toUpperCase()
-        };
-      });
+      .filter(
+        (item = {}) => !isEmpty(item.fieldName) && !isEmpty(item.operator)
+      )
+      .map(({ fieldName, operator, value }) => ({
+        fieldName,
+        value,
+        operator: operator.toUpperCase()
+      }));
   },
 
   FormReducer(state = [], { type, path, value }) {

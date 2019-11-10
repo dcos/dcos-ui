@@ -60,9 +60,7 @@ describe("#getNewContainerName", () => {
   const newName = ContainerUtil.getNewContainerName(newState.length, newState);
 
   it("does not return a duplicate name", () => {
-    const dupeNames = newState.filter(item => {
-      return item.name === newName;
-    });
+    const dupeNames = newState.filter(item => item.name === newName);
     expect(dupeNames.length).toBe(0);
   });
 

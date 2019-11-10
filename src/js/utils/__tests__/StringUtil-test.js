@@ -59,9 +59,7 @@ describe("StringUtil", () => {
     it("filters using a function as getter", () => {
       var _return = StringUtil.filterByString(
         [{ id: 0, foo: "bar" }, { id: 1, foo: "baz" }, { id: 2, foo: "bar" }],
-        el => {
-          return el.foo;
-        },
+        el => el.foo,
         "baz"
       );
       expect(_return).toEqual([{ id: 1, foo: "baz" }]);

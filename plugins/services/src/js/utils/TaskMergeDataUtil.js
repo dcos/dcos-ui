@@ -7,20 +7,14 @@ function getTaskHealthFromMesos(task) {
     return null;
   }
 
-  const healths = task.statuses.map(status => {
-    return status.healthy;
-  });
+  const healths = task.statuses.map(status => status.healthy);
 
   const healthDataExists =
     healths.length > 0 &&
-    healths.every(health => {
-      return typeof health !== "undefined";
-    });
+    healths.every(health => typeof health !== "undefined");
 
   if (healthDataExists) {
-    return healths.some(health => {
-      return health;
-    });
+    return healths.some(health => health);
   }
 
   return null;
@@ -33,9 +27,7 @@ function getTaskHealthFromMarathon(task, taskLookupTable) {
     const { healthCheckResults } = marathonTask;
 
     if (healthCheckResults != null && healthCheckResults.length > 0) {
-      return healthCheckResults.every(result => {
-        return result.alive;
-      });
+      return healthCheckResults.every(result => result.alive);
     }
   }
 

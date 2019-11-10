@@ -7,13 +7,13 @@ const Mount = require("../Mount");
 const { MountService } = require("../index");
 
 describe("Mount", () => {
-  const FirstTestComponent = props => {
-    return <div className="component">{props.message}</div>;
-  };
+  const FirstTestComponent = props => (
+    <div className="component">{props.message}</div>
+  );
 
-  const SecondTestComponent = props => {
-    return <div className="component">{props.message}</div>;
-  };
+  const SecondTestComponent = props => (
+    <div className="component">{props.message}</div>
+  );
 
   beforeEach(() => {
     MountService.registerComponent(FirstTestComponent, "mount-test");

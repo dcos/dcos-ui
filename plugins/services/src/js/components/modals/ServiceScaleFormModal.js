@@ -49,9 +49,10 @@ class ServiceScaleFormModal extends React.PureComponent {
     const hasDetails = details && details.length !== 0;
 
     if (hasDetails) {
-      errorMsg = details.reduce((memo, error) => {
-        return `${memo} ${error.errors.join(" ")}`;
-      }, "");
+      errorMsg = details.reduce(
+        (memo, error) => `${memo} ${error.errors.join(" ")}`,
+        ""
+      );
     }
 
     if (!errorMsg || !errorMsg.length) {

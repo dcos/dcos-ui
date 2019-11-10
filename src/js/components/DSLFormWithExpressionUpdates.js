@@ -119,11 +119,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
     const matchingNodes = DSLUtil.findNodesByFilter(expression.ast, updateNode);
 
     // All the existing nodes for all properties
-    const allMatchingNodes = Object.keys(parts).reduce((memo, part) => {
-      return memo.concat(
-        DSLUtil.findNodesByFilter(expression.ast, parts[part])
-      );
-    }, []);
+    const allMatchingNodes = Object.keys(parts).reduce(
+      (memo, part) =>
+        memo.concat(DSLUtil.findNodesByFilter(expression.ast, parts[part])),
+      []
+    );
 
     switch (updateNode.filterType) {
       //
@@ -188,9 +188,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         const newFuzzyNodes = value
           .replace(":", " ")
           .split(" ")
-          .map(text => {
-            return new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text });
-          });
+          .map(text => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
 
         // And replace the existing fuzzy nodes
         expression = DSLUpdateUtil.applyReplace(

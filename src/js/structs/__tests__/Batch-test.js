@@ -49,17 +49,16 @@ describe("Batch", () => {
     });
 
     it("runs reducers at least once", () => {
-      const sum = thisBatch.reduce(sum => {
-        return sum + 1;
-      }, 0);
+      const sum = thisBatch.reduce(sum => sum + 1, 0);
 
       expect(sum).toEqual(1);
     });
 
     it("passes sane arguments for reducing on empty batch", () => {
-      const args = thisBatch.reduce((sum, action, index) => {
-        return [sum, action, index];
-      }, "initial");
+      const args = thisBatch.reduce(
+        (sum, action, index) => [sum, action, index],
+        "initial"
+      );
 
       expect(args).toEqual(["initial", { path: [], value: "INIT" }, 0]);
     });
@@ -69,9 +68,7 @@ describe("Batch", () => {
         .add(new Transaction(["foo"], "a"))
         .add(new Transaction(["bar"], "b"))
         .add(new Transaction(["baz"], "c"));
-      const sum = batch.reduce(sum => {
-        return sum + 1;
-      }, 0);
+      const sum = batch.reduce(sum => sum + 1, 0);
 
       expect(sum).toEqual(3);
     });
@@ -82,9 +79,7 @@ describe("Batch", () => {
         .add(new Transaction(["foo", "foo"], "b"))
         .add(new Transaction(["foo", "bar"], "a"))
         .add(new Transaction(["foo", "bar"], "a"));
-      const sum = batch.reduce(sum => {
-        return sum + 1;
-      }, 0);
+      const sum = batch.reduce(sum => sum + 1, 0);
 
       expect(sum).toEqual(3);
     });
@@ -96,9 +91,7 @@ describe("Batch", () => {
         .add(new Transaction(["id"], "b"))
         .add(new Transaction(["mem"], 1))
         .add(new Transaction(["id"], "a"));
-      const sum = batch.reduce(sum => {
-        return sum + 1;
-      }, 0);
+      const sum = batch.reduce(sum => sum + 1, 0);
 
       expect(sum).toEqual(5);
     });

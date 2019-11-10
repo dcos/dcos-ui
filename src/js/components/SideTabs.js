@@ -27,9 +27,9 @@ class SideTabs extends React.Component {
   }
 
   getSelectedTabTitle(selectedTab, tabs) {
-    const selectedTabDefinition = tabs.find(tab => {
-      return tab.selectValue === selectedTab;
-    });
+    const selectedTabDefinition = tabs.find(
+      tab => tab.selectValue === selectedTab
+    );
 
     if (selectedTabDefinition) {
       return selectedTabDefinition.title;
@@ -45,9 +45,10 @@ class SideTabs extends React.Component {
       // Check if at least one field has errors
       const hasErrors =
         definition &&
-        definition.reduce((lastErrors, field) => {
-          return lastErrors || !!field.showError;
-        }, false);
+        definition.reduce(
+          (lastErrors, field) => lastErrors || !!field.showError,
+          false
+        );
 
       // Prepare classes
       const classes = classNames(

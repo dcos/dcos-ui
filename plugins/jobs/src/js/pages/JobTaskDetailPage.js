@@ -68,9 +68,9 @@ class JobTaskDetailPage extends React.Component {
       </Breadcrumbs>
     );
 
-    const dontScroll = dontScrollRoutes.some(regex => {
-      return regex.test(location.pathname);
-    });
+    const dontScroll = dontScrollRoutes.some(regex =>
+      regex.test(location.pathname)
+    );
 
     return (
       <Page dontScroll={dontScroll}>
