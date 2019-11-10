@@ -89,11 +89,12 @@ class SystemLogStore extends BaseStore {
     } else {
       newLogData.entries = entries.concat(logData.entries);
     }
-    const length = entries.reduce((sum, entry) => {
-      return (
-        sum + findNestedPropertyInObject(entry, `fields.${MESSAGE}.length`) || 0
-      );
-    }, 0);
+    const length = entries.reduce(
+      (sum, entry) =>
+        sum + findNestedPropertyInObject(entry, `fields.${MESSAGE}.length`) ||
+        0,
+      0
+    );
 
     // Update new size
     newLogData.totalSize += length;
@@ -108,9 +109,9 @@ class SystemLogStore extends BaseStore {
     // Formatting logs as we do in the CLI:
     // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260
     return entries
-      .filter(entry => {
-        return Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`));
-      })
+      .filter(entry =>
+        Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`))
+      )
       .map(entry => {
         const { fields = {} } = entry;
         const lineData = [];

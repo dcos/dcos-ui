@@ -10,13 +10,11 @@ import {
 
 import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
-const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => {
-  return (
-    <span className="resource-switch-trigger" onClick={onTrigger}>
-      {children}
-    </span>
-  );
-};
+const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => (
+  <span className="resource-switch-trigger" onClick={onTrigger}>
+    {children}
+  </span>
+);
 
 export default class ResourceSwitchDropdown extends React.Component {
   handleItemSelection(item) {

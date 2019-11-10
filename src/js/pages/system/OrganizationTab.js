@@ -287,9 +287,7 @@ class OrganizationTab extends mixin(StoreMixin) {
         sortable: true,
         sortFunction: TableUtil.getSortFunction(
           this.props.itemID,
-          (item, prop) => {
-            return item.get(prop);
-          }
+          (item, prop) => item.get(prop)
         ),
         heading: ResourceTableUtil.renderHeading({ uid: i18nMark("USERNAME") })
       }
@@ -340,13 +338,11 @@ class OrganizationTab extends mixin(StoreMixin) {
   }
 
   getActionsDropdownItems(actionPhrases) {
-    return Object.keys(actionPhrases).map(action => {
-      return {
-        html: actionPhrases[action].dropdownOption,
-        id: action,
-        selectedHtml: "Actions"
-      };
-    });
+    return Object.keys(actionPhrases).map(action => ({
+      html: actionPhrases[action].dropdownOption,
+      id: action,
+      selectedHtml: "Actions"
+    }));
   }
 
   getCheckedItemObjects(items, itemIDName) {

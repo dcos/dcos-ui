@@ -191,14 +191,12 @@ const MarathonAppValidators = {
 
           return accumulator;
         }, [])
-        .map(labelPath => {
-          return {
-            path: [labelPath],
-            message: "Keys must not start or end with whitespace characters",
-            type: SYNTAX_ERROR,
-            variables: { name: "labels" }
-          };
-        });
+        .map(labelPath => ({
+          path: [labelPath],
+          message: "Keys must not start or end with whitespace characters",
+          type: SYNTAX_ERROR,
+          variables: { name: "labels" }
+        }));
     }
 
     // No errors

@@ -22,9 +22,7 @@ const ContainerUtil = {
 
   getNewContainerName(containerLength, newState) {
     const name = `container-${containerLength + 1}`;
-    const matchingNames = newState.filter(item => {
-      return item.name === name;
-    });
+    const matchingNames = newState.filter(item => item.name === name);
 
     if (matchingNames.length > 0) {
       return this.getNewContainerName(++containerLength, newState);

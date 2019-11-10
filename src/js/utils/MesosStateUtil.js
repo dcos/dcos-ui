@@ -9,9 +9,9 @@ import Util from "./Util";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 
-const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(taskState => {
-  return TaskStates[taskState].stateTypes.includes("completed");
-});
+const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(taskState =>
+  TaskStates[taskState].stateTypes.includes("completed")
+);
 
 // Based on the regex that marathon uses to validate task IDs,
 // but keeping only the 'instance-' prefix, that refers to pods.
@@ -45,9 +45,9 @@ const MesosStateUtil = {
   getFramework(state, frameworkID) {
     const { frameworks, completed_frameworks = [] } = state;
 
-    return [].concat(frameworks, completed_frameworks).find(framework => {
-      return framework != null && framework.id === frameworkID;
-    });
+    return []
+      .concat(frameworks, completed_frameworks)
+      .find(framework => framework != null && framework.id === frameworkID);
   },
 
   /**
@@ -82,13 +82,11 @@ const MesosStateUtil = {
 
     return tasks
       .concat(
-        executors.map(executor => {
-          return {
-            slave_id: executor.agent_id.value,
-            framework_id: executor.framework_id,
-            resources: this.extractExecutorResources(executor.resources)
-          };
-        })
+        executors.map(executor => ({
+          slave_id: executor.agent_id.value,
+          framework_id: executor.framework_id,
+          resources: this.extractExecutorResources(executor.resources)
+        }))
       )
       .reduce((memo, element) => {
         if (memo[element.slave_id] == null) {
@@ -139,9 +137,9 @@ const MesosStateUtil = {
    */
   getPodHistoricalInstances(state, pod) {
     const { frameworks = [], tasks = [] } = state;
-    const marathon = frameworks.find(framework => {
-      return framework.name === "marathon";
-    });
+    const marathon = frameworks.find(
+      framework => framework.name === "marathon"
+    );
 
     if (!marathon) {
       return [];
@@ -285,12 +283,11 @@ const MesosStateUtil = {
 
   getFrameworkToServicesMap(frameworks, serviceTree) {
     return frameworks.reduce((acc, framework) => {
-      acc[framework.id] = serviceTree.findItem(item => {
-        return (
+      acc[framework.id] = serviceTree.findItem(
+        item =>
           item instanceof Framework &&
           item.getFrameworkName() === framework.name
-        );
-      });
+      );
 
       return acc;
     }, {});

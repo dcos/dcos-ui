@@ -1109,9 +1109,7 @@ describe("Container", () => {
             }
           }
         }
-      }).reduce((batch, transaction) => {
-        return batch.add(transaction);
-      }, new Batch());
+      }).reduce((batch, transaction) => batch.add(transaction), new Batch());
 
       batch = batch.add(
         new Transaction(["container", "docker", "image"], "", SET)
@@ -1146,9 +1144,7 @@ describe("Container", () => {
             }
           }
         })
-          .reduce((batch, transaction) => {
-            return batch.add(transaction);
-          }, new Batch())
+          .reduce((batch, transaction) => batch.add(transaction), new Batch())
           .reduce(Container.JSONReducer.bind({}), {})
       ).toEqual({
         portMappings: null,

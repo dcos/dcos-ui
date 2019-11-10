@@ -32,39 +32,36 @@ var TaskDirectoryActions = {
 
   fetchNodeState: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    (resolve, reject) => {
-      return (task, node, innerPath) => {
-        return RequestUtil.json({
-          url: getNodeStateURL(task, node),
-          success(response) {
-            AppDispatcher.handleServerAction({
-              type: REQUEST_NODE_STATE_SUCCESS,
-              data: response,
-              task,
-              node,
-              innerPath
-            });
+    (resolve, reject) => (task, node, innerPath) =>
+      RequestUtil.json({
+        url: getNodeStateURL(task, node),
+        success(response) {
+          AppDispatcher.handleServerAction({
+            type: REQUEST_NODE_STATE_SUCCESS,
+            data: response,
+            task,
+            node,
+            innerPath
+          });
+          resolve();
+        },
+        error(xhr) {
+          if (xhr.statusText === "abort") {
             resolve();
-          },
-          error(xhr) {
-            if (xhr.statusText === "abort") {
-              resolve();
 
-              return;
-            }
-
-            AppDispatcher.handleServerAction({
-              type: REQUEST_NODE_STATE_ERROR,
-              data: xhr.message,
-              task,
-              node,
-              xhr
-            });
-            reject();
+            return;
           }
-        });
-      };
-    },
+
+          AppDispatcher.handleServerAction({
+            type: REQUEST_NODE_STATE_ERROR,
+            data: xhr.message,
+            task,
+            node,
+            xhr
+          });
+          reject();
+        }
+      }),
     { delayAfterCount: Config.delayAfterErrorCount }
   ),
 

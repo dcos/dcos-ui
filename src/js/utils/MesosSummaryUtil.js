@@ -50,9 +50,9 @@ const MesosSummaryUtil = {
   },
 
   filterHostsByService(hosts, frameworkId) {
-    return hosts.filter(({ framework_ids = [] }) => {
-      return framework_ids.includes(frameworkId);
-    });
+    return hosts.filter(({ framework_ids = [] }) =>
+      framework_ids.includes(frameworkId)
+    );
   },
 
   getInitialStates() {
@@ -64,11 +64,11 @@ const MesosSummaryUtil = {
       reverseRange.push(-i);
     }
 
-    return reverseRange.map(i => {
-      return Object.assign(MesosSummaryUtil.getEmptyState(), {
+    return reverseRange.map(i =>
+      Object.assign(MesosSummaryUtil.getEmptyState(), {
         date: currentDate + i * Config.getRefreshRate()
-      });
-    });
+      })
+    );
   },
 
   getEmptyState() {

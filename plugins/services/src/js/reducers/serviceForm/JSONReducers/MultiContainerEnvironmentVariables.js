@@ -8,12 +8,11 @@ module.exports = {
     }
 
     return Object.keys(state.environment)
-      .filter(key => {
-        return (
+      .filter(
+        key =>
           state.environment[key] == null ||
           typeof state.environment[key] === "string"
-        );
-      })
+      )
       .reduce((memo, key, index) => {
         /**
          * For the environment variables which are a key => value based object

@@ -113,15 +113,14 @@ class PodStorageConfigSection extends React.Component {
         return cmMemo.concat(
           volumeMounts
             .filter(volumeMount => volumeMount.name === volume.name)
-            .map(volumeMount => {
-              return {
-                container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
-                  container
-                ),
-                mountPath: volumeMount.mountPath,
-                readOnly: volumeMount.readOnly || false
-              };
-            })
+            .map(volumeMount => ({
+              container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
+                container
+              ),
+
+              mountPath: volumeMount.mountPath,
+              readOnly: volumeMount.readOnly || false
+            }))
         );
       }, []);
 
@@ -133,9 +132,11 @@ class PodStorageConfigSection extends React.Component {
       }
 
       // Otherwise create one volume entry for each mount
-      return containerMounts.reduce((volumesMemo, mountInfo) => {
-        return volumesMemo.concat(Object.assign({}, volumeInfo, mountInfo));
-      }, memo);
+      return containerMounts.reduce(
+        (volumesMemo, mountInfo) =>
+          volumesMemo.concat(Object.assign({}, volumeInfo, mountInfo)),
+        memo
+      );
     }, []);
 
     if (!volumeSummary.length) {

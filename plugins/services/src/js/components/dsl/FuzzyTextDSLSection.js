@@ -60,9 +60,7 @@ class FuzzyTextDSLSection extends React.Component {
     const newFuzzyNodes = value
       .replace(":", " ")
       .split(" ")
-      .map(text => {
-        return new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text });
-      });
+      .map(text => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
 
     const updateNode = EXPRESSION_PARTS["text"];
     // The node(s) relevant to the property we are updating

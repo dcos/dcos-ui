@@ -8,17 +8,13 @@ const ResourcesUtil = require("../ResourcesUtil");
 function createFnWithNodeResources(used_resources) {
   const instance = new Node({ used_resources });
 
-  return () => {
-    return new NodesList({ items: [instance] });
-  };
+  return () => new NodesList({ items: [instance] });
 }
 
 function createFnWithServicesResources(used_resources) {
   const instance = new Service({ used_resources });
 
-  return () => {
-    return new ServicesList({ items: [instance] });
-  };
+  return () => new ServicesList({ items: [instance] });
 }
 
 describe("ResourcesUtil", () => {
@@ -34,12 +30,8 @@ describe("ResourcesUtil", () => {
 
   describe("#getAvailableResources", () => {
     beforeEach(() => {
-      CompositeState.getNodesList = () => {
-        return new NodesList();
-      };
-      CompositeState.getServicesList = () => {
-        return new ServicesList();
-      };
+      CompositeState.getNodesList = () => new NodesList();
+      CompositeState.getServicesList = () => new ServicesList();
     });
 
     it("returns an array", () => {
@@ -65,9 +57,7 @@ describe("ResourcesUtil", () => {
 
     describe("without nodes", () => {
       beforeEach(() => {
-        CompositeState.getNodesList = () => {
-          return new NodesList();
-        };
+        CompositeState.getNodesList = () => new NodesList();
       });
 
       it("gets available resources from a service", () => {
@@ -85,55 +75,37 @@ describe("ResourcesUtil", () => {
 
     describe("invalid or empty data", () => {
       it("returns an empty array when used resources is null", () => {
-        CompositeState.getNodesList = () => {
-          return {
-            getItems: () => {
-              return [
-                {
-                  getResources: () => {
-                    return null;
-                  }
-                }
-              ];
+        CompositeState.getNodesList = () => ({
+          getItems: () => [
+            {
+              getResources: () => null
             }
-          };
-        };
+          ]
+        });
         const resources = ResourcesUtil.getAvailableResources();
         expect(resources).toEqual([]);
       });
 
       it("returns an empty array when used resources is undefined", () => {
-        CompositeState.getNodesList = () => {
-          return {
-            getItems: () => {
-              return [
-                {
-                  getResources: () => {
-                    return undefined;
-                  }
-                }
-              ];
+        CompositeState.getNodesList = () => ({
+          getItems: () => [
+            {
+              getResources: () => undefined
             }
-          };
-        };
+          ]
+        });
         const resources = ResourcesUtil.getAvailableResources();
         expect(resources).toEqual([]);
       });
 
       it("returns an empty array when used resources is empty array", () => {
-        CompositeState.getNodesList = () => {
-          return {
-            getItems: () => {
-              return [
-                {
-                  getResources: () => {
-                    return [];
-                  }
-                }
-              ];
+        CompositeState.getNodesList = () => ({
+          getItems: () => [
+            {
+              getResources: () => []
             }
-          };
-        };
+          ]
+        });
         const resources = ResourcesUtil.getAvailableResources();
         expect(resources).toEqual([]);
       });

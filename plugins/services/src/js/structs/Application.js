@@ -177,9 +177,10 @@ module.exports = class Application extends Service {
       )
     };
 
-    const tasksSum = Object.keys(healthData).reduce((sum, healthItem) => {
-      return sum + healthData[healthItem];
-    }, 0);
+    const tasksSum = Object.keys(healthData).reduce(
+      (sum, healthItem) => sum + healthData[healthItem],
+      0
+    );
 
     healthData.tasksOverCapacity = Math.max(
       0,

@@ -11,9 +11,7 @@ describe("HooksAPI", () => {
   describe("#applyFilter", () => {
     beforeEach(() => {
       thisFakeFilter = jest.genMockFunction();
-      thisFakeFilter.mockImplementation(value => {
-        return value.replace("bar", "baz");
-      });
+      thisFakeFilter.mockImplementation(value => value.replace("bar", "baz"));
 
       thisHooks = new Hooks();
       thisHooks.addFilter("foo", thisFakeFilter);
@@ -37,13 +35,13 @@ describe("HooksAPI", () => {
       var lowPriorityFilter = jest.genMockFunction();
       var highPriorityFilter = jest.genMockFunction();
 
-      lowPriorityFilter.mockImplementation(value => {
-        return value.replace("bar", "baz");
-      });
+      lowPriorityFilter.mockImplementation(value =>
+        value.replace("bar", "baz")
+      );
 
-      highPriorityFilter.mockImplementation(value => {
-        return value.replace("bar", "qux");
-      });
+      highPriorityFilter.mockImplementation(value =>
+        value.replace("bar", "qux")
+      );
 
       thisHooks.addFilter("corge", lowPriorityFilter, 20);
       thisHooks.addFilter("corge", highPriorityFilter, 1);

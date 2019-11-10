@@ -79,39 +79,35 @@ class ServicePodConnectionEndpointList extends React.Component {
   }
 
   getPortDefinitions(endpoints) {
-    return endpoints.map((portDefinition, index) => {
-      return (
-        <ConfigurationMapSection key={index}>
-          <ConfigurationMapHeading>
-            {portDefinition.name}
-          </ConfigurationMapHeading>
-          <ConfigurationMapRow>
-            <Trans render={<ConfigurationMapLabel />}>Protocol</Trans>
-            <ConfigurationMapValue>
-              <span>{this.getProtocolValue(portDefinition)}</span>
-            </ConfigurationMapValue>
-          </ConfigurationMapRow>
-          <ConfigurationMapRow key="container-port">
-            <Trans render={<ConfigurationMapLabel />}>Container Port</Trans>
-            <ConfigurationMapValue>
-              {this.getContainerPortValue(portDefinition)}
-            </ConfigurationMapValue>
-          </ConfigurationMapRow>
-          <ConfigurationMapRow>
-            <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
-            <ConfigurationMapValue>
-              {this.getHostPortValue(portDefinition)}
-            </ConfigurationMapValue>
-          </ConfigurationMapRow>
-          <ConfigurationMapRow>
-            <Trans render={<ConfigurationMapLabel />}>Container</Trans>
-            <ConfigurationMapValue>
-              <span>{portDefinition.containerName}</span>
-            </ConfigurationMapValue>
-          </ConfigurationMapRow>
-        </ConfigurationMapSection>
-      );
-    });
+    return endpoints.map((portDefinition, index) => (
+      <ConfigurationMapSection key={index}>
+        <ConfigurationMapHeading>{portDefinition.name}</ConfigurationMapHeading>
+        <ConfigurationMapRow>
+          <Trans render={<ConfigurationMapLabel />}>Protocol</Trans>
+          <ConfigurationMapValue>
+            <span>{this.getProtocolValue(portDefinition)}</span>
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow key="container-port">
+          <Trans render={<ConfigurationMapLabel />}>Container Port</Trans>
+          <ConfigurationMapValue>
+            {this.getContainerPortValue(portDefinition)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <Trans render={<ConfigurationMapLabel />}>Host Port</Trans>
+          <ConfigurationMapValue>
+            {this.getHostPortValue(portDefinition)}
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+        <ConfigurationMapRow>
+          <Trans render={<ConfigurationMapLabel />}>Container</Trans>
+          <ConfigurationMapValue>
+            <span>{portDefinition.containerName}</span>
+          </ConfigurationMapValue>
+        </ConfigurationMapRow>
+      </ConfigurationMapSection>
+    ));
   }
 
   render() {

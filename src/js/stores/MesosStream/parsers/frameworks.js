@@ -18,9 +18,10 @@ export function getFrameworksAction(state, message) {
     return state;
   }
 
-  const frameworks = Object.keys(message.get_frameworks).reduce((acc, key) => {
-    return acc.concat(message.get_frameworks[key].map(processFramework));
-  }, []);
+  const frameworks = Object.keys(message.get_frameworks).reduce(
+    (acc, key) => acc.concat(message.get_frameworks[key].map(processFramework)),
+    []
+  );
 
   return Object.assign({}, state, { frameworks });
 }

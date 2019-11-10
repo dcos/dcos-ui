@@ -12,13 +12,11 @@ describe("ChartMixin", () => {
         id: "used_resources",
         values: Array(31)
           .fill(0)
-          .map((value, i) => {
-            return {
-              date: now + interval * i,
-              percentage: 0,
-              value: 0
-            };
-          })
+          .map((value, i) => ({
+            date: now + interval * i,
+            percentage: 0,
+            value: 0
+          }))
       }
     ];
 

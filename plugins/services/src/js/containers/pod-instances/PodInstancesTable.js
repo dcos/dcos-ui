@@ -86,9 +86,9 @@ class PodInstancesTable extends React.Component {
   }
 
   triggerSelectionChange(checkedItems, instances) {
-    const checkedItemInstances = instances.filter(item => {
-      return checkedItems[item.getId()];
-    });
+    const checkedItemInstances = instances.filter(
+      item => checkedItems[item.getId()]
+    );
     this.props.onSelectionChange(checkedItemInstances);
   }
 
@@ -167,9 +167,9 @@ class PodInstancesTable extends React.Component {
         prop: "region",
         render: this.renderRegion,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance => {
-          return InstanceUtil.getRegionName(instance);
-        })
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance =>
+          InstanceUtil.getRegionName(instance)
+        )
       },
       {
         className: this.getColumnClassName,
@@ -177,9 +177,9 @@ class PodInstancesTable extends React.Component {
         prop: "zone",
         render: this.renderZone,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance => {
-          return InstanceUtil.getZoneName(instance);
-        })
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance =>
+          InstanceUtil.getZoneName(instance)
+        )
       },
       {
         className: this.getColumnClassName,
@@ -243,20 +243,18 @@ class PodInstancesTable extends React.Component {
         containerResources = containerSpec.resources;
       }
 
-      const addressComponents = container.getEndpoints().map((endpoint, i) => {
-        return [
-          <a
-            className="text-muted"
-            href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
-            key={i}
-            target="_blank"
-            title="Open in a new window"
-          >
-            {endpoint.allocatedHostPort}
-          </a>,
-          " "
-        ];
-      });
+      const addressComponents = container.getEndpoints().map((endpoint, i) => [
+        <a
+          className="text-muted"
+          href={`http://${agentAddress}:${endpoint.allocatedHostPort}`}
+          key={i}
+          target="_blank"
+          title="Open in a new window"
+        >
+          {endpoint.allocatedHostPort}
+        </a>,
+        " "
+      ]);
 
       return {
         id: container.getId(),
@@ -288,9 +286,11 @@ class PodInstancesTable extends React.Component {
     const podSpec = this.props.pod.getSpec();
 
     return instances.map(instance => {
-      const containers = instance.getContainers().filter(container => {
-        return PodUtil.isContainerMatchingText(container, filterText);
-      });
+      const containers = instance
+        .getContainers()
+        .filter(container =>
+          PodUtil.isContainerMatchingText(container, filterText)
+        );
       const children = this.getContainersWithResources(
         podSpec,
         containers,

@@ -147,11 +147,7 @@ var NodesGridDials = createReactClass({
           key={node.get("id")}
         >
           <div className="chart">
-            <Chart
-              calcHeight={w => {
-                return w;
-              }}
-            >
+            <Chart calcHeight={w => w}>
               <DialChart data={config.data} value="percentage">
                 {description}
               </DialChart>
@@ -167,9 +163,9 @@ var NodesGridDials = createReactClass({
   getSpacers() {
     return Array(30)
       .fill()
-      .map((v, index) => {
-        return <div className="nodes-grid-dials-spacer" key={index} />;
-      });
+      .map((v, index) => (
+        <div className="nodes-grid-dials-spacer" key={index} />
+      ));
   },
 
   render() {

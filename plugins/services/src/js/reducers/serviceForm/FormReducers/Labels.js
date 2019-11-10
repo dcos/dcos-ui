@@ -15,9 +15,7 @@ module.exports = {
             state.push({ key: null, value: null });
             break;
           case REMOVE_ITEM:
-            state = state.filter((item, index) => {
-              return index !== value;
-            });
+            state = state.filter((item, index) => index !== value);
             break;
         }
 

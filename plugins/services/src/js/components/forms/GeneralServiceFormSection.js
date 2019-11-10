@@ -160,20 +160,18 @@ class GeneralServiceFormSection extends Component {
     }
 
     const { containers = [] } = data;
-    const containerElements = containers.map((item, index) => {
-      return (
-        <FormGroupContainer
-          key={index}
-          onRemove={this.props.onRemoveItem.bind(this, {
-            value: index,
-            path: "containers"
-          })}
-          onClick={this.props.onClickItem.bind(this, `container${index}`)}
-        >
-          {item.name || `container-${index + 1}`}
-        </FormGroupContainer>
-      );
-    });
+    const containerElements = containers.map((item, index) => (
+      <FormGroupContainer
+        key={index}
+        onRemove={this.props.onRemoveItem.bind(this, {
+          value: index,
+          path: "containers"
+        })}
+        onClick={this.props.onClickItem.bind(this, `container${index}`)}
+      >
+        {item.name || `container-${index + 1}`}
+      </FormGroupContainer>
+    ));
 
     return (
       <div>

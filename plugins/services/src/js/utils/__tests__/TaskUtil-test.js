@@ -136,12 +136,8 @@ describe("TaskUtil", () => {
 
   describe("#getRegionName", () => {
     beforeEach(() => {
-      CompositeState.getNodesList = () => {
-        return new NodesList({ items: SlaveNodes });
-      };
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeLocal);
-      };
+      CompositeState.getNodesList = () => new NodesList({ items: SlaveNodes });
+      CompositeState.getMasterNode = () => new Node(MasterNodeLocal);
     });
     it("returns N/A when no region name exists", () => {
       const task = Object.assign({}, NodeTask);
@@ -152,18 +148,14 @@ describe("TaskUtil", () => {
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2 (Local)");
     });
     it("returns region when slave/ master in different region", () => {
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeOffsite);
-      };
+      CompositeState.getMasterNode = () => new Node(MasterNodeOffsite);
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2");
     });
   });
 
   describe("#getZoneName", () => {
     beforeEach(() => {
-      CompositeState.getNodesList = () => {
-        return new NodesList({ items: SlaveNodes });
-      };
+      CompositeState.getNodesList = () => new NodesList({ items: SlaveNodes });
     });
     it("returns N/A when no zone name exists", () => {
       const task = Object.assign({}, NodeTask);
@@ -171,9 +163,7 @@ describe("TaskUtil", () => {
       expect(TaskUtil.getZoneName(task)).toEqual("N/A");
     });
     it("returns zone when slave/ master in different zone", () => {
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeOffsite);
-      };
+      CompositeState.getMasterNode = () => new Node(MasterNodeOffsite);
       expect(TaskUtil.getZoneName(NodeTask)).toEqual("us-west-2a");
     });
   });

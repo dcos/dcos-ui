@@ -18,13 +18,11 @@ const TASK_INFO = {
 const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
 function getEmptyTaskData() {
-  return DISPLAYED_TASK_KEYS.map(key => {
-    return {
-      name: key,
-      colorIndex: TASK_INFO[key].colorIndex,
-      value: 0
-    };
-  });
+  return DISPLAYED_TASK_KEYS.map(key => ({
+    name: key,
+    colorIndex: TASK_INFO[key].colorIndex,
+    value: 0
+  }));
 }
 
 var TasksChart = createReactClass({
@@ -52,9 +50,7 @@ var TasksChart = createReactClass({
 
     return DISPLAYED_TASK_KEYS.map(key => {
       const info = TASK_INFO[key];
-      var task = tasks.find(task => {
-        return task.name === key;
-      });
+      var task = tasks.find(task => task.name === key);
       if (task === undefined) {
         task = { value: 0 };
       }
@@ -89,19 +85,15 @@ var TasksChart = createReactClass({
   },
 
   getTotal(tasks) {
-    return tasks.reduce((acc, task) => {
-      return acc + task.value;
-    }, 0);
+    return tasks.reduce((acc, task) => acc + task.value, 0);
   },
 
   getTasks(tasks = {}) {
-    return DISPLAYED_TASK_KEYS.map(key => {
-      return {
-        colorIndex: TASK_INFO[key].colorIndex,
-        name: key,
-        value: tasks[key]
-      };
-    });
+    return DISPLAYED_TASK_KEYS.map(key => ({
+      colorIndex: TASK_INFO[key].colorIndex,
+      name: key,
+      value: tasks[key]
+    }));
   },
 
   getDialChart(tasks) {

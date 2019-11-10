@@ -658,11 +658,7 @@ describe("Service Form Modal", () => {
 
     it("has four options to choose from", () => {
       cy.get(".panel-grid h3").should(items => {
-        const texts = items
-          .map((i, el) => {
-            return Cypress.$(el).text();
-          })
-          .get();
+        const texts = items.map((i, el) => Cypress.$(el).text()).get();
 
         expect(texts).to.deep.eq([
           "Single Container",

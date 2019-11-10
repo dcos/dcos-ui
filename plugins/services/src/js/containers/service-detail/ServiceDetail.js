@@ -75,9 +75,9 @@ class ServiceDetail extends mixin(TabsMixin) {
 
     if (isGroup) {
       containsSDKService =
-        service.findItem(item => {
-          return item instanceof Service && isSDKService(item);
-        }) != null;
+        service.findItem(
+          item => item instanceof Service && isSDKService(item)
+        ) != null;
     }
 
     if (

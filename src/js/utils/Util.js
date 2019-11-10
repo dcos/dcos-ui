@@ -99,9 +99,7 @@ const Util = {
   },
 
   getLocaleCompareSortFn(prop) {
-    return (a, b) => {
-      return a[prop].localeCompare(b[prop]);
-    };
+    return (a, b) => a[prop].localeCompare(b[prop]);
   },
 
   /**
@@ -190,9 +188,7 @@ const Util = {
    */
   filterEmptyValues(obj) {
     return Object.keys(obj)
-      .filter(key => {
-        return !ValidatorUtil.isEmpty(obj[key]);
-      })
+      .filter(key => !ValidatorUtil.isEmpty(obj[key]))
       .reduce((memo, key) => {
         memo[key] = obj[key];
 
@@ -202,12 +198,11 @@ const Util = {
 
   objectToGetParams(obj) {
     const queryString = Object.keys(obj)
-      .filter(param => {
-        return obj[param] != null;
-      })
-      .map(param => {
-        return `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`;
-      })
+      .filter(param => obj[param] != null)
+      .map(
+        param =>
+          `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`
+      )
       .join("&");
 
     return queryString ? `?${queryString}` : "";

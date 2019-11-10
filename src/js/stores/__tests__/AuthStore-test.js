@@ -9,10 +9,7 @@ const AuthStore = require("../AuthStore");
 const USER_COOKIE_KEY = "dcos-acs-info-cookie";
 
 global.atob =
-  global.atob ||
-  (() => {
-    return JSON.stringify({ uid: "joe", description: "Joe Doe" });
-  });
+  global.atob || (() => JSON.stringify({ uid: "joe", description: "Joe Doe" }));
 
 let thisCookieParse, thisDocument;
 

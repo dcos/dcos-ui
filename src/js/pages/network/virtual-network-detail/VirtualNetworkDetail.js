@@ -168,9 +168,9 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
       }
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().findItem(overlay => {
-      return overlay.getName() === this.props.params.overlayName;
-    });
+    const overlay = VirtualNetworksStore.getOverlays().findItem(
+      overlay => overlay.getName() === this.props.params.overlayName
+    );
 
     return (
       <Page>

@@ -108,9 +108,7 @@ describe("Containers", () => {
             SET
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce((batch, transaction) => {
-          return batch.add(transaction);
-        }, new Batch());
+        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -160,9 +158,7 @@ describe("Containers", () => {
             ADD_ITEM
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce((batch, transaction) => {
-          return batch.add(transaction);
-        }, new Batch());
+        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -185,9 +181,7 @@ describe("Containers", () => {
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET)
-        ].reduce((batch, transaction) => {
-          return batch.add(transaction);
-        }, new Batch());
+        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -209,9 +203,7 @@ describe("Containers", () => {
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET),
           new Transaction(["containers", 0, "image", "forcePull"], false, SET)
-        ].reduce((batch, transaction) => {
-          return batch.add(transaction);
-        }, new Batch());
+        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -227,9 +219,7 @@ describe("Containers", () => {
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET)
-        ].reduce((batch, transaction) => {
-          return batch.add(transaction);
-        }, new Batch());
+        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {

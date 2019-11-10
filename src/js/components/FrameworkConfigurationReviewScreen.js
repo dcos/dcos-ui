@@ -118,18 +118,16 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     const { frameworkData } = this.props;
     const renderKeys = this.getHashMapRenderKeys(frameworkData);
 
-    return Object.keys(renderKeys).map((key, index) => {
-      return (
-        <HashMapDisplay
-          hash={frameworkData[key]}
-          headline={renderKeys[key]}
-          renderKeys={renderKeys}
-          headlineClassName={"text-capitalize"}
-          emptyValue={EmptyStates.CONFIG_VALUE}
-          key={`framework-config-review-section-${index}`}
-        />
-      );
-    });
+    return Object.keys(renderKeys).map((key, index) => (
+      <HashMapDisplay
+        hash={frameworkData[key]}
+        headline={renderKeys[key]}
+        renderKeys={renderKeys}
+        headlineClassName={"text-capitalize"}
+        emptyValue={EmptyStates.CONFIG_VALUE}
+        key={`framework-config-review-section-${index}`}
+      />
+    ));
   }
 
   render() {

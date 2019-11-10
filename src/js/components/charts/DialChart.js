@@ -37,9 +37,7 @@ var DialChart = createReactClass({
         pie: d3.layout
           .pie()
           .sort(null)
-          .value(d => {
-            return d[value];
-          })
+          .value(d => d[value])
       },
       this.getArcs(this.props)
     );
@@ -105,9 +103,7 @@ var DialChart = createReactClass({
   },
 
   isEmpty(data) {
-    var sumOfData = data.reduce((memo, datum) => {
-      return memo + datum.value;
-    }, 0);
+    var sumOfData = data.reduce((memo, datum) => memo + datum.value, 0);
 
     return sumOfData === 0;
   },
@@ -163,15 +159,13 @@ var DialChart = createReactClass({
     );
     var normalizedPie = pie(normalizedData);
 
-    return normalizedPie.map((element, i) => {
-      return (
-        <DialSlice
-          key={i}
-          colorIndex={element.data.colorIndex || i}
-          path={innerArc(element)}
-        />
-      );
-    });
+    return normalizedPie.map((element, i) => (
+      <DialSlice
+        key={i}
+        colorIndex={element.data.colorIndex || i}
+        path={innerArc(element)}
+      />
+    ));
   },
 
   render() {

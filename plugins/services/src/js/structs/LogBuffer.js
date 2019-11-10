@@ -104,9 +104,7 @@ class LogBuffer extends List {
 
   getFullLog() {
     return this.getItems()
-      .map(item => {
-        return item.get("data");
-      })
+      .map(item => item.get("data"))
       .join("");
   }
 

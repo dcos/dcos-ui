@@ -21,9 +21,7 @@ describe("Authenticated", () => {
     thisOriginalWillTransitionTo = Authenticated.willTransitionTo;
     thisOriginalIsLoggedIn = AuthStore.isLoggedIn;
     thisCallback = jasmine.createSpy();
-    AuthStore.isLoggedIn = () => {
-      return false;
-    };
+    AuthStore.isLoggedIn = () => false;
 
     ThisInstance = new Authenticated(FakeComponent);
   });
@@ -44,9 +42,7 @@ describe("Authenticated", () => {
   });
 
   it("doesn't call redirect when user is not logged in", () => {
-    AuthStore.isLoggedIn = () => {
-      return true;
-    };
+    AuthStore.isLoggedIn = () => true;
     thisCallback = jasmine.createSpy();
     ThisInstance.willTransitionTo(null, thisCallback);
     expect(thisCallback).not.toHaveBeenCalled();

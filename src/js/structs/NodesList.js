@@ -11,9 +11,7 @@ class NodesList extends List {
     if (filters) {
       // Marathon API
       if (filters.ids) {
-        hosts = hosts.filter(host => {
-          return filters.ids.includes(host.id);
-        });
+        hosts = hosts.filter(host => filters.ids.includes(host.id));
       }
 
       // Marathon API
@@ -42,18 +40,14 @@ class NodesList extends List {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => {
-      return service.used_resources;
-    });
+    const resourcesList = services.map(service => service.used_resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 
   sumResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => {
-      return service.resources;
-    });
+    const resourcesList = services.map(service => service.resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }

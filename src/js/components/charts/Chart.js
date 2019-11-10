@@ -82,9 +82,9 @@ var Chart = createReactClass({
       if (Array.isArray(children)) {
         height = height / children.length;
 
-        return children.map(child => {
-          return React.cloneElement(child, { width, height });
-        });
+        return children.map(child =>
+          React.cloneElement(child, { width, height })
+        );
       } else {
         return React.cloneElement(children, { width, height });
       }

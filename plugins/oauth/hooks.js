@@ -144,9 +144,9 @@ module.exports = Object.assign({}, StoreMixin, {
       path: "users",
       component: UsersPage
     };
-    const usersRouteIndex = routeDefinition.routes.findIndex(route => {
-      return route.name === userRoute.name;
-    });
+    const usersRouteIndex = routeDefinition.routes.findIndex(
+      route => route.name === userRoute.name
+    );
     // Replace by new definition
     if (usersRouteIndex !== -1) {
       routeDefinition.routes.splice(usersRouteIndex, 1, userRoute);

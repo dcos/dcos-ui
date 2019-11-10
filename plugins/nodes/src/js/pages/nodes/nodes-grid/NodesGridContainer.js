@@ -53,9 +53,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
       location: { query },
       hosts
     } = props;
-    const ids = services.map(service => {
-      return service.id;
-    });
+    const ids = services.map(service => service.id);
 
     const { serviceColors } = this.state;
 
@@ -88,9 +86,9 @@ class NodesGridContainer extends mixin(StoreMixin) {
   }
 
   computeShownServices(services) {
-    var hidden = services.slice(MAX_SERVICES_TO_SHOW).map(service => {
-      return service.id;
-    });
+    var hidden = services
+      .slice(MAX_SERVICES_TO_SHOW)
+      .map(service => service.id);
 
     this.setState({ hiddenServices: hidden });
   }

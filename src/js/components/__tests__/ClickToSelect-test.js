@@ -11,9 +11,7 @@ describe("ClickToSelect", () => {
     thisGetSelection = global.document.getSelection;
 
     // Mock this document function, which is unsupported by jest.
-    global.document.getSelection = () => {
-      return thisSpy;
-    };
+    global.document.getSelection = () => thisSpy;
 
     thisInstance = mount(
       <ClickToSelect>

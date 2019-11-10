@@ -9,17 +9,15 @@ import PodContainerConfigSection from "./PodContainerConfigSection";
 function renderContainers(appConfig, handleEditClick) {
   const { containers = [] } = appConfig;
 
-  return containers.map((container, index) => {
-    return (
-      <PodContainerConfigSection
-        appConfig={appConfig}
-        containerConfig={container}
-        key={`pod-container-${container.name}`}
-        onEditClick={handleEditClick}
-        index={index}
-      />
-    );
-  });
+  return containers.map((container, index) => (
+    <PodContainerConfigSection
+      appConfig={appConfig}
+      containerConfig={container}
+      key={`pod-container-${container.name}`}
+      onEditClick={handleEditClick}
+      index={index}
+    />
+  ));
 }
 
 const PodContainersConfigSection = ({ appConfig, onEditClick }) => {

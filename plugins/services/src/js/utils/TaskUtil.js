@@ -34,9 +34,7 @@ const TaskUtil = {
     const portMappings = this.getPortMappings(task) || [];
     if (portMappings.length) {
       return {
-        ports: portMappings.map(mapping => {
-          return mapping.host_port;
-        }),
+        ports: portMappings.map(mapping => mapping.host_port),
         hosts: [hostName]
       };
     }
@@ -61,9 +59,7 @@ const TaskUtil = {
       return task.ports || [];
     }
 
-    return ports.map(port => {
-      return port.number;
-    });
+    return ports.map(port => port.number);
   },
 
   getTaskStatusSlug(task) {
@@ -113,9 +109,7 @@ const TaskUtil = {
         "statuses.0.container_status.network_infos.0.ip_addresses"
       ) || [];
 
-    return ipAddresses.map(item => {
-      return item.ip_address;
-    });
+    return ipAddresses.map(item => item.ip_address);
   },
 
   getRegionName(task) {

@@ -78,16 +78,12 @@ describe("NodesGridDials", () => {
     });
 
     it("contains an unused resources slice", () => {
-      var slice = thisActiveSlices.data.find(datum => {
-        return datum.name === "Unused";
-      });
+      var slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
       expect(typeof slice).toEqual("object");
     });
 
     it("uses gray for the unused slice", () => {
-      var slice = thisActiveSlices.data.find(datum => {
-        return datum.name === "Unused";
-      });
+      var slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
       expect(slice.colorIndex).toEqual("unused");
     });
   });

@@ -38,9 +38,10 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
   }
 
   getLanguagePreferenceDefinition() {
-    const languages = Object.keys(Languages).map(lang => {
-      return { html: Languages[lang], id: lang };
-    });
+    const languages = Object.keys(Languages).map(lang => ({
+      html: Languages[lang],
+      id: lang
+    }));
 
     return [
       {

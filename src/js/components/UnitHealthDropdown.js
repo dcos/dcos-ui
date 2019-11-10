@@ -19,17 +19,15 @@ class UnitHealthDropdown extends React.PureComponent {
   }
 
   getDropdownItems() {
-    const keys = Object.keys(UnitHealthStatus).filter(key => {
-      return key !== "NA" && key !== "WARN";
-    });
+    const keys = Object.keys(UnitHealthStatus).filter(
+      key => key !== "NA" && key !== "WARN"
+    );
 
-    const items = keys.map(key => {
-      return {
-        id: key,
-        html: <Trans render="span" id={UnitHealthStatus[key].title} />,
-        selectedHtml: <Trans render="span" id={UnitHealthStatus[key].title} />
-      };
-    });
+    const items = keys.map(key => ({
+      id: key,
+      html: <Trans render="span" id={UnitHealthStatus[key].title} />,
+      selectedHtml: <Trans render="span" id={UnitHealthStatus[key].title} />
+    }));
 
     items.unshift(DEFAULT_ITEM);
 

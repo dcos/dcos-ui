@@ -71,9 +71,9 @@ module.exports = {
 
       let protocol = null;
       if (portDefinition.protocol) {
-        protocol = PROTOCOLS.filter(protocol => {
-          return portDefinition.protocol[protocol];
-        }).join(",");
+        protocol = PROTOCOLS.filter(
+          protocol => portDefinition.protocol[protocol]
+        ).join(",");
       }
 
       const labels = VipLabelUtil.generateVipLabel(

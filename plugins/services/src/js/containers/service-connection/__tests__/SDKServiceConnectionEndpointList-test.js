@@ -16,8 +16,8 @@ describe("SDKServiceConnectionEndpointList", () => {
   const service = new Framework(SDKService);
 
   beforeEach(() => {
-    SDKEndpointStore.getServiceEndpoints = () => {
-      return Object.entries(SDKServiceEndpoints).map(
+    SDKEndpointStore.getServiceEndpoints = () =>
+      Object.entries(SDKServiceEndpoints).map(
         ([endpointName, endpoint]) =>
           new ServiceEndpoint({
             endpointName,
@@ -25,10 +25,7 @@ describe("SDKServiceConnectionEndpointList", () => {
             contentType: endpoint.contentType
           })
       );
-    };
-    SDKEndpointStore.getServiceError = () => {
-      return "";
-    };
+    SDKEndpointStore.getServiceError = () => "";
     thisInstance = mount(
       <SDKServiceConnectionEndpointList service={service} />
     );

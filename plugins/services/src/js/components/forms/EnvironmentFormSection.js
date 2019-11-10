@@ -24,9 +24,7 @@ class EnvironmentFormSection extends Component {
     const errors = this.props.errors.env || {};
 
     return data
-      .filter(item => {
-        return item.value == null || typeof item.value === "string";
-      })
+      .filter(item => item.value == null || typeof item.value === "string")
       .map((env, key) => {
         const isValueWithoutKey = Boolean(!env.key && env.value);
 

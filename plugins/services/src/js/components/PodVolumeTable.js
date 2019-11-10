@@ -22,17 +22,15 @@ class PodVolumeTable extends React.Component {
   }
 
   getData(volumes) {
-    return volumes.map(volume => {
-      return {
-        id: volume.getId(),
-        host: volume.getHost(),
-        type: volume.getType(),
-        profile: volume.getProfile(),
-        name: volume.getContainerPath(),
-        size: volume.getSize(),
-        status: volume.getStatus()
-      };
-    });
+    return volumes.map(volume => ({
+      id: volume.getId(),
+      host: volume.getHost(),
+      type: volume.getType(),
+      profile: volume.getProfile(),
+      name: volume.getContainerPath(),
+      size: volume.getSize(),
+      status: volume.getStatus()
+    }));
   }
 
   getColGroup() {

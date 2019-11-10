@@ -65,62 +65,61 @@ describe("MesosStateStore", () => {
   describe("#getTasksByService", () => {
     beforeEach(() => {
       thisGet = MesosStateStore.get;
-      MesosStateStore.get = () => {
-        return {
-          frameworks: [
-            {
-              name: "marathon",
-              id: "marathon_1",
-              active: true
-            },
-            {
-              name: "spark",
-              id: "spark_0",
-              active: false
-            },
-            {
-              name: "spark",
-              id: "spark_1",
-              active: true
-            }
-          ],
-          tasks: [
-            {
-              name: "spark",
-              id: "spark.instance.1",
-              framework_id: "marathon_1",
-              isStartedByMarathon: true
-            },
-            {
-              name: "alpha",
-              id: "alpha.instance.1",
-              framework_id: "marathon_1",
-              isStartedByMarathon: true
-            },
-            {
-              name: "alpha",
-              id: "alpha.instance.2",
-              framework_id: "marathon_1",
-              isStartedByMarathon: true
-            },
-            {
-              name: "alpha",
-              id: "alpha.instance.3",
-              framework_id: "marathon_1",
-              isStartedByMarathon: true
-            },
-            {
-              name: "alpha",
-              id: "pod_alpha.instance.3",
-              framework_id: "marathon_1",
-              isStartedByMarathon: true
-            },
-            { name: "1", framework_id: "spark_1" },
-            { name: "2", framework_id: "spark_1" },
-            { name: "3", framework_id: "spark_1" }
-          ]
-        };
-      };
+      MesosStateStore.get = () => ({
+        frameworks: [
+          {
+            name: "marathon",
+            id: "marathon_1",
+            active: true
+          },
+          {
+            name: "spark",
+            id: "spark_0",
+            active: false
+          },
+          {
+            name: "spark",
+            id: "spark_1",
+            active: true
+          }
+        ],
+
+        tasks: [
+          {
+            name: "spark",
+            id: "spark.instance.1",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "alpha.instance.1",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "alpha.instance.2",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "alpha.instance.3",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          {
+            name: "alpha",
+            id: "pod_alpha.instance.3",
+            framework_id: "marathon_1",
+            isStartedByMarathon: true
+          },
+          { name: "1", framework_id: "spark_1" },
+          { name: "2", framework_id: "spark_1" },
+          { name: "3", framework_id: "spark_1" }
+        ]
+      });
     });
 
     afterEach(() => {
@@ -244,16 +243,14 @@ describe("MesosStateStore", () => {
     describe("when slave isn't falsey", () => {
       beforeEach(() => {
         thisGet = MesosStateStore.get;
-        MesosStateStore.get = () => {
-          return {
-            slaves: [
-              {
-                id: "amazon-thing",
-                fakeProp: "fake"
-              }
-            ]
-          };
-        };
+        MesosStateStore.get = () => ({
+          slaves: [
+            {
+              id: "amazon-thing",
+              fakeProp: "fake"
+            }
+          ]
+        });
       });
 
       it("returns the node with the correct ID", () => {
@@ -287,17 +284,15 @@ describe("MesosStateStore", () => {
   describe("#getNodeFromHostname", () => {
     beforeEach(() => {
       thisGet = MesosStateStore.get;
-      MesosStateStore.get = () => {
-        return {
-          slaves: [
-            {
-              id: "amazon-thing",
-              fakeProp: "fake",
-              hostname: "my-host"
-            }
-          ]
-        };
-      };
+      MesosStateStore.get = () => ({
+        slaves: [
+          {
+            id: "amazon-thing",
+            fakeProp: "fake",
+            hostname: "my-host"
+          }
+        ]
+      });
     });
 
     afterEach(() => {
@@ -380,9 +375,7 @@ describe("MesosStateStore", () => {
         tasks: [{ id: 1 }, { id: 2 }]
       };
 
-      MesosStateStore.get = () => {
-        return data;
-      };
+      MesosStateStore.get = () => data;
     });
 
     afterEach(() => {
@@ -413,9 +406,7 @@ describe("MesosStateStore", () => {
   describe("#getPodHistoricalInstances", () => {
     beforeEach(() => {
       thisGet = MesosStateStore.get;
-      MesosStateStore.get = () => {
-        return MESOS_STATE_WITH_HISTORY;
-      };
+      MesosStateStore.get = () => MESOS_STATE_WITH_HISTORY;
     });
 
     afterEach(() => {

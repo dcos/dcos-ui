@@ -31,9 +31,9 @@ describe("LogView", () => {
     beforeEach(() => {
       thisPreviousGetComputed = DOMUtils.getComputedDimensions;
 
-      DOMUtils.getComputedDimensions = () => {
-        return { height: 100 };
-      };
+      DOMUtils.getComputedDimensions = () => ({
+        height: 100
+      });
     });
 
     afterEach(() => {

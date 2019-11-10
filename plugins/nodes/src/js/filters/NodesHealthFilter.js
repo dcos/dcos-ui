@@ -31,9 +31,9 @@ class NodesHealthFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
-    return resultset.filterItems(node => {
-      return node.getHealth().key.toLowerCase() === testStatus;
-    });
+    return resultset.filterItems(
+      node => node.getHealth().key.toLowerCase() === testStatus
+    );
   }
 }
 

@@ -111,13 +111,12 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       return overlayList;
     }
 
-    return overlayList.filterItems(overlay => {
-      return (
+    return overlayList.filterItems(
+      overlay =>
         (overlay.getName() && overlay.getName().includes(searchString)) ||
         (overlay.getSubnet() && overlay.getSubnet().includes(searchString)) ||
         (overlay.getSubnet6() && overlay.getSubnet6().includes(searchString))
-      );
-    });
+    );
   }
 
   getLoadingScreen() {

@@ -5,8 +5,8 @@ import Config from "#SRC/js/config/Config";
 
 const reloadSubject = new Subject();
 
-export const fetchRepositories = type => {
-  return reloadSubject.pipe(
+export const fetchRepositories = type =>
+  reloadSubject.pipe(
     startWith(null),
     concatMap(() =>
       request(`${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/list`, {
@@ -21,14 +21,12 @@ export const fetchRepositories = type => {
       })
     )
   );
-};
 
-export const liveFetchRepositories = type => {
-  return reloadSubject.pipe(
+export const liveFetchRepositories = type =>
+  reloadSubject.pipe(
     startWith(null),
     concatMap(() => fetchRepositories(type))
   );
-};
 
 export const addRepository = (name, uri, index) =>
   request(`${Config.rootUrl}${Config.cosmosAPIPrefix}/repository/add`, {

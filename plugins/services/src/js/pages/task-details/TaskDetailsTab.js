@@ -59,8 +59,8 @@ class TaskDetailsTab extends React.Component {
     if (mesosTask.resources != null) {
       const resourceLabels = ResourcesUtil.getResourceLabels();
 
-      resourceRows = ResourcesUtil.getDefaultResources().map((resource, index) => {
-        return (
+      resourceRows = ResourcesUtil.getDefaultResources().map(
+        (resource, index) => (
           <ConfigurationMapRow key={index}>
             <ConfigurationMapLabel>
               {resourceLabels[resource]}
@@ -69,8 +69,8 @@ class TaskDetailsTab extends React.Component {
               {Units.formatResource(resource, mesosTask.resources[resource])}
             </ConfigurationMapValue>
           </ConfigurationMapRow>
-        );
-      });
+        )
+      );
     }
 
     if (service != null) {
@@ -154,14 +154,12 @@ class TaskDetailsTab extends React.Component {
     let labelRows = null;
 
     if (mesosTask.labels) {
-      labelRows = mesosTask.labels.map(({ key, value }) => {
-        return (
-          <ConfigurationMapRow key={key}>
-            <ConfigurationMapLabel>{key}</ConfigurationMapLabel>
-            <ConfigurationMapValue>{value}</ConfigurationMapValue>
-          </ConfigurationMapRow>
-        );
-      });
+      labelRows = mesosTask.labels.map(({ key, value }) => (
+        <ConfigurationMapRow key={key}>
+          <ConfigurationMapLabel>{key}</ConfigurationMapLabel>
+          <ConfigurationMapValue>{value}</ConfigurationMapValue>
+        </ConfigurationMapRow>
+      ));
     }
 
     return (

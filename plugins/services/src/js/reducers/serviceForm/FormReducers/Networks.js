@@ -17,9 +17,7 @@ module.exports = {
         this.networks.push(value || {});
       }
       if (type === REMOVE_ITEM) {
-        this.networks = this.networks.filter((item, index) => {
-          return index !== value;
-        });
+        this.networks = this.networks.filter((item, index) => index !== value);
       }
       if (type === SET && field === "network") {
         const [mode, name] = value.split(".");

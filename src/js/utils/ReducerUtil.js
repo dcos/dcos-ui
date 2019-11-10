@@ -25,9 +25,9 @@ module.exports = {
    *   the passed object, and builds a state object with the same shape.
    */
   combineReducers(reducers = {}) {
-    const reducerKeys = Object.keys(reducers).filter(reducerKey => {
-      return typeof reducers[reducerKey] === "function";
-    });
+    const reducerKeys = Object.keys(reducers).filter(
+      reducerKey => typeof reducers[reducerKey] === "function"
+    );
     // This is creating the context for this combined reducer.
     const context = new WeakMap();
 

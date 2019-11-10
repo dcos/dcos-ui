@@ -154,9 +154,7 @@ export default class TaskFileViewer extends React.Component {
       return null;
     }
 
-    return files.find(file => {
-      return file.getName() === "stderr";
-    }) || files[0];
+    return files.find(file => file.getName() === "stderr") || files[0];
   }
 
   getSelectionComponent(selectedLogFile) {

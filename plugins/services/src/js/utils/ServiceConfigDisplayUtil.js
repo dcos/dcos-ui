@@ -13,11 +13,10 @@ import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 const ServiceConfigDisplayUtil = {
   getColumnClassNameFn(classes) {
-    return (prop, sortBy) => {
-      return classNames(classes, {
+    return (prop, sortBy) =>
+      classNames(classes, {
         active: prop === sortBy.prop
       });
-    };
   },
 
   getColumnHeadingFn(defaultHeading) {

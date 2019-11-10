@@ -32,11 +32,10 @@ class DeclinedOffersTable extends React.Component {
   }
 
   getColumnClassNameFn(classes) {
-    return (prop, sortBy) => {
-      return classNames(classes, {
+    return (prop, sortBy) =>
+      classNames(classes, {
         active: prop === sortBy.prop
       });
-    };
   }
 
   getColumnHeadingFn(defaultHeading, abbreviation) {
@@ -263,21 +262,19 @@ class DeclinedOffersTable extends React.Component {
         className: this.getColumnClassNameFn(
           "text-align-center hidden-large-up"
         ),
-        render: (prop, row) => {
-          return (
-            <div className="flex flex-justify-items-space-around">
-              {this.getMatchedOfferRenderFn(
-                DeclinedOffersReasons.INSUFFICIENT_CPU
-              )(prop, row)}
-              {this.getMatchedOfferRenderFn(
-                DeclinedOffersReasons.INSUFFICIENT_MEM
-              )(prop, row)}
-              {this.getMatchedOfferRenderFn(
-                DeclinedOffersReasons.INSUFFICIENT_DISK
-              )(prop, row)}
-            </div>
-          );
-        },
+        render: (prop, row) => (
+          <div className="flex flex-justify-items-space-around">
+            {this.getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_CPU
+            )(prop, row)}
+            {this.getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_MEM
+            )(prop, row)}
+            {this.getMatchedOfferRenderFn(
+              DeclinedOffersReasons.INSUFFICIENT_DISK
+            )(prop, row)}
+          </div>
+        ),
         sortable: true,
         sortFunction: TableUtil.getSortFunction(
           "timestamp",

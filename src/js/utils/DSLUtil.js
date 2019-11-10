@@ -109,9 +109,9 @@ const DSLUtil = {
 
         // Require only testing properties to match
         const compareParamNames = Object.keys(compareFilterParams);
-        const comparePropMatches = compareParamNames.every(prop => {
-          return filterParams[prop] === compareFilterParams[prop];
-        });
+        const comparePropMatches = compareParamNames.every(
+          prop => filterParams[prop] === compareFilterParams[prop]
+        );
 
         if (compareParamNames.length === 0 || comparePropMatches) {
           return memo.concat(astFilter);
@@ -238,9 +238,10 @@ const DSLUtil = {
 
     // Traverse children of combiner nodes
     if (ast instanceof CombinerNode) {
-      return ast.children.reduce((curMemo, child) => {
-        return DSLUtil.reduceAstFilters(child, callback, curMemo);
-      }, memo);
+      return ast.children.reduce(
+        (curMemo, child) => DSLUtil.reduceAstFilters(child, callback, curMemo),
+        memo
+      );
     }
 
     return memo;

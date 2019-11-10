@@ -31,9 +31,7 @@ class ClipboardTrigger extends React.Component {
   componentDidMount() {
     if (this.copyButtonRef) {
       this.clipboard = new Clipboard(this.copyButtonRef.current, {
-        text: () => {
-          return this.props.copyText;
-        }
+        text: () => this.props.copyText
       });
 
       this.clipboard.on("success", this.handleCopy);

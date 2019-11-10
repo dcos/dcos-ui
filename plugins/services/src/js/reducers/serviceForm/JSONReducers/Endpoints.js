@@ -45,9 +45,9 @@ module.exports = {
         newState[index].push(newEndpoint);
         break;
       case REMOVE_ITEM:
-        newState[index] = newState[index].filter((item, index) => {
-          return index !== value;
-        });
+        newState[index] = newState[index].filter(
+          (item, index) => index !== value
+        );
         break;
     }
 

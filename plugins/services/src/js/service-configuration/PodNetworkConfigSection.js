@@ -25,9 +25,9 @@ function getNetworkTypes(networks, i18n) {
   }
 
   return networks
-    .map(({ mode }) => {
-      return i18n ? i18n._(NETWORK_MODE_NAME[mode]) : NETWORK_MODE_NAME[mode];
-    })
+    .map(({ mode }) =>
+      i18n ? i18n._(NETWORK_MODE_NAME[mode]) : NETWORK_MODE_NAME[mode]
+    )
     .join(", ");
 }
 

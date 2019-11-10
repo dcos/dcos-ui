@@ -442,12 +442,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const selectedVersion = cosmosPackage.getVersion();
-    const availableVersions = packageVersions.getVersions().map(version => {
-      return {
-        html: version,
-        id: version
-      };
-    });
+    const availableVersions = packageVersions.getVersions().map(version => ({
+      html: version,
+      id: version
+    }));
 
     if (availableVersions.length === 0) {
       return null;

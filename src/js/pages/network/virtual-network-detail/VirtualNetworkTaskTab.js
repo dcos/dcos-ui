@@ -85,9 +85,9 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return tasks;
     }
 
-    return tasks.filter(task => {
-      return task.name.includes(searchString) || task.id.includes(searchString);
-    });
+    return tasks.filter(
+      task => task.name.includes(searchString) || task.id.includes(searchString)
+    );
   }
 
   getClassName(prop, sortBy) {
@@ -178,9 +178,10 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
   getTitle(portMappings) {
     return portMappings
-      .map(mapping => {
-        return `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`;
-      })
+      .map(
+        mapping =>
+          `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`
+      )
       .join(", ");
   }
 
@@ -191,11 +192,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return ipAddresses;
     }
 
-    return ipAddresses
-      .map(ipAddress => {
-        return ipAddress.ip_address;
-      })
-      .join(", ");
+    return ipAddresses.map(ipAddress => ipAddress.ip_address).join(", ");
   }
 
   renderAgentIP(prop, task) {

@@ -24,16 +24,14 @@ export function mesosMasterLeaderQuery(masterDataSource, interval) {
     map(_ => masterDataSource()),
     map(mesosState => mesosState.master_info),
     filter(master => !isEmptyObject(master)),
-    map(master => {
-      return {
-        hostPort: hostWithPort(master.address),
-        hostIp: findNestedPropertyInObject(master, "address.ip"),
-        version: master.version,
-        electedTime: master.elected_time,
-        startTime: master.start_time,
-        region: getRegion(master)
-      };
-    })
+    map(master => ({
+      hostPort: hostWithPort(master.address),
+      hostIp: findNestedPropertyInObject(master, "address.ip"),
+      version: master.version,
+      electedTime: master.elected_time,
+      startTime: master.start_time,
+      region: getRegion(master)
+    }))
   );
 }
 

@@ -120,12 +120,8 @@ class SDKServiceConnectionEndpointList extends React.Component {
     }
 
     return endpoints
-      .filter(endpoint => {
-        return endpoint.isJSON();
-      })
-      .map((endpoint, index) => {
-        return this.getJSONEndpoint(endpoint, index);
-      });
+      .filter(endpoint => endpoint.isJSON())
+      .map((endpoint, index) => this.getJSONEndpoint(endpoint, index));
   }
 
   getFileEndpoints(endpoints) {
@@ -133,9 +129,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       return null;
     }
 
-    const fileEndpoints = endpoints.filter(endpoint => {
-      return !endpoint.isJSON();
-    });
+    const fileEndpoints = endpoints.filter(endpoint => !endpoint.isJSON());
 
     if (fileEndpoints.length === 0) {
       return null;
@@ -144,9 +138,9 @@ class SDKServiceConnectionEndpointList extends React.Component {
     return (
       <ConfigurationMapSection>
         <Trans render={<ConfigurationMapHeading />}>Files</Trans>
-        {fileEndpoints.map((endpoint, index) => {
-          return this.getFileEndpoint(endpoint, index);
-        })}
+        {fileEndpoints.map((endpoint, index) =>
+          this.getFileEndpoint(endpoint, index)
+        )}
       </ConfigurationMapSection>
     );
   }
@@ -171,9 +165,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     const endpointsLoaded =
       sdkServiceEndpoints &&
-      sdkServiceEndpoints.every(endpoint => {
-        return endpoint.endpointData;
-      });
+      sdkServiceEndpoints.every(endpoint => endpoint.endpointData);
 
     if (!endpointsLoaded && !sdkServiceError) {
       return <Loader />;

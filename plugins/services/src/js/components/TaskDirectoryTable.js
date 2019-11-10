@@ -113,34 +113,32 @@ class TaskDirectoryTable extends React.Component {
   }
 
   getDirectorySortFunction(baseProp) {
-    return (prop, order) => {
-      return (a, b) => {
-        const aIsDirectory = a.isDirectory();
-        const bIsDirectory = b.isDirectory();
+    return (prop, order) => (a, b) => {
+      const aIsDirectory = a.isDirectory();
+      const bIsDirectory = b.isDirectory();
 
-        if (aIsDirectory && !bIsDirectory) {
-          if (order === "desc") {
-            return 1;
-          }
-
-          return -1;
-        }
-
-        if (!aIsDirectory && bIsDirectory) {
-          if (order === "desc") {
-            return -1;
-          }
-
+      if (aIsDirectory && !bIsDirectory) {
+        if (order === "desc") {
           return 1;
         }
 
-        return TableUtil.compareValues(
-          a.get(prop),
-          b.get(prop),
-          a.get(baseProp),
-          b.get(baseProp)
-        );
-      };
+        return -1;
+      }
+
+      if (!aIsDirectory && bIsDirectory) {
+        if (order === "desc") {
+          return -1;
+        }
+
+        return 1;
+      }
+
+      return TableUtil.compareValues(
+        a.get(prop),
+        b.get(prop),
+        a.get(baseProp),
+        b.get(baseProp)
+      );
     };
   }
 
@@ -181,9 +179,9 @@ class TaskDirectoryTable extends React.Component {
         render: this.renderDate,
         sortFunction
       }
-    ].map(columnSetting => {
-      return Object.assign({}, defaultColumnSettings, columnSetting);
-    });
+    ].map(columnSetting =>
+      Object.assign({}, defaultColumnSettings, columnSetting)
+    );
   }
 
   getColGroup() {

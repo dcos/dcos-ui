@@ -49,16 +49,12 @@ export function resolvers({
       }
     },
     Mutation: {
-      addPackageRepository: (parent, args) => {
-        return addRepository(args.name, args.uri, args.index).pipe(
+      addPackageRepository: (parent, args) =>
+        addRepository(args.name, args.uri, args.index).pipe(
           map(getRepositoryList(""))
-        );
-      },
-      removePackageRepository: (parent, args) => {
-        return deleteRepository(args.name, args.uri).pipe(
-          map(getRepositoryList(""))
-        );
-      }
+        ),
+      removePackageRepository: (parent, args) =>
+        deleteRepository(args.name, args.uri).pipe(map(getRepositoryList("")))
     }
   };
 }

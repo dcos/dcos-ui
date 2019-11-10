@@ -34,9 +34,7 @@ class FilterButtons extends React.Component {
     } = this.props;
 
     if (filterByKey) {
-      itemList = itemList.map(item => {
-        return item[filterByKey];
-      });
+      itemList = itemList.map(item => item[filterByKey]);
     }
 
     const filterCount = this.getCount(itemList);

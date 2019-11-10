@@ -45,17 +45,15 @@ class ImageViewer extends React.Component {
   }
 
   getImages(images) {
-    return images.map((imageUrl, index) => {
-      return (
-        <div className="media-object-item media-object-item-fill" key={index}>
-          <div
-            className="media-object-item-fill-image image-rounded-corners clickable"
-            onClick={this.handleImageViewerModalOpen.bind(this, index)}
-            style={{ backgroundImage: `url(${imageUrl})` }}
-          />
-        </div>
-      );
-    });
+    return images.map((imageUrl, index) => (
+      <div className="media-object-item media-object-item-fill" key={index}>
+        <div
+          className="media-object-item-fill-image image-rounded-corners clickable"
+          onClick={this.handleImageViewerModalOpen.bind(this, index)}
+          style={{ backgroundImage: `url(${imageUrl})` }}
+        />
+      </div>
+    ));
   }
 
   render() {

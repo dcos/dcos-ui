@@ -9,9 +9,7 @@ describe("ApplicationUtil", () => {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = () => {
-        return now - Config.applicationRenderDelay;
-      };
+      global.getPageLoadedTime = () => now - Config.applicationRenderDelay;
 
       ApplicationUtil.invokeAfterPageLoad(handler);
 
@@ -23,9 +21,7 @@ describe("ApplicationUtil", () => {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = () => {
-        return now;
-      };
+      global.getPageLoadedTime = () => now;
 
       ApplicationUtil.invokeAfterPageLoad(handler);
 

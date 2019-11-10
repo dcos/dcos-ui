@@ -31,9 +31,10 @@ const DataValidatorUtil = {
       validatorFn = [validatorFn];
     }
 
-    return validatorFn.reduce((errors, validator) => {
-      return errors.concat(validator(inputData));
-    }, []);
+    return validatorFn.reduce(
+      (errors, validator) => errors.concat(validator(inputData)),
+      []
+    );
   },
 
   /**
@@ -64,9 +65,7 @@ const DataValidatorUtil = {
 
   updateOnlyOnPath(oldList, newList, path) {
     const pathStr = path.join(".");
-    const newErrors = newList.filter(error => {
-      return error.path.join(".") === pathStr;
-    });
+    const newErrors = newList.filter(error => error.path.join(".") === pathStr);
 
     // Strip from the old error list:
     // - Errors that exist on the current path
@@ -76,9 +75,9 @@ const DataValidatorUtil = {
         return false;
       }
 
-      return newList.some(newError => {
-        return error.path.join(".") === newError.path.join(".");
-      });
+      return newList.some(
+        newError => error.path.join(".") === newError.path.join(".")
+      );
     });
 
     // Append new errors
@@ -88,9 +87,7 @@ const DataValidatorUtil = {
   stripErrorsOnPath(errorList, path) {
     const pathStr = path.join(".");
 
-    return errorList.filter(error => {
-      return error.path.join(".") !== pathStr;
-    });
+    return errorList.filter(error => error.path.join(".") !== pathStr);
   }
 };
 

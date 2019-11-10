@@ -218,17 +218,12 @@ describe("SystemLogUtil", () => {
       jest.runAllTimers();
 
       // Two calls will be invoked (once immediately) and once the wait is over.
-      expect(
-        thisFunc.mock.calls[0][0].map(item => {
-          return item[0];
-        })
-      ).toEqual(["foo"]);
+      expect(thisFunc.mock.calls[0][0].map(item => item[0])).toEqual(["foo"]);
       expect(thisFunc.mock.calls[0][1]).toEqual(undefined);
-      expect(
-        thisFunc.mock.calls[1][0].map(item => {
-          return item[0];
-        })
-      ).toEqual(["bar", "baz"]);
+      expect(thisFunc.mock.calls[1][0].map(item => item[0])).toEqual([
+        "bar",
+        "baz"
+      ]);
       expect(thisFunc.mock.calls[1][1]).toEqual(undefined);
     });
   });

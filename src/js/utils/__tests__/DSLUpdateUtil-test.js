@@ -282,9 +282,8 @@ describe("DSLUpdateUtil", () => {
     });
 
     it("uses custom nodeCompareFunction on newCombiner", () => {
-      const customComparisionFunction = (addingNode, astNode) => {
-        return astNode.filterParams.text === "here";
-      };
+      const customComparisionFunction = (addingNode, astNode) =>
+        astNode.filterParams.text === "here";
 
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",

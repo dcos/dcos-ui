@@ -7,9 +7,7 @@ const mockUnitHealthStore = {
   getUnit: jest.fn(),
   getNode: jest.fn()
 };
-jest.mock("#SRC/js/stores/UnitHealthStore", () => {
-  return mockUnitHealthStore;
-});
+jest.mock("#SRC/js/stores/UnitHealthStore", () => mockUnitHealthStore);
 
 const NodeBreadcrumbs = require("../NodeBreadcrumbs");
 
@@ -64,12 +62,10 @@ describe("NodeBreadcrumbs", () => {
       })
     );
     mockUnitHealthStore.getNode.mockReturnValue({
-      getHealth: jest.fn(() => {
-        return {
-          classNames: "green",
-          title: "All green"
-        };
-      })
+      getHealth: jest.fn(() => ({
+        classNames: "green",
+        title: "All green"
+      }))
     });
     const tree = renderer
       .create(<NodeBreadcrumbs node={node} unitID="unit-ids-are-nice" />)

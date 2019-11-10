@@ -6,9 +6,7 @@ const MockAppMetadata = require("./fixtures/MockAppMetadata");
 const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
 
 // mock global string decoder
-global.atob = () => {
-  return MockAppMetadata.decodedString;
-};
+global.atob = () => MockAppMetadata.decodedString;
 
 let thisHandler;
 

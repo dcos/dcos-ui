@@ -7,9 +7,7 @@ module.exports = class PodSpec extends ServiceSpec {
   }
 
   getContainerSpec(name) {
-    return this.getContainers().find(container => {
-      return container.name === name;
-    });
+    return this.getContainers().find(container => container.name === name);
   }
 
   getContainerCount() {

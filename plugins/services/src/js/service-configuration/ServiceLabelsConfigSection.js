@@ -46,9 +46,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                   i18nMark("Key")
                 ),
                 prop: "key",
-                render: (prop, row) => {
-                  return <code>{row[prop]}</code>;
-                },
+                render: (prop, row) => <code>{row[prop]}</code>,
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),

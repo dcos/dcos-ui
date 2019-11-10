@@ -92,9 +92,9 @@ const FormUtil = {
     });
 
     Object.keys(propValues).forEach(propValue => {
-      propValues[propValue] = propValues[propValue].filter(item => {
-        return item !== undefined;
-      });
+      propValues[propValue] = propValues[propValue].filter(
+        item => item !== undefined
+      );
     });
 
     return Object.assign({}, model, propValues);
@@ -111,9 +111,8 @@ const FormUtil = {
    */
   isFieldInstanceOfProp(prop, field, id) {
     const isFieldArray = Array.isArray(field);
-    const recursiveCheck = nestedField => {
-      return this.isFieldInstanceOfProp(prop, nestedField, id);
-    };
+    const recursiveCheck = nestedField =>
+      this.isFieldInstanceOfProp(prop, nestedField, id);
 
     return (
       (isFieldArray && field.some(recursiveCheck)) ||

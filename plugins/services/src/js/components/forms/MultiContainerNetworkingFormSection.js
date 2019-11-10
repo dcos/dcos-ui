@@ -560,16 +560,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         virtualNetwork => virtualNetwork.enabled && !virtualNetwork.subnet6
       )
       .getItems()
-      .map((virtualNetwork, index) => {
-        return (
-          <Trans
-            key={index}
-            render={<option key={index} value={virtualNetwork.value} />}
-          >
-            Virtual Network: {virtualNetwork.text}
-          </Trans>
-        );
-      });
+      .map((virtualNetwork, index) => (
+        <Trans
+          key={index}
+          render={<option key={index} value={virtualNetwork.value} />}
+        >
+          Virtual Network: {virtualNetwork.text}
+        </Trans>
+      ));
   }
 
   getTypeSelections() {

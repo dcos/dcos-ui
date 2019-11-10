@@ -22,9 +22,7 @@ module.exports = {
             state.push(Object.assign({}, value || defaultVolume));
             break;
           case REMOVE_ITEM:
-            state = state.filter((item, index) => {
-              return index !== value;
-            });
+            state = state.filter((item, index) => index !== value);
             break;
         }
 

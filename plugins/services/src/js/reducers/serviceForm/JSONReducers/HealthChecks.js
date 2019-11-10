@@ -78,9 +78,7 @@ module.exports = {
 
           return item;
         })
-        .filter(item => {
-          return item != null;
-        });
+        .filter(item => item != null);
     }
 
     if (joinedPath.search("healthChecks") !== -1) {
@@ -90,9 +88,9 @@ module.exports = {
             this.healthChecks.push(value || {});
             break;
           case REMOVE_ITEM:
-            this.healthChecks = this.healthChecks.filter((item, index) => {
-              return index !== value;
-            });
+            this.healthChecks = this.healthChecks.filter(
+              (item, index) => index !== value
+            );
             break;
         }
 

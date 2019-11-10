@@ -13,9 +13,9 @@ class AttribFilter extends DSLFilter {
     );
   }
   filterApply(resultset, filterType, filterArguments) {
-    return resultset.filterItems(item => {
-      return item.attrib.indexOf(filterArguments.text) !== -1;
-    });
+    return resultset.filterItems(
+      item => item.attrib.indexOf(filterArguments.text) !== -1
+    );
   }
 }
 
@@ -25,9 +25,9 @@ class FuzzyTextFilter extends DSLFilter {
     return filterType === DSLFilterTypes.FUZZY;
   }
   filterApply(resultset, filterType, filterArguments) {
-    return resultset.filterItems(item => {
-      return item.text.indexOf(filterArguments.text) !== -1;
-    });
+    return resultset.filterItems(
+      item => item.text.indexOf(filterArguments.text) !== -1
+    );
   }
 }
 
@@ -37,9 +37,7 @@ class ExactTextFilter extends DSLFilter {
     return filterType === DSLFilterTypes.EXACT;
   }
   filterApply(resultset, filterType, filterArguments) {
-    return resultset.filterItems(item => {
-      return item.text === filterArguments.text;
-    });
+    return resultset.filterItems(item => item.text === filterArguments.text);
   }
 }
 

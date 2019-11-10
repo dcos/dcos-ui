@@ -90,8 +90,10 @@ function filterFunctionFactory(ast) {
    * @param {List} resultset - An instance of List or Tree containing the items to filter
    * @returns {List} resultset - A new instance of a List, containing the results
    */
-  return (filters, resultset) => {
-    // Apply matching filters from the filters database to the current
+  return (
+    filters,
+    resultset // Apply matching filters from the filters database to the current
+  ) =>
     // result set, and produce the new resultset.
     //
     // If more than one filters exists for the same type, the results are combined
@@ -103,14 +105,15 @@ function filterFunctionFactory(ast) {
     // Services. However, since both are operating on the same `is:XXX` token
     // the will be both be applied.
     //
-    return filters
+    filters
       .filter(f => f.filterCanHandle(ast.filterType, ast.filterParams))
-      .reduce((currentResultset, filter) => {
-        return currentResultset.combine(
-          filter.filterApply(resultset, ast.filterType, ast.filterParams)
-        );
-      }, new resultset.constructor());
-  };
+      .reduce(
+        (currentResultset, filter) =>
+          currentResultset.combine(
+            filter.filterApply(resultset, ast.filterType, ast.filterParams)
+          ),
+        new resultset.constructor()
+      );
 }
 
 /**

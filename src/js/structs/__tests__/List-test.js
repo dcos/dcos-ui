@@ -28,9 +28,7 @@ describe("List", () => {
     });
 
     it("throws when initialized with a non-array argument", () => {
-      const fn = () => {
-        return new List({ items: "foo" });
-      };
+      const fn = () => new List({ items: "foo" });
 
       expect(fn).toThrow();
     });
@@ -142,16 +140,12 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      var items = thisInstance.filterItems(() => {
-        return true;
-      });
+      var items = thisInstance.filterItems(() => true);
       expect(items instanceof List).toEqual(true);
     });
 
     it("filters items", () => {
-      var items = thisInstance.filterItems(item => {
-        return item.name === "bar";
-      });
+      var items = thisInstance.filterItems(item => item.name === "bar");
       expect(items.getItems().length).toEqual(1);
       expect(items.getItems()[0]).toEqual({ name: "bar" });
     });
@@ -274,19 +268,13 @@ describe("List", () => {
     });
 
     it("returns undefined if no matching item was found", () => {
-      expect(
-        thisInstance.findItem(() => {
-          return false;
-        })
-      ).toEqual(undefined);
+      expect(thisInstance.findItem(() => false)).toEqual(undefined);
     });
 
     it("returns matching item", () => {
-      expect(
-        thisInstance.findItem(item => {
-          return item.name === "foo";
-        })
-      ).toEqual({ name: "foo" });
+      expect(thisInstance.findItem(item => item.name === "foo")).toEqual({
+        name: "foo"
+      });
     });
   });
 
@@ -296,17 +284,15 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      var list = thisInstance.mapItems(item => {
-        return item;
-      });
+      var list = thisInstance.mapItems(item => item);
       expect(list instanceof List).toEqual(true);
     });
 
     it("apply callbacks to all items", () => {
       var items = thisInstance
-        .mapItems(item => {
-          return { name: item.name.toUpperCase() };
-        })
+        .mapItems(item => ({
+          name: item.name.toUpperCase()
+        }))
         .getItems();
       expect(items[0].name).toEqual("FOO");
       expect(items[1].name).toEqual("BAR");
@@ -319,12 +305,11 @@ describe("List", () => {
     });
 
     it("reduces all items to a value", () => {
-      var expectedValue = thisInstance.reduceItems(
-        (previousValue, currentValue) => {
-          return previousValue + currentValue.name;
-        },
+      const expectedValue = thisInstance.reduceItems(
+        (previousValue, currentValue) => previousValue + currentValue.name,
         ""
       );
+
       expect(expectedValue).toEqual("foobar");
     });
   });

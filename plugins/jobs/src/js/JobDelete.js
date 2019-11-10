@@ -49,14 +49,14 @@ function deleteEventHandler() {
   const deleteSubject$ = new Subject();
   const delete$ = deleteSubject$.pipe(
     switchMap(executeDeleteMutation),
-    catchError(error => {
-      return delete$.pipe(
+    catchError(error =>
+      delete$.pipe(
         startWith({
           errorMessage: error && error.response && error.response.message,
           done: true
         })
-      );
-    })
+      )
+    )
   );
 
   return {
@@ -81,9 +81,11 @@ const JobDelete = componentFromStream(prop$ => {
   const deleteWithInitialValue$ = delete$.pipe(startWith({ done: null }));
 
   return prop$.pipe(
-    combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => {
-      return { ...props, done, errorMessage };
-    }),
+    combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => ({
+      ...props,
+      done,
+      errorMessage
+    })),
     map(({ open, jobId, onClose, onSuccess, errorMessage, done }) => {
       const stopCurrentJobRuns = isTaskCurrentlyRunning(errorMessage);
 

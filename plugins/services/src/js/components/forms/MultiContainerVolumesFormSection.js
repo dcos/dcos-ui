@@ -150,40 +150,38 @@ class MultiContainerVolumesFormSection extends Component {
                 >
                   {Object.keys(VolumeDefinitions)
                     .filter(type => !excludedTypes.includes(type))
-                    .map((type, index) => {
-                      return (
-                        <SelectOption
-                          key={index}
-                          value={type}
-                          label={
-                            <Trans
-                              id={VolumeDefinitions[type].name}
-                              render="span"
-                            />
-                          }
-                        >
-                          <div className="dropdown-select-item-title">
-                            <Trans
-                              id={VolumeDefinitions[type].name}
-                              render="span"
-                            />
-                            {VolumeDefinitions[type].recommended ? (
-                              <Trans
-                                render="span"
-                                className="dropdown-select-item-title__badge badge"
-                              >
-                                Recommended
-                              </Trans>
-                            ) : null}
-                          </div>
+                    .map((type, index) => (
+                      <SelectOption
+                        key={index}
+                        value={type}
+                        label={
                           <Trans
-                            id={VolumeDefinitions[type].description}
+                            id={VolumeDefinitions[type].name}
                             render="span"
-                            className="dropdown-select-item-description"
                           />
-                        </SelectOption>
-                      );
-                    })}
+                        }
+                      >
+                        <div className="dropdown-select-item-title">
+                          <Trans
+                            id={VolumeDefinitions[type].name}
+                            render="span"
+                          />
+                          {VolumeDefinitions[type].recommended ? (
+                            <Trans
+                              render="span"
+                              className="dropdown-select-item-title__badge badge"
+                            >
+                              Recommended
+                            </Trans>
+                          ) : null}
+                        </div>
+                        <Trans
+                          id={VolumeDefinitions[type].description}
+                          render="span"
+                          className="dropdown-select-item-description"
+                        />
+                      </SelectOption>
+                    ))}
                 </Select>
               </MountService.Mount>
             </FormGroup>

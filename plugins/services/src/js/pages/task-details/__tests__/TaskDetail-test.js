@@ -1,10 +1,8 @@
 jest.mock("#SRC/js/stores/MetadataStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
-jest.mock("#SRC/js/utils/RouterUtil", () => {
-  return {
-    reconstructPathFromRoutes: jest.fn()
-  };
-});
+jest.mock("#SRC/js/utils/RouterUtil", () => ({
+  reconstructPathFromRoutes: jest.fn()
+}));
 jest.mock("react-router");
 
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
@@ -36,12 +34,11 @@ describe("TaskDetail", () => {
       }
     };
     MesosStateStore.addChangeListener = () => {};
-    MesosStateStore.getTaskFromTaskID = () => {
-      return new Task({
+    MesosStateStore.getTaskFromTaskID = () =>
+      new Task({
         id: "bar",
         state: "TASK_RUNNING"
       });
-    };
 
     TaskDirectoryStore.fetchDirectory = jasmine.createSpy("fetchDirectory");
     TaskDirectoryStore.setPath = jasmine.createSpy("setPath");
@@ -115,9 +112,7 @@ describe("TaskDetail", () => {
     });
 
     it("does not call TaskDirectoryStore.fetchDirectory", () => {
-      MesosStateStore.getTaskFromTaskID = () => {
-        return null;
-      };
+      MesosStateStore.getTaskFromTaskID = () => null;
       TaskDetail.prototype.handleFetchDirectory.call(mockThis);
       expect(TaskDirectoryStore.fetchDirectory).not.toHaveBeenCalled();
     });
@@ -130,9 +125,7 @@ describe("TaskDetail", () => {
     });
 
     it("does not call TaskDirectoryStore.setPath", () => {
-      MesosStateStore.getTaskFromTaskID = () => {
-        return null;
-      };
+      MesosStateStore.getTaskFromTaskID = () => null;
       TaskDetail.prototype.handleBreadcrumbClick.call(mockThis);
       expect(TaskDirectoryStore.setPath).not.toHaveBeenCalled();
     });
@@ -144,9 +137,7 @@ describe("TaskDetail", () => {
       TaskDetail.prototype.getSubView.call({
         ...mockThis,
         getErrorScreen: mockGetErrorScreen,
-        hasLoadingError: jest.fn(() => {
-          return true;
-        })
+        hasLoadingError: jest.fn(() => true)
       });
 
       expect(mockGetErrorScreen).toHaveBeenCalled();
@@ -157,9 +148,7 @@ describe("TaskDetail", () => {
       TaskDetail.prototype.getSubView.call({
         ...mockThis,
         getErrorScreen: mockGetErrorScreen,
-        hasLoadingError: jest.fn(() => {
-          return false;
-        })
+        hasLoadingError: jest.fn(() => false)
       });
 
       expect(mockGetErrorScreen).not.toHaveBeenCalled();
@@ -169,9 +158,7 @@ describe("TaskDetail", () => {
       expect(
         TaskDetail.prototype.getSubView.call({
           ...mockThis,
-          getLoadingScreen: jest.fn(() => {
-            return "loading";
-          })
+          getLoadingScreen: jest.fn(() => "loading")
         })
       ).toEqual("loading");
     });
@@ -191,9 +178,7 @@ describe("TaskDetail", () => {
 
   describe("#getBasicInfo", () => {
     it("returns null if task is null", () => {
-      MesosStateStore.getTaskFromTaskID = () => {
-        return null;
-      };
+      MesosStateStore.getTaskFromTaskID = () => null;
 
       expect(TaskDetail.prototype.getBasicInfo.call(mockThis)).toEqual(null);
     });

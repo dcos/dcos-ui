@@ -16,17 +16,15 @@ class DSLForm extends React.Component {
 
     // Render each group component wrapped with a dedicated form that receives
     // the updates targeting each dedicated component.
-    const components = sections.map((SectionComponent, key) => {
-      return (
-        <SectionComponent
-          expression={expression}
-          key={key}
-          onApply={onApply}
-          onChange={onChange}
-          defaultData={defaultData}
-        />
-      );
-    });
+    const components = sections.map((SectionComponent, key) => (
+      <SectionComponent
+        expression={expression}
+        key={key}
+        onApply={onApply}
+        onChange={onChange}
+        defaultData={defaultData}
+      />
+    ));
 
     return <div>{components}</div>;
   }

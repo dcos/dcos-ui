@@ -14,9 +14,7 @@ import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
  * @returns {Boolean} Returns `true` if all rows have empty value in this prop
  */
 function isColumnEmpty(data, prop) {
-  return data.every(row => {
-    return ValidatorUtil.isEmpty(row[prop]);
-  });
+  return data.every(row => ValidatorUtil.isEmpty(row[prop]));
 }
 
 /**
@@ -124,9 +122,7 @@ class ConfigurationMapTable extends React.Component {
 
         return column;
       })
-      .filter(column => {
-        return column !== null;
-      });
+      .filter(column => column !== null);
 
     if (onEditClick) {
       columns.push({

@@ -64,16 +64,13 @@ var TableUtil = {
    * between two items
    */
   getSortFunction(tieBreakerProp, getProperty) {
-    return (prop, order) => {
-      return (a, b) => {
-        return TableUtil.compareValues(
-          getProperty(a, prop, order),
-          getProperty(b, prop, order),
-          getProperty(a, tieBreakerProp, order),
-          getProperty(b, tieBreakerProp, order)
-        );
-      };
-    };
+    return (prop, order) => (a, b) =>
+      TableUtil.compareValues(
+        getProperty(a, prop, order),
+        getProperty(b, prop, order),
+        getProperty(a, tieBreakerProp, order),
+        getProperty(b, tieBreakerProp, order)
+      );
   },
 
   /**

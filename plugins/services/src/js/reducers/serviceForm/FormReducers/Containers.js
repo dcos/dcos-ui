@@ -47,12 +47,8 @@ module.exports = {
           this.cache.push({});
           break;
         case REMOVE_ITEM:
-          newState = newState.filter((item, index) => {
-            return index !== value;
-          });
-          this.cache = this.cache.filter((item, index) => {
-            return index !== value;
-          });
+          newState = newState.filter((item, index) => index !== value);
+          this.cache = this.cache.filter((item, index) => index !== value);
           break;
       }
 

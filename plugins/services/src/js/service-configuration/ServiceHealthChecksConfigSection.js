@@ -84,9 +84,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
           key: "healthChecks",
           render(healthChecks) {
             const serviceEndpointHealthChecks = healthChecks.filter(
-              healthCheck => {
-                return [MESOS_HTTP, MESOS_HTTPS].includes(healthCheck.protocol);
-              }
+              healthCheck =>
+                [MESOS_HTTP, MESOS_HTTPS].includes(healthCheck.protocol)
             );
 
             const columns = [
@@ -199,9 +198,9 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: "healthChecks",
           render(healthChecks) {
-            const commandHealthChecks = healthChecks.filter(healthCheck => {
-              return healthCheck.protocol === COMMAND;
-            });
+            const commandHealthChecks = healthChecks.filter(
+              healthCheck => healthCheck.protocol === COMMAND
+            );
 
             const columns = [
               {

@@ -77,9 +77,8 @@ describe("PackagesTab", () => {
     });
 
     it("doesn't return packages", () => {
-      CosmosPackagesStore.getAvailablePackages = () => {
-        return new UniversePackagesList();
-      };
+      CosmosPackagesStore.getAvailablePackages = () =>
+        new UniversePackagesList();
 
       const packages = CosmosPackagesStore.getAvailablePackages();
       expect(thisInstance.instance().getPackageGrid(packages).length).toEqual(
@@ -92,9 +91,8 @@ describe("PackagesTab", () => {
     beforeEach(() => {
       thisGetAvailablePackages = CosmosPackagesStore.getAvailablePackages;
       thisFetchAvailablePackages = CosmosPackagesStore.fetchAvailablePackages;
-      CosmosPackagesStore.getAvailablePackages = () => {
-        return new UniversePackagesList();
-      };
+      CosmosPackagesStore.getAvailablePackages = () =>
+        new UniversePackagesList();
       CosmosPackagesStore.fetchAvailablePackages = () => {};
     });
 

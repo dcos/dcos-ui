@@ -53,19 +53,17 @@ class SchemaField extends Component {
   renderRadioButtons(errorMessage, props) {
     const { required, name, schema, formData, onChange } = props;
 
-    const options = schema.enum.map(option => {
-      return (
-        <FieldLabel key={option}>
-          <FieldInput
-            type="radio"
-            value={option}
-            checked={option === formData}
-            onChange={() => onChange(option)}
-          />
-          {option}
-        </FieldLabel>
-      );
-    });
+    const options = schema.enum.map(option => (
+      <FieldLabel key={option}>
+        <FieldInput
+          type="radio"
+          value={option}
+          checked={option === formData}
+          onChange={() => onChange(option)}
+        />
+        {option}
+      </FieldLabel>
+    ));
 
     return (
       <div>
@@ -88,13 +86,11 @@ class SchemaField extends Component {
       onFocus
     } = props;
 
-    const options = schema.enum.map(option => {
-      return (
-        <option key={option} value={option}>
-          {option}
-        </option>
-      );
-    });
+    const options = schema.enum.map(option => (
+      <option key={option} value={option}>
+        {option}
+      </option>
+    ));
 
     let field = (
       <FieldSelect
@@ -317,9 +313,7 @@ class SchemaField extends Component {
     let errorMessage;
     let showError = false;
     if (errorSchema) {
-      errorMessage = errorSchema.__errors.map(error => {
-        return <div>{error}</div>;
-      });
+      errorMessage = errorSchema.__errors.map(error => <div>{error}</div>);
       showError = errorMessage.length > 0;
     }
 

@@ -53,31 +53,29 @@ const PackagesBreadcrumbs = () => {
   );
 };
 
-const PackagesEmptyState = () => {
-  return (
-    <AlertPanel>
-      <AlertPanelHeader>
-        <Trans render="span">No package repositories</Trans>
-      </AlertPanelHeader>
-      <Trans render="p" className="tall">
-        You need at least one package repository with some packages to be able
-        to install packages. For more{" "}
-        <a
-          target="_blank"
-          href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
-        >
-          information on repositories
-        </a>
-        .
-      </Trans>
-      <div className="button-collection flush-bottom">
-        <Link to="/settings/repositories" className="button button-primary">
-          <Trans render="span">Add Package Repository</Trans>
-        </Link>
-      </div>
-    </AlertPanel>
-  );
-};
+const PackagesEmptyState = () => (
+  <AlertPanel>
+    <AlertPanelHeader>
+      <Trans render="span">No package repositories</Trans>
+    </AlertPanelHeader>
+    <Trans render="p" className="tall">
+      You need at least one package repository with some packages to be able to
+      install packages. For more{" "}
+      <a
+        target="_blank"
+        href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
+      >
+        information on repositories
+      </a>
+      .
+    </Trans>
+    <div className="button-collection flush-bottom">
+      <Link to="/settings/repositories" className="button button-primary">
+        <Trans render="span">Add Package Repository</Trans>
+      </Link>
+    </div>
+  </AlertPanel>
+);
 
 const METHODS_TO_BIND = [
   "handleSearchStringChange",
@@ -197,19 +195,17 @@ class PackagesTab extends mixin(StoreMixin) {
   }
 
   getPackageGrid(packages) {
-    return packages.getItems().map((cosmosPackage, index) => {
-      return (
-        <CatalogPackageOption
-          image={this.getIcon(cosmosPackage)}
-          key={index}
-          label={this.getPackageOptionBadge(cosmosPackage)}
-          onOptionSelect={this.handleDetailOpen.bind(this, cosmosPackage)}
-        >
-          <div className="h3 flush">{cosmosPackage.getName()}</div>
-          <small className="flush">{cosmosPackage.getVersion()}</small>
-        </CatalogPackageOption>
-      );
-    });
+    return packages.getItems().map((cosmosPackage, index) => (
+      <CatalogPackageOption
+        image={this.getIcon(cosmosPackage)}
+        key={index}
+        label={this.getPackageOptionBadge(cosmosPackage)}
+        onOptionSelect={this.handleDetailOpen.bind(this, cosmosPackage)}
+      >
+        <div className="h3 flush">{cosmosPackage.getName()}</div>
+        <small className="flush">{cosmosPackage.getVersion()}</small>
+      </CatalogPackageOption>
+    ));
   }
 
   getPackageOptionBadge(cosmosPackage) {

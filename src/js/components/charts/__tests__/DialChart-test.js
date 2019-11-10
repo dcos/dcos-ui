@@ -3,9 +3,7 @@ import { mount } from "enzyme";
 
 const DialChart = require("../DialChart");
 
-const getInstanceWithProps = props => {
-  return mount(<DialChart {...props} />);
-};
+const getInstanceWithProps = props => mount(<DialChart {...props} />);
 
 let thisInstance;
 

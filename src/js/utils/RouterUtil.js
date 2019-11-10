@@ -155,12 +155,8 @@ const RouterUtil = {
    */
   reconstructPathFromRoutes(routes) {
     const path = routes
-      .filter(route => {
-        return !!route.path;
-      })
-      .map(route => {
-        return route.path;
-      })
+      .filter(route => !!route.path)
+      .map(route => route.path)
       .join("/");
 
     return `/${path}`;

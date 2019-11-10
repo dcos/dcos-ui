@@ -25,9 +25,7 @@ module.exports = {
             this.env.push({ key: null, value: "" });
             break;
           case REMOVE_ITEM:
-            this.env = this.env.filter((item, index) => {
-              return index !== value;
-            });
+            this.env = this.env.filter((item, index) => index !== value);
             break;
         }
 
@@ -64,9 +62,9 @@ module.exports = {
     }
 
     return Object.keys(state.env)
-      .filter(key => {
-        return state.env[key] == null || typeof state.env[key] === "string";
-      })
+      .filter(
+        key => state.env[key] == null || typeof state.env[key] === "string"
+      )
       .reduce((memo, key, index) => {
         /**
          * For the environment variables which are a key => value based object

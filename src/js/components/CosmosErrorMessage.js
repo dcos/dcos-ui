@@ -93,15 +93,11 @@ class CosmosErrorMessage extends React.Component {
         return [];
       }
 
-      return errors.map(error => {
-        return (ErrorPaths[path] || path) + "." + error;
-      });
+      return errors.map(error => (ErrorPaths[path] || path) + "." + error);
     });
 
     // Flatten elements in array and return
-    return errorsDetails.reduce((a, b) => {
-      return a.concat(b);
-    });
+    return errorsDetails.reduce((a, b) => a.concat(b));
   }
 
   appendRepositoryLink(message) {

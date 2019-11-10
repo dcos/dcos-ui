@@ -11,9 +11,7 @@ class AttribFilter extends DSLFilter {
     return filterType === DSLFilterTypes.ATTRIB;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
-      return item.text.indexOf("attribute") !== -1;
-    });
+    return resultset.filterItems(item => item.text.indexOf("attribute") !== -1);
   }
 }
 
@@ -22,9 +20,7 @@ class ExactFilter extends DSLFilter {
     return filterType === DSLFilterTypes.EXACT;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
-      return item.text.indexOf("exact") !== -1;
-    });
+    return resultset.filterItems(item => item.text.indexOf("exact") !== -1);
   }
 }
 
@@ -33,9 +29,7 @@ class FuzzyFilter extends DSLFilter {
     return filterType === DSLFilterTypes.FUZZY;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => {
-      return item.text.indexOf("fuzzy") !== -1;
-    });
+    return resultset.filterItems(item => item.text.indexOf("fuzzy") !== -1);
   }
 }
 

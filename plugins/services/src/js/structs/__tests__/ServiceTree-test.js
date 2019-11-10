@@ -198,11 +198,7 @@ describe("ServiceTree", () => {
 
     it("finds matching subtree", () => {
       expect(
-        thisInstance
-          .findItem(item => {
-            return item.getId() === "/test";
-          })
-          .getId()
+        thisInstance.findItem(item => item.getId() === "/test").getId()
       ).toEqual("/test");
     });
   });

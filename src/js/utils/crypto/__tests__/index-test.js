@@ -40,11 +40,10 @@ describe("generatePrintableRSAKeypair", () => {
             resolve(buffer);
           });
         },
-        generateKey: (_options, _exportable, _usage) => {
-          return new Promise(resolve => {
+        generateKey: (_options, _exportable, _usage) =>
+          new Promise(resolve => {
             resolve(new MockCryptoKeyPair());
-          });
-        }
+          })
       }
     };
   });

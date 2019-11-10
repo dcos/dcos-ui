@@ -14,9 +14,7 @@ module.exports = class PodInstance extends Item {
   getContainers() {
     const containers = this.get("containers") || [];
 
-    return containers.map(container => {
-      return new PodContainer(container);
-    });
+    return containers.map(container => new PodContainer(container));
   }
 
   getId() {
@@ -59,11 +57,10 @@ module.exports = class PodInstance extends Item {
         const containers = this.getContainers();
         const isFinished =
           containers.length > 0 &&
-          containers.every(container => {
-            return (
+          containers.every(
+            container =>
               container.getContainerStatus() === PodContainerStatus.FINISHED
-            );
-          });
+          );
 
         if (isFinished) {
           return PodInstanceStatus.FINISHED;
@@ -128,9 +125,7 @@ module.exports = class PodInstance extends Item {
     }
 
     // If there are containers ALL of them must have health checks
-    return containers.every(container => {
-      return container.hasHealthChecks();
-    });
+    return containers.every(container => container.hasHealthChecks());
   }
 
   isHealthy() {
@@ -138,9 +133,7 @@ module.exports = class PodInstance extends Item {
       return false;
     }
 
-    return this.getContainers().every(container => {
-      return container.isHealthy();
-    });
+    return this.getContainers().every(container => container.isHealthy());
   }
 
   isRunning() {

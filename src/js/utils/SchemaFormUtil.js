@@ -4,9 +4,7 @@ import FormUtil from "./FormUtil";
 import Util from "./Util";
 
 function filteredPaths(combinedPath) {
-  return combinedPath.split("/").filter(path => {
-    return path.length > 0;
-  });
+  return combinedPath.split("/").filter(path => path.length > 0);
 }
 
 function getErroredFieldPositions(definition) {
@@ -159,12 +157,8 @@ function processValue(value, valueType) {
   if (valueType === "array" && typeof value === "string") {
     return value
       .split(",")
-      .map(val => {
-        return val.trim();
-      })
-      .filter(val => {
-        return val !== "";
-      });
+      .map(val => val.trim())
+      .filter(val => val !== "");
   }
 
   if (valueType === "boolean" && value == null) {
@@ -230,15 +224,17 @@ function unnestGroupsInDefinition(definition) {
 /**
  * Introduce custom validation function to tv4
  */
-tv4.defineKeyword("validator", (data, validationFunction) => {
-  //
+tv4.defineKeyword("validator", (
+  data,
+  validationFunction //
+) =>
   // Call the validation function and return:
   //
   //  - null     : No error
   //  - 'string' : The error description
   //
-  return validationFunction(data);
-});
+  validationFunction(data)
+);
 
 /**
  * The default tv4 error messages are quite bad.
@@ -325,11 +321,10 @@ const SchemaFormUtil = {
 
       const nextDefinition = Array.prototype.concat
         .apply([], definition.definition)
-        .find(definitionField => {
-          return (
+        .find(
+          definitionField =>
             definitionField.name === path || definitionField.title === path
-          );
-        });
+        );
 
       if (nextDefinition) {
         definition = nextDefinition;
@@ -457,9 +452,7 @@ const SchemaFormUtil = {
       return [];
     }
 
-    return result.errors.map(error => {
-      return SchemaFormUtil.parseTV4Error(error);
-    });
+    return result.errors.map(error => SchemaFormUtil.parseTV4Error(error));
   }
 };
 

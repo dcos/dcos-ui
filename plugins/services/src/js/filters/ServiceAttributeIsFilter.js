@@ -28,9 +28,9 @@ class ServiceAttribIsFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = ServiceStatus[filterArguments.text.toUpperCase()];
 
-    return resultset.filterItems(service => {
-      return service.getServiceStatus() === testStatus;
-    });
+    return resultset.filterItems(
+      service => service.getServiceStatus() === testStatus
+    );
   }
 }
 

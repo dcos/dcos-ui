@@ -13,12 +13,8 @@ const NodeInstance = require("./fixtures/NodeInstance.json");
 describe("InstanceUtil", () => {
   describe("#getRegionName", () => {
     beforeEach(() => {
-      CompositeState.getNodesList = () => {
-        return new NodesList({ items: SlaveNodes });
-      };
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeLocal);
-      };
+      CompositeState.getNodesList = () => new NodesList({ items: SlaveNodes });
+      CompositeState.getMasterNode = () => new Node(MasterNodeLocal);
     });
     it("returns N/A when null is provided", () => {
       expect(InstanceUtil.getRegionName(null)).toEqual("N/A");
@@ -33,18 +29,14 @@ describe("InstanceUtil", () => {
       );
     });
     it("returns region when slave/ master in different region", () => {
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeOffsite);
-      };
+      CompositeState.getMasterNode = () => new Node(MasterNodeOffsite);
       expect(InstanceUtil.getRegionName(NodeInstance)).toEqual("us-west-2");
     });
   });
 
   describe("#getZoneName", () => {
     beforeEach(() => {
-      CompositeState.getNodesList = () => {
-        return new NodesList({ items: SlaveNodes });
-      };
+      CompositeState.getNodesList = () => new NodesList({ items: SlaveNodes });
     });
     it("returns N/A when null is provided", () => {
       expect(InstanceUtil.getZoneName(null)).toEqual("N/A");
@@ -54,9 +46,7 @@ describe("InstanceUtil", () => {
       expect(InstanceUtil.getZoneName(task)).toEqual("N/A");
     });
     it("returns zone when slave/ master in different zone", () => {
-      CompositeState.getMasterNode = () => {
-        return new Node(MasterNodeOffsite);
-      };
+      CompositeState.getMasterNode = () => new Node(MasterNodeOffsite);
       expect(InstanceUtil.getZoneName(NodeInstance)).toEqual("us-west-2a");
     });
   });

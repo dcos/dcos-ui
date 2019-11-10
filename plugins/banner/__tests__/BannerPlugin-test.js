@@ -135,9 +135,9 @@ describe("BannerPlugin", () => {
       thisMockFn = jasmine.createSpy("ContentWindow Spy");
       thisIframe = global.document.createElement("iframe");
       var mockFn = thisMockFn;
-      thisIframe.__defineGetter__("contentWindow", () => {
-        return { addEventListener: mockFn };
-      });
+      thisIframe.__defineGetter__("contentWindow", () => ({
+        addEventListener: mockFn
+      }));
       global.document.getElementById = jasmine
         .createSpy("HTML Element")
         .and.returnValue(thisIframe);
@@ -287,15 +287,9 @@ describe("BannerPlugin", () => {
 
   describe("#getHeader", () => {
     beforeEach(() => {
-      BannerPlugin.getIcon = () => {
-        return null;
-      };
-      BannerPlugin.getTitle = () => {
-        return null;
-      };
-      BannerPlugin.getHeaderContent = () => {
-        return null;
-      };
+      BannerPlugin.getIcon = () => null;
+      BannerPlugin.getTitle = () => null;
+      BannerPlugin.getHeaderContent = () => null;
     });
 
     it("returns null if depending functions returns null", () => {
@@ -303,25 +297,19 @@ describe("BannerPlugin", () => {
     });
 
     it("returns an element if getIcon return something", () => {
-      BannerPlugin.getIcon = () => {
-        return "foo";
-      };
+      BannerPlugin.getIcon = () => "foo";
 
       expect(BannerPlugin.getHeader()).not.toBe(null);
     });
 
     it("returns an element if getTitle return something", () => {
-      BannerPlugin.getTitle = () => {
-        return "foo";
-      };
+      BannerPlugin.getTitle = () => "foo";
 
       expect(BannerPlugin.getHeader()).not.toBe(null);
     });
 
     it("returns element when getHeaderContent does", () => {
-      BannerPlugin.getHeaderContent = () => {
-        return "foo";
-      };
+      BannerPlugin.getHeaderContent = () => "foo";
 
       expect(BannerPlugin.getHeader()).not.toBe(null);
     });

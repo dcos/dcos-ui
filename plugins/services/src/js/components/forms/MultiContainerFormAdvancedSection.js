@@ -29,17 +29,15 @@ const getForcePullSection = (data, path) => {
   );
 };
 
-const MultiContainerFormAdvancedSection = ({ data, path }) => {
-  return (
-    <div>
-      <Trans render="h2" className="short-top short-bottom">
-        Advanced Settings
-      </Trans>
-      <Trans render="p">Advanced settings of the container.</Trans>
-      <div className="form-group">{getForcePullSection(data, path)}</div>
-    </div>
-  );
-};
+const MultiContainerFormAdvancedSection = ({ data, path }) => (
+  <div>
+    <Trans render="h2" className="short-top short-bottom">
+      Advanced Settings
+    </Trans>
+    <Trans render="p">Advanced settings of the container.</Trans>
+    <div className="form-group">{getForcePullSection(data, path)}</div>
+  </div>
+);
 
 MultiContainerFormAdvancedSection.defaultProps = {
   data: {},

@@ -77,9 +77,8 @@ class PodDetail extends mixin(TabsMixin) {
 
     if (isGroup) {
       containsSDKService =
-        pod.findItem(item => {
-          return item instanceof Service && isSDKService(item);
-        }) != null;
+        pod.findItem(item => item instanceof Service && isSDKService(item)) !=
+        null;
     }
 
     // We still want to support the `open` action to display the web view

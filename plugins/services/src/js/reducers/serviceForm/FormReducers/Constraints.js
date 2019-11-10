@@ -23,9 +23,7 @@ function processTransaction(state, { type, path, value }) {
   }
 
   if (type === REMOVE_ITEM) {
-    newState = newState.filter((item, index) => {
-      return index !== value;
-    });
+    newState = newState.filter((item, index) => index !== value);
   }
 
   if (type === SET && name === "type" && newState[index]) {

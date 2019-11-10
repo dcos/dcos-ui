@@ -516,9 +516,7 @@ describe("Services", () => {
           expect($serviceEndpointsSection.get().length).to.equal(1);
           const $tableRows = $serviceEndpointsSection
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
 
           const $tableCells = $tableRows.find("td");
           const cellValues = [
@@ -711,9 +709,7 @@ describe("Services", () => {
 
           const $tableRows = $containerArtifacts
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
 
           expect($tableRows.length).to.equal(3);
 
@@ -906,9 +902,7 @@ describe("Services", () => {
         .then($serviceEndpointsSection => {
           const $tableRow = $serviceEndpointsSection
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
           const $tableCells = $tableRow.find("td");
           const cellValues = ["http", "tcp", "8080", "container-1", "Edit"];
 
@@ -1077,9 +1071,7 @@ describe("Services", () => {
         .then($storageSection => {
           const $tableRow = $storageSection
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
           const $tableCells = $tableRow.find("td");
           const cellValues = [
             "test",
@@ -1330,9 +1322,7 @@ describe("Services", () => {
         .then($storageSection => {
           const $tableRow = $storageSection
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
           const $tableCells = $tableRow.find("td");
           const cellValues = [
             "test",
@@ -1549,9 +1539,7 @@ describe("Services", () => {
 
           const $tableRows = $envSection
             .find("tbody tr")
-            .filter((index, row) => {
-              return row.style.display !== "none";
-            });
+            .filter((index, row) => row.style.display !== "none");
           const cellValues = [
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],
@@ -1739,9 +1727,10 @@ describe("Services", () => {
         .then($section => {
           expect($section.get().length).to.equal(1);
 
-          const $tableRows = $section.find("tbody tr").filter((index, row) => {
-            return row.style.display !== "none";
-          });
+          const $tableRows = $section
+            .find("tbody tr")
+            .filter((index, row) => row.style.display !== "none");
+
           const cellValues = [
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],

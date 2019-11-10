@@ -12,9 +12,9 @@ function OptionsWrapper({ children }) {
     containerClasses = "column-12 column-medium-10 column-medium-offset-1";
   }
 
-  const clonedChildren = React.Children.map(children, child => {
-    return React.cloneElement(child, { columnClasses });
-  });
+  const clonedChildren = React.Children.map(children, child =>
+    React.cloneElement(child, { columnClasses })
+  );
 
   return (
     <div className={containerClasses}>

@@ -150,9 +150,7 @@ const DeclinedOffersUtil = {
               const { fieldName, operator, value } = constraint;
 
               return [fieldName, operator, value]
-                .filter(value => {
-                  return value && value !== "";
-                })
+                .filter(value => value && value !== "")
                 .join(":");
             })
             .join(", ") || UNAVAILABLE_TEXT,
@@ -183,9 +181,7 @@ const DeclinedOffersUtil = {
       ports: {
         requested:
           requestedResources.ports
-            .map((resourceArr = []) => {
-              return resourceArr.join(", ");
-            })
+            .map((resourceArr = []) => resourceArr.join(", "))
             .join(", ") || UNAVAILABLE_TEXT,
         offers: portOfferSummary.processed,
         matched: portOfferSummary.processed - portOfferSummary.declined

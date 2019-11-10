@@ -11,12 +11,10 @@ const Labels = {
       getter(job) {
         const labels = job.getLabels() || {};
 
-        return Object.keys(labels).map(key => {
-          return {
-            key,
-            value: labels[key]
-          };
-        });
+        return Object.keys(labels).map(key => ({
+          key,
+          value: labels[key]
+        }));
       },
       itemShape: {
         properties: {

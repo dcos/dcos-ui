@@ -122,13 +122,13 @@ const MetronomeUtil = {
 
     let { failedFinishedRuns = [], successfulFinishedRuns = [] } = history;
 
-    failedFinishedRuns = failedFinishedRuns.map(jobRun => {
-      return Object.assign({}, jobRun, { status: "FAILED", jobId: job.id });
-    });
+    failedFinishedRuns = failedFinishedRuns.map(jobRun =>
+      Object.assign({}, jobRun, { status: "FAILED", jobId: job.id })
+    );
 
-    successfulFinishedRuns = successfulFinishedRuns.map(jobRun => {
-      return Object.assign({}, jobRun, { status: "COMPLETED", jobId: job.id });
-    });
+    successfulFinishedRuns = successfulFinishedRuns.map(jobRun =>
+      Object.assign({}, jobRun, { status: "COMPLETED", jobId: job.id })
+    );
 
     history = Object.assign({}, history, {
       failedFinishedRuns,

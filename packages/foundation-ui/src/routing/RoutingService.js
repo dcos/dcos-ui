@@ -146,9 +146,9 @@ class RoutingService extends EventEmitter {
    * @return {undefined}
    */
   registerRedirect(path, to) {
-    const existingRedirect = this.definition.find(route => {
-      return route.type === Redirect && route.path === path;
-    });
+    const existingRedirect = this.definition.find(
+      route => route.type === Redirect && route.path === path
+    );
 
     if (existingRedirect && existingRedirect.to === to) {
       return;

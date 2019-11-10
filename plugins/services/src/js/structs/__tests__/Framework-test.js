@@ -163,46 +163,44 @@ describe("Framework", () => {
 
     it("aggregates the right number of tasks", () => {
       const getTasksByService = MesosStateStore.getTasksByService;
-      MesosStateStore.getTasksByService = () => {
-        return [
-          {
-            id: "/fake_1",
-            isStartedByMarathon: true,
-            state: "TASK_RUNNING",
-            resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
-          },
-          {
-            id: "/fake_2",
-            state: "TASK_RUNNING",
-            statuses: [
-              {
-                healthy: true
-              }
-            ],
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
-          },
-          {
-            id: "/fake_2",
-            state: "TASK_RUNNING",
-            statuses: [
-              {
-                healthy: false
-              }
-            ],
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
-          },
-          {
-            id: "/fake_3",
-            state: "TASK_FINISHED",
-            statuses: [
-              {
-                healthy: false
-              }
-            ],
-            resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
-          }
-        ];
-      };
+      MesosStateStore.getTasksByService = () => [
+        {
+          id: "/fake_1",
+          isStartedByMarathon: true,
+          state: "TASK_RUNNING",
+          resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
+        },
+        {
+          id: "/fake_2",
+          state: "TASK_RUNNING",
+          statuses: [
+            {
+              healthy: true
+            }
+          ],
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+        },
+        {
+          id: "/fake_2",
+          state: "TASK_RUNNING",
+          statuses: [
+            {
+              healthy: false
+            }
+          ],
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+        },
+        {
+          id: "/fake_3",
+          state: "TASK_FINISHED",
+          statuses: [
+            {
+              healthy: false
+            }
+          ],
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+        }
+      ];
 
       const service = new Framework({
         instances: 1,

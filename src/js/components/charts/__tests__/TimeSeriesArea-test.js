@@ -40,26 +40,16 @@ describe("TimeSeriesArea", () => {
 
     thisAreaDef = d3.svg
       .area()
-      .x(d => {
-        return d.date;
-      })
-      .y0(() => {
-        return 0;
-      })
-      .y1(d => {
-        return d.y;
-      })
+      .x(d => d.date)
+      .y0(() => 0)
+      .y1(d => d.y)
       .interpolate("monotone");
     thisArea = thisAreaDef(thisProps.values);
 
     thisValueLineDef = d3.svg
       .line()
-      .x(d => {
-        return d.date;
-      })
-      .y(d => {
-        return d.y;
-      })
+      .x(d => d.date)
+      .y(d => d.y)
       .interpolate("monotone");
     thisValueLine = thisValueLineDef(thisProps.values);
 

@@ -46,9 +46,9 @@ const containerJSONReducer = combineReducers({
           this.hasVolumes.push(true);
           break;
         case REMOVE_ITEM:
-          this.hasVolumes = this.hasVolumes.filter((item, index) => {
-            return index !== value;
-          });
+          this.hasVolumes = this.hasVolumes.filter(
+            (item, index) => index !== value
+          );
       }
     }
 
@@ -151,9 +151,9 @@ const containerJSONReducer = combineReducers({
       const defaultVipPort = vipPort || containerPort;
       const networkNames = portDefinition.networkNames;
       let hostPort = Number(portDefinition.hostPort) || 0;
-      let protocol = PROTOCOLS.filter(protocol => {
-        return portDefinition.protocol[protocol];
-      }).join(",");
+      let protocol = PROTOCOLS.filter(
+        protocol => portDefinition.protocol[protocol]
+      ).join(",");
 
       // Do not expose hostPort or protocol, when portMapping is turned off
       if (
@@ -313,9 +313,7 @@ module.exports = {
   },
 
   JSONParser: combineParsers([
-    state => {
-      return new Transaction(["container"], state.container);
-    },
+    state => new Transaction(["container"], state.container),
     state => {
       let value = findNestedPropertyInObject(state, "container.type");
 

@@ -227,11 +227,7 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceListCommand(services, commandFunction) {
-    return services
-      .map(item => {
-        return commandFunction(item);
-      })
-      .join(" &&\n");
+    return services.map(item => commandFunction(item)).join(" &&\n");
   }
 
   getGroupUpdateMessage(updateDescription) {
