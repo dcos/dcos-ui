@@ -42,7 +42,7 @@ RequestUtil.json = (options = {}) => {
   const oldHandler = options.error;
   options.error = function(...args) {
     if (typeof oldHandler === "function") {
-      oldHandler.apply(null, args);
+      oldHandler(...args);
     }
     PluginSDK.Hooks.doAction("AJAXRequestError", ...args);
   };

@@ -111,7 +111,7 @@ module.exports = function Hooks() {
           // Creates new arguments array to call the listener with
           const groupedArgs = args.slice();
           groupedArgs.unshift(value);
-          value = listener.apply(null, groupedArgs);
+          value = listener(...groupedArgs);
         });
       });
 
@@ -165,7 +165,7 @@ module.exports = function Hooks() {
       priorities.forEach(priority => {
         // Clone and call all listeners
         listeners[priority].slice(0).forEach(listener => {
-          listener.apply(null, args);
+          listener(...args);
         });
       });
     }
