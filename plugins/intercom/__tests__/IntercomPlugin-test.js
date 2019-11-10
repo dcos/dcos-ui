@@ -10,7 +10,7 @@ const mockAuthStore = {
   isLoggedIn: jest.fn()
 };
 
-jest.mock("#SRC/js/stores/AuthStore", function() {
+jest.mock("#SRC/js/stores/AuthStore", () => {
   return mockAuthStore;
 });
 
@@ -22,14 +22,14 @@ require("../SDK").setSDK(SDK);
 
 const IntercomHooks = require("../hooks");
 
-describe("IntercomHooks", function() {
-  describe("Listeners", function() {
-    beforeEach(function() {
+describe("IntercomHooks", () => {
+  describe("Listeners", () => {
+    beforeEach(() => {
       DOMUtils.appendScript = jasmine.createSpy();
     });
 
-    describe("#pluginsConfigured", function() {
-      it("appends scripts to the document head if plugin enabled", function() {
+    describe("#pluginsConfigured", () => {
+      it("appends scripts to the document head if plugin enabled", () => {
         global.analytics = { ready() {} };
         IntercomHooks.initialize({ appId: "id-123" });
         SDK.Hooks.doAction("pluginsConfigured");

@@ -7,12 +7,12 @@ const Hooks = PluginSDK.Hooks;
 
 let thisMockPlugin, thisTestArgs, thisMockReducer;
 
-describe("PluginSDK", function() {
-  describe("#initialize", function() {
-    describe("#reducers", function() {
-      it("does not create a namespace in Store for plugin if no reducer returned", function() {
+describe("PluginSDK", () => {
+  describe("#initialize", () => {
+    describe("#reducers", () => {
+      it("does not create a namespace in Store for plugin if no reducer returned", () => {
         // Mock a fake plugin
-        thisMockPlugin = jest.genMockFunction().mockImplementation(function() {
+        thisMockPlugin = jest.genMockFunction().mockImplementation(() => {
           // Don't return anything
         });
         PluginTestUtils.loadPlugins({
@@ -28,11 +28,11 @@ describe("PluginSDK", function() {
         expect(state.fakePlugin1).toEqual(undefined);
       });
 
-      it("creates a namespace in Store for plugin if reducer returned", function() {
+      it("creates a namespace in Store for plugin if reducer returned", () => {
         // Mock a fake plugin
-        thisMockPlugin = jest.genMockFunction().mockImplementation(function() {
+        thisMockPlugin = jest.genMockFunction().mockImplementation(() => {
           // Return reducer
-          return function() {
+          return () => {
             // Return an initial state
             return { foo: "bar" };
           };
@@ -50,13 +50,13 @@ describe("PluginSDK", function() {
         expect(isEqual(state.fakePlugin2, { foo: "bar" })).toEqual(true);
       });
 
-      it("throws an error if reducer is not a function", function() {
+      it("throws an error if reducer is not a function", () => {
         // Mock a fake plugin
-        var mockPlugin = jest.genMockFunction().mockImplementation(function() {
+        var mockPlugin = jest.genMockFunction().mockImplementation(() => {
           // Return invalid reducer
           return {};
         });
-        expect(function() {
+        expect(() => {
           PluginTestUtils.loadPlugins({
             badFakePlugin: {
               module: mockPlugin,
@@ -71,8 +71,8 @@ describe("PluginSDK", function() {
     });
   });
 
-  describe("#bootstrapPlugin", function() {
-    beforeEach(function() {
+  describe("#bootstrapPlugin", () => {
+    beforeEach(() => {
       thisMockPlugin = jest.genMockFunction();
 
       PluginTestUtils.loadPlugins({
@@ -86,27 +86,27 @@ describe("PluginSDK", function() {
       });
     });
 
-    it("calls plugin", function() {
+    it("calls plugin", () => {
       expect(thisMockPlugin.mock.calls.length).toBe(1);
     });
 
-    it("calls plugin with correct # of args", function() {
+    it("calls plugin with correct # of args", () => {
       var args = thisMockPlugin.mock.calls[0];
       expect(args.length).toBe(1);
     });
 
-    it("calls plugin with PluginSDK", function() {
+    it("calls plugin with PluginSDK", () => {
       var SDK = thisMockPlugin.mock.calls[0][0];
       expect(SDK.toString()).toEqual(PluginSDK.toString());
     });
 
-    it("contains Store in PluginSDK", function() {
+    it("contains Store in PluginSDK", () => {
       var store = thisMockPlugin.mock.calls[0][0].Store;
       expect(typeof store.subscribe).toEqual("function");
       expect(typeof store.getState).toEqual("function");
     });
 
-    it("contains personal dispatch in PluginSDK", function() {
+    it("contains personal dispatch in PluginSDK", () => {
       var SDK = thisMockPlugin.mock.calls[0][0];
       var store = PluginSDK.Store;
       var dispatch = SDK.dispatch;
@@ -130,22 +130,22 @@ describe("PluginSDK", function() {
       store.dispatch = storeDispatch;
     });
 
-    it("contains pluginID in PluginSDK", function() {
+    it("contains pluginID in PluginSDK", () => {
       var pluginID = thisMockPlugin.mock.calls[0][0].pluginID;
       expect(pluginID).toEqual("fakePlugin3");
     });
 
-    it("contains Hooks in PluginSDK", function() {
+    it("contains Hooks in PluginSDK", () => {
       var pluginHooks = thisMockPlugin.mock.calls[0][0].Hooks;
       expect(pluginHooks).toEqual(Hooks);
     });
   });
 
-  describe("#store and dispatch", function() {
-    beforeEach(function() {
+  describe("#store and dispatch", () => {
+    beforeEach(() => {
       var mockReducer = jest.genMockFunction();
       // Mock reducer
-      mockReducer.mockImplementation(function(state, action) {
+      mockReducer.mockImplementation((state, action) => {
         if (!state || action.type === "reset") {
           return { foo: 1 };
         }
@@ -162,7 +162,7 @@ describe("PluginSDK", function() {
       var testArgs = {};
 
       // Mock a fake plugin
-      thisMockPlugin = jest.genMockFunction().mockImplementation(function(SDK) {
+      thisMockPlugin = jest.genMockFunction().mockImplementation(SDK => {
         testArgs.dispatch = SDK.dispatch;
 
         return mockReducer;
@@ -181,18 +181,18 @@ describe("PluginSDK", function() {
       });
     });
 
-    it("calls reducer to get initial state", function() {
+    it("calls reducer to get initial state", () => {
       // Redux calls the reducer 3 times to check everything
       expect(thisMockReducer.mock.calls.length).toEqual(3);
     });
 
-    it("calls reducer with correct state", function() {
+    it("calls reducer with correct state", () => {
       thisTestArgs.dispatch({ type: "foo" });
       var prevState = thisMockReducer.mock.calls[3][0];
       expect(isEqual(prevState, { foo: 1 })).toEqual(true);
     });
 
-    it("calls reducer with correct action", function() {
+    it("calls reducer with correct action", () => {
       thisTestArgs.dispatch({ type: "foo" });
       var action = thisMockReducer.mock.calls[3][1];
       expect(
@@ -200,19 +200,19 @@ describe("PluginSDK", function() {
       ).toEqual(true);
     });
 
-    it("updates Store with new state #1", function() {
+    it("updates Store with new state #1", () => {
       thisTestArgs.dispatch({ type: "reset" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 1 })).toEqual(true);
     });
 
-    it("updates Store with new state #2", function() {
+    it("updates Store with new state #2", () => {
       thisTestArgs.dispatch({ type: "foo" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 2 })).toEqual(true);
     });
 
-    it("updates Store with new state #3", function() {
+    it("updates Store with new state #3", () => {
       thisTestArgs.dispatch({ type: "bar" });
       var state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 2, bar: "qux" })).toEqual(true);

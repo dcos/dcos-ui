@@ -1,6 +1,6 @@
 require("../../_support/utils/ServicesUtil");
 
-describe("Services", function() {
+describe("Services", () => {
   /**
    * Test the external volumes
    *
@@ -9,8 +9,8 @@ describe("Services", function() {
    * REMEMBER TO UPDATE num_vols_delete IN external-volumes/teardown
    * WHENEVER YOU ADD OR REMOVE A TEST CASE
    */
-  describe("External Volumes", function() {
-    beforeEach(function() {
+  describe("External Volumes", () => {
+    beforeEach(() => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
@@ -21,7 +21,7 @@ describe("Services", function() {
       });
     });
 
-    it("renders proper review screen and JSON for an app with external volume", function() {
+    it("renders proper review screen and JSON for an app with external volume", () => {
       const serviceName = "app-with-external-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";

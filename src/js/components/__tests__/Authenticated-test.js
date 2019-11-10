@@ -16,35 +16,35 @@ let thisOriginalWillTransitionTo,
   thisCallback,
   ThisInstance;
 
-describe("Authenticated", function() {
-  beforeEach(function() {
+describe("Authenticated", () => {
+  beforeEach(() => {
     thisOriginalWillTransitionTo = Authenticated.willTransitionTo;
     thisOriginalIsLoggedIn = AuthStore.isLoggedIn;
     thisCallback = jasmine.createSpy();
-    AuthStore.isLoggedIn = function() {
+    AuthStore.isLoggedIn = () => {
       return false;
     };
 
     ThisInstance = new Authenticated(FakeComponent);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     Authenticated.willTransitionTo = thisOriginalWillTransitionTo;
     AuthStore.removeAllListeners();
     AuthStore.isLoggedIn = thisOriginalIsLoggedIn;
   });
 
-  it("redirects to /login if user is not logged in", function() {
+  it("redirects to /login if user is not logged in", () => {
     thisCallback = jasmine.createSpy();
-    Hooks.addAction("redirectToLogin", function(nextState, replace) {
+    Hooks.addAction("redirectToLogin", (nextState, replace) => {
       replace("/login");
     });
     ThisInstance.willTransitionTo(null, thisCallback);
     expect(thisCallback).toHaveBeenCalledWith("/login");
   });
 
-  it("doesn't call redirect when user is not logged in", function() {
-    AuthStore.isLoggedIn = function() {
+  it("doesn't call redirect when user is not logged in", () => {
+    AuthStore.isLoggedIn = () => {
       return true;
     };
     thisCallback = jasmine.createSpy();
@@ -52,7 +52,7 @@ describe("Authenticated", function() {
     expect(thisCallback).not.toHaveBeenCalled();
   });
 
-  it("renders component when user is logged in", function() {
+  it("renders component when user is logged in", () => {
     const renderedComponent = mount(<ThisInstance />);
     expect(renderedComponent.text()).toContain("fakeComponent");
   });

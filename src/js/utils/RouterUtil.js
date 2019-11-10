@@ -7,7 +7,7 @@ import Util from "./Util";
 function findRedirect(queryString) {
   let redirectTo = false;
 
-  Object.keys(queryString).forEach(function(key) {
+  Object.keys(queryString).forEach(key => {
     if (/redirect/.test(key)) {
       redirectTo = queryString[key];
     }
@@ -90,7 +90,7 @@ const RouterUtil = {
    * @return {Array} React tree of routes
    */
   createComponentsFromRoutes(routes) {
-    return routes.map(function(route) {
+    return routes.map(route => {
       let args = [route.type, Util.omit(route, ["type", "children"])];
 
       if (
@@ -155,10 +155,10 @@ const RouterUtil = {
    */
   reconstructPathFromRoutes(routes) {
     const path = routes
-      .filter(function(route) {
+      .filter(route => {
         return !!route.path;
       })
-      .map(function(route) {
+      .map(route => {
         return route.path;
       })
       .join("/");

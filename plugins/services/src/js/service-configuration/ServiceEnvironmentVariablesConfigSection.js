@@ -101,7 +101,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
               .map(envKey => {
                 return { key: envKey, value: envData[envKey] };
               })
-              .filter(function({ value }) {
+              .filter(({ value }) => {
                 return typeof value === "string";
               });
 

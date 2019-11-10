@@ -96,7 +96,7 @@ const EventTypes = {};
   "VIRTUAL_NETWORKS_CHANGE",
   "VIRTUAL_NETWORKS_REQUEST_ERROR",
   "VISIBILITY_CHANGE"
-].forEach(function(eventType) {
+].forEach(eventType => {
   EventTypes[eventType] = eventType;
 });
 

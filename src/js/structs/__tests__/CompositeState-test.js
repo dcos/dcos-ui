@@ -1,25 +1,25 @@
 const CompositeState = require("../CompositeState");
 const NodesList = require("../NodesList");
 
-describe("CompositeState", function() {
-  beforeEach(function() {
+describe("CompositeState", () => {
+  beforeEach(() => {
     CompositeState.constructor({});
   });
 
-  describe("#constructor", function() {
-    it("populates data with the object it's given", function() {
+  describe("#constructor", () => {
+    it("populates data with the object it's given", () => {
       CompositeState.constructor({ foo: "bar" });
       expect(CompositeState.data).toEqual({ foo: "bar" });
     });
   });
 
-  describe("#addState", function() {
-    it("adds an object to state", function() {
+  describe("#addState", () => {
+    it("adds an object to state", () => {
       CompositeState.addState({ foo: "bar" });
       expect(CompositeState.data).toEqual({ foo: "bar", slaves: [] });
     });
 
-    it("removes framework IDs that were not received in the new data", function() {
+    it("removes framework IDs that were not received in the new data", () => {
       CompositeState.addState({
         frameworks: [
           {
@@ -52,7 +52,7 @@ describe("CompositeState", function() {
       });
     });
 
-    it("preserves the master_info key", function() {
+    it("preserves the master_info key", () => {
       CompositeState.addMasterInfo({ foo: "bar" });
       CompositeState.addState({ other_key: "foo-id" });
       CompositeState.addState({ bar: "baz" });
@@ -64,7 +64,7 @@ describe("CompositeState", function() {
       });
     });
 
-    it("preserves node health data", function() {
+    it("preserves node health data", () => {
       CompositeState.addState({ slaves: [{ hostname: "foo" }] });
       CompositeState.addNodeHealth([
         {
@@ -84,8 +84,8 @@ describe("CompositeState", function() {
     });
   });
 
-  describe("#addNodeHealth", function() {
-    beforeEach(function() {
+  describe("#addNodeHealth", () => {
+    beforeEach(() => {
       CompositeState.addState({
         slaves: [
           {
@@ -96,7 +96,7 @@ describe("CompositeState", function() {
       });
     });
 
-    it("merges raw node health data into existing slave data", function() {
+    it("merges raw node health data into existing slave data", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
@@ -108,7 +108,7 @@ describe("CompositeState", function() {
       expect(CompositeState.data.slaves[0].hostname).toEqual("foo");
     });
 
-    it("replaces old health status with new health status", function() {
+    it("replaces old health status with new health status", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
@@ -126,11 +126,11 @@ describe("CompositeState", function() {
       expect(CompositeState.data.slaves[0].health).toEqual(6);
     });
 
-    it("handles null data gracefully", function() {
+    it("handles null data gracefully", () => {
       expect(() => CompositeState.addNodeHealth()).not.toThrow();
     });
 
-    it("node health data provided for missing health nodes", function() {
+    it("node health data provided for missing health nodes", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "bar",
@@ -162,8 +162,8 @@ describe("CompositeState", function() {
     });
   });
 
-  describe("#getServiceList", function() {
-    it("returns a list with the current frameworks", function() {
+  describe("#getServiceList", () => {
+    it("returns a list with the current frameworks", () => {
       CompositeState.addState({
         frameworks: [
           {
@@ -194,14 +194,14 @@ describe("CompositeState", function() {
 
       var serviceList = CompositeState.getServiceList();
 
-      serviceList.getItems().forEach(function(item) {
+      serviceList.getItems().forEach(item => {
         expect(item.get()).toEqual(expectedResult.shift());
       });
     });
   });
 
-  describe("#getNodesList", function() {
-    beforeEach(function() {
+  describe("#getNodesList", () => {
+    beforeEach(() => {
       CompositeState.addState({
         slaves: [
           {
@@ -216,7 +216,7 @@ describe("CompositeState", function() {
       });
     });
 
-    it("returns the current slaves", function() {
+    it("returns the current slaves", () => {
       var expectedResult = {
         list: [
           {
@@ -240,15 +240,15 @@ describe("CompositeState", function() {
       expect(nodesList).toEqual(expectedResult);
     });
 
-    it("returns an instance of NodesList", function() {
+    it("returns an instance of NodesList", () => {
       var nodesList = CompositeState.getNodesList();
 
       expect(nodesList instanceof NodesList).toEqual(true);
     });
   });
 
-  describe("#enable & #disable", function() {
-    it("does not update state when disabled", function() {
+  describe("#enable & #disable", () => {
+    it("does not update state when disabled", () => {
       CompositeState.disable();
       expect(CompositeState._isDisabled()).toBe(true);
       CompositeState.addState({ foo: "bar" });
@@ -256,14 +256,14 @@ describe("CompositeState", function() {
       expect(CompositeState.data).toEqual({});
     });
 
-    it("does not update addState when disabled", function() {
+    it("does not update addState when disabled", () => {
       CompositeState.disable();
 
       CompositeState.addState({ foo: "bar" });
       expect(CompositeState.data).toEqual({});
     });
 
-    it("does not update nodehealth when disabled", function() {
+    it("does not update nodehealth when disabled", () => {
       CompositeState.addState({
         slaves: [
           {
@@ -284,7 +284,7 @@ describe("CompositeState", function() {
       expect(CompositeState.data.slaves[0].health).not.toEqual(100);
     });
 
-    it("is disabled if there are more disable calls then enables", function() {
+    it("is disabled if there are more disable calls then enables", () => {
       expect(CompositeState._isDisabled()).toBe(false);
 
       CompositeState.disable();
@@ -295,7 +295,7 @@ describe("CompositeState", function() {
       expect(CompositeState._isDisabled()).toBe(true);
     });
 
-    it("is disabled no matter how many enables have been called", function() {
+    it("is disabled no matter how many enables have been called", () => {
       expect(CompositeState._isDisabled()).toBe(false);
 
       CompositeState.enable();

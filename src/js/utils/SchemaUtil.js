@@ -207,7 +207,7 @@ function nestedSchemaToFieldDefinition(options) {
   const properties = fieldProps.properties;
   const requiredProps = fieldProps.required;
 
-  Object.keys(properties).forEach(function(nestedFieldName) {
+  Object.keys(properties).forEach(nestedFieldName => {
     const nestedPropertyValue = properties[nestedFieldName];
     if (nestedPropertyValue.properties) {
       nestedDefinition.definition.push(
@@ -266,7 +266,7 @@ const SchemaUtil = {
     const multipleDefinition = {};
     const schemaProperties = schema.properties;
 
-    Object.keys(schemaProperties).forEach(function(topLevelProp) {
+    Object.keys(schemaProperties).forEach(topLevelProp => {
       const topLevelPropertyObject = schemaProperties[topLevelProp];
       const secondLevelProperties = topLevelPropertyObject.properties || {};
       const requiredProps = topLevelPropertyObject.required;
@@ -276,7 +276,7 @@ const SchemaUtil = {
       definitionForm.selectValue = topLevelProp;
       definitionForm.description = topLevelPropertyObject.description;
       definitionForm.definition = [];
-      Object.keys(secondLevelProperties).forEach(function(secondLevelProp) {
+      Object.keys(secondLevelProperties).forEach(secondLevelProp => {
         const secondLevelObject = secondLevelProperties[secondLevelProp];
         let fieldDefinition;
 
@@ -285,7 +285,7 @@ const SchemaUtil = {
           secondLevelObject.properties != null
         ) {
           fieldDefinition = Object.keys(secondLevelObject.properties).map(
-            function(key) {
+            key => {
               const field = secondLevelObject.properties[key];
 
               return schemaToFieldDefinition({
@@ -369,7 +369,7 @@ const SchemaUtil = {
   definitionToJSONDocument(definition) {
     const jsonDocument = {};
 
-    Object.keys(definition).forEach(function(topLevelProp) {
+    Object.keys(definition).forEach(topLevelProp => {
       const topLevelProperties = definition[topLevelProp];
       const topLevelDefinition = (jsonDocument[topLevelProp] = {});
       const topLevelDefinitionValues = topLevelProperties.definition;
@@ -378,10 +378,10 @@ const SchemaUtil = {
         return;
       }
 
-      topLevelDefinitionValues.forEach(function(formDefinition) {
+      topLevelDefinitionValues.forEach(formDefinition => {
         if (formDefinition.definition) {
           const nested = (topLevelDefinition[formDefinition.name] = {});
-          formDefinition.definition.forEach(function(nestedDefinition) {
+          formDefinition.definition.forEach(nestedDefinition => {
             const fieldName = nestedDefinition.name;
             const fieldValue = nestedDefinition.value;
             nested[fieldName] = fieldValue;

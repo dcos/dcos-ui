@@ -35,7 +35,7 @@ module.exports = class Tree extends List {
    * @return {List} flat List of all items
    */
   flattenItems() {
-    const items = this.getItems().reduce(function(current, item) {
+    const items = this.getItems().reduce((current, item) => {
       current.push(item);
       if (item instanceof Tree) {
         return current.concat(item.flattenItems().getItems());
@@ -55,7 +55,7 @@ module.exports = class Tree extends List {
    */
   filterItems(callback) {
     const items = this.getItems()
-      .map(function(item) {
+      .map(item => {
         // Filter subtrees
         if (item instanceof Tree) {
           return item.filterItems(callback);
@@ -87,9 +87,9 @@ module.exports = class Tree extends List {
       const regex = StringUtil.escapeForRegExp(filterText);
       const searchPattern = new RegExp(regex, "i");
 
-      return this.filterItems(function(item) {
+      return this.filterItems(item => {
         // Filter items by property values
-        return Object.keys(filterProperties).some(function(prop) {
+        return Object.keys(filterProperties).some(prop => {
           // We need different handlers for item getters since the property
           // there can be different ways of getting the value needed
 

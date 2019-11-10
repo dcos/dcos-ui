@@ -2,9 +2,9 @@ const SystemLogUtil = require("../SystemLogUtil");
 
 let thisFunc, thisAccumulatedThrottle;
 
-describe("SystemLogUtil", function() {
-  describe("#getUrl", function() {
-    it("includes range element first in the url", function() {
+describe("SystemLogUtil", () => {
+  describe("#getUrl", () => {
+    it("includes range element first in the url", () => {
       var result = SystemLogUtil.getUrl("foo", { cursor: "cursor" });
 
       expect(result).toEqual(
@@ -12,7 +12,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("encodes value of range element", function() {
+    it("encodes value of range element", () => {
       var result = SystemLogUtil.getUrl("foo", { limit: "lim&it" });
 
       expect(result).toEqual(
@@ -20,7 +20,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("concatenates range elements nicely together", function() {
+    it("concatenates range elements nicely together", () => {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it"
@@ -31,7 +31,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("includes filter after range element in the url", function() {
+    it("includes filter after range element in the url", () => {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { param1: "param1" }
@@ -42,7 +42,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("encodes filter element", function() {
+    it("encodes filter element", () => {
       var result = SystemLogUtil.getUrl("foo", {
         filter: { "param/1": "param/1" }
       });
@@ -52,7 +52,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("concatenates range elements nicely together", function() {
+    it("concatenates range elements nicely together", () => {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it",
@@ -65,7 +65,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("ignores anything that is not a param or filter", function() {
+    it("ignores anything that is not a param or filter", () => {
       var result = SystemLogUtil.getUrl("foo", {
         bar: "bar"
       });
@@ -73,7 +73,7 @@ describe("SystemLogUtil", function() {
       expect(result.includes("bar")).toBe(false);
     });
 
-    it("uses stream by default", function() {
+    it("uses stream by default", () => {
       var result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { "param/1": "param/1" }
@@ -84,7 +84,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("uses range", function() {
+    it("uses range", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -99,7 +99,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("adds framework id in the URL", function() {
+    it("adds framework id in the URL", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -114,7 +114,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("adds executor id in the URL", function() {
+    it("adds executor id in the URL", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -129,7 +129,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("adds container id in the URL", function() {
+    it("adds container id in the URL", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -144,7 +144,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("adds all ids in the URL", function() {
+    it("adds all ids in the URL", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -162,7 +162,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("adds aditional endpoint to the URL", function() {
+    it("adds aditional endpoint to the URL", () => {
       var result = SystemLogUtil.getUrl(
         "foo",
         {
@@ -182,8 +182,8 @@ describe("SystemLogUtil", function() {
     });
   });
 
-  describe("#accumulatedThrottle", function() {
-    beforeEach(function() {
+  describe("#accumulatedThrottle", () => {
+    beforeEach(() => {
       thisFunc = jest.genMockFunction();
       thisAccumulatedThrottle = SystemLogUtil.accumulatedThrottle(
         thisFunc,
@@ -191,7 +191,7 @@ describe("SystemLogUtil", function() {
       );
     });
 
-    it("only calls once if called before the wait is finished", function() {
+    it("only calls once if called before the wait is finished", () => {
       thisAccumulatedThrottle();
       thisAccumulatedThrottle();
       thisAccumulatedThrottle();
@@ -199,7 +199,7 @@ describe("SystemLogUtil", function() {
       expect(thisFunc.mock.calls.length).toBe(1);
     });
 
-    it("calls the function if called after the wait", function() {
+    it("calls the function if called after the wait", () => {
       thisAccumulatedThrottle();
       thisAccumulatedThrottle();
       thisAccumulatedThrottle();
@@ -211,7 +211,7 @@ describe("SystemLogUtil", function() {
       expect(thisFunc.mock.calls.length).toBe(2);
     });
 
-    it("Accumulates data from each call", function() {
+    it("Accumulates data from each call", () => {
       thisAccumulatedThrottle("foo");
       thisAccumulatedThrottle("bar");
       thisAccumulatedThrottle("baz");
@@ -219,13 +219,13 @@ describe("SystemLogUtil", function() {
 
       // Two calls will be invoked (once immediately) and once the wait is over.
       expect(
-        thisFunc.mock.calls[0][0].map(function(item) {
+        thisFunc.mock.calls[0][0].map(item => {
           return item[0];
         })
       ).toEqual(["foo"]);
       expect(thisFunc.mock.calls[0][1]).toEqual(undefined);
       expect(
-        thisFunc.mock.calls[1][0].map(function(item) {
+        thisFunc.mock.calls[1][0].map(item => {
           return item[0];
         })
       ).toEqual(["bar", "baz"]);

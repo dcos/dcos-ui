@@ -82,7 +82,7 @@ NetworkPage.routeConfig = {
   matches: /^\/networking/
 };
 
-NetworkPage.willTransitionTo = function() {
+NetworkPage.willTransitionTo = () => {
   SidebarActions.close();
 };
 

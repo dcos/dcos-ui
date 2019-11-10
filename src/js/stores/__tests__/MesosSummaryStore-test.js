@@ -5,19 +5,19 @@ MesosSummaryStore.init();
 
 let thisProcessSummaryError, thisGetServiceFromName;
 
-describe("Mesos State Store", function() {
-  describe("#processSummary", function() {
-    beforeEach(function() {
+describe("Mesos State Store", () => {
+  describe("#processSummary", () => {
+    beforeEach(() => {
       thisProcessSummaryError = MesosSummaryStore.processSummaryError;
       MesosSummaryStore.processSummaryError = jest.genMockFunction();
       MesosSummaryStore.processSummary({});
     });
 
-    afterEach(function() {
+    afterEach(() => {
       MesosSummaryStore.processSummaryError = thisProcessSummaryError;
     });
 
-    it("calls processSummaryError with no arguments when summary is empty Object", function() {
+    it("calls processSummaryError with no arguments when summary is empty Object", () => {
       expect(MesosSummaryStore.processSummaryError.mock.calls.length).toEqual(
         1
       );
@@ -27,10 +27,10 @@ describe("Mesos State Store", function() {
     });
   });
 
-  describe("#hasServiceUrl", function() {
-    beforeEach(function() {
+  describe("#hasServiceUrl", () => {
+    beforeEach(() => {
       thisGetServiceFromName = MesosSummaryStore.getServiceFromName;
-      MesosSummaryStore.getServiceFromName = function(hasUrl) {
+      MesosSummaryStore.getServiceFromName = hasUrl => {
         if (hasUrl === "name_of_service_with_url") {
           return new Framework({
             name: "fake_service",
@@ -44,17 +44,17 @@ describe("Mesos State Store", function() {
       };
     });
 
-    afterEach(function() {
+    afterEach(() => {
       MesosSummaryStore.getServiceFromName = thisGetServiceFromName;
     });
 
-    it("returns true if service has a web url", function() {
+    it("returns true if service has a web url", () => {
       var hasUrl = MesosSummaryStore.hasServiceUrl("name_of_service_with_url");
 
       expect(hasUrl).toEqual(true);
     });
 
-    it("returns false if service does not have a web url", function() {
+    it("returns false if service does not have a web url", () => {
       var hasUrl = MesosSummaryStore.hasServiceUrl(
         "name_of_service_without_url"
       );

@@ -150,7 +150,7 @@ const DeclinedOffersUtil = {
               const { fieldName, operator, value } = constraint;
 
               return [fieldName, operator, value]
-                .filter(function(value) {
+                .filter(value => {
                   return value && value !== "";
                 })
                 .join(":");

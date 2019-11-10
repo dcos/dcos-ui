@@ -38,7 +38,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        * @param {List} resultset - An instance of List or Tree containing the items to filter
        * @returns {List} resultset - A new instance of a List, containing the results
        */
-      return function(filters, resultset) {
+      return (filters, resultset) => {
         // We are interested in the intersection of the results of the two filters
         const intermediateResultset = leftFilterFn(filters, resultset);
 
@@ -58,7 +58,7 @@ function combineFunctionFactory(ast, leftFilterFn, rightFilterFn) {
        * @param {List} resultset - An instance of List or Tree containing the items to filter
        * @returns {List} resultset - A new instance of a List, containing the results
        */
-      return function(filters, resultset) {
+      return (filters, resultset) => {
         // We are interested in the union of the results of the two filters
         const intermediateResultset = leftFilterFn(filters, resultset);
 
@@ -90,7 +90,7 @@ function filterFunctionFactory(ast) {
    * @param {List} resultset - An instance of List or Tree containing the items to filter
    * @returns {List} resultset - A new instance of a List, containing the results
    */
-  return function(filters, resultset) {
+  return (filters, resultset) => {
     // Apply matching filters from the filters database to the current
     // result set, and produce the new resultset.
     //
@@ -105,7 +105,7 @@ function filterFunctionFactory(ast) {
     //
     return filters
       .filter(f => f.filterCanHandle(ast.filterType, ast.filterParams))
-      .reduce(function(currentResultset, filter) {
+      .reduce((currentResultset, filter) => {
         return currentResultset.combine(
           filter.filterApply(resultset, ast.filterType, ast.filterParams)
         );

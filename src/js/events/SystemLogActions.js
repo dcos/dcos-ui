@@ -60,7 +60,7 @@ function parseEvents(eventData) {
   const globalOrigin = global.location.origin;
 
   return eventData.reduce(
-    function(memo, event) {
+    (memo, event) => {
       // Only take first argument, which holds the event
       const { data, origin } = event[0] || {};
       if (origin !== globalOrigin) {

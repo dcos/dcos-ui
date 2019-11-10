@@ -322,10 +322,7 @@ class JSONEditor extends React.Component {
       // Prettify the error message by resolving the line/column instead of
       // just keeping the offset in the string
       const errorStr = e.toString();
-      jsonError = errorStr.replace(/at position (\d+)/g, function(
-        match,
-        offset
-      ) {
+      jsonError = errorStr.replace(/at position (\d+)/g, (match, offset) => {
         const cursor = JSONEditorUtil.cursorFromOffset(
           parseInt(offset, 10),
           jsonText
@@ -397,14 +394,14 @@ class JSONEditor extends React.Component {
     if (this.jsonError) {
       // Strip out the 'at line xxx' message, and keep track of that line
       let errorLine = 0;
-      const errorMsg = this.jsonError.replace(/at line ([\d:]+)/g, function(
-        m,
-        line
-      ) {
-        errorLine = parseInt(line.split(":")[0], 10);
+      const errorMsg = this.jsonError.replace(
+        /at line ([\d:]+)/g,
+        (m, line) => {
+          errorLine = parseInt(line.split(":")[0], 10);
 
-        return "";
-      });
+          return "";
+        }
+      );
 
       // Return error marker
       return [
@@ -432,7 +429,7 @@ class JSONEditor extends React.Component {
 
       // Check if there is a token that matches the path completely
       const errorPath = error.path.join(".");
-      const token = this.jsonMeta.find(function(token) {
+      const token = this.jsonMeta.find(token => {
         return token.path.join(".") === errorPath;
       });
 
@@ -450,8 +447,8 @@ class JSONEditor extends React.Component {
       // If nothing is found, default to root ([])
       //
       const candidates = this.jsonMeta.reduce(
-        function(memo, token) {
-          const isMatch = token.path.every(function(component, i) {
+        (memo, token) => {
+          const isMatch = token.path.every((component, i) => {
             return path[i] === component;
           });
 
@@ -468,7 +465,7 @@ class JSONEditor extends React.Component {
       );
 
       // Find the most specific token line
-      const candidate = candidates.sort(function(a, b) {
+      const candidate = candidates.sort((a, b) => {
         return b.path.length - a.path.length;
       })[0];
 

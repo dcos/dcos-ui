@@ -9,8 +9,8 @@ const TabViewList = require("../TabViewList");
 
 let thisHandleTabChange, thisInstance;
 
-describe("Tabs", function() {
-  beforeEach(function() {
+describe("Tabs", () => {
+  beforeEach(() => {
     thisHandleTabChange = jest.fn();
     thisInstance = mount(
       <Tabs
@@ -36,7 +36,7 @@ describe("Tabs", function() {
     );
   });
 
-  it("calls handleTabChange function", function() {
+  it("calls handleTabChange function", () => {
     const tabButtons = thisInstance.find(".menu-tabbed-item");
 
     tabButtons
@@ -46,7 +46,7 @@ describe("Tabs", function() {
     expect(thisHandleTabChange.mock.calls[0]).toEqual(["bar"]);
   });
 
-  it("updates to the correct active tab", function() {
+  it("updates to the correct active tab", () => {
     expect(
       thisInstance
         .find(".menu-tabbed-item.active > .menu-tabbed-item-label")
@@ -64,7 +64,7 @@ describe("Tabs", function() {
     ).toEqual("Qux");
   });
 
-  it("passes the activeTab prop to its children", function() {
+  it("passes the activeTab prop to its children", () => {
     thisInstance
       .find(".menu-tabbed-item-label")
       .filterWhere(n => n.text() === "Foo")
@@ -84,7 +84,7 @@ describe("Tabs", function() {
     ).toEqual("foo");
   });
 
-  it("passes the change handler to TabButtonList", function() {
+  it("passes the change handler to TabButtonList", () => {
     expect(
       thisInstance
         .find(TabButtonList)
@@ -93,7 +93,7 @@ describe("Tabs", function() {
     ).toEqual(thisHandleTabChange);
   });
 
-  it("passes the vertical prop to TabButtonList", function() {
+  it("passes the vertical prop to TabButtonList", () => {
     expect(
       thisInstance
         .find(TabButtonList)

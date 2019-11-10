@@ -285,12 +285,12 @@ class OrganizationTab extends mixin(StoreMixin) {
         prop: "uid",
         render: this.renderUsername,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(this.props.itemID, function(
-          item,
-          prop
-        ) {
-          return item.get(prop);
-        }),
+        sortFunction: TableUtil.getSortFunction(
+          this.props.itemID,
+          (item, prop) => {
+            return item.get(prop);
+          }
+        ),
         heading: ResourceTableUtil.renderHeading({ uid: i18nMark("USERNAME") })
       }
     ];
@@ -340,7 +340,7 @@ class OrganizationTab extends mixin(StoreMixin) {
   }
 
   getActionsDropdownItems(actionPhrases) {
-    return Object.keys(actionPhrases).map(function(action) {
+    return Object.keys(actionPhrases).map(action => {
       return {
         html: actionPhrases[action].dropdownOption,
         id: action,
@@ -354,13 +354,13 @@ class OrganizationTab extends mixin(StoreMixin) {
       const checkboxStates = this.selectedIDSet;
       const selectedItems = {};
 
-      Object.keys(checkboxStates).forEach(function(id) {
+      Object.keys(checkboxStates).forEach(id => {
         if (checkboxStates[id] === true) {
           selectedItems[id] = true;
         }
       });
 
-      return items.filter(function(item) {
+      return items.filter(item => {
         const itemID = item[itemIDName];
 
         return selectedItems[itemID] || false;
@@ -422,7 +422,7 @@ class OrganizationTab extends mixin(StoreMixin) {
     let checkedCount = 0;
     const selectedIDSet = this.selectedIDSet;
 
-    Object.keys(selectedIDSet).forEach(function(id) {
+    Object.keys(selectedIDSet).forEach(id => {
       selectedIDSet[id] = isChecked;
     });
     this.selectedIDSet = selectedIDSet;
@@ -445,7 +445,7 @@ class OrganizationTab extends mixin(StoreMixin) {
     let checkableCount = 0;
 
     // Initializing hash of items' IDs and corresponding checkbox state.
-    items.forEach(function(item) {
+    items.forEach(item => {
       const id = item.get(itemID);
       checkableCount += 1;
       selectedIDSet[id] = false;

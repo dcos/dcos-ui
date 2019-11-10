@@ -1,9 +1,9 @@
-describe("Service Form Modal", function() {
+describe("Service Form Modal", () => {
   // We'll consider the two elements to be centered with one another if
   // their midpoints are within 5 pixels of one another.
   const alignmentThreshold = 5;
 
-  context("Create", function() {
+  context("Create", () => {
     function openServiceModal() {
       cy.get(".page-header-actions button")
         .first()
@@ -30,7 +30,7 @@ describe("Service Form Modal", function() {
         .click();
     }
 
-    beforeEach(function() {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-empty-group",
         nodeHealth: true
@@ -38,19 +38,19 @@ describe("Service Form Modal", function() {
       cy.visitUrl({ url: "/services/overview" });
     });
 
-    context("Root level", function() {
-      it("Opens the right modal on click", function() {
+    context("Root level", () => {
+      it("Opens the right modal on click", () => {
         openServiceModal();
         cy.get(".modal-full-screen").should("to.have.length", 1);
       });
 
-      it("Should Autofocus on the Service ID input field", function() {
+      it("Should Autofocus on the Service ID input field", () => {
         openServiceModal();
         openServiceForm();
         cy.focused().should("have.attr.name", "id");
       });
 
-      it("contains the right group id in the form modal", function() {
+      it("contains the right group id in the form modal", () => {
         openServiceModal();
         openServiceForm();
         cy.get('.modal .menu-tabbed-view input[name="id"]').should(
@@ -59,15 +59,15 @@ describe("Service Form Modal", function() {
         );
       });
 
-      it("contains the right JSON in the JSON editor", function() {
+      it("contains the right JSON in the JSON editor", () => {
         openServiceModal();
         openServiceJSON();
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain('"id": "/"');
         });
       });
 
-      it("redirects to the catalog page after click install package", function() {
+      it("redirects to the catalog page after click install package", () => {
         openServiceModal();
         cy.get(".create-service-modal-service-picker-option")
           .contains("Install a Package")
@@ -75,7 +75,7 @@ describe("Service Form Modal", function() {
         cy.url().should("contain", "/catalog");
       });
 
-      it("remembers the selected form tab when switching back from JSON", function() {
+      it("remembers the selected form tab when switching back from JSON", () => {
         openServiceModal();
         openServiceForm();
 
@@ -92,7 +92,7 @@ describe("Service Form Modal", function() {
           .contains("JSON Editor")
           .click();
 
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain('"id": "/"');
         });
 
@@ -106,8 +106,8 @@ describe("Service Form Modal", function() {
           .should("to.have.text", "Networking");
       });
 
-      describe("Form errors", function() {
-        it("displays an error only after Review & Run is clicked", function() {
+      describe("Form errors", () => {
+        it("displays an error only after Review & Run is clicked", () => {
           openServiceModal();
           openServiceForm();
 
@@ -137,7 +137,7 @@ describe("Service Form Modal", function() {
             .should("not.be.visible");
         });
 
-        it("displays an error badge for the Services tab", function() {
+        it("displays an error badge for the Services tab", () => {
           openServiceModal();
           openServiceForm();
 
@@ -150,10 +150,10 @@ describe("Service Form Modal", function() {
             .click();
 
           cy.get(".errorsAlert-listItem")
-            .should(function($items) {
+            .should($items => {
               expect($items.length).to.equal(2);
             })
-            .then(function($items) {
+            .then($items => {
               cy.get('.active > .menu-tabbed-item-label span[role="button"]')
                 .contains($items.length.toString())
                 .should("be.visible");
@@ -171,7 +171,7 @@ describe("Service Form Modal", function() {
             '.active > .menu-tabbed-item-label span[role="button"]'
           ).should("not.be.visible");
         });
-        it("displays an error badge for a container tab", function() {
+        it("displays an error badge for a container tab", () => {
           openServiceModal();
           cy.get(".create-service-modal-service-picker-option")
             .contains("Multi-container (Pod)")
@@ -191,10 +191,10 @@ describe("Service Form Modal", function() {
             .click();
 
           cy.get(".errorsAlert-listItem")
-            .should(function($items) {
+            .should($items => {
               expect($items.length).to.equal(1);
             })
-            .then(function($items) {
+            .then($items => {
               cy.get('.active > .menu-tabbed-item-label span[role="button"]')
                 .contains($items.length.toString())
                 .should("be.visible");
@@ -209,7 +209,7 @@ describe("Service Form Modal", function() {
             '.active > .menu-tabbed-item-label span[role="button"]'
           ).should("not.be.visible");
         });
-        it("focuses the last field with an error when clicking to a tab with an error", function() {
+        it("focuses the last field with an error when clicking to a tab with an error", () => {
           openServiceModal();
           openServiceForm();
 
@@ -234,8 +234,8 @@ describe("Service Form Modal", function() {
         });
       });
 
-      describe("JSON errors", function() {
-        it("displays an error with invalid JSON", function() {
+      describe("JSON errors", () => {
+        it("displays an error with invalid JSON", () => {
           openServiceModal();
           openServiceForm();
 
@@ -253,7 +253,7 @@ describe("Service Form Modal", function() {
             .should("be.visible");
         });
 
-        it("clears the JSON error once it is fixed", function() {
+        it("clears the JSON error once it is fixed", () => {
           openServiceModal();
           openServiceForm();
 
@@ -279,12 +279,12 @@ describe("Service Form Modal", function() {
           cy.get("input[name=id]").should("have.value", "/foo");
         });
 
-        context("Clearing JSON errors when re-opening", function() {
-          beforeEach(function() {
+        context("Clearing JSON errors when re-opening", () => {
+          beforeEach(() => {
             openServiceModal();
           });
 
-          it("clears JSON errors when re-opening the single container service form", function() {
+          it("clears JSON errors when re-opening the single container service form", () => {
             openServiceForm(); // Select "Single container".
             cy.get(".modal .toggle-button + span").click(); // Open the JSON Editor.
             cy.get(".button")
@@ -300,7 +300,7 @@ describe("Service Form Modal", function() {
             cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
           });
 
-          it("clears JSON errors when re-opening the pod form", function() {
+          it("clears JSON errors when re-opening the pod form", () => {
             cy.get(".create-service-modal-service-picker-option")
               .contains("Multi-container (Pod)")
               .click(); // Select "Pod".
@@ -323,7 +323,7 @@ describe("Service Form Modal", function() {
             cy.get(".ace_error").should("not.exist"); // Verify no errors in the JSON.
           });
 
-          it("clears JSON errors when re-opening the JSON form", function() {
+          it("clears JSON errors when re-opening the JSON form", () => {
             cy.get(".create-service-modal-service-picker-option")
               .contains("JSON Configuration")
               .click(); // Select "JSON Configuration".
@@ -343,17 +343,17 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Group level", function() {
-      beforeEach(function() {
+    context("Group level", () => {
+      beforeEach(() => {
         cy.visitUrl({ url: "/services/overview/%2Fmy-group" });
       });
 
-      it("Opens the right modal on click", function() {
+      it("Opens the right modal on click", () => {
         clickRunService();
         cy.get(".modal-full-screen").should("to.have.length", 1);
       });
 
-      it("contains the right group id in the modal", function() {
+      it("contains the right group id in the modal", () => {
         clickRunService();
         openServiceForm();
         cy.get('.modal .menu-tabbed-view input[name="id"]').should(
@@ -362,16 +362,16 @@ describe("Service Form Modal", function() {
         );
       });
 
-      it("contains the right JSON in the JSON editor", function() {
+      it("contains the right JSON in the JSON editor", () => {
         clickRunService();
         openServiceJSON();
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain('"id": "/my-group/"');
         });
       });
     });
 
-    context("default values", function() {
+    context("default values", () => {
       function getFormValue(name) {
         openServiceModal();
         openServiceForm();
@@ -379,30 +379,30 @@ describe("Service Form Modal", function() {
         return cy.get('.modal .menu-tabbed-view input[name="' + name + '"]');
       }
 
-      it("contains right cpus default value", function() {
+      it("contains right cpus default value", () => {
         getFormValue("cpus").should("to.have.value", "0.1");
       });
 
-      it("contains right mem default value", function() {
+      it("contains right mem default value", () => {
         getFormValue("mem").should("to.have.value", "128");
       });
 
-      it("contains right instances default value", function() {
+      it("contains right instances default value", () => {
         getFormValue("instances").should("to.have.value", "1");
       });
 
-      it("uses UCR by default", function() {
+      it("uses UCR by default", () => {
         openServiceModal();
         openServiceJSON();
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain('"type": "MESOS"');
         });
       });
 
-      it("contains the right JSON in the JSON editor", function() {
+      it("contains the right JSON in the JSON editor", () => {
         openServiceModal();
         openServiceJSON();
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain('"cpus": 0.1');
           expect(nodeList[0].textContent).to.contain('"instances": 1');
           expect(nodeList[0].textContent).to.contain('"mem": 128');
@@ -410,8 +410,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    describe("switching to multi-container", function() {
-      beforeEach(function() {
+    describe("switching to multi-container", () => {
+      beforeEach(() => {
         openServiceModal();
         openServiceForm();
         cy.get("a.clickable")
@@ -422,11 +422,11 @@ describe("Service Form Modal", function() {
           .click();
       });
 
-      it("successfully switches to multi-container", function() {
+      it("successfully switches to multi-container", () => {
         cy.get("span").contains("Add Container");
       });
 
-      it("successfully adds a container and opens the container tab", function() {
+      it("successfully adds a container and opens the container tab", () => {
         cy.get("span")
           .contains("Add Container")
           .click();
@@ -437,35 +437,35 @@ describe("Service Form Modal", function() {
         cy.get("h1").contains("Container");
       });
 
-      it("successfully opens the placement tab", function() {
+      it("successfully opens the placement tab", () => {
         cy.get(".menu-tabbed-item-label")
           .contains("Placement")
           .click();
         cy.get(".form-group-heading-content").contains("Placement");
       });
 
-      it("successfully opens the networking tab", function() {
+      it("successfully opens the networking tab", () => {
         cy.get(".menu-tabbed-item-label")
           .contains("Networking")
           .click();
         cy.get("h1.flush-top").contains("Networking");
       });
 
-      it("successfully opens the volumes tab", function() {
+      it("successfully opens the volumes tab", () => {
         cy.get(".menu-tabbed-item-label")
           .contains("Volumes")
           .click();
         cy.get(".form-group-heading-content").contains("Volumes");
       });
 
-      it("successfully opens the health checks tab", function() {
+      it("successfully opens the health checks tab", () => {
         cy.get(".menu-tabbed-item-label")
           .contains("Health Checks")
           .click();
         cy.get(".form-group-heading-content").contains("Health Checks");
       });
 
-      it("successfully opens the environment variables tab", function() {
+      it("successfully opens the environment variables tab", () => {
         cy.get(".menu-tabbed-item-label")
           .contains("Environment")
           .click();
@@ -473,7 +473,7 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("persists the state of the JSON editor after a reload", function() {
+    it("persists the state of the JSON editor after a reload", () => {
       openServiceModal();
       openServiceForm();
       // Open JSON Editor.
@@ -495,7 +495,7 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Edit", function() {
+  context("Edit", () => {
     const SERVICE_SPEC = {
       id: "/sleep",
       cmd: "sleep 3000",
@@ -565,7 +565,7 @@ describe("Service Form Modal", function() {
       dependencies: []
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-with-volumes",
         nodeHealth: true
@@ -578,20 +578,20 @@ describe("Service Form Modal", function() {
         .click();
     });
 
-    it("contains the right service id in the modal", function() {
+    it("contains the right service id in the modal", () => {
       cy.get('.modal .menu-tabbed-view input[name="id"]').should(
         "to.have.value",
         "/sleep"
       );
     });
 
-    it("contains the right JSON in the JSON editor", function() {
+    it("contains the right JSON in the JSON editor", () => {
       // Open JSON Editor
       cy.get(".modal .toggle-button + span").click();
 
       // Get Ace Editor instance from DOM as `textContent` only includes parts
       // of the JSON due to the Ace Editor rending optimizations.
-      cy.window().then(function(window) {
+      cy.window().then(window => {
         const editor = window.ace.edit("brace-editor");
 
         expect(JSON.parse(editor.getValue())).to.deep.equal(SERVICE_SPEC);
@@ -599,19 +599,19 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Picker", function() {
-    beforeEach(function() {
+  context("Picker", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy"
       });
       cy.visitUrl({ url: "/services/overview/%2F/create" });
     });
 
-    it("fills the entire viewport", function() {
+    it("fills the entire viewport", () => {
       var isModalFullScreen = true;
 
-      cy.window().then(function($window) {
-        cy.get(".modal-full-screen").should(function($element) {
+      cy.window().then($window => {
+        cy.get(".modal-full-screen").should($element => {
           if (
             $element[0].clientHeight !== $window.innerHeight ||
             $element[0].clientWidth !== $window.innerWidth
@@ -623,8 +623,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("is horizontally and vertically centered in the modal container", function() {
-      cy.get(".modal-body-wrapper").should(function($modalWrapper) {
+    it("is horizontally and vertically centered in the modal container", () => {
+      cy.get(".modal-body-wrapper").should($modalWrapper => {
         const modalWrapperRect = $modalWrapper[0].getBoundingClientRect();
         const modalWrapperMidpointY = Math.abs(
           modalWrapperRect.top + modalWrapperRect.height / 2
@@ -656,10 +656,10 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("has four options to choose from", function() {
-      cy.get(".panel-grid h3").should(function(items) {
+    it("has four options to choose from", () => {
+      cy.get(".panel-grid h3").should(items => {
         const texts = items
-          .map(function(i, el) {
+          .map((i, el) => {
             return Cypress.$(el).text();
           })
           .get();
@@ -673,41 +673,41 @@ describe("Service Form Modal", function() {
       });
     });
 
-    it("contains panes with the same width and height", function() {
+    it("contains panes with the same width and height", () => {
       var isPanesSameSize = true;
 
-      cy.get(".create-service-modal-service-picker-option").should(function(
-        $elements
-      ) {
-        const firstElementWidth = $elements[0].clientWidth;
-        const firstElementHeight = $elements[0].clientHeight;
+      cy.get(".create-service-modal-service-picker-option").should(
+        $elements => {
+          const firstElementWidth = $elements[0].clientWidth;
+          const firstElementHeight = $elements[0].clientHeight;
 
-        for (var i = 1; i <= $elements.length - 1; i++) {
-          const currentElementWidth = $elements[i].clientWidth;
-          const currentElementHeight = $elements[i].clientHeight;
+          for (var i = 1; i <= $elements.length - 1; i++) {
+            const currentElementWidth = $elements[i].clientWidth;
+            const currentElementHeight = $elements[i].clientHeight;
 
-          if (
-            !(
-              currentElementWidth === firstElementWidth ||
-              currentElementWidth === firstElementWidth - 1 ||
-              currentElementWidth === firstElementWidth + 1
-            ) &&
-            !(
-              currentElementHeight === firstElementHeight ||
-              currentElementHeight === firstElementHeight - 1 ||
-              currentElementHeight === firstElementHeight + 1
-            )
-          ) {
-            isPanesSameSize = false;
+            if (
+              !(
+                currentElementWidth === firstElementWidth ||
+                currentElementWidth === firstElementWidth - 1 ||
+                currentElementWidth === firstElementWidth + 1
+              ) &&
+              !(
+                currentElementHeight === firstElementHeight ||
+                currentElementHeight === firstElementHeight - 1 ||
+                currentElementHeight === firstElementHeight + 1
+              )
+            ) {
+              isPanesSameSize = false;
+            }
           }
+          expect(isPanesSameSize).to.be.equal(true);
         }
-        expect(isPanesSameSize).to.be.equal(true);
-      });
+      );
     });
   });
 
-  context("Create Layout (Single Container)", function() {
-    beforeEach(function() {
+  context("Create Layout (Single Container)", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy"
       });
@@ -718,14 +718,14 @@ describe("Service Form Modal", function() {
         .click();
     });
 
-    context("Form: Tabs", function() {
-      it("has a divider that fills the entire height of parent", function() {
-        cy.get(".menu-tabbed-vertical").then(function($divider) {
+    context("Form: Tabs", () => {
+      it("has a divider that fills the entire height of parent", () => {
+        cy.get(".menu-tabbed-vertical").then($divider => {
           expect($divider.height()).to.equal($divider.parent().height());
         });
       });
 
-      it("changes content when different tab is clicked", function() {
+      it("changes content when different tab is clicked", () => {
         cy.get(".menu-tabbed-item")
           .contains("Networking")
           .click();
@@ -736,10 +736,10 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Form: Edit", function() {
-      beforeEach(function() {
+    context("Form: Edit", () => {
+      beforeEach(() => {
         // Edit form
-        cy.contains(".form-group", "Service ID").within(function() {
+        cy.contains(".form-group", "Service ID").within(() => {
           cy.get("input.form-control")
             .focus()
             .type("{selectall}{backspace}")
@@ -748,20 +748,20 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Back Button: Click", function() {
-        beforeEach(function() {
+      context("Back Button: Click", () => {
+        beforeEach(() => {
           // Click back button
           cy.get(".modal-header button")
             .contains("Back")
             .click();
         });
 
-        it("prompts when clicking the back button", function() {
+        it("prompts when clicking the back button", () => {
           cy.contains(".modal", "Discard Changes?");
         });
 
-        it('discards changes and navigate back to service picker when clicking "discard"', function() {
-          cy.contains(".modal", "Discard Changes?").within(function() {
+        it('discards changes and navigate back to service picker when clicking "discard"', () => {
+          cy.contains(".modal", "Discard Changes?").within(() => {
             cy.contains("button", "Discard").click();
           });
 
@@ -774,8 +774,8 @@ describe("Service Form Modal", function() {
           );
         });
 
-        it('cancels backward navigation when clicking "cancel"', function() {
-          cy.contains(".modal", "Discard Changes?").within(function() {
+        it('cancels backward navigation when clicking "cancel"', () => {
+          cy.contains(".modal", "Discard Changes?").within(() => {
             cy.contains("button", "Cancel").click();
           });
 
@@ -783,7 +783,7 @@ describe("Service Form Modal", function() {
           cy.contains(".modal", "Discard Changes?").should("not.exist");
 
           // Service form should show with correct value
-          cy.contains(".form-group", "Service ID").within(function() {
+          cy.contains(".form-group", "Service ID").within(() => {
             cy.get("input.form-control").should(
               "have.value",
               "/test-back-button-prompt"
@@ -793,8 +793,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("JSON Editor toggle", function() {
-      beforeEach(function() {
+    context("JSON Editor toggle", () => {
+      beforeEach(() => {
         // Ensure we reset viewport
         cy.viewport("macbook-15");
         // Enable JSON Editor
@@ -803,10 +803,8 @@ describe("Service Form Modal", function() {
           .click();
       });
 
-      it("displays JSON editor next to form when screen width >= large", function() {
-        cy.get(".modal-full-screen-side-panel.is-visible").then(function(
-          $jsonEditor
-        ) {
+      it("displays JSON editor next to form when screen width >= large", () => {
+        cy.get(".modal-full-screen-side-panel.is-visible").then($jsonEditor => {
           expect($jsonEditor.width()).to.equal(
             $jsonEditor.parents(".modal-full-screen").width() / 2
           );
@@ -817,19 +815,17 @@ describe("Service Form Modal", function() {
         });
       });
 
-      it("displays JSON editor only when screen width < large", function() {
+      it("displays JSON editor only when screen width < large", () => {
         cy.viewport("iphone-6+");
 
-        cy.get(".modal-full-screen-side-panel.is-visible").then(function(
-          $jsonEditor
-        ) {
+        cy.get(".modal-full-screen-side-panel.is-visible").then($jsonEditor => {
           expect($jsonEditor.parents(".modal-full-screen").width()).to.equal(
             $jsonEditor.width()
           );
         });
       });
 
-      it("hides JSON editor when toggle once more", function() {
+      it("hides JSON editor when toggle once more", () => {
         // Disable JSON Editor
         cy.get(".modal-full-screen-actions label")
           .contains("JSON Editor")
@@ -839,26 +835,26 @@ describe("Service Form Modal", function() {
         cy.get(".modal-full-screen-side-panel.is-visible").should("not.exist");
       });
 
-      it("updates JSON when editing form", function() {
+      it("updates JSON when editing form", () => {
         // Edit form
-        cy.contains(".form-group", "Service ID").within(function() {
+        cy.contains(".form-group", "Service ID").within(() => {
           cy.get("input.form-control")
             .type("{selectall}{backspace}")
             .type("{selectall}{backspace}")
             .type("/test-json-update");
         });
 
-        cy.get(".ace_content").should(function(nodeList) {
+        cy.get(".ace_content").should(nodeList => {
           expect(nodeList[0].textContent).to.contain(
             '"id": "/test-json-update"'
           );
         });
       });
 
-      it("updates form when editing JSON content", function() {
+      it("updates form when editing JSON content", () => {
         // Get Ace Editor instance from DOM as `textContent` only includes parts
         // of the JSON due to the Ace Editor rending optimizations.
-        cy.window().then(function(window) {
+        cy.window().then(window => {
           const editor = window.ace.edit("brace-editor");
 
           editor.setValue(
@@ -875,7 +871,7 @@ describe("Service Form Modal", function() {
           );
         });
 
-        cy.contains(".form-group", "Service ID").within(function() {
+        cy.contains(".form-group", "Service ID").within(() => {
           cy.get("input.form-control").should(
             "to.have.value",
             "/test-form-update"
@@ -884,113 +880,113 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: General", function() {
-      it('Should have a "Service ID" field', function() {
+    context("Service: General", () => {
+      it('Should have a "Service ID" field', () => {
         cy.get(".form-group").contains("Service ID");
       });
 
-      it('Should have a "Instances" field', function() {
+      it('Should have a "Instances" field', () => {
         cy.get(".form-group").contains("Instances");
       });
 
-      it('Should have a "Container Image" field', function() {
+      it('Should have a "Container Image" field', () => {
         cy.get(".form-group").contains("Container Image");
       });
 
-      it('Should have a "CPUs" field', function() {
+      it('Should have a "CPUs" field', () => {
         cy.get(".form-group").contains("CPUs");
       });
 
-      it('Should have a "Memory (MiB)" field', function() {
+      it('Should have a "Memory (MiB)" field', () => {
         cy.get(".form-group").contains("Memory (MiB)");
       });
 
-      it('Should have a "Command" field', function() {
+      it('Should have a "Command" field', () => {
         cy.get(".form-group").contains("Command");
       });
 
-      it('Should not have a "Container Runtime" section', function() {
+      it('Should not have a "Container Runtime" section', () => {
         cy.get(".menu-tabbed-view")
           .contains("Container Runtime")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Advanced Settings" section', function() {
+      it('Should not have a "Advanced Settings" section', () => {
         cy.get(".menu-tabbed-view")
           .contains("Advanced Settings")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Grant Runtime Privileges" checkbox', function() {
+      it('Should not have a "Grant Runtime Privileges" checkbox', () => {
         cy.get(".menu-tabbed-view")
           .contains("Grant Runtime Privileges")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Force Pull Image On Launch" checkbox', function() {
+      it('Should not have a "Force Pull Image On Launch" checkbox', () => {
         cy.get(".menu-tabbed-view")
           .contains("Force Pull Image On Launch")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "GPUs" field', function() {
+      it('Should not have a "GPUs" field', () => {
         cy.get(".form-group")
           .contains("GPUs")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Disk (MiB)" field', function() {
+      it('Should not have a "Disk (MiB)" field', () => {
         cy.get(".form-group")
           .contains("Disk (MiB)")
           .should("to.have.length", 0);
       });
 
-      it('Should not have a "Add Artifact" link', function() {
+      it('Should not have a "Add Artifact" link', () => {
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Artifact")
           .should("to.have.length", 0);
       });
     });
 
-    context("Service: More Settings", function() {
-      beforeEach(function() {
+    context("Service: More Settings", () => {
+      beforeEach(() => {
         cy.get("a.clickable")
           .contains("More Settings")
           .click();
       });
 
-      it('Should have a "Container Runtime" section', function() {
+      it('Should have a "Container Runtime" section', () => {
         cy.get(".menu-tabbed-view").contains("Container Runtime");
       });
 
-      it('Should have a "Advanced Settings" section', function() {
+      it('Should have a "Advanced Settings" section', () => {
         cy.get(".menu-tabbed-view").contains("Advanced Settings");
       });
 
-      it('Should have a "Grant Runtime Privileges" checkbox', function() {
+      it('Should have a "Grant Runtime Privileges" checkbox', () => {
         cy.get(".menu-tabbed-view").contains("Grant Runtime Privileges");
       });
 
-      it('Should have a "Force Pull Image On Launch" checkbox', function() {
+      it('Should have a "Force Pull Image On Launch" checkbox', () => {
         cy.get(".menu-tabbed-view").contains("Force Pull Image On Launch");
       });
 
-      it('Should have a "GPUs" field', function() {
+      it('Should have a "GPUs" field', () => {
         cy.get(".form-group").contains("GPUs");
       });
 
-      it('Should have a "Disk (MiB)" field', function() {
+      it('Should have a "Disk (MiB)" field', () => {
         cy.get(".form-group").contains("Disk (MiB)");
       });
 
-      it('Should have a "Add Artifact" link', function() {
+      it('Should have a "Add Artifact" link', () => {
         cy.get(".menu-tabbed-view .button.button-primary-link").contains(
           "Add Artifact"
         );
       });
 
-      context("Add Artifact", function() {
-        beforeEach(function() {
+      context("Add Artifact", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Artifact")
             .click();
@@ -998,20 +994,20 @@ describe("Service Form Modal", function() {
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
-        it('Should add row with an input when "Add Artifact" link clicked', function() {
+        it('Should add row with an input when "Add Artifact" link clicked', () => {
           // artifact uri
           cy.get("@tabView").find('.form-control[name="fetch.0.uri"]');
         });
 
-        it("Should Autofocus on the first input element of the Artifact", function() {
+        it("Should Autofocus on the first input element of the Artifact", () => {
           cy.focused().should("have.attr.name", "fetch.0.uri");
         });
 
-        it("Should remove row when remove button clicked", function() {
+        it("Should remove row when remove button clicked", () => {
           cy.get("@tabView")
             .find('.form-control[name="fetch.0.uri"]')
             .parents(".form-row")
-            .within(function() {
+            .within(() => {
               // Click delete button
               cy.get("a.button").click();
             });
@@ -1023,8 +1019,8 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Switching to Universal Container Runtime (UCR)", function() {
-        beforeEach(function() {
+      context("Switching to Universal Container Runtime (UCR)", () => {
+        beforeEach(() => {
           // Set viewport so we have side-by-side JSON editor
           cy.viewport("macbook-15");
           // Enable JSON Editor
@@ -1037,13 +1033,13 @@ describe("Service Form Modal", function() {
             .click();
         });
 
-        it("switches from Docker to Mesos correctly", function() {
-          cy.get(".ace_content").should(function(nodeList) {
+        it("switches from Docker to Mesos correctly", () => {
+          cy.get(".ace_content").should(nodeList => {
             expect(nodeList[0].textContent).not.to.contain('"type": "DOCKER"');
           });
         });
 
-        it('disables the "Grant Runtime Privileges" checkbox', function() {
+        it('disables the "Grant Runtime Privileges" checkbox', () => {
           cy.contains("Grant Runtime Privileges").should(
             "have.class",
             "disabled"
@@ -1051,7 +1047,7 @@ describe("Service Form Modal", function() {
         });
       });
 
-      it("Should show asterisk next to Container Image if Docker is selected", function() {
+      it("Should show asterisk next to Container Image if Docker is selected", () => {
         cy.get(".gm-scroll-view")
           .last()
           .scrollTo("bottom");
@@ -1067,7 +1063,7 @@ describe("Service Form Modal", function() {
           .should("contain", "*");
       });
 
-      it("Should expand Advanced settings they contain errors", function() {
+      it("Should expand Advanced settings they contain errors", () => {
         cy.get(".gm-scroll-view")
           .last()
           .scrollTo("bottom");
@@ -1091,20 +1087,20 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: Placement", function() {
-      beforeEach(function() {
+    context("Service: Placement", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item")
           .contains("Placement")
           .click();
       });
 
-      it("Should vertically align the placement constraint delete row button", function() {
+      it("Should vertically align the placement constraint delete row button", () => {
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Placement Constraint")
           .click();
 
         cy.get('.menu-tabbed-view input[name="constraints.0.fieldName"').should(
-          function($inputElement) {
+          $inputElement => {
             const $wrappingLabel = $inputElement.closest(".form-group");
             const $deleteButtonFormGroup = $wrappingLabel.siblings(
               ".form-group-without-top-label"
@@ -1132,15 +1128,15 @@ describe("Service Form Modal", function() {
         );
       });
 
-      context("Add Placement Constraint", function() {
-        beforeEach(function() {
+      context("Add Placement Constraint", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view").as("tabView");
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Placement Constraint")
             .click();
         });
 
-        it('Should add rows when "Add Placement Constraint" link clicked', function() {
+        it('Should add rows when "Add Placement Constraint" link clicked', () => {
           // Field
           cy.get("@tabView").find(
             '.form-control[name="constraints.0.fieldName"]'
@@ -1153,8 +1149,8 @@ describe("Service Form Modal", function() {
           cy.get("@tabView").find('.form-control[name="constraints.0.value"]');
         });
 
-        it("Should remove rows when remove button clicked", function() {
-          cy.contains(".form-row", "Operator").within(function() {
+        it("Should remove rows when remove button clicked", () => {
+          cy.contains(".form-row", "Operator").within(() => {
             // Click delete button
             cy.get("a.button").click();
           });
@@ -1175,7 +1171,7 @@ describe("Service Form Modal", function() {
             .should("not.exist");
         });
 
-        it('Should disable the field "Value" when Unique is selected in operator dropdown', function() {
+        it('Should disable the field "Value" when Unique is selected in operator dropdown', () => {
           cy.get("@tabView")
             .find(".button.dropdown-toggle")
             .click();
@@ -1190,7 +1186,7 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: Networking", function() {
+    context("Service: Networking", () => {
       /**
        * Clicks the runtime option under more settings
        * @param {String} runtimeText one of ['Docker Engine', 'Universal Container Runtime (UCR)']
@@ -1211,8 +1207,8 @@ describe("Service Form Modal", function() {
           .click();
       }
 
-      context("Network Type", function() {
-        it('has all available enabled types when "Docker Engine" selected', function() {
+      context("Network Type", () => {
+        it('has all available enabled types when "Docker Engine" selected', () => {
           setRuntime("Docker Engine");
           clickNetworkingTab();
 
@@ -1256,7 +1252,7 @@ describe("Service Form Modal", function() {
             .should("not.have.value", "CONTAINER.dcos-4");
         });
 
-        it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', function() {
+        it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', () => {
           setRuntime("Universal Container Runtime (UCR)");
           clickNetworkingTab();
 
@@ -1300,35 +1296,35 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Add Service Endpoint", function() {
+      context("Add Service Endpoint", () => {
         function addServiceEndpoint() {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Service Endpoint")
             .click();
         }
 
-        beforeEach(function() {
+        beforeEach(() => {
           clickNetworkingTab();
           addServiceEndpoint();
           // Alias tab view for cached lookups
           cy.get(".menu-tabbed-view").as("tabView");
         });
 
-        it("Should Autofocus on the service endpoint name", function() {
+        it("Should Autofocus on the service endpoint name", () => {
           cy.focused().should("have.attr.name", "portDefinitions.0.name");
         });
 
-        it('Should add new set of form fields when "Add Service Endpoint" link clicked', function() {
+        it('Should add new set of form fields when "Add Service Endpoint" link clicked', () => {
           cy.get("@tabView").find(
             '.form-control[name="portDefinitions.0.name"]'
           );
         });
 
-        it('Should remove "Service Endpoint" form fields when remove button clicked', function() {
+        it('Should remove "Service Endpoint" form fields when remove button clicked', () => {
           cy.get("@tabView")
             .find('.form-control[name="portDefinitions.0.name"]')
             .parents(".panel")
-            .within(function() {
+            .within(() => {
               // Click delete button
               cy.get("a.button").click();
             });
@@ -1338,9 +1334,9 @@ describe("Service Form Modal", function() {
             .should("not.exist");
         });
 
-        context("type: HOST", function() {
-          context("Assign Host Ports Automatically", function() {
-            it('disables "Host Port" text field when "Assign Host Ports Automatically" is checked', function() {
+        context("type: HOST", () => {
+          context("Assign Host Ports Automatically", () => {
+            it('disables "Host Port" text field when "Assign Host Ports Automatically" is checked', () => {
               cy.get("@tabView").find(
                 '.form-control[name="portsAutoAssign"]:checked'
               );
@@ -1350,7 +1346,7 @@ describe("Service Form Modal", function() {
                 .should("have.attr", "disabled");
             });
 
-            it('appends value for "Host Port" to service address when "Assign Host Ports Automatically" is not checked', function() {
+            it('appends value for "Host Port" to service address when "Assign Host Ports Automatically" is not checked', () => {
               cy.contains("label", "Assign Host Ports Automatically").click();
               cy.contains(
                 "label",
@@ -1367,7 +1363,7 @@ describe("Service Form Modal", function() {
             });
           });
 
-          it('hides "Container Port"', function() {
+          it('hides "Container Port"', () => {
             cy.get('select[name="networks.0.network"]').select("HOST");
 
             cy.get("@tabView").find(
@@ -1392,8 +1388,8 @@ describe("Service Form Modal", function() {
           });
         });
 
-        context("type: BRIDGE", function() {
-          it('shows "Container Port" and "Protocol"', function() {
+        context("type: BRIDGE", () => {
+          it('shows "Container Port" and "Protocol"', () => {
             cy.get('select[name="networks.0.network"]').select("BRIDGE");
 
             cy.get("@tabView").find(
@@ -1422,8 +1418,8 @@ describe("Service Form Modal", function() {
           });
         });
 
-        context("type: CONTAINER (Virtual Network: dcos)", function() {
-          it('hides "Host Port" and "Protocol"', function() {
+        context("type: CONTAINER (Virtual Network: dcos)", () => {
+          it('hides "Host Port" and "Protocol"', () => {
             cy.get('select[name="networks.0.network"]').select(
               "CONTAINER.dcos-1"
             );
@@ -1453,7 +1449,7 @@ describe("Service Form Modal", function() {
             );
           });
 
-          it('doesnt hide "Host Port" and "Protocol" when "Port Mapping" is enabled', function() {
+          it('doesnt hide "Host Port" and "Protocol" when "Port Mapping" is enabled', () => {
             cy.get('select[name="networks.0.network"]').select(
               "CONTAINER.dcos-1"
             );
@@ -1491,8 +1487,8 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Edit Service Endpoint", function() {
-        it("sets vip port when host does not match app id", function() {
+      context("Edit Service Endpoint", () => {
+        it("sets vip port when host does not match app id", () => {
           cy.configureCluster({
             mesos: "1-task-healthy"
           });
@@ -1512,8 +1508,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: Volumes", function() {
-      beforeEach(function() {
+    context("Service: Volumes", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item")
           .contains("Volumes")
           .click();
@@ -1522,14 +1518,14 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-view").as("tabView");
       });
 
-      context("Local Volumes", function() {
-        beforeEach(function() {
+      context("Local Volumes", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Volume")
             .click();
         });
 
-        it('Should add new set of form fields when "Add Local Volume" link clicked', function() {
+        it('Should add new set of form fields when "Add Local Volume" link clicked', () => {
           cy.get("@tabView")
             .contains("Add Volume")
             .click();
@@ -1540,7 +1536,7 @@ describe("Service Form Modal", function() {
           );
         });
 
-        it('Should add new set of form fields when "Persistent Volume" is selected as volume type', function() {
+        it('Should add new set of form fields when "Persistent Volume" is selected as volume type', () => {
           cy.get("@tabView").contains(".form-group", "Volume Type");
           cy.get("@tabView")
             .find(".button.dropdown-toggle")
@@ -1555,7 +1551,7 @@ describe("Service Form Modal", function() {
           cy.get('.form-control[name="volumes.0.size"]');
         });
 
-        it('Should remove "Volume" form fields when remove button clicked', function() {
+        it('Should remove "Volume" form fields when remove button clicked', () => {
           cy.get("@tabView")
             .find(".button.dropdown-toggle")
             .click();
@@ -1575,8 +1571,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: Health Checks", function() {
-      beforeEach(function() {
+    context("Service: Health Checks", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item")
           .contains("Health Checks")
           .click();
@@ -1589,10 +1585,10 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-view").as("tabView");
       });
 
-      it('Should add new set of form fields when "Add Health Check" link clicked', function() {
+      it('Should add new set of form fields when "Add Health Check" link clicked', () => {
         cy.get("@tabView")
           .contains(".form-group", "Protocol")
-          .within(function() {
+          .within(() => {
             cy.get("select").should(
               "have.attr",
               "name",
@@ -1601,8 +1597,8 @@ describe("Service Form Modal", function() {
           });
       });
 
-      it('Should remove "Health Check" form fields when remove button clicked', function() {
-        cy.contains(".panel", "Protocol").within(function() {
+      it('Should remove "Health Check" form fields when remove button clicked', () => {
+        cy.contains(".panel", "Protocol").within(() => {
           // Click delete button
           cy.get("a.button").click();
         });
@@ -1612,10 +1608,10 @@ describe("Service Form Modal", function() {
         );
       });
 
-      it('Should display textarea when selected Protocol is "Command"', function() {
+      it('Should display textarea when selected Protocol is "Command"', () => {
         cy.get("@tabView")
           .contains(".form-group", "Protocol")
-          .within(function() {
+          .within(() => {
             cy.get("select").select("COMMAND");
           });
 
@@ -1623,10 +1619,10 @@ describe("Service Form Modal", function() {
         cy.get("@tabView").find('.form-control[name="healthChecks.0.command"]');
       });
 
-      it('Should display row of fields when selected Protocol is "HTTP"', function() {
+      it('Should display row of fields when selected Protocol is "HTTP"', () => {
         cy.get("@tabView")
           .contains(".form-group", "Protocol")
-          .within(function() {
+          .within(() => {
             cy.get("select").select("HTTP");
           });
 
@@ -1640,17 +1636,17 @@ describe("Service Form Modal", function() {
         cy.get("@tabView").find('.form-control[name="healthChecks.0.https"]');
       });
 
-      context("Advanced Health Check Section", function() {
+      context("Advanced Health Check Section", () => {
         function toggleAdvancedHealthCheckSettings() {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Advanced Health Check Settings")
             .click();
         }
 
-        it('Should add new set of form fields when "Advanced Health Check Settings" link clicked', function() {
+        it('Should add new set of form fields when "Advanced Health Check Settings" link clicked', () => {
           cy.get("@tabView")
             .contains(".form-group", "Protocol")
-            .within(function() {
+            .within(() => {
               cy.get("select").select("HTTP");
             });
 
@@ -1677,10 +1673,10 @@ describe("Service Form Modal", function() {
           );
         });
 
-        it('Should remove new set of form fields when "Advanced Health Check Settings" link clicked again', function() {
+        it('Should remove new set of form fields when "Advanced Health Check Settings" link clicked again', () => {
           cy.get("@tabView")
             .contains(".form-group", "Protocol")
-            .within(function() {
+            .within(() => {
               cy.get("select").select("HTTP");
             });
 
@@ -1712,8 +1708,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Service: Environment", function() {
-      beforeEach(function() {
+    context("Service: Environment", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item")
           .contains("Environment")
           .click();
@@ -1722,14 +1718,14 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-view").as("tabView");
       });
 
-      context("Environment", function() {
-        beforeEach(function() {
+      context("Environment", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Environment Variable")
             .click();
         });
 
-        it('Should add new set of form fields when "Add Environment Variable" link clicked', function() {
+        it('Should add new set of form fields when "Add Environment Variable" link clicked', () => {
           // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="env.0.key"]:focus');
@@ -1740,7 +1736,7 @@ describe("Service Form Modal", function() {
           cy.get("@tabView").find('.form-control[name="env.0.value"]');
         });
 
-        it('Should remove "Environment Variable" form fields when remove button clicked', function() {
+        it('Should remove "Environment Variable" form fields when remove button clicked', () => {
           // Click delete button
           cy.get('.form-control[name="env.0.key"]')
             .closest(".form-row")
@@ -1750,7 +1746,7 @@ describe("Service Form Modal", function() {
           cy.get('.form-control[name="env.0.key"]').should("not.exist");
         });
 
-        it("shows an error if only the value is filled out", function() {
+        it("shows an error if only the value is filled out", () => {
           cy.get("@tabView")
             .find('.form-control[name="env.0.value"]')
             .type("value");
@@ -1759,14 +1755,14 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Labels", function() {
-        beforeEach(function() {
+      context("Labels", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view .button.button-primary-link")
             .contains("Add Label")
             .click();
         });
 
-        it('Should add new set of form fields when "Add Label" link clicked', function() {
+        it('Should add new set of form fields when "Add Label" link clicked', () => {
           // Autofocus is currently not supported in cypress, see https://github.com/cypress-io/cypress/issues/1176
           // Key focused
           // cy.get('.form-control[name="labels.0.key"]:focus');
@@ -1777,7 +1773,7 @@ describe("Service Form Modal", function() {
           cy.get("@tabView").find('.form-control[name="labels.0.value"]');
         });
 
-        it('Should remove "Label" form fields when remove button clicked', function() {
+        it('Should remove "Label" form fields when remove button clicked', () => {
           // Click delete button
           cy.get('.form-control[name="labels.0.key"]')
             .closest(".form-row")
@@ -1787,7 +1783,7 @@ describe("Service Form Modal", function() {
           cy.get('.form-control[name="labels.0.key"]').should("not.exist");
         });
 
-        it("shows an error if only the value is filled out", function() {
+        it("shows an error if only the value is filled out", () => {
           cy.get("@tabView")
             .find('.form-control[name="labels.0.value"]')
             .type("value");
@@ -1796,8 +1792,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Review and Run Service", function() {
-      beforeEach(function() {
+    context("Review and Run Service", () => {
+      beforeEach(() => {
         // Fill in SERVICE ID
         cy.get('.form-control[name="id"]')
           .type("{selectall}{backspace}")
@@ -1816,7 +1812,7 @@ describe("Service Form Modal", function() {
           .click();
       });
 
-      it("doesn't show non configured fields", function() {
+      it("doesn't show non configured fields", () => {
         // Fields that should not appear:
         //  - Service Endpoints
         //  - Volumes
@@ -1826,7 +1822,7 @@ describe("Service Form Modal", function() {
         //
         // To test this, we filter for H1's and assert that only 2 exist - one
         // for General field and one for Network field
-        cy.get("h1.configuration-map-heading").should(function($h1) {
+        cy.get("h1.configuration-map-heading").should($h1 => {
           // Should have found 2 elements
           expect($h1).to.have.length(2);
 
@@ -1838,7 +1834,7 @@ describe("Service Form Modal", function() {
         });
       });
 
-      it('navigates back to the form when "edit" button is clicked', function() {
+      it('navigates back to the form when "edit" button is clicked', () => {
         // Click back
         cy.get(".modal-full-screen-actions")
           .contains("button", "Back")
@@ -1859,8 +1855,8 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Create Layout (Multi Container)", function() {
-    beforeEach(function() {
+  context("Create Layout (Multi Container)", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy"
       });
@@ -1871,31 +1867,31 @@ describe("Service Form Modal", function() {
         .click();
     });
 
-    context("Service: General", function() {
-      it('Should have a "Service ID" field', function() {
+    context("Service: General", () => {
+      it('Should have a "Service ID" field', () => {
         cy.get(".form-group").contains("Service ID");
       });
 
-      it('Should have a "Instances" field', function() {
+      it('Should have a "Instances" field', () => {
         cy.get(".form-group").contains("Instances");
       });
     });
 
-    context("Service: container settings", function() {
-      beforeEach(function() {
+    context("Service: container settings", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item")
           .contains("container-1")
           .click();
       });
 
-      context("Service: More Settings", function() {
-        beforeEach(function() {
+      context("Service: More Settings", () => {
+        beforeEach(() => {
           cy.get("a.clickable")
             .contains("More Settings")
             .click();
         });
 
-        it('Should have a "Add Artifact" link', function() {
+        it('Should have a "Add Artifact" link', () => {
           cy.get(".menu-tabbed-view .button.button-primary-link").contains(
             "Add Artifact"
           );
@@ -1903,15 +1899,15 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Networking", function() {
-      beforeEach(function() {
+    context("Networking", () => {
+      beforeEach(() => {
         cy.get(".menu-tabbed-item-label")
           .contains("Networking")
           .click();
       });
 
-      context("Service Endpoints", function() {
-        beforeEach(function() {
+      context("Service Endpoints", () => {
+        beforeEach(() => {
           addServiceEndpoint();
         });
 
@@ -1927,17 +1923,17 @@ describe("Service Form Modal", function() {
             .click();
         }
 
-        context("Host", function() {
-          beforeEach(function() {
+        context("Host", () => {
+          beforeEach(() => {
             cy.get('select[name="networks.0"]').select("Host");
           });
 
-          context("Load balanced ports", function() {
-            beforeEach(function() {
+          context("Load balanced ports", () => {
+            beforeEach(() => {
               enableLoadBalancedAddress();
             });
 
-            it("sets vip port", function() {
+            it("sets vip port", () => {
               cy.get(
                 '.form-control[name="containers.0.endpoints.0.vipPort"]'
               ).type(9007);
@@ -1947,19 +1943,19 @@ describe("Service Form Modal", function() {
           });
         });
 
-        context("Virtual Network: dcos-1", function() {
-          beforeEach(function() {
+        context("Virtual Network: dcos-1", () => {
+          beforeEach(() => {
             cy.get('select[name="networks.0"]').select(
               "Virtual Network: dcos-1"
             );
           });
 
-          context("Load balanced ports", function() {
-            beforeEach(function() {
+          context("Load balanced ports", () => {
+            beforeEach(() => {
               enableLoadBalancedAddress();
             });
 
-            it("sets vip port", function() {
+            it("sets vip port", () => {
               cy.get(
                 '.form-control[name="containers.0.endpoints.0.vipPort"]'
               ).type(9007);
@@ -1971,8 +1967,8 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Multi-container (pod)", function() {
-      beforeEach(function() {
+    context("Multi-container (pod)", () => {
+      beforeEach(() => {
         cy.get(".modal-wrapper .menu-tabbed-item-label")
           .eq(0)
           .click()
@@ -1980,7 +1976,7 @@ describe("Service Form Modal", function() {
           .contains("Service");
       });
 
-      it("Should add new container", function() {
+      it("Should add new container", () => {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Container")
@@ -1988,7 +1984,7 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 2);
       });
 
-      it("Should remove a container", function() {
+      it("Should remove a container", () => {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 1);
         cy.get(
           ".menu-tabbed-view .form-group-container-action-button-group .button.button-primary-link"
@@ -1998,14 +1994,14 @@ describe("Service Form Modal", function() {
         cy.get(".pod-narrow.pod-short").should("to.have.length", 0);
       });
 
-      it("Should open container config when clicked", function() {
+      it("Should open container config when clicked", () => {
         cy.get(".pod-narrow.pod-short")
           .eq(0)
           .click();
         cy.get(".menu-tabbed-view").contains("Container Name");
       });
 
-      it("Should contain two containers navigation under Services tab", function() {
+      it("Should contain two containers navigation under Services tab", () => {
         cy.get(".menu-tabbed-item-label")
           .eq(0)
           .siblings()
@@ -2021,7 +2017,7 @@ describe("Service Form Modal", function() {
           .should("to.have.length", 2);
       });
 
-      it("Should be right aligned of the parent", function() {
+      it("Should be right aligned of the parent", () => {
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Container")
           .click();
@@ -2029,7 +2025,7 @@ describe("Service Form Modal", function() {
         cy.get(".menu-tabbed-item-label")
           .eq(0)
           .siblings()
-          .each(function($element) {
+          .each($element => {
             const $parentLeftPosition = $element
               .parent()[0]
               .getBoundingClientRect().left;
@@ -2044,8 +2040,8 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Multi-container - Review & Run", function() {
-    beforeEach(function() {
+  context("Multi-container - Review & Run", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy"
       });
@@ -2062,7 +2058,7 @@ describe("Service Form Modal", function() {
         .type("/test-review-and-run");
     });
 
-    it("Should contain two containers at review and run modal", function() {
+    it("Should contain two containers at review and run modal", () => {
       // Add a second container
       cy.get(".menu-tabbed-view .button.button-primary-link")
         .contains("Add Container")
@@ -2081,7 +2077,7 @@ describe("Service Form Modal", function() {
         .should("to.have.length", 2);
     });
 
-    it("Should show network form when clicking on Network Configuration Edit", function() {
+    it("Should show network form when clicking on Network Configuration Edit", () => {
       cy.get(".menu-tabbed-item")
         .contains("Networking")
         .click();
@@ -2101,8 +2097,8 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Multi-container - Edit", function() {
-    it("sets vip port when host does not match app id", function() {
+  context("Multi-container - Edit", () => {
+    it("sets vip port when host does not match app id", () => {
       cy.configureCluster({
         mesos: "1-pod"
       });
@@ -2121,7 +2117,7 @@ describe("Service Form Modal", function() {
     });
   });
 
-  context("Comprehensible error messages", function() {
+  context("Comprehensible error messages", () => {
     function clickReviewAndRun() {
       cy.get(".button-primary")
         .contains("Review & Run")
@@ -2178,7 +2174,7 @@ describe("Service Form Modal", function() {
       cy.get(".infoBoxWrapper").should("contain", text);
     }
 
-    beforeEach(function() {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-empty-group",
         nodeHealth: true
@@ -2186,22 +2182,22 @@ describe("Service Form Modal", function() {
       cy.visitUrl({ url: "/services/overview/create" });
     });
 
-    context("Single Container", function() {
-      beforeEach(function() {
+    context("Single Container", () => {
+      beforeEach(() => {
         cy.get(".create-service-modal-service-picker-option")
           .contains("Single Container")
           .click();
       });
 
-      context("Service Tab", function() {
-        context("Advanced Settings", function() {
+      context("Service Tab", () => {
+        context("Advanced Settings", () => {
           function scrollToTop() {
             cy.get(".gm-scroll-view")
               .last()
               .scrollTo("top");
           }
 
-          beforeEach(function() {
+          beforeEach(() => {
             cy.get("a.clickable")
               .contains("More Settings")
               .click();
@@ -2210,7 +2206,7 @@ describe("Service Form Modal", function() {
               .scrollTo("bottom");
           });
 
-          it("displays comprehensible error for invalid gpu value", function() {
+          it("displays comprehensible error for invalid gpu value", () => {
             typeInInput("gpus", "-1");
             scrollToTop();
             clickReviewAndRun();
@@ -2219,7 +2215,7 @@ describe("Service Form Modal", function() {
             );
           });
 
-          it("displays comprehensible error for invalid disk value", function() {
+          it("displays comprehensible error for invalid disk value", () => {
             typeInInput("disk", "-1");
             scrollToTop();
             clickReviewAndRun();
@@ -2228,7 +2224,7 @@ describe("Service Form Modal", function() {
             );
           });
 
-          it("displays comprehensible error for missing container image when docker is selected", function() {
+          it("displays comprehensible error for missing container image when docker is selected", () => {
             cy.get(".flex-align-items-center")
               .contains("Docker")
               .click();
@@ -2241,12 +2237,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Placement Tab", function() {
-        beforeEach(function() {
+      context("Placement Tab", () => {
+        beforeEach(() => {
           openTab("Placement");
         });
 
-        it("displays comprehensible error for invalid advanced constraint value", function() {
+        it("displays comprehensible error for invalid advanced constraint value", () => {
           clickButton("Add Placement Constraint");
           clickDropdownItem("Select ...", "Group By");
           typeInInput("constraints.0.fieldName", "1");
@@ -2258,12 +2254,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Networking Tab", function() {
-        beforeEach(function() {
+      context("Networking Tab", () => {
+        beforeEach(() => {
           openTab("Networking");
         });
 
-        it("displays comprehensible error for invalid service endpoint values", function() {
+        it("displays comprehensible error for invalid service endpoint values", () => {
           clickSelectItem("networks.0.network", "Bridge");
           clickButton("Add Service Endpoint");
           clickCheckbox("Assign Automatically");
@@ -2289,12 +2285,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Volumes tab", function() {
-        beforeEach(function() {
+      context("Volumes tab", () => {
+        beforeEach(() => {
           openTab("Volumes");
         });
 
-        it("displays comprehensible error for missing properties for Host Volume", function() {
+        it("displays comprehensible error for missing properties for Host Volume", () => {
           clickButton("Add Volume");
           clickDropdownItem("Select ...", "Host Volume");
           typeInInput("volumes.0.containerPath", "1");
@@ -2302,7 +2298,7 @@ describe("Service Form Modal", function() {
           errorMessageShouldContain("Volume properties must be defined.");
         });
 
-        it("displays comprehensible error for missing properties for Local Persistent Volume", function() {
+        it("displays comprehensible error for missing properties for Local Persistent Volume", () => {
           clickButton("Add Volume");
           clickDropdownItem("Select ...", "Local Persistent Volume");
           typeInInput("volumes.0.containerPath", "1");
@@ -2311,12 +2307,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Environment tab", function() {
-        beforeEach(function() {
+      context("Environment tab", () => {
+        beforeEach(() => {
           openTab("Environment");
         });
 
-        it("displays comprehensible error for missing environment label key", function() {
+        it("displays comprehensible error for missing environment label key", () => {
           clickButton("Add Label");
           typeInInput("labels.0.key", " ");
           clickReviewAndRun();
@@ -2327,19 +2323,19 @@ describe("Service Form Modal", function() {
       });
     });
 
-    context("Multi Container", function() {
-      beforeEach(function() {
+    context("Multi Container", () => {
+      beforeEach(() => {
         cy.get(".create-service-modal-service-picker-option")
           .contains("Multi-container (Pod)")
           .click();
       });
 
-      context("Container Tab", function() {
-        beforeEach(function() {
+      context("Container Tab", () => {
+        beforeEach(() => {
           openTab("container-1");
         });
 
-        it("displays comprehensible error for missing containers", function() {
+        it("displays comprehensible error for missing containers", () => {
           clearInput("containers.0.name");
           clearInput("containers.0.resources.cpus");
           clearInput("containers.0.resources.mem");
@@ -2349,13 +2345,13 @@ describe("Service Form Modal", function() {
           );
         });
 
-        it("displays comprehensible error for missing container name", function() {
+        it("displays comprehensible error for missing container name", () => {
           clearInput("containers.0.name");
           clickReviewAndRun();
           errorMessageShouldContain("Container names must be defined.");
         });
 
-        it("displays comprehensible error for invalid container cpu value", function() {
+        it("displays comprehensible error for invalid container cpu value", () => {
           clearInput("containers.0.resources.cpus");
           typeInInput("containers.0.resources.cpus", "-1");
           clickReviewAndRun();
@@ -2364,7 +2360,7 @@ describe("Service Form Modal", function() {
           );
         });
 
-        it("displays comprehensible error for invalid container memory value", function() {
+        it("displays comprehensible error for invalid container memory value", () => {
           clearInput("containers.0.resources.mem");
           typeInInput("containers.0.resources.mem", "-1");
           clickReviewAndRun();
@@ -2374,12 +2370,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Networking Tab", function() {
-        beforeEach(function() {
+      context("Networking Tab", () => {
+        beforeEach(() => {
           openTab("Networking");
         });
 
-        it("displays comprehensible error for invalid service endpoint values", function() {
+        it("displays comprehensible error for invalid service endpoint values", () => {
           clickButton("Add Service Endpoint");
           clickCheckbox("Assign Automatically");
           clickCheckbox("TCP");
@@ -2405,12 +2401,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Volumes Tab", function() {
-        beforeEach(function() {
+      context("Volumes Tab", () => {
+        beforeEach(() => {
           openTab("Volumes");
         });
 
-        it("displays comprehensible error for invalid properties for volumes", function() {
+        it("displays comprehensible error for invalid properties for volumes", () => {
           clickButton("Add Volume");
           clickDropdownItem("Select ...", "Local Persistent Volume");
           typeInInput("volumeMounts.0.name", " ");
@@ -2426,12 +2422,12 @@ describe("Service Form Modal", function() {
         });
       });
 
-      context("Health Checks Tab", function() {
-        beforeEach(function() {
+      context("Health Checks Tab", () => {
+        beforeEach(() => {
           openTab("Health Checks");
         });
 
-        it("displays comprehensible error for invalid properties for health checks", function() {
+        it("displays comprehensible error for invalid properties for health checks", () => {
           clickButton("Add Health Check");
           clickSelectItem("containers.0.healthCheck.protocol", "HTTP");
           clickButton("Advanced Health Check Settings");
@@ -2441,7 +2437,7 @@ describe("Service Form Modal", function() {
             "containers.0.healthCheck.intervalSeconds",
             "containers.0.healthCheck.timeoutSeconds",
             "containers.0.healthCheck.maxConsecutiveFailures"
-          ].forEach(function(input) {
+          ].forEach(input => {
             typeInInput(input, "-1");
           });
           clickReviewAndRun();

@@ -3,9 +3,9 @@ const StateSummary = require("../StateSummary");
 
 let thisNow, thisService1, thisService2, thisService3, thisService4, thisList;
 
-describe("SummaryList", function() {
-  describe("#add", function() {
-    it("shifts elements off the list when max length is set", function() {
+describe("SummaryList", () => {
+  describe("#add", () => {
+    it("shifts elements off the list when max length is set", () => {
       const list = new SummaryList({ items: [0], maxLength: 2 });
       list.add(1);
       list.add(2);
@@ -13,15 +13,15 @@ describe("SummaryList", function() {
     });
   });
 
-  describe("#addSnapshot", function() {
-    it("adds new item to list", function() {
+  describe("#addSnapshot", () => {
+    it("adds new item to list", () => {
       const list = new SummaryList();
       expect(list.getItems().length).toEqual(0);
       list.addSnapshot({}, Date.now());
       expect(list.getItems().length).toEqual(1);
     });
 
-    it("creates an instance of StateSummary out of an object", function() {
+    it("creates an instance of StateSummary out of an object", () => {
       const list = new SummaryList();
       list.addSnapshot({}, Date.now());
       const instance = list.last();
@@ -29,8 +29,8 @@ describe("SummaryList", function() {
     });
   });
 
-  describe("#getActiveNodesByState", function() {
-    it("returns a list of state objects with slave count", function() {
+  describe("#getActiveNodesByState", () => {
+    it("returns a list of state objects with slave count", () => {
       const now = Date.now();
       const list = new SummaryList();
       list.addSnapshot({ slaves: [{ active: true }, { active: false }] }, now);
@@ -48,8 +48,8 @@ describe("SummaryList", function() {
     });
   });
 
-  describe("#lastSuccessful", function() {
-    beforeEach(function() {
+  describe("#lastSuccessful", () => {
+    beforeEach(() => {
       thisNow = Date.now();
       thisService1 = { name: "service 1" };
       thisService2 = { name: "service 2" };
@@ -57,7 +57,7 @@ describe("SummaryList", function() {
       thisService4 = { name: "service 4" };
     });
 
-    it("returns the last successful snapshot", function() {
+    it("returns the last successful snapshot", () => {
       const states = new SummaryList();
       states.addSnapshot({ frameworks: [thisService1, thisService2] }, thisNow);
       states.addSnapshot(
@@ -82,7 +82,7 @@ describe("SummaryList", function() {
       expect(states.lastSuccessful()).toEqual(expectedState);
     });
 
-    it("gets last successful state if latest is unsuccessful", function() {
+    it("gets last successful state if latest is unsuccessful", () => {
       const states = new SummaryList();
       states.addSnapshot({ frameworks: [thisService1, thisService2] }, thisNow);
       states.add(new StateSummary({ successful: false, date: thisNow + 1 }));
@@ -104,7 +104,7 @@ describe("SummaryList", function() {
       expect(states.lastSuccessful()).toEqual(expectedState);
     });
 
-    it("returns empty state if no successful snapshot found", function() {
+    it("returns empty state if no successful snapshot found", () => {
       const states = new SummaryList();
       states.add(new StateSummary({ successful: false, date: thisNow }));
       states.add(new StateSummary({ successful: false, date: thisNow + 1 }));
@@ -113,8 +113,8 @@ describe("SummaryList", function() {
     });
   });
 
-  describe("#getResourceStatesForServiceIDs", function() {
-    beforeEach(function() {
+  describe("#getResourceStatesForServiceIDs", () => {
+    beforeEach(() => {
       thisNow = Date.now();
       thisList = new SummaryList();
       thisList.addSnapshot(
@@ -129,13 +129,13 @@ describe("SummaryList", function() {
       );
     });
 
-    it("returns empty resource lists", function() {
+    it("returns empty resource lists", () => {
       const list = new SummaryList();
       const resources = list.getResourceStatesForServiceIDs();
       expect(resources).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
     });
 
-    it("doesn't filter by ids", function() {
+    it("doesn't filter by ids", () => {
       const resources = thisList.getResourceStatesForServiceIDs();
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
@@ -147,7 +147,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("filters by id", function() {
+    it("filters by id", () => {
       const resources = thisList.getResourceStatesForServiceIDs([1]);
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 10, value: 1 }],
@@ -159,7 +159,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("filters by ids", function() {
+    it("filters by ids", () => {
       const resources = thisList.getResourceStatesForServiceIDs([1, 2]);
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
@@ -171,7 +171,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("computes all states and filters", function() {
+    it("computes all states and filters", () => {
       thisList.addSnapshot(
         {
           frameworks: [
@@ -206,7 +206,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("sets fields to null to indicate unsuccessful snapshot", function() {
+    it("sets fields to null to indicate unsuccessful snapshot", () => {
       const list = new SummaryList();
       list.add(new StateSummary({ successful: false, date: thisNow }));
       const resources = list.getResourceStatesForServiceIDs();
@@ -221,8 +221,8 @@ describe("SummaryList", function() {
     });
   });
 
-  describe("#getResourceStatesForNodeIDs", function() {
-    beforeEach(function() {
+  describe("#getResourceStatesForNodeIDs", () => {
+    beforeEach(() => {
       thisNow = Date.now();
       thisList = new SummaryList();
       thisList.addSnapshot(
@@ -244,13 +244,13 @@ describe("SummaryList", function() {
       );
     });
 
-    it("returns empty resource lists", function() {
+    it("returns empty resource lists", () => {
       const list = new SummaryList();
       const resources = list.getResourceStatesForNodeIDs();
       expect(resources).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
     });
 
-    it("doesn't filter by ids", function() {
+    it("doesn't filter by ids", () => {
       const resources = thisList.getResourceStatesForNodeIDs();
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
@@ -262,7 +262,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("filters by id", function() {
+    it("filters by id", () => {
       const resources = thisList.getResourceStatesForNodeIDs([1]);
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 1 }],
@@ -274,7 +274,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("filters by ids", function() {
+    it("filters by ids", () => {
       const resources = thisList.getResourceStatesForNodeIDs([1, 2]);
       const expectedResult = {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
@@ -286,7 +286,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("computes all states and filters", function() {
+    it("computes all states and filters", () => {
       thisList.addSnapshot(
         {
           slaves: [
@@ -328,7 +328,7 @@ describe("SummaryList", function() {
       expect(resources).toEqual(expectedResult);
     });
 
-    it("sets fields to null to indicate unsuccessful snapshot", function() {
+    it("sets fields to null to indicate unsuccessful snapshot", () => {
       const list = new SummaryList();
       list.add(new StateSummary({ successful: false, date: thisNow }));
       const resources = list.getResourceStatesForNodeIDs();

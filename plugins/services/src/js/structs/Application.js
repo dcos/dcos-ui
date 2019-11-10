@@ -177,7 +177,7 @@ module.exports = class Application extends Service {
       )
     };
 
-    const tasksSum = Object.keys(healthData).reduce(function(sum, healthItem) {
+    const tasksSum = Object.keys(healthData).reduce((sum, healthItem) => {
       return sum + healthData[healthItem];
     }, 0);
 

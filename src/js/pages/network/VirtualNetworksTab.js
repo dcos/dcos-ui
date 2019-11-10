@@ -111,7 +111,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       return overlayList;
     }
 
-    return overlayList.filterItems(function(overlay) {
+    return overlayList.filterItems(overlay => {
       return (
         (overlay.getName() && overlay.getName().includes(searchString)) ||
         (overlay.getSubnet() && overlay.getSubnet().includes(searchString)) ||

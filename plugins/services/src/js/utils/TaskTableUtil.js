@@ -14,7 +14,7 @@ function getUpdatedTimestamp(model) {
 
 const TaskTableUtil = {
   getSortFunction(tieBreakerProp) {
-    return TableUtil.getSortFunction(tieBreakerProp, function(item, prop) {
+    return TableUtil.getSortFunction(tieBreakerProp, (item, prop) => {
       const hasGetter = typeof item.get === "function";
 
       if (prop === "updated") {

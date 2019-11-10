@@ -1,9 +1,9 @@
 const Node = require("../Node");
 const NodesList = require("../NodesList");
 
-describe("NodesList", function() {
-  describe("#constructor", function() {
-    it("creates instances of Node", function() {
+describe("NodesList", () => {
+  describe("#constructor", () => {
+    it("creates instances of Node", () => {
       let items = [{ foo: "bar" }];
       const list = new NodesList({ items });
       items = list.getItems();
@@ -11,14 +11,14 @@ describe("NodesList", function() {
     });
   });
 
-  describe("#filter", function() {
-    it("returns unfiltered list", function() {
+  describe("#filter", () => {
+    it("returns unfiltered list", () => {
       const items = [{ a: 1 }, { b: 2 }];
       const list = new NodesList({ items });
       expect(list.filter().getItems().length).toEqual(2);
     });
 
-    it("filters by ids", function() {
+    it("filters by ids", () => {
       const items = [
         { id: 1, hostname: "foo" },
         { id: 2, hostname: "bar" },
@@ -31,7 +31,7 @@ describe("NodesList", function() {
       expect(filteredList[1].get("hostname")).toEqual("baz");
     });
 
-    it("filters by hostname", function() {
+    it("filters by hostname", () => {
       const items = [
         { hostname: "foo" },
         { hostname: "bar" },
@@ -44,7 +44,7 @@ describe("NodesList", function() {
       expect(filteredList[1].get("hostname")).toEqual("baz");
     });
 
-    it("filters by service", function() {
+    it("filters by service", () => {
       const items = [
         { host_ip: "foo", framework_ids: [1, 2] },
         { host_ip: "bar", framework_ids: [3] },
@@ -57,7 +57,7 @@ describe("NodesList", function() {
       expect(filteredList[1].get("host_ip")).toEqual("baz");
     });
 
-    it("filters by service", function() {
+    it("filters by service", () => {
       const items = [
         { hostname: "foo", framework_ids: [1, 2] },
         { hostname: "bar", framework_ids: [3] },
@@ -70,7 +70,7 @@ describe("NodesList", function() {
       expect(filteredList[1].get("hostname")).toEqual("baz");
     });
 
-    it("filters by unit health title", function() {
+    it("filters by unit health title", () => {
       const items = [
         { id: "foo", health: 0 },
         { id: "bar", health: 0 },
@@ -84,8 +84,8 @@ describe("NodesList", function() {
     });
   });
 
-  describe("#sumUsedResources", function() {
-    it("returns all resources as 0 when there's no services", function() {
+  describe("#sumUsedResources", () => {
+    it("returns all resources as 0 when there's no services", () => {
       const list = new NodesList();
       expect(list.sumUsedResources()).toEqual({
         cpus: 0,
@@ -95,7 +95,7 @@ describe("NodesList", function() {
       });
     });
 
-    it("returns used resources when there's one service", function() {
+    it("returns used resources when there's one service", () => {
       const list = new NodesList({
         items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }]
       });
@@ -107,7 +107,7 @@ describe("NodesList", function() {
       });
     });
 
-    it("sums used resources for services", function() {
+    it("sums used resources for services", () => {
       const list = new NodesList({
         items: [
           { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },

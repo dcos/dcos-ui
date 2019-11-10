@@ -79,7 +79,7 @@ module.exports = {
     const frameWindow = frame.contentWindow;
     const topWindow = global;
 
-    frameWindow.addEventListener("hashchange", function() {
+    frameWindow.addEventListener("hashchange", () => {
       topWindow.location.hash = frameWindow.location.hash;
     });
   },

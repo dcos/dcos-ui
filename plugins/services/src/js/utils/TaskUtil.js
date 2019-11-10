@@ -34,7 +34,7 @@ const TaskUtil = {
     const portMappings = this.getPortMappings(task) || [];
     if (portMappings.length) {
       return {
-        ports: portMappings.map(function(mapping) {
+        ports: portMappings.map(mapping => {
           return mapping.host_port;
         }),
         hosts: [hostName]
@@ -61,7 +61,7 @@ const TaskUtil = {
       return task.ports || [];
     }
 
-    return ports.map(function(port) {
+    return ports.map(port => {
       return port.number;
     });
   },
@@ -113,7 +113,7 @@ const TaskUtil = {
         "statuses.0.container_status.network_infos.0.ip_addresses"
       ) || [];
 
-    return ipAddresses.map(function(item) {
+    return ipAddresses.map(item => {
       return item.ip_address;
     });
   },
@@ -187,7 +187,7 @@ const TaskUtil = {
     // Find matching executor or task to construct the task path
     []
       .concat(framework.executors, framework.completed_executors)
-      .every(function(executor) {
+      .every(executor => {
         if (executor.id === executorID || executor.id === taskID) {
           // Use the executor task path construct if it's a "pod" / TaskGroup
           // executor (type: DEFAULT), otherwise fallback to the default

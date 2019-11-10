@@ -7,7 +7,7 @@ import AuthStore from "../stores/AuthStore";
  * AuthStore. If the user is logged in, the component will render.
  * If the user is not logged in, the user will be redirected to the login page.
  */
-module.exports = function(ComposedComponent) {
+module.exports = ComposedComponent => {
   return class Authenticated extends React.Component {
     static willTransitionTo(nextState, replace) {
       if (!AuthStore.isLoggedIn()) {

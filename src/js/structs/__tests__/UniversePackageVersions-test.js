@@ -1,8 +1,8 @@
 const UniversePackageVersions = require("../UniversePackageVersions");
 
-describe("UniversePackageVersions", function() {
-  describe("#getVersions", function() {
-    it("returns empty array if packageVersions is null", function() {
+describe("UniversePackageVersions", () => {
+  describe("#getVersions", () => {
+    it("returns empty array if packageVersions is null", () => {
       const versions = new UniversePackageVersions({
         packageVersions: null
       });
@@ -10,7 +10,7 @@ describe("UniversePackageVersions", function() {
       expect(versions.getVersions()).toEqual([]);
     });
 
-    it("package versions are sorted", function() {
+    it("package versions are sorted", () => {
       const versions = new UniversePackageVersions({
         packageVersions: {
           "1.1.0": 1,

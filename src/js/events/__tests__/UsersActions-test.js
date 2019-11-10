@@ -7,16 +7,16 @@ const UsersActions = require("../UsersActions");
 
 let thisConfiguration;
 
-describe("UsersActions", function() {
-  describe("#fetch", function() {
-    beforeEach(function() {
+describe("UsersActions", () => {
+  describe("#fetch", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UsersActions.fetch();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_SUCCESS);
@@ -25,8 +25,8 @@ describe("UsersActions", function() {
       thisConfiguration.success({ foo: "bar" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_ERROR);
@@ -35,8 +35,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -51,31 +51,31 @@ describe("UsersActions", function() {
       });
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users");
     });
   });
 
-  describe("#addUser", function() {
-    beforeEach(function() {
+  describe("#addUser", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UsersActions.addUser({ uid: "foo" });
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users/foo");
     });
 
-    it("encodes characters for URL", function() {
+    it("encodes characters for URL", () => {
       UsersActions.addUser({ uid: "foo@email.com" });
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(thisConfiguration.url).toEqual(
@@ -83,12 +83,12 @@ describe("UsersActions", function() {
       );
     });
 
-    it("uses PUT for the request method", function() {
+    it("uses PUT for the request method", () => {
       expect(thisConfiguration.method).toEqual("PUT");
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_SUCCESS);
@@ -97,8 +97,8 @@ describe("UsersActions", function() {
       thisConfiguration.success({ foo: "bar" });
     });
 
-    it("dispatches the userID when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the userID when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -107,8 +107,8 @@ describe("UsersActions", function() {
       thisConfiguration.success({ description: "bar" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_ERROR);
@@ -117,8 +117,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct message when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct message when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -127,8 +127,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the userID when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the userID when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -137,8 +137,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -154,22 +154,22 @@ describe("UsersActions", function() {
     });
   });
 
-  describe("#deleteUser", function() {
-    beforeEach(function() {
+  describe("#deleteUser", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       UsersActions.deleteUser("foo");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(Config.acsAPIPrefix + "/users/foo");
     });
 
-    it("encodes characters for URL", function() {
+    it("encodes characters for URL", () => {
       UsersActions.deleteUser("foo@email.com");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(thisConfiguration.url).toEqual(
@@ -177,12 +177,12 @@ describe("UsersActions", function() {
       );
     });
 
-    it("uses DELETE for the request method", function() {
+    it("uses DELETE for the request method", () => {
       expect(thisConfiguration.method).toEqual("DELETE");
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_SUCCESS);
@@ -191,8 +191,8 @@ describe("UsersActions", function() {
       thisConfiguration.success({ foo: "bar" });
     });
 
-    it("dispatches the userID when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the userID when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -201,8 +201,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_ERROR);
@@ -211,8 +211,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct message when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct message when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -221,8 +221,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the userID when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the userID when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -231,8 +231,8 @@ describe("UsersActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

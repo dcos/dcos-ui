@@ -1,9 +1,9 @@
 const Job = require("../../structs/Job");
 const JobUtil = require("../JobUtil");
 
-describe("JobUtil", function() {
-  describe("#createJobFromFormModel", function() {
-    it("returns instance of Job", function() {
+describe("JobUtil", () => {
+  describe("#createJobFromFormModel", () => {
+    it("returns instance of Job", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test" }
       });
@@ -11,15 +11,15 @@ describe("JobUtil", function() {
       expect(job).toEqual(jasmine.any(Job));
     });
 
-    it("returns instance Job if null is provided", function() {
+    it("returns instance Job if null is provided", () => {
       expect(JobUtil.createJobFromFormModel(null)).toEqual(jasmine.any(Job));
     });
 
-    it("returns instance Job if empty object is provided", function() {
+    it("returns instance Job if empty object is provided", () => {
       expect(JobUtil.createJobFromFormModel({})).toEqual(jasmine.any(Job));
     });
 
-    it("converts form model to the corresponding job", function() {
+    it("converts form model to the corresponding job", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" }
       });
@@ -28,7 +28,7 @@ describe("JobUtil", function() {
       expect(job.getCommand()).toEqual("sleep 1000;");
     });
 
-    it("returns job with schedule if actiavted", function() {
+    it("returns job with schedule if actiavted", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -50,7 +50,7 @@ describe("JobUtil", function() {
       ]);
     });
 
-    it("job schedule maintains id and policy", function() {
+    it("job schedule maintains id and policy", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -72,7 +72,7 @@ describe("JobUtil", function() {
       ]);
     });
 
-    it("job schedule defaults concurrencyPolicy if not provided", function() {
+    it("job schedule defaults concurrencyPolicy if not provided", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -93,7 +93,7 @@ describe("JobUtil", function() {
       ]);
     });
 
-    it("removes schedule if deactivated", function() {
+    it("removes schedule if deactivated", () => {
       const job = JobUtil.createJobFromFormModel({
         general: { id: "test", cmd: "sleep 1000;" },
         schedule: {
@@ -109,8 +109,8 @@ describe("JobUtil", function() {
     });
   });
 
-  describe("#createFormModelFromSchema", function() {
-    it("creates the correct model", function() {
+  describe("#createFormModelFromSchema", () => {
+    it("creates the correct model", () => {
       const schema = {
         type: "object",
         properties: {
@@ -141,8 +141,8 @@ describe("JobUtil", function() {
     });
   });
 
-  describe("#createJobSpecFromJob", function() {
-    it("creates the correct job", function() {
+  describe("#createJobSpecFromJob", () => {
+    it("creates the correct job", () => {
       const job = new Job({
         id: "test",
         run: {
@@ -162,7 +162,7 @@ describe("JobUtil", function() {
       });
     });
 
-    it("adds concurrencyPolicy if schedule is defined", function() {
+    it("adds concurrencyPolicy if schedule is defined", () => {
       const job = new Job({
         id: "test",
         run: {

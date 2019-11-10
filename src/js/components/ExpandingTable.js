@@ -15,7 +15,7 @@ class ExpandingTable extends React.Component {
 
     if (props.expandRowsByDefault) {
       initialState = props.data.reduce(
-        function(memo, row) {
+        (memo, row) => {
           memo.expandedRows[row.id] = true;
 
           return memo;
@@ -33,7 +33,7 @@ class ExpandingTable extends React.Component {
       let shouldSetState = false;
       const nextExpandedRows = this.state.expandedRows;
 
-      nextProps.data.forEach(function(row) {
+      nextProps.data.forEach(row => {
         if (nextExpandedRows[row.id] == null) {
           shouldSetState = true;
           nextExpandedRows[row.id] = true;

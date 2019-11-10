@@ -23,7 +23,7 @@ var TableUtil = {
 
     let rowHeight = null;
     const windowWidth = global.innerWidth;
-    Object.keys(definitionList).forEach(function(size) {
+    Object.keys(definitionList).forEach(size => {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;
       }
@@ -64,8 +64,8 @@ var TableUtil = {
    * between two items
    */
   getSortFunction(tieBreakerProp, getProperty) {
-    return function(prop, order) {
-      return function(a, b) {
+    return (prop, order) => {
+      return (a, b) => {
         return TableUtil.compareValues(
           getProperty(a, prop, order),
           getProperty(b, prop, order),

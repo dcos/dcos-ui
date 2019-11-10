@@ -34,21 +34,21 @@ module.exports = class StateSummary {
     // Store computed data – this is something we may not need to store
     this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      slaves.map(function(slave) {
+      slaves.map(slave => {
         return slave.resources;
       })
     );
 
     this.metadata.slaveUsedResources = MesosSummaryUtil.sumResources(
       // We may only want to get the active slaves...
-      slaves.map(function(slave) {
+      slaves.map(slave => {
         return slave.used_resources;
       })
     );
 
     const frameworks = this.snapshot.frameworks || [];
     this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
-      frameworks.map(function(framework) {
+      frameworks.map(framework => {
         return framework.used_resources;
       })
     );
@@ -63,7 +63,7 @@ module.exports = class StateSummary {
   }
 
   getActiveSlaves() {
-    return this.snapshot.slaves.filter(function(slave) {
+    return this.snapshot.slaves.filter(slave => {
       return slave.active === true;
     });
   }

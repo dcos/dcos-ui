@@ -33,7 +33,7 @@ function __getAvailablePlugins() {
 function __setMockPlugins(plugins) {
   _plugins = {};
   _externalPlugins = {};
-  Object.keys(plugins).forEach(function(pluginID) {
+  Object.keys(plugins).forEach(pluginID => {
     if (pluginID in externalPluginsList) {
       _externalPlugins[pluginID] = plugins[pluginID];
     } else {
@@ -47,7 +47,7 @@ Loader.__setMockPlugins = __setMockPlugins;
 
 // Rewire so PluginSDK loads the mocked version. But still provide access
 // to original method for PluginTestUtils to load actual plugins
-Loader.__getAvailablePlugins = function() {
+Loader.__getAvailablePlugins = () => {
   return {
     pluginsList,
     externalPluginsList
@@ -64,7 +64,7 @@ function loadPlugins(plugins) {
   var availablePlugins = {};
   var pluginConfig = {};
 
-  Object.keys(plugins).forEach(function(pluginID) {
+  Object.keys(plugins).forEach(pluginID => {
     availablePlugins[pluginID] = plugins[pluginID].module;
     pluginConfig[pluginID] = plugins[pluginID].config;
   });
@@ -82,7 +82,7 @@ function loadPluginsByName(plugins) {
 
   const { pluginsList, externalPluginsList } = Loader.__getAvailablePlugins();
 
-  Object.keys(plugins).forEach(function(pluginID) {
+  Object.keys(plugins).forEach(pluginID => {
     if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
       throw new Error(`${pluginID} does not exist. Failed to load.`);
     }

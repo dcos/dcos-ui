@@ -15,13 +15,13 @@ function resetLogData(subscriptionID, newLogData) {
   SystemLogStore.addEntries = originalAddEntries;
 }
 
-describe("SystemLogStore", function() {
-  afterEach(function() {
+describe("SystemLogStore", () => {
+  afterEach(() => {
     resetLogData("subscriptionID", null);
   });
 
-  describe("#addEntries", function() {
-    it("appends data to existing data", function() {
+  describe("#addEntries", () => {
+    it("appends data to existing data", () => {
       const entries = [
         { fields: { MESSAGE: "foo" } },
         { fields: { MESSAGE: "bar" } },
@@ -48,7 +48,7 @@ describe("SystemLogStore", function() {
       expect(result.totalSize).toEqual(15);
     });
 
-    it("doesn't remove when there is no length added", function() {
+    it("doesn't remove when there is no length added", () => {
       const entires = [
         { fields: { MESSAGE: "" } },
         { fields: { MESSAGE: "" } },
@@ -76,7 +76,7 @@ describe("SystemLogStore", function() {
       expect(result.totalSize).toEqual(500000);
     });
 
-    it("prepends data to existing data", function() {
+    it("prepends data to existing data", () => {
       const entires = [
         { fields: { MESSAGE: "foo" } },
         { fields: { MESSAGE: "bar" } },
@@ -103,7 +103,7 @@ describe("SystemLogStore", function() {
       expect(result.totalSize).toEqual(15);
     });
 
-    it("doesn't remove when there is no length added", function() {
+    it("doesn't remove when there is no length added", () => {
       const entries = [
         { fields: { MESSAGE: "" } },
         { fields: { MESSAGE: "" } },
@@ -132,8 +132,8 @@ describe("SystemLogStore", function() {
     });
   });
 
-  describe("#processLogAppend", function() {
-    it("appends data to existing data", function() {
+  describe("#processLogAppend", () => {
+    it("appends data to existing data", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
@@ -156,7 +156,7 @@ describe("SystemLogStore", function() {
       );
     });
 
-    it("doesn't add empty MESSAGEs", function() {
+    it("doesn't add empty MESSAGEs", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
@@ -180,8 +180,8 @@ describe("SystemLogStore", function() {
     });
   });
 
-  describe("#processLogPrepend", function() {
-    it("prepends data to existing data", function() {
+  describe("#processLogPrepend", () => {
+    it("prepends data to existing data", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
@@ -201,7 +201,7 @@ describe("SystemLogStore", function() {
       );
     });
 
-    it("doesn't remove when there is no length added", function() {
+    it("doesn't remove when there is no length added", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
@@ -221,8 +221,8 @@ describe("SystemLogStore", function() {
     });
   });
 
-  describe("#getFullLog", function() {
-    it("returns full log", function() {
+  describe("#getFullLog", () => {
+    it("returns full log", () => {
       SystemLogStore.processLogAppend("subscriptionID", [
         { fields: { MESSAGE: "foo" } }
       ]);
@@ -238,7 +238,7 @@ describe("SystemLogStore", function() {
       expect(result).toEqual("foo\nbar\nbaz");
     });
 
-    it("returns correct format", function() {
+    it("returns correct format", () => {
       SystemLogStore.processLogAppend("subscriptionID", [
         { fields: { MESSAGE: "foo" }, realtime_timestamp: 10000000 }
       ]);
@@ -251,21 +251,21 @@ describe("SystemLogStore", function() {
       expect(result).toEqual("1970-01-01 12:00:10: foo\nbar");
     });
 
-    it("returns empty string for a log that doesn't exist", function() {
+    it("returns empty string for a log that doesn't exist", () => {
       const result = SystemLogStore.getFullLog("subscriptionID");
 
       expect(result).toEqual("");
     });
   });
 
-  describe("storeID", function() {
-    it("returns 'systemLog'", function() {
+  describe("storeID", () => {
+    it("returns 'systemLog'", () => {
       expect(SystemLogStore.storeID).toEqual("systemLog");
     });
   });
 
-  describe("dispatcher", function() {
-    it("emits event after #processLogAppend event is dispatched", function() {
+  describe("dispatcher", () => {
+    it("emits event after #processLogAppend event is dispatched", () => {
       const changeHandler = jasmine.createSpy("changeHandler");
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_CHANGE,
@@ -284,7 +284,7 @@ describe("SystemLogStore", function() {
       );
     });
 
-    it("emits event after #processLogError event is dispatched", function() {
+    it("emits event after #processLogError event is dispatched", () => {
       const changeHandler = jasmine.createSpy("changeHandler");
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_REQUEST_ERROR,
@@ -306,7 +306,7 @@ describe("SystemLogStore", function() {
       );
     });
 
-    it("emits event after #processLogPrepend event is dispatched", function() {
+    it("emits event after #processLogPrepend event is dispatched", () => {
       const changeHandler = jasmine.createSpy("changeHandler");
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_CHANGE,
@@ -326,7 +326,7 @@ describe("SystemLogStore", function() {
       );
     });
 
-    it("emits event after #processLogPrependError event is dispatched", function() {
+    it("emits event after #processLogPrependError event is dispatched", () => {
       const changeHandler = jasmine.createSpy("changeHandler");
       SystemLogStore.addChangeListener(
         EventTypes.SYSTEM_LOG_REQUEST_ERROR,

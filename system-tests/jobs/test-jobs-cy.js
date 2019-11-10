@@ -1,11 +1,11 @@
-describe("Jobs", function() {
+describe("Jobs", () => {
   afterEach(() => {
     cy.window().then(win => {
       win.location.href = "about:blank";
     });
   });
 
-  it("creates a simple job", function() {
+  it("creates a simple job", () => {
     const jobName = "simple";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -80,7 +80,7 @@ describe("Jobs", function() {
       .should("have.value", `${cmdline}`);
   });
 
-  it("creates a job with default ucr config", function() {
+  it("creates a job with default ucr config", () => {
     const jobName = "ucr";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;
     const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -163,7 +163,7 @@ describe("Jobs", function() {
       .should("have.value", "nginx");
   });
 
-  it("runs, stops and deletes a job", function() {
+  it("runs, stops and deletes a job", () => {
     // first create a simple job
     const jobName = "delete";
     const fullJobName = `${Cypress.env("TEST_UUID")}.${jobName}`;

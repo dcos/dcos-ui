@@ -7,7 +7,7 @@ import Service from "../structs/Service";
 import ServiceConfigurationContainer from "../containers/service-configuration/ServiceConfigurationContainer";
 import FrameworkConfigurationContainer from "../containers/framework-configuration/FrameworkConfigurationContainer";
 
-const HighOrderServiceConfiguration = function(props) {
+const HighOrderServiceConfiguration = props => {
   const { errors, onEditClick, service } = props;
   if (service instanceof Pod) {
     return <PodConfigurationContainer pod={service} />;

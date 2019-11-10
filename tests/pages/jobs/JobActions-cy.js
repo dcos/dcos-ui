@@ -1,6 +1,6 @@
-describe("Job Actions", function() {
-  context("Edit Action", function() {
-    beforeEach(function() {
+describe("Job Actions", () => {
+  context("Edit Action", () => {
+    beforeEach(() => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
@@ -14,19 +14,19 @@ describe("Job Actions", function() {
         .click();
     });
 
-    it("opens the correct jobs edit modal", function() {
+    it("opens the correct jobs edit modal", () => {
       cy.root()
         .getFormGroupInputFor("Job ID *")
         .should("to.have.value", "foo");
     });
 
-    it("disables the job ID input", function() {
+    it("disables the job ID input", () => {
       cy.get(".form-group")
         .find('.form-control[name="job.id"]')
         .should("be.disabled");
     });
 
-    it("closes modal on successful API request", function() {
+    it("closes modal on successful API request", () => {
       cy.route({
         method: "PUT",
         url: /metronome\/v1\/jobs\/foo/,
@@ -45,7 +45,7 @@ describe("Job Actions", function() {
       cy.get(".modal").should("to.have.length", 0);
     });
 
-    it("closes modal on secondary button click", function() {
+    it("closes modal on secondary button click", () => {
       cy.get(".modal .button")
         .contains("Cancel")
         .click();

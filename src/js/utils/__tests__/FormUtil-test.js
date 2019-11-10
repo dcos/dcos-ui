@@ -2,9 +2,9 @@ const FormUtil = require("../FormUtil");
 
 let thisDefinition, thisResult;
 
-describe("FormUtil", function() {
-  describe("#getMultipleFieldDefinition", function() {
-    beforeEach(function() {
+describe("FormUtil", () => {
+  describe("#getMultipleFieldDefinition", () => {
+    beforeEach(() => {
       thisDefinition = [
         {
           name: "key",
@@ -17,7 +17,7 @@ describe("FormUtil", function() {
       ];
     });
 
-    it("sets the correct name for the definition", function() {
+    it("sets the correct name for the definition", () => {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
@@ -28,7 +28,7 @@ describe("FormUtil", function() {
       expect(result[1].name).toEqual("variable[1].value");
     });
 
-    it("does not modify the definition", function() {
+    it("does not modify the definition", () => {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
@@ -39,7 +39,7 @@ describe("FormUtil", function() {
       expect(thisDefinition[0].name).toEqual("key");
     });
 
-    it("sets the value if a model is passed", function() {
+    it("sets the value if a model is passed", () => {
       const result = FormUtil.getMultipleFieldDefinition(
         "variable",
         1,
@@ -55,8 +55,8 @@ describe("FormUtil", function() {
     });
   });
 
-  describe("#modelToCombinedProps", function() {
-    beforeEach(function() {
+  describe("#modelToCombinedProps", () => {
+    beforeEach(() => {
       thisResult = FormUtil.modelToCombinedProps({
         "uid[0].uid": "kenny",
         "uid[0].password": "secret",
@@ -66,19 +66,19 @@ describe("FormUtil", function() {
       });
     });
 
-    it("does not modify the unrelated properties", function() {
+    it("does not modify the unrelated properties", () => {
       expect(thisResult.unrelatedProp).toEqual("hellothere");
     });
 
-    it('creates a property named "uid" that is an array', function() {
+    it('creates a property named "uid" that is an array', () => {
       expect(Array.isArray(thisResult.uid)).toEqual(true);
     });
 
-    it("converts each instance into an object", function() {
+    it("converts each instance into an object", () => {
       expect(typeof thisResult.uid[0]).toEqual("object");
     });
 
-    it("converts each instance with the correct values", function() {
+    it("converts each instance with the correct values", () => {
       expect(thisResult.uid[0].uid).toEqual("kenny");
       expect(thisResult.uid[0].password).toEqual("secret");
       expect(thisResult.uid[1].uid).toEqual("jane");
@@ -86,8 +86,8 @@ describe("FormUtil", function() {
     });
   });
 
-  describe("#isFieldInstanceOfProp", function() {
-    it("returns true if field is instance of prop", function() {
+  describe("#isFieldInstanceOfProp", () => {
+    it("returns true if field is instance of prop", () => {
       const fields = [
         { name: "variable[2].key", value: "kenny" },
         { name: "variable[2].value", value: "tran" }
@@ -96,7 +96,7 @@ describe("FormUtil", function() {
       expect(result).toEqual(true);
     });
 
-    it("returns false if field is not instance of prop", function() {
+    it("returns false if field is not instance of prop", () => {
       const fields = [
         { name: "variable[1].key", value: "kenny" },
         { name: "variable[1].value", value: "tran" }
@@ -105,15 +105,15 @@ describe("FormUtil", function() {
       expect(result).toEqual(false);
     });
 
-    it("works on a single definition", function() {
+    it("works on a single definition", () => {
       const field = { name: "variable[1].key", value: "kenny" };
       const result = FormUtil.isFieldInstanceOfProp("variable", field, 1);
       expect(result).toEqual(true);
     });
   });
 
-  describe("#removePropID", function() {
-    it("removes the fields with that property", function() {
+  describe("#removePropID", () => {
+    it("removes the fields with that property", () => {
       const definition = [
         { name: "password", value: "secret" },
         { name: "variable[1].key", value: "kenny" },
@@ -134,8 +134,8 @@ describe("FormUtil", function() {
     });
   });
 
-  describe("#forEachDefinition", function() {
-    beforeEach(function() {
+  describe("#forEachDefinition", () => {
+    beforeEach(() => {
       thisDefinition = {
         general: {
           definition: [
@@ -164,9 +164,9 @@ describe("FormUtil", function() {
       };
     });
 
-    it("correctly iterates through each definition", function() {
+    it("correctly iterates through each definition", () => {
       const result = [];
-      FormUtil.forEachDefinition(thisDefinition, function(fieldDefinition) {
+      FormUtil.forEachDefinition(thisDefinition, fieldDefinition => {
         result.push(fieldDefinition.name);
       });
 
@@ -174,18 +174,18 @@ describe("FormUtil", function() {
     });
   });
 
-  describe("#isFieldDefinition", function() {
-    it("returns false if it is not a definition", function() {
+  describe("#isFieldDefinition", () => {
+    it("returns false if it is not a definition", () => {
       const result = FormUtil.isFieldDefinition({ render() {} });
       expect(result).toEqual(false);
     });
 
-    it("returns false if it is not an object", function() {
+    it("returns false if it is not an object", () => {
       const result = FormUtil.isFieldDefinition(null);
       expect(result).toEqual(false);
     });
 
-    it("returns true if it is a definition", function() {
+    it("returns true if it is a definition", () => {
       const result = FormUtil.isFieldDefinition({
         name: "username",
         fieldType: "text"

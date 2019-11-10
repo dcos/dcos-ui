@@ -1,7 +1,7 @@
-describe("Service Versions", function() {
-  context("Configuration Tab", function() {
-    context("Services", function() {
-      beforeEach(function() {
+describe("Service Versions", () => {
+  context("Configuration Tab", () => {
+    context("Services", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
@@ -15,17 +15,17 @@ describe("Service Versions", function() {
         cy.get(".services-version-select button").as("dropdown");
       });
 
-      it("opens the current service version on default", function() {
+      it("opens the current service version on default", () => {
         cy.get("@dropdown").contains("Active");
       });
 
-      it("renders the version dropdown with the current locale version as default", function() {
+      it("renders the version dropdown with the current locale version as default", () => {
         cy.get(".page-body-content .dropdown .button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
           .should("to.have.length", 1);
       });
 
-      it("renders the selected service version", function() {
+      it("renders the selected service version", () => {
         cy.get("@dropdown")
           .get(".button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
@@ -42,7 +42,7 @@ describe("Service Versions", function() {
         );
       });
 
-      it("applies the selected service version", function() {
+      it("applies the selected service version", () => {
         cy.route({
           method: "PUT",
           url: /marathon\/v2\/apps\/\/sleep/,
@@ -73,7 +73,7 @@ describe("Service Versions", function() {
           .click();
       });
 
-      it("opens correct edit modal of the selected service version", function() {
+      it("opens correct edit modal of the selected service version", () => {
         cy.get("@dropdown")
           .get(".button span")
           .contains(new Date("2015-08-28T01:26:14.620Z").toLocaleString())
@@ -95,8 +95,8 @@ describe("Service Versions", function() {
       });
     });
 
-    context("SDK Services", function() {
-      beforeEach(function() {
+    context("SDK Services", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-sdk-service",
           nodeHealth: true
@@ -106,7 +106,7 @@ describe("Service Versions", function() {
         });
       });
 
-      it("does not show version selection for sdk service", function() {
+      it("does not show version selection for sdk service", () => {
         cy.get(".services-version-select button").should("not.exist");
       });
     });

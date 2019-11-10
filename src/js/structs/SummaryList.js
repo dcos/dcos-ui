@@ -22,7 +22,7 @@ class SummaryList extends List {
 
   getActiveNodesByState() {
     return this.getItems()
-      .map(function(state) {
+      .map(state => {
         let slavesCount = null;
 
         if (state.isSnapshotSuccessful()) {
@@ -51,7 +51,7 @@ class SummaryList extends List {
 
   getResourceStatesForServiceIDs(ids) {
     const items = this.getItems() || [];
-    const stateResources = items.map(function(state) {
+    const stateResources = items.map(state => {
       let resources = null,
         totalResources = null;
 
@@ -74,7 +74,7 @@ class SummaryList extends List {
   }
 
   getResourceStatesForNodeIDs(ids) {
-    const stateResources = this.getItems().map(function(state) {
+    const stateResources = this.getItems().map(state => {
       let resources = null,
         totalResources = null;
 

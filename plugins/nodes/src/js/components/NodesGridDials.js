@@ -45,7 +45,7 @@ var NodesGridDials = createReactClass({
       return config;
     }
 
-    Object.keys(resourcesByFramework).forEach(function(frameworkID) {
+    Object.keys(resourcesByFramework).forEach(frameworkID => {
       const used =
         resourcesByFramework[frameworkID][props.selectedResource] || 0;
       const total = node.getUsageStats(props.selectedResource).total || 0;
@@ -65,7 +65,7 @@ var NodesGridDials = createReactClass({
   getActiveSliceData(node) {
     var config = this.getServiceSlicesConfig(node);
 
-    var percentage = config.reduce(function(memo, slice) {
+    var percentage = config.reduce((memo, slice) => {
       memo += slice.percentage;
 
       return memo;
@@ -148,7 +148,7 @@ var NodesGridDials = createReactClass({
         >
           <div className="chart">
             <Chart
-              calcHeight={function(w) {
+              calcHeight={w => {
                 return w;
               }}
             >
@@ -167,7 +167,7 @@ var NodesGridDials = createReactClass({
   getSpacers() {
     return Array(30)
       .fill()
-      .map(function(v, index) {
+      .map((v, index) => {
         return <div className="nodes-grid-dials-spacer" key={index} />;
       });
   },

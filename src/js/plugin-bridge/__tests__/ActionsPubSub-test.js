@@ -4,15 +4,15 @@ const PluginSDK = require("PluginSDK");
 
 let thisMockFn, thisMockFn1, thisUnsubscribe;
 
-describe("#ActionsPubSub", function() {
-  beforeEach(function() {
+describe("#ActionsPubSub", () => {
+  beforeEach(() => {
     thisMockFn = jest.genMockFunction();
     thisMockFn1 = jest.genMockFunction();
     thisUnsubscribe = PluginSDK.onDispatch(thisMockFn);
     PluginSDK.onDispatch(thisMockFn1);
   });
 
-  it("receives actions after subscribing", function() {
+  it("receives actions after subscribing", () => {
     PluginSDK.dispatch({ type: "foo" });
     expect(thisMockFn.mock.calls.length).toEqual(1);
     expect(thisMockFn1.mock.calls.length).toEqual(1);
@@ -22,7 +22,7 @@ describe("#ActionsPubSub", function() {
     });
   });
 
-  it("stops receiving actions after unsubscribing", function() {
+  it("stops receiving actions after unsubscribing", () => {
     thisUnsubscribe();
     PluginSDK.dispatch({ type: "foo" });
     expect(thisMockFn.mock.calls.length).toEqual(0);

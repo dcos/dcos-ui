@@ -87,7 +87,7 @@ module.exports = {
    * @returns {object} - The related object on the given line or null
    */
   getObjectOnLine(objectInfo, line) {
-    return objectInfo.find(function(info) {
+    return objectInfo.find(info => {
       return info.line === line;
     });
   },

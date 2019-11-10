@@ -1,13 +1,13 @@
-describe("Service Detail Page", function() {
-  context("Services", function() {
-    beforeEach(function() {
+describe("Service Detail Page", () => {
+  context("Services", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy-with-offers",
         nodeHealth: true
       });
     });
 
-    it("shows debug tab when clicked", function() {
+    it("shows debug tab when clicked", () => {
       cy.visitUrl({
         url: "/services/detail/%2Fsleep"
       });

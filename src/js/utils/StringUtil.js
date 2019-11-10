@@ -164,7 +164,7 @@ const StringUtil = {
     }
 
     if (options.wrapValueFunction) {
-      const jsx = head.reduce(function(memo, value, index) {
+      const jsx = head.reduce((memo, value, index) => {
         memo.push(options.wrapValueFunction(value, index));
 
         if (index !== head.length - 1) {
@@ -229,10 +229,10 @@ const StringUtil = {
         .trim();
     }
 
-    const splitID = id.reduce(function(accumulated, element) {
+    const splitID = id.reduce((accumulated, element) => {
       const splitWords = element.split(splitBy.shift());
 
-      splitWords.map(function(token) {
+      splitWords.map(token => {
         accumulated.push(token);
       });
 

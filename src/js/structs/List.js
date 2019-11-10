@@ -137,10 +137,8 @@ module.exports = class List {
     if (filterText) {
       items = StringUtil.filterByString(
         items,
-        function(item) {
-          const searchFields = Object.keys(filterProperties).map(function(
-            prop
-          ) {
+        item => {
+          const searchFields = Object.keys(filterProperties).map(prop => {
             // We need different handlers for item getters since the property
             // since there can be different ways of getting the value needed
 

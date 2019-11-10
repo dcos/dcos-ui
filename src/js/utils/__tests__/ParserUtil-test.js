@@ -2,8 +2,8 @@ const ParserUtil = require("../ParserUtil");
 
 const SET = "SET";
 
-describe("ParserUtil", function() {
-  describe("#combinePasers", function() {
+describe("ParserUtil", () => {
+  describe("#combinePasers", () => {
     function idParser(state) {
       return {
         type: SET,
@@ -12,11 +12,11 @@ describe("ParserUtil", function() {
       };
     }
 
-    it("returns a function", function() {
+    it("returns a function", () => {
       expect(typeof ParserUtil.combineParsers()).toBe("function");
     });
 
-    it("returns the right TransactionLog", function() {
+    it("returns the right TransactionLog", () => {
       const parsers = ParserUtil.combineParsers([idParser]);
       expect(parsers({ id: "test" })).toEqual([
         {
@@ -27,10 +27,10 @@ describe("ParserUtil", function() {
       ]);
     });
 
-    it("has the right ordered TransactionLog with multiple parsers", function() {
+    it("has the right ordered TransactionLog with multiple parsers", () => {
       const parser = ParserUtil.combineParsers([
         idParser,
-        function(state) {
+        state => {
           return {
             type: SET,
             path: "cmd",
@@ -55,11 +55,11 @@ describe("ParserUtil", function() {
         }
       ]);
     });
-    it("has the right order for nested parsers", function() {
-      const containerParser = function(state) {
+    it("has the right order for nested parsers", () => {
+      const containerParser = state => {
         if (state.container != null && state.container.docker != null) {
           return ParserUtil.combineParsers([
-            function(state) {
+            state => {
               return {
                 type: SET,
                 path: "container.docker.image",

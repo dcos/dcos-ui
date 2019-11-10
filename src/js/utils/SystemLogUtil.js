@@ -42,7 +42,7 @@ const SystemLogUtil = {
       return memo;
     }, []);
 
-    const paramsArray = Object.keys(filter).reduce(function(memo, key) {
+    const paramsArray = Object.keys(filter).reduce((memo, key) => {
       if (filter[key] !== "" && filter[key] != null) {
         memo.push(
           `filter=${encodeURIComponent(key)}:${encodeURIComponent(filter[key])}`
@@ -57,18 +57,17 @@ const SystemLogUtil = {
       base = "stream";
     }
 
-    const idArray = ["framework", "executor", "container"].reduce(function(
-      memo,
-      key
-    ) {
-      const id = `${key}ID`;
-      if (options[id] !== "" && options[id] != null) {
-        memo.push(key, options[id]);
-      }
+    const idArray = ["framework", "executor", "container"].reduce(
+      (memo, key) => {
+        const id = `${key}ID`;
+        if (options[id] !== "" && options[id] != null) {
+          memo.push(key, options[id]);
+        }
 
-      return memo;
-    },
-    []);
+        return memo;
+      },
+      []
+    );
 
     return `${Config.logsAPIPrefix}/${nodeID}/logs/v1/${base}/${idArray.join(
       "/"
@@ -99,7 +98,7 @@ const SystemLogUtil = {
         // Clear the accumulated data array
         accumulatedData = [];
 
-        timeoutID = setTimeout(function() {
+        timeoutID = setTimeout(() => {
           // Call callback after wait with accumulatedData
           callback.call(context, accumulatedData);
           // Clear the accumulated data array

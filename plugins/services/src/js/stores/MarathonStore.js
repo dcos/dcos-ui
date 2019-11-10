@@ -497,7 +497,7 @@ class MarathonStore extends GetSetBaseStore {
   processMarathonGroups(data) {
     const groups = new ServiceTree(data);
 
-    const apps = groups.reduceItems(function(map, item) {
+    const apps = groups.reduceItems((map, item) => {
       if (item instanceof Framework) {
         map[item.getFrameworkName().toLowerCase()] = {
           health: item.getHealth(),
@@ -562,9 +562,7 @@ class MarathonStore extends GetSetBaseStore {
   processMarathonDeploymentRollback(data) {
     const id = data.originalDeploymentID;
     if (id != null) {
-      const deployments = this.get("deployments").filterItems(function(
-        deployment
-      ) {
+      const deployments = this.get("deployments").filterItems(deployment => {
         return deployment.getId() !== id;
       });
       this.set({ deployments });
@@ -593,7 +591,7 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonServiceVersions(service) {
     let { serviceID, versions } = service;
-    versions = versions.reduce(function(map, version) {
+    versions = versions.reduce((map, version) => {
       return map.set(version);
     }, new Map());
 

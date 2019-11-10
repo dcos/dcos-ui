@@ -3,12 +3,12 @@ import { marbles } from "rxjs-marbles/jest";
 
 import { linearBackoff } from "../rxjsUtils";
 
-describe("linearBackoff", function() {
+describe("linearBackoff", () => {
   it(
     "retries maxRetries times",
     // To setup marbles test env pass your function wrapped with `marbels`
     // it will inject Context as the first argument named `m` by convention
-    marbles(function(m) {
+    marbles(m => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2#");
 
@@ -22,7 +22,7 @@ describe("linearBackoff", function() {
 
   it(
     "retries infinitey when no maxRetries given",
-    marbles(function(m) {
+    marbles(m => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2------1--(2|)");
 
@@ -33,7 +33,7 @@ describe("linearBackoff", function() {
 
   it(
     "linearly grows the retry delay",
-    marbles(function(m) {
+    marbles(m => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2------1--2#");
 
@@ -44,7 +44,7 @@ describe("linearBackoff", function() {
 
   it(
     "delays the retry no longer than max delay",
-    marbles(function(m) {
+    marbles(m => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2----1--2----1--2#");
 

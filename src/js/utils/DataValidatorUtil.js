@@ -8,7 +8,7 @@ import Objektiv from "objektiv";
  * @return {Objectiv.lens} Returns the lens to address the path
  */
 function path2lens(path, strategy = Objektiv.resolve.tryhard) {
-  return path.reduce(function(parent, segment) {
+  return path.reduce((parent, segment) => {
     if (isNaN(segment)) {
       return parent.then(Objektiv.makeAttrLens(segment, strategy));
     } else {
@@ -31,7 +31,7 @@ const DataValidatorUtil = {
       validatorFn = [validatorFn];
     }
 
-    return validatorFn.reduce(function(errors, validator) {
+    return validatorFn.reduce((errors, validator) => {
       return errors.concat(validator(inputData));
     }, []);
   },
@@ -44,7 +44,7 @@ const DataValidatorUtil = {
    * @returns {Object} Returns an object with the errors in the correct paths
    */
   errorArrayToMap(errors) {
-    return errors.reduce(function(errorMap, error) {
+    return errors.reduce((errorMap, error) => {
       // We cannot place root errors in the map
       if (error.path.length === 0) {
         return errorMap;
@@ -64,19 +64,19 @@ const DataValidatorUtil = {
 
   updateOnlyOnPath(oldList, newList, path) {
     const pathStr = path.join(".");
-    const newErrors = newList.filter(function(error) {
+    const newErrors = newList.filter(error => {
       return error.path.join(".") === pathStr;
     });
 
     // Strip from the old error list:
     // - Errors that exist on the current path
     // - Errors that were removed with the new list
-    const cleanOldList = oldList.filter(function(error) {
+    const cleanOldList = oldList.filter(error => {
       if (error.path.join(".") === pathStr) {
         return false;
       }
 
-      return newList.some(function(newError) {
+      return newList.some(newError => {
         return error.path.join(".") === newError.path.join(".");
       });
     });
@@ -88,7 +88,7 @@ const DataValidatorUtil = {
   stripErrorsOnPath(errorList, path) {
     const pathStr = path.join(".");
 
-    return errorList.filter(function(error) {
+    return errorList.filter(error => {
       return error.path.join(".") !== pathStr;
     });
   }

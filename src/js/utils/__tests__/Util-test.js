@@ -2,28 +2,28 @@ const Util = require("../Util");
 
 let thisSearchObject, thisSearchString, thisFunc, thisDebounced;
 
-describe("Util", function() {
-  describe("#uniqueID", function() {
-    it("returns a unique ID each time it is called", function() {
+describe("Util", () => {
+  describe("#uniqueID", () => {
+    it("returns a unique ID each time it is called", () => {
       const ids = Array(100).fill(null);
-      ids.forEach(function(value, index) {
+      ids.forEach((value, index) => {
         ids[index] = Util.uniqueID("100");
       });
 
-      const result = ids.every(function(id, index, array) {
+      const result = ids.every((id, index, array) => {
         return !array.includes(id, index + 1);
       });
 
       expect(result).toBeTruthy();
     });
 
-    it("provides an integer", function() {
+    it("provides an integer", () => {
       const id = Util.uniqueID("integerID");
 
       expect(typeof id === "number" && id % 1 === 0).toBeTruthy();
     });
 
-    it("starts over from 0 for each namespace", function() {
+    it("starts over from 0 for each namespace", () => {
       Util.uniqueID("firstNamespace");
       Util.uniqueID("firstNamespace");
       const id1 = Util.uniqueID("firstNamespace");
@@ -34,8 +34,8 @@ describe("Util", function() {
     });
   });
 
-  describe("#omit", function() {
-    it("returns a copy of the object", function() {
+  describe("#omit", () => {
+    it("returns a copy of the object", () => {
       var obj = { foo: "bar" };
       var newObject = Util.omit(obj, []);
 
@@ -44,7 +44,7 @@ describe("Util", function() {
       expect(obj.foo).toEqual("bar");
     });
 
-    it("omits key given", function() {
+    it("omits key given", () => {
       var obj = {
         foo: "bar",
         qq: "zzz"
@@ -56,7 +56,7 @@ describe("Util", function() {
       expect(newObject.qq).toEqual(undefined);
     });
 
-    it("omits multiple keys", function() {
+    it("omits multiple keys", () => {
       var obj = {
         foo: "bar",
         qq: "zzz",
@@ -70,8 +70,8 @@ describe("Util", function() {
     });
   });
 
-  describe("#pluck", function() {
-    it("returns a copy of the object", function() {
+  describe("#pluck", () => {
+    it("returns a copy of the object", () => {
       var obj = { foo: "bar" };
       var newObject = Util.pluck(obj, []);
 
@@ -80,7 +80,7 @@ describe("Util", function() {
       expect(obj.foo).toEqual("bar");
     });
 
-    it("allows multiple keys", function() {
+    it("allows multiple keys", () => {
       var obj = {
         foo: "bar",
         qq: "zzz",
@@ -95,49 +95,49 @@ describe("Util", function() {
     });
   });
 
-  describe("#last", function() {
-    describe("with incorrect input", function() {
-      it("returns null for objects", function() {
+  describe("#last", () => {
+    describe("with incorrect input", () => {
+      it("returns null for objects", () => {
         var last = Util.last({});
 
         expect(last).toEqual(null);
       });
 
-      it("returns null for strings", function() {
+      it("returns null for strings", () => {
         var last = Util.last("bla");
 
         expect(last).toEqual(null);
       });
 
-      it("returns null for Numbers", function() {
+      it("returns null for Numbers", () => {
         var last = Util.last(NaN);
 
         expect(last).toEqual(null);
       });
 
-      it("returns null for undefined", function() {
+      it("returns null for undefined", () => {
         var last = Util.last(undefined);
 
         expect(last).toEqual(null);
       });
     });
 
-    describe("with correct input", function() {
-      it("returns the last element in an array", function() {
+    describe("with correct input", () => {
+      it("returns the last element in an array", () => {
         var array = [0, 1, 2, 3];
         var last = Util.last(array);
 
         expect(last).toEqual(3);
       });
 
-      it("returns the last element for an array of size 1", function() {
+      it("returns the last element for an array of size 1", () => {
         var array = [0];
         var last = Util.last(array);
 
         expect(last).toEqual(0);
       });
 
-      it("returns null when given empty array", function() {
+      it("returns null when given empty array", () => {
         var array = [];
         var last = Util.last(array);
 
@@ -146,43 +146,43 @@ describe("Util", function() {
     });
   });
 
-  describe("#findLastIndex", function() {
-    it("returns -1 if empty array", function() {
+  describe("#findLastIndex", () => {
+    it("returns -1 if empty array", () => {
       var array = [];
-      var index = Util.findLastIndex(array, function(obj) {
+      var index = Util.findLastIndex(array, obj => {
         return obj === 1;
       });
       expect(index).toEqual(-1);
     });
-    it("returns -1 if not found", function() {
+    it("returns -1 if not found", () => {
       var array = [1, 2, 3, 4, 5];
-      var index = Util.findLastIndex(array, function(obj) {
+      var index = Util.findLastIndex(array, obj => {
         return obj === 6;
       });
       expect(index).toEqual(-1);
     });
-    it("returns 4", function() {
+    it("returns 4", () => {
       var array = [3, 3, 2, 3, 3, 5];
-      var index = Util.findLastIndex(array, function(obj) {
+      var index = Util.findLastIndex(array, obj => {
         return obj === 3;
       });
       expect(index).toEqual(4);
     });
-    it("returns 1", function() {
+    it("returns 1", () => {
       var array = [
         { a: "a", b: "bbb" },
         { a: "a", b: "bbb" },
         { a: "a", b: "b" }
       ];
-      var index = Util.findLastIndex(array, function(obj) {
+      var index = Util.findLastIndex(array, obj => {
         return obj.b === "bbb";
       });
       expect(index).toEqual(1);
     });
   });
 
-  describe("#findNestedPropertyInObject", function() {
-    beforeEach(function() {
+  describe("#findNestedPropertyInObject", () => {
+    beforeEach(() => {
       thisSearchObject = {
         hello: {
           is: { it: { me: { you: { are: { looking: { for: "?" } } } } } }
@@ -191,56 +191,56 @@ describe("Util", function() {
       thisSearchString = "hello.is.it.me.you.are.looking.for";
     });
 
-    it("finds a nested defined property", function() {
+    it("finds a nested defined property", () => {
       expect(
         Util.findNestedPropertyInObject(thisSearchObject, thisSearchString)
       ).toEqual("?");
     });
 
-    it("handles nested empty string definitions gracefully", function() {
+    it("handles nested empty string definitions gracefully", () => {
       expect(
         Util.findNestedPropertyInObject(thisSearchObject, "hello.")
       ).toEqual(undefined);
     });
 
-    it("handles null search object gracefully", function() {
+    it("handles null search object gracefully", () => {
       expect(Util.findNestedPropertyInObject(null, thisSearchString)).toEqual(
         null
       );
     });
 
-    it("handles undefined gracefully", function() {
+    it("handles undefined gracefully", () => {
       expect(
         Util.findNestedPropertyInObject(undefined, thisSearchString)
       ).toEqual(null);
     });
 
-    it("handles nested empty strings gracefully", function() {
+    it("handles nested empty strings gracefully", () => {
       expect(Util.findNestedPropertyInObject(thisSearchObject, ".")).toEqual(
         undefined
       );
     });
 
-    it("handles nested empty string definition gracefully", function() {
+    it("handles nested empty string definition gracefully", () => {
       expect(Util.findNestedPropertyInObject(thisSearchObject, "")).toEqual(
         undefined
       );
     });
 
-    it("handles null definition gracefully", function() {
+    it("handles null definition gracefully", () => {
       expect(Util.findNestedPropertyInObject(thisSearchObject, null)).toEqual(
         null
       );
     });
 
-    it("handles undefined definition gracefully", function() {
+    it("handles undefined definition gracefully", () => {
       expect(
         Util.findNestedPropertyInObject(thisSearchObject, undefined)
       ).toEqual(null);
     });
   });
 
-  describe("#debounce", function() {
+  describe("#debounce", () => {
     beforeEach(function() {
       thisFunc = jest.genMockFunction();
       thisDebounced = Util.debounce(thisFunc, 200).bind(this, {
@@ -248,14 +248,14 @@ describe("Util", function() {
       });
     });
 
-    it("calls the function", function() {
+    it("calls the function", () => {
       thisDebounced();
       jest.runAllTimers();
 
       expect(thisFunc.mock.calls.length).toBe(1);
     });
 
-    it("it calls the function only once after consecutive calls", function() {
+    it("it calls the function only once after consecutive calls", () => {
       thisDebounced();
       thisDebounced();
       thisDebounced();
@@ -264,7 +264,7 @@ describe("Util", function() {
       expect(thisFunc.mock.calls.length).toBe(1);
     });
 
-    it("calls function with final arguments", function() {
+    it("calls function with final arguments", () => {
       thisDebounced("foo");
       thisDebounced("bar");
       thisDebounced("baz");
@@ -274,8 +274,8 @@ describe("Util", function() {
     });
   });
 
-  describe("deepCopy", function() {
-    it("it returns an actual deep copy", function() {
+  describe("deepCopy", () => {
+    it("it returns an actual deep copy", () => {
       var currentDate = new Date();
 
       var originalObject = {
@@ -304,7 +304,7 @@ describe("Util", function() {
       expect(copiedObject).toEqual(originalObject);
     });
 
-    it("mutating the copy does not affect the original", function() {
+    it("mutating the copy does not affect the original", () => {
       var currentDate = new Date();
 
       var originalObject = {
@@ -348,7 +348,7 @@ describe("Util", function() {
       expect(originalObject2).toEqual(originalObject);
     });
 
-    it("does not clone out of bounds items in arrays", function() {
+    it("does not clone out of bounds items in arrays", () => {
       var originalObject = {
         obj1: {
           array1: [1, 2]
@@ -363,7 +363,7 @@ describe("Util", function() {
       expect(copiedObject.obj1.array1[number]).not.toEqual(3);
     });
 
-    it("does clone an array with normal indices", function() {
+    it("does clone an array with normal indices", () => {
       var originalObject = {
         array: []
       };
@@ -377,7 +377,7 @@ describe("Util", function() {
       expect(Util.deepCopy(originalObject)).toEqual(expectedObject);
     });
 
-    it("does clone an array with unusual small indices", function() {
+    it("does clone an array with unusual small indices", () => {
       var originalObject = {
         array: []
       };
@@ -392,8 +392,8 @@ describe("Util", function() {
     });
   });
 
-  describe("#filterEmptyValues", function() {
-    it("filters empty values from an Object", function() {
+  describe("#filterEmptyValues", () => {
+    it("filters empty values from an Object", () => {
       const expectedObject = {
         booleanFalse: false,
         booleanTrue: true,
@@ -421,66 +421,66 @@ describe("Util", function() {
     });
   });
 
-  describe("#objectToGetParams", function() {
-    it("returns empty string when no params has been provided", function() {
+  describe("#objectToGetParams", () => {
+    it("returns empty string when no params has been provided", () => {
       expect(Util.objectToGetParams({})).toEqual("");
     });
 
-    it("returns filters out null value params", function() {
+    it("returns filters out null value params", () => {
       expect(Util.objectToGetParams({ force: null, use: undefined })).toEqual(
         ""
       );
     });
 
-    it("returns correct query string", function() {
+    it("returns correct query string", () => {
       expect(
         Util.objectToGetParams({ name: "DCOS", partialUpdate: true })
       ).toEqual("?name=DCOS&partialUpdate=true");
     });
 
-    it("escapes both param and its value", function() {
+    it("escapes both param and its value", () => {
       expect(Util.objectToGetParams({ "es%cape": "/some/param" })).toEqual(
         "?es%25cape=%2Fsome%2Fparam"
       );
     });
   });
 
-  describe("#toLowerCaseIfString", function() {
-    it("lowers case string", function() {
+  describe("#toLowerCaseIfString", () => {
+    it("lowers case string", () => {
       expect(Util.toLowerCaseIfString("Name")).toEqual("name");
     });
 
-    it("returns original param", function() {
+    it("returns original param", () => {
       const value = 10;
 
       expect(Util.toLowerCaseIfString(value)).toEqual(value);
     });
   });
 
-  describe("#toUpperCaseIfString", function() {
-    it("uppers case string", function() {
+  describe("#toUpperCaseIfString", () => {
+    it("uppers case string", () => {
       expect(Util.toUpperCaseIfString("Name")).toEqual("NAME");
     });
 
-    it("returns original param", function() {
+    it("returns original param", () => {
       const value = 10;
 
       expect(Util.toUpperCaseIfString(value)).toEqual(value);
     });
   });
 
-  describe("#isString", function() {
-    it("returns true when argument is type string", function() {
+  describe("#isString", () => {
+    it("returns true when argument is type string", () => {
       expect(Util.isString("Name")).toEqual(true);
     });
 
-    it("returns false when argument is NOT type string", function() {
+    it("returns false when argument is NOT type string", () => {
       expect(Util.isString(1)).toEqual(false);
     });
   });
 
-  describe("#parseUrl", function() {
-    it("returns url object representation", function() {
+  describe("#parseUrl", () => {
+    it("returns url object representation", () => {
       const expectedResult = {
         hash: "",
         host: "google.com",
@@ -499,11 +499,11 @@ describe("Util", function() {
       expect(Util.parseUrl(url)).toEqual(expectedResult);
     });
 
-    it("returns null", function() {
+    it("returns null", () => {
       expect(Util.parseUrl(1)).toEqual(null);
     });
 
-    it("returns absolute url if doesn't have protocol", function() {
+    it("returns absolute url if doesn't have protocol", () => {
       const parsedUrl = Util.parseUrl("www.google.com");
       const expectedResult = "https://www.google.com/";
 

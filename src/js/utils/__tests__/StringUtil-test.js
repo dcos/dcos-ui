@@ -1,52 +1,52 @@
 const StringUtil = require("../StringUtil");
 
-describe("StringUtil", function() {
-  describe("#arrayToJoinedString", function() {
-    it("joins array with default separator", function() {
+describe("StringUtil", () => {
+  describe("#arrayToJoinedString", () => {
+    it("joins array with default separator", () => {
       var result = StringUtil.arrayToJoinedString([1, 2]);
 
       expect(result).toEqual("1, 2");
     });
 
-    it("joins array with the given separator", function() {
+    it("joins array with the given separator", () => {
       var result = StringUtil.arrayToJoinedString([1, 2], "-");
 
       expect(result).toEqual("1-2");
     });
 
-    it("does not append separator if array has only one  element", function() {
+    it("does not append separator if array has only one  element", () => {
       var result = StringUtil.arrayToJoinedString([1]);
 
       expect(result).toEqual("1");
     });
 
-    it("returns empty string if array is null", function() {
+    it("returns empty string if array is null", () => {
       var result = StringUtil.arrayToJoinedString(null);
 
       expect(result).toEqual("");
     });
 
-    it("returns empty string if array is undefined", function() {
+    it("returns empty string if array is undefined", () => {
       var result = StringUtil.arrayToJoinedString();
 
       expect(result).toEqual("");
     });
 
-    it("returns empty string if array is and object", function() {
+    it("returns empty string if array is and object", () => {
       var result = StringUtil.arrayToJoinedString({});
 
       expect(result).toEqual("");
     });
 
-    it("returns empty string if array is empty", function() {
+    it("returns empty string if array is empty", () => {
       var result = StringUtil.arrayToJoinedString([]);
 
       expect(result).toEqual("");
     });
   });
 
-  describe("#filterByString", function() {
-    it("filters using a key as getter", function() {
+  describe("#filterByString", () => {
+    it("filters using a key as getter", () => {
       var _return = StringUtil.filterByString(
         [{ id: 0, foo: "bar" }, { id: 1, foo: "baz" }, { id: 2, foo: "bar" }],
         "foo",
@@ -56,10 +56,10 @@ describe("StringUtil", function() {
       expect(_return).toEqual([{ id: 0, foo: "bar" }, { id: 2, foo: "bar" }]);
     });
 
-    it("filters using a function as getter", function() {
+    it("filters using a function as getter", () => {
       var _return = StringUtil.filterByString(
         [{ id: 0, foo: "bar" }, { id: 1, foo: "baz" }, { id: 2, foo: "bar" }],
-        function(el) {
+        el => {
           return el.foo;
         },
         "baz"
@@ -68,148 +68,148 @@ describe("StringUtil", function() {
     });
   });
 
-  describe("#escapeForRegExp", function() {
-    it("escapes string", function() {
+  describe("#escapeForRegExp", () => {
+    it("escapes string", () => {
       var _return = StringUtil.escapeForRegExp("-[]/{}()*+?.\\^$|");
       var escaped = "\\-\\[\\]\\/\\{\\}\\(\\)\\*\\+\\?\\.\\\\\\^\\$\\|";
       expect(_return).toEqual(escaped);
     });
   });
 
-  describe("#isUrl", function() {
-    it("accepts a string starting with http://", function() {
+  describe("#isUrl", () => {
+    it("accepts a string starting with http://", () => {
       var str = "http://asd/";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
-    it("accepts a string starting with https://", function() {
+    it("accepts a string starting with https://", () => {
       var str = "https://.asf";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
-    it("doesn't accept a string with something before http://", function() {
+    it("doesn't accept a string with something before http://", () => {
       var str = "ahttp://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("doesn't accept null", function() {
+    it("doesn't accept null", () => {
       var str = null;
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("doesn't accept a string missing a /", function() {
+    it("doesn't accept a string missing a /", () => {
       var str = "http:/asfasfd";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("doesn't accept a string missing :", function() {
+    it("doesn't accept a string missing :", () => {
       var str = "http//";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("doesn't accept a string that only contains protocol", function() {
+    it("doesn't accept a string that only contains protocol", () => {
       var str = "http://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
-    it("doesn't accept a string that only contains protocol", function() {
+    it("doesn't accept a string that only contains protocol", () => {
       var str = "https://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
   });
 
-  describe("#isEmail", function() {
-    it("accepts a string with @ and . longer than 3 chars", function() {
+  describe("#isEmail", () => {
+    it("accepts a string with @ and . longer than 3 chars", () => {
       var str = "@.as";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
-    it("accepts a string with @ and . longer than 3 chars", function() {
+    it("accepts a string with @ and . longer than 3 chars", () => {
       var str = "a@.a";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
-    it("doesn't accept a string without a .", function() {
+    it("doesn't accept a string without a .", () => {
       var str = "a@aa";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("doesn't accept null", function() {
+    it("doesn't accept null", () => {
       var str = null;
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("doesn't accept a string without a @", function() {
+    it("doesn't accept a string without a @", () => {
       var str = "aw.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
-    it("doesn't accept a string shorter than 4", function() {
+    it("doesn't accept a string shorter than 4", () => {
       var str = "@.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
   });
 
-  describe("#pluralize", function() {
-    it("pluralizes if there's more than one item", function() {
+  describe("#pluralize", () => {
+    it("pluralizes if there's more than one item", () => {
       expect(StringUtil.pluralize("item", 2)).toEqual("items");
     });
 
-    it("pluralizes if there's no items", function() {
+    it("pluralizes if there's no items", () => {
       expect(StringUtil.pluralize("item", 0)).toEqual("items");
     });
 
-    it("doesn't pluralize if there's a single item", function() {
+    it("doesn't pluralize if there's a single item", () => {
       expect(StringUtil.pluralize("item", 1)).toEqual("item");
     });
 
-    it("correctly pluralizes if a word ends with a 'y'", function() {
+    it("correctly pluralizes if a word ends with a 'y'", () => {
       expect(StringUtil.pluralize("butterfly", 2)).toEqual("butterflies");
     });
   });
 
-  describe("#punctuate", function() {
-    it("punctuates a sentence without a period", function() {
+  describe("#punctuate", () => {
+    it("punctuates a sentence without a period", () => {
       expect(StringUtil.punctuate("butterfly is nice")).toEqual(
         "butterfly is nice."
       );
     });
 
-    it("punctuates a single word without a period", function() {
+    it("punctuates a single word without a period", () => {
       expect(StringUtil.punctuate("butterfly")).toEqual("butterfly.");
     });
 
-    it("punctuates a whitespace padded sentence without a period", function() {
+    it("punctuates a whitespace padded sentence without a period", () => {
       expect(StringUtil.punctuate("butterfly is nice ")).toEqual(
         "butterfly is nice."
       );
     });
 
-    it("does not further punctuate a sentence with a period", function() {
+    it("does not further punctuate a sentence with a period", () => {
       expect(StringUtil.punctuate("butterfly is nice.")).toEqual(
         "butterfly is nice."
       );
     });
 
-    it("returns empty string when parameter type not a string", function() {
+    it("returns empty string when parameter type not a string", () => {
       expect(StringUtil.punctuate(1)).toEqual("");
     });
 
-    it("punctuates empty string", function() {
+    it("punctuates empty string", () => {
       expect(StringUtil.punctuate("")).toEqual(".");
     });
   });
 
-  describe("#capitalize", function() {
-    it("capitalizes the string correctly", function() {
+  describe("#capitalize", () => {
+    it("capitalizes the string correctly", () => {
       expect(StringUtil.capitalize("kenny")).toEqual("Kenny");
     });
 
-    it("returns null if input is not a string", function() {
+    it("returns null if input is not a string", () => {
       expect(StringUtil.capitalize(10)).toEqual(null);
     });
 
-    it("does nothing if string is already capitalized", function() {
+    it("does nothing if string is already capitalized", () => {
       var capitalizedString = "Name";
       expect(StringUtil.capitalize(capitalizedString)).toEqual(
         capitalizedString
@@ -217,41 +217,41 @@ describe("StringUtil", function() {
     });
   });
 
-  describe("#lowercase", function() {
-    it("formats the string with the correct case", function() {
+  describe("#lowercase", () => {
+    it("formats the string with the correct case", () => {
       expect(StringUtil.lowercase("Every")).toEqual("every");
     });
 
-    it("returns null if input is not a string", function() {
+    it("returns null if input is not a string", () => {
       expect(StringUtil.lowercase(10)).toEqual(null);
     });
 
-    it("does nothing if string is already lowercase", function() {
+    it("does nothing if string is already lowercase", () => {
       var lowercaseString = "every";
       expect(StringUtil.lowercase(lowercaseString)).toEqual(lowercaseString);
     });
   });
 
-  describe("#humanizeArray", function() {
-    it("returns an empty string for a 0-length array", function() {
+  describe("#humanizeArray", () => {
+    it("returns an empty string for a 0-length array", () => {
       expect(StringUtil.humanizeArray([])).toEqual("");
     });
 
-    it("returns the sole member of a 1-length array", function() {
+    it("returns the sole member of a 1-length array", () => {
       expect(StringUtil.humanizeArray(["one"])).toEqual("one");
     });
 
-    it("joins a 2-length array with 'and'", function() {
+    it("joins a 2-length array with 'and'", () => {
       expect(StringUtil.humanizeArray(["one", "two"])).toEqual("one and two");
     });
 
-    it("joins a 3-length array with commas and 'and'", function() {
+    it("joins a 3-length array with commas and 'and'", () => {
       expect(StringUtil.humanizeArray(["one", "two", "three"])).toEqual(
         "one, two, and three"
       );
     });
 
-    it("allows the user to disable the serial comma", function() {
+    it("allows the user to disable the serial comma", () => {
       expect(
         StringUtil.humanizeArray(["one", "two", "three"], {
           serialComma: false
@@ -260,8 +260,8 @@ describe("StringUtil", function() {
     });
   });
 
-  describe("#parseMarkdown", function() {
-    it("adds _blank target to plain links in text", function() {
+  describe("#parseMarkdown", () => {
+    it("adds _blank target to plain links in text", () => {
       expect(
         StringUtil.parseMarkdown("Hello this is a link http://somelink.com")
           .__html
@@ -270,7 +270,7 @@ describe("StringUtil", function() {
       );
     });
 
-    it("adds _blank target to formatted links in text", function() {
+    it("adds _blank target to formatted links in text", () => {
       expect(
         StringUtil.parseMarkdown("Hello this is a [link](http://somelink.com)")
           .__html
@@ -279,7 +279,7 @@ describe("StringUtil", function() {
       );
     });
 
-    it("does not add target _blank to non-uri segments attached to plain links containing '<a'", function() {
+    it("does not add target _blank to non-uri segments attached to plain links containing '<a'", () => {
       expect(
         StringUtil.parseMarkdown(
           "Hello this is a bad link http://a.com/<a-mean-uri"
@@ -289,7 +289,7 @@ describe("StringUtil", function() {
       );
     });
 
-    it("does not add additional target _blank to uri segments in formatted links containing '<a'", function() {
+    it("does not add additional target _blank to uri segments in formatted links containing '<a'", () => {
       expect(
         StringUtil.parseMarkdown(
           "Hello this is a bad [link](http://a.com/<a-mean-uri)"

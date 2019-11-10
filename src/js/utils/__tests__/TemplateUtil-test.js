@@ -3,12 +3,12 @@ const TemplateUtil = require("../TemplateUtil");
 
 let thisDummyPage;
 
-describe("Template Util", function() {
+describe("Template Util", () => {
   const DummyHeader = () => <h1>Header</h1>;
   const DummyHeader2 = () => <h2>Header 2</h2>;
   const DummyFooter = () => <p>Footer</p>;
 
-  beforeEach(function() {
+  beforeEach(() => {
     thisDummyPage = () => (
       <div>
         <DummyHeader />
@@ -19,12 +19,12 @@ describe("Template Util", function() {
     TemplateUtil.defineChildren(thisDummyPage, { Header: DummyHeader });
   });
 
-  describe("#defineChildren", function() {
-    it("makes children accessible via the parent constructor", function() {
+  describe("#defineChildren", () => {
+    it("makes children accessible via the parent constructor", () => {
       expect(thisDummyPage.Header).toBe(DummyHeader);
     });
 
-    it("tracks the type of each child", function() {
+    it("tracks the type of each child", () => {
       TemplateUtil.defineChildren(thisDummyPage, { Footer: DummyFooter });
       expect(TemplateUtil.getTypesOfTemplateChildren(thisDummyPage)).toEqual([
         DummyHeader,
@@ -32,14 +32,14 @@ describe("Template Util", function() {
       ]);
     });
 
-    it("allows a template children to be overridden", function() {
+    it("allows a template children to be overridden", () => {
       TemplateUtil.defineChildren(thisDummyPage, { Header: DummyHeader2 });
       expect(thisDummyPage.Header).toBe(DummyHeader2);
     });
   });
 
-  describe("#filterTemplateChildren", function() {
-    it("returns all children of an instance which are not template children", function() {
+  describe("#filterTemplateChildren", () => {
+    it("returns all children of an instance which are not template children", () => {
       const children = TemplateUtil.filterTemplateChildren(thisDummyPage, [
         <DummyHeader />,
         <p>A regular child 1</p>,
@@ -49,8 +49,8 @@ describe("Template Util", function() {
     });
   });
 
-  describe("#getChildOfType", function() {
-    it("returns the first child of an instance with the appropriate type", function() {
+  describe("#getChildOfType", () => {
+    it("returns the first child of an instance with the appropriate type", () => {
       const child = TemplateUtil.getChildOfType(
         [<DummyHeader />, <p>A regular child 1</p>, <p>A regular child 2</p>],
         DummyHeader

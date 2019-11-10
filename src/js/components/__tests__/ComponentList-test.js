@@ -6,10 +6,10 @@ const HealthUnitsList = require("../../structs/HealthUnitsList");
 
 let thisComponent;
 
-describe("#ComponentList", function() {
+describe("#ComponentList", () => {
   var healthUnits;
 
-  beforeEach(function() {
+  beforeEach(() => {
     healthUnits = new HealthUnitsList({
       items: [
         { id: "dcos-marathon.service", health: 0, name: "Marathon" },
@@ -26,8 +26,8 @@ describe("#ComponentList", function() {
     );
   });
 
-  describe("#getSortedHealthValues", function() {
-    it("sorts health units by visibility importance", function() {
+  describe("#getSortedHealthValues", () => {
+    it("sorts health units by visibility importance", () => {
       /**
        * health status visibility importance order top to bottom
        * unhealthy > NA > warn/idle > healthy
@@ -90,8 +90,8 @@ describe("#ComponentList", function() {
     });
   });
 
-  describe("#getVisibleComponents", function() {
-    it("only returns the number of visible units", function() {
+  describe("#getVisibleComponents", () => {
+    it("only returns the number of visible units", () => {
       const unitsVisible = thisComponent
         .instance()
         .getVisibleComponents(healthUnits.getItems());

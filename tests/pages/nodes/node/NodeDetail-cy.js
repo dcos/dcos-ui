@@ -1,51 +1,51 @@
 require("../../../_support/utils/ServicesUtil");
 
-describe("Nodes Detail Page", function() {
-  beforeEach(function() {
+describe("Nodes Detail Page", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
       nodeHealth: true
     });
   });
 
-  context("Navigate to node detail page", function() {
-    it("navigates to node detail page", function() {
+  context("Navigate to node detail page", () => {
+    it("navigates to node detail page", () => {
       cy.visitUrl({ url: "/nodes", identify: true });
       var nodeName;
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
       )
         .eq(0)
-        .should(function($row) {
+        .should($row => {
           nodeName = $row[0].textContent;
         })
         .click({ force: true });
 
       cy.hash().should("match", /nodes\/[a-zA-Z0-9-]+/);
 
-      cy.get(".page-header").should(function($title) {
+      cy.get(".page-header").should($title => {
         expect($title).to.contain(nodeName);
       });
     });
 
-    it("shows error in node detail page when node is invalid [10a]", function() {
+    it("shows error in node detail page when node is invalid [10a]", () => {
       cy.visitUrl({ url: "/nodes/INVALID_NODE", identify: true });
 
       cy.hash().should("match", /nodes\/INVALID_NODE/);
-      cy.get(".page-body-content h3").should(function($title) {
+      cy.get(".page-body-content h3").should($title => {
         expect($title).to.contain("Error finding node");
       });
     });
   });
 
-  context("Node Details", function() {
-    it("shows node status", function() {
+  context("Node Details", () => {
+    it("shows node status", () => {
       cy.visitUrl({
         url: `/nodes/20151002-000353-1695027628-5050-1177-S0/details`,
         identify: true
       });
 
-      cy.get("h1.configuration-map-heading").should(function($h1) {
+      cy.get("h1.configuration-map-heading").should($h1 => {
         // Should have found 2 elements
         expect($h1).to.have.length(2);
 
@@ -68,14 +68,14 @@ describe("Nodes Detail Page", function() {
         .contains("Reactivate");
     });
 
-    context("Actions", function() {
-      it("allows deactivation of active node", function() {
+    context("Actions", () => {
+      it("allows deactivation of active node", () => {
         cy.visitUrl({
           url: `/nodes/20151002-000353-1695027628-5050-1177-S1/details`,
           identify: true
         });
 
-        cy.get(".page-header").should(function($title) {
+        cy.get(".page-header").should($title => {
           expect($title).to.contain("dcos-02");
         });
 
@@ -86,13 +86,13 @@ describe("Nodes Detail Page", function() {
           .contains("Deactivate");
       });
 
-      it("allows draining of active node", function() {
+      it("allows draining of active node", () => {
         cy.visitUrl({
           url: `/nodes/20151002-000353-1695027628-5050-1177-S1/details`,
           identify: true
         });
 
-        cy.get(".page-header").should(function($title) {
+        cy.get(".page-header").should($title => {
           expect($title).to.contain("dcos-02");
         });
 

@@ -1,5 +1,5 @@
-describe("Page Header Component", function() {
-  beforeEach(function() {
+describe("Page Header Component", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy"
     });
@@ -8,13 +8,13 @@ describe("Page Header Component", function() {
     });
   });
 
-  context("When breadcrumb contain less than 4 items", function() {
-    it("doesn't truncate breadcrumb", function() {
+  context("When breadcrumb contain less than 4 items", () => {
+    it("doesn't truncate breadcrumb", () => {
       cy.get(".breadcrumbs.breadcrumbs--is-truncated").should("not.exist");
     });
 
-    it("doesn't ellipsis breadcrumb items", function() {
-      cy.get(".breadcrumb").each(function($currentBreadcrumb) {
+    it("doesn't ellipsis breadcrumb items", () => {
+      cy.get(".breadcrumb").each($currentBreadcrumb => {
         expect(
           $currentBreadcrumb[0].classList.value.indexOf(
             "breadcrumb--is-ellipsis"
@@ -24,17 +24,17 @@ describe("Page Header Component", function() {
     });
   });
 
-  context("When breadcrumb contain more than 4 items", function() {
-    beforeEach(function() {
+  context("When breadcrumb contain more than 4 items", () => {
+    beforeEach(() => {
       cy.get(".table-cell-link-primary").click();
     });
 
-    it("truncate breadcrumb", function() {
+    it("truncate breadcrumb", () => {
       cy.get(".breadcrumbs").should("have.class", "breadcrumbs--is-truncated");
     });
 
-    it("last two breadcrumbs are visible", function() {
-      cy.get(".breadcrumb").then(function($breadcrumbs) {
+    it("last two breadcrumbs are visible", () => {
+      cy.get(".breadcrumb").then($breadcrumbs => {
         const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
 
@@ -43,8 +43,8 @@ describe("Page Header Component", function() {
       });
     });
 
-    it("ellipsis breadcrumb in between first breadcrumb and two last breadcrumbs", function() {
-      cy.get(".breadcrumb").then(function($breadcrumbs) {
+    it("ellipsis breadcrumb in between first breadcrumb and two last breadcrumbs", () => {
+      cy.get(".breadcrumb").then($breadcrumbs => {
         const firstItem = $breadcrumbs[0];
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
         const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
@@ -63,7 +63,7 @@ describe("Page Header Component", function() {
       });
     });
 
-    it("display path when hovering ellipsis", function() {
+    it("display path when hovering ellipsis", () => {
       cy.get(".breadcrumb--force-ellipsis")
         .eq(0)
         .trigger("mouseover");
@@ -71,12 +71,12 @@ describe("Page Header Component", function() {
       cy.get(".tooltip").contains("some");
     });
 
-    it("route back to services overview", function() {
+    it("route back to services overview", () => {
       cy.get(".breadcrumb")
         .eq(0)
         .click();
 
-      cy.window().then(function($window) {
+      cy.window().then($window => {
         const hash = $window.location.hash;
         const formattedHash = hash.substring(0, hash.indexOf("?"));
 
@@ -85,25 +85,25 @@ describe("Page Header Component", function() {
     });
   });
 
-  context("Breadcrumb when viewport is narrow", function() {
-    beforeEach(function() {
+  context("Breadcrumb when viewport is narrow", () => {
+    beforeEach(() => {
       cy.viewport("iphone-6");
       cy.get(".table-cell-link-primary").click();
     });
 
-    it("truncate breadcrumb on smaller screen", function() {
+    it("truncate breadcrumb on smaller screen", () => {
       cy.get(".breadcrumbs").should("have.class", "breadcrumbs--is-truncated");
     });
   });
 
-  context("Page header", function() {
-    beforeEach(function() {
+  context("Page header", () => {
+    beforeEach(() => {
       cy.viewport("macbook-15");
       cy.get(".table-cell-link-primary").click();
     });
 
-    it("header tab active indicator is aligned with bottom page header component", function() {
-      cy.get(".page-header").then(function($pageHeader) {
+    it("header tab active indicator is aligned with bottom page header component", () => {
+      cy.get(".page-header").then($pageHeader => {
         const pageHeaderBottomPosition = $pageHeader[0].getBoundingClientRect()
           .bottom;
         const $pageHeaderActiveTab = $pageHeader.find(
@@ -119,12 +119,12 @@ describe("Page Header Component", function() {
     });
   });
 
-  context("Page header in narrow screen", function() {
-    beforeEach(function() {
+  context("Page header in narrow screen", () => {
+    beforeEach(() => {
       cy.viewport("iphone-6");
     });
 
-    it("header actions is visible", function() {
+    it("header actions is visible", () => {
       cy.get(".page-header-actions");
     });
   });

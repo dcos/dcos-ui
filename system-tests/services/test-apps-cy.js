@@ -2,12 +2,12 @@ require("../_support/utils/ServicesUtil");
 
 // creates an app with ucr config and command
 // creates an app with persistent volume
-describe("Services", function() {
+describe("Services", () => {
   /**
    * Test the applications
    */
-  describe("Applications", function() {
-    beforeEach(function() {
+  describe("Applications", () => {
+    beforeEach(() => {
       cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}/create`);
       cy.server()
         .route("POST", /\/service\/marathon\/v2\/apps/)
@@ -27,7 +27,7 @@ describe("Services", function() {
         .click();
     }
 
-    it("creates a simple app", function() {
+    it("creates a simple app", () => {
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -92,7 +92,7 @@ describe("Services", function() {
       // Test Universal Container Runtime (UCR) again? should be tested before...
     });
 
-    it("fails create the same app name again", function() {
+    it("fails create the same app name again", () => {
       // same as above
       const serviceName = "app-with-inline-shell-script";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
@@ -132,7 +132,7 @@ describe("Services", function() {
       cy.get(".infoBoxWrapper").contains(dangerMessage);
     });
 
-    it("creates an app with artifacts", function() {
+    it("creates an app with artifacts", () => {
       const serviceName = "app-with-artifacts";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -221,7 +221,7 @@ describe("Services", function() {
         .should("have.value", "http://lorempicsum.com/simpsons/600/400/3");
     });
 
-    it.skip("creates an app with command health check", function() {
+    it.skip("creates an app with command health check", () => {
       const serviceName = "app-with-command-health-check";
 
       // Select 'Single Container'
@@ -341,7 +341,7 @@ describe("Services", function() {
         .should("have.value", "sleep 5; exit 0");
     });
 
-    it("creates an app with docker config", function() {
+    it("creates an app with docker config", () => {
       const serviceName = "app-with-docker-config";
       const cmdline = "python3 -m http.server 8080";
 
@@ -460,7 +460,7 @@ describe("Services", function() {
         .should("have.value", "http");
     });
 
-    it("creates an app with ucr config and docker container", function() {
+    it("creates an app with ucr config and docker container", () => {
       const serviceName = "app-with-ucr-config-and-docker-container";
       const cmdline = "python3 -m http.server 8080";
 
@@ -586,7 +586,7 @@ describe("Services", function() {
         .should("have.value", "http");
     });
 
-    it("creates an app with ucr config and command", function() {
+    it("creates an app with ucr config and command", () => {
       const serviceName = "app-with-ucr-config-and-command";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -706,7 +706,7 @@ describe("Services", function() {
         .should("have.value", "http");
     });
 
-    it("creates an app with environment variables", function() {
+    it("creates an app with environment variables", () => {
       const serviceName = "app-with-environment-variables";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -819,7 +819,7 @@ describe("Services", function() {
       cy.get('input[name="env.3.value"]').should("have.value", "test");
     });
 
-    it.skip("creates an app with HTTP health check", function() {
+    it.skip("creates an app with HTTP health check", () => {
       const serviceName = "app-with-http-health-check";
 
       // Select 'Single Container'
@@ -961,7 +961,7 @@ describe("Services", function() {
         .should("have.value", "/");
     });
 
-    it("creates an app with labels", function() {
+    it("creates an app with labels", () => {
       const serviceName = "app-with-labels";
       const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
 
@@ -1079,7 +1079,7 @@ describe("Services", function() {
       cy.get('input[name="labels.3.value"]').should("have.value", "test");
     });
 
-    it("creates an app with persistent volume", function() {
+    it("creates an app with persistent volume", () => {
       const serviceName = "app-with-persistent-volume";
       const cmdline =
         "while true ; do echo 'test' > test/echo ; sleep 100 ; done";
@@ -1177,7 +1177,7 @@ describe("Services", function() {
         .should("have.value", "test");
     });
 
-    it("creates an app with service address", function() {
+    it("creates an app with service address", () => {
       const serviceName = "app-with-service-address";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";
@@ -1242,7 +1242,7 @@ describe("Services", function() {
       cy.get(".page-body-content .service-table").contains(serviceName);
     });
 
-    it("creates an app with virtual network", function() {
+    it("creates an app with virtual network", () => {
       const serviceName = "app-with-virtual-network";
       const command = "python3 -m http.server 8080";
       const containerImage = "python:3";

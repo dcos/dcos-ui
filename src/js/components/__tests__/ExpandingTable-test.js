@@ -7,20 +7,20 @@ const ExpandingTable = require("../ExpandingTable");
 
 let thisColumns, thisRows, thisContainer;
 
-describe("ExpandingTable", function() {
-  beforeEach(function() {
+describe("ExpandingTable", () => {
+  beforeEach(() => {
     thisColumns = [{ heading() {}, prop: "id" }];
     thisRows = [{ id: "foo" }, { id: "bar" }];
     thisContainer = global.document.createElement("div");
   });
 
-  afterEach(function() {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("#render", function() {
-    describe("#expandRow", function() {
-      it("adds a row to state.expandedRows", function() {
+  describe("#render", () => {
+    describe("#expandRow", () => {
+      it("adds a row to state.expandedRows", () => {
         const instance = ReactDOM.render(
           <ExpandingTable columns={thisColumns} data={thisRows} />,
           thisContainer
@@ -31,7 +31,7 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["foo"]).toBeTruthy();
       });
 
-      it("removes a row from state.expandedRows if expanded", function() {
+      it("removes a row from state.expandedRows if expanded", () => {
         const instance = ReactDOM.render(
           <ExpandingTable columns={thisColumns} data={thisRows} />,
           thisContainer
@@ -43,7 +43,7 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["foo"]).toBeFalsy();
       });
 
-      it("allows multiple rows in state.expandedRows", function() {
+      it("allows multiple rows in state.expandedRows", () => {
         const instance = ReactDOM.render(
           <ExpandingTable columns={thisColumns} data={thisRows} />,
           thisContainer
@@ -56,7 +56,7 @@ describe("ExpandingTable", function() {
         expect(instance.state.expandedRows["bar"]).toBeTruthy();
       });
 
-      it("expands all rows on mount when expandRowsByDefault is true", function() {
+      it("expands all rows on mount when expandRowsByDefault is true", () => {
         const instance = ReactDOM.render(
           <ExpandingTable
             columns={thisColumns}
@@ -77,8 +77,8 @@ describe("ExpandingTable", function() {
       });
     });
 
-    describe("#getRenderer", function() {
-      it("proxies the render method on each column", function() {
+    describe("#getRenderer", () => {
+      it("proxies the render method on each column", () => {
         const renderSpy = jasmine.createSpy("renderSpy");
         thisColumns[0].render = renderSpy;
 

@@ -81,7 +81,7 @@ module.exports = class PodContainer extends Item {
     return (
       conditions &&
       Array.isArray(conditions) &&
-      conditions.some(function(cnd) {
+      conditions.some(cnd => {
         return cnd.name === "healthy";
       })
     );
@@ -91,7 +91,7 @@ module.exports = class PodContainer extends Item {
     if (this.hasHealthChecks()) {
       // If we have at least 1 health check and it has failed, we are assumed to
       // be unhealthy.
-      return !this.get("conditions").some(function(cnd) {
+      return !this.get("conditions").some(cnd => {
         return cnd.name === "healthy" && cnd.value === "false";
       });
     }

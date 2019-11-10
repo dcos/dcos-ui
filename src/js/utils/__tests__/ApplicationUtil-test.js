@@ -3,13 +3,13 @@ const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("../../constants/EventTypes");
 const MesosSummaryStore = require("../../stores/MesosSummaryStore");
 
-describe("ApplicationUtil", function() {
-  describe("#invokeAfterPageLoad", function() {
-    it("calls callback right away", function() {
+describe("ApplicationUtil", () => {
+  describe("#invokeAfterPageLoad", () => {
+    it("calls callback right away", () => {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = function() {
+      global.getPageLoadedTime = () => {
         return now - Config.applicationRenderDelay;
       };
 
@@ -19,11 +19,11 @@ describe("ApplicationUtil", function() {
       expect(handler).toHaveBeenCalled();
     });
 
-    it("calls after time has elapsed", function() {
+    it("calls after time has elapsed", () => {
       const handler = jasmine.createSpy("handler");
       const now = Date.now();
 
-      global.getPageLoadedTime = function() {
+      global.getPageLoadedTime = () => {
         return now;
       };
 
@@ -37,8 +37,8 @@ describe("ApplicationUtil", function() {
     });
   });
 
-  describe("#beginTemporaryPolling", function() {
-    it("calls callback once event is emitted", function() {
+  describe("#beginTemporaryPolling", () => {
+    it("calls callback once event is emitted", () => {
       const handler = jasmine.createSpy("handler");
       ApplicationUtil.beginTemporaryPolling(handler);
       expect(handler).not.toBeCalled();

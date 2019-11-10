@@ -4,7 +4,7 @@ import DirectoryItem from "./DirectoryItem";
 
 class TaskDirectory extends List {
   findFile(name) {
-    return this.getItems().find(function(file) {
+    return this.getItems().find(file => {
       return file.getName() === name;
     });
   }

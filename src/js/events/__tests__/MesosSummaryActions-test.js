@@ -25,34 +25,34 @@ global.analytics = {
   log() {}
 };
 
-Hooks.addFilter("hasCapability", function() {
+Hooks.addFilter("hasCapability", () => {
   return true;
 });
 
-describe("Mesos State Actions", function() {
-  beforeEach(function() {
+describe("Mesos State Actions", () => {
+  beforeEach(() => {
     Config.historyServer = "http://historyserver";
     Config.rootUrl = "http://mesosserver";
     spyOn(RequestUtil, "json");
   });
 
-  describe("#fetchSummary", function() {
-    beforeEach(function() {
+  describe("#fetchSummary", () => {
+    beforeEach(() => {
       spyOn(AppDispatcher, "handleServerAction");
-      RequestUtil.json.and.callFake(function(req) {
+      RequestUtil.json.and.callFake(req => {
         req.error({ message: "Guru Meditation" });
       });
     });
 
-    afterEach(function() {
+    afterEach(() => {
       // Clean up debouncing
-      RequestUtil.json.and.callFake(function(req) {
+      RequestUtil.json.and.callFake(req => {
         req.success();
       });
       MesosSummaryActions.fetchSummary();
     });
 
-    it("falls back to the Mesos endpoint if the history service is offline on initial fetch", function() {
+    it("falls back to the Mesos endpoint if the history service is offline on initial fetch", () => {
       MesosSummaryActions.fetchSummary(TimeScales.MINUTE);
       expect(RequestUtil.json).toHaveBeenCalled();
       expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(
@@ -60,7 +60,7 @@ describe("Mesos State Actions", function() {
       );
     });
 
-    it("falls back to the Mesos endpoint if the history service goes offline", function() {
+    it("falls back to the Mesos endpoint if the history service goes offline", () => {
       MesosSummaryActions.fetchSummary();
       expect(RequestUtil.json).toHaveBeenCalled();
       expect(RequestUtil.json.calls.mostRecent().args[0].url).toContain(

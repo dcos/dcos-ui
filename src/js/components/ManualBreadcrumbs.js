@@ -94,13 +94,12 @@ class ManualBreadcrumbs extends React.Component {
 
   getExpandedWidth() {
     // array/splat casts NodeList to array
-    const listItems = [...ReactDOM.findDOMNode(this).children].filter(function(
-      _,
-      index
-    ) {
-      // Filter out even nodes containing '>'
-      return index % 2 === 0;
-    });
+    const listItems = [...ReactDOM.findDOMNode(this).children].filter(
+      (_, index) => {
+        // Filter out even nodes containing '>'
+        return index % 2 === 0;
+      }
+    );
 
     return listItems
       .map((item, index) => {
@@ -112,7 +111,7 @@ class ManualBreadcrumbs extends React.Component {
 
         return this.getWidthFromCollapsedItem(item);
       })
-      .reduce(function(totalWidth, itemWidth) {
+      .reduce((totalWidth, itemWidth) => {
         return totalWidth + itemWidth;
       }, this.getLastItemWidth());
   }

@@ -36,7 +36,7 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
   getConstraints() {
     const constraints = this.props.appConfig.constraints || [];
 
-    return constraints.map(function([fieldName, operator, value]) {
+    return constraints.map(([fieldName, operator, value]) => {
       if (PlacementConstraintsUtil.requiresEmptyValue(operator)) {
         value = <Trans render="em">Not Applicable</Trans>;
       }

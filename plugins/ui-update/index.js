@@ -1,6 +1,6 @@
 import SDK from "./SDK";
 
-module.exports = function(PluginSDK) {
+module.exports = PluginSDK => {
   SDK.setSDK(PluginSDK);
 
   const PluginHooks = require("./hooks");

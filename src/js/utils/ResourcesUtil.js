@@ -10,26 +10,25 @@ const DefaultResourceTypes = {
 };
 
 // Let's create an instance of a Node with our default resources
-const fakeUsedResources = Object.keys(DefaultResourceTypes).reduce(function(
-  memo,
-  resource
-) {
-  memo[resource] = 0;
+const fakeUsedResources = Object.keys(DefaultResourceTypes).reduce(
+  (memo, resource) => {
+    memo[resource] = 0;
 
-  return memo;
-},
-{});
+    return memo;
+  },
+  {}
+);
 const fakeNode = new Node({ used_resources: fakeUsedResources });
 
-const usedColors = Object.keys(DefaultResourceTypes).map(function(resource) {
+const usedColors = Object.keys(DefaultResourceTypes).map(resource => {
   return DefaultResourceTypes[resource].colorID;
 });
 const availableColors = Array(9)
   .fill()
-  .map(function(value, index) {
+  .map((value, index) => {
     return index;
   })
-  .filter(function(value) {
+  .filter(value => {
     return usedColors.indexOf(value) === -1;
   });
 
@@ -65,7 +64,7 @@ const ResourcesUtil = {
     let resources = Object.keys(usedResources);
 
     if (excludeList.length > 0) {
-      resources = resources.filter(function(resource) {
+      resources = resources.filter(resource => {
         // If it's not in the exclude list, we want it
         return excludeList.indexOf(resource) === -1;
       });

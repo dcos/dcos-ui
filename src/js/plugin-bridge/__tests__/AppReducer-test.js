@@ -11,13 +11,13 @@ function getApplicationState() {
   return PluginSDK.Store.getState()[APPLICATION];
 }
 
-describe("AppReducer", function() {
+describe("AppReducer", () => {
   var expectedState = {
     foo: "bar",
     qux: { foo: "bar" }
   };
 
-  it("alters state correctly when no plugins loaded", function() {
+  it("alters state correctly when no plugins loaded", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -35,7 +35,7 @@ describe("AppReducer", function() {
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
-  it("alters state correctly after plugins loaded", function() {
+  it("alters state correctly after plugins loaded", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -47,8 +47,8 @@ describe("AppReducer", function() {
       data: { foo: "bar" }
     });
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(function() {
-      return function() {
+    var mockPlugin = jest.genMockFunction().mockImplementation(() => {
+      return () => {
         return { foo: "bar" };
       };
     });
@@ -68,7 +68,7 @@ describe("AppReducer", function() {
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
-  it("alters state correctly for storeID", function() {
+  it("alters state correctly for storeID", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -86,10 +86,10 @@ describe("AppReducer", function() {
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
-  it("does not alter state if action dispatched from plugin", function() {
+  it("does not alter state if action dispatched from plugin", () => {
     var pluginDispatch;
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(function(SDK) {
+    var mockPlugin = jest.genMockFunction().mockImplementation(SDK => {
       pluginDispatch = SDK.dispatch;
     });
 
@@ -113,7 +113,7 @@ describe("AppReducer", function() {
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
-  it("clones state", function() {
+  it("clones state", () => {
     var nestedObj = {};
     var data = {
       foo: "bar",

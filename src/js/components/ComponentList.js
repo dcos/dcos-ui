@@ -7,7 +7,7 @@ import React from "react";
 
 class ComponentList extends React.PureComponent {
   getComponentListContent(units) {
-    return units.map(function(unit) {
+    return units.map(unit => {
       const health = unit.getHealth();
       const healthClasses = classNames("text-align-right", health.classNames);
       const unitID = unit.get("id");
@@ -50,7 +50,7 @@ class ComponentList extends React.PureComponent {
    * @returns {Number} item position
    */
   getSortedHealthValues(items) {
-    items.sort(function(a, b) {
+    items.sort((a, b) => {
       let aHealthScore = a.getHealth().sortingValue;
       let bHealthScore = b.getHealth().sortingValue;
 

@@ -9,7 +9,7 @@ const MISSING_HEALTH_NODE = {
 
 // Mutates node data with node health data. This is much faster than mapping and creating new node objects
 const enrichNodeDataWithHealthData = (nodes, healthData) => {
-  nodes.forEach(function(node) {
+  nodes.forEach(node => {
     const matchedHealthNode = healthData[node.hostname] || MISSING_HEALTH_NODE;
 
     node.health = matchedHealthNode.health;

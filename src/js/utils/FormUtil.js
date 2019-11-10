@@ -36,7 +36,7 @@ const FormUtil = {
    * @param {Number} index To add to make name unique (should reuse same index).
    */
   getMultipleFieldDefinition(prop, id, definition, model, index = 0) {
-    return definition.map(function(definitionField) {
+    return definition.map(definitionField => {
       definitionField = Util.deepCopy(definitionField);
       // Use index for key, so we can reuse same key for same field,
       // to not make react think it is a completely new field
@@ -63,7 +63,7 @@ const FormUtil = {
     const propValues = {};
     model = Object.assign({}, model);
 
-    Object.keys(model).forEach(function(key) {
+    Object.keys(model).forEach(key => {
       if (isNotMultipleProp(key) || !FormUtil.getProp(key)) {
         return;
       }
@@ -91,8 +91,8 @@ const FormUtil = {
       }
     });
 
-    Object.keys(propValues).forEach(function(propValue) {
-      propValues[propValue] = propValues[propValue].filter(function(item) {
+    Object.keys(propValues).forEach(propValue => {
+      propValues[propValue] = propValues[propValue].filter(item => {
         return item !== undefined;
       });
     });
@@ -139,7 +139,7 @@ const FormUtil = {
       }
     });
 
-    fieldsToRemove.forEach(function(field) {
+    fieldsToRemove.forEach(field => {
       definition.splice(definition.indexOf(field), 1);
     });
   },
@@ -197,7 +197,7 @@ const FormUtil = {
 
     // If an array of definitions, then call on each individual field.
     if (Array.isArray(definition)) {
-      definition.forEach(function(fieldDefinition) {
+      definition.forEach(fieldDefinition => {
         FormUtil.forEachDefinition(fieldDefinition, callback);
       });
 
@@ -218,7 +218,7 @@ const FormUtil = {
 
     // This means we're at the root of a multiple definition.
     if (!React.isValidElement(definition)) {
-      Object.values(definition).forEach(function(nestedDefinition) {
+      Object.values(definition).forEach(nestedDefinition => {
         const isNested = Object.prototype.hasOwnProperty.call(
           nestedDefinition,
           "definition"

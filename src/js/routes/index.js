@@ -37,7 +37,7 @@ function getApplicationRoutes() {
     // Plugins routes will be appended to this array
   );
 
-  routeFactories.forEach(function(routeFactory) {
+  routeFactories.forEach(routeFactory => {
     routes = routes.concat(routeFactory.getRoutes());
   });
 

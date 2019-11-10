@@ -14,7 +14,7 @@ const METHODS_TO_BIND = [
 class FormModal extends React.Component {
   constructor() {
     super();
-    this.triggerSubmit = function() {};
+    this.triggerSubmit = () => {};
 
     this.formWrapperRef = React.createRef();
 
@@ -70,7 +70,7 @@ class FormModal extends React.Component {
       buttonClassSet[buttonDefinition.className] = true;
       buttonClassSet = classNames(buttonClassSet);
 
-      let handleOnClick = function() {};
+      let handleOnClick = () => {};
       if (buttonDefinition.isClose) {
         handleOnClick = this.props.onClose;
       }

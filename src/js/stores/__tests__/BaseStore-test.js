@@ -2,32 +2,32 @@ import BaseStore from "../BaseStore";
 
 let thisInstance;
 
-describe("BaseStore", function() {
-  beforeEach(function() {
+describe("BaseStore", () => {
+  beforeEach(() => {
     thisInstance = new BaseStore();
     thisInstance.on = jasmine.createSpy("eventOn");
     thisInstance.removeListener = jasmine.createSpy("eventRemoveListener");
   });
 
-  describe("#addChangeListener", function() {
-    it("has addChangeListener function", function() {
+  describe("#addChangeListener", () => {
+    it("has addChangeListener function", () => {
       expect(typeof thisInstance.addChangeListener).toEqual("function");
     });
 
-    it("calls on-function", function() {
-      var handler = function() {};
+    it("calls on-function", () => {
+      var handler = () => {};
       thisInstance.addChangeListener("change", handler);
       expect(thisInstance.on).toHaveBeenCalledWith("change", handler);
     });
   });
 
-  describe("#removeChangeListener", function() {
-    it("has removeChangeListener function", function() {
+  describe("#removeChangeListener", () => {
+    it("has removeChangeListener function", () => {
       expect(typeof thisInstance.removeChangeListener).toEqual("function");
     });
 
-    it("calls removeListener-function", function() {
-      var handler = function() {};
+    it("calls removeListener-function", () => {
+      var handler = () => {};
       thisInstance.removeChangeListener("change", handler);
       expect(thisInstance.removeListener).toHaveBeenCalledWith(
         "change",

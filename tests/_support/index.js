@@ -2,7 +2,7 @@ const router = require("./utils/router");
 require("./formChildCommands");
 require("./utils/ServicesUtil");
 
-Cypress.Commands.add("configureCluster", function(configuration) {
+Cypress.Commands.add("configureCluster", configuration => {
   router.clearRoutes();
   cy.server();
 
@@ -852,7 +852,7 @@ Cypress.Commands.add("configureCluster", function(configuration) {
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
 });
 
-Cypress.Commands.add("visitUrl", function(options) {
+Cypress.Commands.add("visitUrl", options => {
   cy.visit(Cypress.env("CLUSTER_URL") + "/#" + options.url, {
     onBeforeLoad(win) {
       win.document.cookie =
@@ -873,11 +873,11 @@ Cypress.Commands.add("visitUrl", function(options) {
   });
 });
 
-Cypress.Commands.add("getAPIResponse", function(endpoint, callback) {
+Cypress.Commands.add("getAPIResponse", (endpoint, callback) => {
   router.getAPIResponse(endpoint, callback);
 });
 
-beforeEach(function() {
+beforeEach(() => {
   // now this runs prior to every test
   // across all files no matter what
   const settings = JSON.parse(localStorage.getItem("dcosUserSettings"));

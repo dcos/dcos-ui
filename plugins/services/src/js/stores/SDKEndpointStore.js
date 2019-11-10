@@ -107,7 +107,7 @@ class SDKEndpointStore extends GetSetBaseStore {
   }
 
   processEndpoints(serviceId, endpointsArray) {
-    const endpoints = endpointsArray.reduce(function(acc, endpointName) {
+    const endpoints = endpointsArray.reduce((acc, endpointName) => {
       acc[endpointName] = {};
 
       return acc;
@@ -118,7 +118,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       error: ""
     });
 
-    endpointsArray.forEach(function(endpoint) {
+    endpointsArray.forEach(endpoint => {
       SDKEndpointActions.fetchEndpoint(serviceId, endpoint);
     }, this);
   }

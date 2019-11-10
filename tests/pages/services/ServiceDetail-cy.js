@@ -1,14 +1,14 @@
-describe("Service Detail Page", function() {
-  context("Services", function() {
-    beforeEach(function() {
+describe("Service Detail Page", () => {
+  context("Services", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         nodeHealth: true
       });
     });
 
-    context("Navigate to service page", function() {
-      it("shows the Page Not Found alert panel", function() {
+    context("Navigate to service page", () => {
+      it("shows the Page Not Found alert panel", () => {
         cy.visitUrl({
           url: "/services/non-existing-service"
         });
@@ -16,15 +16,15 @@ describe("Service Detail Page", function() {
       });
     });
 
-    context("Navigate to service detail page", function() {
-      it("shows the Service Not Found alert panel in page contents", function() {
+    context("Navigate to service detail page", () => {
+      it("shows the Service Not Found alert panel in page contents", () => {
         cy.visitUrl({
           url: "/services/detail/non-existing-service"
         });
         cy.get(".page-body-content").contains("Service not found");
       });
 
-      it("shows instances tab per default", function() {
+      it("shows instances tab per default", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
         });
@@ -37,7 +37,7 @@ describe("Service Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fsleep\/tasks.*/);
       });
 
-      it("shows configuration tab when clicked", function() {
+      it("shows configuration tab when clicked", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
         });
@@ -56,7 +56,7 @@ describe("Service Detail Page", function() {
         );
       });
 
-      it("shows debug tab when clicked", function() {
+      it("shows debug tab when clicked", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
         });
@@ -76,7 +76,7 @@ describe("Service Detail Page", function() {
         cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
       });
 
-      it("shows endpoints tab when clicked", function() {
+      it("shows endpoints tab when clicked", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
         });
@@ -121,7 +121,7 @@ describe("Service Detail Page", function() {
           .and("contain", "sleep.marathon.mesos");
       });
 
-      it("shows volumes tab when clicked", function() {
+      it("shows volumes tab when clicked", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fsleep"
         });
@@ -141,9 +141,9 @@ describe("Service Detail Page", function() {
       });
     });
 
-    context("Filter Tasks", function() {
+    context("Filter Tasks", () => {
       const DEFAULT_ROWS = 1; // Headline
-      beforeEach(function() {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
@@ -154,11 +154,11 @@ describe("Service Detail Page", function() {
         });
       });
 
-      it("starts with no filters", function() {
+      it("starts with no filters", () => {
         cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 3);
       });
 
-      it("can filter tasks by status", function() {
+      it("can filter tasks by status", () => {
         cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
@@ -178,7 +178,7 @@ describe("Service Detail Page", function() {
         cy.get(".table tr.inactive").should("to.have.length", 22);
       });
 
-      it("can filter tasks by name", function() {
+      it("can filter tasks by name", () => {
         cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
@@ -199,7 +199,7 @@ describe("Service Detail Page", function() {
         cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
       });
 
-      it("can filter tasks by zone", function() {
+      it("can filter tasks by zone", () => {
         // wait for zones to load
         cy.wait(2500);
 
@@ -215,7 +215,7 @@ describe("Service Detail Page", function() {
         cy.get(".table tr").should("to.have.length", DEFAULT_ROWS + 1);
       });
 
-      it("can filter by typing a filter", function() {
+      it("can filter by typing a filter", () => {
         cy.get(".filter-input-text")
           .focus()
           .type("{selectall}{backspace}")
@@ -226,8 +226,8 @@ describe("Service Detail Page", function() {
     });
   });
 
-  context("SDK Services", function() {
-    beforeEach(function() {
+  context("SDK Services", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-for-each-health",
         nodeHealth: true,
@@ -235,8 +235,8 @@ describe("Service Detail Page", function() {
       });
     });
 
-    context("Configuration Tab", function() {
-      it("shows configuration of a service", function() {
+    context("Configuration Tab", () => {
+      it("shows configuration of a service", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fcassandra-healthy/configuration"
         });
@@ -248,7 +248,7 @@ describe("Service Detail Page", function() {
         cy.get("h1").contains("Coordinator Nodes");
       });
 
-      it("handles network errors", function() {
+      it("handles network errors", () => {
         cy.visitUrl({
           url: "/services/detail/%2Fcassandra-healthy/configuration"
         });
@@ -267,7 +267,7 @@ describe("Service Detail Page", function() {
       });
     });
 
-    it("edit config button opens the edit flow", function() {
+    it("edit config button opens the edit flow", () => {
       cy.visitUrl({
         url: "/services/detail/%2Fcassandra-healthy/configuration"
       });
@@ -281,7 +281,7 @@ describe("Service Detail Page", function() {
         .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
     });
 
-    it("download button exists", function() {
+    it("download button exists", () => {
       cy.visitUrl({
         url: "/services/detail/%2Fcassandra-healthy/configuration"
       });
@@ -290,15 +290,15 @@ describe("Service Detail Page", function() {
     });
   });
 
-  context("Delayed service", function() {
-    beforeEach(function() {
+  context("Delayed service", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-delayed",
         nodeHealth: true
       });
     });
 
-    it("shows debug tab when clicked", function() {
+    it("shows debug tab when clicked", () => {
       cy.visitUrl({
         url: "/services/detail/%2Fsleep"
       });
@@ -330,7 +330,7 @@ describe("Service Detail Page", function() {
     });
   });
 
-  context("Actions", function() {
+  context("Actions", () => {
     function openDropdown() {
       cy.get(".button-narrow").click();
     }
@@ -341,9 +341,9 @@ describe("Service Detail Page", function() {
         .click();
     }
 
-    context("Reset Delay Action", function() {
-      context("Delayed service", function() {
-        beforeEach(function() {
+    context("Reset Delay Action", () => {
+      context("Delayed service", () => {
+        beforeEach(() => {
           cy.configureCluster({
             mesos: "1-task-delayed",
             nodeHealth: true
@@ -355,7 +355,7 @@ describe("Service Detail Page", function() {
           clickDropdownAction("Reset Delay");
         });
 
-        it("shows a toast notification", function() {
+        it("shows a toast notification", () => {
           cy.route({
             method: "DELETE",
             url: /marathon\/v2\/queue\/\/sleep\/delay/,
@@ -365,8 +365,8 @@ describe("Service Detail Page", function() {
         });
       });
 
-      context("Non-delayed service", function() {
-        beforeEach(function() {
+      context("Non-delayed service", () => {
+        beforeEach(() => {
           cy.configureCluster({
             mesos: "1-task-healthy",
             nodeHealth: true
@@ -377,7 +377,7 @@ describe("Service Detail Page", function() {
           openDropdown("sleep");
         });
 
-        it("doesn't have a reset delayed action", function() {
+        it("doesn't have a reset delayed action", () => {
           cy.get(".dropdown-menu-items")
             .contains("Reset Delay")
             .should("not.exist");

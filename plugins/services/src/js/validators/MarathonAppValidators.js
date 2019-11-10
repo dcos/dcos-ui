@@ -184,14 +184,14 @@ const MarathonAppValidators = {
   validateLabels(app) {
     if (ValidatorUtil.isDefined(app.labels)) {
       return Object.keys(app.labels)
-        .reduce(function(accumulator, labelKey) {
+        .reduce((accumulator, labelKey) => {
           if (/^\s|\s$/.test(labelKey)) {
             accumulator.push(`labels.${labelKey}`);
           }
 
           return accumulator;
         }, [])
-        .map(function(labelPath) {
+        .map(labelPath => {
           return {
             path: [labelPath],
             message: "Keys must not start or end with whitespace characters",
@@ -214,7 +214,7 @@ const MarathonAppValidators = {
       ValidatorUtil.isDefined(app.container) &&
       ValidatorUtil.isDefined(app.container.volumes)
     ) {
-      return app.container.volumes.reduce(function(accumulator, volume, index) {
+      return app.container.volumes.reduce((accumulator, volume, index) => {
         if (
           !ValidatorUtil.isDefined(volume.persistent) ||
           !ValidatorUtil.isDefined(volume.persistent.profileName)

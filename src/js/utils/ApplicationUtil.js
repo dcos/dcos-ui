@@ -48,14 +48,14 @@ module.exports = {
         keepPollingAlive
       );
 
-      mesosEvents.forEach(function(event) {
+      mesosEvents.forEach(event => {
         MesosSummaryStore.removeChangeListener(event, onMesosSummaryChange);
       });
 
       onSummaryReceivedCallback();
     }
 
-    mesosEvents.forEach(function(event) {
+    mesosEvents.forEach(event => {
       MesosSummaryStore.addChangeListener(event, onMesosSummaryChange);
     });
   }

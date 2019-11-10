@@ -3,7 +3,7 @@ var fs = require("fs");
 var packageJSON = require("../package.json");
 
 function buildDependenciesArray(dependencies) {
-  return Object.keys(dependencies).map(function(dependency) {
+  return Object.keys(dependencies).map(dependency => {
     var version = dependencies[dependency];
 
     if (version.startsWith("github:")) {
@@ -29,7 +29,7 @@ checker.init(
   {
     start: "./"
   },
-  function(json, error) {
+  (json, error) => {
     if (error) {
       console.log(error);
       process.exit(1);
@@ -37,7 +37,7 @@ checker.init(
 
     var count = 0;
     var found = [];
-    Object.keys(json).forEach(function(dependency) {
+    Object.keys(json).forEach(dependency => {
       if (dependencies.indexOf(dependency) === -1) {
         return;
       }
@@ -59,7 +59,7 @@ checker.init(
     // Ensure we found them all
     if (count !== dependencies.length) {
       console.log("Dependency length doesn't match.");
-      var missing = dependencies.filter(function(dependency) {
+      var missing = dependencies.filter(dependency => {
         return found.indexOf(dependency) === -1;
       });
       console.log(missing);

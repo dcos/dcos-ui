@@ -183,7 +183,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     const { healthFilter, searchString } = this.state;
     const { i18n } = this.props;
     const visibleData = this.getVisibleData(data, searchString, healthFilter);
-    const dataHealth = dataItems.map(function(unit) {
+    const dataHealth = dataItems.map(unit => {
       return unit.getHealth();
     });
     const filters = [

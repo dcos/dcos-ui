@@ -6,7 +6,7 @@ class FilterButtons extends React.Component {
   getCount(items) {
     const counts = {};
 
-    items.forEach(function(value) {
+    items.forEach(value => {
       if (typeof value === "string") {
         value = value.toLowerCase();
       }
@@ -34,7 +34,7 @@ class FilterButtons extends React.Component {
     } = this.props;
 
     if (filterByKey) {
-      itemList = itemList.map(function(item) {
+      itemList = itemList.map(item => {
         return item[filterByKey];
       });
     }

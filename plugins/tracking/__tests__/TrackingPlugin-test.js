@@ -13,14 +13,14 @@ require("../SDK").setSDK(SDK);
 
 const TrackingHooks = require("../hooks");
 
-describe("TrackingHooks", function() {
-  describe("Listeners", function() {
-    beforeEach(function() {
+describe("TrackingHooks", () => {
+  describe("Listeners", () => {
+    beforeEach(() => {
       DOMUtils.appendScript = jasmine.createSpy();
     });
 
-    describe("#pluginsConfigured", function() {
-      it("appends scripts to the document head if plugin enabled", function() {
+    describe("#pluginsConfigured", () => {
+      it("appends scripts to the document head if plugin enabled", () => {
         global.analytics = { ready() {} };
         TrackingHooks.initialize();
         SDK.Hooks.doAction("pluginsConfigured");

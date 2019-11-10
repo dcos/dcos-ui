@@ -1,7 +1,7 @@
-describe("Nodes Page", function() {
-  context("Nodes table", function() {
-    context("Filters nodes table", function() {
-      beforeEach(function() {
+describe("Nodes Page", () => {
+  context("Nodes table", () => {
+    context("Filters nodes table", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-for-each-health",
           nodeHealth: true
@@ -11,14 +11,14 @@ describe("Nodes Page", function() {
         cy.get(".filter-bar").as("filterBar");
       });
 
-      it("shows all nodes", function() {
+      it("shows all nodes", () => {
         cy.get("@hostnames")
           .should("contain", "dcos-01")
           .should("contain", "167.114.218.155")
           .should("contain", "167.114.218.156");
       });
 
-      it("shows only healthy node", function() {
+      it("shows only healthy node", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("is:healthy");
 
@@ -28,7 +28,7 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.155");
       });
 
-      it("shows only unhealthy node", function() {
+      it("shows only unhealthy node", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("is:unhealthy");
 
@@ -38,7 +38,7 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.156");
       });
 
-      it("shows only draining nodes", function() {
+      it("shows only draining nodes", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("status:draining");
 
@@ -48,7 +48,7 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.155");
       });
 
-      it("shows only nodes with service", function() {
+      it("shows only nodes with service", () => {
         cy.get("@filterBar")
           .contains("Filter by Framework")
           .click();
@@ -62,7 +62,7 @@ describe("Nodes Page", function() {
           .should("contain", "dcos-01");
       });
 
-      it("shows only private nodes", function() {
+      it("shows only private nodes", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("is:private");
 
@@ -72,7 +72,7 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.155");
       });
 
-      it("shows only public nodes", function() {
+      it("shows only public nodes", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("is:public");
 
@@ -82,7 +82,7 @@ describe("Nodes Page", function() {
           .should("not.contain", "167.114.218.155");
       });
 
-      it("preserves the filter when switch to grid and back", function() {
+      it("preserves the filter when switch to grid and back", () => {
         cy.get(".filter-input-text").as("filterInputText");
         cy.get("@filterInputText").type("is:unhealthy");
 
@@ -102,12 +102,12 @@ describe("Nodes Page", function() {
           .should("contain", "167.114.218.156");
       });
 
-      it("does not crash when filtering a %", function() {
+      it("does not crash when filtering a %", () => {
         cy.get(".filter-input-text").type("%");
         cy.get(".filter-headline").contains("Showing 0 of 3 Nodes");
       });
 
-      context("Filters by Framework", function() {
+      context("Filters by Framework", () => {
         function selectFramework(framework) {
           cy.get(".dropdown-toggle")
             .contains("Filter by Framework")
@@ -116,7 +116,7 @@ describe("Nodes Page", function() {
             .contains(framework)
             .click();
         }
-        it("filters correctly for cassandra-healthy", function() {
+        it("filters correctly for cassandra-healthy", () => {
           selectFramework("cassandra-healthy");
           cy.get("@hostnames")
             .should("contain", "dcos-01")
@@ -125,7 +125,7 @@ describe("Nodes Page", function() {
           cy.get(".flush").contains("Showing 1 of 3 Nodes");
         });
 
-        it("filters correctly for cassandra-na", function() {
+        it("filters correctly for cassandra-na", () => {
           selectFramework("cassandra-na");
           cy.get("@hostnames")
             .should("not.contain", "dcos-01")
@@ -134,7 +134,7 @@ describe("Nodes Page", function() {
           cy.get(".flush").contains("Showing 0 of 3 Nodes");
         });
 
-        it("clears the filter when clicking Clear", function() {
+        it("clears the filter when clicking Clear", () => {
           selectFramework("cassandra-healthy");
           cy.get(".small")
             .contains("(Clear)")
@@ -142,7 +142,7 @@ describe("Nodes Page", function() {
           cy.get(".flush").contains("3 Nodes");
         });
 
-        it("clears the filter when clicking All Frameworks", function() {
+        it("clears the filter when clicking All Frameworks", () => {
           selectFramework("cassandra-healthy");
           cy.get(".dropdown-toggle")
             .contains("cassandra-healthy")
@@ -155,7 +155,7 @@ describe("Nodes Page", function() {
       });
     });
 
-    context("Node Actions", function() {
+    context("Node Actions", () => {
       function openDropdown(ipAddress) {
         cy.get(".filter-input-text")
           .type("{selectall}{backspace}")
@@ -181,7 +181,7 @@ describe("Nodes Page", function() {
           .click();
       }
 
-      beforeEach(function() {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-for-each-health",
           nodeHealth: true
@@ -189,7 +189,7 @@ describe("Nodes Page", function() {
         cy.visitUrl({ url: "/nodes" });
       });
 
-      it("active nodes can be drained via action", function() {
+      it("active nodes can be drained via action", () => {
         cy.route({
           method: "POST",
           url: /\/mesos\/api\/v1/,
@@ -208,7 +208,7 @@ describe("Nodes Page", function() {
         cy.get(".modal").should("to.have.length", 0);
       });
 
-      it("active nodes can be deactivated via action", function() {
+      it("active nodes can be deactivated via action", () => {
         cy.route({
           method: "POST",
           url: /\/mesos\/api\/v1/,
@@ -227,7 +227,7 @@ describe("Nodes Page", function() {
         cy.get(".modal").should("to.have.length", 0);
       });
 
-      it("draining nodes can be reactivated via action", function() {
+      it("draining nodes can be reactivated via action", () => {
         cy.route({
           method: "POST",
           url: /\/mesos\/api\/v1/,
@@ -240,15 +240,15 @@ describe("Nodes Page", function() {
     });
   });
 
-  context("Nodes grid", function() {
-    beforeEach(function() {
+  context("Nodes grid", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-for-each-health",
         nodeHealth: true
       });
     });
 
-    it("navigates to grid", function() {
+    it("navigates to grid", () => {
       // Navigate to the grid using button
       cy.visitUrl({ url: "/nodes" });
       cy.get(".filter-bar").as("filterBar");
@@ -262,12 +262,12 @@ describe("Nodes Page", function() {
         .should("contain", "1%");
     });
 
-    context("On nodes grid", function() {
-      beforeEach(function() {
+    context("On nodes grid", () => {
+      beforeEach(() => {
         cy.visitUrl({ url: "/nodes/agents/grid" });
       });
 
-      it("can switch resources", function() {
+      it("can switch resources", () => {
         const resources = ["Mem", "Disk", "CPU"];
 
         resources.forEach(resource => {
@@ -280,12 +280,12 @@ describe("Nodes Page", function() {
         });
       });
 
-      context("Filters nodes grid", function() {
-        beforeEach(function() {
+      context("Filters nodes grid", () => {
+        beforeEach(() => {
           cy.get(".filter-bar").as("filterBar");
         });
 
-        it("shows only cassandra-healthy nodes", function() {
+        it("shows only cassandra-healthy nodes", () => {
           cy.get("@filterBar")
             .contains("Filter by Framework")
             .click();
@@ -299,7 +299,7 @@ describe("Nodes Page", function() {
             .should("not.contain", "19%");
         });
 
-        it("doesn't display any nodes", function() {
+        it("doesn't display any nodes", () => {
           cy.get("@filterBar")
             .contains("Filter by Framework")
             .click();
@@ -313,7 +313,7 @@ describe("Nodes Page", function() {
             .should("not.contain", "19%");
         });
 
-        it("shows only unhealthy node", function() {
+        it("shows only unhealthy node", () => {
           cy.get("@filterBar")
             .contains("Filter by Framework")
             .click();
@@ -329,14 +329,14 @@ describe("Nodes Page", function() {
         });
       });
 
-      context("Without nodes", function() {
-        beforeEach(function() {
+      context("Without nodes", () => {
+        beforeEach(() => {
           cy.configureCluster({
             mesos: "no-agents"
           });
         });
 
-        it("shows an empty page", function() {
+        it("shows an empty page", () => {
           cy.get("body").contains("No nodes detected");
         });
       });

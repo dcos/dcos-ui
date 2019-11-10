@@ -7,7 +7,7 @@ module.exports = class PodSpec extends ServiceSpec {
   }
 
   getContainerSpec(name) {
-    return this.getContainers().find(function(container) {
+    return this.getContainers().find(container => {
       return container.name === name;
     });
   }
@@ -30,8 +30,8 @@ module.exports = class PodSpec extends ServiceSpec {
 
   getResources() {
     return this.getContainers().reduce(
-      function(resources, container) {
-        Object.keys(container.resources).forEach(function(key) {
+      (resources, container) => {
+        Object.keys(container.resources).forEach(key => {
           resources[key] += container.resources[key];
         });
 

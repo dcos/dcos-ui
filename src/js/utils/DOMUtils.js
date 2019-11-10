@@ -11,7 +11,7 @@ const WIDTH_ATTRIBUTES = [
   "borderRightWidth"
 ];
 
-const matchesFn = (function() {
+const matchesFn = (() => {
   const el = global.document.querySelector("body");
   const names = [
     "matches",
@@ -75,7 +75,7 @@ var DOMUtils = {
       compstyle = global.getComputedStyle(obj);
     }
 
-    var computeInnerBound = function(acc, key) {
+    var computeInnerBound = (acc, key) => {
       var val = parseInt(compstyle[key], 10);
       if (Number.isNaN(val)) {
         return acc;
@@ -133,7 +133,7 @@ var DOMUtils = {
     const endTime = Date.now() + scrollDuration;
 
     function step() {
-      setTimeout(function() {
+      setTimeout(() => {
         const distanceFromTop = DOMUtils.getDistanceFromTop(container);
         if (distanceFromTop !== targetY && endTime >= Date.now()) {
           requestAnimationFrame(step);

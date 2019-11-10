@@ -5,13 +5,13 @@ import { VIP_LABEL_VALUE_REGEX } from "#SRC/js/constants/Networking";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 
 function checkServiceEndpoints(ports, pathPrefix) {
-  return ports.reduce(function(portsMemo, port, index) {
+  return ports.reduce((portsMemo, port, index) => {
     const labels = port.labels || {};
     const vipLabels = Object.keys(labels).filter(
       ServiceConfigUtil.matchVIPLabel
     );
 
-    const errors = vipLabels.reduce(function(errorsMemo, label) {
+    const errors = vipLabels.reduce((errorsMemo, label) => {
       const vipLabelMatch = VIP_LABEL_VALUE_REGEX.exec(labels[label]);
 
       if (!vipLabelMatch) {
@@ -57,16 +57,11 @@ const VipLabelsValidators = {
     // Multi container app
     const containers = app.containers || [];
 
-    return containers.reduce(function(
-      memo,
-      { endpoints = [] },
-      containerIndex
-    ) {
+    return containers.reduce((memo, { endpoints = [] }, containerIndex) => {
       pathPrefix = ["containers", containerIndex, "endpoints"];
 
       return memo.concat(checkServiceEndpoints(endpoints, pathPrefix));
-    },
-    []);
+    }, []);
   }
 };
 

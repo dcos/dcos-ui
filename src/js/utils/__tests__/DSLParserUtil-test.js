@@ -41,8 +41,8 @@ class FuzzyFilter extends DSLFilter {
 
 let thisMockData, thisOp, thisOpLeft, thisOpRight;
 
-describe("DSLParserUtil", function() {
-  beforeEach(function() {
+describe("DSLParserUtil", () => {
+  beforeEach(() => {
     thisMockData = new List({
       items: [
         { text: "attribute" },
@@ -53,12 +53,12 @@ describe("DSLParserUtil", function() {
     });
   });
 
-  describe("#Operator.attribute", function() {
-    beforeEach(function() {
+  describe("#Operator.attribute", () => {
+    beforeEach(() => {
       thisOp = DSLParserUtil.Operator.attribute("label", "text", 0, 5, 10, 20);
     });
 
-    it("creates the correct ast node", function() {
+    it("creates the correct ast node", () => {
       const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -74,7 +74,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("creates the correct filter function", function() {
+    it("creates the correct filter function", () => {
       const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
@@ -88,12 +88,12 @@ describe("DSLParserUtil", function() {
     });
   });
 
-  describe("#Operator.exact", function() {
-    beforeEach(function() {
+  describe("#Operator.exact", () => {
+    beforeEach(() => {
       thisOp = DSLParserUtil.Operator.exact("text", 0, 10);
     });
 
-    it("creates the correct ast node", function() {
+    it("creates the correct ast node", () => {
       const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -108,7 +108,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("creates the correct filter function", function() {
+    it("creates the correct filter function", () => {
       const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
@@ -121,12 +121,12 @@ describe("DSLParserUtil", function() {
     });
   });
 
-  describe("#Operator.fuzzy", function() {
-    beforeEach(function() {
+  describe("#Operator.fuzzy", () => {
+    beforeEach(() => {
       thisOp = DSLParserUtil.Operator.fuzzy("text", 0, 10);
     });
 
-    it("creates the correct ast node", function() {
+    it("creates the correct ast node", () => {
       const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.FilterNode).toBeTruthy();
 
@@ -141,7 +141,7 @@ describe("DSLParserUtil", function() {
       });
     });
 
-    it("creates the correct filter function", function() {
+    it("creates the correct filter function", () => {
       const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
@@ -155,8 +155,8 @@ describe("DSLParserUtil", function() {
     });
   });
 
-  describe("#Merge.and", function() {
-    beforeEach(function() {
+  describe("#Merge.and", () => {
+    beforeEach(() => {
       thisOpLeft = DSLParserUtil.Operator.attribute(
         "label",
         "text",
@@ -169,7 +169,7 @@ describe("DSLParserUtil", function() {
       thisOp = DSLParserUtil.Merge.and(thisOpLeft, thisOpRight);
     });
 
-    it("creates the correct ast node", function() {
+    it("creates the correct ast node", () => {
       const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
@@ -181,7 +181,7 @@ describe("DSLParserUtil", function() {
       expect(ast.combinerType).toEqual(DSLCombinerTypes.AND);
     });
 
-    it("creates the correct filter function", function() {
+    it("creates the correct filter function", () => {
       const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");
@@ -194,8 +194,8 @@ describe("DSLParserUtil", function() {
     });
   });
 
-  describe("#Merge.or", function() {
-    beforeEach(function() {
+  describe("#Merge.or", () => {
+    beforeEach(() => {
       thisOpLeft = DSLParserUtil.Operator.attribute(
         "label",
         "text",
@@ -208,7 +208,7 @@ describe("DSLParserUtil", function() {
       thisOp = DSLParserUtil.Merge.or(thisOpLeft, thisOpRight);
     });
 
-    it("creates the correct ast node", function() {
+    it("creates the correct ast node", () => {
       const { ast } = thisOp;
       expect(ast instanceof DSLASTNodes.CombinerNode).toBeTruthy();
 
@@ -220,7 +220,7 @@ describe("DSLParserUtil", function() {
       expect(ast.combinerType).toEqual(DSLCombinerTypes.OR);
     });
 
-    it("creates the correct filter function", function() {
+    it("creates the correct filter function", () => {
       const { filter } = thisOp;
 
       expect(typeof filter).toEqual("function");

@@ -27,7 +27,7 @@ const NavigationServiceUtil = {
 
     indexRoute.childRoutes
       .filter(({ isInSidebar }) => isInSidebar)
-      .forEach(function(route) {
+      .forEach(route => {
         const { path, category, childRoutes = [] } = route;
         const primaryPath = `/${path}`;
 

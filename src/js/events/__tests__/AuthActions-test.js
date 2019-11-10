@@ -7,9 +7,9 @@ const Config = require("#SRC/js/config/Config").default;
 
 let thisConfiguration;
 
-describe("AuthActions", function() {
-  describe("extra params", function() {
-    it("passes extra parameters down to the auth service via query string params", function() {
+describe("AuthActions", () => {
+  describe("extra params", () => {
+    it("passes extra parameters down to the auth service via query string params", () => {
       spyOn(RequestUtil, "json");
 
       AuthActions.login(undefined, "boo");
@@ -20,25 +20,25 @@ describe("AuthActions", function() {
     });
   });
 
-  describe("#login", function() {
-    beforeEach(function() {
+  describe("#login", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       AuthActions.login();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/auth/login"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGIN_SUCCESS);
@@ -47,8 +47,8 @@ describe("AuthActions", function() {
       thisConfiguration.success();
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGIN_ERROR);
@@ -57,8 +57,8 @@ describe("AuthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct error when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct error when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -67,8 +67,8 @@ describe("AuthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -84,25 +84,25 @@ describe("AuthActions", function() {
     });
   });
 
-  describe("#logout", function() {
-    beforeEach(function() {
+  describe("#logout", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       AuthActions.logout();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         Config.acsAPIPrefix + "/auth/logout"
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGOUT_SUCCESS);
@@ -111,8 +111,8 @@ describe("AuthActions", function() {
       thisConfiguration.success();
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_LOGOUT_ERROR);
@@ -121,8 +121,8 @@ describe("AuthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the correct error when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct error when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -131,8 +131,8 @@ describe("AuthActions", function() {
       thisConfiguration.error({ responseJSON: { description: "bar" } });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

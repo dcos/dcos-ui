@@ -135,9 +135,9 @@ var Modals = createReactClass({
   },
 
   getCliModalOptions() {
-    var onClose = function() {
+    var onClose = () => {
       this.setState({ showingCliModal: false });
-    }.bind(this);
+    };
 
     return {
       onClose,
@@ -177,9 +177,9 @@ var Modals = createReactClass({
   },
 
   getClusterLinkingModal(showModal) {
-    var onClose = function() {
+    var onClose = () => {
       this.setState({ showingClusterLinkingModal: false });
-    }.bind(this);
+    };
 
     return (
       <MountService.Mount
@@ -191,9 +191,9 @@ var Modals = createReactClass({
   },
 
   getVersionsModal(showModal) {
-    var onClose = function() {
+    var onClose = () => {
       this.setState({ showingVersionsModal: false });
-    }.bind(this);
+    };
 
     var versions = SidebarStore.get("versions");
 
@@ -207,9 +207,9 @@ var Modals = createReactClass({
   },
 
   getErrorModal(show) {
-    var onClose = function() {
+    var onClose = () => {
       this.setState({ showErrorModal: false });
-    }.bind(this);
+    };
 
     var errorMsg = null;
     if (this.state.modalErrorMsg) {

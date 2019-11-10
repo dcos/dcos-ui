@@ -2,13 +2,13 @@ const NavigationService = require("../NavigationService");
 
 let thisInstance;
 
-describe("NavigationService", function() {
-  beforeEach(function() {
+describe("NavigationService", () => {
+  beforeEach(() => {
     thisInstance = new NavigationService();
   });
 
-  describe("#registerCategory", function() {
-    it("registers a category", function() {
+  describe("#registerCategory", () => {
+    it("registers a category", () => {
       thisInstance.registerCategory("test");
 
       expect(thisInstance.getDefinition()).toEqual([
@@ -21,8 +21,8 @@ describe("NavigationService", function() {
     });
   });
 
-  describe("#registerPrimary", function() {
-    it("registers a primary nav", function() {
+  describe("#registerPrimary", () => {
+    it("registers a primary nav", () => {
       thisInstance.registerPrimary("/test", "Test", { category: "root" });
 
       expect(thisInstance.getDefinition()).toEqual([
@@ -41,8 +41,8 @@ describe("NavigationService", function() {
     });
   });
 
-  describe("#registerSecondary", function() {
-    it("registers a secondary nav", function() {
+  describe("#registerSecondary", () => {
+    it("registers a secondary nav", () => {
       thisInstance.registerPrimary("/test", "Test");
       thisInstance.registerSecondary("/test", "path", "Test Path");
 
@@ -69,8 +69,8 @@ describe("NavigationService", function() {
     });
   });
 
-  describe("deferred registration", function() {
-    it("defers registration until all dependencies are resolved", function() {
+  describe("deferred registration", () => {
+    it("defers registration until all dependencies are resolved", () => {
       thisInstance.registerSecondary("/test", "path", "Test Path", {
         category: "test"
       });

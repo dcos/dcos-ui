@@ -28,7 +28,7 @@ class TabForm extends React.Component {
       this[method] = this[method].bind(this);
     });
 
-    this.triggerSubmit = function() {};
+    this.triggerSubmit = () => {};
   }
 
   UNSAFE_componentWillMount() {

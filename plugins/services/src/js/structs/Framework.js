@@ -107,12 +107,12 @@ module.exports = class Framework extends Application {
     tasksSummary.tasksRunning += tasksRunning;
     tasksSummary.tasksUnknown += tasksRunning;
 
-    tasks.reduce(function(memo, task) {
+    tasks.reduce((memo, task) => {
       if (task.state !== "TASK_RUNNING" || task.isStartedByMarathon) {
         return memo;
       }
       if (task.statuses != null) {
-        return task.statuses.reduce(function(memo, status) {
+        return task.statuses.reduce((memo, status) => {
           if (status.healthy || (isSDK && status.healthy === undefined)) {
             memo.tasksHealthy++;
             memo.tasksUnknown--;

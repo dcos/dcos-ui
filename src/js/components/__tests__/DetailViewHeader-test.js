@@ -7,17 +7,17 @@ const DetailViewHeader = require("../DetailViewHeader");
 
 let thisContainer;
 
-describe("DetailViewHeader", function() {
-  beforeEach(function() {
+describe("DetailViewHeader", () => {
+  beforeEach(() => {
     thisContainer = global.document.createElement("div");
   });
 
-  afterEach(function() {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("#render", function() {
-    it("allows classes to be added", function() {
+  describe("#render", () => {
+    it("allows classes to be added", () => {
       const className = "foo";
       const instance = ReactDOM.render(
         <DetailViewHeader className={className} />,
@@ -28,7 +28,7 @@ describe("DetailViewHeader", function() {
       expect(node.getAttribute("class")).toContain("foo");
     });
 
-    it("allows classes to be removed", function() {
+    it("allows classes to be removed", () => {
       var className = {
         container: false
       };

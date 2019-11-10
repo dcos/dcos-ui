@@ -38,7 +38,7 @@ class SchemaForm extends mixin(StoreMixin) {
 
     this.store_listeners = [];
 
-    this.triggerSubmit = function() {};
+    this.triggerSubmit = () => {};
     this.isValidated = true;
   }
 
@@ -97,14 +97,14 @@ class SchemaForm extends mixin(StoreMixin) {
     );
 
     const deleteButtonTop = Object.values(definition.itemShapes || {}).some(
-      function(itemShape) {
+      itemShape => {
         return itemShape.deleteButtonTop;
       }
     );
 
     // Default to prepending.
     let lastIndex = -1;
-    definition.forEach(function(field, i) {
+    definition.forEach((field, i) => {
       if (FormUtil.isFieldInstanceOfProp(prop, field)) {
         lastIndex = i;
 
@@ -122,7 +122,7 @@ class SchemaForm extends mixin(StoreMixin) {
       arrayAction = "unshift";
     }
     let title = null;
-    Object.values(definition.itemShapes || {}).some(function(itemShape) {
+    Object.values(definition.itemShapes || {}).some(itemShape => {
       if (itemShape.getTitle) {
         title = itemShape.getTitle(lastIndex + 2);
       }
@@ -168,7 +168,7 @@ class SchemaForm extends mixin(StoreMixin) {
   getIndexFromDefinition(definition) {
     // This counts the number of arrays in the definition to determine
     // the number of duplicable rows
-    return definition.reduce(function(total, item) {
+    return definition.reduce((total, item) => {
       if (Array.isArray(item)) {
         return total + 1;
       }

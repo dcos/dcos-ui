@@ -17,7 +17,7 @@ var ChartStripes = createReactClass({
 
     return Array(count)
       .fill()
-      .map(function(v, i) {
+      .map((v, i) => {
         // indent with margin, start one width length in
         // and add two times width per step
         var position = width + i * 2 * width;

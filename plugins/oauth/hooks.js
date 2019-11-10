@@ -99,7 +99,7 @@ module.exports = Object.assign({}, StoreMixin, {
 
   applicationRoutes(routes) {
     // Override handler of index to be 'authenticated'
-    routes[0].children.forEach(function(child) {
+    routes[0].children.forEach(child => {
       if (child.id === "index") {
         child.component = new Authenticated(child.component);
         child.onEnter = child.component.willTransitionTo;
@@ -144,7 +144,7 @@ module.exports = Object.assign({}, StoreMixin, {
       path: "users",
       component: UsersPage
     };
-    const usersRouteIndex = routeDefinition.routes.findIndex(function(route) {
+    const usersRouteIndex = routeDefinition.routes.findIndex(route => {
       return route.name === userRoute.name;
     });
     // Replace by new definition

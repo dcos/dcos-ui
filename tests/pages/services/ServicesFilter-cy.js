@@ -14,41 +14,41 @@ function testFilterByStatus(param) {
     .getTableColumn("Status")
     .get(".status-bar-text")
     .contents()
-    .each(function(v) {
+    .each(v => {
       expect(v).to.eq(param);
     });
 }
 
-describe("Services Filter", function() {
-  context("Status", function() {
-    context("Running / Deploying tasks", function() {
-      beforeEach(function() {
+describe("Services Filter", () => {
+  context("Status", () => {
+    context("Running / Deploying tasks", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
         });
       });
 
-      it("Filters Running services", function() {
+      it("Filters Running services", () => {
         testFilterByStatus("Running");
       });
     });
 
-    context("Suspended tasks", function() {
-      beforeEach(function() {
+    context("Suspended tasks", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-service-suspended",
           nodeHealth: true
         });
       });
 
-      it("Filters Stopped services", function() {
+      it("Filters Stopped services", () => {
         testFilterByStatus("Stopped");
       });
     });
 
-    context("Recovering tasks", function() {
-      beforeEach(function() {
+    context("Recovering tasks", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-service-recovering",
           nodeHealth: true,
@@ -56,46 +56,46 @@ describe("Services Filter", function() {
         });
       });
 
-      it("Filters Recovering services", function() {
+      it("Filters Recovering services", () => {
         testFilterByStatus("Recovering");
       });
     });
 
-    context("Deleting tasks", function() {
-      beforeEach(function() {
+    context("Deleting tasks", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-service-deleting",
           nodeHealth: true
         });
       });
 
-      it("Filters Deleting services", function() {
+      it("Filters Deleting services", () => {
         testFilterByStatus("Deleting");
       });
     });
   });
 
-  context("Health", function() {
-    beforeEach(function() {
+  context("Health", () => {
+    beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         nodeHealth: true
       });
     });
 
-    it("filters Healthy services", function() {
+    it("filters Healthy services", () => {
       setFilter("Healthy");
 
       cy.get(".service-table")
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
-        .each(function(v) {
+        .each(v => {
           expect(v).to.eq("sleep");
         });
     });
 
-    it("filters Unhealthy services", function() {
+    it("filters Unhealthy services", () => {
       setFilter("Unhealthy");
 
       cy.get(".service-table")
@@ -105,7 +105,7 @@ describe("Services Filter", function() {
         .should("deep.equal", ["unhealthy", "unhealthy-sleep"]);
     });
 
-    it("filters N/A services", function() {
+    it("filters N/A services", () => {
       setFilter("N/A");
 
       cy.get(".service-table")
@@ -125,16 +125,16 @@ describe("Services Filter", function() {
     });
   });
 
-  context("Other", function() {
-    context("SDK", function() {
-      beforeEach(function() {
+  context("Other", () => {
+    context("SDK", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-sdk-service",
           nodeHealth: true
         });
       });
 
-      it("filters SDK services", function() {
+      it("filters SDK services", () => {
         setFilter("Catalog");
 
         const serviceNames = ["sdk-sleep", "sdk-sleep-with-image"];
@@ -143,49 +143,49 @@ describe("Services Filter", function() {
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(function(v, index) {
+          .each((v, index) => {
             expect(v).to.eq(serviceNames[index]);
           });
       });
     });
 
-    context("Pods", function() {
-      beforeEach(function() {
+    context("Pods", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
         });
       });
 
-      it("filters Pods", function() {
+      it("filters Pods", () => {
         setFilter("Pod");
 
         cy.get(".service-table")
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(function(v) {
+          .each(v => {
             expect(v).to.eq("podEFGH");
           });
       });
     });
 
-    context("Volumes", function() {
-      beforeEach(function() {
+    context("Volumes", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           nodeHealth: true
         });
       });
 
-      it("filters services with Volumes", function() {
+      it("filters services with Volumes", () => {
         setFilter("Volumes");
 
         cy.get(".service-table")
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(function(v) {
+          .each(v => {
             expect(v).to.eq("sleep");
           });
       });

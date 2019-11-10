@@ -1,13 +1,13 @@
 const ContainerUtil = require("../ContainerUtil");
 
-describe("#adjustActionErrors", function() {
+describe("#adjustActionErrors", () => {
   let actionErrors = ContainerUtil.adjustActionErrors({}, "foo", "error");
 
-  it("sets error key", function() {
+  it("sets error key", () => {
     expect(actionErrors).toEqual({ foo: "error" });
   });
 
-  it("adds to error keys", function() {
+  it("adds to error keys", () => {
     actionErrors = ContainerUtil.adjustActionErrors(
       actionErrors,
       "bar",
@@ -17,21 +17,21 @@ describe("#adjustActionErrors", function() {
     expect(actionErrors).toEqual({ foo: "error", bar: "newError" });
   });
 
-  it("alters existing keys", function() {
+  it("alters existing keys", () => {
     actionErrors = ContainerUtil.adjustActionErrors(actionErrors, "foo", null);
 
     expect(actionErrors).toEqual({ foo: null, bar: "newError" });
   });
 });
 
-describe("#adjustPendingActions", function() {
+describe("#adjustPendingActions", () => {
   let pendingActions = ContainerUtil.adjustPendingActions({}, "foo", true);
 
-  it("sets pending action key", function() {
+  it("sets pending action key", () => {
     expect(pendingActions).toEqual({ foo: true });
   });
 
-  it("adds to pending action keys", function() {
+  it("adds to pending action keys", () => {
     pendingActions = ContainerUtil.adjustPendingActions(
       pendingActions,
       "bar",
@@ -41,7 +41,7 @@ describe("#adjustPendingActions", function() {
     expect(pendingActions).toEqual({ foo: true, bar: false });
   });
 
-  it("alters existing keys", function() {
+  it("alters existing keys", () => {
     pendingActions = ContainerUtil.adjustPendingActions(
       pendingActions,
       "foo",
@@ -52,21 +52,21 @@ describe("#adjustPendingActions", function() {
   });
 });
 
-describe("#getNewContainerName", function() {
+describe("#getNewContainerName", () => {
   const newState = [
     { name: "container-1", resources: { cpus: 0.1, mem: 128, disk: "" } },
     { name: "container-3", resources: { cpus: 0.1, mem: 128, disk: "" } }
   ];
   const newName = ContainerUtil.getNewContainerName(newState.length, newState);
 
-  it("does not return a duplicate name", function() {
+  it("does not return a duplicate name", () => {
     const dupeNames = newState.filter(item => {
       return item.name === newName;
     });
     expect(dupeNames.length).toBe(0);
   });
 
-  it("increases container number", function() {
+  it("increases container number", () => {
     expect(parseInt(newName.split("-")[1], 10)).toBeGreaterThan(
       newState.length
     );

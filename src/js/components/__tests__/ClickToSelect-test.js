@@ -5,13 +5,13 @@ const ClickToSelect = require("../ClickToSelect");
 
 let thisSpy, thisGetSelection, thisInstance;
 
-describe("ClickToSelect", function() {
-  beforeEach(function() {
+describe("ClickToSelect", () => {
+  beforeEach(() => {
     thisSpy = { selectAllChildren: jasmine.createSpy() };
     thisGetSelection = global.document.getSelection;
 
     // Mock this document function, which is unsupported by jest.
-    global.document.getSelection = function() {
+    global.document.getSelection = () => {
       return thisSpy;
     };
 
@@ -22,11 +22,11 @@ describe("ClickToSelect", function() {
     );
   });
 
-  afterEach(function() {
+  afterEach(() => {
     global.document.getSelection = thisGetSelection;
   });
 
-  it("sets selection when node is clicked", function() {
+  it("sets selection when node is clicked", () => {
     thisInstance.find(".foo").simulate("click");
     expect(thisSpy.selectAllChildren).toHaveBeenCalled();
   });

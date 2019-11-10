@@ -55,7 +55,7 @@ const AuthActions = {
 };
 
 if (Config.useFixtures) {
-  AuthActions.login = function() {
+  AuthActions.login = () => {
     // base64 encoded - {is_remote: false, uid: "bootstrapuser", description: "Bootstrap superuser"}
     global.document.cookie =
       "dcos-acs-info-cookie=" +

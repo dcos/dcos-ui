@@ -165,7 +165,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   getServiceFromName(name) {
     const services = this.getActiveServices();
 
-    return services.find(function(service) {
+    return services.find(service => {
       return service.get("name") === name;
     });
   }

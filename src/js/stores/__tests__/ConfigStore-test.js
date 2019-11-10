@@ -3,19 +3,19 @@ const ConfigStore = require("../ConfigStore");
 
 let thisHandler;
 
-describe("ConfigStore", function() {
-  describe("#processCCIDSuccess", function() {
-    beforeEach(function() {
+describe("ConfigStore", () => {
+  describe("#processCCIDSuccess", () => {
+    beforeEach(() => {
       thisHandler = jest.genMockFunction();
       ConfigStore.once(EventTypes.CLUSTER_CCID_SUCCESS, thisHandler);
       ConfigStore.processCCIDSuccess({ foo: "bar" });
     });
 
-    it("emits an event", function() {
+    it("emits an event", () => {
       expect(thisHandler).toBeCalled();
     });
 
-    it("returns stored info", function() {
+    it("returns stored info", () => {
       expect(ConfigStore.get("ccid")).toEqual({ foo: "bar" });
     });
   });

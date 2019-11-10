@@ -6,8 +6,8 @@ const TabViewList = require("../TabViewList");
 
 let thisInstance;
 
-describe("TabViewList", function() {
-  it("returns content of first child if no activeTab is defined", function() {
+describe("TabViewList", () => {
+  it("returns content of first child if no activeTab is defined", () => {
     thisInstance = mount(
       <TabViewList>
         <TabView id="foo">foo</TabView>
@@ -19,7 +19,7 @@ describe("TabViewList", function() {
     expect(thisInstance.text()).toEqual("foo");
   });
 
-  it("returns content of activeTab when defined", function() {
+  it("returns content of activeTab when defined", () => {
     thisInstance = mount(
       <TabViewList activeTab="bar">
         <TabView id="foo">foo</TabView>

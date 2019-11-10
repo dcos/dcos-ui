@@ -3,8 +3,8 @@ const List = require("../List");
 
 let thisThing, thisThingList, thisInstance;
 
-describe("List", function() {
-  beforeEach(function() {
+describe("List", () => {
+  beforeEach(() => {
     thisThing = class Thing {
       constructor(value) {
         if (value instanceof Thing) {
@@ -16,38 +16,38 @@ describe("List", function() {
     thisThingList.type = thisThing;
   });
 
-  describe("#constructor", function() {
-    it("defaults the list to an empty array", function() {
+  describe("#constructor", () => {
+    it("defaults the list to an empty array", () => {
       const list = new List();
       expect(list.getItems()).toEqual([]);
     });
 
-    it("accepts a list of items", function() {
+    it("accepts a list of items", () => {
       const list = new List({ items: [0, 1, 2] });
       expect(list.getItems()).toEqual([0, 1, 2]);
     });
 
-    it("throws when initialized with a non-array argument", function() {
-      const fn = function() {
+    it("throws when initialized with a non-array argument", () => {
+      const fn = () => {
         return new List({ items: "foo" });
       };
 
       expect(fn).toThrow();
     });
 
-    it("enforces type, if specified", function() {
+    it("enforces type, if specified", () => {
       const thingList = new thisThingList({ items: [{}] });
       expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
-    it("does not re-cast items of the correct type", function() {
+    it("does not re-cast items of the correct type", () => {
       // If re-cast, an error will be thrown
       new thisThingList({ items: [new thisThing({})] });
     });
   });
 
-  describe("#combine", function() {
-    it("discards duplicate items", function() {
+  describe("#combine", () => {
+    it("discards duplicate items", () => {
       const [A, B, C, D, E] = [{}, {}, {}, {}, {}];
       const list1 = new List({ items: [A, B, C] });
       const list2 = new List({ items: [E, C, A, D] });
@@ -55,7 +55,7 @@ describe("List", function() {
       expect(list3.getItems()).toEqual([A, B, C, E, D]);
     });
 
-    it("can operate on the same objects more than one time", function() {
+    it("can operate on the same objects more than one time", () => {
       const [A, B, C, D, E, F, G] = [{}, {}, {}, {}, {}, {}, {}];
       const list1 = new List({ items: [A, B, C] });
       const list2 = new List({ items: [E, C, A, D] });
@@ -69,47 +69,47 @@ describe("List", function() {
     });
   });
 
-  describe("#add", function() {
-    it("adds an item", function() {
+  describe("#add", () => {
+    it("adds an item", () => {
       const list = new List();
       list.add(0);
       expect(list.getItems()).toEqual([0]);
     });
 
-    it("adds two items", function() {
+    it("adds two items", () => {
       const list = new List();
       list.add(0);
       list.add(1);
       expect(list.getItems()).toEqual([0, 1]);
     });
 
-    it("adds items to current list", function() {
+    it("adds items to current list", () => {
       const list = new List({ items: [0] });
       list.add(1);
       list.add(2);
       expect(list.getItems()).toEqual([0, 1, 2]);
     });
 
-    it("enforces type, if specified", function() {
+    it("enforces type, if specified", () => {
       const thingList = new thisThingList();
       thingList.add({});
       expect(thingList.last()).toEqual(jasmine.any(thisThing));
     });
 
-    it("does not re-cast items of the correct type", function() {
+    it("does not re-cast items of the correct type", () => {
       const thingList = new thisThingList();
       // If re-cast, an error will be thrown
       thingList.add(new thisThing());
     });
   });
 
-  describe("#getItems", function() {
-    it("returns list", function() {
+  describe("#getItems", () => {
+    it("returns list", () => {
       const list = new List();
       expect(list.getItems()).toEqual([]);
     });
 
-    it("returns added items in a list", function() {
+    it("returns added items in a list", () => {
       const list = new List();
       list.add(0);
       list.add(1);
@@ -117,20 +117,20 @@ describe("List", function() {
     });
   });
 
-  describe("#last", function() {
-    it("returns nil when there's no last item", function() {
+  describe("#last", () => {
+    it("returns nil when there's no last item", () => {
       const list = new List();
       expect(list.last()).toEqual(undefined);
     });
 
-    it("returns the last item in the list", function() {
+    it("returns the last item in the list", () => {
       const list = new List({ items: [0, 1, 2, 3] });
       expect(list.last()).toEqual(3);
     });
   });
 
-  describe("#filterItems", function() {
-    beforeEach(function() {
+  describe("#filterItems", () => {
+    beforeEach(() => {
       var items = [
         { name: "foo" },
         { name: "bar" },
@@ -141,15 +141,15 @@ describe("List", function() {
       thisInstance = new List({ items });
     });
 
-    it("returns an instance of List", function() {
-      var items = thisInstance.filterItems(function() {
+    it("returns an instance of List", () => {
+      var items = thisInstance.filterItems(() => {
         return true;
       });
       expect(items instanceof List).toEqual(true);
     });
 
-    it("filters items", function() {
-      var items = thisInstance.filterItems(function(item) {
+    it("filters items", () => {
+      var items = thisInstance.filterItems(item => {
         return item.name === "bar";
       });
       expect(items.getItems().length).toEqual(1);
@@ -157,8 +157,8 @@ describe("List", function() {
     });
   });
 
-  describe("#filterItemsByText", function() {
-    beforeEach(function() {
+  describe("#filterItemsByText", () => {
+    beforeEach(() => {
       var items = [
         {
           name: "foo",
@@ -184,12 +184,12 @@ describe("List", function() {
       thisInstance = new List({ items, filterProperties });
     });
 
-    it("returns an instance of List", function() {
+    it("returns an instance of List", () => {
       var items = thisInstance.filterItemsByText("bar");
       expect(items instanceof List).toEqual(true);
     });
 
-    it("filters instances of Item", function() {
+    it("filters instances of Item", () => {
       var items = [
         new Item({
           name: "foo",
@@ -218,26 +218,26 @@ describe("List", function() {
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
-    it("filters by default getter", function() {
+    it("filters by default getter", () => {
       var filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual("bar");
     });
 
-    it("filters by description", function() {
+    it("filters by description", () => {
       var filteredItems = thisInstance.filterItemsByText("qux").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual("qux");
     });
 
-    it("filters by subItems", function() {
+    it("filters by subItems", () => {
       var filteredItems = thisInstance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(2);
       expect(filteredItems[0].subItems).toEqual(["two", "three"]);
       expect(filteredItems[1].subItems).toEqual(["one", "two"]);
     });
 
-    it("handles filter by with null elements", function() {
+    it("handles filter by with null elements", () => {
       var items = [
         { name: null, description: { value: null }, subItems: [null, "three"] },
         { description: null, subItems: null }
@@ -255,7 +255,7 @@ describe("List", function() {
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
     });
 
-    it("uses provided filter properties", function() {
+    it("uses provided filter properties", () => {
       var filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
@@ -268,43 +268,43 @@ describe("List", function() {
     });
   });
 
-  describe("#findItem", function() {
-    beforeEach(function() {
+  describe("#findItem", () => {
+    beforeEach(() => {
       thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
-    it("returns undefined if no matching item was found", function() {
+    it("returns undefined if no matching item was found", () => {
       expect(
-        thisInstance.findItem(function() {
+        thisInstance.findItem(() => {
           return false;
         })
       ).toEqual(undefined);
     });
 
-    it("returns matching item", function() {
+    it("returns matching item", () => {
       expect(
-        thisInstance.findItem(function(item) {
+        thisInstance.findItem(item => {
           return item.name === "foo";
         })
       ).toEqual({ name: "foo" });
     });
   });
 
-  describe("#mapItems", function() {
-    beforeEach(function() {
+  describe("#mapItems", () => {
+    beforeEach(() => {
       thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
-    it("returns an instance of List", function() {
-      var list = thisInstance.mapItems(function(item) {
+    it("returns an instance of List", () => {
+      var list = thisInstance.mapItems(item => {
         return item;
       });
       expect(list instanceof List).toEqual(true);
     });
 
-    it("apply callbacks to all items", function() {
+    it("apply callbacks to all items", () => {
       var items = thisInstance
-        .mapItems(function(item) {
+        .mapItems(item => {
           return { name: item.name.toUpperCase() };
         })
         .getItems();
@@ -313,19 +313,18 @@ describe("List", function() {
     });
   });
 
-  describe("#reduceItems", function() {
-    beforeEach(function() {
+  describe("#reduceItems", () => {
+    beforeEach(() => {
       thisInstance = new List({ items: [{ name: "foo" }, { name: "bar" }] });
     });
 
-    it("reduces all items to a value", function() {
-      var expectedValue = thisInstance.reduceItems(function(
-        previousValue,
-        currentValue
-      ) {
-        return previousValue + currentValue.name;
-      },
-      "");
+    it("reduces all items to a value", () => {
+      var expectedValue = thisInstance.reduceItems(
+        (previousValue, currentValue) => {
+          return previousValue + currentValue.name;
+        },
+        ""
+      );
       expect(expectedValue).toEqual("foobar");
     });
   });

@@ -5,7 +5,7 @@ import GetSetBaseStore from "./GetSetBaseStore";
 import { VISIBILITY_CHANGE } from "../constants/EventTypes";
 
 // Use visibility API to check if current tab is active or not
-const Visibility = (function() {
+const Visibility = (() => {
   let stateKey;
   const keys = {
     hidden: "visibilitychange",
@@ -15,7 +15,7 @@ const Visibility = (function() {
   };
 
   // Find first key available on document
-  Object.keys(keys).some(function(key) {
+  Object.keys(keys).some(key => {
     if (key in global.document) {
       stateKey = key;
 

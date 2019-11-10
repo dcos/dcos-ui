@@ -37,7 +37,7 @@ module.exports = {
   getAPIResponse(routeString, callback) {
     let desiredFixtureString = null;
 
-    _routes.forEach(function(fixtureString, routeRegEx) {
+    _routes.forEach((fixtureString, routeRegEx) => {
       if (routeRegEx.test(routeString)) {
         // The desired fixture string will be the second element in the returned
         // array.

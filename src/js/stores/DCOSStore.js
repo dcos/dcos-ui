@@ -155,32 +155,32 @@ class DCOSStore extends EventEmitter {
     }
 
     // Populate deployments with affected services
-    this.data.marathon.deploymentsList = deploymentsList.mapItems(function(
-      deployment
-    ) {
-      const ids = deployment.getAffectedServiceIds();
-      const services = ids.reduce(
-        function(memo, id) {
-          const service = serviceTree.findItemById(id);
-          if (service != null) {
-            memo.affected.push(service);
-          } else {
-            memo.stale.push(id);
-          }
+    this.data.marathon.deploymentsList = deploymentsList.mapItems(
+      deployment => {
+        const ids = deployment.getAffectedServiceIds();
+        const services = ids.reduce(
+          (memo, id) => {
+            const service = serviceTree.findItemById(id);
+            if (service != null) {
+              memo.affected.push(service);
+            } else {
+              memo.stale.push(id);
+            }
 
-          return memo;
-        },
-        { affected: [], stale: [] }
-      );
+            return memo;
+          },
+          { affected: [], stale: [] }
+        );
 
-      return Object.assign(
-        {
-          affectedServices: services.affected,
-          staleServiceIds: services.stale
-        },
-        deployment
-      );
-    });
+        return Object.assign(
+          {
+            affectedServices: services.affected,
+            staleServiceIds: services.stale
+          },
+          deployment
+        );
+      }
+    );
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
@@ -312,13 +312,13 @@ class DCOSStore extends EventEmitter {
   }
 
   addProxyListeners() {
-    this.getProxyListeners().forEach(function(item) {
+    this.getProxyListeners().forEach(item => {
       item.store.addChangeListener(item.event, item.handler);
     });
   }
 
   removeProxyListeners() {
-    this.getProxyListeners().forEach(function(item) {
+    this.getProxyListeners().forEach(item => {
       item.store.removeChangeListener(item.event, item.handler);
     });
   }
@@ -401,7 +401,7 @@ class DCOSStore extends EventEmitter {
     const frameworks = mesos
       .lastSuccessful()
       .getServiceList()
-      .reduceItems(function(memo, framework) {
+      .reduceItems((memo, framework) => {
         if (framework instanceof Item) {
           memo[`/${framework.get("name")}`] = framework.get();
         }
@@ -410,7 +410,7 @@ class DCOSStore extends EventEmitter {
       }, {});
 
     // Merge data by framework name, as  Marathon doesn't know framework ids.
-    return serviceTree.mapItems(function(item) {
+    return serviceTree.mapItems(item => {
       if (item instanceof ServiceTree) {
         return item;
       }
