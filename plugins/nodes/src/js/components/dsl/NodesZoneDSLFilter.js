@@ -25,7 +25,7 @@ class NodesZoneDSLSection extends React.Component {
       return null;
     }
 
-    zones.forEach(function(zone) {
+    zones.forEach(zone => {
       EXPRESSION_PARTS[`zone_${zone}`] = DSLExpressionPart.attribute(
         "zone",
         zone

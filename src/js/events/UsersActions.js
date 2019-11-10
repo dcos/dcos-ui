@@ -102,7 +102,7 @@ if (Config.useFixtures) {
       deleteUser: { event: "success" }
     };
 
-    Object.keys(global.actionTypes.UsersActions).forEach(function(method) {
+    Object.keys(global.actionTypes.UsersActions).forEach(method => {
       UsersActions[method] = RequestUtil.stubRequest(
         UsersActions,
         "UsersActions",

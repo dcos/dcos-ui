@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("TaskStatusFilter", function() {
-  beforeEach(function() {
+describe("TaskStatusFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         state: "TASK_RUNNING"
@@ -16,7 +16,7 @@ describe("TaskStatusFilter", function() {
     ];
   });
 
-  it("keeps tasks in active state", function() {
+  it("keeps tasks in active state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
@@ -27,7 +27,7 @@ describe("TaskStatusFilter", function() {
     ]);
   });
 
-  it("keeps tasks in completed state", function() {
+  it("keeps tasks in completed state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 

@@ -10,11 +10,11 @@ import {
 
 jest.mock("@dcos/http-service");
 
-describe("#fetchRepositories", function() {
-  it("makes the call with correct arguments", function(done) {
+describe("#fetchRepositories", () => {
+  it("makes the call with correct arguments", done => {
     const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
-    fetchRepositories().subscribe(function() {
+    fetchRepositories().subscribe(() => {
       done();
     });
 
@@ -34,11 +34,11 @@ describe("#fetchRepositories", function() {
   });
 });
 
-describe("#liveFetchRepositories", function() {
-  it("makes the call with correct arguments", function(done) {
+describe("#liveFetchRepositories", () => {
+  it("makes the call with correct arguments", done => {
     const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
-    liveFetchRepositories().subscribe(function() {
+    liveFetchRepositories().subscribe(() => {
       done();
     });
 
@@ -58,11 +58,11 @@ describe("#liveFetchRepositories", function() {
   });
 });
 
-describe("#addRepository", function() {
-  it("makes the call with correct arguments", function(done) {
+describe("#addRepository", () => {
+  it("makes the call with correct arguments", done => {
     const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
-    addRepository("bar", "foo", 1).subscribe(function() {
+    addRepository("bar", "foo", 1).subscribe(() => {
       done();
     });
 
@@ -81,13 +81,13 @@ describe("#addRepository", function() {
     );
   });
 
-  it("triggers #liveFetchRepositories", function(done) {
+  it("triggers #liveFetchRepositories", done => {
     jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
-    addRepository("bar", "foo", 1).subscribe(function() {});
+    addRepository("bar", "foo", 1).subscribe(() => {});
 
     let fetchTriggerTimes = 0;
-    liveFetchRepositories().subscribe(function() {
+    liveFetchRepositories().subscribe(() => {
       fetchTriggerTimes += 1;
       if (fetchTriggerTimes === 2) {
         done();
@@ -99,11 +99,11 @@ describe("#addRepository", function() {
   });
 });
 
-describe("#deleteRepository", function() {
-  it("makes the call with correct arguments", function(done) {
+describe("#deleteRepository", () => {
+  it("makes the call with correct arguments", done => {
     const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
-    deleteRepository("bar", "foo").subscribe(function() {
+    deleteRepository("bar", "foo").subscribe(() => {
       done();
     });
 
@@ -122,20 +122,20 @@ describe("#deleteRepository", function() {
     );
   });
 
-  it("triggers #liveFetchRepositories", function(done) {
+  it("triggers #liveFetchRepositories", done => {
     jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
-    addRepository("bar", "foo", 1).subscribe(function() {});
+    addRepository("bar", "foo", 1).subscribe(() => {});
 
     let fetchTriggerTimes = 0;
-    liveFetchRepositories().subscribe(function() {
+    liveFetchRepositories().subscribe(() => {
       fetchTriggerTimes += 1;
       if (fetchTriggerTimes === 2) {
         done();
       }
     });
 
-    deleteRepository("bar", "foo").subscribe(function() {});
+    deleteRepository("bar", "foo").subscribe(() => {});
     expect(fetchTriggerTimes).toBe(2);
   });
 });

@@ -8,16 +8,16 @@ const {
 const Batch = require("#SRC/js/structs/Batch");
 const HealthChecks = require("../HealthChecks");
 
-describe("HealthChecks", function() {
-  describe("#JSONReducer", function() {
-    it("returns an Array", function() {
+describe("HealthChecks", () => {
+  describe("#JSONReducer", () => {
+    it("returns an Array", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([{}]);
     });
 
-    it("sets the protocol", function() {
+    it("sets the protocol", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -31,7 +31,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets the right Command", function() {
+    it("sets the right Command", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -51,7 +51,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets the right path", function() {
+    it("sets the right path", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -67,7 +67,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("has a fully fledged health check object", function() {
+    it("has a fully fledged health check object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -100,7 +100,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("removes the right item", function() {
+    it("removes the right item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
@@ -124,7 +124,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("has a fully fledged health check object with unknown protocol", function() {
+    it("has a fully fledged health check object with unknown protocol", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -155,7 +155,7 @@ describe("HealthChecks", function() {
         }
       ]);
     });
-    it("sets ipProtocol to IPv6 if set", function() {
+    it("sets ipProtocol to IPv6 if set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -177,7 +177,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets https ipProtocol to IPv6 if set", function() {
+    it("sets https ipProtocol to IPv6 if set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -200,7 +200,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets http ipProtocol to IPv6 if docker set", function() {
+    it("sets http ipProtocol to IPv6 if docker set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -222,7 +222,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets IPv4", function() {
+    it("sets IPv4", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -245,7 +245,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets https ipProtocol to IPv6 if docker set", function() {
+    it("sets https ipProtocol to IPv6 if docker set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -268,7 +268,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("does not set ipProtocol to IPv6 if mesos is set (UCR)", function() {
+    it("does not set ipProtocol to IPv6 if mesos is set (UCR)", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER"));
       batch = batch.add(
@@ -292,8 +292,8 @@ describe("HealthChecks", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("passes unknown protocol", function() {
+  describe("#JSONParser", () => {
+    it("passes unknown protocol", () => {
       expect(
         HealthChecks.JSONParser({
           healthChecks: [

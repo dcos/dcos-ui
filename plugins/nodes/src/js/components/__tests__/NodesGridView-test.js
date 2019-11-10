@@ -13,11 +13,11 @@ let thisStoreChangeListener,
   thisContainer,
   thisInstance;
 
-describe("NodesGridView", function() {
-  describe("#getActiveServiceIds", function() {
-    beforeEach(function() {
+describe("NodesGridView", () => {
+  describe("#getActiveServiceIds", () => {
+    beforeEach(() => {
       thisStoreChangeListener = MesosStateStore.addChangeListener;
-      MesosStateStore.addChangeListener = function() {};
+      MesosStateStore.addChangeListener = () => {};
 
       thisHosts = new NodesList({
         items: [
@@ -51,7 +51,7 @@ describe("NodesGridView", function() {
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
         <NodesGridView
-          onShowServices={function() {}}
+          onShowServices={() => {}}
           resourcesByFramework={{}}
           serviceColors={{}}
           selectedResource={"mem"}
@@ -61,41 +61,41 @@ describe("NodesGridView", function() {
         thisContainer
       );
     });
-    afterEach(function() {
+    afterEach(() => {
       MesosStateStore.addChangeListener = thisStoreChangeListener;
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("returns a list of unique framework_ids", function() {
+    it("returns a list of unique framework_ids", () => {
       const list = thisInstance.getActiveServiceIds(thisHosts.getItems());
 
       expect(list).toEqual(["a", "b", "c", "d", "e", "f", "g", "z"]);
     });
   });
 
-  describe("#shouldRenderLoadingScreen", function() {
+  describe("#shouldRenderLoadingScreen", () => {
     const shouldRenderLoadingScreen = props =>
       NodesGridView.prototype.shouldRenderLoadingScreen.call({
         props
       });
 
-    it("returns true if it has a loading error", function() {
+    it("returns true if it has a loading error", () => {
       expect(shouldRenderLoadingScreen({ hasLoadingError: true })).toBeTruthy();
     });
 
-    it("returns true if it has an empty mesos state", function() {
+    it("returns true if it has an empty mesos state", () => {
       expect(
         shouldRenderLoadingScreen({ receivedEmptyMesosState: true })
       ).toBeTruthy();
     });
 
-    it("returns true if it has no node healthy response", function() {
+    it("returns true if it has no node healthy response", () => {
       expect(
         shouldRenderLoadingScreen({ receivedNodeHealthResponse: false })
       ).toBeTruthy();
     });
 
-    it("returns false otherwise", function() {
+    it("returns false otherwise", () => {
       expect(
         shouldRenderLoadingScreen({ receivedNodeHealthResponse: true })
       ).toBeFalsy();

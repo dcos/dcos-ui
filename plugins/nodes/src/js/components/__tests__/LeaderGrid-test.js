@@ -11,16 +11,16 @@ const master = {
   region: "us-east-1"
 };
 
-describe("LeaderGrid", function() {
-  beforeEach(function() {
+describe("LeaderGrid", () => {
+  beforeEach(() => {
     Date.now = jest.fn(() => 1542340694);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     Date.now.mockRestore();
   });
 
-  it("renders with running status", function() {
+  it("renders with running status", () => {
     expect(
       renderer.create(<LeaderGrid leader={master} />).toJSON()
     ).toMatchSnapshot();

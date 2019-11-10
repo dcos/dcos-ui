@@ -4,9 +4,9 @@ const MultiContainerConstraints = require("../MultiContainerConstraints");
 const Batch = require("#SRC/js/structs/Batch");
 const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
 
-describe("MultiContainerConstraints", function() {
-  describe("#JSONReducer", function() {
-    it("emits correct JSON", function() {
+describe("MultiContainerConstraints", () => {
+  describe("#JSONReducer", () => {
+    it("emits correct JSON", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -21,7 +21,7 @@ describe("MultiContainerConstraints", function() {
       ).toEqual([{ fieldName: "hostname", operator: "JOIN", value: "param" }]);
     });
 
-    it("skips optional value", function() {
+    it("skips optional value", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -36,8 +36,8 @@ describe("MultiContainerConstraints", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("parses constraints correctly", function() {
+  describe("#JSONParser", () => {
+    it("parses constraints correctly", () => {
       expect(
         MultiContainerConstraints.JSONParser({
           scheduling: {
@@ -56,11 +56,11 @@ describe("MultiContainerConstraints", function() {
       ]);
     });
 
-    it("ignores null/undefined states", function() {
+    it("ignores null/undefined states", () => {
       expect(MultiContainerConstraints.JSONParser(null)).toEqual([]);
     });
 
-    it("skips value if not set", function() {
+    it("skips value if not set", () => {
       expect(
         MultiContainerConstraints.JSONParser({
           scheduling: {
@@ -76,7 +76,7 @@ describe("MultiContainerConstraints", function() {
       ]);
     });
 
-    it("adds error transaction if constraints are not a list", function() {
+    it("adds error transaction if constraints are not a list", () => {
       expect(
         MultiContainerConstraints.JSONParser({
           scheduling: {
@@ -88,7 +88,7 @@ describe("MultiContainerConstraints", function() {
       ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
     });
 
-    it("adds error transaction when constraint item is not an object", function() {
+    it("adds error transaction when constraint item is not an object", () => {
       expect(
         MultiContainerConstraints.JSONParser({
           scheduling: {
@@ -107,8 +107,8 @@ describe("MultiContainerConstraints", function() {
     });
   });
 
-  describe("#FormReducer", function() {
-    it("creates constraint objects for the form", function() {
+  describe("#FormReducer", () => {
+    it("creates constraint objects for the form", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -121,7 +121,7 @@ describe("MultiContainerConstraints", function() {
       ).toEqual([{ fieldName: "hostname", operator: "JOIN", value: "param" }]);
     });
 
-    it("includes optional value even if not set", function() {
+    it("includes optional value even if not set", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),

@@ -182,7 +182,7 @@ module.exports = {
     }
 
     return state.container.volumes
-      .filter(function(item) {
+      .filter(item => {
         return (
           item.persistent != null ||
           item.external != null ||
@@ -190,7 +190,7 @@ module.exports = {
           item.mode != null
         );
       })
-      .reduce(function(memo, item, index) {
+      .reduce((memo, item, index) => {
         /**
          * For the volumes we have a special case as all the volumes
          * are present in the `container.volumes` But in this parser we only

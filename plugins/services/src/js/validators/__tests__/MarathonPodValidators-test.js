@@ -1,14 +1,14 @@
 const MarathonPodValidators = require("../MarathonPodValidators");
 const { GENERIC } = require("../../constants/ServiceErrorTypes");
 
-describe("MarathonPodValidators", function() {
-  describe("#validateProfileVolumes", function() {
-    it("does not return error if volumes is not specified", function() {
+describe("MarathonPodValidators", () => {
+  describe("#validateProfileVolumes", () => {
+    it("does not return error if volumes is not specified", () => {
       const spec = {};
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for local host volumes", function() {
+    it("does not return error for local host volumes", () => {
       const spec = {
         volumes: [
           {
@@ -20,7 +20,7 @@ describe("MarathonPodValidators", function() {
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for external volumes", function() {
+    it("does not return error for external volumes", () => {
       const spec = {
         volumes: [
           {
@@ -40,7 +40,7 @@ describe("MarathonPodValidators", function() {
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error for local persistent volumes", function() {
+    it("does not return error for local persistent volumes", () => {
       const spec = {
         volumes: [
           {
@@ -55,7 +55,7 @@ describe("MarathonPodValidators", function() {
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("does not return error if volume type is `mount`", function() {
+    it("does not return error if volume type is `mount`", () => {
       const spec = {
         volumes: [
           {
@@ -72,7 +72,7 @@ describe("MarathonPodValidators", function() {
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
 
-    it("returns error if volume type is not `mount`", function() {
+    it("returns error if volume type is not `mount`", () => {
       const spec = {
         volumes: [
           {

@@ -7,9 +7,9 @@ var TaskUtil = require("../../utils/TaskUtil");
 
 let thisMockItems;
 
-describe("TasksZoneFilter", function() {
-  beforeEach(function() {
-    TaskUtil.getNode = function(item) {
+describe("TasksZoneFilter", () => {
+  beforeEach(() => {
+    TaskUtil.getNode = item => {
       return item;
     };
     thisMockItems = [
@@ -26,7 +26,7 @@ describe("TasksZoneFilter", function() {
     ];
   });
 
-  it("keeps tasks with specific zone mentioned", function() {
+  it("keeps tasks with specific zone mentioned", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 

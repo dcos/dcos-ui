@@ -7,9 +7,9 @@ const {
   type: { BRIDGE, HOST, USER }
 } = require("#SRC/js/constants/Networking");
 
-describe("PortDefinitions", function() {
-  describe("#JSONReducer", function() {
-    it("returns normal config if networkType is  HOST", function() {
+describe("PortDefinitions", () => {
+  describe("#JSONReducer", () => {
+    it("returns normal config if networkType is  HOST", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
@@ -18,7 +18,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("returns null if networkType is not HOST", function() {
+    it("returns null if networkType is not HOST", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["networks", 0, "mode"], BRIDGE));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -28,7 +28,7 @@ describe("PortDefinitions", function() {
       );
     });
 
-    it("returns null if networkType is not USER", function() {
+    it("returns null if networkType is not USER", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["networks", 0, "mode"], USER));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -38,7 +38,7 @@ describe("PortDefinitions", function() {
       );
     });
 
-    it("creates default portDefinition configurations", function() {
+    it("creates default portDefinition configurations", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
@@ -47,7 +47,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("creates default portDefinition configurations for BRIDGE network", function() {
+    it("creates default portDefinition configurations for BRIDGE network", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["networks", 0, "mode"], BRIDGE, SET));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -57,7 +57,7 @@ describe("PortDefinitions", function() {
       );
     });
 
-    it("doesn't create portDefinitions for USER", function() {
+    it("doesn't create portDefinitions for USER", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -67,7 +67,7 @@ describe("PortDefinitions", function() {
       );
     });
 
-    it("creates two default portDefinition configurations", function() {
+    it("creates two default portDefinition configurations", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -78,7 +78,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("sets the name value", function() {
+    it("sets the name value", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions", 0, "name"], "foo"));
@@ -88,7 +88,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("sets the port value", function() {
+    it("sets the port value", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portsAutoAssign"], false));
@@ -101,7 +101,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("retains port value if portsAutoAssign is set to true", function() {
+    it("retains port value if portsAutoAssign is set to true", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portsAutoAssign"], true));
@@ -114,7 +114,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("sets the protocol value", function() {
+    it("sets the protocol value", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(
@@ -129,7 +129,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("applies protocol changes to _incomplete_ port definition", function() {
+    it("applies protocol changes to _incomplete_ port definition", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(
@@ -150,7 +150,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("applies protocol changes to provided port definition", function() {
+    it("applies protocol changes to provided port definition", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(
@@ -174,7 +174,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("adds the labels key if the portDefinition is load balanced", function() {
+    it("adds the labels key if the portDefinition is load balanced", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -188,7 +188,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("adds the index of the portDefinition to the VIP keys", function() {
+    it("adds the index of the portDefinition to the VIP keys", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -205,7 +205,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("adds the port to the VIP string", function() {
+    it("adds the port to the VIP string", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -223,7 +223,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("adds the app ID to the VIP string when it is defined", function() {
+    it("adds the app ID to the VIP string when it is defined", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -239,7 +239,7 @@ describe("PortDefinitions", function() {
       ]);
     });
 
-    it("stores portDefinitions even if network is USER when recorded", function() {
+    it("stores portDefinitions even if network is USER when recorded", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["networks", 0, "mode"], USER, SET));
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
@@ -258,8 +258,8 @@ describe("PortDefinitions", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("returns an empty array", function() {
+  describe("#JSONParser", () => {
+    it("returns an empty array", () => {
       expect(PortDefinitions.JSONParser({})).toEqual([]);
     });
   });

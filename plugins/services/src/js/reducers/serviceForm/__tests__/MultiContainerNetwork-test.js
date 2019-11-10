@@ -5,9 +5,9 @@ const Networking = require("#SRC/js/constants/Networking");
 const Batch = require("#SRC/js/structs/Batch");
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 
-describe("MultiContainerNetwork", function() {
-  describe("#JSONReducer", function() {
-    it("is host default type", function() {
+describe("MultiContainerNetwork", () => {
+  describe("#JSONReducer", () => {
+    it("is host default type", () => {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
@@ -15,7 +15,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("returns a network with mode host by default", function() {
+    it("returns a network with mode host by default", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["networks", 0], Networking.type.HOST));
@@ -25,7 +25,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("returns a network with mode container", function() {
+    it("returns a network with mode container", () => {
       let batch = new Batch();
 
       batch = batch.add(
@@ -37,7 +37,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("resets network to mode host", function() {
+    it("resets network to mode host", () => {
       let batch = new Batch();
 
       batch = batch.add(
@@ -50,7 +50,7 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
 
-    it("creates the right network object", function() {
+    it("creates the right network object", () => {
       let batch = new Batch();
 
       batch = batch.add(
@@ -73,8 +73,8 @@ describe("MultiContainerNetwork", function() {
       ]);
     });
   });
-  describe("#FORMReducer", function() {
-    it("creates the right network object", function() {
+  describe("#FORMReducer", () => {
+    it("creates the right network object", () => {
       let batch = new Batch();
 
       batch = batch.add(

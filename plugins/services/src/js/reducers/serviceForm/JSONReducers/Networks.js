@@ -39,7 +39,7 @@ module.exports = {
       }
     }
 
-    return this.networks.map(function(network) {
+    return this.networks.map(network => {
       return {
         ...network,
         mode: Networking.internalToJson[network.mode]
@@ -48,11 +48,7 @@ module.exports = {
   },
 
   JSONParser(state) {
-    const transactions = (state.networks || []).reduce(function(
-      memo,
-      network,
-      index
-    ) {
+    const transactions = (state.networks || []).reduce((memo, network, index) => {
       const name = network.name;
       const mode = name != null ? CONTAINER : network.mode;
 

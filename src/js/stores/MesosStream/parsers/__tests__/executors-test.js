@@ -1,8 +1,8 @@
 import getExecutorsAction from "../executors";
 
-describe("executors message parser", function() {
-  describe("#getExecutorsAction", function() {
-    it("parses the correct message", function() {
+describe("executors message parser", () => {
+  describe("#getExecutorsAction", () => {
+    it("parses the correct message", () => {
       const state = {};
       const message = {
         type: "GET_EXECUTORS",

@@ -4,9 +4,9 @@ const { combineReducers } = require("#SRC/js/utils/ReducerUtil");
 const JSONMultiContainerParser = require("../JSONMultiContainerParser");
 const JSONMultiContainerReducers = require("../JSONMultiContainerReducers");
 
-describe("JSONMultiContainer", function() {
-  describe("integrity", function() {
-    it("parses and reduce without changing the JSON", function() {
+describe("JSONMultiContainer", () => {
+  describe("integrity", () => {
+    it("parses and reduce without changing the JSON", () => {
       const podDefinition = {
         id: "/podABCD",
         labels: {
@@ -104,17 +104,14 @@ describe("JSONMultiContainer", function() {
       const reducers = combineReducers(JSONMultiContainerReducers).bind({});
       const parser = combineParsers(JSONMultiContainerParser);
       const batch = parser(JSON.parse(JSON.stringify(podDefinition))).reduce(
-        function(batch, item) {
+        (batch, item) => {
           return batch.add(item);
         },
         new Batch()
       );
       const jsonFromBatch = batch.reduce(reducers, {});
       expect(jsonFromBatch).toEqual(podDefinition);
-      const batchFromJSONFromBatch = parser(jsonFromBatch).reduce(function(
-        batch,
-        item
-      ) {
+      const batchFromJSONFromBatch = parser(jsonFromBatch).reduce((batch, item) => {
         return batch.add(item);
       },
       new Batch());

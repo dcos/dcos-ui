@@ -4,16 +4,16 @@ const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const HealthChecks = require("../HealthChecks");
 
-describe("HealthChecks", function() {
-  describe("#FormReducer", function() {
-    it("returns an Array", function() {
+describe("HealthChecks", () => {
+  describe("#FormReducer", () => {
+    it("returns an Array", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([{}]);
     });
 
-    it("sets the protocol", function() {
+    it("sets the protocol", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -27,7 +27,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets the right Command", function() {
+    it("sets the right Command", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -45,7 +45,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets the right path", function() {
+    it("sets the right path", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -61,7 +61,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("has a fully fledged health check object", function() {
+    it("has a fully fledged health check object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -94,7 +94,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("has a fully fledged health check object with unknown protocol", function() {
+    it("has a fully fledged health check object with unknown protocol", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -130,7 +130,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("keeps https after switching protocol back to HTTP", function() {
+    it("keeps https after switching protocol back to HTTP", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -151,7 +151,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets protocol to http if https was set", function() {
+    it("sets protocol to http if https was set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -173,7 +173,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets isIPv6 to true if set", function() {
+    it("sets isIPv6 to true if set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(
@@ -189,7 +189,7 @@ describe("HealthChecks", function() {
       ]);
     });
 
-    it("sets https isIPv6 to IPv6 if set", function() {
+    it("sets https isIPv6 to IPv6 if set", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["healthChecks"], null, ADD_ITEM));
       batch = batch.add(

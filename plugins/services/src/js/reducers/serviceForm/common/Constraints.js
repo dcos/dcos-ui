@@ -49,7 +49,7 @@ module.exports = {
       return [new Transaction(["constraints"], "not-list", ERROR)];
     }
 
-    return constraints.reduce(function(memo, item, index) {
+    return constraints.reduce((memo, item, index) => {
       if (Array.isArray(item)) {
         memo.push(
           new Transaction(
@@ -115,10 +115,10 @@ module.exports = {
     });
 
     return this.constraints
-      .filter(function(item = {}) {
+      .filter((item = {}) => {
         return !isEmpty(item.fieldName) && !isEmpty(item.operator);
       })
-      .map(function({ fieldName, operator, value }) {
+      .map(({ fieldName, operator, value }) => {
         return {
           fieldName,
           value,

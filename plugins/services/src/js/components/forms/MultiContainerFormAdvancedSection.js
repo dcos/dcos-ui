@@ -7,7 +7,7 @@ import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 
-const getForcePullSection = function(data, path) {
+const getForcePullSection = (data, path) => {
   const imageForcePullPath = `${path}.image.forcePull`;
   const imageForcePull = findNestedPropertyInObject(data, imageForcePullPath);
 

@@ -80,10 +80,10 @@ class LogView extends React.Component {
     ];
 
     return (
-      propsToCheck.some(function(key) {
+      propsToCheck.some(key => {
         return curProps[key] !== nextProps[key];
       }) ||
-      stateToCheck.some(function(key) {
+      stateToCheck.some(key => {
         return curState[key] !== nextState[key];
       })
     );

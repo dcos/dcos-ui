@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("NodesZoneFilter", function() {
-  beforeEach(function() {
+describe("NodesZoneFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getZoneName() {
@@ -20,7 +20,7 @@ describe("NodesZoneFilter", function() {
     ];
   });
 
-  it("keeps nodes with specific zone mentioned", function() {
+  it("keeps nodes with specific zone mentioned", () => {
     const nodes = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 

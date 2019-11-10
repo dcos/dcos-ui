@@ -1,7 +1,7 @@
 import getStateAction from "../state";
 
-describe("state message parser", function() {
-  it("parses the correct message", function() {
+describe("state message parser", () => {
+  it("parses the correct message", () => {
     const state = {};
     const message = {
       type: "GET_STATE",

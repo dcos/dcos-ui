@@ -3,14 +3,14 @@ import { mount } from "enzyme";
 
 const DialChart = require("../DialChart");
 
-const getInstanceWithProps = function(props) {
+const getInstanceWithProps = props => {
   return mount(<DialChart {...props} />);
 };
 
 let thisInstance;
 
-describe("DialChart", function() {
-  beforeEach(function() {
+describe("DialChart", () => {
+  beforeEach(() => {
     thisInstance = getInstanceWithProps({
       data: [],
       label: "Items",
@@ -18,8 +18,8 @@ describe("DialChart", function() {
     });
   });
 
-  describe("#getNormalizedData", function() {
-    it("returns a single-member grey set when no data is present", function() {
+  describe("#getNormalizedData", () => {
+    it("returns a single-member grey set when no data is present", () => {
       const normalizedData = thisInstance
         .instance()
         .getNormalizedData(
@@ -30,7 +30,7 @@ describe("DialChart", function() {
       expect(normalizedData).toEqual([{ colorIndex: 7, value: 1 }]);
     });
 
-    it("returns the union of its slices and its data", function() {
+    it("returns the union of its slices and its data", () => {
       const normalizedData = thisInstance
         .instance()
         .getNormalizedData(
@@ -45,20 +45,20 @@ describe("DialChart", function() {
     });
   });
 
-  describe("#isEmpty", function() {
-    it("returns true if there is no data", function() {
+  describe("#isEmpty", () => {
+    it("returns true if there is no data", () => {
       const empty = thisInstance.instance().isEmpty([]);
       expect(empty).toBe(true);
     });
 
-    it("returns true if the data sums to 0", function() {
+    it("returns true if the data sums to 0", () => {
       const empty = thisInstance
         .instance()
         .isEmpty([{ value: 0 }, { value: 0 }, { value: 0 }]);
       expect(empty).toBe(true);
     });
 
-    it("returns false if the data sums to more than 0", function() {
+    it("returns false if the data sums to more than 0", () => {
       const empty = thisInstance
         .instance()
         .isEmpty([{ value: 0 }, { value: 1 }, { value: 0 }]);
@@ -66,14 +66,14 @@ describe("DialChart", function() {
     });
   });
 
-  describe("#render", function() {
-    beforeEach(function() {
+  describe("#render", () => {
+    beforeEach(() => {
       thisInstance = getInstanceWithProps({
         data: [{ name: "TASK_1", value: 3 }, { name: "TASK_2", value: 1 }]
       });
     });
 
-    it("when no data is present, it renders a single 'empty' slice to the DOM", function() {
+    it("when no data is present, it renders a single 'empty' slice to the DOM", () => {
       thisInstance = getInstanceWithProps({
         slices: [{ name: "TASK_1" }, { name: "TASK_2" }],
         data: []
@@ -82,11 +82,11 @@ describe("DialChart", function() {
       expect(thisInstance.find(".arc").length).toEqual(1);
     });
 
-    it("renders a slice for each category of tasks", function() {
+    it("renders a slice for each category of tasks", () => {
       expect(thisInstance.find(".arc").length).toEqual(2);
     });
 
-    it("does not remove 0-length slices from the DOM", function() {
+    it("does not remove 0-length slices from the DOM", () => {
       thisInstance = getInstanceWithProps({
         slices: [{ name: "TASK_1" }, { name: "TASK_2" }],
         data: [{ name: "TASK_1", value: 4 }]
@@ -95,18 +95,18 @@ describe("DialChart", function() {
     });
   });
 
-  describe("#getRadius", function() {
-    it("uses the width of its container when no height is set", function() {
+  describe("#getRadius", () => {
+    it("uses the width of its container when no height is set", () => {
       const r = thisInstance.instance().getRadius({ width: 100 });
       expect(r).toEqual(50);
     });
 
-    it("uses the width of its container when both are available and w < h", function() {
+    it("uses the width of its container when both are available and w < h", () => {
       const r = thisInstance.instance().getRadius({ width: 100, height: 120 });
       expect(r).toEqual(50);
     });
 
-    it("uses the height of its container when both are available and h < w", function() {
+    it("uses the height of its container when both are available and h < w", () => {
       const r = thisInstance.instance().getRadius({ width: 120, height: 100 });
       expect(r).toEqual(50);
     });

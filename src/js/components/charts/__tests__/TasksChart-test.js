@@ -6,9 +6,9 @@ const TasksChart = require("../TasksChart");
 
 let thisInstance, thisTasks;
 
-describe("TasksChart", function() {
-  describe("#render", function() {
-    beforeEach(function() {
+describe("TasksChart", () => {
+  describe("#render", () => {
+    beforeEach(() => {
       thisInstance = mount(
         <I18nProvider defaultRender="span">
           <TasksChart tasks={{}} />
@@ -16,7 +16,7 @@ describe("TasksChart", function() {
       );
     });
 
-    it("renders its label", function() {
+    it("renders its label", () => {
       expect(
         thisInstance
           .render()
@@ -26,12 +26,12 @@ describe("TasksChart", function() {
     });
   });
 
-  describe("#getTaskInfo", function() {
-    beforeEach(function() {
+  describe("#getTaskInfo", () => {
+    beforeEach(() => {
       thisInstance = shallow(<TasksChart tasks={{}} />);
     });
 
-    it("renders two task info labels when there is no data", function() {
+    it("renders two task info labels when there is no data", () => {
       const taskLabels = thisInstance
         .find(".row")
         .last()
@@ -39,7 +39,7 @@ describe("TasksChart", function() {
       expect(taskLabels.length).toEqual(2);
     });
 
-    it("renders two task info labels when there is only data for one", function() {
+    it("renders two task info labels when there is only data for one", () => {
       thisInstance = shallow(
         <TasksChart tasks={{ tasks: { TASK_RUNNING: 1 } }} />
       );
@@ -52,13 +52,13 @@ describe("TasksChart", function() {
     });
   });
 
-  describe("#shouldComponentUpdate", function() {
-    beforeEach(function() {
+  describe("#shouldComponentUpdate", () => {
+    beforeEach(() => {
       thisTasks = { TASK_RUNNING: 0 };
       thisInstance = shallow(<TasksChart tasks={thisTasks} />);
     });
 
-    it("allows update", function() {
+    it("allows update", () => {
       thisTasks.TASK_STAGING = 1;
       var shouldUpdate = thisInstance
         .instance()
@@ -66,7 +66,7 @@ describe("TasksChart", function() {
       expect(shouldUpdate).toEqual(true);
     });
 
-    it("does not allow update", function() {
+    it("does not allow update", () => {
       var shouldUpdate = thisInstance
         .instance()
         .shouldComponentUpdate(thisInstance.instance().props);
@@ -74,13 +74,13 @@ describe("TasksChart", function() {
     });
   });
 
-  describe("#getDialChartChildren", function() {
-    beforeEach(function() {
+  describe("#getDialChartChildren", () => {
+    beforeEach(() => {
       var parent = shallow(<TasksChart tasks={{}} />);
       thisInstance = shallow(parent.instance().getDialChartChildren(100));
     });
 
-    it("renders its unit", function() {
+    it("renders its unit", () => {
       expect(thisInstance.find(".unit").text()).toEqual("100");
     });
   });

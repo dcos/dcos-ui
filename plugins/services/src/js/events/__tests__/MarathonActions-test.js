@@ -10,38 +10,38 @@ const MarathonActions = require("../MarathonActions");
 const Pod = require("../../structs/Pod");
 const PodSpec = require("../../structs/PodSpec");
 
-Hooks.addFilter("hasCapability", function() {
+Hooks.addFilter("hasCapability", () => {
   return true;
 });
 
 let thisConfiguration;
 
-describe("MarathonActions", function() {
-  describe("#createGroup", function() {
+describe("MarathonActions", () => {
+  describe("#createGroup", () => {
     const newGroupId = "test";
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.createGroup({ id: newGroupId });
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("sends data to the correct URL", function() {
+    it("sends data to the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups`
       );
     });
 
-    it("uses POST for the request method", function() {
+    it("uses POST for the request method", () => {
       expect(thisConfiguration.method).toEqual("POST");
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -55,8 +55,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -67,8 +67,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -84,33 +84,33 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#deleteGroup", function() {
+  describe("#deleteGroup", () => {
     const groupDefinition = {
       id: "/test"
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.deleteGroup(groupDefinition.id);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("sends data to the correct URL", function() {
+    it("sends data to the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`
       );
     });
 
-    it("uses DELETE for the request method", function() {
+    it("uses DELETE for the request method", () => {
       expect(thisConfiguration.method).toEqual("DELETE");
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -124,8 +124,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -136,8 +136,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error", response: "{}" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -153,28 +153,28 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#editGroup", function() {
+  describe("#editGroup", () => {
     const groupDefinition = {
       id: "/test"
     };
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.editGroup(groupDefinition);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("sends data to the correct URL", function() {
+    it("sends data to the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups/%2Ftest`
       );
     });
 
-    it("sends data to the correct URL with the force=true parameter", function() {
+    it("sends data to the correct URL with the force=true parameter", () => {
       MarathonActions.editGroup(groupDefinition, true);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
@@ -183,12 +183,12 @@ describe("MarathonActions", function() {
       );
     });
 
-    it("uses PUT for the request method", function() {
+    it("uses PUT for the request method", () => {
       expect(thisConfiguration.method).toEqual("PUT");
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -202,8 +202,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -214,8 +214,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error", response: "{}" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -231,9 +231,9 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#createService", function() {
-    describe("app", function() {
-      beforeEach(function() {
+  describe("#createService", () => {
+    describe("app", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.createService(
           new ApplicationSpec({
@@ -244,28 +244,28 @@ describe("MarathonActions", function() {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps`
         );
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps`
         );
       });
 
-      it("uses POST for the request method", function() {
+      it("uses POST for the request method", () => {
         expect(thisConfiguration.method).toEqual("POST");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -279,8 +279,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -291,8 +291,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -308,8 +308,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("pod", function() {
-      beforeEach(function() {
+    describe("pod", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.createService(
           new PodSpec({
@@ -320,28 +320,28 @@ describe("MarathonActions", function() {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods`
         );
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods`
         );
       });
 
-      it("uses POST for the request method", function() {
+      it("uses POST for the request method", () => {
         expect(thisConfiguration.method).toEqual("POST");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -355,8 +355,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -367,8 +367,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -385,30 +385,30 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#deleteService", function() {
-    describe("app", function() {
-      beforeEach(function() {
+  describe("#deleteService", () => {
+    describe("app", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.deleteService(new Application({ id: "/test" }));
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test`
         );
       });
 
-      it("uses DELETE for the request method", function() {
+      it("uses DELETE for the request method", () => {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -422,8 +422,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -434,8 +434,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -451,29 +451,29 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("pod", function() {
-      beforeEach(function() {
+    describe("pod", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.deleteService(new Pod({ id: "/test" }));
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test`
         );
       });
 
-      it("uses DELETE for the request method", function() {
+      it("uses DELETE for the request method", () => {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -487,8 +487,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -499,8 +499,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -517,28 +517,28 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#editService", function() {
-    describe("app", function() {
+  describe("#editService", () => {
+    describe("app", () => {
       const app = new Application({ id: "/test" });
       const spec = new ApplicationSpec({ cmd: "sleep 100;" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.editService(app, spec);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test?partialUpdate=false`
         );
       });
 
-      it("sends data to the correct URL with the force=true parameter", function() {
+      it("sends data to the correct URL with the force=true parameter", () => {
         MarathonActions.editService(app, spec, true);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
@@ -547,12 +547,12 @@ describe("MarathonActions", function() {
         );
       });
 
-      it("uses PUT for the request method", function() {
+      it("uses PUT for the request method", () => {
         expect(thisConfiguration.method).toEqual("PUT");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -566,8 +566,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -578,8 +578,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -595,27 +595,27 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("pods", function() {
+    describe("pods", () => {
       const pod = new Pod({ id: "/test" });
       const spec = new PodSpec({ cmd: "sleep 100;" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.editService(pod, spec);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test?partialUpdate=false`
         );
       });
 
-      it("sends data to the correct URL with the force=true parameter", function() {
+      it("sends data to the correct URL with the force=true parameter", () => {
         MarathonActions.editService(pod, spec, true);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
@@ -624,12 +624,12 @@ describe("MarathonActions", function() {
         );
       });
 
-      it("uses PUT for the request method", function() {
+      it("uses PUT for the request method", () => {
         expect(thisConfiguration.method).toEqual("PUT");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -643,8 +643,8 @@ describe("MarathonActions", function() {
         });
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -655,8 +655,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -673,32 +673,32 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#resetDelayedService", function() {
-    describe("app", function() {
+  describe("#resetDelayedService", () => {
+    describe("app", () => {
       const app = new Application({ id: "/test" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.resetDelayedService(app);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/queue//test/delay`
         );
       });
 
-      it("uses DELETE for the request method", function() {
+      it("uses DELETE for the request method", () => {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -709,8 +709,8 @@ describe("MarathonActions", function() {
         thisConfiguration.success({});
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -721,8 +721,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -738,31 +738,31 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("pods", function() {
+    describe("pods", () => {
       const pod = new Pod({ id: "/test" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.resetDelayedService(pod);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/queue//test/delay`
         );
       });
 
-      it("uses DELETE for the request method", function() {
+      it("uses DELETE for the request method", () => {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -773,8 +773,8 @@ describe("MarathonActions", function() {
         thisConfiguration.success({});
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -785,8 +785,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -803,27 +803,27 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#restartService", function() {
-    describe("app", function() {
+  describe("#restartService", () => {
+    describe("app", () => {
       const app = new Application({ id: "/test" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.restartService(app);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/apps//test/restart`
         );
       });
 
-      it("sends data to the correct URL with the force=true parameter", function() {
+      it("sends data to the correct URL with the force=true parameter", () => {
         MarathonActions.restartService(app, true);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
@@ -832,12 +832,12 @@ describe("MarathonActions", function() {
         );
       });
 
-      it("uses POST for the request method", function() {
+      it("uses POST for the request method", () => {
         expect(thisConfiguration.method).toEqual("POST");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -848,8 +848,8 @@ describe("MarathonActions", function() {
         thisConfiguration.success({});
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -860,8 +860,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -877,26 +877,26 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("pods", function() {
+    describe("pods", () => {
       const pod = new Pod({ id: "/test" });
 
-      beforeEach(function() {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         MarathonActions.restartService(pod);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/pods//test/restart`
         );
       });
 
-      it("sends data to the correct URL with the force=true parameter", function() {
+      it("sends data to the correct URL with the force=true parameter", () => {
         MarathonActions.restartService(pod, true);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
 
@@ -905,12 +905,12 @@ describe("MarathonActions", function() {
         );
       });
 
-      it("uses POST for the request method", function() {
+      it("uses POST for the request method", () => {
         expect(thisConfiguration.method).toEqual("POST");
       });
 
-      it("dispatches the correct action when successful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -921,8 +921,8 @@ describe("MarathonActions", function() {
         thisConfiguration.success({});
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -933,8 +933,8 @@ describe("MarathonActions", function() {
         thisConfiguration.error({ message: "error", response: "{}" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -951,25 +951,25 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchDeployments", function() {
-    beforeEach(function() {
+  describe("#fetchDeployments", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchDeployments();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/deployments`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -986,8 +986,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -998,8 +998,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1015,25 +1015,25 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchGroups", function() {
-    beforeEach(function() {
+  describe("#fetchGroups", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchGroups();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/groups`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1050,8 +1050,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_GROUPS_ERROR);
@@ -1060,8 +1060,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1077,25 +1077,25 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchQueue", function() {
-    beforeEach(function() {
+  describe("#fetchQueue", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchQueue();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/queue`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS);
@@ -1116,8 +1116,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_ERROR);
@@ -1126,8 +1126,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1143,28 +1143,28 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchServiceVersion", function() {
+  describe("#fetchServiceVersion", () => {
     const serviceID = "test";
     const versionID = "2016-05-02T16:07:32.583Z";
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchServiceVersion(serviceID, versionID);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions/${versionID}`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1179,8 +1179,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1191,8 +1191,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1208,27 +1208,27 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchServiceVersions", function() {
+  describe("#fetchServiceVersions", () => {
     const serviceID = "test";
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchServiceVersions(serviceID);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/apps/${serviceID}/versions`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1242,8 +1242,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1254,8 +1254,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1271,27 +1271,27 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#fetchMarathonInstanceInfo", function() {
+  describe("#fetchMarathonInstanceInfo", () => {
     const serviceID = "test";
 
-    beforeEach(function() {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.fetchMarathonInstanceInfo(serviceID);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    it("calls #json from the RequestUtil", function() {
+    it("calls #json from the RequestUtil", () => {
       expect(RequestUtil.json).toHaveBeenCalled();
     });
 
-    it("fetches data from the correct URL", function() {
+    it("fetches data from the correct URL", () => {
       expect(thisConfiguration.url).toEqual(
         `${Config.rootUrl}/service/marathon/v2/info`
       );
     });
 
-    it("dispatches the correct action when successful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when successful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1303,8 +1303,8 @@ describe("MarathonActions", function() {
       thisConfiguration.success({ foo: "bar", baz: "qux" });
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the correct action when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1315,8 +1315,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({ message: "error" });
     });
 
-    it("dispatches the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("dispatches the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1332,32 +1332,32 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#revertDeployment", function() {
-    beforeEach(function() {
+  describe("#revertDeployment", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.revertDeployment("deployment-id");
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    describe("JSON request", function() {
-      it("is made", function() {
+    describe("JSON request", () => {
+      it("is made", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("is a DELETE", function() {
+      it("is a DELETE", () => {
         expect(thisConfiguration.method).toEqual("DELETE");
       });
 
-      it("calls the appropriate endpoint", function() {
+      it("calls the appropriate endpoint", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/deployments/deployment-id`
         );
       });
     });
 
-    describe("on success", function() {
-      it("emits a success event on success", function() {
-        var id = AppDispatcher.register(function(payload) {
+    describe("on success", () => {
+      it("emits a success event on success", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -1368,8 +1368,8 @@ describe("MarathonActions", function() {
         thisConfiguration.success({});
       });
 
-      it("emits the original deployment ID as the success payload", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("emits the original deployment ID as the success payload", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.data.originalDeploymentID).toEqual("deployment-id");
@@ -1379,8 +1379,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("emits an error event on error", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits an error event on error", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1391,8 +1391,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({});
     });
 
-    it("emits the original deployment ID in the error payload", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits the original deployment ID in the error payload", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.originalDeploymentID).toEqual("deployment-id");
@@ -1401,8 +1401,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({});
     });
 
-    it("emits the response text in the error payload", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits the response text in the error payload", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.error).toEqual({
@@ -1415,8 +1415,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("emits the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
@@ -1432,29 +1432,29 @@ describe("MarathonActions", function() {
     });
   });
 
-  describe("#killTasks", function() {
-    beforeEach(function() {
+  describe("#killTasks", () => {
+    beforeEach(() => {
       spyOn(RequestUtil, "json");
       MarathonActions.killTasks(["task1", "task2"], false);
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
-    describe("JSON request", function() {
-      it("is made", function() {
+    describe("JSON request", () => {
+      it("is made", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("is a POST", function() {
+      it("is a POST", () => {
         expect(thisConfiguration.method).toEqual("POST");
       });
 
-      it("calls the appropriate endpoint", function() {
+      it("calls the appropriate endpoint", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/marathon/v2/tasks/delete`
         );
       });
 
-      it("calls the appropriate endpoint if scaled is true", function() {
+      it("calls the appropriate endpoint if scaled is true", () => {
         MarathonActions.killTasks(["task1", "task2"], true);
         const configuration = RequestUtil.json.calls.mostRecent().args[0];
         expect(configuration.url).toEqual(
@@ -1463,9 +1463,9 @@ describe("MarathonActions", function() {
       });
     });
 
-    describe("on success", function() {
-      it("emits a success event on success", function() {
-        var id = AppDispatcher.register(function(payload) {
+    describe("on success", () => {
+      it("emits a success event on success", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -1477,8 +1477,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("emits an error event on error", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits an error event on error", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1489,8 +1489,8 @@ describe("MarathonActions", function() {
       thisConfiguration.error({});
     });
 
-    it("emits the response text in the error payload", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits the response text in the error payload", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ message: "A helpful error message." });
@@ -1501,8 +1501,8 @@ describe("MarathonActions", function() {
       });
     });
 
-    it("emits the xhr when unsuccessful", function() {
-      var id = AppDispatcher.register(function(payload) {
+    it("emits the xhr when unsuccessful", () => {
+      var id = AppDispatcher.register(payload => {
         var action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({

@@ -1,26 +1,26 @@
 const VipLabelsValidators = require("../VipLabelsValidators");
 
-describe("VipLabelsValidators", function() {
-  describe("#mustContainPort", function() {
-    describe("with a Single container app", function() {
-      it("returns no errors if portDefinitions is empty", function() {
+describe("VipLabelsValidators", () => {
+  describe("#mustContainPort", () => {
+    describe("with a Single container app", () => {
+      it("returns no errors if portDefinitions is empty", () => {
         const spec = { portDefinitions: [] };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if portMappings is empty", function() {
+      it("returns no errors if portMappings is empty", () => {
         const spec = { container: { portMappings: [] } };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if Label for VIP is correct", function() {
+      it("returns no errors if Label for VIP is correct", () => {
         const spec = {
           portDefinitions: [{ labels: { VIP_0: "endpoint-name:1000" } }]
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if Label for VIP is correct", function() {
+      it("returns no errors if Label for VIP is correct", () => {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }]
@@ -29,7 +29,7 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns an error if Label for VIP contains no port", function() {
+      it("returns an error if Label for VIP contains no port", () => {
         const spec = {
           portDefinitions: [{ labels: { VIP_0: "endpoint-name" } }]
         };
@@ -42,7 +42,7 @@ describe("VipLabelsValidators", function() {
         ]);
       });
 
-      it("returns an error if Label for VIP contains non-integer port", function() {
+      it("returns an error if Label for VIP contains non-integer port", () => {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }]
@@ -57,7 +57,7 @@ describe("VipLabelsValidators", function() {
         ]);
       });
 
-      it("returns an error if Label for VIP contains an integer port that exceeds the max", function() {
+      it("returns an error if Label for VIP contains an integer port that exceeds the max", () => {
         const spec = {
           container: {
             portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }]
@@ -71,7 +71,7 @@ describe("VipLabelsValidators", function() {
         ]);
       });
 
-      it("validates multiple ports", function() {
+      it("validates multiple ports", () => {
         const spec = {
           container: {
             portMappings: [
@@ -97,13 +97,13 @@ describe("VipLabelsValidators", function() {
       });
     });
 
-    describe("with a Multi container app", function() {
-      it("returns no errors if endpoints is empty", function() {
+    describe("with a Multi container app", () => {
+      it("returns no errors if endpoints is empty", () => {
         const spec = { containers: [{ endpoints: [] }] };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns no errors if Label for VIP is correct", function() {
+      it("returns no errors if Label for VIP is correct", () => {
         const spec = {
           containers: [
             {
@@ -114,7 +114,7 @@ describe("VipLabelsValidators", function() {
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
-      it("returns an error if Label for VIP contains no address", function() {
+      it("returns an error if Label for VIP contains no address", () => {
         const spec = {
           containers: [
             {

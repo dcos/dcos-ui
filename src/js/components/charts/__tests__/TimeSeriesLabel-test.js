@@ -7,24 +7,24 @@ const TimeSeriesLabel = require("../TimeSeriesLabel");
 
 let thisInstance;
 
-describe("TimeSeriesLabel", function() {
-  beforeEach(function() {
+describe("TimeSeriesLabel", () => {
+  beforeEach(() => {
     thisInstance = shallow(
       <TimeSeriesLabel colorIndex={2} currentValue="10" subHeading="Foo" />
     );
   });
 
-  it("displays the correct label", function() {
+  it("displays the correct label", () => {
     // Verify that percentage is set correctly
     expect(thisInstance.find(".unit").text()).toEqual("10%");
   });
 
-  it("displays the correct sub heading", function() {
+  it("displays the correct sub heading", () => {
     // Verify that percentage is set correctly
     expect(thisInstance.find(".unit-label").text()).toEqual("Foo");
   });
 
-  it("sets sub heading text color", function() {
+  it("sets sub heading text color", () => {
     // Verify that percentage is set correctly
     expect(thisInstance.hasClass("path-color-2"));
   });

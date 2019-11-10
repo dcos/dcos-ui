@@ -12,9 +12,9 @@ const {
 
 const Container = require("../Container");
 
-describe("Container", function() {
-  describe("#JSONReducer", function() {
-    it("returns a null container as default object without docker object", function() {
+describe("Container", () => {
+  describe("#JSONReducer", () => {
+    it("returns a null container as default object without docker object", () => {
       const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -24,7 +24,7 @@ describe("Container", function() {
       });
     });
 
-    it("switches container name along with type", function() {
+    it("switches container name along with type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -43,7 +43,7 @@ describe("Container", function() {
       });
     });
 
-    it("creates new container info when there is nothing", function() {
+    it("creates new container info when there is nothing", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -63,7 +63,7 @@ describe("Container", function() {
       });
     });
 
-    it("keeps top-level container info with type switch", function() {
+    it("keeps top-level container info with type switch", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(["container", "docker", "image"], "foo", SET)
@@ -82,7 +82,7 @@ describe("Container", function() {
       });
     });
 
-    it("sets privileged correctly", function() {
+    it("sets privileged correctly", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -104,7 +104,7 @@ describe("Container", function() {
       });
     });
 
-    it("sets privileged correctly to false", function() {
+    it("sets privileged correctly to false", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -126,7 +126,7 @@ describe("Container", function() {
       });
     });
 
-    it("doesn't set privileged if path doesn't match type", function() {
+    it("doesn't set privileged if path doesn't match type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -148,7 +148,7 @@ describe("Container", function() {
       });
     });
 
-    it("sets forcePullImage correctly", function() {
+    it("sets forcePullImage correctly", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -170,7 +170,7 @@ describe("Container", function() {
       });
     });
 
-    it("sets forcePullImage correctly to false", function() {
+    it("sets forcePullImage correctly to false", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -192,7 +192,7 @@ describe("Container", function() {
       });
     });
 
-    it("doesn't set forcePullImage if path doesn't match type", function() {
+    it("doesn't set forcePullImage if path doesn't match type", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(["container", "foo", "forcePullImage"], true, SET)
@@ -205,7 +205,7 @@ describe("Container", function() {
       });
     });
 
-    it("does not remove forcePullImage when runtime is changed", function() {
+    it("does not remove forcePullImage when runtime is changed", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -228,7 +228,7 @@ describe("Container", function() {
       });
     });
 
-    it("remembers forcePullImage from earlier setting", function() {
+    it("remembers forcePullImage from earlier setting", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -252,7 +252,7 @@ describe("Container", function() {
       });
     });
 
-    it("sets image correctly", function() {
+    it("sets image correctly", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -271,7 +271,7 @@ describe("Container", function() {
       });
     });
 
-    it("changes image value correctly", function() {
+    it("changes image value correctly", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["container", "type"], "DOCKER", SET));
       batch = batch.add(
@@ -290,7 +290,7 @@ describe("Container", function() {
       });
     });
 
-    it("doesn't set image if path doesn't match type", function() {
+    it("doesn't set image if path doesn't match type", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(["container", "foo", "image"], "foo", SET)
@@ -303,8 +303,8 @@ describe("Container", function() {
       });
     });
 
-    describe("PortMappings", function() {
-      it("creates default portDefinition configurations", function() {
+    describe("PortMappings", () => {
+      it("creates default portDefinition configurations", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -338,7 +338,7 @@ describe("Container", function() {
         });
       });
 
-      it("doesn't include hostPort or protocol when not enabled", function() {
+      it("doesn't include hostPort or protocol when not enabled", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -379,7 +379,7 @@ describe("Container", function() {
         });
       });
 
-      it("includes hostPort or protocol when not enabled for BRIDGE", function() {
+      it("includes hostPort or protocol when not enabled for BRIDGE", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -426,7 +426,7 @@ describe("Container", function() {
         });
       });
 
-      it("creates default portDefinition configurations", function() {
+      it("creates default portDefinition configurations", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -460,7 +460,7 @@ describe("Container", function() {
         });
       });
 
-      it("doesn't create portMappings by default", function() {
+      it("doesn't create portMappings by default", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
@@ -471,7 +471,7 @@ describe("Container", function() {
         });
       });
 
-      it("doesn't create portMappings for HOST", function() {
+      it("doesn't create portMappings for HOST", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -494,7 +494,7 @@ describe("Container", function() {
         });
       });
 
-      it("creates two default portDefinition configurations", function() {
+      it("creates two default portDefinition configurations", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -540,7 +540,7 @@ describe("Container", function() {
         });
       });
 
-      it("sets the name value", function() {
+      it("sets the name value", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -577,7 +577,7 @@ describe("Container", function() {
         });
       });
 
-      it("sets the port value", function() {
+      it("sets the port value", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -617,7 +617,7 @@ describe("Container", function() {
         });
       });
 
-      it("defaults port value to 0 if automaticPort", function() {
+      it("defaults port value to 0 if automaticPort", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -658,7 +658,7 @@ describe("Container", function() {
         });
       });
 
-      it("sets the protocol value", function() {
+      it("sets the protocol value", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -698,7 +698,7 @@ describe("Container", function() {
         });
       });
 
-      it("adds the labels key if the portDefinition is load balanced", function() {
+      it("adds the labels key if the portDefinition is load balanced", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -747,7 +747,7 @@ describe("Container", function() {
         });
       });
 
-      it("adds the index of the portDefinition to the VIP keys", function() {
+      it("adds the index of the portDefinition to the VIP keys", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -799,7 +799,7 @@ describe("Container", function() {
         });
       });
 
-      it("adds the port to the VIP string", function() {
+      it("adds the port to the VIP string", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -857,7 +857,7 @@ describe("Container", function() {
         });
       });
 
-      it("adds the app ID to the VIP string when it is defined", function() {
+      it("adds the app ID to the VIP string when it is defined", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -910,7 +910,7 @@ describe("Container", function() {
         });
       });
 
-      it("stores portDefinitions even if network is HOST when recorded", function() {
+      it("stores portDefinitions even if network is HOST when recorded", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["container", "type"], "DOCKER", SET)
@@ -963,7 +963,7 @@ describe("Container", function() {
         });
       });
 
-      it("creates portMappings when container.type is MESOS", function() {
+      it("creates portMappings when container.type is MESOS", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction(["container", "type"], "MESOS", SET));
         batch = batch.add(
@@ -990,8 +990,8 @@ describe("Container", function() {
         });
       });
 
-      describe("UCR - BRDIGE", function() {
-        it("creates portMappings when container.type is MESOS", function() {
+      describe("UCR - BRDIGE", () => {
+        it("creates portMappings when container.type is MESOS", () => {
           let batch = new Batch();
           batch = batch.add(
             new Transaction(["container", "type"], "MESOS", SET)
@@ -1022,7 +1022,7 @@ describe("Container", function() {
           });
         });
 
-        it("includes hostPort or protocol when not enabled for BRIDGE", function() {
+        it("includes hostPort or protocol when not enabled for BRIDGE", () => {
           let batch = new Batch();
           batch = batch.add(
             new Transaction(["container", "type"], "MESOS", SET)
@@ -1066,7 +1066,7 @@ describe("Container", function() {
           });
         });
 
-        it("creates default portDefinition configurations", function() {
+        it("creates default portDefinition configurations", () => {
           let batch = new Batch();
           batch = batch.add(
             new Transaction(["container", "type"], "MESOS", SET)
@@ -1099,7 +1099,7 @@ describe("Container", function() {
       });
     });
 
-    it("removes docker if no image is present", function() {
+    it("removes docker if no image is present", () => {
       let batch = Container.JSONParser({
         container: {
           docker: {
@@ -1109,7 +1109,7 @@ describe("Container", function() {
             }
           }
         }
-      }).reduce(function(batch, transaction) {
+      }).reduce((batch, transaction) => {
         return batch.add(transaction);
       }, new Batch());
 
@@ -1133,8 +1133,8 @@ describe("Container", function() {
     });
   });
 
-  describe("#Unknown Values", function() {
-    it("keep docker unknown values", function() {
+  describe("#Unknown Values", () => {
+    it("keep docker unknown values", () => {
       expect(
         Container.JSONParser({
           container: {
@@ -1146,7 +1146,7 @@ describe("Container", function() {
             }
           }
         })
-          .reduce(function(batch, transaction) {
+          .reduce((batch, transaction) => {
             return batch.add(transaction);
           }, new Batch())
           .reduce(Container.JSONReducer.bind({}), {})
@@ -1165,7 +1165,7 @@ describe("Container", function() {
       });
     });
 
-    it("keeps unknown container values", function() {
+    it("keeps unknown container values", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(
@@ -1184,8 +1184,8 @@ describe("Container", function() {
     });
   });
 
-  describe("Volumes", function() {
-    it("returns an empty array if no volumes are set", function() {
+  describe("Volumes", () => {
+    it("returns an empty array if no volumes are set", () => {
       const batch = new Batch();
 
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
@@ -1195,7 +1195,7 @@ describe("Container", function() {
       });
     });
 
-    it("returns a local volume", function() {
+    it("returns a local volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -1218,7 +1218,7 @@ describe("Container", function() {
       });
     });
 
-    it("returns an external volume", function() {
+    it("returns an external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -1243,7 +1243,7 @@ describe("Container", function() {
       });
     });
 
-    it("returns a local and an external volume", function() {
+    it("returns a local and an external volume", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));
@@ -1281,7 +1281,7 @@ describe("Container", function() {
       });
     });
 
-    it("returns an empty array if all volumes have been removed", function() {
+    it("returns an empty array if all volumes have been removed", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["volumes"], null, ADD_ITEM));

@@ -7,9 +7,9 @@ const Deployment = require("../../structs/Deployment");
 const DeploymentsModal = require("../DeploymentsModal");
 const Application = require("../../structs/Application");
 
-describe("DeploymentsModal", function() {
-  describe("#getRollbackModalText", function() {
-    it("returns a removal message when passed a starting deployment", function() {
+describe("DeploymentsModal", () => {
+  describe("#getRollbackModalText", () => {
+    it("returns a removal message when passed a starting deployment", () => {
       let text = DeploymentsModal.WrappedComponent.prototype.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
@@ -22,7 +22,7 @@ describe("DeploymentsModal", function() {
       expect(text).toContain("delete the affected service");
     });
 
-    it("returns a revert message when passed a non-starting deployment", function() {
+    it("returns a revert message when passed a non-starting deployment", () => {
       const text = DeploymentsModal.WrappedComponent.prototype.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
@@ -35,8 +35,8 @@ describe("DeploymentsModal", function() {
     });
   });
 
-  describe("#renderStatus", function() {
-    it("Returns N/A for empty Application", function() {
+  describe("#renderStatus", () => {
+    it("Returns N/A for empty Application", () => {
       const app = new Application({
         deployment: {}
       });
@@ -46,7 +46,7 @@ describe("DeploymentsModal", function() {
       ).toEqual("N/A");
     });
 
-    it("Returns null for Item without getStatus function", function() {
+    it("Returns null for Item without getStatus function", () => {
       const item = new Item({
         deployment: {}
       });

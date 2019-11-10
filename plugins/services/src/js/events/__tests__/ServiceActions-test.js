@@ -7,8 +7,8 @@ const Framework = require("../../structs/Framework");
 
 let thisConfiguration;
 
-describe("ServiceActions", function() {
-  describe("#deleteGroup", function() {
+describe("ServiceActions", () => {
+  describe("#deleteGroup", () => {
     const groupDefinition = {
       id: "/test",
       getId() {
@@ -16,14 +16,14 @@ describe("ServiceActions", function() {
       }
     };
 
-    describe("#RequestUtil", function() {
-      beforeEach(function() {
+    describe("#RequestUtil", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteGroup(groupDefinition, false);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
-      it("dispatches the correct action when successful", function() {
-        const id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        const id = AppDispatcher.register(payload => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -34,8 +34,8 @@ describe("ServiceActions", function() {
         thisConfiguration.success();
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        const id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        const id = AppDispatcher.register(payload => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -50,7 +50,7 @@ describe("ServiceActions", function() {
     });
   });
 
-  describe("#deleteService", function() {
+  describe("#deleteService", () => {
     const serviceDefinition = {
       id: "/test",
       getId() {
@@ -58,14 +58,14 @@ describe("ServiceActions", function() {
       }
     };
 
-    describe("#RequestUtil", function() {
-      beforeEach(function() {
+    describe("#RequestUtil", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         ServiceActions.deleteService(serviceDefinition);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
-      it("dispatches the correct action when successful", function() {
-        const id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        const id = AppDispatcher.register(payload => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -76,8 +76,8 @@ describe("ServiceActions", function() {
         thisConfiguration.success();
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        const id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        const id = AppDispatcher.register(payload => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -91,7 +91,7 @@ describe("ServiceActions", function() {
       });
     });
 
-    describe("#deleteFramework", function() {
+    describe("#deleteFramework", () => {
       const serviceDefinition = {
         id: "/test",
         getId() {
@@ -103,15 +103,15 @@ describe("ServiceActions", function() {
       };
       const frameworkDefinition = new Framework(serviceDefinition);
 
-      describe("#RequestUtil", function() {
-        beforeEach(function() {
+      describe("#RequestUtil", () => {
+        beforeEach(() => {
           spyOn(RequestUtil, "json");
           ServiceActions.deleteService(frameworkDefinition);
           thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
         });
 
-        it("dispatches the correct action when successful framework deleted", function() {
-          const id = AppDispatcher.register(function(payload) {
+        it("dispatches the correct action when successful framework deleted", () => {
+          const id = AppDispatcher.register(payload => {
             const action = payload.action;
             AppDispatcher.unregister(id);
             expect(action).toEqual({
@@ -125,8 +125,8 @@ describe("ServiceActions", function() {
           thisConfiguration.success({});
         });
 
-        it("dispatches the correct action when unsuccessful framework deleted", function() {
-          const id = AppDispatcher.register(function(payload) {
+        it("dispatches the correct action when unsuccessful framework deleted", () => {
+          const id = AppDispatcher.register(payload => {
             const action = payload.action;
             AppDispatcher.unregister(id);
             expect(action).toEqual({

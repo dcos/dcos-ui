@@ -1,5 +1,5 @@
-describe("Add Repository Form Modal", function() {
-  beforeEach(function() {
+describe("Add Repository Form Modal", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
       universePackages: true
@@ -9,15 +9,15 @@ describe("Add Repository Form Modal", function() {
       .click();
   });
 
-  it("displays modal for adding repository", function() {
+  it("displays modal for adding repository", () => {
     cy.get(".modal h2").should("contain", "Add Repository");
   });
 
-  it("displays three fields", function() {
+  it("displays three fields", () => {
     cy.get(".modal input").should("to.have.length", 3);
   });
 
-  it("displays error if both fields aren't filled out", function() {
+  it("displays error if both fields aren't filled out", () => {
     cy.get(".modal .modal-footer .button.button-primary")
       .contains("Add")
       .click();
@@ -31,7 +31,7 @@ describe("Add Repository Form Modal", function() {
       .should("contain", "Field cannot be empty.");
   });
 
-  it("closes modal after add is successful", function() {
+  it("closes modal after add is successful", () => {
     cy.get(".modal input")
       .eq(0)
       .type("Here we go!")
@@ -48,7 +48,7 @@ describe("Add Repository Form Modal", function() {
     cy.get(".modal").should("not.exist");
   });
 
-  it("displays error in modal after add causes an error", function() {
+  it("displays error in modal after add causes an error", () => {
     // We need to add a fixture for this test to pass.
     var url = "http://there-is-no-stopping.us";
     cy.route({
@@ -76,7 +76,7 @@ describe("Add Repository Form Modal", function() {
   });
 
   // TODO: Turn into unit test
-  it("displays generic error in modal if no message is provided", function() {
+  it("displays generic error in modal if no message is provided", () => {
     cy.route({
       method: "POST",
       url: /repository\/add/,

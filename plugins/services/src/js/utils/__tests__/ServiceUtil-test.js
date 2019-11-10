@@ -4,9 +4,9 @@ const Framework = require("../../structs/Framework");
 const Pod = require("../../structs/Pod");
 const ServiceUtil = require("../ServiceUtil");
 
-describe("ServiceUtil", function() {
-  describe("#getDefinitionFromSpec", function() {
-    it("creates the correct definition for ApplicationSpec", function() {
+describe("ServiceUtil", () => {
+  describe("#getDefinitionFromSpec", () => {
+    it("creates the correct definition for ApplicationSpec", () => {
       const service = new ApplicationSpec({
         id: "/test",
         cmd: "sleep 1000;"
@@ -19,8 +19,8 @@ describe("ServiceUtil", function() {
     });
   });
 
-  describe("#isEqual", function() {
-    it("returns false if services have different type", function() {
+  describe("#isEqual", () => {
+    it("returns false if services have different type", () => {
       const serviceA = new Application({
         id: "foo"
       });
@@ -31,7 +31,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
     });
 
-    it("returns false if same type but different content", function() {
+    it("returns false if same type but different content", () => {
       const serviceA = new Application({
         id: "foo"
       });
@@ -42,7 +42,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
     });
 
-    it("returns true if same type and same content", function() {
+    it("returns true if same type and same content", () => {
       const serviceA = new Application({
         id: "foo"
       });
@@ -54,8 +54,8 @@ describe("ServiceUtil", function() {
     });
   });
 
-  describe("#isSDKService", function() {
-    it("returns true if service does not have the proper label", function() {
+  describe("#isSDKService", () => {
+    it("returns true if service does not have the proper label", () => {
       const service = new Framework({
         id: "/foo",
         labels: {
@@ -66,7 +66,7 @@ describe("ServiceUtil", function() {
       expect(ServiceUtil.isSDKService(service)).toEqual(true);
     });
 
-    it("returns false if service does not have the proper label", function() {
+    it("returns false if service does not have the proper label", () => {
       const service = new Framework({
         id: "/foo",
         labels: {
@@ -78,8 +78,8 @@ describe("ServiceUtil", function() {
     });
   });
 
-  describe("#getServiceIDFromTaskID", function() {
-    it("returns correct service id for a service in root", function() {
+  describe("#getServiceIDFromTaskID", () => {
+    it("returns correct service id for a service in root", () => {
       expect(
         ServiceUtil.getServiceIDFromTaskID(
           "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
@@ -87,7 +87,7 @@ describe("ServiceUtil", function() {
       ).toEqual("/test");
     });
 
-    it("returns correct service id for a service in a group", function() {
+    it("returns correct service id for a service in a group", () => {
       expect(
         ServiceUtil.getServiceIDFromTaskID(
           "group_test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
@@ -95,17 +95,17 @@ describe("ServiceUtil", function() {
       ).toEqual("/group/test");
     });
 
-    it("returns empty string if id is undefined", function() {
+    it("returns empty string if id is undefined", () => {
       expect(ServiceUtil.getServiceIDFromTaskID()).toEqual("");
     });
   });
 
   describe("getWebURL", () => {
-    it("returns empty string if no labels are provided", function() {
+    it("returns empty string if no labels are provided", () => {
       const labels = {};
       expect(ServiceUtil.getWebURL(labels, "")).toEqual("");
     });
-    it("works as expected for all known labels (sdk package with new webui label)", function() {
+    it("works as expected for all known labels (sdk package with new webui label)", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         DCOS_SERVICE_PORT_INDEX: "80",
@@ -117,7 +117,7 @@ describe("ServiceUtil", function() {
         "foo/service/bar/baz"
       );
     });
-    it("returns empty string if service name isn set", function() {
+    it("returns empty string if service name isn set", () => {
       const labels = {
         DCOS_SERVICE_NAME: "",
         DCOS_SERVICE_PORT_INDEX: "80",
@@ -127,7 +127,7 @@ describe("ServiceUtil", function() {
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });
-    it("returns empty string for sdk package not having new label", function() {
+    it("returns empty string for sdk package not having new label", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         DCOS_SERVICE_PORT_INDEX: "80",
@@ -136,7 +136,7 @@ describe("ServiceUtil", function() {
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });
-    it("returns url for non-sdk package", function() {
+    it("returns url for non-sdk package", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         DCOS_SERVICE_PORT_INDEX: "80",
@@ -144,7 +144,7 @@ describe("ServiceUtil", function() {
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("foo/service/bar/");
     });
-    it("returns empty string for non-sdk package lacking label", function() {
+    it("returns empty string for non-sdk package lacking label", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         // DCOS_SERVICE_PORT_INDEX: "80",

@@ -81,7 +81,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     const { routes } = this.props;
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    const topRouteIndex = routes.findIndex(function({ component }) {
+    const topRouteIndex = routes.findIndex(({ component }) => {
       return component === TaskDetail;
     });
     const topRoute = routes[topRouteIndex];
@@ -91,10 +91,10 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
     if (topRoute != null) {
       this.tabs_tabs = topRoute.childRoutes
-        .filter(function({ isTab }) {
+        .filter(({ isTab }) => {
           return !!isTab;
         })
-        .reduce(function(tabs, { path, title }) {
+        .reduce((tabs, { path, title }) => {
           let key = parentPath;
           if (path) {
             key = `${parentPath}/${path}`;
@@ -231,7 +231,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     let tabsArray = this.tabs_getRoutedTabs({ params }) || [];
 
     if (!this.hasVolumes(service)) {
-      tabsArray = tabsArray.filter(function(tab) {
+      tabsArray = tabsArray.filter(tab => {
         if (
           tab.key === "/nodes/:nodeID/tasks/:taskID/volumes(/:volumeID)" ||
           tab.key === "/services/detail/:id/tasks/:taskID/volumes"

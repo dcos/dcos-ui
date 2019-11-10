@@ -8,9 +8,9 @@ const {
 const Batch = require("#SRC/js/structs/Batch");
 const MultiContainerArtifacts = require("../MultiContainerArtifacts");
 
-describe("MultiContainerArtifacts", function() {
-  describe("#JSONReducer", function() {
-    it("emits correct form data", function() {
+describe("MultiContainerArtifacts", () => {
+  describe("#JSONReducer", () => {
+    it("emits correct form data", () => {
       const batch = new Batch([
         new Transaction(["containers"], 0, ADD_ITEM),
         new Transaction(["containers", 0, "artifacts"], 0, ADD_ITEM),
@@ -41,7 +41,7 @@ describe("MultiContainerArtifacts", function() {
       ]);
     });
 
-    it("removes the correct items", function() {
+    it("removes the correct items", () => {
       const batch = new Batch([
         new Transaction(["containers"], 0, ADD_ITEM),
         new Transaction(["containers", 0, "artifacts"], 0, ADD_ITEM),

@@ -73,7 +73,7 @@ class CreateServiceJsonOnly extends React.Component {
    */
   handleJSONErrorStateChange(errorState) {
     const { errors, onErrorsChange, i18n } = this.props;
-    const hasJsonError = errors.some(function(error) {
+    const hasJsonError = errors.some(error => {
       return error.type === SYNTAX_ERROR;
     });
 

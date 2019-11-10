@@ -7,9 +7,9 @@ const ErrorModal = require("../ErrorModal");
 
 let thisCallback, thisContainer, thisInstance;
 
-describe("ErrorModal", function() {
-  describe("#onClose", function() {
-    beforeEach(function() {
+describe("ErrorModal", () => {
+  describe("#onClose", () => {
+    beforeEach(() => {
       thisCallback = jasmine.createSpy();
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
@@ -18,15 +18,15 @@ describe("ErrorModal", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("doesn't call the callback after initialization", function() {
+    it("doesn't call the callback after initialization", () => {
       expect(thisCallback).not.toHaveBeenCalled();
     });
 
-    it("calls the callback when #onClose is called", function() {
+    it("calls the callback when #onClose is called", () => {
       thisInstance.onClose();
       expect(thisCallback).toHaveBeenCalled();
     });

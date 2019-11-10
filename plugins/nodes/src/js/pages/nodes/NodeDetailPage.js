@@ -58,15 +58,15 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
     // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
     const routes = this.props.routes;
-    const currentRoute = routes.find(function(route) {
+    const currentRoute = routes.find(route => {
       return route.component === NodeDetailPage;
     });
     if (currentRoute != null) {
       this.tabs_tabs = currentRoute.childRoutes
-        .filter(function({ isTab }) {
+        .filter(({ isTab }) => {
           return !!isTab;
         })
-        .reduce(function(tabs, { path, title }) {
+        .reduce((tabs, { path, title }) => {
           tabs[path] = title;
 
           return tabs;

@@ -1,12 +1,12 @@
-describe("Packages Tab", function() {
-  beforeEach(function() {
+describe("Packages Tab", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
       universePackages: true
     });
   });
 
-  it("displays correct error message for invalid repo uri", function() {
+  it("displays correct error message for invalid repo uri", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -29,7 +29,7 @@ describe("Packages Tab", function() {
     );
   });
 
-  it("displays correct message for 'no index' error", function() {
+  it("displays correct message for 'no index' error", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -52,7 +52,7 @@ describe("Packages Tab", function() {
     );
   });
 
-  it("displays correct message for missing package file", function() {
+  it("displays correct message for missing package file", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -75,7 +75,7 @@ describe("Packages Tab", function() {
     );
   });
 
-  it("uses default repository name if not provided", function() {
+  it("uses default repository name if not provided", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -92,7 +92,7 @@ describe("Packages Tab", function() {
     );
   });
 
-  it("shows default error message for missing package file", function() {
+  it("shows default error message for missing package file", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -103,7 +103,7 @@ describe("Packages Tab", function() {
     cy.get(".panel-content h2").should("contain", "An Error Occurred");
   });
 
-  it("shows error message when the response is empty", function() {
+  it("shows error message when the response is empty", () => {
     cy.route({
       method: "POST",
       url: /package\/search/,
@@ -117,8 +117,8 @@ describe("Packages Tab", function() {
     );
   });
 
-  context("searching", function() {
-    beforeEach(function() {
+  context("searching", () => {
+    beforeEach(() => {
       cy.visitUrl({ url: "/catalog", logIn: true });
       cy.get("button")
         .contains("All")
@@ -126,24 +126,24 @@ describe("Packages Tab", function() {
       cy.get("input").type("bitbuck");
     });
 
-    it("hides certified panels", function() {
+    it("hides certified panels", () => {
       cy.get("h1")
         .contains("Certified")
         .should("not.exist");
     });
 
-    it("shows only bitbucket in panels", function() {
+    it("shows only bitbucket in panels", () => {
       cy.get(".panel").should("exist");
     });
 
-    it("shows message when no matching packages found", function() {
+    it("shows message when no matching packages found", () => {
       cy.get("input").type("notfound");
       cy.contains("No results were found for your search");
     });
   });
 
-  context("selected packages", function() {
-    beforeEach(function() {
+  context("selected packages", () => {
+    beforeEach(() => {
       cy.visitUrl({ url: "/catalog", logIn: true });
       cy.get("h1")
         .contains("Certified")
@@ -152,19 +152,19 @@ describe("Packages Tab", function() {
         .as("panels");
     });
 
-    it("has the first 9 packages as selected", function() {
-      cy.get("@panels").should(function($panels) {
+    it("has the first 9 packages as selected", () => {
+      cy.get("@panels").should($panels => {
         expect($panels.length).to.equal(9);
       });
     });
   });
 
-  context("package panels", function() {
-    beforeEach(function() {
+  context("package panels", () => {
+    beforeEach(() => {
       cy.visitUrl({ url: "/catalog", logIn: true });
     });
 
-    it("opens the modal when the panel button is clicked", function() {
+    it("opens the modal when the panel button is clicked", () => {
       cy.get(".panel")
         .contains("arangodb")
         .click();
@@ -172,24 +172,24 @@ describe("Packages Tab", function() {
         .contains("Review & Run")
         .click();
 
-      cy.get(".modal").should(function($modal) {
+      cy.get(".modal").should($modal => {
         expect($modal.length).to.equal(1);
       });
     });
 
-    it("doesn't open the modal when the panel is clicked", function() {
+    it("doesn't open the modal when the panel is clicked", () => {
       cy.get(".panel")
         .contains("arangodb")
         .click();
 
-      cy.get(".modal").should(function($modal) {
+      cy.get(".modal").should($modal => {
         expect($modal.length).to.equal(0);
       });
     });
   });
 
-  context("respect DCOS version", function() {
-    beforeEach(function() {
+  context("respect DCOS version", () => {
+    beforeEach(() => {
       cy.route(/dcos-version/, {
         version: "1.6",
         "dcos-image-commit": "null",
@@ -197,7 +197,7 @@ describe("Packages Tab", function() {
       }).visitUrl({ url: "/catalog", logIn: true });
     });
 
-    it("cant install package because of DCOS version", function() {
+    it("cant install package because of DCOS version", () => {
       cy.get(".panel")
         .contains("arangodb")
         .click();

@@ -1,18 +1,18 @@
-describe("Package Detail Tab", function() {
-  beforeEach(function() {
+describe("Package Detail Tab", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
       universePackages: true
     }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
   });
 
-  context("Package Details", function() {
-    it("displays package information on package page", function() {
+  context("Package Details", () => {
+    it("displays package information on package page", () => {
       cy.get(".page-body-content h1").should("contain", "marathon");
     });
 
     // Stalls tests in CI. TODO: Talk with Brian about this test.
-    it("displays marathon package details", function() {
+    it("displays marathon package details", () => {
       cy.get(".page-body-content .pod p").as("information");
 
       cy.get("@information")
@@ -41,7 +41,7 @@ describe("Package Detail Tab", function() {
         );
     });
 
-    it("contains _blank target for links in description", function() {
+    it("contains _blank target for links in description", () => {
       cy.get("h2")
         .contains("Description")
         .parent()
@@ -49,13 +49,13 @@ describe("Package Detail Tab", function() {
         .should("have.attr", "target", "_blank");
     });
 
-    it("contains _blank target for links in preinstall notes", function() {
+    it("contains _blank target for links in preinstall notes", () => {
       cy.get(".pre-install-notes")
         .find("a")
         .should("have.attr", "target", "_blank");
     });
 
-    it("displays image in the image viewer", function() {
+    it("displays image in the image viewer", () => {
       cy.get(".media-object-item-fill-image.image-rounded-corners.clickable")
         .eq(4)
         .click();
@@ -67,7 +67,7 @@ describe("Package Detail Tab", function() {
       );
     });
 
-    it("changes image in the image viewer by clicking left arrow", function() {
+    it("changes image in the image viewer by clicking left arrow", () => {
       cy.get(".media-object-item-fill-image.image-rounded-corners.clickable")
         .eq(4)
         .click();
@@ -81,7 +81,7 @@ describe("Package Detail Tab", function() {
       );
     });
 
-    it("changes image in the image viewer by clicking right arrow", function() {
+    it("changes image in the image viewer by clicking right arrow", () => {
       cy.get(".media-object-item-fill-image.image-rounded-corners.clickable")
         .eq(4)
         .click();
@@ -95,23 +95,23 @@ describe("Package Detail Tab", function() {
       );
     });
 
-    it("dropdown display all versions available", function() {
+    it("dropdown display all versions available", () => {
       cy.get(".dropdown-toggle").click();
       cy.get(".is-selectable").should("have.length", 4);
     });
 
-    it("select available version on dropdown", function() {
+    it("select available version on dropdown", () => {
       cy.get(".dropdown-toggle").click();
       cy.get(".is-selectable")
         .eq(3)
         .click();
-      cy.window().then(function(window) {
+      cy.window().then(window => {
         const result = window.location.hash.includes("0.2.1");
         expect(result).to.equal(true);
       });
     });
 
-    it("Does not ask for confirmation for certified packages", function() {
+    it("Does not ask for confirmation for certified packages", () => {
       cy.get(".page-body-content .package-action-buttons button")
         .contains("Review & Run")
         .click();
@@ -121,27 +121,27 @@ describe("Package Detail Tab", function() {
       cy.get(".modal-full-screen-header-title").contains("Edit Configuration");
     });
 
-    context("Unmet dependency", function() {
-      beforeEach(function() {
+    context("Unmet dependency", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           universePackages: "dependencyPackage"
         }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
       });
 
-      it("Displays a warning", function() {
+      it("Displays a warning", () => {
         cy.get(".infoBoxWrapper").contains(
           "This service cannot run without the marathon-cluster package. Please run marathon-cluster package to enable this service."
         );
       });
 
-      it("Disables the review and run button", function() {
+      it("Disables the review and run button", () => {
         cy.get(".disabled").contains("Review & Run");
       });
     });
 
-    context("Community Packages", function() {
-      beforeEach(function() {
+    context("Community Packages", () => {
+      beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           universePackages: "communityPackage"
@@ -151,21 +151,21 @@ describe("Package Detail Tab", function() {
           .click();
       });
 
-      it("Asks for confirmation for community packages", function() {
+      it("Asks for confirmation for community packages", () => {
         cy.get(".modal-body").contains("Install Community Package");
         cy.get(".modal-body").contains(
           "This package is not tested for production environments and technical support is not provided."
         );
       });
 
-      it("Goes back when Cancel is clicked", function() {
+      it("Goes back when Cancel is clicked", () => {
         cy.get(".button-primary-link")
           .contains("Cancel")
           .click();
         cy.get(".breadcrumb__content--text").contains("marathon");
       });
 
-      it("Goes to package configuration when Continue is clicked", function() {
+      it("Goes to package configuration when Continue is clicked", () => {
         cy.get(".button-primary")
           .contains("Continue")
           .click();
@@ -175,8 +175,8 @@ describe("Package Detail Tab", function() {
       });
     });
 
-    context("Last updated", function() {
-      it("Shows no label for packages with no last updated information", function() {
+    context("Last updated", () => {
+      it("Shows no label for packages with no last updated information", () => {
         cy.get("[data-cy=outdated-warning]").should("not.exist");
         cy.get("[data-cy=last-updated]").should("not.exist");
         cy.get(".page-body-content .package-action-buttons button")
@@ -185,7 +185,7 @@ describe("Package Detail Tab", function() {
         cy.get("[data-cy=outdated-warning]").should("not.exist");
       });
 
-      it("Shows a label if the package has information about when it was last updated", function() {
+      it("Shows a label if the package has information about when it was last updated", () => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           universePackages: "old"
@@ -200,7 +200,7 @@ describe("Package Detail Tab", function() {
         cy.get("[data-cy=outdated-warning]").should("not.exist");
       });
 
-      it("Shows a yellow warning if the package has not been updated for over a year", function() {
+      it("Shows a yellow warning if the package has not been updated for over a year", () => {
         cy.configureCluster({
           mesos: "1-task-healthy",
           universePackages: "older"
@@ -222,8 +222,8 @@ describe("Package Detail Tab", function() {
     });
   });
 
-  context("Package Configuration", function() {
-    beforeEach(function() {
+  context("Package Configuration", () => {
+    beforeEach(() => {
       cy.get(".page-body-content .package-action-buttons button")
         .contains("Review & Run")
         .click();
@@ -233,13 +233,13 @@ describe("Package Detail Tab", function() {
         .click();
     });
 
-    it("opens framework configuration when Review & Run clicked", function() {
+    it("opens framework configuration when Review & Run clicked", () => {
       cy.get(".modal .configuration-map-label")
         .contains("Name")
         .should("to.have.length", 1);
     });
 
-    it("shows preinstall notes on review screen", function() {
+    it("shows preinstall notes on review screen", () => {
       cy.get(".modal .infoBoxWrapper")
         .contains(
           "We recommend a minimum of one node with at least 2 CPU shares and 1GB of RAM available for the Marathon DCOS Service."
@@ -247,7 +247,7 @@ describe("Package Detail Tab", function() {
         .should("to.have.length", 1);
     });
 
-    it("goes to form when back button is clicked", function() {
+    it("goes to form when back button is clicked", () => {
       cy.get(".modal .modal-header button")
         .contains("Back")
         .click();
@@ -257,7 +257,7 @@ describe("Package Detail Tab", function() {
       );
     });
 
-    it("changes cancel button to back when on review screen", function() {
+    it("changes cancel button to back when on review screen", () => {
       cy.get(".modal button")
         .contains("Edit Config")
         .click();
@@ -275,7 +275,7 @@ describe("Package Detail Tab", function() {
         .should("to.have.length", 1);
     });
 
-    it("shows success dialog on successfully package install", function() {
+    it("shows success dialog on successfully package install", () => {
       cy.get(".modal .modal-header button.button-primary")
         .contains("Run Service")
         .click();
@@ -285,22 +285,22 @@ describe("Package Detail Tab", function() {
         .should("to.have.length", 1);
     });
 
-    context("Framework: Placement", function() {
-      beforeEach(function() {
+    context("Framework: Placement", () => {
+      beforeEach(() => {
         cy.get(".modal button")
           .contains("Edit Config")
           .click();
       });
 
-      context("Add Placement Constraint", function() {
-        beforeEach(function() {
+      context("Add Placement Constraint", () => {
+        beforeEach(() => {
           cy.get(".menu-tabbed-view-container").as("tabView");
           cy.get(".button-primary-link")
             .contains("Add Placement Constraint")
             .click();
         });
 
-        it('Should add rows when "Add Placement Constraint" link clicked', function() {
+        it('Should add rows when "Add Placement Constraint" link clicked', () => {
           // Field
           cy.get("@tabView").find(
             '.form-control[name="constraints.0.fieldName"]'
@@ -313,8 +313,8 @@ describe("Package Detail Tab", function() {
           cy.get("@tabView").find('.form-control[name="constraints.0.value"]');
         });
 
-        it("Should remove rows when remove button clicked", function() {
-          cy.contains(".form-row", "Operator").within(function() {
+        it("Should remove rows when remove button clicked", () => {
+          cy.contains(".form-row", "Operator").within(() => {
             // Click delete button
             cy.get("a.button").click();
           });
@@ -335,7 +335,7 @@ describe("Package Detail Tab", function() {
             .should("not.exist");
         });
 
-        it("Should disable the field value when Unique is selected in operator dropdown", function() {
+        it("Should disable the field value when Unique is selected in operator dropdown", () => {
           cy.get("@tabView")
             .find(".button.dropdown-toggle")
             .click();

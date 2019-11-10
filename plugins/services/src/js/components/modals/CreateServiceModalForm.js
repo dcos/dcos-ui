@@ -790,7 +790,7 @@ class CreateServiceModalForm extends Component {
     const { editedFieldPaths, editingFieldPath } = this.state;
     const errors = [].concat.apply([], this.getErrors());
 
-    return errors.filter(function(error) {
+    return errors.filter(error => {
       const errorPath = error.path.join(".");
 
       // Always mute the error on the field we are editing
@@ -799,7 +799,7 @@ class CreateServiceModalForm extends Component {
       }
 
       // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
-      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(function(rule) {
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(rule => {
         return rule.test(errorPath);
       });
 

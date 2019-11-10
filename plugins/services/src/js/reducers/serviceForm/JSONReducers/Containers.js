@@ -39,7 +39,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       labels
     } = endpoint;
 
-    protocol = Object.keys(protocol).filter(function(key) {
+    protocol = Object.keys(protocol).filter(key => {
       return protocol[key];
     });
 

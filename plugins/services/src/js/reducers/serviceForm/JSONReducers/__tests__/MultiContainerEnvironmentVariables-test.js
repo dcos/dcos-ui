@@ -1,13 +1,13 @@
 const MultiContainerEnvironmentVariables = require("../MultiContainerEnvironmentVariables");
 const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
 
-describe("Environment Variables", function() {
-  describe("#JSONParser", function() {
-    it("returns an empty array", function() {
+describe("Environment Variables", () => {
+  describe("#JSONParser", () => {
+    it("returns an empty array", () => {
       expect(MultiContainerEnvironmentVariables.JSONParser({})).toEqual([]);
     });
 
-    it("returns an array of transactions", function() {
+    it("returns an array of transactions", () => {
       expect(
         MultiContainerEnvironmentVariables.JSONParser({
           environment: { FOO: "value" }
@@ -19,7 +19,7 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("skips complex values", function() {
+    it("skips complex values", () => {
       expect(
         MultiContainerEnvironmentVariables.JSONParser({
           environment: { BAR: {} }

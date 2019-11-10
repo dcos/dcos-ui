@@ -10,9 +10,9 @@ const PageHeaderBreadcrumbs = require("#SRC/js/components/PageHeaderBreadcrumbs"
 const Service = require("../../structs/Service");
 const ServiceTree = require("../../structs/ServiceTree");
 
-describe("ServiceBreadcrumbs", function() {
-  describe("instance", function() {
-    beforeEach(function() {
+describe("ServiceBreadcrumbs", () => {
+  describe("instance", () => {
+    beforeEach(() => {
       DCOSStore.serviceTree = {
         findItemById() {
           return new Service({ id: "/test" });
@@ -20,15 +20,15 @@ describe("ServiceBreadcrumbs", function() {
       };
     });
 
-    describe("extra breadcrumbs", function() {
-      it("does not render extra crumbs when there is none", function() {
+    describe("extra breadcrumbs", () => {
+      it("does not render extra crumbs when there is none", () => {
         const result = mount(<ServiceBreadcrumbs serviceID="/test" />);
         expect(
           result.find(PageHeaderBreadcrumbs).prop("breadcrumbs").length
         ).toEqual(2);
       });
 
-      it("renders extra crumbs", function() {
+      it("renders extra crumbs", () => {
         const result = mount(
           <ServiceBreadcrumbs serviceID="/test" extra={[<a>Dummy</a>]} />
         );
@@ -43,8 +43,8 @@ describe("ServiceBreadcrumbs", function() {
       });
     });
 
-    describe("route destination", function() {
-      it("provides overview route for a service that is a group", function() {
+    describe("route destination", () => {
+      it("provides overview route for a service that is a group", () => {
         DCOSStore.serviceTree = {
           findItemById() {
             return new ServiceTree({
@@ -68,7 +68,7 @@ describe("ServiceBreadcrumbs", function() {
         );
       });
 
-      it("provides detail route for a service that is not a group", function() {
+      it("provides detail route for a service that is not a group", () => {
         const instance = mount(<ServiceBreadcrumbs serviceID="/foo" />);
 
         const links = instance.find(Link);
@@ -83,8 +83,8 @@ describe("ServiceBreadcrumbs", function() {
       });
     });
   });
-  describe("shouldComponentUpdate", function() {
-    it(`is updating serviceID`, function() {
+  describe("shouldComponentUpdate", () => {
+    it(`is updating serviceID`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs {...{ serviceID: "/test" }} />
       );
@@ -96,7 +96,7 @@ describe("ServiceBreadcrumbs", function() {
       expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
     });
 
-    it(`is not updating on same serviceID`, function() {
+    it(`is not updating on same serviceID`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs {...{ serviceID: "/same" }} />
       );
@@ -108,7 +108,7 @@ describe("ServiceBreadcrumbs", function() {
       expect(componentDidUpdateSpy.mock.calls.length).toBe(0);
     });
 
-    it(`is updating taskName`, function() {
+    it(`is updating taskName`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs
           {...{ serviceID: "/service", taskID: "1234", taskName: "test" }}
@@ -126,7 +126,7 @@ describe("ServiceBreadcrumbs", function() {
       expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
     });
 
-    it(`is updating not updating for same taskName`, function() {
+    it(`is updating not updating for same taskName`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs
           {...{ serviceID: "/service", taskID: "1234", taskName: "test" }}
@@ -144,7 +144,7 @@ describe("ServiceBreadcrumbs", function() {
       expect(componentDidUpdateSpy.mock.calls.length).toBe(0);
     });
 
-    it(`is updating extras`, function() {
+    it(`is updating extras`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs
           {...{ serviceID: "/service", extra: <span>test</span> }}
@@ -161,7 +161,7 @@ describe("ServiceBreadcrumbs", function() {
       expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
     });
 
-    it(`is updating not updating for same taskName`, function() {
+    it(`is updating not updating for same taskName`, () => {
       const wrapper = shallow(
         <ServiceBreadcrumbs
           {...{ serviceID: "/service", extra: <span>same</span> }}

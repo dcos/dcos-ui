@@ -4,8 +4,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("PodInstanceStatusFilter", function() {
-  beforeEach(function() {
+describe("PodInstanceStatusFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         isStaging: () => false,
@@ -19,7 +19,7 @@ describe("PodInstanceStatusFilter", function() {
     ];
   });
 
-  it("keeps tasks in active state", function() {
+  it("keeps tasks in active state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
@@ -30,7 +30,7 @@ describe("PodInstanceStatusFilter", function() {
     ]);
   });
 
-  it("keeps tasks in completed state", function() {
+  it("keeps tasks in completed state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 

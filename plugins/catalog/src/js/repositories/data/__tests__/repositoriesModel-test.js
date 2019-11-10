@@ -20,11 +20,11 @@ const data = [
   }
 ];
 
-describe("Repository Model", function() {
-  describe("#packageRepository", function() {
+describe("Repository Model", () => {
+  describe("#packageRepository", () => {
     it(
       "returns all repositories without filter",
-      marbles(function(m) {
+      marbles(m => {
         const queryResult = m.cold("a|", {
           a: { response: { repositories: data } }
         });
@@ -44,7 +44,7 @@ describe("Repository Model", function() {
 
     it(
       "returns filtered repositories",
-      marbles(function(m) {
+      marbles(m => {
         const queryResult = m.cold("a|", {
           a: { response: { repositories: data } }
         });
@@ -63,10 +63,10 @@ describe("Repository Model", function() {
     );
   });
 
-  describe("#addPackageRepository", function() {
+  describe("#addPackageRepository", () => {
     it(
       "passes the result of the provider",
-      marbles(function(m) {
+      marbles(m => {
         const mutation = m.cold("a|", {
           a: { response: { repositories: data } }
         });
@@ -99,7 +99,7 @@ describe("Repository Model", function() {
 
     it(
       "passes the error if provider fails",
-      marbles(function(m) {
+      marbles(m => {
         const mutation = m.cold("#", {}, new Error("Could not add repository"));
         const expected = m.cold("#", {}, new Error("Could not add repository"));
         const addRepository = jest.fn();
@@ -124,10 +124,10 @@ describe("Repository Model", function() {
     );
   });
 
-  describe("#removePackageRepository", function() {
+  describe("#removePackageRepository", () => {
     it(
       "passes the result of the provider",
-      marbles(function(m) {
+      marbles(m => {
         const mutation = m.cold("a|", {
           a: { response: { repositories: data } }
         });
@@ -158,7 +158,7 @@ describe("Repository Model", function() {
 
     it(
       "passes the error if provider fails",
-      marbles(function(m) {
+      marbles(m => {
         const mutation = m.cold("#", {}, new Error("Could not add repository"));
         const expected = m.cold("#", {}, new Error("Could not add repository"));
 

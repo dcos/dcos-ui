@@ -10,9 +10,9 @@ const MasterNodeOffsite = require("./fixtures/MasterNodeOffsite.json");
 const SlaveNodes = require("./fixtures/SlaveNodes.json");
 const NodeInstance = require("./fixtures/NodeInstance.json");
 
-describe("InstanceUtil", function() {
-  describe("#getRegionName", function() {
-    beforeEach(function() {
+describe("InstanceUtil", () => {
+  describe("#getRegionName", () => {
+    beforeEach(() => {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
@@ -20,19 +20,19 @@ describe("InstanceUtil", function() {
         return new Node(MasterNodeLocal);
       };
     });
-    it("returns N/A when null is provided", function() {
+    it("returns N/A when null is provided", () => {
       expect(InstanceUtil.getRegionName(null)).toEqual("N/A");
     });
-    it("returns N/A when no region name exists", function() {
+    it("returns N/A when no region name exists", () => {
       const task = Object.assign({}, NodeInstance, { agentId: "2" });
       expect(InstanceUtil.getRegionName(task)).toEqual("N/A");
     });
-    it("adds (Local) when no slave/ master in the same region", function() {
+    it("adds (Local) when no slave/ master in the same region", () => {
       expect(InstanceUtil.getRegionName(NodeInstance)).toEqual(
         "us-west-2 (Local)"
       );
     });
-    it("returns region when slave/ master in different region", function() {
+    it("returns region when slave/ master in different region", () => {
       CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };
@@ -40,20 +40,20 @@ describe("InstanceUtil", function() {
     });
   });
 
-  describe("#getZoneName", function() {
-    beforeEach(function() {
+  describe("#getZoneName", () => {
+    beforeEach(() => {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
     });
-    it("returns N/A when null is provided", function() {
+    it("returns N/A when null is provided", () => {
       expect(InstanceUtil.getZoneName(null)).toEqual("N/A");
     });
-    it("returns N/A when no zone name exists", function() {
+    it("returns N/A when no zone name exists", () => {
       const task = Object.assign({}, NodeInstance, { agentId: "2" });
       expect(InstanceUtil.getZoneName(task)).toEqual("N/A");
     });
-    it("returns zone when slave/ master in different zone", function() {
+    it("returns zone when slave/ master in different zone", () => {
       CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };

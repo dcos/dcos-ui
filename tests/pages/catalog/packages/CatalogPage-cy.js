@@ -1,12 +1,12 @@
-describe("Catalog Page", function() {
-  beforeEach(function() {
+describe("Catalog Page", () => {
+  beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
       universePackages: true
     });
   });
 
-  it("goes to Catalog page when tab is clicked", function() {
+  it("goes to Catalog page when tab is clicked", () => {
     cy.visitUrl({ url: "/dashboard", logIn: true });
 
     // Opens up collapsible menu
@@ -16,12 +16,12 @@ describe("Catalog Page", function() {
     cy.hash().should("match", /catalog\/packages/);
   });
 
-  it("goes to Packages tab when tab is clicked", function() {
+  it("goes to Packages tab when tab is clicked", () => {
     cy.visitUrl({ url: "/catalog/packages", logIn: true });
     cy.hash().should("match", /catalog\/packages/);
   });
 
-  it("goes to the Packages Details tab when panel is clicked", function() {
+  it("goes to the Packages Details tab when panel is clicked", () => {
     cy.visitUrl({ url: "/catalog/packages" })
       .get(".h3")
       .contains("arangodb")
@@ -29,16 +29,16 @@ describe("Catalog Page", function() {
     cy.hash().should("match", /catalog\/packages\/arangodb/);
   });
 
-  context("Filters", function() {
-    beforeEach(function() {
+  context("Filters", () => {
+    beforeEach(() => {
       cy.visitUrl({ url: "/catalog/packages", logIn: true });
     });
 
-    it("Shows the filter input", function() {
+    it("Shows the filter input", () => {
       cy.get(".filter-input-text").should("exist");
     });
 
-    it("Shows the filter badges", function() {
+    it("Shows the filter badges", () => {
       cy.get(".button-outline").should("have.length", 3);
       cy.get(".button-outline")
         .eq(0)
@@ -66,14 +66,14 @@ describe("Catalog Page", function() {
         .should("exist");
     });
 
-    it("Displays only certified packages by default", function() {
+    it("Displays only certified packages by default", () => {
       cy.get(".active").should("have.length", 1);
       cy.get(".active")
         .contains("Certified")
         .should("exist");
     });
 
-    it("Displays only certified packages when we filter by certified", function() {
+    it("Displays only certified packages when we filter by certified", () => {
       cy.get("h1")
         .contains("Certified")
         .should("exist");
@@ -82,7 +82,7 @@ describe("Catalog Page", function() {
         .should("not.exist");
     });
 
-    it("Displays only community packages when we filter by community", function() {
+    it("Displays only community packages when we filter by community", () => {
       cy.get(".button-outline")
         .contains("Community")
         .click();
@@ -94,7 +94,7 @@ describe("Catalog Page", function() {
         .should("exist");
     });
 
-    it("Displays all packages when we filter by all", function() {
+    it("Displays all packages when we filter by all", () => {
       cy.get(".button-outline")
         .contains("All")
         .click();
@@ -106,7 +106,7 @@ describe("Catalog Page", function() {
         .should("exist");
     });
 
-    it("Correctly updates the number badges when we filter using the input", function() {
+    it("Correctly updates the number badges when we filter using the input", () => {
       cy.get(".filter-input-text").type("kafka");
       cy.get(".button-outline")
         .eq(0)
@@ -122,14 +122,14 @@ describe("Catalog Page", function() {
         .should("exist");
     });
 
-    it("Shows a message if no package are found", function() {
+    it("Shows a message if no package are found", () => {
       cy.get(".filter-input-text").type("kafak");
       cy.get(".clearfix")
         .contains('No results were found for your search: "kafak" (view all)')
         .should("exist");
     });
 
-    it("Resets the filter when we click view all", function() {
+    it("Resets the filter when we click view all", () => {
       cy.get(".filter-input-text").type("kafak");
       cy.get(".clickable")
         .contains("view all")

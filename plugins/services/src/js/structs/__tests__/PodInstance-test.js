@@ -27,9 +27,9 @@ const conditions = {
   }
 };
 
-describe("PodInstance", function() {
-  describe("#constructor", function() {
-    it("creates instances", function() {
+describe("PodInstance", () => {
+  describe("#constructor", () => {
+    it("creates instances", () => {
       const instanceSpec = PodFixture.instances[0];
       const instance = new PodInstance(Object.assign({}, instanceSpec));
 
@@ -37,73 +37,73 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#getAgentAddress", function() {
-    it("returns the given agent address", function() {
+  describe("#getAgentAddress", () => {
+    it("returns the given agent address", () => {
       const podInstance = new PodInstance({ agentHostname: "agent-1234" });
 
       expect(podInstance.getAgentAddress()).toEqual("agent-1234");
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getAgentAddress()).toEqual("");
     });
   });
 
-  describe("#getId", function() {
-    it("returns the given id", function() {
+  describe("#getId", () => {
+    it("returns the given id", () => {
       const podInstance = new PodInstance({ id: "instance-id-1234" });
 
       expect(podInstance.getId()).toEqual("instance-id-1234");
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getId()).toEqual("");
     });
   });
 
-  describe("#getName", function() {
-    it("returns the given name", function() {
+  describe("#getName", () => {
+    it("returns the given name", () => {
       const podInstance = new PodInstance({ id: "instance-id-1234" });
 
       expect(podInstance.getName()).toEqual(podInstance.getId());
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getName()).toEqual(podInstance.getId());
     });
   });
 
-  describe("#getAgentRegion", function() {
-    it("returns the given region", function() {
+  describe("#getAgentRegion", () => {
+    it("returns the given region", () => {
       const podInstance = new PodInstance({ agentRegion: "Region-a" });
 
       expect(podInstance.getAgentRegion()).toEqual("Region-a");
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getAgentRegion()).toEqual("");
     });
   });
 
-  describe("#getAgentZone", function() {
-    it("returns the given zone", function() {
+  describe("#getAgentZone", () => {
+    it("returns the given zone", () => {
       const podInstance = new PodInstance({ agentZone: "Zone-a" });
 
       expect(podInstance.getAgentZone()).toEqual("Zone-a");
     });
 
-    it("returns an empty string as default zone", function() {
+    it("returns an empty string as default zone", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getAgentZone()).toEqual("");
     });
   });
 
-  describe("#getStatus", function() {
-    it("returns FINISHED when all containers are FINISHED", function() {
+  describe("#getStatus", () => {
+    it("returns FINISHED when all containers are FINISHED", () => {
       const podInstance = new PodInstance({
         status: "terminal",
         containers: [
@@ -121,8 +121,8 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#getInstanceStatus", function() {
-    it("detects container in PENDING state", function() {
+  describe("#getInstanceStatus", () => {
+    it("detects container in PENDING state", () => {
       const podInstance = new PodInstance({
         status: "pending"
       });
@@ -130,7 +130,7 @@ describe("PodInstance", function() {
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.STAGED);
     });
 
-    it("detects container in STAGING state", function() {
+    it("detects container in STAGING state", () => {
       const podInstance = new PodInstance({
         status: "staging"
       });
@@ -138,7 +138,7 @@ describe("PodInstance", function() {
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.STAGED);
     });
 
-    it("detects container in DEGRADED state", function() {
+    it("detects container in DEGRADED state", () => {
       const podInstance = new PodInstance({
         status: "degraded"
       });
@@ -148,7 +148,7 @@ describe("PodInstance", function() {
       );
     });
 
-    it("detects container in TERMINAL state", function() {
+    it("detects container in TERMINAL state", () => {
       const podInstance = new PodInstance({
         status: "terminal"
       });
@@ -156,7 +156,7 @@ describe("PodInstance", function() {
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.KILLED);
     });
 
-    it("detects container in STABLE state", function() {
+    it("detects container in STABLE state", () => {
       const podInstance = new PodInstance({
         status: "stable"
       });
@@ -167,7 +167,7 @@ describe("PodInstance", function() {
       );
     });
 
-    it("detects container in UNHEALTHY state", function() {
+    it("detects container in UNHEALTHY state", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -183,7 +183,7 @@ describe("PodInstance", function() {
       );
     });
 
-    it("detects container in HEALTHY state", function() {
+    it("detects container in HEALTHY state", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -200,36 +200,36 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#getLastChanged", function() {
-    it("returns the given date", function() {
+  describe("#getLastChanged", () => {
+    it("returns the given date", () => {
       const dateString = "2016-08-31T01:01:01.001";
       const podInstance = new PodInstance({ lastChanged: dateString });
 
       expect(podInstance.getLastChanged()).toEqual(new Date(dateString));
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getLastChanged().getTime()).toBeNaN();
     });
   });
 
-  describe("#getLastUpdated", function() {
-    it("returns the given date", function() {
+  describe("#getLastUpdated", () => {
+    it("returns the given date", () => {
       const dateString = "2016-08-31T01:01:01.001";
       const podInstance = new PodInstance({ lastUpdated: dateString });
 
       expect(podInstance.getLastUpdated()).toEqual(new Date(dateString));
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getLastUpdated().getTime()).toBeNaN();
     });
   });
 
-  describe("#getResources", function() {
-    it("returns the correct resources", function() {
+  describe("#getResources", () => {
+    it("returns the correct resources", () => {
       const podInstance = new PodInstance({
         resources: { cpus: 0.5, mem: 64 }
       });
@@ -242,7 +242,7 @@ describe("PodInstance", function() {
       });
     });
 
-    it("returns the correct default value", function() {
+    it("returns the correct default value", () => {
       const podInstance = new PodInstance();
       expect(podInstance.getResources()).toEqual({
         cpus: 0,
@@ -253,8 +253,8 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#hasHealthChecks", function() {
-    it("returns true if all containers have health checks", function() {
+  describe("#hasHealthChecks", () => {
+    it("returns true if all containers have health checks", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -270,7 +270,7 @@ describe("PodInstance", function() {
       expect(podInstance.hasHealthChecks()).toBeTruthy();
     });
 
-    it("returns true if at least one container has checks", function() {
+    it("returns true if at least one container has checks", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -283,7 +283,7 @@ describe("PodInstance", function() {
       expect(podInstance.hasHealthChecks()).toEqual(true);
     });
 
-    it("returns true if instance state is not STABLE", function() {
+    it("returns true if instance state is not STABLE", () => {
       const podInstance = new PodInstance({
         status: "degraded",
         containers: [
@@ -306,7 +306,7 @@ describe("PodInstance", function() {
       expect(podInstance.hasHealthChecks()).toBeTruthy();
     });
 
-    it("returns true if even one container is failing", function() {
+    it("returns true if even one container is failing", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -322,7 +322,7 @@ describe("PodInstance", function() {
       expect(podInstance.hasHealthChecks()).toBeTruthy();
     });
 
-    it("returns false if there are no containers", function() {
+    it("returns false if there are no containers", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: []
@@ -332,8 +332,8 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#isHealthy", function() {
-    it("returns true if all containers are healthy", function() {
+  describe("#isHealthy", () => {
+    it("returns true if all containers are healthy", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -349,7 +349,7 @@ describe("PodInstance", function() {
       expect(podInstance.isHealthy()).toBeTruthy();
     });
 
-    it("returns true even if containers have no checks", function() {
+    it("returns true even if containers have no checks", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -362,7 +362,7 @@ describe("PodInstance", function() {
       expect(podInstance.isHealthy()).toBeTruthy();
     });
 
-    it("returns false if at least 1 container is unhealthy", function() {
+    it("returns false if at least 1 container is unhealthy", () => {
       const podInstance = new PodInstance({
         status: "degraded",
         containers: [
@@ -378,7 +378,7 @@ describe("PodInstance", function() {
       expect(podInstance.isHealthy()).toBeFalsy();
     });
 
-    it("returns false on unhealthy container even on udnef", function() {
+    it("returns false on unhealthy container even on udnef", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: [
@@ -391,7 +391,7 @@ describe("PodInstance", function() {
       expect(podInstance.isHealthy()).toBeFalsy();
     });
 
-    it("returns true if there are no containers", function() {
+    it("returns true if there are no containers", () => {
       const podInstance = new PodInstance({
         status: "stable",
         containers: []
@@ -401,61 +401,61 @@ describe("PodInstance", function() {
     });
   });
 
-  describe("#isRunning", function() {
-    it("returns true when status is STABLE", function() {
+  describe("#isRunning", () => {
+    it("returns true when status is STABLE", () => {
       const podInstance = new PodInstance({ status: "stable" });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
-    it("returns true when status is DEGRADED", function() {
+    it("returns true when status is DEGRADED", () => {
       const podInstance = new PodInstance({ status: "degraded" });
       expect(podInstance.isRunning()).toBeTruthy();
     });
 
-    it("returns false if not DEGRADED or STABLE", function() {
+    it("returns false if not DEGRADED or STABLE", () => {
       const podInstance = new PodInstance({ status: "terminal" });
       expect(podInstance.isRunning()).toBeFalsy();
     });
   });
 
-  describe("#isStaging", function() {
-    it("returns true when status is PENDING", function() {
+  describe("#isStaging", () => {
+    it("returns true when status is PENDING", () => {
       const podInstance = new PodInstance({ status: "pending" });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
-    it("returns true when status is STAGING", function() {
+    it("returns true when status is STAGING", () => {
       const podInstance = new PodInstance({ status: "staging" });
       expect(podInstance.isStaging()).toBeTruthy();
     });
 
-    it("returns false if not STAGING or PENDING", function() {
+    it("returns false if not STAGING or PENDING", () => {
       const podInstance = new PodInstance({ status: "terminal" });
       expect(podInstance.isStaging()).toBeFalsy();
     });
   });
 
-  describe("#isTerminating", function() {
-    it("returns true when status is TERMINAL", function() {
+  describe("#isTerminating", () => {
+    it("returns true when status is TERMINAL", () => {
       const podInstance = new PodInstance({ status: "terminal" });
       expect(podInstance.isTerminating()).toBeTruthy();
     });
 
-    it("returns false if not TERMINAL", function() {
+    it("returns false if not TERMINAL", () => {
       const podInstance = new PodInstance({ status: "running" });
       expect(podInstance.isTerminating()).toBeFalsy();
     });
   });
 
-  describe("#getIpAddresses", function() {
-    it("returns an array of IP Addresses", function() {
+  describe("#getIpAddresses", () => {
+    it("returns an array of IP Addresses", () => {
       const podInstance = new PodInstance({
         networks: [{ addresses: ["9.0.0.1"] }]
       });
       expect(podInstance.getIpAddresses()).toEqual(["9.0.0.1"]);
     });
 
-    it("supports multiple networks", function() {
+    it("supports multiple networks", () => {
       const podInstance = new PodInstance({
         networks: [
           { addresses: ["9.0.0.1"] },
@@ -469,7 +469,7 @@ describe("PodInstance", function() {
       ]);
     });
 
-    it("returns an empty array", function() {
+    it("returns an empty array", () => {
       const podInstance = new PodInstance({});
       expect(podInstance.getIpAddresses()).toEqual([]);
     });

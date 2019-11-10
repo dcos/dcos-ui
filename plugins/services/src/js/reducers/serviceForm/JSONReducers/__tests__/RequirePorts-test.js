@@ -4,9 +4,9 @@ const Batch = require("#SRC/js/structs/Batch");
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 const RequirePorts = require("../RequirePorts");
 
-describe("RequirePorts", function() {
-  describe("#JSONReducer", function() {
-    it("returns inverted value of portsAutoAssign", function() {
+describe("RequirePorts", () => {
+  describe("#JSONReducer", () => {
+    it("returns inverted value of portsAutoAssign", () => {
       let batch = new Batch();
 
       batch = batch.add(new Transaction(["portsAutoAssign"], true, SET));
@@ -15,14 +15,14 @@ describe("RequirePorts", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("returns true as default", function() {
+  describe("#JSONParser", () => {
+    it("returns true as default", () => {
       expect(RequirePorts.JSONParser({})).toEqual(
         new Transaction(["portsAutoAssign"], true)
       );
     });
 
-    it("returns inverted value of requirePorts", function() {
+    it("returns inverted value of requirePorts", () => {
       expect(
         RequirePorts.JSONParser({
           requirePorts: true

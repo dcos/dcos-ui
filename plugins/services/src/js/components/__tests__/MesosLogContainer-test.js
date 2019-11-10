@@ -17,8 +17,8 @@ let thisStoreStartTailing,
   thisInstance,
   thisMesosLogStoreGetLogBuffer;
 
-describe("MesosLogContainer", function() {
-  beforeEach(function() {
+describe("MesosLogContainer", () => {
+  beforeEach(() => {
     // Store original versions
     thisStoreStartTailing = MesosLogStore.startTailing;
     thisStoreStopTailing = MesosLogStore.stopTailing;
@@ -44,7 +44,7 @@ describe("MesosLogContainer", function() {
       .and.returnValue(logBuffer);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     // Restore original functions
     MesosLogStore.startTailing = thisStoreStartTailing;
     MesosLogStore.stopTailing = thisStoreStopTailing;
@@ -53,14 +53,14 @@ describe("MesosLogContainer", function() {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("#componentDidMount", function() {
-    it("calls startTailing when component mounts", function() {
+  describe("#componentDidMount", () => {
+    it("calls startTailing when component mounts", () => {
       expect(MesosLogStore.startTailing).toHaveBeenCalled();
     });
   });
 
-  describe("#UNSAFE_componentWillReceiveProps", function() {
-    it("calls startTailing when new path is provided", function() {
+  describe("#UNSAFE_componentWillReceiveProps", () => {
+    it("calls startTailing when new path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -68,7 +68,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.startTailing.calls.count()).toEqual(2);
     });
 
-    it("calls stopTailing when new path is provided", function() {
+    it("calls stopTailing when new path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
         task: { slave_id: "foo" }
@@ -76,7 +76,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.stopTailing.calls.count()).toEqual(1);
     });
 
-    it("doesn't call startTailing when same path is provided", function() {
+    it("doesn't call startTailing when same path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
@@ -84,7 +84,7 @@ describe("MesosLogContainer", function() {
       expect(MesosLogStore.startTailing.calls.count()).toEqual(1);
     });
 
-    it("doesn't call stopTailing when same path is provided", function() {
+    it("doesn't call stopTailing when same path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
         task: { slave_id: "foo" }
@@ -93,47 +93,47 @@ describe("MesosLogContainer", function() {
     });
   });
 
-  describe("#componentWillUnmount", function() {
-    it("calls stopTailing when component unmounts", function() {
+  describe("#componentWillUnmount", () => {
+    it("calls stopTailing when component unmounts", () => {
       thisInstance.componentWillUnmount();
       expect(MesosLogStore.stopTailing).toHaveBeenCalled();
     });
   });
 
-  describe("#onMesosLogStoreError", function() {
-    beforeEach(function() {
+  describe("#onMesosLogStoreError", () => {
+    beforeEach(() => {
       thisInstance.setState = jasmine.createSpy("setState");
     });
 
-    it("setStates when path matches", function() {
+    it("setStates when path matches", () => {
       thisInstance.onMesosLogStoreError("/some/file/path");
       expect(thisInstance.setState).toHaveBeenCalled();
     });
 
-    it("doesn't setState when path doesn't match", function() {
+    it("doesn't setState when path doesn't match", () => {
       thisInstance.onMesosLogStoreError("/other/file/path");
       expect(thisInstance.setState).not.toHaveBeenCalled();
     });
   });
 
-  describe("#onMesosLogStoreSuccess", function() {
-    beforeEach(function() {
+  describe("#onMesosLogStoreSuccess", () => {
+    beforeEach(() => {
       thisInstance.setState = jasmine.createSpy("setState");
     });
 
-    it("setStates when path matches", function() {
+    it("setStates when path matches", () => {
       thisInstance.onMesosLogStoreSuccess("/some/file/path", APPEND);
       expect(thisInstance.setState).toHaveBeenCalled();
     });
 
-    it("doesn't setState when path doesn't match", function() {
+    it("doesn't setState when path doesn't match", () => {
       thisInstance.onMesosLogStoreSuccess("/other/file/path", APPEND);
       expect(thisInstance.setState).not.toHaveBeenCalled();
     });
   });
 
-  describe("#render", function() {
-    it("calls getErrorScreen when error occurred", function() {
+  describe("#render", () => {
+    it("calls getErrorScreen when error occurred", () => {
       thisInstance.state.hasLoadingError = 3;
       thisInstance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -141,7 +141,7 @@ describe("MesosLogContainer", function() {
       expect(thisInstance.getErrorScreen).toHaveBeenCalled();
     });
 
-    it("ignores getErrorScreen when error has not occurred", function() {
+    it("ignores getErrorScreen when error has not occurred", () => {
       thisInstance.state.hasLoadingError = 2;
       thisInstance.getErrorScreen = jasmine.createSpy("getErrorScreen");
 
@@ -149,7 +149,7 @@ describe("MesosLogContainer", function() {
       expect(thisInstance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("doesn't call getLoadingScreen when fullLog is empty", function() {
+    it("doesn't call getLoadingScreen when fullLog is empty", () => {
       var logBuffer = new LogBuffer();
       logBuffer.add(new Item({ data: "", offset: 100 }));
       MesosLogStore.getLogBuffer = jasmine
@@ -162,7 +162,7 @@ describe("MesosLogContainer", function() {
       expect(thisInstance.getLoadingScreen).not.toHaveBeenCalled();
     });
 
-    it("calls getLoadingScreen when filePath is null", function() {
+    it("calls getLoadingScreen when filePath is null", () => {
       thisInstance = ReactDOM.render(
         <MesosLogContainer
           filePath={null}
@@ -179,7 +179,7 @@ describe("MesosLogContainer", function() {
       expect(thisInstance.getLoadingScreen).toHaveBeenCalled();
     });
 
-    it("calls getEmptyDirectoryScreen when fullLog has data", function() {
+    it("calls getEmptyDirectoryScreen when fullLog has data", () => {
       thisInstance = ReactDOM.render(
         <MesosLogContainer
           filePath="/some/file/path"
@@ -203,7 +203,7 @@ describe("MesosLogContainer", function() {
       expect(thisInstance.getEmptyDirectoryScreen).toHaveBeenCalled();
     });
 
-    it("shows empty directory screen when logName is empty", function() {
+    it("shows empty directory screen when logName is empty", () => {
       thisInstance = ReactDOM.render(
         <MesosLogContainer
           filePath="/some/file/path"

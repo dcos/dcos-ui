@@ -2,9 +2,9 @@ const ApplicationSpec = require("../ApplicationSpec");
 
 let thisInstance;
 
-describe("ApplicationSpec", function() {
-  describe("#getAcceptedResourceRoles", function() {
-    it("returns correct user", function() {
+describe("ApplicationSpec", () => {
+  describe("#getAcceptedResourceRoles", () => {
+    it("returns correct user", () => {
       const service = new ApplicationSpec({
         acceptedResourceRoles: ["public_slave"]
       });
@@ -13,8 +13,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getArguments", function() {
-    it("returns array", function() {
+  describe("#getArguments", () => {
+    it("returns array", () => {
       const service = new ApplicationSpec({
         args: []
       });
@@ -22,7 +22,7 @@ describe("ApplicationSpec", function() {
       expect(Array.isArray(service.getArguments())).toBeTruthy();
     });
 
-    it("returns correct arguments", function() {
+    it("returns correct arguments", () => {
       const service = new ApplicationSpec({
         args: [
           "--name 'etcd0'",
@@ -37,8 +37,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getCommand", function() {
-    it("returns correct command", function() {
+  describe("#getCommand", () => {
+    it("returns correct command", () => {
       const service = new ApplicationSpec({
         cmd: "sleep 999"
       });
@@ -47,8 +47,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getContainerSettings", function() {
-    it("returns correct container data", function() {
+  describe("#getContainerSettings", () => {
+    it("returns correct container data", () => {
       const service = new ApplicationSpec({
         container: {
           type: "DOCKER",
@@ -77,8 +77,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getConstraints", function() {
-    beforeEach(function() {
+  describe("#getConstraints", () => {
+    beforeEach(() => {
       thisInstance = new ApplicationSpec({
         constraints: [
           ["hostname", "LIKE", "test"],
@@ -87,11 +87,11 @@ describe("ApplicationSpec", function() {
       });
     });
 
-    it("returns array", function() {
+    it("returns array", () => {
       expect(Array.isArray(thisInstance.getConstraints())).toBeTruthy();
     });
 
-    it("returns correct constraints", function() {
+    it("returns correct constraints", () => {
       expect(thisInstance.getConstraints()).toEqual([
         ["hostname", "LIKE", "test"],
         ["hostname", "UNLIKE", "no-test"]
@@ -99,8 +99,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getCpus", function() {
-    it("returns the correct cpus", function() {
+  describe("#getCpus", () => {
+    it("returns the correct cpus", () => {
       const service = new ApplicationSpec({
         cpus: 0.5
       });
@@ -109,8 +109,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getDisk", function() {
-    it("returns the correct disk", function() {
+  describe("#getDisk", () => {
+    it("returns the correct disk", () => {
       const service = new ApplicationSpec({
         disk: 125
       });
@@ -119,8 +119,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getEnvironmentVariables", function() {
-    it("returns correct command", function() {
+  describe("#getEnvironmentVariables", () => {
+    it("returns correct command", () => {
       const service = new ApplicationSpec({
         env: { secretName: "test" }
       });
@@ -129,8 +129,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getExecutor", function() {
-    it("returns correct command", function() {
+  describe("#getExecutor", () => {
+    it("returns correct command", () => {
       const service = new ApplicationSpec({
         executor: "//cmd"
       });
@@ -139,8 +139,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getFetch", function() {
-    beforeEach(function() {
+  describe("#getFetch", () => {
+    beforeEach(() => {
       thisInstance = new ApplicationSpec({
         fetch: [
           {
@@ -153,11 +153,11 @@ describe("ApplicationSpec", function() {
       });
     });
 
-    it("returns array", function() {
+    it("returns array", () => {
       expect(Array.isArray(thisInstance.getFetch())).toBeTruthy();
     });
 
-    it("returns correct uris", function() {
+    it("returns correct uris", () => {
       expect(thisInstance.getFetch()).toEqual([
         {
           uri: "http://resource/uri",
@@ -169,8 +169,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getHealthChecks", function() {
-    it("returns correct health check data", function() {
+  describe("#getHealthChecks", () => {
+    it("returns correct health check data", () => {
       const service = new ApplicationSpec({
         healthChecks: [{ path: "", protocol: "HTTP" }]
       });
@@ -180,7 +180,7 @@ describe("ApplicationSpec", function() {
       ]);
     });
 
-    it('returns "cloned" objects, so that no one is accidentally mutating them', function() {
+    it('returns "cloned" objects, so that no one is accidentally mutating them', () => {
       const service = new ApplicationSpec({
         healthChecks: [{ command: { value: "exit 0;" }, protocol: "COMMAND" }]
       });
@@ -196,8 +196,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getInstancesCount", function() {
-    it("returns correct instances", function() {
+  describe("#getInstancesCount", () => {
+    it("returns correct instances", () => {
       const service = new ApplicationSpec({
         instances: 1
       });
@@ -206,8 +206,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getIpAddress", function() {
-    it("returns the right ipAddress value", function() {
+  describe("#getIpAddress", () => {
+    it("returns the right ipAddress value", () => {
       const service = new ApplicationSpec({
         ipAddress: { networkName: "d-overlay-1" }
       });
@@ -216,8 +216,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getLabels", function() {
-    it("returns correct labels", function() {
+  describe("#getLabels", () => {
+    it("returns correct labels", () => {
       const service = new ApplicationSpec({
         labels: {
           label_1: "1",
@@ -232,8 +232,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getMem", function() {
-    it("returns the correct mem", function() {
+  describe("#getMem", () => {
+    it("returns the correct mem", () => {
       const service = new ApplicationSpec({
         mem: 49
       });
@@ -242,8 +242,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getPortDefinitions", function() {
-    it("returns the correct port definitions", function() {
+  describe("#getPortDefinitions", () => {
+    it("returns the correct port definitions", () => {
       const service = new ApplicationSpec({
         portDefinitions: [
           { port: 1234, labels: {}, name: "test", protocol: "tcp" },
@@ -258,8 +258,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getResidency", function() {
-    it("returns the right residency value", function() {
+  describe("#getResidency", () => {
+    it("returns the right residency value", () => {
       const service = new ApplicationSpec({
         residency: {
           relaunchEscalationTimeoutSeconds: 10,
@@ -274,8 +274,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns correct resource data", function() {
+  describe("#getResources", () => {
+    it("returns correct resource data", () => {
       const service = new ApplicationSpec({
         cpus: 1,
         mem: 2048,
@@ -291,7 +291,7 @@ describe("ApplicationSpec", function() {
       });
     });
 
-    it("returns zeros by default", function() {
+    it("returns zeros by default", () => {
       const service = new ApplicationSpec({});
 
       expect(service.getResources()).toEqual({
@@ -303,8 +303,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getUpdateStrategy", function() {
-    it("returns the right updateStrategy value", function() {
+  describe("#getUpdateStrategy", () => {
+    it("returns the right updateStrategy value", () => {
       const service = new ApplicationSpec({
         updateStrategy: {
           maximumOverCapacity: 0,
@@ -319,8 +319,8 @@ describe("ApplicationSpec", function() {
     });
   });
 
-  describe("#getUser", function() {
-    it("returns correct user", function() {
+  describe("#getUser", () => {
+    it("returns correct user", () => {
       const service = new ApplicationSpec({
         user: "sudo"
       });

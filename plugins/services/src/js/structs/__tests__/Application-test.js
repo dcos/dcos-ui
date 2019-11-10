@@ -6,9 +6,9 @@ const ServiceImages = require("../../constants/ServiceImages");
 const TaskStats = require("../TaskStats");
 const VolumeList = require("../VolumeList");
 
-describe("Application", function() {
-  describe("#getDeployments", function() {
-    it("returns an empty array", function() {
+describe("Application", () => {
+  describe("#getDeployments", () => {
+    it("returns an empty array", () => {
       const service = new Application({
         deployments: []
       });
@@ -16,7 +16,7 @@ describe("Application", function() {
       expect(service.getDeployments()).toEqual([]);
     });
 
-    it("returns an array with one deployment", function() {
+    it("returns an array with one deployment", () => {
       const service = new Application({
         deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7" }]
       });
@@ -27,14 +27,14 @@ describe("Application", function() {
     });
   });
 
-  describe("#getHealth", function() {
-    it("returns NA health status", function() {
+  describe("#getHealth", () => {
+    it("returns NA health status", () => {
       const service = new Application();
 
       expect(service.getHealth()).toEqual(HealthStatus.NA);
     });
 
-    it("returns correct health status for healthy services", function() {
+    it("returns correct health status for healthy services", () => {
       const service = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         tasksStaged: 0,
@@ -46,7 +46,7 @@ describe("Application", function() {
       expect(service.getHealth()).toEqual(HealthStatus.HEALTHY);
     });
 
-    it("returns correct health status for unhealthy services", function() {
+    it("returns correct health status for unhealthy services", () => {
       const service = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         tasksStaged: 0,
@@ -58,7 +58,7 @@ describe("Application", function() {
       expect(service.getHealth()).toEqual(HealthStatus.UNHEALTHY);
     });
 
-    it("returns correct health status for idle services", function() {
+    it("returns correct health status for idle services", () => {
       const service = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         tasksStaged: 0,
@@ -70,7 +70,7 @@ describe("Application", function() {
       expect(service.getHealth()).toEqual(HealthStatus.IDLE);
     });
 
-    it("returns correct health status for NA services", function() {
+    it("returns correct health status for NA services", () => {
       const service = new Application({
         healthChecks: [],
         tasksStaged: 0,
@@ -82,7 +82,7 @@ describe("Application", function() {
       expect(service.getHealth()).toEqual(HealthStatus.NA);
     });
 
-    it("returns correct health status for NA services with health checks", function() {
+    it("returns correct health status for NA services with health checks", () => {
       const service = new Application({
         healthChecks: [{ path: "", protocol: "HTTP" }],
         tasksStaged: 0,
@@ -95,8 +95,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getId", function() {
-    it("returns correct id", function() {
+  describe("#getId", () => {
+    it("returns correct id", () => {
       const service = new Application({
         id: "/test/cmd"
       });
@@ -105,14 +105,14 @@ describe("Application", function() {
     });
   });
 
-  describe("#getImages", function() {
-    it("defaults to NA images", function() {
+  describe("#getImages", () => {
+    it("defaults to NA images", () => {
       const service = new Application({});
 
       expect(service.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
 
-    it("returns correct images from metadata", function() {
+    it("returns correct images from metadata", () => {
       const service = new Application({
         labels: {
           DCOS_PACKAGE_METADATA:
@@ -127,7 +127,7 @@ describe("Application", function() {
       });
     });
 
-    it("returns correct images from service", function() {
+    it("returns correct images from service", () => {
       const service = new Application({
         images: {
           "icon-small": "foo-small.png",
@@ -144,8 +144,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getInstancesCount", function() {
-    it("returns correct instances", function() {
+  describe("#getInstancesCount", () => {
+    it("returns correct instances", () => {
       const service = new Application({
         instances: 1
       });
@@ -153,15 +153,15 @@ describe("Application", function() {
       expect(service.getInstancesCount()).toEqual(1);
     });
 
-    it("returns 0 instances if instances is not present", function() {
+    it("returns 0 instances if instances is not present", () => {
       const service = new Application({});
 
       expect(service.getInstancesCount()).toEqual(0);
     });
   });
 
-  describe("#getLabels", function() {
-    it("returns correct labels", function() {
+  describe("#getLabels", () => {
+    it("returns correct labels", () => {
       const service = new Application({
         labels: {
           label_1: "1",
@@ -176,8 +176,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getLastConfigChange", function() {
-    it("returns correct date", function() {
+  describe("#getLastConfigChange", () => {
+    it("returns correct date", () => {
       const service = new Application({
         versionInfo: {
           lastConfigChangeAt: "2016-03-22T10:46:07.354Z"
@@ -188,8 +188,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getLastScaled", function() {
-    it("returns correct date", function() {
+  describe("#getLastScaled", () => {
+    it("returns correct date", () => {
       const service = new Application({
         versionInfo: {
           lastScalingAt: "2016-03-22T10:46:07.354Z"
@@ -200,8 +200,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getName", function() {
-    it("returns correct name", function() {
+  describe("#getName", () => {
+    it("returns correct name", () => {
       const service = new Application({
         id: "/test/cmd"
       });
@@ -210,8 +210,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getPorts", function() {
-    it("returns correct port data", function() {
+  describe("#getPorts", () => {
+    it("returns correct port data", () => {
       const service = new Application({
         ports: [10001, 10002]
       });
@@ -220,8 +220,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns correct resource data", function() {
+  describe("#getResources", () => {
+    it("returns correct resource data", () => {
       const service = new Application({
         cpus: 1,
         mem: 2,
@@ -238,7 +238,7 @@ describe("Application", function() {
       });
     });
 
-    it("multiplies resources by the number of instances", function() {
+    it("multiplies resources by the number of instances", () => {
       const service = new Application({
         cpus: 1,
         mem: 2,
@@ -256,8 +256,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getStatus", function() {
-    it("returns correct status for running app", function() {
+  describe("#getStatus", () => {
+    it("returns correct status for running app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 1,
@@ -270,7 +270,7 @@ describe("Application", function() {
       expect(service.getStatus()).toEqual(ServiceStatus.RUNNING.displayName);
     });
 
-    it("returns correct status for stopped app", function() {
+    it("returns correct status for stopped app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -283,7 +283,7 @@ describe("Application", function() {
       expect(service.getStatus()).toEqual(ServiceStatus.STOPPED.displayName);
     });
 
-    it("returns correct status for deploying app", function() {
+    it("returns correct status for deploying app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 15,
@@ -296,7 +296,7 @@ describe("Application", function() {
       expect(service.getStatus()).toEqual(ServiceStatus.DEPLOYING.displayName);
     });
 
-    it("returns correct status for deploying app", function() {
+    it("returns correct status for deploying app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -310,8 +310,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getServiceStatus", function() {
-    it("returns correct status object for running app", function() {
+  describe("#getServiceStatus", () => {
+    it("returns correct status object for running app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 1,
@@ -324,7 +324,7 @@ describe("Application", function() {
       expect(service.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
 
-    it("returns correct status for stopped app", function() {
+    it("returns correct status for stopped app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -337,7 +337,7 @@ describe("Application", function() {
       expect(service.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
     });
 
-    it("returns correct status for deploying app", function() {
+    it("returns correct status for deploying app", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 15,
@@ -350,7 +350,7 @@ describe("Application", function() {
       expect(service.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
     });
 
-    it("returns n/a status object when no other status is found", function() {
+    it("returns n/a status object when no other status is found", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -363,7 +363,7 @@ describe("Application", function() {
       expect(service.getServiceStatus()).toEqual(ServiceStatus.NA);
     });
 
-    it("tolerates a missing deployments field", function() {
+    it("tolerates a missing deployments field", () => {
       const service = new Application({
         tasksStaged: 0,
         tasksRunning: 0,
@@ -375,8 +375,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getLastTaskFailure", function() {
-    it("returns correct task summary", function() {
+  describe("#getLastTaskFailure", () => {
+    it("returns correct task summary", () => {
       const service = new Application({
         lastTaskFailure: {
           appId: "/toggle",
@@ -401,8 +401,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getTasksSummary", function() {
-    it("returns correct task summary", function() {
+  describe("#getTasksSummary", () => {
+    it("returns correct task summary", () => {
       const service = new Application({
         instances: 2,
         tasksStaged: 0,
@@ -421,7 +421,7 @@ describe("Application", function() {
       });
     });
 
-    it("returns correct task summary for overcapcity", function() {
+    it("returns correct task summary for overcapcity", () => {
       const service = new Application({
         instances: 2,
         tasksStaged: 0,
@@ -441,16 +441,16 @@ describe("Application", function() {
     });
   });
 
-  describe("#getTaskStats", function() {
-    it("returns task stats instance", function() {
+  describe("#getTaskStats", () => {
+    it("returns task stats instance", () => {
       const service = new Application({ taskStats: {} });
 
       expect(service.getTaskStats() instanceof TaskStats).toBeTruthy();
     });
   });
 
-  describe("#getVersion", function() {
-    it("returns correct version", function() {
+  describe("#getVersion", () => {
+    it("returns correct version", () => {
       const service = new Application({
         version: "2016-03-22T10:46:07.354Z"
       });
@@ -459,8 +459,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getVersions", function() {
-    it("returns correct versions map", function() {
+  describe("#getVersions", () => {
+    it("returns correct versions map", () => {
       const versionID = "2016-03-22T10:46:07.354Z";
       const service = new Application({
         versions: new Map([[versionID]])
@@ -470,8 +470,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getVersionInfo", function() {
-    it("returns correct version info", function() {
+  describe("#getVersionInfo", () => {
+    it("returns correct version info", () => {
       const service = new Application({
         version: "2016-03-22T10:46:07.354Z",
         versionInfo: {
@@ -488,8 +488,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#getVolumes", function() {
-    it("returns volume list", function() {
+  describe("#getVolumes", () => {
+    it("returns volume list", () => {
       const service = new Application({
         volumes: [
           {
@@ -507,7 +507,7 @@ describe("Application", function() {
       expect(service.getVolumes() instanceof VolumeList).toBeTruthy();
     });
 
-    it("returns empty volume list if volumes data is undefined", function() {
+    it("returns empty volume list if volumes data is undefined", () => {
       const service = new Application({});
 
       expect(service.getVolumes().getItems().length).toEqual(0);
@@ -516,7 +516,7 @@ describe("Application", function() {
 
   describe("getWebURL", () => {
     // this test mostly makes sure that util isnt removed from `Service` struct - see ServiceUtil tests for more details
-    it("returns url if service is SDK Service providing DCOS_SERVICE_WEB_PATH label", function() {
+    it("returns url if service is SDK Service providing DCOS_SERVICE_WEB_PATH label", () => {
       const service = new Application({
         labels: {
           DCOS_SERVICE_NAME: "foo",
@@ -530,35 +530,35 @@ describe("Application", function() {
     });
   });
 
-  describe("#toJSON", function() {
-    it("returns a object with the values in _itemData", function() {
+  describe("#toJSON", () => {
+    it("returns a object with the values in _itemData", () => {
       const item = new Application({ foo: "bar", baz: "qux" });
       expect(item.toJSON()).toEqual({ foo: "bar", baz: "qux" });
     });
 
-    it("returns a JSON string with the values in _itemData", function() {
+    it("returns a JSON string with the values in _itemData", () => {
       const item = new Application({ foo: "bar", baz: "qux" });
       expect(JSON.stringify(item)).toEqual('{"foo":"bar","baz":"qux"}');
     });
   });
 
-  describe("#getSpec", function() {
-    it("cleans up JSON when getting the spec", function() {
+  describe("#getSpec", () => {
+    it("cleans up JSON when getting the spec", () => {
       const item = new Application({ foo: "bar", baz: "qux", uris: [] });
       const spec = item.getSpec();
       expect(JSON.stringify(spec)).toEqual('{"foo":"bar","baz":"qux"}');
     });
   });
 
-  describe("#findTaskById", function() {
-    it("returns the task", function() {
+  describe("#findTaskById", () => {
+    it("returns the task", () => {
       const service = new Application({
         tasks: [{ id: "foo" }]
       });
       expect(service.findTaskById("foo")).toEqual({ id: "foo" });
     });
 
-    it("returns undefined", function() {
+    it("returns undefined", () => {
       const service = new Application({
         tasks: [{ id: "foo" }]
       });
@@ -566,8 +566,8 @@ describe("Application", function() {
     });
   });
 
-  describe("#isDelayed", function() {
-    it("return false when not delayed", function() {
+  describe("#isDelayed", () => {
+    it("return false when not delayed", () => {
       const service = new Application({
         queue: {
           delay: {
@@ -578,7 +578,7 @@ describe("Application", function() {
       expect(service.isDelayed()).toEqual(false);
     });
 
-    it("return false when property is missing", function() {
+    it("return false when property is missing", () => {
       const service = new Application({
         queue: {
           delay: {}
@@ -587,7 +587,7 @@ describe("Application", function() {
       expect(service.isDelayed()).toEqual(false);
     });
 
-    it("return true when delayed", function() {
+    it("return true when delayed", () => {
       const service = new Application({
         queue: {
           delay: {

@@ -15,10 +15,10 @@ const {
   SET
 } = require("#SRC/js/constants/TransactionTypes");
 
-describe("MultiContainerHealthChecks", function() {
-  describe("#JSONSegmentReducer", function() {
-    describe("Generic", function() {
-      it("does not alter state when batch is empty", function() {
+describe("MultiContainerHealthChecks", () => {
+  describe("#JSONSegmentReducer", () => {
+    describe("Generic", () => {
+      it("does not alter state when batch is empty", () => {
         const batch = new Batch();
 
         const state = {};
@@ -30,7 +30,7 @@ describe("MultiContainerHealthChecks", function() {
         ).toEqual({});
       });
 
-      it("defines health checks on ADD_ITEM", function() {
+      it("defines health checks on ADD_ITEM", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null, ADD_ITEM));
 
@@ -43,7 +43,7 @@ describe("MultiContainerHealthChecks", function() {
         ).toEqual({});
       });
 
-      it("undefines health checks on REMOVE_ITEM", function() {
+      it("undefines health checks on REMOVE_ITEM", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null, REMOVE_ITEM));
 
@@ -56,7 +56,7 @@ describe("MultiContainerHealthChecks", function() {
         ).toEqual(null);
       });
 
-      it("defines `gracePeriodSeconds`", function() {
+      it("defines `gracePeriodSeconds`", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null));
         batch = batch.add(new Transaction(["gracePeriodSeconds"], 1));
@@ -72,7 +72,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("defines `intervalSeconds`", function() {
+      it("defines `intervalSeconds`", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null));
         batch = batch.add(new Transaction(["intervalSeconds"], 1));
@@ -88,7 +88,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("defines `maxConsecutiveFailures`", function() {
+      it("defines `maxConsecutiveFailures`", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null));
         batch = batch.add(new Transaction(["maxConsecutiveFailures"], 1));
@@ -104,7 +104,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("defines `timeoutSeconds`", function() {
+      it("defines `timeoutSeconds`", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null));
         batch = batch.add(new Transaction(["timeoutSeconds"], 1));
@@ -120,7 +120,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("defines `delaySeconds`", function() {
+      it("defines `delaySeconds`", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], null));
         batch = batch.add(new Transaction(["delaySeconds"], 1));
@@ -137,8 +137,8 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    describe("COMMAND", function() {
-      it("populates default string commands", function() {
+    describe("COMMAND", () => {
+      it("populates default string commands", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -161,7 +161,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("populates argv when the last command transaction sets type accordingly", function() {
+      it("populates argv when the last command transaction sets type accordingly", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -187,7 +187,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("populates argv when first command transaction sets type accordingly", function() {
+      it("populates argv when first command transaction sets type accordingly", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -214,8 +214,8 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    describe("HTTP", function() {
-      it("populates http endpoint", function() {
+    describe("HTTP", () => {
+      it("populates http endpoint", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -235,7 +235,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("populates http path", function() {
+      it("populates http path", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -255,7 +255,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("populates http scheme on https", function() {
+      it("populates http scheme on https", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -274,7 +274,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("populates http scheme on http", function() {
+      it("populates http scheme on http", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -294,8 +294,8 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    describe("TCP", function() {
-      it("populates tcp endpoint", function() {
+    describe("TCP", () => {
+      it("populates tcp endpoint", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], TCP));
@@ -315,8 +315,8 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    describe("Protocol Switching", function() {
-      it("switches from TCP to COMMAND", function() {
+    describe("Protocol Switching", () => {
+      it("switches from TCP to COMMAND", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], TCP));
@@ -341,7 +341,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("switches from HTTP to COMMAND", function() {
+      it("switches from HTTP to COMMAND", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -366,7 +366,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("switches from COMMAND to HTTP", function() {
+      it("switches from COMMAND to HTTP", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -390,7 +390,7 @@ describe("MultiContainerHealthChecks", function() {
         });
       });
 
-      it("switches from COMMAND to TCP", function() {
+      it("switches from COMMAND to TCP", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction([], {}));
         batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -415,8 +415,8 @@ describe("MultiContainerHealthChecks", function() {
     });
   });
 
-  describe("#FormReducer", function() {
-    it("includes `protocol` field", function() {
+  describe("#FormReducer", () => {
+    it("includes `protocol` field", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -432,7 +432,7 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    it("includes `exec.command.type` field", function() {
+    it("includes `exec.command.type` field", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -454,7 +454,7 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    it("includes `exec.command.string` field", function() {
+    it("includes `exec.command.string` field", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(["protocol"], COMMAND));
@@ -474,7 +474,7 @@ describe("MultiContainerHealthChecks", function() {
       });
     });
 
-    it("includes `http.https` field", function() {
+    it("includes `http.https` field", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction([], {}));
       batch = batch.add(new Transaction(["protocol"], HTTP));
@@ -493,8 +493,8 @@ describe("MultiContainerHealthChecks", function() {
     });
   });
 
-  describe("#JSONSegmentParser", function() {
-    it("populates `http` transactions", function() {
+  describe("#JSONSegmentParser", () => {
+    it("populates `http` transactions", () => {
       const healthCheck = {
         http: {
           endpoint: "foo",
@@ -515,7 +515,7 @@ describe("MultiContainerHealthChecks", function() {
       ).toEqual(transactions);
     });
 
-    it("populates `tcp` transactions", function() {
+    it("populates `tcp` transactions", () => {
       const healthCheck = {
         tcp: {
           endpoint: "foo"
@@ -532,7 +532,7 @@ describe("MultiContainerHealthChecks", function() {
       ).toEqual(transactions);
     });
 
-    it("populates `exec` (shell) transactions", function() {
+    it("populates `exec` (shell) transactions", () => {
       const healthCheck = {
         exec: {
           command: {
@@ -556,7 +556,7 @@ describe("MultiContainerHealthChecks", function() {
       ).toEqual(transactions);
     });
 
-    it("populates `exec` (argv) transactions", function() {
+    it("populates `exec` (argv) transactions", () => {
       const healthCheck = {
         exec: {
           command: {

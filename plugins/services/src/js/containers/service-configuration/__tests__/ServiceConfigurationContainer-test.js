@@ -8,7 +8,7 @@ const ServiceConfigDisplay = require("../../../service-configuration/ServiceConf
 
 let thisInstance;
 
-describe("ServiceConfigurationContainer", function() {
+describe("ServiceConfigurationContainer", () => {
   const service = new Application({
     id: "/test",
     healthChecks: [{ path: "", protocol: "HTTP" }],
@@ -45,17 +45,17 @@ describe("ServiceConfigurationContainer", function() {
     ])
   });
 
-  beforeEach(function() {
+  beforeEach(() => {
     const WrappedComponent = JestUtil.withI18nProvider(
       ServiceConfigurationContainer
     );
     thisInstance = mount(
-      <WrappedComponent onEditClick={function() {}} service={service} />
+      <WrappedComponent onEditClick={() => {}} service={service} />
     );
   });
 
-  describe("#render", function() {
-    it("renders correct id", function() {
+  describe("#render", () => {
+    it("renders correct id", () => {
       const serviceSpecView = thisInstance.find(ServiceConfigDisplay);
 
       expect(serviceSpecView.exists()).toBeTruthy();

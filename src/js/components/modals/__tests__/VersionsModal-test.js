@@ -7,9 +7,9 @@ const VersionsModal = require("../VersionsModal");
 
 let thisCallback, thisContainer, thisInstance;
 
-describe("VersionsModal", function() {
-  describe("#onClose", function() {
-    beforeEach(function() {
+describe("VersionsModal", () => {
+  describe("#onClose", () => {
+    beforeEach(() => {
       thisCallback = jasmine.createSpy();
 
       thisContainer = global.document.createElement("div");
@@ -19,27 +19,27 @@ describe("VersionsModal", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("doesn't call the callback after initialization", function() {
+    it("doesn't call the callback after initialization", () => {
       expect(thisCallback).not.toHaveBeenCalled();
     });
 
-    it("calls the callback when #onClose is called", function() {
+    it("calls the callback when #onClose is called", () => {
       thisInstance.onClose();
       expect(thisCallback).toHaveBeenCalled();
     });
   });
 
-  describe("#getContent", function() {
-    beforeEach(function() {
+  describe("#getContent", () => {
+    beforeEach(() => {
       var data = { foo: "bar" };
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
         <VersionsModal
-          onClose={function() {}}
+          onClose={() => {}}
           versionDump={data}
           open={true}
         />,
@@ -47,18 +47,18 @@ describe("VersionsModal", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("returns a pre element tag", function() {
+    it("returns a pre element tag", () => {
       var content = thisInstance.getContent();
       var contentInstance = ReactDOM.render(content, thisContainer);
       var node = ReactDOM.findDOMNode(contentInstance);
       expect(node.tagName).toBe("PRE");
     });
 
-    it("returns a pre element tag", function() {
+    it("returns a pre element tag", () => {
       var content = thisInstance.getContent();
       var contentInstance = ReactDOM.render(content, thisContainer);
       var node = ReactDOM.findDOMNode(contentInstance);

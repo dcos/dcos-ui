@@ -12,13 +12,13 @@ const NodeTask = require("./fixtures/NodeTask.json");
 
 let thisInstance;
 
-describe("TaskUtil", function() {
-  describe("#getHostAndPortList", function() {
-    it("returns empty arrays if host and ports are not available", function() {
+describe("TaskUtil", () => {
+  describe("#getHostAndPortList", () => {
+    it("returns empty arrays if host and ports are not available", () => {
       expect(TaskUtil.getHostAndPortList()).toEqual({ ports: [], hosts: [] });
     });
 
-    it("uses ips if network is BRIDGE and no port_mappings", function() {
+    it("uses ips if network is BRIDGE and no port_mappings", () => {
       expect(
         TaskUtil.getHostAndPortList(
           {
@@ -37,7 +37,7 @@ describe("TaskUtil", function() {
       ).toEqual({ ports: [3], hosts: ["bar"] });
     });
 
-    it("uses port_mappings if set and network is BRIDGE", function() {
+    it("uses port_mappings if set and network is BRIDGE", () => {
       expect(
         TaskUtil.getHostAndPortList(
           {
@@ -54,7 +54,7 @@ describe("TaskUtil", function() {
       ).toEqual({ ports: ["foo", "bar"], hosts: ["quis"] });
     });
 
-    it("uses host name if network is HOST", function() {
+    it("uses host name if network is HOST", () => {
       expect(
         TaskUtil.getHostAndPortList(
           { discovery: { ports: { ports: [{ number: 3 }] } } },
@@ -64,16 +64,16 @@ describe("TaskUtil", function() {
     });
   });
 
-  describe("#getPorts", function() {
-    it("returns task ports if discovery ports are not defined", function() {
+  describe("#getPorts", () => {
+    it("returns task ports if discovery ports are not defined", () => {
       expect(TaskUtil.getPorts({ ports: [1, 2] })).toEqual([1, 2]);
     });
 
-    it("returns an empty array if neither are defined", function() {
+    it("returns an empty array if neither are defined", () => {
       expect(TaskUtil.getPorts()).toEqual([]);
     });
 
-    it("uses discovery ports if available", function() {
+    it("uses discovery ports if available", () => {
       const result = TaskUtil.getPorts({
         discovery: { ports: { ports: [{ number: 3 }] } }
       });
@@ -81,7 +81,7 @@ describe("TaskUtil", function() {
       expect(result).toEqual([3]);
     });
 
-    it("prefers discovery ports if both are available", function() {
+    it("prefers discovery ports if both are available", () => {
       const result = TaskUtil.getPorts({
         ports: [1, 2],
         discovery: { ports: { ports: [{ number: 3 }] } }
@@ -91,8 +91,8 @@ describe("TaskUtil", function() {
     });
   });
 
-  describe("#getPortMappings", function() {
-    beforeEach(function() {
+  describe("#getPortMappings", () => {
+    beforeEach(() => {
       thisInstance = TaskUtil.getPortMappings({
         container: {
           type: "FOO",
@@ -101,27 +101,27 @@ describe("TaskUtil", function() {
       });
     });
 
-    it("handles empty container well", function() {
+    it("handles empty container well", () => {
       expect(TaskUtil.getPortMappings({})).toEqual(null);
     });
 
-    it("handles empty type well", function() {
+    it("handles empty type well", () => {
       expect(TaskUtil.getPortMappings({ container: {} })).toEqual(null);
     });
 
-    it("handles empty info well", function() {
+    it("handles empty info well", () => {
       expect(TaskUtil.getPortMappings({ container: { type: "FOO" } })).toEqual(
         null
       );
     });
 
-    it("handles empty port mappings well", function() {
+    it("handles empty port mappings well", () => {
       expect(
         TaskUtil.getPortMappings({ container: { type: "FOO", foo: {} } })
       ).toEqual(null);
     });
 
-    it("handles if port mappings are is not an array", function() {
+    it("handles if port mappings are is not an array", () => {
       expect(
         TaskUtil.getPortMappings({
           container: { type: "FOO", foo: { port_mappings: 0 } }
@@ -129,13 +129,13 @@ describe("TaskUtil", function() {
       ).toEqual(null);
     });
 
-    it("provides port_mappings when available", function() {
+    it("provides port_mappings when available", () => {
       expect(thisInstance).toEqual(["foo", "bar", "baz"]);
     });
   });
 
-  describe("#getRegionName", function() {
-    beforeEach(function() {
+  describe("#getRegionName", () => {
+    beforeEach(() => {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
@@ -143,15 +143,15 @@ describe("TaskUtil", function() {
         return new Node(MasterNodeLocal);
       };
     });
-    it("returns N/A when no region name exists", function() {
+    it("returns N/A when no region name exists", () => {
       const task = Object.assign({}, NodeTask);
       task.slave_id = "2";
       expect(TaskUtil.getRegionName(task)).toEqual("N/A");
     });
-    it("adds (Local) when no slave/ master in the same region", function() {
+    it("adds (Local) when no slave/ master in the same region", () => {
       expect(TaskUtil.getRegionName(NodeTask)).toEqual("us-west-2 (Local)");
     });
-    it("returns region when slave/ master in different region", function() {
+    it("returns region when slave/ master in different region", () => {
       CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };
@@ -159,18 +159,18 @@ describe("TaskUtil", function() {
     });
   });
 
-  describe("#getZoneName", function() {
-    beforeEach(function() {
+  describe("#getZoneName", () => {
+    beforeEach(() => {
       CompositeState.getNodesList = () => {
         return new NodesList({ items: SlaveNodes });
       };
     });
-    it("returns N/A when no zone name exists", function() {
+    it("returns N/A when no zone name exists", () => {
       const task = Object.assign({}, NodeTask);
       task.slave_id = "2";
       expect(TaskUtil.getZoneName(task)).toEqual("N/A");
     });
-    it("returns zone when slave/ master in different zone", function() {
+    it("returns zone when slave/ master in different zone", () => {
       CompositeState.getMasterNode = () => {
         return new Node(MasterNodeOffsite);
       };
@@ -178,8 +178,8 @@ describe("TaskUtil", function() {
     });
   });
 
-  describe("#getTaskPath", function() {
-    describe("app/framework tasks", function() {
+  describe("#getTaskPath", () => {
+    describe("app/framework tasks", () => {
       const state = {
         frameworks: [
           {
@@ -199,7 +199,7 @@ describe("TaskUtil", function() {
         ]
       };
 
-      it("gets the task path for a running task", function() {
+      it("gets the task path for a running task", () => {
         const task = {
           id: "executor-foo",
           framework_id: "framework-123",
@@ -209,7 +209,7 @@ describe("TaskUtil", function() {
         expect(TaskUtil.getTaskPath(state, task)).toEqual("foo/");
       });
 
-      it("gets the task path form a completed task", function() {
+      it("gets the task path form a completed task", () => {
         const task = {
           id: "executor-bar",
           framework_id: "framework-123",
@@ -219,7 +219,7 @@ describe("TaskUtil", function() {
         expect(TaskUtil.getTaskPath(state, task)).toEqual("bar/");
       });
 
-      it("gets the task path for a task with unknown executor id", function() {
+      it("gets the task path for a task with unknown executor id", () => {
         const task = {
           id: "executor-bar",
           framework_id: "framework-123"
@@ -228,7 +228,7 @@ describe("TaskUtil", function() {
         expect(TaskUtil.getTaskPath(state, task)).toEqual("bar/");
       });
 
-      it("appends provided path", function() {
+      it("appends provided path", () => {
         const task = {
           id: "executor-bar",
           framework_id: "framework-123"
@@ -238,7 +238,7 @@ describe("TaskUtil", function() {
       });
     });
 
-    describe("pod tasks", function() {
+    describe("pod tasks", () => {
       const state = {
         frameworks: [
           {
@@ -263,7 +263,7 @@ describe("TaskUtil", function() {
         ]
       };
 
-      it("gets the task path for a running task", function() {
+      it("gets the task path for a running task", () => {
         const task = {
           id: "task-foo-running",
           executor_id: "executor-foo",
@@ -275,7 +275,7 @@ describe("TaskUtil", function() {
         );
       });
 
-      it("gets the task path form a completed task", function() {
+      it("gets the task path form a completed task", () => {
         const task = {
           id: "task-foo-completed",
           executor_id: "executor-foo",
@@ -287,7 +287,7 @@ describe("TaskUtil", function() {
         );
       });
 
-      it("gets the task path form a completed executor", function() {
+      it("gets the task path form a completed executor", () => {
         const task = {
           id: "task-bar-completed",
           executor_id: "executor-bar",
@@ -299,7 +299,7 @@ describe("TaskUtil", function() {
         );
       });
 
-      it("appends provided path", function() {
+      it("appends provided path", () => {
         const task = {
           id: "task-foo-running",
           executor_id: "executor-foo",

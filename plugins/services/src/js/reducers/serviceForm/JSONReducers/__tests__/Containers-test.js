@@ -9,15 +9,15 @@ const {
 } = require("#SRC/js/constants/TransactionTypes");
 const { DEFAULT_POD_CONTAINER } = require("../../../../constants/DefaultPod");
 
-describe("Containers", function() {
-  describe("#JSONReducer", function() {
-    it("passes through state as default", function() {
+describe("Containers", () => {
+  describe("#JSONReducer", () => {
+    it("passes through state as default", () => {
       const batch = new Batch();
 
       expect(batch.reduce(Containers.JSONReducer.bind({}), [])).toEqual([]);
     });
 
-    it("returns an array as default with a container path Transaction", function() {
+    it("returns an array as default with a container path Transaction", () => {
       let batch = new Batch();
       batch = batch.add(
         new Transaction(["containers"], DEFAULT_POD_CONTAINER, ADD_ITEM)
@@ -28,8 +28,8 @@ describe("Containers", function() {
       ]);
     });
 
-    describe("container with image", function() {
-      it("contains a container with image", function() {
+    describe("container with image", () => {
+      it("contains a container with image", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -52,7 +52,7 @@ describe("Containers", function() {
         ]);
       });
 
-      it("doesn't contain the image object", function() {
+      it("doesn't contain the image object", () => {
         let batch = new Batch();
 
         batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -81,7 +81,7 @@ describe("Containers", function() {
         ]);
       });
 
-      it("creates a complete image object", function() {
+      it("creates a complete image object", () => {
         const batch = [
           new Transaction(
             ["containers"],
@@ -108,7 +108,7 @@ describe("Containers", function() {
             SET
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce(function(batch, transaction) {
+        ].reduce((batch, transaction) => {
           return batch.add(transaction);
         }, new Batch());
 
@@ -127,7 +127,7 @@ describe("Containers", function() {
         ]);
       });
 
-      it("creates a complete image object without loosing unknown", function() {
+      it("creates a complete image object without loosing unknown", () => {
         const batch = [
           new Transaction(
             ["containers"],
@@ -160,7 +160,7 @@ describe("Containers", function() {
             ADD_ITEM
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce(function(batch, transaction) {
+        ].reduce((batch, transaction) => {
           return batch.add(transaction);
         }, new Batch());
 
@@ -180,12 +180,12 @@ describe("Containers", function() {
         ]);
       });
 
-      it("sets forcePull correctly for multiple containers", function() {
+      it("sets forcePull correctly for multiple containers", () => {
         const batch = [
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET)
-        ].reduce(function(batch, transaction) {
+        ].reduce((batch, transaction) => {
           return batch.add(transaction);
         }, new Batch());
 
@@ -202,14 +202,14 @@ describe("Containers", function() {
         ]);
       });
 
-      it("deletes the image object once id is set to empty and the forcePull to false", function() {
+      it("deletes the image object once id is set to empty and the forcePull to false", () => {
         const batch = [
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET),
           new Transaction(["containers", 0, "image", "forcePull"], false, SET)
-        ].reduce(function(batch, transaction) {
+        ].reduce((batch, transaction) => {
           return batch.add(transaction);
         }, new Batch());
 
@@ -221,13 +221,13 @@ describe("Containers", function() {
         ]);
       });
 
-      it("removes image object if forcePull is set to true and id is set to empty", function() {
+      it("removes image object if forcePull is set to true and id is set to empty", () => {
         const batch = [
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET)
-        ].reduce(function(batch, transaction) {
+        ].reduce((batch, transaction) => {
           return batch.add(transaction);
         }, new Batch());
 
@@ -240,8 +240,8 @@ describe("Containers", function() {
       });
     });
 
-    describe("container with arbitrary value", function() {
-      it("contains a container with arbitrary field", function() {
+    describe("container with arbitrary value", () => {
+      it("contains a container with arbitrary field", () => {
         let batch = new Batch();
 
         batch = batch.add(
@@ -258,9 +258,9 @@ describe("Containers", function() {
       });
     });
 
-    describe("endpoints", function() {
-      describe("Host Mode", function() {
-        it("has one endpoint", function() {
+    describe("endpoints", () => {
+      describe("Host Mode", () => {
+        it("has one endpoint", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -289,7 +289,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("removes the last endpoint", function() {
+        it("removes the last endpoint", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -312,7 +312,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("has one endpoint with name", function() {
+        it("has one endpoint with name", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -345,7 +345,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("keeps custom labels", function() {
+        it("keeps custom labels", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -378,7 +378,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("has one endpoint with name and a hostport", function() {
+        it("has one endpoint with name and a hostport", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -424,7 +424,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the protocol right", function() {
+        it("sets the protocol right", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -462,7 +462,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets protocol to unknown value", function() {
+        it("sets protocol to unknown value", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -501,8 +501,8 @@ describe("Containers", function() {
         });
       });
 
-      describe("container Mode", function() {
-        it("has one endpoint", function() {
+      describe("container Mode", () => {
+        it("has one endpoint", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -534,7 +534,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("has one endpoint with name", function() {
+        it("has one endpoint with name", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -570,7 +570,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("keeps custom labels", function() {
+        it("keeps custom labels", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -605,7 +605,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("has one endpoint with name and a hostport", function() {
+        it("has one endpoint with name and a hostport", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -652,7 +652,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the protocol right", function() {
+        it("sets the protocol right", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -691,7 +691,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets protocol to unknown value", function() {
+        it("sets protocol to unknown value", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -730,7 +730,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the right container Port", function() {
+        it("sets the right container Port", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -769,7 +769,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the right vip", function() {
+        it("sets the right vip", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -818,7 +818,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the right custom vip", function() {
+        it("sets the right custom vip", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -874,7 +874,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the right vip after id change", function() {
+        it("sets the right vip after id change", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -925,7 +925,7 @@ describe("Containers", function() {
           ]);
         });
 
-        it("sets the right custom vip even after id change", function() {
+        it("sets the right custom vip even after id change", () => {
           let batch = new Batch();
 
           batch = batch.add(new Transaction(["containers"], null, ADD_ITEM));
@@ -985,8 +985,8 @@ describe("Containers", function() {
       });
     });
 
-    describe("artifacts", function() {
-      it("omits artifacts with empty uris", function() {
+    describe("artifacts", () => {
+      it("omits artifacts with empty uris", () => {
         const batch = new Batch([
           new Transaction(["containers"], null, ADD_ITEM),
           new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
@@ -1021,8 +1021,8 @@ describe("Containers", function() {
       });
     });
 
-    describe("volumes", function() {
-      it("removes volumeMounts when there's no volumes left", function() {
+    describe("volumes", () => {
+      it("removes volumeMounts when there's no volumes left", () => {
         const batch = new Batch([
           new Transaction(["containers"], null, ADD_ITEM),
           new Transaction(["volumeMounts"], null, ADD_ITEM),
@@ -1045,8 +1045,8 @@ describe("Containers", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("keeps random value", function() {
+  describe("#JSONParser", () => {
+    it("keeps random value", () => {
       expect(
         Containers.JSONParser({
           containers: [
@@ -1066,9 +1066,9 @@ describe("Containers", function() {
       ]);
     });
 
-    describe("endpoints", function() {
-      describe("Container Mode", function() {
-        it("parses VIP ports", function() {
+    describe("endpoints", () => {
+      describe("Container Mode", () => {
+        it("parses VIP ports", () => {
           expect(
             Containers.JSONParser({
               networks: [
@@ -1173,8 +1173,8 @@ describe("Containers", function() {
           ]);
         });
 
-        describe("Host Mode", function() {
-          it("parses VIP ports", function() {
+        describe("Host Mode", () => {
+          it("parses VIP ports", () => {
             expect(
               Containers.JSONParser({
                 networks: [
@@ -1276,8 +1276,8 @@ describe("Containers", function() {
       });
     });
 
-    describe("artifacts", function() {
-      it("parses JSON correctly", function() {
+    describe("artifacts", () => {
+      it("parses JSON correctly", () => {
         expect(
           Containers.JSONParser({
             containers: [
@@ -1327,7 +1327,7 @@ describe("Containers", function() {
       });
     });
 
-    it("stores complete image object", function() {
+    it("stores complete image object", () => {
       expect(
         Containers.JSONParser({
           containers: [

@@ -11,8 +11,8 @@ import TaskFileViewer from "../TaskFileViewer";
 
 let thisContainer, thisInstance;
 
-describe("TaskFileViewer", function() {
-  beforeEach(function() {
+describe("TaskFileViewer", () => {
+  beforeEach(() => {
     thisContainer = global.document.createElement("div");
     const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
     thisInstance = mount(
@@ -27,11 +27,11 @@ describe("TaskFileViewer", function() {
     );
   });
 
-  afterEach(function() {
+  afterEach(() => {
     ReactDOM.unmountComponentAtNode(thisContainer);
   });
 
-  describe("#render", function() {
+  describe("#render", () => {
     beforeEach(function() {
       thisContainer = global.document.createElement("div");
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
@@ -47,10 +47,10 @@ describe("TaskFileViewer", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
-    it("sets button disabled when file is not found", function() {
+    it("sets button disabled when file is not found", () => {
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       thisInstance = mount(
         <WrappedComponent
@@ -63,12 +63,12 @@ describe("TaskFileViewer", function() {
       expect(btn.prop("disabled")).toBeTruthy();
     });
 
-    it("sets button not disabled when file is found", function() {
+    it("sets button not disabled when file is found", () => {
       const btn = thisInstance.find("a.button.button-primary-link");
       expect(btn.prop("disabled")).toEqual(false);
     });
 
-    it("renders stderr when view is changed", function() {
+    it("renders stderr when view is changed", () => {
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       thisInstance = mount(
         <WrappedComponent
@@ -90,7 +90,7 @@ describe("TaskFileViewer", function() {
       expect(activeButton.text()).toContain("stderr");
     });
 
-    it("limits files to stdout and stderr when provided", function() {
+    it("limits files to stdout and stderr when provided", () => {
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       thisInstance = mount(
         <WrappedComponent
@@ -116,7 +116,7 @@ describe("TaskFileViewer", function() {
       expect(files).toHaveLength(2);
     });
 
-    it("includes all files when limit is not provided", function() {
+    it("includes all files when limit is not provided", () => {
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       thisInstance = mount(
         <WrappedComponent

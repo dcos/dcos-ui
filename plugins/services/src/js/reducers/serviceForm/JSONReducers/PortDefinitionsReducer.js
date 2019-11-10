@@ -68,7 +68,7 @@ function PortDefinitionsReducer(state = [], action) {
           );
           break;
         case REMOVE_ITEM:
-          state = state.filter(function(item, index) {
+          state = state.filter((item, index) => {
             return index !== value;
           });
           break;

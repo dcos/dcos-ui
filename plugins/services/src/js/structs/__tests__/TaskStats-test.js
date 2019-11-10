@@ -2,9 +2,9 @@ const List = require("#SRC/js/structs/List");
 const TaskStats = require("../TaskStats");
 const TaskStat = require("../TaskStat");
 
-describe("TaskStats", function() {
-  describe("#getStatsForTasksWithLatestConfig", function() {
-    it("returns task stat instance", function() {
+describe("TaskStats", () => {
+  describe("#getStatsForTasksWithLatestConfig", () => {
+    it("returns task stat instance", () => {
       const statistics = new TaskStats({
         withLatestConfig: {}
       }).getStatsForTasksWithLatestConfig();
@@ -12,7 +12,7 @@ describe("TaskStats", function() {
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it("pass correct data set to task stat struct", function() {
+    it("pass correct data set to task stat struct", () => {
       const statistics = new TaskStats({
         withLatestConfig: {
           stats: {
@@ -25,8 +25,8 @@ describe("TaskStats", function() {
     });
   });
 
-  describe("#getStatsForTasksStaredAfterLastScaling", function() {
-    it("returns task stat instance", function() {
+  describe("#getStatsForTasksStaredAfterLastScaling", () => {
+    it("returns task stat instance", () => {
       const statistics = new TaskStats({
         startedAfterLastScaling: {}
       }).getStatsForTasksStaredAfterLastScaling();
@@ -34,7 +34,7 @@ describe("TaskStats", function() {
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it("pass correct data set to task stat struct", function() {
+    it("pass correct data set to task stat struct", () => {
       const statistics = new TaskStats({
         startedAfterLastScaling: {
           stats: {
@@ -47,8 +47,8 @@ describe("TaskStats", function() {
     });
   });
 
-  describe("#getStatsForTasksWithOutdatedConfig", function() {
-    it("returns task stat instance", function() {
+  describe("#getStatsForTasksWithOutdatedConfig", () => {
+    it("returns task stat instance", () => {
       const statistics = new TaskStats({
         withOutdatedConfig: {}
       }).getStatsForTasksWithOutdatedConfig();
@@ -56,7 +56,7 @@ describe("TaskStats", function() {
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it("pass correct data set to task stat struct", function() {
+    it("pass correct data set to task stat struct", () => {
       const statistics = new TaskStats({
         withOutdatedConfig: {
           stats: {
@@ -69,8 +69,8 @@ describe("TaskStats", function() {
     });
   });
 
-  describe("#getStatsForAllTasks", function() {
-    it("returns task stat instance", function() {
+  describe("#getStatsForAllTasks", () => {
+    it("returns task stat instance", () => {
       const statistics = new TaskStats({
         totalSummary: {}
       }).getStatsForAllTasks();
@@ -78,7 +78,7 @@ describe("TaskStats", function() {
       expect(statistics instanceof TaskStat).toBeTruthy();
     });
 
-    it("pass correct data set to task stat struct", function() {
+    it("pass correct data set to task stat struct", () => {
       const statistics = new TaskStats({
         totalSummary: {
           stats: {
@@ -91,14 +91,14 @@ describe("TaskStats", function() {
     });
   });
 
-  describe("#getList", function() {
-    it("returns List instance", function() {
+  describe("#getList", () => {
+    it("returns List instance", () => {
       const statisticsList = new TaskStats({ totalSummary: {} }).getList();
 
       expect(statisticsList instanceof List).toBeTruthy();
     });
 
-    it("only returns items with stats", function() {
+    it("only returns items with stats", () => {
       const statisticsList = new TaskStats({
         totalSummary: {
           stats: {

@@ -3,8 +3,8 @@ import { shallow, mount } from "enzyme";
 
 const ConfigurationMapMultilineValue = require("../ConfigurationMapMultilineValue");
 
-describe("ConfigurationMapMultilineValue", function() {
-  it("renders the text in a <pre> tag", function() {
+describe("ConfigurationMapMultilineValue", () => {
+  it("renders the text in a <pre> tag", () => {
     const text = "Some\nmulti-line\ntext";
     const instance = shallow(<ConfigurationMapMultilineValue value={text} />);
 
@@ -15,7 +15,7 @@ describe("ConfigurationMapMultilineValue", function() {
     expect(contentText).toEqual(text);
   });
 
-  it("renders `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", () => {
     const instance = mount(
       <ConfigurationMapMultilineValue value={null} defaultValue="-" />
     );

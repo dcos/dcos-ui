@@ -12,19 +12,19 @@ const TaskTable = require("../TaskTable");
 
 let thisTaskTable, thisGetNodeFromID;
 
-describe("TaskTable", function() {
-  beforeEach(function() {
+describe("TaskTable", () => {
+  beforeEach(() => {
     DCOSStore.serviceTree = {
       getTaskFromTaskID: jest.fn()
     };
   });
 
-  describe("#getDisabledItemsMap", function() {
-    beforeEach(function() {
+  describe("#getDisabledItemsMap", () => {
+    beforeEach(() => {
       thisTaskTable = new TaskTable();
     });
 
-    it("treats tasks started not by Marathon as disabled", function() {
+    it("treats tasks started not by Marathon as disabled", () => {
       var tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_STARTING" }
@@ -32,7 +32,7 @@ describe("TaskTable", function() {
       expect(thisTaskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
 
-    it("it treats completed tasks as disabled", function() {
+    it("it treats completed tasks as disabled", () => {
       var tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_FINISHED", isStartedByMarathon: true }
@@ -41,14 +41,14 @@ describe("TaskTable", function() {
     });
   });
 
-  it("it pass a uniqueProperty to CheckboxTable", function() {
+  it("it pass a uniqueProperty to CheckboxTable", () => {
     const WrappedComponent = JestUtil.stubRouterContext(TaskTable);
     const table = mount(<WrappedComponent params={{}} />).find(CheckboxTable);
 
     expect(table.prop("uniqueProperty")).toEqual("id");
   });
 
-  afterEach(function() {
+  afterEach(() => {
     MesosStateStore.getNodeFromID = thisGetNodeFromID;
   });
 });

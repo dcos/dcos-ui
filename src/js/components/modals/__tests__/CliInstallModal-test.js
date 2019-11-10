@@ -7,7 +7,7 @@ const CliInstallModal = require("../CliInstallModal");
 
 // Set a new Getter. Navigator doesn't have a Setter.
 function setUserAgent(agent) {
-  global.navigator.__defineGetter__("userAgent", function() {
+  global.navigator.__defineGetter__("userAgent", () => {
     return agent;
   });
 }
@@ -20,9 +20,9 @@ let thisCallback,
   thisInstance1,
   thisInstance2;
 
-describe("CliInstallModal", function() {
-  describe("#onClose", function() {
-    beforeEach(function() {
+describe("CliInstallModal", () => {
+  describe("#onClose", () => {
+    beforeEach(() => {
       thisCallback = jasmine.createSpy();
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
@@ -36,22 +36,22 @@ describe("CliInstallModal", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("doesn't call the callback after initialization", function() {
+    it("doesn't call the callback after initialization", () => {
       expect(thisCallback).not.toHaveBeenCalled();
     });
 
-    it("calls the callback when #onClose is called", function() {
+    it("calls the callback when #onClose is called", () => {
       thisInstance.onClose();
       expect(thisCallback).toHaveBeenCalled();
     });
   });
 
-  describe("#getCliInstructions", function() {
-    beforeEach(function() {
+  describe("#getCliInstructions", () => {
+    beforeEach(() => {
       thisContainer1 = global.document.createElement("div");
       thisContainer2 = global.document.createElement("div");
       setUserAgent(
@@ -59,7 +59,7 @@ describe("CliInstallModal", function() {
       );
       thisInstance1 = ReactDOM.render(
         <CliInstallModal
-          onClose={function() {}}
+          onClose={() => {}}
           showFooter={false}
           title=""
           subHeaderContent=""
@@ -71,7 +71,7 @@ describe("CliInstallModal", function() {
       );
       thisInstance2 = ReactDOM.render(
         <CliInstallModal
-          onClose={function() {}}
+          onClose={() => {}}
           showFooter={false}
           title=""
           subHeaderContent=""
@@ -80,12 +80,12 @@ describe("CliInstallModal", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer1);
       ReactDOM.unmountComponentAtNode(thisContainer2);
     });
 
-    it("it returns different data depending on OS", function() {
+    it("it returns different data depending on OS", () => {
       var firstCall = thisInstance1.getCliInstructions();
       var secondCall = thisInstance2.getCliInstructions();
 

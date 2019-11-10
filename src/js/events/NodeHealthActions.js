@@ -130,7 +130,7 @@ if (Config.useFixtures) {
       responses
     );
 
-    Object.keys(global.actionTypes.NodeHealthActions).forEach(function(method) {
+    Object.keys(global.actionTypes.NodeHealthActions).forEach(method => {
       NodeHealthActions[method] = RequestUtil.stubRequest(
         NodeHealthActions,
         "NodeHealthActions",

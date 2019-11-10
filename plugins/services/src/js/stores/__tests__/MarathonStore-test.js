@@ -6,15 +6,15 @@ const MockAppMetadata = require("./fixtures/MockAppMetadata");
 const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
 
 // mock global string decoder
-global.atob = function() {
+global.atob = () => {
   return MockAppMetadata.decodedString;
 };
 
 let thisHandler;
 
-describe("MarathonStore", function() {
-  describe("#getFrameworkHealth", function() {
-    it("returns NA health when app has no health check", function() {
+describe("MarathonStore", () => {
+  describe("#getFrameworkHealth", () => {
+    it("returns NA health when app has no health check", () => {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasNoHealthy.items[0]
       );
@@ -23,28 +23,28 @@ describe("MarathonStore", function() {
       expect(health.value).toEqual(HealthTypes.NA);
     });
 
-    it("returns idle when app has no running tasks", function() {
+    it("returns idle when app has no running tasks", () => {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasNoRunningTasks.items[0]
       );
       expect(health.key).toEqual("IDLE");
     });
 
-    it("returns unhealthy when app has only unhealthy tasks", function() {
+    it("returns unhealthy when app has only unhealthy tasks", () => {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasOnlyUnhealth.items[0]
       );
       expect(health.key).toEqual("UNHEALTHY");
     });
 
-    it("returns unhealthy when app has both healthy and unhealthy tasks", function() {
+    it("returns unhealthy when app has both healthy and unhealthy tasks", () => {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasOnlyUnhealth.items[0]
       );
       expect(health.key).toEqual("UNHEALTHY");
     });
 
-    it("returns healthy when app has healthy and no unhealthy tasks", function() {
+    it("returns healthy when app has healthy and no unhealthy tasks", () => {
       var health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasHealth.items[0]
       );
@@ -52,15 +52,15 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#getServiceInstalledTime", function() {
-    it("returns a dateString", function() {
+  describe("#getServiceInstalledTime", () => {
+    it("returns a dateString", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       const version = MarathonStore.getServiceInstalledTime("Framework 1");
 
       expect(!isNaN(Date.parse(version))).toEqual(true);
     });
 
-    it("returns null when no service version", function() {
+    it("returns null when no service version", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       const version = MarathonStore.getServiceInstalledTime("bloop");
 
@@ -68,15 +68,15 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#getServiceVersion", function() {
-    it("returns a version", function() {
+  describe("#getServiceVersion", () => {
+    it("returns a version", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasVersion);
       const version = MarathonStore.getServiceVersion("Framework 1");
 
       expect(version).toEqual("0.1.0");
     });
 
-    it("returns null when no service version", function() {
+    it("returns null when no service version", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoVersion);
       const version = MarathonStore.getServiceVersion("Framework 1");
 
@@ -84,19 +84,19 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#getServiceImages", function() {
-    it("returns null when app is not found", function() {
+  describe("#getServiceImages", () => {
+    it("returns null when app is not found", () => {
       var images = MarathonStore.getServiceImages("foo");
       expect(images).toEqual(null);
     });
 
-    it("returns an object when services are found", function() {
+    it("returns an object when services are found", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
       var images = MarathonStore.getServiceImages("Framework 1");
       expect(images).toEqual(jasmine.any(Object));
     });
 
-    it("returns three sizes of images when services are found", function() {
+    it("returns three sizes of images when services are found", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
       var images = MarathonStore.getServiceImages("Framework 1");
       var keys = Object.keys(images);
@@ -106,24 +106,24 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#processMarathonGroups", function() {
-    it("sets Marathon health to idle with no items", function() {
+  describe("#processMarathonGroups", () => {
+    it("sets Marathon health to idle with no items", () => {
       MarathonStore.processMarathonGroups({ items: [] });
       var marathonApps = MarathonStore.get("apps");
       expect(marathonApps.marathon.health.key).toEqual("IDLE");
     });
 
-    it("sets Marathon health to healthy with some apps", function() {
+    it("sets Marathon health to healthy with some apps", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasOnlyUnhealth);
       var marathonApps = MarathonStore.get("apps");
       expect(marathonApps.marathon.health.key).toEqual("HEALTHY");
     });
 
-    it("has apps with NA health if apps have no health checks", function() {
+    it("has apps with NA health if apps have no health checks", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoHealthy);
       var marathonApps = MarathonStore.get("apps");
 
-      Object.keys(marathonApps).forEach(function(key) {
+      Object.keys(marathonApps).forEach(key => {
         var appHealth = marathonApps[key].health;
 
         if (key === "marathon") {
@@ -137,30 +137,30 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#processMarathonDeployments", function() {
-    beforeEach(function() {
+  describe("#processMarathonDeployments", () => {
+    beforeEach(() => {
       thisHandler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, thisHandler);
       MarathonStore.processMarathonDeployments([{ id: "deployment-id" }]);
     });
 
-    it("holds the supplied deployments data on the store", function() {
+    it("holds the supplied deployments data on the store", () => {
       var deployments = MarathonStore.get("deployments");
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
     });
 
-    it("emits a marathon deployment event", function() {
+    it("emits a marathon deployment event", () => {
       expect(thisHandler).toBeCalled();
     });
 
-    it("emits a populated DeploymentsList", function() {
+    it("emits a populated DeploymentsList", () => {
       const deployments = thisHandler.mock.calls[0][0];
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
     });
 
-    it("emits an error if the data is not an array", function() {
+    it("emits an error if the data is not an array", () => {
       thisHandler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_ERROR, thisHandler);
       MarathonStore.processMarathonDeployments({ id: "deployment-id" });
@@ -168,8 +168,8 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#processMarathonInfoRequest", function() {
-    beforeEach(function() {
+  describe("#processMarathonInfoRequest", () => {
+    beforeEach(() => {
       thisHandler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_INSTANCE_INFO_SUCCESS,
@@ -178,17 +178,17 @@ describe("MarathonStore", function() {
       MarathonStore.processMarathonInfoRequest({ foo: "bar" });
     });
 
-    it("emits an event", function() {
+    it("emits an event", () => {
       expect(thisHandler).toBeCalled();
     });
 
-    it("returns stored info", function() {
+    it("returns stored info", () => {
       expect(MarathonStore.getInstanceInfo()).toEqual({ foo: "bar" });
     });
   });
 
-  describe("#processMarathonQueue", function() {
-    beforeEach(function() {
+  describe("#processMarathonQueue", () => {
+    beforeEach(() => {
       thisHandler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_QUEUE_CHANGE, thisHandler);
       MarathonStore.processMarathonQueue({
@@ -201,19 +201,19 @@ describe("MarathonStore", function() {
       });
     });
 
-    it("emits a marathon queue event", function() {
+    it("emits a marathon queue event", () => {
       expect(thisHandler).toBeCalled();
     });
 
-    it("emits a launch queue", function() {
+    it("emits a launch queue", () => {
       const queue = thisHandler.mock.calls[0][0];
       expect(queue).toEqual(jasmine.any(Object));
       expect(queue[0].app.id).toEqual("/service-id");
     });
   });
 
-  describe("#processMarathonServiceVersion", function() {
-    it("emits correct event", function() {
+  describe("#processMarathonServiceVersion", () => {
+    it("emits correct event", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
@@ -225,7 +225,7 @@ describe("MarathonStore", function() {
       expect(handler).toBeCalled();
     });
 
-    it("passes correct service id", function() {
+    it("passes correct service id", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
@@ -238,7 +238,7 @@ describe("MarathonStore", function() {
       expect(serviceID).toBe("service-id");
     });
 
-    it("passes correct version id", function() {
+    it("passes correct version id", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSION_CHANGE, handler);
       MarathonStore.processMarathonServiceVersion({
@@ -252,8 +252,8 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#processMarathonServiceVersions", function() {
-    it("emits correct event", function() {
+  describe("#processMarathonServiceVersions", () => {
+    it("emits correct event", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
@@ -264,7 +264,7 @@ describe("MarathonStore", function() {
       expect(handler).toBeCalled();
     });
 
-    it("converts versions list to Map", function() {
+    it("converts versions list to Map", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
@@ -277,7 +277,7 @@ describe("MarathonStore", function() {
       expect(versions.has("2016-05-02T16:07:32.583Z")).toBe(true);
     });
 
-    it("passes correct service id", function() {
+    it("passes correct service id", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
@@ -290,8 +290,8 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("processMarathonDeploymentRollback", function() {
-    it("deletes the relevant deployment from the store", function() {
+  describe("processMarathonDeploymentRollback", () => {
+    it("deletes the relevant deployment from the store", () => {
       MarathonStore.processMarathonDeployments([{ id: "deployment-id" }]);
       MarathonStore.processMarathonDeploymentRollback({
         originalDeploymentID: "deployment-id"
@@ -299,7 +299,7 @@ describe("MarathonStore", function() {
       expect(MarathonStore.get("deployments").getItems().length).toEqual(0);
     });
 
-    it("emits a deployments change event", function() {
+    it("emits a deployments change event", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, handler);
       MarathonStore.processMarathonDeploymentRollback({
@@ -308,7 +308,7 @@ describe("MarathonStore", function() {
       expect(handler).toBeCalled();
     });
 
-    it("emits a rollback success event", function() {
+    it("emits a rollback success event", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
@@ -323,8 +323,8 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("processMarathonDeploymentRollbackError", function() {
-    it("emits a rollback error event", function() {
+  describe("processMarathonDeploymentRollbackError", () => {
+    it("emits a rollback error event", () => {
       const handler = jest.genMockFunction();
       MarathonStore.once(
         EventTypes.MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
@@ -341,8 +341,8 @@ describe("MarathonStore", function() {
     });
   });
 
-  describe("#get storeID", function() {
-    it("returns marathon", function() {
+  describe("#get storeID", () => {
+    it("returns marathon", () => {
       expect(MarathonStore.storeID).toBe("marathon");
     });
   });

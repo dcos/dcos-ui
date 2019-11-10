@@ -4,9 +4,9 @@ const Batch = require("#SRC/js/structs/Batch");
 const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const VolumeMounts = require("../MultiContainerVolumeMounts");
 
-describe("MultiContainerVolumeMounts", function() {
-  describe("#JSONReducer", function() {
-    it("has an array with one object", function() {
+describe("MultiContainerVolumeMounts", () => {
+  describe("#JSONReducer", () => {
+    it("has an array with one object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
 
@@ -15,7 +15,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("has an array with one object containing a name", function() {
+    it("has an array with one object containing a name", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -25,7 +25,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("has to items with names", function() {
+    it("has to items with names", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
@@ -38,7 +38,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("removes the right item", function() {
+    it("removes the right item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));
@@ -51,7 +51,7 @@ describe("MultiContainerVolumeMounts", function() {
       ]);
     });
 
-    it("has to items with names and mountpath", function() {
+    it("has to items with names and mountpath", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], 1, ADD_ITEM));

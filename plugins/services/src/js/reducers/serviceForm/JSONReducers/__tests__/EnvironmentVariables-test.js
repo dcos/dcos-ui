@@ -8,9 +8,9 @@ const {
 const Batch = require("#SRC/js/structs/Batch");
 const EnvironmentVariables = require("../EnvironmentVariables");
 
-describe("Environment Variables", function() {
-  describe("#JSONReducer", function() {
-    it("returns a key value object", function() {
+describe("Environment Variables", () => {
+  describe("#JSONReducer", () => {
+    it("returns a key value object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -21,7 +21,7 @@ describe("Environment Variables", function() {
       ).toEqual({ key: "value" });
     });
 
-    it("keeps the last value if they have the same key", function() {
+    it("keeps the last value if they have the same key", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "key"));
@@ -35,7 +35,7 @@ describe("Environment Variables", function() {
       ).toEqual({ key: "value2" });
     });
 
-    it("keeps remove the first item", function() {
+    it("keeps remove the first item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["env"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["env", 0, "key"], "first"));
@@ -61,12 +61,12 @@ describe("Environment Variables", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("returns an empty array", function() {
+  describe("#JSONParser", () => {
+    it("returns an empty array", () => {
       expect(EnvironmentVariables.JSONParser({})).toEqual([]);
     });
 
-    it("returns an array of transactions", function() {
+    it("returns an array of transactions", () => {
       expect(
         EnvironmentVariables.JSONParser({ env: { key: "value" } })
       ).toEqual([
@@ -76,14 +76,14 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("returns an array of transactions for empty env var", function() {
+    it("returns an array of transactions for empty env var", () => {
       expect(EnvironmentVariables.JSONParser({ env: { key: null } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
         { type: SET, value: "key", path: ["env", 0, "key"] }
       ]);
     });
 
-    it("returns an array of transactions for empty string env var", function() {
+    it("returns an array of transactions for empty string env var", () => {
       expect(EnvironmentVariables.JSONParser({ env: { key: "" } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
         { type: SET, value: "key", path: ["env", 0, "key"] },
@@ -91,7 +91,7 @@ describe("Environment Variables", function() {
       ]);
     });
 
-    it("skips non-string values", function() {
+    it("skips non-string values", () => {
       expect(EnvironmentVariables.JSONParser({ env: { FOO: {} } })).toEqual([]);
     });
   });

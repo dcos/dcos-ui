@@ -9,18 +9,18 @@ const defaultLanguage = "en";
 const newLanguage = "zh";
 const mockFormData = { language: newLanguage };
 
-describe("LanguagePreferenceFormModalComponent", function() {
-  beforeEach(function() {
+describe("LanguagePreferenceFormModalComponent", () => {
+  beforeEach(() => {
     UserSettingsStore.setKey(SAVED_STATE_KEY, { language: defaultLanguage });
   });
 
-  it("renders with default language", function() {
+  it("renders with default language", () => {
     const component = shallow(<LanguagePreferenceFormModalComponent />);
     expect(component).toMatchSnapshot();
   });
 
-  describe("when submitting", function() {
-    it("sets isOpen to false", function() {
+  describe("when submitting", () => {
+    it("sets isOpen to false", () => {
       const component = shallow(
         <LanguagePreferenceFormModalComponent isOpen={true} />
       );
@@ -32,7 +32,7 @@ describe("LanguagePreferenceFormModalComponent", function() {
       expect(component.state("isOpen")).toBe(false);
     });
 
-    it("calls handleLanguagePrefSubmit with new language", function() {
+    it("calls handleLanguagePrefSubmit with new language", () => {
       const handleLanguagePrefSubmitSpy = spyOn(
         LanguagePreferenceFormModalComponent.prototype,
         "handleLanguagePrefSubmit"
@@ -46,7 +46,7 @@ describe("LanguagePreferenceFormModalComponent", function() {
       expect(handleLanguagePrefSubmitSpy).toHaveBeenCalledWith(mockFormData);
     });
 
-    it("stores the user's selection in UserSettingsStore", function() {
+    it("stores the user's selection in UserSettingsStore", () => {
       const component = shallow(<LanguagePreferenceFormModalComponent />);
       expect(UserSettingsStore.getKey(SAVED_STATE_KEY).language).toBe(
         defaultLanguage
@@ -61,8 +61,8 @@ describe("LanguagePreferenceFormModalComponent", function() {
     });
   });
 
-  describe("cancel", function() {
-    it("sets isOpen to false", function() {
+  describe("cancel", () => {
+    it("sets isOpen to false", () => {
       const component = shallow(
         <LanguagePreferenceFormModalComponent isOpen={true} />
       );

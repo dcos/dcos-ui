@@ -13,10 +13,10 @@ const ServicesContainer = require("../ServicesContainer");
 
 let thisStoreChangeListener, thisRouterStubs, thisWrapper, thisInstance;
 
-describe("ServicesContainer", function() {
-  beforeEach(function() {
+describe("ServicesContainer", () => {
+  beforeEach(() => {
     thisStoreChangeListener = MesosStateStore.addChangeListener;
-    MesosStateStore.addChangeListener = function() {};
+    MesosStateStore.addChangeListener = () => {};
 
     thisRouterStubs = { push: jasmine.createSpy() };
     const WrappedComponent = JestUtil.stubRouterContext(
@@ -33,13 +33,13 @@ describe("ServicesContainer", function() {
     thisInstance = thisWrapper.find(ServicesContainer);
   });
 
-  afterEach(function() {
+  afterEach(() => {
     MesosStateStore.addChangeListener = thisStoreChangeListener;
   });
 
-  describe("#getCorrectedModalProps", function() {
+  describe("#getCorrectedModalProps", () => {
     const storeService = new Service({ id: "/test" });
-    beforeEach(function() {
+    beforeEach(() => {
       DCOSStore.serviceTree = {
         findItemById() {
           return storeService;
@@ -47,21 +47,21 @@ describe("ServicesContainer", function() {
       };
     });
 
-    it("returns modalProps from state with updated service information for given existing service (state)", function() {
+    it("returns modalProps from state with updated service information for given existing service (state)", () => {
       const modalProps = thisInstance
         .instance()
         .getCorrectedModalProps({ service: storeService }, undefined);
       expect(modalProps).toEqual({ service: storeService });
     });
 
-    it("returns modalProps from argument with updated service information for given existing service (argument)", function() {
+    it("returns modalProps from argument with updated service information for given existing service (argument)", () => {
       const modalProps = thisInstance
         .instance()
         .getCorrectedModalProps({ service: undefined }, storeService);
       expect(modalProps).toEqual({ service: storeService });
     });
 
-    it("returns modalProps from state with updated service information for given existing service (both)", function() {
+    it("returns modalProps from state with updated service information for given existing service (both)", () => {
       const modalProps = thisInstance
         .instance()
         .getCorrectedModalProps(
@@ -78,7 +78,7 @@ describe("ServicesContainer", function() {
     // if service is "unknown", we have to fill in "something" in `service`
     // and delete the `id` node. this will close the modal.
 
-    it("returns empty modalProps if no service is given but id is set", function() {
+    it("returns empty modalProps if no service is given but id is set", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return undefined;
@@ -93,7 +93,7 @@ describe("ServicesContainer", function() {
       expect(modalProps).toEqual({});
     });
 
-    it("returns modalProps without id for already deleted service", function() {
+    it("returns modalProps without id for already deleted service", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return undefined;

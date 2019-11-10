@@ -5,8 +5,8 @@ var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 
-describe("ServiceAttributeHealthFilter", function() {
-  beforeEach(function() {
+describe("ServiceAttributeHealthFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getHealth() {
@@ -31,7 +31,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ];
   });
 
-  it("keeps services in healthy state", function() {
+  it("keeps services in healthy state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:healthy");
 
@@ -42,7 +42,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ]);
   });
 
-  it("keeps services in unhealthy state", function() {
+  it("keeps services in unhealthy state", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:unhealthy");
 
@@ -53,7 +53,7 @@ describe("ServiceAttributeHealthFilter", function() {
     ]);
   });
 
-  it("keeps nothing on unknown states", function() {
+  it("keeps nothing on unknown states", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -62,7 +62,7 @@ describe("ServiceAttributeHealthFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("is case-insensitive", function() {
+  it("is case-insensitive", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:hEaLThY");
 

@@ -20,8 +20,8 @@ var mockHost = {
 
 let thisHosts, thisInstance, thisActiveSlices;
 
-describe("NodesGridDials", function() {
-  beforeEach(function() {
+describe("NodesGridDials", () => {
+  beforeEach(() => {
     thisHosts = [new Node(Object.assign({}, mockHost))];
     thisInstance = shallow(
       <NodesGridDials
@@ -33,8 +33,8 @@ describe("NodesGridDials", function() {
     );
   });
 
-  describe("#getServiceSlicesConfig", function() {
-    beforeEach(function() {
+  describe("#getServiceSlicesConfig", () => {
+    beforeEach(() => {
       thisInstance = shallow(
         <NodesGridDials
           hosts={thisHosts}
@@ -50,7 +50,7 @@ describe("NodesGridDials", function() {
       );
     });
 
-    it("returns 0 when no resource is in use", function() {
+    it("returns 0 when no resource is in use", () => {
       const slice = thisInstance
         .instance()
         .getServiceSlicesConfig(thisHosts[0])[0];
@@ -58,54 +58,54 @@ describe("NodesGridDials", function() {
     });
   });
 
-  describe("#getActiveSliceData", function() {
-    beforeEach(function() {
+  describe("#getActiveSliceData", () => {
+    beforeEach(() => {
       thisActiveSlices = thisInstance
         .instance()
         .getActiveSliceData(thisHosts[0]);
     });
 
-    it("returns an object", function() {
+    it("returns an object", () => {
       expect(typeof thisActiveSlices).toEqual("object");
     });
 
-    it("contains a data property which is an array", function() {
+    it("contains a data property which is an array", () => {
       expect(Array.isArray(thisActiveSlices.data)).toEqual(true);
     });
 
-    it("contains a usedPercentage property which is a number", function() {
+    it("contains a usedPercentage property which is a number", () => {
       expect(typeof thisActiveSlices.usedPercentage).toEqual("number");
     });
 
-    it("contains an unused resources slice", function() {
-      var slice = thisActiveSlices.data.find(function(datum) {
+    it("contains an unused resources slice", () => {
+      var slice = thisActiveSlices.data.find(datum => {
         return datum.name === "Unused";
       });
       expect(typeof slice).toEqual("object");
     });
 
-    it("uses gray for the unused slice", function() {
-      var slice = thisActiveSlices.data.find(function(datum) {
+    it("uses gray for the unused slice", () => {
+      var slice = thisActiveSlices.data.find(datum => {
         return datum.name === "Unused";
       });
       expect(slice.colorIndex).toEqual("unused");
     });
   });
 
-  describe("#getInactiveSliceData", function() {
-    it("uses the correct color", function() {
+  describe("#getInactiveSliceData", () => {
+    it("uses the correct color", () => {
       var inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].colorIndex).toEqual(2);
     });
 
-    it("uses 100% of the dial", function() {
+    it("uses 100% of the dial", () => {
       var inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].percentage).toEqual(100);
     });
   });
 
-  describe("#getDialConfig", function() {
-    it("returns different configurations depending on the active parameter", function() {
+  describe("#getDialConfig", () => {
+    it("returns different configurations depending on the active parameter", () => {
       let host = Object.assign({}, thisHosts[0]);
       host.active = true;
       var config1 = thisInstance.instance().getDialConfig(new Node(host));
@@ -118,12 +118,12 @@ describe("NodesGridDials", function() {
     });
   });
 
-  describe("#render", function() {
-    it("renders one chart", function() {
+  describe("#render", () => {
+    it("renders one chart", () => {
       expect(thisInstance.find(".chart").length).toBe(1);
     });
 
-    it("renders the correct number of charts", function() {
+    it("renders the correct number of charts", () => {
       const host = Object.assign({}, thisHosts[0]);
       host.id = "bar";
       thisHosts.push(new Node(host));

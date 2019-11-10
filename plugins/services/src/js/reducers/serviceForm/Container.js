@@ -151,7 +151,7 @@ const containerJSONReducer = combineReducers({
       const defaultVipPort = vipPort || containerPort;
       const networkNames = portDefinition.networkNames;
       let hostPort = Number(portDefinition.hostPort) || 0;
-      let protocol = PROTOCOLS.filter(function(protocol) {
+      let protocol = PROTOCOLS.filter(protocol => {
         return portDefinition.protocol[protocol];
       }).join(",");
 
@@ -313,10 +313,10 @@ module.exports = {
   },
 
   JSONParser: combineParsers([
-    function(state) {
+    state => {
       return new Transaction(["container"], state.container);
     },
-    function(state) {
+    state => {
       let value = findNestedPropertyInObject(state, "container.type");
 
       if (value == null) {

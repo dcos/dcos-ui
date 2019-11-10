@@ -1,44 +1,44 @@
 const MarathonUtil = require("../MarathonUtil");
 
-describe("MarathonUtil", function() {
-  describe("#parseGroups", function() {
-    it("throws error if the provided id doesn't start with a slash", function() {
-      expect(function() {
+describe("MarathonUtil", () => {
+  describe("#parseGroups", () => {
+    it("throws error if the provided id doesn't start with a slash", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "malformed/id" });
       }).toThrow();
     });
 
-    it("throws error if an app id doesn't start with a slash", function() {
-      expect(function() {
+    it("throws error if an app id doesn't start with a slash", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "malformed/id" }] });
       }).toThrow();
     });
 
-    it("throws error if the provided id ends with a slash", function() {
-      expect(function() {
+    it("throws error if the provided id ends with a slash", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "/malformed/id/" });
       }).toThrow();
     });
 
-    it("throws error if an app id ends with a slash", function() {
-      expect(function() {
+    it("throws error if an app id ends with a slash", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "/malformed/id/" }] });
       }).toThrow();
     });
 
-    it("does not throw error if the provided id is only a slash (root id)", function() {
-      expect(function() {
+    it("does not throw error if the provided id is only a slash (root id)", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "/" });
       }).not.toThrow();
     });
 
-    it("throws error if an app id is only a slash (root id)", function() {
-      expect(function() {
+    it("throws error if an app id is only a slash (root id)", () => {
+      expect(() => {
         MarathonUtil.parseGroups({ id: "/", apps: [{ id: "/" }] });
       }).toThrow();
     });
 
-    it("converts groups to tree", function() {
+    it("converts groups to tree", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }],
@@ -51,7 +51,7 @@ describe("MarathonUtil", function() {
       });
     });
 
-    it("correctly parses external volumes", function() {
+    it("correctly parses external volumes", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
@@ -88,7 +88,7 @@ describe("MarathonUtil", function() {
       });
     });
 
-    it("correctly parses persistent volumes", function() {
+    it("correctly parses persistent volumes", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
@@ -135,7 +135,7 @@ describe("MarathonUtil", function() {
       });
     });
 
-    it("correctly parses multiple persistent volumes", function() {
+    it("correctly parses multiple persistent volumes", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
@@ -185,7 +185,7 @@ describe("MarathonUtil", function() {
       expect(instance.items[0].volumes[1].id).toEqual("volume-id-2");
     });
 
-    it("correctly determine persistent volume attached status", function() {
+    it("correctly determine persistent volume attached status", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
@@ -222,7 +222,7 @@ describe("MarathonUtil", function() {
       expect(instance.items[0].volumes[0].status).toEqual("Attached");
     });
 
-    it("correctly determine persistent volume detached status", function() {
+    it("correctly determine persistent volume detached status", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
@@ -258,7 +258,7 @@ describe("MarathonUtil", function() {
       expect(instance.items[0].volumes[0].status).toEqual("Detached");
     });
 
-    it("doesn't throw when localVolumes is null", function() {
+    it("doesn't throw when localVolumes is null", () => {
       var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
         id: "/",
         apps: [
@@ -289,7 +289,7 @@ describe("MarathonUtil", function() {
       expect(instance).not.toThrow();
     });
 
-    it("doesn't throw when localVolumes is not present", function() {
+    it("doesn't throw when localVolumes is not present", () => {
       var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
         id: "/",
         apps: [
@@ -319,7 +319,7 @@ describe("MarathonUtil", function() {
       expect(instance).not.toThrow();
     });
 
-    it("doesn't adds volumes array to all services", function() {
+    it("doesn't adds volumes array to all services", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }]
@@ -328,7 +328,7 @@ describe("MarathonUtil", function() {
       expect(instance.items[0]).toEqual({ id: "/alpha" });
     });
 
-    it("correctly parses enforceRole", function() {
+    it("correctly parses enforceRole", () => {
       var instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }],
@@ -350,8 +350,8 @@ describe("MarathonUtil", function() {
       });
     });
   });
-  describe("#parsePods", function() {
-    it("contains a pod without volumes", function() {
+  describe("#parsePods", () => {
+    it("contains a pod without volumes", () => {
       const data = MarathonUtil.parseGroups({
         id: "/pod-without-volumes",
         spec: {
@@ -457,7 +457,7 @@ describe("MarathonUtil", function() {
       expect(data).toEqual({ id: "/pod-without-volumes", items: [] });
     });
 
-    it("contains a pod with volumes and mounts in all containers", function() {
+    it("contains a pod with volumes and mounts in all containers", () => {
       const data = MarathonUtil.parseGroups({
         id: "/",
         dependencies: [],
@@ -648,7 +648,7 @@ describe("MarathonUtil", function() {
         ]
       });
     });
-    it("contains a pod with volumes and mounts in only one container", function() {
+    it("contains a pod with volumes and mounts in only one container", () => {
       const data = MarathonUtil.parseGroups({
         id: "/",
         dependencies: [],

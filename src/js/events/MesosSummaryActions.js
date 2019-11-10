@@ -42,8 +42,8 @@ function requestFromMesos(resolve, reject) {
 var MesosSummaryActions = {
   fetchSummary: RequestUtil.debounceOnError(
     Config.getRefreshRate(),
-    function(resolve, reject) {
-      return function() {
+    (resolve, reject) => {
+      return () => {
         const canAccessMesosAPI = Hooks.applyFilter(
           "hasCapability",
           false,
@@ -76,9 +76,7 @@ if (Config.useFixtures) {
         }
       };
 
-      Object.keys(global.actionTypes.MesosSummaryActions).forEach(function(
-        method
-      ) {
+      Object.keys(global.actionTypes.MesosSummaryActions).forEach(method => {
         MesosSummaryActions[method] = RequestUtil.stubRequest(
           MesosSummaryActions,
           "MesosSummaryActions",

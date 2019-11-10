@@ -12,7 +12,7 @@ const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture
 
 let thisInstance;
 
-describe("PodInstancesTable", function() {
+describe("PodInstancesTable", () => {
   // Fix the dates in order to test the relative date field
   const fixture = Util.deepCopy(PodFixture);
   fixture.instances[0].lastUpdated = new Date(
@@ -72,17 +72,17 @@ describe("PodInstancesTable", function() {
 
   const pod = new Pod(fixture);
 
-  describe("#render", function() {
-    beforeEach(function() {
+  describe("#render", () => {
+    beforeEach(() => {
       JestUtil.mockTimezone("Europe/Berlin");
     });
 
-    afterEach(function() {
+    afterEach(() => {
       JestUtil.unmockTimezone();
     });
 
-    describe("collapsed table", function() {
-      beforeEach(function() {
+    describe("collapsed table", () => {
+      beforeEach(() => {
         const WrappedComponent = JestUtil.withI18nProvider(PodInstancesTable);
         thisInstance = mount(
           <WrappedComponent
@@ -92,92 +92,92 @@ describe("PodInstancesTable", function() {
         );
       });
 
-      it("renders the name column", function() {
+      it("renders the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
 
-      it("renders the address column", function() {
+      it("renders the address column", () => {
         const names = thisInstance
           .find(
             ".task-table-column-host-address .collapsing-string-full-string"
           )
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["agent-1", "agent-2", "agent-3"]);
       });
 
-      it("renders the region column", function() {
+      it("renders the region column", () => {
         const regions = thisInstance
           .find("td.task-table-column-region")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(regions).toEqual(["N/A", "N/A", "N/A"]);
       });
 
-      it("renders the zone column", function() {
+      it("renders the zone column", () => {
         const zones = thisInstance
           .find("td.task-table-column-zone")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(zones).toEqual(["N/A", "N/A", "N/A"]);
       });
 
-      it("renders the status column", function() {
+      it("renders the status column", () => {
         const names = thisInstance
           .find(".task-table-column-status span.status-text")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["Running", "Running", "Staging"]);
       });
 
-      it("renders the cpu column", function() {
+      it("renders the cpu column", () => {
         const names = thisInstance
           .find("td.task-table-column-cpus")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["1", "1", "1"]);
       });
 
-      it("renders the mem column", function() {
+      it("renders the mem column", () => {
         const names = thisInstance
           .find("td.task-table-column-mem")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["128 MiB", "128 MiB", "128 MiB"]);
       });
 
-      it("renders the updated column", function() {
+      it("renders the updated column", () => {
         const names = thisInstance
           .find("td.task-table-column-updated")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
         expect(names).toEqual(["1 day ago", "7 days ago", "13 days ago"]);
       });
 
-      it("renders the version column", function() {
+      it("renders the version column", () => {
         const names = thisInstance
           .find("td.task-table-column-version")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -195,8 +195,8 @@ describe("PodInstancesTable", function() {
       });
     });
 
-    describe("collapsed table, sorted ascending by name", function() {
-      beforeEach(function() {
+    describe("collapsed table, sorted ascending by name", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -217,10 +217,10 @@ describe("PodInstancesTable", function() {
           .simulate("click");
       });
 
-      it("sorts the name column", function() {
+      it("sorts the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -228,8 +228,8 @@ describe("PodInstancesTable", function() {
       });
     });
 
-    describe("collapsed table, sorted descending by name", function() {
-      beforeEach(function() {
+    describe("collapsed table, sorted descending by name", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -250,10 +250,10 @@ describe("PodInstancesTable", function() {
         columnHeader.simulate("click").simulate("click");
       });
 
-      it("sorts the name column", function() {
+      it("sorts the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -261,8 +261,8 @@ describe("PodInstancesTable", function() {
       });
     });
 
-    describe("expanded table", function() {
-      beforeEach(function() {
+    describe("expanded table", () => {
+      beforeEach(() => {
         // Create a stub router context because when the items are expanded
         // the are creating <Link /> instances.
         const WrappedComponent = JestUtil.withI18nProvider(
@@ -279,15 +279,15 @@ describe("PodInstancesTable", function() {
         // Expand all table rows by clicking on each one of them
         thisInstance
           .find(".task-table-column-primary .is-expandable")
-          .forEach(function(el) {
+          .forEach(el => {
             el.simulate("click");
           });
       });
 
-      it("renders the name column", function() {
+      it("renders the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -304,19 +304,19 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the address column", function() {
+      it("renders the address column", () => {
         const columns = thisInstance.find(".task-table-column-host-address");
         const agents = columns
           .find(".collapsing-string-full-string")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
         const ports = columns
           .find("a")
-          .filterWhere(function(el) {
+          .filterWhere(el => {
             return !el.hasClass("table-cell-link-secondary");
           })
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -331,10 +331,10 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the status column", function() {
+      it("renders the status column", () => {
         const names = thisInstance
           .find(".task-table-column-status span.status-text")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
         expect(names).toEqual([
@@ -350,10 +350,10 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the cpu column", function() {
+      it("renders the cpu column", () => {
         const names = thisInstance
           .find("td.task-table-column-cpus div.tooltip-wrapper > span")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -370,10 +370,10 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the mem column", function() {
+      it("renders the mem column", () => {
         const names = thisInstance
           .find("td.task-table-column-mem div.tooltip-wrapper > span")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -390,10 +390,10 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the updated column", function() {
+      it("renders the updated column", () => {
         const names = thisInstance
           .find("td.task-table-column-updated time")
-          .map(function(el) {
+          .map(el => {
             return el.text();
           });
 
@@ -410,10 +410,10 @@ describe("PodInstancesTable", function() {
         ]);
       });
 
-      it("renders the version column", function() {
+      it("renders the version column", () => {
         const names = thisInstance
           .find("td.task-table-column-version")
-          .map(function(el) {
+          .map(el => {
             return el.text().trim();
           });
 

@@ -1,7 +1,7 @@
 import subscribedAction from "../subscribed";
 
-describe("subscribed message parser", function() {
-  it("parses the correct message", function() {
+describe("subscribed message parser", () => {
+  it("parses the correct message", () => {
     const state = {};
     const message = {
       type: "SUBSCRIBED",

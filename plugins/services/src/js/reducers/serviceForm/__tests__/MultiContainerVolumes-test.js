@@ -8,10 +8,10 @@ import {
   FormReducer
 } from "../MultiContainerVolumes";
 
-describe("Volumes", function() {
-  describe("#JSONReducer", function() {
-    describe("with an initial value in ADD_ITEM transaction", function() {
-      it("emits the value", function() {
+describe("Volumes", () => {
+  describe("#JSONReducer", () => {
+    describe("with an initial value in ADD_ITEM transaction", () => {
+      it("emits the value", () => {
         let batch = new Batch();
         batch = batch.add(
           new Transaction(["volumeMounts"], { defaultValue: "foo" }, ADD_ITEM)
@@ -23,8 +23,8 @@ describe("Volumes", function() {
       });
     });
 
-    describe("with no initial value in ADD_ITEM transaction", function() {
-      it("has an array with one object", function() {
+    describe("with no initial value in ADD_ITEM transaction", () => {
+      it("has an array with one object", () => {
         let batch = new Batch();
         batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
@@ -32,7 +32,7 @@ describe("Volumes", function() {
       });
     });
 
-    it("has an array with one object containing a name", function() {
+    it("has an array with one object containing a name", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -40,18 +40,7 @@ describe("Volumes", function() {
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
     });
 
-    it("has an array with one object containing only a name", function() {
-      let batch = new Batch();
-      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
-      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
-      batch = batch.add(
-        new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
-      );
-
-      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
-    });
-
-    it("has two items with names", function() {
+    it("has an array with one object containing only a name", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -62,7 +51,18 @@ describe("Volumes", function() {
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
     });
 
-    it("has two items with names", function() {
+    it("has two items with names", () => {
+      let batch = new Batch();
+      batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
+      batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
+      batch = batch.add(
+        new Transaction(["volumeMounts", 0, "volumeMounts", 0], "foobar")
+      );
+
+      expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "foo" }]);
+    });
+
+    it("has two items with names", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -75,7 +75,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("removes the right item", function() {
+    it("removes the right item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -86,7 +86,7 @@ describe("Volumes", function() {
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([{ name: "bar" }]);
     });
 
-    it("handles HOST type", function() {
+    it("handles HOST type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -99,7 +99,7 @@ describe("Volumes", function() {
         { name: "foo", host: "hostpath" }
       ]);
     });
-    it("handles PERSISTENT type", function() {
+    it("handles PERSISTENT type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -112,7 +112,7 @@ describe("Volumes", function() {
         { name: "foo", persistent: { size: 1 } }
       ]);
     });
-    it("handles DSS type", function() {
+    it("handles DSS type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -131,8 +131,8 @@ describe("Volumes", function() {
     });
   });
 
-  describe("#FormReducer", function() {
-    it("has an array with one object", function() {
+  describe("#FormReducer", () => {
+    it("has an array with one object", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
@@ -141,7 +141,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("has an array with one object containing a name", function() {
+    it("has an array with one object containing a name", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -151,7 +151,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("has two items with names", function() {
+    it("has two items with names", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -164,7 +164,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("removes the right item", function() {
+    it("removes the right item", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -177,7 +177,7 @@ describe("Volumes", function() {
       ]);
     });
 
-    it("has two items with names and mountpath", function() {
+    it("has two items with names and mountpath", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
@@ -201,7 +201,7 @@ describe("Volumes", function() {
         }
       ]);
     });
-    it("handles PERSISTENT type", function() {
+    it("handles PERSISTENT type", () => {
       let batch = new Batch();
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
@@ -216,8 +216,8 @@ describe("Volumes", function() {
     });
   });
 
-  describe("#JSONParser", function() {
-    it("parses a simple config", function() {
+  describe("#JSONParser", () => {
+    it("parses a simple config", () => {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
@@ -236,7 +236,7 @@ describe("Volumes", function() {
       ).toEqual(expectedObject);
     });
 
-    it("parses a normal config", function() {
+    it("parses a normal config", () => {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
@@ -265,7 +265,7 @@ describe("Volumes", function() {
       ).toEqual(expectedObject);
     });
 
-    it("parses a advanced config", function() {
+    it("parses a advanced config", () => {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foobar" }, path: ["volumeMounts"] },
         { type: SET, value: "foobar", path: ["volumeMounts", 0, "name"] },
@@ -319,7 +319,7 @@ describe("Volumes", function() {
       ).toEqual(expectedObject);
     });
 
-    it("parses unknown volumes", function() {
+    it("parses unknown volumes", () => {
       const expectedObject = [
         {
           type: ADD_ITEM,
@@ -346,7 +346,7 @@ describe("Volumes", function() {
         })
       ).toEqual(expectedObject);
     });
-    it("parses a persistent volume config", function() {
+    it("parses a persistent volume config", () => {
       const expectedObject = [
         {
           type: ADD_ITEM,

@@ -6,33 +6,33 @@ const SDKEndpointsActions = require("../SDKEndpointActions");
 
 let thisConfiguration;
 
-describe("SDKEndpointsActions", function() {
-  describe("#fetchEndpoints", function() {
+describe("SDKEndpointsActions", () => {
+  describe("#fetchEndpoints", () => {
     const serviceId = "foo";
 
-    describe("#RequestUtil", function() {
-      beforeEach(function() {
+    describe("#RequestUtil", () => {
+      beforeEach(() => {
         spyOn(RequestUtil, "json");
         SDKEndpointsActions.fetchEndpoints(serviceId);
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
 
-      it("calls #json from the RequestUtil", function() {
+      it("calls #json from the RequestUtil", () => {
         expect(RequestUtil.json).toHaveBeenCalled();
       });
 
-      it("sends data to the correct URL", function() {
+      it("sends data to the correct URL", () => {
         expect(thisConfiguration.url).toEqual(
           `${Config.rootUrl}/service/${serviceId}/v1/endpoints`
         );
       });
 
-      it("uses GET for the request method", function() {
+      it("uses GET for the request method", () => {
         expect(thisConfiguration.method).toEqual("GET");
       });
 
-      it("dispatches the correct action when successful", function() {
-        const id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when successful", () => {
+        const id = AppDispatcher.register(payload => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -47,8 +47,8 @@ describe("SDKEndpointsActions", function() {
         thisConfiguration.success(["endpoint1", "endpoint2"]);
       });
 
-      it("dispatches the correct action when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the correct action when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
@@ -61,8 +61,8 @@ describe("SDKEndpointsActions", function() {
         thisConfiguration.error({ error: {}, serviceId: "foo" });
       });
 
-      it("dispatches the xhr when unsuccessful", function() {
-        var id = AppDispatcher.register(function(payload) {
+      it("dispatches the xhr when unsuccessful", () => {
+        var id = AppDispatcher.register(payload => {
           var action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
@@ -77,13 +77,13 @@ describe("SDKEndpointsActions", function() {
     });
   });
 
-  describe("#fetchEndpoint", function() {
+  describe("#fetchEndpoint", () => {
     let mockXhr;
     const originalXhr = global.XMLHttpRequest;
     const serviceId = "foo";
     const endpointName = "arangodb";
 
-    beforeEach(function() {
+    beforeEach(() => {
       mockXhr = {
         open: jest.fn(),
         send: jest.fn(),
@@ -98,17 +98,17 @@ describe("SDKEndpointsActions", function() {
       global.XMLHttpRequest = jest.fn(() => mockXhr);
     });
 
-    afterEach(function() {
+    afterEach(() => {
       global.XMLHttpRequest = originalXhr;
     });
 
-    it("XMLHttpRequest open was called", function() {
+    it("XMLHttpRequest open was called", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
       expect(mockXhr.open).toHaveBeenCalled();
     });
 
-    it("calls open with GET request method and correct url", function() {
+    it("calls open with GET request method and correct url", () => {
       const url = `/service/${serviceId}/v1/endpoints/${endpointName}`;
 
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
@@ -116,10 +116,10 @@ describe("SDKEndpointsActions", function() {
       expect(mockXhr.open).toHaveBeenCalledWith("GET", url);
     });
 
-    it("dispatches the correct action when successful JSON returned", function() {
+    it("dispatches the correct action when successful JSON returned", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
-      const id = AppDispatcher.register(function(payload) {
+      const id = AppDispatcher.register(payload => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({
@@ -136,10 +136,10 @@ describe("SDKEndpointsActions", function() {
       mockXhr.onload();
     });
 
-    it("dispatches the correct action when successful text returned", function() {
+    it("dispatches the correct action when successful text returned", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
-      const id = AppDispatcher.register(function(payload) {
+      const id = AppDispatcher.register(payload => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({
@@ -158,11 +158,11 @@ describe("SDKEndpointsActions", function() {
       mockXhr.onload();
     });
 
-    it("dispatches the correct action when unsuccessful", function() {
+    it("dispatches the correct action when unsuccessful", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
       mockXhr.status = 500;
 
-      const id = AppDispatcher.register(function(payload) {
+      const id = AppDispatcher.register(payload => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({

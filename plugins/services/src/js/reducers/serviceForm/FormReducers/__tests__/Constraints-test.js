@@ -4,9 +4,9 @@ const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const Batch = require("#SRC/js/structs/Batch");
 const Constraints = require("../Constraints");
 
-describe("Constraints", function() {
-  describe("#FormReducer", function() {
-    it("creates constraint objects for the form", function() {
+describe("Constraints", () => {
+  describe("#FormReducer", () => {
+    it("creates constraint objects for the form", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -19,7 +19,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("includes optional value even if not set", function() {
+    it("includes optional value even if not set", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -31,7 +31,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("doesn't process non-array states", function() {
+    it("doesn't process non-array states", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
@@ -41,7 +41,7 @@ describe("Constraints", function() {
       expect(batch.reduce(Constraints.FormReducer.bind({}), {})).toEqual({});
     });
 
-    it("add unique constraint", function() {
+    it("add unique constraint", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
@@ -57,7 +57,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("changes operator value from UNIQUE to CLUSTER", function() {
+    it("changes operator value from UNIQUE to CLUSTER", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
@@ -74,7 +74,7 @@ describe("Constraints", function() {
       ]);
     });
 
-    it("does not crash when type is Set, name is type and newState[index] is undefined", function() {
+    it("does not crash when type is Set, name is type and newState[index] is undefined", () => {
       const batch = new Batch([
         new Transaction(["constraints", 0, "type"], "hostname", SET)
       ]);

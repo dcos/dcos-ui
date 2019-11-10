@@ -2,26 +2,26 @@ const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
 
 const Framework = require("../Framework");
 
-describe("Framework", function() {
-  describe("#getNodeIDs", function() {
-    it("returns ids of nodes the service is running on", function() {
+describe("Framework", () => {
+  describe("#getNodeIDs", () => {
+    it("returns ids of nodes the service is running on", () => {
       const framework = new Framework({ slave_ids: [1, 2, 3] });
       expect(framework.getNodeIDs()).toEqual([1, 2, 3]);
     });
   });
 
-  describe("#getResourceID", function() {
-    it("returns the correct resource id when there is no name", function() {
+  describe("#getResourceID", () => {
+    it("returns the correct resource id when there is no name", () => {
       const framework = new Framework();
       expect(framework.getResourceID()).toEqual("dcos:adminrouter:service:");
     });
 
-    it("returns the correct resource id when there is a name", function() {
+    it("returns the correct resource id when there is a name", () => {
       const framework = new Framework({ name: "foo" });
       expect(framework.getResourceID()).toEqual("dcos:adminrouter:service:foo");
     });
 
-    it("returns the correct resource id when name is complex", function() {
+    it("returns the correct resource id when name is complex", () => {
       const framework = new Framework({ name: "foo-adsf-2" });
       expect(framework.getResourceID()).toEqual(
         "dcos:adminrouter:service:foo-adsf-2"
@@ -29,8 +29,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getUsageStats", function() {
-    it("returns an object containing the value for the resource", function() {
+  describe("#getUsageStats", () => {
+    it("returns an object containing the value for the resource", () => {
       const framework = new Framework({
         used_resources: { cpus: 1, mem: 512 }
       });
@@ -39,8 +39,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getPackageName", function() {
-    it("returns correct name", function() {
+  describe("#getPackageName", () => {
+    it("returns correct name", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
@@ -51,7 +51,7 @@ describe("Framework", function() {
       expect(service.getPackageName()).toEqual("Framework");
     });
 
-    it("returns undefined if package name is undefined", function() {
+    it("returns undefined if package name is undefined", () => {
       const service = new Framework({
         id: "/test/framework"
       });
@@ -60,8 +60,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getVersion", function() {
-    it("returns correct version", function() {
+  describe("#getVersion", () => {
+    it("returns correct version", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
@@ -72,7 +72,7 @@ describe("Framework", function() {
       expect(service.getVersion()).toEqual("1");
     });
 
-    it("returns undefined if package version is undefined", function() {
+    it("returns undefined if package version is undefined", () => {
       const service = new Framework({
         id: "/test/framework"
       });
@@ -81,8 +81,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getFrameworkName", function() {
-    it("returns correct name", function() {
+  describe("#getFrameworkName", () => {
+    it("returns correct name", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
@@ -93,7 +93,7 @@ describe("Framework", function() {
       expect(service.getFrameworkName()).toEqual("group/Framework");
     });
 
-    it("returns undefined if package name is undefined", function() {
+    it("returns undefined if package name is undefined", () => {
       const service = new Framework({
         id: "/test/framework"
       });
@@ -102,8 +102,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getTasksSummary", function() {
-    it("returns correct task summary", function() {
+  describe("#getTasksSummary", () => {
+    it("returns correct task summary", () => {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -122,7 +122,7 @@ describe("Framework", function() {
       });
     });
 
-    it("returns correct task summary for overcapacity", function() {
+    it("returns correct task summary for overcapacity", () => {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -141,7 +141,7 @@ describe("Framework", function() {
       });
     });
 
-    it("returns correct task summary with framework data", function() {
+    it("returns correct task summary with framework data", () => {
       const service = new Framework({
         instances: 2,
         tasksStaged: 0,
@@ -161,9 +161,9 @@ describe("Framework", function() {
       });
     });
 
-    it("aggregates the right number of tasks", function() {
+    it("aggregates the right number of tasks", () => {
       const getTasksByService = MesosStateStore.getTasksByService;
-      MesosStateStore.getTasksByService = function() {
+      MesosStateStore.getTasksByService = () => {
         return [
           {
             id: "/fake_1",
@@ -228,8 +228,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getInstancesCount", function() {
-    it("returns correct instances", function() {
+  describe("#getInstancesCount", () => {
+    it("returns correct instances", () => {
       const service = new Framework({
         instances: 1
       });
@@ -237,7 +237,7 @@ describe("Framework", function() {
       expect(service.getInstancesCount()).toEqual(1);
     });
 
-    it("returns correct instances with Framework data", function() {
+    it("returns correct instances with Framework data", () => {
       const service = new Framework({
         instances: 1,
         TASK_RUNNING: 1
@@ -247,8 +247,8 @@ describe("Framework", function() {
     });
   });
 
-  describe("#getResources", function() {
-    it("returns only scheduler resources when used_resources are empty", function() {
+  describe("#getResources", () => {
+    it("returns only scheduler resources when used_resources are empty", () => {
       const service = new Framework({
         used_resources: null,
         cpus: 0.2,
@@ -265,7 +265,7 @@ describe("Framework", function() {
       });
     });
 
-    it("returns allocated resources + scheduler resources", function() {
+    it("returns allocated resources + scheduler resources", () => {
       const service = new Framework({
         id: "/blip",
         used_resources: { cpus: 1, mem: 1024, gpus: 0, disk: 10 },

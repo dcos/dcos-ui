@@ -12,7 +12,7 @@ function checkPath(instance, props) {
 
   var index = 1;
   var points = area.getDOMNode().attributes.d.value.split(",");
-  points.forEach(function(str, i) {
+  points.forEach((str, i) => {
     // Discard values after we've been through data
     // Also parseFloat and check with index (int) to make sure we exactly
     // where we want to be
@@ -32,21 +32,21 @@ let thisProps,
   thisValueLine,
   thisInstance;
 
-describe("TimeSeriesArea", function() {
-  beforeEach(function() {
+describe("TimeSeriesArea", () => {
+  beforeEach(() => {
     thisProps = {
       values: MockTimeSeriesData.firstSet
     };
 
     thisAreaDef = d3.svg
       .area()
-      .x(function(d) {
+      .x(d => {
         return d.date;
       })
-      .y0(function() {
+      .y0(() => {
         return 0;
       })
-      .y1(function(d) {
+      .y1(d => {
         return d.y;
       })
       .interpolate("monotone");
@@ -54,10 +54,10 @@ describe("TimeSeriesArea", function() {
 
     thisValueLineDef = d3.svg
       .line()
-      .x(function(d) {
+      .x(d => {
         return d.date;
       })
-      .y(function(d) {
+      .y(d => {
         return d.y;
       })
       .interpolate("monotone");
@@ -73,11 +73,11 @@ describe("TimeSeriesArea", function() {
     );
   });
 
-  it("renders a path according to first data set", function() {
+  it("renders a path according to first data set", () => {
     checkPath(thisInstance, thisProps);
   });
 
-  it("renders a path according to second data set", function() {
+  it("renders a path according to second data set", () => {
     thisProps.values = MockTimeSeriesData.secondSet;
     var area = thisAreaDef(thisProps.values);
     var valueLine = thisValueLineDef(thisProps.values);
@@ -94,7 +94,7 @@ describe("TimeSeriesArea", function() {
     checkPath(thisInstance, thisProps);
   });
 
-  it("checks that the path is correctly updated", function() {
+  it("checks that the path is correctly updated", () => {
     checkPath(thisInstance, thisProps);
     thisProps.values = MockTimeSeriesData.secondSet;
     var area = thisAreaDef(thisProps.values);

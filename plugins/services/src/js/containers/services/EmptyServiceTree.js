@@ -5,7 +5,7 @@ import { Trans } from "@lingui/macro";
 import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
-const EmptyServiceTree = function({ onCreateGroup, onCreateService }) {
+const EmptyServiceTree = ({ onCreateGroup, onCreateService }) => {
   const footer = (
     <div className="button-collection flush-bottom">
       <Trans

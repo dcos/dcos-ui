@@ -10,14 +10,14 @@ function getValue(instance) {
     .trim();
 }
 
-describe("ConfigurationMapSizeValue", function() {
-  it("assumes default MB scale", function() {
+describe("ConfigurationMapSizeValue", () => {
+  it("assumes default MB scale", () => {
     const instance = mount(<ConfigurationMapSizeValue value={1.234} />);
 
     expect(getValue(instance)).toEqual("1.23 MiB");
   });
 
-  it("handles `scale` property", function() {
+  it("handles `scale` property", () => {
     const instance = mount(
       <ConfigurationMapSizeValue scale={1} value={1024} />
     );
@@ -25,7 +25,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(getValue(instance)).toEqual("1 KiB");
   });
 
-  it("passes down to Units.filesize the `decimals`", function() {
+  it("passes down to Units.filesize the `decimals`", () => {
     const instance = mount(
       <ConfigurationMapSizeValue decimals={0} value={1.234} />
     );
@@ -33,7 +33,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(getValue(instance)).toEqual("1 MiB");
   });
 
-  it("passes down to Units.filesize the `multiplier`", function() {
+  it("passes down to Units.filesize the `multiplier`", () => {
     const instance = mount(
       <ConfigurationMapSizeValue multiplier={1000} value={1} />
     );
@@ -41,7 +41,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(getValue(instance)).toEqual("1.05 MiB");
   });
 
-  it("passes down to Units.filesize the `threshold`", function() {
+  it("passes down to Units.filesize the `threshold`", () => {
     const instance = mount(
       <ConfigurationMapSizeValue threshold={1} value={12.345} />
     );
@@ -49,7 +49,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(getValue(instance)).toEqual("0.01 GiB");
   });
 
-  it("passes down to Units.filesize the `units`", function() {
+  it("passes down to Units.filesize the `units`", () => {
     const instance = mount(
       <ConfigurationMapSizeValue
         units={["A", "KiA", "MiA", "GiA", "TiA", "PiA"]}
@@ -60,7 +60,7 @@ describe("ConfigurationMapSizeValue", function() {
     expect(getValue(instance)).toEqual("1 MiA");
   });
 
-  it("renders `defaultValue` if empty", function() {
+  it("renders `defaultValue` if empty", () => {
     const instance = mount(
       <ConfigurationMapSizeValue defaultValue="-" value={null} />
     );

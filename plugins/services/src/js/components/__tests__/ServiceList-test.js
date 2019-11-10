@@ -10,9 +10,9 @@ const ServiceTree = require("../../structs/ServiceTree");
 
 let thisContainer, thisInstance;
 
-describe("ServiceList", function() {
-  describe("#shouldComponentUpdate", function() {
-    beforeEach(function() {
+describe("ServiceList", () => {
+  describe("#shouldComponentUpdate", () => {
+    beforeEach(() => {
       var services = new ServiceTree({ items: [{ name: "foo" }] });
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
@@ -21,22 +21,22 @@ describe("ServiceList", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("allows update", function() {
+    it("allows update", () => {
       var shouldUpdate = thisInstance.shouldComponentUpdate({ a: 1 });
       expect(shouldUpdate).toEqual(true);
     });
 
-    it("does not allow update", function() {
+    it("does not allow update", () => {
       var shouldUpdate = thisInstance.shouldComponentUpdate(thisInstance.props);
       expect(shouldUpdate).toEqual(false);
     });
   });
 
-  describe("#getServices", function() {
+  describe("#getServices", () => {
     const services = new ServiceTree({
       items: [
         {
@@ -51,7 +51,7 @@ describe("ServiceList", function() {
       ]
     });
 
-    beforeEach(function() {
+    beforeEach(() => {
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
@@ -59,11 +59,11 @@ describe("ServiceList", function() {
       );
     });
 
-    afterEach(function() {
+    afterEach(() => {
       ReactDOM.unmountComponentAtNode(thisContainer);
     });
 
-    it("returns services that have a value of two elements", function() {
+    it("returns services that have a value of two elements", () => {
       const component = renderer.create(
         <ServiceList services={services.getServices().getItems()} />
       );

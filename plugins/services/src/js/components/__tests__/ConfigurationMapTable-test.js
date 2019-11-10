@@ -5,13 +5,13 @@ const { EmptyStates } = require("#SRC/js/constants/EmptyStates");
 const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 function mapValuesOfType(instance, type) {
-  return instance.find(type).map(function(item) {
+  return instance.find(type).map(item => {
     return item.text();
   });
 }
 
-describe("ConfigurationMapTable", function() {
-  it("renders a simple 1-row, 2-column dataset", function() {
+describe("ConfigurationMapTable", () => {
+  it("renders a simple 1-row, 2-column dataset", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -35,7 +35,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", "2"]);
   });
 
-  it("accepts custom `render` functions", function() {
+  it("accepts custom `render` functions", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -65,7 +65,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["X", "Y"]);
   });
 
-  it("removes columns with `hideIfEmpty=true` column property", function() {
+  it("removes columns with `hideIfEmpty=true` column property", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -90,7 +90,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1"]);
   });
 
-  it("keeps columns with `hideIfEmpty=false` column property", function() {
+  it("keeps columns with `hideIfEmpty=false` column property", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -115,7 +115,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", EmptyStates.CONFIG_VALUE]);
   });
 
-  it("respects `placeholder` column property", function() {
+  it("respects `placeholder` column property", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -140,7 +140,7 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["1", "(none)"]);
   });
 
-  it("handles defaults", function() {
+  it("handles defaults", () => {
     const instance = mount(
       <ConfigurationMapTable
         columns={[
@@ -167,10 +167,10 @@ describe("ConfigurationMapTable", function() {
     expect(cellText).toEqual(["A", "B", "1", "2"]);
   });
 
-  it("adds edit link column if onEditClick is provided", function() {
+  it("adds edit link column if onEditClick is provided", () => {
     const instance = mount(
       <ConfigurationMapTable
-        onEditClick={function() {}}
+        onEditClick={() => {}}
         columns={[
           {
             heading: "A",

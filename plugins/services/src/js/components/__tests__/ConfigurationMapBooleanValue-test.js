@@ -3,8 +3,8 @@ import { mount } from "enzyme";
 
 const ConfigurationMapBooleanValue = require("../ConfigurationMapBooleanValue");
 
-describe("ConfigurationMapBooleanValue", function() {
-  it("shows the default value for `true`", function() {
+describe("ConfigurationMapBooleanValue", () => {
+  it("shows the default value for `true`", () => {
     const instance = mount(<ConfigurationMapBooleanValue value={true} />);
 
     const contentText = instance
@@ -15,7 +15,7 @@ describe("ConfigurationMapBooleanValue", function() {
     expect(contentText).toEqual("Enabled");
   });
 
-  it("shows the default value for `false`", function() {
+  it("shows the default value for `false`", () => {
     const instance = mount(<ConfigurationMapBooleanValue value={false} />);
 
     const contentText = instance
@@ -26,7 +26,7 @@ describe("ConfigurationMapBooleanValue", function() {
     expect(contentText).toEqual("Disabled");
   });
 
-  it("shows the custom value for `true`", function() {
+  it("shows the custom value for `true`", () => {
     const instance = mount(
       <ConfigurationMapBooleanValue
         options={{ truthy: "foo", falsy: "bar" }}
@@ -42,7 +42,7 @@ describe("ConfigurationMapBooleanValue", function() {
     expect(contentText).toEqual("foo");
   });
 
-  it("shows the custom value for `false`", function() {
+  it("shows the custom value for `false`", () => {
     const instance = mount(
       <ConfigurationMapBooleanValue
         options={{ truthy: "foo", falsy: "bar" }}
@@ -58,7 +58,7 @@ describe("ConfigurationMapBooleanValue", function() {
     expect(contentText).toEqual("bar");
   });
 
-  it("shows the `defaultValue` if missing", function() {
+  it("shows the `defaultValue` if missing", () => {
     const instance = mount(
       <ConfigurationMapBooleanValue value={null} defaultValue="-" />
     );

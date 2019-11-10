@@ -1,17 +1,17 @@
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 const UnknownVolumes = require("../UnknownVolumes");
 
-describe("UnknownVolumes", function() {
-  describe("#UnknownVolumesJSONParser", function() {
-    describe("with empty input", function() {
-      it("returns an empty array", function() {
+describe("UnknownVolumes", () => {
+  describe("#UnknownVolumesJSONParser", () => {
+    describe("with empty input", () => {
+      it("returns an empty array", () => {
         expect(UnknownVolumes.UnknownVolumesJSONParser({})).toEqual([]);
       });
     });
 
-    describe("with known volumes", function() {
-      describe("external volume", function() {
-        it("returns an empty array", function() {
+    describe("with known volumes", () => {
+      describe("external volume", () => {
+        it("returns an empty array", () => {
           const externalVolume = {
             container: {
               volumes: [
@@ -35,8 +35,8 @@ describe("UnknownVolumes", function() {
         });
       });
 
-      describe("persistent volume", function() {
-        it("returns an empty array", function() {
+      describe("persistent volume", () => {
+        it("returns an empty array", () => {
           const persistentVolume = {
             container: {
               volumes: [
@@ -54,8 +54,8 @@ describe("UnknownVolumes", function() {
         });
       });
 
-      describe("docker volume", function() {
-        it("returns an empty array", function() {
+      describe("docker volume", () => {
+        it("returns an empty array", () => {
           const dockerVolume = {
             container: {
               volumes: [
@@ -74,8 +74,8 @@ describe("UnknownVolumes", function() {
       });
     });
 
-    describe("with unknown volume", function() {
-      it("extracts the volume", function() {
+    describe("with unknown volume", () => {
+      it("extracts the volume", () => {
         const unknownVolumes = {
           container: {
             volumes: [
@@ -99,8 +99,8 @@ describe("UnknownVolumes", function() {
       });
     });
 
-    describe("with mixed declaration", function() {
-      it("extracts only unknown volumes", function() {
+    describe("with mixed declaration", () => {
+      it("extracts only unknown volumes", () => {
         const unknownVolumes = {
           container: {
             volumes: [

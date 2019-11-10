@@ -7,9 +7,9 @@ var InstanceUtil = require("../../utils/InstanceUtil");
 
 let thisMockItems;
 
-describe("PodInstancesRegionFilter", function() {
-  beforeEach(function() {
-    InstanceUtil.getNode = function(item) {
+describe("PodInstancesRegionFilter", () => {
+  beforeEach(() => {
+    InstanceUtil.getNode = item => {
       return item;
     };
     thisMockItems = [
@@ -26,7 +26,7 @@ describe("PodInstancesRegionFilter", function() {
     ];
   });
 
-  it("keeps tasks with specific region mentioned", function() {
+  it("keeps tasks with specific region mentioned", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("region:region-1");
 

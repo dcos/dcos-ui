@@ -7,12 +7,12 @@ var ServiceAttributeIsCatalogFilter = require("../ServiceAttributeIsCatalogFilte
 
 let thisMockItems;
 
-describe("ServiceAttributeIsCatalogFilter", function() {
-  beforeEach(function() {
+describe("ServiceAttributeIsCatalogFilter", () => {
+  beforeEach(() => {
     thisMockItems = [new Framework(), new Application(), new Pod()];
   });
 
-  it("matches Framework instances", function() {
+  it("matches Framework instances", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:catalog");
 
@@ -23,7 +23,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     ]);
   });
 
-  it("keeps nothing on unknown values", function() {
+  it("keeps nothing on unknown values", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:foo");
 
@@ -32,7 +32,7 @@ describe("ServiceAttributeIsCatalogFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("is case-insensitive", function() {
+  it("is case-insensitive", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:CataLOg");
 

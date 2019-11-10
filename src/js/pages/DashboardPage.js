@@ -152,7 +152,7 @@ var DashboardPage = createReactClass({
   getServicesList() {
     const services = this.state.dcosServices;
 
-    const sortedServices = services.sort(function(firstService, secondService) {
+    const sortedServices = services.sort((firstService, secondService) => {
       const firstStatus = firstService.getServiceStatus();
       const secondStatus = secondService.getServiceStatus();
 

@@ -1,9 +1,9 @@
 const ServiceImages = require("../../constants/ServiceImages");
 const Task = require("../Task");
 
-describe("Task", function() {
-  describe("#getId", function() {
-    it("returns correct id", function() {
+describe("Task", () => {
+  describe("#getId", () => {
+    it("returns correct id", () => {
       const task = new Task({
         id: "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
       });
@@ -11,23 +11,23 @@ describe("Task", function() {
       expect(task.getId()).toEqual("test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76");
     });
 
-    it("returns empty string if id is undefined", function() {
+    it("returns empty string if id is undefined", () => {
       const task = new Task({});
 
       expect(task.getId()).toEqual("");
     });
   });
 
-  describe("#getImages", function() {
-    it("defaults to NA images", function() {
+  describe("#getImages", () => {
+    it("defaults to NA images", () => {
       const task = new Task({});
 
       expect(task.getImages()).toEqual(ServiceImages.NA_IMAGES);
     });
   });
 
-  describe("#geName", function() {
-    it("returns correct name", function() {
+  describe("#geName", () => {
+    it("returns correct name", () => {
       const task = new Task({
         id: "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76",
         name: "foo.bar.baz"

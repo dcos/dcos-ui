@@ -5,8 +5,8 @@ var VolumeList = require("../../structs/VolumeList");
 
 let thisMockItems;
 
-describe("ServiceAttributeHasVolumesFilter", function() {
-  beforeEach(function() {
+describe("ServiceAttributeHasVolumesFilter", () => {
+  beforeEach(() => {
     thisMockItems = [
       {
         getVolumes() {
@@ -26,7 +26,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     ];
   });
 
-  it("matches instances with volumes", function() {
+  it("matches instances with volumes", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:volumes");
 
@@ -38,7 +38,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     ]);
   });
 
-  it("keeps nothing on unknown values", function() {
+  it("keeps nothing on unknown values", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:foo");
 
@@ -47,7 +47,7 @@ describe("ServiceAttributeHasVolumesFilter", function() {
     expect(expr.filter(filters, services).getItems()).toEqual([]);
   });
 
-  it("is case-insensitive", function() {
+  it("is case-insensitive", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("has:vOLumEs");
 

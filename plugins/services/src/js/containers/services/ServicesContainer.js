@@ -710,7 +710,7 @@ class ServicesContainer extends React.Component {
     }
 
     // Check if a single endpoint has failed more than 3 times
-    const fetchError = Object.values(fetchErrors).some(function(errorCount) {
+    const fetchError = Object.values(fetchErrors).some(errorCount => {
       return errorCount > 3;
     });
 

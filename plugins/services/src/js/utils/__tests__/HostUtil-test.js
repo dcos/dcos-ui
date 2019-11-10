@@ -1,32 +1,32 @@
 const HostUtil = require("../HostUtil");
 
-describe("HostUtil", function() {
-  describe("#stringToHostname", function() {
-    it("omits dots at the start", function() {
+describe("HostUtil", () => {
+  describe("#stringToHostname", () => {
+    it("omits dots at the start", () => {
       const result = HostUtil.stringToHostname(".fdgsf.4abc123");
 
       expect(result).toEqual("fdgsf.4abc123");
     });
 
-    it("omits dots at the end", function() {
+    it("omits dots at the end", () => {
       const result = HostUtil.stringToHostname("fdgsf.4abc123.");
 
       expect(result).toEqual("fdgsf.4abc123");
     });
 
-    it("omits duplicated dots", function() {
+    it("omits duplicated dots", () => {
       const result = HostUtil.stringToHostname("fdgsf..4abc123");
 
       expect(result).toEqual("fdgsf.4abc123");
     });
 
-    it("does not replace dots midway", function() {
+    it("does not replace dots midway", () => {
       const result = HostUtil.stringToHostname("fdgsf.4abc123");
 
       expect(result).toEqual("fdgsf.4abc123");
     });
 
-    it("allows 63 char labels", function() {
+    it("allows 63 char labels", () => {
       const hostname = [
         "010203040506070809010111213141516171819202122232425262728293031",
         "010203040506070809010111213141516171819202122232425262728293031"
@@ -35,51 +35,51 @@ describe("HostUtil", function() {
       expect(HostUtil.stringToHostname(hostname)).toEqual(hostname);
     });
 
-    it("does not alter valid strings", function() {
+    it("does not alter valid strings", () => {
       const result = HostUtil.stringToHostname("0-0");
 
       expect(result).toEqual("0-0");
     });
   });
 
-  describe("#stringToLabel", function() {
-    it("strips invalid chars", function() {
+  describe("#stringToLabel", () => {
+    it("strips invalid chars", () => {
       const result = HostUtil.stringToLabel("fd%gsf---gs7-f$gs--d7fddg-123");
 
       expect(result).toEqual("fdgsf---gs7-fgs--d7fddg-123");
     });
 
-    it("replaces underscores", function() {
+    it("replaces underscores", () => {
       const result = HostUtil.stringToLabel("fdgsf_4abc123");
 
       expect(result).toEqual("fdgsf-4abc123");
     });
 
-    it("omits slashes", function() {
+    it("omits slashes", () => {
       const result = HostUtil.stringToLabel("fdgsf/4abc123");
 
       expect(result).toEqual("fdgsf4abc123");
     });
 
-    it("omits dots", function() {
+    it("omits dots", () => {
       const result = HostUtil.stringToLabel(".fdgsf.4abc123.");
 
       expect(result).toEqual("fdgsf4abc123");
     });
 
-    it("strips invalid chars from the start", function() {
+    it("strips invalid chars from the start", () => {
       const result = HostUtil.stringToLabel("-@4abc123");
 
       expect(result).toEqual("4abc123");
     });
 
-    it("strips invalid chars from the end", function() {
+    it("strips invalid chars from the end", () => {
       const result = HostUtil.stringToLabel("4abc123-");
 
       expect(result).toEqual("4abc123");
     });
 
-    it("strips invalid chars from the start and end", function() {
+    it("strips invalid chars from the start and end", () => {
       const result = HostUtil.stringToLabel(
         "##fdgsf---gs7-fgs--d7fddg123456789012345678901234567890123456789-"
       );
@@ -89,13 +89,13 @@ describe("HostUtil", function() {
       );
     });
 
-    it("allows dashes within the hostname", function() {
+    it("allows dashes within the hostname", () => {
       const result = HostUtil.stringToLabel("89fdgsf---gs7-fgs--d7fddg-123");
 
       expect(result).toEqual("89fdgsf---gs7-fgs--d7fddg-123");
     });
 
-    it("strips invalid chars and trim string to 63 chars", function() {
+    it("strips invalid chars and trim string to 63 chars", () => {
       const result = HostUtil.stringToLabel(
         "fd%gsf---gs7-f$gs--d7fddg123456789012345678901234567890123456789-123"
       );
@@ -105,7 +105,7 @@ describe("HostUtil", function() {
       );
     });
 
-    it("trims string to 63 chars", function() {
+    it("trims string to 63 chars", () => {
       const result = HostUtil.stringToLabel(
         "0102030405060708090101112131415161718192021222324252627282930313233"
       );
@@ -115,7 +115,7 @@ describe("HostUtil", function() {
       );
     });
 
-    it("strips invalid chars from start and trim string", function() {
+    it("strips invalid chars from start and trim string", () => {
       const result = HostUtil.stringToLabel(
         "%%fdgsf---gs7-fgs--d7fddg123456789012345678901234567890123456789---123"
       );
@@ -125,7 +125,7 @@ describe("HostUtil", function() {
       );
     });
 
-    it("strips dashes from the end and trim string", function() {
+    it("strips dashes from the end and trim string", () => {
       const result = HostUtil.stringToLabel(
         "%%fdgsf---gs7-fgs--d7fddg123456789012345678901234567890123456789---123"
       );
@@ -135,7 +135,7 @@ describe("HostUtil", function() {
       );
     });
 
-    it("strips all dashes that exceed the char limit", function() {
+    it("strips all dashes that exceed the char limit", () => {
       const result = HostUtil.stringToLabel(
         "a--------------------------------------------------------------------b"
       );
@@ -143,7 +143,7 @@ describe("HostUtil", function() {
       expect(result).toEqual("ab");
     });
 
-    it("does not alter valid hostnames", function() {
+    it("does not alter valid hostnames", () => {
       const result = HostUtil.stringToLabel(
         "a-----------------------------------------------b"
       );
@@ -153,7 +153,7 @@ describe("HostUtil", function() {
       );
     });
 
-    it("returns lowercase string", function() {
+    it("returns lowercase string", () => {
       const result = HostUtil.stringToLabel("XYZ");
 
       expect(result).toEqual("xyz");

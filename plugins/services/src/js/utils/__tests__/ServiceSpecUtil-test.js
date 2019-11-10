@@ -3,10 +3,10 @@ const FrameworkSpec = require("../../structs/FrameworkSpec");
 const PodSpec = require("../../structs/PodSpec");
 const ServiceSpecUtil = require("../ServiceSpecUtil");
 
-describe("ServiceSpecUtil", function() {
-  describe("Pods", function() {
-    describe("#setPodInstances", function() {
-      it("creates missing sections", function() {
+describe("ServiceSpecUtil", () => {
+  describe("Pods", () => {
+    describe("#setPodInstances", () => {
+      it("creates missing sections", () => {
         var spec = new PodSpec({});
         var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
@@ -17,7 +17,7 @@ describe("ServiceSpecUtil", function() {
         });
       });
 
-      it("keeps existing fields intact", function() {
+      it("keeps existing fields intact", () => {
         var spec = new PodSpec({
           scaling: {
             kind: "fixed",
@@ -35,7 +35,7 @@ describe("ServiceSpecUtil", function() {
         });
       });
 
-      it("resets to fixed on different scale kind", function() {
+      it("resets to fixed on different scale kind", () => {
         var spec = new PodSpec({
           scaling: {
             kind: "different",
@@ -53,8 +53,8 @@ describe("ServiceSpecUtil", function() {
       });
     });
 
-    describe("#setServiceInstances", function() {
-      it("operates on PodSpec", function() {
+    describe("#setServiceInstances", () => {
+      it("operates on PodSpec", () => {
         var spec = new PodSpec({});
         var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
@@ -67,9 +67,9 @@ describe("ServiceSpecUtil", function() {
     });
   });
 
-  describe("Application", function() {
-    describe("#setApplicationInstances", function() {
-      it("creates missing sections", function() {
+  describe("Application", () => {
+    describe("#setApplicationInstances", () => {
+      it("creates missing sections", () => {
         var spec = new ApplicationSpec({});
         var newSpec = ServiceSpecUtil.setApplicationInstances(spec, 10);
 
@@ -80,8 +80,8 @@ describe("ServiceSpecUtil", function() {
       });
     });
 
-    describe("#setServiceInstances", function() {
-      it("operates on ApplicationSpec", function() {
+    describe("#setServiceInstances", () => {
+      it("operates on ApplicationSpec", () => {
         var spec = new ApplicationSpec({});
         var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
@@ -93,9 +93,9 @@ describe("ServiceSpecUtil", function() {
     });
   });
 
-  describe("Framework", function() {
-    describe("#setFrameworkInstances", function() {
-      it("creates missing sections", function() {
+  describe("Framework", () => {
+    describe("#setFrameworkInstances", () => {
+      it("creates missing sections", () => {
         var spec = new FrameworkSpec({});
         var newSpec = ServiceSpecUtil.setFrameworkInstances(spec, 10);
 
@@ -106,8 +106,8 @@ describe("ServiceSpecUtil", function() {
       });
     });
 
-    describe("#setServiceInstances", function() {
-      it("operates on FrameworkSpec", function() {
+    describe("#setServiceInstances", () => {
+      it("operates on FrameworkSpec", () => {
         var spec = new FrameworkSpec({});
         var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 

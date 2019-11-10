@@ -124,9 +124,7 @@ class PodInstancesView extends React.Component {
     let filterText = "";
 
     if (filterExpression.ast) {
-      filterTextExpression = filterExpression.ast.children.filter(function(
-        filter
-      ) {
+      filterTextExpression = filterExpression.ast.children.filter(filter => {
         return filter.filterType === DSLFilterTypes.FUZZY;
       });
 

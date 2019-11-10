@@ -151,7 +151,7 @@ module.exports = {
       return [];
     }
 
-    return state.healthChecks.reduce(function(memo, item, index) {
+    return state.healthChecks.reduce((memo, item, index) => {
       if (item.protocol == null) {
         return memo;
       }

@@ -7,9 +7,9 @@ var InstanceUtil = require("../../utils/InstanceUtil");
 
 let thisMockItems;
 
-describe("PodInstancesZoneFilter", function() {
-  beforeEach(function() {
-    InstanceUtil.getNode = function(item) {
+describe("PodInstancesZoneFilter", () => {
+  beforeEach(() => {
+    InstanceUtil.getNode = item => {
       return item;
     };
     thisMockItems = [
@@ -26,7 +26,7 @@ describe("PodInstancesZoneFilter", function() {
     ];
   });
 
-  it("keeps tasks with specific zone mentioned", function() {
+  it("keeps tasks with specific zone mentioned", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("zone:zone-1");
 
