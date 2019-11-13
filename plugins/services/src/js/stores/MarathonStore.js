@@ -5,7 +5,6 @@ import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
-import VisibilityStore from "#SRC/js/stores/VisibilityStore";
 
 import {
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
@@ -83,8 +82,7 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR,
   MARATHON_TASK_KILL_ERROR,
-  MARATHON_TASK_KILL_SUCCESS,
-  VISIBILITY_CHANGE
+  MARATHON_TASK_KILL_SUCCESS
 } from "../constants/EventTypes";
 import Framework from "../structs/Framework";
 import Application from "../structs/Application";
@@ -296,11 +294,6 @@ class MarathonStore extends GetSetBaseStore {
 
       return true;
     });
-
-    VisibilityStore.addChangeListener(
-      VISIBILITY_CHANGE,
-      this.onVisibilityStoreChange.bind(this)
-    );
   }
 
   addChangeListener(eventName, callback) {
@@ -317,16 +310,6 @@ class MarathonStore extends GetSetBaseStore {
     if (!this.shouldPoll()) {
       stopPolling();
     }
-  }
-
-  onVisibilityStoreChange() {
-    if (!VisibilityStore.isInactive() && this.shouldPoll()) {
-      startPolling();
-
-      return;
-    }
-
-    stopPolling();
   }
 
   shouldPoll() {

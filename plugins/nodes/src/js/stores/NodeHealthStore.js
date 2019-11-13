@@ -19,8 +19,7 @@ import {
   HEALTH_NODE_UNIT_ERROR,
   HEALTH_NODE_UNIT_SUCCESS,
   HEALTH_NODES_CHANGE,
-  HEALTH_NODES_ERROR,
-  VISIBILITY_CHANGE
+  HEALTH_NODES_ERROR
 } from "#SRC/js/constants/EventTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -31,7 +30,6 @@ import HealthUnitsList from "#SRC/js/structs/HealthUnitsList";
 import Node from "#SRC/js/structs/Node";
 import NodeHealthActions from "#SRC/js/events/NodeHealthActions";
 import NodesList from "#SRC/js/structs/NodesList";
-import VisibilityStore from "#SRC/js/stores/VisibilityStore";
 
 let requestInterval = null;
 
@@ -119,11 +117,6 @@ class NodeHealthStore extends GetSetBaseStore {
 
       return true;
     });
-
-    VisibilityStore.addChangeListener(
-      VISIBILITY_CHANGE,
-      this.onVisibilityStoreChange.bind(this)
-    );
   }
 
   addChangeListener(eventName, callback) {
@@ -139,16 +132,6 @@ class NodeHealthStore extends GetSetBaseStore {
     if (!this.shouldPoll()) {
       stopPolling();
     }
-  }
-
-  onVisibilityStoreChange() {
-    if (!VisibilityStore.isInactive() && this.shouldPoll()) {
-      startPolling();
-
-      return;
-    }
-
-    stopPolling();
   }
 
   shouldPoll() {

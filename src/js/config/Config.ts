@@ -28,7 +28,6 @@ interface IConfiguration {
   productName: string;
   rootUrl: string;
   secretsAPIPrefix: string;
-  setInactiveAfter: number;
   slackChannel: string;
   stateRefresh: number;
   stateLongPoll: number;
@@ -63,7 +62,6 @@ let Config: IConfiguration = {
   metronomeAPI: "/service/metronome",
   productName: "Mesosphere DC/OS",
   productHomepageURI: "https://dcos.io",
-  setInactiveAfter: 30000,
   testHistoryInterval: 10000,
   rootUrl: "",
   slackChannel: "https://dcos-community.slack.com/messages/general/",
