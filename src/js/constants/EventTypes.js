@@ -75,8 +75,7 @@ const EventTypes = {};
   "USERS_CHANGE",
   "USERS_REQUEST_ERROR",
   "VIRTUAL_NETWORKS_CHANGE",
-  "VIRTUAL_NETWORKS_REQUEST_ERROR",
-  "VISIBILITY_CHANGE"
+  "VIRTUAL_NETWORKS_REQUEST_ERROR"
 ].forEach(eventType => {
   EventTypes[eventType] = eventType;
 });

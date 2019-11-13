@@ -113,11 +113,7 @@ var DashboardPage = createReactClass({
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },
-      {
-        name: "unitHealth",
-        events: ["success", "error"],
-        suppressUpdate: true
-      }
+      { name: "unitHealth", events: ["success", "error"], suppressUpdate: true }
     ];
 
     this.mesosState = getMesosState();
