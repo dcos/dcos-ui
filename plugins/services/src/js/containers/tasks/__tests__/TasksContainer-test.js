@@ -33,15 +33,7 @@ describe("TasksContainer", () => {
         }
       ];
 
-      testCases.forEach((
-        {
-          name,
-          regions,
-          zones,
-          query,
-          expectedQuery
-        }
-      ) => {
+      testCases.forEach(({ name, regions, zones, query, expectedQuery }) => {
         it(name, () => {
           TaskUtil.getNode = jest.fn(({ region, zone }) => ({
             getZoneName: jest.fn(() => zone),
