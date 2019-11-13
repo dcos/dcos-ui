@@ -185,4 +185,4 @@ KillPodInstanceModal.propTypes = {
   selectedItems: PropTypes.array
 };
 
-module.exports = withI18n()(KillPodInstanceModal);
+export default withI18n()(KillPodInstanceModal);

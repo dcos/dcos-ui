@@ -302,4 +302,4 @@ ServiceDestroyModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = withI18n()(ServiceDestroyModal);
+export default withI18n()(ServiceDestroyModal);

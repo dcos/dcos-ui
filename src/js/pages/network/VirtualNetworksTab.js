@@ -181,4 +181,4 @@ VirtualNetworksTabContent.routeConfig = {
   matches: /^\/networking\/networks/
 };
 
-module.exports = withI18n()(VirtualNetworksTabContent);
+export default withI18n()(VirtualNetworksTabContent);

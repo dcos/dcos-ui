@@ -183,4 +183,4 @@ class UserFormModal extends mixin(StoreMixin) {
     );
   }
 }
-module.exports = withI18n()(UserFormModal);
+export default withI18n()(UserFormModal);

@@ -230,4 +230,4 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   }
 }
 
-module.exports = withI18n()(UnitsHealthDetail);
+export default withI18n()(UnitsHealthDetail);

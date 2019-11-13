@@ -180,4 +180,4 @@ KillTaskModal.propTypes = {
   selectedItems: PropTypes.array
 };
 
-module.exports = withI18n()(KillTaskModal);
+export default withI18n()(KillTaskModal);
