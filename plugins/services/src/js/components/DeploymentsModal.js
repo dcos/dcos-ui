@@ -578,5 +578,5 @@ class DeploymentsModal extends mixin(StoreMixin) {
   }
 }
 
-module.exports = withI18n()(DeploymentsModal);
-module.exports.WrappedComponent = DeploymentsModal;
+export default withI18n()(DeploymentsModal);
+export const WrappedComponent = DeploymentsModal;

@@ -933,4 +933,4 @@ CreateServiceModalForm.propTypes = {
   resetExpandAdvancedSettings: PropTypes.func
 };
 
-module.exports = withI18n()(CreateServiceModalForm);
+export default withI18n()(CreateServiceModalForm);

@@ -140,4 +140,4 @@ AddRepositoryFormModal.propTypes = {
   addRepository: PropTypes.func.isRequired
 };
 
-module.exports = withI18n()(AddRepositoryFormModal);
+export default withI18n()(AddRepositoryFormModal);

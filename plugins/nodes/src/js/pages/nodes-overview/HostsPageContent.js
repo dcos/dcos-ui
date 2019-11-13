@@ -248,4 +248,4 @@ HostsPageContent.propTypes = {
   viewTypeRadioButtons: PropTypes.node.isRequired
 };
 
-module.exports = withI18n()(HostsPageContent);
+export default withI18n()(HostsPageContent);

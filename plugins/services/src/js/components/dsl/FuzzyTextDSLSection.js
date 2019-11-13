@@ -116,4 +116,4 @@ FuzzyTextDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = withI18n()(FuzzyTextDSLSection);
+export default withI18n()(FuzzyTextDSLSection);
