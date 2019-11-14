@@ -134,10 +134,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     );
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   getNodesTable(unit, visibleData) {
     return (
       <UnitHealthNodesTable nodes={visibleData} params={this.props.params} />
@@ -177,7 +173,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     }
 
     if (isLoadingUnit || isLoadingNodes) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
 
     const nodes = UnitHealthStore.getNodes(this.props.params.unitID);

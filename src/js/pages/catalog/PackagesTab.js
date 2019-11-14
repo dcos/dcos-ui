@@ -190,10 +190,6 @@ class PackagesTab extends mixin(StoreMixin) {
     );
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   getPackageGrid(packages) {
     return packages.getItems().map((cosmosPackage, index) => (
       <CatalogPackageOption
@@ -309,7 +305,7 @@ class PackagesTab extends mixin(StoreMixin) {
       return renderPage(this.getErrorScreen());
     }
     if (isLoading) {
-      return renderPage(this.getLoadingScreen());
+      return renderPage(<Loader />);
     }
 
     const packages = CosmosPackagesStore.getAvailablePackages();

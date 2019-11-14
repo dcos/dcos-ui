@@ -579,17 +579,6 @@ class ServicesContainer extends React.Component {
     );
   }
 
-  getLoadingScreen() {
-    const { itemId } = this.state;
-
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<ServiceBreadcrumbs serviceID={itemId} />} />
-        <Loader />
-      </Page>
-    );
-  }
-
   getPodDetail(item) {
     const { children, params, routes } = this.props;
 
@@ -707,7 +696,14 @@ class ServicesContainer extends React.Component {
 
     // Still Loading
     if (isLoading) {
-      return this.getLoadingScreen();
+      return (
+        <Page>
+          <Page.Header
+            breadcrumbs={<ServiceBreadcrumbs serviceID={this.state.itemId} />}
+          />
+          <Loader />
+        </Page>
+      );
     }
 
     // Check if a single endpoint has failed more than 3 times

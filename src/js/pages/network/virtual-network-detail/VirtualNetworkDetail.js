@@ -119,19 +119,6 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     );
   }
 
-  getLoadingScreen() {
-    const breadcrumbs = (
-      <NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />
-    );
-
-    return (
-      <Page>
-        <Page.Header breadcrumbs={breadcrumbs} />
-        <Loader />
-      </Page>
-    );
-  }
-
   render() {
     const { currentTab, errorCount, receivedVirtualNetworks } = this.state;
 
@@ -140,7 +127,18 @@ class VirtualNetworkDetail extends mixin(StoreMixin, TabsMixin) {
     }
 
     if (!receivedVirtualNetworks) {
-      return this.getLoadingScreen();
+      return (
+        <Page>
+          <Page.Header
+            breadcrumbs={
+              <NetworksDetailBreadcrumbs
+                overlayID={this.props.params.overlayName}
+              />
+            }
+          />
+          <Loader />
+        </Page>
+      );
     }
 
     const tabs = [

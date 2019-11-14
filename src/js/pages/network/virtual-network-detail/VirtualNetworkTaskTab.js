@@ -144,10 +144,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     return <RequestErrorMsg />;
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   getTaskLink(taskID, value, title, hierarchy = {}) {
     if (!value) {
       value = taskID;
@@ -268,7 +264,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   render() {
     const { errorMessage, searchString } = this.state;
     if (this.isLoading()) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
 
     if (errorMessage) {
