@@ -169,23 +169,6 @@ class CliInstallModal extends React.Component {
     });
   }
 
-  getContent() {
-    return (
-      <div className="install-cli-modal-content">
-        <Trans render="p">
-          Choose your operating system and follow the instructions. For any
-          issues or questions, please refer to our{" "}
-          <a href={MetadataStore.buildDocsURI("/cli/install")} target="_blank">
-            documentation
-          </a>
-          .
-        </Trans>
-        <div className="button-group">{this.getOSButtons()}</div>
-        {this.getCliInstructions()}
-      </div>
-    );
-  }
-
   render() {
     const { footer, open, showFooter, title } = this.props;
     const header = (
@@ -205,7 +188,21 @@ class CliInstallModal extends React.Component {
         showFooter={showFooter}
         subHeader={this.getSubHeader()}
       >
-        {this.getContent()}
+        <div className="install-cli-modal-content">
+          <Trans render="p">
+            Choose your operating system and follow the instructions. For any
+            issues or questions, please refer to our{" "}
+            <a
+              href={MetadataStore.buildDocsURI("/cli/install")}
+              target="_blank"
+            >
+              documentation
+            </a>
+            .
+          </Trans>
+          <div className="button-group">{this.getOSButtons()}</div>
+          {this.getCliInstructions()}
+        </div>
       </Modal>
     );
   }

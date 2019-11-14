@@ -120,16 +120,10 @@ const ServiceList = createReactClass({
     );
   },
 
-  getContent() {
-    if (this.props.services.length === 0) {
-      return this.getNoServicesMessage();
-    } else {
-      return this.getList();
-    }
-  },
-
   render() {
-    return this.getContent();
+    return this.props.services.length === 0
+      ? this.getNoServicesMessage()
+      : this.getList();
   }
 });
 

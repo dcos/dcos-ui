@@ -32,32 +32,10 @@ class RepositoriesTabUI extends React.Component {
     this.setState({ addRepositoryModalOpen: true });
   }
 
-  getContent() {
+  render() {
     const { addRepositoryModalOpen } = this.state;
 
     const { repositories, searchTerm, onSearch, i18n } = this.props;
-
-    return (
-      <div>
-        <FilterBar>
-          <FilterInputText
-            className="flush-bottom"
-            placeholder={i18n._(t`Search`)}
-            searchString={searchTerm}
-            handleFilterChange={onSearch}
-          />
-        </FilterBar>
-        <RepositoriesTable repositories={repositories} filter={searchTerm} />
-        <RepositoriesAdd
-          numberOfRepositories={repositories.getItems().length}
-          open={addRepositoryModalOpen}
-          onClose={this.handleCloseAddRepository}
-        />
-      </div>
-    );
-  }
-
-  render() {
     return (
       <RepositoriesPage
         addButton={{
@@ -65,7 +43,22 @@ class RepositoriesTabUI extends React.Component {
           label: i18nMark("Add Repository")
         }}
       >
-        {this.getContent()}
+        <div>
+          <FilterBar>
+            <FilterInputText
+              className="flush-bottom"
+              placeholder={i18n._(t`Search`)}
+              searchString={searchTerm}
+              handleFilterChange={onSearch}
+            />
+          </FilterBar>
+          <RepositoriesTable repositories={repositories} filter={searchTerm} />
+          <RepositoriesAdd
+            numberOfRepositories={repositories.getItems().length}
+            open={addRepositoryModalOpen}
+            onClose={this.handleCloseAddRepository}
+          />
+        </div>
       </RepositoriesPage>
     );
   }

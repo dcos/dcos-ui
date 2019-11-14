@@ -49,14 +49,4 @@ describe("ServerErrorModal", () => {
       expect(fn).toThrow();
     });
   });
-
-  describe("#getContent", () => {
-    it("returns the same number of children as errors", () => {
-      thisInstance.state.errors = [1, 2, 3];
-      var contents = thisInstance.getContent();
-      var result = contents.props.children;
-
-      expect(result.length).toEqual(3);
-    });
-  });
 });

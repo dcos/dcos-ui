@@ -52,27 +52,19 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     this.setState({ hasError: true });
   }
 
-  getErrorNotice() {
-    return (
-      <div className="pod">
-        <RequestErrorMsg />
-      </div>
-    );
-  }
-
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   render() {
     const { hasError, isLoadingNode, isLoadingUnit } = this.state;
 
     if (hasError) {
-      return this.getErrorNotice();
+      return (
+        <div className="pod">
+          <RequestErrorMsg />
+        </div>
+      );
     }
 
     if (isLoadingNode || isLoadingUnit) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
 
     const { unitID, unitNodeID } = this.props.params;

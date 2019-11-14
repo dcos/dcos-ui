@@ -38,10 +38,6 @@ class JobDetailPage extends mixin(TabsMixin) {
     };
   }
 
-  getNavigationTabs() {
-    return <ul className="menu-tabbed">{this.tabs_getUnroutedTabs()}</ul>;
-  }
-
   renderConfigurationTabView(job) {
     return <JobConfiguration job={job} />;
   }

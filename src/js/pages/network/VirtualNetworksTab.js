@@ -102,10 +102,6 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     );
   }
 
-  getErrorScreen() {
-    return <RequestErrorMsg />;
-  }
-
   getFilteredOverlayList(overlayList, searchString = "") {
     if (searchString === "") {
       return overlayList;
@@ -119,19 +115,15 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     );
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
-  getContent() {
+  render() {
     const { errorCount, searchString } = this.state;
     const { i18n } = this.props;
     if (errorCount >= 3) {
-      return this.getErrorScreen();
+      return <RequestErrorMsg />;
     }
 
     if (this.isLoading()) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
 
     const overlayList = VirtualNetworksStore.getOverlays();
@@ -144,32 +136,26 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     }
 
     return (
-      <div>
-        {/* L10NTODO: Pluralize
-        We should pluralize FilterHeadline name here using lingui macro instead of
-        doing it manually in FilterHeadline */}
-        <FilterHeadline
-          onReset={this.resetFilter}
-          name={i18n._(t`Network`)}
-          currentLength={filteredOverlayList.getItems().length}
-          totalLength={overlayList.getItems().length}
-        />
-        <FilterBar>
-          <FilterInputText
-            searchString={searchString}
-            handleFilterChange={this.handleSearchStringChange}
-          />
-        </FilterBar>
-        <VirtualNetworksTable overlays={filteredOverlayList} />
-      </div>
-    );
-  }
-
-  render() {
-    return (
       <Page>
         <Page.Header breadcrumbs={<NetworksBreadcrumbs />} />
-        {this.getContent()}
+        <div>
+          {/* L10NTODO: Pluralize
+             We should pluralize FilterHeadline name here using lingui macro instead of
+             doing it manually in FilterHeadline */}
+          <FilterHeadline
+            onReset={this.resetFilter}
+            name={i18n._(t`Network`)}
+            currentLength={filteredOverlayList.getItems().length}
+            totalLength={overlayList.getItems().length}
+          />
+          <FilterBar>
+            <FilterInputText
+              searchString={searchString}
+              handleFilterChange={this.handleSearchStringChange}
+            />
+          </FilterBar>
+          <VirtualNetworksTable overlays={filteredOverlayList} />
+        </div>
         {this.props.children}
       </Page>
     );

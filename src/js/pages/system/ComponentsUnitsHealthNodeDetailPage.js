@@ -106,55 +106,29 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     this.setState({ hasError: true });
   }
 
-  getErrorNotice() {
-    return (
-      <div className="pod">
-        <RequestErrorMsg />
-      </div>
-    );
-  }
-
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
-  getContent() {
-    const { hasError, isLoadingNode, isLoadingUnit } = this.state;
-
-    if (hasError) {
-      return this.getErrorNotice();
-    }
-
-    if (isLoadingNode || isLoadingUnit) {
-      return this.getLoadingScreen();
-    }
-
-    const { unitID, unitNodeID } = this.props.params;
-
-    const node = UnitHealthStore.getNode(unitNodeID);
-    const unit = UnitHealthStore.getUnit(unitID);
-
-    const unitSummary = UnitSummaries[unit.get("id")] || {};
-    const unitDocsURL =
-      unitSummary.getDocumentationURI && unitSummary.getDocumentationURI();
-
-    return (
-      <UnitsHealthNodeDetailPanel
-        routes={this.props.routes}
-        params={this.props.params}
-        docsURL={unitDocsURL}
-        hostIP={node.get("host_ip")}
-        output={node.getOutput()}
-        summary={unitSummary.summary}
-      />
-    );
-  }
-
   render() {
     const { unitID, unitNodeID } = this.props.params;
 
     const node = UnitHealthStore.getNode(unitNodeID);
     const unit = UnitHealthStore.getUnit(unitID);
+
+    const { hasError, isLoadingNode, isLoadingUnit } = this.state;
+
+    if (hasError) {
+      return (
+        <div className="pod">
+          <RequestErrorMsg />
+        </div>
+      );
+    }
+
+    if (isLoadingNode || isLoadingUnit) {
+      return <Loader />;
+    }
+
+    const unitSummary = UnitSummaries[unit.get("id")] || {};
+    const unitDocsURL =
+      unitSummary.getDocumentationURI && unitSummary.getDocumentationURI();
 
     return (
       <Page>
@@ -163,7 +137,15 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
             <UnitHealthNodeDetailBreadcrumbs node={node} unit={unit} />
           }
         />
-        {this.getContent()}
+
+        <UnitsHealthNodeDetailPanel
+          routes={this.props.routes}
+          params={this.props.params}
+          docsURL={unitDocsURL}
+          hostIP={node.get("host_ip")}
+          output={node.getOutput()}
+          summary={unitSummary.summary}
+        />
       </Page>
     );
   }

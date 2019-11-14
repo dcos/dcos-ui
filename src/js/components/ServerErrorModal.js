@@ -76,7 +76,13 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
     );
   }
 
-  getContent() {
+  render() {
+    const header = (
+      <ModalHeading level={5}>
+        <Trans render="span">An error has occurred</Trans>
+      </ModalHeading>
+    );
+
     const { errors } = this.state;
     const lastErrorIndex = errors.length - 1;
     const errorMessages = errors.map((error, index) => {
@@ -91,21 +97,6 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
         </p>
       );
     });
-
-    return (
-      <div className="pod pod-short flush-right flush-left">
-        {errorMessages}
-      </div>
-    );
-  }
-
-  render() {
-    const header = (
-      <ModalHeading level={5}>
-        <Trans render="span">An error has occurred</Trans>
-      </ModalHeading>
-    );
-
     return (
       <Modal
         modalWrapperClass="server-error-modal"
@@ -117,7 +108,9 @@ module.exports = class ServerErrorModal extends mixin(StoreMixin) {
         footer={this.getFooter()}
         header={header}
       >
-        {this.getContent()}
+        <div className="pod pod-short flush-right flush-left">
+          {errorMessages}
+        </div>
       </Modal>
     );
   }
