@@ -154,15 +154,6 @@ describe("TaskDetail", () => {
       expect(mockGetErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("returns loading indicator if there are no nodes", () => {
-      expect(
-        TaskDetail.prototype.getSubView.call({
-          ...mockThis,
-          getLoadingScreen: jest.fn(() => "loading")
-        })
-      ).toEqual("loading");
-    });
-
     it("returns an element if there is a node", () => {
       expect(
         TaskDetail.prototype.getSubView.call({

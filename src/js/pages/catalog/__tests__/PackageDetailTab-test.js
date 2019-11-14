@@ -204,14 +204,6 @@ describe("PackageDetailTab", () => {
       expect(thisInstance.getErrorScreen).not.toHaveBeenCalled();
     });
 
-    it("calls getLoadingScreen when loading", () => {
-      thisInstance.state.isLoading = true;
-      thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
-
-      thisInstance.render();
-      expect(thisInstance.getLoadingScreen).toHaveBeenCalled();
-    });
-
     it("ignores getLoadingScreen when not loading", () => {
       thisInstance.isSelectedVersionLoading = () => false;
       thisInstance.state.isLoading = false;

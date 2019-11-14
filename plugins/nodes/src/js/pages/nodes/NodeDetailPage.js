@@ -105,15 +105,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     }
   }
 
-  getLoadingScreen() {
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
-        <Loader />
-      </Page>
-    );
-  }
-
   getNotFound(nodeID) {
     return (
       <Page>
@@ -184,7 +175,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
 
   render() {
     if (!this.state.summaryStatesProcessed || !this.state.mesosStateLoaded) {
-      return this.getLoadingScreen();
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<NodeBreadcrumbs />} />
+          <Loader />
+        </Page>
+      );
     }
 
     const { node } = this.props;

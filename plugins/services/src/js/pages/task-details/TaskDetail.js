@@ -186,10 +186,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   hasVolumes(service) {
     return !!service && service.getVolumes().getItems().length > 0;
   }
@@ -309,7 +305,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     }
 
     if (!directory || !task) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
     const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
 

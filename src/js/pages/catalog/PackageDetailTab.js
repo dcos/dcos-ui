@@ -261,10 +261,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     );
   }
 
-  getLoadingScreen() {
-    return <Loader />;
-  }
-
   getSubItem(label, value, key) {
     let content = value;
 
@@ -539,7 +535,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
 
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
     if (!cosmosPackage) {
-      return this.getLoadingScreen();
+      return <Loader />;
     }
 
     const name = cosmosPackage.getName();
@@ -665,9 +661,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
                   </div>
                 </div>
               </div>
-              {state.isLoadingSelectedVersion
-                ? this.getLoadingScreen()
-                : this.getPackageDescription(definition, cosmosPackage)}
+              {state.isLoadingSelectedVersion ? (
+                <Loader />
+              ) : (
+                this.getPackageDescription(definition, cosmosPackage)
+              )}
             </div>
             {this.getInstalledSuccessModal(name)}
           </div>

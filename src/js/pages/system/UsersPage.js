@@ -79,15 +79,6 @@ class UsersPage extends mixin(StoreMixin) {
     this.setState({ searchString });
   }
 
-  getLoadingScreen() {
-    return (
-      <Page>
-        <Page.Header breadcrumbs={<UsersBreadcrumbs />} />
-        <Loader />
-      </Page>
-    );
-  }
-
   getContents() {
     // We want to always render the portals (side panel and modal),
     // so only this part is showing loading and error screen.
@@ -96,7 +87,12 @@ class UsersPage extends mixin(StoreMixin) {
     }
 
     if (!this.state.usersStoreSuccess) {
-      return this.getLoadingScreen();
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<UsersBreadcrumbs />} />
+          <Loader />
+        </Page>
+      );
     }
 
     const items = UsersStore.getUsers().getItems();
