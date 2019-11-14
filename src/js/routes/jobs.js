@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 import { IndexRoute, Redirect, Route } from "react-router";
 
 import JobsOverview from "#PLUGINS/jobs/src/js/JobsOverview";

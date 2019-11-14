@@ -1,9 +1,8 @@
 import classNames from "classnames";
 import { Typeahead as InnerTypeahead } from "react-bootstrap-typeahead";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import FilterInputText from "./FilterInputText";
 

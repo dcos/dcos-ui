@@ -1,7 +1,7 @@
 import isEqual from "lodash.isequal";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import { shallow } from "enzyme";
 
 const NodesGridDials = require("../NodesGridDials");

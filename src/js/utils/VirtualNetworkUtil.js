@@ -1,7 +1,6 @@
 import { Link } from "react-router";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import AlertPanel from "../components/AlertPanel";
 import AlertPanelHeader from "../components/AlertPanelHeader";

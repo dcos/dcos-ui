@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Util from "#SRC/js/utils/Util";
 import TaskUtil from "#PLUGINS/services/src/js/utils/TaskUtil";
