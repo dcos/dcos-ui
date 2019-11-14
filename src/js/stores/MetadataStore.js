@@ -38,7 +38,7 @@ class MetadataStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       var source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;

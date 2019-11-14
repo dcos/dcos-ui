@@ -26,7 +26,7 @@ class LanguageModalStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       var source = payload.source;
       if (source !== LANGUAGE_MODAL_ACTION) {
         return false;

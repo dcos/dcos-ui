@@ -42,7 +42,7 @@ class SidebarStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       var source = payload.source;
       if (source !== SIDEBAR_ACTION) {
         return false;

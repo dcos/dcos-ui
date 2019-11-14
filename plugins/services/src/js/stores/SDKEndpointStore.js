@@ -29,7 +29,7 @@ class SDKEndpointStore extends GetSetBaseStore {
       listenAlways: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
         return false;
       }

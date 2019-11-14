@@ -37,7 +37,7 @@ class VirtualNetworksStore extends BaseStore {
     });
 
     // Handle app actions
-    this.dispatcherIndex = AppDispatcher.register(({ source, action }) => {
+    AppDispatcher.register(({ source, action }) => {
       if (source !== SERVER_ACTION) {
         return false;
       }
