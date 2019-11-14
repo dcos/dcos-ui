@@ -110,7 +110,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
       listenAlways: false
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;

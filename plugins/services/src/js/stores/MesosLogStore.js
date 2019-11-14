@@ -48,7 +48,7 @@ class MesosLogStore extends BaseStore {
       suppressUpdate: true
     });
 
-    this.dispatcherIndex = AppDispatcher.register(payload => {
+    AppDispatcher.register(payload => {
       const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
