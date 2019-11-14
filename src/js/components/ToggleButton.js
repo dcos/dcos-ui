@@ -2,32 +2,24 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import React from "react";
 
-class ToggleButton extends React.Component {
-  render() {
-    const {
-      checkboxClassName,
-      checked,
-      children,
-      className,
-      onChange
-    } = this.props;
+const ToggleButton = props => {
+  const { checkboxClassName, checked, children, className, onChange } = props;
 
-    const textClassName = { muted: !checked };
+  const textClassName = { muted: !checked };
 
-    return (
-      <label className={classNames(className)}>
-        <input
-          className={classNames(checkboxClassName)}
-          checked={checked}
-          name="checkbox"
-          onChange={onChange}
-          type="checkbox"
-        />
-        <span className={classNames(textClassName)}>{children}</span>
-      </label>
-    );
-  }
-}
+  return (
+    <label className={classNames(className)}>
+      <input
+        className={classNames(checkboxClassName)}
+        checked={checked}
+        name="checkbox"
+        onChange={onChange}
+        type="checkbox"
+      />
+      <span className={classNames(textClassName)}>{children}</span>
+    </label>
+  );
+};
 
 ToggleButton.defaultProps = {
   checked: false,

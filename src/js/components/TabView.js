@@ -2,13 +2,11 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import React from "react";
 
-class TabView extends React.Component {
-  render() {
-    const classes = classNames("menu-tabbed-view", this.props.className);
+const TabView = ({ className, children }) => {
+  const classes = classNames("menu-tabbed-view", className);
 
-    return <div className={classes}>{this.props.children}</div>;
-  }
-}
+  return <div className={classes}>{children}</div>;
+};
 
 TabView.propTypes = {
   children: PropTypes.node,

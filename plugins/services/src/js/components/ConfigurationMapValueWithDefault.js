@@ -5,21 +5,16 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-/**
- * Render a defaultValue value if the value is empty or falsy.
- */
-class ConfigurationMapValueWithDefault extends React.Component {
-  render() {
-    const { defaultValue, value } = this.props;
+const ConfigurationMapValueWithDefault = props => {
+  const { defaultValue, value } = props;
 
-    // Bail early with default if empty
-    if (ValidatorUtil.isEmpty(value)) {
-      return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
-    }
-
-    return <ConfigurationMapValue>{value}</ConfigurationMapValue>;
+  // Bail early with default if empty
+  if (ValidatorUtil.isEmpty(value)) {
+    return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
   }
-}
+
+  return <ConfigurationMapValue>{value}</ConfigurationMapValue>;
+};
 
 ConfigurationMapValueWithDefault.defaultProps = {
   value: undefined,

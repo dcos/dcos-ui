@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { hashHistory } from "react-router";
 
 import EditFrameworkConfiguration from "#PLUGINS/services/src/js/pages/EditFrameworkConfiguration";
@@ -8,38 +8,36 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
 
-class EditServiceModal extends Component {
-  render() {
-    const { id = "/" } = this.props.params;
-    const serviceID = decodeURIComponent(id);
-    const serviceLoaded = DCOSStore.serviceDataReceived;
-    const service = DCOSStore.serviceTree.findItemById(serviceID);
+const EditServiceModal = props => {
+  const { id = "/" } = props.params;
+  const serviceID = decodeURIComponent(id);
+  const serviceLoaded = DCOSStore.serviceDataReceived;
+  const service = DCOSStore.serviceTree.findItemById(serviceID);
 
-    // Loading, showing an empty modal instead
-    if (!serviceLoaded) {
-      return <FullScreenModal open={true} />;
-    }
-
-    // Service not found
-    if (!service) {
-      hashHistory.push("/services/404");
-
-      return null;
-    }
-
-    if (
-      service.getLabels().DCOS_PACKAGE_DEFINITION != null ||
-      service.getLabels().DCOS_PACKAGE_METADATA != null
-    ) {
-      return <EditFrameworkConfiguration {...this.props} />;
-    }
-
-    if (service instanceof ServiceTree) {
-      return <ServiceRootGroupModal id={id} {...this.props} />;
-    }
-
-    return <CreateServiceModal {...this.props} />;
+  // Loading, showing an empty modal instead
+  if (!serviceLoaded) {
+    return <FullScreenModal open={true} />;
   }
-}
+
+  // Service not found
+  if (!service) {
+    hashHistory.push("/services/404");
+
+    return null;
+  }
+
+  if (
+    service.getLabels().DCOS_PACKAGE_DEFINITION != null ||
+    service.getLabels().DCOS_PACKAGE_METADATA != null
+  ) {
+    return <EditFrameworkConfiguration {...props} />;
+  }
+
+  if (service instanceof ServiceTree) {
+    return <ServiceRootGroupModal id={id} {...props} />;
+  }
+
+  return <CreateServiceModal {...props} />;
+};
 
 export default EditServiceModal;

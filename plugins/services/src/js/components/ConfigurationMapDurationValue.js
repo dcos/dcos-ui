@@ -14,44 +14,38 @@ const MULTIPLICANTS = {
   d: 86400000
 };
 
-/**
- * Render a JSON object as a <ConfigurationMapValue>, within the
- * appropriate formatting.
- */
-class ConfigurationMapDurationValue extends React.Component {
-  render() {
-    const { defaultValue, multiplicants, units, value } = this.props;
+const ConfigurationMapDurationValue = props => {
+  const { defaultValue, multiplicants, units, value } = props;
 
-    // Bail early with default if empty
-    if (ValidatorUtil.isEmpty(value)) {
-      return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
-    }
+  // Bail early with default if empty
+  if (ValidatorUtil.isEmpty(value)) {
+    return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
+  }
 
-    // Compose value multiplicants
-    const valueInMs = value * multiplicants[units];
-    const components = DateUtil.msToMultiplicants(valueInMs, multiplicants);
+  // Compose value multiplicants
+  const valueInMs = value * multiplicants[units];
+  const components = DateUtil.msToMultiplicants(valueInMs, multiplicants);
 
-    const hasNoComponents = components.length === 0;
-    const hasOnlyUnitComponent =
-      components.length === 1 && components[0].split(" ")[1] === units;
+  const hasNoComponents = components.length === 0;
+  const hasOnlyUnitComponent =
+    components.length === 1 && components[0].split(" ")[1] === units;
 
-    // Check if components are redundant
-    if (hasNoComponents || hasOnlyUnitComponent) {
-      return (
-        <ConfigurationMapValue>
-          {value} {units}
-        </ConfigurationMapValue>
-      );
-    }
-
-    // Otherwise show the value and it's components
+  // Check if components are redundant
+  if (hasNoComponents || hasOnlyUnitComponent) {
     return (
       <ConfigurationMapValue>
-        {value} {units} ({components.join(", ")})
+        {value} {units}
       </ConfigurationMapValue>
     );
   }
-}
+
+  // Otherwise show the value and it's components
+  return (
+    <ConfigurationMapValue>
+      {value} {units} ({components.join(", ")})
+    </ConfigurationMapValue>
+  );
+};
 
 ConfigurationMapDurationValue.defaultProps = {
   defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,

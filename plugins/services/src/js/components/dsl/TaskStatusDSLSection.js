@@ -18,68 +18,66 @@ const EXPRESSION_PARTS = {
   is_killed: DSLExpressionPart.attribute("is", "killed")
 };
 
-class TasksStatusDSLSection extends React.Component {
-  render() {
-    const { expression, onChange } = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
-    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
+const TasksStatusDSLSection = props => {
+  const { expression, onChange } = props;
+  const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+  const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
-    return (
-      <DSLFormWithExpressionUpdates
-        enabled={enabled}
-        expression={expression}
-        groupCombiner={DSLCombinerTypes.AND}
-        itemCombiner={DSLCombinerTypes.OR}
-        onChange={onChange}
-        parts={EXPRESSION_PARTS}
-      >
-        <Trans render="label">Status</Trans>
-        <div className="row">
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_active}
-                  disabled={!enabled}
-                  name="is_active"
-                  type="checkbox"
-                />
-                <Trans render="span">Active</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_completed}
-                  disabled={!enabled}
-                  name="is_completed"
-                  type="checkbox"
-                />
-                <Trans render="span">Completed</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_failed}
-                  disabled={!enabled}
-                  name="is_failed"
-                  type="checkbox"
-                />
-                <Trans render="span">Failed</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_killed}
-                  disabled={!enabled}
-                  name="is_killed"
-                  type="checkbox"
-                />
-                <Trans render="span">Killed</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
+  return (
+    <DSLFormWithExpressionUpdates
+      enabled={enabled}
+      expression={expression}
+      groupCombiner={DSLCombinerTypes.AND}
+      itemCombiner={DSLCombinerTypes.OR}
+      onChange={onChange}
+      parts={EXPRESSION_PARTS}
+    >
+      <Trans render="label">Status</Trans>
+      <div className="row">
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_active}
+                disabled={!enabled}
+                name="is_active"
+                type="checkbox"
+              />
+              <Trans render="span">Active</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_completed}
+                disabled={!enabled}
+                name="is_completed"
+                type="checkbox"
+              />
+              <Trans render="span">Completed</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_failed}
+                disabled={!enabled}
+                name="is_failed"
+                type="checkbox"
+              />
+              <Trans render="span">Failed</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_killed}
+                disabled={!enabled}
+                name="is_killed"
+                type="checkbox"
+              />
+              <Trans render="span">Killed</Trans>
+            </FieldLabel>
+          </FormGroup>
         </div>
-      </DSLFormWithExpressionUpdates>
-    );
-  }
-}
+      </div>
+    </DSLFormWithExpressionUpdates>
+  );
+};
 
 TasksStatusDSLSection.defaultProps = {
   expression: new DSLExpression(""),

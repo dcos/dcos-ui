@@ -53,105 +53,76 @@ function defaultRenderFunction(prop, row) {
   return <span>{value.toString()}</span>;
 }
 
-/**
- * This stateless table component provides some additional functionality
- * to the underlaying <Table /> component, trying to be as least intrusive
- * as possible.
- *
- * @example <caption>Example of ConfigurationMapTable</caption>
- * <ConfigurationMapTable
- *   className='table table-flush table-borderless-outer table-borderless-inner-columns table-break-word flush-bottom'
- *   columnDefaults={{
- *      hideIfEmpty: true,
- *      className: 'configuration-map-table-value'
- *   }}
- *   columns={[
- *      {
- *        heading: 'Heading 1',
- *        prop: 'prop1',
- *      },
- *      {
- *        heading: 'Heading 2',
- *        prop: 'prop2',
- *      }
- *   ]}
- *   data={tableData} />
- *
- * @param {Object} props - The component properties
- * @returns {Node} Returns the rendered table component
- */
-class ConfigurationMapTable extends React.Component {
-  render() {
-    let {
-      columns = [],
-      columnDefaults = {},
-      data = [],
-      onEditClick,
-      tabViewID
-    } = this.props;
+const ConfigurationMapTable = props => {
+  let {
+    columns = [],
+    columnDefaults = {},
+    data = [],
+    onEditClick,
+    tabViewID
+  } = props;
 
-    columns = columns
-      .map(column => {
-        column = Object.assign({}, columnDefaults, column);
-        const {
-          className = "",
-          heading,
-          hideIfEmpty = false,
-          placeholder = <em>{EmptyStates.CONFIG_VALUE}</em>,
-          prop,
-          render = defaultRenderFunction
-        } = column;
+  columns = columns
+    .map(column => {
+      column = Object.assign({}, columnDefaults, column);
+      const {
+        className = "",
+        heading,
+        hideIfEmpty = false,
+        placeholder = <em>{EmptyStates.CONFIG_VALUE}</em>,
+        prop,
+        render = defaultRenderFunction
+      } = column;
 
-        // Always use functions in order to display the sorting assets
-        if (typeof className !== "function") {
-          column.className = ServiceConfigDisplayUtil.getColumnClassNameFn(
-            className
-          );
-        }
-        if (typeof heading !== "function") {
-          column.heading = ServiceConfigDisplayUtil.getColumnHeadingFn(heading);
-        }
+      // Always use functions in order to display the sorting assets
+      if (typeof className !== "function") {
+        column.className = ServiceConfigDisplayUtil.getColumnClassNameFn(
+          className
+        );
+      }
+      if (typeof heading !== "function") {
+        column.heading = ServiceConfigDisplayUtil.getColumnHeadingFn(heading);
+      }
 
-        // Don't include columns that have an `hideIfEmpty` flag and are empty
-        if (hideIfEmpty && isColumnEmpty(data, prop)) {
-          return null;
-        }
+      // Don't include columns that have an `hideIfEmpty` flag and are empty
+      if (hideIfEmpty && isColumnEmpty(data, prop)) {
+        return null;
+      }
 
-        // Compile render function
-        column.render = columnRenderFunction.bind({ placeholder, render });
+      // Compile render function
+      column.render = columnRenderFunction.bind({ placeholder, render });
 
-        return column;
-      })
-      .filter(column => column !== null);
+      return column;
+    })
+    .filter(column => column !== null);
 
-    if (onEditClick) {
-      columns.push({
-        heading() {
-          return null;
-        },
-        className: "configuration-map-action",
-        prop: "edit",
-        render() {
-          return (
-            <a
-              className="button button-link flush table-display-on-row-hover"
-              onClick={onEditClick.bind(null, { tabViewID })}
-            >
-              <Trans render="span">Edit</Trans>
-            </a>
-          );
-        }
-      });
-    }
-
-    return (
-      <Table
-        className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
-        {...Object.assign({}, this.props, { columns })}
-      />
-    );
+  if (onEditClick) {
+    columns.push({
+      heading() {
+        return null;
+      },
+      className: "configuration-map-action",
+      prop: "edit",
+      render() {
+        return (
+          <a
+            className="button button-link flush table-display-on-row-hover"
+            onClick={onEditClick.bind(null, { tabViewID })}
+          >
+            <Trans render="span">Edit</Trans>
+          </a>
+        );
+      }
+    });
   }
-}
+
+  return (
+    <Table
+      className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
+      {...Object.assign({}, props, { columns })}
+    />
+  );
+};
 
 ConfigurationMapTable.propTypes = {
   onEditClick: PropTypes.func,

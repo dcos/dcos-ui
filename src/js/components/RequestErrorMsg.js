@@ -21,30 +21,28 @@ function getDefaultMessage() {
   );
 }
 
-class RequestErrorMsg extends React.Component {
-  render() {
-    let { columnClasses, header, message } = this.props;
+const RequestErrorMsg = props => {
+  let { columnClasses, header, message } = props;
 
-    columnClasses = classNames(
-      "column-small-8 column-small-offset-2",
-      "column-medium-6 column-medium-offset-3",
-      columnClasses
-    );
+  columnClasses = classNames(
+    "column-small-8 column-small-offset-2",
+    "column-medium-6 column-medium-offset-3",
+    columnClasses
+  );
 
-    return (
-      <div className="row">
-        <div className={columnClasses}>
-          <Trans
-            render="h3"
-            className="text-align-center flush-top"
-            id={header}
-          />
-          {message}
-        </div>
+  return (
+    <div className="row">
+      <div className={columnClasses}>
+        <Trans
+          render="h3"
+          className="text-align-center flush-top"
+          id={header}
+        />
+        {message}
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 RequestErrorMsg.defaultProps = {
   columnClasses: {},

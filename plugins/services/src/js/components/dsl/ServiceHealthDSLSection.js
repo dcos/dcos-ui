@@ -17,63 +17,61 @@ const EXPRESSION_PARTS = {
   no_healthchecks: DSLExpressionPart.attribute("no", "healthchecks")
 };
 
-class ServiceHealthDSLSection extends React.Component {
-  render() {
-    const { expression, onChange } = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
-    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
+const ServiceHealthDSLSection = props => {
+  const { expression, onChange } = props;
+  const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+  const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
-    return (
-      <DSLFormWithExpressionUpdates
-        enabled={enabled}
-        expression={expression}
-        groupCombiner={DSLCombinerTypes.AND}
-        itemCombiner={DSLCombinerTypes.OR}
-        onChange={onChange}
-        parts={EXPRESSION_PARTS}
-      >
-        <Trans render="label">Health</Trans>
-        <div className="row">
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_healthy}
-                  disabled={!enabled}
-                  name="is_healthy"
-                  type="checkbox"
-                />
-                <Trans render="span">Healthy</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.no_healthchecks}
-                  disabled={!enabled}
-                  name="no_healthchecks"
-                  type="checkbox"
-                />
-                <Trans render="span">N/A</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_unhealthy}
-                  disabled={!enabled}
-                  name="is_unhealthy"
-                  type="checkbox"
-                />
-                <Trans render="span">Unhealthy</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
+  return (
+    <DSLFormWithExpressionUpdates
+      enabled={enabled}
+      expression={expression}
+      groupCombiner={DSLCombinerTypes.AND}
+      itemCombiner={DSLCombinerTypes.OR}
+      onChange={onChange}
+      parts={EXPRESSION_PARTS}
+    >
+      <Trans render="label">Health</Trans>
+      <div className="row">
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_healthy}
+                disabled={!enabled}
+                name="is_healthy"
+                type="checkbox"
+              />
+              <Trans render="span">Healthy</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.no_healthchecks}
+                disabled={!enabled}
+                name="no_healthchecks"
+                type="checkbox"
+              />
+              <Trans render="span">N/A</Trans>
+            </FieldLabel>
+          </FormGroup>
         </div>
-      </DSLFormWithExpressionUpdates>
-    );
-  }
-}
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_unhealthy}
+                disabled={!enabled}
+                name="is_unhealthy"
+                type="checkbox"
+              />
+              <Trans render="span">Unhealthy</Trans>
+            </FieldLabel>
+          </FormGroup>
+        </div>
+      </div>
+    </DSLFormWithExpressionUpdates>
+  );
+};
 
 ServiceHealthDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,

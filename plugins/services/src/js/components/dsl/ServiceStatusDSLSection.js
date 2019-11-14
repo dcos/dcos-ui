@@ -19,81 +19,79 @@ const EXPRESSION_PARTS = {
   is_stopped: DSLExpressionPart.attribute("is", "stopped")
 };
 
-class ServiceStatusDSLSection extends React.Component {
-  render() {
-    const { expression, onChange } = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
-    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
+const ServiceStatusDSLSection = props => {
+  const { expression, onChange } = props;
+  const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+  const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
-    return (
-      <DSLFormWithExpressionUpdates
-        enabled={enabled}
-        expression={expression}
-        groupCombiner={DSLCombinerTypes.AND}
-        itemCombiner={DSLCombinerTypes.OR}
-        onChange={onChange}
-        parts={EXPRESSION_PARTS}
-      >
-        <Trans render="label">Status</Trans>
-        <div className="row">
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_running}
-                  disabled={!enabled}
-                  name="is_running"
-                  type="checkbox"
-                />
-                <Trans render="span">Running</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_deploying}
-                  disabled={!enabled}
-                  name="is_deploying"
-                  type="checkbox"
-                />
-                <Trans render="span">Deploying</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_recovering}
-                  disabled={!enabled}
-                  name="is_recovering"
-                  type="checkbox"
-                />
-                <Trans render="span">Recovering</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_stopped}
-                  disabled={!enabled}
-                  name="is_stopped"
-                  type="checkbox"
-                />
-                <Trans render="span">Stopped</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_deleting}
-                  disabled={!enabled}
-                  name="is_deleting"
-                  type="checkbox"
-                />
-                <Trans render="span">Deleting</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
+  return (
+    <DSLFormWithExpressionUpdates
+      enabled={enabled}
+      expression={expression}
+      groupCombiner={DSLCombinerTypes.AND}
+      itemCombiner={DSLCombinerTypes.OR}
+      onChange={onChange}
+      parts={EXPRESSION_PARTS}
+    >
+      <Trans render="label">Status</Trans>
+      <div className="row">
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_running}
+                disabled={!enabled}
+                name="is_running"
+                type="checkbox"
+              />
+              <Trans render="span">Running</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_deploying}
+                disabled={!enabled}
+                name="is_deploying"
+                type="checkbox"
+              />
+              <Trans render="span">Deploying</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_recovering}
+                disabled={!enabled}
+                name="is_recovering"
+                type="checkbox"
+              />
+              <Trans render="span">Recovering</Trans>
+            </FieldLabel>
+          </FormGroup>
         </div>
-      </DSLFormWithExpressionUpdates>
-    );
-  }
-}
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_stopped}
+                disabled={!enabled}
+                name="is_stopped"
+                type="checkbox"
+              />
+              <Trans render="span">Stopped</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_deleting}
+                disabled={!enabled}
+                name="is_deleting"
+                type="checkbox"
+              />
+              <Trans render="span">Deleting</Trans>
+            </FieldLabel>
+          </FormGroup>
+        </div>
+      </div>
+    </DSLFormWithExpressionUpdates>
+  );
+};
 
 ServiceStatusDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,

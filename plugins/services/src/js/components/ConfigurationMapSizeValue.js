@@ -6,37 +6,28 @@ import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import Units from "#SRC/js/utils/Units";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-/**
- * Render a size value as a <ConfigurationMapValue>, with it's values being
- * appended a Mebibyte suffix.
- *
- * Practically, this is a component wrapper around the Units.filesize function,
- * and you can file-tune it through it's properties.
- */
-class ConfigurationMapSizeValue extends React.Component {
-  render() {
-    const {
-      decimals,
-      defaultValue,
-      multiplier,
-      scale,
-      threshold,
-      units,
-      value
-    } = this.props;
+const ConfigurationMapSizeValue = props => {
+  const {
+    decimals,
+    defaultValue,
+    multiplier,
+    scale,
+    threshold,
+    units,
+    value
+  } = props;
 
-    // Bail early with default if empty
-    if (ValidatorUtil.isEmpty(value)) {
-      return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
-    }
-
-    return (
-      <ConfigurationMapValue>
-        {Units.filesize(value * scale, decimals, threshold, multiplier, units)}
-      </ConfigurationMapValue>
-    );
+  // Bail early with default if empty
+  if (ValidatorUtil.isEmpty(value)) {
+    return <ConfigurationMapValue>{defaultValue}</ConfigurationMapValue>;
   }
-}
+
+  return (
+    <ConfigurationMapValue>
+      {Units.filesize(value * scale, decimals, threshold, multiplier, units)}
+    </ConfigurationMapValue>
+  );
+};
 
 ConfigurationMapSizeValue.defaultProps = {
   decimals: 2,
