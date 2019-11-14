@@ -9,8 +9,6 @@ import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/des
 // @ts-ignore
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 // @ts-ignore
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
-// @ts-ignore
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
