@@ -162,7 +162,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     return data.filter({ ip: searchString, health: healthFilter }).getItems();
   }
 
-  getContent() {
+  render() {
     const {
       healthFilter,
       searchString,
@@ -184,47 +184,41 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
     const visibleData = this.getVisibleData(nodes, searchString, healthFilter);
 
     return (
-      <div className="flex-container-col">
-        {/* L10NTODO: Pluralize
-        We should pluralize FilterHeadline name here using lingui macro instead of
-        doing it manually in FilterHeadline */}
-        <FilterHeadline
-          currentLength={visibleData.length}
-          isFiltering={healthFilter !== "all" || searchString !== ""}
-          name={i18n._(t`Health Check`)}
-          onReset={this.resetFilter}
-          totalLength={nodes.getItems().length}
-        />
-        <FilterBar>
-          <div className="form-group flush-bottom">
-            <FilterInputText
-              className="flush-bottom"
-              searchString={searchString}
-              handleFilterChange={this.handleSearchStringChange}
-            />
-          </div>
-          <UnitHealthDropdown
-            className="button dropdown-toggle text-align-left"
-            dropdownMenuClassName="dropdown-menu"
-            initialID="all"
-            onHealthSelection={this.handleHealthSelection}
-            ref={ref => (this.healthFilter = ref)}
-          />
-        </FilterBar>
-        <div className="flex-container-col flex-grow no-overflow">
-          {this.getNodesTable(this.getUnit(), visibleData)}
-        </div>
-      </div>
-    );
-  }
-
-  render() {
-    return (
       <Page>
         <Page.Header
           breadcrumbs={<UnitHealthDetailBreadcrumbs unit={this.getUnit()} />}
         />
-        {this.getContent()}
+        <div className="flex-container-col">
+          {/* L10NTODO: Pluralize
+        We should pluralize FilterHeadline name here using lingui macro instead of
+        doing it manually in FilterHeadline */}
+          <FilterHeadline
+            currentLength={visibleData.length}
+            isFiltering={healthFilter !== "all" || searchString !== ""}
+            name={i18n._(t`Health Check`)}
+            onReset={this.resetFilter}
+            totalLength={nodes.getItems().length}
+          />
+          <FilterBar>
+            <div className="form-group flush-bottom">
+              <FilterInputText
+                className="flush-bottom"
+                searchString={searchString}
+                handleFilterChange={this.handleSearchStringChange}
+              />
+            </div>
+            <UnitHealthDropdown
+              className="button dropdown-toggle text-align-left"
+              dropdownMenuClassName="dropdown-menu"
+              initialID="all"
+              onHealthSelection={this.handleHealthSelection}
+              ref={ref => (this.healthFilter = ref)}
+            />
+          </FilterBar>
+          <div className="flex-container-col flex-grow no-overflow">
+            {this.getNodesTable(this.getUnit(), visibleData)}
+          </div>
+        </div>
       </Page>
     );
   }

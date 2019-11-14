@@ -20,12 +20,6 @@ var VersionsModal = createReactClass({
     this.props.onClose();
   },
 
-  getContent() {
-    var string = JSON.stringify(this.props.versionDump, null, 2);
-
-    return <pre className="flush-bottom">{string}</pre>;
-  },
-
   render() {
     const header = (
       <ModalHeading>
@@ -33,6 +27,7 @@ var VersionsModal = createReactClass({
       </ModalHeading>
     );
 
+    var string = JSON.stringify(this.props.versionDump, null, 2);
     return (
       <Modal
         onClose={this.onClose}
@@ -41,7 +36,9 @@ var VersionsModal = createReactClass({
         header={header}
         size="large"
       >
-        <ClickToSelect>{this.getContent()}</ClickToSelect>
+        <ClickToSelect>
+          <pre className="flush-bottom">{string}</pre>
+        </ClickToSelect>
       </Modal>
     );
   }

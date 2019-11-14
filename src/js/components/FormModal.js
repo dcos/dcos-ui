@@ -112,26 +112,6 @@ class FormModal extends React.Component {
     return "form flush-bottom";
   }
 
-  getContent() {
-    return (
-      <div
-        ref={this.formWrapperRef}
-        className={classNames(this.props.contentClasses)}
-      >
-        {this.props.children}
-        <Form
-          className={this.getClassName(!!this.props.contentFooter)}
-          definition={this.props.definition}
-          triggerSubmit={this.getTriggerSubmit}
-          onSubmit={this.props.onSubmit}
-          onChange={this.props.onChange}
-          onError={this.handleError}
-        />
-        {this.props.contentFooter}
-      </div>
-    );
-  }
-
   render() {
     return (
       <Modal
@@ -144,7 +124,21 @@ class FormModal extends React.Component {
         footer={this.getFooter()}
         {...this.props.modalProps}
       >
-        {this.getContent()}
+        <div
+          ref={this.formWrapperRef}
+          className={classNames(this.props.contentClasses)}
+        >
+          {this.props.children}
+          <Form
+            className={this.getClassName(!!this.props.contentFooter)}
+            definition={this.props.definition}
+            triggerSubmit={this.getTriggerSubmit}
+            onSubmit={this.props.onSubmit}
+            onChange={this.props.onChange}
+            onError={this.handleError}
+          />
+          {this.props.contentFooter}
+        </div>
       </Modal>
     );
   }
