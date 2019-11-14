@@ -10,6 +10,6 @@ source "${SCRIPT_PATH}/utils/marathon"
 # Install Marathon RAML before hooks so RAML isn't skipped in CI if
 # git hooks fail to install
 install_marathon_raml "$MARATHON_VERSION" && \
-  install_hooks "pre-commit post-rewrite post-commit post-checkout"
+  install_hooks "pre-commit post-commit post-checkout"
 
 exit 0
