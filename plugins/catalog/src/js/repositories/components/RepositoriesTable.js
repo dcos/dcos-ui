@@ -1,9 +1,8 @@
 import classNames from "classnames";
 import { Table } from "reactjs-components";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import CollapsingString from "#SRC/js/components/CollapsingString";
 

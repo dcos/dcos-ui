@@ -1,10 +1,5 @@
 import Item from "#SRC/js/structs/Item";
-
 import { WrappedComponent } from "../DeploymentsModal";
-
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
 
 const Deployment = require("../../structs/Deployment");
 const Application = require("../../structs/Application");

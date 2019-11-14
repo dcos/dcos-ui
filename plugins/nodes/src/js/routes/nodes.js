@@ -1,8 +1,5 @@
 import { i18nMark } from "@lingui/react";
 import { IndexRoute, Route, Redirect } from "react-router";
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 
 import NodeDetailHealthTab from "../pages/nodes/NodeDetailHealthTab";
 import NodeDetailPage from "../pages/nodes/NodeDetailPage";

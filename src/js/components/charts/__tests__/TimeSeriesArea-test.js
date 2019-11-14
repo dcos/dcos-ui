@@ -1,7 +1,7 @@
 import d3 from "d3";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import { mount } from "enzyme";
 
 const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");

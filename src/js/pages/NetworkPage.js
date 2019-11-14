@@ -2,9 +2,9 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import { Hooks } from "PluginSDK";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";

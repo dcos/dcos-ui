@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 import { Route, IndexRoute } from "react-router";
 import { i18nMark } from "@lingui/react";
 
