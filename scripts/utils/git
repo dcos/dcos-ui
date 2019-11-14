@@ -6,7 +6,7 @@ SCRIPT_PATH="$(dirname "$0")/$(dirname "$(readlink "$0")")"
 source "${SCRIPT_PATH}/utils/message"
 
 # Install/link GIT hooks
-# Example: install_hooks "pre-commit post-rewrite"
+# Example: install_hooks "pre-commit"
 install_hooks() {
   # Check if .git/hooks directory exists
   if [ ! -d ".git/hooks" ]
