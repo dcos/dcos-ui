@@ -3,32 +3,23 @@ import React from "react";
 
 import DSLExpression from "../structs/DSLExpression";
 
-/**
- * This component wraps one or more DSLOptionSection components and
- * handles the transparent mutation of the expression based on user actions.
- */
-class DSLForm extends React.Component {
-  /**
-   * @override
-   */
-  render() {
-    const { expression, onApply, onChange, sections, defaultData } = this.props;
+const DSLForm = props => {
+  const { expression, onApply, onChange, sections, defaultData } = props;
 
-    // Render each group component wrapped with a dedicated form that receives
-    // the updates targeting each dedicated component.
-    const components = sections.map((SectionComponent, key) => (
-      <SectionComponent
-        expression={expression}
-        key={key}
-        onApply={onApply}
-        onChange={onChange}
-        defaultData={defaultData}
-      />
-    ));
+  // Render each group component wrapped with a dedicated form that receives
+  // the updates targeting each dedicated component.
+  const components = sections.map((SectionComponent, key) => (
+    <SectionComponent
+      expression={expression}
+      key={key}
+      onApply={onApply}
+      onChange={onChange}
+      defaultData={defaultData}
+    />
+  ));
 
-    return <div>{components}</div>;
-  }
-}
+  return <div>{components}</div>;
+};
 
 DSLForm.defaultProps = {
   onApply() {},

@@ -74,65 +74,63 @@ const NetworksDetailTaskBreadcrumbs = ({
   );
 };
 
-class VirtualNetworkTaskPage extends React.Component {
-  render() {
-    const { location, params, routes } = this.props;
-    const { overlayName, taskID } = params;
+const VirtualNetworkTaskPage = props => {
+  const { location, params, routes } = props;
+  const { overlayName, taskID } = params;
 
-    const routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
-    const tabs = [
-      {
-        label: i18nMark("Details"),
-        routePath: routePrefix + "/details"
-      },
-      {
-        label: i18nMark("Files"),
-        routePath: routePrefix + "/files"
-      },
-      {
-        label: i18nMark("Logs"),
-        routePath: routePrefix + "/logs"
-      }
-    ];
-
-    const task = MesosStateStore.getTaskFromTaskID(taskID);
-
-    const overlay = VirtualNetworksStore.getOverlays().findItem(
-      overlay => overlay.getName() === overlayName
-    );
-
-    let breadcrumbs;
-    if (task != null) {
-      breadcrumbs = (
-        <NetworksDetailTaskBreadcrumbs
-          overlayID={overlayName}
-          overlay={overlay}
-          taskID={taskID}
-          taskName={task.getName()}
-        />
-      );
-    } else {
-      breadcrumbs = <NetworksDetailTaskBreadcrumbs />;
+  const routePrefix = `/networking/networks/${overlayName}/tasks/${taskID}`;
+  const tabs = [
+    {
+      label: i18nMark("Details"),
+      routePath: routePrefix + "/details"
+    },
+    {
+      label: i18nMark("Files"),
+      routePath: routePrefix + "/files"
+    },
+    {
+      label: i18nMark("Logs"),
+      routePath: routePrefix + "/logs"
     }
+  ];
 
-    const dontScroll = dontScrollRoutes.some(regex =>
-      regex.test(location.pathname)
-    );
+  const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-    return (
-      <Page dontScroll={dontScroll}>
-        <Page.Header
-          breadcrumbs={breadcrumbs}
-          tabs={tabs}
-          iconID={ProductIcons.Network}
-        />
-        <TaskDetail params={params} routes={routes}>
-          {this.props.children}
-        </TaskDetail>
-      </Page>
+  const overlay = VirtualNetworksStore.getOverlays().findItem(
+    overlay => overlay.getName() === overlayName
+  );
+
+  let breadcrumbs;
+  if (task != null) {
+    breadcrumbs = (
+      <NetworksDetailTaskBreadcrumbs
+        overlayID={overlayName}
+        overlay={overlay}
+        taskID={taskID}
+        taskName={task.getName()}
+      />
     );
+  } else {
+    breadcrumbs = <NetworksDetailTaskBreadcrumbs />;
   }
-}
+
+  const dontScroll = dontScrollRoutes.some(regex =>
+    regex.test(location.pathname)
+  );
+
+  return (
+    <Page dontScroll={dontScroll}>
+      <Page.Header
+        breadcrumbs={breadcrumbs}
+        tabs={tabs}
+        iconID={ProductIcons.Network}
+      />
+      <TaskDetail params={params} routes={routes}>
+        {props.children}
+      </TaskDetail>
+    </Page>
+  );
+};
 
 VirtualNetworkTaskPage.propTypes = {
   params: PropTypes.object,

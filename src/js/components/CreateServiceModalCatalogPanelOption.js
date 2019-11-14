@@ -7,26 +7,24 @@ import CreateServiceModalServicePickerOption from "./CreateServiceModalServicePi
 import CreateServiceModalServicePickerOptionContent from "./CreateServiceModalServicePickerOptionContent";
 import CreateServiceModalServicePickerOptionImage from "./CreateServiceModalServicePickerOptionImage";
 
-class CreateServicePickerCatalogOption extends React.Component {
-  render() {
-    const { columnClasses, onOptionSelect } = this.props;
+const CreateServicePickerCatalogOption = props => {
+  const { columnClasses, onOptionSelect } = props;
 
-    return (
-      <CreateServiceModalServicePickerOption
-        columnClasses={columnClasses}
-        onOptionSelect={onOptionSelect.bind(null, {
-          route: "/catalog",
-          type: "redirect"
-        })}
-      >
-        <CreateServiceModalServicePickerOptionImage src={packageServiceImage} />
-        <CreateServiceModalServicePickerOptionContent>
-          <Trans render="span">Install a Package</Trans>
-        </CreateServiceModalServicePickerOptionContent>
-      </CreateServiceModalServicePickerOption>
-    );
-  }
-}
+  return (
+    <CreateServiceModalServicePickerOption
+      columnClasses={columnClasses}
+      onOptionSelect={onOptionSelect.bind(null, {
+        route: "/catalog",
+        type: "redirect"
+      })}
+    >
+      <CreateServiceModalServicePickerOptionImage src={packageServiceImage} />
+      <CreateServiceModalServicePickerOptionContent>
+        <Trans render="span">Install a Package</Trans>
+      </CreateServiceModalServicePickerOptionContent>
+    </CreateServiceModalServicePickerOption>
+  );
+};
 
 CreateServicePickerCatalogOption.propTypes = {
   columnClasses: PropTypes.string,

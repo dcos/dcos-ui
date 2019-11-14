@@ -9,59 +9,55 @@ import PageHeaderActions from "./PageHeaderActions";
 import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
 import PageHeaderTabs from "./PageHeaderTabs";
 
-class PageHeader extends React.Component {
-  render() {
-    const {
-      props: {
-        actions,
-        addButton,
-        breadcrumbs,
-        supplementalContent,
-        tabs,
-        actionsDisabled
-      }
-    } = this;
+const PageHeader = props => {
+  const {
+    actions,
+    addButton,
+    breadcrumbs,
+    supplementalContent,
+    tabs,
+    actionsDisabled
+  } = props;
 
-    const editButton = actions
-      .filter(action => action.label === "Edit")
-      .map(action => (
-        <a
-          key={action.label}
-          className="button button-primary"
-          onClick={action.onItemSelect}
-        >
-          <Icon
-            shape={SystemIcons.Pencil}
-            size={iconSizeXs}
-            color="currentColor"
-          />
-          <Trans render="span" id={action.label} />
-        </a>
-      ));
+  const editButton = actions
+    .filter(action => action.label === "Edit")
+    .map(action => (
+      <a
+        key={action.label}
+        className="button button-primary"
+        onClick={action.onItemSelect}
+      >
+        <Icon
+          shape={SystemIcons.Pencil}
+          size={iconSizeXs}
+          color="currentColor"
+        />
+        <Trans render="span" id={action.label} />
+      </a>
+    ));
 
-    return (
-      <div className="page-header">
-        <div className="page-header-inner pod">
-          <div className="page-header-section page-header-section-primary">
-            <div className="page-header-content">{breadcrumbs}</div>
-            <div className="page-header-actions page-header-action-primary flex">
-              {editButton}
-              <PageHeaderActions
-                actions={actions}
-                addButton={addButton}
-                supplementalContent={supplementalContent}
-                actionsDisabled={actionsDisabled}
-              />
-            </div>
-          </div>
-          <div className="page-header-section page-header-section-secondary">
-            <PageHeaderTabs tabs={tabs} />
+  return (
+    <div className="page-header">
+      <div className="page-header-inner pod">
+        <div className="page-header-section page-header-section-primary">
+          <div className="page-header-content">{breadcrumbs}</div>
+          <div className="page-header-actions page-header-action-primary flex">
+            {editButton}
+            <PageHeaderActions
+              actions={actions}
+              addButton={addButton}
+              supplementalContent={supplementalContent}
+              actionsDisabled={actionsDisabled}
+            />
           </div>
         </div>
+        <div className="page-header-section page-header-section-secondary">
+          <PageHeaderTabs tabs={tabs} />
+        </div>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 PageHeader.defaultProps = {
   actions: [],

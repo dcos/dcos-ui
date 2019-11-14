@@ -8,30 +8,28 @@ import {
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-class EndpointClipboardTrigger extends React.Component {
-  render() {
-    const { command } = this.props;
+const EndpointClipboardTrigger = props => {
+  const { command } = props;
 
-    return (
-      <div className="code-copy-wrapper">
-        {command}
-        <div className="code-copy-icon tight">
-          <ClipboardTrigger
-            className="clickable"
-            copyText={command}
-            useTooltip={true}
-          >
-            <Icon
-              shape={SystemIcons.Clipboard}
-              size={iconSizeXs}
-              color={greyLightDarken1}
-            />
-          </ClipboardTrigger>
-        </div>
+  return (
+    <div className="code-copy-wrapper">
+      {command}
+      <div className="code-copy-icon tight">
+        <ClipboardTrigger
+          className="clickable"
+          copyText={command}
+          useTooltip={true}
+        >
+          <Icon
+            shape={SystemIcons.Clipboard}
+            size={iconSizeXs}
+            color={greyLightDarken1}
+          />
+        </ClipboardTrigger>
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 EndpointClipboardTrigger.propTypes = {
   command: PropTypes.string.isRequired

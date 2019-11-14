@@ -7,11 +7,9 @@ import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/des
 
 import SidebarActions from "../events/SidebarActions";
 
-class JobsPage extends React.Component {
-  render() {
-    return this.props.children;
-  }
-}
+const JobsPage = ({ children }) => {
+  return children;
+};
 
 JobsPage.contextTypes = {
   router: routerShape

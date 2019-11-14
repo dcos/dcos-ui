@@ -6,17 +6,15 @@ import Node from "#SRC/js/structs/Node";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 import HealthTab from "../../components/HealthTab";
 
-class NodeDetailHealthTab extends React.Component {
-  render() {
-    const { node } = this.props;
-    if (!node) {
-      return null;
-    }
-    const units = NodeHealthStore.getUnits(node.hostname);
-
-    return <HealthTab node={node} units={units} params={this.props.params} />;
+const NodeDetailHealthTab = props => {
+  const { node } = props;
+  if (!node) {
+    return null;
   }
-}
+  const units = NodeHealthStore.getUnits(node.hostname);
+
+  return <HealthTab node={node} units={units} params={props.params} />;
+};
 
 NodeDetailHealthTab.contextTypes = {
   router: routerShape

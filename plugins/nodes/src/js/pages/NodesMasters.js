@@ -18,12 +18,8 @@ const NodesMastersPage = ({ children }) => {
   );
 };
 
-export default class NodesMasters extends React.Component {
-  render() {
-    return (
-      <NodesMastersPage>
-        <MesosMasters />
-      </NodesMastersPage>
-    );
-  }
-}
+export default () => (
+  <NodesMastersPage>
+    <MesosMasters />
+  </NodesMastersPage>
+);

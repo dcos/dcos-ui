@@ -5,11 +5,7 @@ const Authenticated = require("../Authenticated");
 const AuthStore = require("../../stores/AuthStore");
 const Hooks = require("PluginSDK").Hooks;
 
-class FakeComponent extends React.Component {
-  render() {
-    return <div>fakeComponent</div>;
-  }
-}
+const FakeComponent = () => <div>fakeComponent</div>;
 
 let thisOriginalWillTransitionTo,
   thisOriginalIsLoggedIn,

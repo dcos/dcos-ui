@@ -3,19 +3,17 @@ import React from "react";
 
 import NodeInfoPanel from "./NodeInfoPanel";
 
-class UnitsHealthNodeDetailPanel extends React.PureComponent {
-  render() {
-    const { summary, docsURL, output } = this.props;
+const UnitsHealthNodeDetailPanel = props => {
+  const { summary, docsURL, output } = props;
 
-    return (
-      <div className="flex-container-col">
-        <div className="flex-container-col flex-grow no-overflow">
-          <NodeInfoPanel docsURL={docsURL} output={output} summary={summary} />
-        </div>
+  return (
+    <div className="flex-container-col">
+      <div className="flex-container-col flex-grow no-overflow">
+        <NodeInfoPanel docsURL={docsURL} output={output} summary={summary} />
       </div>
-    );
-  }
-}
+    </div>
+  );
+};
 
 UnitsHealthNodeDetailPanel.propTypes = {
   docsURL: PropTypes.string,

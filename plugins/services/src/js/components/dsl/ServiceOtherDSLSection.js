@@ -17,63 +17,61 @@ const EXPRESSION_PARTS = {
   has_volumes: DSLExpressionPart.attribute("has", "volumes")
 };
 
-class ServiceOtherDSLSection extends React.Component {
-  render() {
-    const { expression, onChange } = this.props;
-    const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
-    const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
+const ServiceOtherDSLSection = props => {
+  const { expression, onChange } = props;
+  const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+  const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
-    return (
-      <DSLFormWithExpressionUpdates
-        enabled={enabled}
-        expression={expression}
-        groupCombiner={DSLCombinerTypes.AND}
-        itemCombiner={DSLCombinerTypes.OR}
-        onChange={onChange}
-        parts={EXPRESSION_PARTS}
-      >
-        <Trans render="label">Other</Trans>
-        <div className="row">
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_catalog}
-                  disabled={!enabled}
-                  name="is_catalog"
-                  type="checkbox"
-                />
-                <Trans render="span">Catalog</Trans>
-              </FieldLabel>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.is_pod}
-                  disabled={!enabled}
-                  name="is_pod"
-                  type="checkbox"
-                />
-                <Trans render="span">Pod</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
-          <div className="column-6">
-            <FormGroup>
-              <FieldLabel>
-                <FieldInput
-                  checked={data.has_volumes}
-                  disabled={!enabled}
-                  name="has_volumes"
-                  type="checkbox"
-                />
-                <Trans render="span">Volumes</Trans>
-              </FieldLabel>
-            </FormGroup>
-          </div>
+  return (
+    <DSLFormWithExpressionUpdates
+      enabled={enabled}
+      expression={expression}
+      groupCombiner={DSLCombinerTypes.AND}
+      itemCombiner={DSLCombinerTypes.OR}
+      onChange={onChange}
+      parts={EXPRESSION_PARTS}
+    >
+      <Trans render="label">Other</Trans>
+      <div className="row">
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_catalog}
+                disabled={!enabled}
+                name="is_catalog"
+                type="checkbox"
+              />
+              <Trans render="span">Catalog</Trans>
+            </FieldLabel>
+            <FieldLabel>
+              <FieldInput
+                checked={data.is_pod}
+                disabled={!enabled}
+                name="is_pod"
+                type="checkbox"
+              />
+              <Trans render="span">Pod</Trans>
+            </FieldLabel>
+          </FormGroup>
         </div>
-      </DSLFormWithExpressionUpdates>
-    );
-  }
-}
+        <div className="column-6">
+          <FormGroup>
+            <FieldLabel>
+              <FieldInput
+                checked={data.has_volumes}
+                disabled={!enabled}
+                name="has_volumes"
+                type="checkbox"
+              />
+              <Trans render="span">Volumes</Trans>
+            </FieldLabel>
+          </FormGroup>
+        </div>
+      </div>
+    </DSLFormWithExpressionUpdates>
+  );
+};
 
 ServiceOtherDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,
