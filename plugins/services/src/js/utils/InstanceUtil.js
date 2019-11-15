@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
-
 import CompositeState from "#SRC/js/structs/CompositeState";
 
 const InstanceUtil = {

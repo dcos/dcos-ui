@@ -1,6 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 import JobValidatorUtil from "../../utils/JobValidatorUtil";
 import ValidatorUtil from "../../utils/ValidatorUtil";
 import JobResources from "../../constants/JobResources";

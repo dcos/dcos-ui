@@ -1,16 +1,13 @@
 import Item from "#SRC/js/structs/Item";
-/* eslint-disable no-unused-vars */
-const React = require("react");
-/* eslint-enable no-unused-vars */
+import { WrappedComponent } from "../DeploymentsModal";
 
 const Deployment = require("../../structs/Deployment");
-const DeploymentsModal = require("../DeploymentsModal");
 const Application = require("../../structs/Application");
 
 describe("DeploymentsModal", () => {
   describe("#getRollbackModalText", () => {
     it("returns a removal message when passed a starting deployment", () => {
-      let text = DeploymentsModal.WrappedComponent.prototype.getRollbackModalText(
+      let text = WrappedComponent.prototype.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
           affectedApps: ["app1"],
@@ -23,7 +20,7 @@ describe("DeploymentsModal", () => {
     });
 
     it("returns a revert message when passed a non-starting deployment", () => {
-      const text = DeploymentsModal.WrappedComponent.prototype.getRollbackModalText(
+      const text = WrappedComponent.prototype.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
           affectedApps: ["app1"],
@@ -41,9 +38,9 @@ describe("DeploymentsModal", () => {
         deployment: {}
       });
 
-      expect(
-        DeploymentsModal.WrappedComponent.prototype.renderStatus(null, app, {})
-      ).toEqual("N/A");
+      expect(WrappedComponent.prototype.renderStatus(null, app, {})).toEqual(
+        "N/A"
+      );
     });
 
     it("Returns null for Item without getStatus function", () => {
@@ -51,9 +48,9 @@ describe("DeploymentsModal", () => {
         deployment: {}
       });
 
-      expect(
-        DeploymentsModal.WrappedComponent.prototype.renderStatus(null, item, {})
-      ).toEqual(null);
+      expect(WrappedComponent.prototype.renderStatus(null, item, {})).toEqual(
+        null
+      );
     });
   });
 });

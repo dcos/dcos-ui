@@ -150,4 +150,4 @@ ServiceStopModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = withI18n()(ServiceStopModal);
+export default withI18n()(ServiceStopModal);

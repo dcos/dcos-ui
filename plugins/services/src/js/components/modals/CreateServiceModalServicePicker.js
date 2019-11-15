@@ -1,9 +1,8 @@
 import { Trans } from "@lingui/macro";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import CreateServiceModalServicePickerOption from "#SRC/js/components/CreateServiceModalServicePickerOption";
 import CreateServiceModalServicePickerOptionContent from "#SRC/js/components/CreateServiceModalServicePickerOptionContent";

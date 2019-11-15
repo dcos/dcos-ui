@@ -1,8 +1,3 @@
-/* eslint-disable no-unused-vars */
-import PropTypes from "prop-types";
-
-import React from "react";
-/* eslint-enable no-unused-vars */
 import { Route, Redirect } from "react-router";
 import { i18nMark } from "@lingui/react";
 

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";
 import DOMUtils from "#SRC/js/utils/DOMUtils";

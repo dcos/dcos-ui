@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import ReactDOM from "react-dom";
 import { I18nProvider } from "@lingui/react";
 import { RequestUtil } from "mesosphere-shared-reactjs";

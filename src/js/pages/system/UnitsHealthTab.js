@@ -260,4 +260,4 @@ UnitsHealthTab.routeConfig = {
   matches: /^\/components\/overview/
 };
 
-module.exports = withI18n()(UnitsHealthTab);
+export default withI18n()(UnitsHealthTab);

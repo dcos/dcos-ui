@@ -299,4 +299,4 @@ TasksView.contextTypes = {
   router: routerShape
 };
 
-module.exports = withI18n()(TasksView);
+export default withI18n()(TasksView);

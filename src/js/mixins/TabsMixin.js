@@ -1,9 +1,8 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Link, formatPattern } from "react-router";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import { Badge } from "@dcos/ui-kit";
 import TabsUtil from "../utils/TabsUtil";
