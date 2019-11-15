@@ -92,4 +92,4 @@ ErrorsAlert.propTypes = {
   pathMapping: PropTypes.array
 };
 
-module.exports = withI18n()(ErrorsAlert);
+export default withI18n()(ErrorsAlert);

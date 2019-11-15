@@ -1,8 +1,8 @@
 import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-/* eslint-disable no-unused-vars */
+
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import { Trans, t } from "@lingui/macro";
 
 import FormModal from "#SRC/js/components/FormModal";
@@ -140,4 +140,4 @@ AddRepositoryFormModal.propTypes = {
   addRepository: PropTypes.func.isRequired
 };
 
-module.exports = withI18n()(AddRepositoryFormModal);
+export default withI18n()(AddRepositoryFormModal);

@@ -1,6 +1,5 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
+
 import { Trans } from "@lingui/macro";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import ServiceStatusIcon from "./ServiceStatusIcon";

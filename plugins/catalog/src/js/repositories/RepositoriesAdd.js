@@ -1,6 +1,4 @@
-/* eslint-disable no-unused-vars */
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import { componentFromStream } from "@dcos/data-service";
 import { DataLayerType } from "@extension-kid/data-layer";

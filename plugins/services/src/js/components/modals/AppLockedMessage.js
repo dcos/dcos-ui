@@ -1,8 +1,6 @@
-/* eslint-disable no-unused-vars */
 import { Trans } from "@lingui/macro";
 
 import React from "react";
-/* eslint-enable no-unused-vars */
 
 import Pod from "../../structs/Pod";
 import ServiceTree from "../../structs/ServiceTree";

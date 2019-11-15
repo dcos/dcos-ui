@@ -192,4 +192,4 @@ ServiceResumeModal.propTypes = {
   ]).isRequired
 };
 
-module.exports = withI18n()(ServiceResumeModal);
+export default withI18n()(ServiceResumeModal);

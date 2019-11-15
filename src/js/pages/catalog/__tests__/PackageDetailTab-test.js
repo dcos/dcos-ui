@@ -4,9 +4,8 @@ const UniversePackage = require("#SRC/js/structs/UniversePackage");
 const UniversePackageVersions = require("#SRC/js/structs/UniversePackageVersions");
 var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
-/* eslint-disable no-unused-vars */
 const React = require("react");
-/* eslint-enable no-unused-vars */
+
 const ReactDOM = require("react-dom");
 
 const PackageDetailTab = require("../PackageDetailTab");

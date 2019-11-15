@@ -1,8 +1,4 @@
-/* eslint-disable no-unused-vars */
 import PropTypes from "prop-types";
-
-import React from "react";
-/* eslint-enable no-unused-vars */
 
 import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";

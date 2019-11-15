@@ -1,7 +1,4 @@
 import { Redirect, Route, IndexRoute } from "react-router";
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
 
 import FrameworkConfiguration from "#SRC/js/components/FrameworkConfiguration";
 import NotFoundPage from "#SRC/js/pages/NotFoundPage";

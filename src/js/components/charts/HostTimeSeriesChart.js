@@ -87,4 +87,4 @@ var HostTimeSeriesChart = createReactClass({
   }
 });
 
-module.exports = withI18n()(HostTimeSeriesChart);
+export default withI18n()(HostTimeSeriesChart);

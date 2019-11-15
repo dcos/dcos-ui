@@ -3,20 +3,20 @@ Authors
 
 Name | Email | Status
 -----|-------|--------
-Brandon Croft | bcroft@d2iq.com | Current Maintainer
-Daniel Schmidt | dschmidt@d2iq.com | Current Maintainer
-Dmitrii Rozhkov | drozhkov@d2iq.com | Current Maintainer
-Georgi S. Todorov | gtodorov.c@d2iq.com | Current Maintainer
-Julian Gieseke | jgieseke@d2iq.com | Current Maintainer
-Mike Perrotti | mperrotti@d2iq.com | Current Maintainer
-Natalie Smith | nsmith@d2iq.com | Current Maintainer
 Philipp Hinrichsen | philipph@d2iq.com | Current Maintainer
 Pierre Beitz | pbeitz@d2iq.com | Current Maintainer
-Rodney Norris | rnorris@d2iq.com | Current Maintainer
+Orlando Hohmeier | orlando@d2iq.com | Current Maintainer
+Brandon Croft | bcroft@d2iq.com | Contributor
+Daniel Schmidt | dschmidt@d2iq.com | Contributor
+Dmitrii Rozhkov | drozhkov@d2iq.com | Contributor
+Georgi S. Todorov | gtodorov.c@d2iq.com | Contributor
+Julian Gieseke | jgieseke@d2iq.com | Contributor
+Mike Perrotti | mperrotti@d2iq.com | Contributor
+Natalie Smith | nsmith@d2iq.com | Contributor
+Rodney Norris | rnorris@d2iq.com | Contributor
 Andrew Hoskins | ahoskins@mesosphere.com | Contributor
 Mat Appelman | mat@mesosphere.com | Contributor
 Michael Lancaster | mlancaster@mesosphere.com | Contributor
-Orlando Hohmeier | orlando@d2iq.com | Contributor
 Chris Sun | daiyitastic@gmail.com | Contributor
 Felix Gertz | https://github.com/aldipower | Contributor
 Ioannis Charalampidis | icharalampidis@d2iq.com | Contributor

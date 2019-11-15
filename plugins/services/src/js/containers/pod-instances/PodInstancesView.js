@@ -200,4 +200,4 @@ PodInstancesView.propTypes = {
   filters: PropTypes.instanceOf(Array)
 };
 
-module.exports = withI18n()(PodInstancesView);
+export default withI18n()(PodInstancesView);

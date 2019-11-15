@@ -1,7 +1,3 @@
-/* eslint-disable no-unused-vars */
-import React from "react";
-/* eslint-enable no-unused-vars */
-
 import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
 import Node from "#SRC/js/structs/Node";
 import Util from "#SRC/js/utils/Util";
