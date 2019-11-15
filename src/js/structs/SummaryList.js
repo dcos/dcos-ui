@@ -22,55 +22,23 @@ class SummaryList extends List {
 
   getActiveNodesByState() {
     return this.getItems()
-      .map(state => {
-        let slavesCount = null;
-
-        if (state.isSnapshotSuccessful()) {
-          slavesCount = state.getActiveSlaves().length;
-        }
-
-        return {
-          date: state.getSnapshotDate(),
-          slavesCount
-        };
-      })
-      .sort((a, b) => (a.date > b.date ? 1 : -1));
+      .map(state => ({
+        date: state.getSnapshotDate(),
+        slavesCount: state.isSnapshotSuccessful()
+          ? state.getActiveSlaves().length
+          : null
+      }))
+      .sort((a, b) => a.date - b.date);
   }
 
   lastSuccessful() {
     // finds last StateSummary with successful snapshot
-    const stateResources = this.getItems();
-    for (let i = stateResources.length - 1; i >= 0; i--) {
-      if (stateResources[i].isSnapshotSuccessful()) {
-        return stateResources[i];
-      }
-    }
-
-    return new StateSummary({ successful: false });
-  }
-
-  getResourceStatesForServiceIDs(ids) {
-    const items = this.getItems() || [];
-    const stateResources = items.map(state => {
-      let resources = null,
-        totalResources = null;
-
-      if (state.isSnapshotSuccessful()) {
-        resources = state
-          .getServiceList()
-          .filter({ ids })
-          .sumUsedResources();
-        totalResources = state.getSlaveTotalResources();
-      }
-
-      return {
-        date: state.getSnapshotDate(),
-        resources,
-        totalResources
-      };
-    });
-
-    return MesosSummaryUtil.stateResourcesToResourceStates(stateResources);
+    return (
+      this.getItems()
+        .reverse()
+        .find(r => r.isSnapshotSuccessful()) ||
+      new StateSummary({ successful: false })
+    );
   }
 
   getResourceStatesForNodeIDs(ids) {

@@ -119,26 +119,4 @@ describe("StateSummary", () => {
       expect(instance.getSlaveUsedResources()).toEqual(aggregate);
     });
   });
-
-  describe("#getServiceUsedResources", () => {
-    it("defaults to 0 available resources if there's nothing", () => {
-      const instance = new StateSummary();
-      const defaultSum = { cpus: 0, mem: 0, disk: 0, gpus: 0 };
-      expect(instance.getServiceUsedResources()).toEqual(defaultSum);
-    });
-
-    it("calculates total resources available in slaves", () => {
-      const snapshot = {
-        frameworks: [
-          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
-        ],
-        slaves: []
-      };
-      const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
-      const instance = new StateSummary({ snapshot });
-      expect(instance.getServiceUsedResources()).toEqual(aggregate);
-    });
-  });
 });

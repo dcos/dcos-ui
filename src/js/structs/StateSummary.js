@@ -4,48 +4,32 @@ import NodesList from "./NodesList";
 
 module.exports = class StateSummary {
   constructor(options = {}) {
-    this.snapshot = {
+    const snapshot = options.snapshot || {
       frameworks: [],
       slaves: [],
       cluster: "",
       hostname: ""
     };
-
-    this.metadata = {
-      date: undefined,
-      successfulSnapshot: true,
-      serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
-      slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
-      slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
-    };
-    const snapshot = options.snapshot || this.snapshot;
     // Only place where we normalize server data
     // we may be able to remove this, but it needs testing
     snapshot.slaves = snapshot.slaves || [];
     this.snapshot = snapshot;
 
-    if (options.successful != null) {
-      this.metadata.successfulSnapshot = options.successful;
-    }
-    this.metadata.date = options.date || Date.now();
-
+    // We may only want to get the active slaves...
     const slaves = this.snapshot.slaves;
 
-    // Store computed data – this is something we may not need to store
-    this.metadata.slaveTotalResources = MesosSummaryUtil.sumResources(
-      // We may only want to get the active slaves...
-      slaves.map(slave => slave.resources)
-    );
+    this.metadata = {
+      date: options.date || Date.now(),
+      successfulSnapshot:
+        options.successful != null ? options.successful : true,
 
-    this.metadata.slaveUsedResources = MesosSummaryUtil.sumResources(
-      // We may only want to get the active slaves...
-      slaves.map(slave => slave.used_resources)
-    );
-
-    const frameworks = this.snapshot.frameworks || [];
-    this.metadata.serviceUsedResources = MesosSummaryUtil.sumResources(
-      frameworks.map(framework => framework.used_resources)
-    );
+      slaveUsedResources: MesosSummaryUtil.sumResources(
+        slaves.map(slave => slave.used_resources)
+      ),
+      slaveTotalResources: MesosSummaryUtil.sumResources(
+        slaves.map(slave => slave.resources)
+      )
+    };
   }
 
   getSnapshotDate() {
@@ -74,10 +58,6 @@ module.exports = class StateSummary {
 
   getSlaveUsedResources() {
     return this.metadata.slaveUsedResources;
-  }
-
-  getServiceUsedResources() {
-    return this.metadata.serviceUsedResources;
   }
 
   isSnapshotSuccessful() {
