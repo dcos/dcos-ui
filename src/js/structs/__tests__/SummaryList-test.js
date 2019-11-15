@@ -73,7 +73,6 @@ describe("SummaryList", () => {
         metadata: {
           date: thisNow + 1,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
           slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
         }
@@ -95,7 +94,6 @@ describe("SummaryList", () => {
         metadata: {
           date: thisNow,
           successfulSnapshot: true,
-          serviceUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
           slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
         }
@@ -110,114 +108,6 @@ describe("SummaryList", () => {
       states.add(new StateSummary({ successful: false, date: thisNow + 1 }));
 
       expect(states.lastSuccessful().isSnapshotSuccessful()).toEqual(false);
-    });
-  });
-
-  describe("#getResourceStatesForServiceIDs", () => {
-    beforeEach(() => {
-      thisNow = Date.now();
-      thisList = new SummaryList();
-      thisList.addSnapshot(
-        {
-          frameworks: [
-            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } },
-            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } }
-          ],
-          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10, gpus: 9 } }]
-        },
-        thisNow
-      );
-    });
-
-    it("returns empty resource lists", () => {
-      const list = new SummaryList();
-      const resources = list.getResourceStatesForServiceIDs();
-      expect(resources).toEqual({ cpus: [], mem: [], disk: [], gpus: [] });
-    });
-
-    it("doesn't filter by ids", () => {
-      const resources = thisList.getResourceStatesForServiceIDs();
-      const expectedResult = {
-        cpus: [{ date: thisNow, percentage: 20, value: 2 }],
-        mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }],
-        gpus: [{ date: thisNow, percentage: 22, value: 2 }]
-      };
-
-      expect(resources).toEqual(expectedResult);
-    });
-
-    it("filters by id", () => {
-      const resources = thisList.getResourceStatesForServiceIDs([1]);
-      const expectedResult = {
-        cpus: [{ date: thisNow, percentage: 10, value: 1 }],
-        mem: [{ date: thisNow, percentage: 30, value: 3 }],
-        disk: [{ date: thisNow, percentage: 10, value: 1 }],
-        gpus: [{ date: thisNow, percentage: 11, value: 1 }]
-      };
-
-      expect(resources).toEqual(expectedResult);
-    });
-
-    it("filters by ids", () => {
-      const resources = thisList.getResourceStatesForServiceIDs([1, 2]);
-      const expectedResult = {
-        cpus: [{ date: thisNow, percentage: 20, value: 2 }],
-        mem: [{ date: thisNow, percentage: 60, value: 6 }],
-        disk: [{ date: thisNow, percentage: 20, value: 2 }],
-        gpus: [{ date: thisNow, percentage: 22, value: 2 }]
-      };
-
-      expect(resources).toEqual(expectedResult);
-    });
-
-    it("computes all states and filters", () => {
-      thisList.addSnapshot(
-        {
-          frameworks: [
-            { id: 1, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } },
-            { id: 2, used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 1 } }
-          ],
-          slaves: [{ resources: { cpus: 10, mem: 10, disk: 10, gpus: 9 } }]
-        },
-        thisNow + 1
-      );
-
-      const resources = thisList.getResourceStatesForServiceIDs([1]);
-      const expectedResult = {
-        cpus: [
-          { date: thisNow, percentage: 10, value: 1 },
-          { date: thisNow + 1, percentage: 10, value: 1 }
-        ],
-        mem: [
-          { date: thisNow, percentage: 30, value: 3 },
-          { date: thisNow + 1, percentage: 30, value: 3 }
-        ],
-        disk: [
-          { date: thisNow, percentage: 10, value: 1 },
-          { date: thisNow + 1, percentage: 10, value: 1 }
-        ],
-        gpus: [
-          { date: thisNow, percentage: 11, value: 1 },
-          { date: thisNow + 1, percentage: 11, value: 1 }
-        ]
-      };
-
-      expect(resources).toEqual(expectedResult);
-    });
-
-    it("sets fields to null to indicate unsuccessful snapshot", () => {
-      const list = new SummaryList();
-      list.add(new StateSummary({ successful: false, date: thisNow }));
-      const resources = list.getResourceStatesForServiceIDs();
-      const expectedResult = {
-        cpus: [{ date: thisNow, percentage: null, value: null }],
-        mem: [{ date: thisNow, percentage: null, value: null }],
-        disk: [{ date: thisNow, percentage: null, value: null }],
-        gpus: [{ date: thisNow, percentage: null, value: null }]
-      };
-
-      expect(resources).toEqual(expectedResult);
     });
   });
 
