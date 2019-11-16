@@ -7,6 +7,18 @@ function isNotMultipleProp(key) {
   return !key.includes("[") || !key.includes("]");
 }
 
+/**
+ * Checks if object is a proper field definition for a Form.
+ *
+ * @param {Object} fieldDefinition Definition to check.
+ * @return {Boolean} isFieldDefinition Whether it is a definition.
+ */
+const isFieldDefinition = fieldDefinition =>
+  typeof fieldDefinition === "object" &&
+  fieldDefinition != null &&
+  Object.prototype.hasOwnProperty.call(fieldDefinition, "name") &&
+  Object.prototype.hasOwnProperty.call(fieldDefinition, "fieldType");
+
 function containsMultipleProp(prop, fieldColumn, id) {
   if (id) {
     return !!(
@@ -188,7 +200,7 @@ const FormUtil = {
   forEachDefinition(definition, callback) {
     // This means the field is an individual field. Here we just set the error
     // to false.
-    if (FormUtil.isFieldDefinition(definition)) {
+    if (isFieldDefinition(definition)) {
       callback(definition);
 
       return;
@@ -227,21 +239,6 @@ const FormUtil = {
         }
       });
     }
-  },
-
-  /**
-   * Checks if object is a proper field definition for a Form.
-   *
-   * @param {Object} fieldDefinition Definition to check.
-   * @return {Boolean} isFieldDefinition Whether it is a definition.
-   */
-  isFieldDefinition(fieldDefinition) {
-    return (
-      typeof fieldDefinition === "object" &&
-      fieldDefinition != null &&
-      Object.prototype.hasOwnProperty.call(fieldDefinition, "name") &&
-      Object.prototype.hasOwnProperty.call(fieldDefinition, "fieldType")
-    );
   }
 };
 

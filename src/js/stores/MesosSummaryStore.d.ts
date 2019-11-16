@@ -3,7 +3,6 @@ import GetSetBaseStore from "./GetSetBaseStore";
 class MesosSummaryStore extends GetSetBaseStore {
   init(): void;
   getInitialStates(): any;
-  unmount(): void;
   addChangeListener(eventName, callback) {
     this.on(eventName, callback);
 

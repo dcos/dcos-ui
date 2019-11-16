@@ -36,42 +36,42 @@ function getAvailableColors() {
   return colors.concat(colors);
 }
 
+const getAvailableResources = (excludeList = []) => {
+  let item = CompositeState.getNodesList().getItems()[0];
+
+  if (!item) {
+    item = CompositeState.getServiceList().getItems()[0];
+
+    if (!item) {
+      item = fakeNode;
+    }
+  }
+
+  const usedResources = item.getResources();
+  if (!usedResources || Object.keys(usedResources).length === 0) {
+    return [];
+  }
+
+  let resources = Object.keys(usedResources);
+
+  if (excludeList.length > 0) {
+    resources = resources.filter(
+      (
+        resource // If it's not in the exclude list, we want it
+      ) => excludeList.indexOf(resource) === -1
+    );
+  }
+
+  return resources;
+};
+
 const ResourcesUtil = {
   getDefaultResources() {
     return Object.keys(DefaultResourceTypes);
   },
 
-  getAvailableResources(excludeList = []) {
-    let item = CompositeState.getNodesList().getItems()[0];
-
-    if (!item) {
-      item = CompositeState.getServiceList().getItems()[0];
-
-      if (!item) {
-        item = fakeNode;
-      }
-    }
-
-    const usedResources = item.getResources();
-    if (!usedResources || Object.keys(usedResources).length === 0) {
-      return [];
-    }
-
-    let resources = Object.keys(usedResources);
-
-    if (excludeList.length > 0) {
-      resources = resources.filter(
-        (
-          resource // If it's not in the exclude list, we want it
-        ) => excludeList.indexOf(resource) === -1
-      );
-    }
-
-    return resources;
-  },
-
   getAdditionalResources() {
-    const rest = this.getAvailableResources(this.getDefaultResources());
+    const rest = getAvailableResources(this.getDefaultResources());
     // We sort so we get the same color in future calls to this method
     rest.sort();
 
@@ -93,7 +93,7 @@ const ResourcesUtil = {
   },
 
   getResourceLabels() {
-    const resources = this.getAvailableResources();
+    const resources = getAvailableResources();
 
     return resources.reduce((memo, resource) => {
       memo[resource] = this.getResourceLabel(resource);

@@ -150,13 +150,10 @@ class LogView extends React.Component {
   }
 
   handleGoToBottom() {
-    const {
-      logContainer,
-      props: { highlightText }
-    } = this;
+    const { logContainer, props } = this;
     // Do not scroll to bottom if we want to highlight a word in the log,
     // or we are already scrolling
-    if (logContainer == null || highlightText) {
+    if (logContainer == null || props.highlightText) {
       return;
     }
 

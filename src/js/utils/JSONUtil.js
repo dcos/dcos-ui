@@ -80,17 +80,6 @@ function countNewLines(src, startAt, endAt) {
  */
 module.exports = {
   /**
-   * Returns the JSON object on the specified line
-   *
-   * @param {array} objectInfo - The output of `getObjectInformation`
-   * @param {number} line - The line to locate
-   * @returns {object} - The related object on the given line or null
-   */
-  getObjectOnLine(objectInfo, line) {
-    return objectInfo.find(info => info.line === line);
-  },
-
-  /**
    * Process JSON source and return detailed information for every object
    * in the object. The information processed for every token is:
    *

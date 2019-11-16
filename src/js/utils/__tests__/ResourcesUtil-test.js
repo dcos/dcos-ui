@@ -1,20 +1,12 @@
 const CompositeState = require("../../structs/CompositeState");
 const Node = require("../../structs/Node");
 const NodesList = require("../../structs/NodesList");
-const Service = require("../../../../plugins/services/src/js/structs/Service");
-const ServicesList = require("../../../../plugins/services/src/js/structs/ServicesList");
 const ResourcesUtil = require("../ResourcesUtil");
 
 function createFnWithNodeResources(used_resources) {
   const instance = new Node({ used_resources });
 
   return () => new NodesList({ items: [instance] });
-}
-
-function createFnWithServicesResources(used_resources) {
-  const instance = new Service({ used_resources });
-
-  return () => new ServicesList({ items: [instance] });
 }
 
 describe("ResourcesUtil", () => {
@@ -25,90 +17,6 @@ describe("ResourcesUtil", () => {
       disk: 0,
       gpus: 0,
       bananas: 0
-    });
-  });
-
-  describe("#getAvailableResources", () => {
-    beforeEach(() => {
-      CompositeState.getNodesList = () => new NodesList();
-      CompositeState.getServicesList = () => new ServicesList();
-    });
-
-    it("returns an array", () => {
-      const resources = ResourcesUtil.getAvailableResources();
-      expect(Array.isArray(resources)).toBeTruthy();
-    });
-
-    it("returns a set of default resources", () => {
-      const resources = ResourcesUtil.getAvailableResources();
-      // Should at least have cpu, mem, disk
-      expect(resources.length).toBeGreaterThan(2);
-    });
-
-    it("gets available resources from a node", () => {
-      CompositeState.getNodesList = createFnWithNodeResources({
-        foo: 0,
-        bar: 0
-      });
-
-      const resources = ResourcesUtil.getAvailableResources();
-      expect(resources).toEqual(["foo", "bar"]);
-    });
-
-    describe("without nodes", () => {
-      beforeEach(() => {
-        CompositeState.getNodesList = () => new NodesList();
-      });
-
-      it("gets available resources from a service", () => {
-        CompositeState.getServiceList = createFnWithServicesResources({});
-
-        const resources = ResourcesUtil.getAvailableResources();
-        expect(resources).toEqual(["cpus", "mem", "gpus", "disk"]);
-      });
-
-      it("allows exclusion of resources", () => {
-        const resources = ResourcesUtil.getAvailableResources(["gpus", "disk"]);
-        expect(resources).toEqual(["cpus", "mem"]);
-      });
-    });
-
-    describe("invalid or empty data", () => {
-      it("returns an empty array when used resources is null", () => {
-        CompositeState.getNodesList = () => ({
-          getItems: () => [
-            {
-              getResources: () => null
-            }
-          ]
-        });
-        const resources = ResourcesUtil.getAvailableResources();
-        expect(resources).toEqual([]);
-      });
-
-      it("returns an empty array when used resources is undefined", () => {
-        CompositeState.getNodesList = () => ({
-          getItems: () => [
-            {
-              getResources: () => undefined
-            }
-          ]
-        });
-        const resources = ResourcesUtil.getAvailableResources();
-        expect(resources).toEqual([]);
-      });
-
-      it("returns an empty array when used resources is empty array", () => {
-        CompositeState.getNodesList = () => ({
-          getItems: () => [
-            {
-              getResources: () => []
-            }
-          ]
-        });
-        const resources = ResourcesUtil.getAvailableResources();
-        expect(resources).toEqual([]);
-      });
     });
   });
 

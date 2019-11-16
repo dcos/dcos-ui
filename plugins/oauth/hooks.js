@@ -205,12 +205,12 @@ module.exports = Object.assign({}, StoreMixin, {
     ConfigStore.fetchConfig();
   },
 
-  delayApplicationLoad(value) {
+  delayApplicationLoad() {
     const user = AuthStore.getUser();
 
     // If user is logged in, then let's let the app do its thing
     if (user) {
-      return value;
+      return true;
     }
 
     // Let's wait till login and then we'll request mesos summary before render

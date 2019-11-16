@@ -5,7 +5,7 @@ const MesosStateUtil = require("../MesosStateUtil");
 
 const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
 
-let thisInstance, thisMesosState, executorResources;
+let thisInstance, thisMesosState;
 
 describe("MesosStateUtil", () => {
   describe("#getFrameworkToServicesMap", () => {
@@ -233,44 +233,6 @@ describe("MesosStateUtil", () => {
         podID: "failing-pod",
         instanceID: "c4a70195-5aaa-11e9-bc3e-5abede31217b",
         taskName: "container-1"
-      });
-    });
-  });
-
-  describe("#extractExecutorResources", () => {
-    beforeEach(() => {
-      executorResources = [
-        {
-          name: "cpus",
-          type: "SCALAR",
-          scalar: {
-            value: 0.1
-          }
-        },
-        {
-          name: "mem",
-          type: "SCALAR",
-          scalar: {
-            value: 32
-          }
-        },
-        {
-          name: "disk",
-          type: "SCALAR",
-          scalar: {
-            value: 256
-          }
-        }
-      ];
-    });
-
-    it("extracts resources from executor resource object", () => {
-      expect(
-        MesosStateUtil.extractExecutorResources(executorResources)
-      ).toEqual({
-        cpus: 0.1,
-        mem: 32,
-        disk: 256
       });
     });
   });

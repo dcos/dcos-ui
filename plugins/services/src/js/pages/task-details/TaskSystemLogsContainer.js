@@ -14,7 +14,7 @@ import MesosStateUtil from "#SRC/js/utils/MesosStateUtil";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import SystemLogStore from "#SRC/js/stores/SystemLogStore";
-import SystemLogUtil from "#SRC/js/utils/SystemLogUtil";
+import { getUrl } from "#SRC/js/utils/SystemLogUtil";
 
 import LogView from "../../components/LogView";
 import SearchLog from "../../components/SearchLog";
@@ -309,7 +309,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       <a
         className="button button-outline"
         disabled={!task}
-        href={SystemLogUtil.getUrl(task.slave_id, params, false, "/download")}
+        href={getUrl(task.slave_id, params, false, "/download")}
         key="download"
       >
         <Icon shape={SystemIcons.Download} size={iconSizeXs} />

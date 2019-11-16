@@ -49,12 +49,6 @@ const MesosSummaryUtil = {
     return resources;
   },
 
-  filterHostsByService(hosts, frameworkId) {
-    return hosts.filter(({ framework_ids = [] }) =>
-      framework_ids.includes(frameworkId)
-    );
-  },
-
   getInitialStates() {
     var currentDate = Date.now();
     // reverse date range!!!
@@ -78,18 +72,6 @@ const MesosSummaryUtil = {
       used_resources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
       total_resources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
     };
-  },
-
-  addTimestampsToData(data, timeStep) {
-    var length = data.length;
-    var timeNow = Date.now() + timeStep;
-
-    return data.map((datum, i) => {
-      var timeDelta = (-length + i) * timeStep;
-      datum.date = timeNow + timeDelta;
-
-      return datum;
-    });
   }
 };
 

@@ -26,6 +26,17 @@ const RouterUtil = {
    *
    * @returns {Boolean|Object} false or query string object
    */
+
+  isValidRedirect(url, hostname = global.location.hostname) {
+    const parsedUrl = Util.parseUrl(url);
+
+    if (!parsedUrl) {
+      return false;
+    }
+
+    return parsedUrl.hostname === hostname;
+  },
+
   getQueryStringInUrl(
     search = global.location.search,
     hash = global.location.hash
@@ -44,16 +55,6 @@ const RouterUtil = {
     }
 
     return queryString;
-  },
-
-  isValidRedirect(url, hostname = global.location.hostname) {
-    const parsedUrl = Util.parseUrl(url);
-
-    if (!parsedUrl) {
-      return false;
-    }
-
-    return parsedUrl.hostname === hostname;
   },
 
   /**
@@ -119,7 +120,6 @@ const RouterUtil = {
    */
   buildRoutes(originalRoutes) {
     const elementRoutes = RouterUtil.createComponentsFromRoutes(originalRoutes);
-
     return createRoutes(elementRoutes);
   },
 
@@ -169,11 +169,9 @@ const RouterUtil = {
    * @returns {string} - corrected filePath route path
    */
   getCorrectedFileRoutePath(routePath) {
-    if (routePath.includes(":filePath")) {
-      return routePath;
-    }
-
-    return routePath + (routePath.endsWith("/") ? "" : "/") + ":filePath";
+    return routePath.includes(":filePath")
+      ? routePath
+      : routePath + (routePath.endsWith("/") ? "" : "/") + ":filePath";
   },
 
   /**

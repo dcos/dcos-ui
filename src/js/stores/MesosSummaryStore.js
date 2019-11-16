@@ -107,16 +107,6 @@ class MesosSummaryStore extends GetSetBaseStore {
     return states;
   }
 
-  unmount() {
-    this.set({
-      states: this.getInitialStates(),
-      prevMesosStatusesMap: {},
-      statesProcessed: false
-    });
-
-    stopPolling();
-  }
-
   addChangeListener(eventName, callback) {
     this.on(eventName, callback);
 

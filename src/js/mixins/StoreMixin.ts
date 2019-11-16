@@ -188,11 +188,6 @@ export default {
       listenerDetail.suppressUpdate !== true &&
       typeof this.forceUpdate === "function"
     ) {
-      if (process.env.NODE_ENV === "performance") {
-        /* tslint:disable */
-        console.warn("Forced upates are an antipattern.");
-        /* tslint:enable */
-      }
       this.forceUpdate();
     }
   },

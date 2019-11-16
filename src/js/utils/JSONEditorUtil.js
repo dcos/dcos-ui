@@ -113,24 +113,6 @@ var JSONEditorUtil = {
   },
 
   /**
-   * Find the location of a change between two strings
-   *
-   * @param {string} oldString - The old string
-   * @param {string} newString - The new string
-   * @returns {number} Returns the offset in the string with the first difference
-   */
-  diffLocation(oldString, newString) {
-    const length = Math.min(oldString.length, newString.length);
-    for (let index = 0; index < length; ++index) {
-      if (oldString[index] !== newString[index]) {
-        return index;
-      }
-    }
-
-    return -1;
-  },
-
-  /**
    * Arrange object keys (or array elements) of the given new value in order to
    * match the ones in the old value.
    *
