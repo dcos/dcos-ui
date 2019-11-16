@@ -93,11 +93,7 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
       this.tabs_tabs = topRoute.childRoutes
         .filter(({ isTab }) => !!isTab)
         .reduce((tabs, { path, title }) => {
-          let key = parentPath;
-          if (path) {
-            key = `${parentPath}/${path}`;
-          }
-
+          const key = path ? `${parentPath}/${path}` : parentPath;
           tabs[key] = title || path;
 
           return tabs;

@@ -11,11 +11,7 @@ var PodUtil = {
    * @returns {boolean} - Returns true if the test passes
    */
   isContainerMatchingText(container, text) {
-    if (!text) {
-      return true;
-    }
-
-    return container.getName().indexOf(text) >= 0;
+    return !text ? true : container.getName().indexOf(text) >= 0;
   },
 
   /**
@@ -27,17 +23,11 @@ var PodUtil = {
    * @returns {boolean} - Returns true if the test passes
    */
   isInstanceOrChildrenMatchingText(instance, text) {
-    if (!text) {
-      return true;
-    }
-
-    if (instance.getName().indexOf(text) >= 0) {
-      return true;
-    }
-
-    return instance
-      .getContainers()
-      .some(container => PodUtil.isContainerMatchingText(container, text));
+    return !text || instance.getName().indexOf(text) >= 0
+      ? true
+      : instance
+          .getContainers()
+          .some(container => PodUtil.isContainerMatchingText(container, text));
   },
 
   /**
@@ -63,7 +53,6 @@ var PodUtil = {
     // with plain objects
     const podInstancesMap = podInstances.reduceItems((memo, podInstance) => {
       memo[podInstance.getId()] = podInstance.get();
-
       return memo;
     }, {});
 
