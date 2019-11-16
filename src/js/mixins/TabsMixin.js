@@ -5,7 +5,6 @@ import { Link, formatPattern } from "react-router";
 import React from "react";
 
 import { Badge } from "@dcos/ui-kit";
-import TabsUtil from "../utils/TabsUtil";
 import Util from "../utils/Util";
 import NotificationStore from "../stores/NotificationStore";
 
@@ -52,6 +51,7 @@ import NotificationStore from "../stores/NotificationStore";
  *   }
  * }
  */
+
 const TabsMixin = {
   /**
    * Returns a tab that has a callback when clicked.
@@ -91,7 +91,7 @@ const TabsMixin = {
    * @return {Array} of tabs to render
    */
   tabs_getUnroutedTabs(props) {
-    return TabsUtil.getTabs(
+    return getTabs(
       this.tabs_tabs,
       this.state.currentTab,
       this.tabs_getUnroutedItem.bind(this, props)
@@ -144,7 +144,7 @@ const TabsMixin = {
    * @return {Array} of tabs to render
    */
   tabs_getRoutedTabs(props) {
-    return TabsUtil.getTabs(
+    return getTabs(
       this.tabs_tabs,
       this.state.currentTab,
       this.tabs_getRoutedItem.bind(this, props)
@@ -172,6 +172,33 @@ const TabsMixin = {
   tabs_handleTabClick(nextTab) {
     this.setState({ currentTab: nextTab });
   }
+};
+
+/**
+ * Renders tabs for a given array
+ * This needs to be in a util because we can
+ * have tabs inside of tabs for a component
+ *
+ * @param  {Object} tabs with a key for each tab to render
+ * @param  {String} currentTab currently active tab
+ * @param  {Function} getElement render function to render each element
+ * @return {Array} of tabs to render
+ */
+const getTabs = (tabs, currentTab, getElement) => {
+  const tabSet = Object.keys(tabs);
+
+  return tabSet.map((tab, index) => {
+    const tabClass = classNames({
+      "menu-tabbed-item": true,
+      active: !!currentTab && currentTab.startsWith(tab)
+    });
+
+    return (
+      <li className={tabClass} key={tab}>
+        {getElement(tab, index)}
+      </li>
+    );
+  });
 };
 
 module.exports = TabsMixin;

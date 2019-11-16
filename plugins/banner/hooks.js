@@ -3,7 +3,6 @@ import React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
-import DOMUtils from "#SRC/js/utils/DOMUtils";
 
 const SDK = require("./SDK").getSDK();
 
@@ -59,7 +58,7 @@ module.exports = {
   },
 
   applicationRendered() {
-    if (this.isEnabled() === false || !DOMUtils.isTopFrame()) {
+    if (this.isEnabled() === false) {
       return;
     }
 
@@ -84,7 +83,7 @@ module.exports = {
   },
 
   applicationContents() {
-    if (this.isEnabled() === false || !DOMUtils.isTopFrame()) {
+    if (this.isEnabled() === false) {
       return null;
     }
 

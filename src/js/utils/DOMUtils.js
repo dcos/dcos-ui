@@ -59,10 +59,6 @@ var DOMUtils = {
     return null;
   },
 
-  getComputedHeight(obj) {
-    return DOMUtils.getComputedDimensions(obj).height;
-  },
-
   getComputedWidth(obj) {
     return DOMUtils.getComputedDimensions(obj).width;
   },
@@ -75,17 +71,12 @@ var DOMUtils = {
       compstyle = global.getComputedStyle(obj);
     }
 
-    var computeInnerBound = (acc, key) => {
-      var val = parseInt(compstyle[key], 10);
-      if (Number.isNaN(val)) {
-        return acc;
-      } else {
-        return acc - val;
-      }
+    const computeInnerBound = (acc, key) => {
+      const val = parseInt(compstyle[key], 10);
+      return Number.isNaN(val) ? acc : acc - val;
     };
 
     var width = WIDTH_ATTRIBUTES.reduce(computeInnerBound, obj.offsetWidth);
-
     var height = HEIGHT_ATTRIBUTES.reduce(computeInnerBound, obj.offsetHeight);
 
     return {
@@ -94,35 +85,14 @@ var DOMUtils = {
     };
   },
 
-  getPageHeight() {
-    var body = global.document.body;
-    var html = global.document.documentElement;
-
-    return Math.max(
-      body.scrollHeight,
-      body.offsetHeight,
-      html.clientHeight,
-      html.scrollHeight,
-      html.offsetHeight
-    );
-  },
-
   getDistanceFromTop(element) {
     return element.pageYOffset || element.scrollTop || 0;
-  },
-
-  isTopFrame() {
-    try {
-      return global.self === global.top;
-    } catch (e) {
-      return true;
-    }
   },
 
   // This will ease in and ease out of the transition.
   // Code was modified from this answer:
   // http://stackoverflow.com/questions/21474678/scrolltop-animation-without-jquery
-  scrollTo(container, scrollDuration, targetY, callback) {
+  scrollTo(container, scrollDuration, targetY) {
     const scrollHeight = container.scrollHeight;
     const scrollStep = Math.PI / (scrollDuration / 15);
     const cosParameter = scrollHeight / 2;
@@ -141,39 +111,15 @@ var DOMUtils = {
           scrollMargin =
             cosParameter - cosParameter * Math.cos(scrollCount * scrollStep);
           container.scrollTop = distanceFromTop + scrollMargin;
-        } else if (typeof callback === "function") {
-          callback();
         }
       }, 15);
     }
   },
 
-  whichTransitionEvent(el) {
-    var transitions = {
-      transition: "transitionend",
-      OTransition: "oTransitionEnd",
-      MozTransition: "transitionend",
-      WebkitTransition: "webkitTransitionEnd"
-    };
-
-    for (var t in transitions) {
-      if (el.style[t] !== undefined) {
-        return transitions[t];
-      }
-    }
-  },
-
   getDistanceFromTopOfParent(el) {
     const elTop = el.getBoundingClientRect().top;
-
     const parentNode = el.parentNode;
-    if (!parentNode) {
-      return 0;
-    }
-
-    const parentTop = parentNode.getBoundingClientRect().top;
-
-    return elTop - parentTop;
+    return parentNode ? elTop - parentNode.getBoundingClientRect().top : 0;
   },
 
   getInputElement(node) {
@@ -181,13 +127,9 @@ var DOMUtils = {
       return null;
     }
     const inputTypes = ["input", "textarea"];
-    if (inputTypes.includes(node.nodeName.toLowerCase())) {
-      return node;
-    } else {
-      node = node.querySelector(inputTypes.join(", "));
-    }
-
-    return node;
+    return inputTypes.includes(node.nodeName.toLowerCase())
+      ? node
+      : node.querySelector(inputTypes.join(", "));
   }
 };
 

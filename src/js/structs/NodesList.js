@@ -16,7 +16,9 @@ class NodesList extends List {
 
       // Marathon API
       if (filters.service != null) {
-        hosts = MesosSummaryUtil.filterHostsByService(hosts, filters.service);
+        hosts = hosts.filter(({ framework_ids = [] }) =>
+          framework_ids.includes(filters.service)
+        );
       }
 
       // Marathon APIs

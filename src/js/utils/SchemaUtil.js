@@ -357,63 +357,6 @@ const SchemaUtil = {
     });
 
     return multipleDefinition;
-  },
-
-  /**
-   * Turns a form definition into a model.
-   *
-   * @param {Object} definition Form definition to convert to model.
-   *
-   * @return {Object} multipleDefinition The form definition.
-   */
-  definitionToJSONDocument(definition) {
-    const jsonDocument = {};
-
-    Object.keys(definition).forEach(topLevelProp => {
-      const topLevelProperties = definition[topLevelProp];
-      const topLevelDefinition = (jsonDocument[topLevelProp] = {});
-      const topLevelDefinitionValues = topLevelProperties.definition;
-
-      if (!topLevelDefinitionValues) {
-        return;
-      }
-
-      topLevelDefinitionValues.forEach(formDefinition => {
-        if (formDefinition.definition) {
-          const nested = (topLevelDefinition[formDefinition.name] = {});
-          formDefinition.definition.forEach(nestedDefinition => {
-            const fieldName = nestedDefinition.name;
-            const fieldValue = nestedDefinition.value;
-            nested[fieldName] = fieldValue;
-          });
-        } else {
-          const fieldName = formDefinition.name;
-          const fieldValue = formDefinition.value;
-          topLevelDefinition[fieldName] = fieldValue;
-        }
-      });
-    });
-
-    return jsonDocument;
-  },
-
-  /**
-   * Checks to see if object is a valid JSON schema.
-   *
-   * @param {Object} schema Schema to validate.
-   *
-   * @return {Boolean} isValidSchema Whether the schema is valid.
-   */
-  validateSchema(schema) {
-    try {
-      SchemaUtil.definitionToJSONDocument(
-        SchemaUtil.schemaToMultipleDefinition({ schema })
-      );
-
-      return true;
-    } catch (e) {
-      return false;
-    }
   }
 };
 

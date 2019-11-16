@@ -173,24 +173,4 @@ describe("FormUtil", () => {
       expect(result).toEqual(["command", "cpu", "key", "value"]);
     });
   });
-
-  describe("#isFieldDefinition", () => {
-    it("returns false if it is not a definition", () => {
-      const result = FormUtil.isFieldDefinition({ render() {} });
-      expect(result).toEqual(false);
-    });
-
-    it("returns false if it is not an object", () => {
-      const result = FormUtil.isFieldDefinition(null);
-      expect(result).toEqual(false);
-    });
-
-    it("returns true if it is a definition", () => {
-      const result = FormUtil.isFieldDefinition({
-        name: "username",
-        fieldType: "text"
-      });
-      expect(result).toEqual(true);
-    });
-  });
 });

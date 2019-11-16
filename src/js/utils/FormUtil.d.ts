@@ -5,27 +5,26 @@ export interface Definition {
 
 export function getMultipleFieldDefinition(
   prop: string,
-  id: Number,
+  id: number,
   definition: any[],
   model: object,
-  index?: Number
+  index?: number
 ): any[];
 export function modelToCombinedProps(model: object): object;
 export function isFieldInstanceOfProp(
   prop: string,
   field: object,
-  id: Number
+  id: number
 ): boolean;
 export function removePropID(
   definition: Definition[],
   prop: string,
-  id: Number
+  id: number
 ): void;
 export function getProp(key: string): string;
-export function getPropIndex(key: string): Number;
+export function getPropIndex(key: string): number;
 export function getPropKey(key: string): string;
 export function forEachDefinition(
   definition: Definition[] | Definition,
   callback: (definition: Definition) => void
 ): void;
-export function isFieldDefinition(fieldDefinition: Definition): boolean;

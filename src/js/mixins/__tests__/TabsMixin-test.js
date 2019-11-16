@@ -2,7 +2,6 @@ import { Link } from "react-router";
 import { shallow } from "enzyme";
 
 const TabsMixin = require("../TabsMixin");
-const TabsUtil = require("../../utils/TabsUtil");
 
 let thisInstance;
 
@@ -90,18 +89,6 @@ describe("TabsMixin", () => {
       TabsMixin.state = { currentTab: "baz" };
     });
 
-    it("calls getTabs with appropriate arguments", () => {
-      spyOn(TabsUtil, "getTabs");
-      TabsMixin.tabs_getUnroutedTabs(null);
-
-      expect(TabsUtil.getTabs.calls.mostRecent().args[0]).toEqual({
-        foo: "bar",
-        baz: "qux",
-        corge: "Grault"
-      });
-      expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual("baz");
-    });
-
     it("calls tabs_getUnroutedItem with appropriate arguments", () => {
       spyOn(TabsMixin, "tabs_getUnroutedItem");
       TabsMixin.tabs_getUnroutedTabs({ classNames: "quix" });
@@ -117,18 +104,6 @@ describe("TabsMixin", () => {
   describe("#tabs_getRoutedTabs", () => {
     beforeEach(() => {
       TabsMixin.state = { currentTab: "foo" };
-    });
-
-    it("calls getTabs with appropriate arguments", () => {
-      spyOn(TabsUtil, "getTabs");
-      TabsMixin.tabs_getRoutedTabs(null);
-
-      expect(TabsUtil.getTabs.calls.mostRecent().args[0]).toEqual({
-        foo: "bar",
-        baz: "qux",
-        corge: "Grault"
-      });
-      expect(TabsUtil.getTabs.calls.mostRecent().args[1]).toEqual("foo");
     });
 
     it("calls tabs_getRoutedItem with appropriate arguments", () => {
