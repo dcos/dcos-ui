@@ -20,9 +20,7 @@ class LanguageModalStore extends GetSetBaseStore {
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 
