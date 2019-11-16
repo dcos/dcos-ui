@@ -8,10 +8,7 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
       console.warn("Empty action.type: you likely mistyped the action.");
     }
 
-    this.dispatch({
-      source: ActionTypes.SERVER_ACTION,
-      action
-    });
+    this.dispatch({ source: ActionTypes.SERVER_ACTION, action });
   },
 
   handleSidebarAction(action) {
@@ -19,10 +16,7 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
       console.warn("Empty action.type: you likely mistyped the action.");
     }
 
-    this.dispatch({
-      source: ActionTypes.SIDEBAR_ACTION,
-      action
-    });
+    this.dispatch({ source: ActionTypes.SIDEBAR_ACTION, action });
   },
 
   handleLanguageModalAction(action) {
@@ -30,10 +24,7 @@ var AppDispatcher = Object.assign(new Dispatcher(), {
       console.warn("Empty action.type: you likely mistyped the action.");
     }
 
-    this.dispatch({
-      source: ActionTypes.LANGUAGE_MODAL_ACTION,
-      action
-    });
+    this.dispatch({ source: ActionTypes.LANGUAGE_MODAL_ACTION, action });
   }
 });
 

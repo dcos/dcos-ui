@@ -32,9 +32,7 @@ class MetadataStore extends GetSetBaseStore {
         dcosBuildInfoChange: DCOS_BUILD_INFO_CHANGE,
         dcosBuildInfoError: DCOS_BUILD_INFO_ERROR
       },
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 
