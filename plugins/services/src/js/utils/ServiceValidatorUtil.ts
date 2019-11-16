@@ -1,26 +1,4 @@
 const ServiceValidatorUtil = {
-  isValidServiceID(serviceID: string | unknown): boolean {
-    if (typeof serviceID !== "string" || serviceID === "") {
-      return false;
-    }
-
-    // This RegExp is taken from the ID field explanation described here:
-    // https://mesosphere.github.io/marathon/docs/rest-api.html#post-v2-apps
-    const serviceIDSegmentPattern = new RegExp(
-      "^(([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])[.])" +
-        "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
-    );
-
-    return serviceID.split("/").every((segment, index) => {
-      return (
-        (index === 0 && (segment == null || segment === "")) ||
-        segment === "." ||
-        segment === ".." ||
-        serviceIDSegmentPattern.test(segment)
-      );
-    });
-  },
-
   /**
    * Checks if the given server response is a Pod
    *
@@ -56,12 +34,6 @@ const ServiceValidatorUtil = {
     return true;
   },
 
-  // Applications and frameworks have no different semantics
-  // between their spec and their server response.
-  isApplicationSpecDefinition(data: unknown): boolean {
-    return ServiceValidatorUtil.isApplicationResponse(data);
-  },
-
   /**
    * Checks if the given server response is a framework
    *
@@ -78,12 +50,6 @@ const ServiceValidatorUtil = {
     );
   },
 
-  // Applications and frameworks have no different semantics
-  // between their spec and their server response.
-  isFrameworkSpecDefinition(data: any): boolean {
-    return ServiceValidatorUtil.isFrameworkResponse(data);
-  },
-
   isValidGroupID(groupID: string | unknown): boolean {
     if (typeof groupID !== "string" || groupID === "") {
       return false;
@@ -96,15 +62,16 @@ const ServiceValidatorUtil = {
         "*([a-z0-9]|[a-z0-9][a-z0-9-]*[a-z0-9])$"
     );
 
-    return groupID.split("/").every((segment, index) => {
-      return (
-        index === 0 &&
-        !(segment === null || segment === "" || segment === ".") &&
-        segment !== "." &&
-        segment !== ".." &&
-        groupIDSegmentPattern.test(segment)
+    return groupID
+      .split("/")
+      .every(
+        (segment, index) =>
+          index === 0 &&
+          !(segment === null || segment === "" || segment === ".") &&
+          segment !== "." &&
+          segment !== ".." &&
+          groupIDSegmentPattern.test(segment)
       );
-    });
   }
 };
 

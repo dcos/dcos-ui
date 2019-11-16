@@ -20,6 +20,22 @@ const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(taskState =>
 // https://github.com/mesosphere/marathon/blob/feature/pods/src/main/scala/mesosphere/marathon/core/task/Task.scala#L134
 const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)?.*$/;
 
+/**
+ * @param {Array.<Object>} resourceList - Verbose resource information
+ * @returns {Object} An object of only the resource values
+ */
+const extractExecutorResources = resourceList => {
+  const resources = {};
+
+  resourceList.forEach(resource => {
+    if (resource.type === "SCALAR") {
+      resources[resource.name] = resource.scalar.value;
+    }
+  });
+
+  return resources;
+};
+
 const MesosStateUtil = {
   /**
    * De-compose the given task id into it's primitive components

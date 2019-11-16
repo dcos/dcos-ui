@@ -37,35 +37,27 @@ const HostUtil = {
       return "";
     }
 
-    string = string.toLowerCase();
-
     // Strip all invalid character including leading and trailing dashes
     // or replace them with dashes.
-    string = string.replace(/(_)|^-+|-+$|[^a-z0-9-]/g, (match, p1) => {
-      // Replace underscores (first capture group) with dashes
-      if (p1 != null) {
-        return "-";
-      }
-
-      // Strip any other invalid character
-      return "";
-    });
+    string = string.toLowerCase().replace(
+      /(_)|^-+|-+$|[^a-z0-9-]/g,
+      (match, p1) =>
+        p1 != null
+          ? "-" // Replace underscores (first capture group) with dashes
+          : "" // Strip any other invalid character
+    );
 
     // Trim labels if they exceed the allowed max length
     if (string.length > LABEL_MAX_LENGTH) {
       // Remove all dashes and groups of dashes that have an offset larger or
       // equal to the allowed max length before trimming the label to ensure
       // that no label ends with a dash.
-      string = string.replace(/[-]+/g, (match, offset) => {
-        if (offset + match.length >= LABEL_MAX_LENGTH) {
-          return "";
-        }
-
-        return match;
-      });
-
-      // Trim the label to the allowed max length
-      string = string.slice(0, LABEL_MAX_LENGTH);
+      string = string
+        .replace(/[-]+/g, (match, offset) =>
+          offset + match.length >= LABEL_MAX_LENGTH ? "" : match
+        )
+        // Trim the label to the allowed max length
+        .slice(0, LABEL_MAX_LENGTH);
     }
 
     return string;

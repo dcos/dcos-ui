@@ -3,24 +3,12 @@ import Networking from "#SRC/js/constants/Networking";
 import HostUtil from "../utils/HostUtil";
 
 const ServiceConfigUtil = {
-  matchVIPLabel(str) {
-    return Networking.VIP_LABEL_REGEX.test(str);
-  },
-
-  findVIPLabel(labels = {}) {
-    return Object.keys(labels).find(ServiceConfigUtil.matchVIPLabel);
-  },
-
-  hasVIPLabel(labels = {}) {
-    return !!ServiceConfigUtil.findVIPLabel(labels);
-  },
-
-  buildHostName(id, port) {
-    const hostname = HostUtil.stringToHostname(id);
-
-    return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
-  },
-
+  matchVIPLabel: str => Networking.VIP_LABEL_REGEX.test(str),
+  findVIPLabel: (labels = {}) =>
+    Object.keys(labels).find(ServiceConfigUtil.matchVIPLabel),
+  hasVIPLabel: (labels = {}) => !!ServiceConfigUtil.findVIPLabel(labels),
+  buildHostName: (id, port) =>
+    `${HostUtil.stringToHostname(id)}${Networking.L4LB_ADDRESS}:${port}`,
   buildHostNameFromVipLabel(label, port) {
     const [ipOrName, labelPort = ""] = label.split(":");
 

@@ -48,35 +48,11 @@ const FrameworkUtil = {
    * if all is not available in given object.
    */
   getServiceImages(images) {
-    if (
-      this.getImageSizeFromImagesObject(images, "small") == null ||
-      this.getImageSizeFromImagesObject(images, "medium") == null ||
-      this.getImageSizeFromImagesObject(images, "large") == null
-    ) {
-      return ServiceImages.NA_IMAGES;
-    }
-
-    return images;
-  },
-
-  /**
-   * Tries to parse the given version string to display only the
-   * base tech version of packages
-   * @param {string} version Version to parse
-   * @returns {string} base tech version (if possible) or "N/A"
-   */
-  extractBaseTechVersion(version) {
-    if (!version) {
-      return "N/A";
-    }
-
-    const splitVersion = version.split("-");
-
-    if (splitVersion.length === 1) {
-      return splitVersion[0];
-    }
-
-    return splitVersion.slice(1).join("-");
+    return ["small", "medium", "large"].every(
+      size => this.getImageSizeFromImagesObject(images, size) != null
+    )
+      ? images
+      : ServiceImages.NA_IMAGES;
   },
 
   /**
