@@ -1,3 +1,5 @@
+import xhrfetch from "./xhrfetch";
+
 const router = require("./utils/router");
 require("./formChildCommands");
 require("./utils/ServicesUtil");
@@ -869,6 +871,13 @@ Cypress.Commands.add("visitUrl", options => {
         push() {},
         track() {}
       };
+
+      // cypress is currently not capable of intercepting requests made with the
+      // fetch-API. we're polyfilling fetch with something that uses XHRs under
+      // the hood to be able to provide our own fixtures in the way we're used
+      // to. we need to eval our own fetch on the inner iframe to cross the
+      // barrier between cypress and the "test-frame".
+      win.eval(`window.fetch = ${xhrfetch.toString()}`);
     }
   });
 });

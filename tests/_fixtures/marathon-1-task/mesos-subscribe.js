@@ -1095,4 +1095,4 @@ var response = JSON.stringify({
   }
 });
 
-module.exports = response.length + "\n" + response;
+module.exports = response;
