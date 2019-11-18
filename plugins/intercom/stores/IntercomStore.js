@@ -30,9 +30,7 @@ class IntercomStore extends GetSetBaseStore {
       events: {
         intercomChange: INTERCOM_CHANGE
       },
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 

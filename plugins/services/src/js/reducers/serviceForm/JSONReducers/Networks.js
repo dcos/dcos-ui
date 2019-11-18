@@ -25,9 +25,7 @@ module.exports = {
       }
       if (type === SET && field === "network") {
         const [mode, name] = value.split(".");
-        this.networks[index] = {};
-        this.networks[index].mode = mode;
-        this.networks[index].name = name;
+        this.networks[index] = { mode, name };
       }
       if (type === SET && field === "name") {
         this.networks[index].name = value;

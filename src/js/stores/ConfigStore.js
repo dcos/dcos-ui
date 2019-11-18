@@ -36,9 +36,7 @@ class ConfigStore extends GetSetBaseStore {
         ccidSuccess: CLUSTER_CCID_SUCCESS,
         ccidError: CLUSTER_CCID_ERROR
       },
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 
