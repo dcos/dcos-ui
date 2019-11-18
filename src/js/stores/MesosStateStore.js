@@ -3,7 +3,6 @@ import PluginSDK from "PluginSDK";
 import { interval, of } from "rxjs";
 import {
   merge,
-  distinctUntilChanged,
   map,
   tap,
   sampleTime,
@@ -100,8 +99,7 @@ class MesosStateStore extends GetSetBaseStore {
 
     const parsers = pipe(Object.values(mesosStreamParsers));
     const data$ = mesos$.pipe(
-      distinctUntilChanged(),
-      map(message => parsers(this.getLastMesosState(), JSON.parse(message))),
+      map(message => parsers(this.getLastMesosState(), message)),
       tap(state => {
         this.set({ lastMesosState: state });
 
