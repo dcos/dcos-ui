@@ -61,7 +61,7 @@ function renderApplication() {
   if (contents) {
     renderAppToDOM(contents);
   } else {
-    if (PluginSDK.Hooks.applyFilter("delayApplicationLoad")) {
+    if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
       // Let's make sure we get Mesos Summary data before we render app
       // Mesos may unreachable, so we will render even on request failure
       ApplicationUtil.beginTemporaryPolling(() => {
