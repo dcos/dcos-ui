@@ -126,21 +126,8 @@ const Page = createReactClass({
     );
   },
 
-  render() {
-    const {
-      className,
-      flushBottom,
-      navigation,
-      dontScroll,
-      title
-    } = this.props;
-
-    const classSet = classNames(
-      "page flex flex-direction-top-to-bottom flex-item-grow-1",
-      { "flex-item-shrink-1": dontScroll },
-      className
-    );
-
+  getContent() {
+    const { dontScroll, flushBottom } = this.props;
     const contentClassSet = classNames(
       "page-body-content pod pod-tall flex",
       "flex-direction-top-to-bottom flex-item-grow-1",
@@ -157,18 +144,34 @@ const Page = createReactClass({
     }
 
     return (
+      <FluidGeminiScrollbar
+        autoshow={true}
+        className="page-body flex flex-direction-top-to-bottom
+          flex-direction-left-to-right-screen-large flex-item-grow-1
+          flex-item-shrink-1 gm-scrollbar-container-flex"
+        ref={ref => (this.geminiRef = ref)}
+      >
+        {content}
+      </FluidGeminiScrollbar>
+    );
+  },
+
+  render() {
+    const { className, navigation, dontScroll, title } = this.props;
+
+    const classSet = classNames(
+      "page flex flex-direction-top-to-bottom flex-item-grow-1",
+      {
+        "flex-item-shrink-1": dontScroll
+      },
+      className
+    );
+
+    return (
       <div className={classSet}>
         <MountService.Mount type="Page:TopBanner" />
         {this.getPageHeader(title, navigation)}
-        <FluidGeminiScrollbar
-          autoshow={true}
-          className="page-body flex flex-direction-top-to-bottom
-          flex-direction-left-to-right-screen-large flex-item-grow-1
-          flex-item-shrink-1 gm-scrollbar-container-flex"
-          ref={ref => (this.geminiRef = ref)}
-        >
-          {content}
-        </FluidGeminiScrollbar>
+        {this.getContent()}
       </div>
     );
   }
