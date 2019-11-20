@@ -16,8 +16,8 @@ let ListenersDescription: Record<string, StoreConfig> = {
   // }
 };
 
-type Listener = "string" | StoreConfig;
-type StoreConfig = { name: string; events?: any };
+type Listener = StoreConfig;
+type StoreConfig = { name: string; events: any };
 
 export default {
   store_initializeListeners(storeListeners: Listener[]) {
@@ -27,34 +27,20 @@ export default {
     // Merges options for each store listener with
     // the ListenersDescription definition above
     storeListeners.forEach(listener => {
-      if (typeof listener === "string") {
-        if (!ListenersDescription[listener]) {
-          return;
-        }
-        // Use all defaults
-        storesListeners[listener] = { ...ListenersDescription[listener] };
-      } else {
-        const storeName = listener.name;
-        const events = listener.events;
+      const { events, name } = listener;
 
-        if (!ListenersDescription[storeName]) {
-          return;
-        }
-        // Populate events by key. For example, a component
-        // may only want to listen for 'success' events
-        if (events) {
-          listener.events = {};
-          events.forEach((event: any) => {
-            listener.events[event] =
-              ListenersDescription[storeName].events[event];
-          });
-        }
-
-        storesListeners[storeName] = {
-          ...ListenersDescription[storeName],
-          ...listener
-        };
+      if (!ListenersDescription[name]) {
+        return;
       }
+
+      // Populate events by key. For example, a component
+      // may only want to listen for 'success' events
+      listener.events = {};
+      events.forEach((event: any) => {
+        listener.events[event] = ListenersDescription[name].events[event];
+      });
+
+      storesListeners[name] = { ...ListenersDescription[name], ...listener };
     });
 
     // Default unmountWhen to unmount immediately when suppressUpdate is not
