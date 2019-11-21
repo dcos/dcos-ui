@@ -58,10 +58,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
         nodeStateError: REQUEST_NODE_STATE_ERROR,
         nodeStateSuccess: REQUEST_NODE_STATE_SUCCESS
       },
-      unmountWhen() {
-        return true;
-      },
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     AppDispatcher.register(payload => {

@@ -59,9 +59,9 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     };
 
     this.store_listeners = [
-      { name: "marathon", events: ["appsSuccess"], listenAlways: false },
-      { name: "state", events: ["success"], listenAlways: false },
-      { name: "summary", events: ["success"], listenAlways: false },
+      { name: "marathon", events: ["appsSuccess"] },
+      { name: "state", events: ["success"] },
+      { name: "summary", events: ["success"] },
       {
         name: "taskDirectory",
         events: ["error", "success", "nodeStateError", "nodeStateSuccess"],

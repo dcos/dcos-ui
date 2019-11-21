@@ -11,7 +11,6 @@ let ListenersDescription: Record<string, StoreConfig> = {
   //   unmountWhen: function () {
   //     return true;
   //   },
-  //   listenAlways: true,
   //   suppressUpdate: false
   // }
 };
@@ -167,13 +166,10 @@ export default {
     const args = Array.prototype.slice.call(arguments, 2);
     // See if we need to remove our change listener
     const listenerDetail = this.store_listeners[storeID];
-    // Maybe remove listener
-    if (listenerDetail.unmountWhen && !listenerDetail.listenAlways) {
-      // Remove change listener if the settings want to unmount after a certain
-      // condition is truthy
-      if (listenerDetail.unmountWhen(listenerDetail.store, event)) {
-        this.store_removeEventListenerForStoreID(storeID, event);
-      }
+    // Remove change listener if the settings want to unmount after a certain
+    // condition is truthy
+    if (listenerDetail.unmountWhen(listenerDetail.store, event)) {
+      this.store_removeEventListenerForStoreID(storeID, event);
     }
 
     // Call callback on component that implements mixin if it exists

@@ -20,13 +20,7 @@ class TaskLogsContainer extends mixin(StoreMixin) {
       isLoading: true
     };
 
-    this.store_listeners = [
-      {
-        name: "config",
-        events: ["success", "error"],
-        listenAlways: false
-      }
-    ];
+    this.store_listeners = [{ name: "config", events: ["success", "error"] }];
   }
 
   UNSAFE_componentWillMount() {

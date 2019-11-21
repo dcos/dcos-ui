@@ -18,13 +18,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
-    this.store_listeners = [
-      {
-        name: "summary",
-        events: ["success"],
-        listenAlways: false
-      }
-    ];
+    this.store_listeners = [{ name: "summary", events: ["success"] }];
   }
 
   render() {

@@ -41,8 +41,7 @@ class SystemLogStore extends BaseStore {
         streamSuccess: SYSTEM_LOG_STREAM_TYPES_SUCCESS,
         streamError: SYSTEM_LOG_STREAM_TYPES_ERROR
       },
-      unmountWhen: () => true,
-      listenAlways: true,
+      unmountWhen: () => false,
       suppressUpdate: true
     });
 
