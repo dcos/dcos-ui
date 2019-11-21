@@ -30,28 +30,13 @@ const reducers = {
   [APPLICATION]: AppReducer
 };
 
-// Default pass through function when devTools are not enabled
-let devToolIfEnabled = f => f;
-
-// Inject middleware to observe actions and state
-if (
-  Config.environment === "development" &&
-  Config.uiConfigurationFixture.uiConfiguration.enableDevTools &&
-  global.devToolsExtension
-) {
-  // Use Chrome extension if available
-  // https://chrome.google.com/webstore/detail/redux-devtools/lmhkpmbekcpmknklioeibfkpmmfibljd
-  devToolIfEnabled = global.devToolsExtension();
-}
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Create Redux Store
 const Store = createStore(
   combineReducers(reducers),
   initialState,
-  compose(
-    applyMiddleware(...middleware),
-    devToolIfEnabled
-  )
+  composeEnhancers(applyMiddleware(...middleware))
 );
 
 /**
