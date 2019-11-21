@@ -33,10 +33,7 @@ class UserStore extends EventEmitter {
         deleteSuccess: USER_DELETE_SUCCESS,
         deleteError: USER_DELETE_ERROR
       },
-      unmountWhen() {
-        return true;
-      },
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     AppDispatcher.register(payload => {

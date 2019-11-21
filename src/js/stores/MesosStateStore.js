@@ -56,12 +56,7 @@ class MesosStateStore extends GetSetBaseStore {
         success: MESOS_STATE_CHANGE,
         error: MESOS_STATE_REQUEST_ERROR
       },
-      unmountWhen(store, event) {
-        if (event === "success") {
-          return Object.keys(store.get("lastMesosState")).length;
-        }
-      },
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     METHODS_TO_BIND.forEach(method => {

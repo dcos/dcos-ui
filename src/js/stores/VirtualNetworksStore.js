@@ -30,8 +30,7 @@ class VirtualNetworksStore extends BaseStore {
         success: VIRTUAL_NETWORKS_CHANGE,
         error: VIRTUAL_NETWORKS_REQUEST_ERROR
       },
-      unmountWhen: () => true,
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     // Handle app actions
