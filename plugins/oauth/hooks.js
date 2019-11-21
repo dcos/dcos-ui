@@ -32,7 +32,6 @@ module.exports = Object.assign({}, StoreMixin, {
 
   filters: [
     "applicationRoutes",
-    "delayApplicationLoad",
     "organizationRoutes",
     "serverErrorModalListeners",
     "userAddPolicy"
@@ -203,18 +202,6 @@ module.exports = Object.assign({}, StoreMixin, {
     // dynamically set based on number of users
     configResponseCallback = this.navigateToLoginPage;
     ConfigStore.fetchConfig();
-  },
-
-  delayApplicationLoad(value) {
-    const user = AuthStore.getUser();
-
-    // If user is logged in, then let's let the app do its thing
-    if (user) {
-      return value;
-    }
-
-    // Let's wait till login and then we'll request mesos summary before render
-    return false;
   },
 
   navigateToLoginPage() {

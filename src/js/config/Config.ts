@@ -7,7 +7,6 @@ import UserSettingsStore from "#SRC/js/stores/UserSettingsStore";
 interface IConfiguration {
   acsAPIPrefix: string;
   analyticsKey: string;
-  applicationRenderDelay: number;
   cosmosAPIPrefix: string;
   delayAfterErrorCount: number;
   documentationURI: string;
@@ -45,7 +44,6 @@ interface IConfiguration {
 let Config: IConfiguration = {
   analyticsKey: "51ybGTeFEFU1xo6u10XMDrr6kATFyRyh",
   acsAPIPrefix: "/acs/api/v1",
-  applicationRenderDelay: 1000,
   networkingAPIPrefix: "/networking/api/v1",
   cosmosAPIPrefix: "/package",
   secretsAPIPrefix: "/secrets/v1",

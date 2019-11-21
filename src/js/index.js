@@ -50,59 +50,53 @@ RequestUtil.json = (options = {}) => {
 };
 
 function renderApplication() {
-  function renderAppToDOM(content) {
-    ReactDOM.render(content, domElement, () => {
-      PluginSDK.Hooks.doAction("applicationRendered");
-    });
-  }
-
   // Allow overriding of application contents
   const contents = PluginSDK.Hooks.applyFilter("applicationContents", null);
   if (contents) {
     renderAppToDOM(contents);
   } else {
-    if (PluginSDK.Hooks.applyFilter("delayApplicationLoad", true)) {
-      // Let's make sure we get Mesos Summary data before we render app
-      // Mesos may unreachable, so we will render even on request failure
-      ApplicationUtil.beginTemporaryPolling(() => {
-        ApplicationUtil.invokeAfterPageLoad(renderApplicationToDOM);
-      });
-    } else {
+    ApplicationUtil.beginTemporaryPolling(() => {
       renderApplicationToDOM();
-    }
-
-    function renderApplicationToDOM() {
-      const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
-      NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
-
-      renderAppToDOM(
-        <Provider store={PluginSDK.Store}>
-          <I18nProvider
-            defaultRender="span"
-            i18n={i18n}
-            language={UserLanguageStore.get()}
-            catalogs={catalogs}
-          >
-            <Router history={hashHistory} routes={routes} />
-          </I18nProvider>
-          <div
-            style={{
-              height: 0,
-              opacity: 0,
-              overflow: "hidden",
-              visibility: "hidden",
-              width: 0
-            }}
-          >
-            <div dangerouslySetInnerHTML={{ __html: systemIconSprite }} />
-            <div dangerouslySetInnerHTML={{ __html: productIconSprite }} />
-          </div>
-        </Provider>
-      );
-
-      PluginSDK.Hooks.doAction("routes", routes);
-    }
+    });
   }
+}
+
+function renderAppToDOM(content) {
+  ReactDOM.render(content, domElement, () => {
+    PluginSDK.Hooks.doAction("applicationRendered");
+  });
+}
+
+function renderApplicationToDOM() {
+  const routes = RouterUtil.buildRoutes(appRoutes.getRoutes());
+  NavigationServiceUtil.registerRoutesInNavigation(routes[0].childRoutes);
+
+  renderAppToDOM(
+    <Provider store={PluginSDK.Store}>
+      <I18nProvider
+        defaultRender="span"
+        i18n={i18n}
+        language={UserLanguageStore.get()}
+        catalogs={catalogs}
+      >
+        <Router history={hashHistory} routes={routes} />
+      </I18nProvider>
+      <div
+        style={{
+          height: 0,
+          opacity: 0,
+          overflow: "hidden",
+          visibility: "hidden",
+          width: 0
+        }}
+      >
+        <div dangerouslySetInnerHTML={{ __html: systemIconSprite }} />
+        <div dangerouslySetInnerHTML={{ __html: productIconSprite }} />
+      </div>
+    </Provider>
+  );
+
+  PluginSDK.Hooks.doAction("routes", routes);
 }
 
 function onPluginsLoaded() {

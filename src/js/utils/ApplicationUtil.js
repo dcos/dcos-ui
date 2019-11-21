@@ -2,26 +2,9 @@ import {
   MESOS_SUMMARY_CHANGE,
   MESOS_SUMMARY_REQUEST_ERROR
 } from "../constants/EventTypes";
-import Config from "../config/Config";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 
 module.exports = {
-  /**
-   * Checks that enough time has elapsed before rendering app
-   *
-   * @param  {Func} onDelayEndCallback Gets called after delay has elapsed
-   */
-  invokeAfterPageLoad(onDelayEndCallback) {
-    const timeSpentLoading = Date.now() - global.getPageLoadedTime();
-    const msLeftOfDelay = Config.applicationRenderDelay - timeSpentLoading;
-
-    if (msLeftOfDelay <= 0) {
-      setTimeout(onDelayEndCallback);
-    } else {
-      setTimeout(onDelayEndCallback, msLeftOfDelay);
-    }
-  },
-
   /**
    * Polls mesos summary endpoint to ensure there's data before rendering
    *
