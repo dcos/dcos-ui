@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import { Table } from "reactjs-components";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil.js";
+import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 
 /**

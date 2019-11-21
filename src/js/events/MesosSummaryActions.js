@@ -62,7 +62,7 @@ var MesosSummaryActions = {
 };
 
 if (Config.useFixtures) {
-  import(/* summaryFixture */ "../../../tests/_fixtures/v0/summary.js").then(
+  import(/* summaryFixture */ "../../../tests/_fixtures/v0/summary").then(
     summaryFixture => {
       if (!global.actionTypes) {
         global.actionTypes = {};

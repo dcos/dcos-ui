@@ -302,7 +302,7 @@ if (Config.useFixtures) {
     /* getMasterFixture */ "../../../tests/_fixtures/v1/get_master.json"
   );
   const subscribeFixture = import(
-    /* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe.js"
+    /* subscribeFixture */ "../../../tests/_fixtures/v1/subscribe"
   );
 
   const { MesosStreamType } = require("../core/MesosStream");

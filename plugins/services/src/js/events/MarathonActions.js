@@ -561,7 +561,7 @@ var MarathonActions = {
 
 if (Config.useFixtures) {
   const groupsFixtureImportPromise = import(
-    /* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups.js"
+    /* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups"
   );
 
   if (!global.actionTypes) {
