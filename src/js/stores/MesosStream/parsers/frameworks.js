@@ -4,11 +4,10 @@ import {
   FRAMEWORK_UPDATED,
   FRAMEWORK_REMOVED
 } from "../../../constants/MesosStreamMessageTypes";
-import { scalar } from "./ProtobufUtil";
 
 function processFramework({ framework_info, ...rest }) {
   const framework = { ...framework_info, ...rest };
-  framework.id = scalar(framework_info.id);
+  framework.id = framework_info.id.value;
 
   return framework;
 }
