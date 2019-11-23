@@ -111,8 +111,7 @@ JobDelete.propTypes = {
   jobId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-  selectedItems: PropTypes.array.isRequired
+  open: PropTypes.bool.isRequired
 };
 
 export default JobDelete;
