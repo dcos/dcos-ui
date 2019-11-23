@@ -1,11 +1,10 @@
 import { GET_EXECUTORS } from "../../../constants/MesosStreamMessageTypes";
-import { scalar } from "./ProtobufUtil";
 
 function processExecutor({ agent_id, executor_info }) {
   const executor = { agent_id, ...executor_info };
-  executor.id = scalar(executor.executor_id);
-  executor.slave_id = scalar(executor.agent_id);
-  executor.framework_id = scalar(executor.framework_id);
+  executor.id = executor.executor_id.value;
+  executor.slave_id = executor.agent_id.value;
+  executor.framework_id = executor.framework_id.value;
 
   return executor;
 }

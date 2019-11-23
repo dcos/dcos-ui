@@ -3,12 +3,11 @@ import {
   TASK_ADDED,
   TASK_UPDATED
 } from "../../../constants/MesosStreamMessageTypes";
-import { scalar } from "./ProtobufUtil";
 
 function convertResource(resource) {
   switch (resource.type) {
     case "SCALAR":
-      return scalar(resource.scalar);
+      return resource.scalar.value;
     case "RANGES":
       return resource.ranges.range;
     case "SET":
@@ -19,11 +18,11 @@ function convertResource(resource) {
 }
 
 function processTask(task) {
-  task.id = scalar(task.task_id);
-  task.slave_id = scalar(task.agent_id);
-  task.framework_id = scalar(task.framework_id);
+  task.id = task.task_id.value;
+  task.slave_id = task.agent_id.value;
+  task.framework_id = task.framework_id.value;
   if (task.executor_id) {
-    task.executor_id = scalar(task.executor_id);
+    task.executor_id = task.executor_id.value;
   }
   task.labels = task.labels && task.labels.labels;
   task.resources = task.resources.reduce((acc, resource) => {
@@ -93,7 +92,7 @@ export function taskUpdatedAction(state, message) {
   }
 
   const taskUpdate = message.task_updated;
-  const task_id = scalar(taskUpdate.status.task_id);
+  const task_id = taskUpdate.status.task_id.value;
   const tasks = state.tasks.map(task => {
     if (task.id === task_id) {
       const statuses = task.statuses || [];

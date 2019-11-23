@@ -3,7 +3,6 @@ import {
   AGENT_ADDED,
   AGENT_REMOVED
 } from "../../../constants/MesosStreamMessageTypes";
-import { scalar } from "./ProtobufUtil";
 
 function processAgent(agentMessage) {
   let agent = agentMessage;
@@ -14,7 +13,7 @@ function processAgent(agentMessage) {
     agent = { ...agent_info, ...rest };
   }
 
-  agent.id = scalar(agent.id);
+  agent.id = agent.id.value;
 
   return agent;
 }
@@ -47,7 +46,7 @@ export function agentRemovedAction(state, message) {
     return state;
   }
 
-  const removedAgentID = scalar(message.agent_removed.agent_id);
+  const removedAgentID = message.agent_removed.agent_id.value;
   const slaves = state.slaves.filter(agent => removedAgentID !== agent.id);
 
   return Object.assign({}, state, { slaves });
