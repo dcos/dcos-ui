@@ -31,7 +31,10 @@ class AuthStore extends GetSetBaseStore {
         logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
         logoutError: AUTH_USER_LOGOUT_ERROR
       },
-      unmountWhen: () => false
+      unmountWhen() {
+        return true;
+      },
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {

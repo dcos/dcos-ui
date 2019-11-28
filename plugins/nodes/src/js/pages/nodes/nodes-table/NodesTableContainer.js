@@ -31,7 +31,12 @@ class NodesTableContainer extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [
-      { events: ["success"], name: "nodeHealth", suppressUpdate: true },
+      {
+        events: ["success"],
+        listenAlways: false,
+        name: "nodeHealth",
+        suppressUpdate: true
+      },
       { name: "state", events: ["success"], suppressUpdate: true }
     ];
 

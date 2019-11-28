@@ -32,7 +32,8 @@ class MetadataStore extends GetSetBaseStore {
         dcosBuildInfoChange: DCOS_BUILD_INFO_CHANGE,
         dcosBuildInfoError: DCOS_BUILD_INFO_ERROR
       },
-      unmountWhen: () => false
+      unmountWhen: () => true,
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {

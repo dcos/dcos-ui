@@ -104,7 +104,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
         serviceUpdateSuccess: COSMOS_SERVICE_UPDATE_SUCCESS,
         serviceUpdateError: COSMOS_SERVICE_UPDATE_ERROR
       },
-      unmountWhen: (store, event) => event === "availableSuccess"
+      unmountWhen(store, event) {
+        return event === "availableSuccess";
+      },
+      listenAlways: false
     });
 
     AppDispatcher.register(payload => {

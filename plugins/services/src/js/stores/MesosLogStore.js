@@ -41,7 +41,10 @@ class MesosLogStore extends BaseStore {
         offsetSuccess: MESOS_INITIALIZE_LOG_CHANGE,
         offsetError: MESOS_INITIALIZE_LOG_REQUEST_ERROR
       },
-      unmountWhen: () => false,
+      unmountWhen() {
+        return true;
+      },
+      listenAlways: true,
       suppressUpdate: true
     });
 

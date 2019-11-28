@@ -23,8 +23,8 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "metadata", events: ["success"] },
-      { name: "summary", events: ["success"] }
+      { name: "metadata", events: ["success"], listenAlways: false },
+      { name: "summary", events: ["success"], listenAlways: false }
     ];
   }
 

@@ -36,7 +36,8 @@ class ConfigStore extends GetSetBaseStore {
         ccidSuccess: CLUSTER_CCID_SUCCESS,
         ccidError: CLUSTER_CCID_ERROR
       },
-      unmountWhen: () => false
+      unmountWhen: () => true,
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {
