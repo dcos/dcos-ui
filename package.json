@@ -87,8 +87,8 @@
     "xterm": "3.10.1"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.1.0",
-    "@commitlint/config-conventional": "8.1.0",
+    "@commitlint/cli": "8.2.0",
+    "@commitlint/config-conventional": "8.2.0",
     "@dcos/eslint-config": "0.3.0",
     "@lingui/cli": "2.8.3",
     "@lingui/macro": "2.8.3",
