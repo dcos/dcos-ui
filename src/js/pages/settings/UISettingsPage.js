@@ -53,7 +53,7 @@ const ConfigurationRow = ({ keyValue, title, value, action }) => {
 
 class UISettingsPage extends React.Component {
   constructor(...args) {
-    super(args);
+    super(...args);
     this.state = {
       configRefreshRateOpen: false
     };
