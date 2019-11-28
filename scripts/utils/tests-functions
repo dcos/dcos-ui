@@ -34,7 +34,7 @@ function executeCypress() {
     CYPRESS_ENV="--env $CYPRESS_ENV"
   fi
 
-  npx cypress run \
+  NODE_OPTIONS=--max-http-header-size=1000000 npx cypress run \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
