@@ -1,4 +1,3 @@
-
 ## Components
 
 ### Method Order
@@ -8,10 +7,10 @@ When creating a component, there is a specific order to methods in order to quic
 1. Constructor
 2. Lifecycle methods
 3. Event Handlers
-  1. on{Subject}{Event}
-  2. handle{Subject}{Event}
-4. Custom component methods
-5. Render methods
+4. on{Subject}{Event}
+5. handle{Subject}{Event}
+6. Custom component methods
+7. Render methods
 
 ### Method Naming
 
@@ -20,16 +19,18 @@ When creating a component, there is a specific order to methods in order to quic
 We split events into two groups. Server and User triggered events. Server events are prefixed with `on` and User events are prefixed with `handle`.
 
 **Examples:**
-* `onMarathonStoreChange` - `MarathonStore` is the subject, while `Change` is the Event.
-* `onVisibilityChange` - Triggered when the browser tab becomes inactive
-* `handleButtonClick` - Handles click on a button
-* `handleImageHover` – Handles the user hovering an image
+
+- `onMarathonStoreChange` - `MarathonStore` is the subject, while `Change` is the Event.
+- `onVisibilityChange` - Triggered when the browser tab becomes inactive
+- `handleButtonClick` - Handles click on a button
+- `handleImageHover` – Handles the user hovering an image
 
 **Render Methods**
 
 Typically when writing a `#render` method which renders a few bits, split the different bits into smaller ones, always prefixed with `get`.
 
 **Example:**
+
 ```js
 class Foo {
   ...
@@ -51,6 +52,7 @@ class Foo {
 Avoid binding callbacks each time they're used unless necessary. Instead bind all methods at initialization.
 
 **Do**
+
 ```js
 const METHODS_TO_BIND = [
   'handleUserClick'
@@ -72,7 +74,9 @@ class Foo {
   }
 }
 ```
+
 **Don't**
+
 ```js
 class Foo {
   handleUserClick() { ... }
@@ -92,19 +96,23 @@ We are trying to move away from mixins. Do not create mixins.
 ## Alphabetize
 
 Things to alphabetize:
-* Imports
-* Variable declarations
-* JSX props. Example:
+
+- Imports
+- Variable declarations
+- JSX props. Example:
+
 ```js
 return (
   <Modal
     className="modal modal-large"
     closeByBackgroundClick={false}
-    open={true} />
+    open={true}
+  />
 );
 ```
 
-* Keys in an object. Example:
+- Keys in an object. Example:
+
 ```js
 this.state = {
   disableSubmit: false,
@@ -116,7 +124,3 @@ this.state = {
 ## API Requests
 
 API Requests should go into an Action file like [this](https://github.com/dcos/dcos-ui/blob/master/src/js/events/CosmosPackagesActions.js)
-
-## CSS
-
-Please review our [CSS styleguide](https://github.com/dcos/dcos-ui-common/tree/master/stylelint-config-dcos).
