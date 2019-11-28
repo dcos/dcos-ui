@@ -145,25 +145,21 @@ class MesosStateStore extends GetSetBaseStore {
   }
 
   getLastMesosState() {
-    return Object.assign(
-      {
-        executors: [],
-        frameworks: [],
-        master_info: {},
-        slaves: [],
-        tasks: []
-      },
-      this.get("lastMesosState")
-    );
+    return {
+      executors: [],
+      frameworks: [],
+      master_info: {},
+      slaves: [],
+      tasks: [],
+      ...this.get("lastMesosState")
+    };
   }
 
   getMaster() {
-    return Object.assign(
-      {
-        master_info: {}
-      },
-      this.get("master")
-    );
+    return {
+      master_info: {},
+      ...this.get("master")
+    };
   }
 
   getHostResourcesByFramework(filter) {
@@ -219,11 +215,7 @@ class MesosStateStore extends GetSetBaseStore {
     const { tasks } = this.getLastMesosState();
     const task = tasks.find(({ id }) => id === taskID);
 
-    if (!task) {
-      return null;
-    }
-
-    return new Task(task);
+    return task ? new Task(task) : null;
   }
 
   getFrameworkByTask(task) {
