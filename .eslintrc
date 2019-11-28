@@ -53,6 +53,7 @@
     "prettier/prettier": "off",
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
+    "test-names/blacklist-word-in-test-name": "off",
     "comma-dangle": ["error", "never"],
     "compat/compat": "error",
     "destructuring/in-methods-params": "off",
