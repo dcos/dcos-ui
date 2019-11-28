@@ -23,7 +23,11 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "dcos", events: ["change"], unmountWhen: () => false }
+      {
+        name: "dcos",
+        events: ["change"],
+        listenAlways: true
+      }
     ];
 
     this.state = {

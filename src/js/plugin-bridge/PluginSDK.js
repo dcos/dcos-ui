@@ -151,16 +151,18 @@ const getActionsAPI = SDK => ({
  * @return {Object}            - Created store
  */
 const addStoreConfig = definition => {
-  if (!definition.storeID) {
-    throw new Error("Must define a valid storeID to expose events");
+  if (definition) {
+    if (!definition.storeID) {
+      throw new Error("Must define a valid storeID to expose events");
+    }
+    if (definition.storeID in existingFluxStores) {
+      throw new Error(`Store with ID ${definition.storeID} already exists.`);
+    }
+    existingFluxStores[definition.storeID] = definition;
+    // Register events with StoreMixin. Only import this as needed
+    // because its presence will degrade test performance.
+    StoreMixin.store_configure(existingFluxStores);
   }
-  if (definition.storeID in existingFluxStores) {
-    throw new Error(`Store with ID ${definition.storeID} already exists.`);
-  }
-  existingFluxStores[definition.storeID] = definition;
-  // Register events with StoreMixin. Only import this as needed
-  // because its presence will degrade test performance.
-  StoreMixin.store_configure(existingFluxStores);
 
   return definition;
 };

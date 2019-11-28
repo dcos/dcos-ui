@@ -55,7 +55,14 @@ class MesosSummaryStore extends GetSetBaseStore {
       },
 
       // When to remove listener
-      unmountWhen: () => false
+      unmountWhen(store, event) {
+        if (event === "success") {
+          return store.get("statesProcessed");
+        }
+      },
+
+      // Set to true to keep listening until unmount
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {

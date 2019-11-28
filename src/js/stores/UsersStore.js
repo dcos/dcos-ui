@@ -26,7 +26,10 @@ class UsersStore extends GetSetBaseStore {
         success: USERS_CHANGE,
         error: USERS_REQUEST_ERROR
       },
-      unmountWhen: () => false
+      unmountWhen() {
+        return true;
+      },
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {

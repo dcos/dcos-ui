@@ -30,8 +30,17 @@ class NodesGridContainer extends mixin(StoreMixin) {
       serviceColors: {}
     };
     this.store_listeners = [
-      { events: ["success"], name: "nodeHealth", suppressUpdate: true },
-      { events: ["success", "error"], name: "state", suppressUpdate: true }
+      {
+        events: ["success"],
+        listenAlways: false,
+        name: "nodeHealth",
+        suppressUpdate: true
+      },
+      {
+        events: ["success", "error"],
+        name: "state",
+        suppressUpdate: true
+      }
     ];
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

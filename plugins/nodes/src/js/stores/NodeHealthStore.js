@@ -74,7 +74,10 @@ class NodeHealthStore extends GetSetBaseStore {
         unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
         unitError: HEALTH_NODE_UNIT_ERROR
       },
-      unmountWhen: () => false
+      unmountWhen() {
+        return true;
+      },
+      listenAlways: true
     });
 
     AppDispatcher.register(payload => {

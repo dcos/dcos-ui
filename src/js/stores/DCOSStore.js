@@ -39,7 +39,10 @@ class DCOSStore extends EventEmitter {
       store: this,
       storeID: this.storeID,
       events: this.getEvents(),
-      unmountWhen: () => false
+      unmountWhen() {
+        return true;
+      },
+      listenAlways: true
     });
 
     METHODS_TO_BIND.forEach(method => {
