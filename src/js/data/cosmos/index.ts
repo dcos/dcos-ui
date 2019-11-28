@@ -1,6 +1,6 @@
 import { of, throwError } from "rxjs";
 import { map, retry, switchMap } from "rxjs/operators";
-import { CosmosClient } from "cosmos-client";
+import { CosmosClient } from "./CosmosClient";
 
 import Config from "#SRC/js/config/Config";
 import { PackageSchema } from "#SRC/js/data/cosmos/Package";

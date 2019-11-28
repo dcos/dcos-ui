@@ -1,9 +1,9 @@
 import { tap } from "rxjs/operators";
-import { request } from "@dcos/http-service";
+import { request, RequestResponse } from "@dcos/http-service";
 
-import { buildRequestHeader, getErrorMessage } from "./utils";
-
-import { PackageVersionsResponse } from "../";
+interface PackageVersionsResponse {
+  results: Record<string, string>;
+}
 
 export const CosmosClient = (rootUrl: string) => ({
   listPackageVersions: (packageName: string) =>
@@ -35,3 +35,33 @@ export const CosmosClient = (rootUrl: string) => ({
       })
     )
 });
+
+export function buildRequestHeader(
+  action: string,
+  actionType: string,
+  entity: string,
+  version: string
+) {
+  return `application/vnd.dcos.${entity}.${action}-${actionType}+json;charset=utf-8;version=${version}`;
+}
+
+export function getErrorMessage({
+  response,
+  message
+}: RequestResponse<any>): string {
+  if (typeof response === "string") {
+    return response;
+  } else if (typeof response === "object") {
+    if (response.description) {
+      return response.description;
+    }
+    if (response.message) {
+      return response.message;
+    }
+  }
+  if (message) {
+    return message;
+  }
+
+  return "An error has occurred.";
+}
