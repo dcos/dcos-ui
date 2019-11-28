@@ -1,3 +1,39 @@
 {
-  "extends": "stylelint-config-dcos"
+  "extends": "stylelint-config-standard",
+  "rules": {
+    "at-rule-empty-line-before": ["always", {
+      "except": ["blockless-after-same-name-blockless"],
+      "ignore": ["after-comment"]
+    }],
+    "at-rule-name-space-after": "always",
+    "at-rule-no-unknown": true,
+    "at-rule-no-vendor-prefix": true,
+    "block-closing-brace-newline-before": "always",
+    "block-opening-brace-newline-after": "always",
+    "color-named": "never",
+    "declaration-block-semicolon-newline-after": "always",
+    "declaration-block-semicolon-newline-before": "never-multi-line",
+    "declaration-colon-space-after": "always-single-line",
+    "declaration-empty-line-before": "never",
+    "font-family-name-quotes": "always-unless-keyword",
+    "font-weight-notation": "numeric",
+    "function-blacklist": ["hsla"],
+    "function-calc-no-invalid": null,
+    "function-comma-newline-before": "never-multi-line",
+    "function-parentheses-newline-inside": "never-multi-line",
+    "function-parentheses-space-inside": "never",
+    "function-url-quotes": "always",
+    "media-feature-name-no-vendor-prefix": true,
+    "media-query-list-comma-space-after": "always",
+    "no-descending-specificity": null,
+    "no-duplicate-selectors": true,
+    "property-no-vendor-prefix": true,
+    "rule-empty-line-before": null,
+    "selector-attribute-quotes": "always",
+    "selector-list-comma-newline-before": "never-multi-line",
+    "selector-pseudo-element-colon-notation": "single",
+    "string-quotes": "single",
+    "value-keyword-case": ["lower", {"ignoreKeywords": ["BlinkMacSystemFont"]}],
+    "value-list-comma-space-after": "always-single-line"
+  }
 }
