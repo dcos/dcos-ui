@@ -121,11 +121,7 @@ const SDKPlans = componentFromStream(props$ => {
       );
     }),
     retryWhen(errors =>
-      errors.pipe(
-        delay(1000),
-        take(60),
-        concat(throwError(errors))
-      )
+      errors.pipe(delay(1000), take(60), concat(throwError(errors)))
     ),
     catchError(() => of(<ErrorScreen />)),
     startWith(<WaitingScreen />)

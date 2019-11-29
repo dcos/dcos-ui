@@ -61,16 +61,13 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
               }
             ];
 
-            const data = Object.keys(labels).reduce(
-              (memo, labelKey) => {
-                const value = getDisplayValue(labels[labelKey]);
+            const data = Object.keys(labels).reduce((memo, labelKey) => {
+              const value = getDisplayValue(labels[labelKey]);
 
-                memo.push({ key: labelKey, value });
+              memo.push({ key: labelKey, value });
 
-                return memo;
-              },
-              [] as KeyValue[]
-            );
+              return memo;
+            }, [] as KeyValue[]);
 
             return (
               <Table

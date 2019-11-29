@@ -17,9 +17,9 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
     const { config } = this.props;
     return (
       !config.run.docker ||
-      (!config.run.docker ||
-        !config.run.docker.parameters ||
-        !config.run.docker.parameters.length)
+      !config.run.docker ||
+      !config.run.docker.parameters ||
+      !config.run.docker.parameters.length
     );
   }
 

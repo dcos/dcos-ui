@@ -21,7 +21,7 @@ export function quotaHasLimit(
     quota.gpus
   ];
   for (const metric of metrics) {
-    if (metric && (metric.limit !== null && metric.limit !== undefined)) {
+    if (metric && metric.limit !== null && metric.limit !== undefined) {
       return true;
     }
   }

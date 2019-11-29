@@ -24,8 +24,8 @@ export const schedulePropertiesCanBeDiscarded = (
   }
   if (
     numProps === 2 &&
-    (schedule.enabled === false &&
-      schedule.concurrencyPolicy === ConcurrentPolicy.Forbid)
+    schedule.enabled === false &&
+    schedule.concurrencyPolicy === ConcurrentPolicy.Forbid
   ) {
     return true;
   }

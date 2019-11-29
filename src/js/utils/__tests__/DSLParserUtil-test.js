@@ -58,7 +58,10 @@ describe("DSLParserUtil", () => {
 
       // ASTNode properties
       expect(ast.children).toEqual([]);
-      expect(ast.position).toEqual([[0, 5], [10, 20]]);
+      expect(ast.position).toEqual([
+        [0, 5],
+        [10, 20]
+      ]);
 
       // FilterNode properties
       expect(ast.filterType).toEqual(DSLFilterTypes.ATTRIB);
