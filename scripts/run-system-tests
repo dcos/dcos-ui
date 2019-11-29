@@ -50,7 +50,7 @@ PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)"
 CYPRESS_FOLDER="results"
 TESTS_FOLDER="system-tests"
 
-while getopts 's:hknr:?' flag; do
+while getopts 's:hdnr:?' flag; do
   case "${flag}" in
   s) SEARCH=${OPTARG:-'*'} ;;
   h) CYPRESS_HEADED="true" ;;
