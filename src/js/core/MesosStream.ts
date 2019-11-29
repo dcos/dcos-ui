@@ -1,4 +1,4 @@
-import { Observable, of, timer } from "rxjs";
+import { Observable, from, timer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import utf8 from "@protobufjs/utf8";
 import { map, repeatWhen, shareReplay, switchMap } from "rxjs/operators";
@@ -73,7 +73,7 @@ const mesos$ = fromFetch("/mesos/api/v1?subscribe", {
     // testing-related code in prod here, sorry!
     const contentType = response.headers.get("content-type") || "";
     if (contentType.match(/application\/json/)) {
-      return of(response.json());
+      return from(response.json());
     }
 
     if (!response.body) {
