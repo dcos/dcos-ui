@@ -1,44 +1,48 @@
 import { Observable, of, timer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
+import utf8 from "@protobufjs/utf8";
 import { map, repeatWhen, shareReplay, switchMap } from "rxjs/operators";
 // @ts-ignore
 import proto from "../mesos-proto";
 
-const eventCoder = proto.lookup("Event");
+const MesosEvent = proto.lookup("Event");
 
-const utf8Coder = new TextDecoder("utf-8");
-const recordIOChunk$ = (
+// Create a stream of RecordIO-records out of a chunked transmission.
+const record$ = (
   reader: ReadableStreamDefaultReader<Uint8Array>
 ): Observable<Uint8Array> => {
   return new Observable(observer => {
     // a buffer to temporarily hold binary data that is streamed. it might be
-    // that mesos streams less than a full chunk - that's why we need to store
+    // that mesos streams less than a full record - that's why we need to store
     // that temporarily.
     let buffer = new Uint8Array();
 
     // @ts-ignore
     reader.read().then(function process({ done, value }) {
       if (done) {
-        return observer.complete();
+        observer.complete();
+        return;
       }
 
-      // append the data that's coming in to our buffer
+      // append the incoming chunk to the buffer
       const newBuffer = new Uint8Array(buffer.length + value.length);
       newBuffer.set(buffer);
       newBuffer.set(value, buffer.length);
       buffer = newBuffer;
 
-      // check if we have enough data in the buffer to emit a chunk
-      const newlineIndex = buffer.indexOf(10) + 1;
-      const chunkLengthStr = utf8Coder.decode(buffer.slice(0, newlineIndex));
-      const chunkLength = parseInt(chunkLengthStr, 10);
-      if (buffer.length >= chunkLength) {
-        // emit a chunk
-        const chunk = buffer.slice(newlineIndex, chunkLength + newlineIndex);
-        observer.next(chunk);
+      // RecordIO prepends the length before the record itself.
+      // Let's check if we have enough data to emit a record.
+      const newlineIndex = buffer.indexOf(10);
+      const recordLength = parseInt(utf8.read(buffer, 0, newlineIndex), 10);
+      if (buffer.length >= recordLength) {
+        // emit a record
+        const start = newlineIndex + 1;
+        const record = buffer.slice(start, start + recordLength);
+        observer.next(record);
 
-        // remove emitted chunk from buffer
-        buffer = buffer.slice(chunkLength + newlineIndex, buffer.length);
+        // Remove emitted record from buffer.
+        // NB: the next record might already be at the end of the buffer.
+        buffer = buffer.slice(start + recordLength, buffer.length);
       }
 
       // handle next chunk
@@ -48,8 +52,8 @@ const recordIOChunk$ = (
 };
 
 // The `toObject` is needed to convert enums into readable strings
-const protobufToEvent = (chunk: Uint8Array) =>
-  eventCoder.toObject(eventCoder.decode(chunk), { enums: String });
+const protobufToEvent = (record: Uint8Array) =>
+  MesosEvent.toObject(MesosEvent.decode(record), { enums: String });
 
 const mesos$ = fromFetch("/mesos/api/v1?subscribe", {
   method: "POST",
@@ -76,7 +80,7 @@ const mesos$ = fromFetch("/mesos/api/v1?subscribe", {
       throw Error("MesosStateStream does not contain data.");
     }
 
-    return recordIOChunk$(response.body.getReader()).pipe(map(protobufToEvent));
+    return record$(response.body.getReader()).pipe(map(protobufToEvent));
   })
 );
 

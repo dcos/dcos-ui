@@ -1,6 +1,5 @@
 require("babel-polyfill");
 require("reflect-metadata");
-global.TextDecoder = require("util").TextDecoder;
 var EventEmitter = require("events").EventEmitter;
 
 // Tests should just mock responses for the json API
