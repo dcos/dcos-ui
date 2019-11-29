@@ -22,4 +22,4 @@ UnitsHealthNodeDetailPanel.propTypes = {
   summary: PropTypes.node
 };
 
-module.exports = UnitsHealthNodeDetailPanel;
+export default UnitsHealthNodeDetailPanel;

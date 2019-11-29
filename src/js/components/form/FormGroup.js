@@ -69,4 +69,4 @@ FormGroup.propTypes = {
   hasNarrowMargins: PropTypes.bool
 };
 
-module.exports = FormGroup;
+export default FormGroup;

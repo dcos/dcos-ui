@@ -25,7 +25,7 @@ function getEmptyTaskData() {
   }));
 }
 
-var TasksChart = createReactClass({
+const TasksChart = createReactClass({
   displayName: "TasksChart",
 
   propTypes: {
@@ -133,4 +133,4 @@ var TasksChart = createReactClass({
   }
 });
 
-module.exports = TasksChart;
+export default TasksChart;

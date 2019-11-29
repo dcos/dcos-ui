@@ -28,4 +28,4 @@ FieldTextarea.propTypes = {
   ])
 };
 
-module.exports = FieldTextarea;
+export default FieldTextarea;

@@ -279,4 +279,4 @@ ServiceConfiguration.propTypes = {
   service: PropTypes.instanceOf(Service).isRequired
 };
 
-module.exports = ServiceConfiguration;
+export default ServiceConfiguration;

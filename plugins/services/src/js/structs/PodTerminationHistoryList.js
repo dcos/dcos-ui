@@ -5,4 +5,4 @@ class PodTerminationHistoryList extends List {}
 
 PodTerminationHistoryList.type = PodTerminationHistory;
 
-module.exports = PodTerminationHistoryList;
+export default PodTerminationHistoryList;

@@ -7,4 +7,4 @@ const PodActionItem = {
   STOP: "stop"
 };
 
-module.exports = PodActionItem;
+export default PodActionItem;

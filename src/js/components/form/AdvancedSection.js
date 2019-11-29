@@ -65,4 +65,4 @@ AdvancedSection.propTypes = {
   shouldExpand: PropTypes.bool
 };
 
-module.exports = AdvancedSection;
+export default AdvancedSection;

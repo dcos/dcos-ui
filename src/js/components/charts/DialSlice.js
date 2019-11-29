@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
 
-var DialSlice = createReactClass({
+const DialSlice = createReactClass({
   displayName: "DialSlice",
 
   propTypes: {
@@ -28,4 +28,4 @@ var DialSlice = createReactClass({
   }
 });
 
-module.exports = DialSlice;
+export default DialSlice;

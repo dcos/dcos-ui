@@ -89,4 +89,4 @@ TasksStatusDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired
 };
 
-module.exports = TasksStatusDSLSection;
+export default TasksStatusDSLSection;

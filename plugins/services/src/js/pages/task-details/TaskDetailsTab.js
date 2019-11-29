@@ -200,4 +200,4 @@ TaskDetailsTab.defaultProps = {
   task: {}
 };
 
-module.exports = TaskDetailsTab;
+export default TaskDetailsTab;

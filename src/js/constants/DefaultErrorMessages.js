@@ -185,4 +185,4 @@ const DefaultErrorMessages = [
   }
 ];
 
-module.exports = DefaultErrorMessages;
+export default DefaultErrorMessages;

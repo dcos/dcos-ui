@@ -44,4 +44,4 @@ ToggleButton.propTypes = {
   ])
 };
 
-module.exports = ToggleButton;
+export default ToggleButton;

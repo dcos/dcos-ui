@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   actions: ["pluginsConfigured"],
 
   filters: ["hasCapability"],

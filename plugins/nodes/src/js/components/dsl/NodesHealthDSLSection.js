@@ -68,4 +68,4 @@ NodesHealthDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = NodesHealthDSLSection;
+export default NodesHealthDSLSection;

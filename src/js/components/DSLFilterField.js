@@ -146,4 +146,4 @@ DSLFilterField.propTypes = {
   onChange: PropTypes.func
 };
 
-module.exports = DSLFilterField;
+export default DSLFilterField;

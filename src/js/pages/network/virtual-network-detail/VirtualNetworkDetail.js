@@ -186,4 +186,4 @@ VirtualNetworkDetail.contextTypes = {
   router: routerShape
 };
 
-module.exports = VirtualNetworkDetail;
+export default VirtualNetworkDetail;

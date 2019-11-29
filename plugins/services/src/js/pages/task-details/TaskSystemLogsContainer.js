@@ -376,4 +376,4 @@ TaskSystemLogsContainer.propTypes = {
   watching: PropTypes.number
 };
 
-module.exports = TaskSystemLogsContainer;
+export default TaskSystemLogsContainer;

@@ -217,4 +217,4 @@ const UnitSummaries = {
   }
 };
 
-module.exports = UnitSummaries;
+export default UnitSummaries;

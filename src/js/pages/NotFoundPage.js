@@ -8,7 +8,7 @@ import AlertPanelHeader from "../components/AlertPanelHeader";
 import Page from "../components/Page";
 import SidebarActions from "../events/SidebarActions";
 
-var NotFoundPage = createReactClass({
+const NotFoundPage = createReactClass({
   displayName: "NotFoundPage",
 
   statics: {
@@ -39,4 +39,4 @@ var NotFoundPage = createReactClass({
   }
 });
 
-module.exports = NotFoundPage;
+export default NotFoundPage;

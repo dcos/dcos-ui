@@ -805,4 +805,4 @@ NetworkingFormSection.configReducers = {
   }
 };
 
-module.exports = NetworkingFormSection;
+export default NetworkingFormSection;

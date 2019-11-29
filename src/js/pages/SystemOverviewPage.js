@@ -14,4 +14,4 @@ SystemOverviewPage.routeConfig = {
   matches: /^\/cluster/
 };
 
-module.exports = SystemOverviewPage;
+export default SystemOverviewPage;

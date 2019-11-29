@@ -93,4 +93,4 @@ ImageViewer.propTypes = {
   images: PropTypes.arrayOf(PropTypes.string)
 };
 
-module.exports = ImageViewer;
+export default ImageViewer;

@@ -60,4 +60,4 @@ NodeDetailTaskTab.contextTypes = {
   router: routerShape
 };
 
-module.exports = NodeDetailTaskTab;
+export default NodeDetailTaskTab;

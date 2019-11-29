@@ -62,4 +62,4 @@ FormGroupHeadingContent.propTypes = {
   title: PropTypes.string
 };
 
-module.exports = FormGroupHeadingContent;
+export default FormGroupHeadingContent;

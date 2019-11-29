@@ -25,4 +25,4 @@ JobsPage.willTransitionTo = () => {
   SidebarActions.close();
 };
 
-module.exports = JobsPage;
+export default JobsPage;

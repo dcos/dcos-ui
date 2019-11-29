@@ -23,4 +23,4 @@ class TableColumnResizeStore extends EventEmitter {
   }
 }
 
-module.exports = new TableColumnResizeStore();
+export default new TableColumnResizeStore();

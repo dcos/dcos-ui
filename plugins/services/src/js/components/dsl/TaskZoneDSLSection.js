@@ -81,4 +81,4 @@ TaskZoneDSLSection.propTypes = {
   defaultData: PropTypes.object.isRequired
 };
 
-module.exports = TaskZoneDSLSection;
+export default TaskZoneDSLSection;

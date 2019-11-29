@@ -13,7 +13,7 @@ import { JSONParser as portMappings } from "./serviceForm/PortMappings";
 import { JSONParser as residency } from "./serviceForm/JSONReducers/Residency";
 import { JSONParser as requirePorts } from "./serviceForm/JSONReducers/RequirePorts";
 
-module.exports = [
+export default [
   simpleParser(["id"]),
   simpleParser(["instances"]),
   simpleParser(["cpus"]),

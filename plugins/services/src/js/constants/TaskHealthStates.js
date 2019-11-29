@@ -6,4 +6,4 @@ const TaskHealthStates = {
   UNKNOWN: i18nMark("Unknown")
 };
 
-module.exports = TaskHealthStates;
+export default TaskHealthStates;

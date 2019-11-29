@@ -22,4 +22,4 @@ HighOrderServiceDebug.propTypes = {
   ])
 };
 
-module.exports = HighOrderServiceDebug;
+export default HighOrderServiceDebug;

@@ -113,4 +113,4 @@ ClipboardTrigger.propTypes = {
   useTooltip: PropTypes.bool
 };
 
-module.exports = ClipboardTrigger;
+export default ClipboardTrigger;

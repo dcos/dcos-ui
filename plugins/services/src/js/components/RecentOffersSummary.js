@@ -266,4 +266,4 @@ function RecentOffersSummary({ data }) {
   );
 }
 
-module.exports = RecentOffersSummary;
+export default RecentOffersSummary;

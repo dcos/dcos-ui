@@ -1,7 +1,7 @@
 import Item from "#SRC/js/structs/Item";
 import PodContainerTerminationHistory from "./PodContainerTerminationHistory";
 
-module.exports = class PodTerminationHistory extends Item {
+export default class PodTerminationHistory extends Item {
   getContainers() {
     const containers = this.get("containers") || [];
 
@@ -25,4 +25,4 @@ module.exports = class PodTerminationHistory extends Item {
   getTerminatedAt() {
     return new Date(this.get("terminatedAt"));
   }
-};
+}

@@ -1,8 +1,8 @@
+import TimeSeriesChart from "../TimeSeriesChart";
+
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const TimeSeriesChart = require("../TimeSeriesChart");
 
 let thisContainer, thisInstance;
 

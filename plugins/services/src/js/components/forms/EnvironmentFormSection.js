@@ -314,4 +314,4 @@ EnvironmentFormSection.configReducers = {
   labels
 };
 
-module.exports = EnvironmentFormSection;
+export default EnvironmentFormSection;

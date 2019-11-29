@@ -29,7 +29,7 @@ function getSidebarState() {
   };
 }
 
-var Index = createReactClass({
+const Index = createReactClass({
   displayName: "Index",
 
   mixins: [StoreMixin],
@@ -228,4 +228,4 @@ var Index = createReactClass({
   }
 });
 
-module.exports = Index;
+export default Index;

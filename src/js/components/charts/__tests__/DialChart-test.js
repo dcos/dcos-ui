@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const DialChart = require("../DialChart");
+import DialChart from "../DialChart";
 
 const getInstanceWithProps = props => mount(<DialChart {...props} />);
 

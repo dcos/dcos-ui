@@ -2,7 +2,7 @@ import React from "react";
 import { I18nProvider } from "@lingui/react";
 import { mount, shallow } from "enzyme";
 
-const TasksChart = require("../TasksChart");
+import TasksChart from "../TasksChart";
 
 let thisInstance, thisTasks;
 

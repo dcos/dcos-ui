@@ -35,4 +35,4 @@ FullScreenModal.defaultProps = {
   useGemini: true
 };
 
-module.exports = FullScreenModal;
+export default FullScreenModal;

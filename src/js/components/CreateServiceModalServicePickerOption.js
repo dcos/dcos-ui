@@ -48,4 +48,4 @@ function CreateServiceModalServicePickerOption({
   );
 }
 
-module.exports = CreateServiceModalServicePickerOption;
+export default CreateServiceModalServicePickerOption;

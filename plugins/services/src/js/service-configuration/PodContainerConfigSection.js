@@ -151,4 +151,4 @@ PodContainerConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodContainerConfigSection;
+export default PodContainerConfigSection;

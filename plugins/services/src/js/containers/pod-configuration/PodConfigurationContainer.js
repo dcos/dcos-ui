@@ -30,4 +30,4 @@ PodConfigurationTabView.propTypes = {
   pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodConfigurationTabView;
+export default PodConfigurationTabView;

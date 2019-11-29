@@ -286,4 +286,4 @@ PodDetail.propTypes = {
   pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodDetail;
+export default PodDetail;

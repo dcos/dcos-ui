@@ -49,4 +49,4 @@ EmptyServiceTree.propTypes = {
   onCreateService: PropTypes.func
 };
 
-module.exports = EmptyServiceTree;
+export default EmptyServiceTree;

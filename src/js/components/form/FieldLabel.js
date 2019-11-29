@@ -55,4 +55,4 @@ FieldLabel.propTypes = {
   ])
 };
 
-module.exports = FieldLabel;
+export default FieldLabel;

@@ -159,4 +159,4 @@ class TaskStatsTable extends React.Component {
   }
 }
 
-module.exports = TaskStatsTable;
+export default TaskStatsTable;

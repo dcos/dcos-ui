@@ -137,4 +137,4 @@ VirtualNetworkTaskPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = VirtualNetworkTaskPage;
+export default VirtualNetworkTaskPage;

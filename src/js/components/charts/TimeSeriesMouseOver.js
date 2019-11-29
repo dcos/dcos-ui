@@ -5,7 +5,7 @@ import createReactClass from "create-react-class";
 
 import Maths from "../../utils/Maths";
 
-var TimeSeriesMouseOver = createReactClass({
+const TimeSeriesMouseOver = createReactClass({
   displayName: "TimeSeriesMouseOver",
 
   propTypes: {
@@ -176,4 +176,4 @@ var TimeSeriesMouseOver = createReactClass({
   }
 });
 
-module.exports = TimeSeriesMouseOver;
+export default TimeSeriesMouseOver;

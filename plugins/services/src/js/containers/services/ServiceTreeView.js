@@ -285,4 +285,4 @@ ServiceTreeView.propTypes = {
   roles: PropTypes.array
 };
 
-module.exports = ServiceTreeView;
+export default ServiceTreeView;

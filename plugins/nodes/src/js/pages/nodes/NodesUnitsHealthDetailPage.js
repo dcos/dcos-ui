@@ -43,4 +43,4 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
   }
 }
 
-module.exports = withNode(NodesUnitsHealthDetailPage);
+export default withNode(NodesUnitsHealthDetailPage);

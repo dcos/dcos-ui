@@ -34,4 +34,4 @@ ServiceItemNotFound.propTypes = {
   message: PropTypes.node
 };
 
-module.exports = ServiceItemNotFound;
+export default ServiceItemNotFound;

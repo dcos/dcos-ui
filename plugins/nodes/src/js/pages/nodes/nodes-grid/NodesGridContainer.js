@@ -168,4 +168,4 @@ NodesGridContainer.contextTypes = {
   selectedResource: PropTypes.string
 };
 
-module.exports = NodesGridContainer;
+export default NodesGridContainer;

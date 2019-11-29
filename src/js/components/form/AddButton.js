@@ -37,4 +37,4 @@ AddButton.propTypes = {
   icon: PropTypes.node
 };
 
-module.exports = AddButton;
+export default AddButton;

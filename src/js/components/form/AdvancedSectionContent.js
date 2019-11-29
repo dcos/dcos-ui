@@ -17,4 +17,4 @@ AdvancedSectionContent.propTypes = {
   ])
 };
 
-module.exports = AdvancedSectionContent;
+export default AdvancedSectionContent;

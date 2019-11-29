@@ -42,4 +42,4 @@ const ScrollbarUtil = {
   }
 };
 
-module.exports = ScrollbarUtil;
+export default ScrollbarUtil;

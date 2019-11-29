@@ -175,4 +175,4 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   }
 }
 
-module.exports = ServiceStorageConfigSection;
+export default ServiceStorageConfigSection;

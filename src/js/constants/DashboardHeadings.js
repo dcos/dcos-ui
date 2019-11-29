@@ -11,4 +11,4 @@ const DashboardHeadings = {
   NODES: i18nMark("Nodes")
 };
 
-module.exports = DashboardHeadings;
+export default DashboardHeadings;
