@@ -1,5 +1,6 @@
 {
   "defaultCommandTimeout": 60000,
+  "pageLoadTimeout": 600000,
   "env": {
     "CLUSTER_URL": "http://localhost:4200"
   },
