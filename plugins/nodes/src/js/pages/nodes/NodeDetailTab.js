@@ -38,11 +38,14 @@ class NodeDetailTab extends PureComponent {
       MESOS_STATE_CHANGE,
       this.onMesosStateChange
     );
-    request({ type: "GET_VERSION" }).subscribe(response => {
-      const { version = null } = JSON.parse(response).get_version.version_info;
-
-      this.setState({ version });
-    });
+    request({ type: "GET_VERSION" }, "/mesos/api/v1?GET_VERSION").subscribe(
+      response => {
+        const { version = null } = JSON.parse(
+          response
+        ).get_version.version_info;
+        this.setState({ version });
+      }
+    );
 
     this.onMesosStateChange();
   }
