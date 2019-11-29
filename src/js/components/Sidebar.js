@@ -345,4 +345,4 @@ Sidebar.contextTypes = {
   router: routerShape
 };
 
-module.exports = Sidebar;
+export default Sidebar;

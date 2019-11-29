@@ -77,4 +77,4 @@ function PortMappingsReducer(state = [], action) {
   return state;
 }
 
-module.exports = PortMappingsReducer;
+export default PortMappingsReducer;

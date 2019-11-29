@@ -90,4 +90,4 @@ PodPlacementConstraintsConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodPlacementConstraintsConfigSection;
+export default PodPlacementConstraintsConfigSection;

@@ -43,4 +43,4 @@ NodeInfoPanel.propTypes = {
   summary: PropTypes.node
 };
 
-module.exports = NodeInfoPanel;
+export default NodeInfoPanel;

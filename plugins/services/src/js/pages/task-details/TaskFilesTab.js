@@ -26,4 +26,4 @@ TaskFilesTab.defaultProps = {
   task: {}
 };
 
-module.exports = TaskFilesTab;
+export default TaskFilesTab;

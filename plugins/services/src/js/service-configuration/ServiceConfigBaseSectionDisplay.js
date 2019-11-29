@@ -112,4 +112,4 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
   }
 }
 
-module.exports = ServiceConfigBaseSectionDisplay;
+export default ServiceConfigBaseSectionDisplay;

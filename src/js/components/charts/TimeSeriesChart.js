@@ -478,4 +478,4 @@ const TimeSeriesChart = createReactClass({
   }
 });
 
-module.exports = TimeSeriesChart;
+export default TimeSeriesChart;

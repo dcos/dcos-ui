@@ -42,4 +42,4 @@ TaskFileBrowser.defaultProps = {
   task: {}
 };
 
-module.exports = TaskFileBrowser;
+export default TaskFileBrowser;

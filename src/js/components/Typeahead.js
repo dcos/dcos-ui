@@ -83,4 +83,4 @@ Typeahead.propTypes = {
   searchString: PropTypes.string.isRequired
 };
 
-module.exports = Typeahead;
+export default Typeahead;

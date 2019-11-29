@@ -117,4 +117,4 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
   }
 }
 
-module.exports = ServiceEnvironmentVariablesConfigSection;
+export default ServiceEnvironmentVariablesConfigSection;

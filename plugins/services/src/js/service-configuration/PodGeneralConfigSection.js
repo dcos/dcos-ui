@@ -203,4 +203,4 @@ PodGeneralConfigSection.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = PodGeneralConfigSection;
+export default PodGeneralConfigSection;

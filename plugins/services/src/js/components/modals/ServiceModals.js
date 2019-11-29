@@ -272,4 +272,4 @@ ServiceModals.propTypes = {
   pendingActions: PropTypes.object
 };
 
-module.exports = ServiceModals;
+export default ServiceModals;

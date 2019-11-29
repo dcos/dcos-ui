@@ -11,7 +11,7 @@ function getEmptyState() {
   return [{ colorIndex: 7, value: 1 }];
 }
 
-var DialChart = createReactClass({
+const DialChart = createReactClass({
   displayName: "DialChart",
 
   propTypes: {
@@ -186,4 +186,4 @@ var DialChart = createReactClass({
   }
 });
 
-module.exports = DialChart;
+export default DialChart;

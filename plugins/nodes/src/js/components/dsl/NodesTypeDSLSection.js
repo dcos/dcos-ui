@@ -68,4 +68,4 @@ NodesTypeDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = NodesTypeDSLSection;
+export default NodesTypeDSLSection;

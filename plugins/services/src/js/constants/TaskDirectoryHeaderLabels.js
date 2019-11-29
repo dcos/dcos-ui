@@ -8,4 +8,4 @@ const TaskDirectoryHeaderLabels = {
   mtime: i18nMark("Modified")
 };
 
-module.exports = TaskDirectoryHeaderLabels;
+export default TaskDirectoryHeaderLabels;

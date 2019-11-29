@@ -278,4 +278,4 @@ ContainerServiceFormSection.configReducers = {
   containers: ContainersReducer
 };
 
-module.exports = ContainerServiceFormSection;
+export default ContainerServiceFormSection;

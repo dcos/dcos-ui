@@ -78,4 +78,4 @@ ServiceOtherDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = ServiceOtherDSLSection;
+export default ServiceOtherDSLSection;

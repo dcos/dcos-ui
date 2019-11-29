@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   INSUFFICIENT_MEM: "InsufficientMemory",
   INSUFFICIENT_CPU: "InsufficientCpus",
   INSUFFICIENT_DISK: "InsufficientDisk",

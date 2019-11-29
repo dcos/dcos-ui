@@ -78,4 +78,4 @@ NodesTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = withNode(NodesTaskDetailPage);
+export default withNode(NodesTaskDetailPage);

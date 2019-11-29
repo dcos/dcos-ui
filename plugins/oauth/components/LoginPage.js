@@ -132,4 +132,4 @@ LoginPage.contextTypes = {
   router: routerShape
 };
 
-module.exports = LoginPage;
+export default LoginPage;

@@ -14,4 +14,4 @@ ComponentsPage.routeConfig = {
   matches: /^\/components/
 };
 
-module.exports = ComponentsPage;
+export default ComponentsPage;

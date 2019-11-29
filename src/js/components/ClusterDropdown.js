@@ -38,4 +38,4 @@ class ClusterDropdown extends React.Component {
   }
 }
 
-module.exports = ClusterDropdown;
+export default ClusterDropdown;

@@ -48,13 +48,13 @@ function getMesosHosts(state) {
   };
 }
 
-var DEFAULT_FILTER_OPTIONS = {
+const DEFAULT_FILTER_OPTIONS = {
   filterExpression: new DSLExpression(""),
   byServiceFilter: null,
   DSLFilteredLength: null
 };
 
-var NodesAgents = createReactClass({
+const NodesAgents = createReactClass({
   displayName: "NodesAgents",
 
   mixins: [StoreMixin],
@@ -302,4 +302,4 @@ var NodesAgents = createReactClass({
   }
 });
 
-module.exports = NodesAgents;
+export default NodesAgents;

@@ -6,4 +6,4 @@ const ServiceFilterTypes = {
   TEXT: "searchString"
 };
 
-module.exports = ServiceFilterTypes;
+export default ServiceFilterTypes;

@@ -710,4 +710,4 @@ MultiContainerNetworkingFormSection.configReducers = {
   networks
 };
 
-module.exports = MultiContainerNetworkingFormSection;
+export default MultiContainerNetworkingFormSection;

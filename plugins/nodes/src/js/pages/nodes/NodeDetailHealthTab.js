@@ -24,4 +24,4 @@ NodeDetailHealthTab.propTypes = {
   node: PropTypes.instanceOf(Node)
 };
 
-module.exports = NodeDetailHealthTab;
+export default NodeDetailHealthTab;

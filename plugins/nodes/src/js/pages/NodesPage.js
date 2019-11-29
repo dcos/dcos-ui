@@ -12,4 +12,4 @@ NodesPage.routeConfig = {
   matches: /^\/nodes/
 };
 
-module.exports = NodesPage;
+export default NodesPage;

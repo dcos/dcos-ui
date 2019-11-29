@@ -1,6 +1,6 @@
-var ValueTypes = {
+const ValueTypes = {
   PERCENTAGE: "percentage",
   ABSOLUTE: "absolute"
 };
 
-module.exports = ValueTypes;
+export default ValueTypes;

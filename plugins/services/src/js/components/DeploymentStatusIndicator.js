@@ -90,4 +90,4 @@ DeploymentStatusIndicator.defaultProps = {};
 
 DeploymentStatusIndicator.propTypes = {};
 
-module.exports = DeploymentStatusIndicator;
+export default DeploymentStatusIndicator;

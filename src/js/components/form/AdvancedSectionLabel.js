@@ -43,4 +43,4 @@ AdvancedSectionLabel.propTypes = {
   onClick: PropTypes.func
 };
 
-module.exports = AdvancedSectionLabel;
+export default AdvancedSectionLabel;

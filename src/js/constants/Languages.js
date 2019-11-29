@@ -3,4 +3,4 @@ const Languages = {
   zh: "中文"
 };
 
-module.exports = Languages;
+export default Languages;

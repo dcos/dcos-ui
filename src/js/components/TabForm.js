@@ -249,4 +249,4 @@ TabForm.propTypes = {
   onTabClick: PropTypes.func
 };
 
-module.exports = TabForm;
+export default TabForm;

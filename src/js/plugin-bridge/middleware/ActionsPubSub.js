@@ -19,7 +19,7 @@ const sub = callback => {
   return unsubscribe(ID);
 };
 
-module.exports = {
+export default {
   pub,
   sub
 };

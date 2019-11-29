@@ -84,4 +84,4 @@ RepositoriesList.routeConfig = {
   matches: /^\/settings\/repositories/
 };
 
-module.exports = RepositoriesList;
+export default RepositoriesList;

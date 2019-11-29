@@ -1,4 +1,4 @@
-var UserSettingsStore = jest.genMockFromModule("../UserSettingsStore");
+const UserSettingsStore = jest.genMockFromModule("../UserSettingsStore");
 
 var _data = {};
 
@@ -38,4 +38,4 @@ UserSettingsStore.__setKeyResponse = __setKeyResponse;
 UserSettingsStore.__reset = __reset;
 UserSettingsStore.getKey = getKey;
 
-module.exports = UserSettingsStore;
+export default UserSettingsStore;

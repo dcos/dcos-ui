@@ -56,4 +56,4 @@ FormGroupContainer.propTypes = {
   onClick: PropTypes.func
 };
 
-module.exports = FormGroupContainer;
+export default FormGroupContainer;

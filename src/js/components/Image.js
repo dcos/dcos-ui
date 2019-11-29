@@ -79,4 +79,4 @@ Image.propTypes = {
   ])
 };
 
-module.exports = Image;
+export default Image;

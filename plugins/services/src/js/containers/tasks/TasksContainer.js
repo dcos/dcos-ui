@@ -320,4 +320,4 @@ TasksContainer.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = TasksContainer;
+export default TasksContainer;

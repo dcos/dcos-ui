@@ -115,4 +115,4 @@ PodVolumeDetail.propTypes = {
   volume: PropTypes.object.isRequired
 };
 
-module.exports = PodVolumeDetail;
+export default PodVolumeDetail;

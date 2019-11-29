@@ -33,4 +33,4 @@ DSLForm.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired
 };
 
-module.exports = DSLForm;
+export default DSLForm;

@@ -37,4 +37,4 @@ class NodesHealthFilter extends DSLFilter {
   }
 }
 
-module.exports = NodesHealthFilter;
+export default NodesHealthFilter;

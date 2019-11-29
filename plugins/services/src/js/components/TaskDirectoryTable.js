@@ -221,4 +221,4 @@ TaskDirectoryTable.propTypes = {
   files: PropTypes.array
 };
 
-module.exports = TaskDirectoryTable;
+export default TaskDirectoryTable;

@@ -307,4 +307,4 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
   }
 }
 
-module.exports = ServiceHealthChecksConfigSection;
+export default ServiceHealthChecksConfigSection;

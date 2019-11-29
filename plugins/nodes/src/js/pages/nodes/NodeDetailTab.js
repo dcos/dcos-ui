@@ -193,4 +193,4 @@ NodeDetailTab.propTypes = {
   node: PropTypes.instanceOf(Node)
 };
 
-module.exports = NodeDetailTab;
+export default NodeDetailTab;

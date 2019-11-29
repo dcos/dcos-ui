@@ -88,4 +88,4 @@ TaskLogsContainer.propTypes = {
   task: PropTypes.instanceOf(Task)
 };
 
-module.exports = TaskLogsContainer;
+export default TaskLogsContainer;

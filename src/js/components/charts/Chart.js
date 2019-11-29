@@ -5,7 +5,7 @@ import createReactClass from "create-react-class";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import DOMUtils from "../../utils/DOMUtils";
 
-var Chart = createReactClass({
+const Chart = createReactClass({
   displayName: "Chart",
 
   mixins: [StoreMixin],
@@ -102,4 +102,4 @@ var Chart = createReactClass({
   }
 });
 
-module.exports = Chart;
+export default Chart;

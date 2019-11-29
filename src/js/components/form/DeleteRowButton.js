@@ -18,4 +18,4 @@ const DeleteRowButton = ({ onClick }) => (
   </Tooltip>
 );
 
-module.exports = DeleteRowButton;
+export default DeleteRowButton;

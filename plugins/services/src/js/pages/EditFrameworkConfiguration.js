@@ -160,4 +160,4 @@ EditFrameworkConfiguration.propTypes = {
   params: PropTypes.object.isRequired
 };
 
-module.exports = EditFrameworkConfiguration;
+export default EditFrameworkConfiguration;

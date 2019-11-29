@@ -38,4 +38,4 @@ class NodesTypeFilter extends DSLFilter {
   }
 }
 
-module.exports = NodesTypeFilter;
+export default NodesTypeFilter;

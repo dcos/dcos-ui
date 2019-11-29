@@ -14,4 +14,4 @@ CatalogPage.routeConfig = {
   matches: /^\/catalog/
 };
 
-module.exports = CatalogPage;
+export default CatalogPage;

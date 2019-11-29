@@ -28,4 +28,4 @@ Breadcrumb.propTypes = {
   title: PropTypes.string.isRequired
 };
 
-module.exports = Breadcrumb;
+export default Breadcrumb;

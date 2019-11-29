@@ -90,4 +90,4 @@ PageHeaderNavigationDropdown.propTypes = {
   )
 };
 
-module.exports = PageHeaderNavigationDropdown;
+export default PageHeaderNavigationDropdown;

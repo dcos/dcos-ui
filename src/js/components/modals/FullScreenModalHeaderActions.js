@@ -63,4 +63,4 @@ FullScreenModalHeaderActions.propTypes = {
   type: PropTypes.oneOf(["primary", "secondary"]).isRequired
 };
 
-module.exports = FullScreenModalHeaderActions;
+export default FullScreenModalHeaderActions;

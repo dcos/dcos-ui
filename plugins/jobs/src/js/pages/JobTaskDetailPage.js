@@ -92,4 +92,4 @@ JobTaskDetailPage.propTypes = {
   routes: PropTypes.array
 };
 
-module.exports = JobTaskDetailPage;
+export default JobTaskDetailPage;

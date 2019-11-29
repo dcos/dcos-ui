@@ -195,4 +195,4 @@ FrameworkConfigurationReviewScreen.propTypes = {
   frameworkMeta: PropTypes.string
 };
 
-module.exports = FrameworkConfigurationReviewScreen;
+export default FrameworkConfigurationReviewScreen;

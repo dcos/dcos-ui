@@ -283,4 +283,4 @@ ActionsModal.propTypes = {
   selectedItems: PropTypes.array.isRequired
 };
 
-module.exports = ActionsModal;
+export default ActionsModal;

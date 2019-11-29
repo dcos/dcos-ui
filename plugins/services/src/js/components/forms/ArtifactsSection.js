@@ -125,4 +125,4 @@ ArtifactsSection.propTypes = {
   path: PropTypes.string
 };
 
-module.exports = ArtifactsSection;
+export default ArtifactsSection;

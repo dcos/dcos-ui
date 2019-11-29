@@ -37,4 +37,4 @@ class PodInstanceTextFilter extends DSLFilter {
   }
 }
 
-module.exports = PodInstanceTextFilter;
+export default PodInstanceTextFilter;

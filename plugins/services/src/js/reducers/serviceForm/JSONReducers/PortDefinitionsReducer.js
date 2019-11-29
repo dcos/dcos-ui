@@ -91,4 +91,4 @@ function PortDefinitionsReducer(state = [], action) {
   return state;
 }
 
-module.exports = PortDefinitionsReducer;
+export default PortDefinitionsReducer;
