@@ -159,7 +159,7 @@
     "marked": "0.7.0",
     "mini-css-extract-plugin": "0.8.0",
     "node": "10.15.2",
-    "postcss": "7.0.17",
+    "postcss": "7.0.23",
     "postcss-loader": "2.1.1",
     "prettier": "1.18.2",
     "pretty-quick": "1.11.1",
