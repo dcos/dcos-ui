@@ -36,6 +36,12 @@ Cypress.Commands.add("configureCluster", configuration => {
   ) {
     cy.route({
       method: "POST",
+      url: /mesos\/api\/v1\?GET_VERSION/,
+      response: require("../_fixtures/v1/get_version"),
+      headers: { "Content-Type": "application/json" }
+    }).as("getVersion");
+    cy.route({
+      method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
