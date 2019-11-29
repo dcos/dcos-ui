@@ -51,6 +51,7 @@ function executeCypress() {
 function runTestFile() {
   echo ""
   echo "==> Running Tests for ./${TESTS_FOLDER}/$RELATIVE_PATH"
+  date +"%T"
   local RUN=0
   local EXIT_CODE=1
   while [ $EXIT_CODE -ne 0 ] && [ $RUN -lt $RETRIES ]; do
