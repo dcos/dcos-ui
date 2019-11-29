@@ -203,7 +203,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
           </h3>
 
           {artifacts.map((artifact, i) => (
-            <FormGroupContainer onRemove={onRemoveItem("artifacts", i)}>
+            <FormGroupContainer key={i} onRemove={onRemoveItem("artifacts", i)}>
               <FormRow>
                 <FormGroup className="column-11">
                   <FieldAutofocus>
