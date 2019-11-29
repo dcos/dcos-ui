@@ -25,10 +25,7 @@ function pollStream(interval, stream) {
 }
 
 export function replayStream(stream) {
-  return stream.pipe(
-    publishReplay(1),
-    refCount()
-  );
+  return stream.pipe(publishReplay(1), refCount());
 }
 
 function withHealthDescription(masters) {

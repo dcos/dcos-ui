@@ -1370,13 +1370,27 @@ describe("validateSpec", () => {
     });
 
     it("does not return error if labels contain no duplicate keys", () => {
-      const spec = { job: { labels: [["a", "b"], ["c", "d"]] } };
+      const spec = {
+        job: {
+          labels: [
+            ["a", "b"],
+            ["c", "d"]
+          ]
+        }
+      };
 
       expect(validateSpec(spec as any)).toEqual([]);
     });
 
     it("returns error if labels contain duplicate keys", () => {
-      const spec = { job: { labels: [["a", "b"], ["a", "d"]] } };
+      const spec = {
+        job: {
+          labels: [
+            ["a", "b"],
+            ["a", "d"]
+          ]
+        }
+      };
       const message = "Cannot have multiple labels with the same key";
 
       expect(validateSpec(spec as any)).toEqual([
@@ -1394,13 +1408,31 @@ describe("validateSpec", () => {
     });
 
     it("does not return error if env vars contain no duplicate keys", () => {
-      const spec = { job: { run: { env: [["a", "b"], ["c", "d"]] } } };
+      const spec = {
+        job: {
+          run: {
+            env: [
+              ["a", "b"],
+              ["c", "d"]
+            ]
+          }
+        }
+      };
 
       expect(validateSpec(spec as any)).toEqual([]);
     });
 
     it("returns error if env vars contain duplicate keys", () => {
-      const spec = { job: { run: { env: [["a", "b"], ["a", "d"]] } } };
+      const spec = {
+        job: {
+          run: {
+            env: [
+              ["a", "b"],
+              ["a", "d"]
+            ]
+          }
+        }
+      };
       const message =
         "Cannot have multiple environment variables with the same key";
 

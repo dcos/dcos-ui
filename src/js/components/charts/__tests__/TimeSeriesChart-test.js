@@ -9,7 +9,14 @@ let thisContainer, thisInstance;
 describe("TimeSeriesChart", () => {
   describe("#shouldComponentUpdate", () => {
     beforeEach(() => {
-      var data = [{ values: [{ date: 0, y: 0 }, { date: 1, y: 0 }] }];
+      var data = [
+        {
+          values: [
+            { date: 0, y: 0 },
+            { date: 1, y: 0 }
+          ]
+        }
+      ];
 
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
@@ -46,7 +53,11 @@ describe("TimeSeriesChart", () => {
     it("returns truthy", () => {
       var data = [
         {
-          values: [{ date: 0, y: 0 }, { date: 1, y: 0 }, { date: 2, y: 0 }]
+          values: [
+            { date: 0, y: 0 },
+            { date: 1, y: 0 },
+            { date: 2, y: 0 }
+          ]
         }
       ];
 

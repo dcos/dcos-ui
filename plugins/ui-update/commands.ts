@@ -26,10 +26,7 @@ function rollbackUI(delayMs: number = 45000) {
     `,
     {}
   )
-    .pipe(
-      take(1),
-      delay(delayMs)
-    )
+    .pipe(take(1), delay(delayMs))
     .subscribe(
       result => {
         uiServiceActions$.next({
@@ -71,10 +68,7 @@ function updateUI(version: string, delayMs: number = 45000) {
       version
     }
   )
-    .pipe(
-      delay(delayMs),
-      take(1)
-    )
+    .pipe(delay(delayMs), take(1))
     .subscribe(
       result => {
         uiServiceActions$.next({

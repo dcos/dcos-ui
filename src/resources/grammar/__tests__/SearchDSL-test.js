@@ -217,12 +217,18 @@ describe("SearchDSL", () => {
 
       it("tracks location of attrib", () => {
         const expr = SearchDSL.parse("attrib:value");
-        expect(expr.ast.position).toEqual([[0, 7], [7, 12]]);
+        expect(expr.ast.position).toEqual([
+          [0, 7],
+          [7, 12]
+        ]);
       });
 
       it("tracks location of attrib with multi values", () => {
         const expr = SearchDSL.parse("attrib:value1,value2");
-        expect(expr.ast.children[1].position).toEqual([[0, 7], [14, 20]]);
+        expect(expr.ast.children[1].position).toEqual([
+          [0, 7],
+          [14, 20]
+        ]);
       });
     });
 

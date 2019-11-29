@@ -1802,7 +1802,10 @@ describe("JobModel Resolver", () => {
           )
         ).toBeObservable(
           m.cold("(x|)", {
-            x: [{ key: "foo", value: "bar" }, { key: "baz", value: "nice" }]
+            x: [
+              { key: "foo", value: "bar" },
+              { key: "baz", value: "nice" }
+            ]
           })
         );
       })

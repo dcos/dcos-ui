@@ -85,7 +85,10 @@ describe("PackageDetailTab", () => {
       it("returns only entries with defined values", () => {
         expect(
           thisInstance.getItems(
-            [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
+            [
+              { label: "foo", value: "baz" },
+              { label: "bar", value: null }
+            ],
             thisInstance.getItem
           ).length
         ).toEqual(1);
@@ -94,7 +97,10 @@ describe("PackageDetailTab", () => {
       it("renders entries with keys and values", () => {
         var subItem = ReactDOM.render(
           thisInstance.getItems(
-            [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
+            [
+              { label: "foo", value: "baz" },
+              { label: "bar", value: null }
+            ],
             thisInstance.getItem
           )[0],
           thisContainer
@@ -117,7 +123,10 @@ describe("PackageDetailTab", () => {
       it("returns only entries with defined values", () => {
         expect(
           thisInstance.getItems(
-            [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
+            [
+              { label: "foo", value: "baz" },
+              { label: "bar", value: null }
+            ],
             thisInstance.getSubItem
           ).length
         ).toEqual(1);
@@ -126,7 +135,10 @@ describe("PackageDetailTab", () => {
       it("renders entries with keys and values", () => {
         var subItem = ReactDOM.render(
           thisInstance.getItems(
-            [{ label: "foo", value: "baz" }, { label: "bar", value: null }],
+            [
+              { label: "foo", value: "baz" },
+              { label: "bar", value: null }
+            ],
             thisInstance.getSubItem
           )[0],
           thisContainer

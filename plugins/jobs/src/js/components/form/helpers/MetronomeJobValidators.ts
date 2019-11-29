@@ -306,7 +306,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
     if (
       kind != undefined &&
-      (kind !== UcrImageKind.Docker && kind !== UcrImageKind.Appc)
+      kind !== UcrImageKind.Docker &&
+      kind !== UcrImageKind.Appc
     ) {
       errors.push({
         path: ["run", "ucr", "image", "kind"],
@@ -629,7 +630,10 @@ export function constraintOperatorsArePermitted(formData: JobSpec) {
     // @ts-ignore
     op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
     i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ")
-  )(i => `${path}.${i}.operator`, operators)([]);
+  )(
+    i => `${path}.${i}.operator`,
+    operators
+  )([]);
 }
 
 export function constraintsAreComplete(formData: JobSpec) {

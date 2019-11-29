@@ -18,23 +18,28 @@ describe("DialChart", () => {
 
   describe("#getNormalizedData", () => {
     it("returns a single-member grey set when no data is present", () => {
-      const normalizedData = thisInstance
-        .instance()
-        .getNormalizedData(
-          [{ name: "TASK_1", value: 0 }, { name: "TASK_2", value: 0 }],
-          []
-        );
+      const normalizedData = thisInstance.instance().getNormalizedData(
+        [
+          { name: "TASK_1", value: 0 },
+          { name: "TASK_2", value: 0 }
+        ],
+        []
+      );
 
       expect(normalizedData).toEqual([{ colorIndex: 7, value: 1 }]);
     });
 
     it("returns the union of its slices and its data", () => {
-      const normalizedData = thisInstance
-        .instance()
-        .getNormalizedData(
-          [{ name: "TASK_1", value: 0 }, { name: "TASK_2", value: 0 }],
-          [{ name: "TASK_2", value: 10 }, { name: "TASK_3", value: 20 }]
-        );
+      const normalizedData = thisInstance.instance().getNormalizedData(
+        [
+          { name: "TASK_1", value: 0 },
+          { name: "TASK_2", value: 0 }
+        ],
+        [
+          { name: "TASK_2", value: 10 },
+          { name: "TASK_3", value: 20 }
+        ]
+      );
       expect(normalizedData).toEqual([
         { name: "TASK_1", value: 0 },
         { name: "TASK_2", value: 10 },
@@ -67,7 +72,10 @@ describe("DialChart", () => {
   describe("#render", () => {
     beforeEach(() => {
       thisInstance = getInstanceWithProps({
-        data: [{ name: "TASK_1", value: 3 }, { name: "TASK_2", value: 1 }]
+        data: [
+          { name: "TASK_1", value: 3 },
+          { name: "TASK_2", value: 1 }
+        ]
       });
     });
 

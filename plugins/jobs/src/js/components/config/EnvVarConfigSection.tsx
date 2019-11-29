@@ -66,18 +66,15 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
               }
             ];
 
-            const data = Object.keys(env).reduce(
-              (memo, envKey) => {
-                const value = getDisplayValue(env[envKey]);
+            const data = Object.keys(env).reduce((memo, envKey) => {
+              const value = getDisplayValue(env[envKey]);
 
-                if (typeof value === "string") {
-                  memo.push({ key: envKey, value });
-                }
+              if (typeof value === "string") {
+                memo.push({ key: envKey, value });
+              }
 
-                return memo;
-              },
-              [] as KeyValue[]
-            );
+              return memo;
+            }, [] as KeyValue[]);
 
             return (
               <Table

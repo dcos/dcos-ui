@@ -14,7 +14,10 @@ describe("PlacementsValidators", () => {
     });
 
     it("returns no errors when all constraints are correctly defined", () => {
-      const constraints = [["hostname", "UNIQUE"], ["CPUS", "MAX_PER", "123"]];
+      const constraints = [
+        ["hostname", "UNIQUE"],
+        ["CPUS", "MAX_PER", "123"]
+      ];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });
 

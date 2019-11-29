@@ -56,9 +56,9 @@ class ServiceStatusIcon extends React.Component<{
     if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
       const timeWaiting =
         Date.now() -
-        DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(
-          service.getQueue()
-        ) as string);
+        DateUtil.strToMs(
+          DeclinedOffersUtil.getTimeWaiting(service.getQueue()) as string
+        );
 
       return this.getTooltip(
         <Trans render="span">

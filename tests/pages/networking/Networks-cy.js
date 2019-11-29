@@ -72,10 +72,9 @@ describe("Networks", () => {
     });
 
     it("allows users to filter the table", () => {
-      cy.get(".filter-bar-item .filter-input-text").type(
-        "sleep.7084272b-6b76-11e5-a953-08002719334a",
-        { force: true }
-      );
+      cy.get(
+        ".filter-bar-item .filter-input-text"
+      ).type("sleep.7084272b-6b76-11e5-a953-08002719334a", { force: true });
       cy.get("tbody tr").should($tableRows => {
         expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });

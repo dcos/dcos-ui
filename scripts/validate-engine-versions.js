@@ -10,9 +10,7 @@ const npmVersion = process.env.npm_config_user_agent.match(
 
 if (!semver.satisfies(npmVersion[1], packageJson.engines.npm)) {
   console.error(
-    `WARNING! given npm version (${
-      npmVersion[1]
-    }) doesnt satisfy requested range (${packageJson.engines.npm}).`
+    `WARNING! given npm version (${npmVersion[1]}) doesnt satisfy requested range (${packageJson.engines.npm}).`
   );
   process.exit(1);
 }

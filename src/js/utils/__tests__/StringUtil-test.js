@@ -48,17 +48,28 @@ describe("StringUtil", () => {
   describe("#filterByString", () => {
     it("filters using a key as getter", () => {
       var _return = StringUtil.filterByString(
-        [{ id: 0, foo: "bar" }, { id: 1, foo: "baz" }, { id: 2, foo: "bar" }],
+        [
+          { id: 0, foo: "bar" },
+          { id: 1, foo: "baz" },
+          { id: 2, foo: "bar" }
+        ],
         "foo",
         "bar"
       );
 
-      expect(_return).toEqual([{ id: 0, foo: "bar" }, { id: 2, foo: "bar" }]);
+      expect(_return).toEqual([
+        { id: 0, foo: "bar" },
+        { id: 2, foo: "bar" }
+      ]);
     });
 
     it("filters using a function as getter", () => {
       var _return = StringUtil.filterByString(
-        [{ id: 0, foo: "bar" }, { id: 1, foo: "baz" }, { id: 2, foo: "bar" }],
+        [
+          { id: 0, foo: "bar" },
+          { id: 1, foo: "baz" },
+          { id: 2, foo: "bar" }
+        ],
         el => el.foo,
         "baz"
       );
