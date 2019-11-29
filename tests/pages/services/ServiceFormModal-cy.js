@@ -1,3 +1,9 @@
+function openTab(tab) {
+  cy.get(".menu-tabbed-item-label")
+    .contains(tab)
+    .click();
+}
+
 describe("Service Form Modal", () => {
   // We'll consider the two elements to be centered with one another if
   // their midpoints are within 5 pixels of one another.
@@ -371,42 +377,22 @@ describe("Service Form Modal", () => {
       });
     });
 
-    context("default values", () => {
-      function getFormValue(name) {
-        openServiceModal();
-        openServiceForm();
+    it("has the correct default values", () => {
+      const getFormValue = name =>
+        cy.get('.modal .menu-tabbed-view input[name="' + name + '"]');
 
-        return cy.get('.modal .menu-tabbed-view input[name="' + name + '"]');
-      }
+      openServiceModal();
+      openServiceForm();
 
-      it("contains right cpus default value", () => {
-        getFormValue("cpus").should("to.have.value", "0.1");
-      });
+      getFormValue("cpus").should("to.have.value", "0.1");
+      getFormValue("mem").should("to.have.value", "128");
+      getFormValue("instances").should("to.have.value", "1");
 
-      it("contains right mem default value", () => {
-        getFormValue("mem").should("to.have.value", "128");
-      });
-
-      it("contains right instances default value", () => {
-        getFormValue("instances").should("to.have.value", "1");
-      });
-
-      it("uses UCR by default", () => {
-        openServiceModal();
-        openServiceJSON();
-        cy.get(".ace_content").should(nodeList => {
-          expect(nodeList[0].textContent).to.contain('"type": "MESOS"');
-        });
-      });
-
-      it("contains the right JSON in the JSON editor", () => {
-        openServiceModal();
-        openServiceJSON();
-        cy.get(".ace_content").should(nodeList => {
-          expect(nodeList[0].textContent).to.contain('"cpus": 0.1');
-          expect(nodeList[0].textContent).to.contain('"instances": 1');
-          expect(nodeList[0].textContent).to.contain('"mem": 128');
-        });
+      cy.get(".ace_content").should(([el]) => {
+        expect(el.textContent).to.contain('"type": "MESOS"');
+        expect(el.textContent).to.contain('"cpus": 0.1');
+        expect(el.textContent).to.contain('"instances": 1');
+        expect(el.textContent).to.contain('"mem": 128');
       });
     });
 
@@ -422,54 +408,27 @@ describe("Service Form Modal", () => {
           .click();
       });
 
-      it("successfully switches to multi-container", () => {
-        cy.get("span").contains("Add Container");
-      });
-
       it("successfully adds a container and opens the container tab", () => {
         cy.get("span")
           .contains("Add Container")
           .click();
         cy.get(".pod-narrow")
           .contains("container-1")
-
           .click();
         cy.get("h1").contains("Container");
       });
 
-      it("successfully opens the placement tab", () => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Placement")
-          .click();
-        cy.get(".form-group-heading-content").contains("Placement");
-      });
+      it("successfully opens all tabs", () => {
+        const assertTab = name => {
+          openTab(name);
+          cy.get(".form-group-heading-content").contains(name);
+        };
 
-      it("successfully opens the networking tab", () => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Networking")
-          .click();
-        cy.get("h1.flush-top").contains("Networking");
-      });
-
-      it("successfully opens the volumes tab", () => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Volumes")
-          .click();
-        cy.get(".form-group-heading-content").contains("Volumes");
-      });
-
-      it("successfully opens the health checks tab", () => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Health Checks")
-          .click();
-        cy.get(".form-group-heading-content").contains("Health Checks");
-      });
-
-      it("successfully opens the environment variables tab", () => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Environment")
-          .click();
-        cy.get(".form-group-heading-content").contains("Environment");
+        assertTab("Placement");
+        openTab("Volumes");
+        cy.get("h1.flush-top").contains("Volumes");
+        assertTab("Health Checks");
+        assertTab("Environment");
       });
     });
 
@@ -877,67 +836,38 @@ describe("Service Form Modal", () => {
     });
 
     context("Service: General", () => {
-      it('Should have a "Service ID" field', () => {
+      it("Should have the correct fields", () => {
         cy.get(".form-group").contains("Service ID");
-      });
-
-      it('Should have a "Instances" field', () => {
         cy.get(".form-group").contains("Instances");
-      });
-
-      it('Should have a "Container Image" field', () => {
         cy.get(".form-group").contains("Container Image");
-      });
-
-      it('Should have a "CPUs" field', () => {
         cy.get(".form-group").contains("CPUs");
-      });
-
-      it('Should have a "Memory (MiB)" field', () => {
         cy.get(".form-group").contains("Memory (MiB)");
-      });
-
-      it('Should have a "Command" field', () => {
         cy.get(".form-group").contains("Command");
-      });
 
-      it('Should not have a "Container Runtime" section', () => {
         cy.get(".menu-tabbed-view")
           .contains("Container Runtime")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "Advanced Settings" section', () => {
         cy.get(".menu-tabbed-view")
           .contains("Advanced Settings")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "Grant Runtime Privileges" checkbox', () => {
         cy.get(".menu-tabbed-view")
           .contains("Grant Runtime Privileges")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "Force Pull Image On Launch" checkbox', () => {
         cy.get(".menu-tabbed-view")
           .contains("Force Pull Image On Launch")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "GPUs" field', () => {
         cy.get(".form-group")
           .contains("GPUs")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "Disk (MiB)" field', () => {
         cy.get(".form-group")
           .contains("Disk (MiB)")
           .should("to.have.length", 0);
-      });
 
-      it('Should not have a "Add Artifact" link', () => {
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Artifact")
           .should("to.have.length", 0);
@@ -951,31 +881,13 @@ describe("Service Form Modal", () => {
           .click();
       });
 
-      it('Should have a "Container Runtime" section', () => {
+      it("Should have the correct sections", () => {
         cy.get(".menu-tabbed-view").contains("Container Runtime");
-      });
-
-      it('Should have a "Advanced Settings" section', () => {
         cy.get(".menu-tabbed-view").contains("Advanced Settings");
-      });
-
-      it('Should have a "Grant Runtime Privileges" checkbox', () => {
         cy.get(".menu-tabbed-view").contains("Grant Runtime Privileges");
-      });
-
-      it('Should have a "Force Pull Image On Launch" checkbox', () => {
         cy.get(".menu-tabbed-view").contains("Force Pull Image On Launch");
-      });
-
-      it('Should have a "GPUs" field', () => {
         cy.get(".form-group").contains("GPUs");
-      });
-
-      it('Should have a "Disk (MiB)" field', () => {
         cy.get(".form-group").contains("Disk (MiB)");
-      });
-
-      it('Should have a "Add Artifact" link', () => {
         cy.get(".menu-tabbed-view .button.button-primary-link").contains(
           "Add Artifact"
         );
@@ -1197,16 +1109,10 @@ describe("Service Form Modal", () => {
           .click();
       }
 
-      function clickNetworkingTab() {
-        cy.get(".menu-tabbed-item")
-          .contains("Networking")
-          .click();
-      }
-
       context("Network Type", () => {
         it('has all available enabled types when "Docker Engine" selected', () => {
           setRuntime("Docker Engine");
-          clickNetworkingTab();
+          openTab("Networking");
 
           cy.get('select[name="networks.0.network"]').as(
             "containerDockerNetwork"
@@ -1250,7 +1156,7 @@ describe("Service Form Modal", () => {
 
         it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', () => {
           setRuntime("Universal Container Runtime (UCR)");
-          clickNetworkingTab();
+          openTab("Networking");
 
           cy.get('select[name="networks.0.network"]').as(
             "containerDockerNetwork"
@@ -1300,7 +1206,7 @@ describe("Service Form Modal", () => {
         }
 
         beforeEach(() => {
-          clickNetworkingTab();
+          openTab("Networking");
           addServiceEndpoint();
           // Alias tab view for cached lookups
           cy.get(".menu-tabbed-view").as("tabView");
@@ -1897,9 +1803,7 @@ describe("Service Form Modal", () => {
 
     context("Networking", () => {
       beforeEach(() => {
-        cy.get(".menu-tabbed-item-label")
-          .contains("Networking")
-          .click();
+        openTab("Networking");
       });
 
       context("Service Endpoints", () => {
@@ -2104,9 +2008,7 @@ describe("Service Form Modal", () => {
       cy.get(".dropdown-menu-items")
         .contains("Edit")
         .click();
-      cy.get(".menu-tabbed-item-label")
-        .contains("Networking")
-        .click();
+      openTab("Networking");
       cy.get(".form-control[name='containers.0.endpoints.0.vipPort']").type(5);
 
       cy.contains(".marathon.l4lb.thisdcos.directory:5005");
@@ -2117,12 +2019,6 @@ describe("Service Form Modal", () => {
     function clickReviewAndRun() {
       cy.get(".button-primary")
         .contains("Review & Run")
-        .click();
-    }
-
-    function openTab(tab) {
-      cy.get(".menu-tabbed-item-label")
-        .contains(tab)
         .click();
     }
 
