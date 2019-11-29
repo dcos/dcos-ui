@@ -1,0 +1,157 @@
+// Licensed to the Apache Software Foundation (ASF) under one
+// or more contributor license agreements.  See the NOTICE file
+// distributed with this work for additional information
+// regarding copyright ownership.  The ASF licenses this file
+// to you under the Apache License, Version 2.0 (the
+// "License"); you may not use this file except in compliance
+// with the License.  You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
+syntax = "proto2";
+
+import "mesos/v1/mesos.proto";
+
+package mesos.v1.quota;
+
+option java_package = "org.apache.mesos.v1.quota";
+option java_outer_classname = "Protos";
+
+
+/**
+ * Describes the resource guarantees for a role.
+ * Persisted in the registry.
+ */
+message QuotaInfo {
+  optional string role = 1;
+
+  // Principal which set the quota. Currently only operators can set quotas.
+  optional string principal = 2;
+
+  repeated Resource guarantee = 3;
+}
+
+
+/**
+ * Describes an update to a role's quota. This is a copy of
+ * `QuotaInfo` which omits the principal since it is determined
+ * during authentication. Also allows the user to force the update
+ * in the case of a guarantee overcommit.
+ */
+message QuotaRequest {
+  // See `guarantee` for the behavior of `force`.
+  optional bool force = 1;
+
+  optional string role = 2;
+
+  // Mesos will try its best to ensure that the role can be
+  // allocated at least as many resources as the guarantee.
+  // Despite this, it's possible for the guarantee to not be
+  // satisfiable, if:
+  //   (1) The operator has overcommitted guarantees.
+  //   (2) There is a loss of agents that such that the
+  //       guarantees overcommit the cluster.
+  //   (3) The scheduler is pickier than mesos knows about,
+  //       e.g. the scheduler needs resources from agents
+  //       with specific attributes.
+  //
+  // The provided guarantee will be validated to ensure it
+  // is not overcommitting the cluster. The operator can
+  // disable this via `QuotaRequest.force`.
+  //
+  // If the guarantee is omitted, there is no guarantee.
+  //
+  // Operators may want to set up alerting to let them know
+  // when a guarantee cannot be satisfied.
+  //
+  // NOTE: The resources must be scalars without additional
+  // metadata like reservations, disk information, etc.
+  repeated Resource guarantee = 3;
+}
+
+/**
+ * Describes a role's quota configuration. This replaces the legacy
+ * quota related messages: `QuotaInfo` and `QuotaRequest`. This is
+ * used in both `UPDATE_QUOTA` and `GET_QUOTA` calls as well as persisted
+ * in the registry.
+ *
+ * We use this new message in the new call `UPDATE_QUOTA` instead of reusing
+ * the legacy `QuotaRequest` message. This avoids confusions with deprecated
+ * fields and provides a cleaner interface. In `QuotaStatus` returned by
+ * `GET_QUOTA`, the legacy `infos` field is still filled along side `configs`
+ * for backwards compatibility.
+ */
+message QuotaConfig {
+  required string role = 1;
+
+  // Name-value pairs that define the resource guarantees.
+  // Only scalar resources are currently supported.
+  //
+  // Mesos will try its best to ensure that the role can be
+  // allocated at least as many resources as the guarantee.
+  // Despite this, it's possible for the guarantee to not be
+  // satisfiable, if:
+  //   (1) The operator has overcommitted guarantees.
+  //   (2) There is a loss of agents that such that the
+  //       guarantees overcommit the cluster.
+  //   (3) The scheduler is pickier than mesos knows about,
+  //       e.g. the scheduler needs resources from agents
+  //       with specific attributes.
+  //
+  // The provided guarantees will be validated to ensure it
+  // is not overcommitting the cluster. The operator can
+  // disable this via `UpdateQuota.force`.
+  //
+  // If the guarantee is omitted, there is no guarantee.
+  //
+  // Operators may want to set up alerting to let them know
+  // when a guarantee cannot be satisfied.
+  map<string, Value.Scalar> guarantees = 2;
+
+  // Name-value pairs that define the resource limits.
+  // Only scalar resources are currently supported.
+  //
+  // Imposes a limit on the amount of resources allocated to the
+  // role. Mesos will try its best to ensure that the role does
+  // not exceed this limit. Despite this, the limit can be exceeded
+  // when:
+  //   (1) The limit is lowered below the allocation.
+  //   (2) Some agents are partitioned and re-connect with
+  //       resources allocated to the role.
+  //
+  // The provided limits will be validated to ensure it does not
+  // exceed the total cluster size. The operator can disable
+  // this check via `UpdateQuota.force`.
+  //
+  // If the limit is omitted, there is no limit.
+  //
+  // Operators may want to set up alerting to let them know
+  // when the limit is exceeded.
+  map<string, Value.Scalar> limits = 3;
+}
+
+
+/**
+ * `QuotaStatus` describes the internal representation for the
+ * /quota/status response and `GET_QUOTA` `master::Response`.
+ */
+message QuotaStatus {
+  // Returns all non-default quotas. Those omitted from this
+  // list have the default of: no guarantee and no limit.
+  //
+  // For backwards compatibility, `infos` are still filled along
+  // side `configs`. Note, however `infos` will contain less information
+  // comparing to `configs` (e.g. info does not contain information
+  // regarding quota limits).
+  repeated QuotaInfo infos = 1 [deprecated = true];
+
+  // Returns all non-default quotas. Those omitted from this
+  // list have the default of: no guarantee and no limit.
+  repeated QuotaConfig configs = 2;
+}
