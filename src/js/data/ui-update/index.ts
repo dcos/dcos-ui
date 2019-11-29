@@ -7,7 +7,8 @@ import {
   getExtensionModule
 } from "@extension-kid/data-layer";
 
-import { DCOSUIUpdateClient, UIVersionResponse } from "dcos-ui-update-client";
+import { DCOSUIUpdateClient, UIVersionResponse } from "./DCOSUIUpdateClient";
+
 import {
   UIMetadata,
   UIMetadataSchema
