@@ -144,11 +144,7 @@ class ServicesContainer extends React.Component {
     });
 
     // This is so we get notified when the serviceTree is ready in DCOSStore. Making this a promise would be nice.
-    DCOSStore.on(DCOS_CHANGE, () => {
-      if (this.state.isLoading) {
-        this.forceUpdate();
-      }
-    });
+    this.onStoreChange();
   }
 
   componentDidMount() {

@@ -77,6 +77,63 @@ const METHODS_TO_BIND = [
   "handleSortClick"
 ];
 
+const retrieveSortFunction = sortColumn => {
+  switch (sortColumn) {
+    case "name":
+      return nameSorter;
+    case "status":
+      return statusSorter;
+    case "version":
+      return versionSorter;
+    case "region":
+      return regionSorter;
+    case "instances":
+      return instancesSorter;
+    case "cpus":
+      return cpuSorter;
+    case "mem":
+      return memSorter;
+    case "disk":
+      return diskSorter;
+    case "gpus":
+      return gpuSorter;
+    default:
+      return (data, _sortDirection) => data;
+  }
+};
+
+const updateData = (
+  data,
+  sortColumn,
+  sortDirection,
+  currentSortDirection,
+  currentSortColumn
+) => {
+  const copiedData = data.slice();
+
+  if (
+    sortDirection === currentSortDirection &&
+    sortColumn === currentSortColumn
+  ) {
+    return { data: copiedData, sortDirection, sortColumn };
+  }
+
+  if (
+    sortDirection !== currentSortDirection &&
+    sortColumn === currentSortColumn
+  ) {
+    return { data: copiedData.reverse(), sortDirection, sortColumn };
+  }
+
+  const sortFunction = retrieveSortFunction(sortColumn);
+
+  return {
+    data: sortFunction(copiedData, sortDirection),
+    sortDirection,
+    sortColumn
+  };
+};
+
 class ServicesTable extends React.Component {
   constructor(props) {
     super(...arguments);
@@ -89,10 +146,9 @@ class ServicesTable extends React.Component {
       actionDisabledService: null,
       data: [],
       sortColumn: "name",
-      sortDirection: "ASC"
+      sortDirection: "ASC",
+      regionRenderer: regionRendererFactory(props.masterRegionName)
     };
-
-    this.regionRenderer = regionRendererFactory(props.masterRegionName);
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
@@ -108,16 +164,15 @@ class ServicesTable extends React.Component {
     CompositeState.enable();
   }
 
-  componentWillReceiveProps(nextProps) {
-    this.regionRenderer = regionRendererFactory(nextProps.masterRegionName);
-
-    this.setState(
-      this.updateData(
+  static getDerivedStateFromProps(nextProps, prevState) {
+    return {
+      regionRenderer: regionRendererFactory(nextProps.masterRegionName),
+      ...updateData(
         nextProps.services,
-        this.state.sortColumn,
-        this.state.sortDirection
+        prevState.sortColumn,
+        prevState.sortDirection
       )
-    );
+    };
   }
 
   handleServiceAction(service, actionID) {
@@ -208,7 +263,7 @@ class ServicesTable extends React.Component {
         : "ASC";
 
     this.setState(
-      this.updateData(
+      updateData(
         this.state.data,
         columnName,
         toggledDirection,
@@ -306,68 +361,11 @@ class ServicesTable extends React.Component {
     );
   }
 
-  retrieveSortFunction(sortColumn) {
-    switch (sortColumn) {
-      case "name":
-        return nameSorter;
-      case "status":
-        return statusSorter;
-      case "version":
-        return versionSorter;
-      case "region":
-        return regionSorter;
-      case "instances":
-        return instancesSorter;
-      case "cpus":
-        return cpuSorter;
-      case "mem":
-        return memSorter;
-      case "disk":
-        return diskSorter;
-      case "gpus":
-        return gpuSorter;
-      default:
-        return (data, _sortDirection) => data;
-    }
-  }
-
   sortGroupsOnTop(data) {
     const groups = data.filter(service => service instanceof ServiceTree);
     const services = data.filter(service => !(service instanceof ServiceTree));
 
     return groups.concat(services);
-  }
-
-  updateData(
-    data,
-    sortColumn,
-    sortDirection,
-    currentSortDirection,
-    currentSortColumn
-  ) {
-    const copiedData = data.slice();
-
-    if (
-      sortDirection === currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData, sortDirection, sortColumn };
-    }
-
-    if (
-      sortDirection !== currentSortDirection &&
-      sortColumn === currentSortColumn
-    ) {
-      return { data: copiedData.reverse(), sortDirection, sortColumn };
-    }
-
-    const sortFunction = this.retrieveSortFunction(sortColumn);
-
-    return {
-      data: sortFunction(copiedData, sortDirection),
-      sortDirection,
-      sortColumn
-    };
   }
 
   render() {
@@ -477,7 +475,7 @@ class ServicesTable extends React.Component {
                 sortDirection={sortColumn === "region" ? sortDirection : null}
               />
             }
-            cellRenderer={this.regionRenderer}
+            cellRenderer={this.state.regionRenderer}
             growToFill={true}
             minWidth={60}
             maxWidth={150}
