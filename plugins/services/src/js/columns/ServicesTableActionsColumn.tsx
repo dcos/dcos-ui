@@ -110,13 +110,14 @@ export function actionsRendererFactory(
   return (service: Service | Pod | ServiceTree) => {
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;
-    const isSingleInstanceApp = service.getLabels()
-      .MARATHON_SINGLE_INSTANCE_APP;
+    const isSingleInstanceApp =
+      !isGroup && service.getLabels().MARATHON_SINGLE_INSTANCE_APP;
+
     const instancesCount = service.getInstancesCount();
     const scaleTextID = isGroup
       ? ServiceActionLabels.scale_by
       : ServiceActionLabels[SCALE];
-    const isSDK = isSDKService(service);
+    const isSDK = !isGroup && isSDKService(service);
 
     const actions = [];
 
