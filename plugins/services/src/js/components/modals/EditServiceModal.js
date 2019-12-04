@@ -26,15 +26,15 @@ const EditServiceModal = props => {
     return null;
   }
 
+  if (service instanceof ServiceTree) {
+    return <ServiceRootGroupModal id={id} {...props} />;
+  }
+
   if (
     service.getLabels().DCOS_PACKAGE_DEFINITION != null ||
     service.getLabels().DCOS_PACKAGE_METADATA != null
   ) {
     return <EditFrameworkConfiguration {...props} />;
-  }
-
-  if (service instanceof ServiceTree) {
-    return <ServiceRootGroupModal id={id} {...props} />;
   }
 
   return <CreateServiceModal {...props} />;

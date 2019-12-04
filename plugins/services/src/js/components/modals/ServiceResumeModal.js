@@ -115,7 +115,10 @@ class ServiceResumeModal extends React.PureComponent {
       props: { service }
     } = this;
 
-    if (service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
+    if (
+      !(service instanceof ServiceTree) &&
+      service.getLabels().MARATHON_SINGLE_INSTANCE_APP
+    ) {
       return (
         <Trans render="p">
           This service is currently stopped. Do you want to resume this service?
