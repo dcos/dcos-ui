@@ -1099,34 +1099,6 @@ describe("ServiceTree", function() {
       ]);
     });
 
-    it("filters out duplicate label key-value tuples", function() {
-      thisInstance.add(
-        new Framework({
-          id: "/metronome",
-          labels: {
-            label_one: "value_one"
-          }
-        })
-      );
-
-      thisInstance.add(
-        new Application({
-          id: "/sleeper",
-          labels: {
-            label_one: "value_one",
-            label_two: "value_one"
-          }
-        })
-      );
-
-      const labels = thisInstance.getLabels();
-      expect(labels.length).toEqual(2);
-      expect(labels).toEqual([
-        { key: "label_one", value: "value_one" },
-        { key: "label_two", value: "value_one" }
-      ]);
-    });
-
     it("returns an empty array if no labels are found", function() {
       thisInstance.add(
         new Framework({
