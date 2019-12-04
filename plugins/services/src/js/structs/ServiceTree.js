@@ -329,23 +329,12 @@ module.exports = class ServiceTree extends Tree {
   }
 
   getLabels() {
-    return this.reduceItems(function(serviceTreeLabels, item) {
-      const labels = Object.entries(item.getLabels()).map(([key, value]) => ({
-        key,
-        value
-      }));
-
-      labels.forEach(function({ key, value }) {
-        if (
-          serviceTreeLabels.findIndex(function(label) {
-            return label.key === key && label.value === value;
-          }) < 0
-        ) {
-          serviceTreeLabels = serviceTreeLabels.concat([{ key, value }]);
-        }
+    return this.list.reduce((acc, el) => {
+      Object.entries(el.labels || {}).forEach(([key, value]) => {
+        acc.push({ key, value });
       });
 
-      return serviceTreeLabels;
+      return acc;
     }, []);
   }
 };
