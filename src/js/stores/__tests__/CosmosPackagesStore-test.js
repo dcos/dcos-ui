@@ -1,18 +1,18 @@
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import AppDispatcher from "../../events/AppDispatcher";
+import CosmosPackagesStore from "../CosmosPackagesStore";
+import UniversePackage from "../../structs/UniversePackage";
+import UniversePackageVersions from "../../structs/UniversePackageVersions";
+import UniverseInstalledPackagesList from "../../structs/UniverseInstalledPackagesList";
+import UniversePackagesList from "../../structs/UniversePackagesList";
 
-const AppDispatcher = require("../../events/AppDispatcher");
+const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const Config = require("#SRC/js/config/Config").default;
 const EventTypes = require("../../constants/EventTypes");
-const CosmosPackagesStore = require("../CosmosPackagesStore");
 const packageDescribeFixture = require("./fixtures/MockPackageDescribeResponse.json");
 const serviceDescribeFixture = require("./fixtures/MockServiceDescribeResponse.json");
 const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");
 const packagesSearchFixture = require("./fixtures/MockPackagesSearchResponse.json");
 const ActionTypes = require("../../constants/ActionTypes");
-const UniversePackage = require("../../structs/UniversePackage");
-const UniversePackageVersions = require("../../structs/UniversePackageVersions");
-const UniverseInstalledPackagesList = require("../../structs/UniverseInstalledPackagesList");
-const UniversePackagesList = require("../../structs/UniversePackagesList");
 
 let thisConfigUseFixture,
   thisRequestFn,

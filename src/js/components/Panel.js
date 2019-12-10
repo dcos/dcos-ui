@@ -13,7 +13,7 @@ const defaultClasses = {
     "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
 };
 
-var Panel = createReactClass({
+const Panel = createReactClass({
   displayName: "Panel",
 
   propTypes: {
@@ -73,4 +73,4 @@ var Panel = createReactClass({
   }
 });
 
-module.exports = Panel;
+export default Panel;

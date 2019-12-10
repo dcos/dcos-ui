@@ -1,4 +1,4 @@
-const DataValidatorUtil = require("../DataValidatorUtil");
+import DataValidatorUtil from "../DataValidatorUtil";
 
 describe("DataValidatorUtil", () => {
   describe("#errorArrayToMap", () => {

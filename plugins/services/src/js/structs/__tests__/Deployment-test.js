@@ -1,4 +1,4 @@
-const Deployment = require("../Deployment");
+import Deployment from "../Deployment";
 
 describe("Deployment", () => {
   describe("#get...", () => {

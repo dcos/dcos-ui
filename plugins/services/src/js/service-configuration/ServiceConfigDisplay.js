@@ -116,4 +116,4 @@ ServiceConfigDisplay.propTypes = {
   onEditClick: PropTypes.func
 };
 
-module.exports = ServiceConfigDisplay;
+export default ServiceConfigDisplay;

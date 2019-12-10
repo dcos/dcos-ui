@@ -1,11 +1,12 @@
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import LogBuffer from "../../structs/LogBuffer";
+import MesosLogActions from "../../events/MesosLogActions";
+import MesosLogStore from "../MesosLogStore";
+
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const EventTypes = require("../../constants/EventTypes");
-const LogBuffer = require("../../structs/LogBuffer");
-const MesosLogActions = require("../../events/MesosLogActions");
-const MesosLogStore = require("../MesosLogStore");
 const SystemLogTypes = require("#SRC/js/constants/SystemLogTypes");
 
 const PREPEND = SystemLogTypes.PREPEND;

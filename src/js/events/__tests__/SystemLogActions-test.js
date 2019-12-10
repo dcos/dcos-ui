@@ -1,9 +1,10 @@
+import AppDispatcher from "../../events/AppDispatcher";
+import SystemLogActions from "../SystemLogActions";
+
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("../../events/AppDispatcher");
 const Config = require("#SRC/js/config/Config").default;
-const SystemLogActions = require("../SystemLogActions");
 
 let thisEventSource, thisMessageSpy, thisConfiguration;
 

@@ -1,6 +1,6 @@
-const Item = require("#SRC/js/structs/Item");
-const List = require("#SRC/js/structs/List");
-const LogBuffer = require("../LogBuffer");
+import Item from "#SRC/js/structs/Item";
+import List from "#SRC/js/structs/List";
+import LogBuffer from "../LogBuffer";
 
 const PAGE_SIZE = 8 * 4096; // 32kb of data or 8 'pages'
 

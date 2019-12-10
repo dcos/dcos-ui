@@ -5,11 +5,14 @@ jest.mock("#SRC/js/utils/RouterUtil", () => ({
 }));
 jest.mock("react-router");
 
+const Task = require("../../../structs/Task").default;
+const TaskDirectory = require("../../../structs/TaskDirectory").default;
+const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore")
+  .default;
+const TaskDetail = require("../TaskDetail").default;
+/* eslint-enable */
+
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-const Task = require("../../../structs/Task");
-const TaskDirectory = require("../../../structs/TaskDirectory");
-const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore");
-const TaskDetail = require("../TaskDetail");
 
 let thisStoreGetDirectory,
   thisStoreSetPath,

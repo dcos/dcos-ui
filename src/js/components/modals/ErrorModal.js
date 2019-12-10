@@ -7,7 +7,7 @@ import { Modal } from "reactjs-components";
 
 import ModalHeading from "../modals/ModalHeading";
 
-var ErrorModal = createReactClass({
+const ErrorModal = createReactClass({
   displayName: "ErrorModal",
 
   propTypes: {
@@ -40,4 +40,4 @@ var ErrorModal = createReactClass({
   }
 });
 
-module.exports = ErrorModal;
+export default ErrorModal;

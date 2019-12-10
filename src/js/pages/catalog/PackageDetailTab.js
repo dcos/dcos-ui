@@ -702,4 +702,4 @@ const renderUnresolvedDependency = dependency => (
   </div>
 );
 
-module.exports = PackageDetailTab;
+export default PackageDetailTab;

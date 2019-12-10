@@ -1,7 +1,8 @@
+import Item from "../../structs/Item";
+import List from "../../structs/List";
+import StructUtil from "../StructUtil";
+
 const isEqual = require("deep-equal");
-const Item = require("../../structs/Item");
-const List = require("../../structs/List");
-const StructUtil = require("../StructUtil");
 
 describe("StructUtil", () => {
   describe("#copyRawObject", () => {

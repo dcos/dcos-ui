@@ -17,7 +17,7 @@ import { JSONParser as multiContainerNetwork } from "./serviceForm/MultiContaine
 import { MultiContainerVolumeMountsJSONParser as volumeMounts } from "./serviceForm/MultiContainerVolumes";
 import { JSONParser as containers } from "./serviceForm/JSONReducers/Containers";
 
-module.exports = [
+export default [
   simpleParser(["id"]),
   simpleParser(["instances"]),
   simpleParser(["cpus"]),

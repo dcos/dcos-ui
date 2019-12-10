@@ -1,4 +1,4 @@
-const VipLabelsValidators = require("../VipLabelsValidators");
+import VipLabelsValidators from "../VipLabelsValidators";
 
 describe("VipLabelsValidators", () => {
   describe("#mustContainPort", () => {

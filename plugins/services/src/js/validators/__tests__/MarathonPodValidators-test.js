@@ -1,4 +1,5 @@
-const MarathonPodValidators = require("../MarathonPodValidators");
+import MarathonPodValidators from "../MarathonPodValidators";
+
 const { GENERIC } = require("../../constants/ServiceErrorTypes");
 
 describe("MarathonPodValidators", () => {

@@ -20,4 +20,4 @@ const ServiceActions = {
   }
 };
 
-module.exports = ServiceActions;
+export default ServiceActions;

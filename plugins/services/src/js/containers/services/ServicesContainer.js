@@ -782,4 +782,4 @@ ServicesContainer.routeConfig = {
   matches: /^\/services\/(detail|overview|quota)/
 };
 
-module.exports = ServicesContainer;
+export default ServicesContainer;

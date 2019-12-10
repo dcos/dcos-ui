@@ -255,4 +255,4 @@ MesosLogContainer.propTypes = {
   watching: PropTypes.number
 };
 
-module.exports = MesosLogContainer;
+export default MesosLogContainer;

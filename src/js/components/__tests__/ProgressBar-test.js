@@ -1,8 +1,8 @@
+import ProgressBar from "../ProgressBar";
+
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const ProgressBar = require("../ProgressBar");
 
 const testData = [
   {

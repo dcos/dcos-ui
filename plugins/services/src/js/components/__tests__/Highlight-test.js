@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const Highlight = require("../Highlight");
+import Highlight from "../Highlight";
 
 describe("Highlight instance", () => {
   it("is what it says it is", () => {

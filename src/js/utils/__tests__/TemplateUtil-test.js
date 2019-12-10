@@ -1,5 +1,6 @@
+import TemplateUtil from "../TemplateUtil";
+
 const React = require("react");
-const TemplateUtil = require("../TemplateUtil");
 
 let thisDummyPage;
 

@@ -1,6 +1,7 @@
+import List from "#SRC/js/structs/List";
+import PodInstanceStatusFilter from "../PodInstanceStatusFilter";
+
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var PodInstanceStatusFilter = require("../PodInstanceStatusFilter");
-var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 

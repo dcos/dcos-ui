@@ -1,4 +1,4 @@
-const DeclinedOffersUtil = require("../DeclinedOffersUtil");
+import DeclinedOffersUtil from "../DeclinedOffersUtil";
 
 describe("DeclinedOffersUtil", () => {
   describe("#getSummaryFromQueue", () => {

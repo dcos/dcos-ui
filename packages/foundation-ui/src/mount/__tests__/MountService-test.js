@@ -1,6 +1,6 @@
-const React = require("react");
+import MountService from "../MountService";
 
-const MountService = require("../MountService");
+const React = require("react");
 
 let thisInstance;
 

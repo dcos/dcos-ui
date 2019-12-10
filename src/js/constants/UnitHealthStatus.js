@@ -44,4 +44,4 @@ const UnitHealthStatus = {
   }
 };
 
-module.exports = UnitHealthStatus;
+export default UnitHealthStatus;

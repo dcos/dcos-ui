@@ -70,4 +70,4 @@ class ServicesList extends List {
 
 ServicesList.type = Framework;
 
-module.exports = ServicesList;
+export default ServicesList;

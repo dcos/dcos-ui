@@ -1,12 +1,13 @@
 import React from "react";
 import { mount } from "enzyme";
 
+import SDKEndpointStore from "../../../stores/SDKEndpointStore";
+import Framework from "../../../structs/Framework";
+import ServiceEndpoint from "../../../structs/ServiceEndpoint";
+import SDKServiceConnectionEndpointList from "../SDKServiceConnectionEndpointList";
+
 jest.mock("../../../stores/SDKEndpointStore");
 
-const SDKEndpointStore = require("../../../stores/SDKEndpointStore");
-const Framework = require("../../../structs/Framework");
-const ServiceEndpoint = require("../../../structs/ServiceEndpoint");
-const SDKServiceConnectionEndpointList = require("../SDKServiceConnectionEndpointList");
 const SDKService = require("./fixtures/SDKService.json");
 const SDKServiceEndpoints = require("./fixtures/SDKServiceEndpoints.json");
 

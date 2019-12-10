@@ -87,4 +87,4 @@ const POD_CONTAINER_STATUS = {
   }
 };
 
-module.exports = POD_CONTAINER_STATUS;
+export default POD_CONTAINER_STATUS;

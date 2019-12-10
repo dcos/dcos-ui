@@ -1,9 +1,9 @@
-const Pod = require("#PLUGINS/services/src/js/structs/Pod");
-const Framework = require("#PLUGINS/services/src/js/structs/Framework");
-const ServiceTree = require("#PLUGINS/services/src/js/structs/ServiceTree");
-const MesosStateUtil = require("../MesosStateUtil");
+import Pod from "#PLUGINS/services/src/js/structs/Pod";
+import Framework from "#PLUGINS/services/src/js/structs/Framework";
+import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
+import MesosStateUtil from "../MesosStateUtil";
 
-const MESOS_STATE_WITH_HISTORY = require("./fixtures/MesosStateWithHistory");
+import MESOS_STATE_WITH_HISTORY from "./fixtures/MesosStateWithHistory";
 
 let thisInstance, thisMesosState;
 

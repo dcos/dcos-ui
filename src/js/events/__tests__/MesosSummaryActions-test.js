@@ -1,3 +1,7 @@
+import AppDispatcher from "../AppDispatcher";
+import MesosSummaryActions from "../MesosSummaryActions";
+import TimeScales from "../../constants/TimeScales";
+
 const Hooks = require("PluginSDK").Hooks;
 
 jest.setMock("react-router", {
@@ -13,11 +17,7 @@ const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 PluginTestUtils.loadPluginsByName({
   tracking: { enabled: true }
 });
-
-const AppDispatcher = require("../AppDispatcher");
 const Config = require("#SRC/js/config/Config").default;
-const MesosSummaryActions = require("../MesosSummaryActions");
-const TimeScales = require("../../constants/TimeScales");
 
 global.analytics = {
   initialized: true,

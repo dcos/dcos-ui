@@ -22,7 +22,7 @@ const getHighestPriorityStatus = tasks => {
     : null;
 };
 
-module.exports = class Framework extends Application {
+export default class Framework extends Application {
   constructor(...args) {
     super(...args);
 
@@ -162,4 +162,4 @@ module.exports = class Framework extends Application {
       disk: allocatedFrameworkResources.disk + schedulerResources.disk
     };
   }
-};
+}

@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const FilterBar = require("../FilterBar");
+import FilterBar from "../FilterBar";
 
 let thisInstance;
 

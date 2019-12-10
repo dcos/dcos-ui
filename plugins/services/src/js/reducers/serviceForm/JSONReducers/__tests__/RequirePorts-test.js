@@ -1,6 +1,7 @@
 import Transaction from "#SRC/js/structs/Transaction";
 
-const Batch = require("#SRC/js/structs/Batch");
+import Batch from "#SRC/js/structs/Batch";
+
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 const RequirePorts = require("../RequirePorts");
 

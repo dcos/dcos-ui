@@ -1,4 +1,4 @@
-const Item = require("../Item");
+import Item from "../Item";
 
 describe("Item", () => {
   describe("#constructor", () => {

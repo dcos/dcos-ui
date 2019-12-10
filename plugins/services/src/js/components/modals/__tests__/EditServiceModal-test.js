@@ -1,6 +1,10 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+
+jest.mock("#SRC/js/stores/DCOSStore");
+
 const pushMock = jest.fn();
 jest.setMock("react-router", {
   hashHistory: {
@@ -8,9 +12,6 @@ jest.setMock("react-router", {
   }
 });
 
-jest.mock("#SRC/js/stores/DCOSStore");
-
-const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const EditServiceModal = require("../EditServiceModal").default;
 
 describe("EditServiceModal", () => {

@@ -1,7 +1,7 @@
-const PodInstance = require("../PodInstance");
-const PodInstanceStatus = require("../../constants/PodInstanceStatus");
+import PodInstance from "../PodInstance";
+import PodInstanceStatus from "../../constants/PodInstanceStatus";
 
-const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
+import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
 
 const conditions = {
   unhealthyConditions: {

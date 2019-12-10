@@ -1,4 +1,4 @@
-const Hooks = require("../Hooks");
+import Hooks from "../Hooks";
 
 let thisFakeFilter,
   thisHooks,

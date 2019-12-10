@@ -1,4 +1,4 @@
-const ObjectUtil = require("../ObjectUtil");
+import ObjectUtil from "../ObjectUtil";
 
 describe("ObjectUtil", () => {
   describe("#markObject", () => {

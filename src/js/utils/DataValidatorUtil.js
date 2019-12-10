@@ -64,4 +64,4 @@ const DataValidatorUtil = {
   }
 };
 
-module.exports = DataValidatorUtil;
+export default DataValidatorUtil;

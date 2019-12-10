@@ -422,4 +422,4 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new CosmosPackagesStore();
+export default new CosmosPackagesStore();

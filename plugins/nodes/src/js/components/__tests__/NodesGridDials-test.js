@@ -1,11 +1,9 @@
 import isEqual from "lodash.isequal";
-
 import React from "react";
-
 import { shallow } from "enzyme";
 
-const NodesGridDials = require("../NodesGridDials");
-const Node = require("#SRC/js/structs/Node");
+import Node from "#SRC/js/structs/Node";
+import NodesGridDials from "../NodesGridDials";
 
 var mockHost = {
   id: "foo",

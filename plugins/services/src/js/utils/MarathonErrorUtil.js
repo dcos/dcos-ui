@@ -141,4 +141,4 @@ const MarathonErrorUtil = {
   }
 };
 
-module.exports = MarathonErrorUtil;
+export default MarathonErrorUtil;

@@ -1,8 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
+import ConfigurationMapTable from "../ConfigurationMapTable";
 
 const { EmptyStates } = require("#SRC/js/constants/EmptyStates");
-const ConfigurationMapTable = require("../ConfigurationMapTable");
 
 function mapValuesOfType(instance, type) {
   return instance.find(type).map(item => item.text());

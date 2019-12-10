@@ -1,8 +1,8 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const TabView = require("../TabView");
-const TabViewList = require("../TabViewList");
+import TabView from "../TabView";
+import TabViewList from "../TabViewList";
 
 let thisInstance;
 

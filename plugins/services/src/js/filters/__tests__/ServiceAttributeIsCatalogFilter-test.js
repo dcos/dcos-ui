@@ -1,9 +1,10 @@
-var Application = require("../../structs/Application");
-var Framework = require("../../structs/Framework");
-var List = require("#SRC/js/structs/List");
-var Pod = require("../../structs/Pod");
+import List from "#SRC/js/structs/List";
+import Application from "../../structs/Application";
+import Framework from "../../structs/Framework";
+import Pod from "../../structs/Pod";
+import ServiceAttributeIsCatalogFilter from "../ServiceAttributeIsCatalogFilter";
+
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var ServiceAttributeIsCatalogFilter = require("../ServiceAttributeIsCatalogFilter");
 
 let thisMockItems;
 

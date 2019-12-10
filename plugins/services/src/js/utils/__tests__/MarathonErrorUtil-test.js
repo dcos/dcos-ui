@@ -1,4 +1,5 @@
-const MarathonErrorUtil = require("../MarathonErrorUtil");
+import MarathonErrorUtil from "../MarathonErrorUtil";
+
 const ServiceErrorTypes = require("../../constants/ServiceErrorTypes");
 
 describe("MarathonErrorUtil", () => {

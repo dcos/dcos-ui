@@ -1,4 +1,4 @@
-const JobValidatorUtil = require("../JobValidatorUtil");
+import JobValidatorUtil from "../JobValidatorUtil";
 
 describe("JobValidatorUtil", () => {
   describe("#isValidJobID", () => {

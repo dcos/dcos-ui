@@ -1,5 +1,5 @@
-const PodUtil = require("../PodUtil");
-const Pod = require("../../structs/Pod");
+import PodUtil from "../PodUtil";
+import Pod from "../../structs/Pod";
 
 let thisPod;
 

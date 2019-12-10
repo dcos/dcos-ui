@@ -1,8 +1,8 @@
 import Item from "#SRC/js/structs/Item";
 import { WrappedComponent } from "../DeploymentsModal";
 
-const Deployment = require("../../structs/Deployment");
-const Application = require("../../structs/Application");
+import Deployment from "../../structs/Deployment";
+import Application from "../../structs/Application";
 
 describe("DeploymentsModal", () => {
   describe("#getRollbackModalText", () => {

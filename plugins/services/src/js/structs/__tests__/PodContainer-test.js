@@ -1,7 +1,7 @@
-const PodContainer = require("../PodContainer");
-const PodContainerStatus = require("../../constants/PodContainerStatus");
+import PodContainer from "../PodContainer";
+import PodContainerStatus from "../../constants/PodContainerStatus";
 
-const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
+import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
 
 describe("PodContainer", () => {
   describe("#constructor", () => {

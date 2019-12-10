@@ -78,7 +78,7 @@ function countNewLines(src, startAt, endAt) {
  * analyzing a JSON source from the ACE editor or other
  * JSON sources.
  */
-module.exports = {
+export default {
   /**
    * Process JSON source and return detailed information for every object
    * in the object. The information processed for every token is:

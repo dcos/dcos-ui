@@ -15,12 +15,14 @@ jest.mock("../../../components/Page", () => {
 const Config = require("#SRC/js/config/Config").default;
 var configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
-const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
+const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore")
+  .default;
 Config.useFixtures = configUseFixtures;
 /* eslint-enable import/newline-after-import */
 
-const PackagesTab = require("../PackagesTab");
-const UniversePackagesList = require("../../../structs/UniversePackagesList");
+const PackagesTab = require("../PackagesTab").default;
+const UniversePackagesList = require("../../../structs/UniversePackagesList")
+  .default;
 
 const renderer = require("react-test-renderer");
 

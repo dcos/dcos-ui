@@ -1,4 +1,4 @@
-const NetworkValidatorUtil = require("../NetworkValidatorUtil");
+import NetworkValidatorUtil from "../NetworkValidatorUtil";
 
 describe("NetworkValidatorUtil", () => {
   describe("#isValidPort", () => {

@@ -1,6 +1,7 @@
-const CompositeState = require("../../structs/CompositeState");
-const Node = require("../../structs/Node");
-const NodesList = require("../../structs/NodesList");
+import CompositeState from "../../structs/CompositeState";
+import Node from "../../structs/Node";
+import NodesList from "../../structs/NodesList";
+
 const ResourcesUtil = require("../ResourcesUtil");
 
 function createFnWithNodeResources(used_resources) {

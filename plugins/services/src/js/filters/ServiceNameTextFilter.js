@@ -28,4 +28,4 @@ class ServiceNameTextFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceNameTextFilter;
+export default ServiceNameTextFilter;

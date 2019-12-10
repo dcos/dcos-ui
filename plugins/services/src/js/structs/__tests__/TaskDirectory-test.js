@@ -1,5 +1,5 @@
-const DirectoryItem = require("../DirectoryItem");
-const TaskDirectory = require("../TaskDirectory");
+import DirectoryItem from "../DirectoryItem";
+import TaskDirectory from "../TaskDirectory";
 
 let thisDirectory;
 

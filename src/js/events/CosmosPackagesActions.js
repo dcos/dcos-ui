@@ -515,4 +515,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = CosmosPackagesActions;
+export default CosmosPackagesActions;

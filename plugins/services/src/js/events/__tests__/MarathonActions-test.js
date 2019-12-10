@@ -1,14 +1,15 @@
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import Application from "../../structs/Application";
+import ApplicationSpec from "../../structs/ApplicationSpec";
+import MarathonActions from "../MarathonActions";
+import Pod from "../../structs/Pod";
+import PodSpec from "../../structs/PodSpec";
+
 const Hooks = require("PluginSDK").Hooks;
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const Application = require("../../structs/Application");
-const ApplicationSpec = require("../../structs/ApplicationSpec");
-const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 const Config = require("#SRC/js/config/Config").default;
-const MarathonActions = require("../MarathonActions");
-const Pod = require("../../structs/Pod");
-const PodSpec = require("../../structs/PodSpec");
 
 Hooks.addFilter("hasCapability", () => true);
 

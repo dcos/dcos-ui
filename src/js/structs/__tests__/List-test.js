@@ -1,5 +1,5 @@
-const Item = require("../Item");
-const List = require("../List");
+import Item from "../Item";
+import List from "../List";
 
 let thisThing, thisThingList, thisInstance;
 

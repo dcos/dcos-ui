@@ -265,4 +265,4 @@ Highlight.propTypes = {
   watching: PropTypes.number
 };
 
-module.exports = Highlight;
+export default Highlight;

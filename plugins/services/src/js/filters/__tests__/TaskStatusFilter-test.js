@@ -1,6 +1,7 @@
+import List from "#SRC/js/structs/List";
+import TasksStatusFilter from "../TasksStatusFilter";
+
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var TasksStatusFilter = require("../TasksStatusFilter");
-var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 

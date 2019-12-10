@@ -1,6 +1,6 @@
-const HealthUnit = require("../HealthUnit");
-const UnitHealthStatus = require("../../constants/UnitHealthStatus");
-const UnitHealthTypes = require("../../constants/UnitHealthTypes");
+import UnitHealthStatus from "../../constants/UnitHealthStatus";
+import HealthUnit from "../HealthUnit";
+import UnitHealthTypes from "../../constants/UnitHealthTypes";
 
 let thisUnit;
 

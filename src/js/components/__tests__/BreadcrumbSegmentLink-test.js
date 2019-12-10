@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const BreadcrumbSegmentLink = require("../BreadcrumbSegmentLink");
+import BreadcrumbSegmentLink from "../BreadcrumbSegmentLink";
 
 describe("BreadcrumbSegmentLink", () => {
   it("renders the label", () => {

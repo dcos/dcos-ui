@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const ConfigurationMapValueWithDefault = require("../ConfigurationMapValueWithDefault");
+import ConfigurationMapValueWithDefault from "../ConfigurationMapValueWithDefault";
 
 describe("ConfigurationMapValueWithDefault", () => {
   it("renders value if specified", () => {

@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const TabButton = require("../TabButton");
-const TabButtonList = require("../TabButtonList");
+import TabButton from "../TabButton";
+import TabButtonList from "../TabButtonList";
 
 let thisChangeHandler, thisInstance;
 

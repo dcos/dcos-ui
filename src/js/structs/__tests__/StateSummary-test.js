@@ -1,7 +1,7 @@
-const Framework = require("../../../../plugins/services/src/js/structs/Framework");
-const NodesList = require("../NodesList");
-const ServicesList = require("../../../../plugins/services/src/js/structs/ServicesList");
-const StateSummary = require("../StateSummary");
+import Framework from "../../../../plugins/services/src/js/structs/Framework";
+import NodesList from "../NodesList";
+import ServicesList from "../../../../plugins/services/src/js/structs/ServicesList";
+import StateSummary from "../StateSummary";
 
 describe("StateSummary", () => {
   describe("#constructor", () => {

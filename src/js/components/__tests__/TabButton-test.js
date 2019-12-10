@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
-const TabButton = require("../TabButton");
+import TabButton from "../TabButton";
 
 let thisClickHandler, thisInstance;
 

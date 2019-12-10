@@ -1,9 +1,9 @@
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
+import DSLExpression from "../../structs/DSLExpression";
+import DSLExpressionPart from "../../structs/DSLExpressionPart";
+import DSLUtil from "../DSLUtil";
 
 const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLExpression = require("../../structs/DSLExpression");
-const DSLExpressionPart = require("../../structs/DSLExpressionPart");
-const DSLUtil = require("../DSLUtil");
 
 let thisParts, thisAst, thisAttribs, thisFuzzy, thisExact;
 

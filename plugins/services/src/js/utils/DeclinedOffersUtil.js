@@ -280,4 +280,4 @@ const DeclinedOffersUtil = {
   }
 };
 
-module.exports = DeclinedOffersUtil;
+export default DeclinedOffersUtil;

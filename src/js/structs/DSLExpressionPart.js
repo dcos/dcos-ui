@@ -56,4 +56,4 @@ class DSLExpressionPart {
   }
 }
 
-module.exports = DSLExpressionPart;
+export default DSLExpressionPart;

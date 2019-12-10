@@ -1,11 +1,12 @@
-const Pod = require("#PLUGINS/services/src/js/structs/Pod");
-const Framework = require("#PLUGINS/services/src/js/structs/Framework");
-const Application = require("#PLUGINS/services/src/js/structs/Application");
-const Task = require("#PLUGINS/services/src/js/structs/Task");
-const MesosStateUtil = require("../../utils/MesosStateUtil");
-const MesosStateStore = require("../MesosStateStore");
+import Pod from "#PLUGINS/services/src/js/structs/Pod";
+import Framework from "#PLUGINS/services/src/js/structs/Framework";
+import Application from "#PLUGINS/services/src/js/structs/Application";
+import Task from "#PLUGINS/services/src/js/structs/Task";
+import MesosStateUtil from "../../utils/MesosStateUtil";
 
-const MESOS_STATE_WITH_HISTORY = require("../../utils/__tests__/fixtures/MesosStateWithHistory");
+import MESOS_STATE_WITH_HISTORY from "../../utils/__tests__/fixtures/MesosStateWithHistory";
+
+const MesosStateStore = require("../MesosStateStore");
 
 let thisGet, thisGetFrameworkToServicesMap;
 

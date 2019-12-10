@@ -134,4 +134,4 @@ DetailViewHeader.propTypes = {
   iconClassName: classPropType
 };
 
-module.exports = DetailViewHeader;
+export default DetailViewHeader;

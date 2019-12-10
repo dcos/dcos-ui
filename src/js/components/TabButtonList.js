@@ -46,4 +46,4 @@ TabButtonList.propTypes = {
   vertical: PropTypes.bool
 };
 
-module.exports = TabButtonList;
+export default TabButtonList;

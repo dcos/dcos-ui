@@ -1,4 +1,4 @@
-const SchemaFormUtil = require("../SchemaFormUtil");
+import SchemaFormUtil from "../SchemaFormUtil";
 
 let thisDefinition, thisGetDefinitionFromPath;
 

@@ -1,7 +1,7 @@
 import Item from "#SRC/js/structs/Item";
 import ServiceImages from "../constants/ServiceImages";
 
-module.exports = class Task extends Item {
+export default class Task extends Item {
   getId() {
     return this.get("id") || "";
   }
@@ -13,4 +13,4 @@ module.exports = class Task extends Item {
   getName() {
     return this.get("name");
   }
-};
+}

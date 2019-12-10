@@ -294,4 +294,4 @@ const MesosStateUtil = {
   }
 };
 
-module.exports = MesosStateUtil;
+export default MesosStateUtil;

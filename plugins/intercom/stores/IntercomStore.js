@@ -148,4 +148,4 @@ class IntercomStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new IntercomStore();
+export default new IntercomStore();

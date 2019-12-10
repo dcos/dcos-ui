@@ -1,10 +1,10 @@
 import DSLFilter from "../../structs/DSLFilter";
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
 import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
+import DSLParserUtil from "../DSLParserUtil";
+import List from "../../structs/List";
 
 const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLParserUtil = require("../DSLParserUtil");
-const List = require("../../structs/List");
 
 class AttribFilter extends DSLFilter {
   filterCanHandle(filterType) {

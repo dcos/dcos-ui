@@ -1,4 +1,4 @@
-const VipLabelUtil = require("../VipLabelUtil");
+import VipLabelUtil from "../VipLabelUtil";
 
 const appID = "/some-app";
 const vipLabel = "VIP_0";

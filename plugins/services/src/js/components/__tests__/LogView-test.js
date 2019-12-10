@@ -1,9 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const EmptyLogScreen = require("../EmptyLogScreen");
-const LogView = require("../LogView");
-const DOMUtils = require("#SRC/js/utils/DOMUtils");
+import DOMUtils from "#SRC/js/utils/DOMUtils";
+import EmptyLogScreen from "../EmptyLogScreen";
+import LogView from "../LogView";
 
 let thisFetchPreviousLogsSpy,
   thisOnAtBottomChangeSpy,

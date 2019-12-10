@@ -67,4 +67,4 @@ FilterBar.defaultProps = {
   rightChildrenClass: "filter-bar-right"
 };
 
-module.exports = FilterBar;
+export default FilterBar;

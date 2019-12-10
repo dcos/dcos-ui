@@ -72,4 +72,4 @@ const TaskTableUtil = {
   }
 };
 
-module.exports = TaskTableUtil;
+export default TaskTableUtil;

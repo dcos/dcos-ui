@@ -64,4 +64,4 @@ const HostUtil = {
   }
 };
 
-module.exports = HostUtil;
+export default HostUtil;

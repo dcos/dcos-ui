@@ -1,15 +1,16 @@
-jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
-jest.mock("../MesosSummaryStore");
+import DCOSStore from "../DCOSStore";
+import NotificationStore from "../NotificationStore";
+import DeploymentsList from "../../../../plugins/services/src/js/structs/DeploymentsList";
+import ServiceTree from "../../../../plugins/services/src/js/structs/ServiceTree";
+import SummaryList from "../../structs/SummaryList";
+import StateSummary from "../../structs/StateSummary";
 
-const DCOSStore = require("../DCOSStore");
+jest.mock("../MesosSummaryStore");
+jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
+
+const MesosSummaryStore = require("../MesosSummaryStore").default;
 const EventTypes = require("../../constants/EventTypes");
 const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore");
-const MesosSummaryStore = require("../MesosSummaryStore");
-const NotificationStore = require("../NotificationStore");
-const DeploymentsList = require("../../../../plugins/services/src/js/structs/DeploymentsList");
-const ServiceTree = require("../../../../plugins/services/src/js/structs/ServiceTree");
-const SummaryList = require("../../structs/SummaryList");
-const StateSummary = require("../../structs/StateSummary");
 
 describe("DCOSStore", () => {
   beforeEach(() => {

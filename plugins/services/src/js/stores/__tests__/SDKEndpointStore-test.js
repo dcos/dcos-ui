@@ -1,8 +1,9 @@
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import SDKEndpointStore from "../SDKEndpointStore";
+import ServiceEndpoint from "../../structs/ServiceEndpoint";
+import SDKEndpointActions from "../../events/SDKEndpointActions";
+
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("#SRC/js/events/AppDispatcher");
-const SDKEndpointStore = require("../SDKEndpointStore");
-const ServiceEndpoint = require("../../structs/ServiceEndpoint");
-const SDKEndpointActions = require("../../events/SDKEndpointActions");
 
 const serviceData = {
   endpoints: [

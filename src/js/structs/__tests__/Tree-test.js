@@ -1,6 +1,6 @@
-const Item = require("../Item");
-const List = require("../List");
-const Tree = require("../Tree");
+import Item from "../Item";
+import List from "../List";
+import Tree from "../Tree";
 
 let thisInstance;
 

@@ -1,8 +1,8 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const ComponentList = require("../ComponentList");
-const HealthUnitsList = require("../../structs/HealthUnitsList");
+import ComponentList from "../ComponentList";
+import HealthUnitsList from "../../structs/HealthUnitsList";
 
 let thisComponent;
 

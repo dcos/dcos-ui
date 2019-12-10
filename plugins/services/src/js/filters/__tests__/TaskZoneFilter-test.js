@@ -1,9 +1,9 @@
-jest.mock("../../utils/TaskUtil");
+import List from "#SRC/js/structs/List";
+import TasksZoneFilter from "../TasksZoneFilter";
+import TaskUtil from "../../utils/TaskUtil";
 
+jest.mock("../../utils/TaskUtil");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var TasksZoneFilter = require("../TasksZoneFilter");
-var List = require("#SRC/js/structs/List");
-var TaskUtil = require("../../utils/TaskUtil");
 
 let thisMockItems;
 

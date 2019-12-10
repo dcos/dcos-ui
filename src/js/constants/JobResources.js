@@ -4,4 +4,4 @@ const JobResources = {
   DEFAULT_MEM: 128
 };
 
-module.exports = JobResources;
+export default JobResources;

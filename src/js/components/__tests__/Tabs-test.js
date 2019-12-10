@@ -1,11 +1,11 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const TabButton = require("../TabButton");
-const TabButtonList = require("../TabButtonList");
-const Tabs = require("../Tabs");
-const TabView = require("../TabView");
-const TabViewList = require("../TabViewList");
+import TabButton from "../TabButton";
+import TabButtonList from "../TabButtonList";
+import Tabs from "../Tabs";
+import TabView from "../TabView";
+import TabViewList from "../TabViewList";
 
 let thisHandleTabChange, thisInstance;
 

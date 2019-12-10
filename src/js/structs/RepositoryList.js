@@ -20,4 +20,4 @@ class RepositoryList extends List {
 
 RepositoryList.type = Item;
 
-module.exports = RepositoryList;
+export default RepositoryList;

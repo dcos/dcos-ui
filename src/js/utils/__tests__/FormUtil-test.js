@@ -1,4 +1,4 @@
-const FormUtil = require("../FormUtil");
+import FormUtil from "../FormUtil";
 
 let thisDefinition, thisResult;
 

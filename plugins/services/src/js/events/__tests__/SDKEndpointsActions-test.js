@@ -1,8 +1,9 @@
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import SDKEndpointsActions from "../SDKEndpointActions";
+
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const Config = require("#SRC/js/config/Config").default;
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("#SRC/js/events/AppDispatcher");
-const SDKEndpointsActions = require("../SDKEndpointActions");
 
 let thisConfiguration;
 

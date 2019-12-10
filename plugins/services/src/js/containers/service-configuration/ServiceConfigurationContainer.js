@@ -51,4 +51,4 @@ ServiceConfigurationContainer.propTypes = {
   service: PropTypes.instanceOf(Service)
 };
 
-module.exports = ServiceConfigurationContainer;
+export default ServiceConfigurationContainer;

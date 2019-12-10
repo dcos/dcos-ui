@@ -1,4 +1,4 @@
-const HostUtil = require("../HostUtil");
+import HostUtil from "../HostUtil";
 
 describe("HostUtil", () => {
   describe("#stringToHostname", () => {

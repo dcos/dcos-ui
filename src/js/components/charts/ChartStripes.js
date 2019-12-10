@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 import createReactClass from "create-react-class";
 
-var ChartStripes = createReactClass({
+const ChartStripes = createReactClass({
   displayName: "ChartStripes",
 
   propTypes: {
@@ -40,4 +40,4 @@ var ChartStripes = createReactClass({
   }
 });
 
-module.exports = ChartStripes;
+export default ChartStripes;

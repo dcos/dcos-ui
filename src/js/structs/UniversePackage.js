@@ -77,4 +77,4 @@ class UniversePackage extends Item {
   }
 }
 
-module.exports = UniversePackage;
+export default UniversePackage;

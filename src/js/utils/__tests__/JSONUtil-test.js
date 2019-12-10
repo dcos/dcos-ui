@@ -1,4 +1,4 @@
-const JSONUtil = require("../JSONUtil");
+import JSONUtil from "../JSONUtil";
 
 describe("JSONUtil", () => {
   describe("#getObjectInformation", () => {

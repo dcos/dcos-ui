@@ -1,6 +1,6 @@
-const PodSpec = require("../PodSpec");
+import PodSpec from "../PodSpec";
 
-const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
+import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
 
 describe("PodSpec", () => {
   describe("#constructor", () => {

@@ -59,4 +59,4 @@ class DSLExpression {
   }
 }
 
-module.exports = DSLExpression;
+export default DSLExpression;

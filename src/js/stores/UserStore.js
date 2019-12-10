@@ -89,4 +89,4 @@ class UserStore extends EventEmitter {
   }
 }
 
-module.exports = new UserStore();
+export default new UserStore();

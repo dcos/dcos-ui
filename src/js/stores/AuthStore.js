@@ -128,4 +128,4 @@ class AuthStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new AuthStore();
+export default new AuthStore();

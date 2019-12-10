@@ -360,4 +360,4 @@ const SchemaUtil = {
   }
 };
 
-module.exports = SchemaUtil;
+export default SchemaUtil;

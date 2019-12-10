@@ -116,4 +116,4 @@ class NotificationStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new NotificationStore();
+export default new NotificationStore();

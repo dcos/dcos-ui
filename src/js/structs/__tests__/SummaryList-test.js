@@ -1,5 +1,5 @@
-const SummaryList = require("../SummaryList");
-const StateSummary = require("../StateSummary");
+import SummaryList from "../SummaryList";
+import StateSummary from "../StateSummary";
 
 let thisNow, thisService1, thisService2, thisService3, thisService4, thisList;
 

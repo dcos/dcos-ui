@@ -1,4 +1,4 @@
-const NavigationService = require("../NavigationService");
+import NavigationService from "../NavigationService";
 
 let thisInstance;
 

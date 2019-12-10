@@ -129,4 +129,4 @@ ConfigurationMapTable.propTypes = {
   tabViewID: PropTypes.string
 };
 
-module.exports = ConfigurationMapTable;
+export default ConfigurationMapTable;

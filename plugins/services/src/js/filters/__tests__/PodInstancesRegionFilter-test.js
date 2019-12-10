@@ -1,9 +1,9 @@
-jest.mock("../../utils/TaskUtil");
+import List from "#SRC/js/structs/List";
+import PodInstancesRegionFilter from "../PodInstancesRegionFilter";
+import InstanceUtil from "../../utils/InstanceUtil";
 
+jest.mock("../../utils/TaskUtil");
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var PodInstancesRegionFilter = require("../PodInstancesRegionFilter");
-var List = require("#SRC/js/structs/List");
-var InstanceUtil = require("../../utils/InstanceUtil");
 
 let thisMockItems;
 

@@ -201,4 +201,4 @@ const getTabs = (tabs, currentTab, getElement) => {
   });
 };
 
-module.exports = TabsMixin;
+export default TabsMixin;

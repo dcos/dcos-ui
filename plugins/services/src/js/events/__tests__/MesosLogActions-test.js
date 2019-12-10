@@ -1,8 +1,8 @@
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import AppDispatcher from "#SRC/js/events/AppDispatcher";
+import MesosLogActions from "../MesosLogActions";
 
-const MesosLogActions = require("../MesosLogActions");
+const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("#SRC/js/events/AppDispatcher");
 
 let thisConfiguration;
 

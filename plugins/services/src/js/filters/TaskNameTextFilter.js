@@ -30,4 +30,4 @@ class TaskNameTextFilter extends DSLFilter {
   }
 }
 
-module.exports = TaskNameTextFilter;
+export default TaskNameTextFilter;

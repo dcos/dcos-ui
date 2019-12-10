@@ -472,4 +472,4 @@ class DCOSStore extends EventEmitter {
   }
 }
 
-module.exports = new DCOSStore();
+export default new DCOSStore();

@@ -49,4 +49,4 @@ class NodesZoneFilter extends DSLFilter {
   }
 }
 
-module.exports = NodesZoneFilter;
+export default NodesZoneFilter;

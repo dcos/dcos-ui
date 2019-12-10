@@ -35,4 +35,4 @@ TabViewList.propTypes = {
   ])
 };
 
-module.exports = TabViewList;
+export default TabViewList;

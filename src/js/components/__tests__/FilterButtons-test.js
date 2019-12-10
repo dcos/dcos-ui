@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const FilterButtons = require("../FilterButtons");
+import FilterButtons from "../FilterButtons";
 
 let thisKey, thisFilters, thisItemList, thisInstance;
 

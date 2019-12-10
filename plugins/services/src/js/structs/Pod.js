@@ -11,7 +11,7 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceImages from "../constants/ServiceImages";
 import VolumeList from "./VolumeList";
 
-module.exports = class Pod extends Service {
+export default class Pod extends Service {
   constructor(...args) {
     super(...args);
 
@@ -259,4 +259,4 @@ module.exports = class Pod extends Service {
     }
     return "";
   }
-};
+}

@@ -1,11 +1,11 @@
+import Item from "#SRC/js/structs/Item";
+import LogBuffer from "../../structs/LogBuffer";
+import MesosLogStore from "../../stores/MesosLogStore";
+import MesosLogContainer from "../MesosLogContainer";
+
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const Item = require("#SRC/js/structs/Item");
-const LogBuffer = require("../../structs/LogBuffer");
-const MesosLogStore = require("../../stores/MesosLogStore");
-const MesosLogContainer = require("../MesosLogContainer");
 const SystemLogTypes = require("#SRC/js/constants/SystemLogTypes");
 
 const APPEND = SystemLogTypes.APPEND;

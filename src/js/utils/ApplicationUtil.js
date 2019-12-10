@@ -4,7 +4,7 @@ import {
 } from "../constants/EventTypes";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 
-module.exports = {
+export default {
   /**
    * Polls mesos summary endpoint to ensure there's data before rendering
    *

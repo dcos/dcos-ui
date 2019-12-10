@@ -1,10 +1,10 @@
 import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
+import DSLExpression from "../../structs/DSLExpression";
+import DSLUpdateUtil from "../DSLUpdateUtil";
+import DSLUtil from "../DSLUtil";
 
 const DSLASTNodes = require("../../structs/DSLASTNodes");
-const DSLExpression = require("../../structs/DSLExpression");
-const DSLUpdateUtil = require("../DSLUpdateUtil");
-const DSLUtil = require("../DSLUtil");
 
 describe("DSLUpdateUtil", () => {
   describe("#cleanupExpressionString", () => {

@@ -1,7 +1,7 @@
+import NestedServiceLinks from "../NestedServiceLinks";
+
 const React = require("react");
 const enzyme = require("enzyme");
-
-const NestedServiceLinks = require("../NestedServiceLinks");
 
 describe("NestedServiceLinks", () => {
   const id = "foo";

@@ -1,6 +1,6 @@
 import Item from "./Item";
 
-module.exports = class Overlay extends Item {
+export default class Overlay extends Item {
   constructor(options = {}, ...args) {
     // Make sure info is available in Overlay
     if (!options.info) {
@@ -29,4 +29,4 @@ module.exports = class Overlay extends Item {
   getSubnet6() {
     return this.get("info").subnet6;
   }
-};
+}

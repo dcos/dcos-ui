@@ -1,7 +1,7 @@
+import List from "#SRC/js/structs/List";
 import NodesRegionFilter from "../NodesRegionFilter";
 
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 

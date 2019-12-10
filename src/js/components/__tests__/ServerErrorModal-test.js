@@ -1,8 +1,8 @@
+import ServerErrorModal from "../ServerErrorModal";
+
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const ServerErrorModal = require("../ServerErrorModal");
 
 let thisContainer, thisInstance;
 

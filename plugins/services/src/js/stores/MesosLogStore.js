@@ -259,4 +259,4 @@ class MesosLogStore extends BaseStore {
   }
 }
 
-module.exports = new MesosLogStore();
+export default new MesosLogStore();

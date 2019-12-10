@@ -1,5 +1,6 @@
+import FrameworkUtil from "../FrameworkUtil";
+
 const ServiceImages = require("../../constants/ServiceImages");
-const FrameworkUtil = require("../FrameworkUtil");
 
 let thisImages, thisLabels;
 

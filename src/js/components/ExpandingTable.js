@@ -160,4 +160,4 @@ ExpandingTable.propTypes = {
   tableComponent: PropTypes.func
 };
 
-module.exports = ExpandingTable;
+export default ExpandingTable;

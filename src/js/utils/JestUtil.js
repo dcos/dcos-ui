@@ -124,4 +124,4 @@ const JestUtil = {
   }
 };
 
-module.exports = JestUtil;
+export default JestUtil;

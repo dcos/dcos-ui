@@ -126,4 +126,4 @@ class CompositeState {
   }
 }
 
-module.exports = new CompositeState({ frameworks: [], slaves: [] });
+export default new CompositeState({ frameworks: [], slaves: [] });
