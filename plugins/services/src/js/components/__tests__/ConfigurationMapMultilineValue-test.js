@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow, mount } from "enzyme";
 
-const ConfigurationMapMultilineValue = require("../ConfigurationMapMultilineValue");
+import ConfigurationMapMultilineValue from "../ConfigurationMapMultilineValue";
 
 describe("ConfigurationMapMultilineValue", () => {
   it("renders the text in a <pre> tag", () => {

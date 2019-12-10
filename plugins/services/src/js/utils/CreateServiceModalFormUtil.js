@@ -41,4 +41,4 @@ const CreateServiceModalFormUtil = {
   }
 };
 
-module.exports = CreateServiceModalFormUtil;
+export default CreateServiceModalFormUtil;

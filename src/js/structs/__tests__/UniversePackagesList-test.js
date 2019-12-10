@@ -1,5 +1,5 @@
-const UniversePackage = require("../UniversePackage");
-const UniversePackagesList = require("../UniversePackagesList");
+import UniversePackage from "../UniversePackage";
+import UniversePackagesList from "../UniversePackagesList";
 
 describe("UniversePackagesList", () => {
   describe("#constructor", () => {

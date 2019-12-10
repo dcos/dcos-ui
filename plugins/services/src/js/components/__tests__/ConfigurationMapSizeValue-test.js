@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const ConfigurationMapSizeValue = require("../ConfigurationMapSizeValue");
+import ConfigurationMapSizeValue from "../ConfigurationMapSizeValue";
 
 function getValue(instance) {
   return instance

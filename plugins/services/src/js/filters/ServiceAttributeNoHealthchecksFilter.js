@@ -35,4 +35,4 @@ class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
   }
 }
 
-module.exports = ServiceAttributeNoHealthchecksFilter;
+export default ServiceAttributeNoHealthchecksFilter;

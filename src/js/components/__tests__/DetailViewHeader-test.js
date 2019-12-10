@@ -1,8 +1,8 @@
+import DetailViewHeader from "../DetailViewHeader";
+
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const DetailViewHeader = require("../DetailViewHeader");
 
 let thisContainer;
 

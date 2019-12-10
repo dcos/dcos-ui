@@ -2,13 +2,14 @@ import React from "react";
 import { mount } from "enzyme";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
-const JestUtil = require("#SRC/js/utils/JestUtil");
+import JestUtil from "#SRC/js/utils/JestUtil";
 
-const PodInstancesTable = require("../PodInstancesTable");
-const Pod = require("../../../structs/Pod");
+import PodInstancesTable from "../PodInstancesTable";
+import Pod from "../../../structs/Pod";
+
+import PodFixture from "../../../../../../../tests/_fixtures/pods/PodFixture";
+
 const Util = require("#SRC/js/utils/Util");
-
-const PodFixture = require("../../../../../../../tests/_fixtures/pods/PodFixture");
 
 let thisInstance;
 

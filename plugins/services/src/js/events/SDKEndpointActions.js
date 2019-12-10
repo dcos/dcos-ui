@@ -69,4 +69,4 @@ const SDKEndpointsActions = {
   }
 };
 
-module.exports = SDKEndpointsActions;
+export default SDKEndpointsActions;

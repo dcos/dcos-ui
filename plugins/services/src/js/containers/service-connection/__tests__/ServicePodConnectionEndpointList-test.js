@@ -1,8 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const Pod = require("../../../structs/Pod");
-const ServicePodConnectionEndpointList = require("../ServicePodConnectionEndpointList");
+import Pod from "../../../structs/Pod";
+import ServicePodConnectionEndpointList from "../ServicePodConnectionEndpointList";
+
 const ServicePodWithEndpoints = require("./fixtures/ServicePodWithEndpoints.json");
 
 let thisInstance;

@@ -482,4 +482,4 @@ TaskTable.defaultProps = {
   tasks: []
 };
 
-module.exports = TaskTable;
+export default TaskTable;

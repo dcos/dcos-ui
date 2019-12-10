@@ -2,9 +2,9 @@ import React from "react";
 import { mount } from "enzyme";
 import JestUtil from "#SRC/js/utils/JestUtil";
 
-const Application = require("../../../structs/Application");
-const ServiceConfigurationContainer = require("../ServiceConfigurationContainer");
-const ServiceConfigDisplay = require("../../../service-configuration/ServiceConfigDisplay");
+import Application from "../../../structs/Application";
+import ServiceConfigurationContainer from "../ServiceConfigurationContainer";
+import ServiceConfigDisplay from "../../../service-configuration/ServiceConfigDisplay";
 
 let thisInstance;
 

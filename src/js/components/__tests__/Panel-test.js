@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const Panel = require("../Panel");
+import Panel from "../Panel";
 
 let thisOnClickSpy, thisInstance;
 

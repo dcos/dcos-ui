@@ -30,4 +30,4 @@ ConfigurationMapMultilineValue.propTypes = {
   value: PropTypes.string
 };
 
-module.exports = ConfigurationMapMultilineValue;
+export default ConfigurationMapMultilineValue;

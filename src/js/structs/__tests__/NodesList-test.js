@@ -1,5 +1,5 @@
-const Node = require("../Node");
-const NodesList = require("../NodesList");
+import Node from "../Node";
+import NodesList from "../NodesList";
 
 describe("NodesList", () => {
   describe("#constructor", () => {

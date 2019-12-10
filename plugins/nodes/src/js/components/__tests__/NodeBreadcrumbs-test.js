@@ -1,5 +1,6 @@
 import React from "react";
 import renderer from "react-test-renderer";
+
 import HealthUnit from "#SRC/js/structs/HealthUnit";
 import Node from "#SRC/js/structs/Node";
 
@@ -9,7 +10,7 @@ const mockUnitHealthStore = {
 };
 jest.mock("#SRC/js/stores/UnitHealthStore", () => mockUnitHealthStore);
 
-const NodeBreadcrumbs = require("../NodeBreadcrumbs");
+const NodeBreadcrumbs = require("../NodeBreadcrumbs").default;
 
 describe("NodeBreadcrumbs", () => {
   beforeEach(() => {

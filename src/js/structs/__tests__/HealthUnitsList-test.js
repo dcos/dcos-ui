@@ -1,5 +1,5 @@
-const HealthUnit = require("../HealthUnit");
-const HealthUnitsList = require("../HealthUnitsList");
+import HealthUnit from "../HealthUnit";
+import HealthUnitsList from "../HealthUnitsList";
 
 describe("HealthUnitsList", () => {
   describe("#constructor", () => {

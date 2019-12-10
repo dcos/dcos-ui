@@ -18,4 +18,4 @@ TabView.propTypes = {
   id: PropTypes.string.isRequired
 };
 
-module.exports = TabView;
+export default TabView;

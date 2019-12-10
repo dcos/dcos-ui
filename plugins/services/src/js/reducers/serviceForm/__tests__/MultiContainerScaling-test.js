@@ -1,7 +1,7 @@
 import Transaction from "#SRC/js/structs/Transaction";
+import Batch from "#SRC/js/structs/Batch";
 
 const MultiContainerScaling = require("../MultiContainerScaling");
-const Batch = require("#SRC/js/structs/Batch");
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerScaling", () => {

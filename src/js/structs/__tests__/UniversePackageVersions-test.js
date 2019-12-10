@@ -1,4 +1,4 @@
-const UniversePackageVersions = require("../UniversePackageVersions");
+import UniversePackageVersions from "../UniversePackageVersions";
 
 describe("UniversePackageVersions", () => {
   describe("#getVersions", () => {

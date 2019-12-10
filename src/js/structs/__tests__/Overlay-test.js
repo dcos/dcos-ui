@@ -1,4 +1,4 @@
-const Overlay = require("../Overlay");
+import Overlay from "../Overlay";
 
 let thisOverlay;
 

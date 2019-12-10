@@ -1,6 +1,6 @@
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
 
-const DSLExpressionPart = require("../DSLExpressionPart");
+import DSLExpressionPart from "../DSLExpressionPart";
 
 describe("DSLExpressionPart", () => {
   it("corrects create an .attribute('label') filter", () => {

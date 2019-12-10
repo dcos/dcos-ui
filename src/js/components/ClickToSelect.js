@@ -32,4 +32,4 @@ ClickToSelect.propTypes = {
   children: PropTypes.any
 };
 
-module.exports = ClickToSelect;
+export default ClickToSelect;

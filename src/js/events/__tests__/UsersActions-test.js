@@ -1,9 +1,10 @@
+import AppDispatcher from "../AppDispatcher";
+import UsersActions from "../UsersActions";
+
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("../AppDispatcher");
 const Config = require("#SRC/js/config/Config").default;
-const UsersActions = require("../UsersActions");
 
 let thisConfiguration;
 

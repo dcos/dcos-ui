@@ -1,5 +1,5 @@
-const CompositeState = require("../CompositeState");
-const NodesList = require("../NodesList");
+import CompositeState from "../CompositeState";
+import NodesList from "../NodesList";
 
 describe("CompositeState", () => {
   beforeEach(() => {

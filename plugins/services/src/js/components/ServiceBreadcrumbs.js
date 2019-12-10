@@ -309,4 +309,4 @@ ServiceBreadcrumbs.propTypes = {
   serviceStatus: PropTypes.object
 };
 
-module.exports = ServiceBreadcrumbs;
+export default ServiceBreadcrumbs;

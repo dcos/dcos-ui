@@ -1,14 +1,13 @@
 import { mount, shallow } from "enzyme";
 import React from "react";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
+import ServiceBreadcrumbs from "../ServiceBreadcrumbs";
+import ServiceTree from "../../structs/ServiceTree";
 
 jest.mock("#SRC/js/stores/DCOSStore");
-
 const Link = require("react-router").Link;
-const DCOSStore = require("#SRC/js/stores/DCOSStore");
-const ServiceBreadcrumbs = require("../ServiceBreadcrumbs");
-const PageHeaderBreadcrumbs = require("#SRC/js/components/PageHeaderBreadcrumbs");
 const Service = require("../../structs/Service");
-const ServiceTree = require("../../structs/ServiceTree");
 
 describe("ServiceBreadcrumbs", () => {
   describe("instance", () => {

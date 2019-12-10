@@ -12,7 +12,7 @@ import ServiceUtil from "../utils/ServiceUtil";
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
 
-module.exports = class ServiceTree extends Tree {
+export default class ServiceTree extends Tree {
   /**
    * (Marathon) ServiceTree
    * @param {{
@@ -413,4 +413,4 @@ module.exports = class ServiceTree extends Tree {
   isTopLevel() {
     return !this.isRoot() && this.getId().split("/").length === 2;
   }
-};
+}

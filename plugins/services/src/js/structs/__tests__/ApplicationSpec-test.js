@@ -1,4 +1,4 @@
-const ApplicationSpec = require("../ApplicationSpec");
+import ApplicationSpec from "../ApplicationSpec";
 
 let thisInstance;
 

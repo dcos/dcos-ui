@@ -54,4 +54,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = VirtualNetworksActions;
+export default VirtualNetworksActions;

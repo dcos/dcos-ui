@@ -1,5 +1,5 @@
-const Framework = require("../Framework");
-const ServicesList = require("../ServicesList");
+import Framework from "../Framework";
+import ServicesList from "../ServicesList";
 
 describe("ServicesList", () => {
   describe("#constructor", () => {

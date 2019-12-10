@@ -1,10 +1,10 @@
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import UsersStore from "../UsersStore";
+import AppDispatcher from "../../events/AppDispatcher";
+import UsersList from "../../structs/UsersList";
 
-const UsersStore = require("../UsersStore");
-const AppDispatcher = require("../../events/AppDispatcher");
+const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const EventTypes = require("../../constants/EventTypes");
-const UsersList = require("../../structs/UsersList");
 const Config = require("#SRC/js/config/Config").default;
 
 const usersFixture = require("./fixtures/users-unicode.json");

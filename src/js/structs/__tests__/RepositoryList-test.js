@@ -1,5 +1,5 @@
-const Item = require("../Item");
-const RepositoryList = require("../RepositoryList");
+import Item from "../Item";
+import RepositoryList from "../RepositoryList";
 
 let thisInstance;
 

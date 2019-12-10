@@ -1,10 +1,11 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
 
-const Pod = require("../Pod");
-const PodInstance = require("../PodInstance");
+import Pod from "../Pod";
+import PodInstance from "../PodInstance";
 
-const HealthStatus = require("../../constants/HealthStatus");
-const PodFixture = require("../../../../../../tests/_fixtures/pods/PodFixture");
+import HealthStatus from "../../constants/HealthStatus";
+import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
+
 const ServiceImages = require("../../constants/ServiceImages");
 
 describe("Pod", () => {

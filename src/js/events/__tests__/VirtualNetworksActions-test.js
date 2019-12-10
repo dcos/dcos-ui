@@ -1,9 +1,10 @@
+import VirtualNetworksActions from "../VirtualNetworksActions";
+import AppDispatcher from "../AppDispatcher";
+
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
 const Config = require("#SRC/js/config/Config").default;
-const VirtualNetworksActions = require("../VirtualNetworksActions");
-const AppDispatcher = require("../AppDispatcher");
 
 const { virtualNetworksApi } = Config;
 

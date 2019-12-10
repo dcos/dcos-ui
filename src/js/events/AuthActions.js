@@ -66,4 +66,4 @@ if (Config.useFixtures) {
   };
 }
 
-module.exports = AuthActions;
+export default AuthActions;

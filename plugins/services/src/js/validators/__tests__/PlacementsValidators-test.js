@@ -1,7 +1,8 @@
 import { ADD, ERROR } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-const PlacementsValidators = require("../PlacementsValidators");
+import PlacementsValidators from "../PlacementsValidators";
+
 const {
   PROP_MISSING_ONE,
   SYNTAX_ERROR

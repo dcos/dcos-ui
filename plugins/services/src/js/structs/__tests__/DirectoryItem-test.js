@@ -1,4 +1,4 @@
-const DirectoryItem = require("../DirectoryItem");
+import DirectoryItem from "../DirectoryItem";
 
 describe("DirectoryItem", () => {
   describe("#getName", () => {

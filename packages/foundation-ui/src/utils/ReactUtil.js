@@ -42,4 +42,4 @@ const ReactUtil = {
   }
 };
 
-module.exports = ReactUtil;
+export default ReactUtil;

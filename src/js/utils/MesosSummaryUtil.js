@@ -75,4 +75,4 @@ const MesosSummaryUtil = {
   }
 };
 
-module.exports = MesosSummaryUtil;
+export default MesosSummaryUtil;

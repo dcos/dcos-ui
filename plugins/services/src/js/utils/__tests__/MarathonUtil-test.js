@@ -1,4 +1,4 @@
-const MarathonUtil = require("../MarathonUtil");
+import MarathonUtil from "../MarathonUtil";
 
 describe("MarathonUtil", () => {
   describe("#parseGroups", () => {

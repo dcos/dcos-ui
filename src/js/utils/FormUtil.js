@@ -242,4 +242,4 @@ const FormUtil = {
   }
 };
 
-module.exports = FormUtil;
+export default FormUtil;

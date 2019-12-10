@@ -1,4 +1,5 @@
-const MarathonAppValidators = require("../MarathonAppValidators");
+import MarathonAppValidators from "../MarathonAppValidators";
+
 const {
   PROP_MISSING_ONE,
   SYNTAX_ERROR,

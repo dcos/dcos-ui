@@ -127,4 +127,4 @@ const ServiceList = createReactClass({
   }
 });
 
-module.exports = ServiceList;
+export default ServiceList;

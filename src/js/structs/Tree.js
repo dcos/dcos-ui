@@ -2,7 +2,7 @@ import Item from "./Item";
 import List from "./List";
 import StringUtil from "../utils/StringUtil";
 
-module.exports = class Tree extends List {
+export default class Tree extends List {
   /**
    * Tree
    * @param {{
@@ -162,4 +162,4 @@ module.exports = class Tree extends List {
       return returnValue;
     }, initialValue);
   }
-};
+}

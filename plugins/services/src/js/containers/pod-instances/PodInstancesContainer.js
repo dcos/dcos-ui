@@ -361,4 +361,4 @@ PodInstancesContainer.propTypes = {
   pod: PropTypes.instanceOf(Pod)
 };
 
-module.exports = PodInstancesContainer;
+export default PodInstancesContainer;

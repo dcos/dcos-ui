@@ -34,4 +34,4 @@ const MarathonPodValidators = {
   }
 };
 
-module.exports = MarathonPodValidators;
+export default MarathonPodValidators;

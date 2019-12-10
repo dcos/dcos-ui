@@ -1,7 +1,8 @@
+import List from "#SRC/js/structs/List";
+import HealthStatus from "../../constants/HealthStatus";
+import ServiceAttributeHealthFilter from "../ServiceAttributeHealthFilter";
+
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var HealthStatus = require("../../constants/HealthStatus");
-var ServiceAttributeHealthFilter = require("../ServiceAttributeHealthFilter");
-var List = require("#SRC/js/structs/List");
 
 let thisMockItems;
 

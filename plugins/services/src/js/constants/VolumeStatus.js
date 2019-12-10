@@ -6,4 +6,4 @@ const VolumeStatus = {
   UNAVAILABLE: i18nMark("N/A")
 };
 
-module.exports = VolumeStatus;
+export default VolumeStatus;

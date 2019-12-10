@@ -140,4 +140,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = UnitHealthActions;
+export default UnitHealthActions;

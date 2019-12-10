@@ -1,5 +1,5 @@
-const MesosSummaryStore = require("../MesosSummaryStore");
-const Framework = require("../../../../plugins/services/src/js/structs/Framework");
+import MesosSummaryStore from "../MesosSummaryStore";
+import Framework from "../../../../plugins/services/src/js/structs/Framework";
 
 MesosSummaryStore.init();
 

@@ -1,8 +1,9 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const Application = require("../../../structs/Application");
-const ServiceConnectionEndpointList = require("../ServiceConnectionEndpointList");
+import Application from "../../../structs/Application";
+import ServiceConnectionEndpointList from "../ServiceConnectionEndpointList";
+
 const ServiceWithEndpoints = require("./fixtures/ServiceWithEndpoints.json");
 
 describe("ServiceConnectionEndpointList", () => {

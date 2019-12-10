@@ -61,4 +61,4 @@ ConfigurationMapDurationValue.propTypes = {
   value: PropTypes.number
 };
 
-module.exports = ConfigurationMapDurationValue;
+export default ConfigurationMapDurationValue;

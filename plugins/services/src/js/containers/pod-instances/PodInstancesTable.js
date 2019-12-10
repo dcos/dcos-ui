@@ -573,4 +573,4 @@ PodInstancesTable.propTypes = {
   pod: PropTypes.instanceOf(Pod).isRequired
 };
 
-module.exports = PodInstancesTable;
+export default PodInstancesTable;

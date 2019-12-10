@@ -1,7 +1,7 @@
+import Batch from "#SRC/js/structs/Batch";
 import Transaction from "#SRC/js/structs/Transaction";
+import JSONSingleContainerReducers from "../JSONSingleContainerReducers";
 
-const JSONSingleContainerReducers = require("../JSONSingleContainerReducers");
-const Batch = require("#SRC/js/structs/Batch");
 const { SET } = require("#SRC/js/constants/TransactionTypes");
 const { combineReducers } = require("#SRC/js/utils/ReducerUtil");
 

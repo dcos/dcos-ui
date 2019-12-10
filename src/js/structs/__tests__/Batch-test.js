@@ -1,6 +1,6 @@
 import Transaction from "../Transaction";
 
-const Batch = require("../Batch");
+import Batch from "../Batch";
 
 let thisBatch;
 

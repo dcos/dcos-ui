@@ -2,7 +2,8 @@ import React from "react";
 import { mount } from "enzyme";
 import Authenticated from "../Authenticated";
 
-const AuthStore = require("../../stores/AuthStore");
+import AuthStore from "../../stores/AuthStore";
+
 const Hooks = require("PluginSDK").Hooks;
 
 const FakeComponent = () => <div>fakeComponent</div>;

@@ -136,4 +136,4 @@ ComponentList.propTypes = {
   units: PropTypes.object.isRequired
 };
 
-module.exports = ComponentList;
+export default ComponentList;

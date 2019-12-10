@@ -15,7 +15,7 @@ import { JSONReducer as requirePorts } from "./serviceForm/JSONReducers/RequireP
 import { JSONReducer as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONReducer as networks } from "./serviceForm/JSONReducers/Networks";
 
-module.exports = {
+export default {
   id: simpleReducer("id"),
   instances: simpleIntReducer("instances"),
   container,

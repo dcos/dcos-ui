@@ -78,4 +78,4 @@ NodeBreadcrumbs.propTypes = {
   unitID: PropTypes.string
 };
 
-module.exports = NodeBreadcrumbs;
+export default NodeBreadcrumbs;

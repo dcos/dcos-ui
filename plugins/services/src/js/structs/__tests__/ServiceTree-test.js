@@ -1,10 +1,10 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
 
-const Application = require("../Application");
-const Framework = require("../Framework");
-const HealthStatus = require("../../constants/HealthStatus");
-const ServiceTree = require("../ServiceTree");
-const VolumeList = require("../../structs/VolumeList");
+import Application from "../Application";
+import Framework from "../Framework";
+import HealthStatus from "../../constants/HealthStatus";
+import ServiceTree from "../ServiceTree";
+import VolumeList from "../../structs/VolumeList";
 
 let thisInstance;
 

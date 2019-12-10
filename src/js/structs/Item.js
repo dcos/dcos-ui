@@ -1,4 +1,4 @@
-module.exports = class Item {
+export default class Item {
   constructor(item = {}) {
     Object.keys(item).forEach(function(key) {
       this[key] = item[key];
@@ -18,4 +18,4 @@ module.exports = class Item {
   toJSON() {
     return this.get();
   }
-};
+}

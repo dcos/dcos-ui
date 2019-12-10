@@ -1,4 +1,5 @@
-const UserSettingsStore = jest.genMockFromModule("../UserSettingsStore");
+const UserSettingsStore = jest.genMockFromModule("../UserSettingsStore")
+  .default;
 
 var _data = {};
 

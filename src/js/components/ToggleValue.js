@@ -30,4 +30,4 @@ ToggleValue.propTypes = {
   secondaryValue: PropTypes.string.isRequired
 };
 
-module.exports = ToggleValue;
+export default ToggleValue;

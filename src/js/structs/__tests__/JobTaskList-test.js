@@ -1,6 +1,6 @@
 import DateUtil from "../../utils/DateUtil";
 
-const JobTaskList = require("../JobTaskList");
+import JobTaskList from "../JobTaskList";
 
 describe("JobTaskList", () => {
   describe("#getLongestRunningTask", () => {

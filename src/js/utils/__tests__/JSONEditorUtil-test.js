@@ -1,4 +1,4 @@
-const JSONEditorUtil = require("../JSONEditorUtil");
+import JSONEditorUtil from "../JSONEditorUtil";
 
 describe("JSONEditorUtil", () => {
   describe("#cursorFromOffset", () => {

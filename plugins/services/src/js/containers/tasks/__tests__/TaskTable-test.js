@@ -1,14 +1,15 @@
 import React from "react";
 import { mount } from "enzyme";
 
+import CheckboxTable from "#SRC/js/components/CheckboxTable";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+import JestUtil from "#SRC/js/utils/JestUtil";
+
+import TaskTable from "../TaskTable";
+
 jest.mock("#SRC/js/stores/DCOSStore");
 
-const CheckboxTable = require("#SRC/js/components/CheckboxTable");
-const DCOSStore = require("#SRC/js/stores/DCOSStore");
-const JestUtil = require("#SRC/js/utils/JestUtil");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-
-const TaskTable = require("../TaskTable");
 
 let thisTaskTable, thisGetNodeFromID;
 

@@ -160,4 +160,4 @@ class NavigationService extends EventEmitter {
   }
 }
 
-module.exports = NavigationService;
+export default NavigationService;

@@ -43,4 +43,4 @@ ConfigurationMapBooleanValue.propTypes = {
   value: PropTypes.any
 };
 
-module.exports = ConfigurationMapBooleanValue;
+export default ConfigurationMapBooleanValue;

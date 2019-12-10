@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 
-const ToggleValue = require("../ToggleValue");
+import ToggleValue from "../ToggleValue";
 
 describe("ToggleValue", () => {
   it("render the initial text value", () => {

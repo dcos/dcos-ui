@@ -248,4 +248,4 @@ const DSLUtil = {
   }
 };
 
-module.exports = DSLUtil;
+export default DSLUtil;

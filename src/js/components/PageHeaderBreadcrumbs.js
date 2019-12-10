@@ -75,4 +75,4 @@ PageHeaderBreadcrumbs.propTypes = {
   breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
 };
 
-module.exports = PageHeaderBreadcrumbs;
+export default PageHeaderBreadcrumbs;

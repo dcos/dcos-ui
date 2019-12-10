@@ -1,15 +1,16 @@
 import React from "react";
 import { mount } from "enzyme";
 
+import JestUtil from "#SRC/js/utils/JestUtil";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
+
+import ServicesContainer from "../ServicesContainer";
+
 jest.mock("#SRC/js/stores/DCOSStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
 
-const JestUtil = require("#SRC/js/utils/JestUtil");
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-const DCOSStore = require("#SRC/js/stores/DCOSStore");
 const Service = require("#PLUGINS/services/src/js/structs/Service");
-
-const ServicesContainer = require("../ServicesContainer");
 
 let thisStoreChangeListener, thisRouterStubs, thisWrapper, thisInstance;
 

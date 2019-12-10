@@ -1,4 +1,4 @@
-const MesosSummaryUtil = require("../MesosSummaryUtil");
+import MesosSummaryUtil from "../MesosSummaryUtil";
 
 describe("MesosSummaryUtil", () => {
   describe("#stateResourcesToResourceStates", () => {

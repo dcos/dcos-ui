@@ -1,4 +1,4 @@
-var Maths = {
+const Maths = {
   round(value, precision) {
     precision = precision || 0;
     var factor = Math.pow(10, precision);
@@ -72,4 +72,4 @@ var Maths = {
   }
 };
 
-module.exports = Maths;
+export default Maths;

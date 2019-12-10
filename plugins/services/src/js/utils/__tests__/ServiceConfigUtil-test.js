@@ -1,4 +1,4 @@
-const ServiceConfigUtil = require("../ServiceConfigUtil");
+import ServiceConfigUtil from "../ServiceConfigUtil";
 
 describe("ServiceConfigUtil", () => {
   describe("#matchVIPLabel", () => {

@@ -45,4 +45,4 @@ const POD_INSTANCE_STATUS = {
   }
 };
 
-module.exports = POD_INSTANCE_STATUS;
+export default POD_INSTANCE_STATUS;

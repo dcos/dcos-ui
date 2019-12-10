@@ -216,4 +216,4 @@ class UnitHealthStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new UnitHealthStore();
+export default new UnitHealthStore();

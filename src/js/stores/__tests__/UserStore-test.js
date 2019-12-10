@@ -1,6 +1,7 @@
-const UserStore = require("../UserStore");
+import UserStore from "../UserStore";
+import AppDispatcher from "../../events/AppDispatcher";
+
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("../../events/AppDispatcher");
 const EventTypes = require("../../constants/EventTypes");
 
 describe("UserStore", () => {

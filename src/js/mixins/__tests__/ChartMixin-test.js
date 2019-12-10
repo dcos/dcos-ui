@@ -1,4 +1,4 @@
-const ChartMixin = require("../ChartMixin");
+import ChartMixin from "../ChartMixin";
 
 let thisProps;
 

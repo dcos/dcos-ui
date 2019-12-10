@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const ClickToSelect = require("../ClickToSelect");
+import ClickToSelect from "../ClickToSelect";
 
 let thisSpy, thisGetSelection, thisInstance;
 

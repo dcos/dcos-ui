@@ -1,4 +1,4 @@
-const CreateServiceModalFormUtil = require("../CreateServiceModalFormUtil");
+import CreateServiceModalFormUtil from "../CreateServiceModalFormUtil";
 
 const EMPTY_TYPES = [null, undefined, {}, "", NaN];
 

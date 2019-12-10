@@ -1,4 +1,4 @@
-const TaskStat = require("../TaskStat");
+import TaskStat from "../TaskStat";
 
 describe("TaskStat", () => {
   describe("#getName", () => {

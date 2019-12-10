@@ -1,6 +1,7 @@
+import NotificationStore from "../NotificationStore";
+
 const NOTIFICATION_CHANGE = require("../../constants/EventTypes")
   .NOTIFICATION_CHANGE;
-const NotificationStore = require("../NotificationStore");
 
 let thisMockFn;
 

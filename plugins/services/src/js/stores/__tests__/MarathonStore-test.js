@@ -1,8 +1,9 @@
-const DeploymentsList = require("../../structs/DeploymentsList");
+import DeploymentsList from "../../structs/DeploymentsList";
+import HealthTypes from "../../constants/HealthTypes";
+import MockAppMetadata from "./fixtures/MockAppMetadata";
+
 const EventTypes = require("../../constants/EventTypes");
-const HealthTypes = require("../../constants/HealthTypes");
 const MarathonStore = require("../MarathonStore");
-const MockAppMetadata = require("./fixtures/MockAppMetadata");
 const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
 
 // mock global string decoder

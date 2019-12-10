@@ -1,6 +1,6 @@
 import React from "react";
 
-const ReactUtil = require("../ReactUtil");
+import ReactUtil from "../ReactUtil";
 
 describe("ReactUtil", () => {
   it("wraps the elements if there is more than one", () => {

@@ -1,4 +1,5 @@
-const DSLExpression = require("../DSLExpression");
+import DSLExpression from "../DSLExpression";
+
 const DSLASTNodes = require("../DSLASTNodes");
 
 describe("DSLExpression", () => {

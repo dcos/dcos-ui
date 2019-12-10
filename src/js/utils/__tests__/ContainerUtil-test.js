@@ -1,4 +1,4 @@
-const ContainerUtil = require("../ContainerUtil");
+import ContainerUtil from "../ContainerUtil";
 
 describe("#adjustActionErrors", () => {
   let actionErrors = ContainerUtil.adjustActionErrors({}, "foo", "error");

@@ -1,10 +1,11 @@
+import Node from "#SRC/js/structs/Node";
+import NodesList from "#SRC/js/structs/NodesList";
+import CompositeState from "#SRC/js/structs/CompositeState";
+
+import TaskUtil from "../TaskUtil";
+
 jest.mock("#SRC/js/structs/CompositeState");
 
-const Node = require("#SRC/js/structs/Node");
-const NodesList = require("#SRC/js/structs/NodesList");
-const CompositeState = require("#SRC/js/structs/CompositeState");
-
-const TaskUtil = require("../TaskUtil");
 const MasterNodeLocal = require("./fixtures/MasterNodeLocal.json");
 const MasterNodeOffsite = require("./fixtures/MasterNodeOffsite.json");
 const SlaveNodes = require("./fixtures/SlaveNodes.json");

@@ -1,4 +1,4 @@
-const ServiceEndpoint = require("../ServiceEndpoint");
+import ServiceEndpoint from "../ServiceEndpoint";
 
 let thisEndpointJSON, thisEndpointFile;
 

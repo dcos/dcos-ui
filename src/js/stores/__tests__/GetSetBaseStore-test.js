@@ -1,4 +1,4 @@
-const GetSetBaseStore = require("../GetSetBaseStore");
+import GetSetBaseStore from "../GetSetBaseStore";
 
 let thisInstance;
 

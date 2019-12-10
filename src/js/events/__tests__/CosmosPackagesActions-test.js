@@ -1,11 +1,11 @@
 import { of, throwError } from "rxjs";
+import AppDispatcher from "../AppDispatcher";
+import CosmosPackagesActions from "../CosmosPackagesActions";
 
 jest.mock("@dcos/http-service");
 const httpService = require("@dcos/http-service");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("../AppDispatcher");
-const CosmosPackagesActions = require("../CosmosPackagesActions");
 const Config = require("#SRC/js/config/Config").default;
 
 let thisConfiguration;

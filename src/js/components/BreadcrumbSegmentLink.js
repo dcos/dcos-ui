@@ -21,4 +21,4 @@ const BreadcrumbSegmentLink = ({ label, route, className, onClick }) => {
   return <span>{label}</span>;
 };
 
-module.exports = BreadcrumbSegmentLink;
+export default BreadcrumbSegmentLink;

@@ -1,4 +1,4 @@
-const JobTask = require("../JobTask");
+import JobTask from "../JobTask";
 
 describe("Job", () => {
   describe("#getDateStarted", () => {

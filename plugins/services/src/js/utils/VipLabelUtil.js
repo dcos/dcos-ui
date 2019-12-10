@@ -40,4 +40,4 @@ const VipLabelUtil = {
   }
 };
 
-module.exports = VipLabelUtil;
+export default VipLabelUtil;

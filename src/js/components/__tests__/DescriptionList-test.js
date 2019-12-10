@@ -2,7 +2,7 @@ import React from "react";
 
 import { shallow, mount } from "enzyme";
 
-const HashMapDisplay = require("../HashMapDisplay");
+import HashMapDisplay from "../HashMapDisplay";
 
 describe("HashMapDisplay", () => {
   it("returns null if hash is not passed", () => {

@@ -9,7 +9,7 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import TaskStats from "./TaskStats";
 import VolumeList from "./VolumeList";
 
-module.exports = class Application extends Service {
+export default class Application extends Service {
   constructor(...args) {
     super(...args);
 
@@ -230,4 +230,4 @@ module.exports = class Application extends Service {
     const queue = this.getQueue();
     return findNestedPropertyInObject(queue, "delay.overdue") === false;
   }
-};
+}

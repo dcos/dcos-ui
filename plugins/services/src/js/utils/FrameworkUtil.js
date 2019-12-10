@@ -77,4 +77,4 @@ const FrameworkUtil = {
   }
 };
 
-module.exports = FrameworkUtil;
+export default FrameworkUtil;

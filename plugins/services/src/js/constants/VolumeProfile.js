@@ -4,4 +4,4 @@ const VolumeProfile = {
   UNAVAILABLE: i18nMark("Not Available")
 };
 
-module.exports = VolumeProfile;
+export default VolumeProfile;

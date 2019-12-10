@@ -122,7 +122,7 @@ function filterFunctionFactory(ast) {
  *
  * @name DSLParserUtil
  */
-module.exports = {
+export default {
   /**
    * Namespace for the merge operator
    *

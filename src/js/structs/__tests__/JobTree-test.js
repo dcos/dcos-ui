@@ -1,5 +1,6 @@
+import JobTree from "../JobTree";
+
 const Job = require("../Job");
-const JobTree = require("../JobTree");
 
 let thisInstance;
 

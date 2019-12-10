@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   spec: {
     id: "/podABCD",
     version: "2016-08-29T01:01:01.001",

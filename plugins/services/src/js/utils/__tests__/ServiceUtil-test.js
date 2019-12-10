@@ -1,7 +1,8 @@
-const Application = require("../../structs/Application");
-const ApplicationSpec = require("../../structs/ApplicationSpec");
-const Framework = require("../../structs/Framework");
-const Pod = require("../../structs/Pod");
+import Application from "../../structs/Application";
+import ApplicationSpec from "../../structs/ApplicationSpec";
+import Framework from "../../structs/Framework";
+import Pod from "../../structs/Pod";
+
 const ServiceUtil = require("../ServiceUtil");
 
 describe("ServiceUtil", () => {

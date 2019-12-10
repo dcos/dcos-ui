@@ -1,7 +1,8 @@
-var List = require("#SRC/js/structs/List");
+import List from "#SRC/js/structs/List";
+import ServiceAttributeHasVolumesFilter from "../ServiceAttributeHasVolumesFilter";
+import VolumeList from "../../structs/VolumeList";
+
 var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
-var ServiceAttributeHasVolumesFilter = require("../ServiceAttributeHasVolumesFilter");
-var VolumeList = require("../../structs/VolumeList");
 
 let thisMockItems;
 

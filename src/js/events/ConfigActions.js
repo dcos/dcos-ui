@@ -73,4 +73,4 @@ if (Config.useFixtures || Config.useUIConfigFixtures) {
   });
 }
 
-module.exports = ConfigActions;
+export default ConfigActions;

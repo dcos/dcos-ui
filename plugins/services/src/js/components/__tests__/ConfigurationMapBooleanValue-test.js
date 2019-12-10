@@ -1,7 +1,7 @@
 import React from "react";
 import { mount } from "enzyme";
 
-const ConfigurationMapBooleanValue = require("../ConfigurationMapBooleanValue");
+import ConfigurationMapBooleanValue from "../ConfigurationMapBooleanValue";
 
 describe("ConfigurationMapBooleanValue", () => {
   it("shows the default value for `true`", () => {

@@ -1,11 +1,11 @@
-jest.mock("#SRC/js/stores/DCOSStore");
+import Application from "#PLUGINS/services/src/js/structs/Application";
+import Pod from "#PLUGINS/services/src/js/structs/Pod";
 
+jest.mock("#SRC/js/stores/DCOSStore");
+const DCOSStore = require("#SRC/js/stores/DCOSStore").default;
 const TaskIpAddressesRow = require("../TaskIpAddressesRow").default;
 const renderer = require("react-test-renderer");
 const React = require("react");
-const DCOSStore = require("#SRC/js/stores/DCOSStore");
-const Application = require("#PLUGINS/services/src/js/structs/Application");
-const Pod = require("#PLUGINS/services/src/js/structs/Pod");
 
 describe("TaskIpAddressesRow", () => {
   describe("with an Application", () => {

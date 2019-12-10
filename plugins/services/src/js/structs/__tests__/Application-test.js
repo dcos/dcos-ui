@@ -1,10 +1,11 @@
 import * as ServiceStatus from "../../constants/ServiceStatus";
 
-const Application = require("../Application");
-const HealthStatus = require("../../constants/HealthStatus");
+import Application from "../Application";
+import HealthStatus from "../../constants/HealthStatus";
+import TaskStats from "../TaskStats";
+import VolumeList from "../VolumeList";
+
 const ServiceImages = require("../../constants/ServiceImages");
-const TaskStats = require("../TaskStats");
-const VolumeList = require("../VolumeList");
 
 describe("Application", () => {
   describe("#getDeployments", () => {

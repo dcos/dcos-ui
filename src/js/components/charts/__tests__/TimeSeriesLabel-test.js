@@ -2,7 +2,7 @@ import React from "react";
 
 import { shallow } from "enzyme";
 
-const TimeSeriesLabel = require("../TimeSeriesLabel");
+import TimeSeriesLabel from "../TimeSeriesLabel";
 
 let thisInstance;
 

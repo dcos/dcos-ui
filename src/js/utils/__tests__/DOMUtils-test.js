@@ -1,4 +1,4 @@
-const DOMUtils = require("../DOMUtils");
+import DOMUtils from "../DOMUtils";
 
 let thisStyle, thisPreviousRequest, thisDateNow, thisElement;
 

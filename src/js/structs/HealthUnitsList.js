@@ -27,4 +27,4 @@ class HealthUnitsList extends List {
 
 HealthUnitsList.type = HealthUnit;
 
-module.exports = HealthUnitsList;
+export default HealthUnitsList;

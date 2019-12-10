@@ -22,7 +22,7 @@ function cast(item) {
   return item;
 }
 
-module.exports = class List {
+export default class List {
   /**
    * List
    * @param {Object} options Options object
@@ -209,4 +209,4 @@ module.exports = class List {
   isEmpty() {
     return !this.getItems() || !this.getItems().length;
   }
-};
+}

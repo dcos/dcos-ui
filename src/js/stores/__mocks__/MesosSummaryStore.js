@@ -1,4 +1,5 @@
-var MesosSummaryStore = jest.genMockFromModule("../MesosSummaryStore");
+const MesosSummaryStore = jest.genMockFromModule("../MesosSummaryStore")
+  .default;
 
 var _data = {};
 
@@ -25,4 +26,4 @@ function get(key) {
 MesosSummaryStore.__setKeyResponse = __setKeyResponse;
 MesosSummaryStore.get = get;
 
-module.exports = MesosSummaryStore;
+export default MesosSummaryStore;

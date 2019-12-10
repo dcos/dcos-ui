@@ -1,4 +1,4 @@
-const Maths = require("../Maths");
+import Maths from "../Maths";
 
 describe("Maths", () => {
   describe("#round", () => {

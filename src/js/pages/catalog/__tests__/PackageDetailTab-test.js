@@ -1,14 +1,15 @@
+import UniversePackage from "#SRC/js/structs/UniversePackage";
+import UniversePackageVersions from "#SRC/js/structs/UniversePackageVersions";
+
+import PackageDetailTab from "../PackageDetailTab";
+import CosmosPackagesStore from "../../../stores/CosmosPackagesStore";
+
 const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
   .package;
-const UniversePackage = require("#SRC/js/structs/UniversePackage");
-const UniversePackageVersions = require("#SRC/js/structs/UniversePackageVersions");
-var CosmosPackagesStore = require("../../../stores/CosmosPackagesStore");
 
 const React = require("react");
 
 const ReactDOM = require("react-dom");
-
-const PackageDetailTab = require("../PackageDetailTab");
 
 let thisContainer, thisInstance;
 

@@ -1,11 +1,11 @@
 import FilterByFramework from "../FilterByFramework";
+import FrameworksList from "../../structs/ServicesList";
+import Framework from "../../structs/Framework";
 
 const React = require("react");
 const ReactDOM = require("react-dom");
 
 const MockFrameworks = require("./fixtures/MockFrameworks.json");
-const FrameworksList = require("../../structs/ServicesList");
-const Framework = require("../../structs/Framework");
 
 let thisHandleByFrameworkFilterChange,
   thisByFrameworkFilter,

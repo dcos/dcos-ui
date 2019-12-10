@@ -1,8 +1,8 @@
-const HealthUnit = require("../../structs/HealthUnit");
-const UnitHealthStatus = require("../../constants/UnitHealthStatus");
-const UnitHealthTypes = require("../../constants/UnitHealthTypes");
-const UnitHealthUtil = require("../../utils/UnitHealthUtil");
-const NodesList = require("../../structs/NodesList");
+import HealthUnit from "../../structs/HealthUnit";
+import UnitHealthStatus from "../../constants/UnitHealthStatus";
+import UnitHealthTypes from "../../constants/UnitHealthTypes";
+import UnitHealthUtil from "../../utils/UnitHealthUtil";
+import NodesList from "../../structs/NodesList";
 
 let thisHealthWeight;
 

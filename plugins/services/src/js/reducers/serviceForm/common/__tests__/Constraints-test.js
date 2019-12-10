@@ -1,7 +1,7 @@
 import Transaction from "#SRC/js/structs/Transaction";
+import Batch from "#SRC/js/structs/Batch";
 
 const { ADD_ITEM, SET, ERROR } = require("#SRC/js/constants/TransactionTypes");
-const Batch = require("#SRC/js/structs/Batch");
 
 const Constraints = require("../Constraints");
 

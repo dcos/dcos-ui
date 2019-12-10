@@ -30,4 +30,4 @@ class NodesTextFilter extends DSLFilter {
   }
 }
 
-module.exports = NodesTextFilter;
+export default NodesTextFilter;

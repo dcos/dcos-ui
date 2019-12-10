@@ -1,6 +1,6 @@
-const List = require("#SRC/js/structs/List");
-const TaskStats = require("../TaskStats");
-const TaskStat = require("../TaskStat");
+import List from "#SRC/js/structs/List";
+import TaskStats from "../TaskStats";
+import TaskStat from "../TaskStat";
 
 describe("TaskStats", () => {
   describe("#getStatsForTasksWithLatestConfig", () => {

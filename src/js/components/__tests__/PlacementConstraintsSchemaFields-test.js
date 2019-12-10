@@ -1,10 +1,10 @@
-var React = require("react");
+import PlacementValidators from "#PLUGINS/services/src/js/validators/PlacementsValidators";
 
+const React = require("react");
 const renderer = require("react-test-renderer");
 
 const PlacementConstraintsSchemaFields = require("../PlacementConstraintsSchemaField")
   .default;
-const PlacementValidators = require("#PLUGINS/services/src/js/validators/PlacementsValidators.js");
 
 let thisValidateNoBatchErrorRestore, thisInstance;
 

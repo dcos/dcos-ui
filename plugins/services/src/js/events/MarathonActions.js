@@ -52,7 +52,7 @@ function buildURI(path) {
   return `${Config.rootUrl}${Config.marathonAPIPrefix}${path}`;
 }
 
-var MarathonActions = {
+const MarathonActions = {
   createGroup(data) {
     RequestUtil.json({
       url: buildURI("/groups"),
@@ -602,4 +602,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = MarathonActions;
+export default MarathonActions;

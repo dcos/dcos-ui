@@ -22,4 +22,4 @@ EmptyLogScreen.propTypes = {
   logName: PropTypes.string
 };
 
-module.exports = EmptyLogScreen;
+export default EmptyLogScreen;

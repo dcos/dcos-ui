@@ -47,4 +47,4 @@ const InstanceUtil = {
   }
 };
 
-module.exports = InstanceUtil;
+export default InstanceUtil;

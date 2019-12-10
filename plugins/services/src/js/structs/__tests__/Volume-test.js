@@ -1,7 +1,7 @@
-const Volume = require("../Volume");
-const VolumeStatus = require("../../constants/VolumeStatus");
-const VolumeProfile = require("../../constants/VolumeProfile");
-const VolumeDefinitions = require("../../constants/VolumeDefinitions");
+import Volume from "../Volume";
+import VolumeStatus from "../../constants/VolumeStatus";
+import VolumeProfile from "../../constants/VolumeProfile";
+import VolumeDefinitions from "../../constants/VolumeDefinitions";
 
 describe("Volume", () => {
   describe("#getContainerPath", () => {

@@ -141,4 +141,4 @@ class SDKEndpointStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new SDKEndpointStore();
+export default new SDKEndpointStore();

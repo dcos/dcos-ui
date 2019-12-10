@@ -49,4 +49,4 @@ ConfigurationMapSizeValue.propTypes = {
   value: PropTypes.number
 };
 
-module.exports = ConfigurationMapSizeValue;
+export default ConfigurationMapSizeValue;

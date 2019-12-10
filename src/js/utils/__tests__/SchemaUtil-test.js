@@ -1,4 +1,4 @@
-const SchemaUtil = require("../SchemaUtil");
+import SchemaUtil from "../SchemaUtil";
 
 let thisSubheaderRender, thisResult;
 

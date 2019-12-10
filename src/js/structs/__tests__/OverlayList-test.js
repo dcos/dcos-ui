@@ -1,5 +1,5 @@
-const Overlay = require("../Overlay");
-const OverlayList = require("../OverlayList");
+import Overlay from "../Overlay";
+import OverlayList from "../OverlayList";
 
 describe("OverlayList", () => {
   describe("#constructor", () => {

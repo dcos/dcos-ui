@@ -4,7 +4,7 @@
  * suggested use is ascending 0 meaning ((top of the list)) more important
  * visibility and 3 meaning least important (bottom of the order)
  */
-var HealthSorting = {
+const HealthSorting = {
   UNHEALTHY: 0,
   HEALTHY: 3,
   IDLE: 2,
@@ -12,4 +12,4 @@ var HealthSorting = {
   WARN: 2
 };
 
-module.exports = HealthSorting;
+export default HealthSorting;

@@ -241,4 +241,4 @@ class SystemLogStore extends BaseStore {
   }
 }
 
-module.exports = new SystemLogStore();
+export default new SystemLogStore();

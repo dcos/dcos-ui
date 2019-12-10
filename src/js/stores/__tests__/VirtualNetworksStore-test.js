@@ -1,8 +1,9 @@
+import AppDispatcher from "../../events/AppDispatcher";
+import OverlayList from "../../structs/OverlayList";
+import VirtualNetworksStore from "../VirtualNetworksStore";
+
 const ActionTypes = require("../../constants/ActionTypes");
-const AppDispatcher = require("../../events/AppDispatcher");
 const EventTypes = require("../../constants/EventTypes");
-const OverlayList = require("../../structs/OverlayList");
-const VirtualNetworksStore = require("../VirtualNetworksStore");
 
 describe("VirtualNetworksStore", () => {
   beforeEach(() => {

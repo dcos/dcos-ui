@@ -1,7 +1,7 @@
 import { Link } from "react-router";
 import { shallow } from "enzyme";
 
-const TabsMixin = require("../TabsMixin");
+import TabsMixin from "../TabsMixin";
 
 let thisInstance;
 

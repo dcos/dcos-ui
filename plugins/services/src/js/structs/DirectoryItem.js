@@ -31,4 +31,4 @@ class DirectoryItem extends Item {
   }
 }
 
-module.exports = DirectoryItem;
+export default DirectoryItem;

@@ -1,5 +1,6 @@
+import ConfigStore from "../ConfigStore";
+
 const EventTypes = require("../../constants/EventTypes");
-const ConfigStore = require("../ConfigStore");
 
 let thisHandler;
 

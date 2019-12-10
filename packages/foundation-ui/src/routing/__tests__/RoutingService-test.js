@@ -1,4 +1,5 @@
-const RoutingService = require("../RoutingService");
+import RoutingService from "../RoutingService";
+
 const ReactRouter = require("react-router");
 
 let thisInstance;

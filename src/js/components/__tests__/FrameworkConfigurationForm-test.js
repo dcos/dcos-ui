@@ -1,7 +1,8 @@
+import UniversePackage from "../../structs/UniversePackage";
+
 const React = require("react");
 const { shallow } = require("enzyme");
 const { unwrapped } = require("../FrameworkConfigurationForm");
-const UniversePackage = require("../../structs/UniversePackage");
 
 const FrameworkConfigurationForm = unwrapped();
 
