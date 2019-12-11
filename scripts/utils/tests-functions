@@ -37,6 +37,7 @@ function executeCypress() {
   npx cypress run \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
+    --browser ${CYPRESS_BROWSER:-"chrome"} \
     --spec "${FILE}" \
     --config "numTestsKeptInMemory=0,screenshotsFolder=${OUTPUT_PATH}/screenshots,video=${RECORD_VIDEO},videosFolder=${OUTPUT_PATH}/videos,integrationFolder=${TESTS_FOLDER},supportFile=${TESTS_FOLDER}/_support,fixturesFolder=${TESTS_FOLDER}/_fixtures" \
     --reporter junit \

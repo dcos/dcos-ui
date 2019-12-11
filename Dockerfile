@@ -1,4 +1,4 @@
-FROM cypress/base:10.16.0
+FROM cypress/browsers:node12.13.0-chrome78-ff70
 
 # Expose the 4200 port
 EXPOSE 4200

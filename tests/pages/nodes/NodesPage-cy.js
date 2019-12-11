@@ -157,15 +157,12 @@ describe("Nodes Page", () => {
 
     context("Node Actions", () => {
       function openDropdown(ipAddress) {
-        cy.get(".filter-input-text")
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type("{selectall}{backspace}")
-          .type(ipAddress); // filter to find the correct service
+        cy.get(".filter-input-text").type(
+          "1{selectall}{backspace}" + ipAddress
+        ); // filter to find the correct service
         cy.get(".form-control-group-add-on")
           .eq(-1)
           .click(); // close filter window
-        cy.wait(2000); // wait for data to load
         cy.get(".ReactVirtualized__Grid")
           .eq(-1) // bottom right grid
           .scrollTo("right"); // scroll to the actions column
