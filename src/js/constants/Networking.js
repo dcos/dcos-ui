@@ -18,7 +18,7 @@ const internalToJson = NETWORK_MODES.reduce((memo, tuple) => {
   return memo;
 }, {});
 
-const Networking = {
+export default {
   jsonToInternal,
   internalToJson,
   type: {
@@ -31,5 +31,3 @@ const Networking = {
   VIP_LABEL_REGEX: /^VIP_[0-9]+$/,
   VIP_LABEL_VALUE_REGEX: /([\w\d_\-./]+):(\d+)/
 };
-
-module.exports = Networking;

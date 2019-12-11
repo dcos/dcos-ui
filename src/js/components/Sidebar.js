@@ -6,7 +6,7 @@ import PluginSDK from "PluginSDK";
 import { navigation } from "foundation-ui";
 import { Trans } from "@lingui/macro";
 
-import { keyCodes } from "../utils/KeyboardUtil";
+import keyCodes from "../utils/KeyboardUtil";
 import EventTypes from "../constants/EventTypes";
 import MetadataStore from "../stores/MetadataStore";
 import PrimarySidebarLink from "../components/PrimarySidebarLink";

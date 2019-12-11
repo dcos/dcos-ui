@@ -20,7 +20,7 @@ import { i18n, catalogs } from "./i18n";
 import "../styles/index.less";
 import { CONFIG_ERROR, LANGUAGE_MODAL_CLOSE } from "./constants/EventTypes";
 import ApplicationUtil from "./utils/ApplicationUtil";
-import appRoutes from "./routes/index";
+import appRoutes from "./routes";
 import ConfigStore from "./stores/ConfigStore";
 import UserLanguageStore from "./stores/UserLanguageStore";
 import LanguageModalStore from "./stores/LanguageModalStore";

@@ -6,7 +6,7 @@ import UnitsHealthDetail from "../pages/system/UnitsHealthDetail";
 import ComponentsUnitsHealthNodeDetailPage from "../pages/system/ComponentsUnitsHealthNodeDetailPage";
 import UnitsHealthTab from "../pages/system/UnitsHealthTab";
 
-const componentsRoutes = {
+export default {
   type: Route,
   path: "components",
   component: ComponentsPage,
@@ -31,5 +31,3 @@ const componentsRoutes = {
     }
   ]
 };
-
-module.exports = componentsRoutes;

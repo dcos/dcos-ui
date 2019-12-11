@@ -5,7 +5,7 @@ import RepositoriesList from "#PLUGINS/catalog/src/js/repositories/RepositoriesL
 import SettingsPage from "#SRC/js/pages/SettingsPage";
 import UISettingsPage from "#SRC/js/pages/settings/UISettingsPage";
 
-const settingsRoutes = [
+export default [
   {
     type: Redirect,
     from: "/settings",
@@ -33,5 +33,3 @@ const settingsRoutes = [
     ]
   }
 ];
-
-module.exports = settingsRoutes;

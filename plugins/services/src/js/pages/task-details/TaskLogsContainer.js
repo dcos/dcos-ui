@@ -6,12 +6,13 @@ import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Loader from "#SRC/js/components/Loader";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { SYSTEM_LOGS } from "#SRC/js/constants/MesosLoggingStrategy";
 
 import Task from "../../structs/Task";
 import TaskDirectory from "../../structs/TaskDirectory";
 import TaskFileViewer from "./TaskFileViewer";
 import TaskSystemLogsContainer from "./TaskSystemLogsContainer";
+
+const SYSTEM_LOGS = "journald";
 
 class TaskLogsContainer extends mixin(StoreMixin) {
   constructor(...args) {

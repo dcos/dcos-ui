@@ -1,8 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
+import Networking from "#SRC/js/constants/Networking";
 
 const MultiContainerNetwork = require("../MultiContainerNetwork");
-const Networking = require("#SRC/js/constants/Networking");
 const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
 
 describe("MultiContainerNetwork", () => {
