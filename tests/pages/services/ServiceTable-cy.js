@@ -2,11 +2,10 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", () => {
   function openDropdown(serviceName) {
-    cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
+    cy.get(".filter-input-text").type("1{selectall}{backspace}" + serviceName); // filter to find the correct service
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
-    cy.wait(2000); // wait for data to load
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column

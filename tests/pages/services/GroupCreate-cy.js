@@ -4,7 +4,6 @@ describe("Group Modals", () => {
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
-    cy.wait(2000); // wait for data to load
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column

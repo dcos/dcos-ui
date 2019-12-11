@@ -97,8 +97,6 @@ describe("UI Settings", () => {
 
       cy.wait("@cosmosListVersions");
 
-      cy.wait(500);
-
       cy.get("div.configuration-map").as("dcosUIDetails");
 
       cy.get("@dcosUIDetails")
@@ -188,7 +186,7 @@ describe("UI Settings", () => {
       cy.get("#uiDetailsRollback").should("be.disabled");
       cy.get("#uiDetailsRefreshVersion").should("not.exist");
 
-      cy.wait("@getUiVersionRefresh", { timeout: 65000 });
+      cy.wait("@getUiVersionRefresh");
 
       cy.get("#uiDetailsRollback").contains("Rollback");
       cy.get("#uiDetailsRollback").should("not.be.disabled");
@@ -214,7 +212,7 @@ describe("UI Settings", () => {
 
       cy.wait("@resetUiVersion");
 
-      cy.wait("@getUiVersion", { timeout: 65000 });
+      cy.wait("@getUiVersion");
 
       cy.get("#uiDetailsRollback").contains("Rollback Failed!");
       cy.get("#uiDetailsRollback").should("be.disabled");
@@ -266,7 +264,7 @@ describe("UI Settings", () => {
       cy.get("#uiDetailsRollback").contains("Rollback");
       cy.get("#uiDetailsRollback").should("be.disabled");
 
-      cy.wait("@getUiVersionRefresh", { timeout: 65000 });
+      cy.wait("@getUiVersionRefresh");
 
       cy.get("#uiDetailsStartUpdate").should("not.exist");
 

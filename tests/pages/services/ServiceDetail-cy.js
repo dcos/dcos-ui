@@ -200,9 +200,6 @@ describe("Service Detail Page", () => {
       });
 
       it("can filter tasks by zone", () => {
-        // wait for zones to load
-        cy.wait(2500);
-
         cy.get('use[*|href$="#system-funnel"]').click({
           force: true
         });
