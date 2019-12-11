@@ -4,7 +4,7 @@ import { i18nMark } from "@lingui/react";
 import SystemOverviewPage from "../pages/SystemOverviewPage";
 import OverviewDetailTab from "../pages/system/OverviewDetailTab";
 
-const systemOverviewRoutes = [
+export default [
   {
     type: Redirect,
     from: "/cluster",
@@ -27,5 +27,3 @@ const systemOverviewRoutes = [
     ]
   }
 ];
-
-module.exports = systemOverviewRoutes;

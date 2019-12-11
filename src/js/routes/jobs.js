@@ -10,7 +10,7 @@ import JobDetailPageContainer from "#PLUGINS/jobs/src/js/JobDetailPageContainer"
 import JobsTaskDetailPage from "#PLUGINS/jobs/src/js/pages/JobTaskDetailPage";
 import JobsPage from "../pages/JobsPage";
 
-const jobsRoutes = [
+export default [
   {
     type: Redirect,
     from: "/jobs",
@@ -106,5 +106,3 @@ const jobsRoutes = [
     ]
   }
 ];
-
-module.exports = jobsRoutes;

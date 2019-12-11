@@ -1,7 +1,7 @@
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 import NetworkValidatorUtil from "#SRC/js/utils/NetworkValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { VIP_LABEL_VALUE_REGEX } from "#SRC/js/constants/Networking";
+import Networking from "#SRC/js/constants/Networking";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 
 function checkServiceEndpoints(ports, pathPrefix) {
@@ -12,7 +12,9 @@ function checkServiceEndpoints(ports, pathPrefix) {
     );
 
     const errors = vipLabels.reduce((errorsMemo, label) => {
-      const vipLabelMatch = VIP_LABEL_VALUE_REGEX.exec(labels[label]);
+      const vipLabelMatch = Networking.VIP_LABEL_VALUE_REGEX.exec(
+        labels[label]
+      );
 
       if (!vipLabelMatch) {
         return errorsMemo.concat({

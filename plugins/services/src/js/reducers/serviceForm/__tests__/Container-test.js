@@ -1,5 +1,6 @@
 import Transaction from "#SRC/js/structs/Transaction";
 
+import Networking from "#SRC/js/constants/Networking";
 import Batch from "#SRC/js/structs/Batch";
 
 const {
@@ -7,9 +8,8 @@ const {
   SET,
   REMOVE_ITEM
 } = require("#SRC/js/constants/TransactionTypes");
-const {
-  type: { BRIDGE, HOST, CONTAINER }
-} = require("#SRC/js/constants/Networking");
+
+const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
 const Container = require("../Container");
 

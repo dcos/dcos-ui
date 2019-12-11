@@ -10,7 +10,7 @@ import {
   white
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import { keyCodes } from "../../utils/KeyboardUtil";
+import keyCodes from "../../utils/KeyboardUtil";
 
 const METHODS_TO_BIND = ["handleClick", "handleKeyPress"];
 

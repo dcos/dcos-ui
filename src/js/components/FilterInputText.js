@@ -10,7 +10,7 @@ import {
   purple
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import KeyboardUtil from "#SRC/js/utils/KeyboardUtil";
+import keyCodes from "#SRC/js/utils/KeyboardUtil";
 import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
 const METHODS_TO_BIND = [
@@ -44,10 +44,7 @@ class FilterInputText extends React.Component {
 
   handleKeyDown(event) {
     const { keyCode } = event;
-    if (
-      keyCode === KeyboardUtil.keyCodes.enter &&
-      this.props.onEnter instanceof Function
-    ) {
+    if (keyCode === keyCodes.enter && this.props.onEnter instanceof Function) {
       this.props.onEnter();
     }
   }
