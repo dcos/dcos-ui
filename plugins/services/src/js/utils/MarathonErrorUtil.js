@@ -1,5 +1,5 @@
 import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-import ServiceErrorTypes from "../constants/ServiceErrorTypes";
+import * as ServiceErrorTypes from "../constants/ServiceErrorTypes";
 
 const MarathonErrorUtil = {
   /**

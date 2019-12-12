@@ -5,7 +5,7 @@ import HealthStatus from "../../constants/HealthStatus";
 import TaskStats from "../TaskStats";
 import VolumeList from "../VolumeList";
 
-const ServiceImages = require("../../constants/ServiceImages");
+import ServiceImages from "../../constants/ServiceImages";
 
 describe("Application", () => {
   describe("#getDeployments", () => {

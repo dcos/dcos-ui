@@ -1,5 +1,5 @@
 import HealthCheckUtil from "../HealthCheckUtil";
-import HealthCheckProtocols from "../../constants/HealthCheckProtocols";
+import * as HealthCheckProtocols from "../../constants/HealthCheckProtocols";
 
 describe("HealthCheckUtil", () => {
   describe("#IsKnowProtocol", () => {

@@ -1,4 +1,2 @@
-module.exports = {
-  APPEND: "APPEND",
-  PREPEND: "PREPEND"
-};
+export const APPEND = "APPEND";
+export const PREPEND = "PREPEND";

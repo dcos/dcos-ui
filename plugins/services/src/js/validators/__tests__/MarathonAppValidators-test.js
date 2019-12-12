@@ -1,10 +1,10 @@
 import MarathonAppValidators from "../MarathonAppValidators";
 
-const {
+import {
   PROP_MISSING_ONE,
   SYNTAX_ERROR,
   GENERIC
-} = require("../../constants/ServiceErrorTypes");
+} from "../../constants/ServiceErrorTypes";
 
 const APPCONTAINERID_ERRORS = [
   {

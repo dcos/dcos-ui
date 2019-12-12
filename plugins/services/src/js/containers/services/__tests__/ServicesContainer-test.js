@@ -3,6 +3,7 @@ import { mount } from "enzyme";
 
 import JestUtil from "#SRC/js/utils/JestUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
+import Service from "#PLUGINS/services/src/js/structs/Service";
 
 import ServicesContainer from "../ServicesContainer";
 
@@ -10,7 +11,6 @@ jest.mock("#SRC/js/stores/DCOSStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
 
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
-const Service = require("#PLUGINS/services/src/js/structs/Service");
 
 let thisStoreChangeListener, thisRouterStubs, thisWrapper, thisInstance;
 

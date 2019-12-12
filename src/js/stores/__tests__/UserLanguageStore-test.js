@@ -1,8 +1,6 @@
 import UserSettingsStore from "../UserSettingsStore";
-
 import UserLanguageStore from "../UserLanguageStore";
-
-const savedStateKey = require("../../constants/UserSettings").SAVED_STATE_KEY;
+import { SAVED_STATE_KEY } from "../../constants/UserSettings";
 
 describe("UserLanguageStore", () => {
   describe("get", () => {
@@ -20,7 +18,7 @@ describe("UserLanguageStore", () => {
     it("sets language", () => {
       UserSettingsStore.setKey = jasmine.createSpy();
       UserLanguageStore.set("zh");
-      expect(UserSettingsStore.setKey).toHaveBeenCalledWith(savedStateKey, {
+      expect(UserSettingsStore.setKey).toHaveBeenCalledWith(SAVED_STATE_KEY, {
         language: "zh"
       });
     });

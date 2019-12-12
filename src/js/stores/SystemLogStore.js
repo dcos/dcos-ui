@@ -21,10 +21,10 @@ import Config from "../config/Config";
 import SystemLogActions from "../events/SystemLogActions";
 import { APPEND, PREPEND } from "../constants/SystemLogTypes";
 import { findNestedPropertyInObject } from "../utils/Util";
-import { MESSAGE } from "../constants/LogFields";
 import DateUtil from "../utils/DateUtil";
 
 const { msToLogTime } = DateUtil;
+const MESSAGE = "MESSAGE";
 
 class SystemLogStore extends BaseStore {
   constructor(...args) {

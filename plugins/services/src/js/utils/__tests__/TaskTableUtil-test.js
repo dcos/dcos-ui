@@ -1,6 +1,5 @@
 import TaskTableUtil from "../TaskTableUtil";
-
-const Service = require("../../structs/Service");
+import Service from "../../structs/Service";
 
 let thisFoo, thisBar, thisFooStruct, thisBarStruct, thisGetComparator;
 

@@ -1,9 +1,9 @@
 import AppDispatcher from "../../events/AppDispatcher";
 import SystemLogStore from "../SystemLogStore";
+import * as SystemLogTypes from "../../constants/SystemLogTypes";
 
 const ActionTypes = require("../../constants/ActionTypes");
 const EventTypes = require("../../constants/EventTypes");
-const SystemLogTypes = require("../../constants/SystemLogTypes");
 
 function resetLogData(subscriptionID, newLogData) {
   const originalAddEntries = SystemLogStore.addEntries;

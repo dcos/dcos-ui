@@ -1,4 +1,4 @@
-import HealthCheckProtocols from "../constants/HealthCheckProtocols";
+import * as HealthCheckProtocols from "../constants/HealthCheckProtocols";
 import { PROTOCOLS } from "../constants/PortDefinitionConstants";
 import { getHostPortPlaceholder, isHostNetwork } from "./NetworkUtil";
 import ServiceValidatorUtil from "./ServiceValidatorUtil";

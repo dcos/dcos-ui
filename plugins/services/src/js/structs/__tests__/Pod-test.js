@@ -6,7 +6,7 @@ import PodInstance from "../PodInstance";
 import HealthStatus from "../../constants/HealthStatus";
 import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
 
-const ServiceImages = require("../../constants/ServiceImages");
+import ServiceImages from "../../constants/ServiceImages";
 
 describe("Pod", () => {
   describe("#constructor", () => {

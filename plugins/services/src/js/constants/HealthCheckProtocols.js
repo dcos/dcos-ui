@@ -1,9 +1,7 @@
-module.exports = {
-  COMMAND: "COMMAND",
-  HTTP: "HTTP",
-  HTTPS: "HTTPS",
-  TCP: "TCP",
-  MESOS_HTTP: "MESOS_HTTP",
-  MESOS_HTTPS: "MESOS_HTTPS",
-  MESOS_TCP: "MESOS_TCP"
-};
+export const COMMAND = "COMMAND";
+export const HTTP = "HTTP";
+export const HTTPS = "HTTPS";
+export const TCP = "TCP";
+export const MESOS_HTTP = "MESOS_HTTP";
+export const MESOS_HTTPS = "MESOS_HTTPS";
+export const MESOS_TCP = "MESOS_TCP";
