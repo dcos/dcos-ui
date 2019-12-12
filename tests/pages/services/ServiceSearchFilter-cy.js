@@ -17,7 +17,7 @@ describe("Service Search Filters", () => {
         .children()
         .should("to.have.length", 4);
       cy.get(".filter-input-text").as("filterInputText");
-      cy.get("@filterInputText").type("unhealthy");
+      cy.get("@filterInputText").type("1{selectall}{backspace}unhealthy");
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer"
       )
@@ -27,7 +27,9 @@ describe("Service Search Filters", () => {
 
     it("sets the correct search string filter query params", () => {
       cy.get(".filter-input-text").as("filterInputText");
-      cy.get("@filterInputText").type("cassandra-healthy");
+      cy.get("@filterInputText").type(
+        "1{selectall}{backspace}cassandra-healthy"
+      );
       cy.hash().should(hash => {
         const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter)).to.equal(
@@ -38,7 +40,9 @@ describe("Service Search Filters", () => {
 
     it("will clear filters by clear all link click", () => {
       cy.get(".filter-input-text").as("filterInputText");
-      cy.get("@filterInputText").type("cassandra-healthy");
+      cy.get("@filterInputText").type(
+        "1{selectall}{backspace}cassandra-healthy"
+      );
       cy.get("@filterInputText")
         .siblings(".form-control-group-add-on")
         .eq(1)

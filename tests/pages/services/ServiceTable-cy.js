@@ -2,7 +2,7 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", () => {
   function openDropdown(serviceName) {
-    cy.get(".filter-input-text").type("1{selectall}{backspace}" + serviceName); // filter to find the correct service
+    cy.get(".filter-input-text").type("1{selectall}" + serviceName); // filter to find the correct service
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
@@ -467,7 +467,7 @@ describe("Service Table", () => {
       });
 
       it("does contain the right region", () => {
-        cy.get(".filter-input-text").type("sleep");
+        cy.get(".filter-input-text").type("1{selectall}sleep");
         cy.get(".form-control-group-add-on")
           .eq(-1)
           .click(); // close filter window
@@ -490,7 +490,7 @@ describe("Service Table", () => {
       });
 
       it("does contain the right region", () => {
-        cy.get(".filter-input-text").type("sleep");
+        cy.get(".filter-input-text").type("1{selectall}sleep");
         cy.get(".form-control-group-add-on")
           .eq(-1)
           .click(); // close filter window
