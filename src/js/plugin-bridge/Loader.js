@@ -3,7 +3,7 @@ let externalPluginsList;
 
 // Try loading the list of plugins.
 try {
-  pluginsList = require("#PLUGINS/index");
+  pluginsList = require("#PLUGINS/index").default;
 } catch (err) {
   // No plugins
   pluginsList = {};

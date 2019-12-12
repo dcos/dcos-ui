@@ -9,8 +9,8 @@ jest.setMock("react-router", {
 const PluginTestUtils = require("PluginTestUtils");
 
 const SDK = PluginTestUtils.getSDK("tracking", { enabled: true });
-require("../../SDK").setSDK(SDK);
-const Actions = require("../Actions");
+require("../../SDK").default.setSDK(SDK);
+const Actions = require("../Actions").default;
 
 global.analytics = {
   initialized: true,

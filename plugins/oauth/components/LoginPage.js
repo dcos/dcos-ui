@@ -7,8 +7,9 @@ import { Modal } from "reactjs-components";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
+import MySDK from "../SDK";
 
-const SDK = require("../SDK").getSDK();
+const SDK = MySDK.getSDK();
 
 const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
 

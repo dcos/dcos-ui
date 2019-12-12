@@ -4,11 +4,11 @@ import container from "#SRC/js/container";
 
 import UIDetails from "./components/UIDetails";
 import { loadNotifications, UIUpdateNotificationsType } from "./notifications";
-import { getSDK } from "./SDK";
+import MySDK from "./SDK";
 
-const SDK = getSDK();
+const SDK = MySDK.getSDK();
 
-module.exports = {
+export default {
   actions: ["userLoginSuccess", "userLogoutSuccess", "redirectToLogin"],
   notifications: {
     updated: null,

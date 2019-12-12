@@ -14,15 +14,16 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";
+import MySDK from "./SDK";
 
-const SDK = require("./SDK").getSDK();
+const SDK = MySDK.getSDK();
 
 let configResponseCallback = null;
 const defaultOrganizationRoute = {
   routes: []
 };
 
-module.exports = Object.assign({}, StoreMixin, {
+export default Object.assign({}, StoreMixin, {
   actions: [
     "AJAXRequestError",
     "userLoginSuccess",

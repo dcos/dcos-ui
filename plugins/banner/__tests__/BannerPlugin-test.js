@@ -3,9 +3,9 @@ import { shallow } from "enzyme";
 const PluginTestUtils = require("PluginTestUtils");
 
 const SDK = PluginTestUtils.getSDK("banner", { enabled: true });
-require("../SDK").setSDK(SDK);
+require("../SDK").default.setSDK(SDK);
 
-const BannerPlugin = require("../hooks");
+const BannerPlugin = require("../hooks").default;
 
 var defaultConfiguration = BannerPlugin.configuration;
 

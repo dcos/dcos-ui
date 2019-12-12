@@ -6,9 +6,9 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import Config from "#SRC/js/config/Config";
 import Util from "#SRC/js/utils/Util";
 
-const SDK = require("../SDK").getSDK();
+const SDK = require("../SDK").default.getSDK();
 
-var Actions = {
+const Actions = {
   previousFakePageLog: "",
 
   dcosMetadata: null,
@@ -256,4 +256,4 @@ var Actions = {
   }
 };
 
-module.exports = Actions;
+export default Actions;

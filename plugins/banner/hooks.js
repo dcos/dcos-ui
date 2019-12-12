@@ -3,10 +3,11 @@ import React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
+import MySDK from "./SDK";
 
-const SDK = require("./SDK").getSDK();
+const SDK = MySDK.getSDK();
 
-module.exports = {
+export default {
   configuration: {
     backgroundColor: "#1E232F",
     foregroundColor: "#FFFFFF",
