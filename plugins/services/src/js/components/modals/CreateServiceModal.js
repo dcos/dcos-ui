@@ -59,7 +59,7 @@ import JSONSingleContainerParser from "../../reducers/JSONSingleContainerParser"
 import MultiContainerNetworkingFormSection from "../forms/MultiContainerNetworkingFormSection";
 import MultiContainerVolumesFormSection from "../forms/MultiContainerVolumesFormSection";
 import NetworkingFormSection from "../forms/NetworkingFormSection";
-import ServiceErrorTypes from "../../constants/ServiceErrorTypes";
+import * as ServiceErrorTypes from "../../constants/ServiceErrorTypes";
 import VolumesFormSection from "../forms/VolumesFormSection";
 import VipLabelsValidators from "../../validators/VipLabelsValidators";
 import PlacementsValidators from "../../validators/PlacementsValidators";

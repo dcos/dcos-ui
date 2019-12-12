@@ -1,6 +1,6 @@
 import Task from "../Task";
 
-const ServiceImages = require("../../constants/ServiceImages");
+import ServiceImages from "../../constants/ServiceImages";
 
 describe("Task", () => {
   describe("#getId", () => {

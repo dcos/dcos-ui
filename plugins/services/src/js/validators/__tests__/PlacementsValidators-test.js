@@ -3,10 +3,10 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 import PlacementsValidators from "../PlacementsValidators";
 
-const {
+import {
   PROP_MISSING_ONE,
   SYNTAX_ERROR
-} = require("../../constants/ServiceErrorTypes");
+} from "../../constants/ServiceErrorTypes";
 
 describe("PlacementsValidators", () => {
   describe("#validateConstraints", () => {

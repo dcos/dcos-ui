@@ -8,7 +8,7 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 import VolumeList from "./VolumeList";
 
-module.exports = class Service extends Item {
+export default class Service extends Item {
   constructor(...args) {
     super(...args);
     this._regions = undefined;
@@ -174,4 +174,4 @@ module.exports = class Service extends Item {
   toJSON() {
     return this.get();
   }
-};
+}

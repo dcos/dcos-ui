@@ -1,7 +1,7 @@
 /**
  * Base class for AST nodes in DSL, representing a token in the user input
  */
-class ASTNode {
+export class ASTNode {
   /**
    * @param {number} start - The starting point of the token in the input string
    * @param {number} end - The ending point of the token in the input string
@@ -32,7 +32,7 @@ class ASTNode {
 /**
  * Combiner (operator) AST node
  */
-class CombinerNode extends ASTNode {
+export class CombinerNode extends ASTNode {
   /**
    * @param {DSLCombinerTypes} combinerType - The combiner type (AND, OR)
    * @param {ASTNode} child1 - The left-side operator
@@ -56,7 +56,7 @@ class CombinerNode extends ASTNode {
 /**
  * Filter (operand) AST node
  */
-class FilterNode extends ASTNode {
+export class FilterNode extends ASTNode {
   /**
    * @param {number} start - The starting point of the token in the input string
    * @param {number} end - The ending point of the token in the input string
@@ -82,7 +82,7 @@ class FilterNode extends ASTNode {
 /**
  * Expose the leaf nodes that can be used in more than one place
  */
-module.exports = {
+export default {
   CombinerNode,
   FilterNode
 };

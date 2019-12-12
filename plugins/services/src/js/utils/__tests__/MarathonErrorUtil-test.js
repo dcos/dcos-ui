@@ -1,6 +1,6 @@
 import MarathonErrorUtil from "../MarathonErrorUtil";
 
-const ServiceErrorTypes = require("../../constants/ServiceErrorTypes");
+import * as ServiceErrorTypes from "../../constants/ServiceErrorTypes";
 
 describe("MarathonErrorUtil", () => {
   describe("#parseErrors", () => {

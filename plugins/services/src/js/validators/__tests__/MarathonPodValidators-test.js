@@ -1,6 +1,6 @@
 import MarathonPodValidators from "../MarathonPodValidators";
 
-const { GENERIC } = require("../../constants/ServiceErrorTypes");
+import { GENERIC } from "../../constants/ServiceErrorTypes";
 
 describe("MarathonPodValidators", () => {
   describe("#validateProfileVolumes", () => {

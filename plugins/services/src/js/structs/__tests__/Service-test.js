@@ -1,4 +1,4 @@
-const Service = require("../Service");
+import Service from "../Service";
 
 describe("Service", () => {
   describe("#getId", () => {

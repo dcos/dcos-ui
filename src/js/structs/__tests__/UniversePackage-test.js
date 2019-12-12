@@ -1,6 +1,5 @@
 import UniversePackage from "../UniversePackage";
-
-const ServiceImages = require("../../../../plugins/services/src/js/constants/ServiceImages");
+import ServiceImages from "../../../../plugins/services/src/js/constants/ServiceImages";
 
 describe("UniversePackage", () => {
   describe("#getIcons", () => {
