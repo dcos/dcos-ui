@@ -70,7 +70,7 @@ fi
 if [ -n "${staged_javascript_files}" ]
 then
   header "Test staged JavaScript files.."
-  npm run test --silent -- --findRelatedTests \
+  npm run test -- --findRelatedTests \
     ${staged_javascript_files} || exit $?
   info "Javascript Tests passed"
 fi

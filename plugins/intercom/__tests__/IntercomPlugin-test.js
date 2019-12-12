@@ -17,9 +17,9 @@ jest.mock("#SRC/js/stores/AuthStore", () => mockAuthStore);
 const PluginTestUtils = require("PluginTestUtils");
 
 const SDK = PluginTestUtils.getSDK("intercom", { enabled: true });
-require("../SDK").setSDK(SDK);
+require("../SDK").default.setSDK(SDK);
 
-const IntercomHooks = require("../hooks");
+const IntercomHooks = require("../hooks").default;
 
 describe("IntercomHooks", () => {
   describe("Listeners", () => {

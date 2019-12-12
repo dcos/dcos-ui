@@ -4,7 +4,7 @@ import oauth from "./oauth/index";
 import intercom from "./intercom/index";
 import uiUpdate from "./ui-update/index";
 
-module.exports = {
+export default {
   banner,
   tracking,
   oauth,

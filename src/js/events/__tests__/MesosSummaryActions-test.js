@@ -2,30 +2,8 @@ import AppDispatcher from "../AppDispatcher";
 import MesosSummaryActions from "../MesosSummaryActions";
 import TimeScales from "../../constants/TimeScales";
 
-const Hooks = require("PluginSDK").Hooks;
-
-jest.setMock("react-router", {
-  hashHistory: {
-    location: { pathname: "/foo" },
-    listen() {}
-  }
-});
-
-const PluginTestUtils = require("PluginTestUtils");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-
-PluginTestUtils.loadPluginsByName({
-  tracking: { enabled: true }
-});
 const Config = require("#SRC/js/config/Config").default;
-
-global.analytics = {
-  initialized: true,
-  track() {},
-  log() {}
-};
-
-Hooks.addFilter("hasCapability", () => true);
 
 describe("Mesos State Actions", () => {
   beforeEach(() => {

@@ -5,12 +5,13 @@ import AuthStore from "#SRC/js/stores/AuthStore";
 
 import { INTERCOM_CHANGE } from "./constants/EventTypes";
 import IntercomStore from "./stores/IntercomStore";
+import MySDK from "./SDK";
 
-const SDK = require("./SDK").getSDK();
+const SDK = MySDK.getSDK();
 
 const INTERCOM_LOAD_TIMEOUT = 500;
 
-module.exports = {
+export default {
   filters: ["pluginsLoadedCheck"],
   actions: ["pluginsConfigured", "userLoginSuccess", "userLogoutSuccess"],
 
