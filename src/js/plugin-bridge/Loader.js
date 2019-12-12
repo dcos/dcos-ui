@@ -1,29 +1,16 @@
-let pluginsList;
+const pluginsList = require("#PLUGINS/index");
+
+// Try loading the list of plugins.
 let externalPluginsList;
-
-// Try loading the list of plugins.
-try {
-  pluginsList = require("#PLUGINS/index");
-} catch (err) {
-  // No plugins
-  pluginsList = {};
-}
-
-// Try loading the list of plugins.
 try {
   externalPluginsList = require("#EXTERNAL_PLUGINS/index");
 } catch (err) {
   externalPluginsList = {};
 }
 
-// Return all available plugins
-function getAvailablePlugins() {
-  return {
+export default {
+  getAvailablePlugins: () => ({
     pluginsList,
     externalPluginsList
-  };
-}
-
-export default {
-  getAvailablePlugins
+  })
 };

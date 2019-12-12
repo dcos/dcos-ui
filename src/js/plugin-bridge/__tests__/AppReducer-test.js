@@ -4,7 +4,6 @@ const isEqual = require("deep-equal");
 
 const EventTypes = require("../../constants/EventTypes");
 const PluginSDK = require("PluginSDK");
-const PluginTestUtils = require("PluginTestUtils");
 
 // Get State specific to Application
 function getApplicationState() {
@@ -17,7 +16,7 @@ describe("AppReducer", () => {
     qux: { foo: "bar" }
   };
 
-  it("alters state correctly when no plugins loaded", () => {
+  it("alters state correctly", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
@@ -35,37 +34,6 @@ describe("AppReducer", () => {
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
-  it("alters state correctly after plugins loaded", () => {
-    PluginSDK.dispatch({
-      type: EventTypes.APP_STORE_CHANGE,
-      storeID: "foo",
-      data: "bar"
-    });
-    PluginSDK.dispatch({
-      type: EventTypes.APP_STORE_CHANGE,
-      storeID: "qux",
-      data: { foo: "bar" }
-    });
-    // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(() => () => ({
-      foo: "bar"
-    }));
-
-    PluginTestUtils.loadPlugins({
-      fakePlugin: {
-        module: mockPlugin,
-        config: {
-          enabled: true
-        }
-      }
-    });
-
-    var state = getApplicationState();
-    // lets remove the config stuff just for ease
-    delete state.config;
-    expect(isEqual(state, expectedState)).toEqual(true);
-  });
-
   it("alters state correctly for storeID", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
@@ -78,33 +46,6 @@ describe("AppReducer", () => {
       data: { foo: "bar" }
     });
 
-    var state = getApplicationState();
-    // lets remove the config stuff just for ease
-    delete state.config;
-    expect(isEqual(state, expectedState)).toEqual(true);
-  });
-
-  it("does not alter state if action dispatched from plugin", () => {
-    var pluginDispatch;
-    // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(SDK => {
-      pluginDispatch = SDK.dispatch;
-    });
-
-    PluginTestUtils.loadPlugins({
-      fakePluginAgain: {
-        module: mockPlugin,
-        config: {
-          enabled: true
-        }
-      }
-    });
-
-    pluginDispatch({
-      type: EventTypes.APP_STORE_CHANGE,
-      storeID: "foo",
-      data: "boom"
-    });
     var state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;

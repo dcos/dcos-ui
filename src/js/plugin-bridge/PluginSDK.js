@@ -48,26 +48,19 @@ const initialize = pluginsConfig => {
   const { pluginsList, externalPluginsList } = Loader.getAvailablePlugins();
 
   Object.keys(pluginsConfig).forEach(pluginID => {
-    // Make sure plugin is bundled
-    if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
-      if (Config.environment === "development") {
-        console.warn(`Plugin ${pluginID} not available in bundle`);
-      }
-
+    // Default to always selecting internal plugin if same pluginID
+    // exists in external plugins. This makes mocking easier.
+    const path = pluginsList[pluginID] || externalPluginsList[pluginID];
+    if (!path) {
+      console.warn(`Plugin ${pluginID} not available in bundle`);
       return;
     }
 
-    let path;
-    // Default to always selecting internal plugin if same pluginID
-    // exists in external plugins. This makes mocking easier.
-    if (pluginID in pluginsList) {
-      path = pluginsList[pluginID];
-    } else {
-      path = externalPluginsList[pluginID];
-    }
     // Bootstrap if plugin enabled
-    if (pluginsConfig[pluginID] && pluginsConfig[pluginID].enabled) {
-      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID]);
+    const config = pluginsConfig[pluginID] || {};
+    console.log(config);
+    if (config.enabled) {
+      bootstrapPlugin(pluginID, path, config);
     }
   });
 
@@ -235,6 +228,7 @@ const getSDK = (pluginID, config) => {
  */
 const bootstrapPlugin = (pluginID, plugin, config) => {
   // Inject Application key constant and configOptions if specified
+  console.log(pluginID, plugin, config);
   const SDK = getSDK(pluginID, config);
 
   const pluginReducer = plugin(SDK);
