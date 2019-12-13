@@ -1,4 +1,4 @@
-var response = JSON.stringify({
+const response = JSON.stringify({
   type: "SUBSCRIBED",
   subscribed: {
     get_state: {
@@ -602,4 +602,4 @@ var response = JSON.stringify({
   }
 });
 
-module.exports = response;
+export default response;

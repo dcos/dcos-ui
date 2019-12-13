@@ -10,7 +10,7 @@ import ServicesContainer from "../ServicesContainer";
 jest.mock("#SRC/js/stores/DCOSStore");
 jest.mock("#SRC/js/stores/MesosStateStore");
 
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
 let thisStoreChangeListener, thisRouterStubs, thisWrapper, thisInstance;
 

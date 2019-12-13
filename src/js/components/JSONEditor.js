@@ -533,4 +533,4 @@ JSONEditor.propTypes = {
   width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
-module.exports = JSONEditor;
+export default JSONEditor;

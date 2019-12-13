@@ -6,7 +6,7 @@ import MesosStateUtil from "../../utils/MesosStateUtil";
 
 import MESOS_STATE_WITH_HISTORY from "../../utils/__tests__/fixtures/MesosStateWithHistory";
 
-const MesosStateStore = require("../MesosStateStore");
+const MesosStateStore = require("../MesosStateStore").default;
 
 let thisGet, thisGetFrameworkToServicesMap;
 

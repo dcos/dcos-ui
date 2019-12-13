@@ -5,7 +5,7 @@ import { Hooks } from "PluginSDK";
 import OrganizationPage from "../../pages/OrganizationPage";
 import UsersPage from "../../pages/system/UsersPage";
 
-const RouteFactory = {
+export default {
   getOrganizationRoutes() {
     // Return filtered Routes
     return Hooks.applyFilter("organizationRoutes", {
@@ -43,5 +43,3 @@ const RouteFactory = {
     ];
   }
 };
-
-module.exports = RouteFactory;

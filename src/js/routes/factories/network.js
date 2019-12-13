@@ -14,7 +14,7 @@ import VirtualNetworksTab from "../../pages/network/VirtualNetworksTab";
 import VirtualNetworkTaskPage from "../../pages/network/virtual-network-detail/VirtualNetworkTaskPage";
 import VirtualNetworkTaskTab from "../../pages/network/virtual-network-detail/VirtualNetworkTaskTab";
 
-const RouteFactory = {
+export default {
   getNetworkRoutes() {
     const virtualNetworksRoute = [
       {
@@ -130,5 +130,3 @@ const RouteFactory = {
     ];
   }
 };
-
-module.exports = RouteFactory;

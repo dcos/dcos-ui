@@ -11,60 +11,64 @@ import {
 import { isObject } from "#SRC/js/utils/Util";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-const ServiceConfigDisplayUtil = {
-  getColumnClassNameFn(classes) {
-    return (prop, sortBy) =>
-      classNames(classes, { active: prop === sortBy.prop });
-  },
+export function getColumnClassNameFn(classes) {
+  return (prop, sortBy) =>
+    classNames(classes, { active: prop === sortBy.prop });
+}
 
-  getColumnHeadingFn(defaultHeading) {
-    return (prop, order, sortBy) => {
-      const caretClassNames = classNames("caret", {
-        [`caret--${order}`]: order != null && sortBy.prop === prop,
-        "caret--visible": sortBy.prop === prop
-      });
+export function getColumnHeadingFn(defaultHeading) {
+  return (prop, order, sortBy) => {
+    const caretClassNames = classNames("caret", {
+      [`caret--${order}`]: order != null && sortBy.prop === prop,
+      "caret--visible": sortBy.prop === prop
+    });
 
-      return (
-        <span>
-          {defaultHeading ? <Trans render="span" id={defaultHeading} /> : prop}
-          <span className={caretClassNames} />
-        </span>
-      );
-    };
-  },
-
-  getContainerNameWithIcon(container) {
     return (
       <span>
-        <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
-        <span>&nbsp;{container.name}</span>
+        {defaultHeading ? <Trans render="span" id={defaultHeading} /> : prop}
+        <span className={caretClassNames} />
       </span>
     );
-  },
+  };
+}
 
-  getDisplayValue(value) {
-    if (value == null || value === "") {
-      return <em>{EmptyStates.CONFIG_VALUE}</em>;
-    }
+export function getContainerNameWithIcon(container) {
+  return (
+    <span>
+      <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
+      <span>&nbsp;{container.name}</span>
+    </span>
+  );
+}
 
-    // Display nested objects nicely if the render didn't already cover it.
-    if (isObject(value) && !React.isValidElement(value)) {
-      return (
-        <pre className="flush transparent wrap">{JSON.stringify(value)}</pre>
-      );
-    }
+export function getDisplayValue(value) {
+  if (value == null || value === "") {
+    return <em>{EmptyStates.CONFIG_VALUE}</em>;
+  }
 
-    return value;
-  },
-
-  getSharedIconWithLabel() {
+  // Display nested objects nicely if the render didn't already cover it.
+  if (isObject(value) && !React.isValidElement(value)) {
     return (
-      <span>
-        <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
-        <em>&nbsp;Shared</em>
-      </span>
+      <pre className="flush transparent wrap">{JSON.stringify(value)}</pre>
     );
   }
-};
 
-module.exports = ServiceConfigDisplayUtil;
+  return value;
+}
+
+export function getSharedIconWithLabel() {
+  return (
+    <span>
+      <Icon shape={SystemIcons.Container} size={iconSizeXs} color={purple} />
+      <em>&nbsp;Shared</em>
+    </span>
+  );
+}
+
+export default {
+  getColumnClassNameFn,
+  getColumnHeadingFn,
+  getContainerNameWithIcon,
+  getDisplayValue,
+  getSharedIconWithLabel
+};

@@ -1,6 +1,6 @@
 import Framework from "../Framework";
 
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
 describe("Framework", () => {
   describe("#getNodeIDs", () => {
