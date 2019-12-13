@@ -12,7 +12,7 @@ const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore")
 const TaskDetail = require("../TaskDetail").default;
 /* eslint-enable */
 
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
 let thisStoreGetDirectory,
   thisStoreSetPath,

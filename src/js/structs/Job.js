@@ -7,7 +7,7 @@ import {
 } from "../constants/JobResources";
 import { findNestedPropertyInObject } from "../utils/Util";
 
-module.exports = class Job extends Item {
+export default class Job extends Item {
   getCommand() {
     const { cmd } = this.get("run") || {};
 
@@ -75,4 +75,4 @@ module.exports = class Job extends Item {
   toJSON() {
     return cleanJobJSON(this.get());
   }
-};
+}

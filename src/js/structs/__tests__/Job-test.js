@@ -1,4 +1,4 @@
-const Job = require("../Job");
+const Job = require("../Job").default;
 const {
   DEFAULT_CPUS,
   DEFAULT_DISK,

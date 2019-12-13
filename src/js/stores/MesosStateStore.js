@@ -311,4 +311,4 @@ if (Config.useFixtures) {
   });
 }
 
-module.exports = new MesosStateStore();
+export default new MesosStateStore();

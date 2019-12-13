@@ -9,7 +9,7 @@ import TaskTable from "../TaskTable";
 
 jest.mock("#SRC/js/stores/DCOSStore");
 
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore");
+const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
 let thisTaskTable, thisGetNodeFromID;
 

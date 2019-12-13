@@ -1,12 +1,13 @@
 import { i18nMark } from "@lingui/react";
 
-import {
+import UnitHealthTypes from "./UnitHealthTypes";
+
+const {
   SERVER_HEALTHY,
   SERVER_NA,
   SERVER_UNHEALTHY,
   SERVER_WARN
-} from "./UnitHealthTypes";
-
+} = UnitHealthTypes;
 /**
  * sortingValue = Order health types by it's label and number value
  * This will depend on the sorting method/function
