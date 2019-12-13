@@ -325,139 +325,41 @@ function shouldDeleteContainerImage(image) {
   return image == null || !image.id;
 }
 
-module.exports = {
-  JSONReducer(state = [], { type, path = [], value }, containerIndex) {
-    if (containerIndex === 0) {
-      state = [];
-    }
+export function JSONReducer(
+  state = [],
+  { type, path = [], value },
+  containerIndex
+) {
+  if (containerIndex === 0) {
+    state = [];
+  }
 
-    const [base, index, field, subField] = path;
+  const [base, index, field, subField] = path;
 
-    if (this.networkType == null) {
-      this.networkType = HOST;
-    }
+  if (this.networkType == null) {
+    this.networkType = HOST;
+  }
 
-    if (this.appState == null) {
-      this.appState = {};
-    }
+  if (this.appState == null) {
+    this.appState = {};
+  }
 
-    if (this.healthCheckState == null) {
-      this.healthCheckState = [];
-    }
+  if (this.healthCheckState == null) {
+    this.healthCheckState = [];
+  }
 
-    if (base === "id" && type === SET) {
-      this.appState.id = value;
-    }
+  if (base === "id" && type === SET) {
+    this.appState.id = value;
+  }
 
-    if (base === "networks" && parseInt(index, 10) === 0 && type === SET) {
-      const valueSplit = value.split(".");
+  if (base === "networks" && parseInt(index, 10) === 0 && type === SET) {
+    const valueSplit = value.split(".");
 
-      this.networkType = valueSplit[0];
-    }
+    this.networkType = valueSplit[0];
+  }
 
-    if (!path.includes("containers") && !path.includes("volumeMounts")) {
-      return state.map((container, index) => {
-        if (this.endpoints && this.endpoints[index]) {
-          container.endpoints = mapEndpoints(
-            this.endpoints[index],
-            this.networkType,
-            this.appState
-          );
-          if (container.endpoints.length === 0) {
-            delete container.endpoints;
-          }
-        }
-
-        return container;
-      });
-    }
-
-    if (this.cache == null) {
-      // This is needed to provide a context for nested reducers.
-      // Containers is an array so we will have multiple items and so that
-      // the reducers are not overwriting each others context we are
-      // providing one object per item in the array.
-      this.cache = [];
-    }
-
-    if (this.images == null) {
-      this.images = {};
-    }
-
-    if (this.endpoints == null) {
-      this.endpoints = [];
-    }
-
-    if (this.volumeMounts == null) {
-      this.volumeMounts = [];
-    }
-    let newState = state.slice();
-    const joinedPath = path.join(".");
-
-    if (joinedPath === "containers") {
-      switch (type) {
-        case ADD_ITEM:
-          const name = ContainerUtil.getNewContainerName(
-            newState.length,
-            newState
-          );
-
-          newState.push(
-            Object.assign({}, DEFAULT_POD_CONTAINER, { name }, value)
-          );
-          this.cache.push({});
-          this.endpoints.push([]);
-          break;
-        case REMOVE_ITEM:
-          newState = newState.filter((item, index) => index !== value);
-          this.cache = this.cache.filter((item, index) => index !== value);
-          this.endpoints = this.endpoints.filter(
-            (item, index) => index !== value
-          );
-          break;
-      }
-
-      return newState;
-    }
-
-    this.volumeMounts = volumeMountsReducer(this.volumeMounts, {
-      type,
-      path,
-      value
-    });
-
-    newState = state.map((container, index) => {
-      if (this.volumeMounts.length !== 0) {
-        container.volumeMounts = this.volumeMounts
-          .filter(
-            volumeMount =>
-              volumeMount.name != null && volumeMount.mountPath[index]
-          )
-          .map(volumeMount => ({
-            name: volumeMount.name,
-            mountPath: volumeMount.mountPath[index]
-          }));
-      }
-
-      if (this.volumeMounts.length === 0 && container.volumeMounts != null) {
-        container.volumeMounts = [];
-      }
-
-      return container;
-    });
-
-    if (field === "endpoints") {
-      if (this.endpoints[index] == null) {
-        this.endpoints[index] = [];
-      }
-
-      this.endpoints = endpointsJSONReducer(this.endpoints, {
-        type,
-        path,
-        value
-      });
-    }
-    newState = newState.map((container, index) => {
+  if (!path.includes("containers") && !path.includes("volumeMounts")) {
+    return state.map((container, index) => {
       if (this.endpoints && this.endpoints[index]) {
         container.endpoints = mapEndpoints(
           this.endpoints[index],
@@ -471,91 +373,188 @@ module.exports = {
 
       return container;
     });
+  }
 
-    if (field === "healthCheck") {
-      if (this.healthCheckState[index] == null) {
-        this.healthCheckState[index] = {};
-      }
+  if (this.cache == null) {
+    // This is needed to provide a context for nested reducers.
+    // Containers is an array so we will have multiple items and so that
+    // the reducers are not overwriting each others context we are
+    // providing one object per item in the array.
+    this.cache = [];
+  }
 
-      newState[index].healthCheck = multiContainerHealthCheckReducer.call(
-        this.healthCheckState[index],
-        newState[index].healthCheck,
-        { type, path: path.slice(3), value }
-      );
-    }
+  if (this.images == null) {
+    this.images = {};
+  }
 
-    if (field === "artifacts") {
-      // Create a local cache of artifacts so we can filter the display values
-      if (this.artifactState == null) {
-        this.artifactState = [];
-      }
+  if (this.endpoints == null) {
+    this.endpoints = [];
+  }
 
-      // Filter empty values and assign to state
-      multiContainerArtifactsJSONReducer
-        .call(this.artifactState, null, { type, path, value })
-        .forEach((item, index) => {
-          newState[index].artifacts = item.filter(({ uri }) => !isEmpty(uri));
-        });
-    }
+  if (this.volumeMounts == null) {
+    this.volumeMounts = [];
+  }
+  let newState = state.slice();
+  const joinedPath = path.join(".");
 
-    if (type === SET && joinedPath === `containers.${index}.name`) {
-      newState[index].name = value;
-    }
+  if (joinedPath === "containers") {
+    switch (type) {
+      case ADD_ITEM:
+        const name = ContainerUtil.getNewContainerName(
+          newState.length,
+          newState
+        );
 
-    if (
-      type === SET &&
-      joinedPath === `containers.${index}.exec.command.shell`
-    ) {
-      newState[index].exec = Object.assign({}, newState[index].exec, {
-        command: { shell: value }
-      });
-    }
-
-    if (type === SET && field === "resources") {
-      // Parse numbers
-      newState[index].resources = containerFloatReducer.call(
-        this.cache[index],
-        newState[index].resources,
-        { type, value, path: [field, subField] }
-      );
-    }
-
-    if (type === SET && joinedPath === `containers.${index}.image`) {
-      newState[index].image = this.images[index] = Object.assign(
-        {},
-        newState[index].image,
-        value
-      );
-    }
-
-    if (type === SET && joinedPath === `containers.${index}.image.id`) {
-      newState[index].image = this.images[index] = Object.assign(
-        {},
-        this.images[index],
-        {
-          id: value,
-          kind: "DOCKER"
-        }
-      );
-      if (shouldDeleteContainerImage(newState[index].image)) {
-        delete newState[index].image;
-      }
-    }
-
-    if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
-      newState[index].image = this.images[index] = Object.assign(
-        {},
-        this.images[index],
-        {
-          forcePull: value
-        }
-      );
-      if (shouldDeleteContainerImage(newState[index].image)) {
-        delete newState[index].image;
-      }
+        newState.push(
+          Object.assign({}, DEFAULT_POD_CONTAINER, { name }, value)
+        );
+        this.cache.push({});
+        this.endpoints.push([]);
+        break;
+      case REMOVE_ITEM:
+        newState = newState.filter((item, index) => index !== value);
+        this.cache = this.cache.filter((item, index) => index !== value);
+        this.endpoints = this.endpoints.filter(
+          (item, index) => index !== value
+        );
+        break;
     }
 
     return newState;
-  },
-  JSONParser: containersParser
-};
+  }
+
+  this.volumeMounts = volumeMountsReducer(this.volumeMounts, {
+    type,
+    path,
+    value
+  });
+
+  newState = state.map((container, index) => {
+    if (this.volumeMounts.length !== 0) {
+      container.volumeMounts = this.volumeMounts
+        .filter(
+          volumeMount =>
+            volumeMount.name != null && volumeMount.mountPath[index]
+        )
+        .map(volumeMount => ({
+          name: volumeMount.name,
+          mountPath: volumeMount.mountPath[index]
+        }));
+    }
+
+    if (this.volumeMounts.length === 0 && container.volumeMounts != null) {
+      container.volumeMounts = [];
+    }
+
+    return container;
+  });
+
+  if (field === "endpoints") {
+    if (this.endpoints[index] == null) {
+      this.endpoints[index] = [];
+    }
+
+    this.endpoints = endpointsJSONReducer(this.endpoints, {
+      type,
+      path,
+      value
+    });
+  }
+  newState = newState.map((container, index) => {
+    if (this.endpoints && this.endpoints[index]) {
+      container.endpoints = mapEndpoints(
+        this.endpoints[index],
+        this.networkType,
+        this.appState
+      );
+      if (container.endpoints.length === 0) {
+        delete container.endpoints;
+      }
+    }
+
+    return container;
+  });
+
+  if (field === "healthCheck") {
+    if (this.healthCheckState[index] == null) {
+      this.healthCheckState[index] = {};
+    }
+
+    newState[index].healthCheck = multiContainerHealthCheckReducer.call(
+      this.healthCheckState[index],
+      newState[index].healthCheck,
+      { type, path: path.slice(3), value }
+    );
+  }
+
+  if (field === "artifacts") {
+    // Create a local cache of artifacts so we can filter the display values
+    if (this.artifactState == null) {
+      this.artifactState = [];
+    }
+
+    // Filter empty values and assign to state
+    multiContainerArtifactsJSONReducer
+      .call(this.artifactState, null, { type, path, value })
+      .forEach((item, index) => {
+        newState[index].artifacts = item.filter(({ uri }) => !isEmpty(uri));
+      });
+  }
+
+  if (type === SET && joinedPath === `containers.${index}.name`) {
+    newState[index].name = value;
+  }
+
+  if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
+    newState[index].exec = Object.assign({}, newState[index].exec, {
+      command: { shell: value }
+    });
+  }
+
+  if (type === SET && field === "resources") {
+    // Parse numbers
+    newState[index].resources = containerFloatReducer.call(
+      this.cache[index],
+      newState[index].resources,
+      { type, value, path: [field, subField] }
+    );
+  }
+
+  if (type === SET && joinedPath === `containers.${index}.image`) {
+    newState[index].image = this.images[index] = Object.assign(
+      {},
+      newState[index].image,
+      value
+    );
+  }
+
+  if (type === SET && joinedPath === `containers.${index}.image.id`) {
+    newState[index].image = this.images[index] = Object.assign(
+      {},
+      this.images[index],
+      {
+        id: value,
+        kind: "DOCKER"
+      }
+    );
+    if (shouldDeleteContainerImage(newState[index].image)) {
+      delete newState[index].image;
+    }
+  }
+
+  if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
+    newState[index].image = this.images[index] = Object.assign(
+      {},
+      this.images[index],
+      {
+        forcePull: value
+      }
+    );
+    if (shouldDeleteContainerImage(newState[index].image)) {
+      delete newState[index].image;
+    }
+  }
+
+  return newState;
+}
+export const JSONParser = containersParser;

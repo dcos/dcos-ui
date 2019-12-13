@@ -6,6 +6,7 @@ const {
   REMOVE_ITEM,
   SET
 } = require("#SRC/js/constants/TransactionTypes");
+
 const MultiContainerArtifacts = require("../MultiContainerArtifacts");
 
 describe("MultiContainerArtifacts", () => {

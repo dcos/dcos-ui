@@ -2,7 +2,7 @@ import { simpleReducer } from "#SRC/js/utils/ReducerUtil";
 import { FormReducer as constraints } from "./FormReducers/Constraints";
 import { FormReducer as fetch } from "./FormReducers/Artifacts";
 
-module.exports = {
+export default {
   constraints,
   fetch,
   id: simpleReducer("id"),
