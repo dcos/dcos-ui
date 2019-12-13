@@ -229,106 +229,104 @@ const containerReducer = combineReducers({
   }
 });
 
-module.exports = {
-  JSONReducer(_, ...args) {
-    if (this.internalState == null) {
-      this.internalState = {};
+export function JSONReducer(_, ...args) {
+  if (this.internalState == null) {
+    this.internalState = {};
+  }
+
+  if (this.isMesosRuntime == null) {
+    this.isMesosRuntime = true;
+  }
+
+  const { type, path, value } = args[0];
+
+  if (type === SET && path.join(".") === "container.type") {
+    this.isMesosRuntime = value === MESOS;
+  }
+
+  let newState = Object.assign(
+    {},
+    containerJSONReducer.apply(this, [this.internalState, ...args])
+  );
+
+  this.internalState = newState;
+  if (type === SET && path.join(".") === "container" && value) {
+    newState = value;
+  }
+
+  if (ValidatorUtil.isEmpty(newState.docker)) {
+    delete newState.docker;
+  }
+
+  if (
+    ValidatorUtil.isEmpty(newState.docker) ||
+    (ValidatorUtil.isEmpty(newState.docker.image) && newState.type !== DOCKER)
+  ) {
+    delete newState.docker;
+  }
+
+  if (ValidatorUtil.isEmpty(newState.type)) {
+    newState.type = null;
+  }
+
+  if (ValidatorUtil.isEmpty(newState)) {
+    return null;
+  }
+
+  return newState;
+}
+
+export function FormReducer(_, ...args) {
+  if (this.internalState == null) {
+    this.internalState = {};
+  }
+
+  const newState = Object.assign(
+    {},
+    containerReducer.apply(this, [this.internalState, ...args])
+  );
+
+  this.internalState = newState;
+
+  if (ValidatorUtil.isEmpty(newState.docker)) {
+    delete newState.docker;
+  } else if (ValidatorUtil.isEmpty(newState.type)) {
+    delete newState.docker;
+  } else if (this.isMesosRuntime && !ValidatorUtil.isEmpty(newState.docker)) {
+    delete newState.docker;
+  }
+
+  if (ValidatorUtil.isEmpty(newState.volumes)) {
+    delete newState.volumes;
+  }
+
+  if (ValidatorUtil.isEmpty(newState.type)) {
+    delete newState.type;
+  }
+
+  if (ValidatorUtil.isEmpty(newState)) {
+    return null;
+  }
+
+  return newState;
+}
+
+export const JSONParser = combineParsers([
+  state => new Transaction(["container"], state.container),
+  state => {
+    let value = findNestedPropertyInObject(state, "container.type");
+
+    if (value == null) {
+      value = MESOS;
     }
 
-    if (this.isMesosRuntime == null) {
-      this.isMesosRuntime = true;
-    }
-
-    const { type, path, value } = args[0];
-
-    if (type === SET && path.join(".") === "container.type") {
-      this.isMesosRuntime = value === MESOS;
-    }
-
-    let newState = Object.assign(
-      {},
-      containerJSONReducer.apply(this, [this.internalState, ...args])
-    );
-
-    this.internalState = newState;
-    if (type === SET && path.join(".") === "container" && value) {
-      newState = value;
-    }
-
-    if (ValidatorUtil.isEmpty(newState.docker)) {
-      delete newState.docker;
-    }
-
-    if (
-      ValidatorUtil.isEmpty(newState.docker) ||
-      (ValidatorUtil.isEmpty(newState.docker.image) && newState.type !== DOCKER)
-    ) {
-      delete newState.docker;
-    }
-
-    if (ValidatorUtil.isEmpty(newState.type)) {
-      newState.type = null;
-    }
-
-    if (ValidatorUtil.isEmpty(newState)) {
-      return null;
-    }
-
-    return newState;
+    return new Transaction(["container", "type"], value);
   },
-
-  FormReducer(_, ...args) {
-    if (this.internalState == null) {
-      this.internalState = {};
-    }
-
-    const newState = Object.assign(
-      {},
-      containerReducer.apply(this, [this.internalState, ...args])
-    );
-
-    this.internalState = newState;
-
-    if (ValidatorUtil.isEmpty(newState.docker)) {
-      delete newState.docker;
-    } else if (ValidatorUtil.isEmpty(newState.type)) {
-      delete newState.docker;
-    } else if (this.isMesosRuntime && !ValidatorUtil.isEmpty(newState.docker)) {
-      delete newState.docker;
-    }
-
-    if (ValidatorUtil.isEmpty(newState.volumes)) {
-      delete newState.volumes;
-    }
-
-    if (ValidatorUtil.isEmpty(newState.type)) {
-      delete newState.type;
-    }
-
-    if (ValidatorUtil.isEmpty(newState)) {
-      return null;
-    }
-
-    return newState;
-  },
-
-  JSONParser: combineParsers([
-    state => new Transaction(["container"], state.container),
-    state => {
-      let value = findNestedPropertyInObject(state, "container.type");
-
-      if (value == null) {
-        value = MESOS;
-      }
-
-      return new Transaction(["container", "type"], value);
-    },
-    simpleParser(["container", DOCKER.toLowerCase()]),
-    simpleParser(["container", DOCKER.toLowerCase(), "image"]),
-    simpleParser(["container", MESOS.toLowerCase(), "image"]),
-    simpleParser(["container", DOCKER.toLowerCase(), "forcePullImage"]),
-    simpleParser(["container", MESOS.toLowerCase(), "forcePullImage"]),
-    simpleParser(["container", DOCKER.toLowerCase(), "privileged"]),
-    simpleParser(["container", MESOS.toLowerCase(), "privileged"])
-  ])
-};
+  simpleParser(["container", DOCKER.toLowerCase()]),
+  simpleParser(["container", DOCKER.toLowerCase(), "image"]),
+  simpleParser(["container", MESOS.toLowerCase(), "image"]),
+  simpleParser(["container", DOCKER.toLowerCase(), "forcePullImage"]),
+  simpleParser(["container", MESOS.toLowerCase(), "forcePullImage"]),
+  simpleParser(["container", DOCKER.toLowerCase(), "privileged"]),
+  simpleParser(["container", MESOS.toLowerCase(), "privileged"])
+]);

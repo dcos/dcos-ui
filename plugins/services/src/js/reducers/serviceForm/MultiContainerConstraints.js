@@ -1,31 +1,29 @@
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
-import { FormReducer, JSONParser, JSONReducer } from "./common/Constraints";
+import * as C from "./common/Constraints";
 
-module.exports = {
-  FormReducer,
-  JSONReducer(state, transaction) {
-    const constraints = JSONReducer.bind(this)(state, transaction);
+export const FormReducer = C.FormReducer;
+export function JSONReducer(state, transaction) {
+  const constraints = C.JSONReducer.bind(this)(state, transaction);
 
-    return constraints.map(({ fieldName, operator, value }) => {
-      if (!isEmpty(value)) {
-        return { fieldName, operator, value };
-      }
-
-      return { fieldName, operator };
-    });
-  },
-
-  JSONParser(state) {
-    const constraints = findNestedPropertyInObject(
-      state,
-      "scheduling.placement.constraints"
-    );
-
-    if (constraints == null) {
-      return [];
+  return constraints.map(({ fieldName, operator, value }) => {
+    if (!isEmpty(value)) {
+      return { fieldName, operator, value };
     }
 
-    return JSONParser(constraints);
+    return { fieldName, operator };
+  });
+}
+
+export function JSONParser(state) {
+  const constraints = findNestedPropertyInObject(
+    state,
+    "scheduling.placement.constraints"
+  );
+
+  if (constraints == null) {
+    return [];
   }
-};
+
+  return C.JSONParser(constraints);
+}

@@ -41,93 +41,89 @@ function processTransaction(state, { type, path, value }) {
   return newState;
 }
 
-module.exports = {
-  JSONParser(constraints) {
-    if (!Array.isArray(constraints)) {
-      return [new Transaction(["constraints"], "not-list", ERROR)];
-    }
+export function JSONParser(constraints) {
+  if (!Array.isArray(constraints)) {
+    return [new Transaction(["constraints"], "not-list", ERROR)];
+  }
 
-    return constraints.reduce((memo, item, index) => {
-      if (Array.isArray(item)) {
-        memo.push(
-          new Transaction(
-            ["constraints", index, "value"],
-            "value-not-converted-to-object",
-            ERROR
-          )
-        );
-
-        return memo;
-      }
-
-      if (typeof item != "object") {
-        memo.push(
-          new Transaction(
-            ["constraints", index, "value"],
-            "value-not-object",
-            ERROR
-          )
-        );
-
-        return memo;
-      }
-
-      if (item instanceof Error) {
-        memo.push(
-          new Transaction(["constraints", index, "value"], item.message, ERROR)
-        );
-
-        return memo;
-      }
-
-      const { fieldName, operator, value } = item;
-      memo.push(new Transaction(["constraints"], null, ADD_ITEM));
+  return constraints.reduce((memo, item, index) => {
+    if (Array.isArray(item)) {
       memo.push(
-        new Transaction(["constraints", index, "fieldName"], fieldName, SET)
+        new Transaction(
+          ["constraints", index, "value"],
+          "value-not-converted-to-object",
+          ERROR
+        )
       );
-      memo.push(
-        new Transaction(["constraints", index, "operator"], operator, SET)
-      );
-
-      // Skip if value is not set
-      if (value != null) {
-        memo.push(new Transaction(["constraints", index, "value"], value, SET));
-      }
 
       return memo;
-    }, []);
-  },
-
-  JSONReducer(state, { type, path, value }) {
-    if (path == null) {
-      return state;
-    }
-    if (this.constraints == null) {
-      this.constraints = [];
     }
 
-    this.constraints = processTransaction(this.constraints, {
-      type,
-      path,
-      value
-    });
+    if (typeof item != "object") {
+      memo.push(
+        new Transaction(
+          ["constraints", index, "value"],
+          "value-not-object",
+          ERROR
+        )
+      );
 
-    return this.constraints
-      .filter(
-        (item = {}) => !isEmpty(item.fieldName) && !isEmpty(item.operator)
-      )
-      .map(({ fieldName, operator, value }) => ({
-        fieldName,
-        value,
-        operator: operator.toUpperCase()
-      }));
-  },
-
-  FormReducer(state = [], { type, path, value }) {
-    if (path == null || !Array.isArray(state)) {
-      return state;
+      return memo;
     }
 
-    return processTransaction(state, { type, path, value });
+    if (item instanceof Error) {
+      memo.push(
+        new Transaction(["constraints", index, "value"], item.message, ERROR)
+      );
+
+      return memo;
+    }
+
+    const { fieldName, operator, value } = item;
+    memo.push(new Transaction(["constraints"], null, ADD_ITEM));
+    memo.push(
+      new Transaction(["constraints", index, "fieldName"], fieldName, SET)
+    );
+    memo.push(
+      new Transaction(["constraints", index, "operator"], operator, SET)
+    );
+
+    // Skip if value is not set
+    if (value != null) {
+      memo.push(new Transaction(["constraints", index, "value"], value, SET));
+    }
+
+    return memo;
+  }, []);
+}
+
+export function JSONReducer(state, { type, path, value }) {
+  if (path == null) {
+    return state;
   }
-};
+  if (this.constraints == null) {
+    this.constraints = [];
+  }
+
+  this.constraints = processTransaction(this.constraints, {
+    type,
+    path,
+    value
+  });
+
+  return this.constraints
+    .filter((item = {}) => !isEmpty(item.fieldName) && !isEmpty(item.operator))
+    .map(({ fieldName, operator, value }) => ({
+      fieldName,
+      value,
+      operator: operator.toUpperCase()
+    }));
+}
+
+export function FormReducer(state = [], { type, path, value }) {
+  if (path == null || !Array.isArray(state)) {
+    return state;
+  }
+
+  return processTransaction(state, { type, path, value });
+}

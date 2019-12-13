@@ -19,60 +19,58 @@ const defaultEndpointsFieldValues = {
   vipLabel: null
 };
 
-module.exports = {
-  JSONReducer(state = [], { type, path = [], value }) {
-    const newState = [].concat(state);
+export function JSONReducer(state = [], { type, path = [], value }) {
+  const newState = [].concat(state);
 
-    const [_, index, field, secondIndex, name, subField] = path;
+  const [_, index, field, secondIndex, name, subField] = path;
 
-    if (field !== "endpoints") {
-      return state;
-    }
-
-    if (newState[index] == null) {
-      newState[index] = [];
-    }
-
-    switch (type) {
-      case ADD_ITEM:
-        let newEndpoint = value;
-
-        if (value == null) {
-          newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
-        }
-
-        newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
-        newState[index].push(newEndpoint);
-        break;
-      case REMOVE_ITEM:
-        newState[index] = newState[index].filter(
-          (item, index) => index !== value
-        );
-        break;
-    }
-
-    const fieldNames = [
-      "name",
-      "networkNames",
-      "automaticPort",
-      "loadBalanced",
-      "labels",
-      "vip",
-      "vipPort",
-      "vipLabel"
-    ];
-    const numericalFiledNames = ["containerPort", "hostPort"];
-
-    if (type === SET && name === "protocol") {
-      newState[index][secondIndex].protocol[subField] = value;
-    }
-    if (type === SET && fieldNames.includes(name)) {
-      newState[index][secondIndex][name] = value;
-    }
-    if (type === SET && numericalFiledNames.includes(name)) {
-      newState[index][secondIndex][name] = parseIntValue(value);
-    }
-
-    return newState;
+  if (field !== "endpoints") {
+    return state;
   }
-};
+
+  if (newState[index] == null) {
+    newState[index] = [];
+  }
+
+  switch (type) {
+    case ADD_ITEM:
+      let newEndpoint = value;
+
+      if (value == null) {
+        newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
+      }
+
+      newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
+      newState[index].push(newEndpoint);
+      break;
+    case REMOVE_ITEM:
+      newState[index] = newState[index].filter(
+        (item, index) => index !== value
+      );
+      break;
+  }
+
+  const fieldNames = [
+    "name",
+    "networkNames",
+    "automaticPort",
+    "loadBalanced",
+    "labels",
+    "vip",
+    "vipPort",
+    "vipLabel"
+  ];
+  const numericalFiledNames = ["containerPort", "hostPort"];
+
+  if (type === SET && name === "protocol") {
+    newState[index][secondIndex].protocol[subField] = value;
+  }
+  if (type === SET && fieldNames.includes(name)) {
+    newState[index][secondIndex][name] = value;
+  }
+  if (type === SET && numericalFiledNames.includes(name)) {
+    newState[index][secondIndex][name] = parseIntValue(value);
+  }
+
+  return newState;
+}

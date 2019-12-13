@@ -1,88 +1,84 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
-  JSONReducer(state, { type, path, value }) {
-    if (path == null) {
-      return state;
-    }
+export function JSONReducer(state, { type, path, value }) {
+  if (path == null) {
+    return state;
+  }
 
-    if (this.env == null) {
-      // `this` is a context which is given to every reducer so it could
-      // cache information.
-      // In this case we are caching an array structure and although the
-      // output structure is a object. But this enables us to not overwrite
-      // values if there are two values with the same key temporarily.
-      this.env = [];
-    }
+  if (this.env == null) {
+    // `this` is a context which is given to every reducer so it could
+    // cache information.
+    // In this case we are caching an array structure and although the
+    // output structure is a object. But this enables us to not overwrite
+    // values if there are two values with the same key temporarily.
+    this.env = [];
+  }
 
-    const joinedPath = path.join(".");
+  const joinedPath = path.join(".");
 
-    if (joinedPath.search("env") !== -1) {
-      if (joinedPath === "env") {
-        switch (type) {
-          case ADD_ITEM:
-            this.env.push({ key: null, value: "" });
-            break;
-          case REMOVE_ITEM:
-            this.env = this.env.filter((item, index) => index !== value);
-            break;
-        }
-
-        return this.env.reduce((memo, item) => {
-          if (item.key != null) {
-            memo[item.key] = item.value;
-          }
-
-          return memo;
-        }, {});
+  if (joinedPath.search("env") !== -1) {
+    if (joinedPath === "env") {
+      switch (type) {
+        case ADD_ITEM:
+          this.env.push({ key: null, value: "" });
+          break;
+        case REMOVE_ITEM:
+          this.env = this.env.filter((item, index) => index !== value);
+          break;
       }
 
-      const index = joinedPath.match(/\d+/)[0];
-      if (type === SET && `env.${index}.key` === joinedPath) {
-        this.env[index].key = value;
-      }
-      if (type === SET && `env.${index}.value` === joinedPath) {
-        this.env[index].value = value;
-      }
-    }
-
-    return this.env.reduce((memo, item) => {
-      if (item.key != null) {
-        memo[item.key] = item.value;
-      }
-
-      return memo;
-    }, {});
-  },
-
-  JSONParser(state) {
-    if (state.env == null) {
-      return [];
-    }
-
-    return Object.keys(state.env)
-      .filter(
-        key => state.env[key] == null || typeof state.env[key] === "string"
-      )
-      .reduce((memo, key, index) => {
-        /**
-         * For the environment variables which are a key => value based object
-         * we want to create a new item and fill it with the key and the
-         * value. So we need 3 transactions for each key value pair.
-         * 1) Add a new Item to the path with the index equal to index.
-         * 2) Set the key on the path `env.${index}.key`
-         * 3) Set the value on the path `env.${index}.value`
-         */
-        memo.push(new Transaction(["env"], index, ADD_ITEM));
-        memo.push(new Transaction(["env", index, "key"], key, SET));
-        if (typeof state.env[key] === "string") {
-          memo.push(
-            new Transaction(["env", index, "value"], state.env[key], SET)
-          );
+      return this.env.reduce((memo, item) => {
+        if (item.key != null) {
+          memo[item.key] = item.value;
         }
 
         return memo;
-      }, []);
+      }, {});
+    }
+
+    const index = joinedPath.match(/\d+/)[0];
+    if (type === SET && `env.${index}.key` === joinedPath) {
+      this.env[index].key = value;
+    }
+    if (type === SET && `env.${index}.value` === joinedPath) {
+      this.env[index].value = value;
+    }
   }
-};
+
+  return this.env.reduce((memo, item) => {
+    if (item.key != null) {
+      memo[item.key] = item.value;
+    }
+
+    return memo;
+  }, {});
+}
+
+export function JSONParser(state) {
+  if (state.env == null) {
+    return [];
+  }
+
+  return Object.keys(state.env)
+    .filter(key => state.env[key] == null || typeof state.env[key] === "string")
+    .reduce((memo, key, index) => {
+      /**
+       * For the environment variables which are a key => value based object
+       * we want to create a new item and fill it with the key and the
+       * value. So we need 3 transactions for each key value pair.
+       * 1) Add a new Item to the path with the index equal to index.
+       * 2) Set the key on the path `env.${index}.key`
+       * 3) Set the value on the path `env.${index}.value`
+       */
+      memo.push(new Transaction(["env"], index, ADD_ITEM));
+      memo.push(new Transaction(["env", index, "key"], key, SET));
+      if (typeof state.env[key] === "string") {
+        memo.push(
+          new Transaction(["env", index, "value"], state.env[key], SET)
+        );
+      }
+
+      return memo;
+    }, []);
+}

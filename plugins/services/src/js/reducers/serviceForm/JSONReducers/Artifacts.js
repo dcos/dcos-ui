@@ -30,33 +30,31 @@ function processTransaction(state, { type, path, value }) {
   return newState;
 }
 
-module.exports = {
-  JSONParser(state) {
-    if (state.fetch == null) {
-      return [];
-    }
-
-    return state.fetch.reduce((memo, item, index) => {
-      memo.push(new Transaction(["fetch"], item, ADD_ITEM));
-      Object.keys(item).forEach(key => {
-        memo.push(new Transaction(["fetch", index, key], item[key], SET));
-      });
-
-      return memo;
-    }, []);
-  },
-
-  JSONReducer(state, { type, path, value }) {
-    if (path == null) {
-      return state;
-    }
-
-    if (this.fetch == null) {
-      this.fetch = [];
-    }
-
-    this.fetch = processTransaction(this.fetch, { type, path, value });
-
-    return getJson(this.fetch);
+export function JSONParser(state) {
+  if (state.fetch == null) {
+    return [];
   }
-};
+
+  return state.fetch.reduce((memo, item, index) => {
+    memo.push(new Transaction(["fetch"], item, ADD_ITEM));
+    Object.keys(item).forEach(key => {
+      memo.push(new Transaction(["fetch", index, key], item[key], SET));
+    });
+
+    return memo;
+  }, []);
+}
+
+export function JSONReducer(state, { type, path, value }) {
+  if (path == null) {
+    return state;
+  }
+
+  if (this.fetch == null) {
+    this.fetch = [];
+  }
+
+  this.fetch = processTransaction(this.fetch, { type, path, value });
+
+  return getJson(this.fetch);
+}

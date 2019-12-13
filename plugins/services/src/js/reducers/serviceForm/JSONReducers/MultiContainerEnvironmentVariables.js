@@ -1,40 +1,34 @@
 import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
-module.exports = {
-  JSONParser(state) {
-    if (state.environment == null) {
-      return [];
-    }
-
-    return Object.keys(state.environment)
-      .filter(
-        key =>
-          state.environment[key] == null ||
-          typeof state.environment[key] === "string"
-      )
-      .reduce((memo, key, index) => {
-        /**
-         * For the environment variables which are a key => value based object
-         * we want to create a new item and fill it with the key and the
-         * value. So we need 3 transactions for each key value pair.
-         * 1) Add a new Item to the path with the index equal to index.
-         * 2) Set the key on the path `env.${index}.key`
-         * 3) Set the value on the path `env.${index}.value`
-         */
-        memo.push(new Transaction(["env"], index, ADD_ITEM));
-        memo.push(new Transaction(["env", index, "key"], key, SET));
-        if (typeof state.environment[key] === "string") {
-          memo.push(
-            new Transaction(
-              ["env", index, "value"],
-              state.environment[key],
-              SET
-            )
-          );
-        }
-
-        return memo;
-      }, []);
+export function JSONParser(state) {
+  if (state.environment == null) {
+    return [];
   }
-};
+
+  return Object.keys(state.environment)
+    .filter(
+      key =>
+        state.environment[key] == null ||
+        typeof state.environment[key] === "string"
+    )
+    .reduce((memo, key, index) => {
+      /**
+       * For the environment variables which are a key => value based object
+       * we want to create a new item and fill it with the key and the
+       * value. So we need 3 transactions for each key value pair.
+       * 1) Add a new Item to the path with the index equal to index.
+       * 2) Set the key on the path `env.${index}.key`
+       * 3) Set the value on the path `env.${index}.value`
+       */
+      memo.push(new Transaction(["env"], index, ADD_ITEM));
+      memo.push(new Transaction(["env", index, "key"], key, SET));
+      if (typeof state.environment[key] === "string") {
+        memo.push(
+          new Transaction(["env", index, "value"], state.environment[key], SET)
+        );
+      }
+
+      return memo;
+    }, []);
+}
