@@ -4,7 +4,7 @@ import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { simpleParser, combineParsers } from "#SRC/js/utils/ParserUtil";
 import Networking from "#SRC/js/constants/Networking";
 import Transaction from "#SRC/js/structs/Transaction";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import { JSONReducer as volumes } from "./JSONReducers/Volumes";
 import { PROTOCOLS } from "../../constants/PortDefinitionConstants";

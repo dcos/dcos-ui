@@ -1,7 +1,7 @@
 import DSLFilterTypes from "../../constants/DSLFilterTypes";
 import DSLExpressionPart from "../../structs/DSLExpressionPart";
+import * as DSLFormUtil from "../DSLFormUtil";
 
-const DSLFormUtil = require("../DSLFormUtil");
 const FilterNode = require("../../structs/DSLASTNodes").FilterNode;
 
 describe("DSLFormUtil", () => {

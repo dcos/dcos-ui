@@ -8,7 +8,7 @@ import {
   purple
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => (
   <span className="resource-switch-trigger" onClick={onTrigger}>

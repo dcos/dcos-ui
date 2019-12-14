@@ -1,7 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 import Transaction from "#SRC/js/structs/Transaction";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import {
   COMMAND,

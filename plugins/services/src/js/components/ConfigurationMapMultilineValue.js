@@ -2,7 +2,7 @@ import PropTypes from "prop-types";
 import React from "react";
 
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 const ConfigurationMapMultilineValue = props => {

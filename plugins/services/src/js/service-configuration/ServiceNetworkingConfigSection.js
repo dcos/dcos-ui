@@ -6,7 +6,7 @@ import { i18nMark } from "@lingui/react";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import Networking from "#SRC/js/constants/Networking";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import {
   getColumnClassNameFn,

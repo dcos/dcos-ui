@@ -11,7 +11,7 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Loader from "#SRC/js/components/Loader";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
-import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import Units from "#SRC/js/utils/Units";
 
 import TaskIpAddressesRow from "./TaskIpAddressesRow";

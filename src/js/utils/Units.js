@@ -103,4 +103,4 @@ const Units = {
   }
 };
 
-module.exports = Units;
+export default Units;

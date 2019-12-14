@@ -1,6 +1,6 @@
 import { Route, Redirect } from "react-router";
 
-const RouterUtil = require("../RouterUtil");
+import RouterUtil from "../RouterUtil";
 
 let thisComponent;
 

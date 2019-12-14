@@ -11,10 +11,10 @@ import ActionsPubSub from "./middleware/ActionsPubSub";
 import AppReducer from "./AppReducer";
 import AppHooks from "./AppHooks";
 import Config from "../config/Config";
-import Hooks from "./Hooks";
+import HooksMod from "./Hooks";
 import Loader from "./Loader";
 
-const hooks = new Hooks();
+const hooks = new HooksMod();
 const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
@@ -314,4 +314,5 @@ if (global.__DEV__) {
 // Add manual load method
 ApplicationSDK.initialize = initialize;
 
-module.exports = ApplicationSDK;
+export default ApplicationSDK;
+export const Hooks = ApplicationSDK.Hooks;

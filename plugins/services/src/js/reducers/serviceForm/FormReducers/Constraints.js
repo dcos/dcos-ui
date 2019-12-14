@@ -1,6 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
-import { requiresEmptyValue } from "../../../utils/PlacementConstraintsUtil";
+import PlacementConstraintsUtil from "../../../utils/PlacementConstraintsUtil";
 
+const { requiresEmptyValue } = PlacementConstraintsUtil;
 const CONSTRAINT_FIELDS = ["fieldName", "operator", "value"];
 
 function processTransaction(state, { type, path, value }) {

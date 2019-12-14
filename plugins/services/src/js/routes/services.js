@@ -253,4 +253,4 @@ const serviceRoutes = [
   }
 ];
 
-module.exports = serviceRoutes;
+export default serviceRoutes;

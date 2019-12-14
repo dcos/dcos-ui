@@ -6,8 +6,9 @@ import {
 } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
+import PlacementConstraintsUtil from "../../../utils/PlacementConstraintsUtil";
 
-import { requiresEmptyValue } from "../../../utils/PlacementConstraintsUtil";
+const { requiresEmptyValue } = PlacementConstraintsUtil;
 
 const CONSTRAINT_FIELDS = ["fieldName", "operator", "value"];
 

@@ -1,6 +1,6 @@
 const isEqual = require("deep-equal");
 
-const PluginSDK = require("PluginSDK");
+const PluginSDK = require("PluginSDK").default;
 const PluginTestUtils = require("PluginTestUtils");
 
 const Hooks = PluginSDK.Hooks;

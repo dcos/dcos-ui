@@ -5,7 +5,7 @@ import React from "react";
 import { Table } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 
-import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 import Volume from "../structs/Volume";
 import VolumeStatus from "../constants/VolumeStatus";
 import VolumeDefinitions from "../constants/VolumeDefinitions";
@@ -133,7 +133,9 @@ class PodVolumeTable extends React.Component {
     const { nodeID, taskID } = this.props.params;
     const volumeID = encodeURIComponent(id);
     const serviceID = encodeURIComponent(this.props.params.id);
-    const currentroutePath = reconstructPathFromRoutes(this.props.routes);
+    const currentroutePath = RouterUtil.reconstructPathFromRoutes(
+      this.props.routes
+    );
     let routePath = null;
 
     if (currentroutePath === "/services/detail/:id/podvolumes") {

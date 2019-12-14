@@ -1,4 +1,4 @@
-const ParserUtil = require("../ParserUtil");
+import * as ParserUtil from "../ParserUtil";
 
 const SET = "SET";
 

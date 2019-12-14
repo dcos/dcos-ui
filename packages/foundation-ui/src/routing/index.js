@@ -1,7 +1,7 @@
 import RoutingService from "./RoutingService";
 import EventTypes from "./EventTypes";
 
-module.exports = {
+export default {
   EventTypes,
   RoutingService: new RoutingService()
 };

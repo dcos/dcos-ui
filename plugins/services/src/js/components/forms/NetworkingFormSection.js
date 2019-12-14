@@ -22,7 +22,7 @@ import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import SingleContainerPortDefinitions from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
 import SingleContainerPortMappings from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";

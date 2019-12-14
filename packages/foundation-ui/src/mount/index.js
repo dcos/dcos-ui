@@ -1,5 +1,3 @@
 import MountService from "./MountService";
 
-module.exports = {
-  MountService: new MountService()
-};
+export default new MountService();

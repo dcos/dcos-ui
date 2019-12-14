@@ -1,13 +1,8 @@
 import Mount from "./src/mount/Mount";
-import navigation from "./src/navigation";
-import routing from "./src/routing";
-import { MountService } from "./src/mount";
+import MS from "./src/mount";
+import n from "./src/navigation";
+import r from "./src/routing";
 
-module.exports = {
-  MountService: {
-    Mount,
-    MountService
-  },
-  navigation,
-  routing
-};
+export const MountService = { Mount, MountService: MS };
+export const navigation = n;
+export const routing = r;

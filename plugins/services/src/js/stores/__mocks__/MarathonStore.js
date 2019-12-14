@@ -1,4 +1,4 @@
-var MarathonStore = jest.genMockFromModule("../MarathonStore");
+const MarathonStore = jest.genMockFromModule("../MarathonStore").default;
 
 var _data = {};
 
@@ -25,4 +25,4 @@ function get(key) {
 MarathonStore.__setKeyResponse = __setKeyResponse;
 MarathonStore.get = get;
 
-module.exports = MarathonStore;
+export default MarathonStore;

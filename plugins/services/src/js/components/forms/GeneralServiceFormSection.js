@@ -7,7 +7,7 @@ import { Badge } from "@dcos/ui-kit";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
-import { pluralize } from "#SRC/js/utils/StringUtil";
+import StringUtil from "#SRC/js/utils/StringUtil";
 import AddButton from "#SRC/js/components/form/AddButton";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
 import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
@@ -333,7 +333,7 @@ class GeneralServiceFormSection extends Component {
 
   render() {
     const { data, errors, i18n } = this.props;
-    const title = pluralize(
+    const title = StringUtil.pluralize(
       "Service",
       findNestedPropertyInObject(data, "containers.length") || 1
     );

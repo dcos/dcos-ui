@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   /**
    * Return the element's text contents, convert new lines to spaces and then
    * trim duplicate whitespaces.

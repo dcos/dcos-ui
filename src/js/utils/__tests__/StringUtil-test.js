@@ -1,4 +1,4 @@
-const StringUtil = require("../StringUtil");
+const StringUtil = require("../StringUtil").default;
 
 describe("StringUtil", () => {
   describe("#arrayToJoinedString", () => {
