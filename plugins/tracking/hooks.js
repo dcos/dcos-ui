@@ -3,7 +3,7 @@ import React from "react";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";
 import DOMUtils from "#SRC/js/utils/DOMUtils";
-import EventTypes from "#SRC/js/constants/EventTypes";
+import * as EventTypes from "#SRC/js/constants/EventTypes";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Util from "#SRC/js/utils/Util";
 

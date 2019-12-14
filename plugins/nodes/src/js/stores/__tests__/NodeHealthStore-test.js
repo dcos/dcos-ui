@@ -1,12 +1,12 @@
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import NodesList from "#SRC/js/structs/NodesList";
+import * as EventTypes from "#SRC/js/constants/EventTypes";
 import NodeHealthStore from "../NodeHealthStore";
 
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("#SRC/js/constants/ActionTypes");
 const Config = require("#SRC/js/config/Config").default;
-const EventTypes = require("#SRC/js/constants/EventTypes");
 const nodesFixture = require("../../../../../../tests/_fixtures/unit-health/nodes.json");
 
 let thisRequestFn, thisNodesFixture;

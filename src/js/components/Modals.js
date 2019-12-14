@@ -9,7 +9,7 @@ import { MountService } from "foundation-ui";
 import CliInstallModal from "./modals/CliInstallModal";
 import Config from "../config/Config";
 import ErrorModal from "./modals/ErrorModal";
-import EventTypes from "../constants/EventTypes";
+import * as EventTypes from "../constants/EventTypes";
 import SidebarStore from "../stores/SidebarStore";
 import LanguageModalStore from "../stores/LanguageModalStore";
 import VersionsModal from "./modals/VersionsModal";

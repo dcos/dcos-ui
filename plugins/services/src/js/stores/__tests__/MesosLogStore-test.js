@@ -3,11 +3,11 @@ import * as SystemLogTypes from "#SRC/js/constants/SystemLogTypes";
 import LogBuffer from "../../structs/LogBuffer";
 import MesosLogActions from "../../events/MesosLogActions";
 import MesosLogStore from "../MesosLogStore";
+import * as EventTypes from "../../constants/EventTypes";
 
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const EventTypes = require("../../constants/EventTypes");
 
 const PREPEND = SystemLogTypes.PREPEND;
 

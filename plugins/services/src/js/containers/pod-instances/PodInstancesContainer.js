@@ -4,7 +4,7 @@ import React from "react";
 
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
-import EventTypes from "#SRC/js/constants/EventTypes";
+import * as EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 

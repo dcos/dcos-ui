@@ -1,11 +1,11 @@
 import AppDispatcher from "../../events/AppDispatcher";
 import AuthStore from "../AuthStore";
+import * as EventTypes from "../../constants/EventTypes";
 
 const cookie = require("cookie");
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 
 const ActionTypes = require("../../constants/ActionTypes");
-const EventTypes = require("../../constants/EventTypes");
 
 const USER_COOKIE_KEY = "dcos-acs-info-cookie";
 

@@ -8,7 +8,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import Config from "../config/Config";
 import ConfigStore from "../stores/ConfigStore";
-import EventTypes from "../constants/EventTypes";
+import * as EventTypes from "../constants/EventTypes";
 import MetadataStore from "../stores/MetadataStore";
 import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";

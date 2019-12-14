@@ -2,7 +2,8 @@ import DeploymentsList from "../../structs/DeploymentsList";
 import HealthTypes from "../../constants/HealthTypes";
 import MockAppMetadata from "./fixtures/MockAppMetadata";
 
-const EventTypes = require("../../constants/EventTypes");
+import * as EventTypes from "../../constants/EventTypes";
+
 const MarathonStore = require("../MarathonStore").default;
 const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
 

@@ -1,8 +1,8 @@
 import { APPLICATION } from "#SRC/js/constants/PluginConstants";
 
-const isEqual = require("deep-equal");
+import * as EventTypes from "../../constants/EventTypes";
 
-const EventTypes = require("../../constants/EventTypes");
+const isEqual = require("deep-equal");
 const PluginSDK = require("PluginSDK").default;
 const PluginTestUtils = require("PluginTestUtils");
 
