@@ -1,3 +1,1 @@
-module.exports = {
-  ROUTING_CHANGE: "ROUTING_CHANGE"
-};
+export const ROUTING_CHANGE = "ROUTING_CHANGE";

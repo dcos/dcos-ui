@@ -4,12 +4,12 @@ import DeploymentsList from "../../../../plugins/services/src/js/structs/Deploym
 import ServiceTree from "../../../../plugins/services/src/js/structs/ServiceTree";
 import SummaryList from "../../structs/SummaryList";
 import StateSummary from "../../structs/StateSummary";
+import * as EventTypes from "../../constants/EventTypes";
 
 jest.mock("../MesosSummaryStore");
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 
 const MesosSummaryStore = require("../MesosSummaryStore").default;
-const EventTypes = require("../../constants/EventTypes");
 const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore")
   .default;
 

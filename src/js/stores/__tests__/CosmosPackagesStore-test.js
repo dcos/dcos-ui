@@ -4,10 +4,10 @@ import UniversePackage from "../../structs/UniversePackage";
 import UniversePackageVersions from "../../structs/UniversePackageVersions";
 import UniverseInstalledPackagesList from "../../structs/UniverseInstalledPackagesList";
 import UniversePackagesList from "../../structs/UniversePackagesList";
+import * as EventTypes from "../../constants/EventTypes";
 
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const Config = require("#SRC/js/config/Config").default;
-const EventTypes = require("../../constants/EventTypes");
 const packageDescribeFixture = require("./fixtures/MockPackageDescribeResponse.json");
 const serviceDescribeFixture = require("./fixtures/MockServiceDescribeResponse.json");
 const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");

@@ -1,5 +1,5 @@
 import NavigationService from "./NavigationService";
-import EventTypes from "./EventTypes";
+import * as EventTypes from "./EventTypes";
 
 const service = new NavigationService();
 

@@ -1,7 +1,7 @@
 import ApplicationUtil from "../ApplicationUtil";
 import MesosSummaryStore from "../../stores/MesosSummaryStore";
 
-const EventTypes = require("../../constants/EventTypes");
+import * as EventTypes from "../../constants/EventTypes";
 
 describe("ApplicationUtil", () => {
   describe("#beginTemporaryPolling", () => {

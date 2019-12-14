@@ -1,14 +1,13 @@
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 import AuthStore from "#SRC/js/stores/AuthStore";
+import * as EventTypes from "#SRC/js/constants/EventTypes";
 
 import NodeHealthStore from "../../../nodes/src/js/stores/NodeHealthStore";
 import IntercomStore from "../IntercomStore";
+import { INTERCOM_CHANGE } from "../../constants/EventTypes";
 
 jest.mock("#SRC/js/stores/AuthStore");
-const EventTypes = require("#SRC/js/constants/EventTypes");
-
-const { INTERCOM_CHANGE } = require("../../constants/EventTypes");
 
 describe("IntercomStore", () => {
   it("adds attribute", () => {

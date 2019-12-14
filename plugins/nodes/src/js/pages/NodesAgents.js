@@ -14,7 +14,7 @@ import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import CompositeState from "#SRC/js/structs/CompositeState";
 import Config from "#SRC/js/config/Config";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
-import EventTypes from "#SRC/js/constants/EventTypes";
+import * as EventTypes from "#SRC/js/constants/EventTypes";
 import MesosSummaryStore from "#SRC/js/stores/MesosSummaryStore";
 import Page from "#SRC/js/components/Page";
 import SidebarActions from "#SRC/js/events/SidebarActions";

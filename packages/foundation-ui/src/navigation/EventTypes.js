@@ -1,3 +1,1 @@
-module.exports = {
-  NAVIGATION_CHANGE: "NAVIGATION_CHANGE"
-};
+export const NAVIGATION_CHANGE = "NAVIGATION_CHANGE";
