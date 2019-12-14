@@ -1,10 +1,7 @@
 import React from "react";
-
 import { shallow } from "enzyme";
-
 import Mount from "../Mount";
-
-const { MountService } = require("../index");
+import MountService from "../index";
 
 describe("Mount", () => {
   const FirstTestComponent = props => (

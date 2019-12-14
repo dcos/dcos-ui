@@ -1,3 +1,1 @@
-module.exports = {
-  CHANGE: Symbol("change")
-};
+export const CHANGE = Symbol("change");

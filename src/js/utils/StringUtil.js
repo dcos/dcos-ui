@@ -243,4 +243,4 @@ const StringUtil = {
   }
 };
 
-module.exports = StringUtil;
+export default StringUtil;

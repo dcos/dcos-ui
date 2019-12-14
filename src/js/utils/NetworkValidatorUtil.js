@@ -1,4 +1,4 @@
-import ValidatorUtil from "./ValidatorUtil";
+import * as ValidatorUtil from "./ValidatorUtil";
 
 const NetworkValidatorUtil = {
   isValidPort(value) {

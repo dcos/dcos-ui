@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import React from "react";
 
-import { MountService } from "./index";
+import MountService from "./index";
 import { CHANGE } from "./MountEvent";
 import ReactUtil from "../utils/ReactUtil";
 

@@ -8,7 +8,7 @@ import Pod from "../../../structs/Pod";
 
 import PodFixture from "../../../../../../../tests/_fixtures/pods/PodFixture";
 
-const Util = require("#SRC/js/utils/Util");
+const Util = require("#SRC/js/utils/Util").default;
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
 let thisStoreChangeListener, thisInstance;

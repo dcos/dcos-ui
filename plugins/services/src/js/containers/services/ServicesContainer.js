@@ -16,7 +16,7 @@ import gql from "graphql-tag";
 import { map } from "rxjs/operators";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
-import { reconstructPathFromRoutes } from "#SRC/js/utils/RouterUtil";
+import RouterUtil from "#SRC/js/utils/RouterUtil";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -723,7 +723,7 @@ class ServicesContainer extends React.Component {
         : DCOSStore.serviceTree.findItemById(itemId);
 
     // Show Tree
-    const currentRoutePath = reconstructPathFromRoutes(routes);
+    const currentRoutePath = RouterUtil.reconstructPathFromRoutes(routes);
     if (currentRoutePath.startsWith("/services/overview")) {
       // Not found
       if (!(item instanceof ServiceTree)) {

@@ -1,4 +1,4 @@
-const SystemLogUtil = require("../SystemLogUtil");
+import * as SystemLogUtil from "../SystemLogUtil";
 
 let thisFunc, thisAccumulatedThrottle;
 

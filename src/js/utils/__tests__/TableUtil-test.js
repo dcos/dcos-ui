@@ -1,7 +1,7 @@
 import TableUtil from "../TableUtil";
 import HealthSorting from "../../../../plugins/services/src/js/constants/HealthSorting";
 
-const Util = require("../Util");
+const Util = require("../Util").default;
 
 let thisFoo, thisBar, thisGetProp, thisSortFunction;
 

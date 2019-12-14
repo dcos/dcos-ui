@@ -1,7 +1,8 @@
 import { request } from "@dcos/mesos-client";
 import { Observable } from "rxjs";
 import { catchError, map } from "rxjs/operators";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+// @ts-ignore
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 import { QuotaData, quotaFields } from "../types/Quota";
 import { UpdateQuotaError } from "./errors/UpdateQuotaError";

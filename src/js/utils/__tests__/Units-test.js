@@ -1,4 +1,4 @@
-const Units = require("../Units");
+import Units from "../Units";
 
 let thisBaseSize;
 

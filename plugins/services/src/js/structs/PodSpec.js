@@ -1,4 +1,4 @@
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import ServiceSpec from "./ServiceSpec";
 
 export default class PodSpec extends ServiceSpec {

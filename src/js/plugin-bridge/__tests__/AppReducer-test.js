@@ -3,7 +3,7 @@ import { APPLICATION } from "#SRC/js/constants/PluginConstants";
 const isEqual = require("deep-equal");
 
 const EventTypes = require("../../constants/EventTypes");
-const PluginSDK = require("PluginSDK");
+const PluginSDK = require("PluginSDK").default;
 const PluginTestUtils = require("PluginTestUtils");
 
 // Get State specific to Application

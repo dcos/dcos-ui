@@ -10,7 +10,8 @@ jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
 
 const MesosSummaryStore = require("../MesosSummaryStore").default;
 const EventTypes = require("../../constants/EventTypes");
-const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore");
+const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore")
+  .default;
 
 describe("DCOSStore", () => {
   beforeEach(() => {

@@ -206,4 +206,4 @@ const RouterUtil = {
   }
 };
 
-module.exports = RouterUtil;
+export default RouterUtil;

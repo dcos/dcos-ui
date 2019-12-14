@@ -65,82 +65,78 @@ const getAvailableResources = (excludeList = []) => {
   return resources;
 };
 
-const ResourcesUtil = {
-  getDefaultResources() {
-    return Object.keys(DefaultResourceTypes);
-  },
+export function getDefaultResources() {
+  return Object.keys(DefaultResourceTypes);
+}
 
-  getAdditionalResources() {
-    const rest = getAvailableResources(this.getDefaultResources());
-    // We sort so we get the same color in future calls to this method
-    rest.sort();
+export function getAdditionalResources() {
+  const rest = getAvailableResources(this.getDefaultResources());
+  // We sort so we get the same color in future calls to this method
+  rest.sort();
 
-    return rest;
-  },
+  return rest;
+}
 
-  getResourceLabel(resource) {
-    if (DefaultResourceTypes[resource]) {
-      return DefaultResourceTypes[resource].label;
-    }
-
-    // If the resource name is 3 characters or less, let's uppercase it all
-    // otherwise we only capitalize the first letter.
-    if (resource.length <= 3) {
-      return resource.toUpperCase();
-    } else {
-      return StringUtil.capitalize(resource.toLowerCase());
-    }
-  },
-
-  getResourceLabels() {
-    const resources = getAvailableResources();
-
-    return resources.reduce((memo, resource) => {
-      memo[resource] = this.getResourceLabel(resource);
-
-      return memo;
-    }, {});
-  },
-
-  getResourceColor(resource, opts = {}) {
-    if (DefaultResourceTypes[resource]) {
-      return DefaultResourceTypes[resource].colorID;
-    }
-
-    if (!opts.availableColors) {
-      opts.availableColors = getAvailableColors();
-    }
-    if (!opts.resourceList) {
-      // We only want the ones for which there are no defaults, that way
-      // we're not skipping colors down below when we just grab an index
-      // of the available colors.
-      opts.resourceList = this.getAdditionalResources();
-    }
-
-    const index = opts.resourceList.indexOf(resource);
-
-    return opts.availableColors[index];
-  },
-
-  getResourceColors() {
-    // Map the default ones first
-    const map = this.getDefaultResources().reduce((memo, resource) => {
-      memo[resource] = this.getResourceColor(resource);
-
-      return memo;
-    }, {});
-
-    const rest = this.getAdditionalResources();
-
-    // Map the rest
-    return rest.reduce((memo, resource) => {
-      memo[resource] = this.getResourceColor(resource, {
-        resourceList: rest
-      });
-
-      return memo;
-    }, map);
+export function getResourceLabel(resource) {
+  if (DefaultResourceTypes[resource]) {
+    return DefaultResourceTypes[resource].label;
   }
-};
 
-module.exports = ResourcesUtil;
+  // If the resource name is 3 characters or less, let's uppercase it all
+  // otherwise we only capitalize the first letter.
+  if (resource.length <= 3) {
+    return resource.toUpperCase();
+  } else {
+    return StringUtil.capitalize(resource.toLowerCase());
+  }
+}
+
+export function getResourceLabels() {
+  const resources = getAvailableResources();
+
+  return resources.reduce((memo, resource) => {
+    memo[resource] = this.getResourceLabel(resource);
+
+    return memo;
+  }, {});
+}
+
+export function getResourceColor(resource, opts = {}) {
+  if (DefaultResourceTypes[resource]) {
+    return DefaultResourceTypes[resource].colorID;
+  }
+
+  if (!opts.availableColors) {
+    opts.availableColors = getAvailableColors();
+  }
+  if (!opts.resourceList) {
+    // We only want the ones for which there are no defaults, that way
+    // we're not skipping colors down below when we just grab an index
+    // of the available colors.
+    opts.resourceList = this.getAdditionalResources();
+  }
+
+  const index = opts.resourceList.indexOf(resource);
+
+  return opts.availableColors[index];
+}
+
+export function getResourceColors() {
+  // Map the default ones first
+  const map = this.getDefaultResources().reduce((memo, resource) => {
+    memo[resource] = this.getResourceColor(resource);
+
+    return memo;
+  }, {});
+
+  const rest = this.getAdditionalResources();
+
+  // Map the rest
+  return rest.reduce((memo, resource) => {
+    memo[resource] = this.getResourceColor(resource, {
+      resourceList: rest
+    });
+
+    return memo;
+  }, map);
+}

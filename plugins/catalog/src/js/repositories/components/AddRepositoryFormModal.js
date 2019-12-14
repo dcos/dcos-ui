@@ -7,7 +7,7 @@ import { Trans, t } from "@lingui/macro";
 
 import FormModal from "#SRC/js/components/FormModal";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 const METHODS_TO_BIND = ["handleAddRepository"];
 

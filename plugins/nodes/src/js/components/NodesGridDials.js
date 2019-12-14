@@ -10,7 +10,7 @@ import { greyDark } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/desi
 
 import Chart from "#SRC/js/components/charts/Chart";
 import DialChart from "#SRC/js/components/charts/DialChart";
-import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 var colors = {
   error: 2,

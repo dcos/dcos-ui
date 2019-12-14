@@ -1,42 +1,40 @@
 import { findNestedPropertyInObject } from "./Util";
 import Transaction from "../structs/Transaction";
 
-module.exports = {
-  combineParsers(parsers = []) {
-    parsers = parsers.filter(parser => typeof parser === "function").reverse();
+export function combineParsers(parsers = []) {
+  parsers = parsers.filter(parser => typeof parser === "function").reverse();
 
-    return (state = {}) => {
-      let index = parsers.length;
+  return (state = {}) => {
+    let index = parsers.length;
 
-      const transactionLog = [];
+    const transactionLog = [];
 
-      while (--index >= 0) {
-        const parser = parsers[index];
+    while (--index >= 0) {
+      const parser = parsers[index];
 
-        const transaction = parser(state);
+      const transaction = parser(state);
 
-        if (transaction instanceof Array) {
-          transactionLog.push(...transaction);
-        } else {
-          transactionLog.push(transaction);
-        }
+      if (transaction instanceof Array) {
+        transactionLog.push(...transaction);
+      } else {
+        transactionLog.push(transaction);
       }
+    }
 
-      return transactionLog;
-    };
-  },
+    return transactionLog;
+  };
+}
 
-  simpleParser(path) {
-    const searchPath = path.join(".");
+export function simpleParser(path) {
+  const searchPath = path.join(".");
 
-    return state => {
-      const value = findNestedPropertyInObject(state, searchPath);
+  return state => {
+    const value = findNestedPropertyInObject(state, searchPath);
 
-      if (value == null) {
-        return [];
-      }
+    if (value == null) {
+      return [];
+    }
 
-      return new Transaction(path, value);
-    };
-  }
-};
+    return new Transaction(path, value);
+  };
+}

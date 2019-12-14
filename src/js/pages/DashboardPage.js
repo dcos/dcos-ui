@@ -8,7 +8,7 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
+import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import Breadcrumb from "../components/Breadcrumb";

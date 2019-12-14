@@ -610,4 +610,4 @@ class MarathonStore extends GetSetBaseStore {
   }
 }
 
-module.exports = new MarathonStore();
+export default new MarathonStore();

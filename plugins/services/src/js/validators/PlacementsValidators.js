@@ -1,4 +1,4 @@
-import ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
+import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { ERROR } from "#SRC/js/constants/TransactionTypes";
 
