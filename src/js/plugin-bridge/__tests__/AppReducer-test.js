@@ -1,10 +1,11 @@
+import PluginTestUtils from "PluginTestUtils";
+
 import { APPLICATION } from "#SRC/js/constants/PluginConstants";
 
 import * as EventTypes from "../../constants/EventTypes";
 
 const isEqual = require("deep-equal");
 const PluginSDK = require("PluginSDK").default;
-const PluginTestUtils = require("PluginTestUtils");
 
 // Get State specific to Application
 function getApplicationState() {

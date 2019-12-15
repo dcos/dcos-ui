@@ -1,6 +1,6 @@
 import { shallow } from "enzyme";
 
-const PluginTestUtils = require("PluginTestUtils");
+import PluginTestUtils from "PluginTestUtils";
 
 const SDK = PluginTestUtils.getSDK("banner", { enabled: true });
 require("../SDK").default.setSDK(SDK);

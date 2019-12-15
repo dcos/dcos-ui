@@ -97,6 +97,7 @@
     "dot-notation": "off",
     "func-names": "off",
     "global-require": "off",
+    "import/first": "off",
     "import/no-duplicates": "off",
     "import/no-extraneous-dependencies": "off",
     "import/no-named-as-default": "off",

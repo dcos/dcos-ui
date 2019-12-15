@@ -137,4 +137,4 @@ const TestUtils = {
   loadPluginsByName
 };
 
-module.exports = TestUtils;
+export default TestUtils;
