@@ -128,7 +128,7 @@ describe("MesosStateStore", () => {
     });
 
     it("returns matching framework tasks including scheduler tasks", () => {
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
           labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
@@ -148,7 +148,7 @@ describe("MesosStateStore", () => {
     });
 
     it("returns matching application tasks", () => {
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Application({ id: "/alpha" })
       );
       expect(tasks).toEqual([
@@ -174,7 +174,7 @@ describe("MesosStateStore", () => {
     });
 
     it("empties task list if no service matches", () => {
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Application({ id: "/non-existent" })
       );
       expect(tasks).toEqual([]);
@@ -182,7 +182,7 @@ describe("MesosStateStore", () => {
 
     it("returns empty list for invalid state with applications", () => {
       MesosStateStore.get = () => null;
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Application({ id: "/alpha" })
       );
       expect(tasks).toEqual([]);
@@ -190,7 +190,7 @@ describe("MesosStateStore", () => {
 
     it("returns empty list for invalid state with frameworks", () => {
       MesosStateStore.get = () => null;
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
           labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
@@ -200,7 +200,7 @@ describe("MesosStateStore", () => {
     });
 
     it("flags SDK tasks", () => {
-      var tasks = MesosStateStore.getTasksByService(
+      const tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
           labels: {
@@ -255,12 +255,12 @@ describe("MesosStateStore", () => {
       });
 
       it("returns the node with the correct ID", () => {
-        var result = MesosStateStore.getNodeFromID("amazon-thing");
+        const result = MesosStateStore.getNodeFromID("amazon-thing");
         expect(result.fakeProp).toEqual("fake");
       });
 
       it("returns undefined if node not found", () => {
-        var result = MesosStateStore.getNodeFromID("nonExistentNode");
+        const result = MesosStateStore.getNodeFromID("nonExistentNode");
         expect(result).toBeUndefined();
       });
     });
@@ -276,7 +276,7 @@ describe("MesosStateStore", () => {
       });
 
       it("returns null with invalid state", () => {
-        var result = MesosStateStore.getNodeFromID("nonExistentNode");
+        const result = MesosStateStore.getNodeFromID("nonExistentNode");
         expect(result).toBeNull();
       });
     });
@@ -301,19 +301,19 @@ describe("MesosStateStore", () => {
     });
 
     it("returns the node with the correct hostname", () => {
-      var result = MesosStateStore.getNodeFromHostname("my-host");
+      const result = MesosStateStore.getNodeFromHostname("my-host");
       expect(result.fakeProp).toEqual("fake");
     });
 
     it("returns undefined if node not found", () => {
-      var result = MesosStateStore.getNodeFromHostname("nonExistentNode");
+      const result = MesosStateStore.getNodeFromHostname("nonExistentNode");
       expect(result).toEqual(undefined);
     });
 
     it("returns null with invalid state", () => {
       MesosStateStore.get = () => null;
 
-      var result = MesosStateStore.getNodeFromHostname("nonExistentNode");
+      const result = MesosStateStore.getNodeFromHostname("nonExistentNode");
       expect(result).toEqual(undefined);
     });
   });
@@ -323,7 +323,7 @@ describe("MesosStateStore", () => {
       thisGet = MesosStateStore.get;
       MesosStateStore.get = () => null;
 
-      var result = MesosStateStore.getTasksFromNodeID("my-id");
+      const result = MesosStateStore.getTasksFromNodeID("my-id");
       expect(result).toEqual([]);
 
       MesosStateStore.get = thisGet;
@@ -343,7 +343,7 @@ describe("MesosStateStore", () => {
         foo: new Framework({ labels: { DCOS_COMMONS_API_VERSION: 1 } })
       });
 
-      var result = MesosStateStore.getTasksFromNodeID("node-1");
+      const result = MesosStateStore.getTasksFromNodeID("node-1");
       expect(result).toEqual([
         { id: 1, framework_id: "foo", sdkTask: true, slave_id: "node-1" },
         { id: 2, framework_id: "bar", slave_id: "node-1" }
@@ -359,7 +359,7 @@ describe("MesosStateStore", () => {
       thisGet = MesosStateStore.get;
       MesosStateStore.get = () => null;
 
-      var result = MesosStateStore.getRunningTasksFromVirtualNetworkName(
+      const result = MesosStateStore.getRunningTasksFromVirtualNetworkName(
         "overlayName"
       );
       expect(result).toEqual([]);
@@ -384,22 +384,22 @@ describe("MesosStateStore", () => {
     });
 
     it("returns null from an unknown task ID", () => {
-      var result = MesosStateStore.getTaskFromTaskID("not-a-task-id");
+      const result = MesosStateStore.getTaskFromTaskID("not-a-task-id");
       expect(result).toBeNull();
     });
 
     it("returns an instance of Task", () => {
-      var result = MesosStateStore.getTaskFromTaskID(1);
+      const result = MesosStateStore.getTaskFromTaskID(1);
       expect(result instanceof Task).toBeTruthy();
     });
 
     it("finds a currently running task", () => {
-      var result = MesosStateStore.getTaskFromTaskID(1);
+      const result = MesosStateStore.getTaskFromTaskID(1);
       expect(result.get()).toEqual({ id: 1 });
     });
 
     it("finds a completed task", () => {
-      var result = MesosStateStore.getTaskFromTaskID(2);
+      const result = MesosStateStore.getTaskFromTaskID(2);
       expect(result.get()).toEqual({ id: 2 });
     });
   });
@@ -415,9 +415,9 @@ describe("MesosStateStore", () => {
     });
 
     it("passes through to MesosStateUtil.getPodHistoricalInstances", () => {
-      var pod = new Pod({ id: "/pod-p0" });
-      var result = MesosStateStore.getPodHistoricalInstances(pod);
-      var expected = MesosStateUtil.getPodHistoricalInstances(
+      const pod = new Pod({ id: "/pod-p0" });
+      const result = MesosStateStore.getPodHistoricalInstances(pod);
+      const expected = MesosStateUtil.getPodHistoricalInstances(
         MESOS_STATE_WITH_HISTORY,
         pod
       );

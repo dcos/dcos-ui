@@ -8,8 +8,8 @@ require("./formChildCommands");
  * @param {String} visitUrl - The URL to visit
  */
 Cypress.Commands.add("visitUrl", { prevSubject: false }, visitUrl => {
-  var clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
-  var url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
+  const clusterDomain = new URL(Cypress.env("CLUSTER_URL")).host.split(":")[0];
+  const url = Cypress.env("CLUSTER_URL") + "/#" + visitUrl;
 
   cy.setCookie("dcos-acs-auth-cookie", Cypress.env("CLUSTER_AUTH_TOKEN"), {
     httpOnly: true,

@@ -71,7 +71,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   }
 
   computeServiceColors(services) {
-    var colors = {};
+    const colors = {};
 
     services.forEach((service, index) => {
       // Drop all others into the same 'other' color
@@ -86,7 +86,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   }
 
   computeShownServices(services) {
-    var hidden = services
+    const hidden = services
       .slice(MAX_SERVICES_TO_SHOW)
       .map(service => service.id);
 

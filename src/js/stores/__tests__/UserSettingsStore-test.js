@@ -16,12 +16,12 @@ describe("UserSettingsStore", () => {
 
   describe("getKey", () => {
     it("returns the correct value", () => {
-      var result = UserSettingsStore.getKey("hello");
+      const result = UserSettingsStore.getKey("hello");
       expect(result).toEqual("there");
     });
 
     it("returns undefined if key doesn't exist", () => {
-      var result = UserSettingsStore.getKey("doesNotExist");
+      const result = UserSettingsStore.getKey("doesNotExist");
       expect(result).toEqual(undefined);
     });
   });

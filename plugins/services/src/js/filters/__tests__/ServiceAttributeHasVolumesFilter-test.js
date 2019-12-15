@@ -2,7 +2,7 @@ import List from "#SRC/js/structs/List";
 import ServiceAttributeHasVolumesFilter from "../ServiceAttributeHasVolumesFilter";
 import VolumeList from "../../structs/VolumeList";
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
 let thisMockItems;
 

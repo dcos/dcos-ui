@@ -3,55 +3,55 @@ import DateUtil from "../DateUtil";
 describe("DateUtil", () => {
   describe("#msToMultiplicants", () => {
     it("decomposes milliseconds only", () => {
-      var result = DateUtil.msToMultiplicants(987);
+      const result = DateUtil.msToMultiplicants(987);
 
       expect(result).toEqual(["987 ms"]);
     });
 
     it("decomposes seconds only", () => {
-      var result = DateUtil.msToMultiplicants(12000);
+      const result = DateUtil.msToMultiplicants(12000);
 
       expect(result).toEqual(["12 sec"]);
     });
 
     it("decomposes minutes only", () => {
-      var result = DateUtil.msToMultiplicants(720000);
+      const result = DateUtil.msToMultiplicants(720000);
 
       expect(result).toEqual(["12 min"]);
     });
 
     it("decomposes hours only", () => {
-      var result = DateUtil.msToMultiplicants(43200000);
+      const result = DateUtil.msToMultiplicants(43200000);
 
       expect(result).toEqual(["12 h"]);
     });
 
     it("decomposes days only", () => {
-      var result = DateUtil.msToMultiplicants(1036800000);
+      const result = DateUtil.msToMultiplicants(1036800000);
 
       expect(result).toEqual(["12 d"]);
     });
 
     it("decomposes milliseconds and seconds", () => {
-      var result = DateUtil.msToMultiplicants(9878);
+      const result = DateUtil.msToMultiplicants(9878);
 
       expect(result).toEqual(["9 sec", "878 ms"]);
     });
 
     it("decomposes seconds and minutes", () => {
-      var result = DateUtil.msToMultiplicants(732000);
+      const result = DateUtil.msToMultiplicants(732000);
 
       expect(result).toEqual(["12 min", "12 sec"]);
     });
 
     it("decomposes minutes and hours", () => {
-      var result = DateUtil.msToMultiplicants(43920000);
+      const result = DateUtil.msToMultiplicants(43920000);
 
       expect(result).toEqual(["12 h", "12 min"]);
     });
 
     it("decomposes hours and days", () => {
-      var result = DateUtil.msToMultiplicants(1080000000);
+      const result = DateUtil.msToMultiplicants(1080000000);
 
       expect(result).toEqual(["12 d", "12 h"]);
     });

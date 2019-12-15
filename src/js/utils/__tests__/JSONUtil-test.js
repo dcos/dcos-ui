@@ -4,55 +4,55 @@ describe("JSONUtil", () => {
   describe("#getObjectInformation", () => {
     describe("Empty Object", () => {
       it("handles empty objects", () => {
-        var code = "{}";
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = "{}";
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
       });
 
       it("tolerates whitespaces before root object", () => {
-        var code = "    \t        \n \t   \t\n\t  {}";
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = "    \t        \n \t   \t\n\t  {}";
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
       });
 
       it("tolerates whitespaces after root object", () => {
-        var code = "{}    \t        \n \t   \t\n\t  ";
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = "{}    \t        \n \t   \t\n\t  ";
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([]);
       });
     });
 
     describe("JSON Sanity Checks", () => {
       it("raises exception on invalid JSON content", () => {
-        var code = "A random {text} that has [nothing to do] with JSON!";
+        const code = "A random {text} that has [nothing to do] with JSON!";
         expect(() => {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
       it("raises exception on incomplete JSON objects", () => {
-        var code = '{\n"name": {\n\t"value": 1\n\t}';
+        const code = '{\n"name": {\n\t"value": 1\n\t}';
         expect(() => {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
       it("raises exception on non-quoted keys", () => {
-        var code = '{\nkey: "value"\n}';
+        const code = '{\nkey: "value"\n}';
         expect(() => {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
       it("raises exception on wrong keys (numeric)", () => {
-        var code = '{\n929: "value"\n}';
+        const code = '{\n929: "value"\n}';
         expect(() => {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
       });
 
       it("raises exception on wrong keys (invalid characters)", () => {
-        var code = '{\nkf@492!2$: "value"\n}';
+        const code = '{\nkf@492!2$: "value"\n}';
         expect(() => {
           JSONUtil.getObjectInformation(code);
         }).toThrow();
@@ -61,8 +61,8 @@ describe("JSONUtil", () => {
 
     describe("Simple Primitives", () => {
       it("handles string values", () => {
-        var code = '{\n"name": "value"\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": "value"\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -75,8 +75,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles numeric values", () => {
-        var code = '{\n"name": 1\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": 1\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -89,8 +89,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles `null` values", () => {
-        var code = '{\n"name": null\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": null\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -103,8 +103,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles `true` values", () => {
-        var code = '{\n"name": true\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": true\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -117,8 +117,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles `false` values", () => {
-        var code = '{\n"name": false\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": false\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -133,8 +133,8 @@ describe("JSONUtil", () => {
 
     describe("Corner Cases", () => {
       it("handles repeated keys", () => {
-        var code = '{\n"name": 1,\n"name": 2\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": 1,\n"name": 2\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -154,8 +154,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles more than one keys on the same line", () => {
-        var code = '{\n"name": 1, "nome": 2\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": 1, "nome": 2\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -175,8 +175,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles repeated keys on the same line", () => {
-        var code = '{\n"name": 1, "name": 2\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": 1, "name": 2\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -198,8 +198,8 @@ describe("JSONUtil", () => {
 
     describe("Objects & Nesting", () => {
       it("handles single level-1 object nesting", () => {
-        var code = '{\n"name": {\n\t"child": 1\n\t}\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": {\n\t"child": 1\n\t}\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -218,8 +218,9 @@ describe("JSONUtil", () => {
       });
 
       it("handles single level-2 object nesting", () => {
-        var code = '{\n"name": {\n\t"child": {\n\t\t"value": 1\n\t\t}\n\t}\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code =
+          '{\n"name": {\n\t"child": {\n\t\t"value": 1\n\t\t}\n\t}\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -244,8 +245,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles objects with multiple keys", () => {
-        var code = '{\n"key1": 1,\n"key2": 2,\n"key3": 3}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"key1": 1,\n"key2": 2,\n"key3": 3}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["key1"],
@@ -272,9 +273,9 @@ describe("JSONUtil", () => {
       });
 
       it("handles objects with multiple value types", () => {
-        var code =
+        const code =
           '{\n"key1": "string",\n"key2": 2,\n"key3": false,\n"key4": true,\n"key5": null\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["key1"],
@@ -315,9 +316,9 @@ describe("JSONUtil", () => {
       });
 
       it("handles multiple objects with multiple keys", () => {
-        var code =
+        const code =
           '{\n"obj1": {\n"key1": 1,\n"key2": 2\n}, "obj2": {\n"key3": 1,\n"key4": 2\n}, "obj3": {\n"key5": 1,\n"key6": 2\n}\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["obj1"],
@@ -385,8 +386,8 @@ describe("JSONUtil", () => {
 
     describe("Arrays & Nesting", () => {
       it("handles values in arrays", () => {
-        var code = '{\n"name": [\n\t"child"\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t"child"\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -405,8 +406,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles objects in arrays", () => {
-        var code = '{\n"name": [\n\t{"child": 1}\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t{"child": 1}\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -431,8 +432,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles values in level-1 nested arrays", () => {
-        var code = '{\n"name": [\n\t[\n\t\t"child"\n\t\t]\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t[\n\t\t"child"\n\t\t]\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -457,8 +458,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles objects in level-1 nested arrays", () => {
-        var code = '{\n"name": [\n\t[{"child": 1}]\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t[{"child": 1}]\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -489,8 +490,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles values in level-2 nested arrays", () => {
-        var code = '{\n"name": [\n\t[\n\t\t["child"]\n\t\t]\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t[\n\t\t["child"]\n\t\t]\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -521,8 +522,8 @@ describe("JSONUtil", () => {
       });
 
       it("handles objects in level-2 nested arrays", () => {
-        var code = '{\n"name": [\n\t[\n\t\t[{"child": 1}]\n\t\t]\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const code = '{\n"name": [\n\t[\n\t\t[{"child": 1}]\n\t\t]\n\t]\n}';
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],
@@ -561,9 +562,9 @@ describe("JSONUtil", () => {
 
     describe("Nixed Nesting", () => {
       it("handles nesting objects and arrays", () => {
-        var code =
+        const code =
           '{\n"name": [\n\t{\n\t\t"child": [\n\t\t\t{"value":1}\n\t\t]\n\t\t}\n\t]\n}';
-        var objects = JSONUtil.getObjectInformation(code);
+        const objects = JSONUtil.getObjectInformation(code);
         expect(objects).toEqual([
           {
             path: ["name"],

@@ -1,4 +1,4 @@
-var response = {
+const response = {
   type: "SUBSCRIBED",
   subscribed: {
     get_state: {

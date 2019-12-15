@@ -8,17 +8,17 @@ import TimeSeriesArea from "../TimeSeriesArea";
 const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");
 
 function checkPath(instance, props) {
-  var area = instance.find(".area");
+  const area = instance.find(".area");
 
-  var index = 1;
-  var points = area.getDOMNode().attributes.d.value.split(",");
+  let index = 1;
+  const points = area.getDOMNode().attributes.d.value.split(",");
   points.forEach((str, i) => {
     // Discard values after we've been through data
     // Also parseFloat and check with index (int) to make sure we exactly
     // where we want to be
     if (index < props.values.length && parseFloat(str) === index) {
       // Pick out the value we need
-      var value = Math.round(parseFloat(points[i + 1].split("S")));
+      const value = Math.round(parseFloat(points[i + 1].split("S")));
       expect(value).toEqual(props.values[index].y);
       index++;
     }
@@ -69,8 +69,8 @@ describe("TimeSeriesArea", () => {
 
   it("renders a path according to second data set", () => {
     thisProps.values = MockTimeSeriesData.secondSet;
-    var area = thisAreaDef(thisProps.values);
-    var valueLine = thisValueLineDef(thisProps.values);
+    const area = thisAreaDef(thisProps.values);
+    const valueLine = thisValueLineDef(thisProps.values);
 
     thisInstance = mount(
       <TimeSeriesArea
@@ -87,8 +87,8 @@ describe("TimeSeriesArea", () => {
   it("checks that the path is correctly updated", () => {
     checkPath(thisInstance, thisProps);
     thisProps.values = MockTimeSeriesData.secondSet;
-    var area = thisAreaDef(thisProps.values);
-    var valueLine = thisValueLineDef(thisProps.values);
+    const area = thisAreaDef(thisProps.values);
+    const valueLine = thisValueLineDef(thisProps.values);
 
     thisInstance.setProps({ line: valueLine, path: area });
 

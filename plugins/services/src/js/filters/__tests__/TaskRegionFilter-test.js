@@ -3,7 +3,7 @@ import TasksRegionFilter from "../TasksRegionFilter";
 import TaskUtil from "../../utils/TaskUtil";
 
 jest.mock("../../utils/TaskUtil");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
 let thisMockItems;
 

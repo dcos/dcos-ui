@@ -203,7 +203,7 @@ const Index = createReactClass({
     const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;
 
-    var classSet = classNames("application-wrapper", {
+    const classSet = classNames("application-wrapper", {
       "sidebar-visible": isVisible,
       "sidebar-docked": isVisible
     });

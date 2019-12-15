@@ -45,7 +45,7 @@ class ConfigStore extends GetSetBaseStore {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
       switch (action.type) {
         case REQUEST_CONFIG_SUCCESS:
           this.processConfigSuccess(action.data);

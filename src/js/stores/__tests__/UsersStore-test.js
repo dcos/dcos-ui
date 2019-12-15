@@ -29,13 +29,13 @@ describe("UsersStore", () => {
 
   it("returns an instance of UsersList", () => {
     UsersStore.fetchUsers();
-    var users = UsersStore.getUsers();
+    const users = UsersStore.getUsers();
     expect(users instanceof UsersList).toBeTruthy();
   });
 
   it("returns all of the users it was given", () => {
     UsersStore.fetchUsers();
-    var users = UsersStore.getUsers().getItems();
+    const users = UsersStore.getUsers().getItems();
     expect(users.length).toEqual(thisUsersFixture.array.length);
   });
 
@@ -46,13 +46,13 @@ describe("UsersStore", () => {
         data: [{ gid: "foo", bar: "baz" }]
       });
 
-      var users = UsersStore.getUsers().getItems();
+      const users = UsersStore.getUsers().getItems();
       expect(users[0].get("gid")).toEqual("foo");
       expect(users[0].get("bar")).toEqual("baz");
     });
 
     it("dispatches the correct event upon success", () => {
-      var mockedFn = jest.genMockFunction();
+      const mockedFn = jest.genMockFunction();
       UsersStore.addChangeListener(EventTypes.USERS_CHANGE, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_SUCCESS,
@@ -63,7 +63,7 @@ describe("UsersStore", () => {
     });
 
     it("dispatches the correct event upon error", () => {
-      var mockedFn = jasmine.createSpy();
+      const mockedFn = jasmine.createSpy();
       UsersStore.addChangeListener(EventTypes.USERS_REQUEST_ERROR, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_ERROR,

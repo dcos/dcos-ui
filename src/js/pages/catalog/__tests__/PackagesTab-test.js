@@ -13,7 +13,7 @@ jest.mock("../../../components/Page", () => {
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 /* eslint-disable import/newline-after-import */
 const Config = require("#SRC/js/config/Config").default;
-var configUseFixtures = Config.useFixtures;
+const configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore")
   .default;
@@ -106,7 +106,7 @@ describe("PackagesTab", () => {
       thisInstance = renderer.create(<PackagesTab />);
       thisInstance.getInstance().onCosmosPackagesStoreAvailableSuccess();
 
-      var tree = thisInstance.toJSON();
+      const tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -116,7 +116,7 @@ describe("PackagesTab", () => {
       thisInstance = renderer.create(<PackagesTab />);
       thisInstance.getInstance().onCosmosPackagesStoreAvailableSuccess();
 
-      var tree = thisInstance.toJSON();
+      const tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

@@ -9,13 +9,13 @@ describe("VipLabelUtil", () => {
     describe("when port is not load balanced", () => {
       describe("when there is a vip label", () => {
         it("deletes vip label from labels", () => {
-          var portDefinition = {
+          const portDefinition = {
             loadBalanced: false,
             labels: {
               [vipLabel]: "viplabel:9090"
             }
           };
-          var result = VipLabelUtil.generateVipLabel(
+          const result = VipLabelUtil.generateVipLabel(
             appID,
             portDefinition,
             vipLabel,
@@ -28,13 +28,13 @@ describe("VipLabelUtil", () => {
 
       describe("when there is no vip labels", () => {
         it("returns labels unchanged", () => {
-          var portDefinition = {
+          const portDefinition = {
             loadBalanced: false,
             labels: {
               otherLabel: "value"
             }
           };
-          var result = VipLabelUtil.generateVipLabel(
+          const result = VipLabelUtil.generateVipLabel(
             appID,
             portDefinition,
             vipLabel,
@@ -49,11 +49,11 @@ describe("VipLabelUtil", () => {
     describe("when port is load balanced", () => {
       describe("when no vip has been given", () => {
         it("generates VIP", () => {
-          var portDefinition = {
+          const portDefinition = {
             loadBalanced: true,
             vip: undefined
           };
-          var result = VipLabelUtil.generateVipLabel(
+          const result = VipLabelUtil.generateVipLabel(
             appID,
             portDefinition,
             vipLabel,
@@ -66,11 +66,11 @@ describe("VipLabelUtil", () => {
 
       describe("when vip has been given", () => {
         it("generates VIP with new port value", () => {
-          var portDefinition = {
+          const portDefinition = {
             loadBalanced: true,
             vip: "service-address:9091"
           };
-          var result = VipLabelUtil.generateVipLabel(
+          const result = VipLabelUtil.generateVipLabel(
             appID,
             portDefinition,
             vipLabel,

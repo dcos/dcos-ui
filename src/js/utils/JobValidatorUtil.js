@@ -17,7 +17,7 @@ const JobValidatorUtil = {
     }
 
     // Expect exactly 5 components
-    var components = cronString.split(" ");
+    const components = cronString.split(" ");
     if (components.length !== 5) {
       return false;
     }

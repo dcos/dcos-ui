@@ -5,13 +5,13 @@ let thisDirectory;
 
 describe("TaskDirectory", () => {
   beforeEach(() => {
-    var items = [{ path: "/some/path/to/bar" }];
+    const items = [{ path: "/some/path/to/bar" }];
     thisDirectory = new TaskDirectory({ items });
   });
 
   describe("#constructor", () => {
     it("creates instances of DirectoryItem", () => {
-      var items = thisDirectory.getItems();
+      const items = thisDirectory.getItems();
       expect(items[0] instanceof DirectoryItem).toBeTruthy();
     });
   });

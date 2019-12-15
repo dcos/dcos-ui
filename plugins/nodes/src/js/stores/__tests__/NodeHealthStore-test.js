@@ -27,7 +27,7 @@ describe("NodeHealthStore", () => {
   it("returns an instance of NodesList", () => {
     Config.useFixtures = true;
     NodeHealthStore.fetchNodes();
-    var nodes = NodeHealthStore.getNodes("nodes");
+    const nodes = NodeHealthStore.getNodes("nodes");
     expect(nodes instanceof NodesList).toBeTruthy();
     Config.useFixtures = false;
   });
@@ -35,7 +35,7 @@ describe("NodeHealthStore", () => {
   it("returns all of the nodes it was given", () => {
     Config.useFixtures = true;
     NodeHealthStore.fetchNodes();
-    var nodes = NodeHealthStore.getNodes().getItems();
+    const nodes = NodeHealthStore.getNodes().getItems();
     expect(nodes.length).toEqual(thisNodesFixture.nodes.length);
     Config.useFixtures = false;
   });
@@ -53,13 +53,13 @@ describe("NodeHealthStore", () => {
         ]
       });
 
-      var nodes = NodeHealthStore.getNodes().getItems();
+      const nodes = NodeHealthStore.getNodes().getItems();
       expect(nodes[0].host_ip).toEqual("167.114.218.155");
       expect(nodes[0].health).toEqual(0);
     });
 
     it("dispatches the correct event upon success", () => {
-      var mockedFn = jasmine.createSpy();
+      const mockedFn = jasmine.createSpy();
       NodeHealthStore.addChangeListener(
         EventTypes.HEALTH_NODES_CHANGE,
         mockedFn
@@ -73,7 +73,7 @@ describe("NodeHealthStore", () => {
     });
 
     it("dispatches the correct event upon error", () => {
-      var mockedFn = jasmine.createSpy();
+      const mockedFn = jasmine.createSpy();
       NodeHealthStore.addChangeListener(
         EventTypes.HEALTH_NODES_ERROR,
         mockedFn

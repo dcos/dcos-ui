@@ -19,7 +19,7 @@ describe("Job Search Filters", () => {
       cy.location()
         .its("href")
         .should(href => {
-          var queries = href.split("?")[1];
+          const queries = href.split("?")[1];
           expect(decodeURIComponent(queries)).to.equal("searchString=foo");
         });
     });
@@ -32,7 +32,7 @@ describe("Job Search Filters", () => {
       cy.location()
         .its("href")
         .should(href => {
-          var queries = href.split("?")[1];
+          const queries = href.split("?")[1];
           expect(queries).to.equal(undefined);
         });
       cy.get("tbody tr:visible").should("to.have.length", 3);

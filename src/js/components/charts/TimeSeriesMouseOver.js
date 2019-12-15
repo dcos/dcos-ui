@@ -30,8 +30,8 @@ const TimeSeriesMouseOver = createReactClass({
   },
 
   calculateMousePositionInGraph(e) {
-    var boundingBox = this.props.getBoundingBox();
-    var mouse = {
+    const boundingBox = this.props.getBoundingBox();
+    const mouse = {
       x: e.clientX || e.pageX,
       y: e.clientY || e.pageY
     };
@@ -52,21 +52,21 @@ const TimeSeriesMouseOver = createReactClass({
   },
 
   handleMouseMove(e) {
-    var mouse = this.calculateMousePositionInGraph(e);
+    const mouse = this.calculateMousePositionInGraph(e);
 
     // This means that mouse is out of bounds
     if (mouse === false) {
       return;
     }
 
-    var props = this.props;
-    var domain = props.xScale.domain();
+    const props = this.props;
+    const domain = props.xScale.domain();
 
-    var firstDataSet = props.data[0];
+    const firstDataSet = props.data[0];
     // how many data points we don't show
-    var hiddenDataPoints = 1;
+    const hiddenDataPoints = 1;
     // find the data point at the given mouse position
-    var index =
+    let index =
       (mouse.x * (firstDataSet.values.length - hiddenDataPoints - 1)) /
       props.width;
     index = Math.round(index + hiddenDataPoints);
@@ -94,20 +94,20 @@ const TimeSeriesMouseOver = createReactClass({
 
     // An extra -2 on each because we show the extra data point at the end
 
-    var _index = (mouse.x * (firstDataSet.values.length - 1)) / props.width;
+    const _index = (mouse.x * (firstDataSet.values.length - 1)) / props.width;
 
-    var mappedValue = Maths.mapValue(Math.round(_index), {
+    const mappedValue = Maths.mapValue(Math.round(_index), {
       min: firstDataSet.values.length - hiddenDataPoints,
       max: 0
     });
-    var value = Maths.unmapValue(mappedValue, {
+    let value = Maths.unmapValue(mappedValue, {
       min: Math.abs(domain[1]),
       max: Math.abs(domain[0])
     });
     value = Math.round(value);
 
-    var characterWidth = 7;
-    var xPosition = mouse.x - value.toString().length * characterWidth;
+    const characterWidth = 7;
+    let xPosition = mouse.x - value.toString().length * characterWidth;
     if (value === 0) {
       xPosition += characterWidth / 2;
     } else {
@@ -133,7 +133,7 @@ const TimeSeriesMouseOver = createReactClass({
   },
 
   render() {
-    var height = this.props.height;
+    const height = this.props.height;
 
     // dy=.71em, y=9 and x=-9, dy=.32em are magic numbers from looking at
     // d3.js text values

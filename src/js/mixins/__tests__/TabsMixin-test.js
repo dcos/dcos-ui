@@ -151,19 +151,19 @@ describe("TabsMixin", () => {
     });
 
     it("returns result of function when called", () => {
-      var result = TabsMixin.tabs_getTabView();
+      const result = TabsMixin.tabs_getTabView();
       expect(result).toEqual("test");
     });
 
     it("nulls if it doesn't exist", () => {
       TabsMixin.renderGraultTabView = undefined;
-      var result = TabsMixin.tabs_getTabView();
+      const result = TabsMixin.tabs_getTabView();
       expect(result).toEqual(null);
     });
 
     it("does not call render function if it doesn't exist", () => {
       TabsMixin.renderGraultTabView = undefined;
-      var fn = TabsMixin.tabs_getTabView.bind(TabsMixin);
+      const fn = TabsMixin.tabs_getTabView.bind(TabsMixin);
       expect(fn).not.toThrow();
     });
   });

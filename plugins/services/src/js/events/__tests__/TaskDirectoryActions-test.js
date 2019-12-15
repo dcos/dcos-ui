@@ -52,8 +52,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_SUCCESS);
         expect(action.task.id).toEqual("bar");
@@ -66,8 +66,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_ERROR);
         expect(action.data).toEqual("foo");
@@ -79,8 +79,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -125,8 +125,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS);
         expect(action.task.id).toEqual("bar");
@@ -138,8 +138,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_ERROR);
         expect(action.data).toEqual("foo");
@@ -150,8 +150,8 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",

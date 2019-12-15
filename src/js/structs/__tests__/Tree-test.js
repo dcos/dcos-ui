@@ -98,7 +98,7 @@ describe("Tree", () => {
 
   describe("#filterItems", () => {
     beforeEach(() => {
-      var items = [
+      const items = [
         { name: "foo" },
         { name: "bar" },
         {
@@ -127,19 +127,23 @@ describe("Tree", () => {
     });
 
     it("returns an instance of Tree", () => {
-      var filteredTree = thisInstance.filterItems(() => true);
+      const filteredTree = thisInstance.filterItems(() => true);
       expect(filteredTree instanceof Tree).toEqual(true);
     });
 
     it("filters items", () => {
-      var filteredTree = thisInstance.filterItems(item => item.name === "bar");
+      const filteredTree = thisInstance.filterItems(
+        item => item.name === "bar"
+      );
 
       expect(filteredTree.getItems().length).toEqual(1);
       expect(filteredTree.getItems()[0]).toEqual({ name: "bar" });
     });
 
     it("filters sub items", () => {
-      var filteredTree = thisInstance.filterItems(item => item.name === "one");
+      const filteredTree = thisInstance.filterItems(
+        item => item.name === "one"
+      );
 
       expect(
         filteredTree
@@ -154,7 +158,7 @@ describe("Tree", () => {
 
   describe("#filterItemsByText", () => {
     beforeEach(() => {
-      var items = [
+      const items = [
         {
           name: "foo",
           description: { value: "qux", label: "corge" },
@@ -180,7 +184,7 @@ describe("Tree", () => {
           ]
         }
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -207,7 +211,7 @@ describe("Tree", () => {
     });
 
     it("filters instances of Item", () => {
-      var items = [
+      const items = [
         new Item({
           name: "foo",
           description: { value: "qux" },
@@ -219,7 +223,7 @@ describe("Tree", () => {
           tags: ["two", "three"]
         })
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -230,36 +234,36 @@ describe("Tree", () => {
       };
 
       thisInstance = new Tree({ items, filterProperties });
-      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
+      const filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it("filters by default getter", () => {
-      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
+      const filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual("bar");
     });
 
     it("filters by description", () => {
-      var filteredItems = thisInstance.filterItemsByText("qux").getItems();
+      const filteredItems = thisInstance.filterItemsByText("qux").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual("qux");
     });
 
     it("filters by tags", () => {
-      var filteredItems = thisInstance.filterItemsByText("two").getItems();
+      const filteredItems = thisInstance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(3);
       expect(filteredItems[0].tags).toEqual(["one", "two"]);
       expect(filteredItems[1].tags).toEqual(["two", "three"]);
     });
 
     it("handles filter by with null elements", () => {
-      var items = [
+      const items = [
         { name: null, description: { value: null }, tags: [null, "three"] },
         { description: null, tags: null }
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -268,17 +272,17 @@ describe("Tree", () => {
           return item[prop] && item[prop].join(" ");
         }
       };
-      var list = new Tree({ items, filterProperties });
+      const list = new Tree({ items, filterProperties });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
     });
 
     it("uses provided filter properties", () => {
-      var filterProperties = {
+      const filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
         }
       };
-      var filteredItems = thisInstance
+      const filteredItems = thisInstance
         .filterItemsByText("zeta", filterProperties)
         .getItems();
       expect(filteredItems[0].getItems()[0].name).toEqual("beta");
@@ -319,12 +323,12 @@ describe("Tree", () => {
     });
 
     it("returns an instance of Tree", () => {
-      var tree = thisInstance.mapItems(item => item);
+      const tree = thisInstance.mapItems(item => item);
       expect(tree instanceof Tree).toBeTruthy();
     });
 
     it("apply callbacks to all items", () => {
-      var items = thisInstance
+      const items = thisInstance
         .mapItems(item => {
           if (item instanceof Tree) {
             return item;
@@ -388,7 +392,7 @@ describe("Tree", () => {
     });
 
     it("reduces tree to a single number", () => {
-      var value = thisInstance.reduceItems((previousValue, currentValue) => {
+      const value = thisInstance.reduceItems((previousValue, currentValue) => {
         if (currentValue instanceof Tree) {
           return previousValue;
         }
@@ -400,7 +404,7 @@ describe("Tree", () => {
     });
 
     it("reduces tree to an array", () => {
-      var value = thisInstance.reduceItems((previousValue, currentValue) => {
+      const value = thisInstance.reduceItems((previousValue, currentValue) => {
         if (currentValue instanceof Tree) {
           previousValue.push(currentValue.getItems().length);
 

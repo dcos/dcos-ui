@@ -181,7 +181,7 @@ class MarathonStore extends GetSetBaseStore {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
 
       switch (action.type) {
         case REQUEST_MARATHON_INSTANCE_INFO_ERROR:
@@ -390,7 +390,7 @@ class MarathonStore extends GetSetBaseStore {
       return HealthStatus.NA;
     }
 
-    var health = HealthStatus.IDLE;
+    let health = HealthStatus.IDLE;
     if (app.tasksUnhealthy > 0) {
       health = HealthStatus.UNHEALTHY;
     } else if (app.tasksRunning > 0 && app.tasksHealthy === app.tasksRunning) {

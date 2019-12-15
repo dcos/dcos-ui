@@ -29,8 +29,8 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS);
         expect(action.data).toEqual({ foo: "bar", baz: "qux" });
@@ -40,8 +40,8 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_CCID_ERROR);
       });
@@ -50,8 +50,8 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",

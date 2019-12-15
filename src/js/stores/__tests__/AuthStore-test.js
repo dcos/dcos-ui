@@ -27,7 +27,7 @@ describe("AuthStore", () => {
   describe("#isLoggedIn", () => {
     it("returns false if there is no cookie set", () => {
       cookie.parse = () => {
-        var cookieObj = {};
+        const cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = "";
 
         return cookieObj;
@@ -37,7 +37,7 @@ describe("AuthStore", () => {
 
     it("returns true if there is a cookie set", () => {
       cookie.parse = () => {
-        var cookieObj = {};
+        const cookieObj = {};
         cookieObj[USER_COOKIE_KEY] = "aRandomCode";
 
         return cookieObj;
@@ -59,14 +59,14 @@ describe("AuthStore", () => {
     });
 
     it("sets the cookie to an empty string", () => {
-      var args = cookie.serialize.calls.mostRecent().args;
+      const args = cookie.serialize.calls.mostRecent().args;
 
       expect(args[0]).toEqual(USER_COOKIE_KEY);
       expect(args[1]).toEqual("");
     });
 
     it("emits a logout event", () => {
-      var args = AuthStore.emit.calls.mostRecent().args;
+      const args = AuthStore.emit.calls.mostRecent().args;
 
       expect(args[0]).toEqual(EventTypes.AUTH_USER_LOGOUT_SUCCESS);
     });
@@ -84,7 +84,7 @@ describe("AuthStore", () => {
   describe("#getUser", () => {
     beforeEach(() => {
       cookie.parse = () => {
-        var cookieObj = {};
+        const cookieObj = {};
         // {uid: 'joe', description: 'Joe Doe'}
         cookieObj[USER_COOKIE_KEY] =
           "eyJ1aWQiOiJqb2UiLCJkZXNjcmlwdGlvbiI6IkpvZSBEb2UifQ==";
@@ -108,7 +108,7 @@ describe("AuthStore", () => {
   describe("dispatcher", () => {
     describe("login", () => {
       it("dispatches the correct event upon error", () => {
-        var mockedFn = jest.genMockFunction();
+        const mockedFn = jest.genMockFunction();
         AuthStore.addChangeListener(EventTypes.AUTH_USER_LOGIN_ERROR, mockedFn);
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_LOGIN_ERROR,
@@ -126,7 +126,7 @@ describe("AuthStore", () => {
 
     describe("logout", () => {
       it("dispatches the correct event upon success", () => {
-        var mockedFn = jasmine.createSpy();
+        const mockedFn = jasmine.createSpy();
         AuthStore.addChangeListener(
           EventTypes.AUTH_USER_LOGOUT_SUCCESS,
           mockedFn
@@ -139,7 +139,7 @@ describe("AuthStore", () => {
       });
 
       it("dispatches the correct event upon error", () => {
-        var mockedFn = jest.genMockFunction();
+        const mockedFn = jest.genMockFunction();
         AuthStore.addChangeListener(
           EventTypes.AUTH_USER_LOGOUT_ERROR,
           mockedFn

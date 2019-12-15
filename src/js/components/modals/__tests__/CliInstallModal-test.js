@@ -83,8 +83,8 @@ describe("CliInstallModal", () => {
     });
 
     it("it returns different data depending on OS", () => {
-      var firstCall = thisInstance1.getCliInstructions();
-      var secondCall = thisInstance2.getCliInstructions();
+      const firstCall = thisInstance1.getCliInstructions();
+      const secondCall = thisInstance2.getCliInstructions();
 
       expect(firstCall).not.toEqual(secondCall);
     });

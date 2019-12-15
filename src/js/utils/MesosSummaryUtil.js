@@ -50,7 +50,7 @@ const MesosSummaryUtil = {
   },
 
   getInitialStates() {
-    var currentDate = Date.now();
+    const currentDate = Date.now();
     // reverse date range!!!
     const reverseRange = [];
 

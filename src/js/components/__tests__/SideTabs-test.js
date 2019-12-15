@@ -22,14 +22,14 @@ describe("SideTabs", () => {
     });
 
     it("returns a list item for each tab", () => {
-      var node = ReactDOM.findDOMNode(thisInstance);
-      var items = node.querySelectorAll("li");
+      const node = ReactDOM.findDOMNode(thisInstance);
+      const items = node.querySelectorAll("li");
       expect(items.length).toEqual(thisTabs.length);
     });
 
     it("renders the selected tab with the 'selected' class", () => {
-      var node = ReactDOM.findDOMNode(thisInstance);
-      var selectedTab = node.querySelector(".selected");
+      const node = ReactDOM.findDOMNode(thisInstance);
+      const selectedTab = node.querySelector(".selected");
 
       expect(selectedTab.textContent).toEqual("Application");
     });

@@ -70,7 +70,7 @@ class MesosSummaryStore extends GetSetBaseStore {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
       switch (action.type) {
         case REQUEST_SUMMARY_SUCCESS:
           this.processSummary(action.data);

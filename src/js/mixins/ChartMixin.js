@@ -2,13 +2,13 @@ import d3 from "d3";
 
 const ChartMixin = {
   getXScale(data = [], width, refreshRate) {
-    var length = width;
-    var firstDataSet = data[0];
+    let length = width;
+    const firstDataSet = data[0];
     if (firstDataSet != null) {
       length = firstDataSet.values.length;
     }
 
-    var timeAgo = -(length - 1) * (refreshRate / 1000);
+    const timeAgo = -(length - 1) * (refreshRate / 1000);
 
     return d3.scale
       .linear()
@@ -18,14 +18,14 @@ const ChartMixin = {
 
   // Only used by TimeSeriesChart, but is meant to be re-used elsewhere
   getHeight(props) {
-    var margin = props.margin;
+    const margin = props.margin;
 
     return props.height - margin.top - margin.bottom;
   },
 
   // Only used by TimeSeriesChart, but is meant to be re-used elsewhere
   getWidth(props) {
-    var margin = props.margin;
+    const margin = props.margin;
 
     return props.width - margin.left - margin.right;
   },

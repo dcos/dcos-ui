@@ -22,7 +22,7 @@ describe("Volumes", () => {
 
     it("renders the correct IDs in the table", () => {
       cy.get(".table tbody tr").should($rows => {
-        var children = $rows[0].children;
+        const children = $rows[0].children;
         expect(children[0].textContent).to.equal(
           "sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201"
         );

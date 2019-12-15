@@ -190,11 +190,11 @@ const NodesAgents = createReactClass({
       this.props.location.pathname
     );
 
-    var listClassSet = classNames("button button-link", {
+    const listClassSet = classNames("button button-link", {
       active: !isGridActive
     });
 
-    var gridClassSet = classNames("button button-link", {
+    const gridClassSet = classNames("button button-link", {
       active: isGridActive
     });
 

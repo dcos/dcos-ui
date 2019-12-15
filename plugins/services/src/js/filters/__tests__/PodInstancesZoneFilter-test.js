@@ -3,7 +3,7 @@ import PodInstancesZoneFilter from "../PodInstancesZoneFilter";
 import InstanceUtil from "../../utils/InstanceUtil";
 
 jest.mock("../../utils/TaskUtil");
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
 let thisMockItems;
 

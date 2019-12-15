@@ -15,7 +15,7 @@ let thisHandler;
 describe("MarathonStore", () => {
   describe("#getFrameworkHealth", () => {
     it("returns NA health when app has no health check", () => {
-      var health = MarathonStore.getFrameworkHealth(
+      const health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasNoHealthy.items[0]
       );
       expect(health).not.toEqual(null);
@@ -24,28 +24,28 @@ describe("MarathonStore", () => {
     });
 
     it("returns idle when app has no running tasks", () => {
-      var health = MarathonStore.getFrameworkHealth(
+      const health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasNoRunningTasks.items[0]
       );
       expect(health.key).toEqual("IDLE");
     });
 
     it("returns unhealthy when app has only unhealthy tasks", () => {
-      var health = MarathonStore.getFrameworkHealth(
+      const health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasOnlyUnhealth.items[0]
       );
       expect(health.key).toEqual("UNHEALTHY");
     });
 
     it("returns unhealthy when app has both healthy and unhealthy tasks", () => {
-      var health = MarathonStore.getFrameworkHealth(
+      const health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasOnlyUnhealth.items[0]
       );
       expect(health.key).toEqual("UNHEALTHY");
     });
 
     it("returns healthy when app has healthy and no unhealthy tasks", () => {
-      var health = MarathonStore.getFrameworkHealth(
+      const health = MarathonStore.getFrameworkHealth(
         MockMarathonResponse.hasHealth.items[0]
       );
       expect(health.key).toEqual("HEALTHY");
@@ -86,20 +86,20 @@ describe("MarathonStore", () => {
 
   describe("#getServiceImages", () => {
     it("returns null when app is not found", () => {
-      var images = MarathonStore.getServiceImages("foo");
+      const images = MarathonStore.getServiceImages("foo");
       expect(images).toEqual(null);
     });
 
     it("returns an object when services are found", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
-      var images = MarathonStore.getServiceImages("Framework 1");
+      const images = MarathonStore.getServiceImages("Framework 1");
       expect(images).toEqual(jasmine.any(Object));
     });
 
     it("returns three sizes of images when services are found", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasMetadata);
-      var images = MarathonStore.getServiceImages("Framework 1");
-      var keys = Object.keys(images);
+      const images = MarathonStore.getServiceImages("Framework 1");
+      const keys = Object.keys(images);
       expect(keys).toContain("icon-large");
       expect(keys).toContain("icon-medium");
       expect(keys).toContain("icon-small");
@@ -109,22 +109,22 @@ describe("MarathonStore", () => {
   describe("#processMarathonGroups", () => {
     it("sets Marathon health to idle with no items", () => {
       MarathonStore.processMarathonGroups({ items: [] });
-      var marathonApps = MarathonStore.get("apps");
+      const marathonApps = MarathonStore.get("apps");
       expect(marathonApps.marathon.health.key).toEqual("IDLE");
     });
 
     it("sets Marathon health to healthy with some apps", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasOnlyUnhealth);
-      var marathonApps = MarathonStore.get("apps");
+      const marathonApps = MarathonStore.get("apps");
       expect(marathonApps.marathon.health.key).toEqual("HEALTHY");
     });
 
     it("has apps with NA health if apps have no health checks", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoHealthy);
-      var marathonApps = MarathonStore.get("apps");
+      const marathonApps = MarathonStore.get("apps");
 
       Object.keys(marathonApps).forEach(key => {
-        var appHealth = marathonApps[key].health;
+        const appHealth = marathonApps[key].health;
 
         if (key === "marathon") {
           // The marathon app should still be healthy
@@ -145,7 +145,7 @@ describe("MarathonStore", () => {
     });
 
     it("holds the supplied deployments data on the store", () => {
-      var deployments = MarathonStore.get("deployments");
+      const deployments = MarathonStore.get("deployments");
       expect(deployments).toEqual(jasmine.any(DeploymentsList));
       expect(deployments.last().getId()).toEqual("deployment-id");
     });

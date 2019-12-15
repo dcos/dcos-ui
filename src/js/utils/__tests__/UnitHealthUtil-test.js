@@ -20,7 +20,7 @@ describe("UnitHealthUnit", () => {
 
   describe("#getHealth", () => {
     it("returns a UnitHealthStatus object", () => {
-      var health = 1;
+      const health = 1;
 
       expect(UnitHealthUtil.getHealth(health)).toEqual({
         key: "UNHEALTHY",
@@ -32,7 +32,7 @@ describe("UnitHealthUnit", () => {
     });
 
     it("returns NA when health not valid", () => {
-      var health = "wtf";
+      const health = "wtf";
       expect(UnitHealthUtil.getHealth(health)).toEqual(
         UnitHealthStatus[UnitHealthTypes.SERVER_NA]
       );

@@ -40,8 +40,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_CREATE_SUCCESS
@@ -55,8 +55,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_CREATE_ERROR
@@ -67,8 +67,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -109,8 +109,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS
@@ -124,8 +124,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR
@@ -136,8 +136,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -187,8 +187,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_EDIT_SUCCESS
@@ -202,8 +202,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUP_EDIT_ERROR
@@ -214,8 +214,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -264,8 +264,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
@@ -279,8 +279,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR
@@ -291,8 +291,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -340,8 +340,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
@@ -355,8 +355,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_CREATE_ERROR
@@ -367,8 +367,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -407,8 +407,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
@@ -422,8 +422,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR
@@ -434,8 +434,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -472,8 +472,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
@@ -487,8 +487,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR
@@ -499,8 +499,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -551,8 +551,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
@@ -566,8 +566,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR
@@ -578,8 +578,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -628,8 +628,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
@@ -643,8 +643,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_EDIT_ERROR
@@ -655,8 +655,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -697,8 +697,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS
@@ -709,8 +709,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR
@@ -721,8 +721,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -761,8 +761,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS
@@ -773,8 +773,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR
@@ -785,8 +785,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -836,8 +836,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
@@ -848,8 +848,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR
@@ -860,8 +860,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -909,8 +909,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
@@ -921,8 +921,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_SERVICE_RESTART_ERROR
@@ -933,8 +933,8 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
@@ -968,8 +968,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_SUCCESS
@@ -986,8 +986,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_DEPLOYMENTS_ERROR
@@ -998,8 +998,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1032,8 +1032,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_GROUPS_SUCCESS
@@ -1050,8 +1050,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_GROUPS_ERROR);
       });
@@ -1060,8 +1060,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1094,8 +1094,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS);
       });
@@ -1116,8 +1116,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_ERROR);
       });
@@ -1126,8 +1126,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1163,8 +1163,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_SUCCESS
@@ -1179,8 +1179,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_SERVICE_VERSION_ERROR
@@ -1191,8 +1191,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1227,8 +1227,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS
@@ -1242,8 +1242,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_SERVICE_VERSIONS_ERROR
@@ -1254,8 +1254,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1290,8 +1290,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_SUCCESS
@@ -1303,8 +1303,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_INSTANCE_INFO_ERROR
@@ -1315,8 +1315,8 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1356,8 +1356,8 @@ describe("MarathonActions", () => {
 
     describe("on success", () => {
       it("emits a success event on success", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS
@@ -1368,8 +1368,8 @@ describe("MarathonActions", () => {
       });
 
       it("emits the original deployment ID as the success payload", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.data.originalDeploymentID).toEqual("deployment-id");
         });
@@ -1379,8 +1379,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits an error event on error", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR
@@ -1391,8 +1391,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits the original deployment ID in the error payload", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.originalDeploymentID).toEqual("deployment-id");
       });
@@ -1401,8 +1401,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits the response text in the error payload", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.error).toEqual({
           message: "A helpful error message."
@@ -1415,8 +1415,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -1464,8 +1464,8 @@ describe("MarathonActions", () => {
 
     describe("on success", () => {
       it("emits a success event on success", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
             ActionTypes.REQUEST_MARATHON_TASK_KILL_SUCCESS
@@ -1477,8 +1477,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits an error event on error", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MARATHON_TASK_KILL_ERROR
@@ -1489,8 +1489,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits the response text in the error payload", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ message: "A helpful error message." });
       });
@@ -1501,8 +1501,8 @@ describe("MarathonActions", () => {
     });
 
     it("emits the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",

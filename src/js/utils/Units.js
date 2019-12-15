@@ -20,8 +20,8 @@ const Units = {
     multiplier = multiplier || 1024;
     units = units || ["B", "KiB", "MiB", "GiB", "TiB", "PiB"];
 
-    var factorize = 1;
-    var unitIndex;
+    let factorize = 1;
+    let unitIndex;
 
     for (unitIndex = 0; unitIndex < units.length; unitIndex++) {
       if (unitIndex > 0) {
@@ -37,7 +37,7 @@ const Units = {
       unitIndex = units.length - 1;
     }
 
-    var filesize = size / factorize;
+    let filesize = size / factorize;
 
     filesize = filesize.toFixed(decimals);
 

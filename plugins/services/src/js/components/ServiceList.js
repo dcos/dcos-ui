@@ -26,7 +26,7 @@ const ServiceList = createReactClass({
   },
 
   shouldComponentUpdate(nextProps, nextState) {
-    var changedState =
+    const changedState =
       nextState !== undefined && !isEqual(this.state, nextState);
 
     return !isEqual(this.props, nextProps) || changedState;

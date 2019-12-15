@@ -75,8 +75,8 @@ class TaskTable extends React.Component {
   }
 
   getColumns() {
-    var className = this.getClassName;
-    var heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
+    const className = this.getClassName;
+    const heading = ResourceTableUtil.renderHeading(TaskTableHeaderLabels);
     // Sorts the table columns by their value and if the value is the same it sorts by id
     const sortFunction = TaskTableUtil.getSortFunction("id");
     const getHealthSorting = TableUtil.getHealthSortingOrder;

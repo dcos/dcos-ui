@@ -96,7 +96,7 @@ describe("PackageDetailTab", () => {
       });
 
       it("renders entries with keys and values", () => {
-        var subItem = ReactDOM.render(
+        const subItem = ReactDOM.render(
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
@@ -134,7 +134,7 @@ describe("PackageDetailTab", () => {
       });
 
       it("renders entries with keys and values", () => {
-        var subItem = ReactDOM.render(
+        const subItem = ReactDOM.render(
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
@@ -152,7 +152,7 @@ describe("PackageDetailTab", () => {
 
   describe("#getSubItem", () => {
     it("renders link if url is defined", () => {
-      var link = ReactDOM.render(
+      const link = ReactDOM.render(
         thisInstance.getSubItem("url", "http://foo"),
         thisContainer
       );
@@ -163,7 +163,7 @@ describe("PackageDetailTab", () => {
     });
 
     it("renders link with prefix if defined", () => {
-      var link = ReactDOM.render(
+      const link = ReactDOM.render(
         thisInstance.getSubItem("email", "foo@bar.com"),
         thisContainer
       );
@@ -180,7 +180,7 @@ describe("PackageDetailTab", () => {
     });
 
     it("returns all entries of array", () => {
-      var licenses = thisInstance.mapLicenses([
+      const licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: "qux" },
         { name: "quux", url: "corge" }
@@ -190,7 +190,7 @@ describe("PackageDetailTab", () => {
     });
 
     it("returns all entries even with undefined values", () => {
-      var licenses = thisInstance.mapLicenses([
+      const licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: null },
         { name: "quux", url: "corge" }

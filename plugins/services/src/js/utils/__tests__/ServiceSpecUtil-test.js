@@ -7,8 +7,8 @@ describe("ServiceSpecUtil", () => {
   describe("Pods", () => {
     describe("#setPodInstances", () => {
       it("creates missing sections", () => {
-        var spec = new PodSpec({});
-        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
+        const spec = new PodSpec({});
+        const newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -18,14 +18,14 @@ describe("ServiceSpecUtil", () => {
       });
 
       it("keeps existing fields intact", () => {
-        var spec = new PodSpec({
+        const spec = new PodSpec({
           scaling: {
             kind: "fixed",
             instances: 1,
             maxInstances: 50
           }
         });
-        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
+        const newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -36,14 +36,14 @@ describe("ServiceSpecUtil", () => {
       });
 
       it("resets to fixed on different scale kind", () => {
-        var spec = new PodSpec({
+        const spec = new PodSpec({
           scaling: {
             kind: "different",
             instances: 50,
             miscFieldThatWillBeDropped: ":("
           }
         });
-        var newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
+        const newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -55,8 +55,8 @@ describe("ServiceSpecUtil", () => {
 
     describe("#setServiceInstances", () => {
       it("operates on PodSpec", () => {
-        var spec = new PodSpec({});
-        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
+        const spec = new PodSpec({});
+        const newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
@@ -70,8 +70,8 @@ describe("ServiceSpecUtil", () => {
   describe("Application", () => {
     describe("#setApplicationInstances", () => {
       it("creates missing sections", () => {
-        var spec = new ApplicationSpec({});
-        var newSpec = ServiceSpecUtil.setApplicationInstances(spec, 10);
+        const spec = new ApplicationSpec({});
+        const newSpec = ServiceSpecUtil.setApplicationInstances(spec, 10);
 
         expect(newSpec instanceof ApplicationSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
@@ -82,8 +82,8 @@ describe("ServiceSpecUtil", () => {
 
     describe("#setServiceInstances", () => {
       it("operates on ApplicationSpec", () => {
-        var spec = new ApplicationSpec({});
-        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
+        const spec = new ApplicationSpec({});
+        const newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof ApplicationSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
@@ -96,8 +96,8 @@ describe("ServiceSpecUtil", () => {
   describe("Framework", () => {
     describe("#setFrameworkInstances", () => {
       it("creates missing sections", () => {
-        var spec = new FrameworkSpec({});
-        var newSpec = ServiceSpecUtil.setFrameworkInstances(spec, 10);
+        const spec = new FrameworkSpec({});
+        const newSpec = ServiceSpecUtil.setFrameworkInstances(spec, 10);
 
         expect(newSpec instanceof FrameworkSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
@@ -108,8 +108,8 @@ describe("ServiceSpecUtil", () => {
 
     describe("#setServiceInstances", () => {
       it("operates on FrameworkSpec", () => {
-        var spec = new FrameworkSpec({});
-        var newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
+        const spec = new FrameworkSpec({});
+        const newSpec = ServiceSpecUtil.setServiceInstances(spec, 10);
 
         expect(newSpec instanceof FrameworkSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({

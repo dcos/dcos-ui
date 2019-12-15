@@ -49,13 +49,15 @@ describe("Mesos State Store", () => {
     });
 
     it("returns true if service has a web url", () => {
-      var hasUrl = MesosSummaryStore.hasServiceUrl("name_of_service_with_url");
+      const hasUrl = MesosSummaryStore.hasServiceUrl(
+        "name_of_service_with_url"
+      );
 
       expect(hasUrl).toEqual(true);
     });
 
     it("returns false if service does not have a web url", () => {
-      var hasUrl = MesosSummaryStore.hasServiceUrl(
+      const hasUrl = MesosSummaryStore.hasServiceUrl(
         "name_of_service_without_url"
       );
 

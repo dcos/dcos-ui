@@ -4,7 +4,7 @@ import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
 import ServiceAttributeIsPodFilter from "../ServiceAttributeIsPodFilter";
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
 let thisMockItems;
 

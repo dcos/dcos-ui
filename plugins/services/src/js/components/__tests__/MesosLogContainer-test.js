@@ -36,7 +36,7 @@ describe("MesosLogContainer", () => {
       thisContainer
     );
 
-    var logBuffer = new LogBuffer();
+    const logBuffer = new LogBuffer();
     logBuffer.add(new Item({ data: "foo", offset: 100 }));
     MesosLogStore.getLogBuffer = jasmine
       .createSpy("MesosLogStore#getLogBuffer")
@@ -149,7 +149,7 @@ describe("MesosLogContainer", () => {
     });
 
     it("doesn't call getLoadingScreen when fullLog is empty", () => {
-      var logBuffer = new LogBuffer();
+      const logBuffer = new LogBuffer();
       logBuffer.add(new Item({ data: "", offset: 100 }));
       MesosLogStore.getLogBuffer = jasmine
         .createSpy("MesosLogStore#getLogBuffer")
@@ -188,7 +188,7 @@ describe("MesosLogContainer", () => {
         thisContainer
       );
 
-      var logBuffer = new LogBuffer();
+      const logBuffer = new LogBuffer();
       logBuffer.add(new Item({ data: "", offset: 100 }));
       MesosLogStore.getLogBuffer = jasmine
         .createSpy("MesosLogStore#getLogBuffer")
@@ -212,7 +212,7 @@ describe("MesosLogContainer", () => {
         thisContainer
       );
 
-      var logBuffer = new LogBuffer();
+      const logBuffer = new LogBuffer();
       MesosLogStore.getLogBuffer = jasmine
         .createSpy("MesosLogStore#getLogBuffer")
         .and.returnValue(logBuffer);

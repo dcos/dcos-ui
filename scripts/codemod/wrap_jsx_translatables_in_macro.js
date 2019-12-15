@@ -214,8 +214,8 @@ function addTransImport(j, root) {
 }
 
 export default (file, api) => {
-  var j = api.jscodeshift; // alias the jscodeshift API
-  var root = j(file.source); // parse JS code into an AST
+  const j = api.jscodeshift; // alias the jscodeshift API
+  const root = j(file.source); // parse JS code into an AST
 
   const state = new TranslatableState(j);
 

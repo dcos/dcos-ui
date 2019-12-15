@@ -36,8 +36,8 @@ describe("Util", () => {
 
   describe("#omit", () => {
     it("returns a copy of the object", () => {
-      var obj = { foo: "bar" };
-      var newObject = Util.omit(obj, []);
+      const obj = { foo: "bar" };
+      const newObject = Util.omit(obj, []);
 
       newObject.foo = "modified";
 
@@ -45,11 +45,11 @@ describe("Util", () => {
     });
 
     it("omits key given", () => {
-      var obj = {
+      const obj = {
         foo: "bar",
         qq: "zzz"
       };
-      var newObject = Util.omit(obj, ["qq"]);
+      const newObject = Util.omit(obj, ["qq"]);
 
       expect(Object.keys(newObject).length).toEqual(1);
       expect(newObject.foo).toEqual("bar");
@@ -57,12 +57,12 @@ describe("Util", () => {
     });
 
     it("omits multiple keys", () => {
-      var obj = {
+      const obj = {
         foo: "bar",
         qq: "zzz",
         three: "pie"
       };
-      var newObject = Util.omit(obj, ["foo", "three"]);
+      const newObject = Util.omit(obj, ["foo", "three"]);
 
       expect(Object.keys(newObject).length).toEqual(1);
       expect(newObject.qq).toEqual("zzz");
@@ -72,8 +72,8 @@ describe("Util", () => {
 
   describe("#pluck", () => {
     it("returns a copy of the object", () => {
-      var obj = { foo: "bar" };
-      var newObject = Util.pluck(obj, []);
+      const obj = { foo: "bar" };
+      const newObject = Util.pluck(obj, []);
 
       newObject.foo = "modified";
 
@@ -81,12 +81,12 @@ describe("Util", () => {
     });
 
     it("allows multiple keys", () => {
-      var obj = {
+      const obj = {
         foo: "bar",
         qq: "zzz",
         three: "pie"
       };
-      var newObject = Util.pluck(obj, ["foo", "three"]);
+      const newObject = Util.pluck(obj, ["foo", "three"]);
 
       expect(Object.keys(newObject).length).toEqual(2);
       expect(newObject.foo).toEqual("bar");
@@ -98,25 +98,25 @@ describe("Util", () => {
   describe("#last", () => {
     describe("with incorrect input", () => {
       it("returns null for objects", () => {
-        var last = Util.last({});
+        const last = Util.last({});
 
         expect(last).toEqual(null);
       });
 
       it("returns null for strings", () => {
-        var last = Util.last("bla");
+        const last = Util.last("bla");
 
         expect(last).toEqual(null);
       });
 
       it("returns null for Numbers", () => {
-        var last = Util.last(NaN);
+        const last = Util.last(NaN);
 
         expect(last).toEqual(null);
       });
 
       it("returns null for undefined", () => {
-        var last = Util.last(undefined);
+        const last = Util.last(undefined);
 
         expect(last).toEqual(null);
       });
@@ -124,22 +124,22 @@ describe("Util", () => {
 
     describe("with correct input", () => {
       it("returns the last element in an array", () => {
-        var array = [0, 1, 2, 3];
-        var last = Util.last(array);
+        const array = [0, 1, 2, 3];
+        const last = Util.last(array);
 
         expect(last).toEqual(3);
       });
 
       it("returns the last element for an array of size 1", () => {
-        var array = [0];
-        var last = Util.last(array);
+        const array = [0];
+        const last = Util.last(array);
 
         expect(last).toEqual(0);
       });
 
       it("returns null when given empty array", () => {
-        var array = [];
-        var last = Util.last(array);
+        const array = [];
+        const last = Util.last(array);
 
         expect(last).toEqual(null);
       });
@@ -148,27 +148,27 @@ describe("Util", () => {
 
   describe("#findLastIndex", () => {
     it("returns -1 if empty array", () => {
-      var array = [];
-      var index = Util.findLastIndex(array, obj => obj === 1);
+      const array = [];
+      const index = Util.findLastIndex(array, obj => obj === 1);
       expect(index).toEqual(-1);
     });
     it("returns -1 if not found", () => {
-      var array = [1, 2, 3, 4, 5];
-      var index = Util.findLastIndex(array, obj => obj === 6);
+      const array = [1, 2, 3, 4, 5];
+      const index = Util.findLastIndex(array, obj => obj === 6);
       expect(index).toEqual(-1);
     });
     it("returns 4", () => {
-      var array = [3, 3, 2, 3, 3, 5];
-      var index = Util.findLastIndex(array, obj => obj === 3);
+      const array = [3, 3, 2, 3, 3, 5];
+      const index = Util.findLastIndex(array, obj => obj === 3);
       expect(index).toEqual(4);
     });
     it("returns 1", () => {
-      var array = [
+      const array = [
         { a: "a", b: "bbb" },
         { a: "a", b: "bbb" },
         { a: "a", b: "b" }
       ];
-      var index = Util.findLastIndex(array, obj => obj.b === "bbb");
+      const index = Util.findLastIndex(array, obj => obj.b === "bbb");
       expect(index).toEqual(1);
     });
   });
@@ -268,9 +268,9 @@ describe("Util", () => {
 
   describe("deepCopy", () => {
     it("it returns an actual deep copy", () => {
-      var currentDate = new Date();
+      const currentDate = new Date();
 
-      var originalObject = {
+      const originalObject = {
         obj1: {
           string2: "string2",
           number2: 2,
@@ -292,14 +292,14 @@ describe("Util", () => {
         array1: [1, 2]
       };
 
-      var copiedObject = Util.deepCopy(originalObject);
+      const copiedObject = Util.deepCopy(originalObject);
       expect(copiedObject).toEqual(originalObject);
     });
 
     it("mutating the copy does not affect the original", () => {
-      var currentDate = new Date();
+      const currentDate = new Date();
 
-      var originalObject = {
+      const originalObject = {
         obj1: {
           obj2: {
             string3: "string3",
@@ -317,7 +317,7 @@ describe("Util", () => {
       };
 
       // An exact replica of the originalObject
-      var originalObject2 = {
+      const originalObject2 = {
         obj1: {
           obj2: {
             string3: "string3",
@@ -334,34 +334,34 @@ describe("Util", () => {
         array1: [1, 2]
       };
 
-      var copiedObject = Util.deepCopy(originalObject);
+      const copiedObject = Util.deepCopy(originalObject);
       copiedObject.obj1.obj2 = null;
       expect(copiedObject).not.toEqual(originalObject);
       expect(originalObject2).toEqual(originalObject);
     });
 
     it("does not clone out of bounds items in arrays", () => {
-      var originalObject = {
+      const originalObject = {
         obj1: {
           array1: [1, 2]
         }
       };
 
-      var number = 83864234234;
+      const number = 83864234234;
       originalObject.obj1.array1[number] = 3;
 
-      var copiedObject = Util.deepCopy(originalObject);
+      const copiedObject = Util.deepCopy(originalObject);
       expect(originalObject.obj1.array1[number]).toEqual(3);
       expect(copiedObject.obj1.array1[number]).not.toEqual(3);
     });
 
     it("does clone an array with normal indices", () => {
-      var originalObject = {
+      const originalObject = {
         array: []
       };
       originalObject.array[0] = "test";
 
-      var expectedObject = {
+      const expectedObject = {
         array: []
       };
       expectedObject.array[0] = "test";
@@ -370,12 +370,12 @@ describe("Util", () => {
     });
 
     it("does clone an array with unusual small indices", () => {
-      var originalObject = {
+      const originalObject = {
         array: []
       };
       originalObject.array[2] = "test";
 
-      var expectedObject = {
+      const expectedObject = {
         array: []
       };
       expectedObject.array[2] = "test";

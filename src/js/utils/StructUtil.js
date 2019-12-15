@@ -10,7 +10,7 @@ const StructUtil = {
    * @return {Object}     Cloned Object without Structs
    */
   copyRawObject: function copyRawObject(obj) {
-    var copy;
+    let copy;
 
     // Handle the 3 simple types, and null or undefined
     if (obj == null || typeof obj !== "object") {
@@ -38,7 +38,7 @@ const StructUtil = {
     // Handle Object
     if (obj instanceof Object) {
       copy = {};
-      for (var attr in obj) {
+      for (const attr in obj) {
         if (Object.prototype.hasOwnProperty.call(obj, attr)) {
           copy[attr] = copyRawObject(obj[attr]);
         }

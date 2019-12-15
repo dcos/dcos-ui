@@ -48,7 +48,7 @@ describe("Page Header Component", () => {
         const firstItem = $breadcrumbs[0];
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
         const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
-        var isValid = true;
+        let isValid = true;
 
         if (
           firstItem.classList.value.indexOf("breadcrumb--is-ellipsis") !== -1 &&

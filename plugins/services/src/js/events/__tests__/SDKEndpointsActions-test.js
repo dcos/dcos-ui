@@ -49,8 +49,8 @@ describe("SDKEndpointsActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
             data: { error: {}, serviceId: "foo" },
@@ -63,8 +63,8 @@ describe("SDKEndpointsActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        var id = AppDispatcher.register(payload => {
-          var action = payload.action;
+        const id = AppDispatcher.register(payload => {
+          const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             error: { description: "foo" }

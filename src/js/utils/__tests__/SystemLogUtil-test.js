@@ -5,7 +5,7 @@ let thisFunc, thisAccumulatedThrottle;
 describe("SystemLogUtil", () => {
   describe("#getUrl", () => {
     it("includes range element first in the url", () => {
-      var result = SystemLogUtil.getUrl("foo", { cursor: "cursor" });
+      const result = SystemLogUtil.getUrl("foo", { cursor: "cursor" });
 
       expect(result).toEqual(
         "/system/v1/agent/foo/logs/v1/stream/?cursor=cursor"
@@ -13,7 +13,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("encodes value of range element", () => {
-      var result = SystemLogUtil.getUrl("foo", { limit: "lim&it" });
+      const result = SystemLogUtil.getUrl("foo", { limit: "lim&it" });
 
       expect(result).toEqual(
         "/system/v1/agent/foo/logs/v1/stream/?limit=lim%26it"
@@ -21,7 +21,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("concatenates range elements nicely together", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it"
       });
@@ -32,7 +32,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("includes filter after range element in the url", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { param1: "param1" }
       });
@@ -43,7 +43,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("encodes filter element", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         filter: { "param/1": "param/1" }
       });
 
@@ -53,7 +53,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("concatenates range elements nicely together", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         limit: "lim&it",
         postfix: "postfix",
@@ -66,7 +66,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("ignores anything that is not a param or filter", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         bar: "bar"
       });
 
@@ -74,7 +74,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("uses stream by default", () => {
-      var result = SystemLogUtil.getUrl("foo", {
+      const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
         filter: { "param/1": "param/1" }
       });
@@ -85,7 +85,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("uses range", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",
@@ -100,7 +100,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("adds framework id in the URL", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",
@@ -115,7 +115,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("adds executor id in the URL", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",
@@ -130,7 +130,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("adds container id in the URL", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",
@@ -145,7 +145,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("adds all ids in the URL", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",
@@ -163,7 +163,7 @@ describe("SystemLogUtil", () => {
     });
 
     it("adds aditional endpoint to the URL", () => {
-      var result = SystemLogUtil.getUrl(
+      const result = SystemLogUtil.getUrl(
         "foo",
         {
           cursor: "cursor",

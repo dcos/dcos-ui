@@ -7,7 +7,7 @@ import HealthUnitsList from "../../structs/HealthUnitsList";
 let thisComponent;
 
 describe("#ComponentList", () => {
-  var healthUnits;
+  let healthUnits;
 
   beforeEach(() => {
     healthUnits = new HealthUnitsList({

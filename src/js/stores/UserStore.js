@@ -44,7 +44,7 @@ class UserStore extends EventEmitter {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
       switch (action.type) {
         // Create user
         case REQUEST_USER_CREATE_SUCCESS:

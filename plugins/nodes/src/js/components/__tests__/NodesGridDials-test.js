@@ -5,7 +5,7 @@ import { shallow } from "enzyme";
 import Node from "#SRC/js/structs/Node";
 import NodesGridDials from "../NodesGridDials";
 
-var mockHost = {
+const mockHost = {
   id: "foo",
   active: true,
   resources: {
@@ -76,24 +76,24 @@ describe("NodesGridDials", () => {
     });
 
     it("contains an unused resources slice", () => {
-      var slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
+      const slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
       expect(typeof slice).toEqual("object");
     });
 
     it("uses gray for the unused slice", () => {
-      var slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
+      const slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
       expect(slice.colorIndex).toEqual("unused");
     });
   });
 
   describe("#getInactiveSliceData", () => {
     it("uses the correct color", () => {
-      var inactiveSlice = thisInstance.instance().getInactiveSliceData();
+      const inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].colorIndex).toEqual(2);
     });
 
     it("uses 100% of the dial", () => {
-      var inactiveSlice = thisInstance.instance().getInactiveSliceData();
+      const inactiveSlice = thisInstance.instance().getInactiveSliceData();
       expect(inactiveSlice[0].percentage).toEqual(100);
     });
   });
@@ -102,11 +102,11 @@ describe("NodesGridDials", () => {
     it("returns different configurations depending on the active parameter", () => {
       let host = Object.assign({}, thisHosts[0]);
       host.active = true;
-      var config1 = thisInstance.instance().getDialConfig(new Node(host));
+      const config1 = thisInstance.instance().getDialConfig(new Node(host));
 
       host = Object.assign({}, thisHosts[0]);
       host.active = false;
-      var config2 = thisInstance.instance().getDialConfig(new Node(host));
+      const config2 = thisInstance.instance().getDialConfig(new Node(host));
 
       expect(isEqual(config1, config2)).toEqual(false);
     });

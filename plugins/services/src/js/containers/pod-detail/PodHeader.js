@@ -24,7 +24,7 @@ class PodHeader extends React.Component {
   }
 
   getActionButtons() {
-    var { pod } = this.props;
+    const { pod } = this.props;
 
     const dropdownItems = [
       // This item is used as a label to the dropdown

@@ -15,7 +15,7 @@ const ServiceSpecUtil = {
    * @returns {PodSpec} - Returns a new PodSpec instance
    */
   setPodInstances(spec, instancesCount) {
-    var newSpec = Util.deepCopy(spec.get());
+    const newSpec = Util.deepCopy(spec.get());
     if (!newSpec.scaling) {
       newSpec.scaling = {};
     }
@@ -40,7 +40,7 @@ const ServiceSpecUtil = {
    * @returns {ApplicationSpec} - Returns a new ApplicationSpec instance
    */
   setApplicationInstances(spec, instancesCount) {
-    var newSpec = Util.deepCopy(spec.get());
+    const newSpec = Util.deepCopy(spec.get());
     newSpec.instances = instancesCount;
 
     return new ApplicationSpec(newSpec);
@@ -55,7 +55,7 @@ const ServiceSpecUtil = {
    * @returns {FrameworkSpec} - Returns a new FrameworkSpec instance
    */
   setFrameworkInstances(spec, instancesCount) {
-    var newSpec = Util.deepCopy(spec.get());
+    const newSpec = Util.deepCopy(spec.get());
     newSpec.instances = instancesCount;
 
     return new FrameworkSpec(newSpec);

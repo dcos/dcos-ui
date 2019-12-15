@@ -7,7 +7,7 @@ require("../SDK").default.setSDK(SDK);
 
 const BannerPlugin = require("../hooks").default;
 
-var defaultConfiguration = BannerPlugin.configuration;
+const defaultConfiguration = BannerPlugin.configuration;
 
 let thisHooks, thisInstance, thisMockFn, thisIframe;
 describe("BannerPlugin", () => {
@@ -131,7 +131,7 @@ describe("BannerPlugin", () => {
     beforeEach(() => {
       thisMockFn = jasmine.createSpy("ContentWindow Spy");
       thisIframe = global.document.createElement("iframe");
-      var mockFn = thisMockFn;
+      const mockFn = thisMockFn;
       thisIframe.__defineGetter__("contentWindow", () => ({
         addEventListener: mockFn
       }));

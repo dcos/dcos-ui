@@ -26,7 +26,7 @@ describe("TaskTable", () => {
     });
 
     it("treats tasks started not by Marathon as disabled", () => {
-      var tasks = [
+      const tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_STARTING" }
       ];
@@ -34,7 +34,7 @@ describe("TaskTable", () => {
     });
 
     it("it treats completed tasks as disabled", () => {
-      var tasks = [
+      const tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
         { id: "2", state: "TASK_FINISHED", isStartedByMarathon: true }
       ];

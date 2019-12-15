@@ -12,7 +12,7 @@ import Chart from "#SRC/js/components/charts/Chart";
 import DialChart from "#SRC/js/components/charts/DialChart";
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
-var colors = {
+const colors = {
   error: 2,
   unused: "unused"
 };
@@ -37,9 +37,9 @@ const NodesGridDials = createReactClass({
   },
 
   getServiceSlicesConfig(node) {
-    var config = [];
-    var props = this.props;
-    var resourcesByFramework = props.resourcesByFramework[node.get("id")];
+    const config = [];
+    const props = this.props;
+    const resourcesByFramework = props.resourcesByFramework[node.get("id")];
 
     if (!resourcesByFramework) {
       return config;
@@ -63,9 +63,9 @@ const NodesGridDials = createReactClass({
   },
 
   getActiveSliceData(node) {
-    var config = this.getServiceSlicesConfig(node);
+    const config = this.getServiceSlicesConfig(node);
 
-    var percentage = config.reduce((memo, slice) => {
+    let percentage = config.reduce((memo, slice) => {
       memo += slice.percentage;
 
       return memo;
@@ -99,7 +99,7 @@ const NodesGridDials = createReactClass({
     const resourceLabel = ResourcesUtil.getResourceLabel(selectedResource);
 
     if (node.isActive()) {
-      var sliceData = this.getActiveSliceData(node);
+      const sliceData = this.getActiveSliceData(node);
 
       return {
         data: sliceData.data,
@@ -126,7 +126,7 @@ const NodesGridDials = createReactClass({
 
   getDials() {
     return this.props.hosts.map(node => {
-      var config = this.getDialConfig(node);
+      const config = this.getDialConfig(node);
       let description = <div className="description">{config.description}</div>;
 
       if (!node.isActive()) {
