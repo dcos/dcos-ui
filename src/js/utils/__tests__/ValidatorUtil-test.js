@@ -1,6 +1,6 @@
-describe("ValidatorUtil", () => {
-  const ValidatorUtil = require("../ValidatorUtil");
+const ValidatorUtil = require("../ValidatorUtil");
 
+describe("ValidatorUtil", () => {
   describe("#isDefined", () => {
     it("handles empty strings", () => {
       expect(ValidatorUtil.isDefined("")).toBe(false);
