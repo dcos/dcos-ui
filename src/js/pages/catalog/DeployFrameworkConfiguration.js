@@ -70,9 +70,10 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     const { router } = this.context;
     const { params, location } = this.props;
 
-    const query = Object.assign({}, location.query, {
+    const query = {
+      ...location.query,
       appId
-    });
+    };
 
     router.push(
       `/catalog/packages/${encodeURIComponent(

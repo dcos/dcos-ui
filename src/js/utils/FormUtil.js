@@ -73,7 +73,9 @@ const FormUtil = {
    */
   modelToCombinedProps(model) {
     const propValues = {};
-    model = Object.assign({}, model);
+    model = {
+      ...model
+    };
 
     Object.keys(model).forEach(key => {
       if (isNotMultipleProp(key) || !FormUtil.getProp(key)) {
@@ -109,7 +111,10 @@ const FormUtil = {
       );
     });
 
-    return Object.assign({}, model, propValues);
+    return {
+      ...model,
+      ...propValues
+    };
   },
 
   /**

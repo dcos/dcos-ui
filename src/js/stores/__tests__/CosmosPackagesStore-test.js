@@ -34,9 +34,13 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, packagesSearchFixture));
+        handlers.success({
+          ...packagesSearchFixture
+        });
       };
-      thisPackagesSearchFixture = Object.assign({}, packagesSearchFixture);
+      thisPackagesSearchFixture = {
+        ...packagesSearchFixture
+      };
     });
 
     afterEach(() => {
@@ -127,9 +131,13 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, packageDescribeFixture));
+        handlers.success({
+          ...packageDescribeFixture
+        });
       };
-      thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
+      thisPackageDescribeFixture = {
+        ...packageDescribeFixture
+      };
     });
 
     afterEach(() => {
@@ -224,9 +232,13 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, packageVersions));
+        handlers.success({
+          ...packageVersions
+        });
       };
-      thisPackageListVersionsFixture = Object.assign({}, packageVersions);
+      thisPackageListVersionsFixture = {
+        ...packageVersions
+      };
     });
 
     afterEach(() => {
@@ -325,9 +337,10 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, serviceDescribeFixture));
+        handlers.success({
+          ...serviceDescribeFixture
+        });
       };
-      Object.assign({}, serviceDescribeFixture);
     });
 
     afterEach(() => {
@@ -413,9 +426,13 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, packageDescribeFixture));
+        handlers.success({
+          ...packageDescribeFixture
+        });
       };
-      thisPackageDescribeFixture = Object.assign({}, packageDescribeFixture);
+      thisPackageDescribeFixture = {
+        ...packageDescribeFixture
+      };
     });
 
     afterEach(() => {
@@ -463,9 +480,10 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
       RequestUtil.json = handlers => {
-        handlers.success(Object.assign({}, packagesListFixture));
+        handlers.success({
+          ...packagesListFixture
+        });
       };
-      Object.assign({}, packagesListFixture);
     });
 
     afterEach(() => {

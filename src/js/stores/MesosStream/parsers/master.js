@@ -6,10 +6,14 @@ export default function getMaster(state, message) {
   }
 
   const { master_info, elected_time, start_time } = message.get_master;
-  const enhancedMasterInfo = Object.assign({}, master_info, {
+  const enhancedMasterInfo = {
+    ...master_info,
     elected_time,
     start_time
-  });
+  };
 
-  return Object.assign({}, state, { master_info: enhancedMasterInfo });
+  return {
+    ...state,
+    master_info: enhancedMasterInfo
+  };
 }

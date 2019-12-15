@@ -29,11 +29,10 @@ export function replayStream(stream) {
 }
 
 function withHealthDescription(masters) {
-  return masters.map(master =>
-    Object.assign({}, master, {
-      healthDescription: UnitHealthUtil.getHealth(parseInt(master.health, 10))
-    })
-  );
+  return masters.map(master => ({
+    ...master,
+    healthDescription: UnitHealthUtil.getHealth(parseInt(master.health, 10))
+  }));
 }
 
 export function mesosMastersHealthQuery(source, interval) {

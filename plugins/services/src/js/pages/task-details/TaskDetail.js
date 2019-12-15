@@ -197,10 +197,11 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
   handleOpenLogClick(selectedLogFile) {
     const { router } = this.context;
     const routes = this.props.routes;
-    const params = Object.assign({}, this.props.params, {
+    const params = {
+      ...this.props.params,
       filePath: encodeURIComponent(selectedLogFile.get("path")),
       innerPath: encodeURIComponent(TaskDirectoryStore.get("innerPath"))
-    });
+    };
     const { fileViewerRoutePath } = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
   }
@@ -216,7 +217,10 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
     const taskIcon = <img src={task.getImages()["icon-large"]} />;
     const filePath = (selectedLogFile && selectedLogFile.get("path")) || null;
-    const params = Object.assign({ filePath }, this.props.params);
+    const params = {
+      filePath,
+      ...this.props.params
+    };
 
     let tabsArray = this.tabs_getRoutedTabs({ params }) || [];
 

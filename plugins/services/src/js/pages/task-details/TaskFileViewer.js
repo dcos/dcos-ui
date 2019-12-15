@@ -60,10 +60,10 @@ export default class TaskFileViewer extends React.Component {
     const routePath = RouterUtil.reconstructPathFromRoutes(routes);
 
     this.context.router.push(
-      formatPattern(
-        RouterUtil.getCorrectedFileRoutePath(routePath),
-        Object.assign({}, params, { filePath: encodeURIComponent(path) })
-      )
+      formatPattern(RouterUtil.getCorrectedFileRoutePath(routePath), {
+        ...params,
+        filePath: encodeURIComponent(path)
+      })
     );
   }
 

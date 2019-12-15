@@ -42,7 +42,10 @@ export function FormReducer(state, { type, path = [], value }) {
           newState
         );
 
-        newState.push(Object.assign({}, DEFAULT_POD_CONTAINER, { name }));
+        newState.push({
+          ...DEFAULT_POD_CONTAINER,
+          name
+        });
         this.cache.push({});
         break;
       case REMOVE_ITEM:
@@ -93,9 +96,10 @@ export function FormReducer(state, { type, path = [], value }) {
   }
 
   if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
-    newState[index].exec = Object.assign({}, newState[index].exec, {
+    newState[index].exec = {
+      ...newState[index].exec,
       command: { shell: value }
-    });
+    };
   }
 
   if (type === SET && field === "resources") {
@@ -110,15 +114,17 @@ export function FormReducer(state, { type, path = [], value }) {
   }
 
   if (type === SET && joinedPath === `containers.${index}.image.id`) {
-    newState[index].image = Object.assign({}, newState[index].image, {
+    newState[index].image = {
+      ...newState[index].image,
       id: value
-    });
+    };
   }
 
   if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
-    newState[index].image = Object.assign({}, newState[index].image, {
+    newState[index].image = {
+      ...newState[index].image,
       forcePull: value
-    });
+    };
   }
 
   return newState;

@@ -51,9 +51,10 @@ class FuzzyTextDSLSection extends React.Component {
 
     const value = target.value;
     this.setState({
-      data: Object.assign({}, this.state.data, {
+      data: {
+        ...this.state.data,
         text: value
-      })
+      }
     });
 
     // TODO: find better abstraction here (DCOS-40235)

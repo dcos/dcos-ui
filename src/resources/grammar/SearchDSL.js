@@ -77,21 +77,21 @@ import DSLParserUtil from "../../js/utils/DSLParserUtil";
 
 const SearchDSL = (() => {
   let o = (k, v, o, l) => {
-          for (o = o || {}, l = k.length; l--; o[k[l]] = v);
-          return o;
-        },
-      $V0 = [1, 4],
-      $V1 = [1, 5],
-      $V2 = [1, 3],
-      $V3 = [1, 6],
-      $V4 = [1, 8],
-      $V5 = [1, 9],
-      $V6 = [5, 10, 11, 13],
-      $V7 = [1, 12],
-      $V8 = [1, 13],
-      $V9 = [5, 9, 10, 11, 13];
+      for (o = o || {}, l = k.length; l--; o[k[l]] = v);
+      return o;
+    },
+    $V0 = [1, 4],
+    $V1 = [1, 5],
+    $V2 = [1, 3],
+    $V3 = [1, 6],
+    $V4 = [1, 8],
+    $V5 = [1, 9],
+    $V6 = [5, 10, 11, 13],
+    $V7 = [1, 12],
+    $V8 = [1, 13],
+    $V9 = [5, 9, 10, 11, 13];
   const parser = {
-    trace: function trace() {},
+    trace() {},
     yy: {},
     symbols_: {
       error: 2,
@@ -136,7 +136,7 @@ const SearchDSL = (() => {
       [4, 2],
       [4, 1]
     ],
-    performAction: function anonymous(
+    performAction(
       yytext,
       yyleng,
       yylineno,
@@ -232,7 +232,7 @@ const SearchDSL = (() => {
       o($V9, [2, 4])
     ],
     defaultActions: { 7: [2, 1] },
-    parseError: function parseError(str, hash) {
+    parseError(str, hash) {
       if (hash.recoverable) {
         this.trace(str);
       } else {
@@ -241,8 +241,19 @@ const SearchDSL = (() => {
         throw error;
       }
     },
-    parse: function parse(input) {
-      let self = this, stack = [0], tstack = [], vstack = [null], lstack = [], table = this.table, yytext = "", yylineno = 0, yyleng = 0, recovering = 0, TERROR = 2, EOF = 1;
+    parse(input) {
+      let self = this,
+        stack = [0],
+        tstack = [],
+        vstack = [null],
+        lstack = [],
+        table = this.table,
+        yytext = "",
+        yylineno = 0,
+        yyleng = 0,
+        recovering = 0,
+        TERROR = 2,
+        EOF = 1;
       const args = lstack.slice.call(arguments, 1);
       const lexer = Object.create(this.lexer);
       const sharedState = { yy: {} };
@@ -278,7 +289,17 @@ const SearchDSL = (() => {
         }
         return token;
       };
-      let symbol, preErrorSymbol, state, action, a, r, yyval = {}, p, len, newState, expected;
+      let symbol,
+        preErrorSymbol,
+        state,
+        action,
+        a,
+        r,
+        yyval = {},
+        p,
+        len,
+        newState,
+        expected;
       while (true) {
         state = stack[stack.length - 1];
         if (this.defaultActions[state]) {
@@ -322,7 +343,7 @@ const SearchDSL = (() => {
             token: this.terminals_[symbol] || symbol,
             line: lexer.yylineno,
             loc: yyloc,
-            expected: expected
+            expected
           });
         }
         if (action[0] instanceof Array && action.length > 1) {
@@ -418,7 +439,7 @@ const SearchDSL = (() => {
       },
 
       // resets the lexer, sets new input
-      setInput: function(input, yy) {
+      setInput(input, yy) {
         this.yy = yy || this.yy || {};
         this._input = input;
         this._more = this._backtrack = this.done = false;
@@ -439,7 +460,7 @@ const SearchDSL = (() => {
       },
 
       // consumes and returns one char from the input
-      input: function() {
+      input() {
         const ch = this._input[0];
         this.yytext += ch;
         this.yyleng++;
@@ -462,7 +483,7 @@ const SearchDSL = (() => {
       },
 
       // unshifts one char (or a string) into the input
-      unput: function(ch) {
+      unput(ch) {
         const len = ch.length;
         const lines = ch.split(/(?:\r\n?|\n)/g);
 
@@ -500,13 +521,13 @@ const SearchDSL = (() => {
       },
 
       // When called from action, caches matched text and appends it on next action
-      more: function() {
+      more() {
         this._more = true;
         return this;
       },
 
       // When called from action, signals the lexer that this rule fails to match the input, so the next matching rule (regex) should be tested instead.
-      reject: function() {
+      reject() {
         if (this.options.backtrack_lexer) {
           this._backtrack = true;
         } else {
@@ -526,12 +547,12 @@ const SearchDSL = (() => {
       },
 
       // retain first n characters of the match
-      less: function(n) {
+      less(n) {
         this.unput(this.match.slice(n));
       },
 
       // displays already matched input, i.e. for error messages
-      pastInput: function() {
+      pastInput() {
         const past = this.matched.substr(
           0,
           this.matched.length - this.match.length
@@ -542,7 +563,7 @@ const SearchDSL = (() => {
       },
 
       // displays upcoming input, i.e. for error messages
-      upcomingInput: function() {
+      upcomingInput() {
         let next = this.match;
         if (next.length < 20) {
           next += this._input.substr(0, 20 - next.length);
@@ -554,14 +575,14 @@ const SearchDSL = (() => {
       },
 
       // displays the character position where the lexing error occurred, i.e. for error messages
-      showPosition: function() {
+      showPosition() {
         const pre = this.pastInput();
         const c = new Array(pre.length + 1).join("-");
         return pre + this.upcomingInput() + "\n" + c + "^";
       },
 
       // test the lexed token: return FALSE when not a match, otherwise return token
-      test_match: function(match, indexed_rule) {
+      test_match(match, indexed_rule) {
         let token, lines, backup;
 
         if (this.options.backtrack_lexer) {
@@ -638,7 +659,7 @@ const SearchDSL = (() => {
       },
 
       // return next match in input
-      next: function() {
+      next() {
         if (this.done) {
           return this.EOF;
         }
@@ -709,12 +730,12 @@ const SearchDSL = (() => {
       },
 
       // activates a new lexer condition state (pushes the new lexer condition state onto the condition stack)
-      begin: function begin(condition) {
+      begin(condition) {
         this.conditionStack.push(condition);
       },
 
       // pop the previously active lexer condition state off the condition stack
-      popState: function popState() {
+      popState() {
         const n = this.conditionStack.length - 1;
         if (n > 0) {
           return this.conditionStack.pop();
@@ -724,7 +745,7 @@ const SearchDSL = (() => {
       },
 
       // produce the lexer rule set which is active for the currently active lexer condition state
-      _currentRules: function _currentRules() {
+      _currentRules() {
         if (
           this.conditionStack.length &&
           this.conditionStack[this.conditionStack.length - 1]
@@ -738,7 +759,7 @@ const SearchDSL = (() => {
       },
 
       // return the currently active lexer condition state; when an index argument is provided it produces the N-th previous condition state, if available
-      topState: function topState(n) {
+      topState(n) {
         n = this.conditionStack.length - 1 - Math.abs(n || 0);
         if (n >= 0) {
           return this.conditionStack[n];
@@ -748,21 +769,16 @@ const SearchDSL = (() => {
       },
 
       // alias for begin(condition)
-      pushState: function pushState(condition) {
+      pushState(condition) {
         this.begin(condition);
       },
 
       // return the number of states currently on the stack
-      stateStackSize: function stateStackSize() {
+      stateStackSize() {
         return this.conditionStack.length;
       },
       options: {},
-      performAction: function anonymous(
-        yy,
-        yy_,
-        $avoiding_name_collisions,
-        YY_START
-      ) {
+      performAction(yy, yy_, $avoiding_name_collisions, YY_START) {
         const YYSTATE = YY_START;
         switch ($avoiding_name_collisions) {
           case 0:

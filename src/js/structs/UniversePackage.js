@@ -9,7 +9,10 @@ class UniversePackage extends Item {
   }
 
   getConfig() {
-    return Object.assign({}, this.get("config"), { type: "object" });
+    return {
+      ...this.get("config"),
+      type: "object"
+    };
   }
 
   getDescription() {

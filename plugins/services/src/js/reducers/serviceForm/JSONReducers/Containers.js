@@ -173,7 +173,9 @@ function containersParser(state) {
       const networkMode = findNestedPropertyInObject(state, "networks.0.mode");
 
       item.endpoints.forEach((_endpoint, endpointIndex) => {
-        const endpoint = Object.assign({}, _endpoint);
+        const endpoint = {
+          ..._endpoint
+        };
         // Internal representation of protocols field differs from the JSON
         // Thus we need to delete the field from the ADD_ITEM value so that
         // JSONReducer isn't confused by it
@@ -405,9 +407,11 @@ export function JSONReducer(
           newState
         );
 
-        newState.push(
-          Object.assign({}, DEFAULT_POD_CONTAINER, { name }, value)
-        );
+        newState.push({
+          ...DEFAULT_POD_CONTAINER,
+          name,
+          ...value
+        });
         this.cache.push({});
         this.endpoints.push([]);
         break;
@@ -506,9 +510,10 @@ export function JSONReducer(
   }
 
   if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
-    newState[index].exec = Object.assign({}, newState[index].exec, {
+    newState[index].exec = {
+      ...newState[index].exec,
       command: { shell: value }
-    });
+    };
   }
 
   if (type === SET && field === "resources") {
@@ -521,35 +526,28 @@ export function JSONReducer(
   }
 
   if (type === SET && joinedPath === `containers.${index}.image`) {
-    newState[index].image = this.images[index] = Object.assign(
-      {},
-      newState[index].image,
-      value
-    );
+    newState[index].image = this.images[index] = {
+      ...newState[index].image,
+      ...value
+    };
   }
 
   if (type === SET && joinedPath === `containers.${index}.image.id`) {
-    newState[index].image = this.images[index] = Object.assign(
-      {},
-      this.images[index],
-      {
-        id: value,
-        kind: "DOCKER"
-      }
-    );
+    newState[index].image = this.images[index] = {
+      ...this.images[index],
+      id: value,
+      kind: "DOCKER"
+    };
     if (shouldDeleteContainerImage(newState[index].image)) {
       delete newState[index].image;
     }
   }
 
   if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
-    newState[index].image = this.images[index] = Object.assign(
-      {},
-      this.images[index],
-      {
-        forcePull: value
-      }
-    );
+    newState[index].image = this.images[index] = {
+      ...this.images[index],
+      forcePull: value
+    };
     if (shouldDeleteContainerImage(newState[index].image)) {
       delete newState[index].image;
     }

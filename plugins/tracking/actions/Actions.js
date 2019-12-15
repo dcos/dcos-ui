@@ -55,9 +55,10 @@ const Actions = {
   },
 
   mergeMetaData() {
-    return Object.assign({}, SDK.Store.getAppState().metadata.dcosMetadata, {
+    return {
+      ...SDK.Store.getAppState().metadata.dcosMetadata,
       clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID
-    });
+    };
   },
 
   setDcosMetadata(metadata) {
@@ -155,13 +156,11 @@ const Actions = {
   },
 
   getLogData() {
-    return Object.assign(
-      {
-        appVersion: Config.version,
-        version: "@@VERSION"
-      },
-      this.dcosMetadata
-    );
+    return {
+      appVersion: Config.version,
+      version: "@@VERSION",
+      ...this.dcosMetadata
+    };
   },
 
   identify(uid) {

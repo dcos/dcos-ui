@@ -34,9 +34,10 @@ export default class JobTree extends Tree {
         Array.isArray(item.items) &&
         !(item instanceof JobTree)
       ) {
-        return new this.constructor(
-          Object.assign({ filterProperties: this.getFilterProperties() }, item)
-        );
+        return new this.constructor({
+          filterProperties: this.getFilterProperties(),
+          ...item
+        });
       }
 
       // Convert items into instance of Job

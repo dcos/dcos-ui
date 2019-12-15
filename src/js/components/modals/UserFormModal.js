@@ -79,13 +79,11 @@ class UserFormModal extends mixin(StoreMixin) {
     delete model.confirmPassword; // We don't need to send this to the backend.
     this.setState({ disableNewUser: true });
 
-    const userModelObject = Hooks.applyFilter(
-      "userModelObject",
-      Object.assign({}, model, {
-        creator_uid: AuthStore.getUser().uid,
-        cluster_url: `${global.location.protocol}//${global.location.hostname}`
-      })
-    );
+    const userModelObject = Hooks.applyFilter("userModelObject", {
+      ...model,
+      creator_uid: AuthStore.getUser().uid,
+      cluster_url: `${global.location.protocol}//${global.location.hostname}`
+    });
     UserStore.addUser(userModelObject);
   }
 

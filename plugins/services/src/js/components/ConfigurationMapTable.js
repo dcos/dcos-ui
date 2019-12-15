@@ -64,7 +64,10 @@ const ConfigurationMapTable = props => {
 
   columns = columns
     .map(column => {
-      column = Object.assign({}, columnDefaults, column);
+      column = {
+        ...columnDefaults,
+        ...column
+      };
       const {
         className = "",
         heading,
@@ -119,7 +122,10 @@ const ConfigurationMapTable = props => {
   return (
     <Table
       className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
-      {...Object.assign({}, props, { columns })}
+      {...{
+        ...props,
+        columns
+      }}
     />
   );
 };

@@ -204,9 +204,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   handlePackageVersionChange(selection) {
-    const query = Object.assign({}, this.props.location.query, {
+    const query = {
+      ...this.props.location.query,
       version: selection.id
-    });
+    };
 
     global.location.replace(
       `#${this.props.location.pathname}?${qs.stringify(query)}`
@@ -471,7 +472,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   onInstalledSuccessModalClose() {
-    const query = Object.assign({}, this.props.location.query);
+    const query = {
+      ...this.props.location.query
+    };
     delete query.appId;
 
     global.location.replace(

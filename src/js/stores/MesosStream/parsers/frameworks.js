@@ -22,7 +22,10 @@ export function getFrameworksAction(state, message) {
     []
   );
 
-  return Object.assign({}, state, { frameworks });
+  return {
+    ...state,
+    frameworks
+  };
 }
 
 export function frameworkAddedAction(state, message) {
@@ -32,9 +35,10 @@ export function frameworkAddedAction(state, message) {
 
   const framework = processFramework(message.framework_added.framework);
 
-  return Object.assign({}, state, {
+  return {
+    ...state,
     frameworks: [...state.frameworks, framework]
-  });
+  };
 }
 
 export function frameworkUpdatedAction(state, message) {
@@ -53,7 +57,10 @@ export function frameworkUpdatedAction(state, message) {
     return framework;
   });
 
-  return Object.assign({}, state, { frameworks });
+  return {
+    ...state,
+    frameworks
+  };
 }
 
 export function frameworkRemovedAction(state, message) {
@@ -68,5 +75,8 @@ export function frameworkRemovedAction(state, message) {
     framework => removedFramework.id !== framework.id
   );
 
-  return Object.assign({}, state, { frameworks });
+  return {
+    ...state,
+    frameworks
+  };
 }

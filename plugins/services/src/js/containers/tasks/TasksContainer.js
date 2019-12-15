@@ -243,7 +243,10 @@ class TasksContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, { id })
+        modal: {
+          ...props,
+          id
+        }
       });
     };
 
@@ -259,7 +262,9 @@ class TasksContainer extends React.Component {
   }
 
   getModals() {
-    const modalProps = Object.assign({}, this.state.modal);
+    const modalProps = {
+      ...this.state.modal
+    };
 
     return (
       <TaskModals

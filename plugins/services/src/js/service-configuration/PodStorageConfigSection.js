@@ -134,7 +134,10 @@ class PodStorageConfigSection extends React.Component {
       // Otherwise create one volume entry for each mount
       return containerMounts.reduce(
         (volumesMemo, mountInfo) =>
-          volumesMemo.concat(Object.assign({}, volumeInfo, mountInfo)),
+          volumesMemo.concat({
+            ...volumeInfo,
+            ...mountInfo
+          }),
         memo
       );
     }, []);

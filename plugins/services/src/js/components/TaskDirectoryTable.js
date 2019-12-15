@@ -179,9 +179,10 @@ class TaskDirectoryTable extends React.Component {
         render: this.renderDate,
         sortFunction
       }
-    ].map(columnSetting =>
-      Object.assign({}, defaultColumnSettings, columnSetting)
-    );
+    ].map(columnSetting => ({
+      ...defaultColumnSettings,
+      ...columnSetting
+    }));
   }
 
   getColGroup() {

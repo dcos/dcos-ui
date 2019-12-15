@@ -15,14 +15,20 @@ const VipLabelUtil = {
         vipValue = `${vipMatch[1]}:${vipPort}`;
       }
 
-      return Object.assign({}, labels, { [vipLabel]: vipValue });
+      return {
+        ...labels,
+        [vipLabel]: vipValue
+      };
     }
 
     const labelsHadVip =
       labels && Object.prototype.hasOwnProperty.call(labels, vipLabel);
 
     if (labelsHadVip) {
-      return Object.assign({}, labels, { [vipLabel]: undefined });
+      return {
+        ...labels,
+        [vipLabel]: undefined
+      };
     }
 
     return labels;

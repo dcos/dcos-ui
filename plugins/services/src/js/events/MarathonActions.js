@@ -483,7 +483,10 @@ const MarathonActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
-          data: Object.assign({ originalDeploymentID: deploymentID }, response)
+          data: {
+            originalDeploymentID: deploymentID,
+            ...response
+          }
         });
       },
       error(xhr) {

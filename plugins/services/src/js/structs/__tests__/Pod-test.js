@@ -11,7 +11,9 @@ import ServiceImages from "../../constants/ServiceImages";
 describe("Pod", () => {
   describe("#constructor", () => {
     it("creates instances", () => {
-      const instance = new Pod(Object.assign({}, PodFixture));
+      const instance = new Pod({
+        ...PodFixture
+      });
       expect(instance.get()).toEqual(PodFixture);
     });
   });

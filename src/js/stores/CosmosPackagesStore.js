@@ -378,11 +378,13 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   processPackageListVersionsSuccess(packageVersions, packageName) {
-    const packagesVersions = Object.assign({}, this.get("packagesVersions"), {
+    const packagesVersions = {
+      ...this.get("packagesVersions"),
+
       [packageName]: {
         packageVersions
       }
-    });
+    };
 
     this.set({ packagesVersions });
 
@@ -390,9 +392,10 @@ class CosmosPackagesStore extends GetSetBaseStore {
   }
 
   processPackageListVersionsError(error, packageName) {
-    const packagesVersions = Object.assign({}, this.get("packagesVersions"), {
+    const packagesVersions = {
+      ...this.get("packagesVersions"),
       [packageName]: null
-    });
+    };
 
     this.set({ packagesVersions });
 

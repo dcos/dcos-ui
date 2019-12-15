@@ -310,7 +310,9 @@ class ServicesContainer extends React.Component {
 
     // Increment/clear fetching errors based on action
     const fetchErrors = countFetchErrors(
-      Object.assign({}, this.state.fetchErrors),
+      {
+        ...this.state.fetchErrors
+      },
       action
     );
 
@@ -470,7 +472,10 @@ class ServicesContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, { id })
+        modal: {
+          ...props,
+          id
+        }
       });
     };
 
@@ -529,7 +534,9 @@ class ServicesContainer extends React.Component {
    * @returns {object} updated and cleaned up modal information (props)
    */
   getCorrectedModalProps(props, service) {
-    const modalProps = Object.assign({}, props);
+    const modalProps = {
+      ...props
+    };
 
     if (!modalProps.service && service) {
       modalProps.service = service;

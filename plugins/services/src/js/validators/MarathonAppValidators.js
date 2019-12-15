@@ -165,11 +165,10 @@ const MarathonAppValidators = {
     const errors = [];
 
     PlacementValidators.validateConstraints(constraints).map(error => {
-      errors.push(
-        Object.assign({}, error, {
-          path: ["constraints"].concat(error.path)
-        })
-      );
+      errors.push({
+        ...error,
+        path: ["constraints"].concat(error.path)
+      });
     });
 
     errors.push(...PlacementValidators.mustHaveUniqueOperatorField(app));

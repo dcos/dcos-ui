@@ -34,9 +34,10 @@ describe("JSONEditor", () => {
         thisContainer
       );
 
-      const nextProps = Object.assign({}, instance.props, {
+      const nextProps = {
+        ...instance.props,
         value: updatedValue
-      });
+      };
       const nextState = instance.state;
 
       instance.handleChange(JSON.stringify(updatedValue));

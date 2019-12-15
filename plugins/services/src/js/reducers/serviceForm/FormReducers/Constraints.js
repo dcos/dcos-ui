@@ -17,7 +17,10 @@ function processTransaction(state, { type, path, value }) {
     let defaultValue = { fieldName: null, operator: null, value: null };
 
     if (value != null && value.type != null) {
-      defaultValue = Object.assign({}, defaultValue, value);
+      defaultValue = {
+        ...defaultValue,
+        ...value
+      };
     }
 
     newState.push(defaultValue);

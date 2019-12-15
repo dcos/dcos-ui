@@ -18,5 +18,8 @@ export default function getExecutorsAction(state, message) {
     processExecutor
   );
 
-  return Object.assign({}, state, { executors });
+  return {
+    ...state,
+    executors
+  };
 }

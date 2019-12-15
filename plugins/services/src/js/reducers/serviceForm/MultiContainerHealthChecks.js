@@ -41,8 +41,12 @@ function parseHttpHealthCheck(healthCheck, path) {
 }
 
 function reduceHttpHealthCheck(state, field, value) {
-  const newState = Object.assign({}, state);
-  newState.http = Object.assign({}, newState.http || {});
+  const newState = {
+    ...state
+  };
+  newState.http = {
+    ...(newState.http || {})
+  };
 
   switch (field) {
     case "endpoint":
@@ -66,8 +70,12 @@ function reduceHttpHealthCheck(state, field, value) {
 }
 
 function reduceFormHttpHealthCheck(state, field, value) {
-  const newState = Object.assign({}, state);
-  newState.http = Object.assign({}, newState.http || {});
+  const newState = {
+    ...state
+  };
+  newState.http = {
+    ...(newState.http || {})
+  };
 
   switch (field) {
     case "https":
@@ -98,8 +106,12 @@ function parseTcpHealthCheck(healthCheck, path) {
 }
 
 function reduceTcpHealthCheck(state, field, value) {
-  const newState = Object.assign({}, state);
-  newState.tcp = Object.assign({}, newState.tcp || {});
+  const newState = {
+    ...state
+  };
+  newState.tcp = {
+    ...(newState.tcp || {})
+  };
 
   switch (field) {
     case "endpoint":
@@ -158,9 +170,15 @@ function parseCommandHealthCheck(healthCheck, path) {
 }
 
 function reduceCommandHealthCheck(state, field, value) {
-  const newState = Object.assign({}, state);
-  newState.exec = Object.assign({}, newState.exec || {});
-  newState.exec.command = Object.assign({}, newState.exec.command || {});
+  const newState = {
+    ...state
+  };
+  newState.exec = {
+    ...(newState.exec || {})
+  };
+  newState.exec.command = {
+    ...(newState.exec.command || {})
+  };
   const command = newState.exec.command;
 
   switch (field) {
@@ -204,9 +222,15 @@ function reduceCommandHealthCheck(state, field, value) {
 }
 
 function reduceFormCommandHealthCheck(state, field, value) {
-  const newState = Object.assign({}, state);
-  newState.exec = Object.assign({}, newState.exec || {});
-  newState.exec.command = Object.assign({}, newState.exec.command || {});
+  const newState = {
+    ...state
+  };
+  newState.exec = {
+    ...(newState.exec || {})
+  };
+  newState.exec.command = {
+    ...(newState.exec.command || {})
+  };
   const command = newState.exec.command;
 
   switch (field) {
@@ -223,7 +247,9 @@ function reduceFormCommandHealthCheck(state, field, value) {
 }
 
 export function JSONSegmentReducer(state, { type, path, value }) {
-  const newState = Object.assign({}, state);
+  const newState = {
+    ...state
+  };
   const [group, field, secondField] = path;
 
   // ADD_ITEM does nothing more but to define an object as a value,

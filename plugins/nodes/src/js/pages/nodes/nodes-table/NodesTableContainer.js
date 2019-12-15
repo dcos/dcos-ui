@@ -109,7 +109,10 @@ class NodesTableContainer extends mixin(StoreMixin) {
         return new Node({ ...node.toJSON(), network });
       })
     });
-    const filters = Object.assign({}, this.state.filters, newFilters);
+    const filters = {
+      ...this.state.filters,
+      ...newFilters
+    };
     const filteredNodes = newNodes.filter(filters);
 
     this.setState({ filters, filteredNodes }, callback);

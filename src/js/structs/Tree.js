@@ -22,9 +22,10 @@ export default class Tree extends List {
         Array.isArray(item.items) &&
         !(item instanceof Tree)
       ) {
-        return new this.constructor(
-          Object.assign({ filterProperties: this.getFilterProperties() }, item)
-        );
+        return new this.constructor({
+          filterProperties: this.getFilterProperties(),
+          ...item
+        });
       }
 
       return item;
@@ -72,7 +73,10 @@ export default class Tree extends List {
         return callback(item, index, this);
       });
 
-    return new this.constructor(Object.assign({}, this, { items }));
+    return new this.constructor({
+      ...this,
+      items
+    });
   }
 
   /**
@@ -115,9 +119,10 @@ export default class Tree extends List {
       );
     }
 
-    return new this.constructor(
-      Object.assign({}, this, { items: this.getItems() })
-    );
+    return new this.constructor({
+      ...this,
+      items: this.getItems()
+    });
   }
 
   /**
@@ -143,7 +148,10 @@ export default class Tree extends List {
       return callback(item, index, this);
     });
 
-    return new this.constructor(Object.assign({}, this, { items }));
+    return new this.constructor({
+      ...this,
+      items
+    });
   }
 
   /**

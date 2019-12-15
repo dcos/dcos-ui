@@ -173,13 +173,11 @@ class DCOSStore extends EventEmitter {
           { affected: [], stale: [] }
         );
 
-        return Object.assign(
-          {
-            affectedServices: services.affected,
-            staleServiceIds: services.stale
-          },
-          deployment
-        );
+        return {
+          affectedServices: services.affected,
+          staleServiceIds: services.stale,
+          ...deployment
+        };
       }
     );
 

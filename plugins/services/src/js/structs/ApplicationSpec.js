@@ -46,7 +46,9 @@ export default class ApplicationSpec extends ServiceSpec {
 
     // "Clone" health checks to ensure that no one is accidentally altering the
     // properties.
-    return healthChecks.map(healthCheck => Object.assign({}, healthCheck));
+    return healthChecks.map(healthCheck => ({
+      ...healthCheck
+    }));
   }
 
   getInstancesCount() {

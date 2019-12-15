@@ -27,8 +27,10 @@ class PageHeaderNavigationDropdown extends React.Component {
     return this.props.items.map(item => {
       const { label } = item;
 
-      return Object.assign({}, item, {
+      return {
+        ...item,
         html: <Trans render="span" id={label} />,
+
         selectedHtml: (
           <div className="page-header-navigation-dropdown-active-item">
             <Trans
@@ -45,7 +47,7 @@ class PageHeaderNavigationDropdown extends React.Component {
             </span>
           </div>
         )
-      });
+      };
     });
   }
 

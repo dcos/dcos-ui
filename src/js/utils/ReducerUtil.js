@@ -32,7 +32,9 @@ export function combineReducers(reducers = {}) {
 
   return (state, action, index = 0) => {
     let reducerIndex = reducerKeys.length;
-    const localState = Object.assign({}, state);
+    const localState = {
+      ...state
+    };
 
     // As the while is faster then the Array.prototype.forEach and this
     // function can potentially be called more often we choose while here.
