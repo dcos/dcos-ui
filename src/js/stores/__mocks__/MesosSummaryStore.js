@@ -1,7 +1,7 @@
 const MesosSummaryStore = jest.genMockFromModule("../MesosSummaryStore")
   .default;
 
-var _data = {};
+const _data = {};
 
 /**
  * Sets mock data for MesosSummaryStore.get to return.

@@ -1,13 +1,13 @@
-var checker = require("license-checker");
-var fs = require("fs");
-var packageJSON = require("../package.json");
+const checker = require("license-checker");
+const fs = require("fs");
+const packageJSON = require("../package.json");
 
 function buildDependenciesArray(dependencies) {
   return Object.keys(dependencies).map(dependency => {
-    var version = dependencies[dependency];
+    let version = dependencies[dependency];
 
     if (version.startsWith("github:")) {
-      var json = JSON.parse(
+      const json = JSON.parse(
         fs.readFileSync(
           "./node_modules/" + dependency + "/package.json",
           "utf8"
@@ -35,8 +35,8 @@ checker.init(
       process.exit(1);
     }
 
-    var count = 0;
-    var found = [];
+    let count = 0;
+    const found = [];
     Object.keys(json).forEach(dependency => {
       if (dependencies.indexOf(dependency) === -1) {
         return;
@@ -45,7 +45,7 @@ checker.init(
       count++;
       found.push(dependency);
 
-      var licenses = json[dependency].licenses;
+      const licenses = json[dependency].licenses;
       if (licenses === "UNKNOWN") {
         console.warn("Dependency has an unknown license", json[dependency]);
       }
@@ -59,7 +59,7 @@ checker.init(
     // Ensure we found them all
     if (count !== dependencies.length) {
       console.log("Dependency length doesn't match.");
-      var missing = dependencies.filter(dependency => {
+      const missing = dependencies.filter(dependency => {
         return found.indexOf(dependency) === -1;
       });
       console.log(missing);

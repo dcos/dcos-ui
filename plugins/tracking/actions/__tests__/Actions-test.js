@@ -18,13 +18,13 @@ global.analytics = {
   track() {}
 };
 
-var DCOS_METADATA = {
+const DCOS_METADATA = {
   clusterId: "cluster",
   "dcos-image-commit": "commit",
   "bootstrap-id": "bootstrap"
 };
 
-var routes = [{ path: "/foo" }];
+const routes = [{ path: "/foo" }];
 
 describe("Actions", () => {
   Actions.initialize();
@@ -57,7 +57,7 @@ describe("Actions", () => {
       Actions.setRoutes(routes);
       Actions.log("foo");
 
-      var args = global.analytics.track.calls.mostRecent().args[1];
+      const args = global.analytics.track.calls.mostRecent().args[1];
       expect(args.appVersion).toBeDefined();
       expect(args.version).toBeDefined();
       expect(args.clusterId).toBeDefined();

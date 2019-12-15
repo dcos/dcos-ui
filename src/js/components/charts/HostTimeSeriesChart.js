@@ -10,7 +10,7 @@ import TimeSeriesChart from "./TimeSeriesChart";
 import TimeSeriesLabel from "./TimeSeriesLabel";
 import ValueTypes from "../../constants/ValueTypes";
 
-var HostTimeSeriesChart = createReactClass({
+const HostTimeSeriesChart = createReactClass({
   displayName: "HostTimeSeriesChart",
 
   propTypes: {
@@ -30,12 +30,12 @@ var HostTimeSeriesChart = createReactClass({
   },
 
   getMaxY() {
-    var props = this.props;
-    var roundUpValue = props.roundUpValue;
+    const props = this.props;
+    const roundUpValue = props.roundUpValue;
     const slavesCounts = props.data.map(agent => agent.slavesCount);
     const maxSlavesCount = Math.max(...slavesCounts);
 
-    var maxY =
+    let maxY =
       maxSlavesCount + (roundUpValue - (maxSlavesCount % roundUpValue));
 
     if (maxY < props.minMaxY) {

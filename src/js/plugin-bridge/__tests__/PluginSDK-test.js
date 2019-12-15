@@ -25,7 +25,7 @@ describe("PluginSDK", () => {
             }
           }
         });
-        var state = PluginSDK.Store.getState();
+        const state = PluginSDK.Store.getState();
         expect(state.fakePlugin1).toEqual(undefined);
       });
 
@@ -48,13 +48,13 @@ describe("PluginSDK", () => {
             }
           }
         });
-        var state = PluginSDK.Store.getState();
+        const state = PluginSDK.Store.getState();
         expect(isEqual(state.fakePlugin2, { foo: "bar" })).toEqual(true);
       });
 
       it("throws an error if reducer is not a function", () => {
         // Mock a fake plugin
-        var mockPlugin = jest.genMockFunction().mockImplementation(() =>
+        const mockPlugin = jest.genMockFunction().mockImplementation(() =>
           // Return invalid reducer
           ({})
         );
@@ -93,33 +93,33 @@ describe("PluginSDK", () => {
     });
 
     it("calls plugin with correct # of args", () => {
-      var args = thisMockPlugin.mock.calls[0];
+      const args = thisMockPlugin.mock.calls[0];
       expect(args.length).toBe(1);
     });
 
     it("calls plugin with PluginSDK", () => {
-      var SDK = thisMockPlugin.mock.calls[0][0];
+      const SDK = thisMockPlugin.mock.calls[0][0];
       expect(SDK.toString()).toEqual(PluginSDK.toString());
     });
 
     it("contains Store in PluginSDK", () => {
-      var store = thisMockPlugin.mock.calls[0][0].Store;
+      const store = thisMockPlugin.mock.calls[0][0].Store;
       expect(typeof store.subscribe).toEqual("function");
       expect(typeof store.getState).toEqual("function");
     });
 
     it("contains personal dispatch in PluginSDK", () => {
-      var SDK = thisMockPlugin.mock.calls[0][0];
-      var store = PluginSDK.Store;
-      var dispatch = SDK.dispatch;
-      var pluginID = SDK.pluginID;
-      var storeDispatch = store.dispatch;
+      const SDK = thisMockPlugin.mock.calls[0][0];
+      const store = PluginSDK.Store;
+      const dispatch = SDK.dispatch;
+      const pluginID = SDK.pluginID;
+      const storeDispatch = store.dispatch;
       store.dispatch = jest.genMockFunction();
       dispatch({
         type: "foo",
         data: "bar"
       });
-      var dispatchedObject = {
+      const dispatchedObject = {
         type: "foo",
         data: "bar",
         __origin: pluginID
@@ -133,19 +133,19 @@ describe("PluginSDK", () => {
     });
 
     it("contains pluginID in PluginSDK", () => {
-      var pluginID = thisMockPlugin.mock.calls[0][0].pluginID;
+      const pluginID = thisMockPlugin.mock.calls[0][0].pluginID;
       expect(pluginID).toEqual("fakePlugin3");
     });
 
     it("contains Hooks in PluginSDK", () => {
-      var pluginHooks = thisMockPlugin.mock.calls[0][0].Hooks;
+      const pluginHooks = thisMockPlugin.mock.calls[0][0].Hooks;
       expect(pluginHooks).toEqual(Hooks);
     });
   });
 
   describe("#store and dispatch", () => {
     beforeEach(() => {
-      var mockReducer = jest.genMockFunction();
+      const mockReducer = jest.genMockFunction();
       // Mock reducer
       mockReducer.mockImplementation((state, action) => {
         if (!state || action.type === "reset") {
@@ -161,7 +161,7 @@ describe("PluginSDK", () => {
         }
       });
 
-      var testArgs = {};
+      const testArgs = {};
 
       // Mock a fake plugin
       thisMockPlugin = jest.genMockFunction().mockImplementation(SDK => {
@@ -190,13 +190,13 @@ describe("PluginSDK", () => {
 
     it("calls reducer with correct state", () => {
       thisTestArgs.dispatch({ type: "foo" });
-      var prevState = thisMockReducer.mock.calls[3][0];
+      const prevState = thisMockReducer.mock.calls[3][0];
       expect(isEqual(prevState, { foo: 1 })).toEqual(true);
     });
 
     it("calls reducer with correct action", () => {
       thisTestArgs.dispatch({ type: "foo" });
-      var action = thisMockReducer.mock.calls[3][1];
+      const action = thisMockReducer.mock.calls[3][1];
       expect(
         isEqual(action, { type: "foo", __origin: "anotherFakePlugin" })
       ).toEqual(true);
@@ -204,19 +204,19 @@ describe("PluginSDK", () => {
 
     it("updates Store with new state #1", () => {
       thisTestArgs.dispatch({ type: "reset" });
-      var state = PluginSDK.Store.getState().anotherFakePlugin;
+      const state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 1 })).toEqual(true);
     });
 
     it("updates Store with new state #2", () => {
       thisTestArgs.dispatch({ type: "foo" });
-      var state = PluginSDK.Store.getState().anotherFakePlugin;
+      const state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 2 })).toEqual(true);
     });
 
     it("updates Store with new state #3", () => {
       thisTestArgs.dispatch({ type: "bar" });
-      var state = PluginSDK.Store.getState().anotherFakePlugin;
+      const state = PluginSDK.Store.getState().anotherFakePlugin;
       expect(isEqual(state, { foo: 2, bar: "qux" })).toEqual(true);
     });
   });

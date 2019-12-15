@@ -27,7 +27,7 @@ const VersionsModal = createReactClass({
       </ModalHeading>
     );
 
-    var string = JSON.stringify(this.props.versionDump, null, 2);
+    const string = JSON.stringify(this.props.versionDump, null, 2);
     return (
       <Modal
         onClose={this.onClose}

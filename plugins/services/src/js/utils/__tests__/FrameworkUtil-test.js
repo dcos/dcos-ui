@@ -13,7 +13,7 @@ describe("FrameworkUtil", () => {
     });
 
     it("finds the requested size of image", () => {
-      var image = FrameworkUtil.getImageSizeFromImagesObject(
+      const image = FrameworkUtil.getImageSizeFromImagesObject(
         thisImages,
         "medium"
       );
@@ -21,12 +21,12 @@ describe("FrameworkUtil", () => {
     });
 
     it("returns null if there are no images", () => {
-      var image = FrameworkUtil.getImageSizeFromImagesObject({}, "medium");
+      const image = FrameworkUtil.getImageSizeFromImagesObject({}, "medium");
       expect(image).toEqual(null);
     });
 
     it("returns null if image doesn't exist", () => {
-      var image = FrameworkUtil.getImageSizeFromImagesObject(
+      const image = FrameworkUtil.getImageSizeFromImagesObject(
         thisImages,
         "large"
       );
@@ -34,13 +34,13 @@ describe("FrameworkUtil", () => {
     });
 
     it("returns null if image value is empty", () => {
-      var images = {
+      const images = {
         images: {
           "icon-large": ""
         }
       };
 
-      var image = FrameworkUtil.getImageSizeFromImagesObject(images, "large");
+      const image = FrameworkUtil.getImageSizeFromImagesObject(images, "large");
       expect(image).toEqual(null);
     });
   });
@@ -55,18 +55,18 @@ describe("FrameworkUtil", () => {
     });
 
     it("returns parsed images when all images are defined", () => {
-      var images = FrameworkUtil.getServiceImages(thisImages);
+      const images = FrameworkUtil.getServiceImages(thisImages);
       expect(images).toEqual(thisImages);
     });
 
     it("returns default images when one size is missing", () => {
       delete thisImages["icon-large"];
-      var images = FrameworkUtil.getServiceImages(thisImages);
+      const images = FrameworkUtil.getServiceImages(thisImages);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
 
     it("returns default images when images is null", () => {
-      var images = FrameworkUtil.getServiceImages(null);
+      const images = FrameworkUtil.getServiceImages(null);
       expect(images).toEqual(ServiceImages.NA_IMAGES);
     });
   });

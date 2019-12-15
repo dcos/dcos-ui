@@ -17,7 +17,7 @@ const TimeSeriesArea = createReactClass({
   },
 
   componentDidMount() {
-    var props = this.props;
+    const props = this.props;
 
     d3.select(ReactDOM.findDOMNode(this))
       .transition()
@@ -37,7 +37,7 @@ const TimeSeriesArea = createReactClass({
   },
 
   render() {
-    var className = this.props.className;
+    const className = this.props.className;
 
     return (
       <g>

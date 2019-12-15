@@ -1,6 +1,6 @@
 require("babel-polyfill");
 require("reflect-metadata");
-var EventEmitter = require("events").EventEmitter;
+const EventEmitter = require("events").EventEmitter;
 
 // Tests should just mock responses for the json API
 // so let's just default to a noop

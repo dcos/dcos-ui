@@ -57,7 +57,7 @@ describe("Panel", () => {
     });
 
     it("does not render footer when none is given", () => {
-      var panel = shallow(<Panel />);
+      const panel = shallow(<Panel />);
       expect(panel.find(".panel-footer").length).toBe(0);
     });
 
@@ -74,7 +74,7 @@ describe("Panel", () => {
     });
 
     it("does not render heading when none is given", () => {
-      var panel = shallow(<Panel />);
+      const panel = shallow(<Panel />);
       expect(panel.find(".panel-header").length).toBe(0);
     });
 

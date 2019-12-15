@@ -60,22 +60,22 @@ describe("Units", () => {
     });
 
     it("converts to correct unit of MiB", () => {
-      var factorize = Math.pow(1024, 2);
+      const factorize = Math.pow(1024, 2);
       expect(Units.filesize(thisBaseSize * factorize)).toBe("796 MiB");
     });
 
     it("converts to correct unit of GiB", () => {
-      var factorize = Math.pow(1024, 3);
+      const factorize = Math.pow(1024, 3);
       expect(Units.filesize(thisBaseSize * factorize)).toBe("796 GiB");
     });
 
     it("converts to correct unit of PiB", () => {
-      var factorize = Math.pow(1024, 5);
+      const factorize = Math.pow(1024, 5);
       expect(Units.filesize(thisBaseSize * factorize)).toBe("796 PiB");
     });
 
     it("converts to correct unit of large PiB", () => {
-      var factorize = Math.pow(1024, 6);
+      const factorize = Math.pow(1024, 6);
       expect(Units.filesize(thisBaseSize * factorize)).toBe("815104 PiB");
     });
 
@@ -84,17 +84,17 @@ describe("Units", () => {
     });
 
     it("converts to correct unit of GiB", () => {
-      var factorize = Math.pow(1024, 2);
+      const factorize = Math.pow(1024, 2);
       expect(Units.filesize((thisBaseSize + 128) * factorize)).toBe("0.9 GiB");
     });
 
     it("converts to correct unit of TiB", () => {
-      var factorize = Math.pow(1024, 3);
+      const factorize = Math.pow(1024, 3);
       expect(Units.filesize((thisBaseSize + 158) * factorize)).toBe("0.93 TiB");
     });
 
     it("converts to correct unit of PiB", () => {
-      var factorize = Math.pow(1024, 5);
+      const factorize = Math.pow(1024, 5);
       expect(Units.filesize((thisBaseSize + 230) * factorize)).toBe("1026 PiB");
     });
 
@@ -104,26 +104,26 @@ describe("Units", () => {
     });
 
     it("does not show decimals if set to 0", () => {
-      var size = (thisBaseSize + 352) * 1024;
-      var filesize = Units.filesize(size, 0, 1024);
+      const size = (thisBaseSize + 352) * 1024;
+      const filesize = Units.filesize(size, 0, 1024);
       expect(filesize).toBe("1 MiB");
     });
 
     it("trims trailing zeroes from the mantissa", () => {
-      var size = (thisBaseSize + 102) * 1024;
-      var filesize = Units.filesize(size, 4);
+      const size = (thisBaseSize + 102) * 1024;
+      const filesize = Units.filesize(size, 4);
       expect(filesize).toBe("0.877 MiB");
     });
 
     it("shows decimals places to the specified accuracy", () => {
-      var size = (thisBaseSize + 116) * 1024;
-      var filesize = Units.filesize(size, 4);
+      const size = (thisBaseSize + 116) * 1024;
+      const filesize = Units.filesize(size, 4);
       expect(filesize).toBe("0.8906 MiB");
     });
 
     it("has correct custom unit and threshold", () => {
-      var size = (thisBaseSize + 24) * 1024 * 1024;
-      var filesize = Units.filesize(size, 2, 500, 1024, [
+      const size = (thisBaseSize + 24) * 1024 * 1024;
+      const filesize = Units.filesize(size, 2, 500, 1024, [
         "byte",
         "KB",
         "MB",
@@ -133,8 +133,8 @@ describe("Units", () => {
     });
 
     it("has correct amount of 0 digits", () => {
-      var size = 1000 * 1024;
-      var filesize = Units.filesize(size, 2, 1024);
+      const size = 1000 * 1024;
+      const filesize = Units.filesize(size, 2, 1024);
       expect(filesize).toBe("1000 KiB");
     });
   });

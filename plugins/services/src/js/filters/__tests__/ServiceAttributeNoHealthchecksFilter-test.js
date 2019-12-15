@@ -2,7 +2,7 @@ import List from "#SRC/js/structs/List";
 import HealthStatus from "../../constants/HealthStatus";
 import ServiceAttributeNoHealthchecksFilter from "../ServiceAttributeNoHealthchecksFilter";
 
-var SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
 
 let thisMockItems;
 

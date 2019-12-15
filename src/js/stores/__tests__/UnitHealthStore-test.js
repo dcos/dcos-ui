@@ -27,7 +27,7 @@ describe("UnitHealthStore", () => {
   it("returns an instance of HealthUnitsList", () => {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
-    var units = UnitHealthStore.getUnits("units");
+    const units = UnitHealthStore.getUnits("units");
     expect(units instanceof HealthUnitsList).toBeTruthy();
     Config.useFixtures = false;
   });
@@ -35,7 +35,7 @@ describe("UnitHealthStore", () => {
   it("returns all of the units it was given", () => {
     Config.useFixtures = true;
     UnitHealthStore.fetchUnits();
-    var units = UnitHealthStore.getUnits().getItems();
+    const units = UnitHealthStore.getUnits().getItems();
     expect(units.length).toEqual(thisUnitsFixture.units.length);
     Config.useFixtures = false;
   });
@@ -54,13 +54,13 @@ describe("UnitHealthStore", () => {
         ]
       });
 
-      var units = UnitHealthStore.getUnits().getItems();
+      const units = UnitHealthStore.getUnits().getItems();
       expect(units[0].id).toEqual("mesos");
       expect(units[0].name).toEqual("Mesos");
     });
 
     it("dispatches the correct event upon success", () => {
-      var mockedFn = jasmine.createSpy();
+      const mockedFn = jasmine.createSpy();
       UnitHealthStore.addChangeListener(
         EventTypes.HEALTH_UNITS_CHANGE,
         mockedFn
@@ -74,7 +74,7 @@ describe("UnitHealthStore", () => {
     });
 
     it("dispatches the correct event upon error", () => {
-      var mockedFn = jasmine.createSpy();
+      const mockedFn = jasmine.createSpy();
       UnitHealthStore.addChangeListener(
         EventTypes.HEALTH_UNITS_ERROR,
         mockedFn

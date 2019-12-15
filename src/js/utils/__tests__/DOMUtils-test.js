@@ -8,7 +8,7 @@ describe("DOMUtils", () => {
       "returns the parent element when provided a selector and " +
         "element where the element is a child of the selection",
       () => {
-        var el = {
+        const el = {
           parentElement: {
             id: "something-fake",
             matches() {
@@ -19,7 +19,7 @@ describe("DOMUtils", () => {
             return false;
           }
         };
-        var match = DOMUtils.closest(el, ".fake-selector");
+        const match = DOMUtils.closest(el, ".fake-selector");
 
         expect(match.id).toEqual("something-fake");
       }
@@ -29,13 +29,13 @@ describe("DOMUtils", () => {
       "returns null when provided a selector and element where " +
         "the element is not a child of the selection",
       () => {
-        var el = {
+        const el = {
           parentElement: null,
           matches() {
             return true;
           }
         };
-        var match = DOMUtils.closest(el, ".fake-selector");
+        const match = DOMUtils.closest(el, ".fake-selector");
 
         expect(match).toEqual(null);
       }
@@ -45,7 +45,7 @@ describe("DOMUtils", () => {
       "returns the provided element when the provided element" +
         "matches the selector AND has a parent element",
       () => {
-        var el = {
+        const el = {
           parentElement: {
             id: "something-fake",
             matches() {
@@ -57,7 +57,7 @@ describe("DOMUtils", () => {
             return true;
           }
         };
-        var match = DOMUtils.closest(el, ".fake-selector");
+        const match = DOMUtils.closest(el, ".fake-selector");
 
         expect(match.id).toEqual("child-element");
       }
@@ -82,7 +82,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 101)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -95,7 +95,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 101)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -108,7 +108,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 101)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -121,7 +121,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 101)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -139,7 +139,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 104)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
 
@@ -157,7 +157,7 @@ describe("DOMUtils", () => {
         get: jest.fn(() => 100)
       });
 
-      var width = DOMUtils.getComputedWidth(div);
+      const width = DOMUtils.getComputedWidth(div);
       expect(width).toEqual(100);
     });
   });
@@ -186,22 +186,22 @@ describe("DOMUtils", () => {
     });
 
     it("doesn't do anything if already scrolled there", () => {
-      var container = { scrollTop: 500, scrollHeight: 1500 };
+      const container = { scrollTop: 500, scrollHeight: 1500 };
       DOMUtils.scrollTo(container, 1000, 500);
       expect(container.scrollTop).toEqual(500);
     });
 
     it("begins heading towards the target pixel", () => {
-      var container = { scrollTop: 500, scrollHeight: 1500 };
+      const container = { scrollTop: 500, scrollHeight: 1500 };
       DOMUtils.scrollTo(container, 1000, 1000);
       jest.runAllTimers();
       expect(container.scrollTop).toBeGreaterThan(1000);
     });
 
     it("stops after scrollDuration has passed", () => {
-      var container = { scrollTop: 500, scrollHeight: 1500 };
+      const container = { scrollTop: 500, scrollHeight: 1500 };
       DOMUtils.scrollTo(container, 1500, 1000);
-      var callCount = 0;
+      let callCount = 0;
       global.requestAnimationFrame = func => {
         callCount++;
         setTimeout(func, 15);
@@ -233,7 +233,7 @@ describe("DOMUtils", () => {
     });
 
     it("gets the correct distance from parent top", () => {
-      var result = DOMUtils.getDistanceFromTopOfParent(thisElement);
+      const result = DOMUtils.getDistanceFromTopOfParent(thisElement);
 
       expect(result).toEqual(100);
     });
@@ -242,7 +242,7 @@ describe("DOMUtils", () => {
       const prevParentNode = thisElement.parentNode;
       thisElement.parentNode = null;
 
-      var result = DOMUtils.getDistanceFromTopOfParent(thisElement);
+      const result = DOMUtils.getDistanceFromTopOfParent(thisElement);
       expect(result).toEqual(0);
 
       thisElement.parentNode = prevParentNode;

@@ -37,17 +37,17 @@ class MetadataStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      var source = payload.source;
+      const source = payload.source;
       if (source !== SERVER_ACTION) {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
 
       switch (action.type) {
         case REQUEST_METADATA:
-          var oldMetadata = this.get("metadata");
-          var metadata = action.data;
+          const oldMetadata = this.get("metadata");
+          const metadata = action.data;
 
           // only emitting on change
           if (!isEqual(oldMetadata, metadata)) {
@@ -56,8 +56,8 @@ class MetadataStore extends GetSetBaseStore {
           }
           break;
         case REQUEST_DCOS_METADATA:
-          var oldDCOSMetadata = this.get("dcosMetadata");
-          var dcosMetadata = action.data;
+          const oldDCOSMetadata = this.get("dcosMetadata");
+          const dcosMetadata = action.data;
 
           // only emitting on change
           if (!isEqual(oldDCOSMetadata, dcosMetadata)) {

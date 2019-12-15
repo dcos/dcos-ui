@@ -35,7 +35,7 @@ describe("PlacementConstraintsSchemaField", () => {
         />
       );
 
-      var tree = thisInstance.toJSON();
+      const tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });
@@ -66,7 +66,7 @@ describe("PlacementConstraintsSchemaField", () => {
         />
       );
 
-      var tree = thisInstance.toJSON();
+      const tree = thisInstance.toJSON();
       expect(tree).toMatchSnapshot();
     });
   });

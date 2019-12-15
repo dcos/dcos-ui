@@ -31,9 +31,9 @@ const TimeSeriesLabel = createReactClass({
   },
 
   render() {
-    var props = this.props;
+    const props = this.props;
 
-    var percentageClassSet = classNames({
+    const percentageClassSet = classNames({
       hidden: props.y !== ValueTypes.PERCENTAGE
     });
 

@@ -25,8 +25,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS
@@ -36,8 +36,8 @@ describe("MesosLogActions", () => {
       thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ data: "", offset: 0 });
         expect(action.path).toEqual("bar");
@@ -48,8 +48,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_OFFSET_ERROR);
       });
@@ -58,8 +58,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.path).toEqual("bar");
         expect(action.slaveID).toEqual("foo");
@@ -69,8 +69,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -103,8 +103,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_SUCCESS);
       });
@@ -112,8 +112,8 @@ describe("MesosLogActions", () => {
       thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ data: "", offset: 0 });
         expect(action.path).toEqual("bar");
@@ -124,8 +124,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MESOS_LOG_ERROR);
       });
@@ -134,8 +134,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.path).toEqual("bar");
         expect(action.slaveID).toEqual("foo");
@@ -145,8 +145,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
@@ -179,8 +179,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS
@@ -190,8 +190,8 @@ describe("MesosLogActions", () => {
       thisConfiguration.success({ data: "", offset: 0 });
     });
     it("dispatches the correct information when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ data: "", offset: 0 });
         expect(action.path).toEqual("bar");
@@ -202,8 +202,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_ERROR
@@ -214,8 +214,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.path).toEqual("bar");
         expect(action.slaveID).toEqual("foo");
@@ -225,8 +225,8 @@ describe("MesosLogActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",

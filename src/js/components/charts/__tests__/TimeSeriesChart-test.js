@@ -9,7 +9,7 @@ let thisContainer, thisInstance;
 describe("TimeSeriesChart", () => {
   describe("#shouldComponentUpdate", () => {
     beforeEach(() => {
-      var data = [
+      const data = [
         {
           values: [
             { date: 0, y: 0 },
@@ -31,7 +31,7 @@ describe("TimeSeriesChart", () => {
     });
 
     it("calls #renderAxis", () => {
-      var props = Object.assign({ foo: "bar" }, thisInstance.props);
+      const props = Object.assign({ foo: "bar" }, thisInstance.props);
       thisInstance.shouldComponentUpdate(props);
 
       expect(thisInstance.renderAxis).toHaveBeenCalled();
@@ -44,14 +44,14 @@ describe("TimeSeriesChart", () => {
     });
 
     it("returns truthy", () => {
-      var props = Object.assign({ foo: "bar" }, thisInstance.props);
-      var _return = thisInstance.shouldComponentUpdate(props);
+      const props = Object.assign({ foo: "bar" }, thisInstance.props);
+      const _return = thisInstance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);
     });
 
     it("returns truthy", () => {
-      var data = [
+      const data = [
         {
           values: [
             { date: 0, y: 0 },
@@ -61,7 +61,7 @@ describe("TimeSeriesChart", () => {
         }
       ];
 
-      var props = { data };
+      const props = { data };
 
       Object.keys(thisInstance.props).forEach(key => {
         if (props[key] == null) {
@@ -69,13 +69,13 @@ describe("TimeSeriesChart", () => {
         }
       });
 
-      var _return = thisInstance.shouldComponentUpdate(props);
+      const _return = thisInstance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);
     });
 
     it("returns falsy", () => {
-      var _return = thisInstance.shouldComponentUpdate(thisInstance.props);
+      const _return = thisInstance.shouldComponentUpdate(thisInstance.props);
 
       expect(_return).toEqual(false);
     });

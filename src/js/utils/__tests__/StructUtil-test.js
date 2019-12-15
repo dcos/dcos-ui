@@ -6,7 +6,7 @@ const isEqual = require("deep-equal");
 
 describe("StructUtil", () => {
   describe("#copyRawObject", () => {
-    var expectedArrayItems = [
+    const expectedArrayItems = [
       1,
       "foo",
       null,
@@ -14,47 +14,47 @@ describe("StructUtil", () => {
       { item: "struct" }
     ];
     // Turn last item into a struct
-    var arrayItems = expectedArrayItems.slice();
+    const arrayItems = expectedArrayItems.slice();
     arrayItems.push(new Item(arrayItems.pop()));
     // Create List struct with embedded Item struct
-    var listStruct = new List({ items: arrayItems });
+    const listStruct = new List({ items: arrayItems });
     // Create Item struct with embedded List Struct
-    var itemStruct = new Item({ qux: "foo", items: listStruct });
+    const itemStruct = new Item({ qux: "foo", items: listStruct });
 
     it("returns original data if no structs", () => {
-      var fn = () => {};
-      var originalObject = [1, "string", fn, true];
-      var newObj = StructUtil.copyRawObject(originalObject);
+      const fn = () => {};
+      const originalObject = [1, "string", fn, true];
+      const newObj = StructUtil.copyRawObject(originalObject);
       expect(isEqual(newObj, originalObject)).toBeTruthy();
     });
 
     it("returns original data from List struct", () => {
-      var newObj = StructUtil.copyRawObject(listStruct);
+      const newObj = StructUtil.copyRawObject(listStruct);
       expect(isEqual(newObj, expectedArrayItems)).toBeTruthy();
     });
 
     it("clones Objects", () => {
-      var array = [];
-      var object = {};
+      const array = [];
+      const object = {};
       expect(StructUtil.copyRawObject(array) !== array).toBeTruthy();
       expect(StructUtil.copyRawObject(object) !== object).toBeTruthy();
     });
 
     it("clones Objects with structs", () => {
-      var newObj = StructUtil.copyRawObject(itemStruct);
+      const newObj = StructUtil.copyRawObject(itemStruct);
       expect(itemStruct._itemData !== newObj).toBeTruthy();
       expect(newObj.items !== expectedArrayItems).toBeTruthy();
     });
 
     it("returns original data with nested structs", () => {
-      var fn = () => {};
-      var nestedObj = {
+      const fn = () => {};
+      const nestedObj = {
         foo: listStruct,
         bar: itemStruct,
         foobar: fn
       };
-      var newObj = StructUtil.copyRawObject(nestedObj);
-      var expectedObj = {
+      const newObj = StructUtil.copyRawObject(nestedObj);
+      const expectedObj = {
         foo: expectedArrayItems,
         bar: {
           qux: "foo",

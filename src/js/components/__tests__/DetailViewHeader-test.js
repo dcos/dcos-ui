@@ -28,7 +28,7 @@ describe("DetailViewHeader", () => {
     });
 
     it("allows classes to be removed", () => {
-      var className = {
+      const className = {
         container: false
       };
       const instance = ReactDOM.render(

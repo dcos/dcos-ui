@@ -1,7 +1,7 @@
 const UserSettingsStore = jest.genMockFromModule("../UserSettingsStore")
   .default;
 
-var _data = {};
+let _data = {};
 
 /**
  * Sets mock data for UserSettingsStore.getKey to return.

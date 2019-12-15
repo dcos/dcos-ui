@@ -4,10 +4,10 @@ let thisProps;
 
 describe("ChartMixin", () => {
   beforeEach(() => {
-    var now = Date.now();
-    var interval = 2000;
+    const now = Date.now();
+    const interval = 2000;
 
-    var data = [
+    const data = [
       {
         id: "used_resources",
         values: Array(31)
@@ -85,8 +85,8 @@ describe("ChartMixin", () => {
 
   describe("#getXScale", () => {
     it("builds the correct amount of ticks", () => {
-      var props = thisProps;
-      var xScale = ChartMixin.getXScale(
+      const props = thisProps;
+      const xScale = ChartMixin.getXScale(
         props.data,
         props.width,
         props.refreshRate
@@ -95,8 +95,8 @@ describe("ChartMixin", () => {
     });
 
     it("has the correct domain range", () => {
-      var props = thisProps;
-      var xScale = ChartMixin.getXScale(
+      const props = thisProps;
+      const xScale = ChartMixin.getXScale(
         props.data,
         props.width,
         props.refreshRate
@@ -107,12 +107,12 @@ describe("ChartMixin", () => {
 
   describe("#getHeight", () => {
     it("returns 0 given 0 height and 0 margin", () => {
-      var height = ChartMixin.getHeight(thisProps);
+      const height = ChartMixin.getHeight(thisProps);
       expect(height).toEqual(0);
     });
 
     it("returns NaN when given a NaN argument", () => {
-      var height = ChartMixin.getHeight({
+      const height = ChartMixin.getHeight({
         margin: {
           top: 10,
           bottom: NaN
@@ -123,7 +123,7 @@ describe("ChartMixin", () => {
     });
 
     it("returns a number when given a null argument", () => {
-      var height = ChartMixin.getHeight({
+      const height = ChartMixin.getHeight({
         margin: {
           top: null,
           bottom: 10
@@ -134,7 +134,7 @@ describe("ChartMixin", () => {
     });
 
     it("yields positive view height given node height > margins", () => {
-      var height = ChartMixin.getHeight({
+      const height = ChartMixin.getHeight({
         margin: {
           top: 10,
           right: 11,
@@ -149,7 +149,7 @@ describe("ChartMixin", () => {
     });
 
     it("yields negative view height given node height < margins", () => {
-      var height = ChartMixin.getHeight({
+      const height = ChartMixin.getHeight({
         margin: {
           top: 100,
           bottom: 120
@@ -163,13 +163,13 @@ describe("ChartMixin", () => {
 
   describe("#getWidth", () => {
     it("returns 0 given 0 width and 0 margin", () => {
-      var width = ChartMixin.getWidth(thisProps);
+      const width = ChartMixin.getWidth(thisProps);
 
       expect(width).toEqual(0);
     });
 
     it("returns NaN when given NaN argument", () => {
-      var width = ChartMixin.getWidth({
+      const width = ChartMixin.getWidth({
         margin: {
           left: 9,
           right: NaN
@@ -180,7 +180,7 @@ describe("ChartMixin", () => {
     });
 
     it("returns a number when given a null argument", () => {
-      var width = ChartMixin.getWidth({
+      const width = ChartMixin.getWidth({
         margin: {
           left: 9,
           right: 10
@@ -191,7 +191,7 @@ describe("ChartMixin", () => {
     });
 
     it("yields positive view width given node width > margins", () => {
-      var width = ChartMixin.getWidth({
+      const width = ChartMixin.getWidth({
         margin: {
           top: 8,
           left: 9,
@@ -206,7 +206,7 @@ describe("ChartMixin", () => {
     });
 
     it("yields negative view width given node width < margins", () => {
-      var width = ChartMixin.getWidth({
+      const width = ChartMixin.getWidth({
         margin: {
           left: 90,
           right: 210

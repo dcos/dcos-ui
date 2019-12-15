@@ -11,7 +11,7 @@ describe("Nodes Detail Page", () => {
   context("Navigate to node detail page", () => {
     it("navigates to node detail page", () => {
       cy.visitUrl({ url: "/nodes", identify: true });
-      var nodeName;
+      let nodeName;
       cy.get(
         ".BottomLeftGrid_ScrollWrapper .ReactVirtualized__Grid__innerScrollContainer a"
       )

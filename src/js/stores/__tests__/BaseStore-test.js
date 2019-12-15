@@ -15,7 +15,7 @@ describe("BaseStore", () => {
     });
 
     it("calls on-function", () => {
-      var handler = () => {};
+      const handler = () => {};
       thisInstance.addChangeListener("change", handler);
       expect(thisInstance.on).toHaveBeenCalledWith("change", handler);
     });
@@ -27,7 +27,7 @@ describe("BaseStore", () => {
     });
 
     it("calls removeListener-function", () => {
-      var handler = () => {};
+      const handler = () => {};
       thisInstance.removeChangeListener("change", handler);
       expect(thisInstance.removeListener).toHaveBeenCalledWith(
         "change",

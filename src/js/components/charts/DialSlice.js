@@ -12,13 +12,13 @@ const DialSlice = createReactClass({
   },
 
   render() {
-    var classes = {
+    const classes = {
       arc: true
     };
     if (this.props.colorIndex != null) {
       classes["path-color-" + this.props.colorIndex] = true;
     }
-    var classSet = classNames(classes);
+    const classSet = classNames(classes);
 
     return (
       <g className={classSet}>

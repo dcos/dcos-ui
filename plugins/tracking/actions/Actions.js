@@ -238,7 +238,7 @@ const Actions = {
     }
 
     // Populates with basic data that all logs need
-    var log = this.getLogData();
+    const log = this.getLogData();
 
     global.analytics.track(eventID, log, this.getAnonymizingKeys());
   },

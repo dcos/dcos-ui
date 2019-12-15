@@ -1,6 +1,6 @@
 const MarathonStore = jest.genMockFromModule("../MarathonStore").default;
 
-var _data = {};
+const _data = {};
 
 /**
  * Sets mock data for MarathonStore.get to return.

@@ -7,7 +7,7 @@ let thisUnit;
 describe("HealthUnit", () => {
   describe("#getHealth", () => {
     it("returns a UnitHealthStatus object", () => {
-      var healthItem = new HealthUnit({
+      const healthItem = new HealthUnit({
         id: "service_manager",
         description: "Service Manager",
         health: 1
@@ -23,7 +23,7 @@ describe("HealthUnit", () => {
     });
 
     it("returns NA when healthType not found", () => {
-      var healthItem = new HealthUnit({});
+      const healthItem = new HealthUnit({});
       expect(healthItem.getHealth()).toEqual(
         UnitHealthStatus[UnitHealthTypes.SERVER_NA]
       );

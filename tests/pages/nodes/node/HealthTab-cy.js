@@ -66,7 +66,7 @@ describe("Node Health Tab [0fa]", () => {
 
     it("filters by health check name [0ff]", () => {
       cy.get(".page-body-content td a").then($allRows => {
-        var logrotateRows = $allRows.filter(
+        const logrotateRows = $allRows.filter(
           (i, el) => el.textContent.toLowerCase().indexOf("logrotate") !== -1
         );
 

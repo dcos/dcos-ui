@@ -46,7 +46,7 @@ const DOMUtils = {
   },
 
   closest(el, selector) {
-    var currentEl = el;
+    let currentEl = el;
 
     while (currentEl && currentEl.parentElement !== null) {
       if (currentEl[matchesFn] && currentEl[matchesFn](selector)) {
@@ -64,7 +64,7 @@ const DOMUtils = {
   },
 
   getComputedDimensions(obj) {
-    var compstyle;
+    let compstyle;
     if (typeof global.getComputedStyle === "undefined") {
       compstyle = obj.currentStyle;
     } else {
@@ -76,8 +76,11 @@ const DOMUtils = {
       return Number.isNaN(val) ? acc : acc - val;
     };
 
-    var width = WIDTH_ATTRIBUTES.reduce(computeInnerBound, obj.offsetWidth);
-    var height = HEIGHT_ATTRIBUTES.reduce(computeInnerBound, obj.offsetHeight);
+    const width = WIDTH_ATTRIBUTES.reduce(computeInnerBound, obj.offsetWidth);
+    const height = HEIGHT_ATTRIBUTES.reduce(
+      computeInnerBound,
+      obj.offsetHeight
+    );
 
     return {
       width,

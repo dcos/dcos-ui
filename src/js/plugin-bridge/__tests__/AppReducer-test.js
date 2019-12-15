@@ -13,7 +13,7 @@ function getApplicationState() {
 }
 
 describe("AppReducer", () => {
-  var expectedState = {
+  const expectedState = {
     foo: "bar",
     qux: { foo: "bar" }
   };
@@ -31,7 +31,7 @@ describe("AppReducer", () => {
     });
     PluginSDK.initialize({});
 
-    var state = getApplicationState();
+    const state = getApplicationState();
 
     expect(isEqual(state, expectedState)).toEqual(true);
   });
@@ -48,7 +48,7 @@ describe("AppReducer", () => {
       data: { foo: "bar" }
     });
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(() => () => ({
+    const mockPlugin = jest.genMockFunction().mockImplementation(() => () => ({
       foo: "bar"
     }));
 
@@ -61,7 +61,7 @@ describe("AppReducer", () => {
       }
     });
 
-    var state = getApplicationState();
+    const state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
     expect(isEqual(state, expectedState)).toEqual(true);
@@ -79,16 +79,16 @@ describe("AppReducer", () => {
       data: { foo: "bar" }
     });
 
-    var state = getApplicationState();
+    const state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("does not alter state if action dispatched from plugin", () => {
-    var pluginDispatch;
+    let pluginDispatch;
     // Mock a fake plugin
-    var mockPlugin = jest.genMockFunction().mockImplementation(SDK => {
+    const mockPlugin = jest.genMockFunction().mockImplementation(SDK => {
       pluginDispatch = SDK.dispatch;
     });
 
@@ -106,15 +106,15 @@ describe("AppReducer", () => {
       storeID: "foo",
       data: "boom"
     });
-    var state = getApplicationState();
+    const state = getApplicationState();
     // lets remove the config stuff just for ease
     delete state.config;
     expect(isEqual(state, expectedState)).toEqual(true);
   });
 
   it("clones state", () => {
-    var nestedObj = {};
-    var data = {
+    const nestedObj = {};
+    const data = {
       foo: "bar",
       nested: nestedObj
     };
@@ -123,7 +123,7 @@ describe("AppReducer", () => {
       storeID: "foo",
       data
     });
-    var state = getApplicationState();
+    const state = getApplicationState();
 
     expect(state.foo !== data).toEqual(true);
     expect(state.foo.nestedObj !== nestedObj).toEqual(true);

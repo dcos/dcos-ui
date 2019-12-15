@@ -52,48 +52,48 @@ describe("TaskTableUtil", () => {
     });
 
     it("compares the most recent timestamps when prop is updated", () => {
-      var compareFunction = thisGetComparator("updated");
+      const compareFunction = thisGetComparator("updated");
       expect(compareFunction(thisFoo, thisBar)).toEqual(-1);
     });
 
     it("compares tieBreaker values", () => {
-      var compareFunction = thisGetComparator("name");
+      const compareFunction = thisGetComparator("name");
 
       // 'foo' > 'bar' will equal true and compareValues returns 1
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("compares resource values", () => {
-      var compareFunction = thisGetComparator("cpus");
+      const compareFunction = thisGetComparator("cpus");
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
 
     it("compares last resource values", () => {
-      var compareFunction = thisGetComparator("mem");
+      const compareFunction = thisGetComparator("mem");
       expect(compareFunction(thisFoo, thisBar)).toEqual(1);
     });
   });
 
   describe("#getSortFunction for structs", () => {
     it("compares the most recent timestamps when prop is updated", () => {
-      var compareFunction = thisGetComparator("updated");
+      const compareFunction = thisGetComparator("updated");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(-1);
     });
 
     it("compares tieBreaker values", () => {
-      var compareFunction = thisGetComparator("name");
+      const compareFunction = thisGetComparator("name");
 
       // 'foo' > 'bar' will equal true and compareValues returns 1
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });
 
     it("compares resource values", () => {
-      var compareFunction = thisGetComparator("cpus");
+      const compareFunction = thisGetComparator("cpus");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });
 
     it("compares last resource values", () => {
-      var compareFunction = thisGetComparator("mem");
+      const compareFunction = thisGetComparator("mem");
       expect(compareFunction(thisFooStruct, thisBarStruct)).toEqual(1);
     });
   });

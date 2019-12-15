@@ -21,13 +21,13 @@ describe("GetSetBaseStore", () => {
     });
 
     it("returns the correct value given a key", () => {
-      var instance = thisInstance;
+      const instance = thisInstance;
       instance.set({ someProperty: "someValue" });
       expect(thisInstance.get("someProperty")).toEqual("someValue");
     });
 
     it("allows for default state values", () => {
-      var instance = new GetSetBaseStore();
+      const instance = new GetSetBaseStore();
       instance.getSet_data = {
         foo: "bar"
       };
@@ -38,12 +38,12 @@ describe("GetSetBaseStore", () => {
 
   describe("#set", () => {
     it("throws an error when called with a non-object", () => {
-      var fn = thisInstance.set.bind(thisInstance, "string");
+      const fn = thisInstance.set.bind(thisInstance, "string");
       expect(fn).toThrow();
     });
 
     it("throws an error when called with an array-like object", () => {
-      var fn = thisInstance.set.bind(thisInstance, []);
+      const fn = thisInstance.set.bind(thisInstance, []);
       expect(fn).toThrow();
     });
 

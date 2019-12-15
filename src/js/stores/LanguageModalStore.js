@@ -25,12 +25,12 @@ class LanguageModalStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      var source = payload.source;
+      const source = payload.source;
       if (source !== LANGUAGE_MODAL_ACTION) {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
 
       switch (action.type) {
         case REQUEST_LANGUAGE_MODAL_OPEN:

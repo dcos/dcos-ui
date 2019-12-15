@@ -43,8 +43,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS);
       });
@@ -58,8 +58,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([{}]);
         expect(action.subscriptionID).toEqual("subscriptionID");
@@ -74,8 +74,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_ERROR);
       });
@@ -84,8 +84,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({});
         expect(action.subscriptionID).toEqual("subscriptionID");
@@ -150,8 +150,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when closing connection", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS
@@ -167,8 +167,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(3);
         expect(action.subscriptionID).toEqual("subscriptionID");
@@ -192,8 +192,8 @@ describe("SystemLogActions", () => {
     });
 
     it("tells when the top has been reached", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(2);
         expect(action.subscriptionID).toEqual("subscriptionID");
@@ -218,8 +218,8 @@ describe("SystemLogActions", () => {
     });
 
     it("reverses received data", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data[0].foo).toEqual(1);
         expect(action.data[1].foo).toEqual(0);
@@ -246,8 +246,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PREVIOUS_SYSTEM_LOG_ERROR
@@ -259,8 +259,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({
           eventPhase: global.EventSource.CONNECTING
@@ -291,8 +291,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
@@ -303,8 +303,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual(["one", "two"]);
       });
@@ -313,8 +313,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
           ActionTypes.REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR
@@ -325,8 +325,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct error when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
       });
@@ -335,8 +335,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the message when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("baz");
       });
@@ -348,8 +348,8 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      var id = AppDispatcher.register(payload => {
-        var action = payload.action;
+      const id = AppDispatcher.register(payload => {
+        const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",

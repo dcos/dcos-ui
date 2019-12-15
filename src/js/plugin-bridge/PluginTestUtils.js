@@ -59,8 +59,8 @@ Loader.getAvailablePlugins = __getAvailablePlugins;
  * @param  {Object} plugins - Plugin name to Config
  */
 function loadPlugins(plugins) {
-  var availablePlugins = {};
-  var pluginConfig = {};
+  const availablePlugins = {};
+  const pluginConfig = {};
 
   Object.keys(plugins).forEach(pluginID => {
     availablePlugins[pluginID] = plugins[pluginID].module;

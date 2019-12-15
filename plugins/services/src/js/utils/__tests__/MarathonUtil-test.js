@@ -39,7 +39,7 @@ describe("MarathonUtil", () => {
     });
 
     it("converts groups to tree", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }],
         groups: [{ id: "/foo", apps: [{ id: "/foo/beta" }] }]
@@ -52,7 +52,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly parses external volumes", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
           {
@@ -89,7 +89,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly parses persistent volumes", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
           {
@@ -136,7 +136,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly parses multiple persistent volumes", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
           {
@@ -186,7 +186,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly determine persistent volume attached status", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
           {
@@ -223,7 +223,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly determine persistent volume detached status", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [
           {
@@ -259,7 +259,7 @@ describe("MarathonUtil", () => {
     });
 
     it("doesn't throw when localVolumes is null", () => {
-      var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
+      const instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
         id: "/",
         apps: [
           {
@@ -290,7 +290,7 @@ describe("MarathonUtil", () => {
     });
 
     it("doesn't throw when localVolumes is not present", () => {
-      var instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
+      const instance = MarathonUtil.parseGroups.bind(MarathonUtil, {
         id: "/",
         apps: [
           {
@@ -320,7 +320,7 @@ describe("MarathonUtil", () => {
     });
 
     it("doesn't adds volumes array to all services", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }]
       });
@@ -329,7 +329,7 @@ describe("MarathonUtil", () => {
     });
 
     it("correctly parses enforceRole", () => {
-      var instance = MarathonUtil.parseGroups({
+      const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }],
         groups: [

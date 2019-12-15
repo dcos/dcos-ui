@@ -3,43 +3,43 @@ import StringUtil from "../StringUtil";
 describe("StringUtil", () => {
   describe("#arrayToJoinedString", () => {
     it("joins array with default separator", () => {
-      var result = StringUtil.arrayToJoinedString([1, 2]);
+      const result = StringUtil.arrayToJoinedString([1, 2]);
 
       expect(result).toEqual("1, 2");
     });
 
     it("joins array with the given separator", () => {
-      var result = StringUtil.arrayToJoinedString([1, 2], "-");
+      const result = StringUtil.arrayToJoinedString([1, 2], "-");
 
       expect(result).toEqual("1-2");
     });
 
     it("does not append separator if array has only one  element", () => {
-      var result = StringUtil.arrayToJoinedString([1]);
+      const result = StringUtil.arrayToJoinedString([1]);
 
       expect(result).toEqual("1");
     });
 
     it("returns empty string if array is null", () => {
-      var result = StringUtil.arrayToJoinedString(null);
+      const result = StringUtil.arrayToJoinedString(null);
 
       expect(result).toEqual("");
     });
 
     it("returns empty string if array is undefined", () => {
-      var result = StringUtil.arrayToJoinedString();
+      const result = StringUtil.arrayToJoinedString();
 
       expect(result).toEqual("");
     });
 
     it("returns empty string if array is and object", () => {
-      var result = StringUtil.arrayToJoinedString({});
+      const result = StringUtil.arrayToJoinedString({});
 
       expect(result).toEqual("");
     });
 
     it("returns empty string if array is empty", () => {
-      var result = StringUtil.arrayToJoinedString([]);
+      const result = StringUtil.arrayToJoinedString([]);
 
       expect(result).toEqual("");
     });
@@ -47,7 +47,7 @@ describe("StringUtil", () => {
 
   describe("#filterByString", () => {
     it("filters using a key as getter", () => {
-      var _return = StringUtil.filterByString(
+      const _return = StringUtil.filterByString(
         [
           { id: 0, foo: "bar" },
           { id: 1, foo: "baz" },
@@ -64,7 +64,7 @@ describe("StringUtil", () => {
     });
 
     it("filters using a function as getter", () => {
-      var _return = StringUtil.filterByString(
+      const _return = StringUtil.filterByString(
         [
           { id: 0, foo: "bar" },
           { id: 1, foo: "baz" },
@@ -79,82 +79,82 @@ describe("StringUtil", () => {
 
   describe("#escapeForRegExp", () => {
     it("escapes string", () => {
-      var _return = StringUtil.escapeForRegExp("-[]/{}()*+?.\\^$|");
-      var escaped = "\\-\\[\\]\\/\\{\\}\\(\\)\\*\\+\\?\\.\\\\\\^\\$\\|";
+      const _return = StringUtil.escapeForRegExp("-[]/{}()*+?.\\^$|");
+      const escaped = "\\-\\[\\]\\/\\{\\}\\(\\)\\*\\+\\?\\.\\\\\\^\\$\\|";
       expect(_return).toEqual(escaped);
     });
   });
 
   describe("#isUrl", () => {
     it("accepts a string starting with http://", () => {
-      var str = "http://asd/";
+      const str = "http://asd/";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
     it("accepts a string starting with https://", () => {
-      var str = "https://.asf";
+      const str = "https://.asf";
       expect(StringUtil.isUrl(str)).toEqual(true);
     });
 
     it("doesn't accept a string with something before http://", () => {
-      var str = "ahttp://";
+      const str = "ahttp://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
     it("doesn't accept null", () => {
-      var str = null;
+      const str = null;
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
     it("doesn't accept a string missing a /", () => {
-      var str = "http:/asfasfd";
+      const str = "http:/asfasfd";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
     it("doesn't accept a string missing :", () => {
-      var str = "http//";
+      const str = "http//";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
     it("doesn't accept a string that only contains protocol", () => {
-      var str = "http://";
+      const str = "http://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
 
     it("doesn't accept a string that only contains protocol", () => {
-      var str = "https://";
+      const str = "https://";
       expect(StringUtil.isUrl(str)).toEqual(false);
     });
   });
 
   describe("#isEmail", () => {
     it("accepts a string with @ and . longer than 3 chars", () => {
-      var str = "@.as";
+      const str = "@.as";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
     it("accepts a string with @ and . longer than 3 chars", () => {
-      var str = "a@.a";
+      const str = "a@.a";
       expect(StringUtil.isEmail(str)).toEqual(true);
     });
 
     it("doesn't accept a string without a .", () => {
-      var str = "a@aa";
+      const str = "a@aa";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
     it("doesn't accept null", () => {
-      var str = null;
+      const str = null;
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
     it("doesn't accept a string without a @", () => {
-      var str = "aw.a";
+      const str = "aw.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
 
     it("doesn't accept a string shorter than 4", () => {
-      var str = "@.a";
+      const str = "@.a";
       expect(StringUtil.isEmail(str)).toEqual(false);
     });
   });
@@ -219,7 +219,7 @@ describe("StringUtil", () => {
     });
 
     it("does nothing if string is already capitalized", () => {
-      var capitalizedString = "Name";
+      const capitalizedString = "Name";
       expect(StringUtil.capitalize(capitalizedString)).toEqual(
         capitalizedString
       );
@@ -236,7 +236,7 @@ describe("StringUtil", () => {
     });
 
     it("does nothing if string is already lowercase", () => {
-      var lowercaseString = "every";
+      const lowercaseString = "every";
       expect(StringUtil.lowercase(lowercaseString)).toEqual(lowercaseString);
     });
   });

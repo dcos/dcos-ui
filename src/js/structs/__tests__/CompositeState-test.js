@@ -179,7 +179,7 @@ describe("CompositeState", () => {
         ]
       });
 
-      var expectedResult = [
+      const expectedResult = [
         {
           id: "foo-id",
           name: "foo",
@@ -192,7 +192,7 @@ describe("CompositeState", () => {
         }
       ];
 
-      var serviceList = CompositeState.getServiceList();
+      const serviceList = CompositeState.getServiceList();
 
       serviceList.getItems().forEach(item => {
         expect(item.get()).toEqual(expectedResult.shift());
@@ -217,7 +217,7 @@ describe("CompositeState", () => {
     });
 
     it("returns the current slaves", () => {
-      var expectedResult = {
+      const expectedResult = {
         list: [
           {
             id: "foo-id",
@@ -235,13 +235,13 @@ describe("CompositeState", () => {
         filterProperties: {}
       };
 
-      var nodesList = CompositeState.getNodesList();
+      const nodesList = CompositeState.getNodesList();
 
       expect(nodesList).toEqual(expectedResult);
     });
 
     it("returns an instance of NodesList", () => {
-      var nodesList = CompositeState.getNodesList();
+      const nodesList = CompositeState.getNodesList();
 
       expect(nodesList instanceof NodesList).toEqual(true);
     });

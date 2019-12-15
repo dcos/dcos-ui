@@ -567,7 +567,7 @@ describe("Service Form Modal", () => {
     });
 
     it("fills the entire viewport", () => {
-      var isModalFullScreen = true;
+      let isModalFullScreen = true;
 
       cy.window().then($window => {
         cy.get(".modal-full-screen").should($element => {
@@ -629,14 +629,14 @@ describe("Service Form Modal", () => {
     });
 
     it("contains panes with the same width and height", () => {
-      var isPanesSameSize = true;
+      let isPanesSameSize = true;
 
       cy.get(".create-service-modal-service-picker-option").should(
         $elements => {
           const firstElementWidth = $elements[0].clientWidth;
           const firstElementHeight = $elements[0].clientHeight;
 
-          for (var i = 1; i <= $elements.length - 1; i++) {
+          for (let i = 1; i <= $elements.length - 1; i++) {
             const currentElementWidth = $elements[i].clientWidth;
             const currentElementHeight = $elements[i].clientHeight;
 

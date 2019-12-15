@@ -33,7 +33,7 @@ const Modals = createReactClass({
   },
 
   getInitialState() {
-    var props = this.props;
+    const props = this.props;
 
     return {
       modalErrorMsg: props.modalErrorMsg,
@@ -135,7 +135,7 @@ const Modals = createReactClass({
   },
 
   getCliModalOptions() {
-    var onClose = () => {
+    const onClose = () => {
       this.setState({ showingCliModal: false });
     };
 
@@ -156,7 +156,7 @@ const Modals = createReactClass({
   },
 
   getCliInstallModal(showModal) {
-    var options = {
+    let options = {
       onClose() {},
       title: "",
       showFooter: true,
@@ -177,7 +177,7 @@ const Modals = createReactClass({
   },
 
   getClusterLinkingModal(showModal) {
-    var onClose = () => {
+    const onClose = () => {
       this.setState({ showingClusterLinkingModal: false });
     };
 
@@ -191,11 +191,11 @@ const Modals = createReactClass({
   },
 
   getVersionsModal(showModal) {
-    var onClose = () => {
+    const onClose = () => {
       this.setState({ showingVersionsModal: false });
     };
 
-    var versions = SidebarStore.get("versions");
+    const versions = SidebarStore.get("versions");
 
     return (
       <VersionsModal
@@ -207,11 +207,11 @@ const Modals = createReactClass({
   },
 
   getErrorModal(show) {
-    var onClose = () => {
+    const onClose = () => {
       this.setState({ showErrorModal: false });
     };
 
-    var errorMsg = null;
+    let errorMsg = null;
     if (this.state.modalErrorMsg) {
       errorMsg = this.state.modalErrorMsg;
     }
@@ -224,7 +224,7 @@ const Modals = createReactClass({
   },
 
   render() {
-    var {
+    const {
       showingCliModal,
       showingClusterLinkingModal,
       showingVersionsModal,

@@ -129,7 +129,7 @@ describe("List", () => {
 
   describe("#filterItems", () => {
     beforeEach(() => {
-      var items = [
+      const items = [
         { name: "foo" },
         { name: "bar" },
         { name: "qux" },
@@ -140,12 +140,12 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      var items = thisInstance.filterItems(() => true);
+      const items = thisInstance.filterItems(() => true);
       expect(items instanceof List).toEqual(true);
     });
 
     it("filters items", () => {
-      var items = thisInstance.filterItems(item => item.name === "bar");
+      const items = thisInstance.filterItems(item => item.name === "bar");
       expect(items.getItems().length).toEqual(1);
       expect(items.getItems()[0]).toEqual({ name: "bar" });
     });
@@ -153,7 +153,7 @@ describe("List", () => {
 
   describe("#filterItemsByText", () => {
     beforeEach(() => {
-      var items = [
+      const items = [
         {
           name: "foo",
           description: { value: "qux", label: "corge" },
@@ -165,7 +165,7 @@ describe("List", () => {
           subItems: ["two", "three"]
         }
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -179,12 +179,12 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      var items = thisInstance.filterItemsByText("bar");
+      const items = thisInstance.filterItemsByText("bar");
       expect(items instanceof List).toEqual(true);
     });
 
     it("filters instances of Item", () => {
-      var items = [
+      const items = [
         new Item({
           name: "foo",
           description: { value: "qux" },
@@ -196,7 +196,7 @@ describe("List", () => {
           subItems: ["two", "three"]
         })
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -207,36 +207,36 @@ describe("List", () => {
       };
 
       thisInstance = new List({ items, filterProperties });
-      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
+      const filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0] instanceof Item).toEqual(true);
     });
 
     it("filters by default getter", () => {
-      var filteredItems = thisInstance.filterItemsByText("bar").getItems();
+      const filteredItems = thisInstance.filterItemsByText("bar").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].name).toEqual("bar");
     });
 
     it("filters by description", () => {
-      var filteredItems = thisInstance.filterItemsByText("qux").getItems();
+      const filteredItems = thisInstance.filterItemsByText("qux").getItems();
       expect(filteredItems.length).toEqual(1);
       expect(filteredItems[0].description.value).toEqual("qux");
     });
 
     it("filters by subItems", () => {
-      var filteredItems = thisInstance.filterItemsByText("two").getItems();
+      const filteredItems = thisInstance.filterItemsByText("two").getItems();
       expect(filteredItems.length).toEqual(2);
       expect(filteredItems[0].subItems).toEqual(["two", "three"]);
       expect(filteredItems[1].subItems).toEqual(["one", "two"]);
     });
 
     it("handles filter by with null elements", () => {
-      var items = [
+      const items = [
         { name: null, description: { value: null }, subItems: [null, "three"] },
         { description: null, subItems: null }
       ];
-      var filterProperties = {
+      const filterProperties = {
         name: null,
         description(item, prop) {
           return item[prop] && item[prop].value;
@@ -245,17 +245,17 @@ describe("List", () => {
           return item[prop] && item[prop].join(" ");
         }
       };
-      var list = new List({ items, filterProperties });
+      const list = new List({ items, filterProperties });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
     });
 
     it("uses provided filter properties", () => {
-      var filterProperties = {
+      const filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
         }
       };
-      var filteredItems = thisInstance
+      const filteredItems = thisInstance
         .filterItemsByText("corge", filterProperties)
         .getItems();
       expect(filteredItems[0].name).toEqual("foo");
@@ -284,12 +284,12 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      var list = thisInstance.mapItems(item => item);
+      const list = thisInstance.mapItems(item => item);
       expect(list instanceof List).toEqual(true);
     });
 
     it("apply callbacks to all items", () => {
-      var items = thisInstance
+      const items = thisInstance
         .mapItems(item => ({
           name: item.name.toUpperCase()
         }))

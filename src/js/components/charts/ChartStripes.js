@@ -12,15 +12,15 @@ const ChartStripes = createReactClass({
   },
 
   getStripes(props) {
-    var count = props.count;
-    var width = props.width / (2 * count);
+    const count = props.count;
+    const width = props.width / (2 * count);
 
     return Array(count)
       .fill()
       .map((v, i) => {
         // indent with margin, start one width length in
         // and add two times width per step
-        var position = width + i * 2 * width;
+        const position = width + i * 2 * width;
 
         return (
           <rect

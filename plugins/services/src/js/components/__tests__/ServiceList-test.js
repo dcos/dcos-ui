@@ -12,7 +12,7 @@ let thisContainer, thisInstance;
 describe("ServiceList", () => {
   describe("#shouldComponentUpdate", () => {
     beforeEach(() => {
-      var services = new ServiceTree({ items: [{ name: "foo" }] });
+      const services = new ServiceTree({ items: [{ name: "foo" }] });
       thisContainer = global.document.createElement("div");
       thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
@@ -25,12 +25,14 @@ describe("ServiceList", () => {
     });
 
     it("allows update", () => {
-      var shouldUpdate = thisInstance.shouldComponentUpdate({ a: 1 });
+      const shouldUpdate = thisInstance.shouldComponentUpdate({ a: 1 });
       expect(shouldUpdate).toEqual(true);
     });
 
     it("does not allow update", () => {
-      var shouldUpdate = thisInstance.shouldComponentUpdate(thisInstance.props);
+      const shouldUpdate = thisInstance.shouldComponentUpdate(
+        thisInstance.props
+      );
       expect(shouldUpdate).toEqual(false);
     });
   });

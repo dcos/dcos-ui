@@ -31,8 +31,8 @@ const DialChart = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
-    var value = this.props.value;
-    var data = Object.assign(
+    const value = this.props.value;
+    const data = Object.assign(
       {
         pie: d3.layout
           .pie()
@@ -46,9 +46,9 @@ const DialChart = createReactClass({
   },
 
   UNSAFE_componentWillUpdate(nextProps) {
-    var slice = this.getSlice(this.props);
-    var arcs = this.getArcs(this.props);
-    var innerArc = arcs.innerArc;
+    let slice = this.getSlice(this.props);
+    const arcs = this.getArcs(this.props);
+    const innerArc = arcs.innerArc;
 
     slice.each(function(d) {
       this._current = d;
@@ -64,7 +64,7 @@ const DialChart = createReactClass({
       .transition()
       .duration(nextProps.duration)
       .attrTween("d", function(d) {
-        var interpolate = d3.interpolate(this._current, d);
+        const interpolate = d3.interpolate(this._current, d);
 
         return t => {
           this._current = interpolate(t);
@@ -85,32 +85,32 @@ const DialChart = createReactClass({
     }
 
     // Zero-length defaults are populated with actual data if available
-    var namedSlices = slices.reduce((indexByName, slice) => {
+    const namedSlices = slices.reduce((indexByName, slice) => {
       indexByName[slice.name] = slice;
 
       return indexByName;
     }, {});
 
-    var namedData = data.reduce((indexByName, datum) => {
+    const namedData = data.reduce((indexByName, datum) => {
       indexByName[datum.name] = datum;
 
       return indexByName;
     }, {});
 
-    var normalizedNamedData = Object.assign({}, namedSlices, namedData);
+    const normalizedNamedData = Object.assign({}, namedSlices, namedData);
 
     return Object.values(normalizedNamedData);
   },
 
   isEmpty(data) {
-    var sumOfData = data.reduce((memo, datum) => memo + datum.value, 0);
+    const sumOfData = data.reduce((memo, datum) => memo + datum.value, 0);
 
     return sumOfData === 0;
   },
 
   getSlice(props) {
-    var data = this.data;
-    var normalizedData = this.getNormalizedData(props.slices, props.data);
+    const data = this.data;
+    const normalizedData = this.getNormalizedData(props.slices, props.data);
 
     return d3
       .select(ReactDOM.findDOMNode(this))
@@ -128,7 +128,7 @@ const DialChart = createReactClass({
   },
 
   getArcs(props) {
-    var radius = this.getRadius(props);
+    const radius = this.getRadius(props);
 
     return {
       innerArc: d3.svg
@@ -150,14 +150,14 @@ const DialChart = createReactClass({
   },
 
   getWedges() {
-    var data = this.data;
-    var innerArc = data.innerArc;
-    var pie = data.pie;
-    var normalizedData = this.getNormalizedData(
+    const data = this.data;
+    const innerArc = data.innerArc;
+    const pie = data.pie;
+    const normalizedData = this.getNormalizedData(
       this.props.slices,
       this.props.data
     );
-    var normalizedPie = pie(normalizedData);
+    const normalizedPie = pie(normalizedData);
 
     return normalizedPie.map((element, i) => (
       <DialSlice

@@ -60,9 +60,9 @@ const AnimationCircle = createReactClass({
   },
 
   render() {
-    var props = this.props;
-    var radius = props.radius;
-    var className = props.className;
+    const props = this.props;
+    const radius = props.radius;
+    const className = props.className;
 
     return (
       <circle className={className} r={radius} cx={props.cx} cy={props.cy} />

@@ -164,13 +164,16 @@ const DashboardPage = createReactClass({
   },
 
   getViewAllComponentsButton() {
-    var componentCount = this.getUnits().getItems().length;
+    const componentCount = this.getUnits().getItems().length;
     if (!componentCount) {
       return null;
     }
 
     /* L10NTODO: Pluralize */
-    var componentCountWord = StringUtil.pluralize("Component", componentCount);
+    const componentCountWord = StringUtil.pluralize(
+      "Component",
+      componentCount
+    );
 
     return (
       <Trans
@@ -216,7 +219,7 @@ const DashboardPage = createReactClass({
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
     const resourceColors = ResourcesUtil.getResourceColors();
-    var data = this.mesosState;
+    const data = this.mesosState;
 
     return (
       <Page title="Dashboard">

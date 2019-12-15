@@ -41,12 +41,12 @@ class SidebarStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      var source = payload.source;
+      const source = payload.source;
       if (source !== SIDEBAR_ACTION) {
         return false;
       }
 
-      var action = payload.action;
+      const action = payload.action;
 
       switch (action.type) {
         case REQUEST_SIDEBAR_TOGGLE:

@@ -1,13 +1,13 @@
 const Maths = {
   round(value, precision) {
     precision = precision || 0;
-    var factor = Math.pow(10, precision);
+    const factor = Math.pow(10, precision);
 
     return Math.round(value * factor) / factor;
   },
 
   sum(array) {
-    var sum = 0;
+    let sum = 0;
 
     array.forEach(function(value) {
       if (Array.isArray(value)) {
@@ -36,14 +36,14 @@ const Maths = {
   mapValue(value, stats) {
     value = parseFloat(value);
 
-    var range = stats.max - stats.min;
+    const range = stats.max - stats.min;
     var min = stats.min;
 
     if (range === 0) {
       return min;
     }
 
-    var v = (value - min) / range;
+    const v = (value - min) / range;
 
     if (isNaN(v)) {
       return undefined;

@@ -60,8 +60,8 @@ const Chart = createReactClass({
     if (!this.chartRef) {
       return;
     }
-    var dimensions = DOMUtils.getComputedDimensions(this.chartRef);
-    var { width, height } = this.dimensions;
+    const dimensions = DOMUtils.getComputedDimensions(this.chartRef);
+    const { width, height } = this.dimensions;
 
     if (width !== dimensions.width || height !== dimensions.height) {
       this.dimensions = dimensions;
@@ -72,13 +72,13 @@ const Chart = createReactClass({
   getChildren() {
     let { width, height } = this.dimensions;
     if (width != null) {
-      var calcHeight = this.props.calcHeight;
+      const calcHeight = this.props.calcHeight;
 
       if (typeof calcHeight === "function") {
         height = calcHeight(width);
       }
 
-      var children = this.props.children;
+      const children = this.props.children;
       if (Array.isArray(children)) {
         height = height / children.length;
 

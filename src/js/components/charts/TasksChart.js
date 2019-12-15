@@ -34,8 +34,8 @@ const TasksChart = createReactClass({
   },
 
   shouldComponentUpdate(nextProps) {
-    var previousTasks = this.getTasks(this.props.tasks);
-    var newTasks = this.getTasks(nextProps.tasks);
+    const previousTasks = this.getTasks(this.props.tasks);
+    const newTasks = this.getTasks(nextProps.tasks);
 
     // If equal, do not update
     return !isEqual(previousTasks, newTasks);
@@ -46,15 +46,15 @@ const TasksChart = createReactClass({
       tasks = getEmptyTaskData();
     }
 
-    var numberOfTasks = DISPLAYED_TASK_KEYS.length;
+    const numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
     return DISPLAYED_TASK_KEYS.map(key => {
       const info = TASK_INFO[key];
-      var task = tasks.find(task => task.name === key);
+      let task = tasks.find(task => task.name === key);
       if (task === undefined) {
         task = { value: 0 };
       }
-      var classes = {
+      const classes = {
         "unit-bordered-horizontal-small text-align-center column-12": true
       };
       // equalize columns for units
@@ -63,7 +63,7 @@ const TasksChart = createReactClass({
       } else {
         classes["column-small-" + 12 / numberOfTasks] = true;
       }
-      var classSet = classNames(classes);
+      const classSet = classNames(classes);
 
       return (
         <div key={key} className={classSet}>
@@ -97,7 +97,7 @@ const TasksChart = createReactClass({
   },
 
   getDialChart(tasks) {
-    var total = this.getTotal(tasks);
+    const total = this.getTotal(tasks);
 
     if (tasks.length === 0) {
       tasks = getEmptyTaskData();
@@ -122,7 +122,7 @@ const TasksChart = createReactClass({
   },
 
   render() {
-    var tasks = this.getTasks(this.props.tasks);
+    const tasks = this.getTasks(this.props.tasks);
 
     return (
       <div className="chart">

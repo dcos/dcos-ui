@@ -41,14 +41,14 @@ describe("LogView", () => {
     });
 
     it("does not call fetchPreviousLogs if past 2000 pixels", () => {
-      var container = { scrollTop: 4000 };
+      const container = { scrollTop: 4000 };
       thisInstance.instance().checkIfCloseToTop(container);
 
       expect(thisFetchPreviousLogsSpy).not.toHaveBeenCalled();
     });
 
     it("does not call fetchPreviousLogs if below 2000 pixels", () => {
-      var container = { scrollTop: 1000 };
+      const container = { scrollTop: 1000 };
       thisInstance.instance().checkIfCloseToTop(container);
 
       expect(thisFetchPreviousLogsSpy).toHaveBeenCalled();
@@ -58,13 +58,13 @@ describe("LogView", () => {
   describe("#getLog", () => {
     it("does not show empty log when fullLog is populated", () => {
       thisInstance.setState({ fullLog: "foo" });
-      var res = thisInstance.instance().getLog();
+      const res = thisInstance.instance().getLog();
       expect(Array.isArray(res)).toEqual(true);
     });
 
     it("gets empty screen when log is empty", () => {
       thisInstance.setState({ fullLog: "" });
-      var res = thisInstance.instance().getLog();
+      const res = thisInstance.instance().getLog();
       expect(res.type).toEqual(EmptyLogScreen);
     });
   });
@@ -72,13 +72,13 @@ describe("LogView", () => {
   describe("#getGoToBottomButton", () => {
     it("does not return a button if currently at the bottom", () => {
       thisInstance.setState({ isAtBottom: true });
-      var button = thisInstance.instance().getGoToBottomButton();
+      const button = thisInstance.instance().getGoToBottomButton();
       expect(button).toEqual(null);
     });
 
     it("returns a button if not at bottom", () => {
       thisInstance.setState({ isAtBottom: false });
-      var button = thisInstance.instance().getGoToBottomButton();
+      const button = thisInstance.instance().getGoToBottomButton();
       expect(button.type).toEqual("button");
     });
   });

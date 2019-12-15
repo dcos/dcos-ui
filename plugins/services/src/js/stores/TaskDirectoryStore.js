@@ -21,8 +21,8 @@ import {
 import TaskDirectory from "../structs/TaskDirectory";
 import TaskDirectoryActions from "../events/TaskDirectoryActions";
 
-var requestInterval = null;
-var activeXHR = null;
+let requestInterval = null;
+let activeXHR = null;
 
 function fetchState(task, innerPath) {
   const node = MesosStateStore.getNodeFromID(task.slave_id);

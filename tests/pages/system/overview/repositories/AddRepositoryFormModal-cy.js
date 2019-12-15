@@ -50,7 +50,7 @@ describe("Add Repository Form Modal", () => {
 
   it("displays error in modal after add causes an error", () => {
     // We need to add a fixture for this test to pass.
-    var url = "http://there-is-no-stopping.us";
+    const url = "http://there-is-no-stopping.us";
     cy.route({
       method: "POST",
       url: /repository\/add/,

@@ -65,7 +65,7 @@ const FilterByService = createReactClass({
       const selectedHtml = this.getItemHtml(framework);
       const dropdownHtml = <a>{selectedHtml}</a>;
 
-      var item = {
+      const item = {
         id: framework.get("id"),
         name: framework.get("name"),
         html: dropdownHtml,

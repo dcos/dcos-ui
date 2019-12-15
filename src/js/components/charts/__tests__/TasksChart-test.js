@@ -60,14 +60,14 @@ describe("TasksChart", () => {
 
     it("allows update", () => {
       thisTasks.TASK_STAGING = 1;
-      var shouldUpdate = thisInstance
+      const shouldUpdate = thisInstance
         .instance()
         .shouldComponentUpdate(thisTasks);
       expect(shouldUpdate).toEqual(true);
     });
 
     it("does not allow update", () => {
-      var shouldUpdate = thisInstance
+      const shouldUpdate = thisInstance
         .instance()
         .shouldComponentUpdate(thisInstance.instance().props);
       expect(shouldUpdate).toEqual(false);
@@ -76,7 +76,7 @@ describe("TasksChart", () => {
 
   describe("#getDialChartChildren", () => {
     beforeEach(() => {
-      var parent = shallow(<TasksChart tasks={{}} />);
+      const parent = shallow(<TasksChart tasks={{}} />);
       thisInstance = shallow(parent.instance().getDialChartChildren(100));
     });
 

@@ -32,8 +32,8 @@ describe("HooksAPI", () => {
     });
 
     it("applies the filters in the order of priority", () => {
-      var lowPriorityFilter = jest.genMockFunction();
-      var highPriorityFilter = jest.genMockFunction();
+      const lowPriorityFilter = jest.genMockFunction();
+      const highPriorityFilter = jest.genMockFunction();
 
       lowPriorityFilter.mockImplementation(value =>
         value.replace("bar", "baz")
@@ -46,7 +46,7 @@ describe("HooksAPI", () => {
       thisHooks.addFilter("corge", lowPriorityFilter, 20);
       thisHooks.addFilter("corge", highPriorityFilter, 1);
 
-      var filteredContent = thisHooks.applyFilter("corge", "foo bar");
+      const filteredContent = thisHooks.applyFilter("corge", "foo bar");
 
       expect(filteredContent).toEqual("foo qux");
     });

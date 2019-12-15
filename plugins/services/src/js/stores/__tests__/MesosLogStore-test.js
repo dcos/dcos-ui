@@ -27,7 +27,7 @@ describe("MesosLogStore", () => {
 
   describe("#startTailing", () => {
     it("returns an instance of LogBuffer", () => {
-      var logBuffer = MesosLogStore.getLogBuffer("/bar");
+      const logBuffer = MesosLogStore.getLogBuffer("/bar");
       expect(logBuffer instanceof LogBuffer).toBeTruthy();
     });
   });
@@ -87,7 +87,7 @@ describe("MesosLogStore", () => {
     });
 
     it("adjusts length when reaching the top", () => {
-      var MockMesosLogStore = {
+      const MockMesosLogStore = {
         getLogBuffer(key) {
           if (key === "exists") {
             return {
@@ -117,7 +117,7 @@ describe("MesosLogStore", () => {
     });
 
     it("requests full page when below top", () => {
-      var MockMesosLogStore = {
+      const MockMesosLogStore = {
         getLogBuffer(key) {
           if (key === "exists") {
             return {
@@ -319,12 +319,12 @@ describe("MesosLogStore", () => {
         slaveID: "foo"
       });
 
-      var log = MesosLogStore.getLogBuffer("/bar").getFullLog();
+      const log = MesosLogStore.getLogBuffer("/bar").getFullLog();
       expect(log).toEqual("foo");
     });
 
     it("dispatches the correct event upon success", () => {
-      var mockedFn = jest.genMockFunction();
+      const mockedFn = jest.genMockFunction();
       MesosLogStore.addChangeListener(EventTypes.MESOS_LOG_CHANGE, mockedFn);
       // Initializing call
       AppDispatcher.handleServerAction({
@@ -345,7 +345,7 @@ describe("MesosLogStore", () => {
     });
 
     it("dispatches the correct event upon error", () => {
-      var mockedFn = jest.genMockFunction();
+      const mockedFn = jest.genMockFunction();
       MesosLogStore.addChangeListener(
         EventTypes.MESOS_LOG_REQUEST_ERROR,
         mockedFn

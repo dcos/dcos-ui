@@ -29,14 +29,14 @@ describe("HashMapDisplay", () => {
   });
 
   it("returns a node of elements if node exists", () => {
-    var instance = shallow(<HashMapDisplay hash={{ foo: "bar" }} />);
+    const instance = shallow(<HashMapDisplay hash={{ foo: "bar" }} />);
 
     expect(instance.find("ConfigurationMapLabel").length).toEqual(1);
     expect(instance.find("ConfigurationMapValue").length).toEqual(1);
   });
 
   it("returns a headline if headline string is given", () => {
-    var instance = mount(
+    const instance = mount(
       <HashMapDisplay hash={{ foo: "bar" }} headline="baz" />
     );
 
