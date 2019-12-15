@@ -4,7 +4,7 @@ import React from "react";
 import { Table } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
-import { formatResource } from "#SRC/js/utils/Units";
+import Units from "#SRC/js/utils/Units";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 import ContainerConstants from "../constants/ContainerConstants";
@@ -110,7 +110,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
               return value;
             }
 
-            return formatResource("mem", value);
+            return Units.formatResource("mem", value);
           }
         },
         {
@@ -121,7 +121,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
               return value;
             }
 
-            return formatResource("disk", value);
+            return Units.formatResource("disk", value);
           }
         },
         {
