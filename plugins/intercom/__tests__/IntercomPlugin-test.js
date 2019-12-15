@@ -1,5 +1,7 @@
 import DOMUtils from "#SRC/js/utils/DOMUtils";
 
+import PluginTestUtils from "PluginTestUtils";
+
 jest.setMock("react-router", {
   hashHistory: {
     location: { pathname: "/foo" },
@@ -13,8 +15,6 @@ const mockAuthStore = {
 };
 
 jest.mock("#SRC/js/stores/AuthStore", () => mockAuthStore);
-
-const PluginTestUtils = require("PluginTestUtils");
 
 const SDK = PluginTestUtils.getSDK("intercom", { enabled: true });
 require("../SDK").default.setSDK(SDK);
