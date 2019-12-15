@@ -3,7 +3,7 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
 
-import ActionTypes from "../constants/ActionTypes";
+import * as ActionTypes from "../constants/ActionTypes";
 
 const MesosLogActions = {
   requestOffset(slaveID, path) {
