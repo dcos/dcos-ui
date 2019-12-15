@@ -7,7 +7,7 @@ export default {
    * @param {Any} mark - The mark to add
    * @return {Object} Returns the passed object
    */
-  markObject(obj, mark) {
+  markObject(obj: {}, mark: any) {
     Object.defineProperty(obj, "___object_mark___", {
       value: mark,
       enumerable: false,
@@ -24,7 +24,7 @@ export default {
    * @param {Any} mark - The mark to compare against
    * @returns {Boolean} Returns true if the mark matches
    */
-  objectHasMark(obj, mark) {
+  objectHasMark(obj: any, mark: any) {
     return obj.___object_mark___ === mark;
   }
 };

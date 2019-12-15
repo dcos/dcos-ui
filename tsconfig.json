@@ -3,7 +3,7 @@
     "target": "es6",
     "module": "ESNext",
     "lib": ["es5", "es6", "esnext", "dom"],
-    "allowJs": false,
+    "allowJs": true,
     "jsx": "preserve",
     "sourceMap": true,
     "strict": true,

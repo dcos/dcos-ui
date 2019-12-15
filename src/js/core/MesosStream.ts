@@ -72,6 +72,7 @@ const record$ = (
 
 // The `toObject` is needed to convert enums into readable strings
 const protobufToEvent = (record: Uint8Array) =>
+  // @ts-ignore
   MesosEvent.toObject(MesosEvent.decode(record), { enums: String });
 
 const mesos$ = fromFetch("/mesos/api/v1?subscribe", {

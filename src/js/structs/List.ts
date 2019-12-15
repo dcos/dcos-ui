@@ -13,7 +13,8 @@ import StringUtil from "../utils/StringUtil";
  * @memberOf List
  * @return {Object} item, cast if list is typed.
  */
-function cast(item) {
+function cast(item: any) {
+  // @ts-ignore
   const Type = this.constructor.type;
   if (Type != null && !(item instanceof Type)) {
     return new Type(item);
@@ -22,7 +23,9 @@ function cast(item) {
   return item;
 }
 
-export default class List {
+export default class List<A> {
+  list: A[];
+  filterProperties: any;
   /**
    * List
    * @param {Object} options Options object
@@ -32,24 +35,25 @@ export default class List {
    * @constructor
    * @struct
    */
-  constructor(options = {}) {
+  constructor(options: { items?: A[]; filterProperties?: any } = {}) {
     this.list = [];
 
     if (options.items) {
       if (!Array.isArray(options.items)) {
         throw new Error("Expected an array.");
       }
-      if (this.constructor.type != null) {
-        this.list = options.items.map(cast.bind(this));
-      } else {
-        this.list = options.items;
-      }
+
+      this.list =
+        // @ts-ignore
+        this.constructor.type != null
+          ? options.items.map(cast.bind(this))
+          : options.items;
     }
 
     this.filterProperties = options.filterProperties || {};
   }
 
-  add(item) {
+  add(item: A) {
     this.list.push(cast.call(this, item));
   }
 
@@ -65,14 +69,14 @@ export default class List {
     return this.list[this.list.length - 1];
   }
 
-  /**
+  /*
    * Return a new list with the items currently present in this list and
    * the list on the first argument, without duplicates.
    *
    * @param {List} list - The list to combine with this list
    * @returns {List} Returns a new list with the combined items
    */
-  combine(list) {
+  combine(list: List<A>) {
     let actualLength = 0;
     const currentItems = this.getItems();
     const newItems = list.getItems();
@@ -107,37 +111,42 @@ export default class List {
     // of the end result and we create the new list
     combinedItems.length = actualLength;
 
+    // @ts-ignore
     return new this.constructor({ items: combinedItems });
   }
 
-  /**
+  /*
    * @param {function} callback Function to test each element of the array,
    * taking three arguments: item, index, list. Return true to keep the item,
    * false otherwise.
    * @return {List} List (or child class) containing mapped items
    */
-  filterItems(callback) {
+  filterItems(callback: (a: A, i: number, ctx: any) => boolean) {
     const items = this.getItems().filter((item, index) =>
       callback(item, index, this)
     );
 
+    // @ts-ignore
     return new this.constructor({ items });
   }
 
-  /**
+  /*
    * Filters items in list and returns a new instance of the list used.
    * @param  {string} filterText string to search in properties of the list
    * @param  {{propertyName:(null|function)}} [filterProperties] object
    *     to configure filter properties as well as their getters
    * @return {List} List (or child class) containing filtered items
    */
-  filterItemsByText(filterText, filterProperties = this.getFilterProperties()) {
+  filterItemsByText(
+    filterText: string,
+    filterProperties = this.getFilterProperties()
+  ) {
     let items = this.getItems();
 
     if (filterText) {
       items = StringUtil.filterByString(
         items,
-        item => {
+        (item: A) => {
           const searchFields = Object.keys(filterProperties).map(prop => {
             // We need different handlers for item getters since the property
             // since there can be different ways of getting the value needed
@@ -158,6 +167,8 @@ export default class List {
             // Last resort is to get property on object.
             // Some of the items in lists are not always of instance Item and
             // therefore we might need to get it directly on the object
+            // FIXME
+            // @ts-ignore
             return item[prop] || "";
           });
 
@@ -166,7 +177,7 @@ export default class List {
         filterText
       );
     }
-
+    // @ts-ignore
     return new this.constructor({ items });
   }
 
@@ -175,7 +186,7 @@ export default class List {
    * taking one argument: item
    * @return {object} matching item
    */
-  findItem(callback) {
+  findItem(callback: (a: A) => A | undefined) {
     return this.getItems().find(callback);
   }
 
@@ -184,11 +195,12 @@ export default class List {
    * List, taking three arguments: item, index, list
    * @return {List} List (or child class) containing mapped items
    */
-  mapItems(callback) {
+  mapItems<B>(callback: (a: A, i: number, ctx: any) => B) {
     const items = this.getItems().map((item, index) =>
       callback(item, index, this)
     );
 
+    // @ts-ignore
     return new this.constructor({ items });
   }
 
@@ -198,7 +210,10 @@ export default class List {
    * @param {*} initialValue
    * @returns {*} returnValue
    */
-  reduceItems(callback, initialValue) {
+  reduceItems<B>(
+    callback: (b: B, a: A, i: number, ctx: any) => B,
+    initialValue: B
+  ) {
     return this.getItems().reduce(
       (previousValue, currentValue, index) =>
         callback(previousValue, currentValue, index, this),
