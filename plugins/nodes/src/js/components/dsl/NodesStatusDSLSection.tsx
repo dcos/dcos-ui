@@ -2,13 +2,8 @@ import * as React from "react";
 import { Trans } from "@lingui/macro";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
-// @ts-ignore
-import DSLExpression from "#SRC/js/structs/DSLExpression";
-// @ts-ignore
 import DSLExpressionPart from "#SRC/js/structs/DSLExpressionPart";
-// @ts-ignore
 import DSLFormWithExpressionUpdates from "#SRC/js/components/DSLFormWithExpressionUpdates";
-// @ts-ignore
 import DSLUtil from "#SRC/js/utils/DSLUtil";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -29,7 +24,9 @@ class NodesStatusDSLSection extends React.PureComponent<{
 }> {
   render() {
     const { expression, onChange } = this.props;
+    // @ts-ignore
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
+    // @ts-ignore
     const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
 
     return (
@@ -44,6 +41,7 @@ class NodesStatusDSLSection extends React.PureComponent<{
         <div className="row">
           {Object.entries(Status.filters).map(([key, status]) =>
             checkbox({
+              // @ts-ignore
               checked: data[key],
               disabled: !enabled,
               label: status.displayName,

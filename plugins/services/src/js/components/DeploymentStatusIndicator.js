@@ -18,7 +18,7 @@ import DeploymentsModal from "./DeploymentsModal";
 
 const METHODS_TO_BIND = ["handleDeploymentsButtonClick", "handleModalClose"];
 
-class DeploymentStatusIndicator extends mixin(StoreMixin) {
+export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -85,9 +85,3 @@ class DeploymentStatusIndicator extends mixin(StoreMixin) {
     );
   }
 }
-
-DeploymentStatusIndicator.defaultProps = {};
-
-DeploymentStatusIndicator.propTypes = {};
-
-export default DeploymentStatusIndicator;

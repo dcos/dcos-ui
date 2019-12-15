@@ -12,9 +12,7 @@ import {
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
 import Page, { Header } from "#SRC/js/components/Page";
-// @ts-ignore
 import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicator";
-// @ts-ignore
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServicesQuotaOverview from "../../components/ServicesQuotaOverview";
 import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewDetail";
@@ -130,13 +128,16 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       </React.Fragment>
     );
 
+    // @ts-ignore
+    const deployStatus = <DeploymentStatusIndicator />;
+
     return (
       <Page dontScroll={false} flushBottom={true}>
         <Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={id} />}
           supplementalContent={
             <React.Fragment>
-              <DeploymentStatusIndicator />
+              {deployStatus}
               {actionMenu}
             </React.Fragment>
           }
