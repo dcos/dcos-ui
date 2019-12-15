@@ -31,9 +31,10 @@ class ServiceGroupFormModal extends React.PureComponent {
   handleNewGroupSubmit(model) {
     const { parentGroupId } = this.props;
 
-    this.props.createGroup(
-      Object.assign({}, model, { id: `${parentGroupId}/${model.id}` })
-    );
+    this.props.createGroup({
+      ...model,
+      id: `${parentGroupId}/${model.id}`
+    });
   }
 
   getErrorMessage() {

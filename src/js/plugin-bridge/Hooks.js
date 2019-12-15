@@ -99,7 +99,9 @@ export default function Hooks() {
       }
 
       // Clone listeners, this will guarantee they all get called
-      listeners = Object.assign({}, listeners);
+      listeners = {
+        ...listeners
+      };
 
       // Sort the listeners by priority
       const priorities = Object.keys(listeners);
@@ -156,7 +158,9 @@ export default function Hooks() {
       }
 
       // Clone listeners, this will guarantee they all get called
-      listeners = Object.assign({}, listeners);
+      listeners = {
+        ...listeners
+      };
 
       // Sort the listeners by priority
       const priorities = Object.keys(listeners);

@@ -35,7 +35,7 @@ export function FormReducer(state = [], { type, path, value }) {
     if (joinedPath === "healthChecks") {
       switch (type) {
         case ADD_ITEM:
-          state.push(Object.assign({}, value) || {});
+          state.push({ ...value } || {});
           break;
         case REMOVE_ITEM:
           state = state.filter((item, index) => index !== value);

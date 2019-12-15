@@ -5,7 +5,9 @@ import PodFixture from "../../../../../../tests/_fixtures/pods/PodFixture";
 describe("PodSpec", () => {
   describe("#constructor", () => {
     it("creates instances", () => {
-      const instance = new PodSpec(Object.assign({}, PodFixture.spec));
+      const instance = new PodSpec({
+        ...PodFixture.spec
+      });
 
       expect(instance.get()).toEqual(PodFixture.spec);
     });

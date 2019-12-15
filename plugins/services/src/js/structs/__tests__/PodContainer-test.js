@@ -7,7 +7,9 @@ describe("PodContainer", () => {
   describe("#constructor", () => {
     it("creates instances", () => {
       const containerSpec = PodFixture.instances[0].containers[0];
-      const container = new PodContainer(Object.assign({}, containerSpec));
+      const container = new PodContainer({
+        ...containerSpec
+      });
 
       expect(container.get()).toEqual(containerSpec);
     });

@@ -99,7 +99,10 @@ const initialize = pluginsConfig => {
 const createDispatcher = pluginID => action => {
   // Inject origin namespace if simple Object
   if (action === Object(action)) {
-    action = Object.assign({}, action, { __origin: pluginID });
+    action = {
+      ...action,
+      __origin: pluginID
+    };
   }
   Store.dispatch(action);
 };

@@ -24,18 +24,14 @@ function parseApp(app) {
   // and persistent volume definitions
   container.volumes.forEach(({ containerPath, external, mode, persistent }) => {
     if (external != null) {
-      volumes.push(
-        Object.assign(
-          {
-            containerPath,
-            id: external.name,
-            mode,
-            status: VolumeStatus.UNAVAILABLE,
-            type: VolumeDefinitions.EXTERNAL.type
-          },
-          external
-        )
-      );
+      volumes.push({
+        containerPath,
+        id: external.name,
+        mode,
+        status: VolumeStatus.UNAVAILABLE,
+        type: VolumeDefinitions.EXTERNAL.type,
+        ...external
+      });
     }
 
     if (persistent != null) {
@@ -50,7 +46,10 @@ function parseApp(app) {
   });
 
   if (tasks == null || !Array.isArray(tasks)) {
-    return Object.assign({ volumes }, app);
+    return {
+      volumes,
+      ...app
+    };
   }
 
   tasks.forEach(({ host, id: taskID, localVolumes, startedAt }) => {
@@ -65,19 +64,23 @@ function parseApp(app) {
 
     localVolumes.forEach(({ containerPath, persistenceId: id }) => {
       const volumeDefinition = volumeDefinitionMap.get(containerPath);
-      const volume = Object.assign({}, volumeDefinition, {
+      const volume = {
+        ...volumeDefinition,
         status,
         host,
         containerPath,
         id,
         taskID
-      });
+      };
 
       volumes.push(volume);
     });
   });
 
-  return Object.assign({ volumes }, app);
+  return {
+    volumes,
+    ...app
+  };
 }
 
 function parsePod(pod) {
@@ -113,7 +116,10 @@ function parsePod(pod) {
     });
 
   if (instances == null || !Array.isArray(instances)) {
-    return Object.assign({ volumeData }, pod);
+    return {
+      volumeData,
+      ...pod
+    };
   }
 
   instances.forEach(
@@ -153,20 +159,24 @@ function parsePod(pod) {
         ...localVolumes.map(({ containerPath, persistenceId: id }) => {
           const volumeDefinition = volumeDefinitionMap.get(containerPath);
 
-          return Object.assign({}, volumeDefinition, {
+          return {
+            ...volumeDefinition,
             status,
             host,
             containerPath,
             id,
             mounts: mounts[containerPath],
             taskID
-          });
+          };
         })
       );
     }
   );
 
-  return Object.assign({ volumeData }, pod);
+  return {
+    volumeData,
+    ...pod
+  };
 }
 
 const MarathonUtil = {

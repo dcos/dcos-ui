@@ -155,7 +155,10 @@ describe("PluginSDK", () => {
           case "foo":
             return { foo: state.foo + 1 };
           case "bar":
-            return Object.assign({}, state, { bar: "qux" });
+            return {
+              ...state,
+              bar: "qux"
+            };
           default:
             return state;
         }

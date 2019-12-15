@@ -37,10 +37,14 @@ export function JSONReducer(state = [], { type, path = [], value }) {
       let newEndpoint = value;
 
       if (value == null) {
-        newEndpoint = Object.assign({}, defaultEndpointsFieldValues);
+        newEndpoint = {
+          ...defaultEndpointsFieldValues
+        };
       }
 
-      newEndpoint.protocol = Object.assign({}, newEndpoint.protocol);
+      newEndpoint.protocol = {
+        ...newEndpoint.protocol
+      };
       newState[index].push(newEndpoint);
       break;
     case REMOVE_ITEM:

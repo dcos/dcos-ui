@@ -175,21 +175,19 @@ const MesosStateUtil = {
 
             // Add additional fields to the task structure in order to make it
             // as close as possible to something a PodContainer will understand.
-            containerArray.push(
-              Object.assign(
-                {
-                  containerId: task.id,
-                  status: task.state,
-                  //
-                  // NOTE: We are creating a Date object from this value, so we
-                  //       should be OK with the timestamp
-                  //
-                  lastChanged: lastStatus.timestamp * 1000,
-                  lastUpdated: lastStatus.timestamp * 1000
-                },
-                task
-              )
-            );
+            containerArray.push({
+              containerId: task.id,
+              status: task.state,
+
+              //
+              // NOTE: We are creating a Date object from this value, so we
+              //       should be OK with the timestamp
+              //
+              lastChanged: lastStatus.timestamp * 1000,
+
+              lastUpdated: lastStatus.timestamp * 1000,
+              ...task
+            });
           }
         }
 
@@ -227,14 +225,12 @@ const MesosStateUtil = {
       );
 
       // Compose something as close as possible to what `PodInstance` understand
-      return Object.assign(
-        {
-          id: instanceID,
-          status: PodInstanceState.TERMINAL,
-          containers
-        },
-        summaryProperties
-      );
+      return {
+        id: instanceID,
+        status: PodInstanceState.TERMINAL,
+        containers,
+        ...summaryProperties
+      };
     });
   },
 
@@ -275,7 +271,10 @@ const MesosStateUtil = {
    */
   flagSDKTask(task, service) {
     if (task.sdkTask === undefined && isSDKService(service)) {
-      return Object.assign({}, task, { sdkTask: true });
+      return {
+        ...task,
+        sdkTask: true
+      };
     }
 
     return task;

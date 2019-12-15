@@ -80,7 +80,9 @@ class SystemLogStore extends BaseStore {
   }
 
   addEntries(logData, entries, eventType) {
-    const newLogData = Object.assign({}, logData);
+    const newLogData = {
+      ...logData
+    };
     // Add new entries
     if (eventType === APPEND) {
       newLogData.entries = logData.entries.concat(entries);
@@ -146,7 +148,10 @@ class SystemLogStore extends BaseStore {
     if (!cursor && subscriptionID && this.logs[subscriptionID]) {
       const { entries } = this.logs[subscriptionID];
       cursor = entries[entries.length - 1].cursor;
-      options = Object.assign({}, options, { cursor });
+      options = {
+        ...options,
+        cursor
+      };
     }
 
     // Will return unchanged subscriptionID if provided in the options
@@ -186,7 +191,10 @@ class SystemLogStore extends BaseStore {
       return false;
     }
 
-    SystemLogActions.fetchRange(nodeID, Object.assign({ cursor }, options));
+    SystemLogActions.fetchRange(nodeID, {
+      cursor,
+      ...options
+    });
   }
 
   fetchStreamTypes(nodeID) {

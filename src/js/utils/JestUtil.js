@@ -73,23 +73,19 @@ const JestUtil = {
     // Create wrapper component
     return class WrappedComponent extends React.Component {
       static get childContextTypes() {
-        return Object.assign(
-          {
-            router: routerShape,
-            routeDepth: PropTypes.number
-          },
-          contextTypes
-        );
+        return {
+          router: routerShape,
+          routeDepth: PropTypes.number,
+          ...contextTypes
+        };
       }
 
       getChildContext() {
-        return Object.assign(
-          {
-            router: Object.assign(RouterStub, routerStubs),
-            routeDepth: 0
-          },
-          context
-        );
+        return {
+          router: Object.assign(RouterStub, routerStubs),
+          routeDepth: 0,
+          ...context
+        };
       }
 
       render() {

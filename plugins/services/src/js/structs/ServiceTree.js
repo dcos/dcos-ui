@@ -49,9 +49,10 @@ export default class ServiceTree extends Tree {
       // Check item properties and convert items with an items array (sub trees)
       // into ServiceTree instances.
       if (item.items != null && Array.isArray(item.items)) {
-        return new this.constructor(
-          Object.assign({ filterProperties: this.getFilterProperties() }, item)
-        );
+        return new this.constructor({
+          filterProperties: this.getFilterProperties(),
+          ...item
+        });
       }
 
       // Create the appropriate service according to definition

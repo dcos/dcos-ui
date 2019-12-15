@@ -23,7 +23,9 @@ class LogBuffer extends List {
   constructor(options = {}) {
     super(...arguments);
 
-    this.configuration = Object.assign({}, DEFAULT_OPTIONS);
+    this.configuration = {
+      ...DEFAULT_OPTIONS
+    };
 
     Object.keys(DEFAULT_OPTIONS).forEach(key => {
       if (Object.prototype.hasOwnProperty.call(options, key)) {

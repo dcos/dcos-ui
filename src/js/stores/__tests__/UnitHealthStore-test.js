@@ -17,7 +17,9 @@ describe("UnitHealthStore", () => {
     RequestUtil.json = handlers => {
       handlers.success(unitsFixture);
     };
-    thisUnitsFixture = Object.assign({}, unitsFixture);
+    thisUnitsFixture = {
+      ...unitsFixture
+    };
   });
 
   afterEach(() => {

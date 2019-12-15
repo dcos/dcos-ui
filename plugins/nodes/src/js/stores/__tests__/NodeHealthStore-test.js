@@ -17,7 +17,9 @@ describe("NodeHealthStore", () => {
     RequestUtil.json = handlers => {
       handlers.success(nodesFixture);
     };
-    thisNodesFixture = Object.assign({}, nodesFixture);
+    thisNodesFixture = {
+      ...nodesFixture
+    };
   });
 
   afterEach(() => {

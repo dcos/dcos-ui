@@ -17,7 +17,9 @@ describe("UsersStore", () => {
     RequestUtil.json = handlers => {
       handlers.success(usersFixture);
     };
-    thisUsersFixture = Object.assign({}, usersFixture);
+    thisUsersFixture = {
+      ...usersFixture
+    };
     thisUseFixtures = Config.useFixtures;
     Config.useFixtures = true;
   });

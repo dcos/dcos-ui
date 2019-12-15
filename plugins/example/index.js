@@ -15,7 +15,10 @@ const performComplexMath = (Store, prevState, action, factor) => {
   newState.countSoFar = prevState.countSoFar + action.payload * factor;
 
   // Don't mutate state - return new state
-  return Object.assign({}, prevState, newState);
+  return {
+    ...prevState,
+    ...newState
+  };
 };
 
 export default PluginSDK => {

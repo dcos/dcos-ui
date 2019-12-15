@@ -71,7 +71,10 @@ export function getTasksAction(state, message) {
     []
   );
 
-  return Object.assign({}, state, { tasks });
+  return {
+    ...state,
+    tasks
+  };
 }
 
 export function taskAddedAction(state, message) {
@@ -83,7 +86,10 @@ export function taskAddedAction(state, message) {
   const task = processTask(message.task_added.task);
   task.isStartedByMarathon = marathonId === task.framework_id;
 
-  return Object.assign({}, state, { tasks: [...state.tasks, task] });
+  return {
+    ...state,
+    tasks: [...state.tasks, task]
+  };
 }
 
 export function taskUpdatedAction(state, message) {
@@ -97,14 +103,18 @@ export function taskUpdatedAction(state, message) {
     if (task.id === task_id) {
       const statuses = task.statuses || [];
 
-      return Object.assign({}, task, {
+      return {
+        ...task,
         state: taskUpdate.state,
         statuses: [...statuses, taskUpdate.status]
-      });
+      };
     }
 
     return task;
   });
 
-  return Object.assign({}, state, { tasks });
+  return {
+    ...state,
+    tasks
+  };
 }

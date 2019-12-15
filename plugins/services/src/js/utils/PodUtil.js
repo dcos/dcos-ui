@@ -68,9 +68,10 @@ const PodUtil = {
 
         let combinedContainers = [].concat(
           podInstance.containers,
-          historicalInstance.containers.map(container =>
-            Object.assign({}, container, { isHistoricalInstance: true })
-          )
+          historicalInstance.containers.map(container => ({
+            ...container,
+            isHistoricalInstance: true
+          }))
         );
 
         // Filter combined container list to remove potential duplicates

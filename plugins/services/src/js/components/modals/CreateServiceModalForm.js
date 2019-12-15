@@ -124,22 +124,20 @@ class CreateServiceModalForm extends Component {
     const newServiceConfig = cleanConfig(
       ServiceUtil.getServiceJSON(this.props.service)
     );
-    this.state = Object.assign(
-      {
-        appConfig: null,
-        batch: new Batch(),
-        baseConfig: {},
-        editedFieldPaths: [],
-        editingFieldPath: null,
-        isPod: false,
-        jsonReducer() {},
-        jsonParser() {}
-      },
-      this.getNewStateForJSON(
+    this.state = {
+      appConfig: null,
+      batch: new Batch(),
+      baseConfig: {},
+      editedFieldPaths: [],
+      editingFieldPath: null,
+      isPod: false,
+      jsonReducer() {},
+      jsonParser() {},
+      ...this.getNewStateForJSON(
         newServiceConfig,
         this.props.service instanceof PodSpec
       )
-    );
+    };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);

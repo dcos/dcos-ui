@@ -33,7 +33,9 @@ class TransBuilder {
   build() {
     const openIdentifier = this.j.jsxIdentifier(WRAPPER_COMPONENT);
     const openingElement = this.j.jsxOpeningElement(openIdentifier);
-    const endIdentifier = Object.assign({}, openIdentifier);
+    const endIdentifier = {
+      ...openIdentifier
+    };
 
     return this.j.jsxElement(
       openingElement,

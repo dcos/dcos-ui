@@ -23,7 +23,10 @@ export default function jobsToggleSchedule(job) {
     ? i18nMark("Disable Schedule")
     : i18nMark("Enable Schedule");
 
-  const data = Object.assign({}, schedule, { enabled: !isEnabled });
+  const data = {
+    ...schedule,
+    enabled: !isEnabled
+  };
 
   return {
     label,

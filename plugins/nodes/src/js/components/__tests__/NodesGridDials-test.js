@@ -20,7 +20,11 @@ let thisHosts, thisInstance, thisActiveSlices;
 
 describe("NodesGridDials", () => {
   beforeEach(() => {
-    thisHosts = [new Node(Object.assign({}, mockHost))];
+    thisHosts = [
+      new Node({
+        ...mockHost
+      })
+    ];
     thisInstance = shallow(
       <NodesGridDials
         hosts={thisHosts}
@@ -76,12 +80,16 @@ describe("NodesGridDials", () => {
     });
 
     it("contains an unused resources slice", () => {
-      const slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
+      const slice = thisActiveSlices.data.find(
+        datum => datum.name === "Unused"
+      );
       expect(typeof slice).toEqual("object");
     });
 
     it("uses gray for the unused slice", () => {
-      const slice = thisActiveSlices.data.find(datum => datum.name === "Unused");
+      const slice = thisActiveSlices.data.find(
+        datum => datum.name === "Unused"
+      );
       expect(slice.colorIndex).toEqual("unused");
     });
   });
@@ -100,11 +108,15 @@ describe("NodesGridDials", () => {
 
   describe("#getDialConfig", () => {
     it("returns different configurations depending on the active parameter", () => {
-      let host = Object.assign({}, thisHosts[0]);
+      let host = {
+        ...thisHosts[0]
+      };
       host.active = true;
       const config1 = thisInstance.instance().getDialConfig(new Node(host));
 
-      host = Object.assign({}, thisHosts[0]);
+      host = {
+        ...thisHosts[0]
+      };
       host.active = false;
       const config2 = thisInstance.instance().getDialConfig(new Node(host));
 
@@ -118,7 +130,9 @@ describe("NodesGridDials", () => {
     });
 
     it("renders the correct number of charts", () => {
-      const host = Object.assign({}, thisHosts[0]);
+      const host = {
+        ...thisHosts[0]
+      };
       host.id = "bar";
       thisHosts.push(new Node(host));
       thisInstance = shallow(

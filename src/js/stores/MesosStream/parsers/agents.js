@@ -28,7 +28,10 @@ export function getAgentsAction(state, message) {
     []
   );
 
-  return Object.assign({}, state, { slaves: agents });
+  return {
+    ...state,
+    slaves: agents
+  };
 }
 
 export function agentAddedAction(state, message) {
@@ -38,7 +41,10 @@ export function agentAddedAction(state, message) {
 
   const agent = processAgent(message.agent_added.agent);
 
-  return Object.assign({}, state, { slaves: [...state.slaves, agent] });
+  return {
+    ...state,
+    slaves: [...state.slaves, agent]
+  };
 }
 
 export function agentRemovedAction(state, message) {
@@ -49,5 +55,8 @@ export function agentRemovedAction(state, message) {
   const removedAgentID = message.agent_removed.agent_id.value;
   const slaves = state.slaves.filter(agent => removedAgentID !== agent.id);
 
-  return Object.assign({}, state, { slaves });
+  return {
+    ...state,
+    slaves
+  };
 }

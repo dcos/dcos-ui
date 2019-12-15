@@ -32,15 +32,14 @@ const DialChart = createReactClass({
 
   UNSAFE_componentWillMount() {
     const value = this.props.value;
-    const data = Object.assign(
-      {
-        pie: d3.layout
-          .pie()
-          .sort(null)
-          .value(d => d[value])
-      },
-      this.getArcs(this.props)
-    );
+    const data = {
+      pie: d3.layout
+        .pie()
+        .sort(null)
+        .value(d => d[value]),
+
+      ...this.getArcs(this.props)
+    };
 
     this.data = data;
   },
@@ -97,7 +96,10 @@ const DialChart = createReactClass({
       return indexByName;
     }, {});
 
-    const normalizedNamedData = Object.assign({}, namedSlices, namedData);
+    const normalizedNamedData = {
+      ...namedSlices,
+      ...namedData
+    };
 
     return Object.values(normalizedNamedData);
   },

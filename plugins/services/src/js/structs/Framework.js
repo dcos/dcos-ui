@@ -101,7 +101,9 @@ export default class Framework extends Application {
     // TODO: Circular reference workaround DCOS_OSS-783
     const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
-    const tasksSummary = Object.assign({}, super.getTasksSummary());
+    const tasksSummary = {
+      ...super.getTasksSummary()
+    };
     const tasks = MesosStateStore.getTasksByService(this) || [];
     const tasksRunning = this.get("TASK_RUNNING") || 0;
     tasksSummary.tasksRunning += tasksRunning;

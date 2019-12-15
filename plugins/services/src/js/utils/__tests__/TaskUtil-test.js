@@ -141,7 +141,9 @@ describe("TaskUtil", () => {
       CompositeState.getMasterNode = () => new Node(MasterNodeLocal);
     });
     it("returns N/A when no region name exists", () => {
-      const task = Object.assign({}, NodeTask);
+      const task = {
+        ...NodeTask
+      };
       task.slave_id = "2";
       expect(TaskUtil.getRegionName(task)).toEqual("N/A");
     });
@@ -159,7 +161,9 @@ describe("TaskUtil", () => {
       CompositeState.getNodesList = () => new NodesList({ items: SlaveNodes });
     });
     it("returns N/A when no zone name exists", () => {
-      const task = Object.assign({}, NodeTask);
+      const task = {
+        ...NodeTask
+      };
       task.slave_id = "2";
       expect(TaskUtil.getZoneName(task)).toEqual("N/A");
     });

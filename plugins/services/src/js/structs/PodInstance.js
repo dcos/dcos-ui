@@ -94,15 +94,13 @@ export default class PodInstance extends Item {
   getResources() {
     const resources = this.get("resources") || {};
 
-    return Object.assign(
-      {
-        cpus: 0,
-        mem: 0,
-        gpus: 0,
-        disk: 0
-      },
-      resources
-    );
+    return {
+      cpus: 0,
+      mem: 0,
+      gpus: 0,
+      disk: 0,
+      ...resources
+    };
   }
 
   getIpAddresses() {

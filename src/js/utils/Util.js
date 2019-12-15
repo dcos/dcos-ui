@@ -165,7 +165,9 @@ export function deepCopy(obj) {
   if (Array.isArray(obj)) {
     copy = obj.slice(); // shallow copy
   } else if (isObject(obj)) {
-    copy = Object.assign({}, obj);
+    copy = {
+      ...obj
+    };
   }
 
   if (copy != null) {

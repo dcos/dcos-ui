@@ -89,7 +89,10 @@ const containerJSONReducer = combineReducers({
     const joinedPath = path && path.join(".");
 
     if (type === SET && joinedPath === "container.docker") {
-      this.internalState = Object.assign({}, this.internalState, value);
+      this.internalState = {
+        ...this.internalState,
+        ...value
+      };
     }
 
     if (type === SET && joinedPath === "container.type") {
@@ -97,7 +100,9 @@ const containerJSONReducer = combineReducers({
     }
 
     if (!ValidatorUtil.isEmpty(this.internalState)) {
-      return Object.assign({}, this.internalState);
+      return {
+        ...this.internalState
+      };
     }
   },
   portMappings(state, action) {
@@ -217,7 +222,9 @@ const containerReducer = combineReducers({
     }
 
     if (!ValidatorUtil.isEmpty(this.internalState)) {
-      const newState = Object.assign({}, this.internalState);
+      const newState = {
+        ...this.internalState
+      };
       Object.keys(this.internalState).forEach(key => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
           delete newState[key];
@@ -244,10 +251,9 @@ export function JSONReducer(_, ...args) {
     this.isMesosRuntime = value === MESOS;
   }
 
-  let newState = Object.assign(
-    {},
-    containerJSONReducer.apply(this, [this.internalState, ...args])
-  );
+  let newState = {
+    ...containerJSONReducer.apply(this, [this.internalState, ...args])
+  };
 
   this.internalState = newState;
   if (type === SET && path.join(".") === "container" && value) {
@@ -281,10 +287,9 @@ export function FormReducer(_, ...args) {
     this.internalState = {};
   }
 
-  const newState = Object.assign(
-    {},
-    containerReducer.apply(this, [this.internalState, ...args])
-  );
+  const newState = {
+    ...containerReducer.apply(this, [this.internalState, ...args])
+  };
 
   this.internalState = newState;
 

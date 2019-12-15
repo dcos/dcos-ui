@@ -431,9 +431,10 @@ class CreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceSpec: new ApplicationSpec(
-            Object.assign({ id: baseID }, DEFAULT_APP_SPEC)
-          ),
+          serviceSpec: new ApplicationSpec({
+            id: baseID,
+            ...DEFAULT_APP_SPEC
+          }),
           showAllErrors: false
         });
         break;
@@ -446,9 +447,10 @@ class CreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceFormActive: true,
-          serviceSpec: new PodSpec(
-            Object.assign({ id: baseID }, DEFAULT_POD_SPEC)
-          ),
+          serviceSpec: new PodSpec({
+            id: baseID,
+            ...DEFAULT_POD_SPEC
+          }),
           showAllErrors: false
         });
         break;
@@ -461,9 +463,10 @@ class CreateServiceModal extends Component {
           serviceFormErrors: [],
           servicePickerActive: false,
           serviceJsonActive: true,
-          serviceSpec: new ApplicationSpec(
-            Object.assign({ id: baseID }, DEFAULT_APP_SPEC)
-          ),
+          serviceSpec: new ApplicationSpec({
+            id: baseID,
+            ...DEFAULT_APP_SPEC
+          }),
           showAllErrors: false
         });
         break;
@@ -871,9 +874,10 @@ class CreateServiceModal extends Component {
       ? DCOSStore.serviceTree.findItemById(serviceID)
       : null;
     const isSpecificVersion = service instanceof Application && params.version;
-    let serviceSpec = new ApplicationSpec(
-      Object.assign({ id: getBaseID(serviceID) }, DEFAULT_APP_SPEC)
-    );
+    let serviceSpec = new ApplicationSpec({
+      id: getBaseID(serviceID),
+      ...DEFAULT_APP_SPEC
+    });
 
     if (isEdit && service instanceof Service && !isSpecificVersion) {
       serviceSpec = service.getSpec();

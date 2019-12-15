@@ -122,13 +122,11 @@ const StringUtil = {
   },
 
   humanizeArray(array, options) {
-    options = Object.assign(
-      {
-        serialComma: true,
-        wrapValueFunction: false
-      },
-      options
-    );
+    options = {
+      serialComma: true,
+      wrapValueFunction: false,
+      ...options
+    };
 
     const length = array.length;
     let conjunction = " and ";

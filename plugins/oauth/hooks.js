@@ -23,7 +23,9 @@ const defaultOrganizationRoute = {
   routes: []
 };
 
-export default Object.assign({}, StoreMixin, {
+export default {
+  ...StoreMixin,
+
   actions: [
     "AJAXRequestError",
     "userLoginSuccess",
@@ -225,4 +227,4 @@ export default Object.assign({}, StoreMixin, {
       </p>
     );
   }
-});
+};

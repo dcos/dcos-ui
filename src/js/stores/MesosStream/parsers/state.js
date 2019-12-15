@@ -47,10 +47,11 @@ export default function getStateAction(state, message) {
     agentsPartial = getAgentsAction({}, getAgentsMessage);
   }
 
-  return Object.assign({}, state, {
+  return {
+    ...state,
     ...agentsPartial,
     ...executorsPartial,
     ...frameworksPartial,
     ...tasksPartial
-  });
+  };
 }

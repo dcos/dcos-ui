@@ -44,7 +44,9 @@ export function MultiContainerVolumeMountsJSONReducer(
 
   switch (type) {
     case ADD_ITEM:
-      this.volumes.push(Object.assign({}, value));
+      this.volumes.push({
+        ...value
+      });
       break;
     case REMOVE_ITEM:
       this.volumes = this.volumes.filter((item, index) => index !== value);
@@ -249,7 +251,10 @@ export function FormReducer(state = [], { type, path, value }) {
 
   switch (type) {
     case ADD_ITEM:
-      newState.push(Object.assign({}, { mountPath: [] }, value));
+      newState.push({
+        mountPath: [],
+        ...value
+      });
       break;
     case REMOVE_ITEM:
       newState = newState.filter((item, index) => index !== value);

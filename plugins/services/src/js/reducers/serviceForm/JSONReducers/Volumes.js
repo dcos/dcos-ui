@@ -39,7 +39,10 @@ const mapVolumes = function(volume) {
 
   if (volume.type === "DSS") {
     return {
-      persistent: Object.assign({ type: "mount" }, volume.persistent),
+      persistent: {
+        type: "mount",
+        ...volume.persistent
+      },
       mode: volume.mode,
       containerPath: volume.containerPath
     };
@@ -94,22 +97,19 @@ function reduceVolumes(state, { type, path, value }) {
     if (joinedPath === "volumes") {
       switch (type) {
         case ADD_ITEM:
-          this.volumes.push(
-            Object.assign(
-              {},
-              {
-                containerPath: null,
-                persistent: { size: null, profileName: null },
-                external: {
-                  name: null,
-                  provider: "dvdi",
-                  options: { "dvdi/driver": "rexray" }
-                },
-                mode: "RW"
-              },
-              value
-            )
-          );
+          this.volumes.push({
+            containerPath: null,
+            persistent: { size: null, profileName: null },
+
+            external: {
+              name: null,
+              provider: "dvdi",
+              options: { "dvdi/driver": "rexray" }
+            },
+
+            mode: "RW",
+            ...value
+          });
           break;
         case REMOVE_ITEM:
           this.volumes = this.volumes.filter((item, index) => index !== value);

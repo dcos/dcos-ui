@@ -31,7 +31,10 @@ describe("TimeSeriesChart", () => {
     });
 
     it("calls #renderAxis", () => {
-      const props = Object.assign({ foo: "bar" }, thisInstance.props);
+      const props = {
+        foo: "bar",
+        ...thisInstance.props
+      };
       thisInstance.shouldComponentUpdate(props);
 
       expect(thisInstance.renderAxis).toHaveBeenCalled();
@@ -44,7 +47,10 @@ describe("TimeSeriesChart", () => {
     });
 
     it("returns truthy", () => {
-      const props = Object.assign({ foo: "bar" }, thisInstance.props);
+      const props = {
+        foo: "bar",
+        ...thisInstance.props
+      };
       const _return = thisInstance.shouldComponentUpdate(props);
 
       expect(_return).toEqual(true);

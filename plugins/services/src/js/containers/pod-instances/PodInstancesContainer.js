@@ -263,7 +263,10 @@ class PodInstancesContainer extends React.Component {
     const set = (id, props) => {
       // Set props to be passed into modal
       this.setState({
-        modal: Object.assign({}, props, { id })
+        modal: {
+          ...props,
+          id
+        }
       });
     };
 
@@ -281,7 +284,10 @@ class PodInstancesContainer extends React.Component {
 
   getModals() {
     const { pod } = this.props;
-    const modalProps = Object.assign({ pod }, this.state.modal);
+    const modalProps = {
+      pod,
+      ...this.state.modal
+    };
 
     return (
       <TaskModals

@@ -28,11 +28,12 @@ export function FormReducer(state = [], { type, path = [], value }) {
 
   switch (type) {
     case ADD_ITEM:
-      const endpointDefinition = Object.assign({}, defaultEndpointsFieldValues);
-      endpointDefinition.protocol = Object.assign(
-        {},
-        defaultEndpointsFieldValues.protocol
-      );
+      const endpointDefinition = {
+        ...defaultEndpointsFieldValues
+      };
+      endpointDefinition.protocol = {
+        ...defaultEndpointsFieldValues.protocol
+      };
       newState.push(endpointDefinition);
       break;
     case REMOVE_ITEM:

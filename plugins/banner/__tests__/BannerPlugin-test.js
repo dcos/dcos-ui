@@ -12,7 +12,9 @@ const defaultConfiguration = BannerPlugin.configuration;
 let thisHooks, thisInstance, thisMockFn, thisIframe;
 describe("BannerPlugin", () => {
   beforeEach(() => {
-    BannerPlugin.configuration = Object.assign({}, defaultConfiguration);
+    BannerPlugin.configuration = {
+      ...defaultConfiguration
+    };
   });
 
   describe("#initialize", () => {

@@ -30,14 +30,12 @@ function getLogParameters(task, options) {
     executorID = id;
   }
 
-  return Object.assign(
-    {
-      containerID: MesosStateUtil.getTaskContainerID(task),
-      executorID,
-      frameworkID
-    },
-    options
-  );
+  return {
+    containerID: MesosStateUtil.getTaskContainerID(task),
+    executorID,
+    frameworkID,
+    ...options
+  };
 }
 
 class TaskSystemLogsContainer extends mixin(StoreMixin) {

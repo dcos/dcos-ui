@@ -18,7 +18,9 @@ export function FormReducer(state = [], { type, path, value }) {
             profileName: null,
             mode: "RW"
           };
-          state.push(Object.assign({}, value || defaultVolume));
+          state.push({
+            ...(value || defaultVolume)
+          });
           break;
         case REMOVE_ITEM:
           state = state.filter((item, index) => index !== value);
