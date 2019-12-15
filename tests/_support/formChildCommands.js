@@ -1,4 +1,4 @@
-const StringUtil = require("./utils/StringUtil").default;
+import StringUtil from "./utils/StringUtil";
 
 /**
  * Select the input element of the form group with the given label

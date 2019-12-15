@@ -1,6 +1,6 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-import ActionTypes from "../constants/ActionTypes";
+import * as ActionTypes from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
 

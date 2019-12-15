@@ -1,4 +1,4 @@
-const StringUtil = require("./StringUtil").default;
+import StringUtil from "./StringUtil";
 
 /**
  * Return a configuration section

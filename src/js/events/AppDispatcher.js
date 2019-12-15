@@ -1,6 +1,6 @@
 import { Dispatcher } from "flux";
 
-import ActionTypes from "../constants/ActionTypes";
+import * as ActionTypes from "../constants/ActionTypes";
 
 const AppDispatcher = Object.assign(new Dispatcher(), {
   handleServerAction(action) {
