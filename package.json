@@ -123,7 +123,7 @@
     "babel-preset-stage-3": "6.24.1",
     "babel-register": "6.26.0",
     "babel-runtime": "6.26.0",
-    "cache-loader": "1.2.2",
+    "cache-loader": "4.1.0",
     "colors": "1.4.0",
     "compression-webpack-plugin": "1.1.6",
     "console": "0.7.2",
