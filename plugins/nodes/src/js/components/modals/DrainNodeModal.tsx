@@ -1,7 +1,5 @@
 import React, { useState } from "react";
 
-// @ts-ignore
-import { request } from "@dcos/mesos-client";
 import { Trans } from "@lingui/macro";
 import { Modal } from "reactjs-components";
 import { InfoBoxInline } from "@dcos/ui-kit";

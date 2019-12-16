@@ -1,4 +1,3 @@
-// @ts-ignore
 import { request } from "@dcos/mesos-client";
 
 import Node from "#SRC/js/structs/Node";

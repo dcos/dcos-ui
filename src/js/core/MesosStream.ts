@@ -2,7 +2,6 @@ import { Observable, from, timer } from "rxjs";
 import { fromFetch } from "rxjs/fetch";
 import utf8 from "@protobufjs/utf8";
 import { map, repeatWhen, shareReplay, switchMap } from "rxjs/operators";
-// @ts-ignore
 import proto from "../mesos-proto";
 
 const MesosEvent = proto.lookup("Event");

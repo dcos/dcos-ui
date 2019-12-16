@@ -16,7 +16,6 @@ import { take } from "rxjs/operators";
 import { createTestContainer } from "../../__tests__/extension-test";
 import TestModule, { TestResolverArgs } from "../../__tests__/test-module";
 import ServiceTree from "../../../structs/ServiceTree";
-// @ts-ignore
 import MarathonUtil from "../../../utils/MarathonUtil";
 
 const marathonGroups = require("./_fixtures/marathon-groups.json");

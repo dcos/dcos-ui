@@ -12,8 +12,6 @@ import {
   ServiceGroup,
   QuotaLimitStatuses
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
-
-// @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import { getQuotaLimit } from "../utils/QuotaUtil";

@@ -1,11 +1,7 @@
 import compareVersions from "compare-versions";
 
-// @ts-ignore
-import Framework from "../structs/Framework";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
-// @ts-ignore
-import FrameworkUtil from "./FrameworkUtil";
 
 type Version = string;
 
