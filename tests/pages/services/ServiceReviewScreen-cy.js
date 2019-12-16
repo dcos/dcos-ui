@@ -1498,7 +1498,7 @@ describe("Services", () => {
 
       cy.root()
         .getFormGroupInputFor("Host Port")
-        .type("4200");
+        .type("{selectAll}4200");
 
       cy.get("label")
         .contains("JSON Editor")
