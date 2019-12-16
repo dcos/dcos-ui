@@ -1,16 +1,35 @@
 {
+  "defaultSeverity": "error",
   "extends": [
-    "@dcos/tslint-config",
-    "tslint-react-hooks",
+    "tslint:recommended",
+    "tslint-consistent-codestyle",
     "tslint-config-prettier"
   ],
+  "jsRules": {},
+  "linterOptions": {
+    "exclude": [""]
+  },
   "rules": {
-    "interface-name": [false],
+    "arrow-return-shorthand": true,
+    "cyclomatic-complexity": [true, 20],
+    "interface-name": false,
     "interface-over-type-literal": false,
-    "jsx-wrap-multiline": false,
-    "no-submodule-imports": [false],
+    "no-console": false,
+    "no-unnecessary-else": true,
+    "no-unnecessary-type-assertion": true,
+    "no-unsafe-any": {
+      "severity": "warning"
+    },
+    "no-var-before-return": true,
+    "object-literal-sort-keys": false,
+    "ordered-imports": false,
+    "prefer-conditional-expression": true,
     "prefer-const": true,
-    "prettier": false,
-    "react-hooks-nesting": "error"
-  }
+    "prefer-object-spread": true,
+    "prefer-readonly": true,
+    "unnecessary-bind": true,
+    "unnecessary-else": true,
+    "variable-name": false
+  },
+  "rulesDirectory": []
 }
