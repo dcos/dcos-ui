@@ -117,7 +117,7 @@ export function actionsRendererFactory(
       : ServiceActionLabels[SCALE];
     const isSDK = !isGroup && isSDKService(service);
 
-    const actions = [];
+    const actions: any[] = [];
 
     actions.push({
       className: "hidden",

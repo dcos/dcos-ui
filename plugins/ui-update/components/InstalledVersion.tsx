@@ -75,7 +75,7 @@ const InstalledVersion = (props: InstalledVersionProps) => {
   }
   const { clientBuild, serverBuild } = uiMetaData;
 
-  let refreshForUpdateContent = null;
+  let refreshForUpdateContent: JSX.Element | null = null;
 
   const coercedClientBuild = semver.coerce(clientBuild);
   const coercedServerBuild = semver.coerce(serverBuild || "");

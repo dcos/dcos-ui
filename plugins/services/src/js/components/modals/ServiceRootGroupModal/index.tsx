@@ -13,11 +13,8 @@ import { Tooltip } from "reactjs-components";
 
 import container from "#SRC/js/container";
 import { TYPES } from "#SRC/js/types/containerTypes";
-// @ts-ignore
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
-// @ts-ignore
 import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
-// @ts-ignore
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -32,8 +29,6 @@ import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import Loader from "#SRC/js/components/Loader";
-
-// @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
@@ -302,7 +297,7 @@ class ServiceRootGroupModal extends React.Component<
         return;
       default:
         const { isEdit } = this.state;
-        const form = [];
+        const form: any[] = [];
         if (mesos) {
           if (isEdit) {
             form.push(

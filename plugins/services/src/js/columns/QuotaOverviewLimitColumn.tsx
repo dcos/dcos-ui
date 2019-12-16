@@ -26,7 +26,7 @@ interface LimitInfo {
 }
 
 function renderLimitLabel(limitInfo: LimitInfo) {
-  let icon = null;
+  let icon: JSX.Element | null = null;
   switch (limitInfo.limitText) {
     case QuotaLimitStatuses.applied:
       icon = (
