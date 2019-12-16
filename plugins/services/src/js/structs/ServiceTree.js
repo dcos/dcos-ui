@@ -13,7 +13,7 @@ import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 import VolumeList from "../structs/VolumeList";
 
 export default class ServiceTree extends Tree {
-  /**
+  /*
    * (Marathon) ServiceTree
    * @param {{
    *          id:string,

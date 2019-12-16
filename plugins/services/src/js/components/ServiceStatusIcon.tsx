@@ -73,7 +73,7 @@ class ServiceStatusIcon extends React.Component<{
 
   public getServiceTreeWarning(serviceTree: ServiceTree) {
     const appsWithWarningsCount = serviceTree
-      .filterItems(item => {
+      .filterItems((item: any) => {
         if (!(item instanceof ServiceTree)) {
           return (
             DeclinedOffersUtil.displayDeclinedOffersWarning(item) ||

@@ -1,6 +1,4 @@
-// @ts-ignore
 import Application from "../../structs/Application";
-// @ts-ignore
 import Framework from "../../structs/Framework";
 import * as Version from "../../utils/Version";
 
@@ -9,12 +7,14 @@ describe("Version", () => {
     it("get's a raw version", () => {
       expect(
         Version.fromService(
+          // @ts-ignore
           new Framework({ labels: { DCOS_PACKAGE_VERSION: "2.3.0-1.1.0" } })
         )
       ).toEqual("2.3.0-1.1.0");
 
       expect(
         Version.fromService(
+          // @ts-ignore
           new Application({ version: "2018-09-13T21:42:41.611Z" })
         )
       ).toEqual("2018-09-13T21:42:41.611Z");
