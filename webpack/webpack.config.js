@@ -36,7 +36,7 @@ const babelLoader = {
 
 module.exports = {
   devServer,
-  entry: "./src/js/index.js",
+  entry: "./src/js/index.jsx",
   output: {
     filename: "[name].[hash].js",
     chunkFilename: "[name].[chunkhash].bundle.js"
@@ -48,7 +48,7 @@ module.exports = {
     }
   },
   resolve: {
-    extensions: [".ts", ".tsx", ".js"],
+    extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
       "@styles": path.resolve(__dirname, "../src/styles"),
       "#EXTERNAL_PLUGINS": path.resolve(
@@ -114,7 +114,7 @@ module.exports = {
         ]
       },
       {
-        test: /\.js$/,
+        test: /\.jsx?$/,
         exclude: absPath =>
           absPath.includes("/node_modules/") &&
           // this package needs to be babelized to work in browsers.

@@ -13,7 +13,7 @@ module.exports = maybeProfile(
   merge(common, {
     mode: "development",
     entry: {
-      index: "./src/js/index.js"
+      index: "./src/js/index.jsx"
     },
     output: {
       path: path.resolve(__dirname, "../dist/assets")
