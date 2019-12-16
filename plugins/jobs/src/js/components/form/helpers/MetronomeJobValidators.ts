@@ -325,7 +325,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const cpus = findNestedPropertyInObject(formData, "run.cpus");
     const mem = findNestedPropertyInObject(formData, "run.mem");
     const disk = findNestedPropertyInObject(formData, "run.disk");
-    const errors = [];
+    const errors: any[] = [];
 
     // tslint:disable-next-line
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
@@ -517,7 +517,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
 
   scheduleStartingDeadlineIsValid(formData: JobOutput) {
     const { schedules } = formData;
-    const errors = [];
+    const errors: any[] = [];
     if (
       schedules &&
       Array.isArray(schedules) &&

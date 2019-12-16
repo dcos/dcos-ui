@@ -45,7 +45,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
     );
 
     return args.map((arg: string, index: number) => {
-      let label = null;
+      let label: JSX.Element | null = null;
       if (index === 0) {
         label = (
           <FieldLabel>

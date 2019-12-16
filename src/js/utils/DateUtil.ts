@@ -45,7 +45,7 @@ const DateUtil = {
     ms: number,
     multiplicants: Multiplicants = DEFAULT_MULTIPLICANTS
   ): string[] {
-    const expressionComponents = [];
+    const expressionComponents: any[] = [];
     const multiplicantKeys = Object.keys(multiplicants);
 
     // Start applying biggest to smallest fit

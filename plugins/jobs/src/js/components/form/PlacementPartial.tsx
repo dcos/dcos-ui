@@ -53,9 +53,9 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
           }
           return null;
         }
-        let operatorLabel = null;
-        let fieldLabel = null;
-        let valueLabel = null;
+        let operatorLabel: JSX.Element | null = null;
+        let fieldLabel: JSX.Element | null = null;
+        let valueLabel: JSX.Element | null = null;
 
         if (index === titleIndex) {
           operatorLabel = (

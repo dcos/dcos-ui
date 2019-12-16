@@ -59,9 +59,9 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
           }
           return null;
         }
-        let containerPathLabel = null;
-        let hostPathLabel = null;
-        let modeLabel = null;
+        let containerPathLabel: JSX.Element | null = null;
+        let hostPathLabel: JSX.Element | null = null;
+        let modeLabel: JSX.Element | null = null;
 
         let mode: any = volume.mode;
 
