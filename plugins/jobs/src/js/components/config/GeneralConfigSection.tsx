@@ -7,7 +7,7 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { JobOutput } from "../form/helpers/JobFormData";
 
 class GeneralConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(row: Value<JobOutput>) {
+  public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     switch (row.key) {
       case "containerImage":
@@ -20,11 +20,11 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
     }
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:General";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "jobs",
       values: [

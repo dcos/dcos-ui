@@ -33,7 +33,7 @@ export default class NodesGridView extends React.PureComponent<
     receivedNodeHealthResponse: false
   };
 
-  getLoadingScreen() {
+  public getLoadingScreen() {
     const { hasLoadingError } = this.props;
     const errorMsg = hasLoadingError ? <RequestErrorMsg /> : null;
 
@@ -49,11 +49,11 @@ export default class NodesGridView extends React.PureComponent<
     );
   }
 
-  getActiveServiceIds() {
+  public getActiveServiceIds() {
     return this.props.services.map(service => service.getId());
   }
 
-  getServicesList() {
+  public getServicesList() {
     const { services, serviceColors } = this.props;
 
     // Return a list of unique service IDs from the selected hosts.
@@ -93,7 +93,7 @@ export default class NodesGridView extends React.PureComponent<
     );
   }
 
-  getNodesGrid() {
+  public getNodesGrid() {
     const {
       hosts,
       resourcesByFramework,
@@ -120,7 +120,7 @@ export default class NodesGridView extends React.PureComponent<
     );
   }
 
-  shouldRenderLoadingScreen() {
+  public shouldRenderLoadingScreen() {
     const {
       hasLoadingError,
       receivedEmptyMesosState,
@@ -132,11 +132,10 @@ export default class NodesGridView extends React.PureComponent<
     );
   }
 
-  render() {
+  public render() {
     if (this.shouldRenderLoadingScreen()) {
       return this.getLoadingScreen();
-    } else {
-      return this.getNodesGrid();
     }
+    return this.getNodesGrid();
   }
 }

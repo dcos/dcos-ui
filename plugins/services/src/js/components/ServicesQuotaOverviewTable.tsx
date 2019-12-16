@@ -54,13 +54,15 @@ class ServicesQuotaOverviewTable extends React.Component<
     };
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: ServicesQuotaOverviewTableProps) {
+  public UNSAFE_componentWillReceiveProps(
+    nextProps: ServicesQuotaOverviewTableProps
+  ) {
     this.setState({
       items: this.sortData(nextProps.serviceTree.getItems() || [])
     });
   }
 
-  handleSortClick = (columnName: string) => () => {
+  public handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -73,7 +75,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     });
   };
 
-  sortData = (
+  public sortData = (
     items: Array<Service | ServiceTree>,
     sortColumn: string = this.state.sortColumn,
     sortDirection: SortDirection = this.state.sortDirection
@@ -82,7 +84,7 @@ class ServicesQuotaOverviewTable extends React.Component<
       reverse: sortDirection !== "ASC"
     });
 
-  render() {
+  public render() {
     const { items, sortColumn, sortDirection } = this.state;
 
     if (items.length === 0) {

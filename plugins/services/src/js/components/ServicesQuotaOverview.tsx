@@ -60,7 +60,7 @@ class ServicesQuotaOverviewWithMesosState extends React.Component<
     };
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     MesosStateStore.addChangeListener(
       MESOS_STATE_CHANGE,
       this.onMesosStateChange
@@ -68,23 +68,22 @@ class ServicesQuotaOverviewWithMesosState extends React.Component<
     this.onMesosStateChange();
   }
 
-  componentWillUnmount() {
+  public componentWillUnmount() {
     MesosStateStore.removeChangeListener(
       MESOS_STATE_CHANGE,
       this.onMesosStateChange
     );
   }
 
-  onMesosStateChange() {
+  public onMesosStateChange() {
     this.setState({ mesosStateLoaded: true });
   }
 
-  render() {
+  public render() {
     if (this.state.mesosStateLoaded) {
       return <ServicesQuotaOverview />;
-    } else {
-      return <Loader />;
     }
+    return <Loader />;
   }
 }
 

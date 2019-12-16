@@ -13,7 +13,7 @@ import {
 import { JobOutput, DockerParameter } from "../form/helpers/JobFormData";
 
 class ContainerConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(_: Value<JobOutput>) {
+  public shouldExcludeItem(_: Value<JobOutput>) {
     const { config } = this.props;
     return (
       !config.run.docker ||
@@ -23,11 +23,11 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
     );
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:Parameters";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "parameters",
       values: [

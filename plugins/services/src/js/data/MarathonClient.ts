@@ -34,9 +34,9 @@ export function createGroup(
       | RequestResponse<CreateGroupErrorResponse>
       | RequestResponseError<CreateGroupErrorResponse>
   ) => {
-    const response = (resp.response || {
+    const response = resp.response || {
       message: "Unknown"
-    }) as CreateGroupErrorResponse;
+    };
     let message: string;
     switch (resp.code) {
       case 409:
@@ -77,9 +77,9 @@ export function editGroup(
       | RequestResponse<CreateGroupErrorResponse>
       | RequestResponseError<CreateGroupErrorResponse>
   ) => {
-    const response = (resp.response || {
+    const response = resp.response || {
       message: "Unknown"
-    }) as CreateGroupErrorResponse;
+    };
     let message: string;
     switch (resp.code) {
       case 403:

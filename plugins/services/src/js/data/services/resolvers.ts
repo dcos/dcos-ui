@@ -51,7 +51,7 @@ export function resolvers({
         const pollingInterval$ = timer(0, pollingInterval);
         if (isPlansQueryArgs(args)) {
           // If we're given a plan name, then only query that plan
-          const plan$ = pollingInterval$.pipe(
+          return pollingInterval$.pipe(
             switchMap(() =>
               fetchServicePlanDetail(parent.id, args.name).pipe(retry(2))
             ),
@@ -61,12 +61,11 @@ export function resolvers({
               ): ServicePlan[] => [{ name: args.name, ...reqResp.response }]
             )
           );
-
-          return plan$;
-        } else {
+        }
+        {
           // Otherwise query for all the service's plans, then pull details for each
           // plan. Finally combine all of the detail's query observables.
-          const plans$ = pollingInterval$.pipe(
+          return pollingInterval$.pipe(
             switchMap(() =>
               fetchServicePlans(parent.id).pipe(
                 retry(2),
@@ -86,8 +85,6 @@ export function resolvers({
               return combineLatest(...planDetails);
             })
           );
-
-          return plans$;
         }
       }
     },

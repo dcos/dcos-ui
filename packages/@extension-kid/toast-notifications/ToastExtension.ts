@@ -9,8 +9,8 @@ import { ToastNotification } from "./ToastNotification";
 
 @injectable()
 class ToastExtension implements NotificationServiceExtensionInterface {
-  id = ToastNotification.NotificationType;
-  readonly Toast$: BehaviorSubject<ToastNotification[]>;
+  public id = ToastNotification.NotificationType;
+  public readonly Toast$: BehaviorSubject<ToastNotification[]>;
   private toasts: ToastNotification[] = [];
 
   constructor() {
@@ -26,31 +26,31 @@ class ToastExtension implements NotificationServiceExtensionInterface {
     this.removeToast = this.removeToast.bind(this);
   }
 
-  supportedNotifications() {
+  public supportedNotifications() {
     return [ToastNotification.NotificationType];
   }
 
-  push(notification: Notification) {
+  public push(notification: Notification) {
     const toast = notification as ToastNotification;
 
     this.Toast$.next(this.toasts.concat(toast));
   }
 
-  dismissToast(toastId: string) {
+  public dismissToast(toastId: string) {
     const toast = this.removeToast(toastId);
     if (toast !== null) {
       toast.dismiss();
     }
   }
 
-  toastPrimaryAction(toastId: string) {
+  public toastPrimaryAction(toastId: string) {
     const toast = this.removeToast(toastId);
     if (toast !== null) {
       toast.primaryAction();
     }
   }
 
-  toastSecondaryAction(toastId: string) {
+  public toastSecondaryAction(toastId: string) {
     const toast = this.removeToast(toastId);
     if (toast !== null) {
       toast.secondaryAction();

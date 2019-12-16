@@ -51,7 +51,8 @@ export function getErrorMessage({
 }: RequestResponse<any>): string {
   if (typeof response === "string") {
     return response;
-  } else if (typeof response === "object") {
+  }
+  if (typeof response === "object") {
     if (response.description) {
       return response.description;
     }

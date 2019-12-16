@@ -32,7 +32,7 @@ const UIUpdateNotificationsType = Symbol.for("UIUpdateNotifications");
 
 @injectable()
 class Notifications implements UIUpdateNotifications {
-  private static _methodsToBind = [
+  private static readonly _methodsToBind = [
     "_clear",
     "setupUIUpdatedNotification",
     "setupUpdateFailedNotification",
@@ -45,7 +45,7 @@ class Notifications implements UIUpdateNotifications {
   ];
   private readonly _notificationService: NotificationService;
   private readonly _i18n: I18n;
-  private _activeNotifications: string[] = [];
+  private readonly _activeNotifications: string[] = [];
 
   public constructor(
     @inject(NotificationServiceType) notificationService: NotificationService,
@@ -55,7 +55,7 @@ class Notifications implements UIUpdateNotifications {
     this._i18n = i18n;
 
     Notifications._methodsToBind.forEach(method => {
-      //@ts-ignore
+      // @ts-ignore
       this[method] = this[method].bind(this);
     });
   }
@@ -75,7 +75,7 @@ class Notifications implements UIUpdateNotifications {
           );
         }),
         map(uiMetadata => {
-          //@ts-ignore
+          // @ts-ignore
           const displayVersion = semver.coerce(uiMetadata.serverBuild);
           const title = this._i18n._(i18nMark("New UI Available"));
           const description = this._i18n._(

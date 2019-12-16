@@ -7,7 +7,7 @@ import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 import { JobOutput } from "../form/helpers/JobFormData";
 
 class ContainerConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(row: Value<JobOutput>) {
+  public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     if (row.key === "kind" && !config.run.ucr) {
       return true;
@@ -23,11 +23,11 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
     return !config.run.ucr && !config.run.docker;
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:Container";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "jobs",
       values: [

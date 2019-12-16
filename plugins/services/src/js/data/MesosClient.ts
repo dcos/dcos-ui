@@ -71,7 +71,8 @@ export function updateQuota(
     map((response: string) => {
       if (response === "") {
         return "SUCCESS";
-      } else if (OvercommitQuotaError.isOvercommitError(response)) {
+      }
+      if (OvercommitQuotaError.isOvercommitError(response)) {
         throw new OvercommitQuotaError(response, 400);
       }
       throw new UpdateQuotaError(response);

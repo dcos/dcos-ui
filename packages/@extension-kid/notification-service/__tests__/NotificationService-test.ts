@@ -15,13 +15,13 @@ const DebugSymbol = Symbol("Debug");
 @injectable()
 class DebugNotificationExtension
   implements NotificationServiceExtensionInterface {
-  id = DebugSymbol;
+  public id = DebugSymbol;
 
-  supportedNotifications() {
+  public supportedNotifications() {
     return [DebugNotification];
   }
 
-  push(notification: Notification) {
+  public push(notification: Notification) {
     /* tslint:disable */
     console.log(
       `${notification.timestamp.toISOString()} - DEBUG - ${

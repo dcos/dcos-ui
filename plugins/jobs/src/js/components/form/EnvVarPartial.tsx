@@ -71,7 +71,7 @@ interface EnvVarPartialProps {
 }
 
 class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
-  render() {
+  public render() {
     const {
       onRemoveItem,
       formData,

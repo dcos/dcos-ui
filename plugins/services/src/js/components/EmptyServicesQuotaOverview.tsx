@@ -17,12 +17,12 @@ class EmptyServicesQuotaOverview extends React.PureComponent<
   constructor(props: EmptyServicesQuotaOverviewProps) {
     super(props);
   }
-  backToServices = () => {
+  public backToServices = () => {
     if (this.props.router) {
       this.props.router.push("/services/overview");
     }
   };
-  render() {
+  public render() {
     const footer = (
       <div className="button-collection flush-bottom">
         <Trans

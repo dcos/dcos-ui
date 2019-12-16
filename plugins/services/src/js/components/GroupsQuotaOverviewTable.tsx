@@ -76,11 +76,11 @@ class GroupsQuotaOverviewTable extends React.Component<
     };
   }
 
-  componentWillReceiveProps(nextProps: GroupsQuotaOverviewTableProps) {
+  public componentWillReceiveProps(nextProps: GroupsQuotaOverviewTableProps) {
     this.setState({ groups: this.sortData(nextProps.groups || []) });
   }
 
-  handleSortClick = (columnName: string) => () => {
+  public handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -93,7 +93,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     });
   };
 
-  sortData = (
+  public sortData = (
     groups: ServiceGroup[],
     sortColumn: string = this.state.sortColumn,
     sortDirection: SortDirection = this.state.sortDirection
@@ -102,7 +102,7 @@ class GroupsQuotaOverviewTable extends React.Component<
       reverse: sortDirection !== "ASC"
     });
 
-  getNoLimitInfobox() {
+  public getNoLimitInfobox() {
     const { groups } = this.state;
     const noLimitGroups = groups.filter(
       group =>
@@ -139,7 +139,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     );
   }
 
-  render() {
+  public render() {
     const { groups, sortColumn, sortDirection } = this.state;
 
     if (!groups.length) {

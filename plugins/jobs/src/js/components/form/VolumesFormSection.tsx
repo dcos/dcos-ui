@@ -42,7 +42,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
     super(props);
   }
 
-  getVolumesLines() {
+  public getVolumesLines() {
     const {
       formData: { volumes = [] },
       onRemoveItem,
@@ -173,7 +173,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
     );
   }
 
-  render() {
+  public render() {
     const {
       onAddItem,
       formData: { volumes = [] }

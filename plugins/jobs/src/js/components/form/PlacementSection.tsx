@@ -18,7 +18,7 @@ interface PlacementSectionProps {
 }
 
 class PlacementSection extends React.Component<PlacementSectionProps, {}> {
-  render() {
+  public render() {
     const placementTooltipContent = (
       <Trans render="span">
         Constraints have three parts: a field name, an operator, and an optional{" "}

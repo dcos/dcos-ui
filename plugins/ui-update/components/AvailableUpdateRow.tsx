@@ -52,13 +52,13 @@ class AvailableUpdateRow extends React.PureComponent<
     this.renderAction = this.renderAction.bind(this);
   }
 
-  handleUpdateClick() {
+  public handleUpdateClick() {
     if (this.props.latestVersion !== null) {
       this.props.onUpdateClick(this.props.latestVersion.version);
     }
   }
 
-  renderAction() {
+  public renderAction() {
     const { uiAction } = this.props;
     return (
       <button
@@ -72,7 +72,7 @@ class AvailableUpdateRow extends React.PureComponent<
     );
   }
 
-  render() {
+  public render() {
     const { latestVersion } = this.props;
     if (latestVersion === null) {
       return null;

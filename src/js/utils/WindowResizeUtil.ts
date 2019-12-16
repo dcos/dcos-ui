@@ -1,5 +1,5 @@
-let handlers: Array<() => void> = [],
-  running = false;
+let handlers: Array<() => void> = [];
+let running = false;
 
 // Runs all registered handlers on resize, unless awaiting requestAnimationFrame
 function resize(): void {

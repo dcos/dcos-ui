@@ -6,7 +6,9 @@ import {
 
 describe("ToastNotification", () => {
   describe("#constructor", () => {
-    let title: string, options: ToastNotificationOptions, callback: jest.Mock;
+    let title: string;
+    let options: ToastNotificationOptions;
+    let callback: jest.Mock;
 
     beforeEach(() => {
       callback = jest.fn();

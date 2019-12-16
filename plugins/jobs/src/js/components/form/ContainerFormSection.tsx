@@ -25,7 +25,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     super(props);
   }
 
-  getDisabledBanner() {
+  public getDisabledBanner() {
     const { formData } = this.props;
     const message = (
       <div className="flex-box flex-box-align-vertical-center">
@@ -47,7 +47,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     );
   }
 
-  getRadioButtons() {
+  public getRadioButtons() {
     const { formData } = this.props;
 
     return (
@@ -97,7 +97,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     );
   }
 
-  getAdvancedSettings() {
+  public getAdvancedSettings() {
     const {
       formData,
       errors,
@@ -167,7 +167,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     );
   }
 
-  render() {
+  public render() {
     return (
       <div className="form-section">
         {this.getDisabledBanner()}

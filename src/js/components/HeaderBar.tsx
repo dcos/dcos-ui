@@ -6,7 +6,7 @@ import ClusterHeader from "./ClusterHeader";
 import SidebarToggle from "./SidebarToggle";
 
 export default class HeaderBar extends React.Component {
-  render() {
+  public render() {
     return (
       <div className="header-bar">
         <div className="header-bar-left-align-wrapper">

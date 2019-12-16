@@ -62,11 +62,11 @@ function parseResourcesFromMessage(
 }
 
 export class OvercommitQuotaError extends Error {
-  static isOvercommitError(message: string): boolean {
+  public static isOvercommitError(message: string): boolean {
     return message.includes(OVERCOMMIT_ERROR_CHECK);
   }
-  readonly responseCode: number;
-  readonly overcommittedResources: OvercommittedQuotaResource[];
+  public readonly responseCode: number;
+  public readonly overcommittedResources: OvercommittedQuotaResource[];
   constructor(message: string, code: number = 400) {
     super(message);
     this.name = "OvercommitQuotaError";

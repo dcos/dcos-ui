@@ -197,7 +197,7 @@ export interface SDKPlanTableProps {
 }
 
 class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
-  render() {
+  public render() {
     const tableData = flattenServicePlanPhases(this.props.plan);
 
     if (tableData.length === 0) {

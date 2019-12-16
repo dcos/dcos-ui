@@ -35,27 +35,27 @@ export function withNode<P extends object>(
       };
     }
 
-    receiveNewSummary() {
+    public receiveNewSummary() {
       this.setState({
         summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot()
       });
     }
 
-    UNSAFE_componentWillMount() {
+    public UNSAFE_componentWillMount() {
       MesosSummaryStore.addChangeListener(
         MESOS_SUMMARY_CHANGE,
         this.receiveNewSummary
       );
     }
 
-    componentWillUnmount() {
+    public componentWillUnmount() {
       MesosSummaryStore.removeChangeListener(
         MESOS_SUMMARY_CHANGE,
         this.receiveNewSummary
       );
     }
 
-    render() {
+    public render() {
       const { summary } = this.state;
       const nodeID = this.props.params.nodeID;
       const node = getNodeFromSummary(nodeID, summary);

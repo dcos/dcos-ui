@@ -22,7 +22,7 @@ class NodesStatusDSLSection extends React.PureComponent<{
   expression: string;
   onChange: () => void;
 }> {
-  render() {
+  public render() {
     const { expression, onChange } = this.props;
     // @ts-ignore
     const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);

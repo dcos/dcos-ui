@@ -5,23 +5,36 @@
     "tslint-consistent-codestyle",
     "tslint-config-prettier"
   ],
-  "jsRules": {},
+  "jsRules": {
+    "object-literal-sort-keys": false
+  },
   "linterOptions": {
-    "exclude": [""]
+    "exclude": ["**/_fixtures/**", "**/*.js", "**/*.jsx"]
   },
   "rules": {
     "arrow-return-shorthand": true,
     "cyclomatic-complexity": [true, 20],
     "interface-name": false,
     "interface-over-type-literal": false,
+    "no-any": {
+      "severity": "off"
+    },
     "no-console": false,
+    "no-shadowed-variable": {
+      "severity": "off"
+    },
     "no-unnecessary-else": true,
     "no-unnecessary-type-assertion": true,
     "no-unsafe-any": {
-      "severity": "warning"
+      "severity": "off"
     },
     "no-var-before-return": true,
-    "object-literal-sort-keys": false,
+    "no-var-requires": {
+      "severity": "off"
+    },
+    "object-literal-sort-keys": {
+      "severity": "off"
+    },
     "ordered-imports": false,
     "prefer-conditional-expression": true,
     "prefer-const": true,

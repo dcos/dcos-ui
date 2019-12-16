@@ -13,8 +13,10 @@ interface NotificationServiceExtensionInterface {
 
 @injectable()
 class NotificationService {
-  extensionType = NotificationServiceExtensionType;
-  _extensionProvider: ExtensionProvider<NotificationServiceExtensionInterface>;
+  public extensionType = NotificationServiceExtensionType;
+  public _extensionProvider: ExtensionProvider<
+    NotificationServiceExtensionInterface
+  >;
 
   constructor(
     @inject(ExtensionProvider)
@@ -27,7 +29,7 @@ class NotificationService {
     this.findExtension = this.findExtension.bind(this);
   }
 
-  push(notification: Notification): void {
+  public push(notification: Notification): void {
     this._extensionProvider
       .getAllExtensions()
       .filter(extension =>
@@ -38,7 +40,7 @@ class NotificationService {
       });
   }
 
-  findExtension(
+  public findExtension(
     extensionId: symbol
   ): NotificationServiceExtensionInterface | undefined {
     const exts = this._extensionProvider.getAllExtensions();

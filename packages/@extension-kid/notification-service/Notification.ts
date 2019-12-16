@@ -1,10 +1,10 @@
 const md5 = require("md5");
 
 class Notification {
-  readonly id: string;
-  readonly type: symbol;
-  readonly message: string;
-  readonly timestamp: Date;
+  public readonly id: string;
+  public readonly type: symbol;
+  public readonly message: string;
+  public readonly timestamp: Date;
 
   constructor(type: symbol, message: string) {
     this.id = md5(`${type.toString()}|${message}`);

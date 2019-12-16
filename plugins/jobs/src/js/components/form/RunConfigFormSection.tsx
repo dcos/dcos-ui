@@ -32,7 +32,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
     super(props);
   }
 
-  render() {
+  public render() {
     const {
       formData,
       errors,

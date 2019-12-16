@@ -4,9 +4,9 @@ const validTypes = Object.values(TransactionTypes);
 const validKeys = Object.keys(TransactionTypes);
 
 class Transaction {
-  readonly path: Array<string | number>;
-  readonly value: unknown;
-  readonly type: symbol;
+  public readonly path: Array<string | number>;
+  public readonly value: unknown;
+  public readonly type: symbol;
   constructor(
     path: Array<string | number>,
     value: unknown,

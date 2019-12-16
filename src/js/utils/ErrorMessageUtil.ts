@@ -93,9 +93,8 @@ const ErrorMessageUtil = {
           ? message.replace(MESSAGE_VARIABLE, (_match, variable) => {
               if (variables) {
                 return "" + variables[variable];
-              } else {
-                return "";
               }
+              return "";
             })
           : "",
         path,

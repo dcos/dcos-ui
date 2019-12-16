@@ -47,7 +47,7 @@ export const ServiceProgressBar = React.memo(
 class ServiceStatusProgressBar extends React.Component<
   ServiceStatusProgressBarProps
 > {
-  static propTypes = {
+  public static propTypes = {
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(Service),
       PropTypes.instanceOf(ServiceTree),
@@ -55,7 +55,7 @@ class ServiceStatusProgressBar extends React.Component<
     ]).isRequired
   };
 
-  render() {
+  public render() {
     const { service } = this.props;
     const instancesCount = service.getInstancesCount();
     const runningInstances = service.getRunningInstancesCount();

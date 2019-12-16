@@ -255,7 +255,7 @@ describe("MetronomeClient", () => {
       marbles(m => {
         const expected$ = m.cold("--j|", {
           j: {
-            response: jobDetailData as JobDetailResponse,
+            response: jobDetailData,
             code: 200,
             message: "ok"
           }

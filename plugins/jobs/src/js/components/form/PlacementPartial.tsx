@@ -34,7 +34,7 @@ interface PlacementPartialProps {
 }
 
 class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
-  getPlacementInputs() {
+  public getPlacementInputs() {
     const {
       formData: { placementConstraints = [] },
       onRemoveItem,
@@ -208,7 +208,7 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
     );
   }
 
-  render() {
+  public render() {
     const { onAddItem, addButtonText } = this.props;
 
     return (

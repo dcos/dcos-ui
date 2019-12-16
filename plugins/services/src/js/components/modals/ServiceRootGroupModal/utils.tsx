@@ -109,7 +109,7 @@ export function validateGroupFormData(
     }
   }
 
-  //Validate Quota values
+  // Validate Quota values
   for (const field of quotaFields) {
     const value = (data.quota[field] + "").trim();
     if (ValidatorUtil.isEmpty(value)) {

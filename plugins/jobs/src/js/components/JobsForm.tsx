@@ -70,7 +70,7 @@ interface NavigationItem {
 }
 
 class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
-  static readonly navigationItems: NavigationItem[] = [
+  public static readonly navigationItems: NavigationItem[] = [
     { id: "general", key: "general", label: i18nMark("General") },
     { id: "container", key: "container", label: i18nMark("Container Runtime") },
     { id: "schedule", key: "schedule", label: i18nMark("Schedule") },
@@ -99,7 +99,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     this.onEditorResize = this.onEditorResize.bind(this);
   }
 
-  getJSONEditorData(jobSpec: JobSpec): JobOutput {
+  public getJSONEditorData(jobSpec: JobSpec): JobOutput {
     const jobJSON = jobSpecToOutputParser(jobSpec);
     if (jobJSON.hasOwnProperty("schedule") && jobJSON.schedules === undefined) {
       // jobSpecToOutputParser returns object with `schedule: undefined` if there is no schedule present,
@@ -110,7 +110,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     return jobJSON;
   }
 
-  onInputChange({ target: { value, name, type, dataset } }: any) {
+  public onInputChange({ target: { value, name, type, dataset } }: any) {
     const actionType =
       type === "number"
         ? JobFormActionType.SetNum
@@ -121,7 +121,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     this.props.onChange({ type: actionType, value, path: name });
   }
 
-  handleJSONChange(jobJSON: JobOutput) {
+  public handleJSONChange(jobJSON: JobOutput) {
     this.props.onChange({
       path: "json",
       type: JobFormActionType.Override,
@@ -129,13 +129,13 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     });
   }
 
-  handleJSONErrorStateChange(errorMessage: string | null) {
+  public handleJSONErrorStateChange(errorMessage: string | null) {
     this.props.onErrorsChange(
       errorMessage === null ? [] : [{ message: errorMessage, path: [] }]
     );
   }
 
-  handleAddItem(path: string) {
+  public handleAddItem(path: string) {
     return () => {
       const { onChange } = this.props;
       const action = {
@@ -148,7 +148,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     };
   }
 
-  handleRemoveItem(path: string, index: number) {
+  public handleRemoveItem(path: string, index: number) {
     return () => {
       const { onChange } = this.props;
       const action = {
@@ -161,7 +161,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     };
   }
 
-  getTabContent() {
+  public getTabContent() {
     const { jobSpec, errors, showAllErrors, i18n, isEdit } = this.props;
     const formOutput = this.getFormOutput(jobSpec);
     const translatedErrors = translateErrorMessages(errors, i18n);
@@ -285,7 +285,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     return Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
   }
 
-  getFormOutput(jobSpec: JobSpec) {
+  public getFormOutput(jobSpec: JobSpec) {
     return Hooks.applyFilter(
       "jobSpecToFormOutputParser",
       jobSpecToFormOutputParser(jobSpec),
@@ -293,11 +293,11 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     );
   }
 
-  onEditorResize(newSize: number | undefined) {
+  public onEditorResize(newSize: number | undefined) {
     this.setState({ editorWidth: newSize });
   }
 
-  render() {
+  public render() {
     const {
       activeTab,
       handleTabChange,
