@@ -18,7 +18,7 @@ const NodeHealth = ({
 const NodeHealthMemo = React.memo(NodeHealth);
 
 export function healthRenderer(data: Node): React.ReactNode {
-  const health = data.getHealth();
+  const health: any = data.getHealth();
   return <NodeHealthMemo classNames={health.classNames} title={health.title} />;
 }
 

@@ -24,7 +24,9 @@
       "severity": "off"
     },
     "no-unnecessary-else": true,
-    "no-unnecessary-type-assertion": true,
+    "no-unnecessary-type-assertion": {
+      "severity": "off"
+    },
     "no-unsafe-any": {
       "severity": "off"
     },

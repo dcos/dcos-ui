@@ -24,7 +24,8 @@ const fromNode = (n: Node) => {
     return deactivated;
   }
 
-  switch (info.state) {
+  // FIXME transform to exhaustiveness check
+  switch (info.state as "DRAINING" | "DRAINED" | "UNKNOWN") {
     case "DRAINING":
       return draining;
     case "DRAINED":
@@ -32,6 +33,7 @@ const fromNode = (n: Node) => {
     case "UNKNOWN":
       return unknown;
   }
+  return unknown;
 };
 
 export enum StatusAction {

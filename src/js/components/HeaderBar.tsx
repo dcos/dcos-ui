@@ -7,6 +7,8 @@ import SidebarToggle from "./SidebarToggle";
 
 export default class HeaderBar extends React.Component {
   public render() {
+    // @ts-ignore
+    const header = <ClusterHeader />;
     return (
       <div className="header-bar">
         <div className="header-bar-left-align-wrapper">
@@ -16,8 +18,8 @@ export default class HeaderBar extends React.Component {
           </Link>
         </div>
         <div className="header-bar-right-align-wrapper">
-          <MountService.Mount type="Header:UserAccountDropdown" />;
-          <ClusterHeader />
+          <MountService.Mount type="Header:UserAccountDropdown" />
+          {header}
         </div>
       </div>
     );
