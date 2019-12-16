@@ -4,7 +4,7 @@ import notificationServiceFactory from "@extension-kid/notification-service";
 import toastsExtensionFactory from "@extension-kid/toast-notifications";
 import dataLayerExtensionFactory from "@extension-kid/data-layer";
 import jobsExtensionFactory from "#PLUGINS/jobs/src/js";
-import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js";
+import repositoriesExtensionFactory from "#PLUGINS/catalog/src/js/index";
 import servicesExtensionFactory from "#PLUGINS/services/src/js/data/extension";
 import cosmosExtensionFactory from "./data/cosmos";
 import uiMetadataExtensionFactor from "./data/ui-update";
