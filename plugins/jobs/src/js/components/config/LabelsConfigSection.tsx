@@ -18,17 +18,17 @@ interface KeyValue {
 }
 
 class LabelsConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(_: Value<JobOutput>) {
+  public shouldExcludeItem(_: Value<JobOutput>) {
     const { labels } = this.props.config;
 
     return labels == null || Object.keys(labels).length === 0;
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:Labels";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "labels",
       values: [

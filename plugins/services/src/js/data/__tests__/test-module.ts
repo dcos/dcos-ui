@@ -52,13 +52,13 @@ function makeResolvers(
 const ServicesType = Symbol("ServiceTestDataLayer");
 @injectable()
 class ServicesTestExtension implements DataLayerExtensionInterface {
-  id = ServicesType;
+  public id = ServicesType;
 
-  getResolvers() {
+  public getResolvers() {
     return makeResolvers();
   }
 
-  getTypeDefinitions() {
+  public getTypeDefinitions() {
     return typeDefs;
   }
 }

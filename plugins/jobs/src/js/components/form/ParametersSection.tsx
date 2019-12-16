@@ -30,7 +30,7 @@ class ParametersSection extends React.Component<
     super(props);
   }
 
-  getParamsInputs() {
+  public getParamsInputs() {
     const {
       formData: { dockerParams },
       onRemoveItem,
@@ -94,7 +94,7 @@ class ParametersSection extends React.Component<
     });
   }
 
-  render() {
+  public render() {
     const { onAddItem } = this.props;
     const paramsLines = this.getParamsInputs();
 

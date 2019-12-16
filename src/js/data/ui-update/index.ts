@@ -131,13 +131,13 @@ export const UIMetatdataDataLayer = Symbol("UIMetatdataDataLayer");
 
 @injectable()
 class UIMetatdataExtension implements DataLayerExtensionInterface {
-  id = UIMetatdataDataLayer;
+  public id = UIMetatdataDataLayer;
 
-  getResolvers() {
+  public getResolvers() {
     return resolvers;
   }
 
-  getTypeDefinitions() {
+  public getTypeDefinitions() {
     return schema;
   }
 }

@@ -21,9 +21,9 @@ function toPromise(observable: Observable<any>) {
 const JobsSymbol = Symbol("Jobs");
 @injectable()
 class JobsExtension implements DataLayerExtensionInterface {
-  id = JobsSymbol;
+  public id = JobsSymbol;
 
-  getResolvers(activeExtensions: symbol[]) {
+  public getResolvers(activeExtensions: symbol[]) {
     const hasJobs = activeExtensions.includes(TasksSymbol);
 
     const additionalJobData = hasJobs ? { taskId: "foo-task" } : {};
@@ -37,7 +37,7 @@ class JobsExtension implements DataLayerExtensionInterface {
     };
   }
 
-  getTypeDefinitions(activeExtensions: symbol[]) {
+  public getTypeDefinitions(activeExtensions: symbol[]) {
     const hasJobs = activeExtensions.includes(TasksSymbol);
 
     return `
@@ -62,9 +62,9 @@ const TasksSymbol = Symbol("Tasks");
 // tslint:disable-next-line
 @injectable()
 class TasksExtension implements DataLayerExtensionInterface {
-  id = TasksSymbol;
+  public id = TasksSymbol;
 
-  getResolvers() {
+  public getResolvers() {
     return {
       Query: {
         task(_: any, args: { id?: string }) {
@@ -92,7 +92,7 @@ class TasksExtension implements DataLayerExtensionInterface {
     };
   }
 
-  getTypeDefinitions(activeExtensions: symbol[]) {
+  public getTypeDefinitions(activeExtensions: symbol[]) {
     const hasJobs = activeExtensions.includes(TasksSymbol);
 
     const jobTypeExtension = `

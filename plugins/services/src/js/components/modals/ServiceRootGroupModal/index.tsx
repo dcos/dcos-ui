@@ -13,11 +13,11 @@ import { Tooltip } from "reactjs-components";
 
 import container from "#SRC/js/container";
 import { TYPES } from "#SRC/js/types/containerTypes";
-//@ts-ignore
+// @ts-ignore
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
-//@ts-ignore
+// @ts-ignore
 import AdvancedSectionContent from "#SRC/js/components/form/AdvancedSectionContent";
-//@ts-ignore
+// @ts-ignore
 import AdvancedSectionLabel from "#SRC/js/components/form/AdvancedSectionLabel";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 import FieldInput from "#SRC/js/components/form/FieldInput";
@@ -135,10 +135,10 @@ class ServiceRootGroupModal extends React.Component<
   ServiceRootGroupModalProps,
   ServiceRootGroupModalState
 > {
-  static contextTypes = {
+  public static contextTypes = {
     router: routerShape
   };
-  static defaultProps = {
+  public static defaultProps = {
     id: ""
   };
 
@@ -154,11 +154,11 @@ class ServiceRootGroupModal extends React.Component<
     });
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     this.getGroupFormData();
   }
 
-  getInitialState(
+  public getInitialState(
     props: ServiceRootGroupModalProps = this.props
   ): ServiceRootGroupModalState {
     return {
@@ -175,7 +175,7 @@ class ServiceRootGroupModal extends React.Component<
     };
   }
 
-  handleClose() {
+  public handleClose() {
     // Start the animation of the modal by setting isOpen to false
     this.setState(
       { isOpen: false, isPending: false, data: emptyGroupFormData() },
@@ -187,7 +187,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   }
 
-  handleSave() {
+  public handleSave() {
     let data: GroupFormData | null = this.state.data;
     const { isPending, originalData, isEdit, isForce } = this.state;
     if (isPending || data === null) {
@@ -206,7 +206,7 @@ class ServiceRootGroupModal extends React.Component<
 
     this.setState({ isPending: true, hasValidated: true });
     if (!isEdit) {
-      //Format id
+      // Format id
       const newID = formatQuotaID(data.id);
       data = (({ id, ...other }: GroupFormData): GroupFormData => ({
         id: newID,
@@ -262,7 +262,7 @@ class ServiceRootGroupModal extends React.Component<
       });
   }
 
-  handleSaveError(
+  public handleSaveError(
     message: string,
     mesos: boolean = false,
     data: null | OvercommittedQuotaResource[] = null
@@ -336,7 +336,7 @@ class ServiceRootGroupModal extends React.Component<
     }
   }
 
-  getGroupFormData(): void {
+  public getGroupFormData(): void {
     const { id } = this.props;
     if (!!id) {
       getGroup(id)
@@ -357,7 +357,7 @@ class ServiceRootGroupModal extends React.Component<
     }
   }
 
-  getModalContent() {
+  public getModalContent() {
     const { errors, data, isEdit, error } = this.state;
     // If id exists, then we must be editing.
 
@@ -522,7 +522,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   }
 
-  getAdvancedSettings() {
+  public getAdvancedSettings() {
     const { data, originalData, expandAdvancedSettings, isEdit } = this.state;
     const roleEnforcementTooltipContent = (
       <Trans>
@@ -605,7 +605,7 @@ class ServiceRootGroupModal extends React.Component<
     );
   }
 
-  handleFormChange(event: React.FormEvent<HTMLFormElement>) {
+  public handleFormChange(event: React.FormEvent<HTMLFormElement>) {
     if (this.state.isPending || !this.state.data) {
       return;
     }
@@ -644,7 +644,7 @@ class ServiceRootGroupModal extends React.Component<
     }
   }
 
-  render() {
+  public render() {
     const { isEdit, isForce } = this.state;
     return (
       <FullScreenModal

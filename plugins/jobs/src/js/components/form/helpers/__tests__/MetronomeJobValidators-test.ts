@@ -408,7 +408,7 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if id is not specified", () => {
       const spec = validJobSpec();
       delete spec.id;
-      expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
+      expect(MetronomeSpecValidators.validate(spec)).toEqual([
         { message: "Must be present", path: ["id"] }
       ]);
     });
@@ -416,7 +416,7 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if cpus is not specified", () => {
       const spec = validJobSpec();
       delete spec.run.cpus;
-      expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
+      expect(MetronomeSpecValidators.validate(spec)).toEqual([
         { message: "Must be present", path: ["run", "cpus"] }
       ]);
     });
@@ -424,7 +424,7 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if mem is not specified", () => {
       const spec = validJobSpec();
       delete spec.run.mem;
-      expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
+      expect(MetronomeSpecValidators.validate(spec)).toEqual([
         { message: "Must be present", path: ["run", "mem"] }
       ]);
     });
@@ -432,7 +432,7 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if disk is not specified", () => {
       const spec = validJobSpec();
       delete spec.run.disk;
-      expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([
+      expect(MetronomeSpecValidators.validate(spec)).toEqual([
         { message: "Must be present", path: ["run", "disk"] }
       ]);
     });
@@ -551,7 +551,7 @@ describe("MetronomeSpecValidators", () => {
         image: "",
         parameters: [{ key: "key", value: "value" }]
       };
-      expect(MetronomeSpecValidators.validate(spec as JobOutput)).toEqual([]);
+      expect(MetronomeSpecValidators.validate(spec)).toEqual([]);
     });
 
     it("does not return error if there are no parameters", () => {

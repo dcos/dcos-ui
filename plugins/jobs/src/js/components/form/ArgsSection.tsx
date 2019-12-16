@@ -29,7 +29,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
     super(props);
   }
 
-  getArgsInputs() {
+  public getArgsInputs() {
     const {
       formData: { args },
       onRemoveItem,
@@ -92,7 +92,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
     });
   }
 
-  render() {
+  public render() {
     const { onAddItem } = this.props;
 
     return (

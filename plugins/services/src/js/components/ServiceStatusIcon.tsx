@@ -42,7 +42,7 @@ class ServiceStatusIcon extends React.Component<{
   tooltipContent: React.ReactNode;
   service: TreeNode;
 }> {
-  static propTypes = {
+  public static propTypes = {
     showTooltip: PropTypes.bool,
     tooltipContent: PropTypes.node,
     service: PropTypes.oneOfType([
@@ -52,7 +52,7 @@ class ServiceStatusIcon extends React.Component<{
     ])
   };
 
-  getDeclinedOffersWarning(service: TreeNode) {
+  public getDeclinedOffersWarning(service: TreeNode) {
     if (DeclinedOffersUtil.displayDeclinedOffersWarning(service)) {
       const timeWaiting =
         Date.now() -
@@ -71,7 +71,7 @@ class ServiceStatusIcon extends React.Component<{
     return null;
   }
 
-  getServiceTreeWarning(serviceTree: ServiceTree) {
+  public getServiceTreeWarning(serviceTree: ServiceTree) {
     const appsWithWarningsCount = serviceTree
       .filterItems(item => {
         if (!(item instanceof ServiceTree)) {
@@ -101,7 +101,7 @@ class ServiceStatusIcon extends React.Component<{
     return null;
   }
 
-  getTooltip(content: JSX.Element) {
+  public getTooltip(content: JSX.Element) {
     const { service } = this.props;
     let icon = (
       <Icon
@@ -129,7 +129,7 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  getUnableToLaunchWarning(service: Service | Pod) {
+  public getUnableToLaunchWarning(service: Service | Pod) {
     const duration = DateUtil.getDuration(
       Date.now() - DateUtil.strToMs((service.getQueue() as any).since as string)
     );
@@ -142,7 +142,7 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  isUnableToLaunch(service: TreeNode) {
+  public isUnableToLaunch(service: TreeNode) {
     const queue: any = service.getQueue();
 
     if (queue == null) {
@@ -155,7 +155,7 @@ class ServiceStatusIcon extends React.Component<{
     );
   }
 
-  renderIcon(iconState: StatusIcon) {
+  public renderIcon(iconState: StatusIcon) {
     const icon = (
       <Icon shape={iconState.shape} color={iconState.color} size={iconSizeXs} />
     );
@@ -176,7 +176,7 @@ class ServiceStatusIcon extends React.Component<{
     return icon;
   }
 
-  render() {
+  public render() {
     const { service } = this.props;
     const iconState = ServiceStatus.toIcon(service.getServiceStatus());
 

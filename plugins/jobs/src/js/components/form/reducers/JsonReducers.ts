@@ -16,12 +16,11 @@ export const jsonReducers = {
       !valueCopy ||
       Object.prototype.toString.call(valueCopy) !== "[object Object]"
     ) {
-      const newState = {
+      return {
         job: stateCopy.job,
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container
       };
-      return newState;
     }
 
     // Can't check `typeof run === "object"` because that will return true for
@@ -30,7 +29,7 @@ export const jsonReducers = {
       !valueCopy.run ||
       Object.prototype.toString.call(valueCopy.run) !== "[object Object]"
     ) {
-      const newState = {
+      return {
         cmdOnly: stateCopy.cmdOnly,
         container: stateCopy.container,
         job: {
@@ -41,7 +40,6 @@ export const jsonReducers = {
           }
         }
       };
-      return newState;
     }
 
     valueCopy.labels = isObject(valueCopy.labels)

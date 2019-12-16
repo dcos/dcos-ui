@@ -29,11 +29,11 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     this.planSelectChange = this.planSelectChange.bind(this);
   }
 
-  planSelectChange(dropdownItem: { id: string }) {
+  public planSelectChange(dropdownItem: { id: string }) {
     this.props.handleSelectPlan(dropdownItem.id);
   }
 
-  renderPlanSelect(
+  public renderPlanSelect(
     plans: ServicePlan[],
     selectedPlan: string
   ): React.ReactNode {
@@ -72,12 +72,13 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     );
   }
 
-  renderSchedulerLogsLink(): React.ReactNode | null {
+  public renderSchedulerLogsLink(): React.ReactNode | null {
     if (!this.props.schedulerTaskId) {
       return null;
     }
     const { service, schedulerTaskId } = this.props;
-    let serviceIdURI, schedulerTaskIdURI;
+    let serviceIdURI;
+    let schedulerTaskIdURI;
 
     try {
       serviceIdURI = encodeURIComponent(service.id);
@@ -97,7 +98,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     );
   }
 
-  renderNoPlansPanel() {
+  public renderNoPlansPanel() {
     return (
       <AlertPanel>
         <Trans render={<AlertPanelHeader />}>No Plans</Trans>
@@ -108,7 +109,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     );
   }
 
-  render() {
+  public render() {
     const { service, plan: planName } = this.props;
     if (service.plans.length === 0) {
       return this.renderNoPlansPanel();

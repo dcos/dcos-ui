@@ -23,13 +23,13 @@ const serviceResolvers = resolvers({
 const ServicesType = Symbol("ServiceDataLayer");
 @injectable()
 class ServicesExtension implements DataLayerExtensionInterface {
-  id = ServicesType;
+  public id = ServicesType;
 
-  getResolvers() {
+  public getResolvers() {
     return serviceResolvers;
   }
 
-  getTypeDefinitions() {
+  public getTypeDefinitions() {
     return typeDefs;
   }
 }

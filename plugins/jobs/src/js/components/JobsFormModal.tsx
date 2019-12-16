@@ -5,9 +5,9 @@ import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import gql from "graphql-tag";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import { take } from "rxjs/operators";
-//@ts-ignore
+// @ts-ignore
 import { Confirm } from "reactjs-components";
-//@ts-ignore
+// @ts-ignore
 import isEqual from "lodash/isEqual";
 
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
@@ -113,7 +113,7 @@ class JobFormModal extends React.Component<
     this.validateSpec = this.validateSpec.bind(this);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: JobFormModalProps) {
+  public UNSAFE_componentWillReceiveProps(nextProps: JobFormModalProps) {
     if (!isEqual(nextProps.job, this.props.job)) {
       const jobSpec = nextProps.job
         ? this.getJobSpecFromResponse(nextProps.job)
@@ -122,7 +122,7 @@ class JobFormModal extends React.Component<
     }
   }
 
-  shouldComponentUpdate(
+  public shouldComponentUpdate(
     nextProps: JobFormModalProps,
     nextState: JobFormModalState
   ) {
@@ -142,14 +142,14 @@ class JobFormModal extends React.Component<
     return true;
   }
 
-  getInitialState() {
+  public getInitialState() {
     const { job } = this.props;
     const jobSpec = job
       ? this.getJobSpecFromResponse(job)
       : getDefaultJobSpec();
     const hasSchedule = !!(jobSpec.job.schedules && jobSpec.job.schedules[0]);
     const jobOutput = jobSpecToOutputParser(jobSpec);
-    const initialState = {
+    return {
       jobSpec,
       jobOutput,
       hasSchedule,
@@ -166,10 +166,9 @@ class JobFormModal extends React.Component<
       activeTab: "general",
       isConfirmOpen: false
     };
-    return initialState;
   }
 
-  getJobSpecFromResponse(job: JobResponse): JobSpec {
+  public getJobSpecFromResponse(job: JobResponse): JobSpec {
     const jobCopy = deepCopy(job);
     const cmdOnly = !(jobCopy.run.docker || jobCopy.run.ucr);
     const container = jobCopy.run.docker ? Container.Docker : Container.UCR;
@@ -206,7 +205,7 @@ class JobFormModal extends React.Component<
     return Hooks.applyFilter("jobResponseToSpecParser", jobSpec);
   }
 
-  onChange(action: Action) {
+  public onChange(action: Action) {
     const { submitFailed, jobSpec } = this.state;
     const newJobSpec = jobFormOutputToSpecReducer(action, jobSpec);
     const specErrors = this.validateSpec(newJobSpec);
@@ -219,32 +218,32 @@ class JobFormModal extends React.Component<
     this.setState({ jobSpec: newJobSpec, validationErrors });
   }
 
-  handleTabChange(activeTab: string) {
+  public handleTabChange(activeTab: string) {
     this.setState({ activeTab });
   }
 
-  handleClose() {
+  public handleClose() {
     const { closeModal } = this.props;
     closeModal();
     this.setState(this.getInitialState());
   }
 
-  handleCancelClose() {
+  public handleCancelClose() {
     this.setState({ isConfirmOpen: false });
   }
 
-  confirmClose() {
+  public confirmClose() {
     this.setState({ isConfirmOpen: true });
   }
 
-  handleJSONToggle() {
+  public handleJSONToggle() {
     UserSettingsStore.setJSONEditorExpandedSetting(
       !this.state.isJSONModeActive
     );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   }
 
-  getSubmitAction(jobOutput: JobOutput) {
+  public getSubmitAction(jobOutput: JobOutput) {
     const { isEdit } = this.props;
     const { hasSchedule, scheduleFailure } = this.state;
     const data: JobAPIOutput = {
@@ -261,7 +260,8 @@ class JobFormModal extends React.Component<
         existingSchedule: hasSchedule
       };
       return dataLayer.query(editJobMutation, editContext);
-    } else {
+    }
+    {
       const createContext = {
         data
       };
@@ -269,7 +269,7 @@ class JobFormModal extends React.Component<
     }
   }
 
-  getErrorMessage(err: any) {
+  public getErrorMessage(err: any) {
     if (err.response && err.response.details && err.response.details.length) {
       return err.response.details.map(
         (e: { path: string; errors: string[]; type?: string }) => {
@@ -291,7 +291,8 @@ class JobFormModal extends React.Component<
           };
         }
       );
-    } else {
+    }
+    {
       const message =
         err.response && err.response.message
           ? err.response.message
@@ -307,7 +308,7 @@ class JobFormModal extends React.Component<
     }
   }
 
-  validateSpec(jobSpec: JobSpec): FormError[] {
+  public validateSpec(jobSpec: JobSpec): FormError[] {
     return Hooks.applyFilter(
       "jobsValidateSpec",
       validateSpec(jobSpec),
@@ -315,7 +316,7 @@ class JobFormModal extends React.Component<
     );
   }
 
-  handleJobRun() {
+  public handleJobRun() {
     const { jobSpec, formJSONErrors } = this.state;
 
     const jobOutput = removeBlankProperties(jobSpecToOutputParser(jobSpec));
@@ -360,34 +361,32 @@ class JobFormModal extends React.Component<
     }
   }
 
-  handleFormErrorsChange(errors: FormError[]) {
+  public handleFormErrorsChange(errors: FormError[]) {
     this.setState({ formJSONErrors: errors });
   }
 
   /**
    * This function returns errors produced by the form validators
    */
-  validateJobOutput(jobOutput: JobOutput) {
-    const validationErrors = DataValidatorUtil.validate(
+  public validateJobOutput(jobOutput: JobOutput) {
+    return DataValidatorUtil.validate(
       jobOutput,
       Object.values(
         Hooks.applyFilter("metronomeValidators", MetronomeSpecValidators)
       )
     );
-
-    return validationErrors;
   }
 
   /**
    * This function combines the errors received from metronome and the errors
    * produced by the form into a unified error array
    */
-  getAllErrors(): FormError[] {
+  public getAllErrors(): FormError[] {
     const { serverErrors, formJSONErrors, validationErrors } = this.state;
     return serverErrors.concat(formJSONErrors).concat(validationErrors);
   }
 
-  getHeader() {
+  public getHeader() {
     // TODO: This should say edit if the component is given a job to edit
     const { isEdit } = this.props;
     const { scheduleFailure } = this.state;
@@ -414,7 +413,7 @@ class JobFormModal extends React.Component<
     );
   }
 
-  getModalContent() {
+  public getModalContent() {
     const {
       isJSONModeActive,
       jobSpec,
@@ -439,7 +438,7 @@ class JobFormModal extends React.Component<
     );
   }
 
-  getPrimaryActions() {
+  public getPrimaryActions() {
     const { processing } = this.state;
 
     return [
@@ -465,7 +464,7 @@ class JobFormModal extends React.Component<
     ];
   }
 
-  getSecondaryActions() {
+  public getSecondaryActions() {
     return [
       {
         className: "button-primary-link button-flush-horizontal",
@@ -475,7 +474,7 @@ class JobFormModal extends React.Component<
     ];
   }
 
-  render() {
+  public render() {
     const { isOpen, i18n } = this.props;
     const { isConfirmOpen } = this.state;
     const useGemini = false;

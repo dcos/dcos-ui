@@ -74,7 +74,7 @@ export default class NodesTable extends React.Component<
   NodesTableState
 > {
   // This workaround will be removed in DCOS-39332
-  private regionRenderer: (data: Node) => React.ReactNode;
+  private readonly regionRenderer: (data: Node) => React.ReactNode;
 
   constructor(props: Readonly<NodesTableProps>) {
     super(props);
@@ -89,7 +89,7 @@ export default class NodesTable extends React.Component<
       regionRenderer(this.props.masterRegion, data);
   }
 
-  sorterFor(sortColumn: string): (a: Node, b: Node) => number {
+  public sorterFor(sortColumn: string): (a: Node, b: Node) => number {
     switch (sortColumn) {
       case "host":
         return compareByIp;
@@ -118,7 +118,7 @@ export default class NodesTable extends React.Component<
     }
   }
 
-  sortData(
+  public sortData(
     data: Node[],
     sortColumn: string = this.state.sortColumn,
     sortDirection: SortDirection = this.state.sortDirection
@@ -126,7 +126,7 @@ export default class NodesTable extends React.Component<
     return sorter(data.slice(), this.sorterFor(sortColumn), sortDirection);
   }
 
-  handleSortClick = (columnName: string) => () => {
+  public handleSortClick = (columnName: string) => () => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -141,7 +141,7 @@ export default class NodesTable extends React.Component<
     }
   };
 
-  handleResize = (columnName: string) => (resizedColWidth: number) => {
+  public handleResize = (columnName: string) => (resizedColWidth: number) => {
     const savedColWidths = TableColumnResizeStore.get(columnWidthsStorageKey);
     TableColumnResizeStore.set(columnWidthsStorageKey, {
       ...savedColWidths,
@@ -149,20 +149,21 @@ export default class NodesTable extends React.Component<
     });
   };
 
-  shouldComponentUpdate(
+  public shouldComponentUpdate(
     nextProps: NodesTableProps,
     nextState: NodesTableState
   ) {
     return !isEqual(this.props, nextProps) || !isEqual(this.state, nextState);
   }
 
-  UNSAFE_componentWillReceiveProps(nextProps: NodesTableProps): void {
+  public UNSAFE_componentWillReceiveProps(nextProps: NodesTableProps): void {
     this.setState({
       data: nextProps.hosts ? this.sortData(nextProps.hosts.getItems()) : null
     });
   }
 
-  render() {
+  // tslint:disable-next-line
+  public render() {
     const { data, sortColumn, sortDirection } = this.state;
     const { withPublicIP } = this.props;
 

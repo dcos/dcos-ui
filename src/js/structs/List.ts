@@ -24,8 +24,8 @@ function cast(item: any) {
 }
 
 export default class List<A> {
-  list: A[];
-  filterProperties: any;
+  public list: A[];
+  public filterProperties: any;
   /**
    * List
    * @param {Object} options Options object
@@ -53,19 +53,19 @@ export default class List<A> {
     this.filterProperties = options.filterProperties || {};
   }
 
-  add(item: A) {
+  public add(item: A) {
     this.list.push(cast.call(this, item));
   }
 
-  getItems() {
+  public getItems() {
     return this.list;
   }
 
-  getFilterProperties() {
+  public getFilterProperties() {
     return this.filterProperties;
   }
 
-  last() {
+  public last() {
     return this.list[this.list.length - 1];
   }
 
@@ -76,7 +76,7 @@ export default class List<A> {
    * @param {List} list - The list to combine with this list
    * @returns {List} Returns a new list with the combined items
    */
-  combine(list: List<A>) {
+  public combine(list: List<A>) {
     let actualLength = 0;
     const currentItems = this.getItems();
     const newItems = list.getItems();
@@ -121,7 +121,7 @@ export default class List<A> {
    * false otherwise.
    * @return {List} List (or child class) containing mapped items
    */
-  filterItems(callback: (a: A, i: number, ctx: any) => boolean) {
+  public filterItems(callback: (a: A, i: number, ctx: any) => boolean) {
     const items = this.getItems().filter((item, index) =>
       callback(item, index, this)
     );
@@ -137,7 +137,7 @@ export default class List<A> {
    *     to configure filter properties as well as their getters
    * @return {List} List (or child class) containing filtered items
    */
-  filterItemsByText(
+  public filterItemsByText(
     filterText: string,
     filterProperties = this.getFilterProperties()
   ) {
@@ -186,7 +186,7 @@ export default class List<A> {
    * taking one argument: item
    * @return {object} matching item
    */
-  findItem(callback: (a: A) => A | undefined) {
+  public findItem(callback: (a: A) => A | undefined) {
     return this.getItems().find(callback);
   }
 
@@ -195,7 +195,7 @@ export default class List<A> {
    * List, taking three arguments: item, index, list
    * @return {List} List (or child class) containing mapped items
    */
-  mapItems<B>(callback: (a: A, i: number, ctx: any) => B) {
+  public mapItems<B>(callback: (a: A, i: number, ctx: any) => B) {
     const items = this.getItems().map((item, index) =>
       callback(item, index, this)
     );
@@ -210,7 +210,7 @@ export default class List<A> {
    * @param {*} initialValue
    * @returns {*} returnValue
    */
-  reduceItems<B>(
+  public reduceItems<B>(
     callback: (b: B, a: A, i: number, ctx: any) => B,
     initialValue: B
   ) {
@@ -221,7 +221,7 @@ export default class List<A> {
     );
   }
 
-  isEmpty() {
+  public isEmpty() {
     return !this.getItems() || !this.getItems().length;
   }
 }

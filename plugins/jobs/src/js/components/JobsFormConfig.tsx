@@ -53,16 +53,16 @@ interface JobsConfigProps {
 }
 
 class JobsConfig extends React.Component<JobsConfigProps, object> {
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App";
   }
 
-  getErrors() {
+  public getErrors() {
     const { errors, i18n } = this.props;
     return translateErrorMessages(errors || [], i18n);
   }
 
-  render() {
+  public render() {
     const { config, onEditClick } = this.props;
     const errorsAlert = (
       <ErrorsAlert

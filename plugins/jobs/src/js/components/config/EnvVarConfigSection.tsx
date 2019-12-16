@@ -18,7 +18,7 @@ interface KeyValue {
 }
 
 class EnvVarConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(_: Value<JobOutput>) {
+  public shouldExcludeItem(_: Value<JobOutput>) {
     const {
       run: { env }
     } = this.props.config;
@@ -29,11 +29,11 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
     );
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:Env";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "env",
       values: [

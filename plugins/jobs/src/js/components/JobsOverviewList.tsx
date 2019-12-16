@@ -40,23 +40,23 @@ class JobsOverviewList extends React.PureComponent<
     this.resetFilter = this.resetFilter.bind(this);
   }
 
-  handleCloseJobFormModal() {
+  public handleCloseJobFormModal() {
     this.setState({ isJobFormModalOpen: false });
   }
 
-  handleOpenJobFormModal() {
+  public handleOpenJobFormModal() {
     this.setState({ isJobFormModalOpen: true });
   }
 
-  handleFilterChange(filter: string) {
+  public handleFilterChange(filter: string) {
     this.props.handleFilterChange(filter);
   }
 
-  resetFilter() {
+  public resetFilter() {
     this.props.handleFilterChange("");
   }
 
-  getListContent() {
+  public getListContent() {
     const { data, filter, i18n } = this.props;
     // L10NTODO: Pluralize
     // We should pluralize FilterHeadline name here using lingui macro instead of
@@ -86,7 +86,7 @@ class JobsOverviewList extends React.PureComponent<
     );
   }
 
-  getEmptyContent() {
+  public getEmptyContent() {
     return (
       <AlertPanel>
         <AlertPanelHeader>
@@ -108,7 +108,7 @@ class JobsOverviewList extends React.PureComponent<
     );
   }
 
-  render() {
+  public render() {
     const { data } = this.props;
     const hasJobs = data.totalCount > 0;
     const addButton = hasJobs

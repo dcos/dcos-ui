@@ -168,7 +168,8 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                 message: createError.message,
                 partialSuccess: false
               });
-            } else if (err.name === "UpdateQuotaError") {
+            }
+            if (err.name === "UpdateQuotaError") {
               const quotaErr = err as UpdateQuotaError;
               return of({
                 code: 0,

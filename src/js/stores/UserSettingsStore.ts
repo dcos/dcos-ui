@@ -21,7 +21,7 @@ function getLocalStorageObject() {
 }
 
 class UserSettingsStore extends EventEmitter {
-  getKey(key: string): unknown {
+  public getKey(key: string): unknown {
     const localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {
       return null;
@@ -30,7 +30,7 @@ class UserSettingsStore extends EventEmitter {
     return localStorageObject[key];
   }
 
-  setKey(key: string, value: unknown): void {
+  public setKey(key: string, value: unknown): void {
     let localStorageObject = getLocalStorageObject();
     if (localStorageObject == null) {
       localStorageObject = {};
@@ -50,7 +50,7 @@ class UserSettingsStore extends EventEmitter {
     return isObject(settings) && !!settings.expanded;
   }
 
-  setJSONEditorExpandedSetting(expanded: boolean) {
+  public setJSONEditorExpandedSetting(expanded: boolean) {
     const settings = this.getKey(JSON_EDITOR_SETTING);
 
     this.setKey(
@@ -65,7 +65,7 @@ class UserSettingsStore extends EventEmitter {
     return typeof settings === "number" ? settings : null;
   }
 
-  setRefreshRateSetting(refreshRate: number) {
+  public setRefreshRateSetting(refreshRate: number) {
     this.setKey(REFRESH_RATE_SETTING, refreshRate);
   }
 }

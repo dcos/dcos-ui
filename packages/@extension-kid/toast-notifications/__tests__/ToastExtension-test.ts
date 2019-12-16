@@ -2,7 +2,8 @@ import ToasterExtension from "../ToastExtension";
 import { ToastCallbackType, ToastNotification } from "../ToastNotification";
 
 describe("ToasterExtension", () => {
-  let ext: ToasterExtension, toast$NextCallback: jest.Mock;
+  let ext: ToasterExtension;
+  let toast$NextCallback: jest.Mock;
   beforeEach(() => {
     ext = new ToasterExtension();
     toast$NextCallback = jest.fn();

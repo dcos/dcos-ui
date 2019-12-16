@@ -1,10 +1,10 @@
-//@ts-ignore
+// @ts-ignore
 import { request, RequestResponse } from "@dcos/http-service";
 import { Observable, of, from } from "rxjs";
 import { map, catchError } from "rxjs/operators";
 
 import Config from "#SRC/js/config/Config";
-//@ts-ignore
+// @ts-ignore
 import MarathonStore from "../../stores/MarathonStore";
 import ServiceTree from "../../structs/ServiceTree";
 import { MesosRole } from "../../types/MesosRoles";

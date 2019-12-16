@@ -37,7 +37,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     super(props);
   }
 
-  getResourceRow() {
+  public getResourceRow() {
     const { formData, showErrors, errors } = this.props;
     const cpuTooltipContent = (
       <Trans>
@@ -152,7 +152,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     );
   }
 
-  getJobType() {
+  public getJobType() {
     const { formData, errors, showErrors } = this.props;
     const cmdTooltipContent = (
       <Trans>
@@ -279,7 +279,7 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     );
   }
 
-  render() {
+  public render() {
     const { formData, errors, showErrors, isEdit } = this.props;
 
     const idTooltipContent = (

@@ -155,11 +155,11 @@ export function createJob(
     headers: defaultHeaders
   });
   return data.schedule
-    ? (jobRequest.pipe(
+    ? jobRequest.pipe(
         switchMap(() =>
           createSchedule(data.job.id, data.schedule as JobSchedule)
         )
-      ) as Observable<RequestResponse<JobDetailResponse>>)
+      )
     : (jobRequest as Observable<RequestResponse<JobDetailResponse>>);
 }
 

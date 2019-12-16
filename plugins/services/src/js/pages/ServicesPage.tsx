@@ -13,17 +13,17 @@ import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class ServicesPage extends mixin(StoreMixin) {
-  static contextTypes = {
+  public static contextTypes = {
     router: routerShape
   };
 
-  static routeConfig = {
+  public static routeConfig = {
     label: i18nMark("Services"),
     icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
     matches: /^\/services/
   };
 
-  store_listeners: Array<{
+  public store_listeners: Array<{
     name: string;
     events: string[];
     suppressUpdate: boolean;
@@ -36,11 +36,11 @@ class ServicesPage extends mixin(StoreMixin) {
     ];
   }
 
-  componentDidMount() {
+  public componentDidMount() {
     CosmosPackagesStore.fetchAvailablePackages();
   }
 
-  getNavigation() {
+  public getNavigation() {
     if (RouterUtil.shouldHideNavigation(this.props.routes)) {
       return null;
     }
@@ -48,7 +48,7 @@ class ServicesPage extends mixin(StoreMixin) {
     return <ul className="menu-tabbed">{this.tabs_getRoutedTabs()}</ul>;
   }
 
-  render() {
+  public render() {
     return this.props.children;
   }
 }

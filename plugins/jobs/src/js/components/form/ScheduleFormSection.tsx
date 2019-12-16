@@ -27,7 +27,7 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
     super(props);
   }
 
-  render() {
+  public render() {
     const { formData, showErrors, errors } = this.props;
     const idTooltipContent = (
       <Trans>

@@ -32,15 +32,15 @@ interface ToastNotificationOptions {
 }
 
 class ToastNotification extends Notification {
-  static NotificationType = Symbol.for("Toast");
+  public static NotificationType = Symbol.for("Toast");
 
-  readonly appearance: ToastAppearance;
-  readonly autodismiss: boolean;
-  readonly callback?: ToastCallback;
-  readonly description?: string;
-  readonly primaryActionText?: string;
-  readonly secondaryActionText?: string;
-  readonly title: string;
+  public readonly appearance: ToastAppearance;
+  public readonly autodismiss: boolean;
+  public readonly callback?: ToastCallback;
+  public readonly description?: string;
+  public readonly primaryActionText?: string;
+  public readonly secondaryActionText?: string;
+  public readonly title: string;
 
   constructor(title: string, options: ToastNotificationOptions = {}) {
     super(
@@ -60,36 +60,39 @@ class ToastNotification extends Notification {
     this.secondaryAction = this.secondaryAction.bind(this);
   }
 
-  dismiss() {
+  public dismiss() {
     if (!this.callback) {
       return;
     }
-    // Don't let a notifier exception crash the ToastExtension/ToastContainer
     try {
       this.callback(ToastCallbackType.Dismiss, this);
-    } catch {}
+    } catch {
+      // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    }
   }
 
-  primaryAction() {
+  public primaryAction() {
     if (!this.callback) {
       return;
     }
 
-    // Don't let a notifier exception crash the ToastExtension/ToastContainer
     try {
       this.callback(ToastCallbackType.Primary, this);
-    } catch {}
+    } catch {
+      // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    }
   }
 
-  secondaryAction() {
+  public secondaryAction() {
     if (!this.callback) {
       return;
     }
 
-    // Don't let a notifier exception crash the ToastExtension/ToastContainer
     try {
       this.callback(ToastCallbackType.Secondary, this);
-    } catch {}
+    } catch {
+      // Don't let a notifier exception crash the ToastExtension/ToastContainer
+    }
   }
 }
 

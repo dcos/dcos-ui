@@ -51,10 +51,10 @@ const baseResolver = {
 
 @injectable()
 export default class DataLayer {
-  extensionType = DataLayerExtensionType;
+  public extensionType = DataLayerExtensionType;
 
-  _extensionProvider: ExtensionProvider<DataLayerExtensionInterface>;
-  _schema$: BehaviorSubject<GraphQLSchema>;
+  public _extensionProvider: ExtensionProvider<DataLayerExtensionInterface>;
+  public _schema$: BehaviorSubject<GraphQLSchema>;
 
   constructor(
     @inject(ExtensionProvider)
@@ -69,7 +69,7 @@ export default class DataLayer {
     });
   }
 
-  getExecutableSchema(): GraphQLSchema {
+  public getExecutableSchema(): GraphQLSchema {
     const extensions = this._extensionProvider.getAllExtensions();
     const enabledIds = extensions.map(extension => extension.id);
     const typeDefs = [
@@ -85,7 +85,7 @@ export default class DataLayer {
     return makeExecutableSchema({ typeDefs, resolvers });
   }
 
-  query(doc: any, context?: any): Observable<any> {
+  public query(doc: any, context?: any): Observable<any> {
     return this._schema$.pipe(
       switchMap(schema => graphqlObservable(doc, schema, context))
     );

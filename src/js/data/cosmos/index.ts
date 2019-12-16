@@ -67,13 +67,13 @@ export const CosmosDataLayer = Symbol("CosmosDataLayer");
 
 @injectable()
 class CosmosExtension implements DataLayerExtensionInterface {
-  id = CosmosDataLayer;
+  public id = CosmosDataLayer;
 
-  getResolvers() {
+  public getResolvers() {
     return resolvers;
   }
 
-  getTypeDefinitions() {
+  public getTypeDefinitions() {
     return schema;
   }
 }

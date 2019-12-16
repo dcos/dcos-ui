@@ -5,10 +5,10 @@ import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 
-import { JobOutput, JobSchedule } from "../form/helpers/JobFormData";
+import { JobOutput } from "../form/helpers/JobFormData";
 
 class ScheduleConfigSection extends BaseConfig<JobOutput> {
-  shouldExcludeItem(row: Value<JobOutput>) {
+  public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     if (config.schedules && config.schedules[0]) {
       const prop = findNestedPropertyInObject(config.schedules[0], row.key);
@@ -17,11 +17,11 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
     return true;
   }
 
-  getMountType() {
+  public getMountType() {
     return "CreateJob:JobConfigDisplay:App:Schedule";
   }
 
-  getDefinition() {
+  public getDefinition() {
     return {
       tabViewID: "schedule",
       values: [
@@ -83,11 +83,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             const { schedules } = config;
             const schedule = schedules && schedules[0];
             return `${
-              schedule
-                ? (schedule as JobSchedule).enabled != null
-                  ? (schedule as JobSchedule).enabled
-                  : ""
-                : ""
+              schedule ? (schedule.enabled != null ? schedule.enabled : "") : ""
             }`;
           }
         }

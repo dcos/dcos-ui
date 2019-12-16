@@ -24,13 +24,13 @@ interface ServicesQuotaViewProps {
 }
 
 class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
-  static contextTypes = {
+  public static contextTypes = {
     modalHandlers: PropTypes.shape({
       createGroup: PropTypes.func
     }).isRequired,
     router: routerShape
   };
-  static propTypes = {
+  public static propTypes = {
     serviceTree: PropTypes.instanceOf(ServiceTree)
   };
   constructor(props: ServicesQuotaViewProps) {
@@ -39,7 +39,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     this.getTabs = this.getTabs.bind(this);
   }
 
-  getTabs() {
+  public getTabs() {
     const { serviceTree } = this.props;
 
     return [
@@ -58,7 +58,7 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     ];
   }
 
-  render() {
+  public render() {
     const { children, serviceTree } = this.props;
     const { modalHandlers } = this.context;
     const tabs = this.getTabs();

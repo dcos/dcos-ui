@@ -32,11 +32,11 @@ interface Definition<T> {
 }
 
 class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
-  shouldExcludeItem(_value: Value<T>) {
+  public shouldExcludeItem(_value: Value<T>) {
     return false;
   }
 
-  getDisplayValue(type: string | undefined, value: Value<T>) {
+  public getDisplayValue(type: string | undefined, value: Value<T>) {
     // If the row's type is pre, we wrap it in a pre tag.
     if (type === "pre" && value) {
       return <pre className="flush transparent wrap">{value}</pre>;
@@ -45,17 +45,17 @@ class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
     return getDisplayValue(value);
   }
 
-  getDefinition(): Definition<T> {
+  public getDefinition(): Definition<T> {
     return { values: [] };
   }
 
-  getMountType() {
+  public getMountType() {
     throw Error(
       "You have to implement this method in your class providing a unique MountPointName, Namespace: CreateService:ServiceConfigDisplay:App:"
     );
   }
 
-  render() {
+  public render() {
     const { config, onEditClick } = this.props;
     const { values, tabViewID } = this.getDefinition();
 
@@ -76,7 +76,8 @@ class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
         if (row.render != null) {
           // If a custom render method was specified on the row, we use that.
           return row.render(value, config);
-        } else if (row.heading != null) {
+        }
+        if (row.heading != null) {
           // If the row is a heading, we render the heading.
           return (
             <ConfigurationMapHeading key={reactKey} level={row.headingLevel}>

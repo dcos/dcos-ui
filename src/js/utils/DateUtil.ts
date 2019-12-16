@@ -120,12 +120,12 @@ const DateUtil = {
     };
     if (formatType === fullDateTime) {
       return fullDateTimeFormat;
-    } else if (formatType === longMonthDateTime) {
-      return longMonthDateTimeFormat;
-    } else {
-      // default to full numeric date time format
-      return fullDateTimeFormat;
     }
+    if (formatType === longMonthDateTime) {
+      return longMonthDateTimeFormat;
+    }
+    // default to full numeric date time format
+    return fullDateTimeFormat;
   },
 
   /**
