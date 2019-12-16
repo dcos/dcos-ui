@@ -28,7 +28,6 @@ module.exports = merge(common, {
       "process.env.version": JSON.stringify(packageInfo.version)
     }),
     new CompressionPlugin({
-      asset: "[path].gz[query]",
       algorithm: "gzip",
       test: /\.js$|\.css$|\.html$/,
       threshold: 10240,
