@@ -89,7 +89,7 @@
   "devDependencies": {
     "@commitlint/cli": "8.2.0",
     "@commitlint/config-conventional": "8.2.0",
-    "@dcos/eslint-config": "0.3.0",
+    "@dcos/eslint-config": "0.3.1",
     "@lingui/cli": "2.9.0",
     "@lingui/macro": "2.9.0",
     "@semantic-release/exec": "3.3.8",
