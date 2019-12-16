@@ -31,8 +31,8 @@ module.exports = {
   },
   setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
   setupFiles: ["./jest/setupEnv.js"],
-  testRegex: "/__tests__/.*\\-test\\.(js|ts)$",
-  moduleFileExtensions: ["js", "json", "ts", "tsx"],
+  testRegex: "/__tests__/.*\\-test\\.(jsx?|tsx?)$",
+  moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/plugins-ee/$1",
