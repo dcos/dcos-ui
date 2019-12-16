@@ -10,7 +10,6 @@ import DateUtil from "#SRC/js/utils/DateUtil";
 import StatusIcon from "#SRC/js/constants/StatusIcon";
 import StringUtil from "#SRC/js/utils/StringUtil";
 
-// @ts-ignore
 import DeclinedOffersUtil from "../utils/DeclinedOffersUtil";
 import * as ServiceStatus from "../constants/ServiceStatus";
 import Pod from "../structs/Pod";

@@ -3,7 +3,6 @@ import { TextCell } from "@dcos/ui-kit";
 import { Tooltip } from "reactjs-components";
 import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
-// @ts-ignore
 import Framework from "../structs/Framework";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";

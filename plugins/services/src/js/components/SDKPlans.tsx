@@ -24,7 +24,6 @@ import { Trans } from "@lingui/macro";
 
 import container from "#SRC/js/container";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
-// @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import {

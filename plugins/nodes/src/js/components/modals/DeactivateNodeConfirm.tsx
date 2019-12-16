@@ -1,11 +1,8 @@
 import React, { useState } from "react";
 import { i18nMark, withI18n } from "@lingui/react";
 
-// @ts-ignore
-import { request } from "@dcos/mesos-client";
 import { Trans } from "@lingui/macro";
 import { InfoBoxInline } from "@dcos/ui-kit";
-
 // @ts-ignore
 import { Confirm } from "reactjs-components";
 

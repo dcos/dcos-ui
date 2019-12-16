@@ -6,9 +6,7 @@ import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-// @ts-ignore
 import RouterUtil from "#SRC/js/utils/RouterUtil";
-// @ts-ignore
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 

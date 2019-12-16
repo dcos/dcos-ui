@@ -1,4 +1,3 @@
-// @ts-ignore
 import * as MesosClient from "@dcos/mesos-client";
 import {
   map,

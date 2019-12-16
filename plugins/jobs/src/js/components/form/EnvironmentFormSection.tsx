@@ -1,6 +1,4 @@
 import * as React from "react";
-// @ts-ignore
-import { MountService } from "foundation-ui";
 import { Trans } from "@lingui/macro";
 
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";

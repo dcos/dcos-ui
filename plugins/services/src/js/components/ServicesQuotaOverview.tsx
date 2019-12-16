@@ -12,8 +12,6 @@ import container from "#SRC/js/container";
 import GroupsQuotaOverviewTable from "./GroupsQuotaOverviewTable";
 import EmptyServicesQuotaOverview from "./EmptyServicesQuotaOverview";
 import { groupHasQuotaLimit } from "../utils/QuotaUtil";
-
-// @ts-ignore
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import { MESOS_STATE_CHANGE } from "#SRC/js/constants/EventTypes";
 

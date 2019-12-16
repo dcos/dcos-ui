@@ -15,9 +15,6 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceTree from "../structs/ServiceTree";
 import { ServiceActionItem } from "../constants/ServiceActionItem";
 
-// @ts-ignore
-import ConfigStore from "#SRC/js/stores/ConfigStore";
-
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
 const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
