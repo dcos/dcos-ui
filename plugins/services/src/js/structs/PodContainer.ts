@@ -9,12 +9,11 @@ export default class PodContainer extends Item {
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodContainerStatus.HEALTHY;
-          } else {
-            return PodContainerStatus.UNHEALTHY;
           }
-        } else {
-          return PodContainerStatus.RUNNING;
+          return PodContainerStatus.UNHEALTHY;
         }
+        return PodContainerStatus.RUNNING;
+
       case PodContainerState.STAGING:
         return PodContainerStatus.STAGING;
       case PodContainerState.STARTING:

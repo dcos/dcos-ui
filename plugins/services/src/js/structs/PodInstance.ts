@@ -42,12 +42,10 @@ export default class PodInstance extends Item {
         if (this.hasHealthChecks()) {
           if (this.isHealthy()) {
             return PodInstanceStatus.HEALTHY;
-          } else {
-            return PodInstanceStatus.UNHEALTHY;
           }
-        } else {
-          return PodInstanceStatus.RUNNING;
+          return PodInstanceStatus.UNHEALTHY;
         }
+        return PodInstanceStatus.RUNNING;
 
       case PodInstanceState.DEGRADED:
         return PodInstanceStatus.UNHEALTHY;

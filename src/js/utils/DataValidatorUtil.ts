@@ -11,9 +11,8 @@ function path2lens(path, strategy = Objektiv.resolve.tryhard) {
   return path.reduce((parent, segment) => {
     if (isNaN(segment)) {
       return parent.then(Objektiv.makeAttrLens(segment, strategy));
-    } else {
-      return parent.then(Objektiv.makeAtLens(segment, strategy));
     }
+    return parent.then(Objektiv.makeAtLens(segment, strategy));
   }, Objektiv.identity);
 }
 
