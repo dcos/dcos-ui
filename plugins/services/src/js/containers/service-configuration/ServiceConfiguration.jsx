@@ -1,7 +1,7 @@
 import { Dropdown, Tooltip } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { Trans, DateFormat } from "@lingui/macro";
 import { Badge, Icon } from "@dcos/ui-kit";

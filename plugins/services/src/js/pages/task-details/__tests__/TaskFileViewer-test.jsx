@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import JestUtil from "#SRC/js/utils/JestUtil";
 import { mount } from "enzyme";

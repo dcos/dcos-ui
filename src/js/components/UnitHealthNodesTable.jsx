@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";

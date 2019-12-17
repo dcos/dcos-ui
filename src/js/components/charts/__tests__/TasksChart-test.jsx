@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { I18nProvider } from "@lingui/react";
 import { mount, shallow } from "enzyme";
 

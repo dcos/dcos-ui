@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Link } from "react-router";
 import { Trans } from "@lingui/macro";
 

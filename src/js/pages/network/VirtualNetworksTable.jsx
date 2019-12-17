@@ -3,7 +3,7 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 
 import OverlayList from "../../structs/OverlayList";

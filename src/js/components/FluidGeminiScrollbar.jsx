@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import Util from "../utils/Util";

@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 

@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import mixin from "reactjs-mixin";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 
 import Loader from "#SRC/js/components/Loader";

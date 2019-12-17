@@ -1,7 +1,7 @@
 import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
 
-import React from "react";
+import * as React from "react";
 
 import { Trans, t } from "@lingui/macro";
 

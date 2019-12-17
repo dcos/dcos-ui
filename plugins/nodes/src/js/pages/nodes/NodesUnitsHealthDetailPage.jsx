@@ -1,5 +1,5 @@
 import mixin from "reactjs-mixin";
-import React from "react";
+import * as React from "react";
 
 import Page from "#SRC/js/components/Page";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";

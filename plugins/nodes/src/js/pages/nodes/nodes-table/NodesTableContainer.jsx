@@ -1,5 +1,5 @@
 import mixin from "reactjs-mixin";
-import React from "react";
+import * as React from "react";
 import { map, catchError } from "rxjs/operators";
 import { combineLatest, of } from "rxjs";
 import { graphqlObservable, componentFromStream } from "@dcos/data-service";

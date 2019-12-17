@@ -1,6 +1,6 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 const METHODS_TO_BIND = ["onImageError"];

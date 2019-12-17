@@ -1,11 +1,13 @@
 require("babel-polyfill");
 require("reflect-metadata");
 const EventEmitter = require("events").EventEmitter;
+const { Trans } = require("@lingui/macro");
 
 // Tests should just mock responses for the json API
 // so let's just default to a noop
 const { RequestUtil } = require("mesosphere-shared-reactjs");
 
+global.macro_1 = { Trans };
 RequestUtil.json = _ => {};
 
 /*

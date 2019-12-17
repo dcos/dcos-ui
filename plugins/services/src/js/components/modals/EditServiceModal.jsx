@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { hashHistory } from "react-router";
 
 import EditFrameworkConfiguration from "#PLUGINS/services/src/js/pages/EditFrameworkConfiguration";

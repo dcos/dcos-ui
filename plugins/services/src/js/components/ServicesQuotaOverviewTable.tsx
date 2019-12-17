@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Column, Table, SortableHeaderCell } from "@dcos/ui-kit";
 import sort from "array-sort";

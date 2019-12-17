@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";

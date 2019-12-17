@@ -3,7 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 

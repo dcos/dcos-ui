@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";

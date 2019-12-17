@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Link, formatPattern } from "react-router";
 
-import React from "react";
+import * as React from "react";
 
 import { Badge } from "@dcos/ui-kit";
 import Util from "../utils/Util";

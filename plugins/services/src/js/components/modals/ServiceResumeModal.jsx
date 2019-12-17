@@ -2,7 +2,7 @@ import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import { Confirm } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FormGroup from "#SRC/js/components/form/FormGroup";

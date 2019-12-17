@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
-import React from "react";
+import * as React from "react";
 import createReactClass from "create-react-class";
 import { CSSTransition } from "react-transition-group";
 

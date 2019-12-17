@@ -1,6 +1,6 @@
 import { Trans, DateFormat } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";

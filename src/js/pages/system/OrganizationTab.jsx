@@ -6,7 +6,7 @@ import { Hooks } from "PluginSDK";
 import { Link } from "react-router";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 

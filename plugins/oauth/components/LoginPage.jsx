@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";

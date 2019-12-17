@@ -1,5 +1,5 @@
 import { Dropdown } from "reactjs-components";
-import React from "react";
+import * as React from "react";
 
 const ClusterDropdownTrigger = ({ onTrigger, children }) => (
   <span className="header-bar-dropdown-trigger" onClick={onTrigger}>

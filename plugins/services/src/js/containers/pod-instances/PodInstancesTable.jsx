@@ -2,7 +2,7 @@ import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Link } from "react-router";
 import { Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";

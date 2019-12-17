@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { hashHistory } from "react-router";
 import { Table } from "reactjs-components";
 import { withI18n, i18nMark } from "@lingui/react";

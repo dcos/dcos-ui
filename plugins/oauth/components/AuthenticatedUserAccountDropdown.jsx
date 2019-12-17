@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 
 import AuthStore from "#SRC/js/stores/AuthStore";

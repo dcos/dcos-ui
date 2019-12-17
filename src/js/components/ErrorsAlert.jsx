@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Icon, InfoBoxInline } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";

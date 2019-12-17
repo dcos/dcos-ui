@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Breadcrumb from "#SRC/js/components/Breadcrumb";

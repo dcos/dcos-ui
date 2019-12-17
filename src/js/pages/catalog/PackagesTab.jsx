@@ -5,7 +5,7 @@ import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
 import { Link, routerShape } from "react-router";
 import { MountService } from "foundation-ui";
-import React from "react";
+import * as React from "react";
 import { Badge } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 

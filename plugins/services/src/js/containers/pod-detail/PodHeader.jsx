@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
 import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import StringUtil from "#SRC/js/utils/StringUtil";

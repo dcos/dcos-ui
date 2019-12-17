@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
-import React from "react";
+import * as React from "react";
 import createReactClass from "create-react-class";
 import { Link, routerShape } from "react-router";
 import { Icon } from "@dcos/ui-kit";

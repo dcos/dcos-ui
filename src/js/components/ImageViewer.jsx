@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
 
 const METHODS_TO_BIND = [

@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 
-import React from "react";
+import * as React from "react";
 
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";

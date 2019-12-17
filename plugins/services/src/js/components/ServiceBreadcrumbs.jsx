@@ -10,7 +10,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Util from "#SRC/js/utils/Util";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 import { Link } from "react-router";
 import ServiceTree from "../structs/ServiceTree";

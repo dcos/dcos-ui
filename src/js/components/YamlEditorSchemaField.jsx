@@ -2,7 +2,7 @@ import { withI18n } from "@lingui/react";
 import { t } from "@lingui/macro";
 
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import AceEditor from "react-ace";
 import "brace/mode/yaml";
 
