@@ -16,6 +16,7 @@
     "cyclomatic-complexity": [true, 20],
     "interface-name": false,
     "interface-over-type-literal": false,
+    "member-access": [false],
     "no-any": {
       "severity": "off"
     },

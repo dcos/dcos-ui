@@ -32,9 +32,8 @@ const ContainerUtil = {
 
     if (matchingNames.length > 0) {
       return this.getNewContainerName(++containerLength, newState);
-    } else {
-      return name;
     }
+    return name;
   }
 };
 
