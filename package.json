@@ -137,7 +137,7 @@
     "eslint-plugin-import": "2.19.1",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-jsx-max-len": "1.0.0",
-    "eslint-plugin-prettier": "2.7.0",
+    "eslint-plugin-prettier": "3.1.2",
     "eslint-plugin-react": "6.10.3",
     "eslint-plugin-react-hooks": "1.7.0",
     "eslint-plugin-test-names": "1.0.1",
