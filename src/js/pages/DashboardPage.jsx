@@ -116,15 +116,19 @@ const DashboardPage = createReactClass({
       { name: "unitHealth", events: ["success", "error"], suppressUpdate: true }
     ];
 
-    this.mesosState = getMesosState();
+    this.setState({ mesosState: getMesosState() });
   },
 
   onSummaryStoreError() {
-    this.mesosState = { ...this.mesosState, ...getMesosState() };
+    this.setState({
+      mesosState: { ...this.state.mesosState, ...getMesosState() }
+    });
   },
 
   onSummaryStoreSuccess() {
-    this.mesosState = { ...this.mesosState, ...getMesosState() };
+    this.setState({
+      mesosState: { ...this.state.mesosState, ...getMesosState() }
+    });
   },
 
   onDcosStoreChange() {
@@ -219,7 +223,7 @@ const DashboardPage = createReactClass({
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
     const resourceColors = ResourcesUtil.getResourceColors();
-    const data = this.mesosState;
+    const data = this.state.mesosState;
 
     return (
       <Page title="Dashboard">
