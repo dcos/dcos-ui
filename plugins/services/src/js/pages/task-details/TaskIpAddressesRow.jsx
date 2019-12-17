@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import React from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 
 import Application from "#PLUGINS/services/src/js/structs/Application";

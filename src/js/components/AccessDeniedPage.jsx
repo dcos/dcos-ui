@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import React from "react";
+import * as React from "react";
 
 import AuthStore from "../stores/AuthStore";
 import AlertPanel from "./AlertPanel";

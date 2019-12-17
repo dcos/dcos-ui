@@ -3,7 +3,7 @@ import classNames from "classnames";
 import { Link } from "react-router";
 import { List } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 class ComponentList extends React.PureComponent {
   getComponentListContent(units) {

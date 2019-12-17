@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Typeahead as InnerTypeahead } from "react-bootstrap-typeahead";
 import PropTypes from "prop-types";
 
-import React from "react";
+import * as React from "react";
 
 import FilterInputText from "./FilterInputText";
 

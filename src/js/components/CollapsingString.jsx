@@ -1,6 +1,6 @@
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import ReactDOM from "react-dom";
 
 import DOMUtils from "../utils/DOMUtils";

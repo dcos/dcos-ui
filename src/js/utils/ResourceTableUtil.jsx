@@ -1,6 +1,6 @@
 import classNames from "classnames";
 
-import React from "react";
+import * as React from "react";
 
 import { Tooltip } from "reactjs-components";
 import { Trans } from "@lingui/macro";

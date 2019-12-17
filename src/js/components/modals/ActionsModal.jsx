@@ -1,7 +1,7 @@
 import { Confirm, Dropdown } from "reactjs-components";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import { Badge } from "@dcos/ui-kit";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";

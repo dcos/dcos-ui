@@ -3,7 +3,7 @@ import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Icon, Tooltip } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { Dropdown } from "reactjs-components";

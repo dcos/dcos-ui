@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 class FilterButtons extends React.Component {
   getCount(items) {

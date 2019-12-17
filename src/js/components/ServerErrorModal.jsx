@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Modal } from "reactjs-components";
-import React from "react";
+import * as React from "react";
 
 import { Hooks } from "PluginSDK";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";

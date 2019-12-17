@@ -1,7 +1,7 @@
 import isEqual from "lodash.isequal";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";

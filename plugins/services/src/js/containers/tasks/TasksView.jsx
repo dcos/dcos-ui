@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Tooltip } from "reactjs-components";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { withI18n } from "@lingui/react";
 import { Trans, t } from "@lingui/macro";
 import { Badge, Icon } from "@dcos/ui-kit";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";

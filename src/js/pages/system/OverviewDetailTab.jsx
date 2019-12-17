@@ -3,7 +3,7 @@ import { i18nMark } from "@lingui/react";
 import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import { MountService } from "foundation-ui";
-import React from "react";
+import * as React from "react";
 import { request } from "@dcos/mesos-client";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 

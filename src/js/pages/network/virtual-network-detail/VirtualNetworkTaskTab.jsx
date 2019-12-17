@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Table } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";

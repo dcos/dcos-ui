@@ -1,5 +1,5 @@
 import { i18nMark } from "@lingui/react";
-import React from "react";
+import * as React from "react";
 import { BehaviorSubject, of } from "rxjs";
 import {
   switchMap,

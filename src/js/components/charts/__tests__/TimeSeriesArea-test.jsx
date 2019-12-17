@@ -1,6 +1,6 @@
 import d3 from "d3";
 
-import React from "react";
+import * as React from "react";
 
 import { mount } from "enzyme";
 import TimeSeriesArea from "../TimeSeriesArea";

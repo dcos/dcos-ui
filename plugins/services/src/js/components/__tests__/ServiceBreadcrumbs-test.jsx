@@ -1,5 +1,5 @@
 import { mount, shallow } from "enzyme";
-import React from "react";
+import * as React from "react";
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import ServiceBreadcrumbs from "../ServiceBreadcrumbs";

@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import renderer from "react-test-renderer";
 
 import HealthUnit from "#SRC/js/structs/HealthUnit";

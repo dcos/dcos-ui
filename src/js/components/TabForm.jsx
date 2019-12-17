@@ -2,7 +2,7 @@ import classNames from "classnames/dedupe";
 import { Form, Tooltip } from "reactjs-components";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 

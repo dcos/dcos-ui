@@ -1,6 +1,6 @@
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
-import React from "react";
+import * as React from "react";
 
 import Util from "../../utils/Util";
 

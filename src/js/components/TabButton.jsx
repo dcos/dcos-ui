@@ -1,6 +1,6 @@
 import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import { BadgeButton } from "@dcos/ui-kit";
 

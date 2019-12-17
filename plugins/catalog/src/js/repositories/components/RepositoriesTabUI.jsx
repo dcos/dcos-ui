@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { withI18n, i18nMark } from "@lingui/react";
 import { t } from "@lingui/macro";
 

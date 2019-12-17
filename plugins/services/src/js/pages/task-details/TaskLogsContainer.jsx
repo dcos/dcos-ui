@@ -1,6 +1,6 @@
 import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 import Loader from "#SRC/js/components/Loader";

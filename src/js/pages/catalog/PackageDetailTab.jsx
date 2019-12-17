@@ -3,7 +3,7 @@ import { i18nMark } from "@lingui/react";
 import qs from "query-string";
 import mixin from "reactjs-mixin";
 import { Link, routerShape } from "react-router";
-import React from "react";
+import * as React from "react";
 import { Dropdown, Tooltip, Modal, Confirm } from "reactjs-components";
 import { Badge, Icon, InfoBoxInline } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";

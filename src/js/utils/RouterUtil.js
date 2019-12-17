@@ -1,6 +1,6 @@
 import qs from "query-string";
 import { createRoutes } from "react-router";
-import React from "react";
+import * as React from "react";
 
 import Util from "./Util";
 

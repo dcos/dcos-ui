@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { of } from "rxjs";
 import { map, startWith, catchError } from "rxjs/operators";
 import { componentFromStream } from "@dcos/data-service";

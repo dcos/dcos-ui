@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 import { Badge, designTokens as dt, Icon, Legacy } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";

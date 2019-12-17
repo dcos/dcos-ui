@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 
 import { Dropdown } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import UnitHealthStatus from "../constants/UnitHealthStatus";
 

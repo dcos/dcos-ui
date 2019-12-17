@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import DSLCombinerTypes from "#SRC/js/constants/DSLCombinerTypes";
 import DSLExpression from "#SRC/js/structs/DSLExpression";

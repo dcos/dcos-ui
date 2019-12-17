@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";

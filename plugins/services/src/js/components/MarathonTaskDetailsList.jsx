@@ -1,7 +1,7 @@
 import { Trans, DateFormat } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import DateUtil from "#SRC/js/utils/DateUtil";

@@ -11,11 +11,7 @@ exports[`LeaderGrid renders with running status 1`] = `
       <h1
         className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading flush-top"
       >
-        <span
-          className={undefined}
-        >
-          Leader
-        </span>
+        Leader
       </h1>
       <div
         className="configuration-map-section"
@@ -26,11 +22,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-label"
           >
-            <span
-              className={undefined}
-            >
-              IP and Port
-            </span>
+            IP and Port
           </div>
           <div
             className="configuration-map-value"
@@ -44,11 +36,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-label"
           >
-            <span
-              className={undefined}
-            >
-              Region
-            </span>
+            Region
           </div>
           <div
             className="configuration-map-value"
@@ -62,11 +50,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-label"
           >
-            <span
-              className={undefined}
-            >
-              Mesos Version
-            </span>
+            Mesos Version
           </div>
           <div
             className="configuration-map-value"
@@ -80,11 +64,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-label"
           >
-            <span
-              className={undefined}
-            >
-              Started
-            </span>
+            Started
           </div>
           <div
             className="configuration-map-value"
@@ -107,11 +87,7 @@ exports[`LeaderGrid renders with running status 1`] = `
           <div
             className="configuration-map-label"
           >
-            <span
-              className={undefined}
-            >
-              Elected
-            </span>
+            Elected
           </div>
           <div
             className="configuration-map-value"

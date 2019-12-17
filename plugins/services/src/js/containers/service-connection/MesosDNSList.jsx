@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { Trans } from "@lingui/macro";
 import ConfigurationMapHeading from "#SRC/js/components/ConfigurationMapHeading";
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";

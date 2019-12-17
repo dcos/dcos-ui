@@ -5,7 +5,7 @@ import browserInfo from "browser-info";
 import classNames from "classnames";
 import { Modal } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";

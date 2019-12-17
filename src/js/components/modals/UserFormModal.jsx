@@ -3,7 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
-import React from "react";
+import * as React from "react";
 
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import AuthStore from "../../stores/AuthStore";

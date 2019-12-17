@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { routerShape } from "react-router";
 import { Trans } from "@lingui/macro";
 import { Icon } from "@dcos/ui-kit";

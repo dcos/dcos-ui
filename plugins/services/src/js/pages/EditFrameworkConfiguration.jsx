@@ -1,6 +1,6 @@
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import mixin from "reactjs-mixin";
 import { routerShape } from "react-router";
 import isEqual from "lodash.isequal";

@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 import TaskDirectoryTable from "../../components/TaskDirectoryTable";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";

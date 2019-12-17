@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import prettycron from "prettycron";
 import { Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";

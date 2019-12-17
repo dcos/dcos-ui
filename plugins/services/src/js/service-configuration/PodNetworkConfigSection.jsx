@@ -1,5 +1,5 @@
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 import { MountService } from "foundation-ui";
 import { Trans } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";

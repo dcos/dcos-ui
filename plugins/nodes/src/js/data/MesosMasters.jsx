@@ -1,4 +1,4 @@
-import React from "react";
+import * as React from "react";
 import { combineLatest, startWith } from "rxjs/operators";
 
 import { mesosMastersLeader } from "./MesosMastersLeader";

@@ -1,5 +1,5 @@
 import { Trans } from "@lingui/macro";
-import React from "react";
+import * as React from "react";
 import Units from "#SRC/js/utils/Units";
 import Util from "#SRC/js/utils/Util";
 import VolumeDefinitions from "#PLUGINS/services/src/js/constants/VolumeDefinitions";

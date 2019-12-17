@@ -1,5 +1,5 @@
 import { Trans, Plural } from "@lingui/macro";
-import React from "react";
+import * as React from "react";
 import { combineLatest, of, Observable } from "rxjs";
 import {
   map,

@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
 
-import React from "react";
+import * as React from "react";
 
 import CreateServiceModalServicePickerOption from "#SRC/js/components/CreateServiceModalServicePickerOption";
 import CreateServiceModalServicePickerOptionContent from "#SRC/js/components/CreateServiceModalServicePickerOptionContent";

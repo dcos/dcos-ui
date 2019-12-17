@@ -1,7 +1,7 @@
 import classNames from "classnames";
 import GeminiScrollbar from "react-gemini-scrollbar";
 import { Link, routerShape } from "react-router";
-import React from "react";
+import * as React from "react";
 import PluginSDK from "PluginSDK";
 import { navigation } from "foundation-ui";
 import { Trans } from "@lingui/macro";

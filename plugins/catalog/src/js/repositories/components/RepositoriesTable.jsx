@@ -2,7 +2,7 @@ import classNames from "classnames";
 import { Table } from "reactjs-components";
 import PropTypes from "prop-types";
 
-import React from "react";
+import * as React from "react";
 
 import CollapsingString from "#SRC/js/components/CollapsingString";
 

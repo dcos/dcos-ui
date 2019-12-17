@@ -1,6 +1,6 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
-import React from "react";
+import * as React from "react";
 import Config from "#SRC/js/config/Config";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import { Confirm } from "reactjs-components";

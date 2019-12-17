@@ -3,7 +3,7 @@ import { i18nMark } from "@lingui/react";
 import classNames from "classnames/dedupe";
 import { Form, Modal } from "reactjs-components";
 import PropTypes from "prop-types";
-import React from "react";
+import * as React from "react";
 
 const METHODS_TO_BIND = [
   "getTriggerSubmit",
