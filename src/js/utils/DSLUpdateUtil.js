@@ -196,7 +196,7 @@ const DSLUpdateUtil = {
    * @param {String} src - The source expression string
    * @param {ASTNode} node - The node node to add
    * @param {ASTNode} fullAst - The representation of the current full AST
-   * @param {number} offset - The offset to apply on position indices
+   * @param {number} _offset - The offset to apply on position indices
    * @param {DSLCombinerTypes} [combiner] - The combiner operation to use
    * @returns {String} Returns the updated string
    */
@@ -204,7 +204,7 @@ const DSLUpdateUtil = {
     src,
     node,
     fullAst,
-    offset = 0,
+    _offset = 0,
     combiner = DSLCombinerTypes.AND
   ) {
     const whitespaceRegex = /\s+$/;

@@ -50,6 +50,7 @@
   ],
 
   "rules": {
+    "indent": ["off"],
     "prettier/prettier": "off",
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties

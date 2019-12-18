@@ -18,12 +18,12 @@ function transformContainers(memo, container, containerIndex) {
 }
 
 export function MultiContainerVolumeMountsJSONReducer(
-  state = [],
+  _state = [],
   { type, path, value },
   counterIndex
 ) {
   if (counterIndex === 0) {
-    state = [];
+    _state = [];
   }
 
   const [base, index, name] = path;
