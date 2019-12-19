@@ -217,6 +217,7 @@
   "DNS": "",
   "DSK": "",
   "Dashboard": "",
+  "Data will only be requested every {refreshRate} seconds.": "",
   "Deactivate": "",
   "Deactivate Node": "",
   "Deactivated": "",

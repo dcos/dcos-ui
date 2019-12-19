@@ -217,6 +217,7 @@
   "DNS": "DNS",
   "DSK": "DSK",
   "Dashboard": "仪表板",
+  "Data will only be requested every {refreshRate} seconds.": "",
   "Deactivate": "停用",
   "Deactivate Node": "停用节点",
   "Deactivated": "已停用",
