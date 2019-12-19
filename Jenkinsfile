@@ -2,7 +2,7 @@
 
 @Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["release/2.0", ] as String[]
 
 pipeline {
   agent {
@@ -113,7 +113,7 @@ pipeline {
               ]
             ]) {
               sh '''
-                INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+                INSTALLER_URL="https://downloads.dcos.io/dcos/testing/2.0/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                 export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                 export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
                 export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
@@ -304,7 +304,7 @@ pipeline {
         ]) {
           sh "git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons"
           sh "tar czf release.tar.gz dist"
-          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
+          sh "S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='2.0' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
         }
       }
     }
