@@ -9,7 +9,6 @@ describe("Transaction", () => {
     });
 
     it("throws an Error for random type", () => {
-      // @ts-ignore
       expect(() => new Transaction([0], 0, "DEL")).toThrowError(TypeError);
     });
 
@@ -21,7 +20,7 @@ describe("Transaction", () => {
 
     it("ensures that type is not be writable", () => {
       const transaction = new Transaction([0], 0);
-      // @ts-ignore
+
       expect(() => (transaction.type = "EVIL DELETE")).toThrowError();
     });
 
@@ -33,7 +32,7 @@ describe("Transaction", () => {
 
     it("ensures that value is not be writable", () => {
       const transaction = new Transaction([0], 0);
-      // @ts-ignore
+
       expect(() => (transaction.value = "EVIL value")).toThrowError();
     });
 
@@ -45,7 +44,7 @@ describe("Transaction", () => {
 
     it("ensures that path is not be writable", () => {
       const transaction = new Transaction([0], 0);
-      // @ts-ignore
+
       expect(() => (transaction.path = "EVIL path")).toThrowError();
     });
   });

@@ -36,7 +36,7 @@ describe("utils", () => {
         fakeUiMetadata
       );
       expect(result).not.toBeNull();
-      // @ts-ignore
+
       expect(result.version).toEqual("1.5.0");
     });
     it("use packageVersion for comparison if available", () => {
@@ -71,7 +71,7 @@ describe("utils", () => {
         fakeUiMetadata
       );
       expect(result).not.toBeNull();
-      // @ts-ignore
+
       expect(result.version).toEqual("1.5.0");
     });
     it("returns null if there is no newer package", () => {

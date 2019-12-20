@@ -152,7 +152,7 @@ describe("Notifications", () => {
         if (notification === null) {
           return;
         }
-        // @ts-ignore
+
         notification.primaryAction();
         expect(reloadSpy).toHaveBeenCalledTimes(1);
       })

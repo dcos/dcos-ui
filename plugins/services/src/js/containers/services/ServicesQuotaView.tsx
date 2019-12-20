@@ -128,7 +128,6 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
       </React.Fragment>
     );
 
-    // @ts-ignore
     const deployStatus = <DeploymentStatusIndicator />;
 
     return (

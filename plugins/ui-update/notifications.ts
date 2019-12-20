@@ -55,7 +55,6 @@ class Notifications implements UIUpdateNotifications {
     this._i18n = i18n;
 
     Notifications._methodsToBind.forEach(method => {
-      // @ts-ignore
       this[method] = this[method].bind(this);
     });
   }
@@ -75,7 +74,6 @@ class Notifications implements UIUpdateNotifications {
           );
         }),
         map(uiMetadata => {
-          // @ts-ignore
           const displayVersion = semver.coerce(uiMetadata.serverBuild);
           const title = this._i18n._(i18nMark("New UI Available"));
           const description = this._i18n._(

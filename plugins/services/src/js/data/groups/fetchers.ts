@@ -50,7 +50,6 @@ export function fetchRoles(): Observable<MesosRole[]> {
 }
 
 function rolesFromFixtures(): Observable<MesosRole[]> {
-  // @ts-ignore
   const quotaRolesFixture = import(
     /* quotaRolesFixture */ "../../../../../../tests/_fixtures/quota-management/roles.json"
   );

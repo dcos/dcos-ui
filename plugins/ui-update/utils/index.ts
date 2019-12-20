@@ -30,18 +30,16 @@ function versionUpdateAvailable(
     .filter((val: FormattedPackageVersion) => val.display !== null)
     .filter(
       (val: FormattedPackageVersion) =>
-        // @ts-ignore
         val.display.major === currentVersion.major
     )
     .sort((a: FormattedPackageVersion, b: FormattedPackageVersion) =>
-      // @ts-ignore
       semver.rcompare(a.display, b.display)
     );
   if (availableVersions.length === 0) {
     return null;
   }
   // if greatest version !== installed version, return it, otherwise return null
-  // @ts-ignore
+
   if (semver.gt(availableVersions[0].display, currentVersion)) {
     return availableVersions[0];
   }

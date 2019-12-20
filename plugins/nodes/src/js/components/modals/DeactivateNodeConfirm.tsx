@@ -3,7 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 
 import { Trans } from "@lingui/macro";
 import { InfoBoxInline } from "@dcos/ui-kit";
-// @ts-ignore
+
 import { Confirm } from "reactjs-components";
 
 import Node from "#SRC/js/structs/Node";

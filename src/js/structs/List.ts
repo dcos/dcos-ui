@@ -14,7 +14,6 @@ import StringUtil from "../utils/StringUtil";
  * @return {Object} item, cast if list is typed.
  */
 function cast(item: any) {
-  // @ts-ignore
   const Type = this.constructor.type;
   if (Type != null && !(item instanceof Type)) {
     return new Type(item);
@@ -44,7 +43,6 @@ export default class List<A> {
       }
 
       this.list =
-        // @ts-ignore
         this.constructor.type != null
           ? options.items.map(cast.bind(this))
           : options.items;
@@ -111,7 +109,6 @@ export default class List<A> {
     // of the end result and we create the new list
     combinedItems.length = actualLength;
 
-    // @ts-ignore
     return new this.constructor({ items: combinedItems });
   }
 
@@ -126,7 +123,6 @@ export default class List<A> {
       callback(item, index, this)
     );
 
-    // @ts-ignore
     return new this.constructor({ items });
   }
 
@@ -168,7 +164,7 @@ export default class List<A> {
             // Some of the items in lists are not always of instance Item and
             // therefore we might need to get it directly on the object
             // FIXME
-            // @ts-ignore
+
             return item[prop] || "";
           });
 
@@ -177,7 +173,7 @@ export default class List<A> {
         filterText
       );
     }
-    // @ts-ignore
+
     return new this.constructor({ items });
   }
 
@@ -200,7 +196,6 @@ export default class List<A> {
       callback(item, index, this)
     );
 
-    // @ts-ignore
     return new this.constructor({ items });
   }
 

@@ -138,13 +138,11 @@ class ServiceRootGroupModal extends React.Component<
   };
 
   constructor() {
-    // @ts-ignore
     super(...arguments);
 
     this.state = this.getInitialState();
 
     METHODS_TO_BIND.forEach(method => {
-      // @ts-ignore
       this[method] = this[method].bind(this);
     });
   }
