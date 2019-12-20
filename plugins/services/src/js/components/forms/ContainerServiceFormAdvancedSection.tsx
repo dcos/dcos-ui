@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import classNames from "classnames";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -73,7 +73,7 @@ const podPaths = {
   type: "{basePath}.type"
 };
 
-class ContainerServiceFormAdvancedSection extends Component {
+class ContainerServiceFormAdvancedSection extends React.Component {
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
       return podPaths[fieldName].replace("{basePath}", basePath);

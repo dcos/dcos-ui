@@ -1,6 +1,6 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -21,7 +21,7 @@ import PlacementConstraintsUtil from "#PLUGINS/services/src/js/utils/PlacementCo
 // &nbsp; to space the table rows
 const NBSP = "\u00A0";
 
-class PlacementConstraintsPartial extends Component {
+class PlacementConstraintsPartial extends React.Component {
   getPlacementConstraintLabel(name) {
     return (
       <FieldLabel>

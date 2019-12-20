@@ -1,7 +1,7 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
-import React, { Suspense, lazy } from "react";
+import * as React from "react";
 import createReactClass from "create-react-class";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
@@ -40,17 +40,17 @@ function getMesosState() {
   };
 }
 
-const ResourceTimeSeriesChart = lazy(() =>
+const ResourceTimeSeriesChart = React.lazy(() =>
   import(
     /* webpackChunkName: "resourcetimeserieschart" */ "../components/charts/ResourceTimeSeriesChart"
   )
 );
-const HostTimeSeriesChart = lazy(() =>
+const HostTimeSeriesChart = React.lazy(() =>
   import(
     /* webpackChunkName: "hosttimeserieschart" */ "../components/charts/HostTimeSeriesChart"
   )
 );
-const TasksChart = lazy(() =>
+const TasksChart = React.lazy(() =>
   import(/* webpackChunkName: "taskschart" */ "../components/charts/TasksChart")
 );
 
@@ -234,7 +234,7 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.CPU)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["cpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -243,7 +243,7 @@ const DashboardPage = createReactClass({
                   mode="cpus"
                   refreshRate={Config.getRefreshRate()}
                 />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -251,7 +251,7 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.MEMORY)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["mem"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -260,7 +260,7 @@ const DashboardPage = createReactClass({
                   mode="mem"
                   refreshRate={Config.getRefreshRate()}
                 />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -268,7 +268,7 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.DISK)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["disk"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -277,7 +277,7 @@ const DashboardPage = createReactClass({
                   mode="disk"
                   refreshRate={Config.getRefreshRate()}
                 />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -285,7 +285,7 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.GPU)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
                   colorIndex={resourceColors["gpus"]}
                   usedResourcesStates={data.usedResourcesStates}
@@ -294,7 +294,7 @@ const DashboardPage = createReactClass({
                   mode="gpus"
                   refreshRate={Config.getRefreshRate()}
                 />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -302,14 +302,14 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart dashboard-panel-chart-timeseries panel"
               heading={this.getHeading(DashboardHeadings.NODES)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <HostTimeSeriesChart
                   data={data.activeNodes}
                   currentValue={data.hostCount}
                   refreshRate={Config.getRefreshRate()}
                   colorIndex={4}
                 />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>
@@ -327,9 +327,9 @@ const DashboardPage = createReactClass({
               className="dashboard-panel dashboard-panel-chart panel"
               heading={this.getHeading(DashboardHeadings.TASKS)}
             >
-              <Suspense fallback={<Loader />}>
+              <React.Suspense fallback={<Loader />}>
                 <TasksChart tasks={data.tasks} />
-              </Suspense>
+              </React.Suspense>
             </Panel>
           </div>
           <div className={columnClasses}>

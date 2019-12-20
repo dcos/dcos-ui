@@ -5,7 +5,7 @@ import isEqual from "lodash.isequal";
 import { MountService } from "foundation-ui";
 import { Hooks } from "PluginSDK";
 import PropTypes from "prop-types";
-import React, { Component, Suspense, lazy } from "react";
+import * as React from "react";
 
 import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import AdvancedSection from "#SRC/js/components/form/AdvancedSection";
@@ -109,11 +109,11 @@ function cleanConfig(config) {
   return newServiceConfig;
 }
 
-const JSONEditor = lazy(() =>
+const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-class CreateServiceModalForm extends Component {
+class CreateServiceModalForm extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -886,7 +886,7 @@ class CreateServiceModalForm extends Component {
           </FluidGeminiScrollbar>
         </PrimaryPanel>
         <SidePanel isActive={isJSONModeActive} className="jsonEditorWrapper">
-          <Suspense fallback={<div>Loading...</div>}>
+          <React.Suspense fallback={<div>Loading...</div>}>
             <JSONEditor
               errors={errors}
               onChange={this.handleJSONChange}
@@ -901,7 +901,7 @@ class CreateServiceModalForm extends Component {
                 this.state.editorWidth ? `${this.state.editorWidth}px` : "100%"
               }
             />
-          </Suspense>
+          </React.Suspense>
         </SidePanel>
       </SplitPanel>
     );

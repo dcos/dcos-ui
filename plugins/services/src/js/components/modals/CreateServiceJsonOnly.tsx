@@ -1,7 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React, { Suspense, lazy } from "react";
+import * as React from "react";
 import isEqual from "lodash.isequal";
 
 import FieldHelp from "#SRC/js/components/form/FieldHelp";
@@ -14,7 +14,7 @@ import PodSpec from "../../structs/PodSpec";
 import ServiceUtil from "../../utils/ServiceUtil";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const JSONEditor = lazy(() =>
+const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
@@ -110,7 +110,7 @@ class CreateServiceJsonOnly extends React.Component {
           </FieldHelp>
         </div>
         <div className="create-service-modal-json-only-editor-container">
-          <Suspense fallback={<JSONEditorLoading />}>
+          <React.Suspense fallback={<JSONEditorLoading />}>
             <JSONEditor
               className="create-service-modal-json-only-editor"
               errors={errors}
@@ -122,7 +122,7 @@ class CreateServiceJsonOnly extends React.Component {
               theme="monokai"
               value={appConfig}
             />
-          </Suspense>
+          </React.Suspense>
         </div>
       </div>
     );

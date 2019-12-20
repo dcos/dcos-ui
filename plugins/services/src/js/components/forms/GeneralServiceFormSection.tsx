@@ -1,7 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Confirm, Tooltip } from "reactjs-components";
 import { Badge } from "@dcos/ui-kit";
 
@@ -58,7 +58,7 @@ const containerRuntimes = {
   }
 };
 
-class GeneralServiceFormSection extends Component {
+class GeneralServiceFormSection extends React.Component {
   constructor(...args) {
     super(...args);
 

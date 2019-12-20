@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
@@ -33,7 +33,7 @@ const {
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
-class VolumesFormSection extends Component {
+class VolumesFormSection extends React.Component {
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== "PERSISTENT") {
       return null;

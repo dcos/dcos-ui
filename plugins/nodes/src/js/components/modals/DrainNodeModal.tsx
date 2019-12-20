@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 
 import { Trans } from "@lingui/macro";
 import { Modal } from "reactjs-components";
@@ -24,16 +24,19 @@ const DEFAULT_DRAIN_OPTIONS: DrainOptions = {
 function DrainNodeModal(props: Props) {
   const { open, onClose, node } = props;
 
-  const [prevOpenState, setPrevOpenState] = useState<boolean | null>(null);
+  const [prevOpenState, setPrevOpenState] = React.useState<boolean | null>(
+    null
+  );
 
-  const [drainOptions, setDrainOptions] = useState<DrainOptions>(
+  const [drainOptions, setDrainOptions] = React.useState<DrainOptions>(
     DEFAULT_DRAIN_OPTIONS
   );
 
-  const [inProgress, setInProgress] = useState<boolean>(false);
-  const [networkError, setNetworkError] = useState<React.ReactElement | null>(
-    null
-  );
+  const [inProgress, setInProgress] = React.useState<boolean>(false);
+  const [
+    networkError,
+    setNetworkError
+  ] = React.useState<React.ReactElement | null>(null);
 
   const handleDrainOptions = (options: Partial<DrainOptions>) => {
     setDrainOptions({ ...drainOptions, ...options });

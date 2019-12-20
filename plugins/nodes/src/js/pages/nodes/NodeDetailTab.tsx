@@ -1,5 +1,5 @@
 import { Trans, DateFormat } from "@lingui/macro";
-import React, { PureComponent } from "react";
+import * as React from "react";
 import PropTypes from "prop-types";
 import { request } from "@dcos/mesos-client";
 import { Icon } from "@dcos/ui-kit";
@@ -22,7 +22,7 @@ import Units from "#SRC/js/utils/Units";
 import Loader from "#SRC/js/components/Loader";
 import { Status } from "../../types/Status";
 
-class NodeDetailTab extends PureComponent {
+class NodeDetailTab extends React.PureComponent {
   constructor(...args) {
     super(...args);
 
