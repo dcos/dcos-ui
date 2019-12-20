@@ -224,13 +224,6 @@ ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:6:14 - block is empty
 ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:8:11 - block is empty
 ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:94:11 - Identifier 'calls' is never reassigned; use 'const' instead of 'var'.
 ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:94:7 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /src/js/components/CheckboxTable.tsx:176:14 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/components/CheckboxTable.tsx:180:14 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/components/CheckboxTable.tsx:248:17 - block is empty
-ERROR: /src/js/components/CheckboxTable.tsx:250:22 - block is empty
-ERROR: /src/js/components/CheckboxTable.tsx:60:7 - Identifier 'onCheckboxChange' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/CheckboxTable.tsx:61:7 - Identifier 'uniqueProperty' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/CheckboxTable.tsx:62:7 - Identifier 'disabledItemsMap' is never reassigned; use 'const' instead of 'let'.
 ERROR: /src/js/components/CollapsingString.tsx:63:5 - Use a conditional expression instead of assigning to 'parent' in multiple places.
 ERROR: /src/js/components/DSLFilterField.tsx:139:14 - block is empty
 ERROR: /src/js/components/DSLFormDropdownPanel.tsx:110:14 - block is empty
@@ -284,14 +277,6 @@ ERROR: /src/js/components/TabForm.tsx:229:16 - block is empty
 ERROR: /src/js/components/TabForm.tsx:31:32 - block is empty
 ERROR: /src/js/components/TabForm.tsx:77:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
 ERROR: /src/js/components/TabForm.tsx:77:7 - unnecessary else
-ERROR: /src/js/components/Typeahead.tsx:21:7 - Identifier 'emptyLabel' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:22:7 - Identifier 'labelKey' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:23:7 - Identifier 'handleFilterChange' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:24:7 - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:25:7 - Identifier 'items' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:26:7 - Identifier 'onDropdownItemSelection' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:27:7 - Identifier 'placeholder' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/Typeahead.tsx:62:29 - block is empty
 ERROR: /src/js/components/__tests__/Authenticated-test.tsx:11:1 - Multiple variable declarations in the same statement are forbidden
 ERROR: /src/js/components/__tests__/ClickToSelect-test.tsx:6:1 - Multiple variable declarations in the same statement are forbidden
 ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:11:32 - block is empty

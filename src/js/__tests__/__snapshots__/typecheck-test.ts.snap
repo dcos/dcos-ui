@@ -324,7 +324,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
     Type 'PodNetworkConfigSection' is missing the following properties from type 'Component<unknown, any, any>': context, setState, forceUpdate, props, and 2 more.
     Type 'RepositoriesTabUI' is missing the following properties from type 'Component<unknown, any, any>': context, setState, forceUpdate, props, and 2 more.
     Type 'SearchLog' is missing the following properties from type 'Component<any, any, any>': context, setState, forceUpdate, props, and 2 more.
-    Type 'ServiceAccountFormModal' is missing the following properties from type 'Component<Readonly<ServiceAccountFormModalProps>, any, any>': context, setState, forceUpdate, props, and 2 more.
     Type 'ServiceActionDisabledModal' is missing the following properties from type 'Component<any, any, any>': context, setState, forceUpdate, props, and 2 more.
     Type 'ServiceDestroyModal' is missing the following properties from type 'Component<any, any, any>': context, setState, forceUpdate, props, and 2 more.
     Type 'ServiceGroupFormModal' is missing the following properties from type 'Component<any, any, any>': context, setState, forceUpdate, props, and 2 more.
@@ -752,8 +751,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
   Type 'BadgeButton' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'BatchContainer' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'Cell' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
-  Type 'CheckboxTable' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
-  Type 'CheckboxTable' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'CliInstallModal' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ClickToSelect' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ClipboardTrigger' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
@@ -860,7 +857,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
   Type 'SDKServiceConnectionEndpointList' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ScheduleFormSection' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ServerErrorModal' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
-  Type 'ServiceAccountForm' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ServiceBreadcrumbs' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ServiceConfigDisplay' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'ServiceConfiguration' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
@@ -900,7 +896,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
   Type 'TaskSystemLogsContainer' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'TaskTable' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'TasksContainer' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
-  Type 'TextInput<TextInputProps, {}>' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'TimeAgo' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'Toast' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'Toaster' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
@@ -909,7 +904,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
   Type 'Tooltip' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'Tooltip' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'Transaction' is not assignable to type 'never'.
-  Type 'Typeahead' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'UnitHealthDropdown' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'UnitHealthNodesTable' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
   Type 'UnitsHealthNodeDetail' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
@@ -1016,7 +1010,6 @@ exports[`TypeScript snapshot should be up to date 1`] = `
   Type 'typeof PodTerminationHistoryList' has no construct signatures.
   Type 'typeof RepositoriesTabUI' is not assignable to type 'ComponentClass<unknown, any>'.
   Type 'typeof SearchLog' is not assignable to type 'ComponentClass<any, any>'.
-  Type 'typeof ServiceAccountFormModal' is not assignable to type 'ComponentClass<Readonly<ServiceAccountFormModalProps>, any>'.
   Type 'typeof ServiceActionDisabledModal' is not assignable to type 'ComponentClass<any, any>'.
   Type 'typeof ServiceDestroyModal' is not assignable to type 'ComponentClass<any, any>'.
   Type 'typeof ServiceGroupFormModal' is not assignable to type 'ComponentClass<any, any>'.
@@ -2596,7 +2589,6 @@ plugins/services/src/js/containers/tasks/TaskTable.tsx(340,14): error TS6133: 'p
 plugins/services/src/js/containers/tasks/TaskTable.tsx(356,16): error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/tasks/TaskTable.tsx(371,16): error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/tasks/TaskTable.tsx(399,27): error TS7030: Not all code paths return a value.
-plugins/services/src/js/containers/tasks/TaskTable.tsx(448,7): error TS2605: JSX element type 'CheckboxTable' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/tasks/TaskTable.tsx(448,7): error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx(172,27): error TS2345: Argument of type 'unknown[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx(173,29): error TS2345: Argument of type 'unknown[]' is not assignable to parameter of type 'never[]'.
@@ -3881,11 +3873,6 @@ plugins/ui-update/utils/index.ts(33,9): error TS2531: Object is possibly 'null'.
 plugins/ui-update/utils/index.ts(36,23): error TS2345: Argument of type 'SemVer | null' is not assignable to parameter of type 'string | SemVer'.
 plugins/ui-update/utils/index.ts(43,17): error TS2345: Argument of type 'SemVer | null' is not assignable to parameter of type 'string | SemVer'.
 src/js/components/BreadcrumbCaret.tsx(13,6): error TS2322: Type '{ children: Element; isCaret: true; title: string; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
-src/js/components/CheckboxTable.tsx(133,18): error TS6133: 'prop' is declared but its value is never read.
-src/js/components/CheckboxTable.tsx(213,9): error TS2769: No overload matches this call.
-src/js/components/CheckboxTable.tsx(26,24): error TS6133: 'prevCheckboxState' is declared but its value is never read.
-src/js/components/CheckboxTable.tsx(51,31): error TS6133: 'prevCheckboxState' is declared but its value is never read.
-src/js/components/CheckboxTable.tsx(69,25): error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/components/ClickToSelect.tsx(14,15): error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/ClickToSelect.tsx(15,15): error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/ClickToSelect.tsx(19,12): error TS2339: Property 'document' does not exist on type 'Global'.
@@ -4029,8 +4016,6 @@ src/js/components/TimeAgo.tsx(37,34): error TS2363: The right-hand side of an ar
 src/js/components/TimeAgo.tsx(7,21): error TS2448: Block-scoped variable 'MINUTE' used before its declaration.
 src/js/components/TimeAgo.tsx(8,19): error TS2448: Block-scoped variable 'HOUR' used before its declaration.
 src/js/components/TimeAgo.tsx(9,18): error TS2448: Block-scoped variable 'DAY' used before its declaration.
-src/js/components/Typeahead.tsx(60,11): error TS2339: Property 'defaultProps' does not exist on type 'typeof Typeahead'.
-src/js/components/Typeahead.tsx(69,11): error TS2339: Property 'propTypes' does not exist on type 'typeof Typeahead'.
 src/js/components/UnitHealthNodesTable.tsx(118,9): error TS2769: No overload matches this call.
 src/js/components/UnitHealthNodesTable.tsx(94,16): error TS6133: 'prop' is declared but its value is never read.
 src/js/components/UnitsHealthNodeDetail.tsx(67,14): error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
