@@ -1,5 +1,4 @@
-import { Trans, t } from "@lingui/macro";
-import { i18nMark, withI18n } from "@lingui/react";
+import { i18nMark, withI18n, Trans } from "@lingui/react";
 import classNames from "classnames";
 import { Confirm, Dropdown, Modal } from "reactjs-components";
 import { hashHistory } from "react-router";
@@ -219,17 +218,19 @@ class DeploymentsModal extends mixin(StoreMixin) {
     if (deploymentToRollback.isStarting()) {
       if (serviceCount === 1) {
         return (
-          <Trans render="p">
-            This will stop the current deployment of {listOfServiceNames} and
-            start a new deployment to delete the affected service.
-          </Trans>
+          <Trans
+            render="p"
+            id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected service."
+            values={{ listOfServiceNames }}
+          />
         );
       } else {
         return (
-          <Trans render="p">
-            This will stop the current deployment of {listOfServiceNames} and
-            start a new deployment to delete the affected services.
-          </Trans>
+          <Trans
+            render="p"
+            id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected services."
+            values={{ listOfServiceNames }}
+          />
         );
       }
     }
@@ -237,19 +238,19 @@ class DeploymentsModal extends mixin(StoreMixin) {
     // L10NTODO: Pluralize
     if (serviceCount === 1) {
       return (
-        <Trans render="p">
-          This will stop the current deployment of {listOfServiceNames} and
-          start a new deployment to revert the affected service to its previous
-          version.
-        </Trans>
+        <Trans
+          render="p"
+          id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected service to its previous version."
+          values={{ listOfServiceNames }}
+        />
       );
     } else {
       return (
-        <Trans render="p">
-          This will stop the current deployment of {listOfServiceNames} and
-          start a new deployment to revert the affected services to their
-          previous versions.
-        </Trans>
+        <Trans
+          render="p"
+          id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected services to their previous versions."
+          values={{ listOfServiceNames }}
+        />
       );
     }
   }
@@ -324,7 +325,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           onItemSelection={this.handleActionSelect.bind(this, deployment)}
           scrollContainer=".gm-scroll-view"
           scrollContainerParentSelector=".gm-prevented"
-          title={i18n._(t`More actions`)}
+          title={i18n._(/*i18n*/ { id: "More actions" })}
           transition={true}
           transitionName="dropdown-menu"
         />
@@ -395,11 +396,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
     return (
       <AlertPanel>
         <AlertPanelHeader>
-          <Trans render="span">No active deployments</Trans>
+          <Trans render="span" id="No active deployments" />
         </AlertPanelHeader>
-        <Trans render="p" className="flush">
-          Active deployments will be shown here.
-        </Trans>
+        <Trans
+          render="p"
+          className="flush"
+          id="Active deployments will be shown here."
+        />
       </AlertPanel>
     );
   }
@@ -418,13 +421,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
     const heading = (
       <ModalHeading>
-        <Trans render="span">Are you sure?</Trans>
+        <Trans render="span" id="Are you sure?" />
       </ModalHeading>
     );
 
     const rollbackActionText = awaitingRevertDeploymentResponse
-      ? i18n._(t`Rolling back...`)
-      : i18n._(t`Continue Rollback`);
+      ? i18n._(/*i18n*/ { id: "Rolling back..." })
+      : i18n._(/*i18n*/ { id: "Continue Rollback" });
 
     if (deploymentToRollback != null) {
       return (
@@ -434,7 +437,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
           header={heading}
           onClose={this.handleRollbackCancel}
           leftButtonCallback={this.handleRollbackCancel}
-          leftButtonText={i18n._(t`Cancel`)}
+          leftButtonText={i18n._(/*i18n*/ { id: "Cancel" })}
           leftButtonClassName="button button-primary-link"
           rightButtonClassName="button button-danger"
           rightButtonCallback={this.handleRollbackConfirm}
@@ -546,7 +549,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const footer = (
       <div className="text-align-center">
         <button className="button button-primary-link" onClick={onClose}>
-          <Trans render="span">Close</Trans>
+          <Trans render="span" id="Close" />
         </button>
       </div>
     );
@@ -557,7 +560,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
       deploymentsCount === 1 ? i18nMark("Deployment") : i18nMark("Deployments");
     const heading = !loading ? (
       <ModalHeading>
-        {deploymentsCount} <Trans render="span">Active</Trans>{" "}
+        {deploymentsCount} <Trans render="span" id="Active" />{" "}
         <Trans render="span" id={deploymentsText} />
       </ModalHeading>
     ) : null;

@@ -1,5 +1,4 @@
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, Trans } from "@lingui/react";
 import classNames from "classnames";
 import mixin from "reactjs-mixin";
 import { Hooks } from "PluginSDK";
@@ -39,7 +38,7 @@ const PackagesBreadcrumbs = () => {
     <Breadcrumb key={0} title="Catalog">
       <BreadcrumbTextContent>
         <Link to="/catalog/packages">
-          <Trans render="span">Catalog</Trans>
+          <Trans render="span" id="Catalog" />
         </Link>
       </BreadcrumbTextContent>
     </Breadcrumb>
@@ -56,22 +55,22 @@ const PackagesBreadcrumbs = () => {
 const PackagesEmptyState = () => (
   <AlertPanel>
     <AlertPanelHeader>
-      <Trans render="span">No package repositories</Trans>
+      <Trans render="span" id="No package repositories" />
     </AlertPanelHeader>
-    <Trans render="p" className="tall">
-      You need at least one package repository with some packages to be able to
-      install packages. For more{" "}
-      <a
-        target="_blank"
-        href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
-      >
-        information on repositories
-      </a>
-      .
-    </Trans>
+    <Trans
+      render="p"
+      className="tall"
+      id="You need at least one package repository with some packages to be able to install packages. For more <0>information on repositories</0>."
+      components={[
+        <a
+          target="_blank"
+          href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
+        />
+      ]}
+    />
     <div className="button-collection flush-bottom">
       <Link to="/settings/repositories" className="button button-primary">
-        <Trans render="span">Add Package Repository</Trans>
+        <Trans render="span" id="Add Package Repository" />
       </Link>
     </div>
   </AlertPanel>
@@ -172,7 +171,7 @@ class PackagesTab extends mixin(StoreMixin) {
     return (
       <AlertPanel>
         <AlertPanelHeader>
-          <Trans render="span">An Error Occurred</Trans>
+          <Trans render="span" id="An Error Occurred" />
         </AlertPanelHeader>
         <CosmosErrorMessage error={errorMessage} flushBottom={true} />
       </AlertPanel>
@@ -215,13 +214,12 @@ class PackagesTab extends mixin(StoreMixin) {
   getCertifiedPackagesGrid(packages) {
     return (
       <div className="pod flush-top flush-horizontal clearfix">
-        <Trans render="h1" className="short flush-top">
-          Certified
-        </Trans>
-        <Trans render="p" className="tall flush-top">
-          Certified packages are verified by D2iQ for interoperability with
-          DC/OS.
-        </Trans>
+        <Trans render="h1" className="short flush-top" id="Certified" />
+        <Trans
+          render="p"
+          className="tall flush-top"
+          id="Certified packages are verified by D2iQ for interoperability with DC/OS."
+        />
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
@@ -237,12 +235,13 @@ class PackagesTab extends mixin(StoreMixin) {
     return (
       <div className="clearfix">
         <h1 className={titleClasses}>
-          <Trans render="span">Community</Trans>
+          <Trans render="span" id="Community" />
         </h1>
-        <Trans render="p" className="tall flush-top">
-          Community packages are unverified and unreviewed content from the
-          community.
-        </Trans>
+        <Trans
+          render="p"
+          className="tall flush-top"
+          id="Community packages are unverified and unreviewed content from the community."
+        />
         <div className="panel-grid row">{this.getPackageGrid(packages)}</div>
       </div>
     );
@@ -288,13 +287,13 @@ class PackagesTab extends mixin(StoreMixin) {
 
   renderNoResults() {
     return (
-      <Trans render="div" className="clearfix">
-        No results were found for your search: "{this.state.searchString}" (
-        <a className="clickable" onClick={this.showAll}>
-          view all
-        </a>
-        )
-      </Trans>
+      <Trans
+        render="div"
+        className="clearfix"
+        values={[this.state.searchString]}
+        id='No results were found for your search: "{0}" (<0>view all</0>)'
+        components={[<a className="clickable" onClick={this.showAll} />]}
+      />
     );
   }
 

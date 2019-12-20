@@ -1,4 +1,4 @@
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Table } from "reactjs-components";
@@ -112,7 +112,7 @@ const ConfigurationMapTable = props => {
             className="button button-link flush table-display-on-row-hover"
             onClick={onEditClick.bind(null, { tabViewID })}
           >
-            <Trans render="span">Edit</Trans>
+            <Trans render="span" id="Edit" />
           </a>
         );
       }
