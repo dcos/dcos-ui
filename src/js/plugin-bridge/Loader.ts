@@ -1,13 +1,6 @@
-let pluginsList;
-let externalPluginsList;
+import pluginsList from "#PLUGINS";
 
-// Try loading the list of plugins.
-try {
-  pluginsList = require("#PLUGINS/index").default;
-} catch (err) {
-  // No plugins
-  pluginsList = {};
-}
+let externalPluginsList;
 
 // Try loading the list of plugins.
 try {
