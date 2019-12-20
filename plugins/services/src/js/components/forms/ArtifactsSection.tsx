@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -15,7 +15,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-class ArtifactsSection extends Component {
+class ArtifactsSection extends React.Component {
   getArtifactsLabel() {
     const tooltipContent = (
       <Trans render="span">

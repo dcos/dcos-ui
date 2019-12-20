@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
 import { Icon } from "@dcos/ui-kit";
@@ -29,7 +29,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
-class MultiContainerHealthChecksFormSection extends Component {
+class MultiContainerHealthChecksFormSection extends React.Component {
   getAdvancedSettings(healthCheck, path, errorsLens) {
     const errors = errorsLens.get(this.props.errors);
 

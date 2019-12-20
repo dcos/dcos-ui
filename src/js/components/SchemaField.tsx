@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import * as React from "react";
 import isEqual from "lodash.isequal";
 import { Tooltip } from "reactjs-components";
 import DefaultSchemaField from "react-jsonschema-form/lib/components/fields/SchemaField";
@@ -15,7 +15,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import FieldSelect from "#SRC/js/components/form/FieldSelect";
 import FieldAutofocus from "#SRC/js/components/form/FieldAutofocus";
 
-class SchemaField extends Component {
+class SchemaField extends React.Component {
   shouldComponentUpdate(nextProps) {
     return (
       !isEqual(nextProps.formData, this.props.formData) ||

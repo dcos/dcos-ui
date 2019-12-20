@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from "react";
+import * as React from "react";
 import { InfoBoxBanner } from "@dcos/ui-kit";
 import { Trans } from "@lingui/macro";
 
 function useNetworkOffline() {
-  const [isOffline, setIsOffline] = useState(!window.navigator.onLine);
+  const [isOffline, setIsOffline] = React.useState(!window.navigator.onLine);
 
   const handleOffline = () => {
     setIsOffline(true);
@@ -13,7 +13,7 @@ function useNetworkOffline() {
     setIsOffline(false);
   };
 
-  useEffect(() => {
+  React.useEffect(() => {
     window.addEventListener("online", handleOnline);
     window.addEventListener("offline", handleOffline);
     return () => {

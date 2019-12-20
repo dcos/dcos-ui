@@ -1,7 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { i18nMark, withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Confirm } from "reactjs-components";
 import { InfoBoxInline } from "@dcos/ui-kit";
 
@@ -37,7 +37,7 @@ const METHODS_TO_BIND = [
   "deleteDeployErrors"
 ];
 
-class FrameworkConfiguration extends Component {
+class FrameworkConfiguration extends React.Component {
   constructor(props) {
     super(props);
 

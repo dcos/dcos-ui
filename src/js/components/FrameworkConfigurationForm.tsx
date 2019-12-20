@@ -1,7 +1,7 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n } from "@lingui/react";
 import PropTypes from "prop-types";
-import React, { Component, Suspense, lazy } from "react";
+import * as React from "react";
 import SchemaForm from "react-jsonschema-form";
 import { MountService } from "foundation-ui";
 import { InfoBoxInline } from "@dcos/ui-kit";
@@ -24,20 +24,20 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
 import FrameworkConfigurationConstants from "#SRC/js/constants/FrameworkConfigurationConstants";
 
-const JSONEditor = lazy(() =>
+const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-const YamlEditorSchemaField = lazy(() =>
+const YamlEditorSchemaField = React.lazy(() =>
   import(
     /* webpackChunkName: "yamleditorschemafield" */ "#SRC/js/components/YamlEditorSchemaField"
   )
 );
 
 const YamlEditorSchemaFieldWrapper = props => (
-  <Suspense fallback={<JSONEditorLoading />}>
+  <React.Suspense fallback={<JSONEditorLoading />}>
     <YamlEditorSchemaField {...props} />
-  </Suspense>
+  </React.Suspense>
 );
 
 MountService.MountService.registerComponent(
@@ -65,7 +65,7 @@ const METHODS_TO_BIND = [
   "onEditorResize"
 ];
 
-class FrameworkConfigurationForm extends Component {
+class FrameworkConfigurationForm extends React.Component {
   constructor(props) {
     super(props);
 
@@ -396,7 +396,7 @@ class FrameworkConfigurationForm extends Component {
           </FluidGeminiScrollbar>
         </PrimaryPanel>
         <SidePanel isActive={jsonEditorActive} className="jsonEditorWrapper">
-          <Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
+          <React.Suspense fallback={<JSONEditorLoading isSidePanel={true} />}>
             <JSONEditor
               errors={this.getErrorsForJSONEditor()}
               showGutter={true}
@@ -409,7 +409,7 @@ class FrameworkConfigurationForm extends Component {
                 this.state.editorWidth ? `${this.state.editorWidth}px` : "100%"
               }
             />
-          </Suspense>
+          </React.Suspense>
         </SidePanel>
       </SplitPanel>
     );

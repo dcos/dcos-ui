@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
@@ -38,7 +38,7 @@ const podPaths = {
   type: "{basePath}.type"
 };
 
-class ContainerServiceFormSection extends Component {
+class ContainerServiceFormSection extends React.Component {
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
       return podPaths[fieldName].replace("{basePath}", basePath);

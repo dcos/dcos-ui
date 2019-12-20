@@ -1,7 +1,7 @@
 import { Trans } from "@lingui/macro";
 import { Tooltip, Select, SelectOption } from "reactjs-components";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import Objektiv from "objektiv";
 import { MountService } from "foundation-ui";
 
@@ -28,7 +28,7 @@ import VolumeConstants from "../../constants/VolumeConstants";
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["DSS", "EXTERNAL"];
 
-class MultiContainerVolumesFormSection extends Component {
+class MultiContainerVolumesFormSection extends React.Component {
   getContainerMounts(containers, volumeMountIndex) {
     const { volumeMounts } = this.props.data;
 

@@ -3,7 +3,7 @@ import { i18nMark, withI18n } from "@lingui/react";
 import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Confirm } from "reactjs-components";
 import { Hooks } from "PluginSDK";
 import { routerShape } from "react-router";
@@ -108,7 +108,7 @@ const POD_VALIDATORS = [
   PlacementsValidators.mustHaveUniqueOperatorField
 ];
 
-class CreateServiceModal extends Component {
+class CreateServiceModal extends React.Component {
   constructor(...args) {
     super(...args);
 

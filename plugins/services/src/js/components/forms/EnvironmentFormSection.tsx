@@ -2,7 +2,7 @@ import { Trans } from "@lingui/macro";
 import { Tooltip } from "reactjs-components";
 import { MountService } from "foundation-ui";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 
 import AddButton from "#SRC/js/components/form/AddButton";
 import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
@@ -19,7 +19,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { FormReducer as env } from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
 import { FormReducer as labels } from "../../reducers/serviceForm/FormReducers/Labels";
 
-class EnvironmentFormSection extends Component {
+class EnvironmentFormSection extends React.Component {
   getEnvironmentLines(data) {
     const errors = this.props.errors.env || {};
 

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import * as React from "react";
 import { i18nMark, withI18n } from "@lingui/react";
 
 import { Trans } from "@lingui/macro";
@@ -19,10 +19,11 @@ interface Props {
 function DeactivateNodeConfirm(props: Props) {
   const { open, onClose, node, i18n } = props;
 
-  const [inProgress, setInProgress] = useState<boolean>(false);
-  const [networkError, setNetworkError] = useState<React.ReactElement | null>(
-    null
-  );
+  const [inProgress, setInProgress] = React.useState<boolean>(false);
+  const [
+    networkError,
+    setNetworkError
+  ] = React.useState<React.ReactElement | null>(null);
 
   const handleClose = () => {
     setNetworkError(null);

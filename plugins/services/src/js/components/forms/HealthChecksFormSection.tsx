@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import Objektiv from "objektiv";
 
@@ -34,7 +34,7 @@ import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 const errorsLens = Objektiv.attr("healthChecks", []);
 
-class HealthChecksFormSection extends Component {
+class HealthChecksFormSection extends React.Component {
   getAdvancedSettings(healthCheck, key) {
     if (
       healthCheck.protocol !== COMMAND &&

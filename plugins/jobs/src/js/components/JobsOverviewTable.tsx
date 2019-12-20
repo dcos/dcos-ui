@@ -2,7 +2,7 @@ import { Trans, DateFormat } from "@lingui/macro";
 import classNames from "classnames";
 import { Link } from "react-router";
 import PropTypes from "prop-types";
-import React, { lazy, Suspense } from "react";
+import * as React from "react";
 import { Table, Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -22,7 +22,7 @@ import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 
 const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
 
-const JobsCronTooltip = lazy(() =>
+const JobsCronTooltip = React.lazy(() =>
   import(
     /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
   )
@@ -215,7 +215,7 @@ export default class JobsOverviewTable extends React.Component {
       if (schedule.enabled) {
         scheduleIcon = (
           <span className="icon-margin-left">
-            <Suspense
+            <React.Suspense
               fallback={
                 <Icon
                   shape={SystemIcons.Repeat}
@@ -225,7 +225,7 @@ export default class JobsOverviewTable extends React.Component {
               }
             >
               <JobsCronTooltip content={schedule.cron} />
-            </Suspense>
+            </React.Suspense>
           </span>
         );
       }

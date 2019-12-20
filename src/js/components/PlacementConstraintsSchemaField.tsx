@@ -1,6 +1,6 @@
 import { Trans } from "@lingui/macro";
 import PropTypes from "prop-types";
-import React, { Component } from "react";
+import * as React from "react";
 import Batch from "#SRC/js/structs/Batch";
 
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -45,7 +45,7 @@ JsonField.defaultProps = {
   space: 2
 };
 
-export default class PlacementConstraintsSchemaField extends Component {
+export default class PlacementConstraintsSchemaField extends React.Component {
   constructor(props) {
     super(props);
 
