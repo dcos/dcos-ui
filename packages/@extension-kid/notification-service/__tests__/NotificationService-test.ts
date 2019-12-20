@@ -22,13 +22,11 @@ class DebugNotificationExtension
   }
 
   public push(notification: Notification) {
-    /* tslint:disable */
     console.log(
       `${notification.timestamp.toISOString()} - DEBUG - ${
         notification.message
       }`
     );
-    /* tslint:enable */
   }
 }
 

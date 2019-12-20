@@ -154,7 +154,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
     );
 
-    // tslint:disable-next-line
     if (jobId == undefined) {
       return [];
     }
@@ -300,7 +299,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const ucr = findNestedPropertyInObject(formData, "run.ucr");
     const errors: FormError[] = [];
 
-    // tslint:disable-next-line
     if (ucr == undefined) {
       return errors;
     }
@@ -308,7 +306,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const kind = findNestedPropertyInObject(formData, "run.ucr.image.kind");
 
     if (
-      // tslint:disable-next-line
       kind != undefined &&
       kind !== UcrImageKind.Docker &&
       kind !== UcrImageKind.Appc
@@ -327,7 +324,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const disk = findNestedPropertyInObject(formData, "run.disk");
     const errors: any[] = [];
 
-    // tslint:disable-next-line
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
       errors.push({
         path: ["run", "cpus"],
@@ -335,7 +331,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       });
     }
 
-    // tslint:disable-next-line
     if (mem != undefined && typeof mem === "number" && mem < 32) {
       errors.push({
         path: ["run", "mem"],
@@ -343,7 +338,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       });
     }
 
-    // tslint:disable-next-line
     if (disk != undefined && typeof disk === "number" && disk < 0) {
       errors.push({
         path: ["run", "disk"],
@@ -372,7 +366,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     const errors: FormError[] = [];
     if (args && Array.isArray(args)) {
       args.forEach((arg, index) => {
-        // tslint:disable-next-line
         if (arg === "" || arg == undefined) {
           errors.push({
             path: ["run", "args", `${index}`],
@@ -522,7 +515,6 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       schedules &&
       Array.isArray(schedules) &&
       schedules.length &&
-      // tslint:disable-next-line
       schedules[0].startingDeadlineSeconds != undefined
     ) {
       if (typeof schedules[0].startingDeadlineSeconds !== "number") {

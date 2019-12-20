@@ -316,7 +316,7 @@ const boundResolvers = resolvers({
 });
 
 const JobType = Symbol("Job");
-// tslint:disable-next-line
+
 @injectable()
 export class JobExtension implements DataLayerExtensionInterface {
   public id = JobType;

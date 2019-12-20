@@ -4,11 +4,11 @@ jest.mock("@dcos/http-service", () => ({
 }));
 
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
-// tslint:disable:no-submodule-imports
+
 import { of } from "rxjs";
 import { tap } from "rxjs/operators";
 import { marbles, observe } from "rxjs-marbles/jest";
-// tslint:enable
+
 import {
   fetchJobDetail,
   fetchJobs,

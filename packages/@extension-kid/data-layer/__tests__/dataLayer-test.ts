@@ -59,7 +59,7 @@ class JobsExtension implements DataLayerExtensionInterface {
 }
 
 const TasksSymbol = Symbol("Tasks");
-// tslint:disable-next-line
+
 @injectable()
 class TasksExtension implements DataLayerExtensionInterface {
   public id = TasksSymbol;

@@ -66,7 +66,6 @@ const boundResolvers = resolvers({
 });
 
 const RepositoryType = Symbol("Repository");
-// tslint:disable-next-line
 
 export class RepositoryExtension {
   constructor() {

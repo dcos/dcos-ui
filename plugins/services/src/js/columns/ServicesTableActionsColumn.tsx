@@ -104,7 +104,6 @@ export function actionsRendererFactory(
   handleActionDisabledModalOpen: any,
   handleServiceAction: any
 ): React.ReactNode {
-  // tslint:disable-next-line
   return (service: Service | Pod | ServiceTree) => {
     const isGroup = service instanceof ServiceTree;
     const isPod = service instanceof Pod;

@@ -37,7 +37,6 @@ Object.entries(factories).forEach(([name, factory]) => {
   if (containerModule) {
     container.load(containerModule);
   } else {
-    // tslint:disable-next-line
     console.error(`Could not load ${name} extension, please check export`);
   }
 });

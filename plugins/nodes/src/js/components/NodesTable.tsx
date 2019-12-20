@@ -162,7 +162,6 @@ export default class NodesTable extends React.Component<
     });
   }
 
-  // tslint:disable-next-line
   public render() {
     const { data, sortColumn, sortDirection } = this.state;
     const { withPublicIP } = this.props;
