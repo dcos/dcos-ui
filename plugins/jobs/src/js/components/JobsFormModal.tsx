@@ -281,7 +281,7 @@ class JobFormModal extends React.Component<
           // will give the correct array path.
           const path = [prefix].concat(
             // Linter does not like `\` but it is necessary here.
-            // tslint:disable-next-line:prettier
+
             e.path.split("/").filter(pathSegment => pathSegment !== "")
           );
           return {

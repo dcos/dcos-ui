@@ -128,7 +128,6 @@ const JobsOverview = withRouter(
         }),
         startWith(<JobsOverviewLoading />),
         catchError(e => {
-          // tslint:disable-next-line:no-console
           console.error(e);
           return of(<JobsOverviewError />);
         })

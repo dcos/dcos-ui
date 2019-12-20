@@ -24,7 +24,6 @@ function isPresent(value: any) {
 const zipObject = <T>(list: Array<[string, T]>): Record<string, T> =>
   list.reduce<Record<string, T>>((acc, [k, v]) => ({ ...acc, [k]: v }), {});
 
-// tslint:disable-next-line
 export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
   const jobSpecCopy = deepCopy(jobSpec);
   if (jobSpecCopy.job && jobSpecCopy.job.run) {

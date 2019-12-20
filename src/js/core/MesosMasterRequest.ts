@@ -34,7 +34,6 @@ export function getMasterRegionName(
         ) || "N/A"
     ),
     catchError(err => {
-      // tslint:disable-next-line
       console.error("Error getting the master region name", err);
 
       return of("N/A");

@@ -1,3 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`tslint snapshot should be up to date 1`] = `""`;
+exports[`tslint snapshot should be up to date 1`] = `
+"
+
+ERROR: /packages/@extension-kid/data-layer/__tests__/dataLayer-test.ts:63:1 - A maximum of 1 class per file is allowed.
+ERROR: /plugins/jobs/src/js/components/form/helpers/JobParsers.ts:27:1 - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:157:15 - == should be ===
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:302:13 - == should be ===
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:309:12 - != should be !==
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:327:14 - != should be !==
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:334:13 - != should be !==
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:341:14 - != should be !==
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:369:31 - == should be ===
+ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:518:44 - != should be !==
+ERROR: /plugins/nodes/src/js/components/NodesTable.tsx:165:3 - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
+ERROR: /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx:107:10 - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20"
+`;
