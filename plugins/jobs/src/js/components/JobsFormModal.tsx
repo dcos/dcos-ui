@@ -5,7 +5,7 @@ import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import gql from "graphql-tag";
 import { DataLayerType, DataLayer } from "@extension-kid/data-layer";
 import { take } from "rxjs/operators";
-// @ts-ignore
+
 import { Confirm } from "reactjs-components";
 import isEqual from "lodash/isEqual";
 

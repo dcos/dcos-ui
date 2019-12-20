@@ -1,3 +1,44 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TypeScript snapshot should be up to date 1`] = `""`;
+exports[`TypeScript snapshot should be up to date 1`] = `
+"  Type 'Application' is missing the following properties from type 'Pod': countNonTerminalInstances, countTotalInstances, getInstanceList, getLastChanged, and 4 more.
+  Type 'ClusterHeader' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
+  Type 'DeploymentStatusIndicator' is missing the following properties from type 'ElementClass': context, setState, forceUpdate, props, and 2 more.
+  Type 'Framework' is missing the following properties from type 'Pod': countNonTerminalInstances, countTotalInstances, getInstanceList, getLastChanged, and 4 more.
+  Type 'Function' has no construct signatures.
+  Type 'Function' has no construct signatures.
+  Type 'Function' has no construct signatures.
+  Type 'Function' has no construct signatures.
+  Type 'Record<string, unknown>' is missing the following properties from type 'any[]': length, pop, push, concat, and 28 more.
+  Type 'null' is not assignable to type 'string | SemVer'.
+  Type 'null' is not assignable to type 'string | SemVer'.
+  Type 'unknown' is not assignable to type 'ConstraintOperator.Unlike'.
+plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts(639,54): error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'ConstraintOperator'.
+plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx(28,57): error TS2345: Argument of type 'Record<string, unknown>' is not assignable to parameter of type 'any[]'.
+plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx(30,52): error TS2345: Argument of type 'Record<string, unknown>' is not assignable to parameter of type 'any[]'.
+plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx(141,11): error TS2556: Expected 1-2 arguments, but got 0 or more.
+plugins/services/src/js/containers/services/ServicesQuotaView.tsx(131,26): error TS2605: JSX element type 'DeploymentStatusIndicator' is not a constructor function for JSX elements.
+plugins/services/src/js/utils/__tests__/Version-test.ts(10,11): error TS2345: Argument of type 'Framework' is not assignable to parameter of type 'Service | Pod'.
+plugins/services/src/js/utils/__tests__/Version-test.ts(16,11): error TS2345: Argument of type 'Application' is not assignable to parameter of type 'Service | Pod'.
+plugins/ui-update/__tests__/notifications-test.ts(156,22): error TS2339: Property 'primaryAction' does not exist on type 'never'.
+plugins/ui-update/utils/__tests__/index-test.ts(40,14): error TS2531: Object is possibly 'null'.
+plugins/ui-update/utils/__tests__/index-test.ts(75,14): error TS2531: Object is possibly 'null'.
+plugins/ui-update/utils/index.ts(33,9): error TS2531: Object is possibly 'null'.
+plugins/ui-update/utils/index.ts(36,23): error TS2345: Argument of type 'SemVer | null' is not assignable to parameter of type 'string | SemVer'.
+plugins/ui-update/utils/index.ts(43,17): error TS2345: Argument of type 'SemVer | null' is not assignable to parameter of type 'string | SemVer'.
+src/js/components/HeaderBar.tsx(10,20): error TS2605: JSX element type 'ClusterHeader' is not a constructor function for JSX elements.
+src/js/core/MesosStream.ts(73,14): error TS2339: Property 'toObject' does not exist on type 'ReflectionObject'.
+src/js/core/MesosStream.ts(73,23): error TS2531: Object is possibly 'null'.
+src/js/core/MesosStream.ts(73,3): error TS2531: Object is possibly 'null'.
+src/js/core/MesosStream.ts(73,34): error TS2339: Property 'decode' does not exist on type 'ReflectionObject'.
+src/js/structs/List.ts(112,16): error TS2351: This expression is not constructable.
+src/js/structs/List.ts(126,16): error TS2351: This expression is not constructable.
+src/js/structs/List.ts(17,16): error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/structs/List.ts(177,16): error TS2351: This expression is not constructable.
+src/js/structs/List.ts(199,16): error TS2351: This expression is not constructable.
+src/js/structs/List.ts(46,26): error TS2339: Property 'type' does not exist on type 'Function'.
+src/js/structs/__tests__/Transaction-test.ts(12,44): error TS2345: Argument of type '\\"DEL\\"' is not assignable to parameter of type 'unique symbol | unique symbol | unique symbol | unique symbol | unique symbol | undefined'.
+src/js/structs/__tests__/Transaction-test.ts(24,33): error TS2540: Cannot assign to 'type' because it is a read-only property.
+src/js/structs/__tests__/Transaction-test.ts(36,33): error TS2540: Cannot assign to 'value' because it is a read-only property.
+src/js/structs/__tests__/Transaction-test.ts(48,33): error TS2540: Cannot assign to 'path' because it is a read-only property."
+`;

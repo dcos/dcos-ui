@@ -14,7 +14,6 @@ import {
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ServiceValidatorUtil from "#PLUGINS/services/src/js/utils/ServiceValidatorUtil";
 
-// @ts-ignore
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { OvercommittedQuotaResource } from "#PLUGINS/services/src/js/data/errors/OvercommitQuotaError";

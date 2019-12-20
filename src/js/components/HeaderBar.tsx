@@ -7,7 +7,6 @@ import SidebarToggle from "./SidebarToggle";
 
 export default class HeaderBar extends React.Component {
   public render() {
-    // @ts-ignore
     const header = <ClusterHeader />;
     return (
       <div className="header-bar">

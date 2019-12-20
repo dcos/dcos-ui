@@ -59,7 +59,7 @@ describe("UI-Update Service data-layer", () => {
             }
           });
           mockRequest.mockReturnValue(reqResp$);
-          // @ts-ignore
+
           window.DCOS_UI_VERSION = "unit_test+v2.50.1";
 
           const query = gql`
@@ -108,7 +108,6 @@ describe("UI-Update Service data-layer", () => {
           };
           mockRequest.mockReturnValue(of(reqResp));
 
-          // @ts-ignore
           window.DCOS_UI_VERSION = "unit_test+v1.0.0";
 
           const query = gql`
