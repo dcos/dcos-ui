@@ -2,7 +2,6 @@ const { DefinePlugin, EnvironmentPlugin } = require("webpack");
 const path = require("path");
 const LessColorLighten = require("less-color-lighten");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 
 const devServer = {
   open: false,
@@ -69,10 +68,6 @@ module.exports = {
     fs: "empty" // Jison-generated files fail otherwise
   },
   plugins: [
-    new ForkTsCheckerWebpackPlugin({
-      checkSyntacticErrors: true,
-      useTypescriptIncrementalApi: true
-    }),
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
       "process.env.LATER_COV": false // prettycron fails otherwise
