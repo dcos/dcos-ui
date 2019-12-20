@@ -361,9 +361,8 @@ class OrganizationTab extends mixin(StoreMixin) {
 
         return selectedItems[itemID] || false;
       });
-    } else {
-      return null;
     }
+    return null;
   }
 
   getVisibleItems(items) {

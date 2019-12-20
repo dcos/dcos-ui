@@ -85,9 +85,8 @@ const Chart = createReactClass({
         return children.map(child =>
           React.cloneElement(child, { width, height })
         );
-      } else {
-        return React.cloneElement(children, { width, height });
       }
+      return React.cloneElement(children, { width, height });
     }
   },
 

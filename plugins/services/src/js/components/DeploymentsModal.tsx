@@ -224,15 +224,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
             values={{ listOfServiceNames }}
           />
         );
-      } else {
-        return (
-          <Trans
-            render="p"
-            id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected services."
-            values={{ listOfServiceNames }}
-          />
-        );
       }
+      return (
+        <Trans
+          render="p"
+          id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to delete the affected services."
+          values={{ listOfServiceNames }}
+        />
+      );
     }
 
     // L10NTODO: Pluralize
@@ -244,15 +243,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
           values={{ listOfServiceNames }}
         />
       );
-    } else {
-      return (
-        <Trans
-          render="p"
-          id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected services to their previous versions."
-          values={{ listOfServiceNames }}
-        />
-      );
     }
+    return (
+      <Trans
+        render="p"
+        id="This will stop the current deployment of {listOfServiceNames} and start a new deployment to revert the affected services to their previous versions."
+        values={{ listOfServiceNames }}
+      />
+    );
   }
 
   getServiceDisplayPath(service) {

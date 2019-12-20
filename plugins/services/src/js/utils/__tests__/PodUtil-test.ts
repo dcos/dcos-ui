@@ -116,11 +116,10 @@ describe("PodUtil", () => {
           .getItems()[0]
           .getContainers()[2]
           .get()
-      ).toEqual(
-        Object.assign(historicalInstances[0].containers[0], {
-          isHistoricalInstance: true
-        })
-      );
+      ).toEqual({
+        ...historicalInstances[0].containers[0],
+        isHistoricalInstance: true
+      });
     });
 
     it("does not duplicate containers", () => {

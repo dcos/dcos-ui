@@ -421,14 +421,14 @@ class DCOSStore extends EventEmitter {
       };
 
       if (item instanceof Framework) {
-        options = Object.assign(options, frameworks[item.getId()]);
+        options = { ...options, ...frameworks[item.getId()] };
       }
 
       if (item instanceof Item) {
-        return new item.constructor(Object.assign(options, item.get()));
+        return new item.constructor({ ...options, ...item.get() });
       }
 
-      return new item.constructor(Object.assign(options, item));
+      return new item.constructor({ ...options, ...item });
     });
   }
 

@@ -130,7 +130,7 @@ class ServiceStatusIcon extends React.Component<{
 
   public getUnableToLaunchWarning(service: Service | Pod) {
     const duration = DateUtil.getDuration(
-      Date.now() - DateUtil.strToMs((service.getQueue() as any).since as string)
+      Date.now() - DateUtil.strToMs(service.getQueue().since as string)
     );
 
     return this.getTooltip(

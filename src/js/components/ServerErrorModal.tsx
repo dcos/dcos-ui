@@ -53,7 +53,7 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
 
   handleServerError(errorMessage) {
     if (!errorMessage) {
-      throw "No error message defined!";
+      throw new Error("No error message defined!");
     }
 
     const isLocked = errorMessage && /force=true/.test(errorMessage);

@@ -236,7 +236,7 @@ const DashboardPage = createReactClass({
             >
               <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
-                  colorIndex={resourceColors["cpus"]}
+                  colorIndex={resourceColors.cpus}
                   usedResourcesStates={data.usedResourcesStates}
                   usedResources={data.usedResources}
                   totalResources={data.totalResources}
@@ -253,7 +253,7 @@ const DashboardPage = createReactClass({
             >
               <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
-                  colorIndex={resourceColors["mem"]}
+                  colorIndex={resourceColors.mem}
                   usedResourcesStates={data.usedResourcesStates}
                   usedResources={data.usedResources}
                   totalResources={data.totalResources}
@@ -270,7 +270,7 @@ const DashboardPage = createReactClass({
             >
               <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
-                  colorIndex={resourceColors["disk"]}
+                  colorIndex={resourceColors.disk}
                   usedResourcesStates={data.usedResourcesStates}
                   usedResources={data.usedResources}
                   totalResources={data.totalResources}
@@ -287,7 +287,7 @@ const DashboardPage = createReactClass({
             >
               <React.Suspense fallback={<Loader />}>
                 <ResourceTimeSeriesChart
-                  colorIndex={resourceColors["gpus"]}
+                  colorIndex={resourceColors.gpus}
                   usedResourcesStates={data.usedResourcesStates}
                   usedResources={data.usedResources}
                   totalResources={data.totalResources}

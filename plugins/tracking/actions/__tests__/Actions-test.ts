@@ -91,7 +91,7 @@ describe("Actions", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       expect(Actions.log.calls.count()).toEqual(3);
-      var calls = Actions.log.calls.all();
+      const calls = Actions.log.calls.all();
       ["foo", "bar", "baz"].forEach((log, i) => {
         expect(calls[i].args[0]).toEqual(log);
       });
@@ -124,7 +124,7 @@ describe("Actions", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       expect(Actions.log.calls.count()).toEqual(3);
-      var calls = Actions.log.calls.all();
+      const calls = Actions.log.calls.all();
       ["foo", "bar", "baz"].forEach((log, i) => {
         expect(calls[i].args[0]).toEqual(log);
       });

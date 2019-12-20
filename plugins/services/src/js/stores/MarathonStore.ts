@@ -465,7 +465,7 @@ class MarathonStore extends GetSetBaseStore {
         item.labels &&
         item.labels.DCOS_PACKAGE_NAME
       ) {
-        item["images"] = CosmosPackagesStore.getPackageImages()[
+        item.images = CosmosPackagesStore.getPackageImages()[
           item.labels.DCOS_PACKAGE_NAME
         ];
       }

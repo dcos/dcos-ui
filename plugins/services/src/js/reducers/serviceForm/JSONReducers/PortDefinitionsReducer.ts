@@ -60,12 +60,10 @@ function PortDefinitionsReducer(state = [], action) {
           };
           const defaults = { protocol: { tcp: true } };
 
-          state.push(
-            Object.assign(
-              definition,
-              transformPortDefinition(value) || defaults
-            )
-          );
+          state.push({
+            ...definition,
+            ...(transformPortDefinition(value) || defaults)
+          });
           break;
         case REMOVE_ITEM:
           state = state.filter((item, index) => index !== value);

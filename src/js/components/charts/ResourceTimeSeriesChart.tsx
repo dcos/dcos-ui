@@ -41,13 +41,12 @@ const ResourceTimeSeriesChart = createReactClass({
     const { mode } = this.props;
     if (mode === "cpus" || mode === "gpus") {
       return usedValue + " of " + totalValue + " Cores";
-    } else {
-      return (
-        Units.filesize(usedValue * 1024 * 1024, 0) +
-        " of " +
-        Units.filesize(totalValue * 1024 * 1024, 0)
-      );
     }
+    return (
+      Units.filesize(usedValue * 1024 * 1024, 0) +
+      " of " +
+      Units.filesize(totalValue * 1024 * 1024, 0)
+    );
   },
 
   getChart() {

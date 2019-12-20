@@ -117,7 +117,7 @@ class TasksContainer extends React.Component {
       defaultFilterData: { zones }
     } = this.state;
 
-    let query = props.location.query["q"];
+    let query = props.location.query.q;
 
     if (query === undefined) {
       query = "is:active";

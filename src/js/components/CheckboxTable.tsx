@@ -173,11 +173,11 @@ class CheckboxTable extends React.Component {
     };
 
     if (inactiveItemsMap[row[uniqueProperty]]) {
-      return Object.assign(rowAttributes, { className: "inactive" });
+      return { ...rowAttributes, className: "inactive" };
     }
 
     if (checkedItemsMap[row[uniqueProperty]]) {
-      return Object.assign(rowAttributes, { className: "selected" });
+      return { ...rowAttributes, className: "selected" };
     }
 
     return rowAttributes;

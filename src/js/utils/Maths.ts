@@ -37,7 +37,7 @@ const Maths = {
     value = parseFloat(value);
 
     const range = stats.max - stats.min;
-    var min = stats.min;
+    const min = stats.min;
 
     if (range === 0) {
       return min;
@@ -47,9 +47,8 @@ const Maths = {
 
     if (isNaN(v)) {
       return undefined;
-    } else {
-      return v;
     }
+    return v;
   },
 
   /**
@@ -66,9 +65,8 @@ const Maths = {
 
     if (isNaN(value)) {
       return undefined;
-    } else {
-      return value;
     }
+    return value;
   }
 };
 

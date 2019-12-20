@@ -57,7 +57,8 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
         if (row.render != null) {
           // If a custom render method was specified on the row, we use that.
           return row.render(value, appConfig);
-        } else if (row.heading != null) {
+        }
+        if (row.heading != null) {
           // If the row is a heading, we render the heading.
           return (
             <ConfigurationMapHeading key={reactKey} level={row.headingLevel}>

@@ -172,7 +172,7 @@ describe("DOMUtils", () => {
       thisDateNow = Date.now;
       // Will return 0, 15, 30, 45, 60, etc.
       // adding setTimeout call time each time
-      var now = -15;
+      let now = -15;
       Date.now = () => {
         now += 15;
 

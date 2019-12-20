@@ -198,7 +198,7 @@ const SystemLogActions = {
       nodeID,
       // Avoiding duplicate events by using read reverse (stream backwards).
       // Connection will close all events are received or have reached the top
-      Object.assign(options, { read_reverse: true }),
+      { ...options, read_reverse: true },
       false
     );
     // NB: User can pass `subscriptionID` to associate it with their local data

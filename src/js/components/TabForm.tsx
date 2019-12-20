@@ -74,11 +74,10 @@ class TabForm extends React.Component {
       this.props.onSubmit(this.model);
 
       return this.model;
-    } else {
-      this.props.onError();
-
-      return false;
     }
+    this.props.onError();
+
+    return false;
   }
 
   buildModel() {
