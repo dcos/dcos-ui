@@ -36,7 +36,7 @@ const babelLoader = {
 
 module.exports = {
   devServer,
-  entry: "./src/js/index.jsx",
+  entry: "./src/js/index.tsx",
   output: {
     filename: "[name].[hash].js",
     chunkFilename: "[name].[chunkhash].bundle.js"
