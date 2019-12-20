@@ -138,9 +138,8 @@ const StringUtil = {
     if (length === 1) {
       if (options.wrapValueFunction) {
         return options.wrapValueFunction(array[0], 0);
-      } else {
-        return array[0];
       }
+      return array[0];
     }
 
     if (length === 2) {
@@ -150,9 +149,8 @@ const StringUtil = {
           conjunction,
           options.wrapValueFunction(array[1], 1)
         ];
-      } else {
-        return array.join(conjunction);
       }
+      return array.join(conjunction);
     }
 
     const head = array.slice(0, -1);
@@ -176,9 +174,8 @@ const StringUtil = {
       jsx.push(options.wrapValueFunction(tail, "tail"));
 
       return jsx;
-    } else {
-      return head.join(", ") + conjunction + tail;
     }
+    return head.join(", ") + conjunction + tail;
   },
 
   parseMarkdown(text) {

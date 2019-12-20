@@ -278,9 +278,8 @@ class ServicesTable extends React.Component {
     if (data.length === 0) {
       if (this.props.isFiltered === false) {
         return <Loader />;
-      } else {
-        return <div>No data.</div>;
       }
+      return <div>No data.</div>;
     }
     const sortedGroups = this.sortGroupsOnTop(data);
 

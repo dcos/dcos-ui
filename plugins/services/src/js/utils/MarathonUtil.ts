@@ -180,13 +180,7 @@ function parsePod(pod) {
 }
 
 const MarathonUtil = {
-  parseGroups({
-    id = "/",
-    groups = [],
-    apps = [],
-    pods = [],
-    enforceRole = undefined
-  }) {
+  parseGroups({ id = "/", groups = [], apps = [], pods = [], enforceRole }) {
     if (id !== "/" && (!id.startsWith("/") || id.endsWith("/"))) {
       throw new Error(
         `Id (${id}) must start with a leading slash ("/") ` +

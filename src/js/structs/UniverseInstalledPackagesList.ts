@@ -28,9 +28,8 @@ class UniverseInstalledPackagesList extends List {
     this.list = this.list.map(item => {
       if (item instanceof UniversePackage) {
         return item;
-      } else {
-        return new UniversePackage(item);
       }
+      return new UniversePackage(item);
     });
   }
 }

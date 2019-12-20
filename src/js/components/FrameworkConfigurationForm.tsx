@@ -157,7 +157,7 @@ class FrameworkConfigurationForm extends React.Component {
         if (uiSchema[tabName] == null) {
           uiSchema[tabName] = {};
         }
-        uiSchema[tabName]["classNames"] = "hidden";
+        uiSchema[tabName].classNames = "hidden";
       }
     });
 

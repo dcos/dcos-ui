@@ -112,16 +112,15 @@ const NodesGridDials = createReactClass({
           </span>
         ]
       };
-    } else {
-      return {
-        data: this.getInactiveSliceData(),
-        description: (
-          <span className="error">
-            <Icon shape={SystemIcons.Yield} color={greyDark} />
-          </span>
-        )
-      };
     }
+    return {
+      data: this.getInactiveSliceData(),
+      description: (
+        <span className="error">
+          <Icon shape={SystemIcons.Yield} color={greyDark} />
+        </span>
+      )
+    };
   },
 
   getDials() {

@@ -1,6 +1,6 @@
 import { getTasksAction, taskAddedAction, taskUpdatedAction } from "../tasks";
 
-var message = require("./fixtures/getTasksMessage.json");
+const message = require("./fixtures/getTasksMessage.json");
 
 describe("tasks parser", () => {
   describe("#getTasksAction", () => {

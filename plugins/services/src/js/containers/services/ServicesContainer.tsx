@@ -101,9 +101,8 @@ function i18nTranslate(id, values) {
   const i18n = container.get(TYPES.I18n);
   if (i18n) {
     return i18n._(id, values);
-  } else {
-    return id;
   }
+  return id;
 }
 
 /**
@@ -236,7 +235,7 @@ class ServicesContainer extends React.Component {
 
   propsToState(props) {
     const itemId = decodeURIComponent(props.params.id || "/");
-    const filterQuery = props.location.query["q"] || "";
+    const filterQuery = props.location.query.q || "";
 
     this.setState({
       filterExpression: new DSLExpression(filterQuery),

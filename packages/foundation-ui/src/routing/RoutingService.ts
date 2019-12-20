@@ -81,7 +81,8 @@ class RoutingService extends EventEmitter {
 
     if (existingPage && existingPage.component === component) {
       return;
-    } else if (existingPage) {
+    }
+    if (existingPage) {
       return throwError(new Error(`Attempt to override a page at ${path}!`));
     }
 
@@ -122,7 +123,8 @@ class RoutingService extends EventEmitter {
 
     if (existingTab && existingTab.component === component) {
       return;
-    } else if (existingTab) {
+    }
+    if (existingTab) {
       return throwError(
         new Error(`Attempt to override a tab at ${pagePath}/${tabPath}!`)
       );
@@ -152,7 +154,8 @@ class RoutingService extends EventEmitter {
 
     if (existingRedirect && existingRedirect.to === to) {
       return;
-    } else if (existingRedirect) {
+    }
+    if (existingRedirect) {
       return throwError(
         new Error(
           `Attempt to override Redirect of ${path} from ${existingRedirect.to} to ${to}!`

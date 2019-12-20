@@ -34,10 +34,10 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     let renderKeys = {};
     Object.keys(formData).forEach(key => {
       renderKeys[key] = StringUtil.capitalizeEveryWord(key);
-      renderKeys = Object.assign(
-        renderKeys,
-        this.getHashMapRenderKeys(formData[key])
-      );
+      renderKeys = {
+        ...renderKeys,
+        ...this.getHashMapRenderKeys(formData[key])
+      };
     });
 
     return renderKeys;

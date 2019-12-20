@@ -72,9 +72,11 @@ const ServiceSpecUtil = {
   setServiceInstances(spec, instancesCount) {
     if (spec instanceof PodSpec) {
       return ServiceSpecUtil.setPodInstances(spec, instancesCount);
-    } else if (spec instanceof FrameworkSpec) {
+    }
+    if (spec instanceof FrameworkSpec) {
       return ServiceSpecUtil.setFrameworkInstances(spec, instancesCount);
-    } else if (spec instanceof ApplicationSpec) {
+    }
+    if (spec instanceof ApplicationSpec) {
       return ServiceSpecUtil.setApplicationInstances(spec, instancesCount);
     }
   }

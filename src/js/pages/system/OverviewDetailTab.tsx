@@ -245,9 +245,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getMesosBuildUser(mesosBuildUser) {
     if (isEmpty(mesosBuildUser)) {
       return null;
-    } else {
-      return <Trans render="span">by {mesosBuildUser}</Trans>;
     }
+    return <Trans render="span">by {mesosBuildUser}</Trans>;
   }
 
   /**

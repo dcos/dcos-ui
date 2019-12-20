@@ -180,7 +180,7 @@ function containersParser(state) {
         // Thus we need to delete the field from the ADD_ITEM value so that
         // JSONReducer isn't confused by it
         const endpointProtocol = endpoint.protocol;
-        delete endpoint["protocol"];
+        delete endpoint.protocol;
 
         memo = memo.concat([
           new Transaction(

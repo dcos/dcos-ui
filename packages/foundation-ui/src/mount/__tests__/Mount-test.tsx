@@ -62,7 +62,7 @@ describe("Mount", () => {
 
   it("always wraps elements if configured", () => {
     const result = shallow(
-      <Mount type="foo" alwaysWrap>
+      <Mount type="foo" alwaysWrap={true}>
         <span>foo</span>
       </Mount>
     );

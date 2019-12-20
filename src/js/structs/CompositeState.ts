@@ -89,7 +89,7 @@ class CompositeState {
     }
 
     if (this.masterInfo) {
-      newData["master_info"] = this.masterInfo;
+      newData.master_info = this.masterInfo;
     }
     this.data = newData;
 

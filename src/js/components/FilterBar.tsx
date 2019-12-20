@@ -21,9 +21,8 @@ class FilterBar extends React.PureComponent {
   getFilterBarRight(filterItems, rightAlignCount) {
     if (rightAlignCount === 0) {
       return null;
-    } else {
-      filterItems = filterItems.slice(rightAlignCount * -1);
     }
+    filterItems = filterItems.slice(rightAlignCount * -1);
 
     return (
       <div className={this.props.rightChildrenClass}>

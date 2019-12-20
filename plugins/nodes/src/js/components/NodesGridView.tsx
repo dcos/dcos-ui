@@ -110,7 +110,7 @@ export default class NodesGridView extends React.PureComponent<
         <div className={classSet}>{this.getServicesList()}</div>
         <React.Suspense fallback={<Loader />}>
           <NodesGridDials
-            hosts={(hosts as any).getItems()}
+            hosts={hosts.getItems()}
             resourcesByFramework={resourcesByFramework}
             selectedResource={selectedResource}
             serviceColors={serviceColors}

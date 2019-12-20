@@ -154,13 +154,12 @@ class ActionsModal extends mixin(StoreMixin) {
           {actionText.actionPhrase} <strong>{selectedItemsString}</strong>.
         </p>
       );
-    } else {
-      return (
-        <p>
-          <strong>{selectedItemsString}</strong> {actionText.actionPhrase}.
-        </p>
-      );
     }
+    return (
+      <p>
+        <strong>{selectedItemsString}</strong> {actionText.actionPhrase}.
+      </p>
+    );
   }
 
   getDropdown(itemType) {
@@ -213,14 +212,13 @@ class ActionsModal extends mixin(StoreMixin) {
               {error}
             </p>
           );
-        } else {
-          return (
-            <p className="text-error-state" key={index}>
-              <Badge appearance="danger">{`${repeatTimes}x`}</Badge>
-              {` ${error}`}
-            </p>
-          );
         }
+        return (
+          <p className="text-error-state" key={index}>
+            <Badge appearance="danger">{`${repeatTimes}x`}</Badge>
+            {` ${error}`}
+          </p>
+        );
       });
 
       // Only show 5 first errors

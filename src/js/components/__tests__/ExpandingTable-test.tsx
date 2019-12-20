@@ -27,7 +27,7 @@ describe("ExpandingTable", () => {
 
         instance.expandRow(thisRows[0]);
 
-        expect(instance.state.expandedRows["foo"]).toBeTruthy();
+        expect(instance.state.expandedRows.foo).toBeTruthy();
       });
 
       it("removes a row from state.expandedRows if expanded", () => {
@@ -39,7 +39,7 @@ describe("ExpandingTable", () => {
         instance.expandRow(thisRows[0]);
         instance.expandRow(thisRows[0]);
 
-        expect(instance.state.expandedRows["foo"]).toBeFalsy();
+        expect(instance.state.expandedRows.foo).toBeFalsy();
       });
 
       it("allows multiple rows in state.expandedRows", () => {
@@ -51,8 +51,8 @@ describe("ExpandingTable", () => {
         instance.expandRow(thisRows[0]);
         instance.expandRow(thisRows[1]);
 
-        expect(instance.state.expandedRows["foo"]).toBeTruthy();
-        expect(instance.state.expandedRows["bar"]).toBeTruthy();
+        expect(instance.state.expandedRows.foo).toBeTruthy();
+        expect(instance.state.expandedRows.bar).toBeTruthy();
       });
 
       it("expands all rows on mount when expandRowsByDefault is true", () => {
@@ -65,14 +65,14 @@ describe("ExpandingTable", () => {
           thisContainer
         );
 
-        expect(instance.state.expandedRows["foo"]).toBeTruthy();
-        expect(instance.state.expandedRows["bar"]).toBeTruthy();
+        expect(instance.state.expandedRows.foo).toBeTruthy();
+        expect(instance.state.expandedRows.bar).toBeTruthy();
 
         instance.expandRow(thisRows[0]);
         instance.expandRow(thisRows[1]);
 
-        expect(instance.state.expandedRows["foo"]).toBeFalsy();
-        expect(instance.state.expandedRows["bar"]).toBeFalsy();
+        expect(instance.state.expandedRows.foo).toBeFalsy();
+        expect(instance.state.expandedRows.bar).toBeFalsy();
       });
     });
 

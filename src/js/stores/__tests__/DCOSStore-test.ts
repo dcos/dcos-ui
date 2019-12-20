@@ -788,7 +788,7 @@ describe("DCOSStore", () => {
       });
 
       const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
-      expect(flatTree["bananas"]).toEqual({
+      expect(flatTree.bananas).toEqual({
         healthCheckResults: [{ alive: true }],
         version: "1.0"
       });

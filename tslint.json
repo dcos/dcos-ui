@@ -3,7 +3,9 @@
   "extends": [
     "tslint:recommended",
     "tslint-consistent-codestyle",
-    "tslint-config-prettier"
+    "tslint-config-prettier",
+    "tslint-react",
+    "tslint-react-hooks"
   ],
   "jsRules": {
     "object-literal-sort-keys": false
@@ -21,20 +23,14 @@
       "severity": "off"
     },
     "no-console": false,
-    "no-shadowed-variable": {
-      "severity": "off"
-    },
+    "no-shadowed-variable": true,
     "no-unnecessary-else": true,
-    "no-unnecessary-type-assertion": {
-      "severity": "off"
-    },
+    "no-unnecessary-type-assertion": true,
     "no-unsafe-any": {
       "severity": "off"
     },
     "no-var-before-return": true,
-    "no-var-requires": {
-      "severity": "off"
-    },
+    "no-var-requires": true,
     "object-literal-sort-keys": {
       "severity": "off"
     },
@@ -43,6 +39,7 @@
     "prefer-const": true,
     "prefer-object-spread": true,
     "prefer-readonly": true,
+    "react-hooks-nesting": "error",
     "unnecessary-bind": true,
     "unnecessary-else": true,
     "variable-name": false

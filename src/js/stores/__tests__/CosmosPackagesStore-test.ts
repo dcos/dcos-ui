@@ -90,8 +90,8 @@ describe("CosmosPackagesStore", () => {
         });
 
         const packageImages = CosmosPackagesStore.getPackageImages();
-        expect(packageImages["gid"]).toEqual("foo");
-        expect(packageImages["bar"]).toEqual("baz");
+        expect(packageImages.gid).toEqual("foo");
+        expect(packageImages.bar).toEqual("baz");
       });
 
       it("dispatches the correct event upon success", () => {
@@ -385,8 +385,8 @@ describe("CosmosPackagesStore", () => {
         });
 
         const serviceDetails = CosmosPackagesStore.getServiceDetails();
-        expect(serviceDetails["gid"]).toEqual("foo");
-        expect(serviceDetails["bar"]).toEqual("baz");
+        expect(serviceDetails.gid).toEqual("foo");
+        expect(serviceDetails.bar).toEqual("baz");
       });
 
       it("dispatches the correct event upon success", () => {

@@ -82,7 +82,7 @@ const JestUtil = {
 
       getChildContext() {
         return {
-          router: Object.assign(RouterStub, routerStubs),
+          router: { ...RouterStub, ...routerStubs },
           routeDepth: 0,
           ...context
         };

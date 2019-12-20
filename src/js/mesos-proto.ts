@@ -18,8 +18,7 @@
 import * as $protobuf from "protobufjs/light";
 
 const $root = (
-  $protobuf.roots["default"] ||
-  ($protobuf.roots["default"] = new $protobuf.Root())
+  $protobuf.roots.default || ($protobuf.roots.default = new $protobuf.Root())
 ).addJSON({
   google: {
     nested: {

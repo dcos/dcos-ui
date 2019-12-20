@@ -37,9 +37,8 @@ function i18nTranslate(id, values) {
   const i18n = container.get(TYPES.I18n);
   if (i18n) {
     return i18n._(id, values);
-  } else {
-    return id;
   }
+  return id;
 }
 
 class ServiceDestroyModal extends React.PureComponent {

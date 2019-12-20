@@ -86,9 +86,8 @@ export function getResourceLabel(resource) {
   // otherwise we only capitalize the first letter.
   if (resource.length <= 3) {
     return resource.toUpperCase();
-  } else {
-    return StringUtil.capitalize(resource.toLowerCase());
   }
+  return StringUtil.capitalize(resource.toLowerCase());
 }
 
 export function getResourceLabels() {
