@@ -54,15 +54,11 @@ fi
 
 if [ -n "${staged_typescript_files}" ]
 then
-  header "Lint staged TypeScript files..."
-  npm run lint:ts --silent -- ${staged_typescript_files} || exit $?
-
-  header "Check types..."
-  npx tsc || exit $?
-
   header "Running tests..."
-  npm run test --silent -- --findRelatedTests \
-      ${staged_typescript_files} || exit $?
+  npm run test -- --findRelatedTests ${staged_typescript_files} \
+    src/js/__tests__/tslint-test.ts \
+    src/js/__tests__/typecheck-test.ts || exit $?
+
   info "Staged TypeScript looks good"
 fi
 

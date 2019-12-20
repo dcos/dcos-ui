@@ -34,7 +34,8 @@
       "#SRC/*": ["src/*"],
       "#LOCALE/*": ["locale/*"],
       "#EXTERNAL_PLUGINS/*": ["plugins-ee/*"],
-      "#PLUGINS/*": ["plugins/*"]
+      "#PLUGINS/*": ["plugins/*"],
+      "#PLUGINS": ["plugins/index"]
     }
   },
   "include": [
