@@ -30,6 +30,8 @@
       "@dcos/mesos-client": ["src/typings/dcos__mesos-client"],
       "@extension-kid/core": ["node_modules/@extension-kid/core"],
       "@extension-kid/*": ["packages/@extension-kid/*"],
+      "PluginSDK": ["./src/js/plugin-bridge/PluginSDK"],
+      "PluginTestUtils": ["./src/js/plugin-bridge/PluginTestUtils"],
       "*": ["*", "packages/*", "src/typings/*"],
       "#SRC/*": ["src/*"],
       "#LOCALE/*": ["locale/*"],

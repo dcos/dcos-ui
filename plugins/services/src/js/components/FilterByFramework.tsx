@@ -2,8 +2,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import createReactClass from "create-react-class";
 import { Dropdown } from "reactjs-components";
-import { Trans } from "@lingui/macro";
-import { i18nMark } from "@lingui/react";
+import { i18nMark, Trans } from "@lingui/react";
 
 import { Badge } from "@dcos/ui-kit";
 import Framework from "../structs/Framework";
@@ -77,7 +76,7 @@ const FilterByService = createReactClass({
       }
 
       if (frameworkId === defaultId) {
-        item.selectedHtml = <Trans render="span">Filter by Framework</Trans>;
+        item.selectedHtml = <Trans render="span" id="Filter by Framework" />;
       }
 
       return item;

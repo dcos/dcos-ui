@@ -1,6 +1,6 @@
 import { Link, formatPattern } from "react-router";
 import * as React from "react";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react";
 
 const BreadcrumbSegmentLink = ({ label, route, className, onClick }) => {
   if (route) {

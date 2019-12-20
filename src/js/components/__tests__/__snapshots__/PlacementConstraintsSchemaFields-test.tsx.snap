@@ -17,9 +17,7 @@ exports[`PlacementConstraintsSchemaField with invalid content displays form to e
   >
     <span
       className={undefined}
-    >
-      Unable to edit {0}
-    </span>
+    />
   </p>
 </div>
 `;
@@ -31,9 +29,7 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
   <h2>
     <span
       className={undefined}
-    >
-      Placement Constraints
-    </span>
+    />
      
     
     <div
@@ -92,9 +88,7 @@ exports[`PlacementConstraintsSchemaField with valid content displays edit constr
             <span>
               <span
                 className={undefined}
-              >
-                Add Placement Constraint
-              </span>
+              />
             </span>
           </a>
         </div>
