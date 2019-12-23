@@ -121,7 +121,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                   All
                 </b>
                 <span
-                  className="css-17jd12v"
+                  className="css-iu2at0"
                   data-cy="badge"
                 >
                   <b>
@@ -139,7 +139,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                   Certified
                 </b>
                 <span
-                  className="css-17jd12v"
+                  className="css-iu2at0"
                   data-cy="badge"
                 >
                   <b>
@@ -157,7 +157,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                   Community
                 </b>
                 <span
-                  className="css-17jd12v"
+                  className="css-iu2at0"
                   data-cy="badge"
                 >
                   <b>
@@ -224,7 +224,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -270,7 +270,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -316,7 +316,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -362,7 +362,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -408,7 +408,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -454,7 +454,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -500,7 +500,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -546,7 +546,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
@@ -592,7 +592,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
               className="panel-footer panel-cell panel-cell-narrow flush-top horizontal-center"
             >
               <span
-                className="css-11hyrb9"
+                className="css-1bcogwf"
                 data-cy="badge"
               >
                 Certified
