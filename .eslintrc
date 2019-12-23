@@ -27,7 +27,6 @@
     "jsx-max-len",
     "react",
     "react-hooks",
-    "compat",
     "destructuring"
   ],
 
@@ -50,7 +49,6 @@
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
-    "compat/compat": "error",
     "destructuring/in-methods-params": "off",
     "destructuring/in-params": "off",
     "destructuring/no-rename": "off",
