@@ -8,6 +8,10 @@ test("TypeScript snapshot should be up to date", async () => {
       // error message are // project-relative. on my machine they are absolute.
       // we ignoring those for now.
       .filter((line: string) => !line.includes("has no exported member"))
+      // strip exact error position to reduce noise in the snapshots and detect actual errors more easily:
+      //    src/File.tsx(230,24): error TS7030: Not all code paths return a value.
+      // -> src/File.tsx: error TS7030: Not all code paths return a value.
       .join("\n")
+      .replace(/^(\S*)\(\S*\):/gm, "$1:")
   ).toMatchSnapshot();
 }, 60000);
