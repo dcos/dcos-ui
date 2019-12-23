@@ -9,7 +9,7 @@ describe("Mesos State Store", () => {
   describe("#processSummary", () => {
     beforeEach(() => {
       thisProcessSummaryError = MesosSummaryStore.processSummaryError;
-      MesosSummaryStore.processSummaryError = jest.genMockFunction();
+      MesosSummaryStore.processSummaryError = jest.fn();
       MesosSummaryStore.processSummary({});
     });
 

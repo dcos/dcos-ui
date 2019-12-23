@@ -324,7 +324,7 @@ describe("MesosLogStore", () => {
     });
 
     it("dispatches the correct event upon success", () => {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       MesosLogStore.addChangeListener(EventTypes.MESOS_LOG_CHANGE, mockedFn);
       // Initializing call
       AppDispatcher.handleServerAction({
@@ -345,7 +345,7 @@ describe("MesosLogStore", () => {
     });
 
     it("dispatches the correct event upon error", () => {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       MesosLogStore.addChangeListener(
         EventTypes.MESOS_LOG_REQUEST_ERROR,
         mockedFn

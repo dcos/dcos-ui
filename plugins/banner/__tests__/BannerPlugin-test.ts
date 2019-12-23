@@ -22,8 +22,8 @@ describe("BannerPlugin", () => {
       thisHooks = SDK.Hooks;
 
       SDK.Hooks = {
-        addAction: jest.genMockFunction(),
-        addFilter: jest.genMockFunction()
+        addAction: jest.fn(),
+        addFilter: jest.fn()
       };
 
       BannerPlugin.initialize();

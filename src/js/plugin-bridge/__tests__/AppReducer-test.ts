@@ -48,7 +48,7 @@ describe("AppReducer", () => {
       data: { foo: "bar" }
     });
     // Mock a fake plugin
-    const mockPlugin = jest.genMockFunction().mockImplementation(() => () => ({
+    const mockPlugin = jest.fn(() => () => ({
       foo: "bar"
     }));
 
@@ -88,7 +88,7 @@ describe("AppReducer", () => {
   it("does not alter state if action dispatched from plugin", () => {
     let pluginDispatch;
     // Mock a fake plugin
-    const mockPlugin = jest.genMockFunction().mockImplementation(SDK => {
+    const mockPlugin = jest.fn(SDK => {
       pluginDispatch = SDK.dispatch;
     });
 
