@@ -2557,8 +2557,6 @@ plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is pos
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2322: Type '\\"N/A\\"' is not assignable to type 'null'.
 plugins/services/src/js/utils/FrameworkUtil.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
-plugins/services/src/js/utils/FrameworkUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'number | Date'.
-plugins/services/src/js/utils/FrameworkUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/HostUtil.ts: error TS6133: 'match' is declared but its value is never read.
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2769: No overload matches this call.

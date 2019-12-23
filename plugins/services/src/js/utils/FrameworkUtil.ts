@@ -63,17 +63,9 @@ const FrameworkUtil = {
    * @returns {null | String | React.ReactNode} Null or string or an HTML element saying when was the last update of this package
    */
   getLastUpdated(cosmosPackage) {
-    try {
-      // This looks like magic, but we are only decoding the package configuration into a string,
-      // and then finding the PACKAGE_BUILD_TIME_STR property.
-      return DateUtil.msToUTCDay(
-        window
-          .atob(cosmosPackage.marathon.v2AppMustacheTemplate)
-          .match(/PACKAGE_BUILD_TIME_STR": "(.*)"/)[1]
-      );
-    } catch (_e) {
-      return null;
-    }
+    return cosmosPackage?.lastUpdated
+      ? DateUtil.msToUTCDay(new Date(cosmosPackage.lastUpdated * 1000))
+      : null;
   }
 };
 
