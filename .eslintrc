@@ -45,10 +45,6 @@
     "d3": true
   },
 
-  "extends": [
-    "@dcos"
-  ],
-
   "rules": {
     "prettier/prettier": "off",
     "arrow-parens": "off",
