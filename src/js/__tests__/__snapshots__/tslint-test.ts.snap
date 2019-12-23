@@ -3,445 +3,445 @@
 exports[`tslint snapshot should be up to date 1`] = `
 "
 
-ERROR: /packages/@extension-kid/data-layer/__tests__/dataLayer-test.ts:63:1 - A maximum of 1 class per file is allowed.
-ERROR: /packages/foundation-ui/src/mount/MountService.ts:43:11 - Identifier 'components' is never reassigned; use 'const' instead of 'let'.
-ERROR: /packages/foundation-ui/src/mount/MountService.ts:43:23 - Identifier 'instance' is never reassigned; use 'const' instead of 'let'.
-ERROR: /packages/foundation-ui/src/mount/__tests__/MountService-test.ts:126:34 - block is empty
-ERROR: /packages/foundation-ui/src/mount/__tests__/MountService-test.ts:127:35 - block is empty
-ERROR: /packages/foundation-ui/src/mount/__tests__/MountService-test.ts:128:34 - block is empty
-ERROR: /packages/foundation-ui/src/mount/__tests__/MountService-test.ts:129:35 - block is empty
-ERROR: /packages/foundation-ui/src/mount/__tests__/MountService-test.ts:17:37 - block is empty
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:125:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:125:7 - unnecessary else
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:155:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:155:7 - unnecessary else
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:84:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /packages/foundation-ui/src/routing/RoutingService.ts:84:7 - unnecessary else
-ERROR: /plugins/banner/__tests__/BannerPlugin-test.ts:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx:99:19 - block is empty
-ERROR: /plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts:128:52 - block is empty
-ERROR: /plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts:138:52 - block is empty
-ERROR: /plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts:87:52 - block is empty
-ERROR: /plugins/intercom/__tests__/IntercomPlugin-test.ts:32:38 - block is empty
-ERROR: /plugins/intercom/__tests__/IntercomPlugin-test.ts:8:14 - block is empty
-ERROR: /plugins/jobs/src/js/components/JobsOverviewTable.tsx:180:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/jobs/src/js/components/JobsOverviewTable.tsx:180:9 - unnecessary else
-ERROR: /plugins/jobs/src/js/components/form/helpers/JobParsers.ts:27:1 - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:157:15 - == should be ===
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:302:13 - == should be ===
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:309:12 - != should be !==
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:327:14 - != should be !==
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:334:13 - != should be !==
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:341:14 - != should be !==
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:369:31 - == should be ===
-ERROR: /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts:518:44 - != should be !==
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2106:25 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2155:28 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2205:29 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2252:33 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2295:25 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:2338:28 - block is empty
-ERROR: /plugins/jobs/src/js/data/__tests__/JobModel-test.ts:62:3 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx:383:28 - block is empty
-ERROR: /plugins/nodes/src/js/components/NodesGridDials.tsx:115:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/nodes/src/js/components/NodesGridDials.tsx:115:7 - unnecessary else
-ERROR: /plugins/nodes/src/js/components/NodesTable.tsx:165:3 - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
-ERROR: /plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx:19:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx:11:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx:21:49 - block is empty
-ERROR: /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx:55:33 - block is empty
-ERROR: /plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx:73:14 - block is empty
-ERROR: /plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx:73:14 - block is empty
-ERROR: /plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx:97:40 - object access via string literals is disallowed
-ERROR: /plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx:163:26 - block is empty
-ERROR: /plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx:46:12 - don't declare variable menuItems to return it immediately
-ERROR: /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx:107:10 - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/components/ConfigurationMapTable.tsx:59:5 - Identifier 'columnDefaults' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/ConfigurationMapTable.tsx:60:5 - Identifier 'data' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/ConfigurationMapTable.tsx:61:5 - Identifier 'onEditClick' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/ConfigurationMapTable.tsx:62:5 - Identifier 'tabViewID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/DeploymentsModal.tsx:227:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/components/DeploymentsModal.tsx:227:9 - unnecessary else
-ERROR: /plugins/services/src/js/components/DeploymentsModal.tsx:247:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/components/DeploymentsModal.tsx:247:7 - unnecessary else
-ERROR: /plugins/services/src/js/components/FilterByFramework.tsx:27:28 - block is empty
-ERROR: /plugins/services/src/js/components/LogView.tsx:317:23 - block is empty
-ERROR: /plugins/services/src/js/components/LogView.tsx:318:19 - block is empty
-ERROR: /plugins/services/src/js/components/RecentOffersSummary.tsx:114:18 - Identifier 'offers' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/RecentOffersSummary.tsx:114:9 - Identifier 'matched' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/RecentOffersSummary.tsx:36:3 - Use a conditional expression instead of assigning to 'percentageMatched' in multiple places.
-ERROR: /plugins/services/src/js/components/RecentOffersSummary.tsx:42:3 - Use a conditional expression instead of assigning to 'percentageOffered' in multiple places.
-ERROR: /plugins/services/src/js/components/SearchLog.tsx:63:11 - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/SearchLog.tsx:82:11 - Identifier 'searchString' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/SearchLog.tsx:82:25 - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/TaskDirectoryTable.tsx:215:20 - block is empty
-ERROR: /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx:171:28 - block is empty
-ERROR: /plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx:10:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/components/__tests__/LogView-test.tsx:8:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx:13:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx:17:3 - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/__tests__/ServiceList-test.tsx:10:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx:66:41 - object access via string literals is disallowed
-ERROR: /plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx:74:14 - block is empty
-ERROR: /plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx:84:14 - block is empty
-ERROR: /plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx:74:14 - block is empty
-ERROR: /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx:272:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx:273:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx:263:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx:264:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx:299:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx:300:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx:469:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx:470:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx:548:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx:549:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx:533:21 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx:534:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx:535:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx:698:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx:699:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx:342:21 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx:343:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx:344:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/NetworkingFormSection.tsx:604:12 - don't declare variable selections to return it immediately
-ERROR: /plugins/services/src/js/components/forms/NetworkingFormSection.tsx:782:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/NetworkingFormSection.tsx:783:18 - block is empty
-ERROR: /plugins/services/src/js/components/forms/VolumesFormSection.tsx:472:15 - block is empty
-ERROR: /plugins/services/src/js/components/forms/VolumesFormSection.tsx:473:18 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx:133:14 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx:134:20 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx:135:22 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx:60:5 - Use a conditional expression instead of assigning to 'newObject' in multiple places.
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModal.tsx:915:12 - don't declare variable newState to return it immediately
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx:134:21 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx:135:20 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx:914:21 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx:916:14 - block is empty
-ERROR: /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx:917:24 - block is empty
-ERROR: /plugins/services/src/js/components/modals/KillPodInstanceModal.tsx:172:27 - block is empty
-ERROR: /plugins/services/src/js/components/modals/KillPodInstanceModal.tsx:56:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/KillTaskModal.tsx:169:20 - block is empty
-ERROR: /plugins/services/src/js/components/modals/KillTaskModal.tsx:55:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/ServiceDestroyModal.tsx:40:5 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/components/modals/ServiceDestroyModal.tsx:40:5 - unnecessary else
-ERROR: /plugins/services/src/js/components/modals/ServiceDestroyModal.tsx:88:48 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/ServiceRestartModal.tsx:47:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/ServiceResumeModal.tsx:61:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx:48:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/components/modals/ServiceStopModal.tsx:47:35 - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx:205:5 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/containers/pod-detail/PodHeader.tsx:176:15 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-detail/PodHeader.tsx:177:12 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-detail/PodHeader.tsx:178:13 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-detail/PodHeader.tsx:179:12 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-detail/PodHeader.tsx:93:12 - don't declare variable actionButtons to return it immediately
-ERROR: /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx:272:12 - don't declare variable children to return it immediately
-ERROR: /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx:528:22 - Identifier 'pod' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx:528:27 - Identifier 'filterText' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx:564:23 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx:191:28 - block is empty
-ERROR: /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx:14:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx:60:47 - block is empty
-ERROR: /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx:53:44 - block is empty
-ERROR: /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx:288:5 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx:138:17 - Forbidden constructor, use a literal or simple function call instead
-ERROR: /plugins/services/src/js/containers/service-detail/ServiceDetail.tsx:314:16 - block is empty
-ERROR: /plugins/services/src/js/containers/services/ServiceTreeView.tsx:268:30 - block is empty
-ERROR: /plugins/services/src/js/containers/services/ServicesContainer.tsx:104:5 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/containers/services/ServicesContainer.tsx:104:5 - unnecessary else
-ERROR: /plugins/services/src/js/containers/services/ServicesContainer.tsx:239:46 - object access via string literals is disallowed
-ERROR: /plugins/services/src/js/containers/services/ServicesTable.tsx:269:3 - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/containers/services/ServicesTable.tsx:281:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/containers/services/ServicesTable.tsx:281:9 - unnecessary else
-ERROR: /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx:15:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx:20:47 - block is empty
-ERROR: /plugins/services/src/js/containers/tasks/TasksContainer.tsx:120:38 - object access via string literals is disallowed
-ERROR: /plugins/services/src/js/containers/tasks/TasksView.tsx:148:36 - block is empty
-ERROR: /plugins/services/src/js/containers/tasks/TasksView.tsx:149:33 - block is empty
-ERROR: /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx:14:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx:14:20 - Identifier 'thisGetNodeFromID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/events/TaskDirectoryActions.ts:15:3 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts:9:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx:28:23 - Identifier 'frameworkID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx:28:61 - Identifier 'id' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts:17:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts:39:47 - block is empty
-ERROR: /plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts:15:1 - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts:82:9 - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
-ERROR: /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts:8:1 - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts:46:22 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts:4:1 - The function FormReducer has a cyclomatic complexity of 21 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:183:25 - object access via string literals is disallowed
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:31:7 - Identifier 'name' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:32:7 - Identifier 'networkNames' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:330:1 - The function JSONReducer has a cyclomatic complexity of 39 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:34:7 - Identifier 'containerPort' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:35:7 - Identifier 'automaticPort' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:37:7 - Identifier 'vipLabel' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:38:7 - Identifier 'vipPort' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts:81:34 - The function has a cyclomatic complexity of 21 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts:133:9 - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts:41:1 - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Networks.ts:68:10 - don't declare variable transactions to return it immediately
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortDefinitionsReducer.ts:64:13 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts:58:1 - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts:61:7 - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
-ERROR: /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts:20:1 - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts:63:21 - != should be !==
-ERROR: /plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx:87:9 - Use a conditional expression instead of assigning to 'type' in multiple places.
-ERROR: /plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx:60:11 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx:60:11 - unnecessary else
-ERROR: /plugins/services/src/js/stores/MarathonStore.ts:179:28 - The function has a cyclomatic complexity of 37 which is higher than the threshold of 20
-ERROR: /plugins/services/src/js/stores/MarathonStore.ts:468:14 - object access via string literals is disallowed
-ERROR: /plugins/services/src/js/stores/MarathonStore.ts:576:11 - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/stores/MesosLogStore.ts:245:12 - don't declare variable logBuffer to return it immediately
-ERROR: /plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts:14:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/structs/LogBuffer.ts:44:5 - Use a conditional expression instead of assigning to 'start' in multiple places.
-ERROR: /plugins/services/src/js/structs/ServiceTree.ts:139:5 - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
-ERROR: /plugins/services/src/js/structs/ServiceTree.ts:32:41 - == should be ===
-ERROR: /plugins/services/src/js/structs/__tests__/LogBuffer-test.ts:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/structs/__tests__/ServiceEndpoint-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/utils/DeclinedOffersUtil.ts:211:19 - Identifier 'name' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/utils/DeclinedOffersUtil.ts:211:25 - Identifier 'role' is never reassigned; use 'const' instead of 'let'.
-ERROR: /plugins/services/src/js/utils/MarathonUtil.ts:188:5 - Unnecessary initialization to 'undefined'.
-ERROR: /plugins/services/src/js/utils/ServiceSpecUtil.ts:75:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/utils/ServiceSpecUtil.ts:75:7 - unnecessary else
-ERROR: /plugins/services/src/js/utils/ServiceSpecUtil.ts:77:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /plugins/services/src/js/utils/TaskUtil.ts:155:12 - don't declare variable node to return it immediately
-ERROR: /plugins/services/src/js/utils/__tests__/FrameworkUtil-test.ts:5:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/services/src/js/utils/__tests__/PodUtil-test.ts:120:9 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /plugins/services/src/js/utils/__tests__/TaskTableUtil-test.ts:4:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /plugins/tracking/__tests__/TrackingPlugin-test.ts:25:38 - block is empty
-ERROR: /plugins/tracking/__tests__/TrackingPlugin-test.ts:8:14 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:127:11 - Identifier 'calls' is never reassigned; use 'const' instead of 'var'.
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:127:7 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:17:10 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:18:11 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:38:38 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:6:14 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:8:11 - block is empty
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:94:11 - Identifier 'calls' is never reassigned; use 'const' instead of 'var'.
-ERROR: /plugins/tracking/actions/__tests__/Actions-test.ts:94:7 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /src/js/components/CollapsingString.tsx:63:5 - Use a conditional expression instead of assigning to 'parent' in multiple places.
-ERROR: /src/js/components/DSLFilterField.tsx:139:14 - block is empty
-ERROR: /src/js/components/DSLFormDropdownPanel.tsx:110:14 - block is empty
-ERROR: /src/js/components/DSLFormDropdownPanel.tsx:111:13 - block is empty
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:112:7 - Identifier 'groupCombiner' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:113:7 - Identifier 'itemCombiner' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:114:7 - Identifier 'parts' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:115:7 - Identifier 'updatePolicy' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:235:14 - block is empty
-ERROR: /src/js/components/DSLFormWithExpressionUpdates.tsx:236:14 - block is empty
-ERROR: /src/js/components/DSLInputField.tsx:281:14 - block is empty
-ERROR: /src/js/components/DSLInputField.tsx:282:12 - block is empty
-ERROR: /src/js/components/DSLInputField.tsx:283:21 - block is empty
-ERROR: /src/js/components/DSLInputField.tsx:284:13 - block is empty
-ERROR: /src/js/components/ExpandingTable.tsx:60:5 - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.
-ERROR: /src/js/components/FilterBar.tsx:24:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/FilterBar.tsx:24:7 - unnecessary else
-ERROR: /src/js/components/FilterButtons.tsx:29:7 - Identifier 'filterByKey' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterButtons.tsx:30:7 - Identifier 'filters' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterButtons.tsx:31:7 - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterButtons.tsx:33:7 - Identifier 'selectedFilter' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterButtons.tsx:75:20 - block is empty
-ERROR: /src/js/components/FilterHeadline.tsx:26:7 - Identifier 'className' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterHeadline.tsx:27:7 - Identifier 'currentLength' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterHeadline.tsx:28:7 - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterHeadline.tsx:29:7 - Identifier 'isFiltering' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FilterHeadline.tsx:31:7 - Identifier 'totalLength' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/FormModal.tsx:162:14 - block is empty
-ERROR: /src/js/components/FormModal.tsx:163:13 - block is empty
-ERROR: /src/js/components/FormModal.tsx:17:32 - block is empty
-ERROR: /src/js/components/FormModal.tsx:73:33 - block is empty
-ERROR: /src/js/components/FrameworkConfigurationForm.tsx:160:27 - object access via string literals is disallowed
-ERROR: /src/js/components/FrameworkConfigurationForm.tsx:421:20 - block is empty
-ERROR: /src/js/components/FrameworkConfigurationReviewScreen.tsx:37:20 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/components/JSONEditor.tsx:514:12 - block is empty
-ERROR: /src/js/components/JSONEditor.tsx:515:14 - block is empty
-ERROR: /src/js/components/JSONEditor.tsx:516:24 - block is empty
-ERROR: /src/js/components/JSONEditor.tsx:517:13 - block is empty
-ERROR: /src/js/components/JSONEditor.tsx:518:22 - block is empty
-ERROR: /src/js/components/Modals.tsx:160:17 - block is empty
-ERROR: /src/js/components/PlacementConstraintsSchemaField.tsx:153:14 - block is empty
-ERROR: /src/js/components/ProgressBar.tsx:91:24 - Identifier 'style' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/ResourceSwitchDropdown.tsx:48:12 - don't declare variable menuItems to return it immediately
-ERROR: /src/js/components/ServerErrorModal.tsx:56:7 - Throwing plain strings (not instances of Error) gives no stack traces
-ERROR: /src/js/components/SideTabs.tsx:108:16 - block is empty
-ERROR: /src/js/components/TabForm.tsx:225:22 - block is empty
-ERROR: /src/js/components/TabForm.tsx:226:14 - block is empty
-ERROR: /src/js/components/TabForm.tsx:227:13 - block is empty
-ERROR: /src/js/components/TabForm.tsx:228:14 - block is empty
-ERROR: /src/js/components/TabForm.tsx:229:16 - block is empty
-ERROR: /src/js/components/TabForm.tsx:31:32 - block is empty
-ERROR: /src/js/components/TabForm.tsx:77:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/TabForm.tsx:77:7 - unnecessary else
-ERROR: /src/js/components/__tests__/Authenticated-test.tsx:11:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/ClickToSelect-test.tsx:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:11:32 - block is empty
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:30:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:42:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:54:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:55:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:68:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:69:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:74:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:75:44 - object access via string literals is disallowed
-ERROR: /src/js/components/__tests__/ExpandingTable-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/FilterButtons-test.tsx:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/Panel-test.tsx:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx:9:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/ServerErrorModal-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/SideTabs-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/TabButton-test.tsx:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/TabButtonList-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/__tests__/Tabs-test.tsx:10:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/charts/Chart.tsx:73:11 - Identifier 'width' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/components/charts/Chart.tsx:88:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/charts/Chart.tsx:88:9 - unnecessary else
-ERROR: /src/js/components/charts/ResourceTimeSeriesChart.tsx:44:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/charts/ResourceTimeSeriesChart.tsx:44:7 - unnecessary else
-ERROR: /src/js/components/charts/__tests__/TasksChart-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/charts/__tests__/TimeSeriesArea-test.tsx:28:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/charts/__tests__/TimeSeriesChart-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/form/AdvancedSection.tsx:21:3 - Declaration of public static method not allowed after declaration of constructor. Instead, this should come at the beginning of the class/interface.
-ERROR: /src/js/components/form/AdvancedSection.tsx:24:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/form/AdvancedSection.tsx:24:7 - unnecessary else
-ERROR: /src/js/components/modals/ActionsModal.tsx:157:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/modals/ActionsModal.tsx:157:7 - unnecessary else
-ERROR: /src/js/components/modals/ActionsModal.tsx:216:11 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/components/modals/ActionsModal.tsx:216:11 - unnecessary else
-ERROR: /src/js/components/modals/__tests__/CliInstallModal-test.tsx:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/components/modals/__tests__/CliInstallModal-test.tsx:59:26 - block is empty
-ERROR: /src/js/components/modals/__tests__/CliInstallModal-test.tsx:71:26 - block is empty
-ERROR: /src/js/components/modals/__tests__/ErrorModal-test.tsx:7:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/events/SystemLogActions.ts:106:27 - Identifier 'cursor' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/events/SystemLogActions.ts:106:35 - Identifier 'skip_prev' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/events/SystemLogActions.ts:196:11 - Identifier 'limit' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/events/SystemLogActions.ts:201:7 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/events/VirtualNetworksActions.ts:15:25 - Identifier 'vtep_mac_oui' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/events/VirtualNetworksActions.ts:15:39 - Identifier 'vtep_subnet' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/events/__tests__/SystemLogActions-test.ts:9:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/index.tsx:42:19 - non-arrow functions are forbidden
-ERROR: /src/js/mesos-proto.ts:21:19 - object access via string literals is disallowed
-ERROR: /src/js/mesos-proto.ts:22:20 - object access via string literals is disallowed
-ERROR: /src/js/pages/DashboardPage.tsx:239:46 - object access via string literals is disallowed
-ERROR: /src/js/pages/DashboardPage.tsx:256:46 - object access via string literals is disallowed
-ERROR: /src/js/pages/DashboardPage.tsx:273:46 - object access via string literals is disallowed
-ERROR: /src/js/pages/DashboardPage.tsx:290:46 - object access via string literals is disallowed
-ERROR: /src/js/pages/Index.tsx:125:24 - block is empty
-ERROR: /src/js/pages/catalog/PackageDetailTab.tsx:307:14 - don't declare variable item to return it immediately
-ERROR: /src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx:14:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/pages/catalog/__tests__/PackagesTab-test.tsx:29:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/pages/catalog/__tests__/PackagesTab-test.tsx:97:58 - block is empty
-ERROR: /src/js/pages/system/OrganizationTab.tsx:364:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/pages/system/OrganizationTab.tsx:364:7 - unnecessary else
-ERROR: /src/js/pages/system/OrganizationTab.tsx:437:18 - Identifier 'itemID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/pages/system/OverviewDetailTab.tsx:152:5 - Use a conditional expression instead of assigning to 'ccid' in multiple places.
-ERROR: /src/js/pages/system/OverviewDetailTab.tsx:248:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/pages/system/OverviewDetailTab.tsx:248:7 - unnecessary else
-ERROR: /src/js/plugin-bridge/PluginSDK.ts:63:5 - Use a conditional expression instead of assigning to 'path' in multiple places.
-ERROR: /src/js/plugin-bridge/PluginTestUtils.ts:90:5 - Use a conditional expression instead of assigning to 'path' in multiple places.
-ERROR: /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts:5:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/plugin-bridge/__tests__/Hooks-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/plugin-bridge/__tests__/PluginSDK-test.ts:9:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/CosmosPackagesStore.ts:113:28 - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
-ERROR: /src/js/stores/DCOSStore.ts:235:7 - Use a conditional expression instead of assigning to 'id' in multiple places.
-ERROR: /src/js/stores/DCOSStore.ts:253:7 - Use a conditional expression instead of assigning to 'id' in multiple places.
-ERROR: /src/js/stores/DCOSStore.ts:287:11 - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/stores/DCOSStore.ts:424:19 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/stores/DCOSStore.ts:428:37 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/stores/DCOSStore.ts:431:35 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts:3:1 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts:3:5 - Identifier 'message' is never reassigned; use 'const' instead of 'var'.
-ERROR: /src/js/stores/MesosStream/parsers/tasks.ts:50:10 - don't declare variable marathonId to return it immediately
-ERROR: /src/js/stores/SystemLogStore.ts:87:5 - Use a conditional expression instead of assigning to 'newLogData.entries' in multiple places.
-ERROR: /src/js/stores/__tests__/AuthStore-test.ts:15:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/BaseStore-test.ts:18:29 - block is empty
-ERROR: /src/js/stores/__tests__/BaseStore-test.ts:30:29 - block is empty
-ERROR: /src/js/stores/__tests__/CosmosPackagesStore-test.ts:17:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/CosmosPackagesStore-test.ts:388:31 - object access via string literals is disallowed
-ERROR: /src/js/stores/__tests__/CosmosPackagesStore-test.ts:389:31 - object access via string literals is disallowed
-ERROR: /src/js/stores/__tests__/CosmosPackagesStore-test.ts:93:30 - object access via string literals is disallowed
-ERROR: /src/js/stores/__tests__/CosmosPackagesStore-test.ts:94:30 - object access via string literals is disallowed
-ERROR: /src/js/stores/__tests__/DCOSStore-test.ts:791:23 - object access via string literals is disallowed
-ERROR: /src/js/stores/__tests__/MesosStateStore-test.ts:11:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/MesosSummaryStore-test.ts:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/UnitHealthStore-test.ts:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/UserSettingsStore-test.ts:4:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/stores/__tests__/UsersStore-test.ts:12:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/structs/CompositeState.ts:19:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/structs/CompositeState.ts:92:15 - object access via string literals is disallowed
-ERROR: /src/js/structs/DSLASTNodes.ts:35:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/structs/DSLASTNodes.ts:59:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/structs/DSLExpressionPart.ts:46:27 - Use an optional parameter instead of initializing to 'undefined'. Also, the type declaration does not need to include '| undefined'.
-ERROR: /src/js/structs/Job.ts:14:12 - don't declare variable cmd to return it immediately
-ERROR: /src/js/structs/JobTree.ts:20:19 - == should be ===
-ERROR: /src/js/structs/SummaryList.ts:46:7 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/structs/UniverseInstalledPackagesList.ts:31:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/structs/UniverseInstalledPackagesList.ts:31:9 - unnecessary else
-ERROR: /src/js/structs/__tests__/List-test.ts:15:21 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/structs/__tests__/List-test.ts:43:7 - unused expression, expected an assignment or function call
-ERROR: /src/js/structs/__tests__/List-test.ts:4:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/structs/__tests__/SummaryList-test.ts:4:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/DOMUtils.ts:25:3 - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
-ERROR: /src/js/utils/DOMUtils.ts:68:5 - Use a conditional expression instead of assigning to 'compstyle' in multiple places.
-ERROR: /src/js/utils/JSONUtil.ts:124:12 - Identifier 'token' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/utils/JSONUtil.ts:124:26 - Identifier 'offset' is never reassigned; use 'const' instead of 'let'.
-ERROR: /src/js/utils/JSONUtil.ts:222:11 - Use a conditional expression instead of assigning to 'arrayIndex' in multiple places.
-ERROR: /src/js/utils/JSONUtil.ts:96:3 - The function getObjectInformation has a cyclomatic complexity of 23 which is higher than the threshold of 20
-ERROR: /src/js/utils/JestUtil.tsx:10:10 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:11:13 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:12:8 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:13:12 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:14:15 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:15:23 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:16:16 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:17:16 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:18:14 - block is empty
-ERROR: /src/js/utils/JestUtil.tsx:85:19 - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
-ERROR: /src/js/utils/JestUtil.tsx:99:12 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/utils/Maths.ts:35:1 - asterisks in jsdoc must be aligned
-ERROR: /src/js/utils/Maths.ts:35:1 - jsdoc is not formatted correctly on this line
-ERROR: /src/js/utils/Maths.ts:40:5 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /src/js/utils/Maths.ts:40:9 - Identifier 'min' is never reassigned; use 'const' instead of 'var'.
-ERROR: /src/js/utils/Maths.ts:50:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/Maths.ts:50:7 - unnecessary else
-ERROR: /src/js/utils/Maths.ts:63:1 - asterisks in jsdoc must be aligned
-ERROR: /src/js/utils/Maths.ts:63:1 - jsdoc is not formatted correctly on this line
-ERROR: /src/js/utils/Maths.ts:69:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/Maths.ts:69:7 - unnecessary else
-ERROR: /src/js/utils/MesosSummaryUtil.ts:32:11 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/ResourcesUtil.ts:89:5 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/ResourcesUtil.ts:89:5 - unnecessary else
-ERROR: /src/js/utils/StringUtil.ts:141:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/StringUtil.ts:141:9 - unnecessary else
-ERROR: /src/js/utils/StringUtil.ts:153:9 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/StringUtil.ts:153:9 - unnecessary else
-ERROR: /src/js/utils/StringUtil.ts:179:7 - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
-ERROR: /src/js/utils/StringUtil.ts:179:7 - unnecessary else
-ERROR: /src/js/utils/TableUtil.ts:86:28 - == should be ===
-ERROR: /src/js/utils/TableUtil.ts:90:28 - == should be ===
-ERROR: /src/js/utils/__tests__/DOMUtils-test.ts:175:7 - Forbidden 'var' keyword, use 'let' or 'const' instead
-ERROR: /src/js/utils/__tests__/DOMUtils-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/DSLParserUtil-test.ts:18:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/utils/__tests__/DSLParserUtil-test.ts:27:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/js/utils/__tests__/DSLParserUtil-test.ts:36:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/DSLUtil-test.ts:8:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/FormUtil-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/MesosStateUtil-test.ts:8:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/ReducerUtil-test.ts:5:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/RouterUtil-test.ts:10:29 - block is empty
-ERROR: /src/js/utils/__tests__/RouterUtil-test.ts:78:23 - block is empty
-ERROR: /src/js/utils/__tests__/RouterUtil-test.ts:83:27 - block is empty
-ERROR: /src/js/utils/__tests__/RouterUtil-test.ts:88:31 - block is empty
-ERROR: /src/js/utils/__tests__/StructUtil-test.ts:25:24 - block is empty
-ERROR: /src/js/utils/__tests__/StructUtil-test.ts:50:24 - block is empty
-ERROR: /src/js/utils/__tests__/SystemLogUtil-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/TableUtil-test.ts:6:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/js/utils/__tests__/Util-test.ts:3:1 - Multiple variable declarations in the same statement are forbidden
-ERROR: /src/resources/grammar/__tests__/SearchDSL-test.ts:24:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/resources/grammar/__tests__/SearchDSL-test.ts:36:1 - A maximum of 1 class per file is allowed.
-ERROR: /src/resources/grammar/__tests__/SearchDSL-test.ts:45:1 - Multiple variable declarations in the same statement are forbidden"
+/packages/@extension-kid/data-layer/__tests__/dataLayer-test.ts - A maximum of 1 class per file is allowed.
+/packages/foundation-ui/src/mount/MountService.ts - Identifier 'components' is never reassigned; use 'const' instead of 'let'.
+/packages/foundation-ui/src/mount/MountService.ts - Identifier 'instance' is never reassigned; use 'const' instead of 'let'.
+/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
+/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
+/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
+/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
+/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
+/packages/foundation-ui/src/routing/RoutingService.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/packages/foundation-ui/src/routing/RoutingService.ts - unnecessary else
+/packages/foundation-ui/src/routing/RoutingService.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/packages/foundation-ui/src/routing/RoutingService.ts - unnecessary else
+/packages/foundation-ui/src/routing/RoutingService.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/packages/foundation-ui/src/routing/RoutingService.ts - unnecessary else
+/plugins/banner/__tests__/BannerPlugin-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx - block is empty
+/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
+/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
+/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
+/plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
+/plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
+/plugins/jobs/src/js/components/JobsOverviewTable.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/jobs/src/js/components/JobsOverviewTable.tsx - unnecessary else
+/plugins/jobs/src/js/components/form/helpers/JobParsers.ts - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
+/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - block is empty
+/plugins/nodes/src/js/components/NodesGridDials.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/nodes/src/js/components/NodesGridDials.tsx - unnecessary else
+/plugins/nodes/src/js/components/NodesTable.tsx - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
+/plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
+/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
+/plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx - block is empty
+/plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx - block is empty
+/plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx - object access via string literals is disallowed
+/plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx - block is empty
+/plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx - don't declare variable menuItems to return it immediately
+/plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
+/plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'columnDefaults' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'data' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'onEditClick' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'tabViewID' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/DeploymentsModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/components/DeploymentsModal.tsx - unnecessary else
+/plugins/services/src/js/components/DeploymentsModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/components/DeploymentsModal.tsx - unnecessary else
+/plugins/services/src/js/components/FilterByFramework.tsx - block is empty
+/plugins/services/src/js/components/LogView.tsx - block is empty
+/plugins/services/src/js/components/LogView.tsx - block is empty
+/plugins/services/src/js/components/RecentOffersSummary.tsx - Identifier 'offers' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/RecentOffersSummary.tsx - Identifier 'matched' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/RecentOffersSummary.tsx - Use a conditional expression instead of assigning to 'percentageMatched' in multiple places.
+/plugins/services/src/js/components/RecentOffersSummary.tsx - Use a conditional expression instead of assigning to 'percentageOffered' in multiple places.
+/plugins/services/src/js/components/SearchLog.tsx - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/SearchLog.tsx - Identifier 'searchString' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/SearchLog.tsx - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/TaskDirectoryTable.tsx - block is empty
+/plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - block is empty
+/plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/components/__tests__/LogView-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/__tests__/ServiceList-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx - object access via string literals is disallowed
+/plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx - block is empty
+/plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx - block is empty
+/plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx - block is empty
+/plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
+/plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
+/plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
+/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - block is empty
+/plugins/services/src/js/components/forms/VolumesFormSection.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
+/plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
+/plugins/services/src/js/components/modals/KillPodInstanceModal.tsx - block is empty
+/plugins/services/src/js/components/modals/KillPodInstanceModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/KillTaskModal.tsx - block is empty
+/plugins/services/src/js/components/modals/KillTaskModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/ServiceDestroyModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/components/modals/ServiceDestroyModal.tsx - unnecessary else
+/plugins/services/src/js/components/modals/ServiceDestroyModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/ServiceRestartModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/ServiceResumeModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/components/modals/ServiceStopModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
+/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
+/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
+/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
+/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - don't declare variable actionButtons to return it immediately
+/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
+/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'pod' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'filterText' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - block is empty
+/plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx - block is empty
+/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - block is empty
+/plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - block is empty
+/plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
+/plugins/services/src/js/containers/service-detail/ServiceDetail.tsx - block is empty
+/plugins/services/src/js/containers/services/ServiceTreeView.tsx - block is empty
+/plugins/services/src/js/containers/services/ServicesContainer.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/containers/services/ServicesContainer.tsx - unnecessary else
+/plugins/services/src/js/containers/services/ServicesContainer.tsx - object access via string literals is disallowed
+/plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
+/plugins/services/src/js/containers/services/ServicesTable.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/containers/services/ServicesTable.tsx - unnecessary else
+/plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - block is empty
+/plugins/services/src/js/containers/tasks/TasksContainer.tsx - object access via string literals is disallowed
+/plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
+/plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
+/plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Identifier 'thisGetNodeFromID' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/events/TaskDirectoryActions.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx - Identifier 'frameworkID' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx - Identifier 'id' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - block is empty
+/plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
+/plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - The function FormReducer has a cyclomatic complexity of 21 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - object access via string literals is disallowed
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'name' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'networkNames' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 39 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'containerPort' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'automaticPort' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'vipLabel' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'vipPort' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 21 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Networks.ts - don't declare variable transactions to return it immediately
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/PortDefinitionsReducer.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - != should be !==
+/plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx - Use a conditional expression instead of assigning to 'type' in multiple places.
+/plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx - unnecessary else
+/plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 37 which is higher than the threshold of 20
+/plugins/services/src/js/stores/MarathonStore.ts - object access via string literals is disallowed
+/plugins/services/src/js/stores/MarathonStore.ts - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/stores/MesosLogStore.ts - don't declare variable logBuffer to return it immediately
+/plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/structs/LogBuffer.ts - Use a conditional expression instead of assigning to 'start' in multiple places.
+/plugins/services/src/js/structs/ServiceTree.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
+/plugins/services/src/js/structs/ServiceTree.ts - == should be ===
+/plugins/services/src/js/structs/__tests__/LogBuffer-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/structs/__tests__/ServiceEndpoint-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/utils/DeclinedOffersUtil.ts - Identifier 'name' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/utils/DeclinedOffersUtil.ts - Identifier 'role' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/utils/MarathonUtil.ts - Unnecessary initialization to 'undefined'.
+/plugins/services/src/js/utils/ServiceSpecUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/utils/ServiceSpecUtil.ts - unnecessary else
+/plugins/services/src/js/utils/ServiceSpecUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins/services/src/js/utils/TaskUtil.ts - don't declare variable node to return it immediately
+/plugins/services/src/js/utils/__tests__/FrameworkUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/services/src/js/utils/__tests__/PodUtil-test.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/plugins/services/src/js/utils/__tests__/TaskTableUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/plugins/tracking/__tests__/TrackingPlugin-test.ts - block is empty
+/plugins/tracking/__tests__/TrackingPlugin-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - Identifier 'calls' is never reassigned; use 'const' instead of 'var'.
+/plugins/tracking/actions/__tests__/Actions-test.ts - Forbidden 'var' keyword, use 'let' or 'const' instead
+/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
+/plugins/tracking/actions/__tests__/Actions-test.ts - Identifier 'calls' is never reassigned; use 'const' instead of 'var'.
+/plugins/tracking/actions/__tests__/Actions-test.ts - Forbidden 'var' keyword, use 'let' or 'const' instead
+/src/js/components/CollapsingString.tsx - Use a conditional expression instead of assigning to 'parent' in multiple places.
+/src/js/components/DSLFilterField.tsx - block is empty
+/src/js/components/DSLFormDropdownPanel.tsx - block is empty
+/src/js/components/DSLFormDropdownPanel.tsx - block is empty
+/src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'groupCombiner' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'itemCombiner' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'parts' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'updatePolicy' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/DSLFormWithExpressionUpdates.tsx - block is empty
+/src/js/components/DSLFormWithExpressionUpdates.tsx - block is empty
+/src/js/components/DSLInputField.tsx - block is empty
+/src/js/components/DSLInputField.tsx - block is empty
+/src/js/components/DSLInputField.tsx - block is empty
+/src/js/components/DSLInputField.tsx - block is empty
+/src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.
+/src/js/components/FilterBar.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/FilterBar.tsx - unnecessary else
+/src/js/components/FilterButtons.tsx - Identifier 'filterByKey' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterButtons.tsx - Identifier 'filters' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterButtons.tsx - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterButtons.tsx - Identifier 'selectedFilter' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterButtons.tsx - block is empty
+/src/js/components/FilterHeadline.tsx - Identifier 'className' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterHeadline.tsx - Identifier 'currentLength' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterHeadline.tsx - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterHeadline.tsx - Identifier 'isFiltering' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FilterHeadline.tsx - Identifier 'totalLength' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/FormModal.tsx - block is empty
+/src/js/components/FormModal.tsx - block is empty
+/src/js/components/FormModal.tsx - block is empty
+/src/js/components/FormModal.tsx - block is empty
+/src/js/components/FrameworkConfigurationForm.tsx - object access via string literals is disallowed
+/src/js/components/FrameworkConfigurationForm.tsx - block is empty
+/src/js/components/FrameworkConfigurationReviewScreen.tsx - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/components/JSONEditor.tsx - block is empty
+/src/js/components/JSONEditor.tsx - block is empty
+/src/js/components/JSONEditor.tsx - block is empty
+/src/js/components/JSONEditor.tsx - block is empty
+/src/js/components/JSONEditor.tsx - block is empty
+/src/js/components/Modals.tsx - block is empty
+/src/js/components/PlacementConstraintsSchemaField.tsx - block is empty
+/src/js/components/ProgressBar.tsx - Identifier 'style' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/ResourceSwitchDropdown.tsx - don't declare variable menuItems to return it immediately
+/src/js/components/ServerErrorModal.tsx - Throwing plain strings (not instances of Error) gives no stack traces
+/src/js/components/SideTabs.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - block is empty
+/src/js/components/TabForm.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/TabForm.tsx - unnecessary else
+/src/js/components/__tests__/Authenticated-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/ClickToSelect-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/ExpandingTable-test.tsx - block is empty
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - object access via string literals is disallowed
+/src/js/components/__tests__/ExpandingTable-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/FilterButtons-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/Panel-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/ServerErrorModal-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/SideTabs-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/TabButton-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/TabButtonList-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/__tests__/Tabs-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/charts/Chart.tsx - Identifier 'width' is never reassigned; use 'const' instead of 'let'.
+/src/js/components/charts/Chart.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/charts/Chart.tsx - unnecessary else
+/src/js/components/charts/ResourceTimeSeriesChart.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/charts/ResourceTimeSeriesChart.tsx - unnecessary else
+/src/js/components/charts/__tests__/TasksChart-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/charts/__tests__/TimeSeriesArea-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/charts/__tests__/TimeSeriesChart-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/form/AdvancedSection.tsx - Declaration of public static method not allowed after declaration of constructor. Instead, this should come at the beginning of the class/interface.
+/src/js/components/form/AdvancedSection.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/form/AdvancedSection.tsx - unnecessary else
+/src/js/components/modals/ActionsModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/modals/ActionsModal.tsx - unnecessary else
+/src/js/components/modals/ActionsModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/components/modals/ActionsModal.tsx - unnecessary else
+/src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
+/src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
+/src/js/components/modals/__tests__/ErrorModal-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/events/SystemLogActions.ts - Identifier 'cursor' is never reassigned; use 'const' instead of 'let'.
+/src/js/events/SystemLogActions.ts - Identifier 'skip_prev' is never reassigned; use 'const' instead of 'let'.
+/src/js/events/SystemLogActions.ts - Identifier 'limit' is never reassigned; use 'const' instead of 'let'.
+/src/js/events/SystemLogActions.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/events/VirtualNetworksActions.ts - Identifier 'vtep_mac_oui' is never reassigned; use 'const' instead of 'let'.
+/src/js/events/VirtualNetworksActions.ts - Identifier 'vtep_subnet' is never reassigned; use 'const' instead of 'let'.
+/src/js/events/__tests__/SystemLogActions-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/index.tsx - non-arrow functions are forbidden
+/src/js/mesos-proto.ts - object access via string literals is disallowed
+/src/js/mesos-proto.ts - object access via string literals is disallowed
+/src/js/pages/DashboardPage.tsx - object access via string literals is disallowed
+/src/js/pages/DashboardPage.tsx - object access via string literals is disallowed
+/src/js/pages/DashboardPage.tsx - object access via string literals is disallowed
+/src/js/pages/DashboardPage.tsx - object access via string literals is disallowed
+/src/js/pages/Index.tsx - block is empty
+/src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
+/src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/pages/catalog/__tests__/PackagesTab-test.tsx - Multiple variable declarations in the same statement are forbidden
+/src/js/pages/catalog/__tests__/PackagesTab-test.tsx - block is empty
+/src/js/pages/system/OrganizationTab.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/pages/system/OrganizationTab.tsx - unnecessary else
+/src/js/pages/system/OrganizationTab.tsx - Identifier 'itemID' is never reassigned; use 'const' instead of 'let'.
+/src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
+/src/js/pages/system/OverviewDetailTab.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/pages/system/OverviewDetailTab.tsx - unnecessary else
+/src/js/plugin-bridge/PluginSDK.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
+/src/js/plugin-bridge/PluginTestUtils.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
+/src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/plugin-bridge/__tests__/Hooks-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/plugin-bridge/__tests__/PluginSDK-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
+/src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
+/src/js/stores/DCOSStore.ts - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
+/src/js/stores/DCOSStore.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/stores/DCOSStore.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/stores/DCOSStore.ts - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts - Forbidden 'var' keyword, use 'let' or 'const' instead
+/src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts - Identifier 'message' is never reassigned; use 'const' instead of 'var'.
+/src/js/stores/MesosStream/parsers/tasks.ts - don't declare variable marathonId to return it immediately
+/src/js/stores/SystemLogStore.ts - Use a conditional expression instead of assigning to 'newLogData.entries' in multiple places.
+/src/js/stores/__tests__/AuthStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/BaseStore-test.ts - block is empty
+/src/js/stores/__tests__/BaseStore-test.ts - block is empty
+/src/js/stores/__tests__/CosmosPackagesStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/CosmosPackagesStore-test.ts - object access via string literals is disallowed
+/src/js/stores/__tests__/CosmosPackagesStore-test.ts - object access via string literals is disallowed
+/src/js/stores/__tests__/CosmosPackagesStore-test.ts - object access via string literals is disallowed
+/src/js/stores/__tests__/CosmosPackagesStore-test.ts - object access via string literals is disallowed
+/src/js/stores/__tests__/DCOSStore-test.ts - object access via string literals is disallowed
+/src/js/stores/__tests__/MesosStateStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/MesosSummaryStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/UnitHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/UserSettingsStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/stores/__tests__/UsersStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/structs/CompositeState.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/structs/CompositeState.ts - object access via string literals is disallowed
+/src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.
+/src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.
+/src/js/structs/DSLExpressionPart.ts - Use an optional parameter instead of initializing to 'undefined'. Also, the type declaration does not need to include '| undefined'.
+/src/js/structs/Job.ts - don't declare variable cmd to return it immediately
+/src/js/structs/JobTree.ts - == should be ===
+/src/js/structs/SummaryList.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/structs/UniverseInstalledPackagesList.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/structs/UniverseInstalledPackagesList.ts - unnecessary else
+/src/js/structs/__tests__/List-test.ts - A maximum of 1 class per file is allowed.
+/src/js/structs/__tests__/List-test.ts - unused expression, expected an assignment or function call
+/src/js/structs/__tests__/List-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/structs/__tests__/SummaryList-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/DOMUtils.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
+/src/js/utils/DOMUtils.ts - Use a conditional expression instead of assigning to 'compstyle' in multiple places.
+/src/js/utils/JSONUtil.ts - Identifier 'token' is never reassigned; use 'const' instead of 'let'.
+/src/js/utils/JSONUtil.ts - Identifier 'offset' is never reassigned; use 'const' instead of 'let'.
+/src/js/utils/JSONUtil.ts - Use a conditional expression instead of assigning to 'arrayIndex' in multiple places.
+/src/js/utils/JSONUtil.ts - The function getObjectInformation has a cyclomatic complexity of 23 which is higher than the threshold of 20
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - block is empty
+/src/js/utils/JestUtil.tsx - 'Object.assign' returns the first argument. Prefer object spread if you want a new object.
+/src/js/utils/JestUtil.tsx - A maximum of 1 class per file is allowed.
+/src/js/utils/Maths.ts - asterisks in jsdoc must be aligned
+/src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
+/src/js/utils/Maths.ts - Forbidden 'var' keyword, use 'let' or 'const' instead
+/src/js/utils/Maths.ts - Identifier 'min' is never reassigned; use 'const' instead of 'var'.
+/src/js/utils/Maths.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/Maths.ts - unnecessary else
+/src/js/utils/Maths.ts - asterisks in jsdoc must be aligned
+/src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
+/src/js/utils/Maths.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/Maths.ts - unnecessary else
+/src/js/utils/MesosSummaryUtil.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/ResourcesUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/ResourcesUtil.ts - unnecessary else
+/src/js/utils/StringUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/StringUtil.ts - unnecessary else
+/src/js/utils/StringUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/StringUtil.ts - unnecessary else
+/src/js/utils/StringUtil.ts - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/src/js/utils/StringUtil.ts - unnecessary else
+/src/js/utils/TableUtil.ts - == should be ===
+/src/js/utils/TableUtil.ts - == should be ===
+/src/js/utils/__tests__/DOMUtils-test.ts - Forbidden 'var' keyword, use 'let' or 'const' instead
+/src/js/utils/__tests__/DOMUtils-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/DSLParserUtil-test.ts - A maximum of 1 class per file is allowed.
+/src/js/utils/__tests__/DSLParserUtil-test.ts - A maximum of 1 class per file is allowed.
+/src/js/utils/__tests__/DSLParserUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/DSLUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/FormUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/MesosStateUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/ReducerUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
+/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
+/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
+/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
+/src/js/utils/__tests__/StructUtil-test.ts - block is empty
+/src/js/utils/__tests__/StructUtil-test.ts - block is empty
+/src/js/utils/__tests__/SystemLogUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/TableUtil-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/utils/__tests__/Util-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
+/src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
+/src/resources/grammar/__tests__/SearchDSL-test.ts - Multiple variable declarations in the same statement are forbidden"
 `;
