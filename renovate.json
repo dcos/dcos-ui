@@ -3,18 +3,5 @@
   "labels": ["renovate"],
   "automerge": true,
   "prConcurrentLimit": 10,
-  "packageRules": [
-    {
-      "packagePatterns": "react",
-      "groupName": ["react"]
-    },
-    {
-      "packagePatterns": "stylelint",
-      "groupName": ["stylelint"]
-    },
-    {
-      "packagePatterns": "graphql",
-      "groupName": ["graphql"]
-    }
-  ]
+  "packageRules": []
 }
