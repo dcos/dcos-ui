@@ -133,7 +133,6 @@
     "eslint": "3.19.0",
     "eslint-config-prettier": "6.7.0",
     "eslint-plugin-import": "2.19.1",
-    "eslint-plugin-jsx-max-len": "1.0.0",
     "esprima": "4.0.1",
     "execa": "4.0.0",
     "file-loader": "1.1.11",

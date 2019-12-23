@@ -26,10 +26,6 @@
     }
   },
 
-  "plugins": [
-    "jsx-max-len"
-  ],
-
   "globals": {
     "cy": true,
     "Cypress": true,
@@ -50,7 +46,6 @@
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
     "eqeqeq": ["error", "smart"],
-    "jsx-max-len/jsx-max-len": ["error", {"lineMaxLength": 80, "tabWidth": 2, "maxAttributesPerLine": 1}],
     "keyword-spacing": ["error"],
     "multiline-ternary": "off", // allow both multiline and single line
     "no-mixed-operators": "off",
