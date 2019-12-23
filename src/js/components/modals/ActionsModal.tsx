@@ -55,12 +55,10 @@ class ActionsModal extends mixin(StoreMixin) {
     const { requestsRemaining } = this.state;
 
     if (requestsRemaining === 0) {
-      /* eslint-disable react/no-did-update-set-state */
       this.setState({
         pendingRequest: false,
         requestsRemaining: this.props.selectedItems.length
       });
-      /* eslint-enable react/no-did-update-set-state */
     }
   }
 

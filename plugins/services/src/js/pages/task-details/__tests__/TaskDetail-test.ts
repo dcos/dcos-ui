@@ -10,7 +10,6 @@ const TaskDirectory = require("../../../structs/TaskDirectory").default;
 const TaskDirectoryStore = require("../../../stores/TaskDirectoryStore")
   .default;
 const TaskDetail = require("../TaskDetail").default;
-/* eslint-enable */
 
 const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 

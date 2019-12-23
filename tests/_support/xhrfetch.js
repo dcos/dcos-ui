@@ -40,11 +40,9 @@ export default function(url, options) {
 
     request.withCredentials = options.credentials === "include";
 
-    /* eslint-disable */
     for (const i in options.headers) {
       request.setRequestHeader(i, options.headers[i]);
     }
-    /* eslint-enable */
 
     request.send(options.body || null);
   });

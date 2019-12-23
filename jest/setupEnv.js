@@ -8,7 +8,7 @@ const EventEmitter = require("events").EventEmitter;
 // so let's just default to a noop
 const { RequestUtil } = require("mesosphere-shared-reactjs");
 
-RequestUtil.json = _ => {};
+RequestUtil.json = () => {};
 
 // if you've come here: sorry!
 // this is a workaround to make ts-jest play nice with babel-plugin-macros.

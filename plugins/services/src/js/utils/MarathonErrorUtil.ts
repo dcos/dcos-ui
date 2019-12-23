@@ -8,7 +8,7 @@ const MarathonErrorUtil = {
    * @param {String} message - The marathon error string
    * @returns {String} Returns the message type
    */
-  // eslint-disable-next-line no-unused-vars
+
   getErrorType(message) {
     // Check for 'service is deploying' error messages
     if (/force=true/.test(message)) {

@@ -37,7 +37,6 @@ describe("MesosStateStore", () => {
 
           const lastState = MesosStateStore.getLastMesosState();
 
-          // eslint-disable-next-line guard-for-in
           allFields.forEach(field =>
             expect(lastState[field].length).toBe(
               testCase.includes(field) ? 1 : 0
