@@ -28,7 +28,6 @@
 
   "plugins": [
     "jsx-max-len",
-    "react",
     "react-hooks",
   ],
 
@@ -70,7 +69,6 @@
     }],
     "no-use-before-define": "off",
     "quotes": "off",
-    "react/jsx-filename-extension": ["error"],
     "semi": ["error"],
     "space-before-blocks": ["error", "always"],
     "space-before-function-paren": "off",
@@ -138,35 +136,6 @@
     "space-unary-ops": "off",
     "vars-on-top": "off",
     "wrap-iife": "off",
-
-    // React plugin
-    "react/jsx-boolean-value": "off",
-    "react/jsx-closing-bracket-location": "off",
-    "react/jsx-equals-spacing": "off",
-    "react/jsx-first-prop-new-line": "off",
-    "react/jsx-no-bind": "off",
-    "react/jsx-no-target-blank": "off",
-    "react/jsx-no-undef": "error",
-    "react/jsx-quotes": "off",
-    "react/jsx-sort-prop-types": ["off", {"ignoreCase": true}],
-    "react/jsx-sort-props": "off",
-    "react/jsx-space-before-closing": "off",
-    "react/jsx-uses-vars": "error",
-    "react/no-did-mount-set-state": "error",
-    "react/no-did-update-set-state": "error",
-    "react/no-find-dom-node": "off",
-    "react/no-is-mounted": "off",
-    "react/no-multi-comp": "error",
-    "react/no-render-return-value": "off",
-    "react/no-string-refs": "off",
-    "react/no-unknown-property": "off",
-    "react/prefer-es6-class": "off",
-    "react/prefer-stateless-function": "off",
-    "react/prop-types": "off", // This causes errors with many
-    "react/react-in-jsx-scope": "error",
-    "react/require-extension": "off",
-    "react/self-closing-comp": "off",
-    "react/sort-comp": "off",
     "react-hooks/rules-of-hooks": "error"
   }
 }
