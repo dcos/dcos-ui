@@ -131,7 +131,6 @@
     "enzyme": "3.10.0",
     "enzyme-adapter-react-16": "1.15.1",
     "eslint": "3.19.0",
-    "eslint-plugin-destructuring": "2.1.0",
     "eslint-plugin-import": "2.19.1",
     "eslint-plugin-jsx-a11y": "2.2.3",
     "eslint-plugin-jsx-max-len": "1.0.0",

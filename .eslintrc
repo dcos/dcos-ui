@@ -27,7 +27,6 @@
     "jsx-max-len",
     "react",
     "react-hooks",
-    "destructuring"
   ],
 
   "globals": {
@@ -49,9 +48,6 @@
     "arrow-parens": "off",
     "camelcase": ["off", {"properties": "never"}], // This causes errors with mixin properties
     "comma-dangle": ["error", "never"],
-    "destructuring/in-methods-params": "off",
-    "destructuring/in-params": "off",
-    "destructuring/no-rename": "off",
     "eqeqeq": ["error", "smart"],
     "jsx-max-len/jsx-max-len": ["error", {"lineMaxLength": 80, "tabWidth": 2, "maxAttributesPerLine": 1}],
     "keyword-spacing": ["error"],
