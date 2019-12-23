@@ -27,8 +27,7 @@
   },
 
   "plugins": [
-    "jsx-max-len",
-    "react-hooks",
+    "jsx-max-len"
   ],
 
   "globals": {
@@ -135,7 +134,6 @@
     "space-infix-ops": "off",
     "space-unary-ops": "off",
     "vars-on-top": "off",
-    "wrap-iife": "off",
-    "react-hooks/rules-of-hooks": "error"
+    "wrap-iife": "off"
   }
 }
