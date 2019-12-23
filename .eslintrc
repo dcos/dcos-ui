@@ -1,4 +1,7 @@
 {
+  "extends": [
+    "prettier"
+  ],
   "ecmaFeatures": {
     "jsx": true,
     "modules": true,
