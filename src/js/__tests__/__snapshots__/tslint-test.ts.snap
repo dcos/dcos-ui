@@ -952,7 +952,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 37 which is higher than the threshold of 20
+/plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 36 which is higher than the threshold of 20
 /plugins/services/src/js/stores/MarathonStore.ts - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/stores/MesosLogStore.ts - don't declare variable logBuffer to return it immediately
 /plugins/services/src/js/stores/__tests__/MarathonStore-test.ts - require statement not part of an import statement

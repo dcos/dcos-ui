@@ -3525,7 +3525,6 @@ plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2322: Type '{ columns: { heading(): Element; prop: string; }[]; data: any; onEditClick: any; tabViewID: string; }' is not assignable to type 'IntrinsicAttributes & InferPropsInner<Pick<{ onEditClick: Requireable<(...args: any[]) => any>; tabViewID: Requireable<string>; }, never>> & Partial<...>'.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2345: Argument of type '\\"EXTERNAL\\"' is not assignable to parameter of type 'null | undefined'.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceStorageConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Timeout'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2339: Property 'params' does not exist on type '{}'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -3548,6 +3547,7 @@ plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 3 argume
 plugins/services/src/js/stores/MarathonStore.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.

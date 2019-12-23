@@ -13,17 +13,14 @@ import {
   REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
-  REQUEST_MARATHON_GROUPS_ONGOING,
   REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
   REQUEST_MARATHON_DEPLOYMENTS_ERROR,
-  REQUEST_MARATHON_DEPLOYMENTS_ONGOING,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
   REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
   REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
   REQUEST_MARATHON_QUEUE_SUCCESS,
   REQUEST_MARATHON_QUEUE_ERROR,
-  REQUEST_MARATHON_QUEUE_ONGOING,
   REQUEST_MARATHON_INSTANCE_INFO_ERROR,
   REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
   REQUEST_MARATHON_SERVICE_CREATE_ERROR,
@@ -345,11 +342,6 @@ const MarathonActions = {
             xhr
           });
           reject();
-        },
-        hangingRequestCallback() {
-          AppDispatcher.handleServerAction({
-            type: REQUEST_MARATHON_GROUPS_ONGOING
-          });
         }
       });
     },
@@ -375,11 +367,6 @@ const MarathonActions = {
             xhr
           });
           reject();
-        },
-        hangingRequestCallback() {
-          AppDispatcher.handleServerAction({
-            type: REQUEST_MARATHON_DEPLOYMENTS_ONGOING
-          });
         }
       });
     },
@@ -465,11 +452,6 @@ const MarathonActions = {
             xhr
           });
           reject();
-        },
-        hangingRequestCallback() {
-          AppDispatcher.handleServerAction({
-            type: REQUEST_MARATHON_QUEUE_ONGOING
-          });
         }
       });
     },

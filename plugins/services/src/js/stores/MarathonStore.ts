@@ -18,7 +18,6 @@ import {
   REQUEST_MARATHON_GROUP_EDIT_ERROR,
   REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
   REQUEST_MARATHON_GROUPS_ERROR,
-  REQUEST_MARATHON_GROUPS_ONGOING,
   REQUEST_MARATHON_GROUPS_SUCCESS,
   REQUEST_MARATHON_INSTANCE_INFO_ERROR,
   REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
@@ -250,9 +249,6 @@ class MarathonStore extends GetSetBaseStore {
           break;
         case REQUEST_MARATHON_DEPLOYMENTS_ERROR:
           this.processMarathonDeploymentsError();
-          break;
-        case REQUEST_MARATHON_GROUPS_ONGOING:
-          this.processOngoingRequest();
           break;
         case REQUEST_MARATHON_QUEUE_SUCCESS:
           this.processMarathonQueue(action.data);
@@ -566,10 +562,6 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonQueueError() {
     this.emit(MARATHON_QUEUE_ERROR);
-  }
-
-  processOngoingRequest() {
-    // Handle ongoing request here.
   }
 
   processMarathonServiceVersions(service) {
