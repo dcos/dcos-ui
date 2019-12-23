@@ -234,7 +234,7 @@ describe("Util", () => {
 
   describe("#debounce", () => {
     beforeEach(function() {
-      thisFunc = jest.genMockFunction();
+      thisFunc = jest.fn();
       thisDebounced = Util.debounce(thisFunc, 200).bind(this, {
         nativeEvent: {}
       });

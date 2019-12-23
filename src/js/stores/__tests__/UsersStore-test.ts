@@ -54,7 +54,7 @@ describe("UsersStore", () => {
     });
 
     it("dispatches the correct event upon success", () => {
-      const mockedFn = jest.genMockFunction();
+      const mockedFn = jest.fn();
       UsersStore.addChangeListener(EventTypes.USERS_CHANGE, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_SUCCESS,
