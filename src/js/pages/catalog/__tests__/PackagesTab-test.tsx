@@ -11,14 +11,13 @@ jest.mock("../../../components/Page", () => {
 });
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
-/* eslint-disable import/newline-after-import */
+
 const Config = require("#SRC/js/config/Config").default;
 const configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore")
   .default;
 Config.useFixtures = configUseFixtures;
-/* eslint-enable import/newline-after-import */
 
 const PackagesTab = require("../PackagesTab").default;
 const UniversePackagesList = require("../../../structs/UniversePackagesList")

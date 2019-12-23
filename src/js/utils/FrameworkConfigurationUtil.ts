@@ -1,6 +1,5 @@
 import Util from "#SRC/js/utils/Util";
 
-// eslint-disable-next-line import/prefer-default-export
 export function getFirstTabAndField(packageDetails) {
   const schema = packageDetails.getConfig() || {};
 

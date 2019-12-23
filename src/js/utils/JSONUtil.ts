@@ -258,13 +258,11 @@ export default {
         //
         case "string":
           match = match.slice(1, -1);
-        /* eslint-disable no-fallthrough */
+
         case "maybe-string":
         case "number":
         case "boolean":
         case "null":
-          /* eslint-enable no-fallthrough */
-
           // Cast tokens to their correct type
           if (token === "number") {
             match = Number(match);

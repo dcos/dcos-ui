@@ -40,7 +40,6 @@ const JestUtil = {
       1000 /
       60;
 
-    /* eslint-disable no-extend-native */
     Date.prototype.getTimezoneOffset = () => timezoneOffset;
     Date.prototype.toLocaleString = function(locale = undefined, options = {}) {
       options.timeZone = options.timeZone || timezone;
@@ -52,7 +51,6 @@ const JestUtil = {
 
       return defaultDateTimeFormat.call(this, locales, options);
     };
-    /* eslint-enable no-extend-native */
   },
 
   /**
@@ -95,7 +93,6 @@ const JestUtil = {
   },
 
   withI18nProvider(Component, catalogs = { en }) {
-    // eslint-disable-next-line react/no-multi-comp
     return class WrappedComponent extends React.Component {
       render() {
         return (
@@ -112,11 +109,9 @@ const JestUtil = {
    * by the mockTimezone function.
    */
   unmockTimezone() {
-    /* eslint-disable no-extend-native */
     Date.prototype.getTimezoneOffset = defaultGetTimezoneOffset;
     Date.prototype.toLocaleString = defaultToLocaleString;
     Intl.DateTimeFormat = defaultDateTimeFormat;
-    /* eslint-enable no-extend-native */
   }
 };
 

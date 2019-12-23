@@ -61,9 +61,7 @@ const DSLUpdateUtil = {
     src = src.replace(/\s+,\s+/g, ", "); // Commas with surrounding whitespace
 
     // Put strings back
-    /* eslint-disable no-control-regex */
     src = src.replace(/\x01/g, () => strings.pop(0));
-    /* eslint-enable no-control-regex */
 
     return src.trim();
   },

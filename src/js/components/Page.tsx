@@ -89,7 +89,6 @@ const Page = createReactClass({
   },
 
   componentDidMount() {
-    // eslint-disable-next-line
     this.setState({
       rendered: true
     });
