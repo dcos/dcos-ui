@@ -94,8 +94,6 @@
     "import/no-named-as-default-member": "off",
     "import/no-unresolved": "off",
     "import/prefer-default-export": "off",
-    "jsx-a11y/img-has-alt": "off",
-    "jsx-a11y/label-has-for": "off",
     "key-spacing": "off",
     "max-len": "off",
     "new-cap": "off",
