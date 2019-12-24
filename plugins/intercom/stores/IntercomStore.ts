@@ -14,15 +14,18 @@ import NodeHealthStore from "../../nodes/src/js/stores/NodeHealthStore";
 
 import { INTERCOM_CHANGE } from "../constants/EventTypes";
 
-const METHODS_TO_BIND = [
-  "onDCOSMetadataChange",
-  "onMetadataChange",
-  "onHealthNodesChange",
-  "onClusterCCIDSuccess"
-];
-class IntercomStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+class IntercomStore extends GetSetBaseStore<{
+  active_nodes: unknown;
+  bootstrap_id: unknown;
+  cluster_id: unknown;
+  crypto_cluster_uuid: unknown;
+  dcos_image_commit: unknown;
+  dcos_variant: unknown;
+  dcos_version: unknown;
+  user_id: unknown;
+}> {
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -32,10 +35,6 @@ class IntercomStore extends GetSetBaseStore {
       },
       unmountWhen: () => true,
       listenAlways: true
-    });
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
     });
   }
 
@@ -88,7 +87,7 @@ class IntercomStore extends GetSetBaseStore {
     this.on(eventName, callback);
   }
 
-  onDCOSMetadataChange() {
+  onDCOSMetadataChange = () => {
     this.set({
       bootstrap_id: MetadataStore.bootstrapId,
       dcos_image_commit: MetadataStore.imageCommit,
@@ -97,13 +96,13 @@ class IntercomStore extends GetSetBaseStore {
     });
 
     this.emit(INTERCOM_CHANGE);
-  }
+  };
 
-  onMetadataChange() {
+  onMetadataChange = () => {
     this.set({ cluster_id: MetadataStore.clusterId });
 
     this.emit(INTERCOM_CHANGE);
-  }
+  };
 
   removeHealthNodeChangeListener() {
     NodeHealthStore.removeChangeListener(
@@ -112,16 +111,16 @@ class IntercomStore extends GetSetBaseStore {
     );
   }
 
-  onHealthNodesChange() {
+  onHealthNodesChange = () => {
     const activeNodes = NodeHealthStore.getNodes().getItems();
     this.set({ active_nodes: activeNodes.length });
 
     this.emit(INTERCOM_CHANGE);
 
     this.removeHealthNodeChangeListener();
-  }
+  };
 
-  onClusterCCIDSuccess() {
+  onClusterCCIDSuccess = () => {
     const user = AuthStore.getUser();
     const ccid = ConfigStore.get("ccid");
 
@@ -131,7 +130,7 @@ class IntercomStore extends GetSetBaseStore {
     });
 
     this.emit(INTERCOM_CHANGE);
-  }
+  };
 
   addAttribute(key, value) {
     this.set({ [key]: value });

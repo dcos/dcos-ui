@@ -1,13 +1,15 @@
 export default class Item {
+  _itemData;
+
   constructor(item = {}) {
-    Object.keys(item).forEach(function(key) {
+    Object.keys(item).forEach(key => {
       this[key] = item[key];
-    }, this);
+    });
 
     this._itemData = item;
   }
 
-  get(key) {
+  get(key?: string | null) {
     if (key == null) {
       return this._itemData;
     }

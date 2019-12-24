@@ -145,7 +145,6 @@ plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: er
 plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: error TS2345: Argument of type '{ addRepository: jest.Mock<unknown>; }' is not assignable to parameter of type '{ liveFetchRepositories: any; addRepository: any; deleteRepository: any; }'.
 plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: error TS2571: Object is of type 'unknown'.
-plugins/catalog/src/js/repositories/data/repositoriesModel.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'RepositoryList'.
 plugins/catalog/src/js/repositories/data/repositoriesModel.ts: error TS6133: 'parent' is declared but its value is never read.
 plugins/catalog/src/js/repositories/data/repositoriesModel.ts: error TS6133: 'parent' is declared but its value is never read.
 plugins/catalog/src/js/repositories/data/repositoriesModel.ts: error TS6133: 'parent' is declared but its value is never read.
@@ -164,8 +163,8 @@ plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on t
 plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
 plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
 plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type '{ filters: string[]; actions: string[]; initialize(configuration: any): void; pluginsLoadedCheck(promiseArray: any): any; pluginsConfigured(): void; userLoginSuccess(): void; userLogoutSuccess(): void; onIntercomStoreUpdate(): void; bootIntercom(): void; }'.
-plugins/intercom/stores/IntercomStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'IntercomStore'.
-plugins/intercom/stores/IntercomStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
+plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/intercom/stores/__tests__/IntercomStore-test.ts: error TS2551: Property 'genMockFunction' does not exist on type 'typeof jest'. Did you mean 'isMockFunction'?
 plugins/intercom/stores/__tests__/IntercomStore-test.ts: error TS2339: Property 'mockResolvedValue' does not exist on type '() => any'.
 plugins/jobs/src/js/JobDelete.tsx: error TS2571: Object is of type 'unknown'.
@@ -379,8 +378,6 @@ plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2605: JSX element type
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2605: JSX element type 'JobStopRunModal' is not a constructor function for JSX elements.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'ready' does not exist on type 'MesosStateStore'.
-plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'ready' does not exist on type 'MesosStateStore'.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2322: Type '{ children: Element; key: string; title: any; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
@@ -430,7 +427,7 @@ plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2322: Type 'number' 
 plugins/nodes/src/js/components/NodesGridView.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/NodesGridView.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/NodesGridView.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/NodesTable.tsx: error TS2339: Property 'getItems' does not exist on type 'NodesList'.
+plugins/nodes/src/js/components/NodesTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type 'Node[]'.
 plugins/nodes/src/js/components/NodesTable.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/NodesTable.tsx: error TS2605: JSX element type 'Column' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/NodesTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -485,8 +482,6 @@ plugins/nodes/src/js/components/NodesTable.tsx: error TS2607: JSX element class 
 plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/components/__tests__/LeaderGrid-test.tsx: error TS2339: Property 'mockRestore' does not exist on type '() => number'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2351: This expression is not constructable.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2351: This expression is not constructable.
 plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
@@ -525,6 +520,9 @@ plugins/nodes/src/js/filters/NodesZoneFilter.ts: error TS2339: Property 'zones' 
 plugins/nodes/src/js/filters/NodesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'NodesZoneFilter'.
 plugins/nodes/src/js/filters/NodesZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/nodes/src/js/filters/NodesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'NodesZoneFilter'.
+plugins/nodes/src/js/pages/NodesAgents.tsx: error TS2345: Argument of type '\\"statesProcessed\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/pages/NodesAgents.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/pages/NodesAgents.tsx: error TS2531: Object is possibly 'null'.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2605: JSX element type 'DSLFilterField' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2605: JSX element type 'ResourceSwitchDropdown' is not a constructor function for JSX elements.
@@ -533,7 +531,6 @@ plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2605: JS
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2605: JSX element type 'FilterBar' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2345: Argument of type 'typeof NodesList' is not assignable to parameter of type 'new (...args: any[]) => unknown'.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2345: Argument of type 'typeof HostsPageContent' is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type '() => void' is not assignable to type 'never'.
@@ -544,6 +541,8 @@ plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type '() => v
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type 'typeof NodeDetailPage' is not assignable to parameter of type 'ComponentType<any>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2554: Expected 1 arguments, but got 0.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type '\\"statesProcessed\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
@@ -556,9 +555,10 @@ plugins/nodes/src/js/pages/nodes/NodesTaskDetailPage.tsx: error TS2345: Argument
 plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2605: JSX element type 'UnitsHealthNodeDetail' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/pages/nodes/NodesUnitsHealthDetailPage.tsx: error TS2345: Argument of type 'typeof NodesUnitsHealthDetailPage' is not assignable to parameter of type 'ComponentType<any>'.
+plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2605: JSX element type 'NodesGridView' is not a constructor function for JSX elements.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2351: This expression is not constructable.
+plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2559: Type 'never[]' has no properties in common with type '{ items?: {}[] | undefined; filterProperties?: any; }'.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2554: Expected 3 arguments, but got 2.
 plugins/nodes/src/js/pages/nodes/nodes-grid/NodesGridContainer.tsx: error TS2339: Property 'other' does not exist on type '{}'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'private_ip' does not exist on type 'never'.
@@ -571,21 +571,27 @@ plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS26
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2554: Expected 4 arguments, but got 3.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2554: Expected 4 arguments, but got 3.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2351: This expression is not constructable.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2351: This expression is not constructable.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2554: Expected 2 arguments, but got 3.
-plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2351: This expression is not constructable.
-plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2351: This expression is not constructable.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"nodes\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByNodeID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByNodeID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2531: Object is possibly 'null'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2769: No overload matches this call.
 plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/nodes/src/js/stores/NodeHealthStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'NodeHealthStore'.
 plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts: error TS2554: Expected 0 arguments, but got 1.
-plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
+plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts: error TS2339: Property 'host_ip' does not exist on type '{}'.
+plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts: error TS2339: Property 'health' does not exist on type '{}'.
 plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2605: JSX element type 'UserAccountDropdownTrigger' is not a constructor function for JSX elements.
 plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -603,6 +609,7 @@ plugins/oauth/hooks.tsx: error TS2345: Argument of type '{ type: Route.Route; pa
 plugins/oauth/hooks.tsx: error TS2339: Property 'redirect' does not exist on type '{ routes: never[]; }'.
 plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
 plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
+plugins/oauth/hooks.tsx: error TS2345: Argument of type '\\"loginRedirectRoute\\"' is not assignable to parameter of type 'never'.
 plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
@@ -860,8 +867,8 @@ plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2605:
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2605: JSX element type 'SortableHeaderCell' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
+plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type '(Service | ServiceTree)[]'.
+plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type '(Service | ServiceTree)[]'.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2605: JSX element type 'Table<unknown>' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2605: JSX element type 'Column' is not a constructor function for JSX elements.
@@ -883,7 +890,6 @@ plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: err
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: Type '{ columns: { heading: string; prop: string; render(): string; }[]; data: { a: number; b: number; }[]; }' is not assignable to type 'IntrinsicAttributes & InferPropsInner<Pick<{ onEditClick: Requireable<(...args: any[]) => any>; tabViewID: Requireable<string>; }, never>> & Partial<...>'.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: Type '{ columns: ({ heading: string; prop: string; } | { heading: string; prop: string; hideIfEmpty: boolean; })[]; data: { a: number; b: null; }[]; }' is not assignable to type 'IntrinsicAttributes & InferPropsInner<Pick<{ onEditClick: Requireable<(...args: any[]) => any>; tabViewID: Requireable<string>; }, never>> & Partial<...>'.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: Type '{ columns: ({ heading: string; prop: string; } | { heading: string; prop: string; hideIfEmpty: boolean; })[]; data: { a: number; b: null; }[]; }' is not assignable to type 'IntrinsicAttributes & InferPropsInner<Pick<{ onEditClick: Requireable<(...args: any[]) => any>; tabViewID: Requireable<string>; }, never>> & Partial<...>'.
-plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2605: JSX element type 'Highlight' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -988,12 +994,18 @@ plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.t
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: Type 'string | 0' is not assignable to type 'string'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'name' does not exist on type 'never'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'getName' does not exist on type '{}'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'info' does not exist on type '{}'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'getSubnet6' does not exist on type '{}'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS7030: Not all code paths return a value.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'getName' does not exist on type '{}'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'info' does not exist on type '{}'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'getSubnet6' does not exist on type '{}'.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2345: Argument of type 'typeof CreateServiceJsonOnly' is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2345: Argument of type 'typeof CreateServiceModal' is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -1265,6 +1277,7 @@ plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS232
 plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS2322: Type '() => void' is not assignable to type 'never'.
 plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS2605: JSX element type 'ServiceBreadcrumbs' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2605: JSX element type 'TasksContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-instances/ServiceInstancesContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -1392,7 +1405,6 @@ plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2345: Argum
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2345: Argument of type 'unknown[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2605: JSX element type 'TaskModals' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Property 'getItems' does not exist on type 'Tree'.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2556: Expected 3 arguments, but got 0 or more.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2605: JSX element type 'DSLFilterField' is not a constructor function for JSX elements.
@@ -1430,7 +1442,6 @@ plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2607:
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2605: JSX element type 'DetailViewHeader' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/data/groups/__tests__/index-test.ts: error TS2345: Argument of type '{}' is not assignable to parameter of type '{ id?: string | undefined; groups?: never[] | undefined; apps?: never[] | undefined; pods?: never[] | undefined; enforceRole: any; }'.
-plugins/services/src/js/data/groups/fetchers.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
 plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'json' does not exist on type 'RequestUtil'.
 plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'json' does not exist on type 'RequestUtil'.
 plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'json' does not exist on type 'RequestUtil'.
@@ -1515,9 +1526,6 @@ plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zone
 plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
-plugins/services/src/js/filters/__tests__/ServiceAttributeHasVolumesFilter-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/filters/__tests__/ServiceAttributeHasVolumesFilter-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/filters/__tests__/ServiceAttributeHasVolumesFilter-test.ts: error TS2351: This expression is not constructable.
 plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
@@ -1530,21 +1538,29 @@ plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS26
 plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2554: Expected 1 arguments, but got 0.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"directory\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2605: JSX element type 'DetailViewHeader' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2605: JSX element type 'ManualBreadcrumbs' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2605: JSX element type 'TaskIpAddressesRow' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2345: Argument of type '\\"statesProcessed\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2605: JSX element type 'MarathonTaskDetailsList' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2345: Argument of type '\\"sandBoxPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element[]' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
+plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2339: Property 'name' does not exist on type '{}'.
+plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2605: JSX element type 'TaskDirectoryTable' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -1553,16 +1569,15 @@ plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Pro
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2322: Type '{ children: Element; className: string; disabled: boolean; href: string; }' is not assignable to type 'DetailedHTMLProps<AnchorHTMLAttributes<HTMLAnchorElement>, HTMLAnchorElement>'.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2605: JSX element type 'MesosLogContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2345: Argument of type 'typeof TaskDirectory' is not assignable to parameter of type 'new (...args: any[]) => unknown'.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
+plugins/services/src/js/pages/task-details/TaskIpAddressesRow.tsx: error TS2339: Property 'getIpAddresses' does not exist on type '{}'.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2339: Property 'fetch' does not exist on type 'ConfigStore'.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2605: JSX element type 'TaskSystemLogsContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2605: JSX element type 'TaskFileViewer' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/TaskLogsContainer.tsx: error TS2345: Argument of type 'typeof TaskDirectory' is not assignable to parameter of type 'new (...args: any[]) => unknown'.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'isFetchingPrevious' does not exist on type '{ hasError: boolean; isLoading: boolean; }'.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'isFetchingPrevious' does not exist on type '{ hasError: boolean; direction: any; isLoading: boolean; fullLog: any; }'.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS7030: Not all code paths return a value.
@@ -1573,25 +1588,19 @@ plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS
 plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts: error TS7030: Not all code paths return a value.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2351: This expression is not constructable.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS6133: 'state' is declared but its value is never read.
@@ -2319,29 +2328,14 @@ plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2322: Type '{ columns: { heading(): Element; prop: string; }[]; data: any; onEditClick: any; tabViewID: string; }' is not assignable to type 'IntrinsicAttributes & InferPropsInner<Pick<{ onEditClick: Requireable<(...args: any[]) => any>; tabViewID: Requireable<string>; }, never>> & Partial<...>'.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2345: Argument of type '\\"EXTERNAL\\"' is not assignable to parameter of type 'null | undefined'.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceStorageConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Timeout'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2339: Property 'params' does not exist on type '{}'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'MarathonStore'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2339: Property 'changeService' does not exist on type '{ createGroup(data: any): void; deleteGroup(groupId: any, force: any): void; editGroup(data: any, force: any): void; createService(spec: any): void; deleteService(service: any, force: any): void; ... 11 more ...; killPodInstances(pod: any, instanceIDs: any, force: any): void; }'.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 3 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 3 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2556: Expected 3 arguments, but got 0 or more.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/stores/MarathonStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
@@ -2354,16 +2348,18 @@ plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' d
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'SDKEndpointStore'.
+plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2345: Argument of type '\\"services\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2531: Object is possibly 'null'.
-plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'TaskDirectoryStore'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'void' is not assignable to type 'null'.
 plugins/services/src/js/stores/__mocks__/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
@@ -2371,129 +2367,94 @@ plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: No
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS2554: Expected 2 arguments, but got 3.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
+plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2345: Argument of type '\\"services\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type '{ tasksHealthy: any; tasksStaged: any; tasksUnhealthy: any; tasksUnknown: number; }'.
 plugins/services/src/js/structs/Application.ts: error TS2416: Property 'getTasksSummary' in type 'Application' is not assignable to the same property in base type 'Service'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksOverCapacity' does not exist on type '{ tasksHealthy: any; tasksStaged: any; tasksUnhealthy: any; tasksUnknown: number; }'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type '{ tasksHealthy: any; tasksStaged: any; tasksUnhealthy: any; tasksUnknown: number; }'.
-plugins/services/src/js/structs/Application.ts: error TS2351: This expression is not constructable.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
-plugins/services/src/js/structs/Application.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type '{ tasksHealthy: any; tasksStaged: any; tasksUnhealthy: any; tasksUnknown: number; }'.
-plugins/services/src/js/structs/DeploymentsList.ts: error TS2339: Property 'type' does not exist on type 'typeof DeploymentsList'.
-plugins/services/src/js/structs/DeploymentsList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
 plugins/services/src/js/structs/Framework.ts: error TS2339: Property 'tasksRunning' does not exist on type '{ tasksHealthy: any; tasksStaged: any; tasksUnhealthy: any; tasksUnknown: number; }'.
 plugins/services/src/js/structs/Framework.ts: error TS2339: Property '_spec' does not exist on type 'Framework'.
 plugins/services/src/js/structs/Framework.ts: error TS2339: Property '_spec' does not exist on type 'Framework'.
 plugins/services/src/js/structs/Framework.ts: error TS2339: Property '_spec' does not exist on type 'Framework'.
-plugins/services/src/js/structs/Framework.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/Framework.ts: error TS2339: Property '_spec' does not exist on type 'Framework'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'getItems' does not exist on type 'LogBuffer'.
+plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'getItems' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'list' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'type' does not exist on type 'typeof LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
+plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'list' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/Pod.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
+plugins/services/src/js/structs/LogBuffer.ts: error TS2339: Property 'configuration' does not exist on type 'LogBuffer'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'isRunning' does not exist on type '{}'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'hasHealthChecks' does not exist on type '{}'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'isHealthy' does not exist on type '{}'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'isStaging' does not exist on type '{}'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'getAgentRegion' does not exist on type '{}'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
-plugins/services/src/js/structs/PodInstanceList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-plugins/services/src/js/structs/PodInstanceList.ts: error TS2339: Property 'type' does not exist on type 'typeof PodInstanceList'.
-plugins/services/src/js/structs/PodTerminationHistoryList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-plugins/services/src/js/structs/PodTerminationHistoryList.ts: error TS2339: Property 'type' does not exist on type 'typeof PodTerminationHistoryList'.
-plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
-plugins/services/src/js/structs/Service.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/Service.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/Service.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'isRunning' does not exist on type '{}'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'isTerminating' does not exist on type '{}'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
-plugins/services/src/js/structs/ServiceSpec.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2345: Argument of type 'this' is not assignable to parameter of type 'null | undefined'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getId' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2322: Type 'this' is not assignable to type 'null'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'labels' does not exist on type '{}'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'push' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'list' does not exist on type 'ServiceTree'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getFilterProperties' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getDeployments' does not exist on type 'Service'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getDeployments' does not exist on type 'Service'.
-plugins/services/src/js/structs/ServicesList.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'getItems' does not exist on type 'ServicesList'.
-plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'getItems' does not exist on type 'ServicesList'.
-plugins/services/src/js/structs/ServicesList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'type' does not exist on type 'typeof ServicesList'.
-plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'getItems' does not exist on type 'ServicesList'.
-plugins/services/src/js/structs/TaskDirectory.ts: error TS2339: Property 'type' does not exist on type 'typeof TaskDirectory'.
-plugins/services/src/js/structs/TaskDirectory.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-plugins/services/src/js/structs/TaskDirectory.ts: error TS2339: Property 'getItems' does not exist on type 'TaskDirectory'.
+plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'id' does not exist on type '{}'.
+plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'getHealth' does not exist on type '{}'.
+plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'used_resources' does not exist on type '{}'.
+plugins/services/src/js/structs/TaskDirectory.ts: error TS2339: Property 'getName' does not exist on type '{}'.
 plugins/services/src/js/structs/TaskStats.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/services/src/js/structs/VolumeList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-plugins/services/src/js/structs/VolumeList.ts: error TS2339: Property 'type' does not exist on type 'typeof VolumeList'.
 plugins/services/src/js/structs/__tests__/Application-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/structs/__tests__/Application-test.ts: error TS2769: No overload matches this call.
-plugins/services/src/js/structs/__tests__/Application-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
-plugins/services/src/js/structs/__tests__/LogBuffer-test.ts: error TS2339: Property 'getItems' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/__tests__/LogBuffer-test.ts: error TS2339: Property 'getItems' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/__tests__/LogBuffer-test.ts: error TS2339: Property 'getItems' does not exist on type 'LogBuffer'.
-plugins/services/src/js/structs/__tests__/Pod-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/__tests__/PodContainer-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/__tests__/PodInstance-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/__tests__/PodSpec-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
@@ -2502,27 +2463,15 @@ plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Exp
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'getItems' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'add' does not exist on type 'ServiceTree'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/__tests__/TaskDirectory-test.ts: error TS2351: This expression is not constructable.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ foo: string; }[]'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2322: Type '{ roles: any; constraints: any; cpus: any; gpus: any; mem: any; disk: any; ports: any[]; }' is not assignable to type 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
@@ -2546,7 +2495,6 @@ plugins/services/src/js/utils/MarathonUtil.ts: error TS2322: Type 'string' is no
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/services/src/js/utils/PodUtil.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type '{} | undefined'.
-plugins/services/src/js/utils/PodUtil.ts: error TS2351: This expression is not constructable.
 plugins/services/src/js/utils/PodUtil.ts: error TS2339: Property 'containerId' does not exist on type 'never'.
 plugins/services/src/js/utils/PodUtil.ts: error TS2339: Property 'containerId' does not exist on type 'never'.
 plugins/services/src/js/utils/PodUtil.ts: error TS2554: Expected 2 arguments, but got 1.
@@ -2560,8 +2508,6 @@ plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'type' does no
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'directory' does not exist on type 'never'.
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'directory' does not exist on type 'never'.
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'ports' does not exist on type '{}'.
-plugins/services/src/js/utils/__tests__/InstanceUtil-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/utils/__tests__/InstanceUtil-test.ts: error TS2351: This expression is not constructable.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type '{ id: string; }[]' is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type '{ id: string; container: { volumes: { containerPath: string; mode: string; persistent: { size: number; type: string; }; }[]; }; tasks: { id: string; host: string; startedAt: string; localVolumes: { containerPath: string; persistenceId: string; }[]; }[]; }[]' is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argument of type '{ id: string; }' is not assignable to parameter of type '{ id?: string | undefined; groups?: never[] | undefined; apps?: never[] | undefined; pods?: never[] | undefined; enforceRole: any; }'.
@@ -2585,19 +2531,9 @@ plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argu
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type '{ id: string; container: { volumes: { containerPath: string; mode: string; persistent: { size: number; type: string; }; }[]; }; tasks: { id: string; host: string; startedAt: string; localVolumes: { containerPath: string; persistenceId: string; }[]; }[]; }[]' is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/ServiceConfigUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/utils/__tests__/ServiceConfigUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
-plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2351: This expression is not constructable.
 plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Framework' is not assignable to parameter of type 'Service | Pod'.
 plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Application' is not assignable to parameter of type 'Service | Pod'.
 plugins/services/src/js/utils/__tests__/VipLabelUtil-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type '{} | undefined'.
@@ -2664,6 +2600,7 @@ src/js/components/ClickToSelect.tsx: error TS2339: Property 'document' does not 
 src/js/components/ClusterDropdown.tsx: error TS2741: Property 'onTrigger' is missing in type '{ children: any; }' but required in type '{ onTrigger: any; children: any; }'.
 src/js/components/ClusterHeader.tsx: error TS2339: Property 'open' does not exist on type 'Global'.
 src/js/components/ClusterHeader.tsx: error TS2339: Property 'open' does not exist on type 'Global'.
+src/js/components/ClusterHeader.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 src/js/components/ClusterHeader.tsx: error TS2605: JSX element type 'ClipboardTrigger' is not a constructor function for JSX elements.
 src/js/components/ClusterHeader.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/CollapsingString.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -2747,6 +2684,8 @@ src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'removeEventList
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/Modals.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
 src/js/components/Modals.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
+src/js/components/Modals.tsx: error TS2345: Argument of type '\\"versions\\"' is not assignable to parameter of type 'never'.
 src/js/components/NestedServiceLinks.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 src/js/components/NestedServiceLinks.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 src/js/components/Page.tsx: error TS2605: JSX element type 'FluidGeminiScrollbar' is not a constructor function for JSX elements.
@@ -2776,7 +2715,6 @@ src/js/components/PlacementConstraintsPartial.tsx: error TS2322: Type 'Element' 
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'value' does not exist on type 'never'.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2605: JSX element type 'BatchContainer' is not a constructor function for JSX elements.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/PrimarySidebarLink.tsx: error TS2571: Object is of type 'unknown'.
 src/js/components/PrimarySidebarLink.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 src/js/components/ProgressBar.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/components/ResourceSwitchDropdown.tsx: error TS2741: Property 'onTrigger' is missing in type '{ children: any; }' but required in type '{ onTrigger: any; children: any; }'.
@@ -2787,6 +2725,9 @@ src/js/components/ServerErrorModal.tsx: error TS2683: 'this' implicitly has type
 src/js/components/Sidebar.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/Sidebar.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/Sidebar.tsx: error TS2322: Type 'boolean | Element' is not assignable to type 'boolean'.
+src/js/components/Sidebar.tsx: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/components/Sidebar.tsx: error TS2339: Property 'version' does not exist on type 'never'.
+src/js/components/Sidebar.tsx: error TS2339: Property 'version' does not exist on type 'never'.
 src/js/components/Sidebar.tsx: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
 src/js/components/Sidebar.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 src/js/components/SplitPanel.tsx: error TS2347: Untyped function calls may not accept type arguments.
@@ -2815,7 +2756,6 @@ src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'docu
 src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ClickToSelect-test.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
 src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/__tests__/ComponentList-test.tsx: error TS2351: This expression is not constructable.
 src/js/components/__tests__/ComponentList-test.tsx: error TS2605: JSX element type 'ComponentList' is not a constructor function for JSX elements.
 src/js/components/__tests__/ComponentList-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/DescriptionList-test.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
@@ -3182,7 +3122,6 @@ src/js/mesos-proto.ts: error TS2326: Types of property 'nested' are incompatible
 src/js/mixins/ChartMixin.ts: error TS2339: Property 'props' does not exist on type '{ getXScale(data: never[] | undefined, width: any, refreshRate: any): any; getHeight(props: any): number; getWidth(props: any): number; formatXAxis(d: any): any; }'.
 src/js/mixins/ChartMixin.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
 src/js/mixins/ChartMixin.ts: error TS2339: Property 'values' does not exist on type 'never'.
-src/js/mixins/TabsMixin.tsx: error TS2571: Object is of type 'unknown'.
 src/js/mixins/TabsMixin.tsx: error TS2339: Property 'classNames' does not exist on type '{}'.
 src/js/mixins/TabsMixin.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 src/js/mixins/TabsMixin.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -3218,15 +3157,18 @@ src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultT
 src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type '{ tabs_getUnroutedItem(props: {} | undefined, tab: any): Element; tabs_getUnroutedTabs(props: any): any; tabs_getRoutedItem(props: {} | undefined, tab: any): Element; tabs_getRoutedTabs(props: any): any; tabs_getTabView(...args: any[]): any; tabs_handleTabClick(nextTab: any): void; }'.
 src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'state' does not exist on type '{ tabs_getUnroutedItem(props: {} | undefined, tab: any): Element; tabs_getUnroutedTabs(props: any): any; tabs_getRoutedItem(props: {} | undefined, tab: any): Element; tabs_getRoutedTabs(props: any): any; tabs_getTabView(...args: any[]): any; tabs_handleTabClick(nextTab: any): void; }'.
 src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'calls' does not exist on type '(props: {} | undefined, tab: any) => Element'.
-src/js/pages/DashboardPage.tsx: error TS2351: This expression is not constructable.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
+src/js/pages/DashboardPage.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
+src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
+src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'ComponentList' is not a constructor function for JSX elements.
 src/js/pages/DashboardPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2322: Type '{ children: Element; key: number; title: string; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/Index.tsx: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
 src/js/pages/Index.tsx: error TS7030: Not all code paths return a value.
@@ -3235,6 +3177,7 @@ src/js/pages/Index.tsx: error TS2605: JSX element type 'HeaderBar' is not a cons
 src/js/pages/Index.tsx: error TS2605: JSX element type 'Sidebar' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
+src/js/pages/Index.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/pages/Index.tsx: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
 src/js/pages/Index.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 src/js/pages/Index.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
@@ -3284,9 +3227,8 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2607: JSX element class does not s
 src/js/pages/catalog/PackagesTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/catalog/PackagesTab.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackagesTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
-src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'isEmpty' does not exist on type 'UniversePackagesList'.
-src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'filterItems' does not exist on type 'UniversePackagesList'.
-src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'filterItems' does not exist on type 'UniversePackagesList'.
+src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'isCertified' does not exist on type '{}'.
+src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'isCertified' does not exist on type '{}'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2605: JSX element type 'FilterBar' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackagesTab.tsx: error TS2605: JSX element type 'FilterInputText' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackagesTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3305,17 +3247,18 @@ src/js/pages/network/VirtualNetworksTab.tsx: error TS2607: JSX element class doe
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2345: Argument of type 'typeof VirtualNetworksTabContent' is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: Type '{ children: Element; key: number; title: string; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/network/VirtualNetworksTable.tsx: error TS2769: No overload matches this call.
-src/js/pages/network/VirtualNetworksTable.tsx: error TS2345: Argument of type 'typeof OverlayList' is not assignable to parameter of type 'new (...args: any[]) => unknown'.
 src/js/pages/network/VirtualNetworksTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type '{ overlayID: any; }' but required in type '{ overlayID: any; overlay: any; }'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type '{ overlayID: any; }' but required in type '{ overlayID: any; overlay: any; }'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlayID' is missing in type '{ overlay: any; }' but required in type '{ overlayID: any; overlay: any; }'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'getName' does not exist on type '{}'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlayID' is missing in type '{ overlay: {} | undefined; }' but required in type '{ overlayID: any; overlay: any; }'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: Type '{ children: Element; key: number; title: string; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: Type '{ children: Element; key: number; title: any; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: Type '{ children: Element; key: number; title: any; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2554: Expected 1 arguments, but got 0.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: Type '{ overlayID: any; overlay: any; taskID: any; taskName: any; }' is not assignable to type 'IntrinsicAttributes & { overlayID: any; overlay: any; taskID: any; task: any; }'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2339: Property 'getName' does not exist on type '{}'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: Type '{ overlayID: any; overlay: {} | undefined; taskID: any; taskName: any; }' is not assignable to type 'IntrinsicAttributes & { overlayID: any; overlay: any; taskID: any; task: any; }'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2739: Type '{}' is missing the following properties from type '{ overlayID: any; overlay: any; taskID: any; task: any; }': overlayID, overlay, taskID, task
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3375,6 +3318,18 @@ src/js/pages/system/OrganizationTab.tsx: error TS2683: 'this' implicitly has typ
 src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2769: No overload matches this call.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2769: No overload matches this call.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2345: Argument of type '\\"dcosBuildInfo\\"' is not assignable to parameter of type 'never'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -3396,6 +3351,7 @@ src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: Type '{ children: Eleme
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: Type '{ children: Element; key: number; title: string; }' is not assignable to type 'IntrinsicAttributes & Pick<InferProps<{ isCaret: Requireable<boolean>; isIcon: Requireable<boolean>; title: Validator<string>; }>, \\"title\\"> & Partial<...> & Partial<...>'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'getHealth' does not exist on type '{}'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2605: JSX element type 'FilterHeadline' is not a constructor function for JSX elements.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2605: JSX element type 'FilterBar' is not a constructor function for JSX elements.
@@ -3442,11 +3398,6 @@ src/js/stores/AuthStore.ts: error TS2339: Property 'document' does not exist on 
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/ConfigStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/ConfigStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/ConfigStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'ConfigStore'.
-src/js/stores/ConfigStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'ConfigStore'.
-src/js/stores/ConfigStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS6133: 'store' is declared but its value is never read.
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
@@ -3459,10 +3410,21 @@ src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 1 arguments, but go
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 3 arguments, but got 0 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"availablePackages\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"installedPackages\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packageDetails\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packageImages\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"serviceDetails\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"repositories\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
+src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
 src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/CosmosPackagesStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'CosmosPackagesStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
+src/js/stores/DCOSStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
+src/js/stores/DCOSStore.ts: error TS2571: Object is of type 'unknown'.
+src/js/stores/DCOSStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/DCOSStore.ts: error TS2416: Property 'emit' in type 'DCOSStore' is not assignable to the same property in base type 'EventEmitter'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'debouncedEvents' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'debouncedEvents' does not exist on type 'DCOSStore'.
@@ -3472,6 +3434,8 @@ src/js/stores/DCOSStore.ts: error TS2345: Argument of type 'null' is not assigna
 src/js/stores/DCOSStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'never'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
+src/js/stores/DCOSStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/stores/DCOSStore.ts: error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'store' does not exist on type 'never'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'event' does not exist on type 'never'.
@@ -3486,51 +3450,61 @@ src/js/stores/DCOSStore.ts: error TS2551: Property '_serviceTree' does not exist
 src/js/stores/DCOSStore.ts: error TS2551: Property '_serviceTree' does not exist on type 'DCOSStore'. Did you mean 'serviceTree'?
 src/js/stores/DCOSStore.ts: error TS2339: Property '_flatServiceTree' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
-src/js/stores/DCOSStore.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/stores/DCOSStore.ts: error TS2351: This expression is not constructable.
-src/js/stores/DCOSStore.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/stores/DCOSStore.ts: error TS2339: Property '_flatServiceTree' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property '_flatServiceTree' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property '_flatServiceTree' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
-src/js/stores/DCOSStore.ts: error TS2351: This expression is not constructable.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'debouncedEvents' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 src/js/stores/DCOSStore.ts: error TS2322: Type '() => void' is not assignable to type 'never'.
 src/js/stores/DCOSStore.ts: error TS2322: Type 'MesosSummaryStore' is not assignable to type 'never'.
 src/js/stores/DCOSStore.ts: error TS2769: No overload matches this call.
-src/js/stores/GetSetBaseStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
-src/js/stores/GetSetBaseStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
-src/js/stores/GetSetBaseStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
-src/js/stores/GetSetBaseStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
-src/js/stores/GetSetBaseStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
+src/js/stores/GetSetBaseStore.ts: error TS2322: Type '{}' is not assignable to type 'T'.
+src/js/stores/GetSetBaseStore.ts: error TS2564: Property 'getSet_data' has no initializer and is not definitely assigned in the constructor.
 src/js/stores/LanguageModalStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'resolve' does not exist on type 'MesosStateStore'.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'stream' does not exist on type 'MesosStateStore'.
-src/js/stores/MesosStateStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'ready' does not exist on type 'MesosStateStore'.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'resolve' does not exist on type 'MesosStateStore'.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'MesosStateStore'.
+src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"master\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosStateStore.ts: error TS7030: Not all code paths return a value.
-src/js/stores/MesosStateStore.ts: error TS2339: Property 'stream' does not exist on type 'MesosStateStore'.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 src/js/stores/MesosStream/parsers/__tests__/master-test.ts: error TS2339: Property 'start_time' does not exist on type '{ type: string; get_master: { master_info: { id: string; ip: number; port: number; pid: string; hostname: string; version: string; address: { hostname: string; ip: string; port: number; }; domain: { fault_domain: { ...; }; }; capabilities: { ...; }[]; }; start_time: number; elected_time: number; }; }'.
 src/js/stores/MesosStream/parsers/tasks.ts: error TS2339: Property 'id' does not exist on type '{}'.
+src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"lastRequestTime\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2339: Property 'lastSuccessful' does not exist on type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2339: Property 'silent' does not exist on type '{}'.
+src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MesosSummaryStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2339: Property 'silent' does not exist on type '{}'.
 src/js/stores/MesosSummaryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2769: No overload matches this call.
 src/js/stores/MesosSummaryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2339: Property 'CLUSTER_ID' does not exist on type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2339: Property 'version' does not exist on type 'never'.
 src/js/stores/MetadataStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/NotificationStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'NotificationStore'.
-src/js/stores/NotificationStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/NotificationStore.ts: error TS2571: Object is of type 'unknown'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
+src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosBuildInfo\\"' is not assignable to parameter of type 'never'.
+src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
+src/js/stores/NotificationStore.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/NotificationStore.ts: error TS2769: No overload matches this call.
+src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
+src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/SidebarStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
+src/js/stores/SidebarStore.ts: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/stores/SidebarStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/SystemLogStore.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
@@ -3559,16 +3533,23 @@ src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on
 src/js/stores/SystemLogStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/TableColumnResizeStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/UnitHealthStore.ts: error TS2351: This expression is not constructable.
-src/js/stores/UnitHealthStore.ts: error TS2351: This expression is not constructable.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"units\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByUnitID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"unitsByID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByUnitID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
+src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\"' is not assignable to parameter of type 'never'.
+src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2769: No overload matches this call.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UnitHealthStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'UnitHealthStore'.
 src/js/stores/UserLanguageStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/UserStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UserStore.ts: error TS7030: Not all code paths return a value.
@@ -3576,10 +3557,9 @@ src/js/stores/UserStore.ts: error TS2556: Expected 0 arguments, but got 1 or mor
 src/js/stores/UserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/UserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UsersStore.ts: error TS2339: Property 'getSet_data' does not exist on type 'UsersStore'.
 src/js/stores/UsersStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UsersStore.ts: error TS2351: This expression is not constructable.
+src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not assignable to parameter of type 'never'.
 src/js/stores/VirtualNetworksStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
 src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
@@ -3594,7 +3574,6 @@ src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not ex
 src/js/stores/VirtualNetworksStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/VirtualNetworksStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/VirtualNetworksStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Timeout'.
-src/js/stores/VirtualNetworksStore.ts: error TS2351: This expression is not constructable.
 src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
@@ -3610,15 +3589,14 @@ src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is pos
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniversePackagesList'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'RepositoryList'.
-src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniversePackagesList'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'getAppId' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2351: This expression is not constructable.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
@@ -3629,8 +3607,8 @@ src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches thi
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2351: This expression is not constructable.
-src/js/stores/__tests__/GetSetBaseStore-test.ts: error TS2339: Property 'getSet_data' does not exist on type 'GetSetBaseStore'.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2345: Argument of type '{ items: { id: string; version: string; affectedApps: string[]; currentStep: number; totalSteps: number; }[]; }' is not assignable to parameter of type '{ items?: Deployment[] | undefined; filterProperties?: any; }'.
+src/js/stores/__tests__/GetSetBaseStore-test.ts: error TS2345: Argument of type '\\"foo\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type '(options?: {}) => void'.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type '(options?: {}) => void'.
 src/js/stores/__tests__/NotificationStore-test.ts: error TS2554: Expected 1 arguments, but got 2.
@@ -3643,21 +3621,24 @@ src/js/stores/__tests__/SystemLogStore-test.ts: error TS2554: Expected 2 argumen
 src/js/stores/__tests__/SystemLogStore-test.ts: error TS2345: Argument of type '{ fields: { MESSAGE: string; }; }[]' is not assignable to parameter of type 'never[]'.
 src/js/stores/__tests__/SystemLogStore-test.ts: error TS2345: Argument of type '{ fields: { MESSAGE: string; }; }[]' is not assignable to parameter of type 'never[]'.
 src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2554: Expected 0 arguments, but got 1.
-src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
+src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
+src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'name' does not exist on type '{}'.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'userID' is declared but its value is never read.
-src/js/stores/__tests__/UsersStore-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
-src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
+src/js/stores/__tests__/UsersStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/UsersStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
+src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getSubnet' does not exist on type '{}'.
+src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
+src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
 src/js/structs/Batch.ts: error TS2339: Property 'slice' does not exist on type 'Batch'.
 src/js/structs/Batch.ts: error TS2339: Property 'length' does not exist on type 'Batch'.
-src/js/structs/CompositeState.ts: error TS2351: This expression is not constructable.
 src/js/structs/CompositeState.ts: error TS2551: Property '_data' does not exist on type 'CompositeState'. Did you mean 'data'?
 src/js/structs/CompositeState.ts: error TS2551: Property '_nodesList' does not exist on type 'CompositeState'. Did you mean 'getNodesList'?
 src/js/structs/CompositeState.ts: error TS2551: Property '_data' does not exist on type 'CompositeState'. Did you mean 'data'?
 src/js/structs/CompositeState.ts: error TS2551: Property '_nodesList' does not exist on type 'CompositeState'. Did you mean 'getNodesList'?
 src/js/structs/CompositeState.ts: error TS2551: Property '_nodesList' does not exist on type 'CompositeState'. Did you mean 'getNodesList'?
-src/js/structs/CompositeState.ts: error TS2351: This expression is not constructable.
 src/js/structs/CompositeState.ts: error TS2551: Property '_nodesList' does not exist on type 'CompositeState'. Did you mean 'getNodesList'?
 src/js/structs/CompositeState.ts: error TS2339: Property '_refCount' does not exist on type 'CompositeState'.
 src/js/structs/CompositeState.ts: error TS2339: Property 'masterInfo' does not exist on type 'CompositeState'.
@@ -3682,26 +3663,18 @@ src/js/structs/DSLASTNodes.ts: error TS2339: Property 'filterParams' does not ex
 src/js/structs/DSLExpression.ts: error TS1192: Module '\\"/src/resources/grammar/SearchDSL\\"' has no default export.
 src/js/structs/DSLExpression.ts: error TS6133: 'filters' is declared but its value is never read.
 src/js/structs/HealthUnit.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
-src/js/structs/HealthUnitsList.ts: error TS2351: This expression is not constructable.
-src/js/structs/HealthUnitsList.ts: error TS2339: Property 'type' does not exist on type 'typeof HealthUnitsList'.
-src/js/structs/HealthUnitsList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/HealthUnitsList.ts: error TS2339: Property 'getItems' does not exist on type 'HealthUnitsList'.
-src/js/structs/Item.ts: error TS2339: Property '_itemData' does not exist on type 'Item'.
-src/js/structs/Item.ts: error TS2339: Property '_itemData' does not exist on type 'Item'.
-src/js/structs/Item.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/structs/Item.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/structs/Item.ts: error TS2339: Property '_itemData' does not exist on type 'Item'.
-src/js/structs/Job.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/structs/JobTaskList.ts: error TS2339: Property 'type' does not exist on type 'typeof JobTaskList'.
-src/js/structs/JobTaskList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/JobTaskList.ts: error TS2339: Property 'getItems' does not exist on type 'JobTaskList'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/JobTaskList.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
 src/js/structs/JobTree.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
 src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
 src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
-src/js/structs/JobTree.ts: error TS2339: Property 'list' does not exist on type 'JobTree'.
-src/js/structs/JobTree.ts: error TS2339: Property 'list' does not exist on type 'JobTree'.
+src/js/structs/JobTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
+src/js/structs/JobTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
 src/js/structs/JobTree.ts: error TS2351: This expression is not constructable.
-src/js/structs/JobTree.ts: error TS2339: Property 'getFilterProperties' does not exist on type 'JobTree'.
 src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
@@ -3709,21 +3682,15 @@ src/js/structs/List.ts: error TS2683: 'this' implicitly has type 'any' because i
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2339: Property 'type' does not exist on type 'Function'.
-src/js/structs/NodesList.ts: error TS2351: This expression is not constructable.
-src/js/structs/NodesList.ts: error TS2339: Property 'getItems' does not exist on type 'NodesList'.
-src/js/structs/NodesList.ts: error TS2339: Property 'getItems' does not exist on type 'NodesList'.
-src/js/structs/NodesList.ts: error TS2339: Property 'type' does not exist on type 'typeof NodesList'.
-src/js/structs/NodesList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/NodesList.ts: error TS2339: Property 'getItems' does not exist on type 'NodesList'.
+src/js/structs/NodesList.ts: error TS2339: Property 'id' does not exist on type '{}'.
+src/js/structs/NodesList.ts: error TS2339: Property 'framework_ids' does not exist on type '{}'.
+src/js/structs/NodesList.ts: error TS2339: Property 'used_resources' does not exist on type '{}'.
+src/js/structs/NodesList.ts: error TS2339: Property 'resources' does not exist on type '{}'.
 src/js/structs/Overlay.ts: error TS2556: Expected 0-1 arguments, but got 2 or more.
 src/js/structs/Overlay.ts: error TS2339: Property 'info' does not exist on type '{}'.
 src/js/structs/Overlay.ts: error TS2339: Property 'info' does not exist on type '{}'.
-src/js/structs/OverlayList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/OverlayList.ts: error TS2339: Property 'type' does not exist on type 'typeof OverlayList'.
+src/js/structs/RepositoryList.ts: error TS2556: Expected 0-1 arguments, but got 2 or more.
 src/js/structs/RepositoryList.ts: error TS2345: Argument of type 'IArguments' is not assignable to parameter of type 'number'.
-src/js/structs/RepositoryList.ts: error TS2339: Property 'getItems' does not exist on type 'RepositoryList'.
-src/js/structs/RepositoryList.ts: error TS2339: Property 'type' does not exist on type 'typeof RepositoryList'.
-src/js/structs/RepositoryList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
 src/js/structs/RepositoryList.ts: error TS2339: Property 'filterProperties' does not exist on type '{}'.
 src/js/structs/RepositoryList.ts: error TS2339: Property 'filterProperties' does not exist on type '{}'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type 'StateSummary'.
@@ -3735,51 +3702,40 @@ src/js/structs/StateSummary.ts: error TS2339: Property 'successful' does not exi
 src/js/structs/StateSummary.ts: error TS2339: Property 'metadata' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type 'StateSummary'.
-src/js/structs/StateSummary.ts: error TS2351: This expression is not constructable.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type 'StateSummary'.
-src/js/structs/StateSummary.ts: error TS2351: This expression is not constructable.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'metadata' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'metadata' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'metadata' does not exist on type 'StateSummary'.
 src/js/structs/StateSummary.ts: error TS2339: Property 'snapshot' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/structs/SummaryList.ts: error TS2339: Property 'maxLength' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2339: Property 'list' does not exist on type 'SummaryList'.
 src/js/structs/SummaryList.ts: error TS2339: Property 'maxLength' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2339: Property 'list' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
-src/js/structs/SummaryList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
+src/js/structs/SummaryList.ts: error TS2339: Property 'getSnapshotDate' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'getActiveSlaves' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'getNodesList' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'getNodesList' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'getSnapshotDate' does not exist on type '{}'.
+src/js/structs/SummaryList.ts: error TS2339: Property 'getClusterName' does not exist on type '{}'.
 src/js/structs/SummaryList.ts: error TS2339: Property 'maxLength' does not exist on type 'SummaryList'.
 src/js/structs/SummaryList.ts: error TS2339: Property 'maxLength' does not exist on type '{}'.
 src/js/structs/Tree.ts: error TS2351: This expression is not constructable.
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
 src/js/structs/Tree.ts: error TS2351: This expression is not constructable.
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2339: Property 'list' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2339: Property 'list' does not exist on type 'Tree'.
+src/js/structs/Tree.ts: error TS2339: Property 'items' does not exist on type '{}'.
+src/js/structs/Tree.ts: error TS2339: Property 'items' does not exist on type '{}'.
 src/js/structs/Tree.ts: error TS2351: This expression is not constructable.
-src/js/structs/Tree.ts: error TS2339: Property 'getFilterProperties' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/Tree.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
+src/js/structs/Tree.ts: error TS2339: Property 'push' does not exist on type '{}'.
+src/js/structs/Tree.ts: error TS2339: Property 'concat' does not exist on type '{}'.
 src/js/structs/Tree.ts: error TS2351: This expression is not constructable.
-src/js/structs/Tree.ts: error TS2339: Property 'getFilterProperties' does not exist on type 'Tree'.
+src/js/structs/UniverseInstalledPackagesList.ts: error TS2556: Expected 0-1 arguments, but got 2 or more.
 src/js/structs/UniverseInstalledPackagesList.ts: error TS2345: Argument of type 'IArguments' is not assignable to parameter of type 'number'.
-src/js/structs/UniverseInstalledPackagesList.ts: error TS2339: Property 'list' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/structs/UniverseInstalledPackagesList.ts: error TS2339: Property 'list' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/structs/UniverseInstalledPackagesList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
 src/js/structs/UniverseInstalledPackagesList.ts: error TS2339: Property 'filterProperties' does not exist on type '{}'.
 src/js/structs/UniverseInstalledPackagesList.ts: error TS2339: Property 'filterProperties' does not exist on type '{}'.
-src/js/structs/UniversePackagesList.ts: error TS2339: Property 'type' does not exist on type 'typeof UniversePackagesList'.
-src/js/structs/UniversePackagesList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/UsersList.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/UsersList.ts: error TS2339: Property 'type' does not exist on type 'typeof UsersList'.
 src/js/structs/__tests__/CompositeState-test.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/structs/__tests__/CompositeState-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
+src/js/structs/__tests__/CompositeState-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/structs/__tests__/DSLExpression-test.ts: error TS2339: Property 'value' does not exist on type 'DSLExpression'.
 src/js/structs/__tests__/DSLExpression-test.ts: error TS2339: Property 'defined' does not exist on type 'DSLExpression'.
 src/js/structs/__tests__/DSLExpression-test.ts: error TS2339: Property 'defined' does not exist on type 'DSLExpression'.
@@ -3794,42 +3750,37 @@ src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filt
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterParams' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
-src/js/structs/__tests__/HealthUnitList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/Item-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/structs/__tests__/HealthUnitList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ foo: string; }[]'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ foo: string; }[]'.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'a' does not exist on type 'Item'.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'b' does not exist on type 'Item'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2351: This expression is not constructable.
+src/js/structs/__tests__/JobTaskList-test.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
+src/js/structs/__tests__/JobTaskList-test.ts: error TS2339: Property 'getDateStarted' does not exist on type '{}'.
 src/js/structs/__tests__/JobTree-test.ts: error TS2345: Argument of type '{ id: string; items: ({ id: string; items: never[]; } | { id: string; })[]; }' is not assignable to parameter of type '{ id: any; }'.
 src/js/structs/__tests__/JobTree-test.ts: error TS2345: Argument of type '{ items: never[]; }' is not assignable to parameter of type '{ id: any; }'.
-src/js/structs/__tests__/List-test.ts: error TS2314: Generic type 'List<A>' requires 1 type argument(s).
-src/js/structs/__tests__/List-test.ts: error TS2345: Argument of type '{ items: string; }' is not assignable to parameter of type '{ items?: unknown[] | undefined; filterProperties?: any; }'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/NodesList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/OverlayList-test.ts: error TS2351: This expression is not constructable.
-src/js/structs/__tests__/StateSummary-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
-src/js/structs/__tests__/StateSummary-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
-src/js/structs/__tests__/StateSummary-test.ts: error TS2359: The right-hand side of an 'instanceof' expression must be of type 'any' or of a type assignable to the 'Function' interface type.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'getItems' does not exist on type 'SummaryList'.
+src/js/structs/__tests__/List-test.ts: error TS2345: Argument of type '{ items: string; }' is not assignable to parameter of type '{ items?: {}[] | undefined; filterProperties?: any; }'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/structs/__tests__/NodesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ foo: string; }[]'.
+src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
-src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'last' does not exist on type 'SummaryList'.
+src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
@@ -3839,48 +3790,21 @@ src/js/structs/__tests__/Transaction-test.ts: error TS2345: Argument of type '\\
 src/js/structs/__tests__/Transaction-test.ts: error TS2540: Cannot assign to 'type' because it is a read-only property.
 src/js/structs/__tests__/Transaction-test.ts: error TS2540: Cannot assign to 'value' because it is a read-only property.
 src/js/structs/__tests__/Transaction-test.ts: error TS2540: Cannot assign to 'path' because it is a read-only property.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'add' does not exist on type 'Tree'.
-src/js/structs/__tests__/Tree-test.ts: error TS2339: Property 'getItems' does not exist on type 'Tree'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
+src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ appId: string; foo: string; }[]'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ appId: string; foo: string; }'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
+src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ appId: string; foo: string; }[]'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ appId: string; foo: string; }'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniverseInstalledPackagesList'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getName' does not exist on type '{ appId: string; name: string; }'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniverseInstalledPackagesList'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getDescription' does not exist on type '{ appId: string; description: string; }'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniverseInstalledPackagesList'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getTags' does not exist on type '{ appId: string; tags: string[]; }'.
 src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getTags' does not exist on type '{ appId: string; tags: string[]; }'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniverseInstalledPackagesList'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniversePackagesList'.
+src/js/structs/__tests__/UniverseInstalledPackagesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ appId: string; foo: string; }[]'.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ name: string; }'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniversePackagesList'.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ name: string; }'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniversePackagesList'.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ description: string; }'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniversePackagesList'.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ tags: string[]; }'.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type '{ tags: string[]; }'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'filterItemsByText' does not exist on type 'UniversePackagesList'.
-src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'getItems' does not exist on type 'UniversePackagesList'.
+src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2322: Type '{}[]' is not assignable to type '{ foo: string; }[]'.
 src/js/utils/CookieUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/utils/DOMUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/utils/DOMUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
@@ -3988,7 +3912,6 @@ src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist 
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/utils/ScrollbarUtil.ts: error TS2322: Type 'number' is not assignable to type 'null'.
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/StructUtil.ts: error TS2339: Property '_itemData' does not exist on type 'Item'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
@@ -4170,7 +4093,6 @@ src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does n
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
-src/js/utils/__tests__/ResourcesUtil-test.ts: error TS2351: This expression is not constructable.
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2339: Property 'buildBreadCrumb' does not exist on type 'PlainRoute'.
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2339: Property 'buildBreadCrumb' does not exist on type '{ type: Route; path: string; component(): void; children: { type: Route; path: string; component(): void; children: { type: Route; path: string; component(): void; }[]; }[]; }'.
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2532: Object is possibly 'undefined'.
@@ -4195,9 +4117,9 @@ src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'nul
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type '{}' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/StructUtil-test.ts: error TS2345: Argument of type 'string | number | { foo: string; item?: undefined; } | { item: string; foo?: undefined; } | null | undefined' is not assignable to parameter of type '{} | undefined'.
-src/js/utils/__tests__/StructUtil-test.ts: error TS2339: Property '_itemData' does not exist on type 'Item'.
 src/js/utils/__tests__/TableUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
-src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2351: This expression is not constructable.
+src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
+src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 2.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 3.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 2.
