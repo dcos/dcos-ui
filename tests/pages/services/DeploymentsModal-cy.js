@@ -48,19 +48,18 @@ describe("Deployments Modal", () => {
       });
     });
 
-    it("renders the deployments count", () => {
+    it("renders interesting things", () => {
+      // the deployment count
       cy.get(".modal-header-title").then($header => {
         expect($header.get(0).textContent).to.contain("1 Active Deployment");
       });
-    });
 
-    it("renders one row per deployment", () => {
+      // one row per deployment
       cy.get(".modal tbody tr:visible").then($tableRows => {
         expect($tableRows.get().length).to.equal(1);
       });
-    });
 
-    it("renders the `id` column", () => {
+      // the `id` column
       cy.get(".modal tbody tr:visible td").then($tableCells => {
         cy.getAPIResponse("marathon/v2/deployments", response => {
           expect(
@@ -69,9 +68,8 @@ describe("Deployments Modal", () => {
           ).to.equal(response[0].id);
         });
       });
-    });
 
-    it("renders the `started` column", () => {
+      // the `started` column
       cy.get(".modal tbody tr:visible td").then($tableCells => {
         cy.getAPIResponse("marathon/v2/deployments", () => {
           expect(
@@ -79,20 +77,18 @@ describe("Deployments Modal", () => {
               .get(1)
               .querySelector("time")
               .getAttribute("datetime")
-          ).to.equal("2016-07-05T17:54:37");
+          ).to.match(/2016-07-05T17:54:37/);
         });
       });
-    });
 
-    it("renders the `status` column", () => {
+      // the `status` column
       cy.get(".modal tbody tr:visible td").then($tableCells => {
         expect(
           $tableCells.get(2).querySelectorAll(".status-bar").length
         ).to.equal(1);
       });
-    });
 
-    it("is auto-expanded to show services", () => {
+      // it is auto-expanded to show services
       cy.get(
         ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
       ).then($expandedChildText => {

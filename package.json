@@ -46,7 +46,7 @@
     "cookie": "0.4.0",
     "create-react-class": "15.6.3",
     "d3": "3.5.17",
-    "date-fns": "2.8.1",
+    "date-fns": "2.9.0",
     "dygraphs": "2.1.0",
     "flux": "3.1.3",
     "graphql": "14.6.0",
