@@ -90,7 +90,7 @@ import ServiceTree from "../structs/ServiceTree";
 
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
 
-let requestInterval = null;
+let requestInterval: NodeJS.Timeout | null = null;
 let shouldEmbedLastUnusedOffers = false;
 
 function startPolling() {
@@ -108,20 +108,38 @@ function stopPolling() {
 }
 
 function poll() {
-  const options = {};
-
-  if (shouldEmbedLastUnusedOffers) {
-    options.params = "?embed=lastUnusedOffers";
-  }
-
   MarathonActions.fetchGroups();
-  MarathonActions.fetchQueue(options);
+  MarathonActions.fetchQueue(
+    shouldEmbedLastUnusedOffers ? { params: "?embed=lastUnusedOffers" } : {}
+  );
   MarathonActions.fetchDeployments();
 }
 
-class MarathonStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+class MarathonStore extends GetSetBaseStore<{
+  apps: Record<string, unknown>;
+  deployments: unknown;
+  groups: unknown;
+  info: unknown;
+}> {
+  storeID = "marathon";
+
+  createGroup = MarathonActions.createGroup;
+  deleteGroup = MarathonActions.deleteGroup;
+  editGroup = MarathonActions.editGroup;
+  createService = MarathonActions.createService;
+  deleteService = MarathonActions.deleteService;
+  editService = MarathonActions.editService;
+  resetDelayedService = MarathonActions.resetDelayedService;
+  restartService = MarathonActions.restartService;
+  fetchQueue = MarathonActions.fetchQueue;
+  fetchServiceVersion = MarathonActions.fetchServiceVersion;
+  fetchServiceVersions = MarathonActions.fetchServiceVersions;
+  fetchMarathonInstanceInfo = MarathonActions.fetchMarathonInstanceInfo;
+  killPodInstances = MarathonActions.killPodInstances;
+  killTasks = MarathonActions.killTasks;
+
+  constructor() {
+    super();
 
     this.getSet_data = {
       apps: {},
@@ -317,66 +335,6 @@ class MarathonStore extends GetSetBaseStore {
     );
   }
 
-  changeService(...args) {
-    return MarathonActions.changeService(...args);
-  }
-
-  createGroup(...args) {
-    return MarathonActions.createGroup(...args);
-  }
-
-  deleteGroup(...args) {
-    return MarathonActions.deleteGroup(...args);
-  }
-
-  editGroup(...args) {
-    return MarathonActions.editGroup(...args);
-  }
-
-  createService(...args) {
-    return MarathonActions.createService(...args);
-  }
-
-  deleteService(...args) {
-    return MarathonActions.deleteService(...args);
-  }
-
-  editService(...args) {
-    return MarathonActions.editService(...args);
-  }
-
-  resetDelayedService(...args) {
-    return MarathonActions.resetDelayedService(...args);
-  }
-
-  restartService(...args) {
-    return MarathonActions.restartService(...args);
-  }
-
-  fetchQueue(...args) {
-    return MarathonActions.fetchQueue(...args);
-  }
-
-  fetchServiceVersion(...args) {
-    return MarathonActions.fetchServiceVersion(...args);
-  }
-
-  fetchServiceVersions(...args) {
-    return MarathonActions.fetchServiceVersions(...args);
-  }
-
-  fetchMarathonInstanceInfo(...args) {
-    return MarathonActions.fetchMarathonInstanceInfo(...args);
-  }
-
-  killPodInstances(...args) {
-    return MarathonActions.killPodInstances(...args);
-  }
-
-  killTasks(...args) {
-    return MarathonActions.killTasks(...args);
-  }
-
   hasProcessedApps() {
     return Object.keys(this.get("apps")).length > 0;
   }
@@ -412,7 +370,7 @@ class MarathonStore extends GetSetBaseStore {
     return appImages;
   }
 
-  getServiceInstalledTime(name) {
+  getServiceInstalledTime(name: string) {
     const appName = name.toLowerCase();
     let appInstalledTime = null;
     const marathonApps = this.get("apps");
@@ -445,10 +403,6 @@ class MarathonStore extends GetSetBaseStore {
     }
 
     return app.labels.DCOS_PACKAGE_VERSION;
-  }
-
-  getServiceFromName(name) {
-    return this.get("apps")[name];
   }
 
   injectGroupsWithPackageImages(data) {
@@ -587,10 +541,6 @@ class MarathonStore extends GetSetBaseStore {
 
   processMarathonServiceVersionError() {
     this.emit(MARATHON_SERVICE_VERSION_ERROR);
-  }
-
-  get storeID() {
-    return "marathon";
   }
 
   setShouldEmbedLastUnusedOffers(value) {

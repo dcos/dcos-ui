@@ -47,48 +47,6 @@ class Foo {
 }
 ```
 
-### Binding Callbacks
-
-Avoid binding callbacks each time they're used unless necessary. Instead bind all methods at initialization.
-
-**Do**
-
-```js
-const METHODS_TO_BIND = [
-  'handleUserClick'
-];
-
-class Foo {
-  constructor () {
-    METHODS_TO_BIND.forEach((method) => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  handleUserClick() { ... }
-
-  render() {
-    return (
-      <a onClick={this.handleUserClick}>A link</a>
-    );
-  }
-}
-```
-
-**Don't**
-
-```js
-class Foo {
-  handleUserClick() { ... }
-
-  render() {
-    return (
-      <a onClick={this.handleUserClick.bind(this)}>A link</a>
-    );
-  }
-}
-```
-
 ## Mixins
 
 We are trying to move away from mixins. Do not create mixins.

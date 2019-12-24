@@ -31,14 +31,17 @@ import * as mesosStreamParsers from "./MesosStream/parsers";
 
 const RETRY_DELAY = 500;
 const MAX_RETRY_DELAY = 5000;
-const METHODS_TO_BIND = ["onStreamData", "onStreamError"];
 
-const pipe = callables => (state, ...rest) =>
+const pipe = (callables: any[]) => (state, ...rest) =>
   callables.reduce((acc, c) => c.call(c, acc, ...rest), state);
 
 class MesosStateStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  ready;
+  resolve;
+  stream;
+
+  constructor() {
+    super();
 
     this.ready = new Promise(resolve => {
       this.resolve = resolve;
@@ -61,10 +64,6 @@ class MesosStateStore extends GetSetBaseStore {
         }
       },
       listenAlways: true
-    });
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
     });
   }
 
@@ -268,11 +267,11 @@ class MesosStateStore extends GetSetBaseStore {
     );
   }
 
-  onStreamData() {
+  onStreamData = () => {
     this.emit(MESOS_STATE_CHANGE);
-  }
+  };
 
-  onStreamError(error) {
+  onStreamError = error => {
     this.emit(MESOS_STATE_REQUEST_ERROR, error);
 
     // This was added in the past, so the stream does not swallow errors.
@@ -285,7 +284,7 @@ class MesosStateStore extends GetSetBaseStore {
       console.log("Mesos Store error: ", error);
       // throw error;
     }
-  }
+  };
 
   get storeID() {
     return "state";

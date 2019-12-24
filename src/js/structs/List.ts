@@ -22,7 +22,8 @@ function cast(item: any) {
   return item;
 }
 
-export default class List<A> {
+export default class List<A = {}> {
+  public static type;
   public list: A[];
   public filterProperties: any;
   /**

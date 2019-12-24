@@ -18,9 +18,13 @@ import {
 } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 
-class ConfigStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+class ConfigStore extends GetSetBaseStore<{ ccid: unknown; config: unknown }> {
+  fetchConfig = ConfigActions.fetchConfig;
+  fetchCCID = ConfigActions.fetchCCID;
+  storeID = "config";
+
+  constructor() {
+    super();
 
     this.getSet_data = {
       ccid: {},
@@ -92,18 +96,6 @@ class ConfigStore extends GetSetBaseStore {
   processCCIDSuccess(ccid) {
     this.set({ ccid });
     this.emit(CLUSTER_CCID_SUCCESS);
-  }
-
-  fetchConfig(...args) {
-    return ConfigActions.fetchConfig(...args);
-  }
-
-  fetchCCID(...args) {
-    return ConfigActions.fetchCCID(...args);
-  }
-
-  get storeID() {
-    return "config";
   }
 }
 

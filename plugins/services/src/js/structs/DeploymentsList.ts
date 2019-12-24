@@ -6,7 +6,7 @@ import Deployment from "./Deployment";
  *
  * @struct
  */
-class DeploymentsList extends List {}
+class DeploymentsList extends List<Deployment> {}
 DeploymentsList.type = Deployment;
 
 export default DeploymentsList;
