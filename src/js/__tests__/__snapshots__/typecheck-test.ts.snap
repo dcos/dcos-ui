@@ -4785,6 +4785,8 @@ src/js/utils/RouterUtil.ts: error TS2339: Property 'navigator' does not exist on
 src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
+src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
+src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
 src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'forceUpdate' does not exist on type '{}'.
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
