@@ -17,4 +17,4 @@ test("TypeScript snapshot should be up to date", async () => {
       .join("\n")
       .replace(/^(\S*)\(\S*\):/gm, "$1:")
   ).toMatchSnapshot();
-}, 300000);
+}, 120000);

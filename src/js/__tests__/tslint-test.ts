@@ -10,4 +10,4 @@ test("tslint snapshot should be up to date", async () => {
       "$1 -"
     )
   ).toMatchSnapshot();
-}, 300000);
+}, 120000);
