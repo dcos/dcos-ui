@@ -73,13 +73,13 @@ describe("Deployments Modal", () => {
 
     it("renders the `started` column", () => {
       cy.get(".modal tbody tr:visible td").then($tableCells => {
-        cy.getAPIResponse("marathon/v2/deployments", response => {
+        cy.getAPIResponse("marathon/v2/deployments", () => {
           expect(
             $tableCells
               .get(1)
               .querySelector("time")
               .getAttribute("datetime")
-          ).to.equal(response[0].version);
+          ).to.equal("2016-07-05T17:54:37");
         });
       });
     });

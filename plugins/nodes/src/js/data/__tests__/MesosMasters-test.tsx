@@ -82,17 +82,14 @@ describe("LeaderGrid", () => {
     Date.now = jest.fn(() => 1542340694);
   });
 
-  afterEach(() => {
-    Date.now.mockRestore();
-  });
-
   it("renders with running status", () => {
-    const initialState = mastersInitialState;
-
     const leaderData = () => of(leader);
     const healthData = () => of(nonLeader);
     const combinedData = combineMasterData(leaderData, healthData);
-    const MasterNodesTab = connectMasterComponent(initialState, combinedData);
+    const MasterNodesTab = connectMasterComponent(
+      mastersInitialState,
+      combinedData
+    );
 
     expect(renderer.create(<MasterNodesTab />).toJSON()).toMatchSnapshot();
   });

@@ -1,6 +1,8 @@
 import format from "date-fns/format";
-import distanceInWordsStrict from "date-fns/distance_in_words_strict";
-import getTime from "date-fns/get_time";
+import formatISO from "date-fns/formatISO";
+import parseISO from "date-fns/parseISO";
+import formatDistanceStrict from "date-fns/formatDistanceStrict";
+import getTime from "date-fns/getTime";
 
 const DEFAULT_MULTIPLICANTS = {
   ms: 1,
@@ -14,12 +16,9 @@ interface Multiplicants {
   [key: string]: number;
 }
 
-const fullDateTime = "fullDateTime";
-const longMonthDateTime = "longMonthDateTime";
-
 type strToMsReturn<T> = T extends string ? number : null;
 
-type FormatOptionType = typeof fullDateTime | typeof longMonthDateTime;
+type FormatOptionType = "fullDateTime" | "longMonthDateTime";
 interface FormatOptions {
   timeZone?: string;
   hour12?: boolean;
@@ -33,6 +32,22 @@ interface FormatOptions {
   second?: "numeric" | "2-digit";
   timeZoneName?: "short" | "long";
 }
+
+const longMonthDateTimeFormat: FormatOptions = {
+  day: "numeric",
+  month: "long",
+  year: "numeric",
+  hour: "numeric",
+  minute: "numeric"
+};
+const fullDateTimeFormat: FormatOptions = {
+  year: "numeric",
+  month: "numeric",
+  day: "numeric",
+  hour: "numeric",
+  minute: "numeric",
+  second: "numeric"
+};
 
 const DateUtil = {
   /*
@@ -66,36 +81,35 @@ const DateUtil = {
   /**
    * Creates a UTC time string from time provided
    * @param  {Date|Number} ms number to convert to UTC time string
-   * @return {String} time string with the format 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]'
+   * @return {String} time string in iso-format
    */
   msToUTCDate(ms: Date | number): string {
-    return format(
-      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
-      "YYYY-MM-DD[T]HH:mm:ss.SSS[Z]"
+    return formatISO(
+      new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000
     );
   },
 
   /**
    * Creates a UTC time string from time provided
    * @param  {Date|Number} ms number to convert to UTC time string
-   * @return {String} time string with the format 'YYYY-MM-DD'
+   * @return {String} time string with the format 'yyyy-MM-dd'
    */
   msToUTCDay(ms: Date | number): string {
-    return format(
+    return formatISO(
       new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
-      "YYYY-MM-DD"
+      { representation: "date" }
     );
   },
 
   /**
    * Creates a log timestamp string from time provided
    * @param  {Date|Number} ms number to convert to ANSI C time string
-   * @return {String} time string with the format 'YYYY-MM-DD hh:mm:ss'
+   * @return {String} time string with the format 'yyyy-MM-dd hh:mm:ss'
    */
   msToLogTime(ms: Date | number): string {
     return format(
       new Date(ms).valueOf() + new Date(ms).getTimezoneOffset() * 60000,
-      "YYYY-MM-DD hh:mm:ss"
+      "yyyy-MM-dd hh:mm:ss"
     );
   },
 
@@ -103,25 +117,7 @@ const DateUtil = {
    * Returns format object for Intl.DateTimeFormat (and DateFormat translation macro)
    */
   getFormatOptions(formatType?: FormatOptionType): FormatOptions {
-    const longMonthDateTimeFormat: FormatOptions = {
-      day: "numeric",
-      month: "long",
-      year: "numeric",
-      hour: "numeric",
-      minute: "numeric"
-    };
-    const fullDateTimeFormat: FormatOptions = {
-      year: "numeric",
-      month: "numeric",
-      day: "numeric",
-      hour: "numeric",
-      minute: "numeric",
-      second: "numeric"
-    };
-    if (formatType === fullDateTime) {
-      return fullDateTimeFormat;
-    }
-    if (formatType === longMonthDateTime) {
+    if (formatType === "longMonthDateTime") {
       return longMonthDateTimeFormat;
     }
     // default to full numeric date time format
@@ -138,9 +134,9 @@ const DateUtil = {
     ms: Date | number,
     suppressRelativeTime: boolean = false
   ): string {
-    return distanceInWordsStrict(Date.now(), ms, {
+    return formatDistanceStrict(ms || 0, Date.now(), {
       addSuffix: !suppressRelativeTime,
-      partialMethod: "round"
+      roundingMethod: "round"
     });
   },
 
@@ -150,16 +146,12 @@ const DateUtil = {
       return null as strToMsReturn<T>;
     }
 
-    const dateStr = str.toUpperCase();
-
-    return (getTime(dateStr) ||
-      getTime(
-        format(new Date(dateStr).toISOString(), "YYYY-MM-DDTHH:mm:ssZ")
-      )) as strToMsReturn<T>;
+    // we need toUpperCase cause we have to digest non-standard-stuff like 1990-01-03t00:00:00z-1
+    return getTime(parseISO(str.toUpperCase())) as strToMsReturn<T>;
   },
 
   getDuration(time: number): string {
-    return distanceInWordsStrict(0, time);
+    return formatDistanceStrict(time, 0);
   },
 
   isValidDate(dateString: string) {

@@ -640,7 +640,6 @@ plugins/nodes/src/js/components/modals/DrainNodeModal.tsx: error TS2347: Untyped
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2605: JSX element type 'MesosMasters' is not a constructor function for JSX elements.
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/data/MesosMastersHealth.ts: error TS2571: Object is of type 'unknown'.
-plugins/nodes/src/js/data/__tests__/MesosMasters-test.tsx: error TS2339: Property 'mockRestore' does not exist on type *.
 plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2769: No overload matches this call.
 plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/nodes/src/js/filters/NodesHealthFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
