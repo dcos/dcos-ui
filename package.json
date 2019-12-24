@@ -214,7 +214,7 @@
     "test:system:local": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/run-system-tests -hnds",
     "test:validate": "PLUGINS_PATH=\"${npm_config_externalplugins}\" ./scripts/validate-tests",
     "test:watch": "npm test -- --watch",
-    "test": "./scripts/lingui-compile && jest --no-cache",
+    "test": "./scripts/lingui-compile && tsc > /dev/null; jest --no-cache",
     "typecheck": "jest typecheck",
     "updateTSSnapshots": "jest typecheck -u; jest tslint -u",
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
