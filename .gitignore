@@ -3,6 +3,7 @@
 .idea/*
 !dist/
 dist/*
+__out/
 cypress/*
 results/
 build/

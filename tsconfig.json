@@ -6,12 +6,15 @@
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
     "experimentalDecorators": true,
+    "incremental": true,
     "jsx": "preserve",
     "lib": ["es5", "es6", "esnext", "dom"],
     "listEmittedFiles": true,
     "module": "ESNext",
     "moduleResolution": "node",
-    "noEmit": true,
+
+    "noEmit": false,
+
     "noFallthroughCasesInSwitch": true,
 
     "noImplicitAny": false,
@@ -20,6 +23,9 @@
     "noImplicitThis": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
+
+    "outDir": "__out",
+
     "resolveJsonModule": true,
     "skipLibCheck": true,
     "sourceMap": true,
