@@ -172,29 +172,18 @@ const Index = createReactClass({
 
   renderOverlay() {
     const { isVisible } = getSidebarState();
-    let overlay = null;
 
-    if (!isVisible) {
-      return null;
-    }
-
-    overlay = (
-      <div className="sidebar-backdrop" onClick={SidebarActions.close} />
-    );
-
-    if (window.innerWidth <= viewport.MOBILE_THRESHOLD) {
-      return (
-        <CSSTransition
-          classNames="sidebar-backdrop"
-          timeout={{
-            enter: 250,
-            exit: 250
-          }}
-        >
-          {overlay}
-        </CSSTransition>
-      );
-    }
+    return isVisible && window.innerWidth <= viewport.MOBILE_THRESHOLD ? (
+      <CSSTransition
+        classNames="sidebar-backdrop"
+        timeout={{
+          enter: 250,
+          exit: 250
+        }}
+      >
+        <div className="sidebar-backdrop" onClick={SidebarActions.close} />
+      </CSSTransition>
+    ) : null;
   },
 
   render() {

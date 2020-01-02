@@ -5,22 +5,17 @@ import { MountService } from "foundation-ui";
 import ClusterHeader from "./ClusterHeader";
 import SidebarToggle from "./SidebarToggle";
 
-export default class HeaderBar extends React.Component {
-  public render() {
-    const header = <ClusterHeader />;
-    return (
-      <div className="header-bar">
-        <div className="header-bar-left-align-wrapper">
-          <SidebarToggle />
-          <Link to="/dashboard" className="header-bar-logo-wrapper">
-            <span className="header-bar-logo" />
-          </Link>
-        </div>
-        <div className="header-bar-right-align-wrapper">
-          <MountService.Mount type="Header:UserAccountDropdown" />
-          {header}
-        </div>
-      </div>
-    );
-  }
-}
+export default () => (
+  <div className="header-bar">
+    <div className="header-bar-left-align-wrapper">
+      <SidebarToggle />
+      <Link to="/dashboard" className="header-bar-logo-wrapper">
+        <span className="header-bar-logo" />
+      </Link>
+    </div>
+    <div className="header-bar-right-align-wrapper">
+      <MountService.Mount type="Header:UserAccountDropdown" />
+      <ClusterHeader />
+    </div>
+  </div>
+);
