@@ -112,7 +112,6 @@ plugins/catalog/src/js/repositories/RepositoriesList.tsx: error TS2339: Property
 plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
 plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<unknown>'.
-plugins/catalog/src/js/repositories/components/RepositoriesDeleteConfirm.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/catalog/src/js/repositories/components/RepositoriesError.tsx: error TS2741: Property 'addButton' is missing in type * but required in type *.
 plugins/catalog/src/js/repositories/components/RepositoriesLoading.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/catalog/src/js/repositories/components/RepositoriesLoading.tsx: error TS2741: Property 'addButton' is missing in type * but required in type *.
@@ -130,7 +129,6 @@ plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS26
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2769: No overload matches this call.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
@@ -195,7 +193,6 @@ plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2322: type * is not assi
 plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2605: JSX element type 'PageHeaderBreadcrumbs' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/jobs/src/js/components/JobDeleteModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2605: JSX element type 'GeneralFormSection' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2605: JSX element type 'ContainerFormSection' is not a constructor function for JSX elements.
@@ -228,7 +225,6 @@ plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2607: JSX element clas
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2605: JSX element type 'FullScreenModalHeaderActions' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<JobFormModalProps>'.
-plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<Readonly<JobsOverviewListProps>>'.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2605: JSX element type 'FilterHeadline' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -244,7 +240,6 @@ plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS6133: 'prop' is de
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
-plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: type * is not assignable to type *.
@@ -486,7 +481,6 @@ plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isExpa
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'clickHandler' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2605: JSX element type 'TimeAgo' is not a constructor function for JSX elements.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2605: JSX element type 'FilterBar' is not a constructor function for JSX elements.
@@ -526,7 +520,6 @@ plugins/nodes/src/js/components/HealthTab.tsx: error TS2605: JSX element type 'F
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2605: JSX element type 'UnitHealthDropdown' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/HealthTab.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/nodes/src/js/components/LeaderGrid.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/LeaderGrid.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -632,7 +625,6 @@ plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS2607: JSX el
 plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx: error TS2347: Untyped function calls may not accept type arguments.
 plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx: error TS2347: Untyped function calls may not accept type arguments.
-plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/nodes/src/js/components/modals/DrainNodeModal.tsx: error TS2347: Untyped function calls may not accept type arguments.
 plugins/nodes/src/js/components/modals/DrainNodeModal.tsx: error TS2347: Untyped function calls may not accept type arguments.
 plugins/nodes/src/js/components/modals/DrainNodeModal.tsx: error TS2347: Untyped function calls may not accept type arguments.
@@ -798,7 +790,6 @@ plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2556: Exp
 plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2605: JSX element type 'UserAccountDropdownTrigger' is not a constructor function for JSX elements.
 plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'state' does not exist on type 'LoginPage'.
-plugins/oauth/components/LoginPage.tsx: error TS2769: No overload matches this call.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'context' does not exist on type 'LoginPage'.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'LoginPage'.
@@ -882,7 +873,6 @@ plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2605: JSX el
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DeploymentStatusIndicator'.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2339: Property 'state' does not exist on type 'DeploymentStatusIndicator'.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2339: Property 'state' does not exist on type 'DeploymentStatusIndicator'.
@@ -901,8 +891,6 @@ plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2307: Cannot find module '../../img/icon-service-default-small@2x.png'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 'props' does not exist on type 'DeploymentsModal'.
-plugins/services/src/js/components/DeploymentsModal.tsx: error TS2305: Module has no exported member 'Confirm'.
-plugins/services/src/js/components/DeploymentsModal.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'null' is not assignable to type *.
@@ -931,7 +919,6 @@ plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-plugins/services/src/js/components/DeploymentsModal.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 'state' does not exist on type 'DeploymentsModal'.
 plugins/services/src/js/components/DeploymentsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DeploymentsModal'.
@@ -1029,7 +1016,6 @@ plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'state' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/PodVolumeTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/PodVolumeTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/components/PodVolumeTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/RecentOffersSummary.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/RecentOffersSummary.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/RecentOffersSummary.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -1108,7 +1094,6 @@ plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2605:
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2605: JSX element type 'ServiceConnectionEndpointList' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/ServiceList.tsx: error TS2305: Module has no exported member 'List'.
 plugins/services/src/js/components/ServiceList.tsx: error TS2605: JSX element type 'ServiceStatusIcon' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServiceList.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/ServiceStatusProgressBar.tsx: error TS2605: JSX element type 'ProgressBar' is not a constructor function for JSX elements.
@@ -1138,11 +1123,9 @@ plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2605:
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2605: JSX element type 'TimeAgo' is not a constructor function for JSX elements.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/VolumeTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/VolumeTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
@@ -1292,7 +1275,6 @@ plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'AdvancedSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
@@ -1360,7 +1342,6 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS7030: Not all code paths return a value.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
@@ -1431,7 +1412,6 @@ plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: J
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
@@ -1454,7 +1434,6 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2605: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2605: JSX element type 'CreateServiceModalServicePicker' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2740: Type 'ServiceSpec' is missing the following properties from type 'ApplicationSpec': getAcceptedResourceRoles, getArguments, getCommand, getContainerSettings, and 15 more.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS6133: 'prevProps' is declared but its value is never read.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'batch' does not exist on type *.
@@ -1513,11 +1492,9 @@ plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2605: JS
 plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2605: JSX element type 'EditFrameworkConfiguration' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2741: Property 'service' is missing in type '{}' but required in type *.
-plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2741: Property 'service' is missing in type '{}' but required in type *.
@@ -1526,11 +1503,9 @@ plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error 
 plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
 plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error TS2605: JSX element type 'ClipboardTrigger' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/ServiceDestroyModal.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/components/modals/ServiceGroupFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
@@ -1539,10 +1514,8 @@ plugins/services/src/js/components/modals/ServiceGroupFormModal.tsx: error TS234
 plugins/services/src/js/components/modals/ServiceModals.tsx: error TS2605: JSX element type 'ServiceScaleFormModal' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceModals.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/ServiceRestartModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-plugins/services/src/js/components/modals/ServiceRestartModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: error TS2605: JSX element type 'FullScreenModalHeaderActions' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: error TS2605: JSX element type 'FullScreenModalHeaderActions' is not a constructor function for JSX elements.
@@ -1564,7 +1537,6 @@ plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/ServiceStopModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-plugins/services/src/js/components/modals/ServiceStopModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx: error TS2540: Cannot assign to 'serviceDataReceived' because it is a read-only property.
 plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx: error TS2540: Cannot assign to 'serviceDataReceived' because it is a read-only property.
 plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx: error TS2540: Cannot assign to 'serviceDataReceived' because it is a read-only property.
@@ -1575,7 +1547,6 @@ plugins/services/src/js/containers/framework-configuration/FrameworkConfiguratio
 plugins/services/src/js/containers/pod-configuration/PodConfigurationContainer.tsx: error TS2605: JSX element type 'ServiceConfigDisplay' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/pod-configuration/PodConfigurationContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
@@ -1642,7 +1613,6 @@ plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2607: JSX e
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2605: JSX element type 'DetailViewHeader' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2556: Expected 3 arguments, but got 0 or more.
@@ -1717,7 +1687,6 @@ plugins/services/src/js/containers/service-configuration/ServiceConfiguration.ts
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2322: Type 'unknown' is not assignable to type *.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2322: Type 'unknown' is not assignable to type 'Date'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
-plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'state' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'props' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'state' does not exist on type 'ServiceConfiguration'.
@@ -1775,7 +1744,6 @@ plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx: erro
 plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx: error TS2605: JSX element type 'DeclinedOffersTable' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
-plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS2339: Property 'context' does not exist on type 'ServiceDetail'.
 plugins/services/src/js/containers/service-detail/ServiceDetail.tsx: error TS2339: Property 'props' does not exist on type 'ServiceDetail'.
@@ -3276,7 +3244,6 @@ src/js/components/CollapsingString.tsx: error TS2339: Property 'addEventListener
 src/js/components/CollapsingString.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/ComponentList.tsx: error TS2305: Module has no exported member 'List'.
 src/js/components/ConfigurationMapHeading.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
 src/js/components/CreateServiceModalServicePickerOptionImage.tsx: error TS2605: JSX element type 'Image' is not a constructor function for JSX elements.
@@ -3308,7 +3275,6 @@ src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'document' do
 src/js/components/FluidGeminiScrollbar.tsx: error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
-src/js/components/FormModal.tsx: error TS2305: Module has no exported member 'Form'.
 src/js/components/FormModal.tsx: error TS2322: Type 'string' is not assignable to type *.
 src/js/components/FormModal.tsx: error TS2322: type * is not assignable to type 'string'.
 src/js/components/FrameworkConfiguration.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -3324,7 +3290,6 @@ src/js/components/FrameworkConfiguration.tsx: error TS2607: JSX element class do
 src/js/components/FrameworkConfiguration.tsx: error TS2605: JSX element type 'FullScreenModalHeaderActions' is not a constructor function for JSX elements.
 src/js/components/FrameworkConfiguration.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/FrameworkConfiguration.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-src/js/components/FrameworkConfiguration.tsx: error TS2305: Module has no exported member 'Confirm'.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2605: JSX element type 'TabButton' is not a constructor function for JSX elements.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -3445,14 +3410,12 @@ src/js/components/TabButton.tsx: error TS2607: JSX element class does not suppor
 src/js/components/TabButtonList.tsx: error TS2339: Property 'active' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2605: JSX element type 'SideTabs' is not a constructor function for JSX elements.
 src/js/components/TabForm.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/TabForm.tsx: error TS2305: Module has no exported member 'Form'.
 src/js/components/Tabs.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/Tabs.tsx: error TS2339: Property 'vertical' does not exist on type *.
 src/js/components/TimeAgo.tsx: error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'MINUTE' used before its declaration.
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'HOUR' used before its declaration.
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'DAY' used before its declaration.
-src/js/components/UnitHealthNodesTable.tsx: error TS2769: No overload matches this call.
 src/js/components/UnitHealthNodesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/components/UnitsHealthNodeDetail.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthNodeDetail'.
 src/js/components/UnitsHealthNodeDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UnitsHealthNodeDetail'.
@@ -3637,7 +3600,6 @@ src/js/components/charts/__tests__/TimeSeriesChart-test.tsx: error TS2339: Prope
 src/js/components/form/FieldAutofocus.ts: error TS2339: Property 'focus' does not exist on type 'Element'.
 src/js/components/form/FieldAutofocus.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/components/form/FormGroupContainer.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-src/js/components/modals/ActionsModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'props' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'state' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'props' does not exist on type 'ActionsModal'.
@@ -3671,19 +3633,15 @@ src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'state' does n
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'setState' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'state' does not exist on type 'ActionsModal'.
 src/js/components/modals/CliInstallModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
-src/js/components/modals/CliInstallModal.tsx: error TS2769: No overload matches this call.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/CliInstallModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
 src/js/components/modals/FullScreenModal.tsx: error TS2322: Type '\\"100%\\"' is not assignable to type 'null'.
-src/js/components/modals/FullScreenModal.tsx: error TS2769: No overload matches this call.
-src/js/components/modals/ImageViewerModal.tsx: error TS2769: No overload matches this call.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/modals/JobStopRunModal.tsx: error TS2305: Module has no exported member 'Confirm'.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3713,7 +3671,6 @@ src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'store_lis
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'props' does not exist on type 'UsersActionsModal'.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'setState' does not exist on type 'UsersActionsModal'.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/modals/VersionsModal.tsx: error TS2769: No overload matches this call.
 src/js/components/modals/VersionsModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
@@ -3948,7 +3905,6 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does n
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'key' does not exist on type 'never'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'value' does not exist on type 'never'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2605: JSX element type 'ImageViewer' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3973,7 +3929,6 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2605: JSX element type 'Toolt
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2305: Module has no exported member 'Confirm'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
@@ -4033,7 +3988,6 @@ src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' d
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
-src/js/pages/network/VirtualNetworksTable.tsx: error TS2769: No overload matches this call.
 src/js/pages/network/VirtualNetworksTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworkDetail'.
@@ -4089,7 +4043,6 @@ src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2605: JSX element type 'FilterBar' is not a constructor function for JSX elements.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2605: JSX element type 'FilterInputText' is not a constructor function for JSX elements.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -4156,14 +4109,12 @@ src/js/pages/system/OrganizationTab.tsx: error TS6133: 'sortBy' is declared but 
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'props' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type 'null'.
-src/js/pages/system/OrganizationTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'selectedIDSet' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'props' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2605: JSX element type 'UsersActionsModal' is not a constructor function for JSX elements.
 src/js/pages/system/OrganizationTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/system/OrganizationTab.tsx: error TS2305: Module has no exported member 'Form'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'selectedIDSet' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'props' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'selectedIDSet' does not exist on type 'OrganizationTab'.
@@ -4183,7 +4134,6 @@ src/js/pages/system/OrganizationTab.tsx: error TS2605: JSX element type 'FilterB
 src/js/pages/system/OrganizationTab.tsx: error TS2605: JSX element type 'FilterInputText' is not a constructor function for JSX elements.
 src/js/pages/system/OrganizationTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
-src/js/pages/system/OrganizationTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -4280,7 +4230,6 @@ src/js/pages/system/UnitsHealthTab.tsx: error TS2605: JSX element type 'FilterIn
 src/js/pages/system/UnitsHealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2605: JSX element type 'FilterButtons' is not a constructor function for JSX elements.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/system/UnitsHealthTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2322: type * is not assignable to type *.
