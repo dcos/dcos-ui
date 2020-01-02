@@ -8,10 +8,10 @@ let thisSpy, thisGetSelection, thisInstance;
 describe("ClickToSelect", () => {
   beforeEach(() => {
     thisSpy = { selectAllChildren: jasmine.createSpy() };
-    thisGetSelection = global.document.getSelection;
+    thisGetSelection = window.document.getSelection;
 
     // Mock this document function, which is unsupported by jest.
-    global.document.getSelection = () => thisSpy;
+    window.document.getSelection = () => thisSpy;
 
     thisInstance = mount(
       <ClickToSelect>
@@ -21,7 +21,7 @@ describe("ClickToSelect", () => {
   });
 
   afterEach(() => {
-    global.document.getSelection = thisGetSelection;
+    window.document.getSelection = thisGetSelection;
   });
 
   it("sets selection when node is clicked", () => {

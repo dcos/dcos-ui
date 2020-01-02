@@ -549,12 +549,12 @@ if (Config.useFixtures) {
     /* webpackChunkName: "groupsFixture" */ "../../../../../tests/_fixtures/marathon-pods/groups"
   );
 
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
   groupsFixtureImportPromise.then(groupsFixture => {
-    global.actionTypes.MarathonActions = {
+    window.actionTypes.MarathonActions = {
       createService: {
         event: "success",
         success: { response: {} }
@@ -577,7 +577,7 @@ if (Config.useFixtures) {
       }
     };
 
-    Object.keys(global.actionTypes.MarathonActions).forEach(method => {
+    Object.keys(window.actionTypes.MarathonActions).forEach(method => {
       MarathonActions[method] = RequestUtil.stubRequest(
         MarathonActions,
         "MarathonActions",

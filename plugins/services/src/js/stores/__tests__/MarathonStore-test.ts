@@ -8,7 +8,7 @@ const MarathonStore = require("../MarathonStore").default;
 const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
 
 // mock global string decoder
-global.atob = () => MockAppMetadata.decodedString;
+window.atob = () => MockAppMetadata.decodedString;
 
 let thisHandler;
 

@@ -49,7 +49,7 @@ describe("NodesGridView", () => {
         ]
       });
 
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <NodesGridView
           onShowServices={() => {}}

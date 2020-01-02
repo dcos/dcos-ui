@@ -15,7 +15,7 @@ let thisContainer, thisInstance;
 
 describe("PackageDetailTab", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     thisInstance = ReactDOM.render(
       <PackageDetailTab
         params={{ packageName: "marathon" }}

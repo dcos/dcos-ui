@@ -33,7 +33,7 @@ const FrameworkUtil = {
 
     // Extract content of the DCOS_PACKAGE_METADATA label
     try {
-      const dataAsJsonString = global.atob(labels.DCOS_PACKAGE_METADATA);
+      const dataAsJsonString = window.atob(labels.DCOS_PACKAGE_METADATA);
 
       return JSON.parse(dataAsJsonString);
     } catch (error) {

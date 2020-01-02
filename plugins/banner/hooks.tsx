@@ -54,7 +54,7 @@ export default {
   },
 
   toggleFullContent() {
-    const banner = global.document.querySelector(".banner-plugin-wrapper");
+    const banner = window.document.querySelector(".banner-plugin-wrapper");
     banner.classList.toggle("display-full");
   },
 
@@ -63,7 +63,7 @@ export default {
       return;
     }
 
-    const frame = global.document.getElementById("banner-plugin-iframe");
+    const frame = window.document.getElementById("banner-plugin-iframe");
 
     if (frame == null) {
       return;
@@ -95,7 +95,7 @@ export default {
         <iframe
           frameBorder="0"
           id="banner-plugin-iframe"
-          src={`./index.html${global.location.hash}`}
+          src={`./index.html${window.location.hash}`}
         />
 
         {this.getFooter()}

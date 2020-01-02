@@ -54,7 +54,7 @@ class LogView extends React.Component {
   }
 
   componentDidMount() {
-    global.addEventListener("resize", this.handleWindowResize);
+    window.addEventListener("resize", this.handleWindowResize);
     // Make sure to update scroll position on load. Needs to be did mount for
     // logContainer to be defined
     this.handleUpdateScrollPosition();
@@ -112,7 +112,7 @@ class LogView extends React.Component {
   }
 
   componentWillUnmount() {
-    global.removeEventListener("resize", this.handleWindowResize);
+    window.removeEventListener("resize", this.handleWindowResize);
   }
 
   handleUpdateScrollPosition(props = this.props) {

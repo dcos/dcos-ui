@@ -77,7 +77,7 @@ class Sidebar extends React.Component {
       );
     }
 
-    global.addEventListener("keydown", this.handleKeyPress, true);
+    window.addEventListener("keydown", this.handleKeyPress, true);
   }
 
   componentWillUnmount() {
@@ -98,7 +98,7 @@ class Sidebar extends React.Component {
       );
     }
 
-    global.removeEventListener("keydown", this.handleKeyPress, true);
+    window.removeEventListener("keydown", this.handleKeyPress, true);
   }
 
   onDCOSMetadataChange() {
@@ -310,7 +310,7 @@ class Sidebar extends React.Component {
   }
 
   toggleSidebarDocking() {
-    global.requestAnimationFrame(() => {
+    window.requestAnimationFrame(() => {
       SidebarActions.toggle();
     });
   }

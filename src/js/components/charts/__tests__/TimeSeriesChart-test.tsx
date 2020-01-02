@@ -18,7 +18,7 @@ describe("TimeSeriesChart", () => {
         }
       ];
 
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <TimeSeriesChart data={data} width={0} height={0} />,
         thisContainer

@@ -66,13 +66,10 @@ packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS234
 packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 packages/foundation-ui/src/utils/ReactUtil.ts: error TS2554: Expected 1 arguments, but got 2.
-plugins/banner/__tests__/BannerPlugin-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/banner/__tests__/BannerPlugin-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/banner/hooks.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/banner/hooks.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+plugins/banner/hooks.tsx: error TS2531: Object is possibly 'null'.
 plugins/banner/hooks.tsx: error TS2339: Property 'historyListenerAdded' does not exist on type *.
 plugins/banner/hooks.tsx: error TS2339: Property 'historyListenerAdded' does not exist on type *.
-plugins/banner/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
+plugins/banner/hooks.tsx: error TS2339: Property 'contentWindow' does not exist on type 'HTMLElement'.
 plugins/banner/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'description' does not exist on type '{}'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'message' does not exist on type '{}'.
@@ -152,15 +149,14 @@ plugins/example/index.ts: error TS2339: Property 'countSoFar' does not exist on 
 plugins/example/index.ts: error TS2554: Expected 0 arguments, but got 1.
 plugins/example/index.ts: error TS2556: Expected 4 arguments, but got 2 or more.
 plugins/example/index.ts: error TS6133: 'Store' is declared but its value is never read.
-plugins/intercom/__tests__/IntercomPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/intercom/__tests__/IntercomPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/intercom/__tests__/IntercomPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
 plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
 plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
-plugins/intercom/hooks.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
-plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type 'Global'.
+plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
+plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
+plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
+plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
 plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
 plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
@@ -598,7 +594,6 @@ plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2605: JSX element ty
 plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/__tests__/LeaderGrid-test.tsx: error TS2339: Property 'mockRestore' does not exist on type *.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
@@ -793,8 +788,6 @@ plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'contextTypes' do
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'context' does not exist on type 'LoginPage'.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'LoginPage'.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'setState' does not exist on type 'LoginPage'.
-plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 plugins/oauth/components/LoginPage.tsx: error TS6133: 'message' is declared but its value is never read.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'setState' does not exist on type 'LoginPage'.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'setState' does not exist on type 'LoginPage'.
@@ -808,16 +801,9 @@ plugins/oauth/hooks.tsx: error TS2345: Argument of type * is not assignable to p
 plugins/oauth/hooks.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
 plugins/oauth/hooks.tsx: error TS2339: Property 'redirect' does not exist on type *.
 plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
+plugins/oauth/hooks.tsx: error TS2322: Type 'boolean' is not assignable to type 'string'.
 plugins/oauth/hooks.tsx: error TS2345: Argument of type '\\"loginRedirectRoute\\"' is not assignable to parameter of type 'never'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-plugins/oauth/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/services/src/js/columns/QuotaOverviewActionsColumn.tsx: error TS2605: JSX element type 'Cell' is not a constructor function for JSX elements.
 plugins/services/src/js/columns/QuotaOverviewCPUConsumedColumn.tsx: error TS2605: JSX element type 'Cell' is not a constructor function for JSX elements.
 plugins/services/src/js/columns/QuotaOverviewCPUConsumedColumn.tsx: error TS2605: JSX element type 'ProgressBar' is not a constructor function for JSX elements.
@@ -979,12 +965,10 @@ plugins/services/src/js/components/Highlight.tsx: error TS2322: type * is not as
 plugins/services/src/js/components/Highlight.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/Highlight.tsx: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/services/src/js/components/Highlight.tsx: error TS7030: Not all code paths return a value.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 plugins/services/src/js/components/LogView.tsx: error TS2605: JSX element type 'Highlight' is not a constructor function for JSX elements.
 plugins/services/src/js/components/LogView.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/LogView.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/services/src/js/components/LogView.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 plugins/services/src/js/components/MarathonTaskDetailsList.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'props' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'setState' does not exist on type 'MesosLogContainer'.
@@ -1085,8 +1069,6 @@ plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2607: JSX ele
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2605: JSX element type 'PageHeaderBreadcrumbs' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2605: JSX element type 'SDKServiceConnectionEndpointList' is not a constructor function for JSX elements.
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/ServiceConnectionContainer.tsx: error TS2605: JSX element type 'ServicePodConnectionEndpointList' is not a constructor function for JSX elements.
@@ -1132,7 +1114,6 @@ plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: err
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2605: JSX element type 'Highlight' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2605: JSX element type 'Highlight' is not a constructor function for JSX elements.
@@ -1157,7 +1138,6 @@ plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error T
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2605: JSX element type 'MesosLogContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2605: JSX element type 'MesosLogContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx: error TS2339: Property 'calls' does not exist on type *.
@@ -1184,8 +1164,6 @@ plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error 
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2605: JSX element type 'ServiceBreadcrumbs' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/__tests__/ServiceList-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/services/src/js/components/__tests__/ServiceList-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
@@ -1269,7 +1247,6 @@ plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2554: Expected 0 arguments, but got 1.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
@@ -1825,7 +1802,6 @@ plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2556:
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2339: Property 'open' does not exist on type 'Global'.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2605: JSX element type 'ServiceModals' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2605: JSX element type 'ServiceBreadcrumbs' is not a constructor function for JSX elements.
@@ -1963,10 +1939,6 @@ plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'param
 plugins/services/src/js/events/MarathonActions.ts: error TS2345: Argument of type '\\"scale=true\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/events/MarathonActions.ts: error TS2345: Argument of type '\\"force=true\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/events/MarathonActions.ts: error TS2322: Type 'string' is not assignable to type 'never[]'.
-plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-plugins/services/src/js/events/MarathonActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
 plugins/services/src/js/events/SDKEndpointActions.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 0 arguments, but got 1.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 3 arguments, but got 2.
@@ -1977,9 +1949,7 @@ plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: 
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2339: Property 'XMLHttpRequest' does not exist on type 'Global'.
-plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2339: Property 'XMLHttpRequest' does not exist on type 'Global'.
-plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2339: Property 'XMLHttpRequest' does not exist on type 'Global'.
+plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2739: Type 'Mock<any>' is missing the following properties from type *: DONE, HEADERS_RECEIVED, LOADING, OPENED, UNSENT
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/filters/PodInstanceStatusFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
@@ -2170,10 +2140,8 @@ plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS
 plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts: error TS7030: Not all code paths return a value.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2605: JSX element type 'WrappedComponent' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -2953,6 +2921,7 @@ plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/MarathonStore.ts: error TS2322: Type 'number' is not assignable to type *.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
@@ -2979,7 +2948,6 @@ plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2683: 'this' impli
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'void' is not assignable to type 'null'.
 plugins/services/src/js/stores/__mocks__/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS2554: Expected 2 arguments, but got 3.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
@@ -3101,7 +3069,6 @@ plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is pos
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2322: Type '\\"N/A\\"' is not assignable to type 'null'.
-plugins/services/src/js/utils/FrameworkUtil.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
 plugins/services/src/js/utils/HostUtil.ts: error TS6133: 'match' is declared but its value is never read.
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/services/src/js/utils/MarathonUtil.ts: error TS2769: No overload matches this call.
@@ -3162,41 +3129,40 @@ plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argume
 plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
-plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2698: Spread types may only be created from object types.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 plugins/tracking/actions/Actions.ts: error TS6133: 'redirectLocation' is declared but its value is never read.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'lastLogDate' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/hooks.tsx: error TS2339: Property 'configuration' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type 'Global'.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type 'Global'.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type 'Global'.
+plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
+plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
+plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
 plugins/ui-update/__tests__/notifications-test.ts: error TS2339: Property 'primaryAction' does not exist on type 'never'.
 plugins/ui-update/components/InitialScreen.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/ui-update/components/InitialScreen.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3214,12 +3180,9 @@ src/js/components/BaseConfig.tsx: error TS2605: JSX element type 'Mount' is not 
 src/js/components/BaseConfig.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/BaseConfig.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/BreadcrumbCaret.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/ClickToSelect.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/ClickToSelect.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/ClickToSelect.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/components/ClickToSelect.tsx: error TS2531: Object is possibly 'null'.
+src/js/components/ClickToSelect.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/ClusterDropdown.tsx: error TS2741: Property 'onTrigger' is missing in type * but required in type *.
-src/js/components/ClusterHeader.tsx: error TS2339: Property 'open' does not exist on type 'Global'.
-src/js/components/ClusterHeader.tsx: error TS2339: Property 'open' does not exist on type 'Global'.
 src/js/components/ClusterHeader.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 src/js/components/ClusterHeader.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/ClusterHeader.tsx: error TS2339: Property 'props' does not exist on type 'ClusterHeader'.
@@ -3236,19 +3199,13 @@ src/js/components/ClusterHeader.tsx: error TS2339: Property 'context' does not e
 src/js/components/ClusterHeader.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 src/js/components/ClusterHeader.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/CollapsingString.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/components/CollapsingString.tsx: error TS2322: Type 'HTMLElement' is not assignable to type 'null'.
 src/js/components/ConfigurationMapHeading.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
 src/js/components/CreateServiceModalServicePickerOptionImage.tsx: error TS2605: JSX element type 'Image' is not a constructor function for JSX elements.
 src/js/components/CreateServiceModalServicePickerOptionImage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/DSLFilterField.tsx: error TS2605: JSX element type 'DSLFormDropdownPanel' is not a constructor function for JSX elements.
 src/js/components/DSLFilterField.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/DSLFormDropdownPanel.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/DSLInputField.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/components/DSLInputField.tsx: error TS6133: 'prevProps' is declared but its value is never read.
@@ -3261,14 +3218,12 @@ src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is no
 src/js/components/FilterButtons.tsx: error TS2339: Property 'all' does not exist on type '{}'.
 src/js/components/FilterInputText.tsx: error TS6133: 'prevProps' is declared but its value is never read.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
-src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/components/FluidGeminiScrollbar.tsx: error TS2322: Type 'HTMLStyleElement' is not assignable to type 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
-src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/components/FluidGeminiScrollbar.tsx: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Node'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
@@ -3321,10 +3276,6 @@ src/js/components/LastUpdated.tsx: error TS2605: JSX element type 'Tooltip' is n
 src/js/components/LastUpdated.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/LastUpdated.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 src/js/components/LastUpdated.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
-src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/Modals.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
 src/js/components/Modals.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
@@ -3393,14 +3344,11 @@ src/js/components/ServerErrorModal.tsx: error TS2339: Property 'setState' does n
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not exist on type 'ServerErrorModal'.
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'setState' does not exist on type 'ServerErrorModal'.
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not exist on type 'ServerErrorModal'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/Sidebar.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/Sidebar.tsx: error TS2322: type * is not assignable to type 'boolean'.
 src/js/components/Sidebar.tsx: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
 src/js/components/Sidebar.tsx: error TS2339: Property 'version' does not exist on type 'never'.
 src/js/components/Sidebar.tsx: error TS2339: Property 'version' does not exist on type 'never'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 src/js/components/SplitPanel.tsx: error TS2347: Untyped function calls may not accept type arguments.
 src/js/components/TabButton.tsx: error TS2605: JSX element type 'BadgeButton' is not a constructor function for JSX elements.
 src/js/components/TabButton.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3437,10 +3385,7 @@ src/js/components/__tests__/Authenticated-test.tsx: error TS2350: Only a void fu
 src/js/components/__tests__/Authenticated-test.tsx: error TS2339: Property 'willTransitionTo' does not exist on type *.
 src/js/components/__tests__/Authenticated-test.tsx: error TS6133: 'nextState' is declared but its value is never read.
 src/js/components/__tests__/BreadcrumbSegmentLink-test.tsx: error TS2739: type * is missing the following properties from type *: route, className, onClick
-src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ClickToSelect-test.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
-src/js/components/__tests__/ClickToSelect-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ComponentList-test.tsx: error TS2605: JSX element type 'ComponentList' is not a constructor function for JSX elements.
 src/js/components/__tests__/ComponentList-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/DescriptionList-test.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
@@ -3454,12 +3399,10 @@ src/js/components/__tests__/DescriptionList-test.tsx: error TS2607: JSX element 
 src/js/components/__tests__/DescriptionList-test.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
 src/js/components/__tests__/DescriptionList-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/DescriptionList-test.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
-src/js/components/__tests__/DetailViewHeader-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/DetailViewHeader-test.tsx: error TS2605: JSX element type 'DetailViewHeader' is not a constructor function for JSX elements.
 src/js/components/__tests__/DetailViewHeader-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/DetailViewHeader-test.tsx: error TS2605: JSX element type 'DetailViewHeader' is not a constructor function for JSX elements.
 src/js/components/__tests__/DetailViewHeader-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/__tests__/ExpandingTable-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2605: JSX element type 'ExpandingTable' is not a constructor function for JSX elements.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2605: JSX element type 'ExpandingTable' is not a constructor function for JSX elements.
@@ -3482,7 +3425,6 @@ src/js/components/__tests__/JSONEditor-test.tsx: error TS2531: Object is possibl
 src/js/components/__tests__/JSONEditor-test.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/__tests__/JSONEditor-test.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/__tests__/JSONEditor-test.tsx: error TS2531: Object is possibly 'null'.
-src/js/components/__tests__/JSONEditor-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/NestedServiceLinks-test.tsx: error TS2605: JSX element type 'NestedServiceLinks' is not a constructor function for JSX elements.
 src/js/components/__tests__/NestedServiceLinks-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/NestedServiceLinks-test.tsx: error TS2605: JSX element type 'NestedServiceLinks' is not a constructor function for JSX elements.
@@ -3501,7 +3443,6 @@ src/js/components/__tests__/ProgressBar-test.tsx: error TS2605: JSX element type
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2345: Argument of type 'number' is not assignable to parameter of type 'never'.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2339: Property 'style' does not exist on type 'never'.
-src/js/components/__tests__/ProgressBar-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2605: JSX element type 'ProgressBar' is not a constructor function for JSX elements.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2605: JSX element type 'ProgressBar' is not a constructor function for JSX elements.
@@ -3511,9 +3452,7 @@ src/js/components/__tests__/ProgressBar-test.tsx: error TS2605: JSX element type
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2605: JSX element type 'ProgressBar' is not a constructor function for JSX elements.
 src/js/components/__tests__/ProgressBar-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/__tests__/ServerErrorModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/ServerErrorModal-test.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
-src/js/components/__tests__/SideTabs-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/__tests__/SideTabs-test.tsx: error TS2605: JSX element type 'SideTabs' is not a constructor function for JSX elements.
 src/js/components/__tests__/SideTabs-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/SplitPanel-test.tsx: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
@@ -3575,8 +3514,6 @@ src/js/components/__tests__/ToggleValue-test.tsx: error TS2605: JSX element type
 src/js/components/__tests__/ToggleValue-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/__tests__/ToggleValue-test.tsx: error TS2605: JSX element type 'ToggleValue' is not a constructor function for JSX elements.
 src/js/components/__tests__/ToggleValue-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/charts/Chart.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/charts/Chart.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/components/charts/ChartStripes.tsx: error TS2554: Expected 1-3 arguments, but got 0.
 src/js/components/charts/ChartStripes.tsx: error TS6133: 'v' is declared but its value is never read.
 src/js/components/charts/DialChart.tsx: error TS2322: type * is not assignable to type *.
@@ -3593,7 +3530,6 @@ src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2345: Argument of 
 src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
 src/js/components/charts/__tests__/TasksChart-test.tsx: error TS2769: No overload matches this call.
-src/js/components/charts/__tests__/TimeSeriesChart-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/form/FieldAutofocus.ts: error TS2339: Property 'focus' does not exist on type 'Element'.
 src/js/components/form/FieldAutofocus.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/components/form/FormGroupContainer.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -3630,15 +3566,8 @@ src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'state' does n
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'setState' does not exist on type 'ActionsModal'.
 src/js/components/modals/ActionsModal.tsx: error TS2339: Property 'state' does not exist on type 'ActionsModal'.
 src/js/components/modals/CliInstallModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/components/modals/CliInstallModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/CliInstallModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
 src/js/components/modals/FullScreenModal.tsx: error TS2322: Type '\\"100%\\"' is not assignable to type 'null'.
-src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
-src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
 src/js/components/modals/LanguagePreferenceFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3660,8 +3589,6 @@ src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'props' does 
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'props' does not exist on type 'UserFormModal'.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'setState' does not exist on type 'UserFormModal'.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'setState' does not exist on type 'UserFormModal'.
-src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'props' does not exist on type 'UserFormModal'.
 src/js/components/modals/UserFormModal.tsx: error TS2339: Property 'state' does not exist on type 'UserFormModal'.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'store_listeners' does not exist on type 'UsersActionsModal'.
@@ -3669,17 +3596,13 @@ src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'props' do
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'setState' does not exist on type 'UsersActionsModal'.
 src/js/components/modals/UsersActionsModal.ts: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/components/modals/VersionsModal.tsx: error TS2605: JSX element type 'ClickToSelect' is not a constructor function for JSX elements.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
 src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property 'navigator' does not exist on type 'Global'.
-src/js/components/modals/__tests__/ErrorModal-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2605: JSX element type 'CliInstallModal' is not a constructor function for JSX elements.
+src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/components/modals/__tests__/CliInstallModal-test.tsx: error TS2339: Property '__defineGetter__' does not exist on type 'Navigator'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2605: JSX element type 'LanguagePreferenceFormModalComponent' is not a constructor function for JSX elements.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2605: JSX element type 'LanguagePreferenceFormModalComponent' is not a constructor function for JSX elements.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3696,28 +3619,11 @@ src/js/core/MesosStream.ts: error TS2339: Property 'decode' does not exist on ty
 src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
 src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
 src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
-src/js/events/AuthActions.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type 'Global'.
+src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type *.
+src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type *.
 src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'repositories' does not exist on type 'RequestResponse<unknown>'.
 src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'description' does not exist on type '{}'.
 src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'message' does not exist on type '{}'.
-src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/CosmosPackagesActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/MesosSummaryActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/MesosSummaryActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/MesosSummaryActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/MesosSummaryActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/NodeHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/NodeHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/NodeHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/NodeHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
 src/js/events/SystemLogActions.ts: error TS2339: Property 'subscriptionID' does not exist on type '{}'.
 src/js/events/SystemLogActions.ts: error TS2339: Property 'cursor' does not exist on type '{}'.
 src/js/events/SystemLogActions.ts: error TS2339: Property 'skip_prev' does not exist on type '{}'.
@@ -3726,22 +3632,8 @@ src/js/events/SystemLogActions.ts: error TS2339: Property 'subscriptionID' does 
 src/js/events/SystemLogActions.ts: error TS7030: Not all code paths return a value.
 src/js/events/SystemLogActions.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
 src/js/events/SystemLogActions.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/events/SystemLogActions.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/events/SystemLogActions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/events/SystemLogActions.ts: error TS2339: Property 'eventPhase' does not exist on type '{}'.
-src/js/events/SystemLogActions.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/UnitHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UnitHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UnitHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UnitHealthActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UsersActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UsersActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UsersActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/UsersActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/VirtualNetworksActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/VirtualNetworksActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/VirtualNetworksActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
-src/js/events/VirtualNetworksActions.ts: error TS2339: Property 'actionTypes' does not exist on type 'Global'.
 src/js/events/__tests__/AuthActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 src/js/events/__tests__/ConfigActions-test.ts: error TS2554: Expected 0 arguments, but got 1.
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
@@ -3755,38 +3647,10 @@ src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
+src/js/events/__tests__/SystemLogActions-test.ts: error TS2554: Expected 1-2 arguments, but got 0.
+src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2345: Argument of type '\\"EventSource\\"' is not assignable to parameter of type *.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'EventSource' does not exist on type 'Global'.
-src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/index.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/index.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/index.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/mesos-proto.ts: error TS2326: Types of property 'nested' are incompatible.
 src/js/mixins/ChartMixin.ts: error TS2339: Property 'props' does not exist on type *.
 src/js/mixins/ChartMixin.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
@@ -3839,14 +3703,10 @@ src/js/pages/DashboardPage.tsx: error TS2605: JSX element type 'ComponentList' i
 src/js/pages/DashboardPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/Index.tsx: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'Sidebar' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
-src/js/pages/Index.tsx: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
-src/js/pages/Index.tsx: error TS2339: Property 'addEventListener' does not exist on type 'Global'.
-src/js/pages/Index.tsx: error TS2339: Property 'removeEventListener' does not exist on type 'Global'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'setState' does not exist on type 'DeployFrameworkConfiguration'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'context' does not exist on type 'DeployFrameworkConfiguration'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS7030: Not all code paths return a value.
@@ -3887,7 +3747,6 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'context' does
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'setState' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS7030: Not all code paths return a value.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
@@ -3903,7 +3762,6 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'value' does n
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2605: JSX element type 'ImageViewer' is not a constructor function for JSX elements.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
@@ -3957,7 +3815,6 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2605: JSX element type 'FilterInpu
 src/js/pages/catalog/PackagesTab.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/catalog/PackagesTab.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2605: JSX element type 'PackageDetailTab' is not a constructor function for JSX elements.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
@@ -4250,7 +4107,7 @@ src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type 'Global'.
+src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__addReducer' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property 'initialize' does not exist on type *.
@@ -4270,7 +4127,6 @@ src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'dispatch' does not exist on type '{}'.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
-src/js/stores/AuthStore.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -4448,16 +4304,12 @@ src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not ex
 src/js/stores/VirtualNetworksStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
 src/js/stores/VirtualNetworksStore.ts: error TS7030: Not all code paths return a value.
-src/js/stores/VirtualNetworksStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
-src/js/stores/VirtualNetworksStore.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Timeout'.
+src/js/stores/VirtualNetworksStore.ts: error TS2322: Type 'number' is not assignable to type 'null'.
+src/js/stores/VirtualNetworksStore.ts: error TS2769: No overload matches this call.
 src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'atob' does not exist on type 'Global'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, activeElement, alinkColor, all, and 242 more.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
@@ -4681,12 +4533,7 @@ src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'g
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type *.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2339: Property 'get' does not exist on type *.
 src/js/structs/__tests__/UniversePackagesList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
-src/js/utils/CookieUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/DOMUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/DOMUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/DOMUtils.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/DOMUtils.ts: error TS2339: Property 'getComputedStyle' does not exist on type 'Global'.
-src/js/utils/DOMUtils.ts: error TS2339: Property 'getComputedStyle' does not exist on type 'Global'.
+src/js/utils/DOMUtils.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/DSLFormUtil.ts: error TS6133: 'nodeAdded' is declared but its value is never read.
 src/js/utils/DSLParserUtil.ts: error TS2339: Property 'position' does not exist on type 'FilterNode'.
 src/js/utils/DSLParserUtil.ts: error TS7030: Not all code paths return a value.
@@ -4777,25 +4624,15 @@ src/js/utils/ResourcesUtil.ts: error TS6133: 'value' is declared but its value i
 src/js/utils/ResourcesUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/ResourcesUtil.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/utils/ResourcesUtil.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'navigator' does not exist on type 'Global'.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'navigator' does not exist on type 'Global'.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
 src/js/utils/RouterUtil.ts: error TS2322: Type 'ParsedQuery<string>' is not assignable to type 'boolean'.
-src/js/utils/RouterUtil.ts: error TS2339: Property 'location' does not exist on type 'Global'.
 src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'forceUpdate' does not exist on type '{}'.
-src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/utils/ScrollbarUtil.ts: error TS2322: Type 'number' is not assignable to type 'null'.
-src/js/utils/ScrollbarUtil.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/utils/TableUtil.ts: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
 src/js/utils/UnitHealthUtil.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/utils/UnitHealthUtil.ts: error TS2538: Type 'undefined' cannot be used as an index type.
 src/js/utils/Units.ts: error TS2322: Type 'string' is not assignable to type 'number'.
@@ -4804,41 +4641,20 @@ src/js/utils/Units.ts: error TS2339: Property 'replace' does not exist on type '
 src/js/utils/Units.ts: error TS2554: Expected 5 arguments, but got 2.
 src/js/utils/Units.ts: error TS2554: Expected 1 arguments, but got 2.
 src/js/utils/Units.ts: error TS2322: type * is not assignable to type 'string'.
-src/js/utils/Util.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'Timeout'.
-src/js/utils/Util.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
+src/js/utils/Util.ts: error TS2769: No overload matches this call.
+src/js/utils/Util.ts: error TS2322: Type 'number' is not assignable to type 'null'.
 src/js/utils/ValidatorUtil.ts: error TS2339: Property 'min' does not exist on type '{}'.
 src/js/utils/ValidatorUtil.ts: error TS2339: Property 'max' does not exist on type '{}'.
 src/js/utils/ViewportUtil.ts: error TS7030: Not all code paths return a value.
-src/js/utils/ViewportUtil.ts: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'requestAnimationFrame' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/utils/__tests__/DOMUtils-test.ts: error TS2322: type * is not assignable to type *.
+src/js/utils/__tests__/DOMUtils-test.ts: error TS2322: type * is not assignable to type *.
 src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
-src/js/utils/__tests__/DOMUtils-test.ts: error TS2339: Property 'document' does not exist on type 'Global'.
+src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
+src/js/utils/__tests__/DOMUtils-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/DSLFormUtil-test.ts: error TS2345: Argument of type '\\"value\\"' is not assignable to parameter of type 'undefined'.
 src/js/utils/__tests__/DSLFormUtil-test.ts: error TS2345: Argument of type '\\"value\\"' is not assignable to parameter of type 'undefined'.
 src/js/utils/__tests__/DSLUpdateUtil-test.ts: error TS2339: Property 'ast' does not exist on type 'DSLExpression'.
@@ -4939,9 +4755,6 @@ src/js/utils/__tests__/FormUtil-test.ts: error TS2554: Expected 4-5 arguments, b
 src/js/utils/__tests__/FormUtil-test.ts: error TS2554: Expected 4-5 arguments, but got 3.
 src/js/utils/__tests__/JobValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/JobValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
-src/js/utils/__tests__/LocalStorageUtil-test.ts: error TS2339: Property 'localStorage' does not exist on type 'Global'.
-src/js/utils/__tests__/LocalStorageUtil-test.ts: error TS2339: Property 'localStorage' does not exist on type 'Global'.
-src/js/utils/__tests__/LocalStorageUtil-test.ts: error TS2339: Property 'localStorage' does not exist on type 'Global'.
 src/js/utils/__tests__/Maths-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/Maths-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.

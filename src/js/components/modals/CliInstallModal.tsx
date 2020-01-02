@@ -58,11 +58,11 @@ class CliInstallModal extends React.Component {
   }
 
   getCliInstructions() {
-    const hostname = global.location.hostname;
-    const protocol = global.location.protocol.replace(/[^\w]/g, "");
+    const hostname = window.location.hostname;
+    const protocol = window.location.protocol.replace(/[^\w]/g, "");
     let port = "";
-    if (global.location.port) {
-      port = ":" + global.location.port;
+    if (window.location.port) {
+      port = ":" + window.location.port;
     }
     const clusterUrl = `${protocol}://${hostname}${port}`;
     const { selectedOS } = this.state;

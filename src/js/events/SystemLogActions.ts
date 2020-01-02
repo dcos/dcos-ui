@@ -57,7 +57,7 @@ function unsubscribe(url) {
 }
 
 function parseEvents(eventData) {
-  const globalOrigin = global.location.origin;
+  const globalOrigin = window.location.origin;
 
   return eventData.reduce(
     (memo, event) => {
@@ -208,7 +208,7 @@ const SystemLogActions = {
     const items = [];
 
     function messageListener({ data, origin } = {}) {
-      if (origin !== global.location.origin) {
+      if (origin !== window.location.origin) {
         // Ignore events that are not from this origin
         return false;
       }

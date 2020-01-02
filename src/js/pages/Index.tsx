@@ -40,7 +40,7 @@ const Index = createReactClass({
       showErrorModal: false,
       modalErrorMsg: "",
       configErrorCount: 0,
-      previousWindowWidth: global.innerWidth
+      previousWindowWidth: window.innerWidth
     };
   },
 
@@ -70,7 +70,7 @@ const Index = createReactClass({
       EventTypes.SIDEBAR_CHANGE,
       this.onSideBarChange
     );
-    global.addEventListener("resize", this.handleWindowResize);
+    window.addEventListener("resize", this.handleWindowResize);
 
     ConfigStore.fetchCCID();
     ConfigStore.addChangeListener(EventTypes.CONFIG_ERROR, this.onConfigError);
@@ -81,7 +81,7 @@ const Index = createReactClass({
   },
 
   componentWillUnmount() {
-    global.removeEventListener("resize", this.handleWindowResize);
+    window.removeEventListener("resize", this.handleWindowResize);
 
     SidebarStore.removeChangeListener(
       EventTypes.SIDEBAR_CHANGE,
@@ -145,7 +145,7 @@ const Index = createReactClass({
   },
 
   handleWindowResize() {
-    const currentWindowWidth = global.innerWidth;
+    const currentWindowWidth = window.innerWidth;
 
     if (
       !hasViewportChanged(this.state.previousWindowWidth, currentWindowWidth)

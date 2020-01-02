@@ -103,8 +103,8 @@ const Actions = {
 
   canLog() {
     return (
-      global.analytics &&
-      global.analytics.initialized &&
+      window.analytics &&
+      window.analytics.initialized &&
       this.dcosMetadata != null &&
       this.routes != null
     );
@@ -178,7 +178,7 @@ const Actions = {
     }
 
     const traits = Object.assign(this.getLogData(), { email: uid });
-    global.analytics.identify(uid, traits, this.getAnonymizingKeys());
+    window.analytics.identify(uid, traits, this.getAnonymizingKeys());
 
     this.log("dcos_login");
   },
@@ -220,7 +220,7 @@ const Actions = {
   },
 
   submitToAnalytics(path) {
-    global.analytics.page(
+    window.analytics.page(
       Object.assign(this.getLogData(), this.getAnonymizingKeys().page, { path })
     );
   },
@@ -239,7 +239,7 @@ const Actions = {
     // Populates with basic data that all logs need
     const log = this.getLogData();
 
-    global.analytics.track(eventID, log, this.getAnonymizingKeys());
+    window.analytics.track(eventID, log, this.getAnonymizingKeys());
   },
 
   getAnonymizingKeys() {

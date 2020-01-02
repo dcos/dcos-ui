@@ -11,7 +11,7 @@ const ScrollbarUtil = {
    */
   getScrollbarWidth(options = {}) {
     if (scrollbarWidth == null || options.forceUpdate) {
-      const element = global.document.createElement("div");
+      const element = document.createElement("div");
 
       element.style.position = "absolute";
       element.style.top = "-9999px";
@@ -20,9 +20,9 @@ const ScrollbarUtil = {
       element.style.overflow = "scroll";
       element.style.msOverflowStyle = "scrollbar";
 
-      global.document.body.appendChild(element);
+      document.body.appendChild(element);
       scrollbarWidth = element.offsetWidth - element.clientWidth;
-      global.document.body.removeChild(element);
+      document.body.removeChild(element);
     }
 
     return scrollbarWidth;

@@ -46,18 +46,18 @@ export default {
       Actions.identify(AuthStore.getUser().uid);
     }
 
-    DOMUtils.appendScript(global.document.head, segmentScript);
+    DOMUtils.appendScript(window.document.head, segmentScript);
   },
 
   pluginsLoadedCheck(promiseArray) {
     const promise = new Promise(resolve => {
-      global.analytics.ready(() => {
+      window.analytics.ready(() => {
         resolve();
       });
 
       // Let's not block the application loading in case it takes a really
       // long time to ready-up analytics or the integrations.
-      global.setTimeout(resolve, ANALYTICS_LOAD_TIMEOUT);
+      window.setTimeout(resolve, ANALYTICS_LOAD_TIMEOUT);
     });
 
     promiseArray.push(promise);
@@ -71,13 +71,13 @@ export default {
     const metadata =
       Util.findNestedPropertyInObject(this, "configuration.metadata") || {};
 
-    global.analytics.ready(() => {
+    window.analytics.ready(() => {
       const setContext = () => {
-        if (!global.Raven) {
+        if (!window.Raven) {
           return;
         }
 
-        global.Raven.setTagsContext({
+        window.Raven.setTagsContext({
           ...metadata,
           environment: process.env.NODE_ENV,
           dcosVersion: MetadataStore.version,

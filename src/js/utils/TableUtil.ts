@@ -22,7 +22,7 @@ const TableUtil = {
     };
 
     let rowHeight = null;
-    const windowWidth = global.innerWidth;
+    const windowWidth = window.innerWidth;
     Object.keys(definitionList).forEach(size => {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;

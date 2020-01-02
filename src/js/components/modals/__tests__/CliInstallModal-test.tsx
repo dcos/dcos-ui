@@ -6,7 +6,7 @@ const ReactDOM = require("react-dom");
 
 // Set a new Getter. Navigator doesn't have a Setter.
 function setUserAgent(agent) {
-  global.navigator.__defineGetter__("userAgent", () => agent);
+  window.navigator.__defineGetter__("userAgent", () => agent);
 }
 
 let thisCallback,
@@ -21,7 +21,7 @@ describe("CliInstallModal", () => {
   describe("#onClose", () => {
     beforeEach(() => {
       thisCallback = jasmine.createSpy();
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <CliInstallModal
           onClose={thisCallback}
@@ -49,8 +49,8 @@ describe("CliInstallModal", () => {
 
   describe("#getCliInstructions", () => {
     beforeEach(() => {
-      thisContainer1 = global.document.createElement("div");
-      thisContainer2 = global.document.createElement("div");
+      thisContainer1 = window.document.createElement("div");
+      thisContainer2 = window.document.createElement("div");
       setUserAgent(
         "Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.2; Trident/6.0)"
       );

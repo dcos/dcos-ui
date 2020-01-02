@@ -21,13 +21,13 @@ const RouterUtil = {
    * Parse the url and find the query string (?)
    * before or after the #
    *
-   * @param {string} [search=global.location.search] search url param
-   * @param {string} [hash=global.location.hash] hash url param
+   * @param {string} [search=window.location.search] search url param
+   * @param {string} [hash=window.location.hash] hash url param
    *
    * @returns {Boolean|Object} false or query string object
    */
 
-  isValidRedirect(url, hostname = global.location.hostname) {
+  isValidRedirect(url, hostname = window.location.hostname) {
     const parsedUrl = Util.parseUrl(url);
 
     if (!parsedUrl) {
@@ -38,8 +38,8 @@ const RouterUtil = {
   },
 
   getQueryStringInUrl(
-    search = global.location.search,
-    hash = global.location.hash
+    search = window.location.search,
+    hash = window.location.hash
   ) {
     let queryString = false;
     // This will match url instances like this:
@@ -63,11 +63,11 @@ const RouterUtil = {
    * the use of qs will decode the path
    * making the path not found
    *
-   * @param {string} [url=global.location.href] url to get path from
+   * @param {string} [url=window.location.href] url to get path from
    *
    * @returns {Boolean|String} False or path encodedURI
    */
-  getRelativePath(url = global.location.href) {
+  getRelativePath(url = window.location.href) {
     const RELATIVE_PATH = "relativePath=";
 
     if (!url.includes(RELATIVE_PATH)) {
@@ -199,9 +199,9 @@ const RouterUtil = {
    * @param {String} data The data included in the file
    */
   triggerIEDownload(filename, data) {
-    if (global.navigator.msSaveOrOpenBlob) {
+    if (window.navigator.msSaveOrOpenBlob) {
       const blob = new Blob([data], { type: "application/json" });
-      global.navigator.msSaveOrOpenBlob(blob, filename);
+      window.navigator.msSaveOrOpenBlob(blob, filename);
     }
   }
 };

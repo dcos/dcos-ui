@@ -72,21 +72,21 @@ export default {
       return;
     }
 
-    const location = global.location.hash;
+    const location = window.location.hash;
     const onAccessDeniedPage = /access-denied/.test(location);
     const onLoginPage = /login/.test(location);
 
     // Unauthorized
     if (xhr.status === 401 && !onLoginPage && !onAccessDeniedPage) {
-      global.document.cookie = CookieUtils.emptyCookieWithExpiry(
+      window.document.cookie = CookieUtils.emptyCookieWithExpiry(
         new Date(1970)
       );
-      global.location.href = "#/login";
+      window.location.href = "#/login";
     }
 
     // Forbidden
     if (xhr.status === 403 && !onLoginPage && !onAccessDeniedPage) {
-      global.location.href = "#/access-denied";
+      window.location.href = "#/access-denied";
     }
   },
 
@@ -181,7 +181,7 @@ export default {
     const isValidRedirect = RouterUtil.isValidRedirect(redirectTo);
 
     if (isValidRedirect) {
-      global.location.href = redirectTo;
+      window.location.href = redirectTo;
     } else {
       ApplicationUtil.beginTemporaryPolling(() => {
         const relativePath = RouterUtil.getRelativePath();
@@ -191,7 +191,7 @@ export default {
           // Go to redirect route if it is present
           hashHistory.push(loginRedirectRoute);
         } else if (relativePath) {
-          global.location.replace(`${global.location.origin}/#${relativePath}`);
+          window.location.replace(`${window.location.origin}/#${relativePath}`);
         } else {
           // Go to home
           hashHistory.push("/");
@@ -208,7 +208,7 @@ export default {
   },
 
   navigateToLoginPage() {
-    global.location.href = "#/login";
+    window.location.href = "#/login";
   },
 
   userAddPolicy() {

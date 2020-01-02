@@ -22,7 +22,7 @@ describe("TrackingHooks", () => {
 
     describe("#pluginsConfigured", () => {
       it("appends scripts to the document head if plugin enabled", () => {
-        global.analytics = { ready() {} };
+        window.analytics = { ready() {} };
         TrackingHooks.initialize();
         SDK.Hooks.doAction("pluginsConfigured");
         expect(DOMUtils.appendScript.calls.count()).toEqual(1);

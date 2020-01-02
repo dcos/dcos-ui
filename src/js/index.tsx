@@ -31,7 +31,7 @@ import RouterUtil from "./utils/RouterUtil";
 const productIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/product-icons-sprite.svg");
 const systemIconSprite = require("!svg-inline-loader!@dcos/ui-kit/dist/packages/icons/dist/system-icons-sprite.svg");
 
-const domElement = global.document.getElementById("application");
+const domElement = window.document.getElementById("application");
 const initialLanguage = UserLanguageStore.get();
 
 // Patch json
@@ -107,7 +107,7 @@ function onPluginsLoaded() {
 
 function onConfigurationError() {
   // Try to find appropriate DOM element or fallback
-  const element = global.document.querySelector("#canvas div") || domElement;
+  const element = window.document.querySelector("#canvas div") || domElement;
   const columnClasses = {
     "column-small-8": false,
     "column-small-offset-2": false,
@@ -126,7 +126,7 @@ function onConfigurationError() {
 
 function handleLanguageChange() {
   if (initialLanguage !== UserLanguageStore.get()) {
-    global.location.reload();
+    window.location.reload();
   }
 }
 

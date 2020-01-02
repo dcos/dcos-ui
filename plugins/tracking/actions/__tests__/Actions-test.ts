@@ -12,7 +12,7 @@ const SDK = PluginTestUtils.getSDK("tracking", { enabled: true });
 require("../../SDK").default.setSDK(SDK);
 const Actions = require("../Actions").default;
 
-global.analytics = {
+window.analytics = {
   initialized: true,
   page() {},
   track() {}
@@ -31,25 +31,25 @@ describe("Actions", () => {
 
   describe("#log", () => {
     beforeEach(() => {
-      spyOn(global.analytics, "track");
+      spyOn(window.analytics, "track");
     });
 
     afterEach(() => {
-      global.analytics.track = () => {};
+      window.analytics.track = () => {};
     });
 
     it("calls analytics#track", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       Actions.log("foo");
-      expect(global.analytics.track.calls.count()).toEqual(1);
+      expect(window.analytics.track.calls.count()).toEqual(1);
     });
 
     it("calls analytics#track with correct eventID", () => {
       Actions.setDcosMetadata(DCOS_METADATA);
       Actions.setRoutes(routes);
       Actions.log("baz");
-      expect(global.analytics.track.calls.mostRecent().args[0]).toEqual("baz");
+      expect(window.analytics.track.calls.mostRecent().args[0]).toEqual("baz");
     });
 
     it("calls analytics#track with correct log", () => {
@@ -57,7 +57,7 @@ describe("Actions", () => {
       Actions.setRoutes(routes);
       Actions.log("foo");
 
-      const args = global.analytics.track.calls.mostRecent().args[1];
+      const args = window.analytics.track.calls.mostRecent().args[1];
       expect(args.appVersion).toBeDefined();
       expect(args.version).toBeDefined();
       expect(args.clusterId).toBeDefined();
@@ -69,12 +69,12 @@ describe("Actions", () => {
   describe("#setDcosMetadata", () => {
     beforeEach(() => {
       Actions.dcosMetadata = null;
-      spyOn(global.analytics, "track");
+      spyOn(window.analytics, "track");
     });
 
     it("doesn't track any logs when there's no metadata", () => {
       Actions.log("Test");
-      expect(global.analytics.track).not.toHaveBeenCalled();
+      expect(window.analytics.track).not.toHaveBeenCalled();
     });
 
     it("sets the dcosMetadata", () => {
@@ -102,12 +102,12 @@ describe("Actions", () => {
     beforeEach(() => {
       Actions.dcosMetadata = null;
       Actions.routes = null;
-      spyOn(global.analytics, "track");
+      spyOn(window.analytics, "track");
     });
 
     it("doesn't track any logs when there's no router", () => {
       Actions.log("Test");
-      expect(global.analytics.track).not.toHaveBeenCalled();
+      expect(window.analytics.track).not.toHaveBeenCalled();
     });
 
     it("sets the routes", () => {

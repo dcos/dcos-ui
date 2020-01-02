@@ -45,11 +45,11 @@ const Chart = createReactClass({
     } else {
       this.updateWidth();
     }
-    global.addEventListener("resize", this.updateWidth);
+    window.addEventListener("resize", this.updateWidth);
   },
 
   componentWillUnmount() {
-    global.removeEventListener("resize", this.updateWidth);
+    window.removeEventListener("resize", this.updateWidth);
   },
 
   onSidebarStoreWidthChange() {
