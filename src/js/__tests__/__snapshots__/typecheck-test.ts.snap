@@ -3163,7 +3163,6 @@ plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argume
 plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
-plugins/services/src/js/validators/__tests__/PlacementsValidators-test.ts: error TS2305: Module has no exported member 'ADD'.
 plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
 plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
 plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type 'Global'.
@@ -3207,7 +3206,6 @@ plugins/ui-update/components/UIDetails.tsx: error TS2607: JSX element class does
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
-plugins/ui-update/notifications.ts: error TS2614: Module has no exported member 'ToastCallbackType'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
 plugins/ui-update/utils/index.ts: error TS2531: Object is possibly 'null'.
@@ -4254,7 +4252,6 @@ src/js/pages/system/UsersPage.tsx: error TS2605: JSX element type 'Loader' is no
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
-src/js/plugin-bridge/AppReducer.ts: error TS2724: Module has no exported member 'APPLICATION'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type 'Global'.
@@ -4262,7 +4259,6 @@ src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not ex
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__addReducer' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.
-src/js/plugin-bridge/PluginSDK.ts: error TS2724: Module has no exported member 'APPLICATION'.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__getSDK' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__addReducer' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__setMockPlugins' does not exist on type *.
@@ -4271,8 +4267,6 @@ src/js/plugin-bridge/PluginTestUtils.ts: error TS2322: type * is not assignable 
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__setMockPlugins' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2551: Property '__getAvailablePlugins' does not exist on type *. Did you mean 'getAvailablePlugins'?
-src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts: error TS2724: Module has no exported member 'APPLICATION'.
-src/js/plugin-bridge/__tests__/AppReducer-test.ts: error TS2724: Module has no exported member 'APPLICATION'.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
@@ -4280,7 +4274,6 @@ src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'dispatch' does not exist on type '{}'.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
-src/js/stores/AuthStore.ts: error TS2305: Module has no exported member 'AUTH_USER_LOGIN_CHANGED'.
 src/js/stores/AuthStore.ts: error TS2339: Property 'document' does not exist on type 'Global'.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
@@ -4393,8 +4386,6 @@ src/js/stores/NotificationStore.ts: error TS2556: Expected 0 arguments, but got 
 src/js/stores/SidebarStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/SidebarStore.ts: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/stores/SidebarStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/SidebarStore.ts: error TS2305: Module has no exported member 'REQUEST_VERSIONS_ERROR'.
-src/js/stores/SidebarStore.ts: error TS2305: Module has no exported member 'REQUEST_VERSIONS_SUCCESS'.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/SystemLogStore.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/stores/SystemLogStore.ts: error TS2322: Type 'string' is not assignable to type 'never'.

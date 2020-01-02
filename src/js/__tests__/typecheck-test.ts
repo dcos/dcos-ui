@@ -20,12 +20,5 @@ test("TypeScript snapshot should be up to date", async () => {
 
       // strip the specifics of type errors as the order of properties varies between runs of tsc.
       .replace(/type '[^']+?\s[^']*?'/gim, "type *")
-
-      // Modules are referenced in absolute paths in some circumstances (e.g. in CI).
-      // thus we need to normalize those paths between machines.
-      .replace(
-        /Module '.*?' has no exported member (.*?)\..*$/gm,
-        "Module has no exported member $1."
-      )
   ).toMatchSnapshot();
 }, 120000);
