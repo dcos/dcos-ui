@@ -4307,6 +4307,7 @@ src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppReducer.ts: error TS2724: Module has no exported member 'APPLICATION'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
+src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type 'Global'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not exist on type *.

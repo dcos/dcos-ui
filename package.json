@@ -77,7 +77,7 @@
     "reactjs-components": "5.0.3",
     "reactjs-mixin": "0.0.2",
     "recompose": "0.30.0",
-    "redux": "3.3.1",
+    "redux": "4.0.5",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.4",
     "semver": "5.5.0",
