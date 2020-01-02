@@ -1,8 +1,7 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
-
-const MultiContainerConstraints = require("../MultiContainerConstraints");
-const { SET, ADD_ITEM, ERROR } = require("#SRC/js/constants/TransactionTypes");
+import * as MultiContainerConstraints from "../MultiContainerConstraints";
+import { SET, ADD_ITEM, ERROR } from "#SRC/js/constants/TransactionTypes";
 
 describe("MultiContainerConstraints", () => {
   describe("#JSONReducer", () => {

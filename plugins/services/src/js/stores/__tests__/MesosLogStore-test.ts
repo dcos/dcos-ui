@@ -5,9 +5,9 @@ import MesosLogActions from "../../events/MesosLogActions";
 import MesosLogStore from "../MesosLogStore";
 import * as EventTypes from "../../constants/EventTypes";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 const PREPEND = SystemLogTypes.PREPEND;
 

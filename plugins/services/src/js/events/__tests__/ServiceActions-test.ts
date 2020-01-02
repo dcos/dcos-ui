@@ -2,9 +2,9 @@ import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import ServiceActions from "../ServiceActions";
 import Framework from "../../structs/Framework";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 const CosmosActionTypes = require("#SRC/js/constants/ActionTypes");
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 let thisConfiguration;
 

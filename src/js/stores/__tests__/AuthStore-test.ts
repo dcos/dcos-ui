@@ -3,9 +3,9 @@ import AuthStore from "../AuthStore";
 import * as EventTypes from "../../constants/EventTypes";
 
 const cookie = require("cookie");
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 const USER_COOKIE_KEY = "dcos-acs-info-cookie";
 

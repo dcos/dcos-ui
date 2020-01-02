@@ -10,9 +10,9 @@ import serviceDescribeFixture from "./fixtures/MockServiceDescribeResponse.json"
 import packagesListFixture from "./fixtures/MockPackagesListResponse.json";
 import packagesSearchFixture from "./fixtures/MockPackagesSearchResponse.json";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-const Config = require("#SRC/js/config/Config").default;
-const ActionTypes = require("../../constants/ActionTypes");
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import Config from "#SRC/js/config/Config";
+import * as ActionTypes from "../../constants/ActionTypes";
 
 let thisConfigUseFixture,
   thisRequestFn,

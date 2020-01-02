@@ -2,7 +2,7 @@ import UserStore from "../UserStore";
 import AppDispatcher from "../../events/AppDispatcher";
 import * as EventTypes from "../../constants/EventTypes";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 describe("UserStore", () => {
   describe("dispatcher", () => {

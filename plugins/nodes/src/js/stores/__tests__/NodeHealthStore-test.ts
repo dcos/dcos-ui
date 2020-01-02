@@ -4,10 +4,10 @@ import * as EventTypes from "#SRC/js/constants/EventTypes";
 import NodeHealthStore from "../NodeHealthStore";
 import nodesFixture from "../../../../../../tests/_fixtures/unit-health/nodes.json";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
 const ActionTypes = require("#SRC/js/constants/ActionTypes");
-const Config = require("#SRC/js/config/Config").default;
+import Config from "#SRC/js/config/Config";
 
 let thisRequestFn, thisNodesFixture;
 

@@ -2,8 +2,8 @@ import AppDispatcher from "../AppDispatcher";
 import MesosSummaryActions from "../MesosSummaryActions";
 import TimeScales from "../../constants/TimeScales";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-const Config = require("#SRC/js/config/Config").default;
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import Config from "#SRC/js/config/Config";
 
 describe("Mesos State Actions", () => {
   beforeEach(() => {
