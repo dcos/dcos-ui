@@ -3,7 +3,7 @@ import SystemLogStore from "../SystemLogStore";
 import * as SystemLogTypes from "../../constants/SystemLogTypes";
 import * as EventTypes from "../../constants/EventTypes";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 function resetLogData(subscriptionID, newLogData) {
   const originalAddEntries = SystemLogStore.addEntries;

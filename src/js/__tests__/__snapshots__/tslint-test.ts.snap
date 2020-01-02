@@ -238,9 +238,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
-/plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - require statement not part of an import statement
 /plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - require statement not part of an import statement
 /plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - require statement not part of an import statement
 /plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx - don't declare variable menuItems to return it immediately
 /plugins/services/src/js/columns/QuotaOverviewCPUConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
@@ -705,21 +703,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/data/groups/fetchers.ts - Shadowed name: 'groups'
 /plugins/services/src/js/events/TaskDirectoryActions.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/MesosLogActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/MesosLogActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/ServiceActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/ServiceActions-test.ts - require statement not part of an import statement
 /plugins/services/src/js/events/__tests__/ServiceActions-test.ts - require statement not part of an import statement
 /plugins/services/src/js/events/__tests__/ServiceActions-test.ts - Shadowed name: 'serviceDefinition'
-/plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - require statement not part of an import statement
 /plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/filters/__tests__/PodInstanceStatusFilter-test.ts - require statement not part of an import statement
 /plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts - require statement not part of an import statement
@@ -883,8 +868,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - Shadowed name: 'batch'
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MulitContainerConstraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MulitContainerConstraints-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerHealthChecks-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerHealthChecks-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerNetwork-test.ts - require statement not part of an import statement
@@ -943,11 +926,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 36 which is higher than the threshold of 20
 /plugins/services/src/js/stores/MarathonStore.ts - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/stores/MesosLogStore.ts - don't declare variable logBuffer to return it immediately
-/plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts - require statement not part of an import statement
 /plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts - require statement not part of an import statement
 /plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts - Shadowed name: 'endpoints'
-/plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts - require statement not part of an import statement
 /plugins/services/src/js/structs/Framework.ts - Shadowed name: 'memo'
 /plugins/services/src/js/structs/LogBuffer.ts - Use a conditional expression instead of assigning to 'start' in multiple places.
 /plugins/services/src/js/structs/ServiceTree.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
@@ -1194,34 +1174,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/events/VirtualNetworksActions.ts - Identifier 'vtep_mac_oui' is never reassigned; use 'const' instead of 'let'.
 /src/js/events/VirtualNetworksActions.ts - Identifier 'vtep_subnet' is never reassigned; use 'const' instead of 'let'.
 /src/js/events/VirtualNetworksActions.ts - require statement not part of an import statement
-/src/js/events/__tests__/AuthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/AuthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/AuthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/ConfigActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/ConfigActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/ConfigActions-test.ts - require statement not part of an import statement
 /src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/MesosSummaryActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/MesosSummaryActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/NodeHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/NodeHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/NodeHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/SystemLogActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/SystemLogActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/SystemLogActions-test.ts - require statement not part of an import statement
 /src/js/events/__tests__/SystemLogActions-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/events/__tests__/UnitHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/UnitHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/UnitHealthActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/UsersActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/UsersActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/UsersActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/VirtualNetworksActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/VirtualNetworksActions-test.ts - require statement not part of an import statement
-/src/js/events/__tests__/VirtualNetworksActions-test.ts - require statement not part of an import statement
 /src/js/i18n.ts - require statement not part of an import statement
 /src/js/i18n.ts - require statement not part of an import statement
 /src/js/index.tsx - Multiline JSX elements must be wrapped in parentheses
@@ -1340,13 +1294,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/stores/SystemLogStore.ts - Use a conditional expression instead of assigning to 'newLogData.entries' in multiple places.
 /src/js/stores/__tests__/AuthStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/AuthStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/AuthStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/AuthStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/BaseStore-test.ts - block is empty
 /src/js/stores/__tests__/BaseStore-test.ts - block is empty
-/src/js/stores/__tests__/CosmosPackagesStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/CosmosPackagesStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/CosmosPackagesStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
@@ -1356,15 +1305,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/stores/__tests__/MesosStateStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/MesosSummaryFetchers-test.tsx - require statement not part of an import statement
 /src/js/stores/__tests__/MesosSummaryStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/stores/__tests__/SystemLogStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/UnitHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/UserSettingsStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/stores/__tests__/UserStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/UsersStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/stores/__tests__/UsersStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/UsersStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/UsersStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/VirtualNetworksStore-test.ts - require statement not part of an import statement
 /src/js/structs/CompositeState.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.
 /src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.

@@ -4,9 +4,9 @@ import UsersList from "../../structs/UsersList";
 import * as EventTypes from "../../constants/EventTypes";
 import usersFixture from "./fixtures/users-unicode.json";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-const ActionTypes = require("../../constants/ActionTypes");
-const Config = require("#SRC/js/config/Config").default;
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import * as ActionTypes from "../../constants/ActionTypes";
+import Config from "#SRC/js/config/Config";
 
 let thisRequestFn, thisUsersFixture, thisUseFixtures;
 

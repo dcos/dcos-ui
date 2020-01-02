@@ -1,10 +1,10 @@
 import AppDispatcher from "../AppDispatcher";
 import UnitHealthActions from "../UnitHealthActions";
 
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
+import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const ActionTypes = require("../../constants/ActionTypes");
-const Config = require("#SRC/js/config/Config").default;
+import * as ActionTypes from "../../constants/ActionTypes";
+import Config from "#SRC/js/config/Config";
 
 let thisConfiguration;
 

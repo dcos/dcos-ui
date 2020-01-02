@@ -4,9 +4,9 @@ import CosmosPackagesActions from "../CosmosPackagesActions";
 
 jest.mock("@dcos/http-service");
 const httpService = require("@dcos/http-service");
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-const ActionTypes = require("../../constants/ActionTypes");
-const Config = require("#SRC/js/config/Config").default;
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import * as ActionTypes from "../../constants/ActionTypes";
+import Config from "#SRC/js/config/Config";
 
 let thisConfiguration;
 

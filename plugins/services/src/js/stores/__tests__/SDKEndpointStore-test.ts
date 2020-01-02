@@ -3,7 +3,7 @@ import SDKEndpointStore from "../SDKEndpointStore";
 import ServiceEndpoint from "../../structs/ServiceEndpoint";
 import SDKEndpointActions from "../../events/SDKEndpointActions";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 const serviceData = {
   endpoints: [

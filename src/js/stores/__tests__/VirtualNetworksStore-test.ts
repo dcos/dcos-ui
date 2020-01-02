@@ -3,7 +3,7 @@ import OverlayList from "../../structs/OverlayList";
 import VirtualNetworksStore from "../VirtualNetworksStore";
 import * as EventTypes from "../../constants/EventTypes";
 
-const ActionTypes = require("../../constants/ActionTypes");
+import * as ActionTypes from "../../constants/ActionTypes";
 
 describe("VirtualNetworksStore", () => {
   beforeEach(() => {
