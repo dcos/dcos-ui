@@ -3,8 +3,7 @@ import { mount } from "enzyme";
 
 import Pod from "../../../structs/Pod";
 import ServicePodConnectionEndpointList from "../ServicePodConnectionEndpointList";
-
-const ServicePodWithEndpoints = require("./fixtures/ServicePodWithEndpoints.json");
+import ServicePodWithEndpoints from "./fixtures/ServicePodWithEndpoints.json";
 
 let thisInstance;
 

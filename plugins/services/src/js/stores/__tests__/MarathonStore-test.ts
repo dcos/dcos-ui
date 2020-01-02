@@ -3,9 +3,8 @@ import HealthTypes from "../../constants/HealthTypes";
 import MockAppMetadata from "./fixtures/MockAppMetadata";
 
 import * as EventTypes from "../../constants/EventTypes";
-
-const MarathonStore = require("../MarathonStore").default;
-const MockMarathonResponse = require("./fixtures/MockMarathonResponse.json");
+import MockMarathonResponse from "./fixtures/MockMarathonResponse.json";
+import MarathonStore from "../MarathonStore";
 
 // mock global string decoder
 window.atob = () => MockAppMetadata.decodedString;

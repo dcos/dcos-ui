@@ -5,13 +5,12 @@ import SDKEndpointStore from "../../../stores/SDKEndpointStore";
 import Framework from "../../../structs/Framework";
 import ServiceEndpoint from "../../../structs/ServiceEndpoint";
 import SDKServiceConnectionEndpointList from "../SDKServiceConnectionEndpointList";
+import SDKService from "./fixtures/SDKService.json";
+import SDKServiceEndpoints from "./fixtures/SDKServiceEndpoints.json";
 
 jest.mock("../../../stores/SDKEndpointStore");
 
-const SDKService = require("./fixtures/SDKService.json");
-const SDKServiceEndpoints = require("./fixtures/SDKServiceEndpoints.json");
-
-let thisInstance;
+let thisInstance: { find: (_: string) => any };
 
 describe("SDKServiceConnectionEndpointList", () => {
   const service = new Framework(SDKService);

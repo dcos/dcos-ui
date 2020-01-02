@@ -2,12 +2,11 @@ import UsersStore from "../UsersStore";
 import AppDispatcher from "../../events/AppDispatcher";
 import UsersList from "../../structs/UsersList";
 import * as EventTypes from "../../constants/EventTypes";
+import usersFixture from "./fixtures/users-unicode.json";
 
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const ActionTypes = require("../../constants/ActionTypes");
 const Config = require("#SRC/js/config/Config").default;
-
-const usersFixture = require("./fixtures/users-unicode.json");
 
 let thisRequestFn, thisUsersFixture, thisUseFixtures;
 

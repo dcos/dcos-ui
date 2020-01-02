@@ -1,11 +1,8 @@
 import d3 from "d3";
-
 import * as React from "react";
-
 import { mount } from "enzyme";
 import TimeSeriesArea from "../TimeSeriesArea";
-
-const MockTimeSeriesData = require("./fixtures/MockTimeSeriesData.json");
+import MockTimeSeriesData from "./fixtures/MockTimeSeriesData.json";
 
 function checkPath(instance, props) {
   const area = instance.find(".area");

@@ -3,8 +3,7 @@ import { mount } from "enzyme";
 
 import Application from "../../../structs/Application";
 import ServiceConnectionEndpointList from "../ServiceConnectionEndpointList";
-
-const ServiceWithEndpoints = require("./fixtures/ServiceWithEndpoints.json");
+import ServiceWithEndpoints from "./fixtures/ServiceWithEndpoints.json";
 
 describe("ServiceConnectionEndpointList", () => {
   const serviceWithEndpoints = new Application(ServiceWithEndpoints);

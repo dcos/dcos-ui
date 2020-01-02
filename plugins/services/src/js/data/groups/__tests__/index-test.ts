@@ -17,11 +17,10 @@ import { createTestContainer } from "../../__tests__/extension-test";
 import TestModule, { TestResolverArgs } from "../../__tests__/test-module";
 import ServiceTree from "../../../structs/ServiceTree";
 import MarathonUtil from "../../../utils/MarathonUtil";
-
-const marathonGroups = require("./_fixtures/marathon-groups.json");
-const marathonRoleGroups = require("./_fixtures/marathon-groups-with-roles.json");
-const rolesDev = require("./_fixtures/roles-dev.json");
-const rolesAll = require("./_fixtures/roles-all.json");
+import marathonGroups from "./_fixtures/marathon-groups.json";
+import marathonRoleGroups from "./_fixtures/marathon-groups-with-roles.json";
+import rolesDev from "./_fixtures/roles-dev.json";
+import rolesAll from "./_fixtures/roles-all.json";
 
 function makeServiceTree(groupsResponse = {}): ServiceTree {
   return new ServiceTree(MarathonUtil.parseGroups(groupsResponse));
