@@ -1,2 +1,2 @@
-export const Application = "APPLICATION";
+export const APPLICATION = "APPLICATION";
 export const PLUGIN_LOAD_TIMEOUT = 5000;

@@ -1,4 +1,4 @@
-import { ADD, ERROR } from "#SRC/js/constants/TransactionTypes";
+import { ADD_ITEM, ERROR } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 
 import PlacementsValidators from "../PlacementsValidators";
@@ -108,8 +108,8 @@ describe("PlacementsValidators", () => {
   describe("#validateNoBatchError", () => {
     it("accepts a list of non error transactions", () => {
       const transactions = [
-        new Transaction(["root"], "any", ADD),
-        new Transaction(["root"], "any", ADD)
+        new Transaction(["root"], "any", ADD_ITEM),
+        new Transaction(["root"], "any", ADD_ITEM)
       ];
 
       expect(PlacementsValidators.validateNoBatchError(transactions)).toEqual(
@@ -119,7 +119,7 @@ describe("PlacementsValidators", () => {
 
     it("does not accepts a list with any error transaction", () => {
       const transactions = [
-        new Transaction(["root"], "any", ADD),
+        new Transaction(["root"], "any", ADD_ITEM),
         new Transaction(["root"], "any", ERROR)
       ];
 
