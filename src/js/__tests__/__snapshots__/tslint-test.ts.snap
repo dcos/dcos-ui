@@ -1255,7 +1255,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/DashboardPage.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/DashboardPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/Index.tsx - block is empty
-/src/js/pages/Index.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/DeployFrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
