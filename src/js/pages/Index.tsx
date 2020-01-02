@@ -2,7 +2,6 @@ import classNames from "classnames";
 import isEqual from "lodash.isequal";
 import * as React from "react";
 import createReactClass from "create-react-class";
-import { CSSTransition } from "react-transition-group";
 
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
@@ -23,11 +22,7 @@ import UserLanguageStore from "../stores/UserLanguageStore";
 import { hasViewportChanged, getCurrentViewport } from "../utils/ViewportUtil";
 import * as viewport from "../constants/Viewports";
 
-function getSidebarState() {
-  return {
-    isVisible: SidebarStore.get("isVisible")
-  };
-}
+const isSidebarVisible = () => SidebarStore.get("isVisible");
 
 const Index = createReactClass({
   displayName: "Index",
@@ -171,23 +166,14 @@ const Index = createReactClass({
   },
 
   renderOverlay() {
-    const { isVisible } = getSidebarState();
-
-    return isVisible && window.innerWidth <= viewport.MOBILE_THRESHOLD ? (
-      <CSSTransition
-        classNames="sidebar-backdrop"
-        timeout={{
-          enter: 250,
-          exit: 250
-        }}
-      >
-        <div className="sidebar-backdrop" onClick={SidebarActions.close} />
-      </CSSTransition>
+    return isSidebarVisible() &&
+      window.innerWidth <= viewport.MOBILE_THRESHOLD ? (
+      <div className="sidebar-backdrop" onClick={SidebarActions.close} />
     ) : null;
   },
 
   render() {
-    const { isVisible } = getSidebarState();
+    const isVisible = isSidebarVisible();
 
     const showErrorScreen =
       this.state.configErrorCount >= Config.delayAfterErrorCount;

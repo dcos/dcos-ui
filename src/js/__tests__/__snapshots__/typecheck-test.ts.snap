@@ -3281,7 +3281,6 @@ src/js/components/Modals.tsx: error TS2607: JSX element class does not support a
 src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 src/js/components/Modals.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/Modals.tsx: error TS2345: Argument of type '\\"versions\\"' is not assignable to parameter of type 'never'.
 src/js/components/NestedServiceLinks.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 src/js/components/NestedServiceLinks.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 src/js/components/Page.tsx: error TS2605: JSX element type 'FluidGeminiScrollbar' is not a constructor function for JSX elements.
@@ -3706,7 +3705,6 @@ src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *
 src/js/pages/Index.tsx: error TS2605: JSX element type 'Sidebar' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
-src/js/pages/Index.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'setState' does not exist on type 'DeployFrameworkConfiguration'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'context' does not exist on type 'DeployFrameworkConfiguration'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS7030: Not all code paths return a value.
@@ -4236,8 +4234,6 @@ src/js/stores/NotificationStore.ts: error TS2769: No overload matches this call.
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/SidebarStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/SidebarStore.ts: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/stores/SidebarStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/SystemLogStore.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
