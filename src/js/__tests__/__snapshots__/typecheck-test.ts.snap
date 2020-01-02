@@ -3304,10 +3304,10 @@ src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2607: JSX elem
 src/js/components/HashMapDisplay.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/HashMapDisplay.tsx: error TS2605: JSX element type 'HashMapDisplay' is not a constructor function for JSX elements.
 src/js/components/HashMapDisplay.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/HeaderBar.tsx: error TS2605: JSX element type 'ClusterHeader' is not a constructor function for JSX elements.
 src/js/components/HeaderBar.tsx: error TS2605: JSX element type 'SidebarToggle' is not a constructor function for JSX elements.
 src/js/components/HeaderBar.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 src/js/components/HeaderBar.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+src/js/components/HeaderBar.tsx: error TS2605: JSX element type 'ClusterHeader' is not a constructor function for JSX elements.
 src/js/components/ImageViewer.tsx: error TS2605: JSX element type 'ImageViewerModal' is not a constructor function for JSX elements.
 src/js/components/ImageViewer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/JSONEditor.tsx: error TS6133: 'match' is declared but its value is never read.
@@ -3840,9 +3840,6 @@ src/js/pages/DashboardPage.tsx: error TS2607: JSX element class does not support
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/Index.tsx: error TS2339: Property 'innerWidth' does not exist on type 'Global'.
-src/js/pages/Index.tsx: error TS7030: Not all code paths return a value.
-src/js/pages/Index.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-src/js/pages/Index.tsx: error TS2605: JSX element type 'HeaderBar' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'Sidebar' is not a constructor function for JSX elements.
 src/js/pages/Index.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
