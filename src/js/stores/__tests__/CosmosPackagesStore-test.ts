@@ -5,13 +5,13 @@ import UniversePackageVersions from "../../structs/UniversePackageVersions";
 import UniverseInstalledPackagesList from "../../structs/UniverseInstalledPackagesList";
 import UniversePackagesList from "../../structs/UniversePackagesList";
 import * as EventTypes from "../../constants/EventTypes";
+import packageDescribeFixture from "./fixtures/MockPackageDescribeResponse.json";
+import serviceDescribeFixture from "./fixtures/MockServiceDescribeResponse.json";
+import packagesListFixture from "./fixtures/MockPackagesListResponse.json";
+import packagesSearchFixture from "./fixtures/MockPackagesSearchResponse.json";
 
 const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
 const Config = require("#SRC/js/config/Config").default;
-const packageDescribeFixture = require("./fixtures/MockPackageDescribeResponse.json");
-const serviceDescribeFixture = require("./fixtures/MockServiceDescribeResponse.json");
-const packagesListFixture = require("./fixtures/MockPackagesListResponse.json");
-const packagesSearchFixture = require("./fixtures/MockPackagesSearchResponse.json");
 const ActionTypes = require("../../constants/ActionTypes");
 
 let thisConfigUseFixture,

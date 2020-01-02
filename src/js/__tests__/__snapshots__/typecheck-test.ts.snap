@@ -1695,8 +1695,6 @@ plugins/services/src/js/containers/service-connection/EndpointClipboardTrigger.t
 plugins/services/src/js/containers/service-connection/MesosDNSList.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2339: Property 'endpointData' does not exist on type 'ServiceEndpoint'.
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
-plugins/services/src/js/containers/service-connection/__tests__/SDKServiceConnectionEndpointList-test.tsx: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/containers/service-connection/__tests__/SDKServiceConnectionEndpointList-test.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/containers/service-connection/__tests__/SDKServiceConnectionEndpointList-test.tsx: error TS2605: JSX element type 'SDKServiceConnectionEndpointList' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-connection/__tests__/SDKServiceConnectionEndpointList-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/containers/service-connection/__tests__/ServiceConnectionEndpointList-test.tsx: error TS2605: JSX element type 'ServiceConnectionEndpointList' is not a constructor function for JSX elements.
@@ -2948,6 +2946,14 @@ plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2683: 'this' impli
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'void' is not assignable to type 'null'.
 plugins/services/src/js/stores/__mocks__/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS2554: Expected 2 arguments, but got 3.
 plugins/services/src/js/stores/__tests__/MesosLogStore-test.ts: error TS7030: Not all code paths return a value.
@@ -4106,7 +4112,6 @@ src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
-src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not exist on type *.

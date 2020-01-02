@@ -4,8 +4,7 @@ import UniversePackageVersions from "#SRC/js/structs/UniversePackageVersions";
 import PackageDetailTab from "../PackageDetailTab";
 import CosmosPackagesStore from "../../../stores/CosmosPackagesStore";
 
-const packageDescribeFixtures = require("../../../../../tests/_fixtures/cosmos/package-describe.json")
-  .package;
+import packageDescribeFixtures from "../../../../../tests/_fixtures/cosmos/package-describe.json";
 
 const React = require("react");
 
@@ -224,7 +223,7 @@ describe("PackageDetailTab", () => {
       thisInstance.getLoadingScreen = jasmine.createSpy("getLoadingScreen");
 
       CosmosPackagesStore.getPackageDetails = jest.fn(
-        () => new UniversePackage(packageDescribeFixtures)
+        () => new UniversePackage(packageDescribeFixtures.package)
       );
 
       thisInstance.render();

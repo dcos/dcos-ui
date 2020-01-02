@@ -1,13 +1,11 @@
+import { RequestUtil } from "mesosphere-shared-reactjs";
+import Config from "#SRC/js/config/Config";
 import AppDispatcher from "../../events/AppDispatcher";
 import HealthUnitsList from "../../structs/HealthUnitsList";
 import UnitHealthStore from "../UnitHealthStore";
+import unitsFixture from "../../../../tests/_fixtures/unit-health/units.json";
+import * as ActionTypes from "../../constants/ActionTypes";
 import * as EventTypes from "../../constants/EventTypes";
-
-const RequestUtil = require("mesosphere-shared-reactjs").RequestUtil;
-
-const ActionTypes = require("../../constants/ActionTypes");
-const Config = require("#SRC/js/config/Config").default;
-const unitsFixture = require("../../../../tests/_fixtures/unit-health/units.json");
 
 let thisRequestFn, thisUnitsFixture;
 

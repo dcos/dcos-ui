@@ -3,13 +3,12 @@ import NodesList from "#SRC/js/structs/NodesList";
 import CompositeState from "#SRC/js/structs/CompositeState";
 
 import InstanceUtil from "../InstanceUtil";
+import MasterNodeLocal from "./fixtures/MasterNodeLocal.json";
+import MasterNodeOffsite from "./fixtures/MasterNodeOffsite.json";
+import SlaveNodes from "./fixtures/SlaveNodes.json";
+import NodeInstance from "./fixtures/NodeInstance.json";
 
 jest.mock("#SRC/js/structs/CompositeState");
-
-const MasterNodeLocal = require("./fixtures/MasterNodeLocal.json");
-const MasterNodeOffsite = require("./fixtures/MasterNodeOffsite.json");
-const SlaveNodes = require("./fixtures/SlaveNodes.json");
-const NodeInstance = require("./fixtures/NodeInstance.json");
 
 describe("InstanceUtil", () => {
   describe("#getRegionName", () => {
