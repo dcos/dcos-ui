@@ -21,7 +21,7 @@ let thisContainer;
 
 describe("#ProgressBar", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     ReactDOM.render(<ProgressBar data={testData} />, thisContainer);
   });
 

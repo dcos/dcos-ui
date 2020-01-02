@@ -37,15 +37,15 @@ const VirtualNetworksActions = {
 if (Config.useFixtures) {
   const virtualNetworksFixture = require("./__tests__/_fixtures/virtual-networks.json");
 
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
-  global.actionTypes.VirtualNetworksActions = {
+  window.actionTypes.VirtualNetworksActions = {
     fetch: { event: "success", success: { response: virtualNetworksFixture } }
   };
 
-  Object.keys(global.actionTypes.VirtualNetworksActions).forEach(method => {
+  Object.keys(window.actionTypes.VirtualNetworksActions).forEach(method => {
     VirtualNetworksActions[method] = RequestUtil.stubRequest(
       VirtualNetworksActions,
       "VirtualNetworksActions",

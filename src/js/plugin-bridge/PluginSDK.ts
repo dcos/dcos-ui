@@ -82,7 +82,7 @@ const initialize = pluginsConfig => {
     hooks.doAction("pluginsConfigured");
   });
 
-  global.setTimeout(() => {
+  window.setTimeout(() => {
     if (!pluginsLoaded) {
       if (process.env.NODE_ENV === "development") {
         console.warn("Failed to load plugins.");
@@ -309,7 +309,7 @@ const ApplicationSDK = getSDK(APPLICATION, Config);
 AppHooks.initialize(ApplicationSDK);
 
 // Add helper for PluginTestUtils. This allows us to get SDKS for other plugins
-if (global.__DEV__) {
+if (window.__DEV__) {
   ApplicationSDK.__getSDK = getSDK;
   ApplicationSDK.__addReducer = __addReducer;
 }

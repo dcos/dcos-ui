@@ -25,7 +25,7 @@ class ImageViewerModal extends React.Component {
     });
 
     if (this.props.open) {
-      global.addEventListener("keydown", this.handleKeyPress, true);
+      window.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
 
@@ -33,12 +33,12 @@ class ImageViewerModal extends React.Component {
     const { props } = this;
     if (props.open && !nextProps.open) {
       // Closes
-      global.removeEventListener("keydown", this.handleKeyPress, true);
+      window.removeEventListener("keydown", this.handleKeyPress, true);
     }
 
     if (!props.open && nextProps.open) {
       // Opens
-      global.addEventListener("keydown", this.handleKeyPress, true);
+      window.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
 

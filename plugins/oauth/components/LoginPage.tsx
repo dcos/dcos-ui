@@ -35,13 +35,13 @@ class LoginPage extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
 
-    global.addEventListener("message", this.onMessageReceived);
+    window.addEventListener("message", this.onMessageReceived);
   }
 
   componentWillUnmount() {
     super.componentWillUnmount();
 
-    global.removeEventListener("message", this.onMessageReceived);
+    window.removeEventListener("message", this.onMessageReceived);
   }
 
   onMessageReceived(event) {

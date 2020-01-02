@@ -6,7 +6,7 @@ let thisContainer;
 
 describe("JSONEditor", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
   });
 
   afterEach(() => {

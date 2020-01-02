@@ -2,6 +2,7 @@ interface Window {
   Cypress?: unknown;
   DCOS_UI_VERSION: string;
   msCrypto?: Crypto;
+  actionTypes: Record<string, any>;
 }
 
 interface Crypto {

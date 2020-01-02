@@ -20,7 +20,7 @@ export default class TimeAgo extends React.Component {
     this.state = {};
 
     if (this.props.autoUpdate && this.props.time) {
-      this.state.interval = global.setTimeout(
+      this.state.interval = window.setTimeout(
         this.updateTime,
         this.getUpdateInterval()
       );
@@ -29,7 +29,7 @@ export default class TimeAgo extends React.Component {
 
   componentWillUnmount() {
     if (this.state.interval) {
-      global.clearInterval(this.state.interval);
+      window.clearInterval(this.state.interval);
     }
   }
 
@@ -53,7 +53,7 @@ export default class TimeAgo extends React.Component {
 
   updateTime() {
     this.setState({
-      interval: global.setTimeout(this.updateTime, this.getUpdateInterval())
+      interval: window.setTimeout(this.updateTime, this.getUpdateInterval())
     });
   }
 

@@ -75,8 +75,8 @@ describe("DOMUtils", () => {
 
     it("calculates left padding", () => {
       thisStyle.push("padding-left: 1px");
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
       // jsdom doesn't calculate offsetWidth
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 101)
@@ -88,8 +88,8 @@ describe("DOMUtils", () => {
 
     it("calculates right padding", () => {
       thisStyle.push("padding-right: 1px");
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 101)
@@ -101,8 +101,8 @@ describe("DOMUtils", () => {
 
     it("calculates left border", () => {
       thisStyle.push("border-left-width: 1px");
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 101)
@@ -114,8 +114,8 @@ describe("DOMUtils", () => {
 
     it("calculates right border", () => {
       thisStyle.push("border-right-width: 1px");
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 101)
@@ -132,8 +132,8 @@ describe("DOMUtils", () => {
         "border-left-width: 1px",
         "border-right-width: 1px"
       );
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 104)
@@ -150,8 +150,8 @@ describe("DOMUtils", () => {
         "border-top-width: 1px",
         "border-bottom-width: 1px"
       );
-      global.document.body.innerHTML = buildElement(thisStyle);
-      const div = global.document.querySelector("div");
+      document.body.innerHTML = buildElement(thisStyle);
+      const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
         get: jest.fn(() => 100)
@@ -164,8 +164,8 @@ describe("DOMUtils", () => {
 
   describe("#scrollTo", () => {
     beforeEach(() => {
-      thisPreviousRequest = global.requestAnimationFrame;
-      global.requestAnimationFrame = func => {
+      thisPreviousRequest = window.requestAnimationFrame;
+      window.requestAnimationFrame = func => {
         setTimeout(func, 15);
       };
 
@@ -181,7 +181,7 @@ describe("DOMUtils", () => {
     });
 
     afterEach(() => {
-      global.requestAnimationFrame = thisPreviousRequest;
+      window.requestAnimationFrame = thisPreviousRequest;
       Date.now = thisDateNow;
     });
 
@@ -202,7 +202,7 @@ describe("DOMUtils", () => {
       const container = { scrollTop: 500, scrollHeight: 1500 };
       DOMUtils.scrollTo(container, 1500, 1000);
       let callCount = 0;
-      global.requestAnimationFrame = func => {
+      window.requestAnimationFrame = func => {
         callCount++;
         setTimeout(func, 15);
         // Reset scrollTop to stay in the same spot
@@ -251,27 +251,25 @@ describe("DOMUtils", () => {
 
   describe("#getInputElement", () => {
     function buildElementWithNoInput() {
-      global.document.body.innerHTML = "<div><span>Only text here</span></div>";
+      document.body.innerHTML = "<div><span>Only text here</span></div>";
 
-      return global.document.body.querySelector("div");
+      return document.body.querySelector("div");
     }
     function buildElementInput() {
-      global.document.body.innerHTML =
-        "<div><span><input type='text' /></span></div>";
+      document.body.innerHTML = "<div><span><input type='text' /></span></div>";
 
-      return global.document.body.querySelector("div");
+      return document.body.querySelector("div");
     }
     function buildElementTextarea() {
-      global.document.body.innerHTML =
-        "<div><span><textarea></textarea></span></div>";
+      document.body.innerHTML = "<div><span><textarea></textarea></span></div>";
 
-      return global.document.body.querySelector("div");
+      return document.body.querySelector("div");
     }
     function buildElementWithTwoTextareas() {
-      global.document.body.innerHTML =
+      document.body.innerHTML =
         "<div><span><textarea></textarea><textarea></textarea></span></div>";
 
-      return global.document.body.querySelector("div");
+      return document.body.querySelector("div");
     }
 
     const input = buildElementInput();

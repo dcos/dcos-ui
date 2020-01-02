@@ -42,7 +42,7 @@ class ServiceBreadcrumbs extends React.Component {
 
   componentDidMount() {
     this.checkBreadcrumbOverflow();
-    global.addEventListener("resize", this.handleViewportResize);
+    window.addEventListener("resize", this.handleViewportResize);
   }
 
   shouldComponentUpdate(nextProps) {
@@ -75,7 +75,7 @@ class ServiceBreadcrumbs extends React.Component {
   }
 
   componentWillUnmount() {
-    global.removeEventListener("resize", this.handleViewportResize);
+    window.removeEventListener("resize", this.handleViewportResize);
   }
 
   handleViewportResize() {

@@ -13,7 +13,7 @@ describe("ServiceList", () => {
   describe("#shouldComponentUpdate", () => {
     beforeEach(() => {
       const services = new ServiceTree({ items: [{ name: "foo" }] });
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
         thisContainer
@@ -53,7 +53,7 @@ describe("ServiceList", () => {
     });
 
     beforeEach(() => {
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <ServiceList services={services.getServices().getItems()} />,
         thisContainer

@@ -8,7 +8,7 @@ let thisContainer, thisInstance;
 
 describe("ServerErrorModal", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     thisInstance = ReactDOM.render(<ServerErrorModal />, thisContainer);
   });
   afterEach(() => {

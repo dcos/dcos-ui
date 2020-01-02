@@ -354,7 +354,7 @@ class GeneralServiceFormSection extends React.Component {
       </Trans>
     );
 
-    const isEditPage = /\/edit\//g.test(global.location.hash);
+    const isEditPage = /\/edit\//g.test(window.location.hash);
 
     return (
       <div>

@@ -12,7 +12,7 @@ const WIDTH_ATTRIBUTES = [
 ];
 
 const matchesFn = (() => {
-  const el = global.document.querySelector("body");
+  const el = document.querySelector("body");
   const names = [
     "matches",
     "matchesSelector",
@@ -33,11 +33,11 @@ const matchesFn = (() => {
 
 const DOMUtils = {
   appendScript(el, code) {
-    const scriptNode = global.document.createElement("script");
+    const scriptNode = document.createElement("script");
     scriptNode.type = "text/javascript";
 
     try {
-      scriptNode.appendChild(global.document.createTextNode(code));
+      scriptNode.appendChild(document.createTextNode(code));
     } catch (e) {
       scriptNode.text = code;
     }
@@ -65,10 +65,10 @@ const DOMUtils = {
 
   getComputedDimensions(obj) {
     let compstyle;
-    if (typeof global.getComputedStyle === "undefined") {
+    if (typeof window.getComputedStyle === "undefined") {
       compstyle = obj.currentStyle;
     } else {
-      compstyle = global.getComputedStyle(obj);
+      compstyle = window.getComputedStyle(obj);
     }
 
     const computeInnerBound = (acc, key) => {

@@ -11,7 +11,7 @@ let thisEventSource, thisMessageSpy, thisConfiguration;
 describe("SystemLogActions", () => {
   beforeEach(() => {
     // Mock EventSource
-    thisEventSource = new global.EventSource();
+    thisEventSource = new window.EventSource();
     spyOn(global, "EventSource").and.returnValue(thisEventSource);
   });
 
@@ -27,7 +27,7 @@ describe("SystemLogActions", () => {
       });
     });
 
-    it("calls #addEventListener from the global.EventSource", () => {
+    it("calls #addEventListener from the window.EventSource", () => {
       thisEventSource.addEventListener = jasmine
         .createSpy("addEventListener")
         .and.callThrough();
@@ -36,7 +36,7 @@ describe("SystemLogActions", () => {
     });
 
     it("fetches data from the correct URL", () => {
-      const mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = window.EventSource.calls.mostRecent();
       expect(mostRecent.args[0]).toEqual(
         "/system/v1/agent/foo/logs/v1/stream/?cursor=bar"
       );
@@ -51,8 +51,8 @@ describe("SystemLogActions", () => {
 
       const event = {
         data: "{}",
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("message", event);
     });
@@ -67,8 +67,8 @@ describe("SystemLogActions", () => {
 
       const event = {
         data: "{}",
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("message", event);
     });
@@ -116,8 +116,8 @@ describe("SystemLogActions", () => {
 
       const event = {
         data: "{}",
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("message", event);
 
@@ -143,7 +143,7 @@ describe("SystemLogActions", () => {
     });
 
     it("fetches data from the correct URL", () => {
-      const mostRecent = global.EventSource.calls.mostRecent();
+      const mostRecent = window.EventSource.calls.mostRecent();
       expect(mostRecent.args[0]).toEqual(
         "/system/v1/agent/foo/logs/v1/range/?cursor=bar&limit=3&read_reverse=true"
       );
@@ -160,8 +160,8 @@ describe("SystemLogActions", () => {
 
       const event = {
         data: {},
-        eventPhase: global.EventSource.CLOSED,
-        origin: global.location.origin
+        eventPhase: window.EventSource.CLOSED,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("error", event);
     });
@@ -177,16 +177,16 @@ describe("SystemLogActions", () => {
 
       const messageEvent = {
         data: "{}",
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("message", messageEvent);
       thisEventSource.dispatchEvent("message", messageEvent);
       thisEventSource.dispatchEvent("message", messageEvent);
       const closeEvent = {
         data: {},
-        eventPhase: global.EventSource.CLOSED,
-        origin: global.location.origin
+        eventPhase: window.EventSource.CLOSED,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
@@ -202,8 +202,8 @@ describe("SystemLogActions", () => {
 
       const messageEvent = {
         data: "{}",
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("message", messageEvent);
       thisEventSource.dispatchEvent("message", messageEvent);
@@ -211,8 +211,8 @@ describe("SystemLogActions", () => {
       // that we have reached the top
       const closeEvent = {
         data: {},
-        eventPhase: global.EventSource.CLOSED,
-        origin: global.location.origin
+        eventPhase: window.EventSource.CLOSED,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
@@ -227,20 +227,20 @@ describe("SystemLogActions", () => {
 
       thisEventSource.dispatchEvent("message", {
         data: '{"foo": 0}',
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       });
       thisEventSource.dispatchEvent("message", {
         data: '{"foo": 1}',
-        eventPhase: global.EventSource.OPEN,
-        origin: global.location.origin
+        eventPhase: window.EventSource.OPEN,
+        origin: window.location.origin
       });
       // Close before we the 3 events we have requested to show
       // that we have reached the top
       const closeEvent = {
         data: {},
-        eventPhase: global.EventSource.CLOSED,
-        origin: global.location.origin
+        eventPhase: window.EventSource.CLOSED,
+        origin: window.location.origin
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
@@ -254,7 +254,7 @@ describe("SystemLogActions", () => {
         );
       });
 
-      const event = { eventPhase: global.EventSource.CONNECTING };
+      const event = { eventPhase: window.EventSource.CONNECTING };
       thisEventSource.dispatchEvent("error", event);
     });
 
@@ -263,12 +263,12 @@ describe("SystemLogActions", () => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({
-          eventPhase: global.EventSource.CONNECTING
+          eventPhase: window.EventSource.CONNECTING
         });
         expect(action.subscriptionID).toEqual("subscriptionID");
       });
 
-      const event = { eventPhase: global.EventSource.CONNECTING };
+      const event = { eventPhase: window.EventSource.CONNECTING };
       thisEventSource.dispatchEvent("error", event);
     });
   });

@@ -79,7 +79,7 @@ class VirtualNetworksStore extends BaseStore {
 
     VirtualNetworksActions.fetch();
 
-    fetchInterval = global.setInterval(
+    fetchInterval = window.setInterval(
       VirtualNetworksActions.fetch,
       Config.getRefreshRate()
     );
@@ -87,7 +87,7 @@ class VirtualNetworksStore extends BaseStore {
 
   stopPolling() {
     if (fetchInterval) {
-      global.clearInterval(fetchInterval);
+      window.clearInterval(fetchInterval);
       fetchInterval = null;
     }
   }

@@ -135,10 +135,10 @@ export function debounce(func, wait) {
 
   return (...args) => {
     if (timeoutID) {
-      global.clearTimeout(timeoutID);
+      window.clearTimeout(timeoutID);
     }
 
-    timeoutID = global.setTimeout(() => {
+    timeoutID = window.setTimeout(() => {
       func(...args);
     }, wait);
   };

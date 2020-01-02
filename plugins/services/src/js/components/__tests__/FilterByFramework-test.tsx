@@ -19,7 +19,7 @@ describe("FilterByFramework", () => {
     };
 
     const frameworks = new FrameworksList({ items: MockFrameworks.frameworks });
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     thisInstance = ReactDOM.render(
       <FilterByFramework
         byFrameworkFilter={thisByFrameworkFilter}

@@ -31,18 +31,19 @@ function removeHandler(callback: () => void) {
 
 export default {
   // public method to add additional callback
-  add: (handler: () => void, global = window): void => {
+  add: (handler: () => void): void => {
     if (!hasHandlers()) {
       // Lazy attach
-      global.addEventListener("resize", resize);
+      window.addEventListener("resize", resize);
     }
     addHandler(handler);
   },
-  remove: (handler: () => void, global = window): void => {
+
+  remove: (handler: () => void): void => {
     removeHandler(handler);
 
     if (!hasHandlers()) {
-      global.removeEventListener("resize", resize);
+      window.removeEventListener("resize", resize);
       running = false;
     }
   }

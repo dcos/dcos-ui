@@ -1,7 +1,7 @@
 import * as viewport from "../constants/Viewports";
 
 export const getCurrentViewport = () => {
-  const windowWidth = global.innerWidth;
+  const windowWidth = window.innerWidth;
 
   if (windowWidth <= viewport.MOBILE_THRESHOLD) {
     return viewport.MOBILE;

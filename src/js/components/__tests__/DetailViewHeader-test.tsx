@@ -8,7 +8,7 @@ let thisContainer;
 
 describe("DetailViewHeader", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
   });
 
   afterEach(() => {

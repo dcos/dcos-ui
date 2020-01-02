@@ -116,7 +116,7 @@ class AuthStore extends GetSetBaseStore {
   }
 
   processLogoutSuccess() {
-    global.document.cookie = CookieUtils.emptyCookieWithExpiry(new Date(1970));
+    document.cookie = CookieUtils.emptyCookieWithExpiry(new Date(1970));
 
     this.emit(AUTH_USER_LOGOUT_SUCCESS);
 

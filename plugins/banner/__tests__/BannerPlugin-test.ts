@@ -132,12 +132,12 @@ describe("BannerPlugin", () => {
   describe("#applicationRendered", () => {
     beforeEach(() => {
       thisMockFn = jasmine.createSpy("ContentWindow Spy");
-      thisIframe = global.document.createElement("iframe");
+      thisIframe = document.createElement("iframe");
       const mockFn = thisMockFn;
       thisIframe.__defineGetter__("contentWindow", () => ({
         addEventListener: mockFn
       }));
-      global.document.getElementById = jasmine
+      document.getElementById = jasmine
         .createSpy("HTML Element")
         .and.returnValue(thisIframe);
     });

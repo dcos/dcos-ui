@@ -9,15 +9,15 @@ const ActionTypes = require("../../constants/ActionTypes");
 
 const USER_COOKIE_KEY = "dcos-acs-info-cookie";
 
-global.atob =
-  global.atob || (() => JSON.stringify({ uid: "joe", description: "Joe Doe" }));
+window.atob =
+  window.atob || (() => JSON.stringify({ uid: "joe", description: "Joe Doe" }));
 
 let thisCookieParse, thisDocument;
 
 describe("AuthStore", () => {
   beforeEach(() => {
     thisCookieParse = cookie.parse;
-    global.document = { cookie: "" };
+    document = { cookie: "" };
   });
 
   afterEach(() => {
@@ -48,14 +48,14 @@ describe("AuthStore", () => {
 
   describe("#processLogoutSuccess", () => {
     beforeEach(() => {
-      thisDocument = global.document;
+      thisDocument = document;
       spyOn(cookie, "serialize");
       spyOn(AuthStore, "emit");
       AuthStore.processLogoutSuccess();
     });
 
     afterEach(() => {
-      global.document = thisDocument;
+      document = thisDocument;
     });
 
     it("sets the cookie to an empty string", () => {

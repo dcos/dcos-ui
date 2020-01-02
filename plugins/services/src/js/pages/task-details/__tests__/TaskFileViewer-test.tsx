@@ -13,7 +13,7 @@ let thisContainer, thisInstance;
 
 describe("TaskFileViewer", () => {
   beforeEach(() => {
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
     thisInstance = mount(
       <WrappedComponent
@@ -33,7 +33,7 @@ describe("TaskFileViewer", () => {
 
   describe("#render", () => {
     beforeEach(function() {
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       this.instance = mount(
         <WrappedComponent

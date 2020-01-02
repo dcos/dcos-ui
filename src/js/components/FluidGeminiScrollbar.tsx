@@ -52,8 +52,8 @@ class FluidGeminiScrollbar extends React.Component {
 
       if (scrollbarWidth > 0) {
         const head =
-          global.document.head ||
-          global.document.getElementsByTagName("head")[0];
+          window.document.head ||
+          window.document.getElementsByTagName("head")[0];
 
         const cssString = `
           .gm-scrollbar-container-fluid-view-width > .gm-scroll-view {
@@ -61,13 +61,13 @@ class FluidGeminiScrollbar extends React.Component {
           }
         `;
 
-        styleElement = global.document.createElement("style");
+        styleElement = window.document.createElement("style");
         styleElement.type = "text/css";
 
         if (styleElement.styleSheet) {
           styleElement.styleSheet.cssText = cssString;
         } else {
-          styleElement.appendChild(global.document.createTextNode(cssString));
+          styleElement.appendChild(window.document.createTextNode(cssString));
         }
 
         head.appendChild(styleElement);

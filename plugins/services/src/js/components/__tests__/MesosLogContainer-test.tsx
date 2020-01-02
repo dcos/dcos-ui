@@ -26,7 +26,7 @@ describe("MesosLogContainer", () => {
     MesosLogStore.startTailing = jasmine.createSpy("startTailing");
     MesosLogStore.stopTailing = jasmine.createSpy("stopTailing");
 
-    thisContainer = global.document.createElement("div");
+    thisContainer = window.document.createElement("div");
     thisInstance = ReactDOM.render(
       <MesosLogContainer
         filePath="/some/file/path"

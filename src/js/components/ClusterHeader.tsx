@@ -101,14 +101,14 @@ export default class ClusterHeader extends mixin(StoreMixin) {
         html: <Trans render="span">Support Portal</Trans>,
         id: "support-portal",
         onClick() {
-          global.open(Config.supportPortalURI, "_blank");
+          window.open(Config.supportPortalURI, "_blank");
         }
       },
       {
         html: <Trans render="span">Documentation</Trans>,
         id: "documentation",
         onClick() {
-          global.open(MetadataStore.buildDocsURI("/"), "_blank");
+          window.open(MetadataStore.buildDocsURI("/"), "_blank");
         }
       },
       {

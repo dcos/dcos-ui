@@ -6,10 +6,10 @@ import Config from "../config/Config";
 
 const ConfigActions = {
   fetchConfig() {
-    if (global.APPLICATION_CONFIGURATION) {
+    if (window.APPLICATION_CONFIGURATION) {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_CONFIG_SUCCESS,
-        data: JSON.parse(global.APPLICATION_CONFIGURATION)
+        data: JSON.parse(window.APPLICATION_CONFIGURATION)
       });
     }
 
@@ -51,11 +51,11 @@ const ConfigActions = {
 };
 
 if (Config.useFixtures || Config.useUIConfigFixtures) {
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
-  global.actionTypes.ConfigActions = {
+  window.actionTypes.ConfigActions = {
     fetchConfig: {
       event: "success",
       success: {
@@ -64,7 +64,7 @@ if (Config.useFixtures || Config.useUIConfigFixtures) {
     }
   };
 
-  Object.keys(global.actionTypes.ConfigActions).forEach(method => {
+  Object.keys(window.actionTypes.ConfigActions).forEach(method => {
     ConfigActions[method] = RequestUtil.stubRequest(
       ConfigActions,
       "ConfigActions",

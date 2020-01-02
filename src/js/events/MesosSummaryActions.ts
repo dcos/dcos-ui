@@ -64,17 +64,17 @@ const MesosSummaryActions = {
 if (Config.useFixtures) {
   import(/* summaryFixture */ "../../../tests/_fixtures/v0/summary").then(
     summaryFixture => {
-      if (!global.actionTypes) {
-        global.actionTypes = {};
+      if (!window.actionTypes) {
+        window.actionTypes = {};
       }
-      global.actionTypes.MesosSummaryActions = {
+      window.actionTypes.MesosSummaryActions = {
         fetchSummary: {
           event: "success",
           success: { response: summaryFixture.default }
         }
       };
 
-      Object.keys(global.actionTypes.MesosSummaryActions).forEach(method => {
+      Object.keys(window.actionTypes.MesosSummaryActions).forEach(method => {
         MesosSummaryActions[method] = RequestUtil.stubRequest(
           MesosSummaryActions,
           "MesosSummaryActions",

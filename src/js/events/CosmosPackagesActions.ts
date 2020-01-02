@@ -485,8 +485,8 @@ if (Config.useFixtures) {
     )
   };
 
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
   Promise.all(
@@ -494,7 +494,7 @@ if (Config.useFixtures) {
       method => methodFixtureMapping[method]
     )
   ).then(responses => {
-    global.actionTypes.CosmosPackagesActions = Object.assign(
+    window.actionTypes.CosmosPackagesActions = Object.assign(
       getFixtureResponses(methodFixtureMapping, responses),
       {
         updateService: { event: "success" },
@@ -505,7 +505,7 @@ if (Config.useFixtures) {
       }
     );
 
-    Object.keys(global.actionTypes.CosmosPackagesActions).forEach(method => {
+    Object.keys(window.actionTypes.CosmosPackagesActions).forEach(method => {
       CosmosPackagesActions[method] = RequestUtil.stubRequest(
         CosmosPackagesActions,
         "CosmosPackagesActions",

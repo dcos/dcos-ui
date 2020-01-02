@@ -91,18 +91,18 @@ if (Config.useFixtures) {
     /* usersFixture */ "../stores/__tests__/fixtures/users-unicode.json"
   );
 
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
   usersFixtureImportPromise.then(usersFixture => {
-    global.actionTypes.UsersActions = {
+    window.actionTypes.UsersActions = {
       fetch: { event: "success", success: { response: usersFixture } },
       addUser: { event: "success" },
       deleteUser: { event: "success" }
     };
 
-    Object.keys(global.actionTypes.UsersActions).forEach(method => {
+    Object.keys(window.actionTypes.UsersActions).forEach(method => {
       UsersActions[method] = RequestUtil.stubRequest(
         UsersActions,
         "UsersActions",

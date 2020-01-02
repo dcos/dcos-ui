@@ -96,13 +96,13 @@ let shouldEmbedLastUnusedOffers = false;
 function startPolling() {
   if (requestInterval == null) {
     poll();
-    requestInterval = global.setInterval(poll, Config.getRefreshRate());
+    requestInterval = window.setInterval(poll, Config.getRefreshRate());
   }
 }
 
 function stopPolling() {
   if (requestInterval != null) {
-    global.clearInterval(requestInterval);
+    window.clearInterval(requestInterval);
     requestInterval = null;
   }
 }

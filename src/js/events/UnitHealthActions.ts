@@ -116,8 +116,8 @@ if (Config.useFixtures) {
     )
   };
 
-  if (!global.actionTypes) {
-    global.actionTypes = {};
+  if (!window.actionTypes) {
+    window.actionTypes = {};
   }
 
   Promise.all(
@@ -125,12 +125,12 @@ if (Config.useFixtures) {
       method => methodFixtureMapping[method]
     )
   ).then(responses => {
-    global.actionTypes.UnitHealthActions = getFixtureResponses(
+    window.actionTypes.UnitHealthActions = getFixtureResponses(
       methodFixtureMapping,
       responses
     );
 
-    Object.keys(global.actionTypes.UnitHealthActions).forEach(method => {
+    Object.keys(window.actionTypes.UnitHealthActions).forEach(method => {
       UnitHealthActions[method] = RequestUtil.stubRequest(
         UnitHealthActions,
         "UnitHealthActions",

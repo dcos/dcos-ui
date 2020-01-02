@@ -80,7 +80,7 @@ describe("SDKEndpointsActions", () => {
 
   describe("#fetchEndpoint", () => {
     let mockXhr;
-    const originalXhr = global.XMLHttpRequest;
+    const originalXhr = window.XMLHttpRequest;
     const serviceId = "foo";
     const endpointName = "arangodb";
 
@@ -96,11 +96,11 @@ describe("SDKEndpointsActions", () => {
         })
       };
 
-      global.XMLHttpRequest = jest.fn(() => mockXhr);
+      window.XMLHttpRequest = jest.fn(() => mockXhr);
     });
 
     afterEach(() => {
-      global.XMLHttpRequest = originalXhr;
+      window.XMLHttpRequest = originalXhr;
     });
 
     it("XMLHttpRequest open was called", () => {

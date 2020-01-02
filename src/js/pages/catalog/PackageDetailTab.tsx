@@ -216,7 +216,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       version: selection.id
     };
 
-    global.location.replace(
+    window.location.replace(
       `#${this.props.location.pathname}?${qs.stringify(query)}`
     );
   }
@@ -484,7 +484,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     };
     delete query.appId;
 
-    global.location.replace(
+    window.location.replace(
       `#${this.props.location.pathname}?${qs.stringify(query)}`
     );
   }

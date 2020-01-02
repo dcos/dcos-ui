@@ -10,7 +10,7 @@ describe("SideTabs", () => {
   describe("#getTabs", () => {
     beforeEach(() => {
       thisTabs = [{ title: "Application" }, { title: "Host" }];
-      thisContainer = global.document.createElement("div");
+      thisContainer = window.document.createElement("div");
       thisInstance = ReactDOM.render(
         <SideTabs selectedTab="Application" tabs={thisTabs} />,
         thisContainer
