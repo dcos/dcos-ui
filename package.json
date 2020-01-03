@@ -86,8 +86,8 @@
     "tv4": "1.2.7"
   },
   "devDependencies": {
-    "@commitlint/cli": "8.2.0",
-    "@commitlint/config-conventional": "8.2.0",
+    "@commitlint/cli": "8.3.3",
+    "@commitlint/config-conventional": "8.3.3",
     "@lingui/cli": "2.9.0",
     "@lingui/macro": "2.9.0",
     "@semantic-release/exec": "3.3.8",
