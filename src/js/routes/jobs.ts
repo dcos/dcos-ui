@@ -57,7 +57,6 @@ export default [
             children: [
               {
                 component: TaskDetailsTab,
-                isTab: true,
                 path: "details",
                 title: "Details",
                 type: Route
@@ -65,7 +64,6 @@ export default [
               {
                 hideHeaderNavigation: true,
                 component: TaskFilesTab,
-                isTab: true,
                 path: "files",
                 title: "Files",
                 type: Route,
@@ -88,7 +86,6 @@ export default [
               {
                 component: TaskLogsContainer,
                 hideHeaderNavigation: true,
-                isTab: true,
                 path: "logs",
                 title: "Logs",
                 type: Route,

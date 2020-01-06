@@ -540,13 +540,9 @@ plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Pr
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'filters' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'defaultFilterData' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailHealthTab.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'setState' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS6133: 'RouterUtil' is declared but its value is never read.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
@@ -558,26 +554,21 @@ plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'sta
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'context' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'context' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'context' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentType<any>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'NodeDetailPage'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'setState' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'setState' does not exist on type 'NodeDetailPage'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type '\\"statesProcessed\\"' is not assignable to parameter of type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'NodeDetailPage'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2339: Property 'masterRegion' does not exist on type 'Readonly<{}>'.
@@ -2438,19 +2429,6 @@ plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS23
 plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/ServiceTaskDetailPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2554: Expected 1 arguments, but got 0.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'store_removeEventListenerForStoreID' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'state' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"directory\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'context' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
@@ -2464,9 +2442,8 @@ plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Propert
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'tabs_getRoutedTabs' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS6133: 'path' is declared but its value is never read.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
@@ -2476,14 +2453,19 @@ plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Propert
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'state' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'onTaskDirectoryStoreNodeStateError' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'onTaskDirectoryStoreNodeStateSuccess' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
-plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'store_removeEventListenerForStoreID' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'state' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2345: Argument of type '\\"directory\\"' is not assignable to parameter of type 'never'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'setState' does not exist on type 'TaskDetail'.
+plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Property 'props' does not exist on type 'TaskDetail'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2339: Property 'task' does not exist on type *.
