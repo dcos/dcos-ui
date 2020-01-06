@@ -30,7 +30,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/catalog/src/js/repositories/RepositoriesDelete.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/RepositoriesList.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/catalog/src/js/repositories/components/RepositoriesPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx - block is empty
 /plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
@@ -43,25 +42,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
-/plugins/jobs/src/js/components/Breadcrumbs.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/Breadcrumbs.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/JobDeleteModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/JobsForm.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/JobsForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/JobsForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Shadowed name: 'container'
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/JobsFormModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/JobsOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/JobsOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/breadcrumbs/Schedule.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/breadcrumbs/Schedule.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/form/ContainerFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/ContainerFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/EnvVarPartial.tsx - Multiline JS expressions inside JSX are forbidden
@@ -75,19 +62,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/components/form/PlacementPartial.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/PlacementPartial.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -95,7 +69,15 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/RunConfigFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/form/helpers/JobParsers.ts - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
 /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
@@ -131,7 +113,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
 /plugins/jobs/src/js/data/__tests__/JobModel-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/jobs/src/js/pages/JobDetailPage.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/jobs/src/js/pages/JobDetailPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'startedAt'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'finishedAt'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'runTime'
@@ -147,56 +128,25 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/HealthTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/HealthTab.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/LeaderGrid.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodeBreadcrumbs.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodeBreadcrumbs.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesGridDials.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesGridDials.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesGridDials.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/NodesTable.tsx - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NodesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/nodes/src/js/components/NodesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/NonLeadersGrid.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/__tests__/NodeBreadcrumbs-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -204,7 +154,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
@@ -218,7 +167,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Shadowed name: 'node'
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'node'
@@ -251,7 +199,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/columns/QuotaOverviewGPUConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/QuotaOverviewGPUConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/QuotaOverviewLimitColumn.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/columns/QuotaOverviewLimitColumn.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx - Multiline JS expressions inside JSX are forbidden
@@ -261,7 +208,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/ServicesTableRegionColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/ServicesTableStatusColumn.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/columns/ServicesTableStatusColumn.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/columns/ServicesTableStatusColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/columns/ServicesTableStatusColumn.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'columnDefaults' is never reassigned; use 'const' instead of 'let'.
@@ -275,25 +221,16 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/DeploymentsModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/DeploymentsModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/EmptyServicesQuotaOverview.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/EmptyServicesQuotaOverview.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/FilterByFramework.tsx - block is empty
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/LogView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/LogView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/LogView.tsx - block is empty
 /plugins/services/src/js/components/LogView.tsx - block is empty
@@ -302,24 +239,17 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/RecentOffersSummary.tsx - Use a conditional expression instead of assigning to 'percentageMatched' in multiple places.
 /plugins/services/src/js/components/RecentOffersSummary.tsx - Use a conditional expression instead of assigning to 'percentageOffered' in multiple places.
 /plugins/services/src/js/components/SDKPlanTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/SDKPlanTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/SDKPlanTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/SDKPlanTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/SearchLog.tsx - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/SearchLog.tsx - Identifier 'searchString' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/SearchLog.tsx - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/components/ServiceBreadcrumbs.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/ServiceBreadcrumbs.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/ServiceStatusProgressBar.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/ServiceStatusProgressBar.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/ServiceStatusProgressBar.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/TaskDirectoryTable.tsx - block is empty
 /plugins/services/src/js/components/TaskDirectoryTable.tsx - Multiline JS expressions inside JSX are forbidden
@@ -335,15 +265,10 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/components/__tests__/LogView-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx - require statement not part of an import statement
@@ -361,7 +286,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/ArtifactsSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/ArtifactsSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
 /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
 /plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - block is empty
@@ -385,12 +309,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -399,17 +319,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -420,14 +335,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -440,13 +353,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/PlacementSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - block is empty
@@ -457,23 +368,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/CreateServiceModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Shadowed name: 'tabs'
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -508,22 +407,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/modals/ServiceRestartModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/modals/ServiceResumeModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/ErrorsPanel.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/ErrorsPanel.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/utils.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/utils.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/utils.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/utils.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/components/modals/ServiceRootGroupModal/utils.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/modals/ServiceStopModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -533,33 +423,20 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/modals/TaskModals.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/TaskModals.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/__tests__/EditServiceModal-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - don't declare variable actionButtons to return it immediately
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'pod' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'filterText' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - block is empty
@@ -570,7 +447,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - block is empty
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
@@ -586,83 +462,64 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
 /plugins/services/src/js/containers/service-detail/ServiceDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-detail/ServiceDetail.tsx - block is empty
 /plugins/services/src/js/containers/services/EmptyServiceTree.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/EmptyServiceTree.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/EmptyServiceTree.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - block is empty
 /plugins/services/src/js/containers/services/ServicesContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JSX elements must be wrapped in parentheses
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Multiline JS expressions inside JSX are forbidden
@@ -674,30 +531,23 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
 /plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Identifier 'thisGetNodeFromID' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx - Shadowed name: 'volume'
 /plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx - Shadowed name: 'volume'
 /plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.tsx - Shadowed name: 'volume'
 /plugins/services/src/js/containers/volume-detail/TaskVolumeContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/data/__tests__/ServicePlansClient-test.ts - require statement not part of an import statement
 /plugins/services/src/js/data/errors/OvercommitQuotaError.ts - Shadowed name: 'resources'
 /plugins/services/src/js/data/groups/fetchers.ts - Shadowed name: 'groups'
@@ -730,7 +580,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/pages/task-details/TaskDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Shadowed name: 'file'
 /plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/pages/task-details/TaskFilesTab.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx - Identifier 'frameworkID' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx - Identifier 'id' is never reassigned; use 'const' instead of 'let'.
@@ -891,7 +740,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/service-configuration/PodContainersConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/PodContainersConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx - Shadowed name: 'environment'
 /plugins/services/src/js/service-configuration/PodGeneralConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/service-configuration/PodGeneralConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -905,24 +753,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx - Shadowed name: 'memo'
 /plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx - Use a conditional expression instead of assigning to 'type' in multiple places.
 /plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
-/plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Multiline JSX elements must be wrapped in parentheses
 /plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 36 which is higher than the threshold of 20
 /plugins/services/src/js/stores/MarathonStore.ts - Identifier 'serviceID' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/stores/MesosLogStore.ts - don't declare variable logBuffer to return it immediately
@@ -968,11 +805,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/AlertPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/AlertPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/BaseConfig.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/BaseConfig.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/BatchContainer.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/CollapsingString.tsx - Use a conditional expression instead of assigning to 'parent' in multiple places.
 /src/js/components/CosmosErrorMessage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/CosmosErrorMessage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/CosmosErrorMessage.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/CosmosErrorMessage.tsx - Shadowed name: 'error'
 /src/js/components/CreateServiceModalCatalogPanelOption.tsx - Multiline JS expressions inside JSX are forbidden
@@ -991,9 +826,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/DSLInputField.tsx - block is empty
 /src/js/components/DSLInputField.tsx - block is empty
 /src/js/components/ErrorsAlert.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/ErrorsAlert.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.
-/src/js/components/ExpandingTable.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/ExpandingTable.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FilterButtons.tsx - Identifier 'filterByKey' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterButtons.tsx - Identifier 'filters' is never reassigned; use 'const' instead of 'let'.
@@ -1011,19 +844,14 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/FormModal.tsx - block is empty
 /src/js/components/FormModal.tsx - block is empty
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfiguration.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfiguration.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfiguration.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfiguration.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfigurationForm.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
@@ -1039,13 +867,10 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/JSONEditor.tsx - block is empty
 /src/js/components/JSONEditorLoading.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/LastUpdated.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/LastUpdated.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/LastUpdated.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/Modals.tsx - block is empty
 /src/js/components/OfflineBanner.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/OfflineBanner.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/PageHeaderActionsMenu.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/PageHeaderBreadcrumbs.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/PlacementConstraintsPartial.tsx - Shadowed name: 'index'
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
@@ -1094,14 +919,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/ExpandingTable-test.tsx - block is empty
 /src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ExpandingTable-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ExpandingTable-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/FilterButtons-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/JSONEditor-test.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/components/__tests__/JSONEditor-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
@@ -1113,19 +935,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/__tests__/ProgressBar-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/__tests__/ProgressBar-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/__tests__/ProgressBar-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/__tests__/ProgressBar-test.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/__tests__/ServerErrorModal-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ServerErrorModal-test.tsx - require statement not part of an import statement
@@ -1139,7 +955,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/charts/Chart.tsx - Identifier 'width' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/charts/TasksChart.tsx - Shadowed name: 'task'
 /src/js/components/charts/TasksChart.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/charts/TasksChart.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/charts/TasksChart.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/charts/__tests__/TasksChart-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/charts/__tests__/TimeSeriesArea-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -1148,21 +963,15 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/charts/__tests__/TimeSeriesChart-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/modals/ActionsModal.tsx - Shadowed name: 'action'
 /src/js/components/modals/JobStopRunModal.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/modals/JobStopRunModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/JobStopRunModal.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/modals/LanguagePreferenceFormModal.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/modals/UserFormModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/UserFormModal.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/modals/UserFormModal.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/UserFormModal.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
 /src/js/components/modals/__tests__/ErrorModal-test.tsx - require statement not part of an import statement
@@ -1178,13 +987,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/events/__tests__/SystemLogActions-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/i18n.ts - require statement not part of an import statement
 /src/js/i18n.ts - require statement not part of an import statement
-/src/js/index.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/index.tsx - require statement not part of an import statement
 /src/js/index.tsx - require statement not part of an import statement
 /src/js/index.tsx - non-arrow functions are forbidden
 /src/js/index.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/DashboardPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/DashboardPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/Index.tsx - block is empty
 /src/js/pages/catalog/DeployFrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
@@ -1192,35 +999,26 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/PackageDetailTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/pages/catalog/PackageDetailTab.tsx - require statement not part of an import statement
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
+/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - Shadowed name: 'dependency'
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
 /src/js/pages/catalog/PackagesTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackagesTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackagesTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/catalog/PackagesTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/PackagesTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
-/src/js/pages/catalog/PackagesTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
@@ -1230,39 +1028,25 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - block is empty
 /src/js/pages/network/VirtualNetworksTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/network/VirtualNetworksTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Shadowed name: 'overlay'
-/src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx - Shadowed name: 'overlay'
-/src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/settings/UISettingsPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/settings/UISettingsPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/settings/UISettingsPage.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/settings/UISettingsPage.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/settings/UISettingsPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/settings/UISettingsPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/settings/UISettingsPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/settings/UISettingsPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/OrganizationTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/system/OrganizationTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/system/OrganizationTab.tsx - Identifier 'itemID' is never reassigned; use 'const' instead of 'let'.
 /src/js/pages/system/OrganizationTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/system/OrganizationTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
-/src/js/pages/system/OverviewDetailTab.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/UnitsHealthDetail.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/system/UnitsHealthDetail.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/UnitsHealthTab.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/system/UnitsHealthTab.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/system/UsersPage.tsx - Multiline JSX elements must be wrapped in parentheses
-/src/js/pages/system/UsersPage.tsx - Multiline JSX elements must be wrapped in parentheses
 /src/js/pages/system/units-health-node-detail/NodeInfoPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/plugin-bridge/Loader.ts - require statement not part of an import statement
 /src/js/plugin-bridge/PluginSDK.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
