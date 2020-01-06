@@ -3,7 +3,7 @@ import * as React from "react";
 import { componentFromStream } from "@dcos/data-service";
 import { DataLayerType } from "@extension-kid/data-layer";
 import gql from "graphql-tag";
-import { Trans } from "@lingui/macro";
+import { Trans } from "@lingui/react";
 
 import { Subject, BehaviorSubject } from "rxjs";
 import {
@@ -20,19 +20,15 @@ import AddRepositoryFormModal from "./components/AddRepositoryFormModal";
 const dataLayer = container.get(DataLayerType);
 
 // Imported from the Cosmos Store
-const getErrorMessage = (response = {}) => {
+const getErrorMessage = (response = { description: null, message: null }) => {
   if (typeof response === "string") {
     return response;
   }
 
-  if (response) {
-    return (
-      response.description ||
-      response.message || <Trans render="span">An error has occurred.</Trans>
-    );
-  }
-
-  return <Trans render="span">An error has occurred.</Trans>;
+  return (
+    response.description ||
+    response.message || <Trans render="span" id="An error has occurred." />
+  );
 };
 
 const addPackageRepositoryMutation = gql`
@@ -83,22 +79,25 @@ const RepositoriesAdd = componentFromStream(props$ =>
     combineLatest(
       pendingRequest$,
       addRepository$.pipe(startWith({})),
-      (props, pendingRequest, result) => (
-        <AddRepositoryFormModal
-          pendingRequest={pendingRequest}
-          numberOfRepositories={props.numberOfRepositories}
-          open={props.open}
-          addRepository={value => {
-            pendingRequest$.next(true);
-            return addRepositoryEvent$.next({
-              complete: props.onClose,
-              ...value
-            });
-          }}
-          onClose={props.onClose}
-          errorMsg={result.error}
-        />
-      )
+      (props, pendingRequest, result) => {
+        const addRepository = value => {
+          pendingRequest$.next(true);
+          return addRepositoryEvent$.next({
+            complete: props.onClose,
+            ...value
+          });
+        };
+        return (
+          <AddRepositoryFormModal
+            pendingRequest={pendingRequest}
+            numberOfRepositories={props.numberOfRepositories}
+            open={props.open}
+            addRepository={addRepository}
+            onClose={props.onClose}
+            errorMsg={result.error}
+          />
+        );
+      }
     )
   )
 );

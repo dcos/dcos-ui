@@ -68,16 +68,14 @@ plugins/banner/hooks.tsx: error TS2339: Property 'historyListenerAdded' does not
 plugins/banner/hooks.tsx: error TS2339: Property 'historyListenerAdded' does not exist on type *.
 plugins/banner/hooks.tsx: error TS2339: Property 'contentWindow' does not exist on type 'HTMLElement'.
 plugins/banner/hooks.tsx: error TS2339: Property 'location' does not exist on type 'Global'.
-plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'description' does not exist on type '{}'.
-plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'message' does not exist on type '{}'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
-plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
+plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
