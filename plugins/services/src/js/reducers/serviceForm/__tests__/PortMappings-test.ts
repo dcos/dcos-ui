@@ -1,8 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import ContainerConstants from "../../../constants/ContainerConstants";
 
-const PortMappings = require("../PortMappings");
-const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
+import * as PortMappings from "../PortMappings";
+import { ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
 
 const {
   type: { DOCKER }

@@ -3,15 +3,11 @@ import Transaction from "#SRC/js/structs/Transaction";
 import Networking from "#SRC/js/constants/Networking";
 import Batch from "#SRC/js/structs/Batch";
 
-const {
-  ADD_ITEM,
-  SET,
-  REMOVE_ITEM
-} = require("#SRC/js/constants/TransactionTypes");
+import { ADD_ITEM, SET, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
-const Container = require("../Container");
+import * as Container from "../Container";
 
 describe("Container", () => {
   describe("#JSONReducer", () => {

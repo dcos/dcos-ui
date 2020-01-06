@@ -1,12 +1,10 @@
 import NodesList from "#SRC/js/structs/NodesList";
 import ServicesList from "../../../../../services/src/js/structs/ServicesList";
 
-const React = require("react");
-const ReactDOM = require("react-dom");
-
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
-
-const NodesGridView = require("../NodesGridView").default;
+import * as React from "react";
+import ReactDOM from "react-dom";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import NodesGridView from "../NodesGridView";
 
 let thisStoreChangeListener,
   thisHosts,

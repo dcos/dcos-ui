@@ -1,4 +1,5 @@
 import * as TransactionTypes from "../constants/TransactionTypes";
+import Transaction from "./Transaction";
 
 /**
  * An immutable batch is an ever growing batch with a reduce capability.
@@ -43,7 +44,7 @@ import * as TransactionTypes from "../constants/TransactionTypes";
  */
 
 class Batch {
-  constructor(batch = []) {
+  constructor(batch: Transaction[] = []) {
     this.add = this.add.bind(batch);
     this.reduce = this.reduce.bind(batch);
   }
@@ -87,7 +88,7 @@ class Batch {
    * @param {*} data - The initial state of the reduce function
    * @returns {any} - The resulting state of the reduce function
    */
-  reduce(callback, data) {
+  reduce(callback, data: any = undefined) {
     // Run at least once even if there are no actions in the batch
     if (this.length === 0) {
       return callback(data, { path: [], value: "INIT" }, 0);

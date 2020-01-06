@@ -1,8 +1,7 @@
 import SideTabs from "../SideTabs";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
+import * as React from "react";
+import ReactDOM from "react-dom";
 
 let thisTabs, thisContainer, thisInstance;
 

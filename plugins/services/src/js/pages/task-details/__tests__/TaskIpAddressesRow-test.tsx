@@ -1,11 +1,11 @@
 import Application from "#PLUGINS/services/src/js/structs/Application";
 import Pod from "#PLUGINS/services/src/js/structs/Pod";
+import renderer from "react-test-renderer";
+import * as React from "react";
 
 jest.mock("#SRC/js/stores/DCOSStore");
 const DCOSStore = require("#SRC/js/stores/DCOSStore").default;
 const TaskIpAddressesRow = require("../TaskIpAddressesRow").default;
-const renderer = require("react-test-renderer");
-const React = require("react");
 
 describe("TaskIpAddressesRow", () => {
   describe("with an Application", () => {

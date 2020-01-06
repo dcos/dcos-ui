@@ -2,8 +2,8 @@ import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 import Networking from "#SRC/js/constants/Networking";
 
-const PortDefinitions = require("../PortDefinitions");
-const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
+import * as PortDefinitions from "../PortDefinitions";
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
 const { BRIDGE, HOST, USER } = Networking.type;
 

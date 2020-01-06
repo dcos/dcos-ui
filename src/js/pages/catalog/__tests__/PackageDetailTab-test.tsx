@@ -6,9 +6,8 @@ import CosmosPackagesStore from "../../../stores/CosmosPackagesStore";
 
 import packageDescribeFixtures from "../../../../../tests/_fixtures/cosmos/package-describe.json";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
+import * as React from "react";
+import ReactDOM from "react-dom";
 
 let thisContainer, thisInstance;
 

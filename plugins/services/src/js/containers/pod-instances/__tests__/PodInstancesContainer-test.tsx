@@ -2,14 +2,11 @@ import * as React from "react";
 import { mount } from "enzyme";
 
 import JestUtil from "#SRC/js/utils/JestUtil";
-
 import PodInstancesContainer from "../PodInstancesContainer";
 import Pod from "../../../structs/Pod";
-
 import PodFixture from "../../../../../../../tests/_fixtures/pods/PodFixture";
-
-const Util = require("#SRC/js/utils/Util").default;
-const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
+import Util from "#SRC/js/utils/Util";
+import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 let thisStoreChangeListener, thisInstance;
 

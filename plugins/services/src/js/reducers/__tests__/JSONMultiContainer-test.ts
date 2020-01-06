@@ -2,8 +2,8 @@ import Batch from "#SRC/js/structs/Batch";
 import JSONMultiContainerParser from "../JSONMultiContainerParser";
 import JSONMultiContainerReducers from "../JSONMultiContainerReducers";
 
-const { combineParsers } = require("#SRC/js/utils/ParserUtil");
-const { combineReducers } = require("#SRC/js/utils/ReducerUtil");
+import { combineParsers } from "#SRC/js/utils/ParserUtil";
+import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 
 describe("JSONMultiContainer", () => {
   describe("integrity", () => {

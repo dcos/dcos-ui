@@ -1,12 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 
-const {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} = require("#SRC/js/constants/TransactionTypes");
-const MultiContainerArtifacts = require("../MultiContainerArtifacts");
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
+import * as MultiContainerArtifacts from "../MultiContainerArtifacts";
 
 describe("MultiContainerArtifacts", () => {
   describe("#JSONReducer", () => {

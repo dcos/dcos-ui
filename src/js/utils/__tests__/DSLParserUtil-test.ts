@@ -4,7 +4,7 @@ import DSLCombinerTypes from "../../constants/DSLCombinerTypes";
 import DSLParserUtil from "../DSLParserUtil";
 import List from "../../structs/List";
 
-const DSLASTNodes = require("../../structs/DSLASTNodes");
+import DSLASTNodes from "../../structs/DSLASTNodes";
 
 class AttribFilter extends DSLFilter {
   filterCanHandle(filterType) {

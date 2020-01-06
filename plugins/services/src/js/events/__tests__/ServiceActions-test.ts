@@ -3,7 +3,7 @@ import ServiceActions from "../ServiceActions";
 import Framework from "../../structs/Framework";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
-const CosmosActionTypes = require("#SRC/js/constants/ActionTypes");
+import * as CosmosActionTypes from "#SRC/js/constants/ActionTypes";
 import * as ActionTypes from "../../constants/ActionTypes";
 
 let thisConfiguration;

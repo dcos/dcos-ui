@@ -2,8 +2,7 @@ import Application from "../../structs/Application";
 import ApplicationSpec from "../../structs/ApplicationSpec";
 import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
-
-const ServiceUtil = require("../ServiceUtil").default;
+import ServiceUtil from "../ServiceUtil";
 
 describe("ServiceUtil", () => {
   describe("#getDefinitionFromSpec", () => {

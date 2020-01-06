@@ -1,8 +1,7 @@
 import CliInstallModal from "../CliInstallModal";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
+import * as React from "react";
+import ReactDOM from "react-dom";
 
 // Set a new Getter. Navigator doesn't have a Setter.
 function setUserAgent(agent) {

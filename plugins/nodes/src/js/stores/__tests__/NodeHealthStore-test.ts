@@ -6,7 +6,7 @@ import nodesFixture from "../../../../../../tests/_fixtures/unit-health/nodes.js
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const ActionTypes = require("#SRC/js/constants/ActionTypes");
+import * as ActionTypes from "#SRC/js/constants/ActionTypes";
 import Config from "#SRC/js/config/Config";
 
 let thisRequestFn, thisNodesFixture;

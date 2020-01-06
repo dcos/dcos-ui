@@ -1,5 +1,5 @@
-const Networks = require("../Networks");
-const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
+import * as Networks from "../Networks";
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
 describe("Networks", () => {
   describe("#JSONParser", () => {

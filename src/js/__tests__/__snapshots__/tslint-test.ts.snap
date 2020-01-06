@@ -65,12 +65,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/NodesTable.tsx - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
 /plugins/nodes/src/js/components/__tests__/NodeBreadcrumbs-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
+/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Shadowed name: 'node'
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'node'
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'props'
@@ -84,7 +80,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
 /plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/plugins/nodes/src/js/stores/__tests__/NodeHealthStore-test.ts - require statement not part of an import statement
 /plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx - don't declare variable menuItems to return it immediately
 /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/components/ConfigurationMapTable.tsx - Identifier 'columnDefaults' is never reassigned; use 'const' instead of 'let'.
@@ -101,19 +96,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/SearchLog.tsx - Identifier 'totalFound' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/ServiceStatusProgressBar.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/components/__tests__/LogView-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - Identifier 'thisMesosLogStoreGetLogBuffer' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/components/__tests__/MesosLogContainer-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/components/__tests__/ServiceList-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/components/__tests__/ServiceList-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/components/__tests__/ServiceList-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/components/__tests__/ServiceList-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
@@ -156,10 +144,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'pod' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'filterText' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Shadowed name: 'service'
@@ -184,7 +169,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/data/groups/fetchers.ts - Shadowed name: 'groups'
 /plugins/services/src/js/events/TaskDirectoryActions.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/events/__tests__/ServiceActions-test.ts - require statement not part of an import statement
 /plugins/services/src/js/events/__tests__/ServiceActions-test.ts - Shadowed name: 'serviceDefinition'
 /plugins/services/src/js/events/__tests__/TaskDirectoryActions-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/filters/__tests__/PodInstanceStatusFilter-test.ts - require statement not part of an import statement
@@ -219,14 +203,10 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
+/plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - Shadowed name: 'batch'
 /plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/__tests__/JSONSingleContainerReducers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/__tests__/JSONSingleContainerReducers-test.ts - require statement not part of an import statement
+/plugins/services/src/js/reducers/__tests__/JSONSingleContainerReducers-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/Container.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
@@ -243,23 +223,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts - The function FormReducer has a cyclomatic complexity of 21 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Artifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Artifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Constraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Constraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Endpoints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Endpoints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/HealthChecks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Labels-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Labels-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Volumes-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Volumes-test.ts - require statement not part of an import statement
+/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'name' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Identifier 'networkNames' is never reassigned; use 'const' instead of 'let'.
@@ -291,42 +256,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/PortMappingsReducer.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Artifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Artifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Constraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Constraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Endpoints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Endpoints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/HealthChecks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/HealthChecks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Labels-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Labels-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerArtifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerArtifacts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerEnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerEnvironmentVariables-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerVolumeMounts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/MultiContainerVolumeMounts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Networks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Networks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/RequirePorts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/RequirePorts-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Residency-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Residency-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/UnknownVolumes-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/UnknownVolumes-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Volumes-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Volumes-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
@@ -335,24 +264,10 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/PortDefinitions.ts - Shadowed name: 'protocol'
-/plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerHealthChecks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerHealthChecks-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerNetwork-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerNetwork-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerScaling-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/MultiContainerScaling-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/PortDefinitions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/PortDefinitions-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/PortMappings-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/__tests__/PortMappings-test.ts - require statement not part of an import statement
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'value'
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - != should be !==
-/plugins/services/src/js/reducers/serviceForm/common/__tests__/Constraints-test.ts - require statement not part of an import statement
-/plugins/services/src/js/reducers/serviceForm/common/__tests__/Constraints-test.ts - require statement not part of an import statement
 /plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx - Shadowed name: 'environment'
 /plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx - Shadowed name: 'labels'
 /plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx - Shadowed name: 'endpoints'
@@ -371,7 +286,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/structs/ServiceTree.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
 /plugins/services/src/js/structs/ServiceTree.ts - == should be ===
 /plugins/services/src/js/structs/ServiceTree.ts - Shadowed name: 'marathonTask'
-/plugins/services/src/js/structs/__tests__/Framework-test.ts - require statement not part of an import statement
 /plugins/services/src/js/structs/__tests__/LogBuffer-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/structs/__tests__/ServiceEndpoint-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/utils/DeclinedOffersUtil.ts - Shadowed name: 'value'
@@ -384,7 +298,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/utils/QuotaUtil.ts - Shadowed name: 'role'
 /plugins/services/src/js/utils/TaskUtil.ts - don't declare variable node to return it immediately
 /plugins/services/src/js/utils/__tests__/FrameworkUtil-test.ts - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/utils/__tests__/ServiceUtil-test.ts - require statement not part of an import statement
 /plugins/services/src/js/utils/__tests__/TaskTableUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'type'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'isUnanchored'
@@ -432,33 +345,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/Authenticated-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/Authenticated-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ClickToSelect-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/DetailViewHeader-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/DetailViewHeader-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ExpandingTable-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/FilterButtons-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/FrameworkConfigurationForm-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/JSONEditor-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/NestedServiceLinks-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/NestedServiceLinks-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/NestedServiceLinks-test.tsx - Shadowed name: 'id'
 /src/js/components/__tests__/Panel-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/PlacementConstraintsSchemaFields-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/ProgressBar-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ProgressBar-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ServerErrorModal-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ServerErrorModal-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ServerErrorModal-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/__tests__/SideTabs-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/SideTabs-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/SideTabs-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/TabButton-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/TabButtonList-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -467,17 +359,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/charts/TasksChart.tsx - Shadowed name: 'task'
 /src/js/components/charts/__tests__/TasksChart-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/charts/__tests__/TimeSeriesArea-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/charts/__tests__/TimeSeriesChart-test.tsx - require statement not part of an import statement
-/src/js/components/charts/__tests__/TimeSeriesChart-test.tsx - require statement not part of an import statement
 /src/js/components/charts/__tests__/TimeSeriesChart-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/modals/ActionsModal.tsx - Shadowed name: 'action'
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/modals/__tests__/ErrorModal-test.tsx - require statement not part of an import statement
-/src/js/components/modals/__tests__/ErrorModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/ErrorModal-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/events/SystemLogActions.ts - Identifier 'cursor' is never reassigned; use 'const' instead of 'let'.
 /src/js/events/SystemLogActions.ts - Identifier 'skip_prev' is never reassigned; use 'const' instead of 'let'.
@@ -498,11 +384,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/PackageDetailTab.tsx - Shadowed name: 'dependency'
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
-/src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx - require statement not part of an import statement
-/src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
-/src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
@@ -521,11 +403,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/plugin-bridge/PluginTestUtils.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
 /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - require statement not part of an import statement
 /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/plugin-bridge/__tests__/AppReducer-test.ts - require statement not part of an import statement
-/src/js/plugin-bridge/__tests__/AppReducer-test.ts - require statement not part of an import statement
 /src/js/plugin-bridge/__tests__/Hooks-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/plugin-bridge/__tests__/PluginSDK-test.ts - require statement not part of an import statement
-/src/js/plugin-bridge/__tests__/PluginSDK-test.ts - require statement not part of an import statement
 /src/js/plugin-bridge/__tests__/PluginSDK-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
@@ -539,7 +417,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/stores/MesosStream/parsers/tasks.ts - don't declare variable marathonId to return it immediately
 /src/js/stores/SystemLogStore.ts - Use a conditional expression instead of assigning to 'newLogData.entries' in multiple places.
 /src/js/stores/__tests__/AuthStore-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/stores/__tests__/AuthStore-test.ts - require statement not part of an import statement
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
@@ -552,6 +429,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/stores/__tests__/UnitHealthStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/UserSettingsStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/UsersStore-test.ts - Multiple variable declarations in the same statement are forbidden
+/src/js/structs/Batch.ts - Use an optional parameter instead of initializing to 'undefined'. Also, the type declaration does not need to include '| undefined'.
 /src/js/structs/CompositeState.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.
 /src/js/structs/DSLASTNodes.ts - A maximum of 1 class per file is allowed.
@@ -566,9 +444,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
 /src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
 /src/js/structs/__tests__/DSLExpression-test.ts - require statement not part of an import statement
-/src/js/structs/__tests__/Job-test.ts - require statement not part of an import statement
-/src/js/structs/__tests__/Job-test.ts - require statement not part of an import statement
-/src/js/structs/__tests__/JobTree-test.ts - require statement not part of an import statement
 /src/js/structs/__tests__/List-test.ts - A maximum of 1 class per file is allowed.
 /src/js/structs/__tests__/List-test.ts - unused expression, expected an assignment or function call
 /src/js/structs/__tests__/List-test.ts - Multiple variable declarations in the same statement are forbidden
@@ -591,13 +466,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/TableUtil.ts - == should be ===
 /src/js/utils/TableUtil.ts - == should be ===
 /src/js/utils/__tests__/DOMUtils-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/utils/__tests__/DSLFormUtil-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/DSLParserUtil-test.ts - A maximum of 1 class per file is allowed.
 /src/js/utils/__tests__/DSLParserUtil-test.ts - A maximum of 1 class per file is allowed.
 /src/js/utils/__tests__/DSLParserUtil-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/utils/__tests__/DSLParserUtil-test.ts - require statement not part of an import statement
-/src/js/utils/__tests__/DSLUpdateUtil-test.ts - require statement not part of an import statement
-/src/js/utils/__tests__/DSLUtil-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/DSLUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/utils/__tests__/FormUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/utils/__tests__/MesosStateUtil-test.ts - Multiple variable declarations in the same statement are forbidden
@@ -611,21 +482,15 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/__tests__/ReducerUtil-test.ts - Shadowed name: 'state'
 /src/js/utils/__tests__/ReducerUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/utils/__tests__/ReducerUtil-test.ts - Shadowed name: 'state'
-/src/js/utils/__tests__/ResourcesUtil-test.ts - require statement not part of an import statement
-/src/js/utils/__tests__/StructUtil-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/SystemLogUtil-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/utils/__tests__/TableUtil-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/TableUtil-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/utils/__tests__/TemplateUtil-test.tsx - require statement not part of an import statement
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
-/src/js/utils/__tests__/Util-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/Util-test.ts - Multiple variable declarations in the same statement are forbidden
-/src/js/utils/__tests__/ValidatorUtil-test.ts - require statement not part of an import statement
 /src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
 /src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
 /src/resources/grammar/__tests__/SearchDSL-test.ts - Multiple variable declarations in the same statement are forbidden

@@ -1,5 +1,5 @@
-const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const UnknownVolumes = require("../UnknownVolumes");
+import { ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
+import * as UnknownVolumes from "../UnknownVolumes";
 
 describe("UnknownVolumes", () => {
   describe("#UnknownVolumesJSONParser", () => {

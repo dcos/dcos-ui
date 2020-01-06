@@ -1,8 +1,8 @@
-export function isDefined(value) {
+export function isDefined(value?) {
   return (value != null && value !== "") || typeof value === "number";
 }
 
-export function isEmpty(data) {
+export function isEmpty(data?) {
   if (typeof data === "number" || typeof data === "boolean") {
     return false;
   }

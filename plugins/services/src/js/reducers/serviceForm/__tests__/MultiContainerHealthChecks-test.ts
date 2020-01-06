@@ -9,12 +9,8 @@ import {
   TCP
 } from "../../../constants/HealthCheckProtocols";
 
-const MultiContainerHealthChecks = require("../MultiContainerHealthChecks");
-const {
-  ADD_ITEM,
-  REMOVE_ITEM,
-  SET
-} = require("#SRC/js/constants/TransactionTypes");
+import * as MultiContainerHealthChecks from "../MultiContainerHealthChecks";
+import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
 describe("MultiContainerHealthChecks", () => {
   describe("#JSONSegmentReducer", () => {

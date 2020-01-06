@@ -2,7 +2,7 @@ import Item from "../../structs/Item";
 import List from "../../structs/List";
 import StructUtil from "../StructUtil";
 
-const isEqual = require("deep-equal");
+import isEqual from "deep-equal";
 
 describe("StructUtil", () => {
   describe("#copyRawObject", () => {

@@ -12,7 +12,7 @@ export function JSONParser(state) {
         state.environment[key] == null ||
         typeof state.environment[key] === "string"
     )
-    .reduce((memo, key, index) => {
+    .reduce((memo: Transaction[], key, index) => {
       /**
        * For the environment variables which are a key => value based object
        * we want to create a new item and fill it with the key and the

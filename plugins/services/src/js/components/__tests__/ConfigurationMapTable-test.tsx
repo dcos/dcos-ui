@@ -2,7 +2,7 @@ import * as React from "react";
 import { mount } from "enzyme";
 import ConfigurationMapTable from "../ConfigurationMapTable";
 
-const { EmptyStates } = require("#SRC/js/constants/EmptyStates");
+import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 function mapValuesOfType(instance, type) {
   return instance.find(type).map(item => item.text());
