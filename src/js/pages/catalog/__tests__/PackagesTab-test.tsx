@@ -1,6 +1,8 @@
 import * as React from "react";
 
 import { mount } from "enzyme";
+import renderer from "react-test-renderer";
+import Config from "#SRC/js/config/Config";
 
 jest.mock("../../../utils/ScrollbarUtil");
 jest.mock("../../../components/Page", () => {
@@ -12,7 +14,6 @@ jest.mock("../../../components/Page", () => {
 
 // Setting useFixtures for when we load CosmosPackagesStore/CosmosPackageActions
 
-const Config = require("#SRC/js/config/Config").default;
 const configUseFixtures = Config.useFixtures;
 Config.useFixtures = true;
 const CosmosPackagesStore = require("../../../stores/CosmosPackagesStore")
@@ -22,8 +23,6 @@ Config.useFixtures = configUseFixtures;
 const PackagesTab = require("../PackagesTab").default;
 const UniversePackagesList = require("../../../structs/UniversePackagesList")
   .default;
-
-const renderer = require("react-test-renderer");
 
 let thisInstance,
   thisCosmosPackagesStoreGetAvailablePackages,

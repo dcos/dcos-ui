@@ -1,8 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 
-const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const Artifacts = require("../Artifacts");
+import { SET, ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
+import * as Artifacts from "../Artifacts";
 
 describe("Artifacts", () => {
   describe("#JSONParser", () => {

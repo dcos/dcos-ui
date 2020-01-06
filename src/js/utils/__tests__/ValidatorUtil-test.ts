@@ -1,4 +1,4 @@
-const ValidatorUtil = require("../ValidatorUtil");
+import * as ValidatorUtil from "../ValidatorUtil";
 
 describe("ValidatorUtil", () => {
   describe("#isDefined", () => {

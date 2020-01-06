@@ -1,8 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 
-const { SET, ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const Artifacts = require("../Artifacts");
+import { SET, ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
+import { FormReducer } from "../Artifacts";
 
 describe("Artifacts", () => {
   describe("#FromReducer", () => {
@@ -14,7 +14,7 @@ describe("Artifacts", () => {
         new Transaction(["fetch", 1, "uri"], "http://example.com", SET)
       ]);
 
-      expect(batch.reduce(Artifacts.FormReducer.bind({}), [])).toEqual([
+      expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { uri: "http://example.io" },
         { uri: "http://example.com" }
       ]);

@@ -1,6 +1,6 @@
 import TemplateUtil from "../TemplateUtil";
 
-const React = require("react");
+import * as React from "react";
 
 let thisDummyPage;
 

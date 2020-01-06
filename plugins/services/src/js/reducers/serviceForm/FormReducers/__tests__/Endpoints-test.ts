@@ -1,8 +1,8 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 
-const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const Endpoints = require("../Endpoints");
+import { ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
+import * as Endpoints from "../Endpoints";
 
 describe("Endpoints", () => {
   describe("#FormReducer", () => {

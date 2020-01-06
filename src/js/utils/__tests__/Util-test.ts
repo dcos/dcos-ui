@@ -1,4 +1,4 @@
-const Util = require("../Util").default;
+import Util from "../Util";
 
 let thisSearchObject, thisSearchString, thisFunc, thisDebounced;
 

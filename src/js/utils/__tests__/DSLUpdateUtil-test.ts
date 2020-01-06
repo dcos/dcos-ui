@@ -3,8 +3,7 @@ import DSLFilterTypes from "../../constants/DSLFilterTypes";
 import DSLExpression from "../../structs/DSLExpression";
 import DSLUpdateUtil from "../DSLUpdateUtil";
 import DSLUtil from "../DSLUtil";
-
-const DSLASTNodes = require("../../structs/DSLASTNodes");
+import DSLASTNodes from "../../structs/DSLASTNodes";
 
 describe("DSLUpdateUtil", () => {
   describe("#cleanupExpressionString", () => {

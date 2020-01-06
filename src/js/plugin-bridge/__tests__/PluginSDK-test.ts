@@ -1,8 +1,7 @@
 import PluginTestUtils from "PluginTestUtils";
 
-const isEqual = require("deep-equal");
-
-const PluginSDK = require("PluginSDK").default;
+import isEqual from "deep-equal";
+import PluginSDK from "PluginSDK";
 
 const Hooks = PluginSDK.Hooks;
 

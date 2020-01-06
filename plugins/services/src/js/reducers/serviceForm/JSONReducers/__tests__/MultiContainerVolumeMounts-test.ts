@@ -2,8 +2,8 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 import Batch from "#SRC/js/structs/Batch";
 
-const { ADD_ITEM, REMOVE_ITEM } = require("#SRC/js/constants/TransactionTypes");
-const VolumeMounts = require("../MultiContainerVolumeMounts");
+import { ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
+import * as VolumeMounts from "../MultiContainerVolumeMounts";
 
 describe("MultiContainerVolumeMounts", () => {
   describe("#JSONReducer", () => {

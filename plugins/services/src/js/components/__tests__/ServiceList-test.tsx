@@ -1,11 +1,9 @@
 import ServiceList from "../ServiceList";
 import ServiceTree from "../../structs/ServiceTree";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
-
-const renderer = require("react-test-renderer");
+import * as React from "react";
+import ReactDOM from "react-dom";
+import renderer from "react-test-renderer";
 
 let thisContainer, thisInstance;
 

@@ -1,6 +1,6 @@
 import JobTree from "../JobTree";
 
-const Job = require("../Job").default;
+import Job from "../Job";
 
 let thisInstance;
 

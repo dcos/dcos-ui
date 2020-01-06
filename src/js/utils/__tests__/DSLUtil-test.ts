@@ -3,7 +3,7 @@ import DSLExpression from "../../structs/DSLExpression";
 import DSLExpressionPart from "../../structs/DSLExpressionPart";
 import DSLUtil from "../DSLUtil";
 
-const DSLASTNodes = require("../../structs/DSLASTNodes");
+import DSLASTNodes from "../../structs/DSLASTNodes";
 
 let thisParts, thisAst, thisAttribs, thisFuzzy, thisExact;
 

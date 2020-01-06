@@ -1,8 +1,7 @@
 import ExpandingTable from "../ExpandingTable";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
+import * as React from "react";
+import ReactDOM from "react-dom";
 
 let thisColumns, thisRows, thisContainer;
 

@@ -5,9 +5,9 @@ import PageHeaderBreadcrumbs from "#SRC/js/components/PageHeaderBreadcrumbs";
 import ServiceBreadcrumbs from "../ServiceBreadcrumbs";
 import ServiceTree from "../../structs/ServiceTree";
 import Service from "../../structs/Service";
+import { Link } from "react-router";
 
 jest.mock("#SRC/js/stores/DCOSStore");
-const Link = require("react-router").Link;
 
 describe("ServiceBreadcrumbs", () => {
   describe("instance", () => {

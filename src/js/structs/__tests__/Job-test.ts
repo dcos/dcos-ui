@@ -1,9 +1,9 @@
-const Job = require("../Job").default;
-const {
+import Job from "../Job";
+import {
   DEFAULT_CPUS,
   DEFAULT_DISK,
   DEFAULT_MEM
-} = require("../../constants/JobResources");
+} from "../../constants/JobResources";
 
 describe("Job", () => {
   describe("#getCommand", () => {

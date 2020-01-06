@@ -2,8 +2,8 @@ import Transaction from "#SRC/js/structs/Transaction";
 
 import Batch from "#SRC/js/structs/Batch";
 
-const { SET } = require("#SRC/js/constants/TransactionTypes");
-const RequirePorts = require("../RequirePorts");
+import { SET } from "#SRC/js/constants/TransactionTypes";
+import * as RequirePorts from "../RequirePorts";
 
 describe("RequirePorts", () => {
   describe("#JSONReducer", () => {

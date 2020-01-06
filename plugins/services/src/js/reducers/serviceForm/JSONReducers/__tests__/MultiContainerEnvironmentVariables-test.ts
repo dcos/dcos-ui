@@ -1,5 +1,5 @@
-const MultiContainerEnvironmentVariables = require("../MultiContainerEnvironmentVariables");
-const { ADD_ITEM, SET } = require("#SRC/js/constants/TransactionTypes");
+import * as MultiContainerEnvironmentVariables from "../MultiContainerEnvironmentVariables";
+import { ADD_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 
 describe("Environment Variables", () => {
   describe("#JSONParser", () => {

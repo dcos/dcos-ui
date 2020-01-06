@@ -1,13 +1,9 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 
-const Containers = require("../Containers");
-const {
-  ADD_ITEM,
-  SET,
-  REMOVE_ITEM
-} = require("#SRC/js/constants/TransactionTypes");
-const { DEFAULT_POD_CONTAINER } = require("../../../../constants/DefaultPod");
+import * as Containers from "../Containers";
+import { ADD_ITEM, SET, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
+import { DEFAULT_POD_CONTAINER } from "../../../../constants/DefaultPod";
 
 describe("Containers", () => {
   describe("#JSONReducer", () => {
@@ -108,7 +104,7 @@ describe("Containers", () => {
             SET
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
+        ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -158,7 +154,7 @@ describe("Containers", () => {
             ADD_ITEM
           ),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET)
-        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
+        ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -181,7 +177,7 @@ describe("Containers", () => {
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET)
-        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
+        ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -203,7 +199,7 @@ describe("Containers", () => {
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET),
           new Transaction(["containers", 0, "image", "forcePull"], false, SET)
-        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
+        ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
@@ -219,7 +215,7 @@ describe("Containers", () => {
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET)
-        ].reduce((batch, transaction) => batch.add(transaction), new Batch());
+        ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {

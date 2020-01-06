@@ -4,9 +4,8 @@ import LogBuffer from "../../structs/LogBuffer";
 import MesosLogStore from "../../stores/MesosLogStore";
 import MesosLogContainer from "../MesosLogContainer";
 
-const React = require("react");
-
-const ReactDOM = require("react-dom");
+import * as React from "react";
+import ReactDOM from "react-dom";
 
 const APPEND = SystemLogTypes.APPEND;
 

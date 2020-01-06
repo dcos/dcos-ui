@@ -2,7 +2,7 @@ import DSLFilterTypes from "../../constants/DSLFilterTypes";
 import DSLExpressionPart from "../../structs/DSLExpressionPart";
 import * as DSLFormUtil from "../DSLFormUtil";
 
-const FilterNode = require("../../structs/DSLASTNodes").FilterNode;
+import { FilterNode } from "../../structs/DSLASTNodes";
 
 describe("DSLFormUtil", () => {
   describe("#createNodeComparisionFunction", () => {

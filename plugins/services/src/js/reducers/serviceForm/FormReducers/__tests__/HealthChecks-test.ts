@@ -2,7 +2,7 @@ import Transaction from "#SRC/js/structs/Transaction";
 import Batch from "#SRC/js/structs/Batch";
 import * as HealthChecks from "../HealthChecks";
 
-const { ADD_ITEM } = require("#SRC/js/constants/TransactionTypes");
+import { ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
 
 describe("HealthChecks", () => {
   describe("#FormReducer", () => {

@@ -2,7 +2,7 @@ import AppDispatcher from "../../events/AppDispatcher";
 import AuthStore from "../AuthStore";
 import * as EventTypes from "../../constants/EventTypes";
 
-const cookie = require("cookie");
+import cookie from "cookie";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
 import * as ActionTypes from "../../constants/ActionTypes";
