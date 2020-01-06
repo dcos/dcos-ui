@@ -18,6 +18,7 @@
     "cyclomatic-complexity": [true, 20],
     "interface-name": false,
     "interface-over-type-literal": false,
+    "jsx-no-multiline-js": false,
     "jsx-wrap-multiline": false,
     "member-access": [false],
     "no-any": {
