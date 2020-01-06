@@ -24,6 +24,7 @@
       "severity": "off"
     },
     "no-console": false,
+    "no-empty": [true, "allow-empty-functions"],
     "no-shadowed-variable": true,
     "no-unnecessary-else": true,
     "no-unnecessary-type-assertion": true,
