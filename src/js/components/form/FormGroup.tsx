@@ -5,7 +5,15 @@ import * as React from "react";
 import FieldError from "./FieldError";
 import { omit } from "../../utils/Util";
 
-const FormGroup = props => {
+const FormGroup = (
+  props: {
+    errorClassName: string;
+    hasNarrowMargins?: boolean;
+    applyLabelOffset?: boolean;
+    required?: boolean;
+    showError?: boolean;
+  } & React.HTMLAttributes<HTMLDivElement>
+) => {
   const {
     children,
     className,

@@ -1,17 +1,17 @@
-import classNames from "classnames/dedupe";
-import PropTypes from "prop-types";
 import * as React from "react";
+import classNames from "classnames/dedupe";
 
 import { omit } from "../../utils/Util";
 
-const FieldInput = props => {
-  const { className, inputRef, type } = props;
+export default (
+  props: { inputRef?: string } & React.InputHTMLAttributes<HTMLInputElement>
+) => {
+  const { className, inputRef, type = "text" } = props;
   const classes = classNames("form-control", className);
 
-  let toggleIndicator;
-  if (["radio", "checkbox"].includes(type)) {
-    toggleIndicator = <span className="form-control-toggle-indicator" />;
-  }
+  const toggleIndicator = ["radio", "checkbox"].includes(type) ? (
+    <span className="form-control-toggle-indicator" />
+  ) : null;
 
   return (
     <span>
@@ -24,28 +24,3 @@ const FieldInput = props => {
     </span>
   );
 };
-
-FieldInput.defaultProps = {
-  onChange: () => undefined,
-  value: ""
-};
-
-FieldInput.propTypes = {
-  type: PropTypes.string,
-  onChange: PropTypes.func,
-  checked: PropTypes.bool,
-  value: PropTypes.oneOfType([
-    PropTypes.number,
-    PropTypes.string,
-    PropTypes.bool
-  ]),
-
-  // Classes
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ])
-};
-
-export default FieldInput;
