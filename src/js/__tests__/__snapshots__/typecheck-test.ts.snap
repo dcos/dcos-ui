@@ -236,86 +236,43 @@ plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS6133: 'prop' is de
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
-plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/ArgsSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2605: JSX element type 'ParametersSection' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2605: JSX element type 'ArgsSection' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/ContainerFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
-plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/EnvVarPartial.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/EnvironmentFormSection.tsx: error TS2605: JSX element type 'EnvVarPartial' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/EnvironmentFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'false' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'true' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
-plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/components/form/GeneralFormSection.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
-plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ParametersSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/PlacementPartial.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<unknown>'.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/components/form/RunConfigFormSection.tsx: error TS2322: Type 'number' is not assignable to type *.
+plugins/jobs/src/js/components/form/ScheduleFormSection.tsx: error TS2322: Type 'number' is not assignable to type *.
 plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/jobs/src/js/components/form/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -598,26 +555,19 @@ plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Arg
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2345: Argument of type '\\"private\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2345: Argument of type '\\"public\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/dsl/NodesTypeDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx: error TS2347: Untyped function calls may not accept type arguments.
 plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx: error TS2347: Untyped function calls may not accept type arguments.
 plugins/nodes/src/js/components/modals/DrainNodeModal.tsx: error TS2347: Untyped function calls may not accept type arguments.
@@ -1164,7 +1114,6 @@ plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error 
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2605: JSX element type 'ServiceBreadcrumbs' is not a constructor function for JSX elements.
 plugins/services/src/js/components/__tests__/ServiceBreadcrumbs-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/FuzzyTextDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -1173,17 +1122,11 @@ plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2345
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthchecks\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceHealthDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"pod\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"catalog\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2345: Argument of type '\\"volumes\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceOtherDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"deleting\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"deploying\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"recovering\\"' is not assignable to parameter of type 'undefined'.
@@ -1191,114 +1134,64 @@ plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2345: Argument of type '\\"stopped\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/ServiceStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"active\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"completed\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"failed\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2345: Argument of type '\\"killed\\"' is not assignable to parameter of type 'undefined'.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx: error TS7041: The containing arrow function captures the global value of 'this'.
 plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx: error TS2605: JSX element type 'DSLFormWithExpressionUpdates' is not a constructor function for JSX elements.
 plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2605: JSX element type 'ArtifactsSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'ContainerServiceFormAdvancedSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'ContainerServiceFormSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2554: Expected 0 arguments, but got 1.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2605: JSX element type 'AdvancedSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2605: JSX element type 'AdvancedSection' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/MultiContainerFormAdvancedSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2605: JSX element type 'AdvancedSection' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type 'string'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'name' does not exist on type 'never'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
@@ -1315,36 +1208,24 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS7030: Not all code paths return a value.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -1353,7 +1234,6 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'getName' does not exist on type '{}'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'info' does not exist on type '{}'.
@@ -1366,31 +1246,21 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -1490,7 +1360,6 @@ plugins/services/src/js/components/modals/ServiceGroupFormModal.tsx: error TS234
 plugins/services/src/js/components/modals/ServiceModals.tsx: error TS2605: JSX element type 'ServiceScaleFormModal' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceModals.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/ServiceRestartModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceResumeModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: error TS2605: JSX element type 'FullScreenModalHeaderActions' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -1499,17 +1368,12 @@ plugins/services/src/js/components/modals/ServiceRootGroupModal/Header.tsx: erro
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'Loader' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'FluidGeminiScrollbar' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'AdvancedSection' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: Type 'true' is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2605: JSX element type 'Badge' is not a constructor function for JSX elements.
-plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/components/modals/ServiceRootGroupModal/index.tsx: error TS2322: Type 'false' is not assignable to type *.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2605: JSX element type 'FormModal' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/ServiceScaleFormModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/components/modals/ServiceStopModal.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -3305,13 +3169,9 @@ src/js/components/PageHeaderBreadcrumbs.tsx: error TS2322: type * is not assigna
 src/js/components/PageHeaderTabs.tsx: error TS2605: JSX element type 'PageHeaderNavigationDropdown' is not a constructor function for JSX elements.
 src/js/components/PageHeaderTabs.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'operator' does not exist on type 'never'.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'operator' does not exist on type 'never'.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'fieldName' does not exist on type 'never'.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type 'string'.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<unknown>'.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'operator' does not exist on type 'never'.
@@ -3320,7 +3180,6 @@ src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'opera
 src/js/components/PlacementConstraintsPartial.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-src/js/components/PlacementConstraintsPartial.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/PlacementConstraintsPartial.tsx: error TS2339: Property 'value' does not exist on type 'never'.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2605: JSX element type 'BatchContainer' is not a constructor function for JSX elements.
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
@@ -3328,14 +3187,11 @@ src/js/components/PrimarySidebarLink.tsx: error TS2605: JSX element type 'Badge'
 src/js/components/ProgressBar.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/components/ResourceSwitchDropdown.tsx: error TS2741: Property 'onTrigger' is missing in type * but required in type *.
 src/js/components/SchemaField.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-src/js/components/SchemaField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/SchemaField.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
-src/js/components/SchemaField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/SchemaField.tsx: error TS2605: JSX element type 'FieldAutofocus' is not a constructor function for JSX elements.
 src/js/components/SchemaField.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/components/SchemaField.tsx: error TS2605: JSX element type 'Mount' is not a constructor function for JSX elements.
 src/js/components/SchemaField.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/components/SchemaField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/SchemaField.tsx: error TS6133: 'errorMessage' is declared but its value is never read.
 src/js/components/SchemaField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not exist on type 'ServerErrorModal'.

@@ -1,28 +1,9 @@
 import classNames from "classnames/dedupe";
-import PropTypes from "prop-types";
 import * as React from "react";
 
-import { omit } from "../../utils/Util";
-
-const FieldError = props => {
-  const { className } = props;
+export default (props: React.HTMLAttributes<HTMLParagraphElement>) => {
+  const { className, ...pProps } = props;
   const classes = classNames("form-control-feedback", className);
 
-  return (
-    <p
-      className={classes}
-      {...omit(props, Object.keys(FieldError.propTypes))}
-    />
-  );
+  return <p className={classes} {...pProps} />;
 };
-
-FieldError.propTypes = {
-  // Classes
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ])
-};
-
-export default FieldError;
