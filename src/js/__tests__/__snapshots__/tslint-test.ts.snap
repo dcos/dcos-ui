@@ -14,12 +14,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - block is empty
-/packages/foundation-ui/src/mount/__tests__/MountService-test.ts - require statement not part of an import statement
 /packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
@@ -31,17 +25,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/catalog/src/js/repositories/RepositoriesList.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx - block is empty
-/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
-/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
-/plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts - block is empty
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'liveFetchRepositories'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'addRepository'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'deleteRepository'
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
-/plugins/intercom/__tests__/IntercomPlugin-test.ts - block is empty
 /plugins/jobs/src/js/components/JobDeleteModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/JobsForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/components/JobsForm.tsx - Multiline JS expressions inside JSX are forbidden
@@ -105,12 +93,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'updateSchedule'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'deleteJob'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'stopJobRun'
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
-/plugins/jobs/src/js/data/__tests__/JobModel-test.ts - block is empty
 /plugins/jobs/src/js/data/__tests__/JobModel-test.ts - Multiple variable declarations in the same statement are forbidden
 /plugins/jobs/src/js/pages/JobDetailPage.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'startedAt'
@@ -120,7 +102,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'status'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'statusClasses'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - block is empty
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/jobs/src/js/pages/JobTaskDetailPage.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/columns/NodesTableActionsColumn.tsx - Multiline JS expressions inside JSX are forbidden
@@ -152,18 +133,14 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/nodes/src/js/components/__tests__/NodesGridDials-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - block is empty
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - require statement not part of an import statement
 /plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/dsl/NodesRegionDSLFilter.tsx - block is empty
 /plugins/nodes/src/js/components/dsl/NodesStatusDSLSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/components/dsl/NodesZoneDSLFilter.tsx - block is empty
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Shadowed name: 'node'
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Multiline JS expressions inside JSX are forbidden
@@ -181,7 +158,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/pages/NodesAgents.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx - block is empty
 /plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
@@ -221,7 +197,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/DeploymentsModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/DeploymentsModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/EmptyServicesQuotaOverview.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/FilterByFramework.tsx - block is empty
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
@@ -232,8 +207,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/GroupsQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/LogView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/LogView.tsx - block is empty
-/plugins/services/src/js/components/LogView.tsx - block is empty
 /plugins/services/src/js/components/RecentOffersSummary.tsx - Identifier 'offers' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/RecentOffersSummary.tsx - Identifier 'matched' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/RecentOffersSummary.tsx - Use a conditional expression instead of assigning to 'percentageMatched' in multiple places.
@@ -251,14 +224,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/TaskDirectoryTable.tsx - block is empty
 /plugins/services/src/js/components/TaskDirectoryTable.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - block is empty
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx - Multiline JS expressions inside JSX are forbidden
@@ -278,18 +249,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/__tests__/ServiceList-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/__tests__/ServiceList-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/dsl/TaskRegionDSLSection.tsx - block is empty
-/plugins/services/src/js/components/dsl/TaskStatusDSLSection.tsx - block is empty
 /plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/dsl/TaskZoneDSLSection.tsx - block is empty
 /plugins/services/src/js/components/forms/ArtifactsSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/ArtifactsSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/ArtifactsSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
-/plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx - block is empty
-/plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -300,8 +264,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -309,21 +271,14 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/HealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -331,16 +286,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
-/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -350,8 +300,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - block is empty
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/PlacementSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
@@ -360,16 +308,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/forms/VolumesFormSection.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/forms/VolumesFormSection.tsx - block is empty
-/plugins/services/src/js/components/forms/VolumesFormSection.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - block is empty
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Shadowed name: 'tabs'
@@ -377,12 +318,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - block is empty
-/plugins/services/src/js/components/modals/KillPodInstanceModal.tsx - block is empty
 /plugins/services/src/js/components/modals/KillPodInstanceModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/components/modals/KillTaskModal.tsx - block is empty
 /plugins/services/src/js/components/modals/KillTaskModal.tsx - Identifier 'details' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/components/modals/ServiceActionDisabledModal.tsx - Multiline JS expressions inside JSX are forbidden
@@ -427,10 +363,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiple variable declarations in the same statement are forbidden
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
-/plugins/services/src/js/containers/pod-detail/PodHeader.tsx - block is empty
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
@@ -439,12 +371,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'pod' is never reassigned; use 'const' instead of 'let'.
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - Identifier 'filterText' is never reassigned; use 'const' instead of 'let'.
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - block is empty
-/plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx - block is empty
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesContainer-test.tsx - block is empty
 /plugins/services/src/js/containers/pod-instances/__tests__/PodInstancesTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -452,7 +381,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - block is empty
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Shadowed name: 'service'
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Missing \\"key\\" prop for element.
@@ -464,14 +392,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
 /plugins/services/src/js/containers/service-detail/ServiceDetail.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/service-detail/ServiceDetail.tsx - block is empty
 /plugins/services/src/js/containers/services/EmptyServiceTree.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/EmptyServiceTree.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServiceTreeView.tsx - Multiline JS expressions inside JSX are forbidden
-/plugins/services/src/js/containers/services/ServiceTreeView.tsx - block is empty
 /plugins/services/src/js/containers/services/ServicesContainer.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/services/ServicesQuotaView.tsx - Multiline JS expressions inside JSX are forbidden
@@ -527,9 +453,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Shadowed name: 'Component'
 /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - block is empty
-/plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
-/plugins/services/src/js/containers/tasks/TasksView.tsx - block is empty
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Multiline JS expressions inside JSX are forbidden
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -587,7 +510,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - Multiple variable declarations in the same statement are forbidden
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - block is empty
 /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx - Multiline JS expressions inside JSX are forbidden
@@ -790,16 +712,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'variables'
 /plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
 /plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - block is empty
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - block is empty
 /plugins/tracking/actions/Actions.ts - require statement not part of an import statement
 /plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
 /plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
-/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
-/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
-/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
-/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
-/plugins/tracking/actions/__tests__/Actions-test.ts - block is empty
 /plugins/tracking/hooks.tsx - require statement not part of an import statement
 /src/js/components/AlertPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/AlertPanel.tsx - Multiline JS expressions inside JSX are forbidden
@@ -812,19 +727,10 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/CosmosErrorMessage.tsx - Shadowed name: 'error'
 /src/js/components/CreateServiceModalCatalogPanelOption.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/CreateServiceModalServicePickerOption.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/DSLFilterField.tsx - block is empty
-/src/js/components/DSLFormDropdownPanel.tsx - block is empty
-/src/js/components/DSLFormDropdownPanel.tsx - block is empty
 /src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'groupCombiner' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'itemCombiner' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'parts' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/DSLFormWithExpressionUpdates.tsx - Identifier 'updatePolicy' is never reassigned; use 'const' instead of 'let'.
-/src/js/components/DSLFormWithExpressionUpdates.tsx - block is empty
-/src/js/components/DSLFormWithExpressionUpdates.tsx - block is empty
-/src/js/components/DSLInputField.tsx - block is empty
-/src/js/components/DSLInputField.tsx - block is empty
-/src/js/components/DSLInputField.tsx - block is empty
-/src/js/components/DSLInputField.tsx - block is empty
 /src/js/components/ErrorsAlert.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.
 /src/js/components/ExpandingTable.tsx - Multiline JS expressions inside JSX are forbidden
@@ -833,16 +739,11 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/FilterButtons.tsx - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterButtons.tsx - Identifier 'selectedFilter' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterButtons.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FilterButtons.tsx - block is empty
 /src/js/components/FilterHeadline.tsx - Identifier 'className' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterHeadline.tsx - Identifier 'currentLength' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterHeadline.tsx - Identifier 'inverseStyle' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterHeadline.tsx - Identifier 'isFiltering' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/FilterHeadline.tsx - Identifier 'totalLength' is never reassigned; use 'const' instead of 'let'.
-/src/js/components/FormModal.tsx - block is empty
-/src/js/components/FormModal.tsx - block is empty
-/src/js/components/FormModal.tsx - block is empty
-/src/js/components/FormModal.tsx - block is empty
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
@@ -855,20 +756,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationForm.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/FrameworkConfigurationForm.tsx - block is empty
 /src/js/components/FrameworkConfigurationReviewScreen.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/FrameworkConfigurationReviewScreen.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/JSONEditor.tsx - Shadowed name: 'token'
 /src/js/components/JSONEditor.tsx - Shadowed name: 'token'
-/src/js/components/JSONEditor.tsx - block is empty
-/src/js/components/JSONEditor.tsx - block is empty
-/src/js/components/JSONEditor.tsx - block is empty
-/src/js/components/JSONEditor.tsx - block is empty
-/src/js/components/JSONEditor.tsx - block is empty
 /src/js/components/JSONEditorLoading.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/LastUpdated.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/LastUpdated.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/Modals.tsx - block is empty
 /src/js/components/OfflineBanner.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/PageHeaderActionsMenu.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
@@ -879,7 +773,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/PlacementConstraintsPartial.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/PlacementConstraintsSchemaField.tsx - block is empty
 /src/js/components/ProgressBar.tsx - Identifier 'style' is never reassigned; use 'const' instead of 'let'.
 /src/js/components/RequestErrorMsg.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/RequestErrorMsg.tsx - Missing \\"key\\" prop for element.
@@ -889,7 +782,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/SchemaField.tsx - Missing \\"key\\" prop for element.
 /src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/SideTabs.tsx - block is empty
 /src/js/components/Sidebar.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/Sidebar.tsx - Shadowed name: 'path'
 /src/js/components/Sidebar.tsx - Shadowed name: 'path'
@@ -903,12 +795,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/SplitPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/SplitPanel.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/components/SplitPanel.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/components/TabForm.tsx - block is empty
-/src/js/components/TabForm.tsx - block is empty
-/src/js/components/TabForm.tsx - block is empty
-/src/js/components/TabForm.tsx - block is empty
-/src/js/components/TabForm.tsx - block is empty
-/src/js/components/TabForm.tsx - block is empty
 /src/js/components/ToggleValue.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/YamlEditorSchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/__tests__/Authenticated-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -916,7 +802,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/__tests__/ClickToSelect-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/__tests__/DetailViewHeader-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/DetailViewHeader-test.tsx - require statement not part of an import statement
-/src/js/components/__tests__/ExpandingTable-test.tsx - block is empty
 /src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ExpandingTable-test.tsx - require statement not part of an import statement
 /src/js/components/__tests__/ExpandingTable-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -970,10 +855,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Multiple variable declarations in the same statement are forbidden
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/modals/__tests__/CliInstallModal-test.tsx - block is empty
 /src/js/components/modals/__tests__/ErrorModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/ErrorModal-test.tsx - require statement not part of an import statement
 /src/js/components/modals/__tests__/ErrorModal-test.tsx - Multiple variable declarations in the same statement are forbidden
@@ -992,7 +875,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/index.tsx - non-arrow functions are forbidden
 /src/js/index.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/DashboardPage.tsx - Multiline JS expressions inside JSX are forbidden
-/src/js/pages/Index.tsx - block is empty
 /src/js/pages/catalog/DeployFrameworkConfiguration.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
 /src/js/pages/catalog/PackageDetailTab.tsx - Multiline JS expressions inside JSX are forbidden
@@ -1026,7 +908,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - Multiple variable declarations in the same statement are forbidden
-/src/js/pages/catalog/__tests__/PackagesTab-test.tsx - block is empty
 /src/js/pages/network/VirtualNetworksTab.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Multiline JS expressions inside JSX are forbidden
 /src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Shadowed name: 'overlay'
@@ -1077,8 +958,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/stores/SystemLogStore.ts - Use a conditional expression instead of assigning to 'newLogData.entries' in multiple places.
 /src/js/stores/__tests__/AuthStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/AuthStore-test.ts - require statement not part of an import statement
-/src/js/stores/__tests__/BaseStore-test.ts - block is empty
-/src/js/stores/__tests__/BaseStore-test.ts - block is empty
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
 /src/js/stores/__tests__/CosmosPackagesStore-test.ts - Shadowed name: 'packageVersions'
@@ -1120,15 +999,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/JSONUtil.ts - Identifier 'offset' is never reassigned; use 'const' instead of 'let'.
 /src/js/utils/JSONUtil.ts - Use a conditional expression instead of assigning to 'arrayIndex' in multiple places.
 /src/js/utils/JSONUtil.ts - The function getObjectInformation has a cyclomatic complexity of 23 which is higher than the threshold of 20
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
-/src/js/utils/JestUtil.tsx - block is empty
 /src/js/utils/JestUtil.tsx - A maximum of 1 class per file is allowed.
 /src/js/utils/Maths.ts - asterisks in jsdoc must be aligned
 /src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
@@ -1160,12 +1030,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/__tests__/ReducerUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/utils/__tests__/ReducerUtil-test.ts - Shadowed name: 'state'
 /src/js/utils/__tests__/ResourcesUtil-test.ts - require statement not part of an import statement
-/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
-/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
-/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
-/src/js/utils/__tests__/RouterUtil-test.ts - block is empty
-/src/js/utils/__tests__/StructUtil-test.ts - block is empty
-/src/js/utils/__tests__/StructUtil-test.ts - block is empty
 /src/js/utils/__tests__/StructUtil-test.ts - require statement not part of an import statement
 /src/js/utils/__tests__/SystemLogUtil-test.ts - Multiple variable declarations in the same statement are forbidden
 /src/js/utils/__tests__/TableUtil-test.ts - require statement not part of an import statement
