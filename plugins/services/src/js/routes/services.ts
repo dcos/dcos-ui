@@ -77,8 +77,7 @@ const serviceRoutes = [
         children: [
           {
             type: Route,
-            path: ":id",
-            isTab: true
+            path: ":id"
           }
         ]
       },
@@ -182,14 +181,12 @@ const serviceRoutes = [
                 type: Route,
                 component: TaskDetailsTab,
                 hideHeaderNavigation: true,
-                isTab: true,
                 path: "details",
                 title: "Details"
               },
               {
                 hideHeaderNavigation: true,
                 component: TaskFilesTab,
-                isTab: true,
                 path: "files",
                 title: "Files",
                 type: Route,
@@ -212,7 +209,6 @@ const serviceRoutes = [
               {
                 component: TaskLogsContainer,
                 hideHeaderNavigation: true,
-                isTab: true,
                 path: "logs",
                 title: "Logs",
                 type: Route,
@@ -226,7 +222,6 @@ const serviceRoutes = [
               {
                 component: VolumeTable,
                 hideHeaderNavigation: true,
-                isTab: true,
                 path: "volumes",
                 title: "Volumes",
                 type: Route
@@ -234,7 +229,6 @@ const serviceRoutes = [
               {
                 component: PodVolumeTable,
                 hideHeaderNavigation: true,
-                isTab: true,
                 path: "podvolumes",
                 title: "Volumes",
                 type: Route

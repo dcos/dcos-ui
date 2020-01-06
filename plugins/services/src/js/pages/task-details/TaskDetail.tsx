@@ -13,7 +13,6 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskStates from "../../constants/TaskStates";
@@ -25,31 +24,9 @@ const METHODS_TO_BIND = [
   "onTaskDirectoryStoreSuccess"
 ];
 
-// TODO remove
-const HIDE_BREADCRUMBS = [
-  "/jobs/detail/:id",
-  "/networking/networks/:overlayName",
-  "/nodes/:nodeID",
-  "/services/detail/:id"
-].reduce(
-  (acc, prefix) =>
-    acc.concat(
-      [
-        "tasks/:taskID/console",
-        "tasks/:taskID/details",
-        "tasks/:taskID/logs",
-        "tasks/:taskID/logs/:filePath",
-        "tasks/:taskID/files/view(/:filePath(/:innerPath))"
-      ].map(suffix => `${prefix}/${suffix}`)
-    ),
-  []
-);
-
-class TaskDetail extends mixin(TabsMixin, StoreMixin) {
+class TaskDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
-
-    this.tabs_tabs = {};
 
     this.state = {
       directory: null,
@@ -77,32 +54,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     this.onTaskDirectoryStoreNodeStateSuccess = this.onTaskDirectoryStoreSuccess;
   }
 
-  UNSAFE_componentWillMount() {
-    const { routes } = this.props;
-
-    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    const topRouteIndex = routes.findIndex(
-      ({ component }) => component === TaskDetail
-    );
-    const topRoute = routes[topRouteIndex];
-
-    const parentRoutes = routes.slice(0, topRouteIndex + 1);
-    const parentPath = RouterUtil.reconstructPathFromRoutes(parentRoutes);
-
-    if (topRoute != null) {
-      this.tabs_tabs = topRoute.childRoutes
-        .filter(({ isTab }) => !!isTab)
-        .reduce((tabs, { path, title }) => {
-          const key = path ? `${parentPath}/${path}` : parentPath;
-          tabs[key] = title || path;
-
-          return tabs;
-        }, this.tabs_tabs);
-
-      this.updateCurrentTab();
-    }
-  }
-
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { innerPath, taskID } = this.props.params;
     if (
@@ -110,16 +61,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
       nextProps.params.taskID !== taskID
     ) {
       this.setState({ directory: null });
-    }
-
-    this.updateCurrentTab(nextProps);
-  }
-
-  updateCurrentTab(nextProps) {
-    const { routes } = nextProps || this.props;
-    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
-    if (currentTab != null) {
-      this.setState({ currentTab });
     }
   }
 
@@ -253,13 +194,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
     );
   }
 
-  tabs_handleTabClick(...args) {
-    this.setState({ selectedLogFile: null });
-
-    // Only call super after we are done removing/adding listeners
-    super.tabs_handleTabClick(...args);
-  }
-
   getNotFound(item, itemID) {
     return (
       <div className="pod flush-right flush-left text-align-center">
@@ -275,9 +209,6 @@ class TaskDetail extends mixin(TabsMixin, StoreMixin) {
 
   getBreadcrumbs() {
     const path = RouterUtil.reconstructPathFromRoutes(this.props.routes);
-    if (HIDE_BREADCRUMBS.includes(path)) {
-      return null;
-    }
 
     const innerPath = TaskDirectoryStore.get("innerPath").split("/");
     let onClickPath = "";

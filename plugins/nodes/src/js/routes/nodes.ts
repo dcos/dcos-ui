@@ -111,13 +111,11 @@ export default [
             component: TaskDetailsTab,
             hideHeaderNavigation: true,
             title: "Details",
-            path: "details",
-            isTab: true
+            path: "details"
           },
           {
             hideHeaderNavigation: true,
             component: TaskFilesTab,
-            isTab: true,
             path: "files",
             title: "Files",
             type: Route,
@@ -140,7 +138,6 @@ export default [
           {
             component: TaskLogsContainer,
             hideHeaderNavigation: true,
-            isTab: true,
             path: "logs",
             title: "Logs",
             type: Route,
@@ -154,7 +151,6 @@ export default [
           {
             component: VolumeTable,
             hideHeaderNavigation: true,
-            isTab: true,
             path: "volumes",
             title: "Volumes",
             type: Route

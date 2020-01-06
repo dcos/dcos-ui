@@ -10,7 +10,6 @@ import { withNode } from "#SRC/js/stores/MesosSummaryFetchers";
 import Page from "#SRC/js/components/Page";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import { defaultNetworkErrorHandler } from "#SRC/js/utils/DefaultErrorUtil";
 
 import { Status, actionAllowed, StatusAction } from "../../types/Status";
@@ -20,7 +19,7 @@ import NodeMaintenanceActions from "../../actions/NodeMaintenanceActions";
 import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 
-class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
+class NodeDetailPage extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -33,12 +32,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
         suppressUpdate: true
       }
     ];
-
-    this.tabs_tabs = {
-      "/nodes/:nodeID/tasks": i18nMark("Tasks"),
-      "/nodes/:nodeID/health": i18nMark("Health"),
-      "/nodes/:nodeID/details": i18nMark("Details")
-    };
 
     this.state = {
       mesosStateLoaded: false,
@@ -55,26 +48,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
     if (node) {
       NodeHealthStore.fetchNodeUnits(node.hostname);
     }
-
-    // TODO: DCOS-7871 Refactor the TabsMixin to generalize this solution:
-    const routes = this.props.routes;
-    const currentRoute = routes.find(
-      route => route.component === NodeDetailPage
-    );
-    if (currentRoute != null) {
-      this.tabs_tabs = currentRoute.childRoutes
-        .filter(({ isTab }) => !!isTab)
-        .reduce((tabs, { path, title }) => {
-          tabs[path] = title;
-
-          return tabs;
-        }, this.tabs_tabs);
-    }
-    this.updateCurrentTab();
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.updateCurrentTab(nextProps);
   }
 
   UNSAFE_componentWillUpdate() {
@@ -95,14 +68,6 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       summaryStatesProcessed: MesosSummaryStore.get("statesProcessed"),
       summaryStates: MesosSummaryStore.get("states")
     });
-  }
-
-  updateCurrentTab(nextProps) {
-    const { routes } = nextProps || this.props;
-    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
-    if (currentTab != null) {
-      this.setState({ currentTab });
-    }
   }
 
   getNotFound(nodeID) {
@@ -190,34 +155,12 @@ class NodeDetailPage extends mixin(TabsMixin, StoreMixin) {
       return this.getNotFound(nodeID);
     }
 
-    const {
-      currentTab,
-      selectedNodeToDrain,
-      selectedNodeToDeactivate
-    } = this.state;
+    const { selectedNodeToDrain, selectedNodeToDeactivate } = this.state;
 
     const tabs = [
-      {
-        label: i18nMark("Tasks"),
-        callback: () => {
-          this.context.router.push(`/nodes/${nodeID}/tasks`);
-        },
-        isActive: currentTab === "/nodes/:nodeID/tasks"
-      },
-      {
-        label: i18nMark("Health"),
-        callback: () => {
-          this.context.router.push(`/nodes/${nodeID}/health`);
-        },
-        isActive: currentTab === "/nodes/:nodeID/health"
-      },
-      {
-        label: i18nMark("Details"),
-        callback: () => {
-          this.context.router.push(`/nodes/${nodeID}/details`);
-        },
-        isActive: currentTab === "/nodes/:nodeID/details"
-      }
+      { label: i18nMark("Tasks"), routePath: `/nodes/${nodeID}/tasks` },
+      { label: i18nMark("Health"), routePath: `/nodes/${nodeID}/health` },
+      { label: i18nMark("Details"), routePath: `/nodes/${nodeID}/details` }
     ];
 
     return (
