@@ -54,7 +54,6 @@ describe("TaskDetail", () => {
       hasVolumes: jest.fn(),
       props: { params: { taskID: "task-42" } },
       state: {},
-      tabs_getRoutedTabs: jest.fn(),
       setState: jest.fn(),
       handleFetchDirectory: jest.fn()
     };
@@ -166,20 +165,6 @@ describe("TaskDetail", () => {
           }
         })
       ).not.toEqual(null);
-    });
-  });
-
-  describe("#getBasicInfo", () => {
-    it("returns null if task is null", () => {
-      MesosStateStore.getTaskFromTaskID = () => null;
-
-      expect(TaskDetail.prototype.getBasicInfo.call(mockThis)).toEqual(null);
-    });
-
-    it("returns an element if task is not null", () => {
-      expect(TaskDetail.prototype.getBasicInfo.call(mockThis)).not.toEqual(
-        null
-      );
     });
   });
 });

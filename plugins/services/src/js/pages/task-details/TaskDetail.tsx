@@ -6,7 +6,6 @@ import * as React from "react";
 import { routerShape, formatPattern } from "react-router";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
-import DetailViewHeader from "#SRC/js/components/DetailViewHeader";
 import Loader from "#SRC/js/components/Loader";
 import ManualBreadcrumbs from "#SRC/js/components/ManualBreadcrumbs";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
@@ -15,7 +14,6 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
-import TaskStates from "../../constants/TaskStates";
 
 const METHODS_TO_BIND = [
   "handleBreadcrumbClick",
@@ -35,15 +33,12 @@ class TaskDetail extends mixin(StoreMixin) {
       taskDirectoryErrorCount: 0
     };
 
+    // prettier-ignore
     this.store_listeners = [
       { name: "marathon", events: ["appsSuccess"], listenAlways: false },
       { name: "state", events: ["success"], listenAlways: false },
       { name: "summary", events: ["success"], listenAlways: false },
-      {
-        name: "taskDirectory",
-        events: ["error", "success", "nodeStateError", "nodeStateSuccess"],
-        suppressUpdate: true
-      }
+      { name: "taskDirectory", events: ["error", "success", "nodeStateError", "nodeStateSuccess"], suppressUpdate: true }
     ];
 
     METHODS_TO_BIND.forEach(method => {
@@ -145,53 +140,6 @@ class TaskDetail extends mixin(StoreMixin) {
     };
     const { fileViewerRoutePath } = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
-  }
-
-  getBasicInfo() {
-    const { selectedLogFile } = this.state;
-    const task = MesosStateStore.getTaskFromTaskID(this.props.params.taskID);
-
-    if (task == null) {
-      return null;
-    }
-
-    const service = DCOSStore.serviceTree.getServiceFromTaskID(task.getId());
-    const taskIcon = <img src={task.getImages()["icon-large"]} />;
-    const filePath = (selectedLogFile && selectedLogFile.get("path")) || null;
-    const params = {
-      filePath,
-      ...this.props.params
-    };
-
-    let tabsArray = this.tabs_getRoutedTabs({ params }) || [];
-
-    if (!this.hasVolumes(service)) {
-      tabsArray = tabsArray.filter(tab => {
-        if (
-          tab.key === "/nodes/:nodeID/tasks/:taskID/volumes(/:volumeID)" ||
-          tab.key === "/services/detail/:id/tasks/:taskID/volumes"
-        ) {
-          return false;
-        }
-
-        return true;
-      });
-    }
-
-    const navigationTabs = <ul className="menu-tabbed">{tabsArray}</ul>;
-
-    const taskState = task.get("state");
-    const serviceStatus = TaskStates[taskState].displayName;
-
-    return (
-      <DetailViewHeader
-        icon={taskIcon}
-        iconClassName="icon-app-container  icon-image-container"
-        subTitle={<Trans render="span" id={serviceStatus} />}
-        navigationTabs={navigationTabs}
-        title={task.getName()}
-      />
-    );
   }
 
   getNotFound(item, itemID) {

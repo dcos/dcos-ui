@@ -1,4 +1,3 @@
-import { Link } from "react-router";
 import { shallow } from "enzyme";
 
 import TabsMixin from "../TabsMixin";
@@ -8,43 +7,6 @@ let thisInstance;
 describe("TabsMixin", () => {
   beforeEach(() => {
     TabsMixin.tabs_tabs = { foo: "bar", baz: "qux", corge: "Grault" };
-  });
-
-  describe("#tabs_getRoutedItem", () => {
-    beforeEach(() => {
-      thisInstance = shallow(
-        TabsMixin.tabs_getRoutedItem({ classNames: "foo" }, "baz")
-      );
-    });
-
-    it("returns an element", () => {
-      expect(thisInstance.exists());
-    });
-
-    it("returns an element containing a link", () => {
-      expect(thisInstance.find(Link).exists());
-    });
-
-    it("adds custom props to span", () => {
-      expect(
-        TabsMixin.tabs_getRoutedItem({ other: true }, "foo").props.other
-      ).toEqual(true);
-    });
-
-    it("removes existing className", () => {
-      expect(
-        TabsMixin.tabs_getUnroutedItem(
-          { classNames: { "menu-tabbed-item-label": false } },
-          "foo"
-        ).props.className
-      ).toEqual("");
-    });
-
-    it("adds custom class to link", () => {
-      expect(thisInstance.prop("className")).toEqual(
-        "menu-tabbed-item-label foo"
-      );
-    });
   });
 
   describe("#tabs_getUnroutedItem", () => {
@@ -97,23 +59,6 @@ describe("TabsMixin", () => {
         [{ classNames: "quix" }, "foo", 0],
         [{ classNames: "quix" }, "baz", 1],
         [{ classNames: "quix" }, "corge", 2]
-      ]);
-    });
-  });
-
-  describe("#tabs_getRoutedTabs", () => {
-    beforeEach(() => {
-      TabsMixin.state = { currentTab: "foo" };
-    });
-
-    it("calls tabs_getRoutedItem with appropriate arguments", () => {
-      spyOn(TabsMixin, "tabs_getRoutedItem");
-      TabsMixin.tabs_getRoutedTabs({ classNames: "quilt" });
-
-      expect(TabsMixin.tabs_getRoutedItem.calls.allArgs()).toEqual([
-        [{ classNames: "quilt" }, "foo", 0],
-        [{ classNames: "quilt" }, "baz", 1],
-        [{ classNames: "quilt" }, "corge", 2]
       ]);
     });
   });

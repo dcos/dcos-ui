@@ -1,12 +1,7 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames/dedupe";
-import { Link, formatPattern } from "react-router";
-
 import * as React from "react";
-
-import { Badge } from "@dcos/ui-kit";
 import Util from "../utils/Util";
-import NotificationStore from "../stores/NotificationStore";
 
 /**
  * Adds tabs-specific methods onto a class.
@@ -95,59 +90,6 @@ const TabsMixin = {
       this.tabs_tabs,
       this.state.currentTab,
       this.tabs_getUnroutedItem.bind(this, props)
-    );
-  },
-
-  /**
-   * Returns a Link for a given tab. This tab is expected to be routable.
-   *
-   * @param  {Object} props to be added to the Link item
-   * @param  {String} tab key of tab to render
-   * @return {Component} React component to render
-   */
-  tabs_getRoutedItem(props = {}, tab) {
-    const attributes = Util.omit(props, ["classNames"]);
-    let badge = null;
-    const notificationCount = NotificationStore.getNotificationCount(tab);
-    const hasNotification = notificationCount > 0;
-    const tabLabelClasses = classNames(
-      "menu-tabbed-item-label",
-      { "badge-container": hasNotification },
-      props.classNames
-    );
-    const textClasses = classNames("menu-tabbed-item-label-text", {
-      "badge-container-text": hasNotification
-    });
-
-    if (hasNotification) {
-      badge = <Badge>{notificationCount}</Badge>;
-    }
-
-    return (
-      <Link
-        to={formatPattern(tab, attributes.params)}
-        className={tabLabelClasses}
-        onClick={this.tabs_handleTabClick.bind(this, tab)}
-        {...attributes}
-      >
-        <span className={textClasses}>{this.tabs_tabs[tab]}</span>
-        {badge}
-      </Link>
-    );
-  },
-
-  /**
-   * Will return an array of routed tabs to be rendered.
-   * Will have onClick handlers and active Link components with routes
-   *
-   * @param  {Object} props to be added to the active component
-   * @return {Array} of tabs to render
-   */
-  tabs_getRoutedTabs(props) {
-    return getTabs(
-      this.tabs_tabs,
-      this.state.currentTab,
-      this.tabs_getRoutedItem.bind(this, props)
     );
   },
 

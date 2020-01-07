@@ -1,13 +1,10 @@
 import { i18nMark } from "@lingui/react";
-import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { routerShape } from "react-router";
 import { Hooks } from "PluginSDK";
 
 import Page from "#SRC/js/components/Page";
-import RouterUtil from "#SRC/js/utils/RouterUtil";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import Pod from "../../structs/Pod";
@@ -33,41 +30,18 @@ const METHODS_TO_BIND = [
   "handleActionDisabledModalClose"
 ];
 
-class PodDetail extends mixin(TabsMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.tabs_tabs = {
-      "/services/overview/:id/tasks": i18nMark("Tasks"),
-      "/services/overview/:id/configuration": i18nMark("Configuration"),
-      "/services/overview/:id/debug": i18nMark("Debug")
-    };
+class PodDetail extends React.Component<{ pod }> {
+  constructor(a, ...args) {
+    super(a, ...args);
 
     this.state = {
       actionDisabledID: null,
-      actionDisabledModalOpen: false,
-      currentTab: Object.keys(this.tabs_tabs).shift()
+      actionDisabledModalOpen: false
     };
 
     METHODS_TO_BIND.forEach(method => {
       this[method] = this[method].bind(this);
     });
-  }
-
-  UNSAFE_componentWillMount() {
-    this.updateCurrentTab();
-  }
-
-  UNSAFE_componentWillReceiveProps(nextProps) {
-    this.updateCurrentTab(nextProps);
-  }
-
-  updateCurrentTab(props = this.props) {
-    const { routes } = props;
-    const currentTab = RouterUtil.reconstructPathFromRoutes(routes);
-    if (currentTab != null) {
-      this.setState({ currentTab });
-    }
   }
 
   onActionsItemSelection(actionID) {
@@ -200,9 +174,7 @@ class PodDetail extends mixin(TabsMixin) {
   }
 
   getTabs() {
-    const {
-      pod: { id }
-    } = this.props;
+    const { id } = this.props.pod;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
     const tabs = [
