@@ -1,4 +1,3 @@
-import mixin from "reactjs-mixin";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { routerShape } from "react-router";
@@ -7,7 +6,6 @@ import { i18nMark } from "@lingui/react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
 import Page from "#SRC/js/components/Page";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
 import ActionKeys from "../../constants/ActionKeys";
@@ -19,56 +17,26 @@ import ServiceActionLabels from "../../constants/ServiceActionLabels";
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
-import { ServiceActionItem } from "../../constants/ServiceActionItem";
+import { ServiceActionItem as Action } from "../../constants/ServiceActionItem";
 
-const DELETE = ServiceActionItem.DELETE;
-const EDIT = ServiceActionItem.EDIT;
-const OPEN = ServiceActionItem.OPEN;
-const RESTART = ServiceActionItem.RESTART;
-const RESUME = ServiceActionItem.RESUME;
-const SCALE = ServiceActionItem.SCALE;
-const STOP = ServiceActionItem.STOP;
-const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
-
-const METHODS_TO_BIND = [
-  "handleEditClearError",
-  "handleActionDisabledModalOpen",
-  "handleActionDisabledModalClose"
-];
-
-class ServiceDetail extends mixin(TabsMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.tabs_tabs = {
-      "/services/overview/:id/tasks": i18nMark("Tasks"),
-      "/services/overview/:id/configuration": i18nMark("Configuration"),
-      "/services/overview/:id/debug": i18nMark("Debug")
-    };
+class ServiceDetail extends React.Component<
+  { service: ServiceTree },
+  { actionDisabledID: null | string; actionDisabledModalOpen: boolean }
+> {
+  constructor(a, ...args) {
+    super(a, ...args);
 
     this.state = {
       actionDisabledID: null,
       actionDisabledModalOpen: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
-  componentDidMount() {
-    this.checkForVolumes();
-  }
-
-  componentDidUpdate() {
-    this.checkForVolumes();
-  }
-
-  handleEditClearError() {
+  handleEditClearError = () => {
     this.props.clearError(ActionKeys.SERVICE_EDIT);
-  }
+  };
 
-  onActionsItemSelection(actionID) {
+  onActionsItemSelection(actionID: Action) {
     const { service } = this.props;
     const isGroup = service instanceof ServiceTree;
     let containsSDKService = false;
@@ -81,12 +49,12 @@ class ServiceDetail extends mixin(TabsMixin) {
     }
 
     if (
-      actionID !== EDIT &&
-      actionID !== DELETE &&
+      actionID !== Action.EDIT &&
+      actionID !== Action.DELETE &&
       (containsSDKService || isSDKService(service)) &&
       !Hooks.applyFilter(
         "isEnabledSDKAction",
-        actionID === EDIT || actionID === OPEN,
+        actionID === Action.OPEN,
         actionID
       )
     ) {
@@ -96,61 +64,50 @@ class ServiceDetail extends mixin(TabsMixin) {
     }
   }
 
-  handleServiceAction(actionID) {
+  handleServiceAction(actionID: Action) {
     const { modalHandlers, router } = this.context;
     const { service } = this.props;
 
     switch (actionID) {
-      case EDIT:
+      case Action.EDIT:
         router.push(
           `/services/detail/${encodeURIComponent(service.getId())}/edit/`
         );
-        break;
-      case SCALE:
+        return;
+      case Action.SCALE:
         modalHandlers.scaleService({ service });
-        break;
-      case RESET_DELAYED:
+        return;
+      case Action.RESET_DELAYED:
         modalHandlers.resetDelayedService({ service });
-        break;
-      case OPEN:
+        return;
+      case Action.OPEN:
         modalHandlers.openServiceUI({ service });
-        break;
-      case RESTART:
+        return;
+      case Action.RESTART:
         modalHandlers.restartService({ service });
-        break;
-      case RESUME:
+        return;
+      case Action.RESUME:
         modalHandlers.resumeService({ service });
-        break;
-      case STOP:
+        return;
+      case Action.STOP:
         modalHandlers.stopService({ service });
-        break;
-      case DELETE:
+        return;
+      case Action.DELETE:
         modalHandlers.deleteService({ service });
-        break;
+        return;
     }
   }
 
-  handleActionDisabledModalOpen(actionDisabledID) {
+  handleActionDisabledModalOpen = (actionDisabledID: Action) => {
     this.setState({ actionDisabledModalOpen: true, actionDisabledID });
-  }
+  };
 
-  handleActionDisabledModalClose() {
+  handleActionDisabledModalClose = () => {
     this.setState({ actionDisabledModalOpen: false, actionDisabledID: null });
-  }
+  };
 
   hasVolumes() {
     return !!this.props.service && this.props.service.getVolumes().length > 0;
-  }
-
-  checkForVolumes() {
-    // Add the Volumes tab if it isn't already there and the service has
-    // at least one volume.
-    if (
-      this.tabs_tabs["/services/overview/:id/volumes"] == null &&
-      this.hasVolumes()
-    ) {
-      this.tabs_tabs["/services/overview/:id/volumes"] = "Volumes";
-    }
   }
 
   getActions() {
@@ -158,7 +115,11 @@ class ServiceDetail extends mixin(TabsMixin) {
     const instanceCount = service.getInstancesCount();
     const isSDK = isSDKService(service);
 
-    const actions = [];
+    const actions: Array<{
+      className?: string;
+      label: string;
+      onItemSelect: () => void;
+    }> = [];
 
     if (
       service instanceof Service &&
@@ -168,53 +129,56 @@ class ServiceDetail extends mixin(TabsMixin) {
     ) {
       actions.push({
         label: ServiceActionLabels.open,
-        onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.OPEN)
       });
     }
 
     actions.push({
       label: i18nMark("Edit"),
-      onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
+      onItemSelect: this.onActionsItemSelection.bind(this, Action.EDIT)
     });
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: i18nMark("Restart"),
-        onItemSelect: this.onActionsItemSelection.bind(this, RESTART)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESTART)
       });
     }
     if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: i18nMark("Scale"),
-        onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.SCALE)
       });
     }
 
     if (service.isDelayed()) {
       actions.push({
         label: i18nMark("Reset Delay"),
-        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED)
+        onItemSelect: this.onActionsItemSelection.bind(
+          this,
+          Action.RESET_DELAYED
+        )
       });
     }
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: i18nMark("Stop"),
-        onItemSelect: this.onActionsItemSelection.bind(this, STOP)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.STOP)
       });
     }
 
     if (instanceCount === 0 && !isSDK) {
       actions.push({
         label: i18nMark("Resume"),
-        onItemSelect: this.onActionsItemSelection.bind(this, RESUME)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESUME)
       });
     }
 
     actions.push({
       className: "text-danger",
       label: i18nMark("Delete"),
-      onItemSelect: this.onActionsItemSelection.bind(this, DELETE)
+      onItemSelect: this.onActionsItemSelection.bind(this, Action.DELETE)
     });
 
     return actions;
@@ -224,12 +188,10 @@ class ServiceDetail extends mixin(TabsMixin) {
     const { id } = this.props.service;
     const routePrefix = `/services/detail/${encodeURIComponent(id)}`;
 
+    // prettier-ignore
     const tabs = [
       { label: i18nMark("Tasks"), routePath: `${routePrefix}/tasks` },
-      {
-        label: i18nMark("Configuration"),
-        routePath: `${routePrefix}/configuration`
-      },
+      { label: i18nMark("Configuration"), routePath: `${routePrefix}/configuration` },
       { label: i18nMark("Debug"), routePath: `${routePrefix}/debug` },
       { label: i18nMark("Endpoints"), routePath: `${routePrefix}/endpoints` }
     ];

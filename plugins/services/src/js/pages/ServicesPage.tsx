@@ -6,7 +6,6 @@ import mixin from "reactjs-mixin";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-import RouterUtil from "#SRC/js/utils/RouterUtil";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
@@ -36,14 +35,6 @@ class ServicesPage extends mixin(StoreMixin) {
 
   public componentDidMount() {
     CosmosPackagesStore.fetchAvailablePackages();
-  }
-
-  public getNavigation() {
-    if (RouterUtil.shouldHideNavigation(this.props.routes)) {
-      return null;
-    }
-
-    return <ul className="menu-tabbed">{this.tabs_getRoutedTabs()}</ul>;
   }
 
   public render() {
