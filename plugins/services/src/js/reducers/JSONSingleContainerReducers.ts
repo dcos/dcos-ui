@@ -3,6 +3,7 @@ import {
   simpleIntReducer,
   simpleReducer
 } from "#SRC/js/utils/ReducerUtil";
+import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 
 import { JSONReducer as constraints } from "./serviceForm/JSONReducers/Constraints";
 import { JSONReducer as container } from "./serviceForm/Container";
@@ -24,6 +25,10 @@ export default {
   disk: simpleFloatReducer("disk"),
   gpus: simpleFloatReducer("gpus"),
   cmd: simpleReducer("cmd"),
+  resourceLimits: combineReducers({
+    cpus: simpleFloatReducer("limits.cpus"),
+    mem: simpleIntReducer("limits.mem")
+  }),
   constraints,
   env,
   fetch,

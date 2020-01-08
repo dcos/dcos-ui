@@ -56,7 +56,8 @@ const appPaths = {
   image: "{basePath}.docker.image",
   mem: "mem",
   privileged: "{basePath}.docker.privileged",
-  type: "{basePath}.type"
+  type: "{basePath}.type",
+  limits: "limits"
 };
 
 const podPaths = {
@@ -224,7 +225,9 @@ class ContainerServiceFormAdvancedSection extends React.Component {
     const artifactErrors =
       findNestedPropertyInObject(errors, artifactsPath) || [];
     const diskPath = this.getFieldPath(path, "disk");
+    const limitsPath = "limits";
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
+    const limitsErrors = findNestedPropertyInObject(errors, limitsPath);
 
     return (
       <div>
@@ -252,6 +255,44 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               autoFocus={Boolean(diskErrors)}
             />
             <FieldError>{diskErrors}</FieldError>
+          </FormGroup>
+        </FormRow>
+        <Trans render="h2" className="short-bottom">
+          Limits
+        </Trans>
+        <Trans render="p">Limits settings for cpu and mem.</Trans>
+        <FormRow>
+          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeadingContent>
+                <Trans render="span">CPUs</Trans>
+              </FormGroupHeadingContent>
+            </FieldLabel>
+            <FieldInput
+              min="0"
+              name="limits.cpus"
+              step="0.01"
+              type="number"
+              value={findNestedPropertyInObject(data, limitsPath + ".cpus")}
+              autoFocus={Boolean(limitsErrors)}
+            />
+            <FieldError>{limitsErrors}</FieldError>
+          </FormGroup>
+          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeadingContent>
+                <Trans render="span">Memory (MiB)</Trans>
+              </FormGroupHeadingContent>
+            </FieldLabel>
+            <FieldInput
+              min="0"
+              name="limits.mem"
+              step="any"
+              type="number"
+              value={findNestedPropertyInObject(data, limitsPath + ".mem")}
+              autoFocus={Boolean(limitsErrors)}
+            />
+            <FieldError>{limitsErrors}</FieldError>
           </FormGroup>
         </FormRow>
         <ArtifactsSection
