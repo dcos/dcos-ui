@@ -65,12 +65,9 @@ class OrganizationTab extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "user",
-        events: ["createSuccess", "deleteSuccess"],
-        suppressUpdate: true
-      }
+      {name: "user", events: ["createSuccess", "deleteSuccess"], suppressUpdate: true}
     ];
 
     this.state = {

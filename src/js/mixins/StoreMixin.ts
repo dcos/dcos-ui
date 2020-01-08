@@ -78,18 +78,6 @@ export default {
       const listenerDetail = this.store_listeners[storeID];
       const events = listenerDetail.events;
 
-      // Check that we actually have events to fire events on
-      if (
-        process.env.NODE_ENV !== "production" &&
-        (typeof events !== "object" || !Object.keys(events).length)
-      ) {
-        throw new Error(
-          "No events found on listener configuration for store " +
-            'with ID "' +
-            storeID +
-            '".'
-        );
-      }
       // Loop through all available events
       Object.keys(events).forEach(event => {
         const eventListenerID = event + LISTENER_SUFFIX;

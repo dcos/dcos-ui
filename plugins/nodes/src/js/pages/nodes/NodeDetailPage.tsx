@@ -23,14 +23,11 @@ class NodeDetailPage extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
       { name: "summary", events: ["success"], suppressUpdate: true },
       { name: "state", events: ["success"], suppressUpdate: true },
-      {
-        name: "nodeHealth",
-        events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"],
-        suppressUpdate: true
-      }
+      {name: "nodeHealth", events: ["nodeSuccess", "nodeError", "unitsSuccess", "unitsError"], suppressUpdate: true}
     ];
 
     this.state = {

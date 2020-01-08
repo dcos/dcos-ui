@@ -52,11 +52,7 @@ const Index = createReactClass({
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
     this.store_listeners = [
-      {
-        name: "summary",
-        events: ["success", "error"],
-        suppressUpdate: true
-      }
+      { name: "summary", events: ["success", "error"], suppressUpdate: true }
     ];
   },
 

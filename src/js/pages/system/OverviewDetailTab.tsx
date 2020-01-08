@@ -68,19 +68,11 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       startTime: undefined
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "config",
-        events: ["ccidSuccess"]
-      },
-      {
-        name: "marathon",
-        events: ["instanceInfoSuccess"]
-      },
-      {
-        name: "metadata",
-        events: ["dcosBuildInfoChange", "dcosSuccess", "success"]
-      }
+      { name: "config", events: ["ccidSuccess"] },
+      { name: "marathon", events: ["instanceInfoSuccess"] },
+      {name: "metadata", events: ["dcosBuildInfoChange", "dcosSuccess", "success"]}
     ];
 
     METHODS_TO_BIND.forEach(method => {

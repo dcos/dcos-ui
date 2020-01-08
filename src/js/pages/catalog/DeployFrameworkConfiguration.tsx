@@ -33,16 +33,9 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       isPending: false
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "cosmosPackages",
-        events: [
-          "packageDescriptionSuccess",
-          "packageDescriptionError",
-          "installSuccess",
-          "installError"
-        ]
-      }
+      {name: "cosmosPackages", events: ["packageDescriptionSuccess", "packageDescriptionError", "installSuccess", "installError"]}
     ];
 
     CosmosPackagesStore.fetchPackageDescription(

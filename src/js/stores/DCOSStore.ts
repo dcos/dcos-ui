@@ -30,6 +30,7 @@ const METHODS_TO_BIND = [
 ];
 
 const EVENT_DEBOUNCE_TIME = 250;
+const events = { change: DCOS_CHANGE };
 
 class DCOSStore extends EventEmitter {
   constructor(...args) {
@@ -38,10 +39,8 @@ class DCOSStore extends EventEmitter {
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      events: this.getEvents(),
-      unmountWhen() {
-        return true;
-      },
+      events,
+      unmountWhen: () => true,
       listenAlways: true
     });
 
@@ -63,12 +62,8 @@ class DCOSStore extends EventEmitter {
     this.debouncedEvents = new Map();
   }
 
-  getEvents() {
-    return { change: DCOS_CHANGE };
-  }
-
   getTotalListenerCount() {
-    return Object.values(this.getEvents()).reduce(
+    return Object.values(events).reduce(
       (memo, name) => memo + this.listeners(name).length,
       0
     );

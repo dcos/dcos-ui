@@ -48,11 +48,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [
-      {
-        name: "state",
-        events: ["success", "error"],
-        suppressUpdate: true
-      }
+      { name: "state", events: ["success", "error"], suppressUpdate: true }
     ];
 
     METHODS_TO_BIND.forEach(method => {

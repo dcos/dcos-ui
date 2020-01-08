@@ -102,17 +102,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
       runningPackageNames: { state: "loading" }
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "cosmosPackages",
-        events: [
-          "packageDescriptionError",
-          "packageDescriptionSuccess",
-          "listVersionsSuccess",
-          "listVersionsError"
-        ],
-        suppressUpdate: true
-      }
+      {name: "cosmosPackages", events: ["packageDescriptionError", "packageDescriptionSuccess", "listVersionsSuccess", "listVersionsError"], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

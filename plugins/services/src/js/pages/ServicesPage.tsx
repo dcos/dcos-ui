@@ -20,12 +20,6 @@ class ServicesPage extends mixin(StoreMixin) {
     matches: /^\/services/
   };
 
-  public store_listeners: Array<{
-    name: string;
-    events: string[];
-    suppressUpdate: boolean;
-  }>;
-
   constructor() {
     super(...arguments);
     this.store_listeners = [

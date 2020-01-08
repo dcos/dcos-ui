@@ -23,12 +23,9 @@ const Chart = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "sidebar",
-        events: ["widthChange"],
-        suppressUpdate: true
-      }
+      {name: "sidebar", events: ["widthChange"], suppressUpdate: true}
     ];
 
     this.dimensions = { width: null };

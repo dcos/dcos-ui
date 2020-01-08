@@ -20,11 +20,7 @@ class LoginPage extends mixin(StoreMixin) {
     }
 
     this.store_listeners = [
-      {
-        name: "auth",
-        events: ["success", "error"],
-        suppressUpdate: true
-      }
+      { name: "auth", events: ["success", "error"], suppressUpdate: true }
     ];
 
     this.setState({

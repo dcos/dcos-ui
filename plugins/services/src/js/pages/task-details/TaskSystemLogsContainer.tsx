@@ -51,12 +51,9 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       isLoading: true
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        events: ["success", "error", "streamSuccess", "streamError"],
-        name: "systemLog",
-        suppressUpdate: true
-      }
+      {events: ["success", "error", "streamSuccess", "streamError"], name: "systemLog", suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

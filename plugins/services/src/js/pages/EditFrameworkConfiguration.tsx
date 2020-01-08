@@ -26,16 +26,9 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       defaultConfigWarning: null
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "cosmosPackages",
-        events: [
-          "serviceDescriptionError",
-          "serviceDescriptionSuccess",
-          "serviceUpdateSuccess",
-          "serviceUpdateError"
-        ]
-      }
+      {name: "cosmosPackages", events: ["serviceDescriptionError", "serviceDescriptionSuccess", "serviceUpdateSuccess", "serviceUpdateError"]}
     ];
 
     CosmosPackagesStore.fetchServiceDescription(props.params.id);

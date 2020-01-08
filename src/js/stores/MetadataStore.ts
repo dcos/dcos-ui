@@ -20,6 +20,8 @@ import GetSetBaseStore from "./GetSetBaseStore";
 import MetadataActions from "../events/MetadataActions";
 
 class MetadataStore extends GetSetBaseStore {
+  storeID = "metadata";
+
   constructor(...args) {
     super(...args);
 
@@ -149,10 +151,6 @@ class MetadataStore extends GetSetBaseStore {
     version = version.split("-")[0];
 
     return version.replace(/(.*?)\.(.*?)\..*/, "$1.$2");
-  }
-
-  get storeID() {
-    return "metadata";
   }
 }
 

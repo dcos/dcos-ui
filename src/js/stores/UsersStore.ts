@@ -15,9 +15,7 @@ class UsersStore extends GetSetBaseStore {
   constructor(...args) {
     super(...args);
 
-    this.getSet_data = {
-      users: []
-    };
+    this.getSet_data = { users: [] };
 
     PluginSDK.addStoreConfig({
       store: this,
