@@ -12,6 +12,8 @@ import { JSONParser as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONParser as portMappings } from "./serviceForm/PortMappings";
 import { JSONParser as residency } from "./serviceForm/JSONReducers/Residency";
 import { JSONParser as requirePorts } from "./serviceForm/JSONReducers/RequirePorts";
+import Transaction from "#SRC/js/structs/Transaction";
+type transaction = Transaction;
 
 export default [
   simpleParser(["id"]),
@@ -21,6 +23,24 @@ export default [
   simpleParser(["disk"]),
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
+  state => {
+    const transactions: transaction[] = [];
+    if (state.resourceLimits == null) {
+      return transactions;
+    }
+
+    if (state.resourceLimits.cpus != null) {
+      transactions.push(
+        new Transaction(["limits", "cpus"], state.resourceLimits.cpus)
+      );
+    }
+    if (state.resourceLimits.mem != null) {
+      transactions.push(
+        new Transaction(["limits", "mem"], state.resourceLimits.mem)
+      );
+    }
+    return transactions;
+  },
   constraints,
   container,
   environmentVariables,
