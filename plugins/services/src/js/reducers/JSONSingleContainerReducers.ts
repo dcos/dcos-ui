@@ -14,7 +14,7 @@ import { JSONReducer as residency } from "./serviceForm/JSONReducers/Residency";
 import { JSONReducer as requirePorts } from "./serviceForm/JSONReducers/RequirePorts";
 import { JSONReducer as portDefinitions } from "./serviceForm/PortDefinitions";
 import { JSONReducer as networks } from "./serviceForm/JSONReducers/Networks";
-
+import { JSONReducer as resourceLimits } from "./serviceForm/JSONReducers/resourceLimits";
 export default {
   id: simpleReducer("id"),
   instances: simpleIntReducer("instances"),
@@ -24,6 +24,7 @@ export default {
   disk: simpleFloatReducer("disk"),
   gpus: simpleFloatReducer("gpus"),
   cmd: simpleReducer("cmd"),
+  resourceLimits,
   constraints,
   env,
   fetch,

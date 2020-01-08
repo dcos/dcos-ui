@@ -2415,24 +2415,17 @@ plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Pro
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
+plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'path' does not exist on type *.
