@@ -70,25 +70,20 @@ const DashboardBreadcrumbs = () => {
 };
 
 export default class DashboardPage extends mixin(StoreMixin) {
-  static get routeConfig() {
-    return {
-      label: i18nMark("Dashboard"),
-      icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
-      matches: /^\/dashboard/
-    };
-  }
+  static routeConfig = {
+    label: i18nMark("Dashboard"),
+    icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
+    matches: /^\/dashboard/
+  };
 
-  static get contextTypes() {
-    return {
-      router: routerShape
-    };
-  }
-  static get defaultProps() {
-    return {
-      componentsListLength: 5,
-      servicesListLength: 5
-    };
-  }
+  static contextTypes = {
+    router: routerShape
+  };
+
+  static defaultProps = {
+    componentsListLength: 5,
+    servicesListLength: 5
+  };
 
   constructor(props) {
     super(props);

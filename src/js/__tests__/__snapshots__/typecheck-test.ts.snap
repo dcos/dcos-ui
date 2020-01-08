@@ -4383,13 +4383,53 @@ src/js/components/charts/DialChart.tsx: error TS2683: 'this' implicitly has type
 src/js/components/charts/DialChart.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/components/charts/DialChart.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/components/charts/DialChart.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/components/charts/HostTimeSeriesChart.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2554: Expected 5 arguments, but got 2.
 src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2554: Expected 5 arguments, but got 2.
+src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
 src/js/components/charts/ResourceTimeSeriesChart.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'movingElsRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'clipPathID' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'clipPathID' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'xAxisRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'yAxisRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'gridRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'clipPathID' does not exist on type 'TimeSeriesChart'.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maskID' does not exist on type 'TimeSeriesChart'.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'data' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'height' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'margin' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maxY' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'refreshRate' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'width' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'yFormat' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'clipPathID' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maskID' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'gridRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'yAxisRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'xAxisRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'data' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'values' does not exist on type 'never'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'movingElsRef' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'axisConfiguration' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'data' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.
 src/js/components/charts/__tests__/TasksChart-test.tsx: error TS2769: No overload matches this call.
+src/js/components/charts/__tests__/TimeSeriesChart-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/form/AdvancedSection.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/form/AdvancedSection.tsx: error TS2339: Property 'isExpanded' does not exist on type 'Readonly<{}>'.
 src/js/components/form/AdvancedSection.tsx: error TS2533: Object is possibly 'null' or 'undefined'.
@@ -4553,11 +4593,6 @@ src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls'
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2345: Argument of type '\\"EventSource\\"' is not assignable to parameter of type *.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/mesos-proto.ts: error TS2326: Types of property 'nested' are incompatible.
-src/js/mixins/ChartMixin.ts: error TS2339: Property 'props' does not exist on type *.
-src/js/mixins/ChartMixin.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
-src/js/mixins/ChartMixin.ts: error TS2339: Property 'values' does not exist on type 'never'.
-src/js/mixins/__tests__/ChartMixin-test.ts: error TS6133: 'value' is declared but its value is never read.
-src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'setState' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'setState' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'state' does not exist on type 'DashboardPage'.
@@ -4581,6 +4616,7 @@ src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'state' does not exist on type 'DashboardPage'.
+src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
 src/js/pages/Index.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/Index.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS7030: Not all code paths return a value.
