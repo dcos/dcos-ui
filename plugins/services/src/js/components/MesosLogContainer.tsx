@@ -34,12 +34,9 @@ class MesosLogContainer extends mixin(StoreMixin) {
       hasOffsetLoadingError: false
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        events: ["success", "error", "offsetSuccess", "offsetError"],
-        name: "mesosLog",
-        suppressUpdate: true
-      }
+      {name: "mesosLog", events: ["success", "error", "offsetSuccess", "offsetError"], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

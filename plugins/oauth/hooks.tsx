@@ -48,10 +48,7 @@ export default {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
     this.store_initializeListeners([
-      {
-        name: "config",
-        events: ["success", "error"]
-      }
+      { name: "config", events: ["success", "error"] }
     ]);
 
     this.registerUserAccountDropdown();

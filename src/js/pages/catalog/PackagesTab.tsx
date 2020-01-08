@@ -118,12 +118,9 @@ class PackagesTab extends mixin(StoreMixin) {
       searchFilter: Filters.certified
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "cosmosPackages",
-        events: ["availableError", "availableSuccess"],
-        suppressUpdate: true
-      }
+      {name: "cosmosPackages", events: ["availableError", "availableSuccess"], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

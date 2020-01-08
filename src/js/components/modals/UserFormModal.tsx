@@ -27,12 +27,9 @@ class UserFormModal extends mixin(StoreMixin) {
       errorCode: null
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "user",
-        events: ["createSuccess", "createError"],
-        suppressUpdate: true
-      }
+      {name: "user", events: ["createSuccess", "createError"], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

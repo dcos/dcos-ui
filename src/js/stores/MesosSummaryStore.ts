@@ -107,21 +107,21 @@ class MesosSummaryStore extends GetSetBaseStore {
     return states;
   }
 
-  addChangeListener(eventName, callback) {
+  addChangeListener = (eventName: string, callback: () => void) => {
     this.on(eventName, callback);
 
     if (!this.shouldPoll()) {
       startPolling.call(this);
     }
-  }
+  };
 
-  removeChangeListener(eventName, callback) {
+  removeChangeListener = (eventName: string, callback: () => void) => {
     this.removeListener(eventName, callback);
 
     if (!this.shouldPoll()) {
       stopPolling();
     }
-  }
+  };
 
   shouldPoll() {
     return this.listeners(MESOS_SUMMARY_CHANGE).length > 0;

@@ -107,8 +107,7 @@ class ComponentList extends React.PureComponent {
   }
 
   render() {
-    let { units } = this.props;
-    units = units.getItems();
+    const units = this.props.units.getItems();
 
     if (units.length === 0) {
       return this.getErrorMessage();

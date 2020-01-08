@@ -80,11 +80,7 @@ const Page = createReactClass({
 
   UNSAFE_componentWillMount() {
     this.store_listeners = [
-      {
-        name: "sidebar",
-        events: ["widthChange"],
-        suppressUpdate: true
-      }
+      { name: "sidebar", events: ["widthChange"], suppressUpdate: true }
     ];
   },
 

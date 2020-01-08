@@ -73,12 +73,9 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
       isLoadingNode: true
     };
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "unitHealth",
-        events: ["unitSuccess", "unitError", "nodeSuccess", "nodeError"],
-        suppressUpdate: true
-      }
+      {name: "unitHealth", events: ["unitSuccess", "unitError", "nodeSuccess", "nodeError"], suppressUpdate: true}
     ];
   }
 

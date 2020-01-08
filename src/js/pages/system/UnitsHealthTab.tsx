@@ -52,12 +52,9 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "unitHealth",
-        events: ["success", "error"],
-        suppressUpdate: false
-      }
+      {name: "unitHealth", events: ["success", "error"], suppressUpdate: false}
     ];
 
     this.state = {

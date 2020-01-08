@@ -47,11 +47,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     });
 
     this.store_listeners = [
-      {
-        name: "virtualNetworks",
-        events: ["success"],
-        suppressUpdate: true
-      }
+      { name: "virtualNetworks", events: ["success"], suppressUpdate: true }
     ];
   }
 

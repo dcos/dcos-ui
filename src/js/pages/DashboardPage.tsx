@@ -2,7 +2,7 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import { routerShape, Link } from "react-router";
 import * as React from "react";
-import createReactClass from "create-react-class";
+import mixin from "reactjs-mixin";
 import { Icon } from "@dcos/ui-kit";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -21,7 +21,6 @@ import Page from "../components/Page";
 import Panel from "../components/Panel";
 import ServiceList from "../../../plugins/services/src/js/components/ServiceList";
 import StringUtil from "../utils/StringUtil";
-import SidebarActions from "../events/SidebarActions";
 import UnitHealthStore from "../stores/UnitHealthStore";
 import DashboardHeadings from "../constants/DashboardHeadings";
 import HealthUnitsList from "../structs/HealthUnitsList";
@@ -70,84 +69,72 @@ const DashboardBreadcrumbs = () => {
   );
 };
 
-const DashboardPage = createReactClass({
-  displayName: "DashboardPage",
-
-  mixins: [StoreMixin],
-
-  statics: {
-    routeConfig: {
+export default class DashboardPage extends mixin(StoreMixin) {
+  static get routeConfig() {
+    return {
       label: i18nMark("Dashboard"),
       icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
       matches: /^\/dashboard/
-    },
+    };
+  }
 
-    // Static life cycle method from react router, that will be called
-    // 'when a handler is about to render', i.e. on route change:
-    // https://github.com/rackt/react-router/
-    // blob/master/docs/api/components/RouteHandler.md
-    willTransitionTo() {
-      SidebarActions.close();
-    }
-  },
-
-  contextTypes: {
-    router: routerShape
-  },
-
-  getDefaultProps() {
+  static get contextTypes() {
+    return {
+      router: routerShape
+    };
+  }
+  static get defaultProps() {
     return {
       componentsListLength: 5,
       servicesListLength: 5
     };
-  },
+  }
 
-  getInitialState() {
-    return {
+  constructor(props) {
+    super(props);
+
+    this.state = {
       dcosServices: [],
-      unitHealthUnits: new HealthUnitsList({ items: [] })
+      unitHealthUnits: new HealthUnitsList({ items: [] }),
+      mesosState: getMesosState()
     };
-  },
 
-  UNSAFE_componentWillMount() {
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },
       { name: "unitHealth", events: ["success", "error"], suppressUpdate: true }
     ];
+  }
 
-    this.setState({ mesosState: getMesosState() });
-  },
-
-  onSummaryStoreError() {
-    this.setState({
-      mesosState: { ...this.state.mesosState, ...getMesosState() }
-    });
-  },
-
-  onSummaryStoreSuccess() {
-    this.setState({
-      mesosState: { ...this.state.mesosState, ...getMesosState() }
-    });
-  },
-
-  onDcosStoreChange() {
+  onDcosStoreChange = () => {
     this.setState({
       dcosServices: DCOSStore.serviceTree.getServices().getItems()
     });
-  },
+  };
 
-  onUnitHealthStoreSuccess() {
+  onSummaryStoreSuccess = () => {
+    this.setState({
+      mesosState: { ...this.state.mesosState, ...getMesosState() }
+    });
+  };
+
+  onSummaryStoreError = () => {
+    this.setState({
+      mesosState: { ...this.state.mesosState, ...getMesosState() }
+    });
+  };
+
+  onUnitHealthStoreSuccess = () => {
     this.setState({
       unitHealthUnits: UnitHealthStore.getUnits()
     });
-  },
+  };
 
-  onUnitHealthStoreError() {
+  onUnitHealthStoreError = () => {
     this.setState({
       unitHealthUnits: UnitHealthStore.getUnits()
     });
-  },
+  };
 
   getServicesList() {
     const services = this.state.dcosServices;
@@ -161,14 +148,10 @@ const DashboardPage = createReactClass({
     });
 
     return sortedServices.slice(0, this.props.servicesListLength);
-  },
-
-  getUnits() {
-    return this.state.unitHealthUnits;
-  },
+  }
 
   getViewAllComponentsButton() {
-    const componentCount = this.getUnits().getItems().length;
+    const componentCount = this.state.unitHealthUnits.getItems().length;
     if (!componentCount) {
       return null;
     }
@@ -188,7 +171,7 @@ const DashboardPage = createReactClass({
         View all {componentCount} {componentCountWord}
       </Trans>
     );
-  },
+  }
 
   getViewAllServicesBtn() {
     let servicesCount = this.state.dcosServices.length;
@@ -208,7 +191,7 @@ const DashboardPage = createReactClass({
         View all {servicesCount} Services
       </Trans>
     );
-  },
+  }
 
   getHeading(translationId) {
     return (
@@ -218,7 +201,7 @@ const DashboardPage = createReactClass({
         className="flush text-align-center"
       />
     );
-  },
+  }
 
   render() {
     const columnClasses = "column-12 column-small-6 column-large-4";
@@ -341,7 +324,7 @@ const DashboardPage = createReactClass({
             >
               <ComponentList
                 displayCount={this.props.componentsListLength}
-                units={this.getUnits()}
+                units={this.state.unitHealthUnits}
               />
             </Panel>
           </div>
@@ -349,6 +332,4 @@ const DashboardPage = createReactClass({
       </Page>
     );
   }
-});
-
-export default DashboardPage;
+}

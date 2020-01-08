@@ -7,12 +7,9 @@ class UsersActionsModal extends ActionsModal {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
-      {
-        name: "user",
-        events: ["deleteError", "deleteSuccess"],
-        suppressUpdate: true
-      }
+      {name: "user", events: ["deleteError", "deleteSuccess"], suppressUpdate: true}
     ];
   }
 

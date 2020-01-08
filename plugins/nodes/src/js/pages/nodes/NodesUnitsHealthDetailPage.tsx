@@ -14,10 +14,7 @@ class NodesUnitsHealthDetailPage extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      {
-        name: "unitHealth",
-        events: ["unitSuccess", "nodeSuccess"]
-      }
+      { name: "unitHealth", events: ["unitSuccess", "nodeSuccess"] }
     ];
   }
 

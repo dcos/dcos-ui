@@ -68,13 +68,10 @@ class DeploymentsModal extends mixin(StoreMixin) {
       dcosServiceDataReceived: false,
       dcosDeploymentsList: []
     };
+    // prettier-ignore
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
-      {
-        name: "marathon",
-        events: ["deploymentRollbackSuccess", "deploymentRollbackError"],
-        suppressUpdate: true
-      }
+      {name: "marathon", events: ["deploymentRollbackSuccess", "deploymentRollbackError"], suppressUpdate: true}
     ];
 
     METHODS_TO_BIND.forEach(method => {

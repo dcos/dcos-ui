@@ -86,11 +86,7 @@ const NodesAgents = createReactClass({
     this.mesosHosts = getMesosHosts(this.state);
 
     this.store_listeners = [
-      {
-        name: "nodeHealth",
-        events: ["success", "error"],
-        suppressUpdate: true
-      }
+      { name: "nodeHealth", events: ["success", "error"], suppressUpdate: true }
     ];
   },
 
