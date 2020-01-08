@@ -40,12 +40,12 @@ const ErrorScreen = () => (
   </Page>
 );
 
-const disabledDialog$ = new BehaviorSubject(null);
+const disabledDialog$ = new BehaviorSubject<string | null>(null);
 const disableDialog = () => {
   disabledDialog$.next(DIALOGS.DESTROY);
 };
 
-const jobActionDialog$ = new BehaviorSubject(null);
+const jobActionDialog$ = new BehaviorSubject<string | null>(null);
 
 const handleDestroyButtonClick = () => {
   jobActionDialog$.next(DIALOGS.DESTROY);

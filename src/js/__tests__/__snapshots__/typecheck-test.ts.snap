@@ -182,11 +182,6 @@ plugins/jobs/src/js/JobDelete.tsx: error TS2698: Spread types may only be create
 plugins/jobs/src/js/JobDelete.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2339: Property 'router' does not exist on type 'unknown'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2700: Rest types may only be created from object types.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2605: JSX element type 'JobDetailPage' is not a constructor function for JSX elements.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'null'.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'null'.
-plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'null'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2345: Argument of type 'ComponentType<unknown>' is not assignable to parameter of type *.
 plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2339: Property 'pipe' does not exist on type 'Subscribable<unknown>'.
@@ -374,32 +369,29 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/jobsRunNow.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/jobsToggleSchedule.ts: error TS2571: Object is of type 'unknown'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'tabs_getTabView' does not exist on type 'JobDetailPage'.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2739: Type 'Job' is missing the following properties from type 'JobResponse': historySummary, id, labels, run, schedules
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'json' does not exist on type 'Job'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'jobActionDialog' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'closeDialog' does not exist on type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'jobActionDialog' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'onJobDeleteSuccess' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'closeDialog' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'tabs_tabs' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'setState' does not exist on type 'JobDetailPage'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'setState' does not exist on type 'JobDetailPage'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'handleEditButtonClick' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'handleDestroyButtonClick' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'path' does not exist on type 'Job'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'name' does not exist on type 'Job'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2741: Property 'id' is missing in type 'Job' but required in type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: Type 'string[]' is not assignable to type 'Direction[]'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
@@ -408,15 +400,12 @@ plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'clickH
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'selectedID' does not exist on type 'Readonly<{}>'.
+plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'jobRuns' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'job' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'location' does not exist on type *.
@@ -4566,32 +4555,7 @@ src/js/mesos-proto.ts: error TS2326: Types of property 'nested' are incompatible
 src/js/mixins/ChartMixin.ts: error TS2339: Property 'props' does not exist on type *.
 src/js/mixins/ChartMixin.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
 src/js/mixins/ChartMixin.ts: error TS2339: Property 'values' does not exist on type 'never'.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'tabs_tabs' does not exist on type *.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'state' does not exist on type *.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'setState' does not exist on type *.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'classNames' does not exist on type '{}'.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'tabs_tabs' does not exist on type *.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'tabs_tabs' does not exist on type *.
-src/js/mixins/TabsMixin.tsx: error TS2339: Property 'state' does not exist on type *.
 src/js/mixins/__tests__/ChartMixin-test.ts: error TS6133: 'value' is declared but its value is never read.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'state' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'calls' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'state' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2345: Argument of type '\\"renderGraultTabView\\"' is not assignable to parameter of type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2345: Argument of type '\\"renderGraultTabView\\"' is not assignable to parameter of type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2345: Argument of type '\\"renderGraultTabView\\"' is not assignable to parameter of type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderGraultTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'tabs_tabs' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'tabs_tabs' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'state' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderQuuxGarplyTabView' does not exist on type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2345: Argument of type '\\"renderQuuxGarplyTabView\\"' is not assignable to parameter of type *.
-src/js/mixins/__tests__/TabsMixin-test.ts: error TS2339: Property 'renderQuuxGarplyTabView' does not exist on type *.
 src/js/pages/DashboardPage.tsx: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
 src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
