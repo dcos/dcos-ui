@@ -61,9 +61,9 @@ const colGroup = (
   </colgroup>
 );
 
-class JobRunHistoryTable extends React.Component {
-  constructor(...args) {
-    super(...args);
+class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
+  constructor(props) {
+    super(props);
 
     this.state = {
       selectedID: null,

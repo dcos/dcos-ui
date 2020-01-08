@@ -5,10 +5,7 @@ import * as React from "react";
 import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 
-import mixin from "reactjs-mixin";
-
 import Page from "#SRC/js/components/Page";
-import TabsMixin from "#SRC/js/mixins/TabsMixin";
 import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
@@ -23,27 +20,11 @@ import JobDelete from "../JobDelete";
 
 import jobsMenu from "../jobsMenu";
 
-class JobDetailPage extends mixin(TabsMixin) {
-  constructor(...args) {
-    super(...args);
+class JobDetailPage extends React.Component<{ currentTab: string; job: Job }> {
+  constructor(props) {
+    super(props);
     this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
-
-    this.tabs_tabs = {
-      runHistory: i18nMark("Run History"),
-      configuration: i18nMark("Configuration")
-    };
-
-    this.state = {
-      currentTab: Object.keys(this.tabs_tabs).shift()
-    };
-  }
-
-  renderConfigurationTabView(job) {
-    return <JobConfiguration job={job} />;
-  }
-
-  renderRunHistoryTabView(job) {
-    return <JobRunHistoryTable job={job} />;
+    this.state = { currentTab: "runHistory" };
   }
 
   renderBreadcrumbStates(item) {
@@ -78,33 +59,15 @@ class JobDetailPage extends mixin(TabsMixin) {
     return jobsMenu(job, customActionHandlers);
   }
 
-  getTabs() {
-    const activeTab = this.state.currentTab;
-
-    return [
-      {
-        label: i18nMark("Run History"),
-        callback: () => {
-          this.setState({ currentTab: "runHistory" });
-        },
-        isActive: activeTab === "runHistory"
-      },
-      {
-        label: i18nMark("Configuration"),
-        callback: () => {
-          this.setState({ currentTab: "configuration" });
-        },
-        isActive: activeTab === "configuration"
-      }
-    ];
-  }
-
   render() {
     if (this.props.params.taskID) {
       return this.props.children;
     }
 
     const { job, params } = this.props;
+    const setTab = (currentTab: string) => () => {
+      this.setState({ currentTab });
+    };
 
     return (
       <Page>
@@ -117,9 +80,26 @@ class JobDetailPage extends mixin(TabsMixin) {
               jobInfo={this.renderBreadcrumbStates(job)}
             />
           }
-          tabs={this.getTabs()}
+          tabs={[
+            {
+              label: i18nMark("Run History"),
+              callback: setTab("runHistory"),
+              isActive: this.state.currentTab === "runHistory"
+            },
+            {
+              label: i18nMark("Configuration"),
+              callback: setTab("configuration"),
+              isActive: this.state.currentTab === "configuration"
+            }
+          ]}
         />
-        {this.tabs_getTabView(job)}
+
+        {this.state.currentTab === "runHistory" ? (
+          <JobRunHistoryTable job={job} />
+        ) : this.state.currentTab === "configuration" ? (
+          <JobConfiguration job={job} />
+        ) : null}
+
         <JobFormModal
           isEdit={true}
           job={new Job(JSON.parse(job.json))}
