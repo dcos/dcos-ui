@@ -1,5 +1,9 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
-import { combineReducers, simpleFloatReducer } from "#SRC/js/utils/ReducerUtil";
+import {
+  combineReducers,
+  simpleFloatReducer,
+  simpleIntReducer
+} from "#SRC/js/utils/ReducerUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
@@ -16,6 +20,7 @@ import {
 } from "../MultiContainerHealthChecks";
 import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../../utils/VipLabelUtil";
+import { JSONReducer as resourceLimitsReducer } from "./resourceLimits";
 
 const { CONTAINER, HOST } = Networking.type;
 
@@ -24,6 +29,11 @@ const containerFloatReducer = combineReducers({
   mem: simpleFloatReducer("resources.mem"),
   disk: simpleFloatReducer("resources.disk")
 });
+
+// const resourceLimitsReducer = combineReducers({
+//   cpus: simpleFloatReducer("limits.cpus"),
+//   mem: simpleIntReducer("limits.mem")
+// });
 
 function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
@@ -123,6 +133,26 @@ function containersParser(state) {
           new Transaction(
             ["containers", index, "resources", "disk"],
             resources.disk
+          )
+        );
+      }
+    }
+    if (item.resourceLimits != null) {
+      const { resourceLimits } = item;
+      if (resourceLimits.cpus != null) {
+        memo.push(
+          new Transaction(
+            ["containers", index, "limits", "cpus"],
+            resourceLimits.cpus
+          )
+        );
+      }
+
+      if (resourceLimits.mem != null) {
+        memo.push(
+          new Transaction(
+            ["containers", index, "limits", "mem"],
+            resourceLimits.mem
           )
         );
       }
@@ -328,9 +358,14 @@ function shouldDeleteContainerImage(image) {
 }
 
 export function JSONReducer(
-  state = [],
-  { type, path = [], value },
-  containerIndex
+  this: { networkType: string },
+  state: any[] = [],
+  {
+    type,
+    path = [],
+    value
+  }: { type: symbol; path: Array<string | number>; value: unknown },
+  containerIndex: number
 ) {
   if (containerIndex === 0) {
     state = [];
@@ -516,11 +551,20 @@ export function JSONReducer(
     };
   }
 
-  if (type === SET && field === "resources") {
+  if (type === SET && "resources" === field) {
     // Parse numbers
     newState[index].resources = containerFloatReducer.call(
       this.cache[index],
       newState[index].resources,
+      { type, value, path: [field, subField] }
+    );
+  }
+
+  if (type === SET && "limits" === field) {
+    // Parse numbers
+    newState[index].resourceLimits = resourceLimitsReducer.call(
+      this.cache[index],
+      newState[index].resourceLimits,
       { type, value, path: [field, subField] }
     );
   }
