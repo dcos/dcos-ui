@@ -7,6 +7,7 @@ import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 
@@ -62,9 +63,11 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
         </FormGroup>
         <FormGroup className="column-4">
           <FieldLabel className="text-no-transform">
-            <FormGroupHeadingContent>
-              <Trans render="span">Memory (MiB)</Trans>
-            </FormGroupHeadingContent>
+            <FormGroupHeading>
+              <FormGroupHeadingContent primary={true}>
+                <Trans render="span">Memory (MiB)</Trans>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
           </FieldLabel>
           <FieldInput
             min="0"
