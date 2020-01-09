@@ -5148,11 +5148,6 @@ src/js/stores/UnitHealthStore.ts: error TS2322: Type 'Timeout' is not assignable
 src/js/stores/UnitHealthStore.ts: error TS2769: No overload matches this call.
 src/js/stores/UnitHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UserLanguageStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/UserStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UserStore.ts: error TS7030: Not all code paths return a value.
-src/js/stores/UserStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
-src/js/stores/UserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UsersStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -5219,8 +5214,6 @@ src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'name' d
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'userID' is declared but its value is never read.
-src/js/stores/__tests__/UsersStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
-src/js/stores/__tests__/UsersStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.
 src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getSubnet' does not exist on type '{}'.
 src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'getName' does not exist on type '{}'.

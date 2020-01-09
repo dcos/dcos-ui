@@ -1,6 +1,5 @@
 import UsersStore from "../UsersStore";
 import AppDispatcher from "../../events/AppDispatcher";
-import UsersList from "../../structs/UsersList";
 import * as EventTypes from "../../constants/EventTypes";
 import usersFixture from "./fixtures/users-unicode.json";
 
@@ -28,15 +27,9 @@ describe("UsersStore", () => {
     Config.useFixtures = thisUseFixtures;
   });
 
-  it("returns an instance of UsersList", () => {
-    UsersStore.fetchUsers();
-    const users = UsersStore.getUsers();
-    expect(users instanceof UsersList).toBeTruthy();
-  });
-
   it("returns all of the users it was given", () => {
     UsersStore.fetchUsers();
-    const users = UsersStore.getUsers().getItems();
+    const users = UsersStore.getUsers();
     expect(users.length).toEqual(thisUsersFixture.array.length);
   });
 
@@ -47,7 +40,7 @@ describe("UsersStore", () => {
         data: [{ gid: "foo", bar: "baz" }]
       });
 
-      const users = UsersStore.getUsers().getItems();
+      const users = UsersStore.getUsers();
       expect(users[0].get("gid")).toEqual("foo");
       expect(users[0].get("bar")).toEqual("baz");
     });
