@@ -9,7 +9,7 @@ import AppDispatcher from "../events/AppDispatcher";
 import { USERS_CHANGE, USERS_REQUEST_ERROR } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 import UsersActions from "../events/UsersActions";
-import UsersList from "../structs/UsersList";
+import Item from "../structs/Item";
 
 class UsersStore extends GetSetBaseStore {
   constructor(...args) {
@@ -38,10 +38,11 @@ class UsersStore extends GetSetBaseStore {
       const action = payload.action;
       switch (action.type) {
         case REQUEST_USERS_SUCCESS:
-          this.processUsers(action.data);
+          this.set({ users: action.data });
+          this.emit(USERS_CHANGE);
           break;
         case REQUEST_USERS_ERROR:
-          this.processUsersError(action.data);
+          this.emit(USERS_REQUEST_ERROR, action.data);
           break;
       }
     });
@@ -52,7 +53,7 @@ class UsersStore extends GetSetBaseStore {
   }
 
   getUsers() {
-    return new UsersList({ items: this.getUsersRaw() });
+    return this.getUsersRaw().map(user => new Item(user));
   }
 
   getUsersRaw() {
@@ -65,15 +66,6 @@ class UsersStore extends GetSetBaseStore {
 
   removeChangeListener(eventName, callback) {
     this.removeListener(eventName, callback);
-  }
-
-  processUsers(users) {
-    this.set({ users });
-    this.emit(USERS_CHANGE);
-  }
-
-  processUsersError(error) {
-    this.emit(USERS_REQUEST_ERROR, error);
   }
 
   get storeID() {

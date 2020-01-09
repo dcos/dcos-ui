@@ -21,8 +21,15 @@ import UsersActions from "../events/UsersActions";
  * This store will keep track of users and their details
  */
 class UserStore extends EventEmitter {
-  constructor(...args) {
-    super(...args);
+  addChangeListener = this.on;
+  addUser = UsersActions.addUser;
+  deleteUser = UsersActions.deleteUser;
+  fetchUsers = UsersActions.fetch;
+  removeChangeListener = this.removeListener;
+  storeID = "user";
+
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -33,15 +40,13 @@ class UserStore extends EventEmitter {
         deleteSuccess: USER_DELETE_SUCCESS,
         deleteError: USER_DELETE_ERROR
       },
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 
     AppDispatcher.register(payload => {
       if (payload.source !== SERVER_ACTION) {
-        return false;
+        return;
       }
 
       const action = payload.action;
@@ -62,30 +67,6 @@ class UserStore extends EventEmitter {
           break;
       }
     });
-  }
-
-  fetchUsers(...args) {
-    return UsersActions.fetch(...args);
-  }
-
-  addUser(...args) {
-    return UsersActions.addUser(...args);
-  }
-
-  deleteUser(...args) {
-    return UsersActions.deleteUser(...args);
-  }
-
-  addChangeListener(eventName, callback) {
-    this.on(eventName, callback);
-  }
-
-  removeChangeListener(eventName, callback) {
-    this.removeListener(eventName, callback);
-  }
-
-  get storeID() {
-    return "user";
   }
 }
 

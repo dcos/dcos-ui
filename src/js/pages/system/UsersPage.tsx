@@ -95,7 +95,7 @@ class UsersPage extends mixin(StoreMixin) {
       );
     }
 
-    const items = UsersStore.getUsers().getItems();
+    const items = UsersStore.getUsers();
 
     return Hooks.applyFilter(
       "usersPageContent",
