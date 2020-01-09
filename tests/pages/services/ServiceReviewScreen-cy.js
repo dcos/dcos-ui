@@ -1630,5 +1630,47 @@ describe("Services", () => {
         .contents()
         .should("deep.equal", ["Not Enabled", "Not Enabled"]);
     });
+
+    describe("Virtual Bursting", () => {
+      it("is available in the Form", () => {
+        cy.contains("Single Container").click();
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .type("{selectall}1");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .type("{selectall}42");
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.get("#brace-editor")
+          .contents()
+          .asJson()
+          .should("deep.equal", [
+            {
+              id: "/",
+              instances: 1,
+              portDefinitions: [],
+              container: {
+                type: "MESOS",
+                volumes: []
+              },
+              cpus: 0.1,
+              mem: 128,
+              requirePorts: false,
+              networks: [],
+              healthChecks: [],
+              fetch: [],
+              constraints: [],
+              resourceLimits: {
+                cpus: 1,
+                mem: 42
+              }
+            }
+          ]);
+      });
+    });
   });
 });

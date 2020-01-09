@@ -1751,5 +1751,62 @@ describe("Services", () => {
           });
         });
     });
+
+    describe("Virtual Bursting", () => {
+      it("is available in the Form", () => {
+        cy.contains("Multi-container (Pod)").click();
+        cy.get(".menu-tabbed-item")
+          .contains("container-1")
+          .click();
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .type("{selectall}0.5");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .type("{selectall}42");
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.get("#brace-editor")
+          .contents()
+          .asJson()
+          .should("deep.equal", [
+            {
+              id: "/",
+              containers: [
+                {
+                  name: "container-1",
+                  resources: {
+                    cpus: 0.1,
+                    mem: 128
+                  },
+                  resourceLimits: {
+                    mem: 42,
+                    cpus: 0.5
+                  }
+                }
+              ],
+              scaling: {
+                instances: 1,
+                kind: "fixed"
+              },
+              networks: [
+                {
+                  mode: "host"
+                }
+              ],
+              volumes: [],
+              fetch: [],
+              scheduling: {
+                placement: {
+                  constraints: []
+                }
+              }
+            }
+          ]);
+      });
+    });
   });
 });
