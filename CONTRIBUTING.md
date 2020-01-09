@@ -388,6 +388,10 @@ We use cypress to drive a browser and run the unit tests for DC/OS UI. This is
 because we want to integrate our system as close as possible to the environment
 it will run, the user browser.
 
+```
+npx cypress open
+```
+
 ### Running Integration Tests
 
 #### Without Plugins
@@ -416,11 +420,13 @@ You should see a browser open and your tests running.
 #### Running a single integration test
 
 To run a single integration test, run the following command, where `Filename` is replaced by the name of the integration test you want to run, without `-cy` or `.js`.
+
 ```
 npm run test:integration:local -- -s Filename
 ```
 
 Example for running `../tests/pages/services/ServiceActions-cy.js`:
+
 ```
 npm run test:integration:local -- -s ServiceActions
 ```
@@ -474,6 +480,7 @@ page.
 Before you start, please make sure you are configured against a new and empty cluster (See `webpack/proxy.dev.js`).
 We need a real cluster to work with and the tests are going to make changes to that cluster.
 We also need to run these commands (replacing the cluster url with a real one):
+
 ```
 export CLUSTER_URL=http://example-cluster.com
 export PROXY_PORT="4200"
@@ -506,11 +513,13 @@ npm run test:system
 #### Running a single system test
 
 To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
+
 ```
 npm run test:system -- -s Filename -hn
 ```
 
 Example for running `../system-tests/services/test-jobs-cy.js`:
+
 ```
 npm run test:system -- -s "test-jobs" -hn
 ```

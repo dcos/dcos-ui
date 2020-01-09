@@ -186,7 +186,6 @@
     "build:validate": "scripts/validate-build dist/assets/*.js",
     "build": "npm run lint && npm test && npm run build:assets && npm run build:validate",
     "clean": "rm -rf dist locale/_build",
-    "cypress:open": "cypress open --config fixturesFolder=tests/_fixtures",
     "lint:commits": "./node_modules/.bin/commitlint",
     "lint:es": "eslint --ext .js",
     "lint:styles": "bash -c 'opts=$@ ; set -f; if [[ $# -lt 1 ]]; then opts=\"{src/styles,plugins,plugins-ee,packages}/**/*.less\"; fi ; stylelint ${opts}' 0",
