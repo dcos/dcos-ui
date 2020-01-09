@@ -13,6 +13,9 @@ exports[`tslint snapshot should be up to date 1`] = `
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts - require statement not part of an import statement
+/plugins-ee/soak-tests/strict/index.ts - Shadowed name: 'page'
+/plugins-ee/soak-tests/strict/index.ts - require statement not part of an import statement
+/plugins-ee/soak-tests/strict/index.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/AuthProviderActions.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
@@ -470,7 +473,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 26 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
@@ -491,8 +494,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 39 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 21 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 41 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Shadowed name: 'index'
