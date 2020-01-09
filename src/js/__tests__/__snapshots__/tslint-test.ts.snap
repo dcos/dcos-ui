@@ -168,7 +168,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/Container.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 26 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts - Shadowed name: 'index'
@@ -184,7 +184,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 39 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 41 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
@@ -192,7 +192,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 21 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
