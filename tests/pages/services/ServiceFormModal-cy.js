@@ -2223,4 +2223,212 @@ describe("Service Form Modal", () => {
       });
     });
   });
+  describe("Vertical Bursting", () => {
+    beforeEach(() => {
+      cy.configureCluster({
+        mesos: "1-empty-group",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview/create" });
+    });
+    describe("Single Container", () => {
+      it("is available in the Form", () => {
+        cy.contains("Single Container").click();
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='limits.cpus']")
+          .type("{selectall}1");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='limits.mem']")
+          .type("{selectall}42");
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.get("#brace-editor")
+          .contents()
+          .asJson()
+          .should("deep.equal", [
+            {
+              id: "/",
+              instances: 1,
+              portDefinitions: [],
+              container: {
+                type: "MESOS",
+                volumes: []
+              },
+              cpus: 0.1,
+              mem: 128,
+              requirePorts: false,
+              networks: [],
+              healthChecks: [],
+              fetch: [],
+              constraints: [],
+              resourceLimits: {
+                cpus: 1,
+                mem: 42
+              }
+            }
+          ]);
+      });
+      it("parses unlimited and number values", () => {
+        cy.contains("Single Container").click();
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.get(".ace_text-input")
+          .focus()
+          .type(
+            `{selectall}{backspace}{
+"id": "/",
+"instances": 1,
+"portDefinitions": [],
+"container": {
+"type": "MESOS",
+"volumes": []{downarrow}{end},
+"cpus": 0.1,
+"mem": 128,
+"requirePorts": false,
+"networks": [],
+"healthChecks": [],
+"fetch": [],
+"constraints": [],
+"resourceLimits": {
+"cpus": "unlimited",
+"mem": 42`,
+            { force: true }
+          );
+
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='limits.cpus.unlimited']")
+          .should("be.checked");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='limits.mem']")
+          .should("have.value", "42");
+      });
+    });
+    describe("Multi Container", () => {
+      it("is available in the Form", () => {
+        cy.contains("Multi-container (Pod)").click();
+        cy.get(".menu-tabbed-item")
+          .contains("container-1")
+          .click();
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='containers.0.limits.cpus']")
+          .type("{selectall}0.5");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='containers.0.limits.mem']")
+          .type("{selectall}42");
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.get("#brace-editor")
+          .contents()
+          .asJson()
+          .should("deep.equal", [
+            {
+              id: "/",
+              containers: [
+                {
+                  name: "container-1",
+                  resources: {
+                    cpus: 0.1,
+                    mem: 128
+                  },
+                  resourceLimits: {
+                    mem: 42,
+                    cpus: 0.5
+                  }
+                }
+              ],
+              scaling: {
+                instances: 1,
+                kind: "fixed"
+              },
+              networks: [
+                {
+                  mode: "host"
+                }
+              ],
+              volumes: [],
+              fetch: [],
+              scheduling: {
+                placement: {
+                  constraints: []
+                }
+              }
+            }
+          ]);
+      });
+
+      it("parses unlimited and number values", () => {
+        cy.contains("Multi-container (Pod)").click();
+        cy.get("label")
+          .contains("JSON Editor")
+          .click();
+
+        cy.window().then(window => {
+          const editor = window.ace.edit("brace-editor");
+
+          editor.setValue(
+            `{
+  "id": "/app-with-resource-limits",
+  "containers": [
+    {
+      "name": "container-1",
+      "resources": {
+        "cpus": 0.1,
+        "mem": 128
+      },
+      "resourceLimits": {
+        "cpus": "unlimited",
+        "mem": 42
+      }
+    }
+  ],
+  "scaling": {
+    "instances": 1,
+    "kind": "fixed"
+  },
+  "networks": [
+    {
+      "mode": "host"
+    }
+  ],
+  "volumes": [],
+  "fetch": [],
+  "scheduling": {
+    "placement": {
+      "constraints": []
+    }
+  }
+}`
+          );
+        });
+
+        cy.contains("container-1").click();
+
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='containers.0.limits.cpus.unlimited']")
+          .focus()
+          .should("be.checked");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='containers.0.limits.mem']")
+          .should("have.value", "42");
+      });
+    });
+  });
 });
