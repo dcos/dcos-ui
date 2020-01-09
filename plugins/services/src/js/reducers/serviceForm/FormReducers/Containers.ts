@@ -12,6 +12,11 @@ const containerReducer = combineReducers({
   disk: simpleReducer("resources.disk")
 });
 
+const limits = combineReducers({
+  cpus: simpleReducer("limits.cpus"),
+  mem: simpleReducer("limits.mem")
+});
+
 export function FormReducer(state, { type, path = [], value }) {
   const [_, index, field, subField] = path;
 
@@ -49,8 +54,8 @@ export function FormReducer(state, { type, path = [], value }) {
         this.cache.push({});
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => index !== value);
-        this.cache = this.cache.filter((item, index) => index !== value);
+        newState = newState.filter((_item, index) => index !== value);
+        this.cache = this.cache.filter((_item, index) => index !== value);
         break;
     }
 
@@ -109,6 +114,15 @@ export function FormReducer(state, { type, path = [], value }) {
     newState[index].resources = containerReducer.call(
       this.cache[index],
       newState[index].resources,
+      { type, value, path: [field, subField] }
+    );
+  }
+
+  if (type === SET && "limits" === field) {
+    // Parse numbers
+    newState[index].limits = limits.call(
+      this.cache[index],
+      newState[index].limits,
       { type, value, path: [field, subField] }
     );
   }
