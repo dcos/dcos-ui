@@ -192,7 +192,7 @@ plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'authen
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'emit' does not exist on type 'ACLAuthenticatedUserStore'.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'emit' does not exist on type 'ACLAuthenticatedUserStore'.
-plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, alinkColor, all, anchors, and 237 more.
+plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, activeElement, alinkColor, all, and 242 more.
 plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
@@ -561,7 +561,7 @@ plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'name' does 
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: Type 'string[]' is not assignable to type 'Direction[]'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isExpanded' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'clickHandler' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
@@ -600,7 +600,6 @@ plugins/licensing/stores/LicensingStore.ts: error TS2339: Property 'requestInter
 plugins/licensing/stores/LicensingStore.ts: error TS2339: Property 'requestInterval' does not exist on type 'LicensingStore'.
 plugins/licensing/stores/LicensingStore.ts: error TS2339: Property 'licensingSummary' does not exist on type 'LicensingStore'.
 plugins/networking/Reducer.ts: error TS1192: Module '\\"/plugins/networking/submodules/internal-load-balancing/Reducer\\"' has no default export.
-plugins/networking/Reducer.ts: error TS2339: Property 'internalLoadBalancing' does not exist on type '{}'.
 plugins/networking/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/networking/index.ts: error TS2306: File '/plugins/networking/SDK.ts' is not a module.
 plugins/networking/submodules/internal-load-balancing/__tests__/utils-test.ts: error TS2451: Cannot redeclare block-scoped variable 'DEFAULT_MAX_INTERVALS'.
@@ -829,17 +828,8 @@ plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2322: Type 'number' 
 plugins/nodes/src/js/components/NodesGridView.tsx: error TS2339: Property 'getItems' does not exist on type 'Node[]'.
 plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/__tests__/LeaderGrid-test.tsx: error TS2339: Property 'mockRestore' does not exist on type *.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Node'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Node'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Node'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
-plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2322: type * is not assignable to type 'Framework'.
+plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"healthy\\"' is not assignable to parameter of type 'undefined'.
 plugins/nodes/src/js/components/dsl/NodesHealthDSLSection.tsx: error TS2345: Argument of type '\\"unhealthy\\"' is not assignable to parameter of type 'undefined'.
@@ -1040,15 +1030,10 @@ plugins/oauth/hooks.tsx: error TS2345: Argument of type '\\"loginRedirectRoute\\
 plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
 plugins/oauth/hooks.tsx: error TS2350: Only a void function can be called with the 'new' keyword.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/acl/Reducer\\"' has no default export.
-plugins/organization/Reducer.ts: error TS2339: Property 'groups' does not exist on type '{}'.
-plugins/organization/Reducer.ts: error TS2339: Property 'serviceAccounts' does not exist on type '{}'.
-plugins/organization/Reducer.ts: error TS2339: Property 'users' does not exist on type '{}'.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/directories/Reducer\\"' has no default export.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/groups/Reducer\\"' has no default export.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/service-accounts/Reducer\\"' has no default export.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/users/Reducer\\"' has no default export.
-plugins/organization/Reducer.ts: error TS2339: Property 'acl' does not exist on type '{}'.
-plugins/organization/Reducer.ts: error TS2339: Property 'directories' does not exist on type '{}'.
 plugins/organization/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/organization/components/AccountActionsModal.tsx: error TS2417: Class static side 'typeof AccountsActionsModal' incorrectly extends base class static side 'typeof ActionsModal'.
 plugins/organization/components/AccountActionsModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'AccountsActionsModal'.
@@ -1897,7 +1882,7 @@ plugins/secrets/components/SecretFormModal.tsx: error TS2322: Type '\\"system-pa
 plugins/secrets/components/SecretStoresTable.tsx: error TS2339: Property 'className' does not exist on type *.
 plugins/secrets/components/SecretStoresTable.tsx: error TS2339: Property 'stores' does not exist on type *.
 plugins/secrets/components/SecretsError.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/SecretsSelect.tsx: error TS2322: Type 'Secret[]' is not assignable to type *.
+plugins/secrets/components/SecretsSelect.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/secrets/components/ServiceConfigSecretsExposedAsEnvironmentVariable.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/ServiceConfigSecretsExposedAsEnvironmentVariable.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/ServiceConfigSecretsExposedAsFile.tsx: error TS2322: type * is not assignable to type *.
@@ -1914,7 +1899,7 @@ plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Proper
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
-plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 284 more.
+plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
@@ -1933,7 +1918,7 @@ plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SecretExposureTypeSelect.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/SecretInput.tsx: error TS2322: Type 'RefObject<HTMLInputElement>' is not assignable to type 'string'.
-plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 284 more.
+plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
@@ -2379,7 +2364,6 @@ plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: err
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/ConfigurationMapTable-test.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/__tests__/FilterByFramework-test.tsx: error TS2322: type * is not assignable to type 'Framework[]'.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/__tests__/Highlight-test.tsx: error TS2322: type * is not assignable to type *.
@@ -3527,11 +3511,11 @@ plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zone
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
-plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
+plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
+plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
+plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
+plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'deployErrors' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.
@@ -3668,23 +3652,18 @@ plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'highlightText' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'task' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'watching' does not exist on type *.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
-plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
+plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
@@ -3765,21 +3744,8 @@ plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2683: 'this' imp
 plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS6133: '_' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2345: Argument of type '\\"containers\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never[]'.
+plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never[]'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS6133: '_' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS6133: '_index' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
@@ -3858,6 +3824,22 @@ plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS23
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'mode' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'containerPath' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'hostPath' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -3867,93 +3849,69 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type '\\"containers\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type '\\"volumeMounts\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type 'ReactText' is not assignable to parameter of type 'string'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'ReactText[]' is not assignable to type 'never[]'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'simpleIntReducer' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'ReactText[]' is not assignable to type 'never[]'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type '0' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheck' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheck' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifacts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'name' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'exec' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'exec' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resources' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resources' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS6133: '_' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2339: Property 'push' does not exist on type 'never'.
@@ -4109,6 +4067,36 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS26
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/MultiContainerConstraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
@@ -4217,8 +4205,6 @@ plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2339: Property 'fieldName' does not exist on type '{}'.
-plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2339: Property 'operator' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'artifacts' does not exist on type *.
@@ -4487,18 +4473,16 @@ plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2554: Exp
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/structs/__tests__/ServiceTree-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework[]'.
-plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2322: type * is not assignable to type 'Framework'.
-plugins/services/src/js/structs/__tests__/TaskDirectory-test.ts: error TS2322: type * is not assignable to type 'DirectoryItem[]'.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/ServicesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/structs/__tests__/TaskDirectory-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2322: type * is not assignable to type 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/utils/DeclinedOffersUtil.ts: error TS2531: Object is possibly 'null'.
@@ -4534,232 +4518,35 @@ plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'type' does no
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'directory' does not exist on type 'never'.
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'directory' does not exist on type 'never'.
 plugins/services/src/js/utils/TaskUtil.ts: error TS2339: Property 'ports' does not exist on type '{}'.
-plugins/services/src/js/utils/__tests__/InstanceUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-plugins/services/src/js/utils/__tests__/InstanceUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/utils/__tests__/InstanceUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'true' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'false' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'false' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'false' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+plugins/services/src/js/utils/__tests__/MarathonUtil-test.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/utils/__tests__/ServiceConfigUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/utils/__tests__/ServiceConfigUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
-plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
+plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Framework' is not assignable to parameter of type *.
 plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Application' is not assignable to parameter of type *.
 plugins/services/src/js/utils/__tests__/VipLabelUtil-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
@@ -5552,11 +5339,7 @@ src/js/components/__tests__/Authenticated-test.tsx: error TS2350: Only a void fu
 src/js/components/__tests__/Authenticated-test.tsx: error TS2339: Property 'willTransitionTo' does not exist on type *.
 src/js/components/__tests__/Authenticated-test.tsx: error TS6133: 'nextState' is declared but its value is never read.
 src/js/components/__tests__/BreadcrumbSegmentLink-test.tsx: error TS2739: type * is missing the following properties from type *: route, className, onClick
-src/js/components/__tests__/ComponentList-test.tsx: error TS2322: type * is not assignable to type 'HealthUnit'.
-src/js/components/__tests__/ComponentList-test.tsx: error TS2322: type * is not assignable to type 'HealthUnit'.
-src/js/components/__tests__/ComponentList-test.tsx: error TS2322: type * is not assignable to type 'HealthUnit'.
-src/js/components/__tests__/ComponentList-test.tsx: error TS2322: type * is not assignable to type 'HealthUnit'.
-src/js/components/__tests__/ComponentList-test.tsx: error TS2322: type * is not assignable to type 'HealthUnit'.
+src/js/components/__tests__/ComponentList-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/ExpandingTable-test.tsx: error TS2322: type * is not assignable to type *.
@@ -5744,7 +5527,6 @@ src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error T
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2571: Object is of type 'unknown'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2571: Object is of type 'unknown'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2322: type * is not assignable to type *.
-src/js/core/MesosStream.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Uint8Array'.
 src/js/core/MesosStream.ts: error TS2339: Property 'toObject' does not exist on type 'ReflectionObject'.
 src/js/core/MesosStream.ts: error TS2531: Object is possibly 'null'.
 src/js/core/MesosStream.ts: error TS2531: Object is possibly 'null'.
@@ -5792,12 +5574,7 @@ src/js/events/__tests__/SystemLogActions-test.ts: error TS2554: Expected 1-2 arg
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2345: Argument of type '\\"EventSource\\"' is not assignable to parameter of type *.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
-src/js/index.tsx: error TS2339: Property 'error' does not exist on type '{}'.
-src/js/index.tsx: error TS2339: Property 'error' does not exist on type '{}'.
-src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
-src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
-src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
-src/js/mesos-proto.ts: error TS2322: type * is not assignable to type 'IField'.
+src/js/mesos-proto.ts: error TS2326: Types of property 'nested' are incompatible.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'mesosState' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'mesosState' does not exist on type 'Readonly<{}>'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'dcosServices' does not exist on type 'Readonly<{}>'.
@@ -5867,7 +5644,7 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'runningPackag
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'string[]' is not assignable to type 'Direction[]'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isConfirmOpen' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
@@ -6226,7 +6003,7 @@ src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or mo
 src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, alinkColor, all, anchors, and 237 more.
+src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, activeElement, alinkColor, all, and 242 more.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2531: Object is possibly 'null'.
@@ -6250,7 +6027,7 @@ src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches thi
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2322: type * is not assignable to type 'Deployment'.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/stores/__tests__/GetSetBaseStore-test.ts: error TS2345: Argument of type '\\"foo\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type *.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type *.
@@ -6261,12 +6038,8 @@ src/js/stores/__tests__/NotificationStore-test.ts: error TS2554: Expected 1 argu
 src/js/stores/__tests__/NotificationStore-test.ts: error TS2554: Expected 1 arguments, but got 2.
 src/js/stores/__tests__/NotificationStore-test.ts: error TS2554: Expected 1 arguments, but got 2.
 src/js/stores/__tests__/SystemLogStore-test.ts: error TS2554: Expected 2 arguments, but got 1.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/stores/__tests__/SystemLogStore-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+src/js/stores/__tests__/SystemLogStore-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never[]'.
+src/js/stores/__tests__/SystemLogStore-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never[]'.
 src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2554: Expected 0 arguments, but got 1.
 src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'id' does not exist on type 'HealthUnit'.
 src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'name' does not exist on type 'HealthUnit'.
@@ -6297,14 +6070,12 @@ src/js/structs/CompositeState.ts: error TS2339: Property 'masterInfo' does not e
 src/js/structs/CompositeState.ts: error TS2339: Property 'nodeHealthData' does not exist on type 'CompositeState'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'position' does not exist on type 'ASTNode'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'children' does not exist on type 'ASTNode'.
-src/js/structs/DSLASTNodes.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-src/js/structs/DSLASTNodes.ts: error TS2322: Type 'any' is not assignable to type 'never'.
+src/js/structs/DSLASTNodes.ts: error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'never[]'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'combinerType' does not exist on type 'CombinerNode'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'filterParams' does not exist on type 'FilterNode'.
 src/js/structs/DSLExpression.ts: error TS6133: 'filters' is declared but its value is never read.
-src/js/structs/HealthUnit.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/structs/HealthUnit.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+src/js/structs/HealthUnit.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 src/js/structs/JobTaskList.ts: error TS2531: Object is possibly 'null'.
 src/js/structs/JobTaskList.ts: error TS2531: Object is possibly 'null'.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
@@ -6376,32 +6147,25 @@ src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filt
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterParams' does not exist on type 'FilterNode'.
 src/js/structs/__tests__/DSLExpressionPart-test.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
-src/js/structs/__tests__/HealthUnitList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
-src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2322: type * is not assignable to type 'HealthUnit[]'.
+src/js/structs/__tests__/HealthUnitList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/HealthUnitsList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'a' does not exist on type 'Item'.
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'b' does not exist on type 'Item'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/JobTaskList-test.ts: error TS2322: type * is not assignable to type 'JobTask'.
-src/js/structs/__tests__/List-test.ts: error TS2322: Type 'string' is not assignable to type *.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-src/js/structs/__tests__/NodesList-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
+src/js/structs/__tests__/JobTaskList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/JobTaskList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/List-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.
@@ -6483,8 +6247,6 @@ src/js/utils/JSONUtil.ts: error TS2322: Type 'any' is not assignable to type 'ne
 src/js/utils/JSONUtil.ts: error TS2322: Type 'number' is not assignable to type 'never'.
 src/js/utils/JestUtil.tsx: error TS2362: The left-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
 src/js/utils/JestUtil.tsx: error TS2363: The right-hand side of an arithmetic operation must be of type 'any', 'number', 'bigint' or an enum type.
-src/js/utils/JestUtil.tsx: error TS2339: Property 'timeZone' does not exist on type '{}'.
-src/js/utils/JestUtil.tsx: error TS2339: Property 'timeZone' does not exist on type '{}'.
 src/js/utils/JestUtil.tsx: error TS2741: Property 'supportedLocalesOf' is missing in type * but required in type *.
 src/js/utils/JestUtil.tsx: error TS2532: Object is possibly 'undefined'.
 src/js/utils/JestUtil.tsx: error TS2532: Object is possibly 'undefined'.
@@ -6658,21 +6420,15 @@ src/js/utils/__tests__/Maths-test.ts: error TS2554: Expected 2 arguments, but go
 src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2532: Object is possibly 'undefined'.
 src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2532: Object is possibly 'undefined'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
+src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 src/js/utils/__tests__/NetworkValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/ObjectUtil-test.ts: error TS2339: Property '___object_mark___' does not exist on type '{}'.
 src/js/utils/__tests__/ObjectUtil-test.ts: error TS2339: Property '___object_mark___' does not exist on type '{}'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'Parser'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'Parser'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'symbol'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Parser[]'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Parser[]'.
 src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'cmd' does not exist on type '{}'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'symbol'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Parser[]'.
 src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'container' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
@@ -6699,9 +6455,8 @@ src/js/utils/__tests__/RouterUtil-test.ts: error TS2339: Property 'buildBreadCru
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2339: Property 'buildBreadCrumb' does not exist on type *.
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/RouterUtil-test.ts: error TS2554: Expected 3 arguments, but got 2.
-src/js/utils/__tests__/StringUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-src/js/utils/__tests__/StringUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-src/js/utils/__tests__/StringUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
+src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
+src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
@@ -6712,13 +6467,12 @@ src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'nul
 src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type '{}' is not assignable to parameter of type 'never[]'.
-src/js/utils/__tests__/StringUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
-src/js/utils/__tests__/StringUtil-test.ts: error TS2322: Type 'number' is not assignable to type 'never'.
+src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/TableUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2532: Object is possibly 'undefined'.
 src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2339: Property 'type' does not exist on type *.
-src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
+src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 2.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 3.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 2.
