@@ -3,7 +3,8 @@ import HealthUnit from "./HealthUnit";
 import StringUtil from "../utils/StringUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 
-class HealthUnitsList extends List {
+export default class HealthUnitsList extends List<HealthUnit> {
+  static type = HealthUnit;
   filter(filters) {
     let components = this.getItems();
 
@@ -24,7 +25,3 @@ class HealthUnitsList extends List {
     return new HealthUnitsList({ items: components });
   }
 }
-
-HealthUnitsList.type = HealthUnit;
-
-export default HealthUnitsList;

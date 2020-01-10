@@ -4,7 +4,8 @@ import Node from "./Node";
 import StringUtil from "../utils/StringUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 
-class NodesList extends List {
+export default class NodesList extends List<Node> {
+  static type = Node;
   filter(filters) {
     let hosts = this.getItems();
 
@@ -54,7 +55,3 @@ class NodesList extends List {
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 }
-
-NodesList.type = Node;
-
-export default NodesList;

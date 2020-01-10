@@ -4,7 +4,8 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 import Framework from "./Framework";
 
-class ServicesList extends List {
+export default class ServicesList extends List<Framework> {
+  static type = Framework;
   filter(filters) {
     let services = this.getItems();
 
@@ -67,7 +68,3 @@ class ServicesList extends List {
     return tasks;
   }
 }
-
-ServicesList.type = Framework;
-
-export default ServicesList;

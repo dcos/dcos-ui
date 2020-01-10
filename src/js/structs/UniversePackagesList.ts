@@ -1,7 +1,8 @@
 import List from "./List";
 import UniversePackage from "./UniversePackage";
 
-class UniversePackagesList extends List {
+export default class UniversePackagesList extends List<UniversePackage> {
+  static type = UniversePackage;
   constructor(options = {}) {
     // Pass in overloaded options and the rest of the arguments
     super({
@@ -14,7 +15,3 @@ class UniversePackagesList extends List {
     });
   }
 }
-
-UniversePackagesList.type = UniversePackage;
-
-export default UniversePackagesList;

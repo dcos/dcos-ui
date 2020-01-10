@@ -1,7 +1,8 @@
 import List from "./List";
 import JobTask from "./JobTask";
 
-class JobTaskList extends List {
+export default class JobTaskList extends List<JobTask> {
+  static type = JobTask;
   getLongestRunningTask() {
     const sortedTasks = this.getItems().sort((a, b) => {
       if (a.getDateStarted() == null && b.getDateStarted() == null) {
@@ -22,7 +23,3 @@ class JobTaskList extends List {
     return sortedTasks[0];
   }
 }
-
-JobTaskList.type = JobTask;
-
-export default JobTaskList;

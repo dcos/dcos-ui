@@ -28,7 +28,7 @@ const NodePublicIp = React.memo(
 );
 
 const NodesTablePublicIpColumn = (item: Node) => {
-  const publicIps = item.getPublicIps() || [];
+  const publicIps = item.getPublicIps();
 
   return <NodePublicIp firstIp={publicIps[0]} allIps={publicIps.join(", ")} />;
 };

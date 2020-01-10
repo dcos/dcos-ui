@@ -2,7 +2,17 @@ import Item from "./Item";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 import { findNestedPropertyInObject } from "../utils/Util";
 
+type Stats = {
+  cpus: number;
+  mem: number;
+  gpus: number;
+  disk: number;
+};
+
 class Node extends Item {
+  resources?: Stats;
+  usedResources?: Stats;
+
   getID() {
     return this.get("id");
   }
@@ -15,10 +25,6 @@ class Node extends Item {
     const trimmedNodeID = decodeURIComponent(id).replace(/^\//, "");
 
     return encodeURIComponent(trimmedNodeID);
-  }
-
-  getServiceIDs() {
-    return this.get("framework_ids");
   }
 
   getDrainInfo() {
@@ -55,7 +61,7 @@ class Node extends Item {
     return nodeZoneName || "N/A";
   }
 
-  getUsageStats(resource) {
+  getUsageStats(resource: keyof Stats) {
     const total = (this.get("resources") || {})[resource];
     const value = (this.get("used_resources") || {})[resource];
 
@@ -108,11 +114,7 @@ class Node extends Item {
   }
 
   getPublicIps() {
-    if (!this.get("network")) {
-      return [];
-    }
-
-    return this.get("network").public_ips || [];
+    return this.get("network")?.public_ips || [];
   }
 }
 

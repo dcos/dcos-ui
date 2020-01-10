@@ -1,7 +1,8 @@
 import List from "./List";
 import Item from "./Item";
 
-class RepositoryList extends List {
+export default class RepositoryList extends List<Item> {
+  static type = Item;
   constructor(options = {}) {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
@@ -17,7 +18,3 @@ class RepositoryList extends List {
     return this.getItems().indexOf(repository);
   }
 }
-
-RepositoryList.type = Item;
-
-export default RepositoryList;

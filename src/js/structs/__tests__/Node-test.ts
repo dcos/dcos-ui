@@ -1,13 +1,6 @@
 import Node from "../Node";
 
 describe("Node", () => {
-  describe("#getServices", () => {
-    it("returns ids of services running on node", () => {
-      const node = new Node({ framework_ids: [1, 2, 3] });
-      expect(node.getServiceIDs()).toEqual([1, 2, 3]);
-    });
-  });
-
   describe("#getActive", () => {
     it("return false when node is inactive", () => {
       const node = new Node({ active: false });
