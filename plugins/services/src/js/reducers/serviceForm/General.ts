@@ -1,11 +1,8 @@
-import {
-  simpleReducer,
-  simpleFloatReducer,
-  simpleIntReducer
-} from "#SRC/js/utils/ReducerUtil";
+import { simpleReducer } from "#SRC/js/utils/ReducerUtil";
 import { FormReducer as constraints } from "./FormReducers/Constraints";
 import { FormReducer as fetch } from "./FormReducers/Artifacts";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
+import { resourceLimitReducer } from "./FormReducers/resourceLimits";
 
 export default {
   constraints,
@@ -19,7 +16,7 @@ export default {
   gpus: simpleReducer("gpus"),
   cmd: simpleReducer("cmd"),
   limits: combineReducers({
-    cpus: simpleFloatReducer("limits.cpus"),
-    mem: simpleIntReducer("limits.mem")
+    cpus: resourceLimitReducer("cpus", parseFloat),
+    mem: resourceLimitReducer("mem", parseInt)
   })
 };

@@ -276,15 +276,35 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               name="limits.cpus"
               step="0.01"
               type="number"
-              value={findNestedPropertyInObject(data, limitsPath + ".cpus")}
+              value={findNestedPropertyInObject(
+                data,
+                limitsPath + ".cpus.value"
+              )}
               autoFocus={Boolean(limitsErrors)}
+              disabled={
+                findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".cpus.unlimited"
+                ) === true
+              }
             />
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput
+                name="limits.cpus.unlimited"
+                type="checkbox"
+                checked={findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".cpus.unlimited"
+                )}
+              />
+              unlimited
+            </FieldLabel>
             <FieldError>{limitsErrors}</FieldError>
           </FormGroup>
           <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
             <FieldLabel className="text-no-transform">
               <FormGroupHeading>
-                <FormGroupHeadingContent primary={true}>
+                <FormGroupHeadingContent>
                   <Trans render="span">Memory (MiB)</Trans>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
@@ -292,11 +312,31 @@ class ContainerServiceFormAdvancedSection extends React.Component {
             <FieldInput
               min="0"
               name="limits.mem"
-              step="any"
+              step="0.01"
               type="number"
-              value={findNestedPropertyInObject(data, limitsPath + ".mem")}
+              value={findNestedPropertyInObject(
+                data,
+                limitsPath + ".mem.value"
+              )}
               autoFocus={Boolean(limitsErrors)}
+              disabled={
+                findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".mem.unlimited"
+                ) === true
+              }
             />
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput
+                name="limits.mem.unlimited"
+                type="checkbox"
+                checked={findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".mem.unlimited"
+                )}
+              />
+              unlimited
+            </FieldLabel>
             <FieldError>{limitsErrors}</FieldError>
           </FormGroup>
         </FormRow>

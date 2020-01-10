@@ -31,12 +31,12 @@ export default [
 
     if (state.resourceLimits.cpus != null) {
       transactions.push(
-        new Transaction(["limits.cpus"], state.resourceLimits.cpus)
+        new Transaction(["limits", "cpus"], state.resourceLimits.cpus)
       );
     }
     if (state.resourceLimits.mem != null) {
       transactions.push(
-        new Transaction(["limits.mem"], state.reosurceLimits.mem)
+        new Transaction(["limits", "mem"], state.resourceLimits.mem)
       );
     }
     return transactions;
