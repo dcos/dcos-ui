@@ -2334,4 +2334,93 @@ describe("Service Form Modal", () => {
       });
     });
   });
+  describe("Virtual Bursting", () => {
+    beforeEach(() => {
+      cy.configureCluster({
+        mesos: "1-empty-group",
+        nodeHealth: true
+      });
+      cy.visitUrl({ url: "/services/overview/create" });
+    });
+    it("is available in the Form", () => {
+      cy.contains("Single Container").click();
+      cy.contains("More Settings").click();
+      cy.root()
+        .getFormGroupInputFor("CPUs")
+        .filter("input[name='limits.cpus']")
+        .type("{selectall}1");
+      cy.root()
+        .getFormGroupInputFor("Memory (MiB)")
+        .filter("input[name='limits.mem']")
+        .type("{selectall}42");
+      cy.get("label")
+        .contains("JSON Editor")
+        .click();
+
+      cy.get("#brace-editor")
+        .contents()
+        .asJson()
+        .should("deep.equal", [
+          {
+            id: "/",
+            instances: 1,
+            portDefinitions: [],
+            container: {
+              type: "MESOS",
+              volumes: []
+            },
+            cpus: 0.1,
+            mem: 128,
+            requirePorts: false,
+            networks: [],
+            healthChecks: [],
+            fetch: [],
+            constraints: [],
+            resourceLimits: {
+              cpus: 1,
+              mem: 42
+            }
+          }
+        ]);
+    });
+    it("parses unlimited and number values", () => {
+      cy.contains("Single Container").click();
+      cy.get("label")
+        .contains("JSON Editor")
+        .click();
+
+      cy.get(".ace_text-input")
+        .focus()
+        .type(
+          `{selectall}{backspace}{
+"id": "/",
+"instances": 1,
+"portDefinitions": [],
+"container": {
+"type": "MESOS",
+"volumes": []{downarrow}{end},
+"cpus": 0.1,
+"mem": 128,
+"requirePorts": false,
+"networks": [],
+"healthChecks": [],
+"fetch": [],
+"constraints": [],
+"resourceLimits": {
+"cpus": "unlimited",
+"mem": 42`,
+          { force: true }
+        );
+
+      cy.contains("More Settings").click();
+      cy.root()
+        .getFormGroupInputFor("CPUs")
+        .filter("input[name='limits.cpus.unlimited']")
+        .should("be.checked");
+      cy.root()
+        .getFormGroupInputFor("Memory (MiB)")
+        .filter("input[name='limits.mem']")
+        .should("have.value", "42");
+    });
+  });
 });
