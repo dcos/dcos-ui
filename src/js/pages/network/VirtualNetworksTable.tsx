@@ -78,13 +78,7 @@ export default class VirtualNetworksTable extends React.Component<{
   }
 
   renderHeading(prop) {
-    return (
-      <Trans
-        id={headerMapping[prop]}
-        render="span"
-        className="table-header-title"
-      />
-    );
+    return <Trans id={headerMapping[prop]} className="table-header-title" />;
   }
 
   renderName(_prop: unknown, overlay: Overlay) {
