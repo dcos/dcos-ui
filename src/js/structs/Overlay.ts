@@ -1,32 +1,28 @@
-import Item from "./Item";
+export type APIResponse = {
+  readonly enabled?: boolean;
+  readonly name?: string;
+  readonly prefix?: number;
+  readonly prefix6?: string;
+  readonly subnet?: string;
+  readonly subnet6?: string;
+};
 
-export default class Overlay extends Item {
-  constructor(options = {}, ...args) {
-    // Make sure info is available in Overlay
-    if (!options.info) {
-      options.info = {};
-    }
+export type Overlay = {
+  readonly enabled?: boolean;
+  readonly name?: string;
+  readonly prefix?: number;
+  readonly prefix6?: string;
+  readonly subnet?: string;
+  readonly subnet6?: string;
+};
 
-    super(options, ...args);
-  }
-
-  getName() {
-    return this.get("info").name;
-  }
-
-  getPrefix() {
-    return this.get("info").prefix;
-  }
-
-  getSubnet() {
-    return this.get("info").subnet;
-  }
-
-  getPrefix6() {
-    return this.get("info").prefix6;
-  }
-
-  getSubnet6() {
-    return this.get("info").subnet6;
-  }
-}
+export const Overlay = {
+  from: (r: APIResponse): Overlay => ({
+    enabled: r.enabled,
+    name: r.name,
+    prefix: r.prefix,
+    prefix6: r.prefix6,
+    subnet: r.subnet,
+    subnet6: r.subnet6
+  })
+};

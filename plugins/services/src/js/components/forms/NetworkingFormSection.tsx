@@ -30,6 +30,7 @@ import { FormReducer as networks } from "../../reducers/serviceForm/FormReducers
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
+import { Overlay } from "#SRC/js/structs/Overlay";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
@@ -54,18 +55,15 @@ class NetworkingFormSection extends mixin(StoreMixin) {
 
   getHostPortFields(portDefinition, index) {
     let hostPortValue = portDefinition.hostPort;
-    const {
-      errors,
-      data: { portsAutoAssign }
-    } = this.props;
+    const { errors, data } = this.props;
     const hostPortError =
       findNestedPropertyInObject(errors, `portDefinitions.${index}.port`) ||
       findNestedPropertyInObject(
         errors,
         `container.portMappings.${index}.hostPort`
       );
-    const isInputDisabled = isHostNetwork(this.props.data)
-      ? portsAutoAssign
+    const isInputDisabled = isHostNetwork(data)
+      ? data.portsAutoAssign
       : portDefinition.automaticPort;
 
     let placeholder;
@@ -539,60 +537,31 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getVirtualNetworks() {
-    const mesosContainer =
-      findNestedPropertyInObject(this.props.data, `container.type`) === "MESOS";
     // Networks with subnet6 should be disabled when "UCR" container type is selected.
-    const virtualNetworkIsAvailable = (mesosContainer, subnet6) =>
-      !mesosContainer || !subnet6;
+    const isMesosContainer = this.props.data?.container?.type === "MESOS";
+    const isVirtualNetworkAvailable = (o: Overlay) =>
+      o.enabled && (!isMesosContainer || !o.subnet6);
 
     return VirtualNetworksStore.getOverlays()
-      .mapItems(overlay => {
-        const name = overlay.getName();
-
-        return {
-          enabled: overlay.info.enabled,
-          subnet6: overlay.getSubnet6(),
-          text: name,
-          value: `${CONTAINER}.${name}`
-        };
-      })
-      .filterItems(
-        virtualNetwork =>
-          virtualNetwork.enabled &&
-          virtualNetworkIsAvailable(mesosContainer, virtualNetwork.subnet6)
-      )
-      .getItems()
-      .map((virtualNetwork, index) => (
+      .filter(isVirtualNetworkAvailable)
+      .map(({ name }) => (
         <Trans
-          key={index}
-          render={<option key={index} value={virtualNetwork.value} />}
-        >
-          Virtual Network: {virtualNetwork.text}
-        </Trans>
+          id="Virtual Network: {0}"
+          key={name}
+          render={<option value={`${CONTAINER}.${name}`} />}
+          values={{ 0: name }}
+        />
       ));
   }
 
   getTypeSelections() {
-    const networkMode = findNestedPropertyInObject(
-      this.props.data,
-      "networks.0.mode"
-    );
-    const networkName = findNestedPropertyInObject(
-      this.props.data,
-      "networks.0.name"
-    );
-    const selectedValue = networkName
-      ? `${networkMode}.${networkName}`
-      : networkMode;
+    const { mode, name } = this.props.data?.networks?.[0] || {};
+    const selectedValue = name ? `${mode}.${name}` : mode;
 
     const selections = (
       <FieldSelect name="networks.0.network" value={selectedValue}>
-        <Trans key="host" render={<option value={HOST} key="host" />}>
-          Host
-        </Trans>
-        <Trans key="bridge" render={<option value={BRIDGE} key="bridge" />}>
-          Bridge
-        </Trans>
+        <Trans key="host" id="Host" render={<option value={HOST} />} />
+        <Trans key="bridge" id="Bridge" render={<option value={BRIDGE} />} />
         {this.getVirtualNetworks()}
       </FieldSelect>
     );

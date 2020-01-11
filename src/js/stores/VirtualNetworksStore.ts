@@ -12,16 +12,21 @@ import {
 } from "../constants/ActionTypes";
 import BaseStore from "./BaseStore";
 import Config from "../config/Config";
-import OverlayList from "../structs/OverlayList";
+import { Overlay } from "../structs/Overlay";
 import VirtualNetworksActions from "../events/VirtualNetworksActions";
 
-let fetchInterval = null;
+let fetchInterval: number | null = null;
 
 class VirtualNetworksStore extends BaseStore {
-  constructor(...args) {
-    super(...args);
+  overlays: Overlay[];
 
-    this.data = { overlays: [] };
+  storeID = "virtualNetworks";
+  fetch = VirtualNetworksActions.fetch;
+
+  constructor() {
+    super();
+
+    this.overlays = [];
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -37,20 +42,24 @@ class VirtualNetworksStore extends BaseStore {
     // Handle app actions
     AppDispatcher.register(({ source, action }) => {
       if (source !== SERVER_ACTION) {
-        return false;
+        return;
       }
       switch (action.type) {
         case REQUEST_VIRTUAL_NETWORKS_SUCCESS:
-          this.processVirtualNetworks(action.data);
+          this.overlays = action.data.map(Overlay.from);
+          this.emit(VIRTUAL_NETWORKS_CHANGE);
+
           break;
         case REQUEST_VIRTUAL_NETWORKS_ERROR:
-          this.processVirtualNetworksError(action.data);
+          this.emit(VIRTUAL_NETWORKS_REQUEST_ERROR, action.data);
           break;
       }
     });
   }
 
-  addChangeListener(eventName, callback) {
+  getOverlays = () => this.overlays;
+
+  addChangeListener(eventName: string, callback: () => void) {
     super.addChangeListener(eventName, callback);
 
     // Start polling if there is at least one listener
@@ -59,7 +68,7 @@ class VirtualNetworksStore extends BaseStore {
     }
   }
 
-  removeChangeListener(eventName, callback) {
+  removeChangeListener(eventName: string, callback: () => void) {
     super.removeChangeListener(eventName, callback);
 
     // Stop polling if no one is listening
@@ -90,35 +99,6 @@ class VirtualNetworksStore extends BaseStore {
       window.clearInterval(fetchInterval);
       fetchInterval = null;
     }
-  }
-
-  getOverlays() {
-    return new OverlayList({ items: this.data.overlays });
-  }
-
-  fetch(...args) {
-    return VirtualNetworksActions.fetch(...args);
-  }
-
-  processVirtualNetworks({
-    overlays,
-    vtep_mac_oui,
-    vtep_subnet,
-    vtep_subnet6
-  } = {}) {
-    this.data.overlays = overlays || [];
-    this.data.vtep_mac_oui = vtep_mac_oui;
-    this.data.vtep_subnet = vtep_subnet;
-    this.data.vtep_subnet6 = vtep_subnet6;
-    this.emit(VIRTUAL_NETWORKS_CHANGE);
-  }
-
-  processVirtualNetworksError(error) {
-    this.emit(VIRTUAL_NETWORKS_REQUEST_ERROR, error);
-  }
-
-  get storeID() {
-    return "virtualNetworks";
   }
 }
 

@@ -116,7 +116,6 @@ plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx: error
 plugins/catalog/src/js/repositories/components/AddRepositoryFormModal.tsx: error TS2339: Property 'pendingRequest' does not exist on type *.
 plugins/catalog/src/js/repositories/components/RepositoriesError.tsx: error TS2741: Property 'addButton' is missing in type * but required in type *.
 plugins/catalog/src/js/repositories/components/RepositoriesLoading.tsx: error TS2741: Property 'addButton' is missing in type * but required in type *.
-plugins/catalog/src/js/repositories/components/RepositoriesPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2339: Property 'addRepositoryModalOpen' does not exist on type 'Readonly<{}>'.
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2339: Property 'repositories' does not exist on type *.
@@ -190,9 +189,6 @@ plugins/jobs/src/js/JobDetailPageContainer.tsx: error TS2345: Argument of type *
 plugins/jobs/src/js/__tests__/jobsRunNow-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
-plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
@@ -201,7 +197,6 @@ plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assigna
 plugins/jobs/src/js/components/JobsFormConfig.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2769: No overload matches this call.
-plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS7030: Not all code paths return a value.
@@ -404,14 +399,12 @@ plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'select
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'jobRuns' does not exist on type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'routes' does not exist on type *.
-plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/jobs/src/js/pages/JobTaskDetailPage.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -432,7 +425,6 @@ plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'i18n' doe
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'units' does not exist on type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/HealthTab.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFilter' does not exist on type 'HealthTab'.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
@@ -441,10 +433,6 @@ plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFil
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFilter' does not exist on type 'HealthTab'.
 plugins/nodes/src/js/components/LeaderGrid.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/components/LeaderGrid.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/NodeBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/NodeBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/NodeBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/components/NodeBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/NodeBreadcrumbs.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2554: Expected 1-3 arguments, but got 0.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS6133: 'v' is declared but its value is never read.
@@ -516,7 +504,6 @@ plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Pr
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'totalNodeCount' does not exist on type *.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'viewTypeRadioButtons' does not exist on type *.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2769: No overload matches this call.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'serviceFilter' does not exist on type 'HostsPageContent'.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2769: No overload matches this call.
@@ -961,14 +948,11 @@ plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Propert
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'taskID' does not exist on type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'taskName' does not exist on type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'extra' does not exist on type *.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type 'null'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type 'null'.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'primaryBreadcrumbTextRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2554: Expected 1-2 arguments, but got 0.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'breadcrumbStatusRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'primaryBreadcrumbTextRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2769: No overload matches this call.
@@ -1204,6 +1188,7 @@ plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.t
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type 'string'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
@@ -1215,20 +1200,18 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'name' does not exist on type 'never'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'info' does not exist on type 'Overlay'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
@@ -1253,8 +1236,8 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -1262,11 +1245,8 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'info' does not exist on type 'Overlay'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -1915,7 +1895,6 @@ plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'selectedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'filterParams' does not exist on type 'never'.
-plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'pod' does not exist on type *.
@@ -2255,7 +2234,6 @@ plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property '
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'handleExpressionChange' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
@@ -2284,7 +2262,6 @@ plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS23
 plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS2339: Property 'volume' does not exist on type *.
 plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx: error TS2339: Property 'lastUpdate' does not exist on type 'Readonly<{}>'.
@@ -2306,7 +2283,6 @@ plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2339:
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2339: Property 'volume' does not exist on type *.
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2339: Property 'volume' does not exist on type *.
-plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/volume-detail/VolumeDetail.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/data/groups/__tests__/index-test.ts: error TS2345: Argument of type '{}' is not assignable to parameter of type *.
@@ -3488,7 +3464,6 @@ src/js/components/BatchContainer.tsx: error TS2339: Property 'batch' does not ex
 src/js/components/BatchContainer.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/BatchContainer.tsx: error TS2769: No overload matches this call.
 src/js/components/BatchContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-src/js/components/BreadcrumbCaret.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/ClickToSelect.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/ClickToSelect.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/ClickToSelect.tsx: error TS2339: Property 'nodeRef' does not exist on type 'ClickToSelect'.
@@ -3688,16 +3663,6 @@ src/js/components/FilterButtons.tsx: error TS2339: Property 'selectedFilter' doe
 src/js/components/FilterButtons.tsx: error TS2339: Property 'renderButtonContent' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'onReset' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'className' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'currentLength' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'isFiltering' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'name' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'totalLength' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
-src/js/components/FilterHeadline.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
@@ -4025,7 +3990,6 @@ src/js/components/PageHeaderActions.tsx: error TS2339: Property 'defaultProps' d
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'breadcrumbs' does not exist on type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'iconID' does not exist on type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'iconRoute' does not exist on type *.
-src/js/components/PageHeaderBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'items' does not exist on type *.
 src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'items' does not exist on type *.
@@ -4612,7 +4576,6 @@ src/js/pages/DashboardPage.tsx: error TS2339: Property 'props' does not exist on
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'state' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
-src/js/pages/DashboardPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'state' does not exist on type 'DashboardPage'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
 src/js/pages/Index.tsx: error TS2322: type * is not assignable to type *.
@@ -4673,14 +4636,12 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does n
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'null' is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'string[]' is not assignable to type 'Direction[]'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
@@ -4705,18 +4666,13 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'state' does not ex
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'state' does not exist on type 'PackagesTab'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
-src/js/pages/catalog/PackagesTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2605: JSX element type 'PackageDetailTab' is not a constructor function for JSX elements.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'store_listeners' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
@@ -4725,20 +4681,13 @@ src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' d
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
-src/js/pages/network/VirtualNetworksTable.tsx: error TS2339: Property 'overlays' does not exist on type *.
-src/js/pages/network/VirtualNetworksTable.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-src/js/pages/network/VirtualNetworksTable.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/pages/network/VirtualNetworksTable.tsx: error TS6133: 'prop' is declared but its value is never read.
+src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: Type 'boolean' is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlayID' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
@@ -4748,26 +4697,18 @@ src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS23
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type * but required in type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: Type 'boolean' is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2739: Type '{}' is missing the following properties from type *: overlayID, overlay, taskID, task
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'primary' does not exist on type '{}'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'secondary' does not exist on type '{}'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkTaskTab'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2613: Module '\\"/src/js/structs/Overlay\\"' has no default export. Did you mean to use 'import { Overlay } from \\"/src/js/structs/Overlay\\"' instead?
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS6133: 'prop' is declared but its value is never read.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkTaskTab'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkTaskTab'.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -4783,7 +4724,6 @@ src/js/pages/settings/UISettingsPage.tsx: error TS2322: type * is not assignable
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'configRefreshRateOpen' does not exist on type 'Readonly<{}>'.
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/settings/UISettingsPage.tsx: error TS2769: No overload matches this call.
-src/js/pages/settings/UISettingsPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/settings/UISettingsPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'configRefreshRateOpen' does not exist on type 'Readonly<{}>'.
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'i18n' does not exist on type *.
@@ -4796,9 +4736,6 @@ src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Prope
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthNodeDetail'.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthNodeDetail'.
-src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthNodeDetail'.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UnitsHealthNodeDetail'.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthNodeDetail'.
@@ -4854,10 +4791,9 @@ src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'setState' does 
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'setState' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'props' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
-src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type *.
+src/js/pages/system/OrganizationTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
-src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'store_listeners' does not exist on type 'OrganizationTab'.
@@ -4893,7 +4829,6 @@ src/js/pages/system/OverviewDetailTab.tsx: error TS2322: Type 'Element' is not a
 src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'OverviewDetailTab'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
-src/js/pages/system/OverviewDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'OverviewDetailTab'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'store_listeners' does not exist on type 'OverviewDetailTab'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'setState' does not exist on type 'OverviewDetailTab'.
@@ -4915,11 +4850,8 @@ src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'props' does n
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'healthFilter' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthDetail'.
@@ -4931,13 +4863,11 @@ src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'setState' does n
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'setState' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthTab'.
-src/js/pages/system/UnitsHealthTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
-src/js/pages/system/UnitsHealthTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'setState' does not exist on type 'UnitsHealthTab'.
@@ -4947,7 +4877,6 @@ src/js/pages/system/UsersPage.tsx: error TS2605: JSX element type 'OrganizationT
 src/js/pages/system/UsersPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/system/UsersPage.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/pages/system/UsersPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
-src/js/pages/system/UsersPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UsersPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UsersPage'.
 src/js/pages/system/UsersPage.tsx: error TS2339: Property 'state' does not exist on type 'UsersPage'.
 src/js/pages/system/UsersPage.tsx: error TS2339: Property 'setState' does not exist on type 'UsersPage'.
@@ -5147,21 +5076,6 @@ src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or mo
 src/js/stores/UsersStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not assignable to parameter of type 'never'.
-src/js/stores/VirtualNetworksStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/stores/VirtualNetworksStore.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
-src/js/stores/VirtualNetworksStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
-src/js/stores/VirtualNetworksStore.ts: error TS7030: Not all code paths return a value.
-src/js/stores/VirtualNetworksStore.ts: error TS2322: Type 'number' is not assignable to type 'null'.
-src/js/stores/VirtualNetworksStore.ts: error TS2769: No overload matches this call.
-src/js/stores/VirtualNetworksStore.ts: error TS2339: Property 'data' does not exist on type 'VirtualNetworksStore'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__mocks__/UserSettingsStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__tests__/AuthStore-test.ts: error TS2740: type * is missing the following properties from type 'Document': URL, activeElement, alinkColor, all, and 242 more.
@@ -5256,9 +5170,6 @@ src/js/structs/List.ts: error TS2339: Property 'type' does not exist on type 'Fu
 src/js/structs/NodesList.ts: error TS2339: Property 'id' does not exist on type 'Node'.
 src/js/structs/NodesList.ts: error TS2339: Property 'framework_ids' does not exist on type 'Node'.
 src/js/structs/NodesList.ts: error TS2551: Property 'used_resources' does not exist on type 'Node'. Did you mean 'usedResources'?
-src/js/structs/Overlay.ts: error TS2556: Expected 0-1 arguments, but got 2 or more.
-src/js/structs/Overlay.ts: error TS2339: Property 'info' does not exist on type '{}'.
-src/js/structs/Overlay.ts: error TS2339: Property 'info' does not exist on type '{}'.
 src/js/structs/RepositoryList.ts: error TS2339: Property 'filterProperties' does not exist on type '{}'.
 src/js/structs/RepositoryList.ts: error TS2556: Expected 0-1 arguments, but got 2 or more.
 src/js/structs/RepositoryList.ts: error TS2345: Argument of type 'IArguments' is not assignable to parameter of type 'number'.
@@ -5340,7 +5251,6 @@ src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is 
 src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-src/js/structs/__tests__/OverlayList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2339: Property 'isSnapshotSuccessful' does not exist on type '{}'.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/structs/__tests__/SummaryList-test.ts: error TS2554: Expected 3 arguments, but got 2.

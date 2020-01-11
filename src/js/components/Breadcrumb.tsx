@@ -1,11 +1,15 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 
-const Breadcrumb = props => {
-  const { children, isCaret, isIcon } = props;
+export default (props: {
+  children?: React.ReactNode;
+  isCaret?: boolean;
+  isIcon?: boolean;
+  title: string;
+}) => {
+  const { isCaret, isIcon } = props;
 
-  if (!children) {
+  if (!props.children) {
     return <noscript />;
   }
 
@@ -14,18 +18,5 @@ const Breadcrumb = props => {
     "breadcrumb--is-icon": isIcon
   });
 
-  return <div className={classes}>{children}</div>;
+  return <div className={classes}>{props.children}</div>;
 };
-
-Breadcrumb.defaultProps = {
-  isCaret: false,
-  isIcon: false
-};
-
-Breadcrumb.propTypes = {
-  isCaret: PropTypes.bool,
-  isIcon: PropTypes.bool,
-  title: PropTypes.string.isRequired
-};
-
-export default Breadcrumb;

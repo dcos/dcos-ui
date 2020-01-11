@@ -1114,87 +1114,69 @@ describe("Service Form Modal", () => {
           setRuntime("Docker Engine");
           openTab("Networking");
 
-          cy.get('select[name="networks.0.network"]').as(
-            "containerDockerNetwork"
-          );
+          cy.get('select[name="networks.0.network"]').as("networkType");
 
           // HOST
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(0)")
-            .should("have.value", "HOST")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "HOST");
 
           // BRIDGE
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(1)")
-            .should("have.value", "BRIDGE")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "BRIDGE");
 
           // CONTAINER.dcos-1
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(2)")
-            .should("have.value", "CONTAINER.dcos-1")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "CONTAINER.dcos-1");
 
           // User.dcos-2
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(3)")
-            .should("have.value", "CONTAINER.dcos-2")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "CONTAINER.dcos-2");
 
           // dcos-3
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(4)")
-            .should("have.value", "CONTAINER.dcos-3")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "CONTAINER.dcos-3");
 
           // dcos-4
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(5)")
-            .should("not.have.value", "CONTAINER.dcos-4");
+            .should("not.exist");
         });
 
         it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', () => {
           setRuntime("Universal Container Runtime (UCR)");
           openTab("Networking");
 
-          cy.get('select[name="networks.0.network"]').as(
-            "containerDockerNetwork"
-          );
+          cy.get('select[name="networks.0.network"]').as("networkType");
 
           // HOST
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(0)")
-            .should("have.value", "HOST")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "HOST");
 
           // BRIDGE
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(1)")
-            .should("have.value", "BRIDGE")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "BRIDGE");
 
           // CONTAINER.dcos-1
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(2)")
-            .should("have.value", "CONTAINER.dcos-1")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "CONTAINER.dcos-1");
 
           // User.dcos-2
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(3)")
-            .should("have.value", "CONTAINER.dcos-2")
-            .should("not.have.attr", "disabled");
+            .should("have.value", "CONTAINER.dcos-2");
 
           // dcos-3
-          cy.get("@containerDockerNetwork")
+          cy.get("@networkType")
             .children("option:eq(4)")
-            .should("not.have.value", "CONTAINER.dcos-3");
-
-          // dcos-4
-          cy.get("@containerDockerNetwork")
-            .children("option:eq(4)")
-            .should("not.have.value", "CONTAINER.dcos-4");
+            .should("not.exist");
         });
       });
 

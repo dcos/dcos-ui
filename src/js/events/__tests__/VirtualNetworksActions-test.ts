@@ -40,7 +40,7 @@ describe("VirtualNetworksActions", () => {
       const id = AppDispatcher.register(payload => {
         const action = payload.action;
         AppDispatcher.unregister(id);
-        expect(action.data).toEqual({ overlays: [] });
+        expect(action.data).toEqual([]);
       });
 
       thisConfiguration.success({ agents: [], network: { overlays: [] } });

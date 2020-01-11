@@ -23,7 +23,7 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   ];
 
   if (overlay) {
-    const name = overlay.getName();
+    const { name } = overlay;
     crumbs.push(
       <Breadcrumb key={1} title={name}>
         <BreadcrumbTextContent>
@@ -47,7 +47,9 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
   );
 };
 
-class VirtualNetworkDetail extends mixin(StoreMixin) {
+export default class VirtualNetworkDetail extends mixin(StoreMixin) {
+  static contextTypes = { router: routerShape };
+
   constructor(...args) {
     super(...args);
 
@@ -113,8 +115,8 @@ class VirtualNetworkDetail extends mixin(StoreMixin) {
       { label: i18nMark("Details"), routePath: `${prefix}/details` }
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().findItem(
-      overlay => overlay.getName() === this.props.params.overlayName
+    const overlay = VirtualNetworksStore.getOverlays().find(
+      ({ name }) => name === this.props.params.overlayName
     );
 
     return (
@@ -128,9 +130,3 @@ class VirtualNetworkDetail extends mixin(StoreMixin) {
     );
   }
 }
-
-VirtualNetworkDetail.contextTypes = {
-  router: routerShape
-};
-
-export default VirtualNetworkDetail;

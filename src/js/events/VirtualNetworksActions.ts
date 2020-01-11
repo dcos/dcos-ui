@@ -6,21 +6,16 @@ import {
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
+import { APIResponse } from "../structs/Overlay";
 
 const VirtualNetworksActions = {
   fetch() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.virtualNetworksApi}/state`,
-      success(response) {
-        let { overlays, vtep_mac_oui, vtep_subnet } = response.network;
-        // Map structure to mimic agents overlays
-        overlays = overlays.map(overlay => ({
-          info: overlay
-        }));
-
+      success(response: { network: { overlays: APIResponse } }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data: { overlays, vtep_mac_oui, vtep_subnet }
+          data: response.network.overlays || []
         });
       },
       error(xhr) {

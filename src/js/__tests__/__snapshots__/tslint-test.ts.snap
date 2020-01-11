@@ -86,7 +86,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'mesosContainer'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
@@ -296,8 +295,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
-/src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx - Shadowed name: 'overlay'
-/src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx - Shadowed name: 'overlay'
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
 /src/js/plugin-bridge/Loader.ts - require statement not part of an import statement
 /src/js/plugin-bridge/PluginSDK.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
