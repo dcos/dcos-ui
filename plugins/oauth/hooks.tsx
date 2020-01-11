@@ -88,10 +88,7 @@ export default {
   },
 
   serverErrorModalListeners(listeners) {
-    listeners.push({
-      name: "auth",
-      events: ["logoutError"]
-    });
+    listeners.push({ name: "auth", events: ["logoutError"] });
 
     return listeners;
   },
