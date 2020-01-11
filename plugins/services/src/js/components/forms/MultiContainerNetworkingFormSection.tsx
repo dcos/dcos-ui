@@ -36,24 +36,31 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
 
 const { CONTAINER, HOST } = Networking.type;
-const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
+
+const getVirtualNetworks = () =>
+  VirtualNetworksStore.getOverlays()
+    .filter(overlay => overlay.enabled && !overlay.subnet6)
+    .map(({ name }) => (
+      <Trans
+        id="Virtual Network: {0}"
+        key={name}
+        render={<option value={`${CONTAINER}.${name}`} />}
+        values={{ 0: name }}
+      />
+    ));
 
 class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+  constructor(props) {
+    super(props);
 
     this.store_listeners = [
       { name: "virtualNetworks", events: ["success"], suppressUpdate: true }
     ];
   }
 
-  onVirtualNetworksStoreSuccess() {
+  onVirtualNetworksStoreSuccess = () => {
     this.forceUpdate();
-  }
+  };
 
   getContainerPortField(endpoint, network, index, containerIndex, errors) {
     if (network !== CONTAINER) {
@@ -540,32 +547,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     });
   }
 
-  getVirtualNetworks() {
-    return VirtualNetworksStore.getOverlays()
-      .mapItems(overlay => {
-        const name = overlay.getName();
-
-        return {
-          enabled: overlay.info.enabled,
-          subnet6: overlay.getSubnet6(),
-          text: name,
-          value: `${CONTAINER}.${name}`
-        };
-      })
-      .filterItems(
-        virtualNetwork => virtualNetwork.enabled && !virtualNetwork.subnet6
-      )
-      .getItems()
-      .map((virtualNetwork, index) => (
-        <Trans
-          key={index}
-          render={<option key={index} value={virtualNetwork.value} />}
-        >
-          Virtual Network: {virtualNetwork.text}
-        </Trans>
-      ));
-  }
-
   getTypeSelections() {
     const networkType = findNestedPropertyInObject(
       this.props.data,
@@ -586,7 +567,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         <Trans key="host" render={<option value={HOST} key="host" />}>
           Host
         </Trans>
-        {this.getVirtualNetworks()}
+        {getVirtualNetworks()}
       </FieldSelect>
     );
   }

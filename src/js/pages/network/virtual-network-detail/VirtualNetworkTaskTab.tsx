@@ -154,7 +154,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       "table-cell-link-secondary": hierarchy.secondary
     });
 
-    const overlayName = this.props.overlay.getName();
+    const overlayName = this.props.overlay.name;
 
     return (
       <Link
@@ -273,7 +273,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     const tasks = MesosStateStore.getRunningTasksFromVirtualNetworkName(
-      overlay.getName()
+      overlay.name
     );
     const filteredTasks = this.getFilteredTasks(tasks, searchString);
 

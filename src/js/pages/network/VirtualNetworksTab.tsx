@@ -19,6 +19,27 @@ import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
 import VirtualNetworksStore from "../../stores/VirtualNetworksStore";
 import VirtualNetworksTable from "./VirtualNetworksTable";
+import { Overlay } from "src/js/structs/Overlay";
+
+// TODO: maybe abstract to a `searchInProps`?
+const getFilteredOverlayList = (overlayList: Overlay[], searchString = "") =>
+  searchString === ""
+    ? overlayList
+    : overlayList.filter(o =>
+        [o.name, o.subnet, o.subnet6].some(d => d?.includes(searchString))
+      );
+
+const emptyScreen = (
+  <AlertPanel>
+    <AlertPanelHeader>
+      <Trans render="span">No virtual networks detected</Trans>
+    </AlertPanelHeader>
+    <Trans render="p" className="flush">
+      There a currently no other virtual networks found on your datacenter.
+      Virtual networks are configured during setup of your DC/OS cluster.
+    </Trans>
+  </AlertPanel>
+);
 
 const NetworksBreadcrumbs = () => {
   const crumbs = [
@@ -37,16 +58,9 @@ const NetworksBreadcrumbs = () => {
   );
 };
 
-const METHODS_TO_BIND = [
-  "handleSearchStringChange",
-  "onVirtualNetworksStoreError",
-  "onVirtualNetworksStoreSuccess",
-  "resetFilter"
-];
-
 class VirtualNetworksTabContent extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     this.state = {
       receivedVirtualNetworks: false,
@@ -58,59 +72,28 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: "virtualNetworks", events: ["success", "error"], suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
-  handleSearchStringChange(searchString = "") {
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
+  };
 
-  onVirtualNetworksStoreError() {
+  onVirtualNetworksStoreError = () => {
     const errorCount = this.state.errorCount + 1;
     this.setState({ errorCount });
-  }
+  };
 
-  onVirtualNetworksStoreSuccess() {
+  onVirtualNetworksStoreSuccess = () => {
     this.setState({ receivedVirtualNetworks: true, errorCount: 0 });
-  }
+  };
 
   isLoading() {
     return !this.state.receivedVirtualNetworks;
   }
 
-  resetFilter() {
+  resetFilter = () => {
     this.setState({ searchString: "" });
-  }
-
-  getEmptyScreen() {
-    return (
-      <AlertPanel>
-        <AlertPanelHeader>
-          <Trans render="span">No virtual networks detected</Trans>
-        </AlertPanelHeader>
-        <Trans render="p" className="flush">
-          There a currently no other virtual networks found on your datacenter.
-          Virtual networks are configured during setup of your DC/OS cluster.
-        </Trans>
-      </AlertPanel>
-    );
-  }
-
-  getFilteredOverlayList(overlayList, searchString = "") {
-    if (searchString === "") {
-      return overlayList;
-    }
-
-    return overlayList.filterItems(
-      overlay =>
-        (overlay.getName() && overlay.getName().includes(searchString)) ||
-        (overlay.getSubnet() && overlay.getSubnet().includes(searchString)) ||
-        (overlay.getSubnet6() && overlay.getSubnet6().includes(searchString))
-    );
-  }
+  };
 
   render() {
     const { errorCount, searchString } = this.state;
@@ -124,15 +107,14 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     }
 
     const overlayList = VirtualNetworksStore.getOverlays();
-    const filteredOverlayList = this.getFilteredOverlayList(
+    const filteredOverlayList = getFilteredOverlayList(
       overlayList,
       searchString
     );
-    if (filteredOverlayList.length === 0) {
-      return this.getEmptyScreen();
-    }
 
-    return (
+    return filteredOverlayList.length === 0 ? (
+      emptyScreen
+    ) : (
       <Page>
         <Page.Header breadcrumbs={<NetworksBreadcrumbs />} />
         <div>
@@ -142,8 +124,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
           <FilterHeadline
             onReset={this.resetFilter}
             name={i18n._(t`Network`)}
-            currentLength={filteredOverlayList.getItems().length}
-            totalLength={overlayList.getItems().length}
+            currentLength={filteredOverlayList.length}
+            totalLength={overlayList.length}
           />
           <FilterBar>
             <FilterInputText

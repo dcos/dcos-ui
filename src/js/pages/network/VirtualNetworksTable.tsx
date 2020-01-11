@@ -2,11 +2,9 @@ import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
 import { routerShape, Link } from "react-router";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Table } from "reactjs-components";
-
-import OverlayList from "../../structs/OverlayList";
+import { Overlay } from "src/js/structs/Overlay";
 
 const headerMapping = {
   name: i18nMark("Name"),
@@ -14,7 +12,11 @@ const headerMapping = {
   prefix: i18nMark("Agent Prefix Length")
 };
 
-class VirtualNetworksTable extends React.Component {
+export default class VirtualNetworksTable extends React.Component<{
+  overlays: Overlay[];
+}> {
+  static contextTypes = { router: routerShape };
+
   getClassName(prop, sortBy) {
     return classNames({
       active: prop === sortBy.prop
@@ -28,9 +30,7 @@ class VirtualNetworksTable extends React.Component {
     return [
       {
         className: getClassName,
-        getValue(overlay) {
-          return overlay.getName();
-        },
+        getValue: overlay => overlay.name,
         headerClassName: getClassName,
         heading,
         prop: "name",
@@ -40,17 +40,17 @@ class VirtualNetworksTable extends React.Component {
       {
         className: getClassName,
         getValue(overlay) {
-          if (overlay.getSubnet() && overlay.getSubnet6()) {
+          if (overlay.subnet && overlay.subnet6) {
             return (
               <span>
-                IPv4: {overlay.getSubnet()}
+                IPv4: {overlay.subnet}
                 <br />
-                IPv6: {overlay.getSubnet6()}
+                IPv6: {overlay.subnet6}
               </span>
             );
           }
 
-          return overlay.getSubnet() || overlay.getSubnet6();
+          return overlay.subnet || overlay.subnet6;
         },
         headerClassName: getClassName,
         heading,
@@ -59,19 +59,16 @@ class VirtualNetworksTable extends React.Component {
       },
       {
         className: getClassName,
-        getValue(overlay) {
-          if (overlay.getPrefix() && overlay.getPrefix6()) {
-            return (
-              <span>
-                IPv4: {overlay.getPrefix()}
-                <br />
-                IPv6: {overlay.getPrefix6()}
-              </span>
-            );
-          }
-
-          return overlay.getPrefix() || overlay.getPrefix6();
-        },
+        getValue: overlay =>
+          overlay.prefix && overlay.prefix6 ? (
+            <span>
+              IPv4: {overlay.prefix}
+              <br />
+              IPv6: {overlay.prefix6}
+            </span>
+          ) : (
+            overlay.prefix || overlay.prefix6
+          ),
         headerClassName: getClassName,
         heading,
         prop: "prefix",
@@ -90,27 +87,15 @@ class VirtualNetworksTable extends React.Component {
     );
   }
 
-  renderName(prop, overlay) {
-    const overlayName = overlay.getName();
-
+  renderName(_prop: unknown, overlay: Overlay) {
     return (
       <Link
         className="table-cell-link-primary"
-        title={overlayName}
-        to={`/networking/networks/${overlayName}`}
+        title={overlay.name}
+        to={`/networking/networks/${overlay.name}`}
       >
-        {overlayName}
+        {overlay.name}
       </Link>
-    );
-  }
-
-  getColGroup() {
-    return (
-      <colgroup>
-        <col style={{ width: "30%" }} />
-        <col />
-        <col />
-      </colgroup>
     );
   }
 
@@ -119,19 +104,15 @@ class VirtualNetworksTable extends React.Component {
       <Table
         className="table table-flush table-borderless-outer table-borderless-inner-columns table-hover flush-bottom"
         columns={this.getColumns()}
-        colGroup={this.getColGroup()}
-        data={this.props.overlays.getItems()}
+        colGroup={
+          <colgroup>
+            <col style={{ width: "30%" }} />
+            <col />
+            <col />
+          </colgroup>
+        }
+        data={this.props.overlays}
       />
     );
   }
 }
-
-VirtualNetworksTable.contextTypes = {
-  router: routerShape
-};
-
-VirtualNetworksTable.propTypes = {
-  overlays: PropTypes.instanceOf(OverlayList)
-};
-
-export default VirtualNetworksTable;

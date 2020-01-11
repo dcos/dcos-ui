@@ -1,25 +1,27 @@
 import { Trans } from "@lingui/macro";
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
-
 import StringUtil from "../utils/StringUtil";
 
-const METHODS_TO_BIND = ["handleReset"];
+export default class FilterHeadline extends React.PureComponent<{
+  className?: string;
+  currentLength: number;
+  inverseStyle?: boolean;
+  // Optional prop used to force the "Clear" button to show even when n of n
+  // items are currently displayed.
+  isFiltering?: boolean;
+  name: string;
+  onReset: () => void;
+  totalLength: number;
+}> {
+  static defaultProps = {
+    inverseStyle: false
+  };
 
-class FilterHeadline extends React.PureComponent {
-  constructor(...args) {
-    super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-  }
-
-  handleReset(e) {
+  handleReset = (e: React.MouseEvent) => {
     e.preventDefault();
     this.props.onReset();
-  }
+  };
 
   render() {
     let {
@@ -75,21 +77,3 @@ class FilterHeadline extends React.PureComponent {
     );
   }
 }
-
-FilterHeadline.defaultProps = {
-  inverseStyle: false
-};
-
-FilterHeadline.propTypes = {
-  className: PropTypes.string,
-  currentLength: PropTypes.number.isRequired,
-  inverseStyle: PropTypes.bool,
-  // Optional prop used to force the "Clear" button to show even when n of n
-  // items are currently displayed.
-  isFiltering: PropTypes.bool,
-  name: PropTypes.string.isRequired,
-  onReset: PropTypes.func.isRequired,
-  totalLength: PropTypes.number.isRequired
-};
-
-export default FilterHeadline;

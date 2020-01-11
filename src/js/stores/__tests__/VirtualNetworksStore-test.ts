@@ -1,9 +1,12 @@
 import AppDispatcher from "../../events/AppDispatcher";
-import OverlayList from "../../structs/OverlayList";
 import VirtualNetworksStore from "../VirtualNetworksStore";
 import * as EventTypes from "../../constants/EventTypes";
-
 import * as ActionTypes from "../../constants/ActionTypes";
+
+const apiData = () => [
+  { name: "foo", prefix: 0, subnet: "bar" },
+  { name: "bar", prefix: 1, subnet: "baz" }
+];
 
 describe("VirtualNetworksStore", () => {
   beforeEach(() => {
@@ -21,60 +24,27 @@ describe("VirtualNetworksStore", () => {
 
   describe("#getOverlays", () => {
     it("returns the overlays", () => {
-      const data = {
-        overlays: [
-          { info: { name: "foo", prefix: 0, subnet: "bar" } },
-          { info: { name: "bar", prefix: 1, subnet: "baz" } }
-        ]
-      };
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-        data
+        data: apiData()
       });
 
-      expect(VirtualNetworksStore.getOverlays() instanceof OverlayList).toBe(
-        true
-      );
-
-      expect(
-        VirtualNetworksStore.getOverlays()
-          .getItems()[0]
-          .getName()
-      ).toEqual("foo");
-
-      expect(
-        VirtualNetworksStore.getOverlays()
-          .getItems()[0]
-          .getSubnet()
-      ).toEqual("bar");
+      const { name, subnet } = VirtualNetworksStore.getOverlays()[0];
+      expect(name).toEqual("foo");
+      expect(subnet).toEqual("bar");
     });
   });
 
   describe("dispatcher", () => {
     describe("fetch", () => {
       it("stores overlays when event is dispatched", () => {
-        const data = {
-          overlays: [
-            { info: { name: "foo", prefix: 0, subnet: "bar" } },
-            { info: { name: "bar", prefix: 1, subnet: "baz" } }
-          ]
-        };
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data
+          data: apiData()
         });
 
-        expect(
-          VirtualNetworksStore.getOverlays()
-            .getItems()[0]
-            .getName()
-        ).toEqual("foo");
-
-        expect(
-          VirtualNetworksStore.getOverlays()
-            .getItems()[1]
-            .getName()
-        ).toEqual("bar");
+        expect(VirtualNetworksStore.getOverlays()[0].name).toEqual("foo");
+        expect(VirtualNetworksStore.getOverlays()[1].name).toEqual("bar");
       });
 
       it("emits event after success event is dispatched", () => {
@@ -83,15 +53,9 @@ describe("VirtualNetworksStore", () => {
           EventTypes.VIRTUAL_NETWORKS_CHANGE,
           mockFn
         );
-        const data = {
-          overlays: [
-            { info: { name: "foo", prefix: 0, subnet: "bar" } },
-            { info: { name: "bar", prefix: 1, subnet: "baz" } }
-          ]
-        };
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data
+          data: apiData()
         });
 
         expect(mockFn.calls.count()).toBe(1);
