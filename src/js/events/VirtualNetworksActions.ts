@@ -1,5 +1,4 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
-
 import {
   REQUEST_VIRTUAL_NETWORKS_SUCCESS,
   REQUEST_VIRTUAL_NETWORKS_ERROR
@@ -11,7 +10,7 @@ import { APIResponse } from "../structs/Overlay";
 const VirtualNetworksActions = {
   fetch() {
     RequestUtil.json({
-      url: `${Config.rootUrl}${Config.virtualNetworksApi}/state`,
+      url: `${Config.rootUrl}/mesos/overlay-master/state`,
       success(response: { network: { overlays: APIResponse } }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_SUCCESS,

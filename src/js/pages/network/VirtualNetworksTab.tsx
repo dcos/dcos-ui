@@ -68,9 +68,8 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
       errorCount: 0
     };
 
-    // prettier-ignore
     this.store_listeners = [
-      {name: "virtualNetworks", events: ["success", "error"], suppressUpdate: true}
+      { name: "virtualNetworks", events: ["success", "error"] }
     ];
   }
 
