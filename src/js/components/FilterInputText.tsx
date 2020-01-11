@@ -13,79 +13,61 @@ import {
 import keyCodes from "#SRC/js/utils/KeyboardUtil";
 import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
-const METHODS_TO_BIND = [
-  "handleBlur",
-  "handleFocus",
-  "handleChange",
-  "handleInputClear",
-  "componentDidMount",
-  "handleKeyDown",
-  "componentWillUnmount"
-];
-
 class FilterInputText extends React.Component {
-  constructor(...args) {
-    super(...args);
+  inputField?: HTMLInputElement;
 
-    this.state = {
-      focus: false
-    };
+  constructor(props) {
+    super(props);
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+    this.state = { focus: false };
   }
 
-  componentDidMount() {
+  componentDidMount = () => {
     if (this.inputField) {
       this.inputField.addEventListener("keydown", this.handleKeyDown);
     }
-  }
+  };
 
-  handleKeyDown(event) {
+  handleKeyDown = event => {
     const { keyCode } = event;
     if (keyCode === keyCodes.enter && this.props.onEnter instanceof Function) {
       this.props.onEnter();
     }
-  }
+  };
 
-  componentWillUnmount() {
+  componentWillUnmount = () => {
     if (this.inputField) {
       this.inputField.removeEventListener("keydown", this.handleKeyDown);
     }
-  }
+  };
 
   componentDidUpdate(prevProps, prevState) {
     const { focus } = this.state;
 
-    if (prevState.focus !== focus && focus && this.inputField) {
+    if (prevState.focus === false && focus && this.inputField) {
       this.inputField.focus();
     }
   }
 
-  handleChange(event) {
+  handleChange = event => {
     const { target } = event;
 
     // Make sure to never emit falsy values
     const value = target.value || "";
     this.props.handleFilterChange(value, ServiceFilterTypes.TEXT);
-  }
+  };
 
-  handleInputClear() {
+  handleInputClear = () => {
     this.props.handleFilterChange("", ServiceFilterTypes.TEXT);
-  }
+  };
 
-  handleBlur() {
-    this.setState({
-      focus: false
-    });
-  }
+  handleBlur = () => {
+    this.setState({ focus: false });
+  };
 
-  handleFocus() {
-    this.setState({
-      focus: true
-    });
-  }
+  handleFocus = () => {
+    this.setState({ focus: true });
+  };
 
   getInputField() {
     const { inverseStyle, placeholder, searchString } = this.props;

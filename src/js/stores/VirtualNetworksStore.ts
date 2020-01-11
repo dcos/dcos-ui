@@ -44,7 +44,7 @@ class VirtualNetworksStore extends BaseStore {
       switch (action.type) {
         case REQUEST_VIRTUAL_NETWORKS_SUCCESS:
           this.overlays = action.data.map(Overlay.from);
-          this.emit(VIRTUAL_NETWORKS_CHANGE);
+          this.emit(VIRTUAL_NETWORKS_CHANGE, this.overlays);
 
           break;
         case REQUEST_VIRTUAL_NETWORKS_ERROR:

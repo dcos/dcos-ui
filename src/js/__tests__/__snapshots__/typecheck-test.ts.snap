@@ -1236,14 +1236,14 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -3663,32 +3663,25 @@ src/js/components/FilterButtons.tsx: error TS2339: Property 'selectedFilter' doe
 src/js/components/FilterButtons.tsx: error TS2339: Property 'renderButtonContent' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'sideText' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'inputContainerClass' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'onEnter' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'onEnter' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
 src/js/components/FilterInputText.tsx: error TS6133: 'prevProps' is declared but its value is never read.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputField' does not exist on type 'FilterInputText'.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'handleFilterChange' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'handleFilterChange' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'placeholder' does not exist on type *.
 src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
+src/js/components/FilterInputText.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
+src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
+src/js/components/FilterInputText.tsx: error TS2339: Property 'sideText' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'geminiRef' does not exist on type 'FluidGeminiScrollbar'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -5120,7 +5113,6 @@ src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'name' d
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'userID' is declared but its value is never read.
-src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'stopPolling' does not exist on type 'VirtualNetworksStore'.
 src/js/structs/Batch.ts: error TS2339: Property 'slice' does not exist on type 'Batch'.
 src/js/structs/Batch.ts: error TS2339: Property 'length' does not exist on type 'Batch'.
 src/js/structs/CompositeState.ts: error TS2551: Property '_data' does not exist on type 'CompositeState'. Did you mean 'data'?

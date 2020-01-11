@@ -34,22 +34,16 @@ import { Overlay } from "#SRC/js/structs/Overlay";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
-const METHODS_TO_BIND = ["onVirtualNetworksStoreSuccess"];
-
 class NetworkingFormSection extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-
     this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
   }
 
-  onVirtualNetworksStoreSuccess() {
+  onVirtualNetworksStoreSuccess = () => {
     this.forceUpdate();
-  }
+  };
 
   getHostPortFields(portDefinition, index) {
     let hostPortValue = portDefinition.hostPort;
