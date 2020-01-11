@@ -11,11 +11,8 @@ import {
   SERVER_ACTION
 } from "../constants/ActionTypes";
 import BaseStore from "./BaseStore";
-import Config from "../config/Config";
 import { Overlay } from "../structs/Overlay";
 import VirtualNetworksActions from "../events/VirtualNetworksActions";
-
-let fetchInterval: number | null = null;
 
 class VirtualNetworksStore extends BaseStore {
   overlays: Overlay[];
@@ -62,43 +59,13 @@ class VirtualNetworksStore extends BaseStore {
   addChangeListener(eventName: string, callback: () => void) {
     super.addChangeListener(eventName, callback);
 
-    // Start polling if there is at least one listener
-    if (this.shouldPoll()) {
-      this.startPolling();
+    if (this.listeners(VIRTUAL_NETWORKS_CHANGE).length === 1) {
+      VirtualNetworksActions.fetch();
     }
   }
 
   removeChangeListener(eventName: string, callback: () => void) {
     super.removeChangeListener(eventName, callback);
-
-    // Stop polling if no one is listening
-    if (!this.shouldPoll()) {
-      this.stopPolling();
-    }
-  }
-
-  shouldPoll() {
-    return this.listeners(VIRTUAL_NETWORKS_CHANGE).length > 0;
-  }
-
-  startPolling() {
-    if (fetchInterval) {
-      return;
-    }
-
-    VirtualNetworksActions.fetch();
-
-    fetchInterval = window.setInterval(
-      VirtualNetworksActions.fetch,
-      Config.getRefreshRate()
-    );
-  }
-
-  stopPolling() {
-    if (fetchInterval) {
-      window.clearInterval(fetchInterval);
-      fetchInterval = null;
-    }
   }
 }
 

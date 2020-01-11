@@ -19,7 +19,6 @@ describe("VirtualNetworksStore", () => {
 
   afterEach(() => {
     VirtualNetworksStore.removeAllListeners();
-    VirtualNetworksStore.stopPolling();
   });
 
   describe("#getOverlays", () => {
@@ -29,9 +28,8 @@ describe("VirtualNetworksStore", () => {
         data: apiData()
       });
 
-      const { name, subnet } = VirtualNetworksStore.getOverlays()[0];
-      expect(name).toEqual("foo");
-      expect(subnet).toEqual("bar");
+      const overlay = VirtualNetworksStore.getOverlays()[0];
+      expect(overlay).toMatchObject({ name: "foo", subnet: "bar" });
     });
   });
 

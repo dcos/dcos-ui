@@ -60,7 +60,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
 
     // prettier-ignore
     this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"], suppressUpdate: true }
+      { name: "virtualNetworks", events: ["success", "error"] }
     ];
   }
 

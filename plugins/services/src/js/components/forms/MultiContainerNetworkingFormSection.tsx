@@ -53,9 +53,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   constructor(props) {
     super(props);
 
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success"], suppressUpdate: true }
-    ];
+    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
   }
 
   onVirtualNetworksStoreSuccess = () => {

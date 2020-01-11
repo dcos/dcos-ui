@@ -44,9 +44,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       this[method] = this[method].bind(this);
     });
 
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success"], suppressUpdate: true }
-    ];
+    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
   }
 
   onVirtualNetworksStoreSuccess() {

@@ -38,7 +38,6 @@ interface IConfiguration {
   unitHealthAPIPrefix: string;
   useFixtures?: boolean;
   version: string;
-  virtualNetworksApi: string;
 }
 
 let Config: IConfiguration = {
@@ -70,7 +69,6 @@ let Config: IConfiguration = {
   unitHealthAPIPrefix: "/system/health/v1",
   logsAPIPrefix: "/system/v1/agent",
   version: "@@VERSION",
-  virtualNetworksApi: "/mesos/overlay-master",
   getRefreshRate() {
     return UserSettingsStore.RefreshRateSetting === null
       ? this.defaultRefreshRate

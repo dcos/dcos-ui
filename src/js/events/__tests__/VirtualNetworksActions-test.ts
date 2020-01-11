@@ -1,12 +1,7 @@
 import VirtualNetworksActions from "../VirtualNetworksActions";
 import AppDispatcher from "../AppDispatcher";
-
 import { RequestUtil } from "mesosphere-shared-reactjs";
-
 import * as ActionTypes from "../../constants/ActionTypes";
-import Config from "#SRC/js/config/Config";
-
-const { virtualNetworksApi } = Config;
 
 let thisConfiguration;
 
@@ -27,13 +22,6 @@ describe("VirtualNetworksActions", () => {
         );
       });
       thisConfiguration.success({ agents: [], network: { overlays: [] } });
-    });
-
-    it("requests the right URL", () => {
-      VirtualNetworksActions.fetch();
-      thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
-
-      expect(thisConfiguration.url).toEqual(virtualNetworksApi + "/state");
     });
 
     it("dispatches the correct data when successful", () => {

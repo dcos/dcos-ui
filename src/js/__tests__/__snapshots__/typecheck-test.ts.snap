@@ -1205,9 +1205,9 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -1237,17 +1237,17 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'string' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -4668,7 +4668,6 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2322: type * is not assignable to 
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2605: JSX element type 'PackageDetailTab' is not a constructor function for JSX elements.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
@@ -4682,12 +4681,13 @@ src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' d
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'setState' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworksTabContent'.
+src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
+src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlayID' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
@@ -4696,7 +4696,6 @@ src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS23
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkDetail'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkDetail'.
-src/js/pages/network/virtual-network-detail/VirtualNetworkDetail.tsx: error TS2741: Property 'overlay' is missing in type * but required in type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2605: JSX element type 'TaskDetail' is not a constructor function for JSX elements.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskPage.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'primary' does not exist on type '{}'.
@@ -5121,6 +5120,7 @@ src/js/stores/__tests__/UnitHealthStore-test.ts: error TS2339: Property 'name' d
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'errorMsg' is declared but its value is never read.
 src/js/stores/__tests__/UserStore-test.ts: error TS6133: 'userID' is declared but its value is never read.
+src/js/stores/__tests__/VirtualNetworksStore-test.ts: error TS2339: Property 'stopPolling' does not exist on type 'VirtualNetworksStore'.
 src/js/structs/Batch.ts: error TS2339: Property 'slice' does not exist on type 'Batch'.
 src/js/structs/Batch.ts: error TS2339: Property 'length' does not exist on type 'Batch'.
 src/js/structs/CompositeState.ts: error TS2551: Property '_data' does not exist on type 'CompositeState'. Did you mean 'data'?
