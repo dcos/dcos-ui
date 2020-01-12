@@ -38,8 +38,7 @@ import defaultServiceImage from "#PLUGINS/services/src/img/icon-service-default-
 import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import * as LastUpdated from "#SRC/js/components/LastUpdated";
 import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
-
-const semver = require("semver");
+import * as semver from "semver/preload";
 
 const runningServicesNames = (labels = []) =>
   labels
