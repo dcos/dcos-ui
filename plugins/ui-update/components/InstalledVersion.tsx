@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Trans } from "@lingui/macro";
-import * as semver from "semver";
+import * as semver from "semver/preload";
 
 import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";

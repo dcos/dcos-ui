@@ -80,7 +80,7 @@
     "redux": "4.0.5",
     "reflect-metadata": "0.1.13",
     "rxjs": "6.5.4",
-    "semver": "5.5.0",
+    "semver": "7.1.1",
     "svg-inline-loader": "0.8.0",
     "symbol-observable": "1.2.0"
   },

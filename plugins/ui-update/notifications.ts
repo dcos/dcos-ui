@@ -1,7 +1,7 @@
 import { injectable, inject, Container } from "inversify";
 import { I18n, i18nMark } from "@lingui/core";
 
-import * as semver from "semver";
+import * as semver from "semver/preload";
 import { Unsubscribable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import {
