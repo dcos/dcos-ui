@@ -285,7 +285,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/index.tsx - non-arrow functions are forbidden
 /src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
 /src/js/pages/catalog/PackageDetailTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/pages/catalog/PackageDetailTab.tsx - require statement not part of an import statement
 /src/js/pages/catalog/PackageDetailTab.tsx - Shadowed name: 'dependency'
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.

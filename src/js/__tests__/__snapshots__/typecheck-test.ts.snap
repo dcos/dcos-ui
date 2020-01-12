@@ -3441,9 +3441,6 @@ plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
-plugins/ui-update/utils/index.ts: error TS2531: Object is possibly 'null'.
-plugins/ui-update/utils/index.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/ui-update/utils/index.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/components/AccessDeniedPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/BaseConfig.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/BaseConfig.tsx: error TS2322: type * is not assignable to type *.
@@ -4614,9 +4611,9 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'nul
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'key' does not exist on type 'never'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'value' does not exist on type 'never'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'props' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
