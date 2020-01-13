@@ -554,6 +554,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       <FieldSelect name="networks.0.network" value={selectedValue}>
         <Trans key="host" id="Host" render={<option value={HOST} />} />
         <Trans key="bridge" id="Bridge" render={<option value={BRIDGE} />} />
+        <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
         {this.getVirtualNetworks()}
       </FieldSelect>
     );
