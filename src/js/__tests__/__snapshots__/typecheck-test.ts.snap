@@ -1201,9 +1201,8 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
