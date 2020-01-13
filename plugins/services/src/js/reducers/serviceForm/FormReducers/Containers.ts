@@ -5,6 +5,7 @@ import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
 import { FormReducer as endpointsFormReducer } from "./Endpoints";
 import { FormReducer as multiContainerArtifacts } from "./MultiContainerArtifacts";
 import { FormReducer as multiContainerHealthFormReducer } from "../MultiContainerHealthChecks";
+import { resourceLimitReducer } from "./resourceLimits";
 
 const containerReducer = combineReducers({
   cpus: simpleReducer("resources.cpus"),
@@ -13,12 +14,16 @@ const containerReducer = combineReducers({
 });
 
 const limits = combineReducers({
-  cpus: simpleReducer("limits.cpus"),
-  mem: simpleReducer("limits.mem")
+  cpus: resourceLimitReducer("cpus"),
+  mem: resourceLimitReducer("mem")
 });
 
-export function FormReducer(state, { type, path = [], value }) {
-  const [_, index, field, subField] = path;
+export function FormReducer(
+  this: { cache: null | any[]; healthCheckState: null | any[] },
+  state: any,
+  { type, path, value }: { type: symbol; path: string[]; value: any }
+) {
+  const [, index, field, subField] = path || [];
 
   if (!path.includes("containers")) {
     return state;
@@ -54,8 +59,12 @@ export function FormReducer(state, { type, path = [], value }) {
         this.cache.push({});
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((_item, index) => index !== value);
-        this.cache = this.cache.filter((_item, index) => index !== value);
+        newState = newState.filter(
+          (_: any, itemIndex: number) => itemIndex !== value
+        );
+        this.cache = this.cache.filter(
+          (_item, itemIndex: number) => itemIndex !== value
+        );
         break;
     }
 

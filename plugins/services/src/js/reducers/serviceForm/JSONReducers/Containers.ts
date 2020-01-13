@@ -20,6 +20,7 @@ import {
 } from "../MultiContainerHealthChecks";
 import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../../utils/VipLabelUtil";
+import { JSONReducer as resourceLimitsReducer } from "./resourceLimits";
 
 const { CONTAINER, HOST } = Networking.type;
 
@@ -29,10 +30,10 @@ const containerFloatReducer = combineReducers({
   disk: simpleFloatReducer("resources.disk")
 });
 
-const resourceLimitsReducer = combineReducers({
-  cpus: simpleFloatReducer("limits.cpus"),
-  mem: simpleIntReducer("limits.mem")
-});
+// const resourceLimitsReducer = combineReducers({
+//   cpus: simpleFloatReducer("limits.cpus"),
+//   mem: simpleIntReducer("limits.mem")
+// });
 
 function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
@@ -357,9 +358,14 @@ function shouldDeleteContainerImage(image) {
 }
 
 export function JSONReducer(
-  state = [],
-  { type, path = [], value },
-  containerIndex
+  this: { networkType: string },
+  state: any[] = [],
+  {
+    type,
+    path = [],
+    value
+  }: { type: symbol; path: Array<string | number>; value: unknown },
+  containerIndex: number
 ) {
   if (containerIndex === 0) {
     state = [];

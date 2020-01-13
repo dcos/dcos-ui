@@ -35,6 +35,7 @@ const getForcePullSection = (data, path) => {
 
 const MultiContainerFormAdvancedSection = ({ data, path }) => {
   const limitsPath = `${path}.limits`;
+  console.log(data);
   return (
     <div>
       <Trans render="h2" className="short-top short-bottom">
@@ -49,22 +50,45 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
       <FormRow>
         <FormGroup className="column-4">
           <FieldLabel className="text-no-transform">
-            <FormGroupHeadingContent>
-              <Trans render="span">CPUs</Trans>
-            </FormGroupHeadingContent>
+            <FormGroupHeading>
+              <FormGroupHeadingContent>
+                <Trans render="span">CPUs</Trans>
+              </FormGroupHeadingContent>
+            </FormGroupHeading>
           </FieldLabel>
           <FieldInput
             min="0"
             name={`${limitsPath}.cpus`}
             step="0.01"
             type="number"
-            value={findNestedPropertyInObject(data, limitsPath + ".cpus")}
+            value={
+              findNestedPropertyInObject(data, limitsPath + ".cpus.value") || ""
+            }
+            disabled={
+              findNestedPropertyInObject(
+                data,
+                limitsPath + ".cpus.unlimited"
+              ) === true
+            }
           />
+          <FieldLabel matchInputHeight={true}>
+            <FieldInput
+              name={`${limitsPath}.cpus.unlimited`}
+              type="checkbox"
+              checked={
+                !!findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".cpus.unlimited"
+                )
+              }
+            />
+            unlimited
+          </FieldLabel>
         </FormGroup>
         <FormGroup className="column-4">
           <FieldLabel className="text-no-transform">
             <FormGroupHeading>
-              <FormGroupHeadingContent primary={true}>
+              <FormGroupHeadingContent>
                 <Trans render="span">Memory (MiB)</Trans>
               </FormGroupHeadingContent>
             </FormGroupHeading>
@@ -72,10 +96,31 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
           <FieldInput
             min="0"
             name={`${limitsPath}.mem`}
-            step="any"
+            step="0.01"
             type="number"
-            value={findNestedPropertyInObject(data, limitsPath + ".mem")}
+            value={
+              findNestedPropertyInObject(data, limitsPath + ".mem.value") || ""
+            }
+            disabled={
+              findNestedPropertyInObject(
+                data,
+                limitsPath + ".mem.unlimited"
+              ) === true
+            }
           />
+          <FieldLabel matchInputHeight={true}>
+            <FieldInput
+              name={`${limitsPath}.mem.unlimited`}
+              type="checkbox"
+              checked={
+                !!findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".mem.unlimited"
+                )
+              }
+            />
+            unlimited
+          </FieldLabel>
         </FormGroup>
       </FormRow>
     </div>
