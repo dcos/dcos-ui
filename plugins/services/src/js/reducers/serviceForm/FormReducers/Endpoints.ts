@@ -17,10 +17,13 @@ const defaultEndpointsFieldValues = {
   vipPort: null,
 };
 
-export function FormReducer(state = [], { type, path = [], value }) {
-  let newState = [].concat(state);
+export function FormReducer(
+  state = [],
+  { type, path = [], value }: { type: symbol; path: string[]; value: any }
+) {
+  let newState: any[] = [].concat(state);
 
-  const [_, _index, field, secondIndex, name, subField] = path;
+  const [, , field, secondIndex, name, subField] = path;
 
   if (field !== "endpoints") {
     return state;
@@ -37,7 +40,7 @@ export function FormReducer(state = [], { type, path = [], value }) {
       newState.push(endpointDefinition);
       break;
     case REMOVE_ITEM:
-      newState = newState.filter((item, index) => index !== value);
+      newState = newState.filter((_, index) => index !== value);
       break;
   }
 
