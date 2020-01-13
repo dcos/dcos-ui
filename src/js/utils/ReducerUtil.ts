@@ -74,49 +74,28 @@ export function combineReducers(reducers = {}) {
  */
 export function parseIntValue(value) {
   const parsedValue = parseInt(value, 10);
-  if (!isNaN(parsedValue)) {
-    return parsedValue;
-  }
-
-  return value;
+  return !isNaN(parsedValue) ? parsedValue : value;
 }
 
-export function simpleReducer(needle, defaultState = "") {
-  return (state = defaultState, { path, type, value }) => {
-    if (type === TransactionTypes.SET && path.join(".") === needle) {
-      return value;
-    }
+export function parseFloatValue(value) {
+  const parsedValue = parseFloat(value);
+  return !isNaN(parsedValue) ? parsedValue : value;
+}
 
-    return state;
-  };
+const isSetOnNeedle = (needle, { type, path }) =>
+  type === TransactionTypes.SET && path.join(".") === needle;
+
+export function simpleReducer(needle, defaultState = "") {
+  return (state = defaultState, opts) =>
+    isSetOnNeedle(needle, opts) ? opts.value : state;
 }
 
 export function simpleIntReducer(needle, defaultState = "") {
-  return (state = defaultState, { path, type, value }) => {
-    const parsedValue = parseInt(value, 10);
-    if (type === TransactionTypes.SET && path.join(".") === needle) {
-      if (!isNaN(parsedValue)) {
-        return parsedValue;
-      }
-
-      return value;
-    }
-
-    return state;
-  };
+  return (state = defaultState, opts) =>
+    isSetOnNeedle(needle, opts) ? parseIntValue(opts.value) : state;
 }
 
 export function simpleFloatReducer(needle, defaultState = "") {
-  return (state = defaultState, { path, type, value }) => {
-    const parsedValue = parseFloat(value);
-    if (type === TransactionTypes.SET && path.join(".") === needle) {
-      if (!isNaN(parsedValue)) {
-        return parsedValue;
-      }
-
-      return value;
-    }
-
-    return state;
-  };
+  return (state = defaultState, opts) =>
+    isSetOnNeedle(needle, opts) ? parseFloatValue(opts.value) : state;
 }
