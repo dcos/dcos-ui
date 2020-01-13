@@ -46,12 +46,6 @@ packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'de
 packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'definition' does not exist on type 'RoutingService'.
 packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'instance' does not exist on type 'RoutingService'.
 packages/foundation-ui/src/utils/ReactUtil.ts: error TS2554: Expected 1 arguments, but got 2.
-plugins-ee/soak-tests/strict/index.ts: error TS2769: No overload matches this call.
-plugins-ee/soak-tests/strict/index.ts: error TS2769: No overload matches this call.
-plugins-ee/soak-tests/strict/index.ts: error TS2349: This expression is not callable.
-plugins-ee/soak-tests/strict/index.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
-plugins-ee/soak-tests/strict/index.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
-plugins-ee/soak-tests/strict/index.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
 plugins/auth-providers/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/auth-providers/actions/AuthProviderActions.ts: error TS2339: Property 'oidc' does not exist on type '{}'.
 plugins/auth-providers/actions/AuthProviderActions.ts: error TS2339: Property 'saml' does not exist on type '{}'.
@@ -1906,7 +1900,7 @@ plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Proper
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
-plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: form, select, style, title, and 289 more.
+plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
@@ -1925,7 +1919,7 @@ plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SecretExposureTypeSelect.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/SecretInput.tsx: error TS2322: Type 'RefObject<HTMLInputElement>' is not assignable to type 'string'.
-plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: form, select, style, title, and 289 more.
+plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
@@ -3752,27 +3746,6 @@ plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2683: 'this' imp
 plugins/services/src/js/reducers/serviceForm/Docker.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS6133: '_' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2345: Argument of type '\\"containers\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS6133: '_' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS6133: '_index' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS2339: Property 'protocol' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/Endpoints.ts: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2322: Type 'null' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS2322: Type 'null' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts: error TS6133: 'item' is declared but its value is never read.
@@ -3805,12 +3778,6 @@ plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS232
 plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2339: Property 'key' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts: error TS2339: Property 'value' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS2322: Type 'null' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS6133: '_' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS6133: '_index' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/FormReducers/MultiContainerArtifacts.ts: error TS6133: '_subField' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts: error TS6133: 'item' is declared but its value is never read.
@@ -3844,6 +3811,22 @@ plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS23
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'mode' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'containerPath' does not exist on type 'never'.
 plugins/services/src/js/reducers/serviceForm/FormReducers/Volumes.ts: error TS2339: Property 'hostPath' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -3853,96 +3836,69 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts: error TS
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type '\\"containers\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type '\\"volumeMounts\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type * is not assignable to parameter of type 'string'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'simpleIntReducer' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheck' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheck' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifacts' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'name' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type '0' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'exec' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'exec' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resources' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resources' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resourceLimits' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'resourceLimits' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'image' does not exist on type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS6133: '_' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2322: Type 'never[]' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts: error TS2339: Property 'push' does not exist on type 'never'.
@@ -4098,6 +4054,36 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS26
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/__tests__/Containers-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/reducers/serviceForm/MultiContainerConstraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
 plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts: error TS2345: Argument of type 'Transaction' is not assignable to parameter of type 'never'.
