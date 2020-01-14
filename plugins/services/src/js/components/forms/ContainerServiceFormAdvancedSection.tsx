@@ -278,7 +278,12 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               type="number"
               value={
                 findNestedPropertyInObject(data, limitsPath + ".cpus.value") ||
-                ""
+                (findNestedPropertyInObject(
+                  data,
+                  limitsPath + ".cpus.value"
+                ) === 0
+                  ? 0
+                  : "")
               }
               autoFocus={Boolean(limitsErrors)}
               disabled={
@@ -316,7 +321,10 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               type="number"
               value={
                 findNestedPropertyInObject(data, limitsPath + ".mem.value") ||
-                ""
+                (findNestedPropertyInObject(data, limitsPath + ".mem.value") ===
+                0
+                  ? 0
+                  : "")
               }
               autoFocus={Boolean(limitsErrors)}
               disabled={
