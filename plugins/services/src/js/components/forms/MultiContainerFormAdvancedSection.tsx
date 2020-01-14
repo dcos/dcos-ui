@@ -35,7 +35,6 @@ const getForcePullSection = (data, path) => {
 
 const MultiContainerFormAdvancedSection = ({ data, path }) => {
   const limitsPath = `${path}.limits`;
-  console.log(data);
   return (
     <div>
       <Trans render="h2" className="short-top short-bottom">
@@ -62,7 +61,11 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
             step="0.01"
             type="number"
             value={
-              findNestedPropertyInObject(data, limitsPath + ".cpus.value") || ""
+              findNestedPropertyInObject(data, limitsPath + ".cpus.value") ||
+              (findNestedPropertyInObject(data, limitsPath + ".cpus.value") ===
+              0
+                ? 0
+                : "")
             }
             disabled={
               findNestedPropertyInObject(
@@ -99,7 +102,10 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => {
             step="0.01"
             type="number"
             value={
-              findNestedPropertyInObject(data, limitsPath + ".mem.value") || ""
+              findNestedPropertyInObject(data, limitsPath + ".mem.value") ||
+              (findNestedPropertyInObject(data, limitsPath + ".mem.value") === 0
+                ? 0
+                : "")
             }
             disabled={
               findNestedPropertyInObject(

@@ -14,7 +14,7 @@ const containerReducer = combineReducers({
 });
 
 const limits = combineReducers({
-  cpus: resourceLimitReducer("cpus"),
+  cpus: resourceLimitReducer("cpus", parseFloat),
   mem: resourceLimitReducer("mem")
 });
 
