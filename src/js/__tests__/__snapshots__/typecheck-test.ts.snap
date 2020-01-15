@@ -123,7 +123,6 @@ plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS23
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2322: type * is not assignable to type *.
-plugins/catalog/src/js/repositories/components/RepositoriesTabUI.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
@@ -196,7 +195,6 @@ plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assigna
 plugins/jobs/src/js/components/JobsFormConfig.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/JobsFormModal.tsx: error TS2769: No overload matches this call.
-plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewList.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS7030: Not all code paths return a value.
 plugins/jobs/src/js/components/JobsOverviewTable.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
@@ -418,7 +416,6 @@ plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFil
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'units' does not exist on type *.
-plugins/nodes/src/js/components/HealthTab.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFilter' does not exist on type 'HealthTab'.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -910,7 +907,6 @@ plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'search
 plugins/services/src/js/components/SearchLog.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/SearchLog.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'filterInputRef' does not exist on type 'SearchLog'.
-plugins/services/src/js/components/SearchLog.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -3651,25 +3647,6 @@ src/js/components/FilterButtons.tsx: error TS2339: Property 'selectedFilter' doe
 src/js/components/FilterButtons.tsx: error TS2339: Property 'renderButtonContent' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'className' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inputContainerClass' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'onEnter' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'onEnter' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS6133: 'prevProps' is declared but its value is never read.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'handleFilterChange' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'handleFilterChange' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'placeholder' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'searchString' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
-src/js/components/FilterInputText.tsx: error TS2339: Property 'sideText' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'geminiRef' does not exist on type 'FluidGeminiScrollbar'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -4646,11 +4623,9 @@ src/js/pages/catalog/PackagesTab.tsx: error TS2769: No overload matches this cal
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'setState' does not exist on type 'PackagesTab'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'state' does not exist on type 'PackagesTab'.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'state' does not exist on type 'PackagesTab'.
-src/js/pages/catalog/PackagesTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackagesTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2605: JSX element type 'PackageDetailTab' is not a constructor function for JSX elements.
 src/js/pages/catalog/__tests__/PackageDetailTab-test.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-src/js/pages/network/VirtualNetworksTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworksTabContent'.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/network/VirtualNetworksTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -4690,7 +4665,6 @@ src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS6
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'state' does not exist on type 'VirtualNetworkTaskTab'.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'props' does not exist on type 'VirtualNetworkTaskTab'.
-src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 src/js/pages/network/virtual-network-detail/VirtualNetworkTaskTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
@@ -4770,7 +4744,6 @@ src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'setState' does 
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'props' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2769: No overload matches this call.
-src/js/pages/system/OrganizationTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'state' does not exist on type 'OrganizationTab'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'propTypes' does not exist on type *.
@@ -4824,7 +4797,6 @@ src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'state' does n
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/system/UnitsHealthDetail.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'healthFilter' does not exist on type 'UnitsHealthDetail'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
 src/js/pages/system/UnitsHealthDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'UnitsHealthDetail'.
@@ -4841,7 +4813,6 @@ src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'setState' does n
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'state' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'props' does not exist on type 'UnitsHealthTab'.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2769: No overload matches this call.
-src/js/pages/system/UnitsHealthTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 src/js/pages/system/UnitsHealthTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'ComponentConstructor<any>'.
