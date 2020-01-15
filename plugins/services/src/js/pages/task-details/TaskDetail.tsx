@@ -28,9 +28,9 @@ class TaskDetail extends mixin(StoreMixin) {
 
     // prettier-ignore
     this.store_listeners = [
-      { name: "marathon", events: ["appsSuccess"], listenAlways: false },
-      { name: "state", events: ["success"], listenAlways: false },
-      { name: "summary", events: ["success"], listenAlways: false },
+      { name: "marathon", events: ["appsSuccess"], unmountWhen: (store, event) => event !== "appsSuccess" || store.hasProcessedApps() },
+      { name: "state", events: ["success"], unmountWhen: (store, event) => (event === "success") && Object.keys(store.get("lastMesosState")).length },
+      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") },
       { name: "taskDirectory", events: ["error", "success", "nodeStateError", "nodeStateSuccess"], suppressUpdate: true }
     ];
 

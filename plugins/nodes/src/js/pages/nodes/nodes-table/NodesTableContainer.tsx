@@ -30,9 +30,8 @@ class NodesTableContainer extends mixin(StoreMixin) {
       reactivateNetworkError: false
     };
 
-    // prettier-ignore
     this.store_listeners = [
-      {events: ["success"], listenAlways: false, name: "nodeHealth", suppressUpdate: true},
+      { events: ["success"], name: "nodeHealth", suppressUpdate: true },
       { name: "state", events: ["success"], suppressUpdate: true }
     ];
 

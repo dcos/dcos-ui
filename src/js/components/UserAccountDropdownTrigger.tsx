@@ -8,7 +8,7 @@ export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "metadata", events: ["success"], listenAlways: false }
+      { name: "metadata", events: ["success"], unmountWhen: () => true }
     ];
   }
 

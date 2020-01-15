@@ -22,9 +22,10 @@ export default class ClusterHeader extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
-      { name: "metadata", events: ["success"], listenAlways: false },
-      { name: "summary", events: ["success"], listenAlways: false }
+      { name: "metadata", events: ["success"], unmountWhen: () => true },
+      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
     ];
   }
 

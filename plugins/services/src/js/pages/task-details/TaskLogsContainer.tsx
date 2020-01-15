@@ -22,7 +22,7 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [
-      { name: "config", events: ["success", "error"], listenAlways: false }
+      { name: "config", events: ["success", "error"], unmountWhen: () => true }
     ];
   }
 

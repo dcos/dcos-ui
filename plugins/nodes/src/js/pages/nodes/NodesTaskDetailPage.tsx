@@ -18,8 +18,9 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
+    // prettier-ignore
     this.store_listeners = [
-      { name: "summary", events: ["success"], listenAlways: false }
+      { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
     ];
   }
 
