@@ -203,6 +203,18 @@ class ContainerServiceFormSection extends React.Component {
                 <FormGroupHeadingContent>
                   <Trans render="span">CPUs</Trans>
                 </FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Tooltip
+                    content={
+                      "CPUs limit can be set in the `More Settings` section"
+                    }
+                    interactive={true}
+                    wrapText={true}
+                    maxWidth={300}
+                  >
+                    <InfoTooltipIcon />
+                  </Tooltip>
+                </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
             <FieldInput
@@ -221,6 +233,18 @@ class ContainerServiceFormSection extends React.Component {
               <FormGroupHeading required={true}>
                 <FormGroupHeadingContent primary={true}>
                   <Trans render="span">Memory (MiB)</Trans>
+                </FormGroupHeadingContent>
+                <FormGroupHeadingContent>
+                  <Tooltip
+                    content={
+                      "Memory limit can be set in the `More Settings` section"
+                    }
+                    interactive={true}
+                    wrapText={true}
+                    maxWidth={300}
+                  >
+                    <InfoTooltipIcon />
+                  </Tooltip>
                 </FormGroupHeadingContent>
               </FormGroupHeading>
             </FieldLabel>
