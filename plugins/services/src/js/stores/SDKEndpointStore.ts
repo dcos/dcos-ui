@@ -26,7 +26,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     AppDispatcher.register(payload => {

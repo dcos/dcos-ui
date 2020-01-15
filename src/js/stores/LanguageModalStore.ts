@@ -20,8 +20,7 @@ class LanguageModalStore extends GetSetBaseStore {
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      unmountWhen: () => true,
-      listenAlways: true
+      unmountWhen: () => false
     });
 
     AppDispatcher.register(payload => {
