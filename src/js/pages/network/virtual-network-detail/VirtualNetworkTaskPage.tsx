@@ -11,43 +11,26 @@ import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
 import MesosStateStore from "../../../stores/MesosStateStore";
 import Page from "../../../components/Page";
 import TaskDetail from "../../../../../plugins/services/src/js/pages/task-details/TaskDetail";
-import VirtualNetworksStore from "../../../stores/VirtualNetworksStore";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
-const NetworksDetailTaskBreadcrumbs = ({
-  overlayID,
-  overlay,
-  taskID,
-  task
-}) => {
+const NetworksDetailTaskBreadcrumbs = ({ overlayName, taskID, task }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
         <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
+    </Breadcrumb>,
+
+    <Breadcrumb key={1} title={overlayName}>
+      <BreadcrumbTextContent>
+        <Link to={`/networking/networks/${overlayName}/tasks`}>
+          {overlayName}
+        </Link>
+      </BreadcrumbTextContent>
     </Breadcrumb>
   ];
 
-  if (overlay) {
-    crumbs.push(
-      <Breadcrumb key={1} title={overlay.name}>
-        <BreadcrumbTextContent>
-          <Link to={`/networking/networks/${overlay.name}`}>
-            {overlay.name}
-          </Link>
-        </BreadcrumbTextContent>
-      </Breadcrumb>
-    );
-  } else {
-    crumbs.push(
-      <Breadcrumb key={1} title={overlayID}>
-        <BreadcrumbTextContent>{overlayID}</BreadcrumbTextContent>
-      </Breadcrumb>
-    );
-  }
-
-  const overlayName = overlay?.name || overlayID;
   if (task) {
     const taskName = task.getName();
     crumbs.push(
@@ -88,10 +71,6 @@ const VirtualNetworkTaskPage = props => {
 
   const task = MesosStateStore.getTaskFromTaskID(taskID);
 
-  const overlay = VirtualNetworksStore.getOverlays().find(
-    ({ name }) => name === overlayName
-  );
-
   const dontScroll = dontScrollRoutes.some(regex =>
     regex.test(location.pathname)
   );
@@ -101,8 +80,7 @@ const VirtualNetworkTaskPage = props => {
       <Page.Header
         breadcrumbs={
           <NetworksDetailTaskBreadcrumbs
-            overlayID={overlayName}
-            overlay={overlay}
+            overlayName={overlayName}
             taskID={taskID}
             task={task}
           />

@@ -1,8 +1,6 @@
 import { Trans } from "@lingui/macro";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import mixin from "reactjs-mixin";
 
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
 import { SET } from "#SRC/js/constants/TransactionTypes";
@@ -21,9 +19,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
-import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import SingleContainerPortDefinitions from "../../reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer";
 import SingleContainerPortMappings from "../../reducers/serviceForm/FormReducers/SingleContainerPortMappingsReducer";
 import { FormReducer as networks } from "../../reducers/serviceForm/FormReducers/Networks";
@@ -31,19 +27,47 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
 import { Overlay } from "#SRC/js/structs/Overlay";
+import VirtualNetworksActions from "#SRC/js/events/VirtualNetworksActions";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
-class NetworkingFormSection extends mixin(StoreMixin) {
-  constructor(...args) {
-    super(...args);
-
-    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
-  }
-
-  onVirtualNetworksStoreSuccess = () => {
-    this.forceUpdate();
+export default class NetworkingFormSection extends React.Component<{
+  data: {
+    container?: { type: string };
+    id: string;
+    networks?: Array<{ mode?: string; name?: string }>;
+    portsAutoAssign: boolean;
   };
+  errors: object;
+  onAddItem: () => void;
+  onRemoveItem: () => void;
+}> {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
+
+  static configReducers = {
+    networks,
+    portDefinitions: SingleContainerPortDefinitions,
+    portMappings: SingleContainerPortMappings,
+    portsAutoAssign: (state, { type, path = [], value }) =>
+      type === SET && path.join(".") === "portsAutoAssign" ? value : state
+  };
+
+  state: {
+    virtualNetworks: Overlay[];
+  } = {
+    virtualNetworks: []
+  };
+
+  componentDidMount() {
+    VirtualNetworksActions.fetch(virtualNetworks => {
+      this.setState({ virtualNetworks });
+    });
+  }
 
   getHostPortFields(portDefinition, index) {
     let hostPortValue = portDefinition.hostPort;
@@ -242,10 +266,9 @@ class NetworkingFormSection extends mixin(StoreMixin) {
       address = `${vipMatch[1]}:${port}`;
     }
 
-    let hostName = null;
-    if (!vipPortError) {
-      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address, port);
-    }
+    const hostName = !vipPortError
+      ? ServiceConfigUtil.buildHostNameFromVipLabel(address, port)
+      : null;
 
     const helpText = (
       <FieldHelp>
@@ -528,13 +551,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     });
   }
 
-  getVirtualNetworks() {
+  getVirtualNetworks = () => {
     // Networks with subnet6 should be disabled when "UCR" container type is selected.
     const isMesosContainer = this.props.data?.container?.type === "MESOS";
     const isVirtualNetworkAvailable = (o: Overlay) =>
       o.enabled && (!isMesosContainer || !o.subnet6);
 
-    return VirtualNetworksStore.getOverlays()
+    return this.state.virtualNetworks
       .filter(isVirtualNetworkAvailable)
       .map(({ name }) => (
         <Trans
@@ -544,7 +567,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           values={{ 0: name }}
         />
       ));
-  }
+  };
 
   getTypeSelections() {
     const { mode, name } = this.props.data?.networks?.[0] || {};
@@ -733,34 +756,3 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 }
-
-NetworkingFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
-
-NetworkingFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func
-};
-
-NetworkingFormSection.configReducers = {
-  networks,
-  portDefinitions: SingleContainerPortDefinitions,
-  portMappings: SingleContainerPortMappings,
-  portsAutoAssign(state, { type, path = [], value }) {
-    const joinedPath = path.join(".");
-
-    if (type === SET && joinedPath === "portsAutoAssign") {
-      return value;
-    }
-
-    return state;
-  }
-};
-
-export default NetworkingFormSection;

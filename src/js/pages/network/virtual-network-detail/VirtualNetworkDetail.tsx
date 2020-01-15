@@ -1,131 +1,96 @@
 import { i18nMark } from "@lingui/react";
 import { Trans } from "@lingui/macro";
-import mixin from "reactjs-mixin";
-import { Link, routerShape } from "react-router";
+import { Link, routerShape, RouteComponentProps } from "react-router";
 import * as React from "react";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 
-import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Breadcrumb from "../../../components/Breadcrumb";
 import BreadcrumbTextContent from "../../../components/BreadcrumbTextContent";
 import Loader from "../../../components/Loader";
 import Page from "../../../components/Page";
 import RequestErrorMsg from "../../../components/RequestErrorMsg";
-import VirtualNetworksStore from "../../../stores/VirtualNetworksStore";
+import VirtualNetworksActions from "#SRC/js/events/VirtualNetworksActions";
+import { Overlay } from "#SRC/js/structs/Overlay";
 
-const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
-  const crumbs = [
-    <Breadcrumb key={0} title="Networks">
-      <BreadcrumbTextContent>
-        <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
-      </BreadcrumbTextContent>
-    </Breadcrumb>
-  ];
+const NetworksDetailBreadcrumbs = (name: string) => (
+  <Page.Header.Breadcrumbs
+    iconID={ProductIcons.Network}
+    breadcrumbs={[
+      <Breadcrumb key={0} title="Networks">
+        <BreadcrumbTextContent>
+          <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
+        </BreadcrumbTextContent>
+      </Breadcrumb>,
 
-  if (overlay) {
-    const { name } = overlay;
-    crumbs.push(
       <Breadcrumb key={1} title={name}>
         <BreadcrumbTextContent>
           <Link to={`/networking/networks/${name}/tasks`}>{name}</Link>
         </BreadcrumbTextContent>
       </Breadcrumb>
-    );
-  } else {
-    crumbs.push(
-      <Breadcrumb key={1} title={overlayID}>
-        <BreadcrumbTextContent>{overlayID}</BreadcrumbTextContent>
-      </Breadcrumb>
-    );
-  }
+    ]}
+  />
+);
 
-  return (
-    <Page.Header.Breadcrumbs
-      iconID={ProductIcons.Network}
-      breadcrumbs={crumbs}
-    />
-  );
-};
-
-export default class VirtualNetworkDetail extends mixin(StoreMixin) {
+export default class VirtualNetworkDetail extends React.Component<
+  RouteComponentProps<{ overlayName: string }, any>
+> {
   static contextTypes = { router: routerShape };
 
-  constructor(...args) {
-    super(...args);
+  state: {
+    errorCount: number;
+    virtualNetworks: Overlay[] | null;
+  } = {
+    errorCount: 0,
+    virtualNetworks: null
+  };
 
-    this.state = {
-      errorCount: 0,
-      receivedVirtualNetworks: false
-    };
-
-    // prettier-ignore
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"] }
-    ];
+  componentDidMount() {
+    VirtualNetworksActions.fetch(
+      virtualNetworks => void this.setState({ virtualNetworks }),
+      _ => void this.setState({ errorCount: 3 })
+    );
   }
 
-  onVirtualNetworksStoreError = () => {
-    const errorCount = this.state.errorCount + 1;
-    this.setState({ errorCount });
-  };
-
-  onVirtualNetworksStoreSuccess = () => {
-    this.setState({ receivedVirtualNetworks: true, errorCount: 0 });
-  };
+  getBreadCrumbs = () =>
+    NetworksDetailBreadcrumbs(this.props.params.overlayName);
 
   getErrorScreen() {
-    const breadcrumbs = (
-      <NetworksDetailBreadcrumbs overlayID={this.props.params.overlayName} />
-    );
-
     return (
       <Page>
-        <Page.Header breadcrumbs={breadcrumbs} />
+        <Page.Header breadcrumbs={this.getBreadCrumbs()} />
         <RequestErrorMsg />
       </Page>
     );
   }
 
   render() {
-    const { errorCount, receivedVirtualNetworks } = this.state;
+    const { errorCount, virtualNetworks } = this.state;
+    const { overlayName } = this.props.params;
 
     if (errorCount >= 3) {
       return this.getErrorScreen();
     }
 
-    if (!receivedVirtualNetworks) {
-      return (
-        <Page>
-          <Page.Header
-            breadcrumbs={
-              <NetworksDetailBreadcrumbs
-                overlayID={this.props.params.overlayName}
-              />
-            }
-          />
-          <Loader />
-        </Page>
-      );
-    }
-
-    const prefix = `/networking/networks/${this.props.params.overlayName}`;
-
+    const prefix = `/networking/networks/${overlayName}`;
     const tabs = [
       { label: i18nMark("Tasks"), routePath: `${prefix}/tasks` },
       { label: i18nMark("Details"), routePath: `${prefix}/details` }
     ];
 
-    const overlay = VirtualNetworksStore.getOverlays().find(
-      ({ name }) => name === this.props.params.overlayName
-    );
-
     return (
       <Page>
         <Page.Header
-          breadcrumbs={<NetworksDetailBreadcrumbs overlay={overlay} />}
-          tabs={tabs}
+          breadcrumbs={this.getBreadCrumbs()}
+          tabs={virtualNetworks === null ? [] : tabs}
         />
-        {React.cloneElement(this.props.children, { overlay })}
+
+        {virtualNetworks === null ? (
+          <Loader />
+        ) : (
+          React.cloneElement(this.props.children, {
+            overlay: virtualNetworks.find(_ => _.name === overlayName)
+          })
+        )}
       </Page>
     );
   }

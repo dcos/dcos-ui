@@ -1,8 +1,6 @@
 import { Trans } from "@lingui/macro";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Tooltip } from "reactjs-components";
-import mixin from "reactjs-mixin";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -26,39 +24,59 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Networking from "#SRC/js/constants/Networking";
-import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
-import VirtualNetworksStore from "#SRC/js/stores/VirtualNetworksStore";
 import VipLabelUtil from "../../utils/VipLabelUtil";
 
 import { FormReducer as networks } from "../../reducers/serviceForm/MultiContainerNetwork";
 import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getHostPortPlaceholder, isHostNetwork } from "../../utils/NetworkUtil";
+import VirtualNetworksActions from "#SRC/js/events/VirtualNetworksActions";
+import { Overlay } from "#SRC/js/structs/Overlay";
+import Loader from "#SRC/js/components/Loader";
 
 const { CONTAINER, HOST } = Networking.type;
 
-const getVirtualNetworks = () =>
-  VirtualNetworksStore.getOverlays()
-    .filter(overlay => overlay.enabled && !overlay.subnet6)
-    .map(({ name }) => (
-      <Trans
-        id="Virtual Network: {0}"
-        key={name}
-        render={<option value={`${CONTAINER}.${name}`} />}
-        values={{ 0: name }}
-      />
-    ));
+const renderVirtualNetworkOption = ({ name }: Overlay) => (
+  <Trans
+    id="Virtual Network: {0}"
+    key={name}
+    render={<option value={`${CONTAINER}.${name}`} />}
+    values={[name]}
+  />
+);
 
-class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
-  constructor(props) {
-    super(props);
-
-    this.store_listeners = [{ name: "virtualNetworks", events: ["success"] }];
-  }
-
-  onVirtualNetworksStoreSuccess = () => {
-    this.forceUpdate();
+export default class MultiContainerNetworkingFormSection extends React.Component<{
+  data: {
+    containers?: Array<{ name: string }>;
+    id: string;
+    networks?: Array<{ mode?: string; name?: string }>;
+    portsAutoAssign: boolean;
   };
+  errors: object;
+  onAddItem: () => void;
+  onRemoveItem: () => void;
+}> {
+  static configReducers = { networks };
+
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
+
+  state: {
+    virtualNetworks: Overlay[] | null;
+  } = {
+    virtualNetworks: null
+  };
+
+  componentDidMount() {
+    VirtualNetworksActions.fetch(vns => {
+      const enabledUCRNetworks = vns.filter(vn => vn.enabled && !vn.subnet6);
+      this.setState({ virtualNetworks: enabledUCRNetworks });
+    });
+  }
 
   getContainerPortField(endpoint, network, index, containerIndex, errors) {
     if (network !== CONTAINER) {
@@ -190,13 +208,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     let address = vip;
     if (address == null) {
       let port = "";
-      if (hostPort != null && hostPort !== "") {
+      if (hostPort != null) {
         port = hostPort;
       }
       if (containerPort != null && containerPort !== "") {
         port = containerPort;
       }
-      port = port || 0;
+      port = port || "0";
 
       address = `${this.props.data.id}:${port}`;
     }
@@ -253,10 +271,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getLoadBalancedPortField(endpoint, index, containerIndex) {
-    const {
-      errors,
-      data: { id, portsAutoAssign }
-    } = this.props;
+    const { errors, data } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = isHostNetwork(this.props.data)
       ? hostPort
@@ -264,7 +279,9 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 
     // clear placeholder when HOST network portsAutoAssign is true
     const placeholder =
-      isHostNetwork(this.props.data) && portsAutoAssign ? "" : defaultVipPort;
+      isHostNetwork(this.props.data) && data.portsAutoAssign
+        ? ""
+        : defaultVipPort;
 
     let vipPortError = null;
     let loadBalancedError = findNestedPropertyInObject(
@@ -282,10 +299,8 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       loadBalancedError = null;
     }
 
-    let address = vip;
-
     let port = "";
-    if (!portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
+    if (!data.portsAutoAssign && !ValidatorUtil.isEmpty(hostPort)) {
       port = hostPort;
     }
     if (!ValidatorUtil.isEmpty(containerPort)) {
@@ -295,19 +310,15 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       port = vipPort;
     }
 
-    if (address == null) {
-      address = `${id}:${port}`;
-    }
-
+    let address = vip ?? `${data.id}:${port}`;
     const vipMatch = address.match(/(.+):\d+/);
     if (vipMatch) {
       address = `${vipMatch[1]}:${port}`;
     }
 
-    let hostName = null;
-    if (!vipPortError) {
-      hostName = ServiceConfigUtil.buildHostNameFromVipLabel(address, port);
-    }
+    const hostName = !vipPortError
+      ? ServiceConfigUtil.buildHostNameFromVipLabel(address, port)
+      : null;
 
     const helpText = (
       <FieldHelp>
@@ -553,12 +564,16 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
       <FieldSelect name="networks.0" value={selectedValue}>
         <Trans key="host" id="Host" render={<option value={HOST} />} />
         <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
-        {getVirtualNetworks()}
+        {this.state.virtualNetworks.map(renderVirtualNetworkOption)}
       </FieldSelect>
     );
   }
 
   render() {
+    if (this.state.virtualNetworks === null) {
+      return <Loader />;
+    }
+
     const networkError = findNestedPropertyInObject(
       this.props.errors,
       "container.docker.network"
@@ -654,23 +669,3 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 }
-
-MultiContainerNetworkingFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
-
-MultiContainerNetworkingFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func
-};
-
-MultiContainerNetworkingFormSection.configReducers = {
-  networks
-};
-
-export default MultiContainerNetworkingFormSection;

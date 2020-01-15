@@ -1,28 +1,16 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
-import {
-  REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-  REQUEST_VIRTUAL_NETWORKS_ERROR
-} from "../constants/ActionTypes";
-import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
-import { APIResponse } from "../structs/Overlay";
+import { APIResponse, Overlay } from "../structs/Overlay";
 
 const VirtualNetworksActions = {
-  fetch() {
+  fetch(onSuccess: (a: Overlay[]) => void, onError?: (a: string) => void) {
     RequestUtil.json({
       url: `${Config.rootUrl}/mesos/overlay-master/state`,
-      success(response: { network: { overlays: APIResponse } }) {
-        AppDispatcher.handleServerAction({
-          type: REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data: response.network.overlays || []
-        });
+      success: (response: { network: { overlays: APIResponse[] } }) => {
+        onSuccess((response.network.overlays || []).map(Overlay.from));
       },
-      error(xhr) {
-        AppDispatcher.handleServerAction({
-          type: REQUEST_VIRTUAL_NETWORKS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
-        });
+      error: xhr => {
+        onError?.(RequestUtil.getErrorFromXHR(xhr));
       }
     });
   }

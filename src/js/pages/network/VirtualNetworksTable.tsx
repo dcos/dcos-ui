@@ -4,7 +4,7 @@ import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import * as React from "react";
 import { Table } from "reactjs-components";
-import { Overlay } from "src/js/structs/Overlay";
+import { Overlay } from "#SRC/js/structs/Overlay";
 
 const headerMapping = {
   name: i18nMark("Name"),

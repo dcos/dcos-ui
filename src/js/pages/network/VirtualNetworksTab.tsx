@@ -1,11 +1,8 @@
 import { Trans, t } from "@lingui/macro";
 import { withI18n, i18nMark } from "@lingui/react";
-import mixin from "reactjs-mixin";
 import { Link } from "react-router";
 import * as React from "react";
-
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
-import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import AlertPanel from "../../components/AlertPanel";
 import AlertPanelHeader from "../../components/AlertPanelHeader";
@@ -16,10 +13,9 @@ import FilterHeadline from "../../components/FilterHeadline";
 import FilterInputText from "../../components/FilterInputText";
 import Loader from "../../components/Loader";
 import Page from "../../components/Page";
-import RequestErrorMsg from "../../components/RequestErrorMsg";
-import VirtualNetworksStore from "../../stores/VirtualNetworksStore";
 import VirtualNetworksTable from "./VirtualNetworksTable";
-import { Overlay } from "src/js/structs/Overlay";
+import { Overlay } from "#SRC/js/structs/Overlay";
+import VirtualNetworksActions from "#SRC/js/events/VirtualNetworksActions";
 
 // TODO: maybe abstract to a `searchInProps`?
 const getFilteredOverlayList = (overlayList: Overlay[], searchString = "") =>
@@ -58,54 +54,43 @@ const NetworksBreadcrumbs = () => {
   );
 };
 
-class VirtualNetworksTabContent extends mixin(StoreMixin) {
-  constructor(props) {
-    super(props);
+class VirtualNetworksTabContent extends React.Component {
+  static routeConfig = {
+    label: i18nMark("Networks"),
+    matches: /^\/networking\/networks/
+  };
 
-    this.state = {
-      receivedVirtualNetworks: false,
-      searchString: "",
-      errorCount: 0
-    };
+  state: {
+    searchString: string;
+    virtualNetworks: Overlay[] | null;
+  } = {
+    searchString: "",
+    virtualNetworks: null
+  };
 
-    this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"] }
-    ];
+  componentDidMount() {
+    VirtualNetworksActions.fetch(virtualNetworks => {
+      this.setState({ virtualNetworks });
+    });
   }
 
   handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
   };
 
-  onVirtualNetworksStoreError = () => {
-    const errorCount = this.state.errorCount + 1;
-    this.setState({ errorCount });
-  };
-
-  onVirtualNetworksStoreSuccess = () => {
-    this.setState({ receivedVirtualNetworks: true, errorCount: 0 });
-  };
-
-  isLoading() {
-    return !this.state.receivedVirtualNetworks;
-  }
-
   resetFilter = () => {
     this.setState({ searchString: "" });
   };
 
   render() {
-    const { errorCount, searchString } = this.state;
+    const { searchString } = this.state;
     const { i18n } = this.props;
-    if (errorCount >= 3) {
-      return <RequestErrorMsg />;
-    }
 
-    if (this.isLoading()) {
+    if (this.state.virtualNetworks === null) {
       return <Loader />;
     }
 
-    const overlayList = VirtualNetworksStore.getOverlays();
+    const overlayList = this.state.virtualNetworks;
     const filteredOverlayList = getFilteredOverlayList(
       overlayList,
       searchString
@@ -139,10 +124,5 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     );
   }
 }
-
-VirtualNetworksTabContent.routeConfig = {
-  label: i18nMark("Networks"),
-  matches: /^\/networking\/networks/
-};
 
 export default withI18n()(VirtualNetworksTabContent);
