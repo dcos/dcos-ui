@@ -31,7 +31,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
     };
     // prettier-ignore
     this.store_listeners = [
-      {events: ["success"], listenAlways: false, name: "nodeHealth", suppressUpdate: true},
+      {events: ["success"], name: "nodeHealth", suppressUpdate: true},
       {events: ["success", "error"], name: "state", suppressUpdate: true}
     ];
   }

@@ -4970,12 +4970,11 @@ src/js/stores/GetSetBaseStore.ts: error TS2322: Type '{}' is not assignable to t
 src/js/stores/GetSetBaseStore.ts: error TS2564: Property 'getSet_data' has no initializer and is not definitely assigned in the constructor.
 src/js/stores/LanguageModalStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"master\\"' is not assignable to parameter of type 'never'.
-src/js/stores/MesosStateStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStream/parsers/__tests__/master-test.ts: error TS2339: Property 'start_time' does not exist on type *.
 src/js/stores/MesosStream/parsers/tasks.ts: error TS2339: Property 'id' does not exist on type '{}'.
 src/js/stores/MesosSummaryStore.ts: error TS2345: Argument of type '\\"states\\"' is not assignable to parameter of type 'never'.
