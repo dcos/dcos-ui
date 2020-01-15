@@ -24,9 +24,7 @@ class UsersStore extends GetSetBaseStore {
         success: USERS_CHANGE,
         error: USERS_REQUEST_ERROR
       },
-      unmountWhen() {
-        return true;
-      },
+      unmountWhen: () => true,
       listenAlways: true
     });
 
