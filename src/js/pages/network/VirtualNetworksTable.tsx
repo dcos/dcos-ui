@@ -86,7 +86,7 @@ export default class VirtualNetworksTable extends React.Component<{
       <Link
         className="table-cell-link-primary"
         title={overlay.name}
-        to={`/networking/networks/${overlay.name}`}
+        to={`/networking/networks/${overlay.name}/tasks`}
       >
         {overlay.name}
       </Link>

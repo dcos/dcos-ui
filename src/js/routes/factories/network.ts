@@ -29,7 +29,8 @@ export default {
         component: VirtualNetworkDetail,
         children: [
           {
-            type: IndexRoute,
+            type: Route,
+            path: "tasks",
             component: VirtualNetworkTaskTab
           },
           {
