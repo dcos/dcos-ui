@@ -1,5 +1,4 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -11,54 +10,55 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import keyCodes from "#SRC/js/utils/KeyboardUtil";
-import ServiceFilterTypes from "../../../plugins/services/src/js/constants/ServiceFilterTypes";
 
-class FilterInputText extends React.Component {
-  inputField?: HTMLInputElement;
+enum ServiceFilterType {
+  health = "filterHealth",
+  other = "filterOther",
+  status = "filterStatus",
+  labels = "filterLabels",
+  text = "searchString"
+}
 
-  constructor(props) {
-    super(props);
+export default class FilterInputText extends React.Component<{
+  // type is actually ServiceFilterType
+  className?: string;
+  inputContainerClass?: string;
+  handleFilterChange: (s: string, type: ServiceFilterType) => void;
+  inverseStyle?: boolean;
+  onEnter?: () => void;
+  placeholder?: string;
+  searchString?: string;
+  sideText?: React.ReactNode | null;
+}> {
+  static defaultProps = {
+    inverseStyle: false,
+    placeholder: "Filter",
+    searchString: "",
+    sideText: null
+  };
 
-    this.state = { focus: false };
+  inputField?: HTMLInputElement | null;
+  state = { focus: false };
+
+  handleKeyDown = ({ keyCode }: React.KeyboardEvent<HTMLInputElement>) => {
+    if (keyCode === keyCodes.enter) {
+      this.props.onEnter?.();
+    }
+  };
+
+  componentDidUpdate(_prevProps, prevState) {
+    if (!prevState.focus && this.state.focus) {
+      this.inputField?.focus();
+    }
   }
 
-  componentDidMount = () => {
-    if (this.inputField) {
-      this.inputField.addEventListener("keydown", this.handleKeyDown);
-    }
-  };
-
-  handleKeyDown = event => {
-    const { keyCode } = event;
-    if (keyCode === keyCodes.enter && this.props.onEnter instanceof Function) {
-      this.props.onEnter();
-    }
-  };
-
-  componentWillUnmount = () => {
-    if (this.inputField) {
-      this.inputField.removeEventListener("keydown", this.handleKeyDown);
-    }
-  };
-
-  componentDidUpdate(prevProps, prevState) {
-    const { focus } = this.state;
-
-    if (prevState.focus === false && focus && this.inputField) {
-      this.inputField.focus();
-    }
-  }
-
-  handleChange = event => {
-    const { target } = event;
-
+  handleChange = ({ target }: React.ChangeEvent<HTMLInputElement>) => {
     // Make sure to never emit falsy values
-    const value = target.value || "";
-    this.props.handleFilterChange(value, ServiceFilterTypes.TEXT);
+    this.props.handleFilterChange(target.value || "", ServiceFilterType.text);
   };
 
   handleInputClear = () => {
-    this.props.handleFilterChange("", ServiceFilterTypes.TEXT);
+    this.props.handleFilterChange("", ServiceFilterType.text);
   };
 
   handleBlur = () => {
@@ -83,6 +83,7 @@ class FilterInputText extends React.Component {
         placeholder={placeholder}
         onChange={this.handleChange}
         ref={ref => (this.inputField = ref)}
+        onKeyDown={this.handleKeyDown}
         type="text"
         value={searchString}
       />
@@ -168,21 +169,3 @@ class FilterInputText extends React.Component {
     );
   }
 }
-
-FilterInputText.defaultProps = {
-  inverseStyle: false,
-  placeholder: "Filter",
-  searchString: "",
-  sideText: null
-};
-
-FilterInputText.propTypes = {
-  handleFilterChange: PropTypes.func.isRequired,
-  inverseStyle: PropTypes.bool,
-  placeholder: PropTypes.string,
-  searchString: PropTypes.string,
-  sideText: PropTypes.node,
-  onEnter: PropTypes.func
-};
-
-export default FilterInputText;
