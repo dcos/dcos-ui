@@ -20,9 +20,7 @@ export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
-    this.store_listeners = [
-      { name: "dcos", events: ["change"], listenAlways: true }
-    ];
+    this.store_listeners = [{ name: "dcos", events: ["change"] }];
 
     this.state = {
       isOpen: false
