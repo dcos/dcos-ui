@@ -98,6 +98,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                 <input
                   className="form-control filter-input-text"
                   onChange={[Function]}
+                  onKeyDown={[Function]}
                   placeholder="Search catalog"
                   type="text"
                   value=""
