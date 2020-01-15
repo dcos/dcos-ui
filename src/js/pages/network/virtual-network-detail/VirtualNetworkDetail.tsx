@@ -27,7 +27,7 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
     crumbs.push(
       <Breadcrumb key={1} title={name}>
         <BreadcrumbTextContent>
-          <Link to={`/networking/networks/${name}`}>{name}</Link>
+          <Link to={`/networking/networks/${name}/tasks`}>{name}</Link>
         </BreadcrumbTextContent>
       </Breadcrumb>
     );
@@ -111,7 +111,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
     const prefix = `/networking/networks/${this.props.params.overlayName}`;
 
     const tabs = [
-      { label: i18nMark("Tasks"), routePath: prefix },
+      { label: i18nMark("Tasks"), routePath: `${prefix}/tasks` },
       { label: i18nMark("Details"), routePath: `${prefix}/details` }
     ];
 
