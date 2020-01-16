@@ -12,17 +12,11 @@ import {
 
 import keyCodes from "../../utils/KeyboardUtil";
 
-const METHODS_TO_BIND = ["handleClick", "handleKeyPress"];
-
 class ImageViewerModal extends React.Component {
   constructor(...args) {
     super(...args);
 
     this.state = { isLoadingImage: false };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     if (this.props.open) {
       window.addEventListener("keydown", this.handleKeyPress, true);
@@ -41,8 +35,7 @@ class ImageViewerModal extends React.Component {
       window.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
-
-  handleKeyPress(event) {
+  handleKeyPress = event => {
     const { images } = this.props;
     // Should do nothing if the key event was already consumed, or there is only
     // one or no images
@@ -60,9 +53,8 @@ class ImageViewerModal extends React.Component {
 
     // Consume the event for suppressing "double action".
     event.preventDefault();
-  }
-
-  handleClick(direction) {
+  };
+  handleClick = direction => {
     if (direction === "left") {
       this.props.onLeftClick();
     }
@@ -72,7 +64,7 @@ class ImageViewerModal extends React.Component {
     }
 
     this.handleLoadingImageChange(true);
-  }
+  };
 
   handleLoadingImageChange(isLoadingImage) {
     this.setState({ isLoadingImage });

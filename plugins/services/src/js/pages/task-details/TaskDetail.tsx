@@ -15,13 +15,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 
-const METHODS_TO_BIND = [
-  "handleBreadcrumbClick",
-  "handleOpenLogClick",
-  "onTaskDirectoryStoreError",
-  "onTaskDirectoryStoreSuccess"
-];
-
 class TaskDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -40,10 +33,6 @@ class TaskDetail extends mixin(StoreMixin) {
       { name: "summary", events: ["success"], listenAlways: false },
       { name: "taskDirectory", events: ["error", "success", "nodeStateError", "nodeStateSuccess"], suppressUpdate: true }
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     this.onTaskDirectoryStoreNodeStateError = this.onTaskDirectoryStoreError;
     this.onTaskDirectoryStoreNodeStateSuccess = this.onTaskDirectoryStoreSuccess;
@@ -67,14 +56,12 @@ class TaskDetail extends mixin(StoreMixin) {
   onStateStoreSuccess() {
     this.handleFetchDirectory();
   }
-
-  onTaskDirectoryStoreError() {
+  onTaskDirectoryStoreError = () => {
     this.setState({
       taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
     });
-  }
-
-  onTaskDirectoryStoreSuccess(taskID) {
+  };
+  onTaskDirectoryStoreSuccess = taskID => {
     if (this.props.params.taskID !== taskID) {
       this.handleFetchDirectory();
 
@@ -83,7 +70,7 @@ class TaskDetail extends mixin(StoreMixin) {
 
     const directory = TaskDirectoryStore.get("directory");
     this.setState({ directory, taskDirectoryErrorCount: 0 });
-  }
+  };
 
   handleFetchDirectory() {
     const { params } = this.props;
@@ -101,8 +88,7 @@ class TaskDetail extends mixin(StoreMixin) {
 
     this.setState({ directory: null });
   }
-
-  handleBreadcrumbClick(path) {
+  handleBreadcrumbClick = path => {
     const { router } = this.context;
     const { params, routes } = this.props;
     const task = MesosStateStore.getTaskFromTaskID(params.taskID);
@@ -112,7 +98,7 @@ class TaskDetail extends mixin(StoreMixin) {
     // Transition to parent route, which uses a default route
     const parentPath = RouterUtil.reconstructPathFromRoutes(routes);
     router.push(formatPattern(parentPath, params));
-  }
+  };
 
   getErrorScreen() {
     return (
@@ -129,8 +115,7 @@ class TaskDetail extends mixin(StoreMixin) {
   hasLoadingError() {
     return this.state.taskDirectoryErrorCount >= 3;
   }
-
-  handleOpenLogClick(selectedLogFile) {
+  handleOpenLogClick = selectedLogFile => {
     const { router } = this.context;
     const routes = this.props.routes;
     const params = {
@@ -140,7 +125,7 @@ class TaskDetail extends mixin(StoreMixin) {
     };
     const { fileViewerRoutePath } = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
-  }
+  };
 
   getNotFound(item, itemID) {
     return (

@@ -30,15 +30,6 @@ import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
 } from "../../constants/ActionTypes";
 
-const METHODS_TO_BIND = [
-  "handleMesosStateChange",
-  "handleServerAction",
-  "handleModalClose",
-  "handleExpressionChange",
-  "clearActionError",
-  "killPodInstances"
-];
-
 class PodInstancesContainer extends React.Component {
   constructor(...args) {
     super(...args);
@@ -51,10 +42,6 @@ class PodInstancesContainer extends React.Component {
       filters: [new PodInstanceStatusFilter(), new PodInstanceTextFilter()],
       defaultFilterData: { zones: [], regions: [] }
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -79,8 +66,7 @@ class PodInstancesContainer extends React.Component {
 
     AppDispatcher.unregister(this.dispatcher);
   }
-
-  handleExpressionChange(filterExpression = { value: "" }) {
+  handleExpressionChange = (filterExpression = { value: "" }) => {
     const { router } = this.context;
     const {
       location: { pathname }
@@ -88,7 +74,7 @@ class PodInstancesContainer extends React.Component {
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });
-  }
+  };
 
   setFilterOptions(props) {
     const historicalInstances = MesosStateStore.getPodHistoricalInstances(
@@ -168,20 +154,17 @@ class PodInstancesContainer extends React.Component {
       modalHandlers: this.getModalHandlers()
     };
   }
-
-  killPodInstances(...args) {
+  killPodInstances = (...args) => {
     this.setPendingAction(ActionKeys.POD_INSTANCES_KILL);
 
     return MarathonActions.killPodInstances(...args);
-  }
-
-  handleMesosStateChange() {
+  };
+  handleMesosStateChange = () => {
     this.setState({
       lastUpdate: Date.now()
     });
-  }
-
-  handleServerAction(payload) {
+  };
+  handleServerAction = payload => {
     const { action } = payload;
 
     switch (action.type) {
@@ -192,14 +175,13 @@ class PodInstancesContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.POD_INSTANCES_KILL);
         break;
     }
-  }
-
-  handleModalClose(key) {
+  };
+  handleModalClose = key => {
     if (key) {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
-  }
+  };
 
   /**
    * Sets the actionType to pending in state which will in turn be pushed
@@ -246,8 +228,7 @@ class PodInstancesContainer extends React.Component {
       )
     });
   }
-
-  clearActionError(actionType) {
+  clearActionError = actionType => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -257,7 +238,7 @@ class PodInstancesContainer extends React.Component {
         null
       )
     });
-  }
+  };
 
   getModalHandlers() {
     const set = (id, props) => {

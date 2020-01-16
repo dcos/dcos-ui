@@ -20,8 +20,6 @@ const EXPRESSION_PARTS = {
   text: DSLExpressionPart.fuzzy
 };
 
-const METHODS_TO_BIND = ["handleTextChange"];
-
 class FuzzyTextDSLSection extends React.Component {
   constructor(...args) {
     super(...args);
@@ -31,10 +29,6 @@ class FuzzyTextDSLSection extends React.Component {
         text: ""
       }
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -43,8 +37,7 @@ class FuzzyTextDSLSection extends React.Component {
 
     this.setState({ data });
   }
-
-  handleTextChange(event) {
+  handleTextChange = event => {
     const { onChange, expression } = this.props;
     const { target } = event;
     event.stopPropagation();
@@ -78,7 +71,7 @@ class FuzzyTextDSLSection extends React.Component {
     );
 
     onChange(newExpression);
-  }
+  };
 
   render() {
     const { data } = this.state;

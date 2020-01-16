@@ -14,7 +14,6 @@ import ClickToSelect from "../ClickToSelect";
 import MetadataStore from "../../stores/MetadataStore";
 import ModalHeading from "../modals/ModalHeading";
 
-const METHODS_TO_BIND = ["onClose"];
 const osTypes = {
   Windows: "windows",
   "OS X": "darwin",
@@ -31,19 +30,14 @@ class CliInstallModal extends React.Component {
     }
 
     this.state = { selectedOS };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   handleSelectedOSChange(selectedOS) {
     this.setState({ selectedOS });
   }
-
-  onClose() {
+  onClose = () => {
     this.props.onClose();
-  }
+  };
 
   getSubHeader() {
     if (!this.props.subHeaderContent) {

@@ -16,23 +16,16 @@ import ServiceConfigUtil from "../../utils/ServiceConfigUtil";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 import MesosDNSList from "./MesosDNSList";
 
-const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
-
 class ServiceConnectionEndpointList extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleOpenEditConfigurationModal() {
+  handleOpenEditConfigurationModal = () => {
     const { router } = this.context;
     router.push(
       `/services/detail/${encodeURIComponent(this.props.service.getId())}/edit/`
     );
-  }
+  };
 
   getProtocolValue(portDefinition) {
     let protocol = portDefinition.protocol || "";

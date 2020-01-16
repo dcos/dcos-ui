@@ -14,8 +14,6 @@ import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
-const METHODS_TO_BIND = ["handleConfirmation", "handleInstancesFieldChange"];
-
 class ServiceResumeModal extends React.PureComponent {
   constructor(...args) {
     super(...args);
@@ -24,10 +22,6 @@ class ServiceResumeModal extends React.PureComponent {
       instancesFieldValue: 1,
       errorMsg: null
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -74,21 +68,19 @@ class ServiceResumeModal extends React.PureComponent {
 
     this.setState({ errorMsg });
   }
-
-  handleConfirmation() {
+  handleConfirmation = () => {
     const instances =
       this.state.instancesFieldValue == null
         ? 1
         : this.state.instancesFieldValue;
 
     this.props.resumeService(instances, this.shouldForceUpdate());
-  }
-
-  handleInstancesFieldChange(event) {
+  };
+  handleInstancesFieldChange = event => {
     this.setState({
       instancesFieldValue: event.target.value
     });
-  }
+  };
 
   getErrorMessage() {
     const { errorMsg = null } = this.state;

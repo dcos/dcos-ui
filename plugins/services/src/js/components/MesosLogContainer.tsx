@@ -12,15 +12,6 @@ import LogView from "./LogView";
 import MesosLogStore from "../stores/MesosLogStore";
 import TaskDirectoryStore from "../stores/TaskDirectoryStore";
 
-const METHODS_TO_BIND = [
-  "handleGoToWorkingDirectory",
-  "handleFetchPreviousLog",
-  "onMesosLogStoreError",
-  "onMesosLogStoreSuccess",
-  "onMesosLogStoreOffsetError",
-  "onMesosLogStoreOffsetSuccess"
-];
-
 class MesosLogContainer extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -38,10 +29,6 @@ class MesosLogContainer extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: "mesosLog", events: ["success", "error", "offsetSuccess", "offsetError"], suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount(...args) {
@@ -113,8 +100,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       stateToCheck.some(key => curState[key] !== nextState[key])
     );
   }
-
-  onMesosLogStoreError(path) {
+  onMesosLogStoreError = path => {
     // Check the filePath before we reload
     if (path !== this.props.filePath) {
       // This event is not for our filePath
@@ -125,21 +111,18 @@ class MesosLogContainer extends mixin(StoreMixin) {
       hasLoadingError: this.state.hasLoadingError + 1,
       isFetchingPrevious: false
     });
-  }
-
-  onMesosLogStoreOffsetError() {
+  };
+  onMesosLogStoreOffsetError = () => {
     this.setState({
       hasOffsetLoadingError: true
     });
-  }
-
-  onMesosLogStoreOffsetSuccess() {
+  };
+  onMesosLogStoreOffsetSuccess = () => {
     this.setState({
       hasOffsetLoadingError: false
     });
-  }
-
-  onMesosLogStoreSuccess(path, direction) {
+  };
+  onMesosLogStoreSuccess = (path, direction) => {
     // Check the filePath before we reload
     const { filePath } = this.props;
     if (path !== filePath) {
@@ -157,13 +140,11 @@ class MesosLogContainer extends mixin(StoreMixin) {
       isLoading: !filePath,
       fullLog
     });
-  }
-
-  handleGoToWorkingDirectory() {
+  };
+  handleGoToWorkingDirectory = () => {
     TaskDirectoryStore.setPath(this.props.task, "");
-  }
-
-  handleFetchPreviousLog(props = this.props) {
+  };
+  handleFetchPreviousLog = (props = this.props) => {
     const { isFetchingPrevious } = this.state;
     const { task, filePath } = props;
     // Ongoing previous log fetch, wait for that to complete
@@ -173,7 +154,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
     MesosLogStore.getPreviousLogs(task.slave_id, filePath);
     this.setState({ isFetchingPrevious: true });
-  }
+  };
 
   getErrorScreen() {
     return <RequestErrorMsg />;

@@ -5,8 +5,6 @@ import MountService from "./index";
 import { CHANGE } from "./MountEvent";
 import ReactUtil from "../utils/ReactUtil";
 
-const METHODS_TO_BIND = ["onMountServiceChange"];
-
 /**
  * A component to use as a mount point to incorporate views/components provided
  * by packages. It renders with a/components registered to the `MountService`
@@ -22,17 +20,13 @@ const METHODS_TO_BIND = ["onMountServiceChange"];
  *
  */
 class Mount extends React.Component {
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     // Get components and init state
     this.state = {
       components: MountService.findComponentsWithType(this.props.type)
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -52,14 +46,13 @@ class Mount extends React.Component {
   componentWillUnmount() {
     MountService.removeListener(CHANGE, this.onMountServiceChange);
   }
-
-  onMountServiceChange(type) {
+  onMountServiceChange = type => {
     if (this.props.type !== type) {
       return;
     }
 
     this.setState({ components: MountService.findComponentsWithType(type) });
-  }
+  };
 
   render() {
     const { alwaysWrap, children, limit, wrapper } = this.props;

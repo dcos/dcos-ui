@@ -4,15 +4,9 @@ import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import { BadgeButton } from "@dcos/ui-kit";
 
-const METHODS_TO_BIND = ["handleClick"];
-
 class TabButton extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getChildren() {
@@ -47,14 +41,13 @@ class TabButton extends React.Component {
       </Tooltip>
     );
   }
-
-  handleClick(event) {
+  handleClick = event => {
     event.stopPropagation();
 
     if (this.props.onClick) {
       this.props.onClick(this.props.id);
     }
-  }
+  };
 
   render() {
     const {

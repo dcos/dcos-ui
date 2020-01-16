@@ -7,20 +7,13 @@ import AlertPanelHeader from "./AlertPanelHeader";
 import Config from "../config/Config";
 import MetadataStore from "../stores/MetadataStore";
 
-const METHODS_TO_BIND = ["handleUserLogout"];
-
 export default class AccessDeniedPage extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleUserLogout() {
+  handleUserLogout = () => {
     AuthStore.logout();
-  }
+  };
 
   getFooter() {
     return (

@@ -118,6 +118,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Shadowed name: 'Component'
 /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - require statement not part of an import statement
@@ -154,11 +156,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Shadowed name: 'file'
 /plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
-/plugins/services/src/js/pages/task-details/__tests__/TaskDetail-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.

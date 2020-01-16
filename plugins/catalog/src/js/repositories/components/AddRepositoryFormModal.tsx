@@ -9,20 +9,13 @@ import FormModal from "#SRC/js/components/FormModal";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
-const METHODS_TO_BIND = ["handleAddRepository"];
-
 class AddRepositoryFormModal extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleAddRepository(model) {
+  handleAddRepository = model => {
     this.props.addRepository(model);
-  }
+  };
 
   getAddRepositoryFormDefinition() {
     const { numberOfRepositories, i18n } = this.props;

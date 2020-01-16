@@ -11,7 +11,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import NodesGridView from "../../../components/NodesGridView";
 
 const MAX_SERVICES_TO_SHOW = 32;
-const METHODS_TO_BIND = [];
+
 const OTHER_SERVICES_COLOR = 32;
 
 class NodesGridContainer extends mixin(StoreMixin) {
@@ -34,9 +34,6 @@ class NodesGridContainer extends mixin(StoreMixin) {
       {events: ["success"], listenAlways: false, name: "nodeHealth", suppressUpdate: true},
       {events: ["success", "error"], name: "state", suppressUpdate: true}
     ];
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(props) {

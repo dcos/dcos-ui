@@ -34,12 +34,6 @@ const columnClasses = {
   actions: "job-run-history-table-column-actions"
 };
 
-const METHODS_TO_BIND = [
-  "renderJobIDColumn",
-  "handleStopJobRunModalClose",
-  "renderActionsColumn"
-];
-
 const STOP = "Stop";
 
 function calculateRunTime(startedAt, finishedAt) {
@@ -73,19 +67,14 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
     MesosStateStore.ready.then(() => {
       this.setState({ mesosStateStoreLoaded: true });
     });
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   handleItemSelect(id) {
     this.setState({ selectedID: id });
   }
-
-  handleStopJobRunModalClose() {
+  handleStopJobRunModalClose = () => {
     this.setState({ selectedID: null });
-  }
+  };
 
   getColumnHeading(prop, order, sortBy) {
     const caretClassNames = classNames("caret", {
@@ -204,8 +193,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
       return memo;
     }, {});
   }
-
-  renderJobIDColumn(prop, row, rowOptions = {}) {
+  renderJobIDColumn = (prop, row, rowOptions = {}) => {
     if (!rowOptions.isParent) {
       const taskID = row.taskID;
 
@@ -273,7 +261,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
     }
 
     return <div className="expanding-table-primary-cell">{cellContent}</div>;
-  }
+  };
 
   renderStatusColumn(prop, row, rowOptions = {}) {
     if (rowOptions.isParent) {
@@ -319,8 +307,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
 
     return <div>{runTimeFormat}</div>;
   }
-
-  renderActionsColumn(prop, row) {
+  renderActionsColumn = (prop, row) => {
     if (!["ACTIVE", "INITIAL", "STARTING"].includes(row.status)) {
       return;
     }
@@ -358,7 +345,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
         disabled={false}
       />
     );
-  }
+  };
 
   renderTimeColumn(prop, row) {
     // L10NTODO: Relative time

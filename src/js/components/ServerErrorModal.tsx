@@ -9,8 +9,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import ModalHeading from "./modals/ModalHeading";
 
-const METHODS_TO_BIND = ["handleModalClose", "handleServerError"];
-
 function getEventsFromStoreListeners(storeListeners) {
   const events = [];
 
@@ -34,24 +32,18 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
 
     this.store_listeners = Hooks.applyFilter("serverErrorModalListeners", []);
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-
     const events = getEventsFromStoreListeners.call(this, this.store_listeners);
     events.forEach(event => {
       this[event] = this.handleServerError;
     });
   }
-
-  handleModalClose() {
+  handleModalClose = () => {
     this.setState({
       isOpen: false,
       errors: []
     });
-  }
-
-  handleServerError(errorMessage) {
+  };
+  handleServerError = errorMessage => {
     if (!errorMessage) {
       throw new Error("No error message defined!");
     }
@@ -64,7 +56,7 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
       errors,
       isOpen: !isLocked
     });
-  }
+  };
 
   getFooter() {
     return (

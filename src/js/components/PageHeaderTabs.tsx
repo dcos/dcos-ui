@@ -7,22 +7,15 @@ import isEqual from "lodash.isequal";
 
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
-const METHODS_TO_BIND = ["handleNavigationItemSelection"];
-
 class PageHeaderTabs extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   shouldComponentUpdate(nextProps) {
     return !isEqual(this.props.tabs, nextProps.tabs);
   }
-
-  handleNavigationItemSelection(navItem) {
+  handleNavigationItemSelection = navItem => {
     const { callback, routePath } = navItem;
 
     if (callback != null) {
@@ -32,7 +25,7 @@ class PageHeaderTabs extends React.Component {
     if (routePath != null) {
       this.context.router.push(routePath);
     }
-  }
+  };
 
   getTabs() {
     const {

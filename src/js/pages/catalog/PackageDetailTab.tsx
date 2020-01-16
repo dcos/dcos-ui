@@ -77,19 +77,6 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   );
 };
 
-const METHODS_TO_BIND = [
-  "renderReviewAndRunButton",
-  "handleConfirmClick",
-  "handleConfirmClose",
-  "handlePackageVersionChange",
-  "handleReviewAndRunClick",
-  "hasUnresolvedDependency",
-  "onInstalledSuccessModalClose",
-  "onStoreChange",
-  "renderInstallButton",
-  "renderReviewAndRunButton"
-];
-
 class PackageDetailTab extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -106,10 +93,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: "cosmosPackages", events: ["packageDescriptionError", "packageDescriptionSuccess", "listVersionsSuccess", "listVersionsError"], suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   retrievePackageInfo(packageName, version) {
@@ -133,15 +116,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
       CosmosPackagesStore.fetchPackageDescription(packageName, version);
     }
   }
-
-  onStoreChange() {
+  onStoreChange = () => {
     this.setState({
       runningPackageNames: {
         state: "success",
         data: runningServicesNames(DCOSStore.serviceTree.getLabels())
       }
     });
-  }
+  };
 
   componentDidMount(...args) {
     super.componentDidMount(...args);
@@ -178,16 +160,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
   onCosmosPackagesStoreListVersionsSuccess() {
     this.setState({ isLoadingVersions: false });
   }
-
-  handleReviewAndRunClick(isCertified) {
+  handleReviewAndRunClick = isCertified => {
     if (isCertified) {
       return this.handleConfirmClick();
     }
 
     this.setState({ isConfirmOpen: true });
-  }
-
-  handleConfirmClick() {
+  };
+  handleConfirmClick = () => {
     const { router } = this.context;
     const { params, location } = this.props;
 
@@ -196,13 +176,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
         params.packageName
       )}/deploy?${qs.stringify({ version: location.query.version })}`
     );
-  }
-
-  handleConfirmClose() {
+  };
+  handleConfirmClose = () => {
     this.setState({ isConfirmOpen: false });
-  }
-
-  handlePackageVersionChange(selection) {
+  };
+  handlePackageVersionChange = selection => {
     const query = {
       ...this.props.location.query,
       version: selection.id
@@ -211,7 +189,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     window.location.replace(
       `#${this.props.location.pathname}?${qs.stringify(query)}`
     );
-  }
+  };
 
   getErrorScreen() {
     return <RequestErrorMsg />;
@@ -340,8 +318,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       </div>
     );
   }
-
-  renderInstallButton({ tooltipContent, disabled }, isCertified) {
+  renderInstallButton = ({ tooltipContent, disabled }, isCertified) => {
     const button = (
       <button
         className={classNames("button button-primary", { disabled })}
@@ -362,14 +339,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
         {button}
       </Tooltip>
     );
-  }
-
-  hasUnresolvedDependency(cosmosPackage) {
+  };
+  hasUnresolvedDependency = cosmosPackage => {
     const dep = dependency(cosmosPackage);
     return dep && !(this.state.runningPackageNames.data || []).includes(dep);
-  }
-
-  renderReviewAndRunButton(cosmosPackage) {
+  };
+  renderReviewAndRunButton = cosmosPackage => {
     if (cosmosPackage.isCLIOnly()) {
       return this.renderCliHint();
     }
@@ -426,7 +401,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       { tooltipContent: "", disabled: false },
       isCertified
     );
-  }
+  };
 
   getPackageVersionsDropdown() {
     const cosmosPackage = CosmosPackagesStore.getPackageDetails();
@@ -469,8 +444,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       </div>
     );
   }
-
-  onInstalledSuccessModalClose() {
+  onInstalledSuccessModalClose = () => {
     const query = {
       ...this.props.location.query
     };
@@ -479,7 +453,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
     window.location.replace(
       `#${this.props.location.pathname}?${qs.stringify(query)}`
     );
-  }
+  };
 
   getInstalledSuccessModal(name) {
     const { location } = this.props;

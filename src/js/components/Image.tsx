@@ -3,8 +3,6 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-const METHODS_TO_BIND = ["onImageError"];
-
 class Image extends React.Component {
   constructor(...args) {
     super(...args);
@@ -12,10 +10,6 @@ class Image extends React.Component {
     this.state = {
       imageErrorCount: 0
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -36,8 +30,7 @@ class Image extends React.Component {
       this.setState({ imageErrorCount: 0 });
     }
   }
-
-  onImageError(event) {
+  onImageError = event => {
     const {
       props: { fallbackSrc },
       state: { imageErrorCount }
@@ -49,7 +42,7 @@ class Image extends React.Component {
 
     // Both src and fallback failed
     this.setState({ imageErrorCount: imageErrorCount + 1 });
-  }
+  };
 
   render() {
     const {

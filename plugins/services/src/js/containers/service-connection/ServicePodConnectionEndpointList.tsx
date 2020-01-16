@@ -15,23 +15,16 @@ import Service from "../../structs/Service";
 import MesosDNSList from "./MesosDNSList";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
-const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
-
 class ServicePodConnectionEndpointList extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleOpenEditConfigurationModal() {
+  handleOpenEditConfigurationModal = () => {
     const { router } = this.context;
     router.push(
       `/services/detail/${encodeURIComponent(this.props.service.getId())}/edit/`
     );
-  }
+  };
 
   getClipboardTrigger(command) {
     return <EndpointClipboardTrigger command={command} />;

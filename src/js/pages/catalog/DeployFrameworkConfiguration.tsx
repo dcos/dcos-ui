@@ -13,13 +13,6 @@ import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
-const METHODS_TO_BIND = [
-  "handleGoBack",
-  "handleRun",
-  "onFormDataChange",
-  "onFormErrorChange",
-  "onCosmosPackagesStoreInstallError"
-];
 class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   constructor(props) {
     super(props);
@@ -42,10 +35,6 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       props.params.packageName,
       props.location.query.version
     );
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   onCosmosPackagesStorePackageDescriptionSuccess() {
@@ -76,15 +65,13 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
     this.setState({ isPending: false });
   }
-
-  onCosmosPackagesStoreInstallError(deployErrors) {
+  onCosmosPackagesStoreInstallError = deployErrors => {
     this.setState({
       deployErrors,
       isPending: false
     });
-  }
-
-  handleRun() {
+  };
+  handleRun = () => {
     const { packageDetails, formData } = this.state;
 
     const name = packageDetails.getName();
@@ -92,28 +79,25 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     CosmosPackagesStore.installPackage(name, version, formData);
 
     this.setState({ isPending: true });
-  }
-
-  handleGoBack() {
+  };
+  handleGoBack = () => {
     const { router } = this.context;
     router.goBack();
-  }
-
-  onFormDataChange(formData) {
+  };
+  onFormDataChange = formData => {
     if (isEqual(formData, this.state.formData)) {
       return false;
     }
 
     this.setState({ formData });
-  }
-
-  onFormErrorChange(formErrors) {
+  };
+  onFormErrorChange = formErrors => {
     if (isEqual(formErrors, this.state.formErrors)) {
       return false;
     }
 
     this.setState({ formErrors });
-  }
+  };
 
   render() {
     const {

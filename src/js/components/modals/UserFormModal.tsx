@@ -11,12 +11,6 @@ import FormModal from "../FormModal";
 import ModalHeading from "../modals/ModalHeading";
 import UserStore from "../../stores/UserStore";
 
-const METHODS_TO_BIND = [
-  "handleClose",
-  "handleNewUserSubmit",
-  "onUserStoreCreateSuccess"
-];
-
 class UserFormModal extends mixin(StoreMixin) {
   constructor() {
     super();
@@ -31,20 +25,15 @@ class UserFormModal extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: "user", events: ["createSuccess", "createError"], suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  onUserStoreCreateSuccess() {
+  onUserStoreCreateSuccess = () => {
     this.setState({
       disableNewUser: false,
       errorMsg: false,
       errorCode: null
     });
     this.props.onClose();
-  }
+  };
 
   onUserStoreCreateError(errorMsg, userID, xhr) {
     this.setState({
@@ -53,17 +42,15 @@ class UserFormModal extends mixin(StoreMixin) {
       errorCode: xhr.status
     });
   }
-
-  handleClose() {
+  handleClose = () => {
     this.setState({
       disableNewUser: false,
       errorMsg: false,
       errorCode: null
     });
     this.props.onClose();
-  }
-
-  handleNewUserSubmit(model) {
+  };
+  handleNewUserSubmit = model => {
     const { i18n } = this.props;
     const passwordsMessage = i18nMark("Passwords do not match.");
 
@@ -82,7 +69,7 @@ class UserFormModal extends mixin(StoreMixin) {
       cluster_url: `${window.location.protocol}//${window.location.hostname}`
     });
     UserStore.addUser(userModelObject);
-  }
+  };
 
   getButtonDefinition() {
     const { props, state } = this;

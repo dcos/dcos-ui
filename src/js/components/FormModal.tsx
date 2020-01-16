@@ -5,22 +5,12 @@ import { Form, Modal } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const METHODS_TO_BIND = [
-  "getTriggerSubmit",
-  "handleTriggerSubmit",
-  "handleError"
-];
-
 export default class FormModal extends React.Component {
   constructor() {
     super();
     this.triggerSubmit = () => {};
 
     this.formWrapperRef = React.createRef();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -32,23 +22,20 @@ export default class FormModal extends React.Component {
       this.focusOnField();
     }
   }
-
-  handleTriggerSubmit() {
+  handleTriggerSubmit = () => {
     this.triggerSubmit();
-  }
-
-  getTriggerSubmit(trigger) {
+  };
+  getTriggerSubmit = trigger => {
     this.triggerSubmit = trigger;
     this.forceUpdate();
-  }
+  };
 
   handleNewButtonClick() {
     this.triggerSubmit();
   }
-
-  handleError() {
+  handleError = () => {
     this.forceUpdate();
-  }
+  };
 
   focusOnField() {
     // Gotta account for animation

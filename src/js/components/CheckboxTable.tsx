@@ -6,24 +6,11 @@ import * as React from "react";
 import ResourceTableUtil from "../utils/ResourceTableUtil";
 import TableUtil from "../utils/TableUtil";
 
-const METHODS_TO_BIND = [
-  "getTableRowOptions",
-  "handleCheckboxChange",
-  "handleHeadingCheckboxChange",
-  "renderCheckbox",
-  "renderHeadingCheckbox"
-];
-
 class CheckboxTable extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleCheckboxChange(prevCheckboxState, eventObject) {
+  handleCheckboxChange = (prevCheckboxState, eventObject) => {
     const {
       allowMultipleSelect,
       checkedItemsMap,
@@ -46,12 +33,11 @@ class CheckboxTable extends React.Component {
     }
 
     onCheckboxChange(checkedIDs);
-  }
-
-  handleHeadingCheckboxChange(prevCheckboxState, eventObject) {
+  };
+  handleHeadingCheckboxChange = (prevCheckboxState, eventObject) => {
     const isChecked = eventObject.fieldValue;
     this.bulkCheck(isChecked);
-  }
+  };
 
   bulkCheck(isChecked) {
     const checkedIDs = [];
@@ -81,8 +67,7 @@ class CheckboxTable extends React.Component {
       this.props.labelClass
     );
   }
-
-  renderHeadingCheckbox() {
+  renderHeadingCheckbox = () => {
     let checked = false;
     let indeterminate = false;
     const {
@@ -128,9 +113,8 @@ class CheckboxTable extends React.Component {
         onChange={this.handleHeadingCheckboxChange}
       />
     );
-  }
-
-  renderCheckbox(prop, row) {
+  };
+  renderCheckbox = (prop, row) => {
     const { checkedItemsMap, disabledItemsMap, uniqueProperty } = this.props;
     const rowID = row[uniqueProperty];
 
@@ -161,9 +145,8 @@ class CheckboxTable extends React.Component {
         onChange={this.handleCheckboxChange}
       />
     );
-  }
-
-  getTableRowOptions(row) {
+  };
+  getTableRowOptions = row => {
     const { checkedItemsMap, inactiveItemsMap, uniqueProperty } = this.props;
 
     // Override the key from index to our task ID to help React know, which
@@ -181,7 +164,7 @@ class CheckboxTable extends React.Component {
     }
 
     return rowAttributes;
-  }
+  };
 
   getColumns() {
     const { getClassName } = ResourceTableUtil;

@@ -7,15 +7,10 @@ const SECOND = 1000;
 const MINUTE = 60 * MINUTE;
 const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
-const METHODS_TO_BIND = ["updateTime"];
 
 export default class TimeAgo extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     this.state = {};
 
@@ -50,12 +45,11 @@ export default class TimeAgo extends React.Component {
 
     return SECOND;
   }
-
-  updateTime() {
+  updateTime = () => {
     this.setState({
       interval: window.setTimeout(this.updateTime, this.getUpdateInterval())
     });
-  }
+  };
 
   render() {
     const { prefix, suppressSuffix, time } = this.props;

@@ -9,14 +9,6 @@ import ModalHeading from "./ModalHeading";
 import StringUtil from "../../utils/StringUtil";
 import Util from "../../utils/Util";
 
-const METHODS_TO_BIND = [
-  "handleButtonCancel",
-  "handleButtonConfirm",
-  "handleItemSelection",
-  "onActionError",
-  "onActionSuccess"
-];
-
 const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
@@ -31,10 +23,6 @@ class ActionsModal extends mixin(StoreMixin) {
       selectedItem: null,
       validationError: null
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -61,8 +49,7 @@ class ActionsModal extends mixin(StoreMixin) {
       });
     }
   }
-
-  handleButtonCancel() {
+  handleButtonCancel = () => {
     this.setState({
       pendingRequest: false,
       requestErrors: [],
@@ -71,30 +58,27 @@ class ActionsModal extends mixin(StoreMixin) {
       validationError: null
     });
     this.props.onClose();
-  }
-
-  handleItemSelection(item) {
+  };
+  handleItemSelection = item => {
     this.setState({
       requestErrors: [],
       selectedItem: item,
       validationError: null
     });
-  }
-
-  onActionError(error) {
+  };
+  onActionError = error => {
     this.state.requestErrors.push(error);
 
     this.setState({
       requestErrors: this.state.requestErrors,
       requestsRemaining: this.state.requestsRemaining - 1
     });
-  }
-
-  onActionSuccess() {
+  };
+  onActionSuccess = () => {
     this.setState({
       requestsRemaining: this.state.requestsRemaining - 1
     });
-  }
+  };
 
   getActionsModalContents() {
     const { itemType } = this.props;

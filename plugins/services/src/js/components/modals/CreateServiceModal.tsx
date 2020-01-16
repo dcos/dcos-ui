@@ -65,31 +65,6 @@ import VipLabelsValidators from "../../validators/VipLabelsValidators";
 import PlacementsValidators from "../../validators/PlacementsValidators";
 import { getBaseID, getServiceJSON } from "../../utils/ServiceUtil";
 
-const METHODS_TO_BIND = [
-  "handleClearError",
-  "handleClose",
-  "handleCloseConfirmModal",
-  "handleConfirmGoBack",
-  "handleConvertToPod",
-  "handleGoBack",
-  "handleJSONToggle",
-  "handleRouterWillLeave",
-  "handleServiceChange",
-  "handleServiceErrorsChange",
-  "handleServicePropertyChange",
-  "handleServiceReview",
-  "handleServiceRun",
-  "handleServiceSelection",
-  "handleStoreChange",
-  "handleTabChange",
-  "onMarathonStoreServiceCreateError",
-  "onMarathonStoreServiceCreateSuccess",
-  "onMarathonStoreServiceEditError",
-  "onMarathonStoreServiceEditSuccess",
-  "resetExpandAdvancedSettings",
-  "getExpandAdvancedSettings"
-];
-
 const APP_VALIDATORS = [
   AppValidators.App,
   MarathonAppValidators.containsCmdArgsOrContainer,
@@ -113,10 +88,6 @@ class CreateServiceModal extends React.Component {
     super(...args);
 
     this.state = this.getResetState(this.props);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -207,36 +178,31 @@ class CreateServiceModal extends React.Component {
     // Also remove DCOS change listener, if still subscribed
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
   }
-
-  onMarathonStoreServiceCreateError(errors) {
+  onMarathonStoreServiceCreateError = errors => {
     this.setState({
       apiErrors: MarathonErrorUtil.parseErrors(errors),
       isPending: false
     });
-  }
-
-  onMarathonStoreServiceCreateSuccess() {
+  };
+  onMarathonStoreServiceCreateSuccess = () => {
     this.setState({ apiErrors: [], isPending: false });
-  }
-
-  onMarathonStoreServiceEditError(errors) {
+  };
+  onMarathonStoreServiceEditError = errors => {
     this.setState({
       apiErrors: MarathonErrorUtil.parseErrors(errors),
       isPending: false
     });
-  }
-
-  onMarathonStoreServiceEditSuccess() {
+  };
+  onMarathonStoreServiceEditSuccess = () => {
     this.setState({ apiErrors: [], isPending: false });
-  }
+  };
 
   shouldForceSubmit() {
     return this.state.apiErrors.some(
       error => error.type === ServiceErrorTypes.SERVICE_DEPLOYING
     );
   }
-
-  handleRouterWillLeave() {
+  handleRouterWillLeave = () => {
     const { isOpen, hasChangesApplied, serviceReviewActive } = this.state;
     // If we are not about to close the modal and not on the review screen,
     // confirm before navigating away
@@ -248,9 +214,8 @@ class CreateServiceModal extends React.Component {
     }
 
     return true;
-  }
-
-  handleConfirmGoBack() {
+  };
+  handleConfirmGoBack = () => {
     const { location } = this.props;
     const { serviceFormActive, serviceJsonActive } = this.state;
 
@@ -282,9 +247,8 @@ class CreateServiceModal extends React.Component {
         serviceJsonActive: false
       });
     }
-  }
-
-  handleStoreChange() {
+  };
+  handleStoreChange = () => {
     // Unsubscribe from further events
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
 
@@ -293,9 +257,8 @@ class CreateServiceModal extends React.Component {
     const service = DCOSStore.serviceTree.findItemById(serviceID);
 
     this.setState({ service, serviceSpec: service.getSpec() });
-  }
-
-  handleGoBack(event) {
+  };
+  handleGoBack = event => {
     const { tabViewID } = event;
     const {
       hasChangesApplied,
@@ -339,48 +302,42 @@ class CreateServiceModal extends React.Component {
     }
 
     this.handleConfirmGoBack();
-  }
-
-  handleTabChange(activeTab) {
+  };
+  handleTabChange = activeTab => {
     this.setState({ activeTab });
-  }
-
-  handleClearError() {
+  };
+  handleClearError = () => {
     this.setState({
       apiErrors: [],
       showAllErrors: false
     });
-  }
+  };
 
   handleOpenConfirm() {
     this.setState({ isConfirmOpen: true });
   }
-
-  handleCloseConfirmModal() {
+  handleCloseConfirmModal = () => {
     this.setState({ isConfirmOpen: false });
-  }
+  };
 
-  handleClose() {
+  handleClose = () => {
     // Start the animation of the modal by setting isOpen to false
     this.setState({ isConfirmOpen: false, isOpen: false }, () => {
       // Once state is set, start a timer for the length of the animation and
       // navigate away once the animation is over.
       setTimeout(this.context.router.goBack, 300);
     });
-  }
-
-  handleConvertToPod() {
+  };
+  handleConvertToPod = () => {
     this.handleServiceSelection({ type: "pod" });
-  }
-
-  handleJSONToggle() {
+  };
+  handleJSONToggle = () => {
     UserSettingsStore.setJSONEditorExpandedSetting(
       !this.state.isJSONModeActive
     );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
-  }
-
-  handleServiceChange(newService) {
+  };
+  handleServiceChange = newService => {
     // If there were previous error messages visible it's better to revalidate
     // on each change going forward
     const formErrors = this.state.submitFailed
@@ -392,13 +349,11 @@ class CreateServiceModal extends React.Component {
       hasChangesApplied: true,
       formErrors
     });
-  }
-
-  handleServiceErrorsChange(errors) {
+  };
+  handleServiceErrorsChange = errors => {
     this.setState({ serviceFormErrors: errors });
-  }
-
-  handleServicePropertyChange(path) {
+  };
+  handleServicePropertyChange = path => {
     const refPath = path.join(".");
     let { apiErrors } = this.state;
 
@@ -415,9 +370,8 @@ class CreateServiceModal extends React.Component {
     });
 
     this.setState({ apiErrors });
-  }
-
-  handleServiceSelection(event) {
+  };
+  handleServiceSelection = event => {
     const { route, type } = event;
     const { params } = this.props;
     const baseID = getBaseID(decodeURIComponent(params.id || "/"));
@@ -475,9 +429,8 @@ class CreateServiceModal extends React.Component {
         this.context.router.push(route);
         break;
     }
-  }
-
-  handleServiceReview() {
+  };
+  handleServiceReview = () => {
     const expandAdvancedSettings = this.getExpandAdvancedSettings();
 
     if (this.criticalFormErrors().length === 0) {
@@ -495,9 +448,8 @@ class CreateServiceModal extends React.Component {
         expandAdvancedSettings
       });
     }
-  }
-
-  handleServiceRun() {
+  };
+  handleServiceRun = () => {
     const { location } = this.props;
     const { service, serviceSpec } = this.state;
     const force = this.shouldForceSubmit();
@@ -508,9 +460,8 @@ class CreateServiceModal extends React.Component {
     }
 
     this.setState({ isPending: true });
-  }
-
-  getExpandAdvancedSettings() {
+  };
+  getExpandAdvancedSettings = () => {
     // If we have errors inside the advanced options, expand the options to allow the user to see the errors.
     const { serviceSpec } = this.state;
     const isDockerContainer =
@@ -523,7 +474,7 @@ class CreateServiceModal extends React.Component {
         isEqual(path, ["disk"]) ||
         (isDockerContainer && isEqual(path, ["container", "docker", "image"]))
     );
-  }
+  };
 
   isLocationEdit(location) {
     return location.pathname.includes("/edit");
@@ -634,14 +585,13 @@ class CreateServiceModal extends React.Component {
       </FullScreenModalHeader>
     );
   }
-
-  resetExpandAdvancedSettings() {
+  resetExpandAdvancedSettings = () => {
     // Reset, otherwise every change in the form will open the advanced options
     // after they are opened once
     if (this.state.expandAdvancedSettings) {
       this.setState({ expandAdvancedSettings: false });
     }
-  }
+  };
 
   getModalContent() {
     const {

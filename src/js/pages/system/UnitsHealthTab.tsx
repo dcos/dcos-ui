@@ -39,15 +39,6 @@ const UnitHealthBreadcrumbs = () => {
   );
 };
 
-const METHODS_TO_BIND = [
-  "handleHealthFilterChange",
-  "handleSearchStringChange",
-  "renderUnit",
-  "renderHealth",
-  "resetFilter",
-  "getButtonContent"
-];
-
 class UnitsHealthTab extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -61,22 +52,16 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       healthFilter: "all",
       searchString: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    }, this);
   }
 
   componentDidMount() {
     super.componentDidMount();
     UnitHealthStore.fetchUnits();
   }
-
-  handleSearchStringChange(searchString = "") {
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
-
-  renderUnit(prop, unit) {
+  };
+  renderUnit = (prop, unit) => {
     return (
       <div className="text-overflow">
         <Link
@@ -87,9 +72,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         </Link>
       </div>
     );
-  }
-
-  renderHealth(prop, unit) {
+  };
+  renderHealth = (prop, unit) => {
     const health = unit.getHealth();
 
     return (
@@ -97,9 +81,8 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         {StringUtil.capitalize(health.title)}
       </span>
     );
-  }
-
-  getButtonContent(filterName, count, isActive) {
+  };
+  getButtonContent = (filterName, count, isActive) => {
     const dotClassSet = classNames({
       dot: filterName !== "all",
       danger: filterName === "unhealthy",
@@ -117,7 +100,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         <Badge appearance={isActive}>{count || 0}</Badge>
       </span>
     );
-  }
+  };
 
   getColGroup() {
     return (
@@ -156,23 +139,21 @@ class UnitsHealthTab extends mixin(StoreMixin) {
       }
     ];
   }
-
-  handleHealthFilterChange(healthFilter) {
+  handleHealthFilterChange = healthFilter => {
     this.setState({ healthFilter });
-  }
+  };
 
   getVisibleData(data, searchString, healthFilter) {
     return data
       .filter({ title: searchString, health: healthFilter })
       .getItems();
   }
-
-  resetFilter() {
+  resetFilter = () => {
     this.setState({
       searchString: "",
       healthFilter: "all"
     });
-  }
+  };
 
   render() {
     const data = UnitHealthStore.getUnits();

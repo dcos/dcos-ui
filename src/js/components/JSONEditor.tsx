@@ -11,13 +11,6 @@ import { omit } from "../utils/Util";
 import JSONUtil from "../utils/JSONUtil";
 import JSONEditorUtil from "../utils/JSONEditorUtil";
 
-const METHODS_TO_BIND = [
-  "handleBlur",
-  "handleChange",
-  "handleEditorLoad",
-  "handleFocus"
-];
-
 /**
  * How long to wait before clearing the `isTyping` flag, used internally to
  * prohibit external updates to the editor while the user is typing.
@@ -104,10 +97,6 @@ class JSONEditor extends React.Component {
 
     // Initial state synchronization
     this.updateLocalJsonState(this.getNewJsonState(jsonText));
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   /**
@@ -187,8 +176,7 @@ class JSONEditor extends React.Component {
   componentDidUpdate() {
     this.updateEditorState();
   }
-
-  handleEditorLoad(editor) {
+  handleEditorLoad = editor => {
     this.aceEditor = editor;
 
     // Disable tab index for JSON editor
@@ -204,24 +192,24 @@ class JSONEditor extends React.Component {
 
     // Synchronize editor state
     this.updateEditorState();
-  }
+  };
 
   /**
    * `onBlur` handler for the AceEditor
    *
    * @param {DOMEvent} event - The event object
    */
-  handleBlur(event) {
+  handleBlur = event => {
     this.props.onBlur(event, this.jsonValue);
     this.isFocused = false;
-  }
+  };
 
   /**
    * `onChange` handler for the AceEditor
    *
    * @param {string} jsonText - The new JSON string
    */
-  handleChange(jsonText) {
+  handleChange = jsonText => {
     const lastValue = this.jsonValue;
     const lastError = this.jsonError;
 
@@ -258,17 +246,17 @@ class JSONEditor extends React.Component {
 
     // Update local json state
     this.updateLocalJsonState({ jsonValue, jsonMeta, jsonError, jsonText });
-  }
+  };
 
   /**
    * `onFocus` handler for the AceEditor
    *
    * @param {DOMEvent} event - The event object
    */
-  handleFocus(event) {
+  handleFocus = event => {
     this.props.onFocus(event, this.jsonValue);
     this.isFocused = true;
-  }
+  };
 
   /**
    * Apply pending state updates to the ACE editor instance.

@@ -25,14 +25,6 @@ import {
   REQUEST_MARATHON_TASK_KILL_SUCCESS
 } from "../../constants/ActionTypes";
 
-const METHODS_TO_BIND = [
-  "handleServerAction",
-  "handleModalClose",
-  "handleExpressionChange",
-  "clearActionError",
-  "killTasks"
-];
-
 class TasksContainer extends React.Component {
   constructor(...args) {
     super(...args);
@@ -45,10 +37,6 @@ class TasksContainer extends React.Component {
       filters,
       defaultFilterData: { zones: [], regions: [] }
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -74,14 +62,12 @@ class TasksContainer extends React.Component {
       modalHandlers: this.getModalHandlers()
     };
   }
-
-  killTasks(...args) {
+  killTasks = (...args) => {
     this.setPendingAction(ActionKeys.TASK_KILL);
 
     return MarathonActions.killTasks(...args);
-  }
-
-  handleServerAction(payload) {
+  };
+  handleServerAction = payload => {
     const { action } = payload;
 
     switch (action.type) {
@@ -92,16 +78,14 @@ class TasksContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.TASK_KILL);
         break;
     }
-  }
-
-  handleModalClose(key) {
+  };
+  handleModalClose = key => {
     if (key) {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
-  }
-
-  handleExpressionChange(filterExpression) {
+  };
+  handleExpressionChange = filterExpression => {
     const { router } = this.context;
     const {
       location: { pathname }
@@ -109,7 +93,7 @@ class TasksContainer extends React.Component {
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });
-  }
+  };
 
   propsToState(props) {
     const {
@@ -226,8 +210,7 @@ class TasksContainer extends React.Component {
       )
     });
   }
-
-  clearActionError(actionType) {
+  clearActionError = actionType => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -237,7 +220,7 @@ class TasksContainer extends React.Component {
         null
       )
     });
-  }
+  };
 
   getModalHandlers() {
     const set = (id, props) => {

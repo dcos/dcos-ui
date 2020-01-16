@@ -14,13 +14,6 @@ import {
 
 import DSLExpression from "../structs/DSLExpression";
 
-const METHODS_TO_BIND = [
-  "handleBlur",
-  "handleChange",
-  "handleFocus",
-  "handleInputClear"
-];
-
 /**
  * This is a very simple, low-level input field for DSL expressions, with
  * embedded clear and dropdown buttons.
@@ -48,10 +41,6 @@ class DSLInputField extends React.Component {
       expression: this.props.expression,
       focus: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   /**
@@ -83,44 +72,44 @@ class DSLInputField extends React.Component {
   /**
    * Reset field state to unfocused when the user blurs from the field
    */
-  handleBlur() {
+  handleBlur = () => {
     this.setState({
       focus: false
     });
     this.props.onBlur();
-  }
+  };
 
   /**
    * Callback with the new text on every keystroke
    *
    * @param {SyntheticEvent} event - The change event
    */
-  handleChange(event) {
+  handleChange = event => {
     this.setState(
       {
         expression: new DSLExpression(event.target.value)
       },
       () => this.props.onChange(this.state.expression)
     );
-  }
+  };
 
   /**
    * Switch to focused state (that triggers .focus to the input field) when
    * the user focuses on the overall component
    */
-  handleFocus() {
+  handleFocus = () => {
     this.setState({
       focus: true
     });
     this.props.onFocus();
-  }
+  };
 
   /**
    * Callback with empty text  when user clears the input
    */
-  handleInputClear() {
+  handleInputClear = () => {
     this.props.onChange(new DSLExpression());
-  }
+  };
 
   /**
    * Return the "X" button when we have some input

@@ -16,8 +16,6 @@ import Page from "../../components/Page";
 import RequestErrorMsg from "../../components/RequestErrorMsg";
 import UsersStore from "../../stores/UsersStore";
 
-const METHODS_TO_BIND = ["onUsersStoreSuccess", "onUsersStoreError"];
-
 const UsersBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Users">
@@ -46,10 +44,6 @@ class UsersPage extends mixin(StoreMixin) {
       usersStoreError: false,
       usersStoreSuccess: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -60,20 +54,18 @@ class UsersPage extends mixin(StoreMixin) {
   onUsersChange() {
     UsersStore.fetchUsers();
   }
-
-  onUsersStoreSuccess() {
+  onUsersStoreSuccess = () => {
     this.setState({
       usersStoreError: false,
       usersStoreSuccess: true
     });
-  }
-
-  onUsersStoreError() {
+  };
+  onUsersStoreError = () => {
     this.setState({
       usersStoreError: true,
       usersStoreSuccess: false
     });
-  }
+  };
 
   handleSearchStringChange(searchString) {
     this.setState({ searchString });

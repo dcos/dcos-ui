@@ -21,8 +21,6 @@ import SDKEndpointActions from "../../events/SDKEndpointActions";
 import SDKEndpointStore from "../../stores/SDKEndpointStore";
 import MesosDNSList from "./MesosDNSList";
 
-const METHODS_TO_BIND = ["handleOpenEditConfigurationModal"];
-
 class SDKServiceConnectionEndpointList extends React.Component {
   constructor(...args) {
     super(...args);
@@ -30,20 +28,15 @@ class SDKServiceConnectionEndpointList extends React.Component {
     this.state = {
       servicePreviousState: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleOpenEditConfigurationModal() {
+  handleOpenEditConfigurationModal = () => {
     const { service } = this.props;
     const { router } = this.context;
 
     router.push(
       `/services/detail/${encodeURIComponent(service.getId())}/edit/`
     );
-  }
+  };
 
   componentDidMount() {
     const { service } = this.props;

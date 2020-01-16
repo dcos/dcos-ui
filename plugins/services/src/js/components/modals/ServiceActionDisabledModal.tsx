@@ -27,17 +27,11 @@ const RESUME = ServiceActionItem.RESUME;
 const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 
-const METHODS_TO_BIND = ["handleTextCopy"];
-
 class ServiceActionDisabledModal extends React.Component {
   constructor(...args) {
     super(...args);
 
     this.state = { copiedCommand: false };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -45,10 +39,9 @@ class ServiceActionDisabledModal extends React.Component {
       this.setState({ copiedCommand: false });
     }
   }
-
-  handleTextCopy(copiedCommand) {
+  handleTextCopy = copiedCommand => {
     this.setState({ copiedCommand });
-  }
+  };
 
   getUpdateCommand(service = this.props.service) {
     const serviceID = service ? service.getId() : "";

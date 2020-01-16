@@ -27,13 +27,6 @@ const headerMapping = {
   ip_address: i18nMark("Container IP"),
   port_mappings: i18nMark("Port Mappings")
 };
-const METHODS_TO_BIND = [
-  "handleSearchStringChange",
-  "renderAgentIP",
-  "renderID",
-  "renderPorts",
-  "resetFilter"
-];
 
 const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
@@ -50,10 +43,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     this.store_listeners = [
       { name: "state", events: ["success", "error"], suppressUpdate: true }
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   onStateStoreError(errorMessage) {
@@ -63,14 +52,12 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   onStateStoreSuccess() {
     this.setState({ tasksDataReceived: true, errorMessage: null });
   }
-
-  handleSearchStringChange(searchString = "") {
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
-
-  resetFilter() {
+  };
+  resetFilter = () => {
     this.setState({ searchString: "" });
-  }
+  };
 
   isLoading() {
     return !this.state.tasksDataReceived;
@@ -186,8 +173,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     return ipAddresses.map(ipAddress => ipAddress.ip_address).join(", ");
   }
-
-  renderAgentIP(prop, task) {
+  renderAgentIP = (prop, task) => {
     const ipAddress = this.getAgentIP(task);
 
     if (!ipAddress) {
@@ -195,7 +181,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     return ipAddress;
-  }
+  };
 
   renderHeading(prop) {
     return (
@@ -206,12 +192,10 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       />
     );
   }
-
-  renderID(prop, task) {
+  renderID = (prop, task) => {
     return this.getTaskLink(task.id, null, null, { primary: true });
-  }
-
-  renderPorts(prop, task) {
+  };
+  renderPorts = (prop, task) => {
     let portMappings = TaskUtil.getPortMappings(task);
     if (!portMappings) {
       return "N/A";
@@ -255,7 +239,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         </div>
       );
     });
-  }
+  };
 
   render() {
     const { errorMessage, searchString } = this.state;

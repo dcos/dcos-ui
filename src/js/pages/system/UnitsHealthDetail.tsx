@@ -53,12 +53,6 @@ const UnitHealthDetailBreadcrumbs = ({ unit }) => {
   );
 };
 
-const METHODS_TO_BIND = [
-  "handleHealthSelection",
-  "handleSearchStringChange",
-  "resetFilter"
-];
-
 class UnitsHealthDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -75,10 +69,6 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       isLoadingNodes: true,
       searchString: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -103,16 +93,13 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   onUnitHealthStoreNodeError() {
     this.setState({ hasError: true });
   }
-
-  handleHealthSelection(selectedHealth) {
+  handleHealthSelection = selectedHealth => {
     this.setState({ healthFilter: selectedHealth.id });
-  }
-
-  handleSearchStringChange(searchString = "") {
+  };
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
-
-  resetFilter() {
+  };
+  resetFilter = () => {
     if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
       this.healthFilter.setDropdownValue("all");
     }
@@ -121,7 +108,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       searchString: "",
       healthFilter: "all"
     });
-  }
+  };
 
   getErrorNotice() {
     return (

@@ -16,8 +16,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import DeploymentsModal from "./DeploymentsModal";
 
-const METHODS_TO_BIND = ["handleDeploymentsButtonClick", "handleModalClose"];
-
 export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -29,10 +27,6 @@ export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
     this.state = {
       isOpen: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps() {
@@ -42,14 +36,12 @@ export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
       this.setState({ isOpen: false });
     }
   }
-
-  handleDeploymentsButtonClick() {
+  handleDeploymentsButtonClick = () => {
     this.setState({ isOpen: true });
-  }
-
-  handleModalClose() {
+  };
+  handleModalClose = () => {
     this.setState({ isOpen: false });
-  }
+  };
 
   render() {
     const deployments = DCOSStore.deploymentsList.getItems();

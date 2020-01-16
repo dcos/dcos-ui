@@ -22,15 +22,9 @@ import Service from "../../structs/Service";
 import Framework from "../../structs/Framework";
 import TaskStatsTable from "./TaskStatsTable";
 
-const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
-
 class ServiceDebugContainer extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -357,12 +351,11 @@ class ServiceDebugContainer extends React.Component {
       </div>
     );
   }
-
-  handleJumpToRecentOffersClick() {
+  handleJumpToRecentOffersClick = () => {
     if (this.offerSummaryRef) {
       this.offerSummaryRef.scrollIntoView();
     }
-  }
+  };
 
   shouldShowDeclinedOfferSummary() {
     const { service } = this.props;

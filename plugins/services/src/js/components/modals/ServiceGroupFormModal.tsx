@@ -7,15 +7,9 @@ import FormModal from "#SRC/js/components/FormModal";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
-const METHODS_TO_BIND = ["handleNewGroupSubmit"];
-
 class ServiceGroupFormModal extends React.PureComponent {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -27,15 +21,14 @@ class ServiceGroupFormModal extends React.PureComponent {
       this.props.onClose();
     }
   }
-
-  handleNewGroupSubmit(model) {
+  handleNewGroupSubmit = model => {
     const { parentGroupId } = this.props;
 
     this.props.createGroup({
       ...model,
       id: `${parentGroupId}/${model.id}`
     });
-  }
+  };
 
   getErrorMessage() {
     const { errors, i18n } = this.props;

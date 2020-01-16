@@ -12,13 +12,6 @@ import Highlight from "./Highlight";
 
 const CONTAINER_OFFSET_HEIGHT = 25;
 
-const METHODS_TO_BIND = [
-  "handleGoToBottom",
-  "handleLogContainerScroll",
-  "handleUpdateScrollPosition",
-  "handleWindowResize"
-];
-
 class LogView extends React.Component {
   constructor(...args) {
     super(...args);
@@ -27,10 +20,6 @@ class LogView extends React.Component {
     this.updatingScrollPosition = false;
 
     this.state = { isAtBottom: true };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     // Make sure to run this on the leading edge to capture this event as soon
     // as possible. This has impact on both checkIfCloseToTop and
@@ -114,8 +103,7 @@ class LogView extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleWindowResize);
   }
-
-  handleUpdateScrollPosition(props = this.props) {
+  handleUpdateScrollPosition = (props = this.props) => {
     const { direction, fullLog } = props;
     // Prevent updates to fullLog, if it has not changed
     if (this.state.fullLog !== fullLog) {
@@ -142,14 +130,12 @@ class LogView extends React.Component {
         }
       });
     }
-  }
-
-  handleLogContainerScroll() {
+  };
+  handleLogContainerScroll = () => {
     this.checkIfCloseToTop(this.logContainer);
     this.checkIfAwayFromBottom(this.logContainer);
-  }
-
-  handleGoToBottom() {
+  };
+  handleGoToBottom = () => {
     const { logContainer, props } = this;
     // Do not scroll to bottom if we want to highlight a word in the log,
     // or we are already scrolling
@@ -168,12 +154,11 @@ class LogView extends React.Component {
       animationTime,
       logContainer.scrollHeight - logContainer.clientHeight
     );
-  }
-
-  handleWindowResize() {
+  };
+  handleWindowResize = () => {
     this.checkIfCloseToTop(this.logContainer);
     this.checkIfAwayFromBottom(this.logContainer);
-  }
+  };
 
   checkIfCloseToTop(container) {
     // Cancel check if we are changing the scroll position computationally

@@ -5,14 +5,6 @@ import DSLInputField from "./DSLInputField";
 import DSLExpression from "../structs/DSLExpression";
 import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
 
-const METHODS_TO_BIND = [
-  "handleDismissClick",
-  "handleDropdownClick",
-  "handleInputFocus",
-  "handleIgnoreClick",
-  "handleDropdownClose"
-];
-
 /**
  * This component interactively edits a DSL expression and calls back with the
  * filtering function when there is a change.
@@ -24,10 +16,6 @@ class DSLFilterField extends React.Component {
     this.state = {
       dropdownVisible: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   /**
@@ -62,34 +50,34 @@ class DSLFilterField extends React.Component {
   /**
    * Clicks on the body are dismissing the panel
    */
-  handleDismissClick() {
+  handleDismissClick = () => {
     if (!this.state.dropdownVisible) {
       return;
     }
 
     this.setState({ dropdownVisible: false });
-  }
+  };
 
   /**
    * Handle click on the dropdown button of the input field
    */
-  handleDropdownClick() {
+  handleDropdownClick = () => {
     this.setState({ dropdownVisible: !this.state.dropdownVisible });
-  }
+  };
 
   /**
    * Handle focus on the dropdown of the input field
    */
-  handleInputFocus() {
+  handleInputFocus = () => {
     this.setState({ dropdownVisible: true });
-  }
+  };
 
   /**
    * Handle closing of the dropdown
    */
-  handleDropdownClose() {
+  handleDropdownClose = () => {
     this.setState({ dropdownVisible: false });
-  }
+  };
 
   /**
    * Clicks on the panel region are stopped in order for them not to reach
@@ -97,9 +85,9 @@ class DSLFilterField extends React.Component {
    *
    * @param {SyntheticEvent} event - The click event
    */
-  handleIgnoreClick(event) {
+  handleIgnoreClick = event => {
     event.stopPropagation();
-  }
+  };
 
   render() {
     const { expression, formSections, onChange, defaultData } = this.props;
