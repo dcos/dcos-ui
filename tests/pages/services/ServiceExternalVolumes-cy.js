@@ -121,19 +121,19 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("64 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
