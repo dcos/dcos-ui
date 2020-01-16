@@ -122,7 +122,8 @@ module.exports = {
           {
             loader: "file-loader",
             options: {
-              name: "./[hash]-[name].[ext]"
+              name: "./[hash]-[name].[ext]",
+              esModule: false
             }
           },
           {
