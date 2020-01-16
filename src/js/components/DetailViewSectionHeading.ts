@@ -1,8 +1,12 @@
 import classNames from "classnames";
-import PropTypes from "prop-types";
 import * as React from "react";
+import { ClassValue } from "classnames/types";
 
-const DetailViewSectionHeading = (props) => {
+const DetailViewSectionHeading = (props: {
+  children?: React.ReactNode;
+  className?: ClassValue;
+  level?: 1 | 2 | 3 | 4 | 5 | 6;
+}) => {
   const { children, className, level } = props;
 
   const headingProps = {
@@ -14,19 +18,6 @@ const DetailViewSectionHeading = (props) => {
   };
 
   return React.createElement(`h${level}`, headingProps, children);
-};
-
-DetailViewSectionHeading.defaultProps = {
-  level: 1,
-};
-
-DetailViewSectionHeading.propTypes = {
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string,
-  ]),
-  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
 };
 
 export default DetailViewSectionHeading;

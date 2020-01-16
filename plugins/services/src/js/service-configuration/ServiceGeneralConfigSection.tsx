@@ -28,6 +28,10 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
     const { appConfig } = this.props;
 
     switch (row.key) {
+      case "resourceLimits.cpus":
+        return !findNestedPropertyInObject(appConfig, "resourceLimits.cpus");
+      case "resourceLimits.mem":
+        return !findNestedPropertyInObject(appConfig, "resourceLimits.mem");
       case "fetch":
         return !findNestedPropertyInObject(appConfig, "fetch.length");
       case "gpus":
@@ -86,21 +90,16 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
           label: <Trans render="span">Service ID</Trans>,
         },
         {
-          key: "instances",
-          label: <Trans render="span">Instances</Trans>,
-        },
-        {
-          key: "container.type",
-          label: <Trans render="span">Container Runtime</Trans>,
-          transformValue(runtime) {
-            const transId = labelMap[runtime] || labelMap[MESOS];
-
-            return <Trans render="span" id={transId} />;
-          },
+          heading: <Trans render="span">Resources</Trans>,
+          headingLevel: 2,
         },
         {
           key: "cpus",
           label: <Trans render="span">CPU</Trans>,
+        },
+        {
+          key: "resourceLimits.cpus",
+          label: <Trans render="span">CPU Limit</Trans>,
         },
         {
           key: "mem",
@@ -111,6 +110,34 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return Units.formatResource("mem", value);
+          },
+        },
+        {
+          key: "resourceLimits.mem",
+          label: <Trans render="span">Memory Limit</Trans>,
+          transformValue(value) {
+            if (value == null || value === "unlimited") {
+              return value;
+            }
+
+            return Units.formatResource("mem", value);
+          },
+        },
+        {
+          heading: <Trans render="span">General</Trans>,
+          headingLevel: 2,
+        },
+        {
+          key: "instances",
+          label: <Trans render="span">Instances</Trans>,
+        },
+        {
+          key: "container.type",
+          label: <Trans render="span">Container Runtime</Trans>,
+          transformValue(runtime) {
+            const transId = labelMap[runtime] || labelMap[MESOS];
+
+            return <Trans render="span" id={transId} />;
           },
         },
         {
