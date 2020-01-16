@@ -3036,7 +3036,9 @@ plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2322: type * is not assignable to type *.
+plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2769: No overload matches this call.
+plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainersConfigSection.tsx: error TS2322: type * is not assignable to type *.
@@ -3132,8 +3134,8 @@ plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigS
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
-plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2416: Property 'shouldExcludeItem' in type 'ServiceGeneralConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
+plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2322: Type 'string' is not assignable to type *.

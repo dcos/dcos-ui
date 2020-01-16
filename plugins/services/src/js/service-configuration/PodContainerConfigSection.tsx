@@ -39,6 +39,7 @@ const PodContainerConfigSection = ({
   const fields = {
     command: getCommand(containerConfig),
     resources: containerConfig.resources || {},
+    resourceLimits: containerConfig.resourceLimits || {},
     user: containerConfig.user || appConfig.user
   };
 
@@ -70,8 +71,46 @@ const PodContainerConfigSection = ({
         <ConfigurationMapHeading level={3}>
           {getContainerNameWithIcon(containerConfig)}
         </ConfigurationMapHeading>
+        {/* Resources */}
+        <ConfigurationMapHeading level={4}>
+          <Trans id="Resources" />
+        </ConfigurationMapHeading>
+        {Boolean(fields.resources.cpus) && (
+          <ConfigurationMapRow>
+            <Trans render={<ConfigurationMapLabel />}>CPUs</Trans>
+            <ConfigurationMapValue value={fields.resources.cpus} />
+            {action}
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resourceLimits.cpus) && (
+          <ConfigurationMapRow>
+            <Trans render={<ConfigurationMapLabel />}>CPUs Limit</Trans>
+            <ConfigurationMapValue value={fields.resourceLimits.cpus} />
+            {action}
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resources.mem) && (
+          <ConfigurationMapRow>
+            <Trans render={<ConfigurationMapLabel />}>Memory</Trans>
+            <ConfigurationMapSizeValue value={fields.resources.mem} />
+            {action}
+          </ConfigurationMapRow>
+        )}
+        {Boolean(fields.resourceLimits.mem) && (
+          <ConfigurationMapRow>
+            <Trans render={<ConfigurationMapLabel />}>Memory Limit</Trans>
+            {fields.resourceLimits.mem === "unlimited" ? (
+              <ConfigurationMapValue value={fields.resourceLimits.mem} />
+            ) : (
+              <ConfigurationMapSizeValue value={fields.resourceLimits.mem} />
+            )}
+            {action}
+          </ConfigurationMapRow>
+        )}
 
-        {/* Container image goes to top */}
+        <ConfigurationMapHeading level={4}>
+          <Trans id="General" />
+        </ConfigurationMapHeading>
         <ConfigurationMapRow>
           <Trans render={<ConfigurationMapLabel />}>Container Image</Trans>
           <ConfigurationMapValueWithDefault
@@ -90,21 +129,6 @@ const PodContainerConfigSection = ({
           {action}
         </ConfigurationMapRow>
 
-        {/* Resources */}
-        {Boolean(fields.resources.cpus) && (
-          <ConfigurationMapRow>
-            <Trans render={<ConfigurationMapLabel />}>CPUs</Trans>
-            <ConfigurationMapValue value={fields.resources.cpus} />
-            {action}
-          </ConfigurationMapRow>
-        )}
-        {Boolean(fields.resources.mem) && (
-          <ConfigurationMapRow>
-            <Trans render={<ConfigurationMapLabel />}>Memory</Trans>
-            <ConfigurationMapSizeValue value={fields.resources.mem} />
-            {action}
-          </ConfigurationMapRow>
-        )}
         {Boolean(fields.resources.disk) && (
           <ConfigurationMapRow>
             <Trans render={<ConfigurationMapLabel />}>Disk</Trans>

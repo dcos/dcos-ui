@@ -223,6 +223,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx - Shadowed name: 'endpoints'
 /plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx - Shadowed name: 'memo'
 /plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx - Use a conditional expression instead of assigning to 'type' in multiple places.
+/plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx - == should be ===
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Missing \\"key\\" prop for element.
