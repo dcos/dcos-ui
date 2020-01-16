@@ -23,7 +23,6 @@ import TaskZoneDSLSection from "../../components/dsl/TaskZoneDSLSection";
 import TaskRegionDSLSection from "../../components/dsl/TaskRegionDSLSection";
 import FuzzyTextDSLSection from "../../components/dsl/FuzzyTextDSLSection";
 
-const METHODS_TO_BIND = ["handleKillClick", "handleSelectionChange"];
 const DSL_FORM_SECTIONS = [
   TaskStatusDSLSection,
   TaskZoneDSLSection,
@@ -38,10 +37,6 @@ class PodInstancesView extends React.Component {
     this.state = {
       selectedItems: []
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getKillButtons() {
@@ -61,8 +56,7 @@ class PodInstancesView extends React.Component {
       </div>
     );
   }
-
-  handleKillClick() {
+  handleKillClick = () => {
     const { selectedItems } = this.state;
 
     if (!selectedItems.length) {
@@ -73,11 +67,10 @@ class PodInstancesView extends React.Component {
       action: "restart",
       selectedItems
     });
-  }
-
-  handleSelectionChange(selectedItems) {
+  };
+  handleSelectionChange = selectedItems => {
     this.setState({ selectedItems });
-  }
+  };
 
   getFilterBar() {
     const {

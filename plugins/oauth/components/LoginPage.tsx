@@ -11,8 +11,6 @@ import MySDK from "../SDK";
 
 const SDK = MySDK.getSDK();
 
-const METHODS_TO_BIND = ["handleModalClose", "onMessageReceived"];
-
 class LoginPage extends mixin(StoreMixin) {
   UNSAFE_componentWillMount() {
     if (AuthStore.getUser()) {
@@ -27,10 +25,6 @@ class LoginPage extends mixin(StoreMixin) {
       showClusterError: false
     });
 
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
-
     window.addEventListener("message", this.onMessageReceived);
   }
 
@@ -39,8 +33,7 @@ class LoginPage extends mixin(StoreMixin) {
 
     window.removeEventListener("message", this.onMessageReceived);
   }
-
-  onMessageReceived(event) {
+  onMessageReceived = event => {
     if (event.origin !== SDK.config.authHost) {
       console.warn(
         `Event Origin "${event.origin}" does not match allowed origin "${SDK.config.authHost}"`
@@ -59,7 +52,7 @@ class LoginPage extends mixin(StoreMixin) {
         this.navigateToAccessDenied();
         break;
     }
-  }
+  };
 
   onAuthStoreError(message, xhr) {
     if (xhr.status >= 400 && xhr.status < 500) {
@@ -68,10 +61,9 @@ class LoginPage extends mixin(StoreMixin) {
       this.setState({ showClusterError: true });
     }
   }
-
-  handleModalClose() {
+  handleModalClose = () => {
     this.setState({ showClusterError: false });
-  }
+  };
 
   navigateToAccessDenied() {
     const router = this.context.router;

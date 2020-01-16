@@ -11,8 +11,6 @@ import {
   purple
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-const METHODS_TO_BIND = ["handleCopy", "handleCopyIconMouseEnter"];
-
 class ClipboardTrigger extends React.Component {
   constructor() {
     super();
@@ -22,10 +20,6 @@ class ClipboardTrigger extends React.Component {
     };
 
     this.copyButtonRef = React.createRef();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -69,18 +63,16 @@ class ClipboardTrigger extends React.Component {
       </span>
     );
   }
-
-  handleCopy() {
+  handleCopy = () => {
     this.setState({ hasCopiedToClipboard: true });
 
     if (this.props.onTextCopy) {
       this.props.onTextCopy();
     }
-  }
-
-  handleCopyIconMouseEnter() {
+  };
+  handleCopyIconMouseEnter = () => {
     this.setState({ hasCopiedToClipboard: false });
-  }
+  };
 
   render() {
     const { useTooltip } = this.props;

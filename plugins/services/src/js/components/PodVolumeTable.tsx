@@ -10,15 +10,9 @@ import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
 import { profileFromVolume } from "../constants/VolumeProfile";
 import VolumeDefinitions from "../constants/VolumeDefinitions";
 
-const METHODS_TO_BIND = ["renderIDColumn"];
-
 class PodVolumeTable extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getData(volumes) {
@@ -127,8 +121,7 @@ class PodVolumeTable extends React.Component {
       }
     ];
   }
-
-  renderIDColumn(prop, row) {
+  renderIDColumn = (prop, row) => {
     const id = row[prop];
     const { nodeID, taskID } = this.props.params;
     const volumeID = encodeURIComponent(id);
@@ -153,7 +146,7 @@ class PodVolumeTable extends React.Component {
         {id}
       </Link>
     );
-  }
+  };
 
   renderSizeColumn(prop, row) {
     const { size } = row;

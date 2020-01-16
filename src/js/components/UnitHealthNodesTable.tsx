@@ -9,15 +9,9 @@ import StringUtil from "../utils/StringUtil";
 import TableUtil from "../utils/TableUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 
-const METHODS_TO_BIND = ["renderHealth", "renderNode", "renderNodeRole"];
-
 class UnitHealthNodesTable extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    }, this);
   }
 
   getColGroup() {
@@ -90,8 +84,7 @@ class UnitHealthNodesTable extends React.Component {
       </Link>
     );
   }
-
-  renderHealth(prop, node) {
+  renderHealth = (prop, node) => {
     const health = node.getHealth();
 
     return (
@@ -99,15 +92,13 @@ class UnitHealthNodesTable extends React.Component {
         {StringUtil.capitalize(health.title)}
       </span>
     );
-  }
-
-  renderNode(prop, node) {
+  };
+  renderNode = (prop, node) => {
     return this.getNodeLink(node, node.get(prop));
-  }
-
-  renderNodeRole(prop, node) {
+  };
+  renderNodeRole = (prop, node) => {
     return StringUtil.capitalize(node.get(prop));
-  }
+  };
 
   render() {
     return (

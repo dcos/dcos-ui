@@ -66,13 +66,6 @@ const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
 const VIEW_ENDPOINTS = ServiceActionItem.VIEW_ENDPOINTS;
 
-const METHODS_TO_BIND = [
-  "handleServiceAction",
-  "handleActionDisabledModalOpen",
-  "handleActionDisabledModalClose",
-  "handleSortClick"
-];
-
 const serviceToVersion = serviceTreeNode => {
   if (serviceTreeNode instanceof ServiceTree) {
     return "";
@@ -156,10 +149,6 @@ class ServicesTable extends React.Component {
     };
 
     this.regionRenderer = regionRendererFactory(props.masterRegionName);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   // this page does not use the composite state anymore, so let's not calculate it
@@ -182,8 +171,7 @@ class ServicesTable extends React.Component {
       )
     );
   }
-
-  handleServiceAction(service, actionID) {
+  handleServiceAction = (service, actionID) => {
     const { modalHandlers, router } = this.context;
 
     switch (actionID) {
@@ -224,17 +212,14 @@ class ServicesTable extends React.Component {
         modalHandlers.deleteService({ service });
         break;
     }
-  }
-
-  handleActionDisabledModalOpen(actionDisabledService, actionDisabledID) {
+  };
+  handleActionDisabledModalOpen = (actionDisabledService, actionDisabledID) => {
     this.setState({ actionDisabledService, actionDisabledID });
-  }
-
-  handleActionDisabledModalClose() {
+  };
+  handleActionDisabledModalClose = () => {
     this.setState({ actionDisabledService: null, actionDisabledID: null });
-  }
-
-  handleSortClick(columnName) {
+  };
+  handleSortClick = columnName => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -249,7 +234,7 @@ class ServicesTable extends React.Component {
         this.state.sortColumn
       )
     );
-  }
+  };
 
   sortGroupsOnTop(data) {
     const groups = data.filter(service => service instanceof ServiceTree);

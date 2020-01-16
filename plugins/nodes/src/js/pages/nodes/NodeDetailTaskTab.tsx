@@ -7,8 +7,6 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import TasksContainer from "../../../../../services/src/js/containers/tasks/TasksContainer";
 
-const METHODS_TO_BIND = ["onStoreChange"];
-
 class NodeDetailTaskTab extends React.Component {
   constructor(...args) {
     super(...args);
@@ -17,10 +15,6 @@ class NodeDetailTaskTab extends React.Component {
       isLoading: true,
       lastUpdate: 0
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -30,8 +24,7 @@ class NodeDetailTaskTab extends React.Component {
   componentWillUnmount() {
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
-
-  onStoreChange() {
+  onStoreChange = () => {
     // Throttle updates from DCOSStore
     if (
       Date.now() - this.state.lastUpdate > 1000 ||
@@ -42,7 +35,7 @@ class NodeDetailTaskTab extends React.Component {
         lastUpdate: Date.now()
       });
     }
-  }
+  };
 
   render() {
     const {

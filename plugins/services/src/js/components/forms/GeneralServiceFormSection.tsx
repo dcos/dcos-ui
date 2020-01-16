@@ -37,12 +37,6 @@ const {
   labelMap
 } = ContainerConstants;
 
-const METHODS_TO_BIND = [
-  "handleConvertToPod",
-  "handleCloseConvertToPodModal",
-  "handleOpenConvertToPodModal"
-];
-
 const containerRuntimes = {
   [MESOS]: {
     label: <Trans render="span" id={labelMap[MESOS]} />,
@@ -63,24 +57,17 @@ class GeneralServiceFormSection extends React.Component {
     super(...args);
 
     this.state = { convertToPodModalOpen: false };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleConvertToPod() {
+  handleConvertToPod = () => {
     this.props.onConvertToPod();
     this.handleCloseConvertToPodModal();
-  }
-
-  handleCloseConvertToPodModal() {
+  };
+  handleCloseConvertToPodModal = () => {
     this.setState({ convertToPodModalOpen: false });
-  }
-
-  handleOpenConvertToPodModal() {
+  };
+  handleOpenConvertToPodModal = () => {
     this.setState({ convertToPodModalOpen: true });
-  }
+  };
 
   getAdvancedSettingsSection() {
     const { data = {}, errors, expandAdvancedSettings, service } = this.props;

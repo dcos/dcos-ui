@@ -24,19 +24,6 @@ import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
 import * as LastUpdated from "#SRC/js/components/LastUpdated";
 
-const METHODS_TO_BIND = [
-  "handleJSONToggle",
-  "handleGoBack",
-  "handleServiceReview",
-  "handleEditConfigurationButtonClick",
-  "handleActiveTabChange",
-  "handleFocusFieldChange",
-  "handleCloseConfirmModal",
-  "handleConfirmGoBack",
-  "handleFormSubmit",
-  "deleteDeployErrors"
-];
-
 class FrameworkConfiguration extends React.Component {
   constructor(props) {
     super(props);
@@ -53,25 +40,18 @@ class FrameworkConfiguration extends React.Component {
       isOpen: true,
       liveValidate: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  deleteDeployErrors() {
+  deleteDeployErrors = () => {
     if (this.props.onCosmosPackagesStoreInstallError) {
       this.props.onCosmosPackagesStoreInstallError(null);
     } else {
       this.props.onCosmosPackagesStoreServiceUpdateError(null);
     }
-  }
-
-  handleFocusFieldChange(activeTab, focusField) {
+  };
+  handleFocusFieldChange = (activeTab, focusField) => {
     this.setState({ focusField, activeTab });
-  }
-
-  handleActiveTabChange(activeTab) {
+  };
+  handleActiveTabChange = activeTab => {
     const { packageDetails } = this.props;
     const schema = packageDetails.getConfig();
 
@@ -83,29 +63,25 @@ class FrameworkConfiguration extends React.Component {
     );
 
     this.setState({ activeTab, focusField });
-  }
-
-  handleEditConfigurationButtonClick() {
+  };
+  handleEditConfigurationButtonClick = () => {
     this.deleteDeployErrors();
     const { activeTab, focusField } = getFirstTabAndField(
       this.props.packageDetails
     );
 
     this.setState({ reviewActive: false, activeTab, focusField });
-  }
-
-  handleJSONToggle() {
+  };
+  handleJSONToggle = () => {
     UserSettingsStore.setJSONEditorExpandedSetting(
       !this.state.jsonEditorActive
     );
     this.setState({ jsonEditorActive: !this.state.jsonEditorActive });
-  }
-
-  handleCloseConfirmModal() {
+  };
+  handleCloseConfirmModal = () => {
     this.setState({ isConfirmOpen: false });
-  }
-
-  handleGoBack() {
+  };
+  handleGoBack = () => {
     const { reviewActive } = this.state;
 
     if (reviewActive) {
@@ -116,9 +92,8 @@ class FrameworkConfiguration extends React.Component {
     }
 
     this.setState({ isConfirmOpen: true });
-  }
-
-  handleServiceReview() {
+  };
+  handleServiceReview = () => {
     const { handleRun } = this.props;
     const { reviewActive } = this.state;
 
@@ -135,9 +110,8 @@ class FrameworkConfiguration extends React.Component {
       // https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
       this.submitButton.click();
     });
-  }
-
-  handleConfirmGoBack() {
+  };
+  handleConfirmGoBack = () => {
     const { handleGoBack } = this.props;
 
     this.setState({ isConfirmOpen: false, isOpen: false }, () => {
@@ -145,11 +119,10 @@ class FrameworkConfiguration extends React.Component {
       // navigate away once the animation is over.
       setTimeout(handleGoBack, 300);
     });
-  }
-
-  handleFormSubmit() {
+  };
+  handleFormSubmit = () => {
     this.setState({ liveValidate: false, reviewActive: true });
-  }
+  };
 
   getSecondaryActions() {
     const { reviewActive } = this.state;

@@ -9,15 +9,9 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
 import { profileFromVolume } from "../constants/VolumeProfile";
 
-const METHODS_TO_BIND = ["renderIDColumn"];
-
 class VolumeTable extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getData(volumes) {
@@ -125,8 +119,7 @@ class VolumeTable extends React.Component {
       }
     ];
   }
-
-  renderIDColumn(prop, row) {
+  renderIDColumn = (prop, row) => {
     const id = row[prop];
     const { nodeID, taskID } = this.props.params;
     const volumeID = encodeURIComponent(id);
@@ -151,7 +144,7 @@ class VolumeTable extends React.Component {
         {id}
       </Link>
     );
-  }
+  };
 
   renderStatusColumn(prop, row) {
     const value = row[prop];

@@ -9,8 +9,6 @@ import RepositoriesPage from "./RepositoriesPage";
 import RepositoriesTable from "./RepositoriesTable";
 import RepositoriesAdd from "../RepositoriesAdd";
 
-const METHODS_TO_BIND = ["handleCloseAddRepository", "handleOpenAddRepository"];
-
 class RepositoriesTabUI extends React.Component {
   constructor() {
     super();
@@ -18,19 +16,13 @@ class RepositoriesTabUI extends React.Component {
     this.state = {
       addRepositoryModalOpen: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleCloseAddRepository() {
+  handleCloseAddRepository = () => {
     this.setState({ addRepositoryModalOpen: false });
-  }
-
-  handleOpenAddRepository() {
+  };
+  handleOpenAddRepository = () => {
     this.setState({ addRepositoryModalOpen: true });
-  }
+  };
 
   render() {
     const { addRepositoryModalOpen } = this.state;

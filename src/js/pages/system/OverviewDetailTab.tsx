@@ -31,11 +31,6 @@ import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
 import { isEmpty } from "../../utils/ValidatorUtil";
 
-const METHODS_TO_BIND = [
-  "handleClusterConfigModalClose",
-  "handleClusterConfigModalOpen"
-];
-
 const SystemOverviewBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Cluster">
@@ -74,10 +69,6 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       { name: "marathon", events: ["instanceInfoSuccess"] },
       {name: "metadata", events: ["dcosBuildInfoChange", "dcosSuccess", "success"]}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount(...args) {
@@ -123,14 +114,12 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       this.setState({ masterInfo, electedTime, startTime });
     });
   }
-
-  handleClusterConfigModalOpen() {
+  handleClusterConfigModalOpen = () => {
     this.setState({ isClusterBuildInfoOpen: true });
-  }
-
-  handleClusterConfigModalClose() {
+  };
+  handleClusterConfigModalClose = () => {
     this.setState({ isClusterBuildInfoOpen: false });
-  }
+  };
 
   getLoading() {
     return <Loader size="small" type="ballBeat" />;

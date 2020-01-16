@@ -148,26 +148,6 @@ function getMesosRoles$() {
     .pipe(map(result => result.data.roles));
 }
 
-const METHODS_TO_BIND = [
-  "handleServerAction",
-  "handleFilterExpressionChange",
-  "handleModalClose",
-  "clearActionError",
-  "createGroup",
-  "revertDeployment",
-  "deleteGroup",
-  "editGroup",
-  "deleteService",
-  "editService",
-  "resetDelayedService",
-  "restartService",
-  "onStoreChange",
-  "getResetDelaySuccessToast",
-  "getResetDelayErrorToast",
-  "getServiceTree",
-  "getServiceQuota"
-];
-
 class ServicesContainer extends React.Component {
   constructor(...args) {
     super(...args);
@@ -181,10 +161,6 @@ class ServicesContainer extends React.Component {
       pendingActions: {},
       roles: []
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     // This is so we get notified when the serviceTree is ready in DCOSStore. Making this a promise would be nice.
     DCOSStore.on(DCOS_CHANGE, () => {
@@ -242,8 +218,7 @@ class ServicesContainer extends React.Component {
       itemId
     });
   }
-
-  onStoreChange() {
+  onStoreChange = () => {
     // Throttle updates from DCOSStore
     if (
       Date.now() - this.state.lastUpdate > 1000 ||
@@ -254,57 +229,48 @@ class ServicesContainer extends React.Component {
         lastUpdate: Date.now()
       });
     }
-  }
-
-  revertDeployment(...args) {
+  };
+  revertDeployment = (...args) => {
     this.setPendingAction(ActionKeys.REVERT_DEPLOYMENT);
 
     return MarathonActions.revertDeployment(...args);
-  }
-
-  createGroup(...args) {
+  };
+  createGroup = (...args) => {
     this.setPendingAction(ActionKeys.GROUP_CREATE);
 
     return MarathonActions.createGroup(...args);
-  }
-
-  deleteGroup(...args) {
+  };
+  deleteGroup = (...args) => {
     this.setPendingAction(ActionKeys.GROUP_DELETE);
 
     return ServiceActions.deleteGroup(...args);
-  }
-
-  editGroup(...args) {
+  };
+  editGroup = (...args) => {
     this.setPendingAction(ActionKeys.GROUP_EDIT);
 
     return MarathonActions.editGroup(...args);
-  }
-
-  deleteService(...args) {
+  };
+  deleteService = (...args) => {
     this.setPendingAction(ActionKeys.SERVICE_DELETE);
 
     return ServiceActions.deleteService(...args);
-  }
-
-  editService(...args) {
+  };
+  editService = (...args) => {
     this.setPendingAction(ActionKeys.SERVICE_EDIT);
 
     return MarathonActions.editService(...args);
-  }
-
-  restartService(...args) {
+  };
+  restartService = (...args) => {
     this.setPendingAction(ActionKeys.SERVICE_RESTART);
 
     return MarathonActions.restartService(...args);
-  }
-
-  resetDelayedService(...args) {
+  };
+  resetDelayedService = (...args) => {
     this.setPendingAction(ActionKeys.SERVICE_RESET_DELAY);
 
     return MarathonActions.resetDelayedService(...args);
-  }
-
-  handleServerAction(payload) {
+  };
+  handleServerAction = payload => {
     const { action } = payload;
 
     // Increment/clear fetching errors based on action
@@ -390,16 +356,14 @@ class ServicesContainer extends React.Component {
         this.unsetPendingAction(ActionKeys.SERVICE_DELETE, action.data);
         break;
     }
-  }
-
-  handleModalClose(key) {
+  };
+  handleModalClose = key => {
     if (key) {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
-  }
-
-  handleFilterExpressionChange(filterExpression) {
+  };
+  handleFilterExpressionChange = filterExpression => {
     const { router } = this.context;
     const {
       location: { pathname }
@@ -407,7 +371,7 @@ class ServicesContainer extends React.Component {
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });
-  }
+  };
 
   /**
    * Sets the actionType to pending in state which will in turn be pushed
@@ -454,8 +418,7 @@ class ServicesContainer extends React.Component {
       )
     });
   }
-
-  clearActionError(actionType) {
+  clearActionError = actionType => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -465,7 +428,7 @@ class ServicesContainer extends React.Component {
         null
       )
     });
-  }
+  };
 
   getModalHandlers() {
     const set = (id, props) => {
@@ -618,8 +581,7 @@ class ServicesContainer extends React.Component {
       </ServiceDetail>
     );
   }
-
-  getServiceTree(item) {
+  getServiceTree = item => {
     const { children, params, routes } = this.props;
     const { filterExpression, roles } = this.state;
 
@@ -650,9 +612,8 @@ class ServicesContainer extends React.Component {
         {this.getModals(item)}
       </ServiceTreeView>
     );
-  }
-
-  getServiceQuota(item) {
+  };
+  getServiceQuota = item => {
     const { children, params, routes } = this.props;
     return (
       <ServicesQuotaView params={params} routes={routes} serviceTree={item}>
@@ -660,9 +621,8 @@ class ServicesContainer extends React.Component {
         {this.getModals(item)}
       </ServicesQuotaView>
     );
-  }
-
-  getResetDelaySuccessToast(serviceName) {
+  };
+  getResetDelaySuccessToast = serviceName => {
     const title = i18nTranslate(i18nMark("Reset Delay Successful"));
     const description = i18nTranslate(
       i18nMark("Delay has cleared and {serviceName} is now relaunching."),
@@ -674,9 +634,8 @@ class ServicesContainer extends React.Component {
       autodismiss: true,
       description
     });
-  }
-
-  getResetDelayErrorToast(serviceName) {
+  };
+  getResetDelayErrorToast = serviceName => {
     const title = i18nTranslate(i18nMark("Reset Delay Failed"));
     const description = i18nTranslate(
       i18nMark(
@@ -690,7 +649,7 @@ class ServicesContainer extends React.Component {
       autodismiss: true,
       description
     });
-  }
+  };
 
   render() {
     const { children, params, routes } = this.props;

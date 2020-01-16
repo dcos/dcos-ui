@@ -25,11 +25,6 @@ const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
-const METHODS_TO_BIND = [
-  "handleActionDisabledModalOpen",
-  "handleActionDisabledModalClose"
-];
-
 class PodDetail extends React.Component<{ pod }> {
   constructor(a, ...args) {
     super(a, ...args);
@@ -38,10 +33,6 @@ class PodDetail extends React.Component<{ pod }> {
       actionDisabledID: null,
       actionDisabledModalOpen: false
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   onActionsItemSelection(actionID) {
@@ -101,14 +92,12 @@ class PodDetail extends React.Component<{ pod }> {
         break;
     }
   }
-
-  handleActionDisabledModalOpen(actionDisabledID) {
+  handleActionDisabledModalOpen = actionDisabledID => {
     this.setState({ actionDisabledModalOpen: true, actionDisabledID });
-  }
-
-  handleActionDisabledModalClose() {
+  };
+  handleActionDisabledModalClose = () => {
     this.setState({ actionDisabledModalOpen: false, actionDisabledID: null });
-  }
+  };
 
   getActions() {
     const { pod } = this.props;

@@ -9,8 +9,6 @@ import Loader from "#SRC/js/components/Loader";
 import ServiceItemNotFound from "../../components/ServiceItemNotFound";
 import VolumeDetail from "./VolumeDetail";
 
-const METHODS_TO_BIND = ["onStoreChange"];
-
 class ServiceVolumeContainer extends React.Component {
   constructor(...args) {
     super(...args);
@@ -19,10 +17,6 @@ class ServiceVolumeContainer extends React.Component {
       isLoading: !DCOSStore.serviceDataReceived,
       lastUpdate: 0
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -32,8 +26,7 @@ class ServiceVolumeContainer extends React.Component {
   componentWillUnmount() {
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.onStoreChange);
   }
-
-  onStoreChange() {
+  onStoreChange = () => {
     // Throttle updates from DCOSStore
     if (
       Date.now() - this.state.lastUpdate > 1000 ||
@@ -44,7 +37,7 @@ class ServiceVolumeContainer extends React.Component {
         lastUpdate: Date.now()
       });
     }
-  }
+  };
 
   render() {
     const { id, volumeID } = this.props.params;

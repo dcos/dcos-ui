@@ -29,22 +29,6 @@ const USERS_CHANGE_EVENTS = [
   "onUserStoreDeleteSuccess"
 ];
 
-const METHODS_TO_BIND = [
-  "getTableRowOptions",
-  "handleActionSelection",
-  "handleActionSelectionClose",
-  "handleCheckboxChange",
-  "handleHeadingCheckboxChange",
-  "handleNewUserClick",
-  "handleNewUserClose",
-  "handleSearchStringChange",
-  "renderCheckbox",
-  "renderFullName",
-  "renderHeadingCheckbox",
-  "renderUsername",
-  "resetFilter"
-];
-
 const UsersBreadcrumbs = () => {
   const crumbs = [
     <Breadcrumb key={0} title="Users">
@@ -81,10 +65,6 @@ class OrganizationTab extends mixin(StoreMixin) {
       usersStoreSuccess: false
     };
 
-    METHODS_TO_BIND.forEach(function(method) {
-      this[method] = this[method].bind(this);
-    }, this);
-
     Hooks.applyFilter(
       "organizationTabChangeEvents",
       USERS_CHANGE_EVENTS
@@ -119,21 +99,18 @@ class OrganizationTab extends mixin(StoreMixin) {
   onUsersChange() {
     UsersStore.fetchUsers();
   }
-
-  handleActionSelection(dropdownItem) {
+  handleActionSelection = dropdownItem => {
     this.setState({
       selectedAction: dropdownItem.id
     });
-  }
-
-  handleActionSelectionClose() {
+  };
+  handleActionSelectionClose = () => {
     this.setState({
       selectedAction: null
     });
     this.bulkCheck(false);
-  }
-
-  handleCheckboxChange(prevCheckboxState, eventObject) {
+  };
+  handleCheckboxChange = (prevCheckboxState, eventObject) => {
     const isChecked = eventObject.fieldValue;
     const checkedCount = this.state.checkedCount + (isChecked || -1);
     const selectedIDSet = this.selectedIDSet;
@@ -145,31 +122,25 @@ class OrganizationTab extends mixin(StoreMixin) {
       checkedCount,
       showActionDropdown: checkedCount > 0
     });
-  }
-
-  handleHeadingCheckboxChange(prevCheckboxState, eventObject) {
+  };
+  handleHeadingCheckboxChange = (prevCheckboxState, eventObject) => {
     const isChecked = eventObject.fieldValue;
     this.bulkCheck(isChecked);
-  }
-
-  handleSearchStringChange(searchString = "") {
+  };
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
     this.bulkCheck(false);
-  }
-
-  handleNewUserClick() {
+  };
+  handleNewUserClick = () => {
     this.setState({ openNewUserModal: true });
-  }
-
-  handleNewUserClose() {
+  };
+  handleNewUserClose = () => {
     this.setState({ openNewUserModal: false });
-  }
-
-  renderFullName(prop, subject) {
+  };
+  renderFullName = (prop, subject) => {
     return subject.get("description");
-  }
-
-  renderUsername(prop, subject) {
+  };
+  renderUsername = (prop, subject) => {
     return (
       <div className="row">
         <div className="column-small-12 column-large-12 column-x-large-12 text-overflow">
@@ -177,9 +148,8 @@ class OrganizationTab extends mixin(StoreMixin) {
         </div>
       </div>
     );
-  }
-
-  renderCheckbox(prop, row) {
+  };
+  renderCheckbox = (prop, row) => {
     const rowID = row[this.props.itemID];
     const remoteIDSet = this.remoteIDSet;
     const { checkableCount, checkedCount } = this.state;
@@ -211,9 +181,8 @@ class OrganizationTab extends mixin(StoreMixin) {
         onChange={this.handleCheckboxChange}
       />
     );
-  }
-
-  renderHeadingCheckbox() {
+  };
+  renderHeadingCheckbox = () => {
     let checked = false;
     let indeterminate = false;
 
@@ -246,7 +215,7 @@ class OrganizationTab extends mixin(StoreMixin) {
         onChange={this.handleHeadingCheckboxChange}
       />
     );
-  }
+  };
 
   getColGroup() {
     return (
@@ -400,15 +369,14 @@ class OrganizationTab extends mixin(StoreMixin) {
       />
     );
   }
-
-  getTableRowOptions(row) {
+  getTableRowOptions = row => {
     const selectedIDSet = this.selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
       return { className: "selected" };
     }
 
     return {};
-  }
+  };
 
   bulkCheck(isChecked) {
     let checkedCount = 0;
@@ -447,10 +415,9 @@ class OrganizationTab extends mixin(StoreMixin) {
     this.remoteIDSet = remoteIDSet;
     this.setState({ checkableCount });
   }
-
-  resetFilter() {
+  resetFilter = () => {
     this.setState({ searchString: "" });
-  }
+  };
 
   render() {
     const { items, itemID, itemName } = this.props;

@@ -19,12 +19,6 @@ import {
 } from "#SRC/js/constants/EventTypes";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
-const METHODS_TO_BIND = [
-  "handleEditClick",
-  "onCosmosPackagesStoreServiceDescriptionSuccess",
-  "onCosmosPackagesStoreServiceDescriptionError"
-];
-
 class FrameworkConfigurationContainer extends React.Component {
   constructor(props) {
     super(props);
@@ -36,10 +30,6 @@ class FrameworkConfigurationContainer extends React.Component {
       packageDetails: null,
       cosmosError: null
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     CosmosPackagesStore.fetchServiceDescription(service.getId());
   }
@@ -65,8 +55,7 @@ class FrameworkConfigurationContainer extends React.Component {
       this.onCosmosPackagesStoreServiceDescriptionError
     );
   }
-
-  onCosmosPackagesStoreServiceDescriptionSuccess() {
+  onCosmosPackagesStoreServiceDescriptionSuccess = () => {
     const fullPackage = CosmosPackagesStore.getServiceDetails();
     const packageDetails = new UniversePackage(fullPackage.package);
 
@@ -78,20 +67,18 @@ class FrameworkConfigurationContainer extends React.Component {
     );
 
     this.setState({ frameworkData, packageDetails, cosmosError: null });
-  }
-
-  onCosmosPackagesStoreServiceDescriptionError(cosmosError) {
+  };
+  onCosmosPackagesStoreServiceDescriptionError = cosmosError => {
     this.setState({ cosmosError });
-  }
-
-  handleEditClick() {
+  };
+  handleEditClick = () => {
     const { router } = this.context;
     const { service } = this.props;
 
     router.push(
       `/services/detail/${encodeURIComponent(service.getId())}/edit/`
     );
-  }
+  };
 
   render() {
     const { frameworkData, packageDetails, cosmosError } = this.state;

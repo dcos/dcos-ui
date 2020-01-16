@@ -76,13 +76,6 @@ const PackagesEmptyState = () => (
   </AlertPanel>
 );
 
-const METHODS_TO_BIND = [
-  "handleSearchStringChange",
-  "showAll",
-  "getFilterButtons",
-  "renderNoResults"
-];
-
 const shouldRenderCatalogOption = Hooks.applyFilter(
   "hasCapability",
   true,
@@ -122,10 +115,6 @@ class PackagesTab extends mixin(StoreMixin) {
     this.store_listeners = [
       {name: "cosmosPackages", events: ["availableError", "availableSuccess"], suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount(...args) {
@@ -150,17 +139,15 @@ class PackagesTab extends mixin(StoreMixin) {
       }
     });
   }
-
-  handleSearchStringChange(searchString = "") {
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
-
-  showAll() {
+  };
+  showAll = () => {
     this.setState({
       searchString: "",
       searchFilter: Filters.all
     });
-  }
+  };
 
   getErrorScreen() {
     const { errorMessage } = this.state;
@@ -243,8 +230,7 @@ class PackagesTab extends mixin(StoreMixin) {
       </div>
     );
   }
-
-  getFilterButtons(selectedLength, communityLength) {
+  getFilterButtons = (selectedLength, communityLength) => {
     const numbers = {
       [Filters.all]: selectedLength + communityLength,
       [Filters.certified]: selectedLength,
@@ -274,15 +260,14 @@ class PackagesTab extends mixin(StoreMixin) {
     });
 
     return <span className="button-group flush-bottom">{buttons}</span>;
-  }
+  };
 
   getSearchFilterChangeHandler(searchFilter) {
     return () => {
       this.setState({ searchFilter });
     };
   }
-
-  renderNoResults() {
+  renderNoResults = () => {
     return (
       <Trans
         render="div"
@@ -292,7 +277,7 @@ class PackagesTab extends mixin(StoreMixin) {
         components={[<a className="clickable" onClick={this.showAll} />]}
       />
     );
-  }
+  };
 
   render() {
     const { errorMessage, isLoading, searchString, searchFilter } = this.state;

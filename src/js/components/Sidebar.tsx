@@ -34,22 +34,12 @@ const defaultMenuItems = [
 ];
 
 const { Hooks } = PluginSDK;
-const METHODS_TO_BIND = [
-  "onNavigationChange",
-  "onDCOSMetadataChange",
-  "handleKeyPress",
-  "handleSidebarTransitionEnd"
-];
 
 class Sidebar extends React.Component {
   constructor() {
     super();
 
     this.state = { expandedItems: [] };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -100,16 +90,13 @@ class Sidebar extends React.Component {
 
     window.removeEventListener("keydown", this.handleKeyPress, true);
   }
-
-  onDCOSMetadataChange() {
+  onDCOSMetadataChange = () => {
     this.forceUpdate();
-  }
-
-  onNavigationChange() {
+  };
+  onNavigationChange = () => {
     this.forceUpdate();
-  }
-
-  handleKeyPress(event) {
+  };
+  handleKeyPress = event => {
     const nodeName = event.target.nodeName;
 
     if (
@@ -121,7 +108,7 @@ class Sidebar extends React.Component {
       // has had a chance to update before Gemini re-renders.
       this.toggleSidebarDocking();
     }
-  }
+  };
 
   handleSubmenuItemClick() {
     if (getCurrentViewport() === viewport.MOBILE) {
@@ -142,14 +129,13 @@ class Sidebar extends React.Component {
 
     this.setState({ expandedItems });
   }
-
-  handleSidebarTransitionEnd(event) {
+  handleSidebarTransitionEnd = event => {
     // Some elements (graphs and Gemini) need to update when the main content
     // width changes, so we emit an event.
     if (event.target === this.sidebarWrapperRef) {
       SidebarActions.sidebarWidthChange();
     }
-  }
+  };
 
   getNavigationSections() {
     const definition = NavigationService.getDefinition();

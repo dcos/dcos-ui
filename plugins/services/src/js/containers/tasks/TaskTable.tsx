@@ -41,31 +41,16 @@ const tableColumnClasses = {
   updated: "task-table-column-updated"
 };
 
-const METHODS_TO_BIND = [
-  "getStatusValue",
-  "renderHeadline",
-  "renderHost",
-  "renderLog",
-  "renderStatus",
-  "renderStats"
-];
-
 class TaskTable extends React.Component {
-  constructor(...args) {
-    super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
+  constructor(props) {
+    super(props);
   }
-
   getStatValue(task, prop) {
     return task.resources[prop] || 0;
   }
-
-  getStatusValue(task) {
+  getStatusValue = task => {
     return this.props.i18n._(TaskStates[task.state].displayName);
-  }
+  };
 
   getClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
@@ -247,8 +232,7 @@ class TaskTable extends React.Component {
       return acc;
     }, {});
   }
-
-  renderHeadline(options) {
+  renderHeadline = options => {
     const anchorClasses = classNames(
       {
         "table-cell-link-primary": options.primary,
@@ -278,9 +262,8 @@ class TaskTable extends React.Component {
         </div>
       );
     };
-  }
-
-  renderLog(prop, task) {
+  };
+  renderLog = (prop, task) => {
     const title = task.name || task.id;
     const { id, nodeID } = this.props.params;
 
@@ -307,9 +290,8 @@ class TaskTable extends React.Component {
         </Tooltip>
       </div>
     );
-  }
-
-  renderHost(prop, task) {
+  };
+  renderHost = (prop, task) => {
     const taskHostName = TaskUtil.getHostName(task);
 
     if (!taskHostName) {
@@ -325,7 +307,7 @@ class TaskTable extends React.Component {
         {taskHostName}
       </Link>
     );
-  }
+  };
 
   renderRegion(prop, task) {
     return (
@@ -346,14 +328,12 @@ class TaskTable extends React.Component {
       </div>
     );
   }
-
-  renderStats(prop, task) {
+  renderStats = (prop, task) => {
     return (
       <span>{Units.formatResource(prop, this.getStatValue(task, prop))}</span>
     );
-  }
-
-  renderStatus(prop, task) {
+  };
+  renderStatus = (prop, task) => {
     const statusClassName = TaskUtil.getTaskStatusClassName(task);
     const statusLabelClasses = `${statusClassName} table-cell-value`;
 
@@ -366,7 +346,7 @@ class TaskTable extends React.Component {
         />
       </div>
     );
-  }
+  };
 
   renderHealth(prop, task) {
     const { state } = task;

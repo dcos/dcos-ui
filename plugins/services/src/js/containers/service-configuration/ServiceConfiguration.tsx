@@ -25,12 +25,6 @@ import ApplicationSpec from "../../structs/ApplicationSpec";
 import ServiceConfigDisplay from "../../service-configuration/ServiceConfigDisplay";
 import Service from "../../structs/Service";
 
-const METHODS_TO_BIND = [
-  "handleApplyButtonClick",
-  "handleEditButtonClick",
-  "handleVersionSelection"
-];
-
 function fetchVersion(service, versionID) {
   if (service.getVersions().get(versionID) == null) {
     DCOSStore.fetchServiceVersion(service.getId(), versionID);
@@ -46,10 +40,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     };
 
     this.store_listeners = [{ name: "dcos", events: ["change"] }];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -71,8 +61,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       nextState.selectedVersionID !== selectedVersionID
     );
   }
-
-  handleApplyButtonClick() {
+  handleApplyButtonClick = () => {
     const { onEditClick, service } = this.props;
     const { selectedVersionID } = this.state;
 
@@ -82,22 +71,20 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       service,
       getDefinitionFromSpec(new ApplicationSpec(serviceConfiguration))
     );
-  }
-
-  handleEditButtonClick() {
+  };
+  handleEditButtonClick = () => {
     const serviceID = encodeURIComponent(this.props.service.getId());
     const { selectedVersionID } = this.state;
 
     this.context.router.push(
       `/services/detail/${serviceID}/edit/${selectedVersionID}`
     );
-  }
-
-  handleVersionSelection(versionItem) {
+  };
+  handleVersionSelection = versionItem => {
     fetchVersion(this.props.service, versionItem.id);
 
     this.setState({ selectedVersionID: versionItem.id });
-  }
+  };
 
   getVersionsActions() {
     return (

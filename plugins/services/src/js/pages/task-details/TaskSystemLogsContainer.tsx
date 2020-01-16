@@ -19,8 +19,6 @@ import { getUrl } from "#SRC/js/utils/SystemLogUtil";
 import LogView from "../../components/LogView";
 import SearchLog from "../../components/SearchLog";
 
-const METHODS_TO_BIND = ["handleFetchPreviousLog", "handleItemSelection"];
-
 // Number of lines (entries) we asses to be a page
 const PAGE_ENTRY_COUNT = 400;
 
@@ -55,10 +53,6 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     this.store_listeners = [
       {events: ["success", "error", "streamSuccess", "streamError"], name: "systemLog", suppressUpdate: true}
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   /**
@@ -179,7 +173,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
    * Will fetch previous logs, but is also used to check whether we are at the
    * top of the file.
    */
-  handleFetchPreviousLog() {
+  handleFetchPreviousLog = () => {
     // Ongoing previous log fetch, wait for that to complete
     if (this.state.isFetchingPrevious) {
       return;
@@ -199,7 +193,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     });
 
     SystemLogStore.fetchRange(task.slave_id, params);
-  }
+  };
 
   handleViewChange(selectedStream) {
     const { task } = this.props;
@@ -242,10 +236,9 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       </div>
     );
   }
-
-  handleItemSelection(obj) {
+  handleItemSelection = obj => {
     this.handleViewChange.call(this, obj.value);
-  }
+  };
 
   getDropdownItems() {
     return this.state.streams.map(name => {

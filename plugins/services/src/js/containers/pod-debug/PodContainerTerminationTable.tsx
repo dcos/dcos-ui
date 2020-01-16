@@ -8,21 +8,9 @@ import { i18nMark } from "@lingui/react";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
-const METHODS_TO_BIND = [
-  "getColumnHeading",
-  "renderColumnID",
-  "renderColumnState",
-  "renderColumnTerminationCode",
-  "renderColumnTerminationMessage"
-];
-
 class PodContainerTerminationTable extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getColumns() {
@@ -70,8 +58,7 @@ class PodContainerTerminationTable extends React.Component {
       </colgroup>
     );
   }
-
-  getColumnHeading(prop, order, sortBy) {
+  getColumnHeading = (prop, order, sortBy) => {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null,
       "caret--visible": prop === sortBy.prop
@@ -83,23 +70,19 @@ class PodContainerTerminationTable extends React.Component {
         <span className={caretClassNames} />
       </span>
     );
-  }
-
-  renderColumnID(prop, row) {
+  };
+  renderColumnID = (prop, row) => {
     return <span>{row.getId()}</span>;
-  }
-
-  renderColumnState(prop, row) {
+  };
+  renderColumnState = (prop, row) => {
     return <span>{row.getLastKnownState()}</span>;
-  }
-
-  renderColumnTerminationCode(prop, row) {
+  };
+  renderColumnTerminationCode = (prop, row) => {
     return <span>{row.getTermination().exitCode || 0}</span>;
-  }
-
-  renderColumnTerminationMessage(prop, row) {
+  };
+  renderColumnTerminationMessage = (prop, row) => {
     return <span>{row.getTermination().message || "-"}</span>;
-  }
+  };
 
   render() {
     return (

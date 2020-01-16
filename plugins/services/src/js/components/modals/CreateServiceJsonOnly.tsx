@@ -18,8 +18,6 @@ const JSONEditor = React.lazy(() =>
   import(/* webpackChunkName: "jsoneditor" */ "#SRC/js/components/JSONEditor")
 );
 
-const METHODS_TO_BIND = ["handleJSONChange", "handleJSONErrorStateChange"];
-
 class CreateServiceJsonOnly extends React.Component {
   constructor(...args) {
     super(...args);
@@ -27,10 +25,6 @@ class CreateServiceJsonOnly extends React.Component {
     this.state = {
       appConfig: ServiceUtil.getServiceJSON(this.props.service)
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   /**
@@ -55,7 +49,7 @@ class CreateServiceJsonOnly extends React.Component {
    *
    * @param {Object} jsonObject - The JSON object from which to build the spec
    */
-  handleJSONChange(jsonObject) {
+  handleJSONChange = jsonObject => {
     let newObject;
     if (ServiceValidatorUtil.isPodSpecDefinition(jsonObject)) {
       newObject = new PodSpec(jsonObject);
@@ -64,14 +58,14 @@ class CreateServiceJsonOnly extends React.Component {
     }
 
     this.props.onChange(newObject);
-  }
+  };
 
   /**
    * Emmit JSON form errors if the syntax is invalid
    *
    * @param {Boolean} errorState - True if there are JSON syntax errors
    */
-  handleJSONErrorStateChange(errorState) {
+  handleJSONErrorStateChange = errorState => {
     const { errors, onErrorsChange, i18n } = this.props;
     const hasJsonError = errors.some(error => error.type === SYNTAX_ERROR);
 
@@ -91,7 +85,7 @@ class CreateServiceJsonOnly extends React.Component {
     if (!errorState && hasJsonError) {
       onErrorsChange([]);
     }
-  }
+  };
 
   render() {
     const { appConfig } = this.state;

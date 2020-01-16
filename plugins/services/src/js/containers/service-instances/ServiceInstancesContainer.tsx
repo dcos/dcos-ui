@@ -10,8 +10,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Service from "../../structs/Service";
 import TasksContainer from "../tasks/TasksContainer";
 
-const METHODS_TO_BIND = ["onStateStoreSuccess", "onStateStoreError"];
-
 class ServiceInstancesContainer extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
@@ -24,13 +22,8 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     this.store_listeners = [
       { name: "state", events: ["success", "error"], suppressUpdate: true }
     ];
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  onStateStoreSuccess() {
+  onStateStoreSuccess = () => {
     // Throttle updates
     if (
       Date.now() - this.state.lastUpdate > 1000 ||
@@ -41,13 +34,12 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
         mesosStateErrorCount: 0
       });
     }
-  }
-
-  onStateStoreError() {
+  };
+  onStateStoreError = () => {
     this.setState({
       mesosStateErrorCount: this.state.mesosStateErrorCount + 1
     });
-  }
+  };
 
   getContents() {
     const isLoading =

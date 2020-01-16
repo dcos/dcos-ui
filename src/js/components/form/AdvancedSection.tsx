@@ -5,8 +5,6 @@ import * as React from "react";
 import AdvancedSectionContent from "./AdvancedSectionContent";
 import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
-const METHODS_TO_BIND = ["handleHeadingClick"];
-
 class AdvancedSection extends React.Component {
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.shouldExpand) {
@@ -18,15 +16,10 @@ class AdvancedSection extends React.Component {
     super(...arguments);
 
     this.state = { isExpanded: props.initialIsExpanded === true };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleHeadingClick() {
+  handleHeadingClick = () => {
     this.setState({ isExpanded: !this.state.isExpanded });
-  }
+  };
 
   getChildren() {
     return React.Children.map(this.props.children, child => {

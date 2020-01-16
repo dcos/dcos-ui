@@ -26,8 +26,6 @@ import NodesZoneFilter from "../../filters/NodesZoneFilter";
 import NodesTextFilter from "../../filters/NodesTextFilter";
 import NodesTypeFilter from "../../filters/NodesTypeFilter";
 
-const METHODS_TO_BIND = ["onResetFilter", "onFilterChangeHandler"];
-
 const dslFormSections = () => [
   NodesHealthDSLSection,
   NodesTypeDSLSection,
@@ -53,10 +51,6 @@ class HostsPageContent extends React.PureComponent {
       filters,
       defaultFilterData: { regions: [], zones: [] }
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -66,8 +60,7 @@ class HostsPageContent extends React.PureComponent {
   UNSAFE_componentWillReceiveProps(nextProps) {
     this.propsToState(nextProps);
   }
-
-  onResetFilter(...args) {
+  onResetFilter = (...args) => {
     this.props.onResetFilter(...args);
 
     this.setState({
@@ -77,9 +70,8 @@ class HostsPageContent extends React.PureComponent {
     if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
       this.serviceFilter.setDropdownValue("default");
     }
-  }
-
-  onFilterChangeHandler(event) {
+  };
+  onFilterChangeHandler = event => {
     this.props.onFilterChange(
       new DSLExpression(event.value),
       this.state.filters
@@ -88,7 +80,7 @@ class HostsPageContent extends React.PureComponent {
       expression: event.value,
       filterExpression: new DSLExpression(event.value)
     });
-  }
+  };
 
   propsToState(props) {
     const { allHosts } = props;

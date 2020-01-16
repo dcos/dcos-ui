@@ -11,12 +11,6 @@ import DSLUtil from "../utils/DSLUtil";
 import { FilterNode } from "../structs/DSLASTNodes";
 import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
 
-const METHODS_TO_BIND = [
-  "handleFormBlur",
-  "handleFormChange",
-  "handleFormSubmit"
-];
-
 /**
  * This <form /> component wraps a set of <input /> elements and automates
  * the update of the DSL expression based on the part definition given.
@@ -24,13 +18,8 @@ const METHODS_TO_BIND = [
 class DSLFormWithExpressionUpdates extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleFormBlur(event) {
+  handleFormBlur = event => {
     const { target } = event;
     const { onChange, parts } = this.props;
     let { value } = target;
@@ -57,14 +46,14 @@ class DSLFormWithExpressionUpdates extends React.Component {
 
     // Callback with the new expression
     onChange(this.getUpdatedExpression(updateNode, value));
-  }
+  };
 
   /**
    * Handle a change to the form
    *
    * @param {Object} event
    */
-  handleFormChange(event) {
+  handleFormChange = event => {
     const { target } = event;
     const { onChange, parts } = this.props;
     let { value } = target;
@@ -91,12 +80,11 @@ class DSLFormWithExpressionUpdates extends React.Component {
 
     // Callback with the new expression
     onChange(this.getUpdatedExpression(updateNode, value));
-  }
-
-  handleFormSubmit(event) {
+  };
+  handleFormSubmit = event => {
     event.preventDefault();
     this.props.onSubmit();
-  }
+  };
 
   /**
    * Update the current expression (from props) by updating the given FilterNode

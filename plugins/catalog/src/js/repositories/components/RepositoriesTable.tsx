@@ -14,14 +14,6 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 import UserActions from "#SRC/js/constants/UserActions";
 import RepositoriesDelete from "../RepositoriesDelete";
 
-const METHODS_TO_BIND = [
-  "getHeadline",
-  "getPriority",
-  "getRemoveButton",
-  "handleDeleteCancel",
-  "handleOpenConfirm"
-];
-
 class RepositoriesTable extends React.Component {
   constructor() {
     super();
@@ -29,19 +21,13 @@ class RepositoriesTable extends React.Component {
     this.state = {
       repositoryToRemove: null
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleOpenConfirm(repositoryToRemove) {
+  handleOpenConfirm = repositoryToRemove => {
     this.setState({ repositoryToRemove });
-  }
-
-  handleDeleteCancel() {
+  };
+  handleDeleteCancel = () => {
     this.setState({ repositoryToRemove: null });
-  }
+  };
 
   getClassName(prop, sortBy, row) {
     return classNames({
@@ -118,20 +104,17 @@ class RepositoriesTable extends React.Component {
   getUri(prop, repository) {
     return <CollapsingString string={repository.get("uri")} />;
   }
-
-  getHeadline(prop, repository) {
+  getHeadline = (prop, repository) => {
     return (
       <div className="table-cell-emphasized text-overflow">
         {repository.get("name")}
       </div>
     );
-  }
-
-  getPriority(prop, repository) {
+  };
+  getPriority = (prop, repository) => {
     return this.props.repositories.getPriority(repository);
-  }
-
-  getRemoveButton(prop, repositoryToRemove) {
+  };
+  getRemoveButton = (prop, repositoryToRemove) => {
     return (
       <div className="flex-align-right">
         <a
@@ -142,7 +125,7 @@ class RepositoriesTable extends React.Component {
         </a>
       </div>
     );
-  }
+  };
 
   render() {
     const { props, state } = this;

@@ -23,13 +23,6 @@ import ServiceTree from "../../structs/ServiceTree";
 
 // This needs to be at least equal to @modal-animation-duration
 const REDIRECT_DELAY = 300;
-const METHODS_TO_BIND = [
-  "handleChangeInputFieldDestroy",
-  "handleModalClose",
-  "handleRightButtonClick",
-  "handleFormSubmit",
-  "getNotification"
-];
 
 const notificationService = container.get(NotificationServiceType);
 
@@ -49,10 +42,6 @@ class ServiceDestroyModal extends React.PureComponent {
       errorMsg: null,
       serviceNameConfirmationValue: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillUpdate(nextProps) {
@@ -104,32 +93,28 @@ class ServiceDestroyModal extends React.PureComponent {
   shouldForceUpdate() {
     return this.state.errorMsg && /force=true/.test(this.state.errorMsg);
   }
-
-  handleModalClose() {
+  handleModalClose = () => {
     if (this.state.errorMsg) {
       notificationService.push(this.getNotification(this.state.errorMsg));
     }
     this.setState({ serviceNameConfirmationValue: "" });
     this.props.onClose();
-  }
-
-  handleRightButtonClick() {
+  };
+  handleRightButtonClick = () => {
     if (!this.getIsRightButtonDisabled()) {
       this.props.deleteItem(this.shouldForceUpdate());
       this.setState({ serviceNameConfirmationValue: "" });
     }
-  }
-
-  handleChangeInputFieldDestroy(event) {
+  };
+  handleChangeInputFieldDestroy = event => {
     this.setState({
       serviceNameConfirmationValue: event.target.value
     });
-  }
-
-  handleFormSubmit(event) {
+  };
+  handleFormSubmit = event => {
     event.preventDefault();
     this.handleRightButtonClick();
-  }
+  };
 
   getIsRightButtonDisabled() {
     return (
@@ -152,8 +137,7 @@ class ServiceDestroyModal extends React.PureComponent {
       <h4 className="text-align-center text-danger flush-bottom">{errorMsg}</h4>
     );
   }
-
-  getNotification(errorMsg) {
+  getNotification = errorMsg => {
     const { service } = this.props;
     const serviceId = service
       .getId()
@@ -169,7 +153,7 @@ class ServiceDestroyModal extends React.PureComponent {
       autodismiss: true,
       description: errorMsg
     });
-  }
+  };
 
   redirectToServices() {
     const { router } = this.context;

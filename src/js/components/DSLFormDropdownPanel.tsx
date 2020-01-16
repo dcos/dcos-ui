@@ -7,8 +7,6 @@ import isEqual from "lodash.isequal";
 import DSLForm from "./DSLForm";
 import DSLExpression from "../structs/DSLExpression";
 
-const METHODS_TO_BIND = ["handleApply", "handleChange"];
-
 /**
  * A SearchDSL component dropdown panel that renders the high-level interaction
  * components for the expression being edited.
@@ -22,10 +20,6 @@ class DSLFormDropdownPanel extends React.Component {
     this.state = {
       expression: this.props.expression
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   shouldComponentUpdate(nextProps) {
@@ -54,20 +48,20 @@ class DSLFormDropdownPanel extends React.Component {
   /**
    * Apply changes to the expression back to the parent component
    */
-  handleApply() {
+  handleApply = () => {
     this.props.onChange(this.state.expression);
     this.props.onClose();
-  }
+  };
 
   /**
    * Handle changes to the DSL expression from the form
    *
    * @param {DSLExpression} expression - The new expression
    */
-  handleChange(expression) {
+  handleChange = expression => {
     this.setState({ expression });
     this.props.onChange(expression);
-  }
+  };
 
   /**
    * @override

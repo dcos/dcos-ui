@@ -107,7 +107,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
     }
   }
 
-  resetRequests() {
+  resetRequests = () => {
     if (requestInterval != null) {
       clearInterval(requestInterval);
       requestInterval = null;
@@ -117,10 +117,10 @@ class TaskDirectoryStore extends GetSetBaseStore {
       activeXHR.abort();
       activeXHR = null;
     }
-  }
+  };
 
   // Default innerPath to empty string so it matches with default innerPath
-  fetchDirectory(task, innerPath = "") {
+  fetchDirectory = (task, innerPath = "") => {
     this.resetRequests();
     this.set({ directory: null });
     // Make sure to update innerPath if different before fetching
@@ -130,25 +130,25 @@ class TaskDirectoryStore extends GetSetBaseStore {
 
     this.emit(TASK_DIRECTORY_CHANGE, task.id);
     startPolling(task, innerPath);
-  }
+  };
 
-  addPath(task, path) {
+  addPath = (task, path) => {
     this.set({ innerPath: this.get("innerPath") + "/" + path });
     this.fetchDirectory(task, this.get("innerPath"));
-  }
+  };
 
-  setPath(task, path) {
+  setPath = (task, path) => {
     this.set({ innerPath: path });
     this.fetchDirectory(task, path);
-  }
+  };
 
-  processStateSuccess(items, innerPath, taskID) {
+  processStateSuccess = (items, innerPath, taskID) => {
     // Only update when receiving response from what was requested
     if (this.get("innerPath") === innerPath) {
       this.set({ directory: new TaskDirectory({ items }) });
       this.emit(TASK_DIRECTORY_CHANGE, taskID);
     }
-  }
+  };
 
   get storeID() {
     return "taskDirectory";

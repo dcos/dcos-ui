@@ -7,12 +7,6 @@ import { withI18n } from "@lingui/react";
 import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 
-const METHODS_TO_BIND = [
-  "handleSearchStringChange",
-  "handleCountChange",
-  "handleEnterPress"
-];
-
 class SearchLog extends React.PureComponent {
   constructor(...args) {
     super(...args);
@@ -24,10 +18,6 @@ class SearchLog extends React.PureComponent {
     };
 
     this.filterInputRef = React.createRef();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps, nextState) {
@@ -46,18 +36,15 @@ class SearchLog extends React.PureComponent {
 
     this.setState(updatedState);
   }
-
-  handleEnterPress() {
+  handleEnterPress = () => {
     this.changeWatching("next");
-  }
-
-  handleSearchStringChange(searchString = "") {
+  };
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString, watching: 1 });
-  }
-
-  handleCountChange(totalFound) {
+  };
+  handleCountChange = totalFound => {
     this.setState({ totalFound });
-  }
+  };
 
   changeWatching(direction) {
     let { totalFound, watching } = this.state;

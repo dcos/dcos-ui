@@ -27,7 +27,6 @@ import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import TaskTable from "./TaskTable";
 
-const METHODS_TO_BIND = ["handleItemCheck"];
 const DSL_FORM_SECTIONS = [
   TaskStatusDSLSection,
   TaskZoneDSLSection,
@@ -42,10 +41,6 @@ class TasksView extends React.Component {
     this.state = {
       checkedItems: {}
     };
-
-    METHODS_TO_BIND.forEach(function(method) {
-      this[method] = this[method].bind(this);
-    }, this);
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -60,15 +55,14 @@ class TasksView extends React.Component {
 
     this.setState({ checkedItems });
   }
-
-  handleItemCheck(idsChecked) {
+  handleItemCheck = idsChecked => {
     const checkedItems = {};
     idsChecked.forEach(id => {
       checkedItems[id] = true;
     });
 
     this.setState({ checkedItems });
-  }
+  };
 
   handleActionClick(killAction) {
     const { checkedItems } = this.state;

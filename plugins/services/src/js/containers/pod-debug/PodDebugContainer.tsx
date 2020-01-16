@@ -21,15 +21,9 @@ import Pod from "../../structs/Pod";
 import PodContainerTerminationTable from "./PodContainerTerminationTable";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 
-const METHODS_TO_BIND = ["handleJumpToRecentOffersClick"];
-
 class PodDebugTabView extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillMount() {
@@ -270,12 +264,11 @@ class PodDebugTabView extends React.Component {
       </div>
     );
   }
-
-  handleJumpToRecentOffersClick() {
+  handleJumpToRecentOffersClick = () => {
     if (this.offerSummaryRef) {
       this.offerSummaryRef.scrollIntoView();
     }
-  }
+  };
 
   render() {
     return (

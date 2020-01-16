@@ -22,7 +22,7 @@ describe("TaskTable", () => {
 
   describe("#getDisabledItemsMap", () => {
     beforeEach(() => {
-      thisTaskTable = new TaskTable();
+      thisTaskTable = new TaskTable({});
     });
 
     it("treats tasks started not by Marathon as disabled", () => {

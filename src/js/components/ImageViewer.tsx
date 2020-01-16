@@ -3,46 +3,33 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
 
-const METHODS_TO_BIND = [
-  "handleImageViewerModalClose",
-  "handleImageViewerLeftClick",
-  "handleImageViewerRightClick"
-];
-
 class ImageViewer extends React.Component {
   constructor(...args) {
     super(...args);
 
     this.state = { selectedImage: null };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleImageViewerModalClose() {
+  handleImageViewerModalClose = () => {
     this.setState({ selectedImage: null });
-  }
+  };
 
   handleImageViewerModalOpen(selectedImage) {
     this.setState({ selectedImage });
   }
-
-  handleImageViewerLeftClick() {
+  handleImageViewerLeftClick = () => {
     let { selectedImage } = this.state;
     const { images } = this.props;
     if (--selectedImage < 0) {
       selectedImage = images.length - 1;
     }
     this.setState({ selectedImage });
-  }
-
-  handleImageViewerRightClick() {
+  };
+  handleImageViewerRightClick = () => {
     let { selectedImage } = this.state;
     const { images } = this.props;
     // Add before the modulus operator and use modulus as a circular buffer
     this.setState({ selectedImage: ++selectedImage % images.length });
-  }
+  };
 
   getImages(images) {
     return images.map((imageUrl, index) => (

@@ -5,8 +5,6 @@ import ReactDOM from "react-dom";
 
 import DOMUtils from "../utils/DOMUtils";
 
-const METHODS_TO_BIND = ["updateDimensions"];
-
 class CollapsingString extends React.Component {
   constructor(...args) {
     super(...args);
@@ -18,10 +16,6 @@ class CollapsingString extends React.Component {
     };
 
     this.fullStringRef = React.createRef();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   componentDidMount() {
@@ -88,8 +82,7 @@ class CollapsingString extends React.Component {
 
     return stringWidth > parentWidth;
   }
-
-  updateDimensions() {
+  updateDimensions = () => {
     const parentWidth = this.getParentWidth();
 
     // Return early if the parent width is 0, or the string isn't collapsed
@@ -123,7 +116,7 @@ class CollapsingString extends React.Component {
       parentWidth,
       stringWidth
     });
-  }
+  };
 
   render() {
     const fullString = this.props.string;

@@ -15,18 +15,11 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-const METHODS_TO_BIND = ["getHashMapRenderKeys", "getFrameworkSections"];
-
 class FrameworkConfigurationReviewScreen extends React.Component {
   constructor(props) {
     super(props);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  getHashMapRenderKeys(formData) {
+  getHashMapRenderKeys = formData => {
     if (!Util.isObject(formData)) {
       return {};
     }
@@ -41,7 +34,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     });
 
     return renderKeys;
-  }
+  };
 
   getVersionsDropdown() {
     const { frameworkMeta } = this.props;
@@ -113,8 +106,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
       </div>
     );
   }
-
-  getFrameworkSections() {
+  getFrameworkSections = () => {
     const { frameworkData } = this.props;
     const renderKeys = this.getHashMapRenderKeys(frameworkData);
 
@@ -128,7 +120,7 @@ class FrameworkConfigurationReviewScreen extends React.Component {
         key={`framework-config-review-section-${index}`}
       />
     ));
-  }
+  };
 
   render() {
     const { frameworkData, title, onEditClick, frameworkMeta } = this.props;

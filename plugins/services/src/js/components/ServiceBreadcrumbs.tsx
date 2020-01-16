@@ -19,7 +19,6 @@ import ServiceStatusWarningWithDebugInformation from "./ServiceStatusWarningWith
 
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
-const METHODS_TO_BIND = ["checkBreadcrumbOverflow", "handleViewportResize"];
 
 class ServiceBreadcrumbs extends React.Component {
   constructor() {
@@ -32,10 +31,6 @@ class ServiceBreadcrumbs extends React.Component {
     this.state = {
       shouldRenderServiceStatus: true
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     this.handleViewportResize = Util.debounce(this.handleViewportResize, 100);
   }
@@ -77,16 +72,15 @@ class ServiceBreadcrumbs extends React.Component {
   componentWillUnmount() {
     window.removeEventListener("resize", this.handleViewportResize);
   }
-
-  handleViewportResize() {
+  handleViewportResize = () => {
     this.checkBreadcrumbOverflow();
-  }
+  };
 
   /**
    * Check if the breadcrumbs are overflowing their container. If they are,
    * we hide the service's status bar.
    */
-  checkBreadcrumbOverflow() {
+  checkBreadcrumbOverflow = () => {
     if (this.primaryBreadcrumbTextRef != null) {
       const availableWidth = this.getAvailableBreadcrumbWidth();
       const progressBarWidth = this.getBreadcrumbProgressBarWidth();
@@ -104,7 +98,7 @@ class ServiceBreadcrumbs extends React.Component {
         this.setState({ shouldRenderServiceStatus: true });
       }
     }
-  }
+  };
 
   /**
    * Calculates the number of unused pixels after the last breadcrumb.

@@ -7,15 +7,9 @@ import ConfigurationMapRow from "./ConfigurationMapRow";
 import ConfigurationMapSection from "./ConfigurationMapSection";
 import ConfigurationMapValue from "./ConfigurationMapValue";
 
-const METHODS_TO_BIND = ["formatValue", "isHashMap"];
-
 class HashMapDisplay extends React.PureComponent {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getHeadline() {
@@ -97,8 +91,7 @@ class HashMapDisplay extends React.PureComponent {
       </ConfigurationMapSection>
     );
   }
-
-  formatValue(value) {
+  formatValue = value => {
     if (typeof value === "boolean") {
       value = value.toString();
     }
@@ -112,9 +105,8 @@ class HashMapDisplay extends React.PureComponent {
     }
 
     return value;
-  }
-
-  isHashMap(value) {
+  };
+  isHashMap = value => {
     // Check whether we are trying to render an object that is not a
     // React component
 
@@ -124,7 +116,7 @@ class HashMapDisplay extends React.PureComponent {
       value !== null &&
       !React.isValidElement(value)
     );
-  }
+  };
 }
 
 HashMapDisplay.defaultProps = {

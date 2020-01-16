@@ -12,15 +12,9 @@ import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar"
 import Pod from "../../structs/Pod";
 import PodActionItem from "../../constants/PodActionItem";
 
-const METHODS_TO_BIND = ["handleDropdownAction"];
-
 class PodHeader extends React.Component {
   constructor(...args) {
     super(...args);
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getActionButtons() {
@@ -92,8 +86,7 @@ class PodHeader extends React.Component {
 
     return actionButtons;
   }
-
-  handleDropdownAction(action) {
+  handleDropdownAction = action => {
     switch (action.id) {
       case PodActionItem.STOP:
         this.props.onStop();
@@ -103,7 +96,7 @@ class PodHeader extends React.Component {
         this.props.onDestroy();
         break;
     }
-  }
+  };
 
   getSubHeader(pod) {
     const serviceHealth = pod.getHealth();

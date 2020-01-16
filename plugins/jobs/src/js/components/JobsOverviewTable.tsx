@@ -20,8 +20,6 @@ import JobStates from "../constants/JobStates";
 import JobStatus from "../constants/JobStatus";
 import JobTableHeaderLabels from "../constants/JobTableHeaderLabels";
 
-const METHODS_TO_BIND = ["renderHeadline", "jobSortFunction"];
-
 const JobsCronTooltip = React.lazy(() =>
   import(
     /* webpackChunkName: "JobsCronTooltip" */ "#SRC/js/components/JobsCronTooltip"
@@ -32,10 +30,6 @@ const JobsCronTooltip = React.lazy(() =>
 export default class JobsOverviewTable extends React.Component {
   constructor() {
     super();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   getColGroup() {
@@ -164,8 +158,7 @@ export default class JobsOverviewTable extends React.Component {
           JobStatus[b.lastRun.status].sortOrder;
     }
   }
-
-  jobSortFunction(prop, direction) {
+  jobSortFunction = (prop, direction) => {
     const compareFunction = this.getCompareFunctionByProp(prop);
     let score = 1;
 
@@ -184,9 +177,8 @@ export default class JobsOverviewTable extends React.Component {
 
       return compareFunction(a, b);
     };
-  }
-
-  renderHeadline(prop, job) {
+  };
+  renderHeadline = (prop, job) => {
     const { id, isGroup, name, schedules } = job;
     let scheduleIcon = null;
     let url = `/jobs/detail/${encodeURIComponent(id)}`;
@@ -249,7 +241,7 @@ export default class JobsOverviewTable extends React.Component {
         </Link>
       </div>
     );
-  }
+  };
 
   renderLastRunStatusColumn(prop, row) {
     const { lastFailureAt, lastSuccessAt, status } = row[prop];

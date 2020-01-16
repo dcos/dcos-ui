@@ -53,18 +53,6 @@ MountService.MountService.registerComponent(
   "SchemaField:application/x-yaml"
 );
 
-const METHODS_TO_BIND = [
-  "handleDropdownNavigationSelection",
-  "handleTabChange",
-  "handleFormChange",
-  "handleFormError",
-  "handleJSONChange",
-  "handleBadgeClick",
-  "validate",
-  "jsonSchemaErrorList",
-  "onEditorResize"
-];
-
 class FrameworkConfigurationForm extends React.Component {
   constructor(props) {
     super(props);
@@ -72,13 +60,8 @@ class FrameworkConfigurationForm extends React.Component {
     this.state = {
       errorSchema: null
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleBadgeClick(activeTab, event) {
+  handleBadgeClick = (activeTab, event) => {
     event.stopPropagation();
 
     const { errorSchema } = this.state;
@@ -96,7 +79,7 @@ class FrameworkConfigurationForm extends React.Component {
     );
 
     handleFocusFieldChange(activeTab, fieldToFocus);
-  }
+  };
 
   getFormTabList() {
     const { formErrors, packageDetails } = this.props;
@@ -122,14 +105,12 @@ class FrameworkConfigurationForm extends React.Component {
       );
     });
   }
-
-  handleTabChange(activeTab) {
+  handleTabChange = activeTab => {
     this.props.handleActiveTabChange(activeTab);
-  }
-
-  handleDropdownNavigationSelection(item) {
+  };
+  handleDropdownNavigationSelection = item => {
     this.props.handleActiveTabChange(item.id);
-  }
+  };
 
   getDropdownNavigationList() {
     const { packageDetails, activeTab } = this.props;
@@ -163,10 +144,9 @@ class FrameworkConfigurationForm extends React.Component {
 
     return uiSchema;
   }
-
-  handleJSONChange(formData) {
+  handleJSONChange = formData => {
     this.props.onFormDataChange(formData);
-  }
+  };
 
   writeErrors(formData, schema, isRequired, errors) {
     if (schema == null) {
@@ -205,8 +185,7 @@ class FrameworkConfigurationForm extends React.Component {
       .map(key => this.getTotalErrorsForLevel(errorSchemaLevel[key]))
       .reduce((a, b) => a + b, currentLevelErrors);
   }
-
-  handleFormChange(form) {
+  handleFormChange = form => {
     const { formData } = form;
 
     this.props.onFormDataChange(formData);
@@ -215,15 +194,13 @@ class FrameworkConfigurationForm extends React.Component {
       // When liveValidate is true, errorSchema is available for each change
       this.probeErrorsSchemaForm();
     }
-  }
-
-  handleFormError() {
+  };
+  handleFormError = () => {
     this.probeErrorsSchemaForm();
-  }
-
-  onEditorResize(newSize) {
+  };
+  onEditorResize = newSize => {
     this.setState({ editorWidth: newSize });
-  }
+  };
 
   probeErrorsSchemaForm() {
     const { errorSchema } = this.schemaForm.state;
@@ -239,14 +216,13 @@ class FrameworkConfigurationForm extends React.Component {
       });
     }
   }
-
-  validate(formData, errors) {
+  validate = (formData, errors) => {
     const { packageDetails } = this.props;
 
     this.writeErrors(formData, packageDetails.getConfig(), false, errors);
 
     return errors;
-  }
+  };
 
   formatErrorForJSON(errorSchema, path) {
     if (!errorSchema.__errors) {
@@ -282,8 +258,7 @@ class FrameworkConfigurationForm extends React.Component {
         ...rest
       }));
   }
-
-  jsonSchemaErrorList(props) {
+  jsonSchemaErrorList = props => {
     return (
       <ErrorsAlert
         errors={props.errors.map(error => ({
@@ -291,7 +266,7 @@ class FrameworkConfigurationForm extends React.Component {
         }))}
       />
     );
-  }
+  };
 
   render() {
     const {

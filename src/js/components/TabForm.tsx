@@ -9,13 +9,6 @@ import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
 
-const METHODS_TO_BIND = [
-  "getTriggerSubmit",
-  "handleFormError",
-  "handleTabClick",
-  "handleExternalSubmit"
-];
-
 class TabForm extends React.Component {
   constructor() {
     super();
@@ -23,10 +16,6 @@ class TabForm extends React.Component {
     this.state = { currentTab: "", renderGemini: false };
 
     this.geminiRef = React.createRef();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
 
     this.triggerSubmit = () => {};
   }
@@ -52,21 +41,18 @@ class TabForm extends React.Component {
       ScrollbarUtil.updateWithRef(this.geminiRef);
     });
   }
-
-  handleTabClick(currentTab) {
+  handleTabClick = currentTab => {
     this.props.onTabClick(...arguments);
     this.setState({ currentTab });
-  }
-
-  handleFormError() {
+  };
+  handleFormError = () => {
     this.isFormValidated = false;
-  }
+  };
 
   handleFormSubmit(formKey, formModel) {
     this.model[formKey] = formModel;
   }
-
-  handleExternalSubmit() {
+  handleExternalSubmit = () => {
     this.buildModel();
     if (this.isFormValidated) {
       this.props.onSubmit(this.model);
@@ -76,7 +62,7 @@ class TabForm extends React.Component {
     this.props.onError();
 
     return false;
-  }
+  };
 
   buildModel() {
     this.isFormValidated = true;
@@ -85,10 +71,9 @@ class TabForm extends React.Component {
       this.submitMap[formKey]();
     });
   }
-
-  getTriggerSubmit(formKey, triggerSubmit) {
+  getTriggerSubmit = (formKey, triggerSubmit) => {
     this.submitMap[formKey] = triggerSubmit;
-  }
+  };
 
   getSubHeader(name) {
     return (

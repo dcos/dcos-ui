@@ -50,22 +50,6 @@ import ServiceErrorTabPathRegexes from "../../constants/ServiceErrorTabPathRegex
 import ServiceUtil from "../../utils/ServiceUtil";
 import VolumesFormSection from "../forms/VolumesFormSection";
 
-const METHODS_TO_BIND = [
-  "getNewStateForJSON",
-  "handleAddItem",
-  "handleConvertToPod",
-  "handleDropdownNavigationSelection",
-  "handleFormBlur",
-  "handleFormFocus",
-  "handleFormChange",
-  "handleJSONChange",
-  "handleJSONPropertyChange",
-  "handleJSONErrorStateChange",
-  "handleRemoveItem",
-  "handleClickItem",
-  "onEditorResize"
-];
-
 /**
  * Since the form input fields operate on a different path than the one in the
  * data, it's not always possible to figure out which error paths to unmute when
@@ -138,10 +122,6 @@ class CreateServiceModalForm extends React.Component {
         this.props.service instanceof PodSpec
       )
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   UNSAFE_componentWillReceiveProps(nextProps) {
@@ -231,8 +211,7 @@ class CreateServiceModalForm extends React.Component {
       !isEqual(this.props.errors, nextProps.errors)
     );
   }
-
-  getNewStateForJSON(baseConfig = {}, isPod = this.state.isPod) {
+  getNewStateForJSON = (baseConfig = {}, isPod = this.state.isPod) => {
     const newState = {
       baseConfig,
       isPod
@@ -247,21 +226,17 @@ class CreateServiceModalForm extends React.Component {
     newState.appConfig = this.getAppConfig(newState.batch, baseConfig);
 
     return newState;
-  }
-
-  handleConvertToPod() {
+  };
+  handleConvertToPod = () => {
     this.props.onConvertToPod(this.getAppConfig());
-  }
-
-  handleDropdownNavigationSelection(item) {
+  };
+  handleDropdownNavigationSelection = item => {
     this.props.handleTabChange(item.id);
-  }
-
-  handleJSONChange(jsonObject) {
+  };
+  handleJSONChange = jsonObject => {
     this.setState(this.getNewStateForJSON(jsonObject));
-  }
-
-  handleJSONPropertyChange(path) {
+  };
+  handleJSONPropertyChange = path => {
     const { editedFieldPaths } = this.state;
     const pathStr = path.join(".");
     if (path.length === 0) {
@@ -273,17 +248,15 @@ class CreateServiceModalForm extends React.Component {
         editedFieldPaths: editedFieldPaths.concat([pathStr])
       });
     }
-  }
-
-  handleJSONErrorStateChange(errorMessage) {
+  };
+  handleJSONErrorStateChange = errorMessage => {
     if (errorMessage !== null) {
       this.props.onErrorsChange([{ message: errorMessage, path: [] }]);
     } else {
       this.props.onErrorsChange([]);
     }
-  }
-
-  handleFormBlur(event) {
+  };
+  handleFormBlur = event => {
     const { editedFieldPaths } = this.state;
     const fieldName = event.target.getAttribute("name");
     const newState = {
@@ -299,9 +272,8 @@ class CreateServiceModalForm extends React.Component {
       newState.editedFieldPaths = editedFieldPaths.concat([fieldName]);
     }
     this.setState(newState);
-  }
-
-  handleFormFocus(event) {
+  };
+  handleFormFocus = event => {
     const fieldName = event.target.getAttribute("name");
     const newState = {
       editingFieldPath: fieldName
@@ -312,9 +284,8 @@ class CreateServiceModalForm extends React.Component {
     }
 
     this.setState(newState);
-  }
-
-  handleFormChange(event) {
+  };
+  handleFormChange = event => {
     const fieldName = event.target.getAttribute("name");
     if (!fieldName) {
       return;
@@ -334,9 +305,8 @@ class CreateServiceModalForm extends React.Component {
     };
 
     this.setState(newState);
-  }
-
-  handleAddItem(event) {
+  };
+  handleAddItem = event => {
     const { value, path } = event;
     let { batch } = this.state;
 
@@ -345,9 +315,8 @@ class CreateServiceModalForm extends React.Component {
     );
 
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
-  }
-
-  handleRemoveItem(event) {
+  };
+  handleRemoveItem = event => {
     const { value, path } = event;
     let { batch } = this.state;
 
@@ -356,11 +325,10 @@ class CreateServiceModalForm extends React.Component {
     );
 
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
-  }
-
-  handleClickItem(item) {
+  };
+  handleClickItem = item => {
     this.props.handleTabChange(item);
-  }
+  };
 
   getAppConfig(batch = this.state.batch, baseConfig = this.state.baseConfig) {
     // Do a deepCopy once before it goes to reducers
@@ -802,10 +770,9 @@ class CreateServiceModalForm extends React.Component {
       return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
     });
   }
-
-  onEditorResize(newSize) {
+  onEditorResize = newSize => {
     this.setState({ editorWidth: newSize });
-  }
+  };
 
   render() {
     const { appConfig, batch } = this.state;

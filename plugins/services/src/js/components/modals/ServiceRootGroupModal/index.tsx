@@ -116,16 +116,6 @@ interface ServiceRootGroupModalProps {
   id: string;
 }
 
-const METHODS_TO_BIND: string[] = [
-  "getAdvancedSettings",
-  "getModalContent",
-  "handleClose",
-  "handleFormChange",
-  "handleSave",
-  "handleSaveError",
-  "getGroupFormData"
-];
-
 class ServiceRootGroupModal extends React.Component<
   ServiceRootGroupModalProps,
   ServiceRootGroupModalState
@@ -141,10 +131,6 @@ class ServiceRootGroupModal extends React.Component<
     super(...arguments);
 
     this.state = this.getInitialState();
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
 
   public componentDidMount() {
@@ -168,7 +154,7 @@ class ServiceRootGroupModal extends React.Component<
     };
   }
 
-  public handleClose() {
+  public handleClose = () => {
     // Start the animation of the modal by setting isOpen to false
     this.setState(
       { isOpen: false, isPending: false, data: emptyGroupFormData() },
@@ -178,9 +164,9 @@ class ServiceRootGroupModal extends React.Component<
         setTimeout(this.context.router.goBack, 300);
       }
     );
-  }
+  };
 
-  public handleSave() {
+  public handleSave = () => {
     let data: GroupFormData | null = this.state.data;
     const { isPending, originalData, isEdit, isForce } = this.state;
     if (isPending || data === null) {
@@ -253,13 +239,13 @@ class ServiceRootGroupModal extends React.Component<
           this.handleSaveError(e.message);
         }
       });
-  }
+  };
 
-  public handleSaveError(
+  public handleSaveError = (
     message: string,
     mesos: boolean = false,
     data: null | OvercommittedQuotaResource[] = null
-  ) {
+  ) => {
     switch (message) {
       case "Conflict":
         this.setState({
@@ -327,9 +313,9 @@ class ServiceRootGroupModal extends React.Component<
         });
         return;
     }
-  }
+  };
 
-  public getGroupFormData(): void {
+  public getGroupFormData = (): void => {
     const { id } = this.props;
     if (!!id) {
       getGroup(id)
@@ -348,9 +334,9 @@ class ServiceRootGroupModal extends React.Component<
           }
         });
     }
-  }
+  };
 
-  public getModalContent() {
+  public getModalContent = () => {
     const { errors, data, isEdit, error } = this.state;
     // If id exists, then we must be editing.
 
@@ -513,9 +499,9 @@ class ServiceRootGroupModal extends React.Component<
         </FluidGeminiScrollbar>
       </div>
     );
-  }
+  };
 
-  public getAdvancedSettings() {
+  public getAdvancedSettings = () => {
     const { data, originalData, expandAdvancedSettings, isEdit } = this.state;
     const roleEnforcementTooltipContent = (
       <Trans>
@@ -596,9 +582,9 @@ class ServiceRootGroupModal extends React.Component<
         </AdvancedSectionContent>
       </AdvancedSection>
     );
-  }
+  };
 
-  public handleFormChange(event: React.FormEvent<HTMLFormElement>) {
+  public handleFormChange = (event: React.FormEvent<HTMLFormElement>) => {
     if (this.state.isPending || !this.state.data) {
       return;
     }
@@ -635,7 +621,7 @@ class ServiceRootGroupModal extends React.Component<
     } else {
       this.setState({ data: newData });
     }
-  }
+  };
 
   public render() {
     const { isEdit, isForce } = this.state;

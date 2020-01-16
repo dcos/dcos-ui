@@ -4,10 +4,11 @@ import { WrappedComponent } from "../DeploymentsModal";
 import Deployment from "../../structs/Deployment";
 import Application from "../../structs/Application";
 
+const instance = new WrappedComponent();
 describe("DeploymentsModal", () => {
   describe("#getRollbackModalText", () => {
     it("returns a removal message when passed a starting deployment", () => {
-      let text = WrappedComponent.prototype.getRollbackModalText(
+      let text = instance.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
           affectedApps: ["app1"],
@@ -20,7 +21,7 @@ describe("DeploymentsModal", () => {
     });
 
     it("returns a revert message when passed a non-starting deployment", () => {
-      const text = WrappedComponent.prototype.getRollbackModalText(
+      const text = instance.getRollbackModalText(
         new Deployment({
           id: "deployment-id",
           affectedApps: ["app1"],
@@ -34,23 +35,13 @@ describe("DeploymentsModal", () => {
 
   describe("#renderStatus", () => {
     it("Returns N/A for empty Application", () => {
-      const app = new Application({
-        deployment: {}
-      });
-
-      expect(WrappedComponent.prototype.renderStatus(null, app, {})).toEqual(
-        "N/A"
-      );
+      const app = new Application({ deployment: {} });
+      expect(instance.renderStatus(null, app, {})).toEqual("N/A");
     });
 
     it("Returns null for Item without getStatus function", () => {
-      const item = new Item({
-        deployment: {}
-      });
-
-      expect(WrappedComponent.prototype.renderStatus(null, item, {})).toEqual(
-        null
-      );
+      const item = new Item({ deployment: {} });
+      expect(instance.renderStatus(null, item, {})).toEqual(null);
     });
   });
 });

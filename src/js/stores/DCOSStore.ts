@@ -20,15 +20,6 @@ import NotificationStore from "./NotificationStore";
 import ServiceTree from "../../../plugins/services/src/js/structs/ServiceTree";
 import SummaryList from "../structs/SummaryList";
 
-const METHODS_TO_BIND = [
-  "onMarathonGroupsChange",
-  "onMarathonQueueChange",
-  "onMarathonDeploymentsChange",
-  "onMarathonServiceVersionChange",
-  "onMarathonServiceVersionsChange",
-  "onMesosSummaryChange"
-];
-
 const EVENT_DEBOUNCE_TIME = 250;
 const events = { change: DCOS_CHANGE };
 
@@ -42,10 +33,6 @@ class DCOSStore extends EventEmitter {
       events,
       unmountWhen: () => true,
       listenAlways: true
-    });
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
     });
 
     this.data = {
@@ -129,8 +116,7 @@ class DCOSStore extends EventEmitter {
   fetchServiceVersions(serviceID) {
     MarathonStore.fetchServiceVersions(serviceID);
   }
-
-  onMarathonDeploymentsChange() {
+  onMarathonDeploymentsChange = () => {
     if (!this.data.marathon.dataReceived) {
       return;
     }
@@ -178,7 +164,7 @@ class DCOSStore extends EventEmitter {
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
+  };
 
   emit(eventType) {
     // Debounce specified events
@@ -194,8 +180,7 @@ class DCOSStore extends EventEmitter {
 
     super.emit(eventType);
   }
-
-  onMarathonGroupsChange() {
+  onMarathonGroupsChange = () => {
     const serviceTree = MarathonStore.get("groups");
     if (!(serviceTree instanceof ServiceTree)) {
       return;
@@ -212,9 +197,8 @@ class DCOSStore extends EventEmitter {
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
-
-  onMarathonQueueChange(nextQueue) {
+  };
+  onMarathonQueueChange = nextQueue => {
     const {
       marathon: { queue }
     } = this.data;
@@ -258,9 +242,8 @@ class DCOSStore extends EventEmitter {
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
-
-  onMarathonServiceVersionChange(event) {
+  };
+  onMarathonServiceVersionChange = event => {
     const { serviceID, versionID, version } = event;
     const {
       marathon: { versions }
@@ -276,9 +259,8 @@ class DCOSStore extends EventEmitter {
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
-
-  onMarathonServiceVersionsChange(event) {
+  };
+  onMarathonServiceVersionsChange = event => {
     let { serviceID, versions: nextVersions } = event;
     const {
       marathon: { versions }
@@ -292,9 +274,8 @@ class DCOSStore extends EventEmitter {
     versions.set(serviceID, nextVersions);
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
-
-  onMesosSummaryChange() {
+  };
+  onMesosSummaryChange = () => {
     const states = MesosSummaryStore.get("states");
     if (!(states instanceof SummaryList)) {
       return;
@@ -303,7 +284,7 @@ class DCOSStore extends EventEmitter {
     this.data.mesos = states;
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
-  }
+  };
 
   addProxyListeners() {
     this.getProxyListeners().forEach(item => {

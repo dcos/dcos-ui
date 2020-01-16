@@ -13,14 +13,6 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 import UnitHealthDropdown from "#SRC/js/components/UnitHealthDropdown";
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
-const METHODS_TO_BIND = [
-  "handleHealthSelection",
-  "handleSearchStringChange",
-  "renderHealth",
-  "renderUnitHealthCheck",
-  "resetFilter"
-];
-
 class HealthTab extends React.PureComponent {
   constructor(...args) {
     super(...args);
@@ -29,19 +21,13 @@ class HealthTab extends React.PureComponent {
       healthFilter: "all",
       searchString: ""
     };
-
-    METHODS_TO_BIND.forEach(method => {
-      this[method] = this[method].bind(this);
-    });
   }
-
-  handleHealthSelection(selectedHealth) {
+  handleHealthSelection = selectedHealth => {
     this.setState({ healthFilter: selectedHealth.id });
-  }
-
-  handleSearchStringChange(searchString = "") {
+  };
+  handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
-  }
+  };
 
   getColGroup() {
     return (
@@ -89,8 +75,7 @@ class HealthTab extends React.PureComponent {
       .filter({ title: searchString, health: healthFilter })
       .getItems();
   }
-
-  resetFilter() {
+  resetFilter = () => {
     if (this.healthFilter !== null && this.healthFilter.dropdown !== null) {
       this.healthFilter.setDropdownValue("all");
     }
@@ -99,15 +84,13 @@ class HealthTab extends React.PureComponent {
       searchString: "",
       healthFilter: "all"
     });
-  }
-
-  renderHealth(prop, node) {
+  };
+  renderHealth = (prop, node) => {
     const health = node.getHealth();
 
     return <span className={health.classNames}>{health.title}</span>;
-  }
-
-  renderUnitHealthCheck(prop, unit) {
+  };
+  renderUnitHealthCheck = (prop, unit) => {
     const healthCheckName = unit.getTitle();
     const { nodeID } = this.props.params;
     const unitNodeID = this.props.node.get("hostname");
@@ -124,7 +107,7 @@ class HealthTab extends React.PureComponent {
         {healthCheckName}
       </a>
     );
-  }
+  };
 
   render() {
     const { healthFilter, searchString } = this.state;
