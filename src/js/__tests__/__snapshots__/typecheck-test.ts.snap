@@ -819,14 +819,12 @@ plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFil
 plugins/nodes/src/js/components/HealthTab.tsx: error TS2339: Property 'healthFilter' does not exist on type 'HealthTab'.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/nodes/src/js/components/HealthTab.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/nodes/src/js/components/LeaderGrid.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2554: Expected 1-3 arguments, but got 0.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS6133: 'v' is declared but its value is never read.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/components/NodesGridDials.tsx: error TS2322: Type 'number' is not assignable to type 'never'.
 plugins/nodes/src/js/components/NodesGridView.tsx: error TS2339: Property 'getItems' does not exist on type 'Node[]'.
-plugins/nodes/src/js/components/NonLeadersGrid.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/components/__tests__/LeaderGrid-test.tsx: error TS2339: Property 'mockRestore' does not exist on type *.
 plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -1725,7 +1723,6 @@ plugins/placement/components/PlacementSection.tsx: error TS2339: Property 'onAdd
 plugins/placement/components/PlacementSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/placement/components/PodPlacementConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/placement/components/PodPlacementConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
-plugins/placement/components/PodPlacementConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'region' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
@@ -1739,7 +1736,6 @@ plugins/placement/components/SchemaRegionSelection.tsx: error TS2322: type * is 
 plugins/placement/components/SchemaRegionSelection.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
 plugins/placement/components/ServicePlacementConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/placement/components/ServicePlacementConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
-plugins/placement/components/ServicePlacementConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/placement/components/ZoneConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/placement/components/ZoneConstraintsSection.tsx: error TS2339: Property 'zone' does not exist on type *.
 plugins/placement/components/ZoneConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
@@ -1817,7 +1813,6 @@ plugins/secrets/components/CertificatesTable.tsx: error TS2339: Property 'certif
 plugins/secrets/components/CertificatesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/secrets/components/CertificatesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/secrets/components/CertificatesTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/PodConfigSecretsExposedAsFile.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
@@ -1883,10 +1878,6 @@ plugins/secrets/components/SecretStoresTable.tsx: error TS2339: Property 'classN
 plugins/secrets/components/SecretStoresTable.tsx: error TS2339: Property 'stores' does not exist on type *.
 plugins/secrets/components/SecretsError.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretsSelect.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/secrets/components/ServiceConfigSecretsExposedAsEnvironmentVariable.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/ServiceConfigSecretsExposedAsEnvironmentVariable.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/ServiceConfigSecretsExposedAsFile.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/ServiceConfigSecretsExposedAsFile.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/EnvironmentVariableInput.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
@@ -4189,8 +4180,6 @@ plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodContainerConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodContainersConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx: error TS2322: Type 'Element' is not assignable to type 'never'.
 plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx: error TS2322: Type 'Element' is not assignable to type 'never'.
@@ -4252,7 +4241,6 @@ plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.ts
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'render' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'render' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'heading' does not exist on type 'never'.
-plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'headingLevel' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'heading' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'label' does not exist on type 'never'.
@@ -4271,8 +4259,8 @@ plugins/services/src/js/service-configuration/ServiceEnvironmentVariablesConfigS
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2554: Expected 1 arguments, but got 2.
-plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2416: Property 'shouldExcludeItem' in type 'ServiceGeneralConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
+plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/ServiceGeneralConfigSection.tsx: error TS2322: Type 'string' is not assignable to type *.
@@ -4684,7 +4672,6 @@ src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' d
 src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' does not exist on type 'CollapsingString'.
 src/js/components/ComponentList.tsx: error TS2339: Property 'units' does not exist on type *.
 src/js/components/ComponentList.tsx: error TS2339: Property 'displayCount' does not exist on type *.
-src/js/components/ConfigurationMapHeading.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
@@ -4937,7 +4924,6 @@ src/js/components/HashMapDisplay.tsx: error TS2556: Expected 1-2 arguments, but 
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headline' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headlineClassName' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headingLevel' does not exist on type *.
-src/js/components/HashMapDisplay.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headingLevel' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headline' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'hash' does not exist on type *.
@@ -5685,8 +5671,6 @@ src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'routeConfig' d
 src/js/pages/settings/UISettingsPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'configRefreshRateOpen' does not exist on type 'Readonly<{}>'.
 src/js/pages/settings/UISettingsPage.tsx: error TS2339: Property 'i18n' does not exist on type *.
-src/js/pages/settings/UISettingsPage.tsx: error TS2322: type * is not assignable to type *.
-src/js/pages/settings/UISettingsPage.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'hasError' does not exist on type 'Readonly<{}>'.
 src/js/pages/system/ComponentsUnitsHealthNodeDetailPage.tsx: error TS2339: Property 'isLoadingNode' does not exist on type 'Readonly<{}>'.
