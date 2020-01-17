@@ -104,17 +104,14 @@ export default [
         type: Route,
         path: ":nodeID/tasks/:taskID",
         component: NodesTaskDetailPage,
-        hideHeaderNavigation: true,
         children: [
           {
             type: Route,
             component: TaskDetailsTab,
-            hideHeaderNavigation: true,
             title: "Details",
             path: "details"
           },
           {
-            hideHeaderNavigation: true,
             component: TaskFilesTab,
             path: "files",
             title: "Files",
@@ -124,12 +121,10 @@ export default [
                 component: TaskFileBrowser,
                 fileViewerRoutePath:
                   "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                hideHeaderNavigation: true,
                 type: IndexRoute
               },
               {
                 component: TaskFileViewer,
-                hideHeaderNavigation: true,
                 path: "view(/:filePath(/:innerPath))",
                 type: Route
               }
@@ -137,7 +132,6 @@ export default [
           },
           {
             component: TaskLogsContainer,
-            hideHeaderNavigation: true,
             path: "logs",
             title: "Logs",
             type: Route,
@@ -150,7 +144,6 @@ export default [
           },
           {
             component: VolumeTable,
-            hideHeaderNavigation: true,
             path: "volumes",
             title: "Volumes",
             type: Route
