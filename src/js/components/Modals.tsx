@@ -2,7 +2,6 @@ import { Trans } from "@lingui/macro";
 import { i18nMark } from "@lingui/react";
 import PropTypes from "prop-types";
 import * as React from "react";
-import createReactClass from "create-react-class";
 import { Hooks } from "PluginSDK";
 import { MountService } from "foundation-ui";
 
@@ -17,40 +16,32 @@ import LanguagePreferenceFormModal from "./modals/LanguagePreferenceFormModal";
 
 const getLanguageModalState = () => LanguageModalStore.get("isVisible");
 
-const Modals = createReactClass({
-  displayName: "Modals",
-
-  propTypes: {
+export default class Modals extends React.Component {
+  static propTypes = {
     showErrorModal: PropTypes.bool,
     modalErrorMsg: PropTypes.node
-  },
+  };
 
-  getDefaultProps() {
-    return {
-      showErrorModal: false,
-      modalErrorMsg: ""
-    };
-  },
+  static defaultProps = {
+    showErrorModal: false,
+    modalErrorMsg: ""
+  };
 
-  getInitialState() {
-    const props = this.props;
-
-    return {
-      modalErrorMsg: props.modalErrorMsg,
-      showingCliModal: false,
-      showingClusterLinkingModal: false,
-      showingVersionsModal: false,
-      showErrorModal: props.showErrorModal,
-      showLanguagePrefModal: false
-    };
-  },
+  state = {
+    modalErrorMsg: this.props.modalErrorMsg,
+    showingCliModal: false,
+    showingClusterLinkingModal: false,
+    showingVersionsModal: false,
+    showErrorModal: this.props.showErrorModal,
+    showLanguagePrefModal: false
+  };
 
   UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       modalErrorMsg: props.modalErrorMsg,
       showErrorModal: props.showErrorModal
     });
-  },
+  }
 
   componentDidMount() {
     SidebarStore.addChangeListener(
@@ -77,7 +68,7 @@ const Modals = createReactClass({
       EventTypes.LANGUAGE_MODAL_CHANGE,
       this.handleLanguageModalToggle
     );
-  },
+  }
 
   componentWillUnmount() {
     SidebarStore.removeChangeListener(
@@ -104,13 +95,13 @@ const Modals = createReactClass({
       EventTypes.LANGUAGE_MODAL_CHANGE,
       this.handleLanguageModalToggle
     );
-  },
+  }
 
-  handleShowVersionsSuccess() {
+  handleShowVersionsSuccess = () => {
     this.setState({ showingVersionsModal: true });
-  },
+  };
 
-  handleShowVersionsError() {
+  handleShowVersionsError = () => {
     this.setState({
       showErrorModal: true,
       modalErrorMsg: (
@@ -120,21 +111,21 @@ const Modals = createReactClass({
         </Trans>
       )
     });
-  },
+  };
 
-  handleShowClusterLinking() {
+  handleShowClusterLinking = () => {
     this.setState({ showingClusterLinkingModal: true });
-  },
+  };
 
-  handleShowCli() {
+  handleShowCli = () => {
     this.setState({ showingCliModal: true });
-  },
+  };
 
-  handleLanguageModalToggle() {
+  handleLanguageModalToggle = () => {
     this.setState({ showLanguagePrefModal: getLanguageModalState() });
-  },
+  };
 
-  getCliModalOptions() {
+  getCliModalOptions = () => {
     const onClose = () => {
       this.setState({ showingCliModal: false });
     };
@@ -153,9 +144,9 @@ const Modals = createReactClass({
         </div>
       )
     };
-  },
+  };
 
-  getCliInstallModal(showModal) {
+  getCliInstallModal = showModal => {
     let options = {
       onClose() {},
       title: "",
@@ -174,9 +165,9 @@ const Modals = createReactClass({
     }
 
     return <CliInstallModal open={showModal} {...options} />;
-  },
+  };
 
-  getClusterLinkingModal(showModal) {
+  getClusterLinkingModal = showModal => {
     const onClose = () => {
       this.setState({ showingClusterLinkingModal: false });
     };
@@ -188,9 +179,9 @@ const Modals = createReactClass({
         onClose={onClose}
       />
     );
-  },
+  };
 
-  getVersionsModal(showModal) {
+  getVersionsModal = showModal => {
     const onClose = () => {
       this.setState({ showingVersionsModal: false });
     };
@@ -204,9 +195,9 @@ const Modals = createReactClass({
         open={showModal}
       />
     );
-  },
+  };
 
-  getErrorModal(show) {
+  getErrorModal = show => {
     const onClose = () => {
       this.setState({ showErrorModal: false });
     };
@@ -217,11 +208,11 @@ const Modals = createReactClass({
     }
 
     return <ErrorModal onClose={onClose} errorMsg={errorMsg} open={show} />;
-  },
+  };
 
-  getLanguagePrefModal(showModal) {
+  getLanguagePrefModal = showModal => {
     return <LanguagePreferenceFormModal isOpen={showModal} />;
-  },
+  };
 
   render() {
     const {
@@ -242,6 +233,4 @@ const Modals = createReactClass({
       </div>
     );
   }
-});
-
-export default Modals;
+}

@@ -3916,6 +3916,8 @@ src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/Modals.tsx: error TS2339: Property 'modalErrorMsg' does not exist on type *.
+src/js/components/Modals.tsx: error TS2339: Property 'showErrorModal' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'serviceID' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'majorLinkClassName' does not exist on type *.
