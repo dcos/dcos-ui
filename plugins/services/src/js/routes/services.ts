@@ -175,17 +175,14 @@ const serviceRoutes = [
             title: "Instances",
             path: "tasks/:taskID",
             component: ServiceTaskDetailPage,
-            hideHeaderNavigation: true,
             children: [
               {
                 type: Route,
                 component: TaskDetailsTab,
-                hideHeaderNavigation: true,
                 path: "details",
                 title: "Details"
               },
               {
-                hideHeaderNavigation: true,
                 component: TaskFilesTab,
                 path: "files",
                 title: "Files",
@@ -195,12 +192,10 @@ const serviceRoutes = [
                     component: TaskFileBrowser,
                     fileViewerRoutePath:
                       "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                    hideHeaderNavigation: true,
                     type: IndexRoute
                   },
                   {
                     component: TaskFileViewer,
-                    hideHeaderNavigation: true,
                     path: "view(/:filePath(/:innerPath))",
                     type: Route
                   }
@@ -208,7 +203,6 @@ const serviceRoutes = [
               },
               {
                 component: TaskLogsContainer,
-                hideHeaderNavigation: true,
                 path: "logs",
                 title: "Logs",
                 type: Route,
@@ -221,21 +215,18 @@ const serviceRoutes = [
               },
               {
                 component: VolumeTable,
-                hideHeaderNavigation: true,
                 path: "volumes",
                 title: "Volumes",
                 type: Route
               },
               {
                 component: PodVolumeTable,
-                hideHeaderNavigation: true,
                 path: "podvolumes",
                 title: "Volumes",
                 type: Route
               },
               {
                 type: Route,
-                hideHeaderNavigation: true,
                 path: "volumes/:volumeID",
                 component: TaskVolumeContainer
               }
