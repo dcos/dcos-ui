@@ -20,14 +20,12 @@ export default {
     {
       type: Route,
       path: ":unitID",
-      component: UnitsHealthDetail,
-      hideHeaderNavigation: true
+      component: UnitsHealthDetail
     },
     {
       type: Route,
       path: ":unitID/nodes/:unitNodeID",
-      component: ComponentsUnitsHealthNodeDetailPage,
-      hideHeaderNavigation: true
+      component: ComponentsUnitsHealthNodeDetailPage
     }
   ]
 };
