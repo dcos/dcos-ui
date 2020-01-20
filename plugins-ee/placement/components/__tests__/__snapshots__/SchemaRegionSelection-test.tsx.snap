@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SchemaRegionSelection #localRegionOptions attaches local to option text when region is equal to master 1`] = `
+<div
+  className="form-row row"
+>
+  <div
+    className="form-group"
+  >
+    <label
+      className="column-12"
+    >
+      <div
+        className="form-group-heading"
+      >
+        <div
+          className="form-group-heading-content form-group-heading-content-primary"
+          title="Region"
+        >
+          <span
+            className={undefined}
+          />
+        </div>
+      </div>
+    </label>
+    <div
+      className="column-5"
+    >
+      <span
+        className="form-control form-control-select"
+      >
+        <select
+          name="foo"
+          onBlur={[Function]}
+          onChange={[Function]}
+          onFocus={[Function]}
+          type="text"
+          value=""
+        >
+          <option
+            value=""
+          >
+            Select...
+          </option>
+          <option
+            value="us-west-2"
+          >
+            us-west-2 (Local)
+          </option>
+        </select>
+      </span>
+    </div>
+    <p
+      className="form-control-feedback column-12 text-no-transform"
+    >
+      <span
+        className={undefined}
+      />
+    </p>
+  </div>
+</div>
+`;

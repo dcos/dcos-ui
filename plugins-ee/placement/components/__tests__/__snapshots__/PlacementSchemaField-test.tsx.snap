@@ -1,0 +1,234 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PlacementSchemaField with invalid content displays form to edit constraints 1`] = `
+<div>
+  <label
+    className=""
+  >
+    label
+  </label>
+  <pre>
+    {
+  "placement_constraints": "['hostname', 'MAX_PER', '2']"
+}
+  </pre>
+  <p
+    className="form-control-feedback"
+  >
+    <span
+      className={undefined}
+    >
+      Unable to edit
+    </span>
+  </p>
+</div>
+`;
+
+exports[`PlacementSchemaField with valid content displays edit constraints area 1`] = `
+<div
+  className="pod flush-left flush-right flush-top"
+>
+  <h2>
+    <span
+      className={undefined}
+    />
+     
+    
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <span
+        className="info-tooltip-icon-wrap"
+      >
+        <svg
+          aria-label="system-circle-question icon"
+          className="css-ed86y8"
+          data-cy="icon"
+          height={16}
+          preserveAspectRatio="xMinYMin meet"
+          role="img"
+          viewBox="0 0 16 16"
+          width={16}
+        >
+          <use
+            xlinkHref="#system-circle-question"
+          />
+        </svg>
+      </span>
+    </div>
+  </h2>
+  <div
+    onChange={[Function]}
+  >
+    <div>
+      <div
+        className="form-row row"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="column-12"
+          >
+            <div
+              className="form-group-heading"
+            >
+              <div
+                className="form-group-heading-content form-group-heading-content-primary"
+                title="Region"
+              >
+                <span
+                  className={undefined}
+                />
+              </div>
+            </div>
+          </label>
+          <div
+            className="column-5"
+          >
+            <span
+              className="form-control form-control-select"
+            >
+              <select
+                name="constraints.0.region"
+                onChange={[Function]}
+                type="text"
+                value=""
+              >
+                <option
+                  value=""
+                >
+                  Select...
+                </option>
+              </select>
+            </span>
+          </div>
+          <p
+            className="form-control-feedback column-12 text-no-transform"
+          >
+            <span
+              className={undefined}
+            />
+          </p>
+        </div>
+      </div>
+      <div
+        className="form-row row"
+      >
+        <div
+          className="form-group"
+        >
+          <label
+            className="column-12"
+          >
+            <div
+              className="form-group-heading"
+            >
+              <div
+                className="form-group-heading-content form-group-heading-content-primary"
+                title="Number of Zones"
+              >
+                <span
+                  className={undefined}
+                />
+              </div>
+            </div>
+          </label>
+          <div
+            className="column-3"
+          >
+            <span>
+              <input
+                className="form-control"
+                name="constraints.0.zone"
+                type="number"
+                value=""
+              />
+            </span>
+          </div>
+          <p
+            className="form-control-feedback column-12 text-no-transform"
+          >
+            <span
+              className={undefined}
+            />
+          </p>
+        </div>
+      </div>
+      <h3
+        className="short-bottom"
+      >
+        <span
+          className={undefined}
+        />
+         
+        <div
+          className="tooltip-wrapper text-align-center"
+          onMouseEnter={[Function]}
+          onMouseLeave={[Function]}
+        >
+          <span
+            className="info-tooltip-icon-wrap"
+          >
+            <svg
+              aria-label="system-circle-question icon"
+              className="css-ed86y8"
+              data-cy="icon"
+              height={16}
+              preserveAspectRatio="xMinYMin meet"
+              role="img"
+              viewBox="0 0 16 16"
+              width={16}
+            >
+              <use
+                xlinkHref="#system-circle-question"
+              />
+            </svg>
+          </span>
+        </div>
+      </h3>
+      <p
+        className={undefined}
+      />
+      <div />
+      <div
+        className="form-row row"
+      >
+        <div
+          className="form-group column-12"
+        >
+          <a
+            className="button button-primary-link button-flush form-spacing-top"
+            onClick={[Function]}
+          >
+            <svg
+              aria-label="system-plus icon"
+              className="css-e3vtaz"
+              data-cy="icon"
+              height={12}
+              preserveAspectRatio="xMinYMin meet"
+              role="img"
+              viewBox="0 0 12 12"
+              width={12}
+            >
+              <use
+                xlinkHref="#system-plus"
+              />
+            </svg>
+            <span>
+              <span
+                className={undefined}
+              />
+            </span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <p
+    className="form-control-feedback"
+  />
+</div>
+`;

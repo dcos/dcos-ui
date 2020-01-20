@@ -1,0 +1,15 @@
+{
+  "array": [
+    {
+      "rid": "dcos:adminrouter:service:marathon",
+      "description": "Marathon",
+      "aclurl": "/acls/dcos:adminrouter:service:marathon",
+      "actions": [
+        {
+          "name": "full",
+          "url": "/acls/dcos:adminrouter:service:marathon/groups/olis/full"
+        }
+      ]
+    }
+  ]
+}

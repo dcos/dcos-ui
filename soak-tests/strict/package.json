@@ -1,0 +1,10 @@
+{
+  "name": "dcos-ui-soak-test",
+  "version": "1.0.0",
+  "description": "Soak test for dcos-ui",
+  "main": "index.js",
+  "dependencies": {
+    "lynx": "0.2.0",
+    "puppeteer": "1.7.0"
+  }
+}

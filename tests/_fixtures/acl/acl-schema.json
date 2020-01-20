@@ -1,0 +1,417 @@
+{
+  "displayName": "Component",
+  "groupName": "DC/OS Component",
+  "rid": "dcos",
+  "items": [
+    {
+      "rid": "adminrouter",
+      "displayName": "Admin Router",
+      "groupName": "Endpoint Type",
+      "items": [
+        {
+          "rid": "ops",
+          "displayName": "Operator",
+          "groupName": "Operator Endpoint",
+          "actions": ["full"],
+          "items": [
+            { "rid": "acs" },
+            {
+              "rid": "ca",
+              "displayName": "Certificate Authority",
+              "groupName": "API",
+              "items": [
+                { "rid": "ro", "displayName": "List Certificates" },
+                { "rid": "rw", "displayName": "Admin" }
+              ]
+            },
+            { "rid": "exhibitor" },
+            { "rid": "historyservice" },
+            { "rid": "mesos" },
+            { "rid": "mesos-dns" },
+            { "rid": "metadata" },
+            { "rid": "networking" },
+            { "rid": "package" },
+            { "rid": "slave" },
+            { "rid": "system-health" }
+          ]
+        },
+        {
+          "rid": "service",
+          "displayName": "Service",
+          "groupName": "Service Name",
+          "actions": ["full"],
+          "items": [
+            { "rid": "marathon" },
+            { "rid": "*", "displayName": "custom" }
+          ]
+        }
+      ]
+    },
+    {
+      "displayName": "Mesos",
+      "groupName": "Master/Agent",
+      "rid": "mesos",
+      "items": [
+        {
+          "rid": "agent",
+          "displayName": "Agent",
+          "groupName": "Object",
+          "items": [
+            {
+              "rid": "framework",
+              "displayName": "Framework",
+              "groupName": "Role",
+              "items": [
+                {
+                  "rid": "role",
+                  "displayName": "Framework",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "executor",
+              "displayName": "Executor",
+              "groupName": "Namespace",
+              "items": [
+                {
+                  "rid": "app_id",
+                  "displayName": "Executor",
+                  "groupName": "Namespace",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Namespace",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "task",
+              "displayName": "Task",
+              "groupName": "Namespace",
+              "items": [
+                {
+                  "rid": "app_id",
+                  "displayName": "Task",
+                  "groupName": "Namespace",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Namespace",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "sandbox",
+              "displayName": "Sandbox",
+              "groupName": "Namespace",
+              "items": [
+                {
+                  "rid": "app_id",
+                  "displayName": "Sandbox",
+                  "groupName": "Namespace",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Namespace",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "endpoint",
+              "displayName": "Endpoint",
+              "groupName": "Endpoint",
+              "items": [
+                {
+                  "rid": "path",
+                  "displayName": "Endpoint",
+                  "groupName": "Endpoint",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Path",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "rid": "master",
+          "displayName": "Master",
+          "groupName": "Object",
+          "items": [
+            {
+              "rid": "endpoint",
+              "displayName": "Endpoint",
+              "groupName": "Endpoint",
+              "items": [
+                {
+                  "rid": "path",
+                  "displayName": "Endpoint",
+                  "groupName": "Endpoint",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Path",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "framework",
+              "displayName": "Framework",
+              "groupName": "Attribute",
+              "items": [
+                {
+                  "rid": "role",
+                  "displayName": "Role",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["create", "read"]
+                    }
+                  ]
+                },
+                {
+                  "rid": "principal",
+                  "displayName": "Service Account",
+                  "groupName": "Service Account",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Service Account Id",
+                      "actions": ["delete"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "executor",
+              "displayName": "Executor",
+              "groupName": "Namespace",
+              "items": [
+                {
+                  "rid": "app_id",
+                  "displayName": "Executor",
+                  "groupName": "Namespace",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Namespace",
+                      "actions": ["read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "quota",
+              "displayName": "Quota",
+              "groupName": "Role",
+              "items": [
+                {
+                  "rid": "role",
+                  "displayName": "Quota",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["read", "update"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "reservation",
+              "displayName": "Reservation",
+              "groupName": "Attribute",
+              "items": [
+                {
+                  "rid": "role",
+                  "displayName": "Role",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["create"]
+                    }
+                  ]
+                },
+                {
+                  "rid": "principal",
+                  "displayName": "Creator Account",
+                  "groupName": "Creator Account",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Account Id",
+                      "actions": ["delete"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "task",
+              "displayName": "Task",
+              "groupName": "Attribute",
+              "items": [
+                {
+                  "rid": "user",
+                  "displayName": "User ID",
+                  "groupName": "User ID",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "User ID",
+                      "actions": ["create"]
+                    }
+                  ]
+                },
+                {
+                  "rid": "app_id",
+                  "displayName": "Namespace",
+                  "groupName": "Namespace",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Namespace",
+                      "actions": ["create", "read"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "volume",
+              "displayName": "Volume",
+              "groupName": "Attribute",
+              "items": [
+                {
+                  "rid": "principal",
+                  "displayName": "Creator Account",
+                  "groupName": "Creator Account",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Account Id",
+                      "actions": ["delete"]
+                    }
+                  ]
+                },
+                {
+                  "rid": "role",
+                  "displayName": "Role",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["create"]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "rid": "weight",
+              "displayName": "Weight",
+              "groupName": "Role",
+              "items": [
+                {
+                  "rid": "role",
+                  "displayName": "Weight",
+                  "groupName": "Role",
+                  "items": [
+                    {
+                      "rid": "*",
+                      "displayName": "Role",
+                      "actions": ["read", "update"]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rid": "service",
+      "displayName": "Marathon",
+      "groupName": "Marathon Service Name",
+      "items": [
+        {
+          "rid": "marathon",
+          "displayName": "Marathon",
+          "groupName": "Marathon Service Name",
+          "items": [
+            {
+              "rid": "*",
+              "displayName": "Marathon Instance",
+              "groupName": "Marathon Instance",
+              "items": [
+                {
+                  "rid": "*",
+                  "displayName": "Service Path",
+                  "actions": ["create", "read", "update", "delete"]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rid": "secrets",
+      "displayName": "Secrets Service",
+      "groupName": "Secrets Service",
+      "items": [
+        {
+          "rid": "default",
+          "displayName": "Secrets Service",
+          "groupName": "Secrets Service",
+          "items": [
+            {
+              "rid": "*",
+              "displayName": "Secret Path",
+              "actions": ["create", "read", "update", "delete", "list"]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "rid": "superuser",
+      "displayName": "Super User",
+      "actions": ["full"]
+    }
+  ]
+}

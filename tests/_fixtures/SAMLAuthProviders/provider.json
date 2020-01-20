@@ -1,0 +1,6 @@
+{
+  "description": "A SAML provider",
+  "providerID": "saml_provider_id",
+  "sp_base_url": "https://saml.com",
+  "idp_metadata": "<?xml version=\"1.0\"?> <EntityDescriptor xmlns= \"urn:oasis:names:tc:SAML:2.0:metadata\" entityID=\"https://app.onelogin.com/saml/metadata/537209\"><IDPSSODescriptor xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\" protocolSupportEnumeration=\"urn:oasis:names:tc:SAML:2.0:protocol\"><KeyDescriptor use=\"signing\"><ds:KeyInfo xmlns:ds=\"http://www.w3.org/2000/09/xmldsig#\"><ds:X509Data><ds:X509Certificate>lskjdflshdfo</ds:X509Certificate></ds:X509Data></ds:KeyInfo></KeyDescriptor><NameIDFormat>urn:oasis:names:tc:SAML:1.1:nameid-format:emailAddress</NameIDFormat><SingleSignOnService Binding=\"urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect\" Location=\"https://entity.onelogin.com/trust/saml2/http-post/sso/83794\"/></IDPSSODescriptor></EntityDescriptor>"
+}
