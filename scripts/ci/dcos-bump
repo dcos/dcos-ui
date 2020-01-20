@@ -2,14 +2,14 @@
 
 # README
 #
-# DC/OS UI bump helper script - its bash, its ugly, but it works ¯\_(ツ)_/¯ 
+# DC/OS UI bump helper script - its bash, its ugly, but it works ¯\_(ツ)_/¯
 # Feel free to do it manually ʘ‿ʘ
 #
 # Usage
 # You need to provide a Github Personal Access Token[1] and call the script like this
 # GH_USER=you GH_PERSONAL_TOKEN=123445 ./bump.sh <master|1.12|1.11>
 #
-# [1] 
+# [1]
 # Github Personal Access Token: https://help.github.com/articles/creating-a-personal-access-token-for-the-command-line/
 # Token needs full repo permission (nothing else)
 
@@ -19,11 +19,10 @@ repo_dcos_dcos="${REPO_DCOS_DCOS:-"https://${GH_USER}:${GH_PERSONAL_TOKEN}@githu
 repo_mesosphere_dcos="${REPO_MESOSPHERE_DCOS:-"https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos.git"}"
 repo_dcos_enterprise="${REPO_DCOS_ENTERPRISE:-"https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos-enterprise.git"}"
 repo_dcos_ui="${REPO_DCOS_UI:-"https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/dcos/dcos-ui.git"}"
-repo_dcos_ui_plugins="${REPO_DCOS_UI_PLUGINS:-"https://${GH_USER}:${GH_PERSONAL_TOKEN}@github.com/mesosphere/dcos-ui-plugins-private.git"}"
 
 if [ -z "$1" ] || [ "$1" == "--help" ] || [ "$1" == "-h" ]; then
     echo "Usage Example: GH_PERSONAL_TOKEN=123445 ./bump.sh master"
-    echo "You can provide different values for repos with: REPO_DCOS_DCOS, REPO_MESOSPHERE_DCOS, REPO_DCOS_ENTERPRISE, REPO_DCOS_UI, REPO_DCOS_UI_PLUGINS"
+    echo "You can provide different values for repos with: REPO_DCOS_DCOS, REPO_MESOSPHERE_DCOS, REPO_DCOS_ENTERPRISE, REPO_DCOS_UI"
     exit 0
 fi
 
@@ -56,15 +55,8 @@ echo "=== Processing current buildinfo.json (OSS) ==============================
 git -C ./tmp/dcos checkout ${target}
 cp ./tmp/dcos/packages/dcos-ui/buildinfo.json ./tmp/current.buildinfo.json
 
+# current is next
 oss_current_tag=$(jq .single_source.url ./tmp/current.buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
-
-echo "=== Done."
-echo "=== Processing current ee.buildinfo.json (EE) ==============================================="
-
-git -C ./tmp/dcos-enterprise checkout ${target}
-cp ./tmp/dcos-enterprise/packages/dcos-ui/ee.buildinfo.json ./tmp/current.ee.buildinfo.json
-
-ee_current_tag=$(jq .single_source.url ./tmp/current.ee.buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}%2B[a-z0-9]{8}" | sed "s/%2B/+/")
 
 echo "=== Done."
 echo "=== Processing latest buildinfo.json (OSS) =================================================="
@@ -78,59 +70,33 @@ cp ./tmp/dcos/packages/dcos-ui/buildinfo.json ./tmp/latest.buildinfo.json
 oss_latest_version=$(jq .single_source.url ./tmp/latest.buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}")
 
 echo "=== Done."
-echo "=== Processing latest ee.buildinfo.json (EE) ================================================"
-
-git -C ./tmp/dcos-enterprise checkout dcos-ui/${target}+dcos-ui-enterprise-latest
-cp ./tmp/dcos-enterprise/packages/dcos-ui/ee.buildinfo.json ./tmp/latest.ee.buildinfo.json
-
-ee_latest_version=$(jq .single_source.url ./tmp/latest.ee.buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}%2B[a-z0-9]{8}" | sed "s/%2B/+/")
-ee_latest_base=$(echo $ee_latest_version | cut -d"+" -f1)
-if [ "$oss_latest_version" != "$ee_latest_base" ]; then
-    echo "ERROR: latest branches out of sync!"
-    exit 1
-fi
-
-echo "=== Done."
 echo "=== Check if bump necessary ================================================================="
 
-if [ "$oss_current_tag" == "$oss_latest_version" ] && [ "$ee_current_tag" == "$ee_latest_version" ]; then
+if [ "$oss_current_tag" == "$oss_latest_version" ] ; then
     echo "No bump necessary."
     exit 0
 else
     echo "Bump necessary."
     echo "current oss version: $oss_current_tag"
     echo "new oss version: $oss_latest_version"
-    echo "current ee version: $ee_current_tag"
-    echo "new ee version: $ee_latest_version"
 fi
 
 echo "=== Done."
 echo "=== Check for open Bump PRs ================================================================="
 
 existing_oss_bump_pr=$(curl -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" "https://api.github.com/search/issues?q=repo%3Adcos%2Fdcos+is%3Apr+is%3Aopen+%22%5B${target}%5D+Automated+Bump+DC%2FOS+UI%22+-label%3A%22ship+it%22+author%3A${GH_USER}" | jq .items[0].number)
-ee_open_version=""
 
 if [ $existing_oss_bump_pr != "null" ]; then
-    git -C ./tmp/dcos-enterprise checkout mergebot/dcos/master/${existing_oss_bump_pr}
-    cp ./tmp/dcos-enterprise/packages/dcos-ui/ee.buildinfo.json ./tmp/open.ee.buildinfo.json
-    ee_open_version=$(jq .single_source.url ./tmp/open.ee.buildinfo.json | grep -oE "v[0-9]{1,}\.[0-9]{1,}\.[0-9]{1,}%2B[a-z0-9]{8}" | sed "s/%2B/+/")
-    if [ $ee_latest_version == $ee_open_version ]; then
-        echo "Bump for ${ee_latest_version} already open: https://github.com/dcos/dcos/pull/${existing_oss_bump_pr}"
-        exit 0
-    fi
+  echo "Bump PR already open: https://github.com/dcos/dcos/pull/${existing_oss_bump_pr}"
 fi
-
-existing_ee_bump_pr=$(curl -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" "https://api.github.com/search/issues?q=repo%3Amesosphere%2Fdcos-enterprise+is%3Apr+is%3Aopen+%22%5B${target}%5D+Automated+Bump+DC%2FOS+UI%22+-label%3A%22ship+it%22+author%3A${GH_USER}" | jq .items[0].number)
 
 echo "=== Done."
 echo "=== Get JIRAs from git log =================================================================="
 
 oss_jira_ids="$(git -C ./tmp/dcos-ui --no-pager log ${target}+${oss_current_tag}...${target}+${oss_latest_version} | grep -oE "(Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
-ee_jira_ids="$(git -C ./tmp/dcos-ui-plugins-private --no-pager log ${target}+${ee_current_tag}...${target}+${ee_latest_version} | grep -oE "(Marathon|DCOS(_OSS)?)-[0-9]{1,6}" || echo "")"
 
 echo "Found these JIRAS:"
-echo "OSS:" $oss_jira_ids
-echo "EE:" $ee_jira_ids
+echo $oss_jira_ids
 
 echo "=== Done."
 echo "=== Prepare OSS bump branch ================================================================="
@@ -142,7 +108,7 @@ git -C ./tmp/dcos checkout -b ${oss_bump_branch}
 cp ./tmp/latest.buildinfo.json ./tmp/dcos/packages/dcos-ui/buildinfo.json
 git -C ./tmp/dcos add packages/dcos-ui/buildinfo.json
 
-git -C ./tmp/dcos commit --allow-empty -m "chore: Bump DC/OS UI ${oss_latest_version}"
+git -C ./tmp/dcos commit -m "chore: Bump DC/OS UI ${oss_latest_version}"
 
 git -C ./tmp/dcos push --set-upstream mesosphere $oss_bump_branch
 
@@ -167,74 +133,36 @@ curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${GH_P
 oss_bump_pr="$(jq .number ./tmp/oss.pr-response.json)"
 
 echo "=== Done."
-echo "=== Waiting for EE bump PR ======================================================================="
+# echo "=== Waiting for EE bump PR ======================================================================="
 
-ee_bump_pr="" 
-while [ -z "$ee_bump_pr" ]; do
-  echo "Waiting for Mergebot…"
-  sleep 5;
-  ee_bump_pr=$(curl -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" https://api.github.com/repos/dcos/dcos/issues/${oss_bump_pr}/comments | jq .[].body | grep "Enterprise Bump PR" | grep -oE "[0-9]{4,5}" || echo "")
-done
+# ee_bump_pr=""
+# while [ -z "$ee_bump_pr" ]; do
+#   echo "Waiting for Mergebot…"
+#   sleep 5;
+#   ee_bump_pr=$(curl -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" https://api.github.com/repos/dcos/dcos/issues/${oss_bump_pr}/comments | jq .[].body | grep "Enterprise Bump PR" | grep -oE "[0-9]{4,5}" || echo "")
+# done
 
-sleep 30; # adding this a safety net if mergebot was too quick…
+# sleep 30; # adding this a safety net if mergebot was too quick…
 
-echo "=== Done."
-echo "=== Prepare EE Branch ======================================================================="
+# echo "=== Done."
 
-ee_bump_branch="mergebot/dcos/${target}/${oss_bump_pr}"
-
-git -C ./tmp/dcos-enterprise fetch -q
-git -C ./tmp/dcos-enterprise checkout ${ee_bump_branch}
-
-cp ./tmp/latest.ee.buildinfo.json ./tmp/dcos-enterprise/packages/dcos-ui/ee.buildinfo.json
-git -C ./tmp/dcos-enterprise add packages/dcos-ui/ee.buildinfo.json
-
-git -C ./tmp/dcos-enterprise commit --allow-empty -m "chore: Bump DC/OS UI ${ee_latest_version}"
-
-git -C ./tmp/dcos-enterprise push
-
-echo "=== Done."
-echo "=== Update EE bump PR ======================================================================="
-
-echo "{
-  \"title\": \"[${target}] Automated Bump DC/OS UI ${ee_latest_version}\",
-  \"body\": \"This bump contains the following JIRAs:\n$(echo "$ee_jira_ids" | awk '{printf "%s\\n", $0}')\n\nAlso it includes the following OSS Changes:\n$(echo "$oss_jira_ids" | awk '{printf "%s\\n", $0}')\"
-}
-" > ./tmp/ee.pr.json
-
-curl -X PATCH -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" --data @./tmp/ee.pr.json "https://api.github.com/repos/mesosphere/dcos-enterprise/pulls/${ee_bump_pr}"
-
-echo "=== Done."
-echo "=== Adding CHANDES.md Comments to both new PRs ======"
-
+echo "=== Adding CHANDES.md Comment ======"
 
 curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d "{\"body\": \"Please update CHANGES.md file (Add or update DC/OS UI line in \`Notable Changes\` section of newest version).\n\`\`\`\n* Updated DC/OS UI to [${target}+${oss_latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${target}+${oss_latest_version}).\n\`\`\`\n\nYou can edit CHANGES.md directly here: https://github.com/mesosphere/dcos/edit/${oss_bump_branch}/CHANGES.md?pr=%2Fdcos%2Fdcos%2Fpull%2F${oss_bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${oss_bump_pr}/comments"
-curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d "{\"body\": \"Please update CHANGES.md file (Add or update DC/OS UI line in \`Notable Changes\` section of newest version).\n\`\`\`\n* Updated DC/OS UI to [${target}+${oss_latest_version}](https://github.com/dcos/dcos-ui/releases/tag/${target}+${oss_latest_version}) and plugins to [${target}+${ee_latest_version}](https://github.com/mesosphere/dcos-ui-plugins-private/releases/tag/${target}+${ee_latest_version}).\n\`\`\`\n\nYou can edit CHANGES.md directly here: https://github.com/mesosphere/dcos-enterprise/edit/${ee_bump_branch}/CHANGES.md?pr=%2Fmesosphere%2Fdcos-enterprise%2Fpull%2F${ee_bump_pr}\"}" "https://api.github.com/repos/mesosphere/dcos-enterprise/issues/${ee_bump_pr}/comments"
-
-echo "=== Done."
-echo "=== Adding Ready for Review Comment to both new PRs  ======"
-
-curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d '{"body": "@mesosphere-mergebot label [Ready for Review]"}' "https://api.github.com/repos/dcos/dcos/issues/${oss_bump_pr}/comments"
-curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d '{"body": "@mesosphere-mergebot label [Ready for Review]"}' "https://api.github.com/repos/mesosphere/dcos-enterprise/issues/${ee_bump_pr}/comments"
 
 echo "=== Done."
 echo "=== Close old PRs ======"
 
 if [ "$existing_oss_bump_pr" != "null" ]; then
-    curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d "{\"body\": \"Superseeded by #${oss_bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${existing_oss_bump_pr}/comments"
+    curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d "{\"body\": \"Superseded by #${oss_bump_pr}\"}" "https://api.github.com/repos/dcos/dcos/issues/${existing_oss_bump_pr}/comments"
     curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" --data '{"state":"closed"}' "https://api.github.com/repos/dcos/dcos/pulls/${existing_oss_bump_pr}"
-fi
-if [ "$existing_ee_bump_pr" != "null" ]; then
-    curl -H "Authorization: token ${GH_PERSONAL_TOKEN}" -X POST -d "{\"body\": \"Superseeded by #${ee_bump_pr}\"}" "https://api.github.com/repos/mesosphere/dcos-enterprise/pulls/${existing_ee_bump_pr}/comments"
-    curl -X POST -H "Content-Type: application/json" -H "Authorization: token ${GH_PERSONAL_TOKEN}" --data '{"state":"closed"}' "https://api.github.com/repos/mesosphere/dcos-enterprise/pulls/${existing_ee_bump_pr}"
 fi
 
 echo "=== Done."
 echo "=== Posting to Slack ======"
 # Slack integration comes from here: https://gist.github.com/dopiaza/6449505
 
-slack_message="@frontend-team please review these bumps:\n- OSS: [${target}] ${oss_latest_version}: https://github.com/dcos/dcos/pull/${oss_bump_pr}\n- EE: [${target}] ${ee_latest_version}: https://github.com/mesosphere/dcos-enterprise/pull/${ee_bump_pr}"
-
+slack_message="@frontend-team please review these bumps:\n- OSS: [${target}] ${oss_latest_version}: https://github.com/dcos/dcos/pull/${oss_bump_pr}"
 
 escapedText=$(echo $slack_message | sed 's/"/\"/g' | sed "s/'/\'/g" )
 json="{\"channel\": \"#frontend\", \"username\":\"DC/OS UI Bump Bot\", \"icon_emoji\":\"ghost\", \"attachments\":[{\"color\":\"danger\" , \"text\": \"$escapedText\"}]}"

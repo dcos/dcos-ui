@@ -24,7 +24,7 @@
   "publish": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/upload-release v${nextRelease.version} master",
+      "cmd": "./scripts/ci/finalize-release v${nextRelease.version} master",
       "shell": "/bin/bash"
     },
     {
