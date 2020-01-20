@@ -22,3 +22,5 @@ src/resources/raml
 .env
 locale/_build/
 locale/*/messages.js
+buildinfo.json
+release.tar.gz
