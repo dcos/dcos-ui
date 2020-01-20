@@ -14,8 +14,6 @@ src/js/config/Config.dev.js
 serve
 tmp/
 *.orig
-.plugins/
-.external_plugins/
 jest/test-results
 webpack/proxy.dev.js
 src/resources/raml
@@ -24,4 +22,3 @@ src/resources/raml
 .env
 locale/_build/
 locale/*/messages.js
-plugins-ee

@@ -1,0 +1,20 @@
+{
+  "array": [
+    {
+      "membershipurl": "/groups/olis/users/quis",
+      "group": {
+        "gid": "ölis",
+        "url": "/groups/olis",
+        "description": "藍-遙 遥 悠 遼 Größe"
+      }
+    },
+    {
+      "membershipurl": "/groups/geeks/users/quis",
+      "group": {
+        "gid": "geeks",
+        "url": "/groups/geeks",
+        "description": "These are the geeks, not the nerds."
+      }
+    }
+  ]
+}

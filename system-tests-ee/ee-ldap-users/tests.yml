@@ -1,0 +1,13 @@
+- name: ldap-users
+  title: LDAP Users (Enterprise)
+  cluster:
+    features:
+      - enterprise
+  results:
+    junit: "cypress/results.xml"
+    assets:
+      - cypress
+  scripts:
+    setup: ./ldap-users/_scripts/setup
+    run: cypress run --env CLUSTER_URL=$CLUSTER_URL,CLUSTER_AUTH_TOKEN=$CLUSTER_AUTH_TOKEN,CLUSTER_AUTH_INFO=$CLUSTER_AUTH_INFO,TEST_UUID=$TEST_UUID --spec ldap-users/test-ldap-users.js
+    teardown: ./ldap-users/_scripts/teardown

@@ -1,0 +1,69 @@
+@import (reference) '~@styles/index';
+
+.modal-link-list {
+  width: 400px;
+
+  .modal-body {
+    padding-left: 0;
+    padding-right: 0;
+
+    .link-list-item,
+    .link-list-item:hover {
+      color: inherit;
+      display: block;
+      padding: 20px 24px;
+      text-decoration: none;
+    }
+
+    .link-list-primary,
+    .link-list-secondary {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      width: 350px;
+    }
+
+    .link-list-primary {
+      font-weight: 700;
+    }
+
+    .link-list-secondary {
+      color: color-lighten(@neutral, 30);
+    }
+
+    .link-list-item:hover {
+      background-color: @fill-light-background-color;
+
+      .link-list-icon {
+        display: block;
+      }
+
+      .link-list-icon.active {
+        display: none;
+      }
+    }
+
+    .link-list-item:active {
+      background: @purple;
+      color: @white;
+
+      .link-list-secondary {
+        color: @white;
+      }
+    }
+  }
+}
+
+.linked-clusters-table {
+
+  .cluster-cell {
+    max-width: 50%;
+    width: 1px;
+  }
+
+  .cluster-actions-cell {
+    max-width: 50px;
+    text-align: right;
+    width: 50px;
+  }
+}

@@ -1,0 +1,26 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LicensingExpirationRow #render renders entire expiration row 1`] = `
+<div
+  className="configuration-map-row table-row"
+>
+  <div
+    className="configuration-map-label"
+  />
+  <div
+    className="configuration-map-value"
+  >
+    <span
+      className="toggle-value"
+      onClick={[Function]}
+    >
+      862 days left
+    </span>
+  </div>
+  <a
+    className="button button-primary-link text-no-transform"
+    href="https://docs.mesosphere.com/latest/administering-clusters/licenses"
+    target="_blank"
+  />
+</div>
+`;

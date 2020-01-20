@@ -1,0 +1,400 @@
+#!/usr/bin/env groovy
+
+def master_branches = ["master"] as String[]
+
+pipeline {
+  agent {
+    dockerfile {
+      args "--shm-size=1g --entrypoint=''"
+    }
+  }
+
+  parameters {
+    booleanParam(name: 'CREATE_BUMP', defaultValue: false, description: 'shall this run create a bump?')
+  }
+
+  options {
+    timeout(time: 3, unit: 'HOURS')
+    disableConcurrentBuilds()
+  }
+
+  stages {
+    stage("Prepare Repositories") {
+      steps {
+        // cleaning up and creating empty folders
+        sh "if [ -d 'dcos-ui-ee' ]; then rm -r dcos-ui-ee; fi;"
+        sh "mkdir -p dcos-ui-ee/dcos-ui"
+
+        // cloning oss repo
+        sh "git clone https://github.com/dcos/dcos-ui.git ./dcos-ui-ee/dcos-ui"
+
+        // cloning plugins repo, we need this for commit history
+        withCredentials([
+          usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
+        ]) {
+          sh "git clone https://\$GIT_USER:\$GIT_PASSWORD@github.com/mesosphere/dcos-ui-plugins-private.git ./dcos-ui-ee/dcos-ui/plugins-ee"
+        }
+
+        // checking out correct branch on plugins
+        sh "cd ./dcos-ui-ee/dcos-ui/plugins-ee && git fetch && git checkout \"\$([ -z \"\$CHANGE_BRANCH\" ] && echo \$BRANCH_NAME || echo \$CHANGE_BRANCH )\""
+
+        // when on PR rebase to target
+        sh 'cd ./dcos-ui-ee/dcos-ui/plugins-ee && [ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
+
+        // when on PR, check out base branch on OSS
+        // when on branch, check out latest release on that branch (necessary for bumps later on)
+        sh "cd ./dcos-ui-ee/dcos-ui && git checkout \"\$([ -z \"\$CHANGE_TARGET\" ] && echo \$( git tag -l --sort=-version:refname | grep \${BRANCH_NAME#release/}+ | head -n1 ) || echo \$CHANGE_TARGET )\""
+
+        // rsync ci files to OSS repo, they are executed from there
+        sh "rsync -a dcos-ui-ee/dcos-ui/plugins-ee/scripts/ci/ dcos-ui-ee/dcos-ui/scripts/ci/"
+      }
+    }
+
+    stage("Install") {
+      steps {
+        sh "cd ./dcos-ui-ee/dcos-ui && npm config set externalplugins ./plugins-ee"
+        sh "cd ./dcos-ui-ee/dcos-ui && npm --unsafe-perm ci"
+      }
+    }
+
+    stage("Lint Commits") {
+      when {
+        expression {
+          !master_branches.contains(BRANCH_NAME)
+        }
+      }
+
+      steps {
+        sh 'cd ./dcos-ui-ee/dcos-ui/plugins-ee && ../node_modules/.bin/commitlint --from "${CHANGE_TARGET}" --config ../commitlint.config.js'
+      }
+    }
+
+    stage("Build") {
+      steps {
+        sh "cd ./dcos-ui-ee/dcos-ui && npm run util:lingui:check && npm run build"
+      }
+    }
+
+    stage("Setup Data Dog") {
+      steps {
+        withCredentials([
+          string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
+          string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
+        ]) {
+          sh "cd ./dcos-ui-ee/dcos-ui && ./scripts/ci/createDatadogConfig.sh"
+        }
+      }
+    }
+
+    stage("Test current versions") {
+      parallel {
+        stage("Integration Test") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            sh "cd ./dcos-ui-ee/dcos-ui && REPORT_DISTRIBUTION='ee' npm run test:integration"
+          }
+
+          post {
+            always {
+              archiveArtifacts "dcos-ui-ee/dcos-ui/cypress/**/*"
+              // We currently want flaky test runs be marked as success
+              // junit "dcos-ui-ee/dcos-ui/cypress/results.xml"
+            }
+          }
+        }
+
+        stage("System Test") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            withCredentials([
+              [
+                $class: "AmazonWebServicesCredentialsBinding",
+                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+              ],
+              [
+                $class: "StringBinding",
+                credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+                variable: "LICENSE_KEY"
+              ]
+            ]) {
+              sh '''
+                INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./dcos-ui-ee/dcos-ui/plugins-ee/system-tests/_scripts/ee-launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+                export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
+                export CLUSTER_AUTH_TOKEN=\$(./dcos-ui-ee/dcos-ui/system-tests/_scripts/get_cluster_auth.sh)
+                export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+                cd ./dcos-ui-ee/dcos-ui && REPORT_DISTRIBUTION='ee' npm run test:system
+              '''
+            }
+          }
+
+          post {
+            always {
+              archiveArtifacts "dcos-ui-ee/dcos-ui/results/**/*"
+              junit "dcos-ui-ee/dcos-ui/results/results.xml"
+              withCredentials([
+                [
+                  $class: "AmazonWebServicesCredentialsBinding",
+                  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                  accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+                ]
+              ]) {
+                sh "./dcos-ui-ee/dcos-ui/system-tests/_scripts/delete-cluster.sh"
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // TODO: get these (and above) stages running in parallel
+    stage("System Test 1.13 nightly") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ],
+          [
+            $class: "StringBinding",
+            credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+            variable: "LICENSE_KEY"
+          ]
+        ]) {
+          sh '''
+            rm -rf dcos-ui-ee/dcos-ui/results
+            INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/1.13/dcos_generate_config.ee.sh" ./dcos-ui-ee/dcos-ui/plugins-ee/system-tests/_scripts/ee-launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
+            export CLUSTER_AUTH_TOKEN=\$(./dcos-ui-ee/dcos-ui/system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+            cd ./dcos-ui-ee/dcos-ui && REPORT_DISTRIBUTION='ee' npm run test:system
+          '''
+        }
+      }
+
+      post {
+        always {
+          archiveArtifacts "dcos-ui-ee/dcos-ui/results/**/*"
+          junit "dcos-ui-ee/dcos-ui/results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./dcos-ui-ee/dcos-ui/system-tests/_scripts/delete-cluster.sh"
+          }
+        }
+      }
+    }
+
+    stage("System Test 1.13.0") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ],
+          [
+            $class: "StringBinding",
+            credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+            variable: "LICENSE_KEY"
+          ]
+        ]) {
+          sh '''
+            rm -rf dcos-ui-ee/dcos-ui/results
+            INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/stable/1.13.0/dcos_generate_config.ee.sh" ./dcos-ui-ee/dcos-ui/plugins-ee/system-tests/_scripts/ee-launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
+            export CLUSTER_AUTH_TOKEN=\$(./dcos-ui-ee/dcos-ui/system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+            cd ./dcos-ui-ee/dcos-ui && REPORT_DISTRIBUTION='ee' npm run test:system
+          '''
+        }
+      }
+
+      post {
+        always {
+          archiveArtifacts "dcos-ui-ee/dcos-ui/results/**/*"
+          junit "dcos-ui-ee/dcos-ui/results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./dcos-ui-ee/dcos-ui/system-tests/_scripts/delete-cluster.sh"
+          }
+        }
+      }
+    }
+
+    stage("System Test 1.12 nightly") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+          [
+            $class: "AmazonWebServicesCredentialsBinding",
+            credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+            accessKeyVariable: "AWS_ACCESS_KEY_ID",
+            secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+          ],
+          [
+            $class: "StringBinding",
+            credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+            variable: "LICENSE_KEY"
+          ]
+        ]) {
+          sh '''
+            rm -rf dcos-ui-ee/dcos-ui/results
+            INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/1.12/dcos_generate_config.ee.sh" ./dcos-ui-ee/dcos-ui/plugins-ee/system-tests/_scripts/ee-launch-cluster.sh
+            export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+            export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
+            export CLUSTER_AUTH_TOKEN=\$(./dcos-ui-ee/dcos-ui/system-tests/_scripts/get_cluster_auth.sh)
+            export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+            DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+            cd ./dcos-ui-ee/dcos-ui && REPORT_DISTRIBUTION='ee' npm run test:system
+          '''
+        }
+      }
+
+      post {
+        always {
+          archiveArtifacts "dcos-ui-ee/dcos-ui/results/**/*"
+          junit "dcos-ui-ee/dcos-ui/results/results.xml"
+          withCredentials([
+            [
+              $class: "AmazonWebServicesCredentialsBinding",
+              credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+              accessKeyVariable: "AWS_ACCESS_KEY_ID",
+              secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+            ]
+          ]) {
+            sh "./dcos-ui-ee/dcos-ui/system-tests/_scripts/delete-cluster.sh"
+          }
+        }
+      }
+    }
+
+    stage("Semantic Release(ish) & Upload") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      steps {
+        withCredentials([
+            string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"),
+            string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"),
+            string(credentialsId: "sentry_io_token", variable: "SENTRY_AUTH_TOKEN"),
+            usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER")
+        ]) {
+          sh "git config --global user.email $GIT_USER@users.noreply.github.com"
+          sh "git config --global user.name 'MesosphereCI Robot'"
+          sh "git config credential.helper 'cache --timeout=300'"
+
+          sh "cd ./dcos-ui-ee/dcos-ui && ./scripts/ci/upload-release-ee master"
+
+        }
+      }
+    }
+    stage("Publish") {
+      when {
+        expression {
+          master_branches.contains(BRANCH_NAME)
+        }
+      }
+      parallel {
+        stage("DC/OS Bumps") {
+          when {
+            expression {
+              params.CREATE_BUMP
+            }
+          }
+          steps {
+            withCredentials([
+                string(credentialsId: "5a6e74bc-3db3-4cdc-929f-ce9f42c1763e", variable: "GH_PERSONAL_TOKEN")
+            ]) {
+              sh "cd ./dcos-ui-ee/dcos-ui/plugins-ee/scripts/ci && export GH_USER=mesosphere-frontend-ci && ./dcos-bump \${BRANCH_NAME#release/}"
+            }
+          }
+        }
+
+        stage("Publish Universe") {
+          steps {
+            withCredentials([
+              string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID"),
+              string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY"),
+            ]) {
+              sh "git clone https://github.com/mesosphere/dcos-commons.git ./dcos-ui-ee/dcos-commons"
+              sh "cd ./dcos-ui-ee/dcos-ui && tar czf release.tar.gz dist"
+              sh "cd ./dcos-ui-ee/dcos-ui && S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='ee' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws"
+            }
+          }
+        }
+      }
+    }
+  }
+
+  post {
+    failure {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "danger",
+          message: "FAILED: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
+    unstable {
+      withCredentials([
+        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+      ]) {
+        slackSend (
+          channel: "#frontend-ci-status",
+          color: "warning",
+          message: "UNSTABLE: Job '${env.JOB_NAME} [${env.BUILD_NUMBER}]' (${env.RUN_DISPLAY_URL})",
+          teamDomain: "mesosphere",
+          token: "${env.SLACK_TOKEN}",
+        )
+      }
+    }
+  }
+}

@@ -1,0 +1,9 @@
+{
+  "active_id": "license-id-123",
+  "number_of_breaches": 2,
+  "number_of_nodes": 50,
+  "node_capacity": 60,
+  "end_timestamp": "2020-01-15T12:00:00+02:00",
+  "start_timestamp": "2016-01-15T12:00:00+02:00",
+  "current_timestamp": "2017-09-05T10:05:00+04:00"
+}

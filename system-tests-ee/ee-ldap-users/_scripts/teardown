@@ -1,0 +1,8 @@
+#!/bin/bash
+
+dcos security org users delete john2
+dcos security org users delete john3
+
+# specific for the group import
+dcos security org users delete john1
+dcos security org groups delete johngroup
