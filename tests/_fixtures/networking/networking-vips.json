@@ -1,0 +1,19 @@
+{
+  "array": [
+    {
+      "ip": "1.2.3.4",
+      "port": 5,
+      "protocol": "tcp"
+    },
+    {
+      "ip": "1.2.4.4",
+      "port": 10,
+      "protocol": "udp"
+    },
+    {
+      "ip": "10.8.3.9",
+      "port": 20,
+      "protocol": "tcp"
+    }
+  ]
+}

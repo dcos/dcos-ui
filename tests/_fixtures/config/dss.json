@@ -1,0 +1,9 @@
+{
+  "uiConfiguration": {
+    "plugins": {
+      "dss": {
+        "enabled": true
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "links": [
+    {
+      "id": "1",
+      "name": "cluster-a",
+      "url": "http://cluster-a.dcos.com"
+    },
+    {
+      "id": "2",
+      "name": "cluster-b",
+      "url": "http://cluster-b.dcos.com"
+    },
+    {
+      "id": "3",
+      "name": "cluster-c",
+      "url": "http://localhost:4200"
+    }
+  ]
+}

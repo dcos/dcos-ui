@@ -1,0 +1,277 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DirectoriesPage #getDirectoryDetails translates the nested group config into a nested object with human-friendly keys 1`] = `
+<div>
+  <div
+    className="configuration-map-section"
+  >
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        <span
+          className={undefined}
+        >
+          Attempt StartTLS, proceed unencrypted if it fails
+        </span>
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          Lookup DN
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          User DN Template
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+  </div>
+  <div
+    className="configuration-map-section"
+  >
+    <h1
+      className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading"
+    >
+      <span
+        className={undefined}
+      />
+    </h1>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          Group Search Base
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        foo
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          Group Search Filter Template
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</div>
+`;
+
+exports[`DirectoriesPage #getDirectoryDetails translates the nested user config into a ConfigurationMap component heirarchy with human-friendly labels 1`] = `
+<div>
+  <div
+    className="configuration-map-section"
+  >
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        foo
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        bar
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        />
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        <span
+          className={undefined}
+        >
+          Use SSL/TLS for all connections
+        </span>
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          Lookup DN
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          User DN Template
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      />
+    </div>
+  </div>
+  <div
+    className="configuration-map-section"
+  >
+    <h1
+      className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading"
+    >
+      <span
+        className={undefined}
+      />
+    </h1>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          User Search Base
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        foo
+      </div>
+    </div>
+    <div
+      className="configuration-map-row table-row"
+    >
+      <div
+        className="configuration-map-label"
+      >
+        <span
+          className={undefined}
+        >
+          User Search Filter Template
+        </span>
+      </div>
+      <div
+        className="configuration-map-value"
+      >
+        bar
+      </div>
+    </div>
+  </div>
+</div>
+`;

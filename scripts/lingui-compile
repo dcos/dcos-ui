@@ -9,7 +9,3 @@ title "lingui compile"
 
 info "Compiling message catalogs for dcos-ui..."
 eval "lingui compile --config ./linguirc"
-if [ -d "$SCRIPT_PATH/../plugins-ee" ]; then
-  info "Compiling message catalogs for dcos-ui-plugins-private"
-  eval "lingui compile --config ./plugins-ee/.linguirc"
-fi

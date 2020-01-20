@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LicensingNodeCapacityRow #render renders entire expiration row 1`] = `
+<div
+  className="configuration-map-row table-row"
+>
+  <div
+    className="configuration-map-label"
+  />
+  <div
+    className="configuration-map-value"
+  >
+    60 nodes
+     
+    <div
+      className="tooltip-wrapper text-align-center"
+      onMouseEnter={[Function]}
+      onMouseLeave={[Function]}
+    >
+      <svg
+        aria-label="system-yield icon"
+        className="css-1depasv"
+        data-cy="icon"
+        height={16}
+        preserveAspectRatio="xMinYMin meet"
+        role="img"
+        viewBox="0 0 16 16"
+        width={16}
+      >
+        <use
+          xlinkHref="#system-yield"
+        />
+      </svg>
+    </div>
+  </div>
+  <a
+    className="button button-primary-link text-no-transform"
+    download="audit-data.tar"
+    href="/licensing/v1/audit"
+  />
+</div>
+`;

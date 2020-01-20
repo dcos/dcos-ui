@@ -1,0 +1,9 @@
+{
+  "uiConfiguration": {
+    "plugins": {
+      "organization": {
+        "enabled": true
+      }
+    }
+  }
+}
