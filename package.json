@@ -32,7 +32,7 @@
     "@dcos/data-service": "2.0.0",
     "@dcos/http-service": "2.3.1",
     "@dcos/mesos-client": "1.0.0",
-    "@dcos/ui-kit": "3.67.0",
+    "@dcos/ui-kit": "3.67.1",
     "@extension-kid/core": "0.2.4",
     "@lingui/react": "2.9.0",
     "array-sort": "1.0.0",
