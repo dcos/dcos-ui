@@ -49,6 +49,7 @@ pipeline {
 
     stage("Install") {
       steps {
+        sh "npm config set externalplugins ./plugins-ee"
         sh "npm --unsafe-perm ci"
       }
     }
@@ -103,6 +104,9 @@ pipeline {
         }
 
         stage("System Test") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
           steps {
             withCredentials([
               [
@@ -140,8 +144,85 @@ pipeline {
             }
           }
         }
+
       }
     }
+
+
+    stage("Test current versions EE") {
+      parallel {
+
+        stage("Integration Test EE") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            sh "rsync -aH ./tests-ee/ ./tests/"
+            sh "npm run test:integration"
+          }
+
+          post {
+            always {
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/results.xml"
+            }
+          }
+        }
+
+        stage("System Test EE") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            withCredentials([
+              [
+                $class: "AmazonWebServicesCredentialsBinding",
+                credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+              ],
+              [
+                $class: "StringBinding",
+                credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+                variable: "LICENSE_KEY"
+              ]
+            ]) {
+              sh '''
+                rsync -aH ./system-tests-ee/ ./system-tests/
+                INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests-ee/_scripts/ee-launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+                export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
+                export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
+                export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+                REPORT_DISTRIBUTION='ee' npm run test:system
+              '''
+            }
+          }
+
+          post {
+            always {
+              archiveArtifacts "results/**/*"
+              junit "results/results.xml"
+              withCredentials([
+                [
+                  $class: "AmazonWebServicesCredentialsBinding",
+                  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+                  accessKeyVariable: "AWS_ACCESS_KEY_ID",
+                  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+                ]
+              ]) {
+                sh "./system-tests-ee/_scripts/delete-cluster.sh"
+              }
+            }
+          }
+        }
+
+
+
+      }
+    }
+
 
     // TODO: get these (and above) stages running in parallel
     stage("System Test 1.13 nightly") {
@@ -288,17 +369,6 @@ pipeline {
         ]) {
           sh "npm run release"
         }
-      }
-    }
-
-    stage("Run Enterprise Pipeline") {
-      when {
-        expression {
-          master_branches.contains(BRANCH_NAME)
-        }
-      }
-      steps {
-        build job: "frontend/dcos-ui-ee-pipeline/" + env.BRANCH_NAME.replaceAll("/", "%2F"), wait: false
       }
     }
   }
