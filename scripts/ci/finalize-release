@@ -31,17 +31,14 @@ PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
 # next release version (passed in by semantic-release)
 PKG_VERSION="${1}"
 
-# get correct DC/OS target (=base branch!) passed in from semantic-release
-PKG_TARGET="${2}"
-
 ## Create Assets & Generate Upload Data
 #####################################################################
 
 VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
 
 # first, replace placeholder in dist bundle and verify that it worked
-sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_TARGET}+${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
-if ! grep "${PKG_TARGET}+${PKG_VERSION}" "${PROJECT_ROOT}/dist/index.html"; then
+sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
+if ! grep "${PKG_VERSION}" "${PROJECT_ROOT}/dist/index.html"; then
   echo "Version injection into dist/index.html failed!"
   exit 1
 fi
@@ -57,28 +54,26 @@ cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
 {
   "single_source": {
     "kind": "url_extract",
-    "url": "$(echo "https://github.com/dcos/dcos-ui/releases/download/${PKG_TARGET}%2B${PKG_VERSION}/release.tar.gz")",
+    "url": "https://github.com/dcos/dcos-ui/releases/download/$PKG_VERSION/release.tar.gz",
     "sha1": "$(shasum "${PROJECT_ROOT}/release.tar.gz" | cut -d " " -f1)"
   }
 }
 EOF
 
 git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
-tar czf release.tar.gz dist
 S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
-# S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='ee' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
 
 # Upload source maps to sentry.io
 SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}"
-RELEASE_NAME="${PKG_TARGET}+${PKG_VERSION}"
+RELEASE_NAME="${PKG_VERSION}"
 SENTRY_ORG="mesosphere"
 SENTRY_PROJECT="dcos-ui"
 
 # Create release on Sentry
 SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
                  npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
-                 new "${PKG_TARGET}+${PKG_VERSION}"
+                 new "${PKG_VERSION}"
 # Upload sourcemaps
 SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
                  npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
-                 files "${PKG_TARGET}+${PKG_VERSION}" upload-sourcemaps ./dist
+                 files "${PKG_VERSION}" upload-sourcemaps ./dist
