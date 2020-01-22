@@ -200,9 +200,6 @@ pipeline {
       }
     }
 
-
-
-
     stage("Semantic Release") {
       steps {
         withCredentials([
