@@ -3,6 +3,23 @@
 @Library("sec_ci_libs@v2-latest") _
 
 def master_branches = ["master", ] as String[]
+def system_test_creds = [
+  [
+    $class: "AmazonWebServicesCredentialsBinding",
+    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+    accessKeyVariable: "AWS_ACCESS_KEY_ID",
+    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+  ],
+  [
+    $class: "StringBinding",
+    credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+    variable: "LICENSE_KEY"
+  ]
+]
+
+environment {
+  REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+}
 
 pipeline {
   agent {
@@ -12,7 +29,7 @@ pipeline {
   }
 
   options {
-    timeout(time: 3, unit: "HOURS")
+    timeout(time: 2, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -88,9 +105,6 @@ pipeline {
     stage("Test current versions") {
       parallel {
         stage("Integration Test") {
-          environment {
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-          }
           steps {
             sh "npm run test:integration"
           }
@@ -105,21 +119,27 @@ pipeline {
 
         stage("System Test") {
           stages {
-            stage("OSS") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+            stage("Start Clusters") {
+              withCredentials(system_test_creds) {
+                parallel {
+                  stage("OSS") {
+                    steps {
+                      INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+                    }
+                  }
+                  stage("EE") {
+                    steps {
+                      INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests-ee/_scripts/ee-launch-cluster.sh
+                    }
+                  }
+                }
               }
+            }
+
+            stage("OSS") {
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ]
-                ]) {
+                withCredentials(system_test_creds) {
                   sh '''
-                    INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                     export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
                     export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
@@ -128,47 +148,20 @@ pipeline {
                   '''
                 }
               }
-
               post {
                 always {
                   archiveArtifacts "results/**/*"
                   junit "results/results.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
-                    sh "./system-tests/_scripts/delete-cluster.sh"
-                  }
                 }
               }
             }
 
             stage("EE") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-              }
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ],
-                  [
-                    $class: "StringBinding",
-                    credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
-                    variable: "LICENSE_KEY"
-                  ]
-                ]) {
+                withCredentials(system_test_creds) {
                   sh '''
                     rsync -aH ./system-tests-ee/ ./system-tests/
-                    INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests-ee/_scripts/ee-launch-cluster.sh
-                    export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
+                    export CLUSTER_URL=\$(cat /tmp/cluster_url-ee.txt)
                     export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
                     export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
                     export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
@@ -177,31 +170,26 @@ pipeline {
                   '''
                 }
               }
-
               post {
                 always {
                   archiveArtifacts "results/**/*"
                   junit "results/results.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
-                    sh "./system-tests-ee/_scripts/delete-cluster.sh"
-                  }
                 }
+              }
+            }
+          }
+
+          post {
+            cleanup {
+              withCredentials(system_test_creds) {
+                sh "./system-tests/_scripts/delete-cluster.sh"
+                sh "./system-tests-ee/_scripts/delete-cluster.sh"
               }
             }
           }
         }
       }
     }
-
-
-
 
     stage("Semantic Release") {
       steps {
@@ -220,10 +208,11 @@ pipeline {
   }
 
   post {
-    failure {
-      withCredentials([
-        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
-      ]) {
+    withCredentials([
+      string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+    ]) {
+
+      failure {
         slackSend (
           channel: "#frontend-ci-status",
           color: "danger",
@@ -232,11 +221,7 @@ pipeline {
           token: "${env.SLACK_TOKEN}",
         )
       }
-    }
-    unstable {
-      withCredentials([
-        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
-      ]) {
+      unstable {
         slackSend (
           channel: "#frontend-ci-status",
           color: "warning",

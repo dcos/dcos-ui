@@ -8,9 +8,9 @@ if [ -z "${1}" ] && [ -z "${INSTALLER_URL}" ]; then
   exit 1
 fi
 
-CLUSTER_CONFIG=/tmp/cluster-config.yaml
-CLUSTER_INFO=/tmp/cluster-info.json
-CLUSTER_URL_FILE=/tmp/cluster_url.txt
+CLUSTER_CONFIG=/tmp/cluster-config-ee.yaml
+CLUSTER_INFO=/tmp/cluster-info-ee.json
+CLUSTER_URL_FILE=/tmp/cluster_url-ee.txt
 
 rm ${CLUSTER_INFO} || echo "No file to delete"
 

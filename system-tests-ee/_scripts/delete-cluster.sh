@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-CLUSTER_INFO=/tmp/cluster-info.json
+CLUSTER_INFO=/tmp/cluster-info-ee.json
 
 if ! dcos-launch delete -i ${CLUSTER_INFO}; then
   echo "Cluster deletion failed."
