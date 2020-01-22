@@ -1,6 +1,5 @@
 {
-  "branch": "master",
-  "tagFormat": "master+v${version}",
+  "branches": "master",
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "analyzeCommits": [
     {
@@ -24,14 +23,14 @@
   "publish": [
     {
       "path": "@semantic-release/exec",
-      "cmd": "./scripts/ci/finalize-release v${nextRelease.version} master",
+      "cmd": "./scripts/ci/finalize-release v${nextRelease.version}",
       "shell": "/bin/bash"
     },
     {
       "path": "@semantic-release/github",
       "assets": [
-        { "path": "release.tar.gz", "label": "dcos-ui generated js files" },
-        { "path": "buildinfo.json", "label": "buildinfo including shasum" }
+        { "path": "release.tar.gz", "label": "The Build" },
+        { "path": "buildinfo.json", "label": "Buildinfo" }
       ]
     }
   ],
