@@ -63,10 +63,12 @@ cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
 }
 EOF
 
-git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
 tar czf release.tar.gz dist
-S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
+
+# git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
+# S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
 # S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='ee' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
+
 
 # Upload source maps to sentry.io
 SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}"

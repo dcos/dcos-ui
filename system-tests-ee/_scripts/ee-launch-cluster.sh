@@ -18,7 +18,7 @@ rm ${CLUSTER_INFO} || echo "No file to delete"
 cat <<EOF >${CLUSTER_CONFIG}
 ---
 launch_config_version: 1
-deployment_name: dcos-ui-system-test-$(date +%s)
+deployment_name: dcos-ui-system-test-ee-$(date +%s)
 installer_url: ${1:-$INSTALLER_URL}
 platform: aws
 provider: onprem

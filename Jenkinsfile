@@ -3,6 +3,23 @@
 @Library("sec_ci_libs@v2-latest") _
 
 def master_branches = ["master", ] as String[]
+def system_test_creds = [
+  [
+    $class: "AmazonWebServicesCredentialsBinding",
+    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+    accessKeyVariable: "AWS_ACCESS_KEY_ID",
+    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+  ],
+  [
+    $class: "StringBinding",
+    credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+    variable: "LICENSE_KEY"
+  ]
+]
+
+environment {
+  REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+}
 
 pipeline {
   agent {
@@ -12,7 +29,7 @@ pipeline {
   }
 
   options {
-    timeout(time: 3, unit: "HOURS")
+    timeout(time: 2, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -88,36 +105,16 @@ pipeline {
     stage("Test current versions") {
       parallel {
         stage("Integration Test") {
-          environment {
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-          }
           steps {
             sh "npm run test:integration"
-          }
-
-          post {
-            always {
-              archiveArtifacts "cypress/**/*"
-              junit "cypress/results.xml"
-            }
           }
         }
 
         stage("System Test") {
           stages {
             stage("OSS") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-              }
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ]
-                ]) {
+                withCredentials(system_test_creds) {
                   sh '''
                     INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
@@ -128,46 +125,20 @@ pipeline {
                   '''
                 }
               }
-
               post {
                 always {
-                  archiveArtifacts "results/**/*"
-                  junit "results/results.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
+                  withCredentials(system_test_creds) {
                     sh "./system-tests/_scripts/delete-cluster.sh"
                   }
                 }
               }
             }
-
             stage("EE") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-              }
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ],
-                  [
-                    $class: "StringBinding",
-                    credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
-                    variable: "LICENSE_KEY"
-                  ]
-                ]) {
+                withCredentials(system_test_creds) {
                   sh '''
-                    rsync -aH ./system-tests-ee/ ./system-tests/
                     INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests-ee/_scripts/ee-launch-cluster.sh
+                    rsync -aH ./system-tests-ee/ ./system-tests/
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                     export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
                     export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
@@ -177,19 +148,9 @@ pipeline {
                   '''
                 }
               }
-
               post {
                 always {
-                  archiveArtifacts "results/**/*"
-                  junit "results/results.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
+                  withCredentials(system_test_creds) {
                     sh "./system-tests-ee/_scripts/delete-cluster.sh"
                   }
                 }
@@ -198,22 +159,37 @@ pipeline {
           }
         }
       }
+      post {
+        always {
+          archiveArtifacts "results/**/*"
+          junit "results/results.xml"
+        }
+      }
     }
-
-
-
 
     stage("Semantic Release") {
       steps {
         withCredentials([
           string(credentialsId: "d146870f-03b0-4f6a-ab70-1d09757a51fc", variable: "GH_TOKEN"), // semantic-release
           string(credentialsId: "sentry_io_token", variable: "SENTRY_AUTH_TOKEN"), // upload-build
-          string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"), // upload-build
-          string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"), // upload-build
           usernamePassword(credentialsId: "a7ac7f84-64ea-4483-8e66-bb204484e58f", passwordVariable: "GIT_PASSWORD", usernameVariable: "GIT_USER"), // update-dcos-repo
           usernamePassword(credentialsId: "6c147571-7145-410a-bf9c-4eec462fbe02", passwordVariable: "JIRA_PASS", usernameVariable: "JIRA_USER") // semantic-release-jira
         ]) {
           sh "npm run release"
+        }
+      }
+    }
+
+    stage("Publish Latest to Universe") {
+      steps {
+        withCredentials([
+          string(credentialsId: "3f0dbb48-de33-431f-b91c-2366d2f0e1cf",variable: "AWS_ACCESS_KEY_ID"), // upload-build
+          string(credentialsId: "f585ec9a-3c38-4f67-8bdb-79e5d4761937",variable: "AWS_SECRET_ACCESS_KEY"), // upload-build
+        ]) {
+          sh '''
+            git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
+            S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
+          '''
         }
       }
     }
