@@ -2,12 +2,6 @@
 
 set -e
 
-if [ -z "$(which dcos-launch)" ]; then
-  echo 'dcos-launch has to be present!'
-  echo 'more info on https://github.com/dcos/dcos-launch#binary-installation'
-  exit 1
-fi
-
 if [ -z "${1}" ] && [ -z "${INSTALLER_URL}" ]; then
   echo -e "Error: Please pass the installer url or" \
     "specify the INSTALLER_URL environment variable"
@@ -19,6 +13,12 @@ CLUSTER_INFO=/tmp/cluster-info.json
 CLUSTER_URL_FILE=/tmp/cluster_url.txt
 
 rm ${CLUSTER_INFO} || echo "No file to delete"
+
+LICENSE=""
+
+if [[ ! -z "$LICENSE_KEY" ]]; then
+  LICENSE="license_key_contents: ${LICENSE_KEY}"
+fi
 
 # Create cluster config
 cat <<EOF >${CLUSTER_CONFIG}
@@ -33,6 +33,7 @@ os_name: cent-os-7-dcos-prereqs
 instance_type: m4.large
 dcos_config:
   cluster_name: DC/OS UI System Integration Tests
+  ${LICENSE}
   resolvers:
     - 8.8.4.4
     - 8.8.8.8
@@ -62,10 +63,9 @@ URL=$(echo $LAUNCH_DESCRIBE | jq -r .masters[0].public_ip)
 echo $URL
 URL="http://$URL"
 
-BACKOFF=1
+# Wait for Admin Router to be up
 until $(curl --output /dev/null --silent --head --fail ${URL}); do
-  BACKOFF=$((BACKOFF * 2))
-  sleep $BACKOFF
+  sleep 2
 done
 
 export CLUSTER_URL=${URL}
