@@ -1,0 +1,63 @@
+@import (reference) '~@styles/index';
+
+.service-addresses-table-column {
+
+  &-successes,
+  &-failures,
+  &-failure-perecent,
+  &-p99latency {
+
+    td&,
+    th& {
+      text-align: right;
+    }
+  }
+
+  &-successes,
+  &-failures {
+    display: none;
+    width: 105px;
+  }
+
+  &-failure-perecent,
+  &-p99latency {
+    width: 120px;
+  }
+}
+
+& when (@layout-screen-medium-enabled) {
+
+  @media (min-width: @layout-screen-medium-min-width) {
+
+    .service-addresses-table-column {
+
+      &-successes,
+      &-failures {
+        display: table-cell;
+
+        col& {
+          display: table-column;
+        }
+      }
+    }
+  }
+}
+
+& when (@layout-screen-large-enabled) {
+
+  @media (min-width: @layout-screen-large-min-width) {
+
+    .service-addresses-table-column {
+
+      &-successes,
+      &-failures {
+        width: 150px;
+      }
+
+      &-failure-perecent,
+      &-p99latency {
+        width: 170px;
+      }
+    }
+  }
+}

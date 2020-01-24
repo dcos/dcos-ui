@@ -1,0 +1,18 @@
+{
+  "direct": [],
+  "groups": [
+    {
+      "rid": "dcos:superuser",
+      "description": "Superuser ACL",
+      "aclurl": "/acs/api/v1/acls/dcos:superuser",
+      "gid": "superusers",
+      "membershipurl": "/acs/api/v1/groups/superusers/users/bootstrapuser",
+      "actions": [
+        {
+          "name": "full",
+          "url": "/acs/api/v1/acls/dcos:superuser/groups/superusers/full"
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,79 @@
+#!/bin/bash
+
+set -e
+set -x
+
+# This file is intended to run on Jenkins, if you need to run it
+# locally, you need to provide some environment variables:
+#
+# GIT_COMMIT: Commit SHA to work on
+# BRANCH_NAME: Branch Name to work on
+# GIT_USER: git user for curl command
+# GIT_PASSWORD: git password for curl command
+# SENTRY_AUTH_TOKEN: auth token for sentry.io
+# aws login credentials
+#
+# run these commands from project root:
+# 1. npm run build
+# 2. tar czf "release.tar.gz" dist
+# 3. <get aws credentials setup in AWS_ACCESS_KEY_ID & AWS_SECRET_ACCESS_KEY>
+# 4. FORCE_UPLOAD=1 BRANCH_NAME=$(git branch | grep \* | cut -d' ' -f2) GIT_COMMIT=$(git rev-parse HEAD) GIT_USER=<your_user> GIT_PASSWORD=<your_password> ./scripts/ci/release-latest
+
+## Configuration
+#####################################################################
+
+# path of this file
+SCRIPT_PATH="$(cd $(dirname "$0")/$(dirname "$(readlink "$0")") && pwd)"
+
+# project root for this file
+PROJECT_ROOT="$( cd "$( echo "${SCRIPT_PATH}" | sed s+/scripts/ci++)" && pwd )"
+
+# next release version (passed in by semantic-release)
+PKG_VERSION="${1}"
+
+## Create Assets & Generate Upload Data
+#####################################################################
+
+VERSION_PLACEHOLDER="0.0.0-dev+semantic-release"
+
+# first, replace placeholder in dist bundle and verify that it worked
+sed -i'' "s/${VERSION_PLACEHOLDER}/${PKG_VERSION}/" ${PROJECT_ROOT}/dist/index.html
+if ! grep "${PKG_VERSION}" "${PROJECT_ROOT}/dist/index.html"; then
+  echo "Version injection into dist/index.html failed!"
+  exit 1
+fi
+
+# second, create tarball
+tar czf release.tar.gz dist
+
+## Write buildinfo.json
+#####################################################################
+
+# cat config to artifact file
+cat <<EOF > "${PROJECT_ROOT}/buildinfo.json"
+{
+  "single_source": {
+    "kind": "url_extract",
+    "url": "https://github.com/dcos/dcos-ui/releases/download/$PKG_VERSION/release.tar.gz",
+    "sha1": "$(shasum "${PROJECT_ROOT}/release.tar.gz" | cut -d " " -f1)"
+  }
+}
+EOF
+
+git clone https://github.com/mesosphere/dcos-commons.git ../dcos-commons
+S3_BUCKET='dcos-ui-universe' S3_DIR_PATH='oss' S3_DIR_NAME='latest' ../dcos-commons/tools/build_package.sh 'dcos-ui' ./ -a ./release.tar.gz aws
+
+# Upload source maps to sentry.io
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}"
+RELEASE_NAME="${PKG_VERSION}"
+SENTRY_ORG="mesosphere"
+SENTRY_PROJECT="dcos-ui"
+
+# Create release on Sentry
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
+                 npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
+                 new "${PKG_VERSION}"
+# Upload sourcemaps
+SENTRY_AUTH_TOKEN="${SENTRY_AUTH_TOKEN}" \
+                 npx sentry-cli releases -o "${SENTRY_ORG}" -p "${SENTRY_PROJECT}" \
+                 files "${PKG_VERSION}" upload-sourcemaps ./dist

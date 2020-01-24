@@ -30,14 +30,12 @@ export default {
         children: [
           {
             type: IndexRoute,
-            component: VirtualNetworkTaskTab,
-            hideHeaderNavigation: true
+            component: VirtualNetworkTaskTab
           },
           {
             type: Route,
             path: "details",
-            component: VirtualNetworkDetailsTab,
-            hideHeaderNavigation: true
+            component: VirtualNetworkDetailsTab
           }
         ]
       },
@@ -50,17 +48,14 @@ export default {
         type: Route,
         path: "networks/:overlayName/tasks/:taskID",
         component: VirtualNetworkTaskPage,
-        hideHeaderNavigation: true,
         children: [
           {
             component: TaskDetailsTab,
-            hideHeaderNavigation: true,
             path: "details",
             title: "Details",
             type: Route
           },
           {
-            hideHeaderNavigation: true,
             component: TaskFilesTab,
             path: "files",
             title: "Files",
@@ -70,12 +65,10 @@ export default {
                 component: TaskFileBrowser,
                 fileViewerRoutePath:
                   "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                hideHeaderNavigation: true,
                 type: IndexRoute
               },
               {
                 component: TaskFileViewer,
-                hideHeaderNavigation: true,
                 path: "view(/:filePath(/:innerPath))",
                 type: Route
               }
@@ -83,7 +76,6 @@ export default {
           },
           {
             component: TaskLogsContainer,
-            hideHeaderNavigation: true,
             path: "logs",
             title: "Logs",
             type: Route,

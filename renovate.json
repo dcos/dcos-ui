@@ -1,7 +1,7 @@
 {
   "extends": ["config:js-app", ":semanticCommits"],
   "labels": ["renovate"],
-  "automerge": true,
+  "automerge": false,
   "prConcurrentLimit": 10,
   "packageRules": []
 }

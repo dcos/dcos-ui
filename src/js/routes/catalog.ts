@@ -19,14 +19,12 @@ export default [
       {
         type: Route,
         path: "packages",
-        component: PackagesTab,
-        hideHeaderNavigation: true
+        component: PackagesTab
       },
       {
         type: Route,
         path: "packages/:packageName",
-        component: PackageDetailTab,
-        hideHeaderNavigation: true
+        component: PackageDetailTab
       },
       {
         type: Route,

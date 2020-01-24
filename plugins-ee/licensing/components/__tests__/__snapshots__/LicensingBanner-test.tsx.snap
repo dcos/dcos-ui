@@ -1,0 +1,402 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`LicensingBanner #render renders banner renders with expired breach message 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LicensingBanner />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "appearance": "warning",
+      "message": <div
+        className="licensingBannerMsg"
+      >
+        <span>
+          <WithI18n
+            render="span"
+          >
+            You have
+          </WithI18n>
+           
+          <WithI18n
+            render="span"
+          >
+            exceeded license expiration by 
+            10
+             days
+          </WithI18n>
+        </span>
+      </div>,
+      "primaryAction": <div
+        className="clickable button-link button-primary"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <WithI18n
+          render="span"
+        >
+          More Information
+        </WithI18n>
+      </div>,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "appearance": "warning",
+        "message": <div
+          className="licensingBannerMsg"
+        >
+          <span>
+            <WithI18n
+              render="span"
+            >
+              You have
+            </WithI18n>
+             
+            <WithI18n
+              render="span"
+            >
+              exceeded license expiration by 
+              10
+               days
+            </WithI18n>
+          </span>
+        </div>,
+        "primaryAction": <div
+          className="clickable button-link button-primary"
+          onClick={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <WithI18n
+            render="span"
+          >
+            More Information
+          </WithI18n>
+        </div>,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Array [],
+  Symbol(enzyme.__childContext__): null,
+}
+`;
+
+exports[`LicensingBanner #render renders banner renders with node capacity and expired breach message 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LicensingBanner />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "appearance": "warning",
+      "message": <div
+        className="licensingBannerMsg"
+      >
+        <span>
+          <WithI18n
+            render="span"
+          >
+            You have exceeded your 
+            60
+             node licensed count. You have exceeded on 
+            2
+             occasions
+          </WithI18n>
+           
+          <WithI18n
+            render="span"
+          >
+            and
+          </WithI18n>
+           
+          <WithI18n
+            render="span"
+          >
+            exceeded license expiration by 
+            10
+             days
+          </WithI18n>
+          .
+        </span>
+      </div>,
+      "primaryAction": <div
+        className="clickable button-link button-primary"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <WithI18n
+          render="span"
+        >
+          More Information
+        </WithI18n>
+      </div>,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "appearance": "warning",
+        "message": <div
+          className="licensingBannerMsg"
+        >
+          <span>
+            <WithI18n
+              render="span"
+            >
+              You have exceeded your 
+              60
+               node licensed count. You have exceeded on 
+              2
+               occasions
+            </WithI18n>
+             
+            <WithI18n
+              render="span"
+            >
+              and
+            </WithI18n>
+             
+            <WithI18n
+              render="span"
+            >
+              exceeded license expiration by 
+              10
+               days
+            </WithI18n>
+            .
+          </span>
+        </div>,
+        "primaryAction": <div
+          className="clickable button-link button-primary"
+          onClick={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <WithI18n
+            render="span"
+          >
+            More Information
+          </WithI18n>
+        </div>,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Array [],
+  Symbol(enzyme.__childContext__): null,
+}
+`;
+
+exports[`LicensingBanner #render renders banner renders with node capacity breach message 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <LicensingBanner />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "checkPropTypes": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "function",
+    "props": Object {
+      "appearance": "warning",
+      "message": <div
+        className="licensingBannerMsg"
+      >
+        <span>
+          <WithI18n
+            render="span"
+          >
+            You have exceeded your 
+            60
+             node licensed count. You have exceeded on 
+            2
+             occasions
+          </WithI18n>
+        </span>
+      </div>,
+      "primaryAction": <div
+        className="clickable button-link button-primary"
+        onClick={[Function]}
+        role="button"
+        tabIndex={0}
+      >
+        <WithI18n
+          render="span"
+        >
+          More Information
+        </WithI18n>
+      </div>,
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "function",
+      "props": Object {
+        "appearance": "warning",
+        "message": <div
+          className="licensingBannerMsg"
+        >
+          <span>
+            <WithI18n
+              render="span"
+            >
+              You have exceeded your 
+              60
+               node licensed count. You have exceeded on 
+              2
+               occasions
+            </WithI18n>
+          </span>
+        </div>,
+        "primaryAction": <div
+          className="clickable button-link button-primary"
+          onClick={[Function]}
+          role="button"
+          tabIndex={0}
+        >
+          <WithI18n
+            render="span"
+          >
+            More Information
+          </WithI18n>
+        </div>,
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "legacyContextMode": "parent",
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getChildContext": Object {
+            "calledByRenderer": false,
+          },
+          "getDerivedStateFromError": true,
+          "getDerivedStateFromProps": Object {
+            "hasShouldComponentUpdateBug": false,
+          },
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+    Symbol(enzyme.__providerValues__): undefined,
+  },
+  Symbol(enzyme.__providerValues__): Array [],
+  Symbol(enzyme.__childContext__): null,
+}
+`;

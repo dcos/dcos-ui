@@ -53,7 +53,6 @@ export default [
             type: Route,
             path: "tasks/:taskID",
             component: JobsTaskDetailPage,
-            hideHeaderNavigation: true,
             children: [
               {
                 component: TaskDetailsTab,
@@ -62,7 +61,6 @@ export default [
                 type: Route
               },
               {
-                hideHeaderNavigation: true,
                 component: TaskFilesTab,
                 path: "files",
                 title: "Files",
@@ -72,12 +70,10 @@ export default [
                     component: TaskFileBrowser,
                     fileViewerRoutePath:
                       "/jobs/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                    hideHeaderNavigation: true,
                     type: IndexRoute
                   },
                   {
                     component: TaskFileViewer,
-                    hideHeaderNavigation: true,
                     path: "view(/:filePath(/:innerPath))",
                     type: Route
                   }
@@ -85,7 +81,6 @@ export default [
               },
               {
                 component: TaskLogsContainer,
-                hideHeaderNavigation: true,
                 path: "logs",
                 title: "Logs",
                 type: Route,

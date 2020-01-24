@@ -6,7 +6,8 @@
   "localeDir": "./locale",
   "srcPathDirs": [
       "./src",
-      "./plugins"
+      "./plugins",
+      "./plugins-ee"
   ],
   "srcPathIgnorePatterns": [
       "node_modules/",

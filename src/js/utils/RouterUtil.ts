@@ -124,15 +124,6 @@ const RouterUtil = {
   },
 
   /**
-   * Checks if a page should hide the header navigation tabs
-   * @param  {Array} routes instance of react-router
-   * @return {Bool} should hide Page Navigation
-   */
-  shouldHideNavigation(routes) {
-    return !!routes[routes.length - 1].hideHeaderNavigation;
-  },
-
-  /**
    * Builds absolute path from routes array
    * React router v2.8.1 provides routes prop to a component that bound to a <Route />
    * this.props.routes contains a plain list of all routes React router hits.

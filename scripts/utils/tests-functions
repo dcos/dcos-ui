@@ -103,15 +103,15 @@ function runTestFile() {
 
 # copies tests from plugins folder into project
 # this is necessary because Cypress doesnt allows external files to be tested…
-function setup_plugins() {
-  if [ -n "${PLUGINS_PATH}" ]; then
-    echo "==> Setup external plugins…"
-    rsync -aH "${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/" "${PROJECT_ROOT}/${TESTS_FOLDER}/"
-    echo "===> done."
-  else
-    echo "==> No Plugins configured."
-  fi
-}
+# function setup_plugins() {
+#   if [ -n "${PLUGINS_PATH}" ]; then
+#     echo "==> Setup external plugins…"
+#     rsync -aH "${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/" "${PROJECT_ROOT}/${TESTS_FOLDER}/"
+#     echo "===> done."
+#   else
+#     echo "==> No Plugins configured."
+#   fi
+# }
 
 # removes copied plugins files…
 function teardown_plugins() {
@@ -193,9 +193,9 @@ function setup() {
     fi
 
     ## Setup plugins if configured
-    if [ -n "${PLUGINS_PATH}" ]; then
-      setup_plugins
-    fi
+    # if [ -n "${PLUGINS_PATH}" ]; then
+    #   setup_plugins
+    # fi
   fi
 
   ## Remove old results

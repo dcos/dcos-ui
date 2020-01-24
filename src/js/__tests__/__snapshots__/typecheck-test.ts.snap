@@ -188,6 +188,7 @@ plugins/jobs/src/js/__tests__/jobsRunNow-test.ts: error TS2339: Property 'mockRe
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/__tests__/jobsToggleSchedule-test.ts: error TS2339: Property 'mockReturnValue' does not exist on type *.
 plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2769: No overload matches this call.
+plugins/jobs/src/js/components/Breadcrumbs.tsx: error TS2769: No overload matches this call.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/components/JobsForm.tsx: error TS2769: No overload matches this call.
@@ -3523,6 +3524,7 @@ src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'propTypes' doe
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
+src/js/components/CreateServiceModalServicePickerOption.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/DSLFilterField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
@@ -3916,6 +3918,8 @@ src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/Modals.tsx: error TS2339: Property 'modalErrorMsg' does not exist on type *.
+src/js/components/Modals.tsx: error TS2339: Property 'showErrorModal' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'serviceID' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'majorLinkClassName' does not exist on type *.
@@ -5328,6 +5332,8 @@ src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not as
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2345: Argument of type 'any[]' is not assignable to parameter of type 'never'.
 src/js/utils/SystemLogUtil.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/utils/TemplateUtil.ts: error TS2339: Property 'type' does not exist on type *.
+src/js/utils/TemplateUtil.ts: error TS2339: Property 'type' does not exist on type *.
 src/js/utils/UnitHealthUtil.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/utils/UnitHealthUtil.ts: error TS2538: Type 'undefined' cannot be used as an index type.
 src/js/utils/Units.ts: error TS2322: Type 'string' is not assignable to type 'number'.
@@ -5504,6 +5510,9 @@ src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type '{}' i
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/StructUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/TableUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
+src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2339: Property 'type' does not exist on type *.
+src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2532: Object is possibly 'undefined'.
+src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/utils/__tests__/UnitHealthUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 2.
 src/js/utils/__tests__/Units-test.ts: error TS2554: Expected 5 arguments, but got 3.
