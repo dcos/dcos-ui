@@ -41,15 +41,11 @@ pipeline {
 
         // when on PR rebase to target
         sh '[ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
-
-        // jenkins seem to have this variable set for no reason, explicitly removing it…
-        sh "npm config delete externalplugins"
       }
     }
 
     stage("Install") {
       steps {
-        sh "npm config set externalplugins ./plugins-ee"
         sh "npm --unsafe-perm ci"
       }
     }

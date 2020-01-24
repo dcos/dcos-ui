@@ -394,24 +394,11 @@ npx cypress open
 
 ### Running Integration Tests
 
-#### Without Plugins
-
 Run the integration tests in testing mode. If you already run a proxy to a cluster or `npm start` the script will take this, otherwise it will start a new server.
 
 ```sh
-npm config delete externalplugins
 npm run test:integration:local
 ```
-
-#### With Plugins
-
-```sh
-npm config set externalplugins <path>
-npm run test:integration:plugins:setup
-npm run test:integration:local
-```
-
-NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forget to remove them. This is a workaround since Cypress can't run tests in multiple directories.
 
 You should see a browser open and your tests running.
 
@@ -489,22 +476,20 @@ export CLUSTER_AUTH_INFO=$(echo '{"uid": "bootstrapuser", "description": "Bootst
 export CLUSTER_AUTH_TOKEN=$(curl -s --insecure -X POST  --header "Content-Type: application/json" --data '{"uid": "bootstrapuser", "password": "deleteme"}' ${URLPREFIX}/auth/login | jq -r .token)
 ```
 
-#### Without Plugins
+#### OSS
 
 Run DC/OS UI in testing mode (you have to close `npm start`).
 
 ```sh
-npm config delete externalplugins
 npm start
 # In a different shell
 npm run test:system
 ```
 
-#### With Plugins
+#### EE
 
 ```sh
-npm config set externalplugins <path>
-npm run test:system:plugins:setup
+rsync -aH ./system-tests-ee/ ./system-tests/
 npm start
 # In a different shell
 npm run test:system
@@ -582,7 +567,6 @@ Add this part to your `jsconfig.json` in the root of this project
     "paths": {
       "#SRC/*": ["dcos-ui/src/*"],
       "#LOCALE/*": ["dcos-ui/locale/*"],
-      "#EXTERNAL_PLUGINS/*": ["dcos-ui/plugins-ee/*"],
       "#PLUGINS/*": ["dcos-ui/plugins/*"]
     }
   }
