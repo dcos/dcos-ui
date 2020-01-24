@@ -1,44 +1,20 @@
-import path from "path";
 import PluginSDK from "PluginSDK";
 import Loader from "./Loader";
 
 let _plugins = {};
-let _externalPlugins = {};
 
-let pluginsList;
-let externalPluginsList;
-const externalPluginsDir = path.resolve(
-  process.env.npm_config_externalplugins || "plugins"
-);
-
-try {
-  pluginsList = require("#PLUGINS");
-} catch (err) {
-  pluginsList = {};
-}
-
-try {
-  externalPluginsList = require(externalPluginsDir);
-} catch (err) {
-  externalPluginsList = {};
-}
+const pluginsList = require("#PLUGINS");
 
 function __getAvailablePlugins() {
   return {
-    pluginsList: _plugins,
-    externalPluginsList: _externalPlugins
+    pluginsList: _plugins
   };
 }
 
 function __setMockPlugins(plugins) {
   _plugins = {};
-  _externalPlugins = {};
   Object.keys(plugins).forEach(pluginID => {
-    if (pluginID in externalPluginsList) {
-      _externalPlugins[pluginID] = plugins[pluginID];
-    } else {
-      _plugins[pluginID] = plugins[pluginID];
-    }
+    _plugins[pluginID] = plugins[pluginID];
   });
 }
 
@@ -48,8 +24,7 @@ Loader.__setMockPlugins = __setMockPlugins;
 // Rewire so PluginSDK loads the mocked version. But still provide access
 // to original method for PluginTestUtils to load actual plugins
 Loader.__getAvailablePlugins = () => ({
-  pluginsList,
-  externalPluginsList
+  pluginsList
 });
 
 Loader.getAvailablePlugins = __getAvailablePlugins;
@@ -78,22 +53,15 @@ function loadPlugins(plugins) {
 function loadPluginsByName(plugins) {
   const pluginsToLoad = {};
 
-  const { pluginsList, externalPluginsList } = Loader.__getAvailablePlugins();
+  const { pluginsList } = Loader.__getAvailablePlugins();
 
   Object.keys(plugins).forEach(pluginID => {
-    if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
+    if (!(pluginID in pluginsList)) {
       throw new Error(`${pluginID} does not exist. Failed to load.`);
     }
-    let path;
-    // Default to always selecting internal plugin if same pluginID
-    // exists in external plugins. This makes mocking easier.
-    if (pluginID in pluginsList) {
-      path = pluginsList[pluginID];
-    } else {
-      path = externalPluginsList[pluginID];
-    }
+
     pluginsToLoad[pluginID] = {
-      module: path,
+      module: pluginsList[pluginID],
       config: plugins[pluginID]
     };
   });
@@ -111,9 +79,7 @@ function getSDK(pluginID, config, loadPlugin = false) {
   // Load plugin first so it can register it's reducer
   // if it has one.
   if (loadPlugin) {
-    loadPluginsByName({
-      [pluginID]: config
-    });
+    loadPluginsByName({ [pluginID]: config });
   }
 
   // Get SDK for pluginID.

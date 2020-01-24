@@ -654,13 +654,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
-/src/js/plugin-bridge/PluginSDK.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
-/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
-/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
 /src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'pluginsList'
-/src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'externalPluginsList'
-/src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'path'
-/src/js/plugin-bridge/PluginTestUtils.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
+/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
 /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - require statement not part of an import statement
 /src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.

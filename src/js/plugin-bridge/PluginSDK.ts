@@ -14,7 +14,7 @@ import Config from "../config/Config";
 import HooksMod from "./Hooks";
 import Loader from "./Loader";
 
-const hooks = new HooksMod();
+const hooks = HooksMod();
 const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
@@ -30,6 +30,7 @@ const reducers = {
   [APPLICATION]: AppReducer
 };
 
+// @ts-ignore
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 // Create Redux Store
@@ -45,11 +46,11 @@ const Store = createStore(
  * @param {Object} pluginsConfig - Plugin configuration
  */
 const initialize = pluginsConfig => {
-  const { pluginsList, externalPluginsList } = Loader.getAvailablePlugins();
+  const { pluginsList } = Loader.getAvailablePlugins();
 
   Object.keys(pluginsConfig).forEach(pluginID => {
     // Make sure plugin is bundled
-    if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
+    if (!(pluginID in pluginsList)) {
       if (Config.environment === "development") {
         console.warn(`Plugin ${pluginID} not available in bundle`);
       }
@@ -57,17 +58,9 @@ const initialize = pluginsConfig => {
       return;
     }
 
-    let path;
-    // Default to always selecting internal plugin if same pluginID
-    // exists in external plugins. This makes mocking easier.
-    if (pluginID in pluginsList) {
-      path = pluginsList[pluginID];
-    } else {
-      path = externalPluginsList[pluginID];
-    }
     // Bootstrap if plugin enabled
-    if (pluginsConfig[pluginID] && pluginsConfig[pluginID].enabled) {
-      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID]);
+    if (pluginsConfig[pluginID]?.enabled) {
+      bootstrapPlugin(pluginID, pluginsList[pluginID], pluginsConfig[pluginID]);
     }
   });
 

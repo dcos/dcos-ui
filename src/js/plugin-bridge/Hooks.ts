@@ -127,7 +127,7 @@ export default function Hooks() {
      * @param  {Function} listener Callback to fire when event executes
      * @param  {Number} priority Priority for listener
      */
-    addAction(hook, listener, priority) {
+    addAction(hook, listener, priority = 10) {
       addListener(this.actions, hook, listener, priority);
     },
 

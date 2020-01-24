@@ -101,36 +101,6 @@ function runTestFile() {
   return $EXIT_CODE
 }
 
-# copies tests from plugins folder into project
-# this is necessary because Cypress doesnt allows external files to be tested…
-# function setup_plugins() {
-#   if [ -n "${PLUGINS_PATH}" ]; then
-#     echo "==> Setup external plugins…"
-#     rsync -aH "${PROJECT_ROOT}/${PLUGINS_PATH}/${TESTS_FOLDER}/" "${PROJECT_ROOT}/${TESTS_FOLDER}/"
-#     echo "===> done."
-#   else
-#     echo "==> No Plugins configured."
-#   fi
-# }
-
-# removes copied plugins files…
-function teardown_plugins() {
-  if [ -n "${PLUGINS_PATH}" ]; then
-    if [ "${CLEANUP_TESTS}" -eq 0 ]; then
-      echo ""
-      echo "==> !!! PLUGINS TESTS ARE STILL IN YOUR ./${TESTS_FOLDER} FOLDER, MAKE SURE TO CLEAN UP !!!"
-      echo "==> You can use 'rm -r ./${TESTS_FOLDER} && git checkout ./${TESTS_FOLDER}' to easily clean up."
-      echo "==> Or you can provide CLEANUP_TESTS=1 to this script in order to automatically clean up."
-      echo ""
-    else
-      echo "==> Cleaning up ./${TESTS_FOLDER} folder"
-      rm -r "${PROJECT_ROOT:?}/${TESTS_FOLDER}"
-      git checkout "${PROJECT_ROOT}/${TESTS_FOLDER}"
-      echo "==> done."
-    fi
-  fi
-}
-
 # merges results from cypress runs into one file
 function teardown_merge() {
   if [ "$(find "${PROJECT_ROOT}/${CYPRESS_FOLDER}/" -type f -name result.xml | wc -l)" -ne 0 ]; then
@@ -191,11 +161,6 @@ function setup() {
       PROXY_PID=$!
       echo "===> done (PID: ${PROXY_PID})."
     fi
-
-    ## Setup plugins if configured
-    # if [ -n "${PLUGINS_PATH}" ]; then
-    #   setup_plugins
-    # fi
   fi
 
   ## Remove old results
@@ -215,7 +180,6 @@ function teardown() {
   echo ""
   echo "=> Teardown"
   teardown_proxy
-  teardown_plugins
   teardown_merge
   echo "=> Bye."
 }
