@@ -1,4 +1,4 @@
-FROM alekzonder/puppeteer:1.8.0-0
+FROM alekzonder/puppeteer:1.20.0-0
 
 WORKDIR /app
 
