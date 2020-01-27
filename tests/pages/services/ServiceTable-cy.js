@@ -479,4 +479,41 @@ describe("Service Table", () => {
       .trigger("mouseover");
     cy.get(".tooltip").contains("3 Running");
   });
+
+  describe("Resource Limits", () => {
+    beforeEach(() => {
+      cy.configureCluster({
+        groups: { marathonResourceLimits: true },
+        mesos: "1-task-healthy"
+      });
+
+      cy.visitUrl({ url: "/services/overview" });
+    });
+    it("contains alpine", () => {
+      cy.contains("alpine")
+        .root()
+        .get("body")
+        .type("[");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row2']"
+      ).contains("0.3 / 1");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col6 table-contentCell.row2']"
+      ).contains("288 MiB / 512 MiB");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row1']"
+      ).contains("0.1");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col6 table-contentCell.row1']"
+      ).contains("128 MiB");
+      cy.contains("limit-group").click();
+      cy.contains("alpine-single");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row1 table-contentCell.hoveredRow']"
+      ).contains("0.1 / 0.5");
+      cy.get(
+        "[data-cy='table-contentCell table-contentCell.col6 table-contentCell.row1 table-contentCell.hoveredRow']"
+      ).contains("128 MiB / 256 MiB");
+    });
+  });
 });
