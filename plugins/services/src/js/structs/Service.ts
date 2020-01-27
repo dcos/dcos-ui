@@ -131,6 +131,16 @@ export default class Service extends Item {
     };
   }
 
+  getResourceLimits() {
+    const instances = this.getInstancesCount();
+    const { cpus = 0, mem = 0 } = this.get("resourceLimits") || {};
+
+    return {
+      cpus: cpus !== "unlimited" ? cpus * instances : cpus,
+      mem: mem !== "unlimited" ? mem * instances : mem
+    };
+  }
+
   getRole() {
     return this.get("role") || "";
   }
