@@ -1340,6 +1340,8 @@
   "{numBackends} Backends": "",
   "{numClients} Clients": "",
   "{refreshRate} seconds": "",
+  "{resource} are being used with a limit of {limit}": "",
+  "{resource} cpus are being used with a limit of {limit} cpus": "",
   "{runningInstances, plural, one {# instance running out of {instancesCount}} other {# instances running out of {instancesCount}}}": "",
   "{runningInstances} {0} running out of {instancesCount}": "",
   "{sizeInBytes} B": "",

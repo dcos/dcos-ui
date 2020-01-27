@@ -1340,6 +1340,8 @@
   "{numBackends} Backends": "{numBackends} 后端",
   "{numClients} Clients": "{numClients} 客户端",
   "{refreshRate} seconds": "{refreshRate} 秒",
+  "{resource} are being used with a limit of {limit}": "",
+  "{resource} cpus are being used with a limit of {limit} cpus": "",
   "{runningInstances, plural, one {# instance running out of {instancesCount}} other {# instances running out of {instancesCount}}}": "{runningInstances, plural, one {# 实例将用完 {instancesCount}} other {# 实例将用完 {instancesCount}}}",
   "{runningInstances} {0} running out of {instancesCount}": "{runningInstances} {0} 将用完 {instancesCount}",
   "{sizeInBytes} B": "",
