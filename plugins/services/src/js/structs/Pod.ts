@@ -243,6 +243,23 @@ export default class Pod extends Service {
     return this._regions;
   }
 
+  getResourceLimits() {
+    return this.getSpec()
+      .getContainers()
+      .reduce((limits, container) => {
+        if (container.resourceLimits != null) {
+          Object.keys(container.resourceLimits).forEach(key => {
+            if (limits[key] == null) {
+              limits[key] = 0;
+            }
+            limits[key] += container.resourceLimits[key];
+          });
+        }
+
+        return limits;
+      }, {});
+  }
+
   isDelayed() {
     const queue = this.getQueue();
     return findNestedPropertyInObject(queue, "delay.overdue") === false;
