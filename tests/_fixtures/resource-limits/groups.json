@@ -1,0 +1,236 @@
+{
+  "id": "/",
+  "apps": [],
+  "pods": [
+    {
+      "id": "/alpine",
+      "spec": {
+        "id": "/alpine",
+        "version": "2020-01-23T14:49:43.410Z",
+        "containers": [
+          {
+            "name": "container-1",
+            "exec": { "command": { "shell": "sleep 1000;" } },
+            "resources": { "cpus": 0.1, "mem": 128.0, "disk": 0.0, "gpus": 0 },
+            "resourceLimits": { "cpus": 0.5, "mem": 256.0 },
+            "image": { "kind": "DOCKER", "id": "alpine" }
+          },
+          {
+            "name": "container-2",
+            "exec": { "command": { "shell": "sleep 100000;" } },
+            "resources": { "cpus": 0.1, "mem": 128.0, "disk": 0.0, "gpus": 0 },
+            "resourceLimits": { "cpus": 0.5, "mem": 256.0 },
+            "image": { "kind": "DOCKER", "id": "alpine" }
+          }
+        ],
+        "networks": [{ "mode": "host" }],
+        "scaling": { "instances": 1, "kind": "fixed" },
+        "scheduling": {
+          "backoff": {
+            "backoff": 1.0,
+            "backoffFactor": 1.15,
+            "maxLaunchDelay": 300.0
+          },
+          "upgrade": {
+            "minimumHealthCapacity": 1.0,
+            "maximumOverCapacity": 1.0
+          },
+          "placement": {},
+          "killSelection": "YOUNGEST_FIRST",
+          "unreachableStrategy": {
+            "inactiveAfterSeconds": 0,
+            "expungeAfterSeconds": 0
+          }
+        },
+        "executorResources": { "cpus": 0.1, "mem": 32.0, "disk": 10.0 },
+        "role": "slave_public"
+      },
+      "status": "STABLE",
+      "statusSince": "2020-01-23T14:49:49.073Z",
+      "instances": [
+        {
+          "id": "alpine.instance-978eafb1-3def-11ea-99ee-ba7b72a6ee63",
+          "status": "STABLE",
+          "statusSince": "2020-01-23T14:49:49.073Z",
+          "conditions": [],
+          "agentHostname": "10.0.0.14",
+          "agentId": "dfcf4a0b-5f07-49d5-88a3-1b4c14eee42a-S0",
+          "resources": {
+            "cpus": 0.30000000000000004,
+            "mem": 288.0,
+            "disk": 10.0,
+            "gpus": 0
+          },
+          "networks": [{ "addresses": ["10.0.0.14"] }],
+          "containers": [
+            {
+              "name": "container-1",
+              "status": "TASK_RUNNING",
+              "statusSince": "2020-01-23T14:49:49.073Z",
+              "conditions": [],
+              "containerId": "alpine.instance-978eafb1-3def-11ea-99ee-ba7b72a6ee63.container-1.1",
+              "endpoints": [],
+              "resources": {
+                "cpus": 0.1,
+                "mem": 128.0,
+                "disk": 0.0,
+                "gpus": 0
+              },
+              "lastUpdated": "2020-01-23T14:49:49.073Z",
+              "lastChanged": "2020-01-23T14:49:49.073Z"
+            },
+            {
+              "name": "container-2",
+              "status": "TASK_RUNNING",
+              "statusSince": "2020-01-23T14:49:49.073Z",
+              "conditions": [],
+              "containerId": "alpine.instance-978eafb1-3def-11ea-99ee-ba7b72a6ee63.container-2.1",
+              "endpoints": [],
+              "resources": {
+                "cpus": 0.1,
+                "mem": 128.0,
+                "disk": 0.0,
+                "gpus": 0
+              },
+              "lastUpdated": "2020-01-23T14:49:49.073Z",
+              "lastChanged": "2020-01-23T14:49:49.073Z"
+            }
+          ],
+          "specReference": "/v2/pods/alpine::versions/2020-01-23T14:49:43.410Z",
+          "localVolumes": [],
+          "lastUpdated": "2020-01-23T14:49:49.073Z",
+          "lastChanged": "2020-01-23T14:49:49.073Z",
+          "role": "slave_public"
+        }
+      ],
+      "terminationHistory": [],
+      "lastUpdated": "2020-01-23T14:54:35.116Z",
+      "lastChanged": "2020-01-23T14:49:49.073Z"
+    }
+  ],
+  "groups": [
+    {
+      "id": "/limit-group",
+      "apps": [
+        {
+          "id": "/limit-group/alpine-single",
+          "backoffFactor": 1.15,
+          "backoffSeconds": 1,
+          "cmd": "sleep 1000;",
+          "container": {
+            "type": "MESOS",
+            "docker": {
+              "forcePullImage": false,
+              "image": "alpine",
+              "parameters": [],
+              "privileged": false
+            },
+            "volumes": []
+          },
+          "cpus": 0.1,
+          "disk": 0.0,
+          "executor": "",
+          "instances": 1,
+          "labels": {},
+          "maxLaunchDelaySeconds": 300,
+          "mem": 128.0,
+          "gpus": 0,
+          "networks": [{ "mode": "host" }],
+          "portDefinitions": [],
+          "resourceLimits": { "cpus": 0.5, "mem": 256.0 },
+          "requirePorts": false,
+          "upgradeStrategy": {
+            "maximumOverCapacity": 1.0,
+            "minimumHealthCapacity": 1.0
+          },
+          "version": "2020-01-23T14:53:53.734Z",
+          "versionInfo": {
+            "lastScalingAt": "2020-01-23T14:53:53.734Z",
+            "lastConfigChangeAt": "2020-01-23T14:53:53.734Z"
+          },
+          "killSelection": "YOUNGEST_FIRST",
+          "unreachableStrategy": {
+            "inactiveAfterSeconds": 0,
+            "expungeAfterSeconds": 0
+          },
+          "role": "limit-group",
+          "tasksStaged": 0,
+          "tasksRunning": 1,
+          "tasksHealthy": 0,
+          "tasksUnhealthy": 0,
+          "deployments": [],
+          "tasks": [
+            {
+              "appId": "/limit-group/alpine",
+              "healthCheckResults": [],
+              "host": "10.0.0.14",
+              "id": "limit-group_alpine.instance-2cb50f32-3df0-11ea-99ee-ba7b72a6ee63._app.1",
+              "ipAddresses": [{ "ipAddress": "10.0.0.14", "protocol": "IPv4" }],
+              "ports": [],
+              "servicePorts": [],
+              "slaveId": "dfcf4a0b-5f07-49d5-88a3-1b4c14eee42a-S0",
+              "state": "TASK_RUNNING",
+              "stagedAt": "2020-01-23T14:53:54.089Z",
+              "startedAt": "2020-01-23T14:53:54.792Z",
+              "version": "2020-01-23T14:53:53.734Z",
+              "localVolumes": [],
+              "role": "limit-group"
+            }
+          ],
+          "tasksStats": {
+            "startedAfterLastScaling": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 40.323,
+                  "medianSeconds": 40.323
+                }
+              }
+            },
+            "withLatestConfig": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 40.323,
+                  "medianSeconds": 40.323
+                }
+              }
+            },
+            "totalSummary": {
+              "stats": {
+                "counts": {
+                  "staged": 0,
+                  "running": 1,
+                  "healthy": 0,
+                  "unhealthy": 0
+                },
+                "lifeTime": {
+                  "averageSeconds": 40.323,
+                  "medianSeconds": 40.323
+                }
+              }
+            }
+          }
+        }
+      ],
+      "pods": [],
+      "groups": [],
+      "dependencies": [],
+      "version": "2020-01-23T14:53:53.734Z",
+      "enforceRole": true
+    }
+  ],
+  "dependencies": [],
+  "version": "2020-01-23T14:53:53.734Z",
+  "enforceRole": false
+}

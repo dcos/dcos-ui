@@ -802,6 +802,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       marathonEditStatus,
       mesosQuotaUpdate,
       mesosQuotaUpdateStatus,
+      marathonResourceLimits,
     } = configuration.groups;
 
     if (marathonCreate) {
@@ -827,6 +828,14 @@ Cypress.Commands.add("configureCluster", (configuration) => {
         status: mesosQuotaUpdateStatus || 201,
         response: `fx:quota-management/${mesosQuotaUpdate}`,
       }).as("updateQuota");
+    }
+    if (marathonResourceLimits) {
+      cy.route({
+        method: "GET",
+        url: /service\/marathon\/v2\/groups/,
+        status: 200,
+        response: `fx:resource-limits/groups`,
+      });
     }
   }
 
