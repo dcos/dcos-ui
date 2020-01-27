@@ -6,35 +6,26 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
 
-export const ServiceMem = React.memo(
-  ({
-    resource,
-    limit
-  }: {
-    resource: string;
-    limit: number | string | null;
-  }) => (
+export const ServiceCPU = React.memo(
+  ({ resource, limit }: { resource: string; limit?: number | string }) => (
     <NumberCell>
       <span>
-        {Units.formatResource("mem", resource)}
+        {Units.formatResource("cpus", resource)}
         {limit != null && limit !== 0 ? (
-          <React.Fragment>
-            {" "}
-            / {Units.formatResource("mem", limit)}
-          </React.Fragment>
+          <React.Fragment> / {limit}</React.Fragment>
         ) : null}
       </span>
     </NumberCell>
   )
 );
 
-export function memRenderer(
+export function cpuRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   return (
-    <ServiceMem
-      resource={service.getResources()[`mem`]}
-      limit={service.getResourceLimits()[`mem`]}
+    <ServiceCPU
+      resource={service.getResources()[`cpus`]}
+      limit={service.getResourceLimits()[`cpus`]}
     />
   );
 }
