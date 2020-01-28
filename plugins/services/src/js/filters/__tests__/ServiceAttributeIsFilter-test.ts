@@ -2,7 +2,7 @@ import List from "#SRC/js/structs/List";
 import * as ServiceStatus from "../../constants/ServiceStatus";
 import ServiceAttributeIsFilter from "../ServiceAttributeIsFilter";
 
-const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import SearchDSL from "#SRC/resources/grammar/SearchDSL";
 
 let thisMockItems;
 

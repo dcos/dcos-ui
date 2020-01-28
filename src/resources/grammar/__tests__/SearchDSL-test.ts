@@ -4,7 +4,7 @@ import DSLCombinerTypes from "../../../js/constants/DSLCombinerTypes";
 
 import List from "../../../js/structs/List";
 
-const SearchDSL = require("../SearchDSL");
+import SearchDSL from "../SearchDSL";
 
 // Handles 'attrib:?'
 class AttribFilter extends DSLFilter {
