@@ -1,5 +1,6 @@
 import * as React from "react";
-import { NumberCell } from "@dcos/ui-kit";
+import { Trans } from "@lingui/macro";
+import { NumberCell, Tooltip } from "@dcos/ui-kit";
 
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
@@ -13,19 +14,37 @@ export const ServiceMem = React.memo(
   }: {
     resource: string;
     limit: number | string | null;
-  }) => (
-    <NumberCell>
-      <span>
-        {Units.formatResource("mem", resource)}
-        {limit != null && limit !== 0 ? (
-          <React.Fragment>
-            {" "}
-            / {Units.formatResource("mem", limit)}
-          </React.Fragment>
-        ) : null}
-      </span>
-    </NumberCell>
-  )
+    id: string;
+  }) => {
+    if (limit != null && limit !== 0) {
+      return (
+        <NumberCell>
+          <Tooltip
+            id={`mem{id}`}
+            trigger={`${Units.formatResource(
+              "mem",
+              resource
+            )} / ${Units.formatResource("mem", limit)}`}
+            maxWidth={150}
+          >
+            <Trans
+              id="{resource} are being used with a limit of {limit}"
+              render="span"
+              values={{
+                resource: Units.formatResource("mem", resource),
+                limit: Units.formatResource("mem", limit)
+              }}
+            />
+          </Tooltip>
+        </NumberCell>
+      );
+    }
+    return (
+      <NumberCell>
+        <span>{Units.formatResource("mem", resource)}</span>
+      </NumberCell>
+    );
+  }
 );
 
 export function memRenderer(
@@ -33,8 +52,9 @@ export function memRenderer(
 ): React.ReactNode {
   return (
     <ServiceMem
-      resource={service.getResources()[`mem`]}
-      limit={service.getResourceLimits()[`mem`]}
+      id={service.getId()}
+      resource={service.getResources().mem}
+      limit={service.getResourceLimits().mem}
     />
   );
 }
