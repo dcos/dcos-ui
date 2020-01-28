@@ -178,7 +178,7 @@ pipeline {
                 ]) {
                   sh '''
                     rsync -aH ./system-tests-ee/ ./system-tests/
-                    INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests-ee/_scripts/ee-launch-cluster.sh
+                    INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
                     export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
                     export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
@@ -201,7 +201,7 @@ pipeline {
                       secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
                     ]
                   ]) {
-                    sh "./system-tests-ee/_scripts/delete-cluster.sh"
+                    sh "./system-tests/_scripts/delete-cluster.sh"
                   }
                 }
               }
