@@ -21,4 +21,4 @@ test("TypeScript snapshot should be up to date", async () => {
       // strip the specifics of type errors as the order of properties varies between runs of tsc.
       .replace(/type '[^']+?\s[^']*?'/gim, "type *")
   ).toMatchSnapshot();
-}, 120000);
+}, 180000);
