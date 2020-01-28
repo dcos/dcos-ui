@@ -71,6 +71,10 @@ pipeline {
       steps {
         sh "npm run util:lingui:check"
         sh "npm run build"
+
+        // we're typechecking here for now as that may fail often currently.
+        // there's no point in spinning up clusters for system-tests if our typecheck fails.
+        sh "npx jest typecheck"
       }
     }
 
@@ -87,6 +91,13 @@ pipeline {
 
     stage("Test current versions") {
       parallel {
+        stage("Lint / Unit Tests") {
+          steps {
+            sh "npm run lint"
+            sh "npm run test"
+          }
+        }
+
         stage("Integration Test") {
           environment {
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
