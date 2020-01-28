@@ -129,7 +129,7 @@
     "enzyme": "3.11.0",
     "enzyme-adapter-react-16": "1.15.2",
     "eslint": "6.8.0",
-    "eslint-config-prettier": "6.9.0",
+    "eslint-config-prettier": "6.10.0",
     "esprima": "4.0.1",
     "execa": "4.0.0",
     "file-loader": "5.0.2",
