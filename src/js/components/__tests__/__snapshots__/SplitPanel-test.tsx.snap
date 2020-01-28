@@ -59,7 +59,6 @@ ShallowWrapper {
         <Unknown
           className="className"
           isResizing={false}
-          width={undefined}
         >
           SidePanel
         </Unknown>,
@@ -188,7 +187,6 @@ ShallowWrapper {
           <Unknown
             className="className"
             isResizing={false}
-            width={undefined}
           >
             SidePanel
           </Unknown>,
@@ -365,7 +363,6 @@ ShallowWrapper {
         </div>,
         <Unknown
           isResizing={false}
-          width={undefined}
         >
           SidePanel
         </Unknown>,
@@ -490,7 +487,6 @@ ShallowWrapper {
           </div>,
           <Unknown
             isResizing={false}
-            width={undefined}
           >
             SidePanel
           </Unknown>,
@@ -668,7 +664,6 @@ ShallowWrapper {
         <Unknown
           isActive={true}
           isResizing={false}
-          width={undefined}
         >
           SidePanel
         </Unknown>,
@@ -795,7 +790,6 @@ ShallowWrapper {
           <Unknown
             isActive={true}
             isResizing={false}
-            width={undefined}
           >
             SidePanel
           </Unknown>,

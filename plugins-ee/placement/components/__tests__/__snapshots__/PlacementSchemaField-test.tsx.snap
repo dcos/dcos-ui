@@ -15,9 +15,7 @@ exports[`PlacementSchemaField with invalid content displays form to edit constra
   <p
     className="form-control-feedback"
   >
-    <span
-      className={undefined}
-    >
+    <span>
       Unable to edit
     </span>
   </p>
@@ -29,9 +27,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
   className="pod flush-left flush-right flush-top"
 >
   <h2>
-    <span
-      className={undefined}
-    />
+    <span />
      
     
     <div
@@ -79,9 +75,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
                 className="form-group-heading-content form-group-heading-content-primary"
                 title="Region"
               >
-                <span
-                  className={undefined}
-                />
+                <span />
               </div>
             </div>
           </label>
@@ -108,9 +102,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
           <p
             className="form-control-feedback column-12 text-no-transform"
           >
-            <span
-              className={undefined}
-            />
+            <span />
           </p>
         </div>
       </div>
@@ -130,9 +122,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
                 className="form-group-heading-content form-group-heading-content-primary"
                 title="Number of Zones"
               >
-                <span
-                  className={undefined}
-                />
+                <span />
               </div>
             </div>
           </label>
@@ -151,18 +141,14 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
           <p
             className="form-control-feedback column-12 text-no-transform"
           >
-            <span
-              className={undefined}
-            />
+            <span />
           </p>
         </div>
       </div>
       <h3
         className="short-bottom"
       >
-        <span
-          className={undefined}
-        />
+        <span />
          
         <div
           className="tooltip-wrapper text-align-center"
@@ -189,9 +175,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
           </span>
         </div>
       </h3>
-      <p
-        className={undefined}
-      />
+      <p />
       <div />
       <div
         className="form-row row"
@@ -218,9 +202,7 @@ exports[`PlacementSchemaField with valid content displays edit constraints area 
               />
             </svg>
             <span>
-              <span
-                className={undefined}
-              />
+              <span />
             </span>
           </a>
         </div>

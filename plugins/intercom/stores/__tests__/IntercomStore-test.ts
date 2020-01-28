@@ -17,7 +17,7 @@ describe("IntercomStore", () => {
 
   describe("#addChangeListener", () => {
     const addIntercomChangeListener = () => {
-      IntercomStore.addChangeListener(INTERCOM_CHANGE, jest.genMockFunction());
+      IntercomStore.addChangeListener(INTERCOM_CHANGE, jest.fn());
     };
 
     beforeEach(() => {

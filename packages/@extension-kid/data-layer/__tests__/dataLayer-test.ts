@@ -336,5 +336,5 @@ describe("DataLayer", () => {
 
   // This can currently not be done, because reactive-graphql completes the observable as an error
   // It relates to this issue: https://github.com/mesosphere/reactive-graphql/issues/13
-  it("extends a schema while a query is running");
+  // it("extends a schema while a query is running");
 });

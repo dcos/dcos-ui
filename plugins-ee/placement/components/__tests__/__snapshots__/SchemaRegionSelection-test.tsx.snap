@@ -17,9 +17,7 @@ exports[`SchemaRegionSelection #localRegionOptions attaches local to option text
           className="form-group-heading-content form-group-heading-content-primary"
           title="Region"
         >
-          <span
-            className={undefined}
-          />
+          <span />
         </div>
       </div>
     </label>
@@ -53,9 +51,7 @@ exports[`SchemaRegionSelection #localRegionOptions attaches local to option text
     <p
       className="form-control-feedback column-12 text-no-transform"
     >
-      <span
-        className={undefined}
-      />
+      <span />
     </p>
   </div>
 </div>
