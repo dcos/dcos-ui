@@ -3323,7 +3323,6 @@ plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2571:
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2339: Property 'childContextTypes' does not exist on type *.
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/services/ServicesContainer.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
-plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2339: Property 'actionsRenderer' does not exist on type 'ServicesTable'.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2339: Property 'regionRenderer' does not exist on type 'ServicesTable'.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2339: Property 'regionRenderer' does not exist on type 'ServicesTable'.
