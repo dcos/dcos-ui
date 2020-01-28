@@ -5101,7 +5101,6 @@ src/js/structs/DSLASTNodes.ts: error TS2345: Argument of type 'any[]' is not ass
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'combinerType' does not exist on type 'CombinerNode'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'filterType' does not exist on type 'FilterNode'.
 src/js/structs/DSLASTNodes.ts: error TS2339: Property 'filterParams' does not exist on type 'FilterNode'.
-src/js/structs/DSLExpression.ts: error TS1192: Module '\\"/src/resources/grammar/SearchDSL\\"' has no default export.
 src/js/structs/DSLExpression.ts: error TS6133: 'filters' is declared but its value is never read.
 src/js/structs/HealthUnit.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 src/js/structs/JobTaskList.ts: error TS2531: Object is possibly 'null'.

@@ -1,4 +1,4 @@
-import { Trans, DateFormat } from "@lingui/macro";
+import { Trans, DateFormat } from "@lingui/react";
 
 require("babel-polyfill");
 require("reflect-metadata");

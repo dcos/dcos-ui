@@ -843,13 +843,13 @@ const SearchDSL = (() => {
   return new Parser();
 })();
 
-if (typeof require !== "undefined" && typeof exports !== "undefined") {
-  exports.parser = SearchDSL;
-  exports.Parser = SearchDSL.Parser;
-  exports.parse = function(...args) {
+export default {
+  parser: SearchDSL,
+  Parser: SearchDSL.Parser,
+  parse: function(...args) {
     return SearchDSL.parse(...args);
-  };
-  exports.main = function commonjsMain(args) {
+  },
+  main: function commonjsMain(args) {
     if (!args[1]) {
       console.log("Usage: " + args[0] + " FILE");
       process.exit(1);
@@ -859,8 +859,5 @@ if (typeof require !== "undefined" && typeof exports !== "undefined") {
       "utf8"
     );
     return exports.parser.parse(source);
-  };
-  if (typeof module !== "undefined" && require.main === module) {
-    exports.main(process.argv.slice(1));
   }
-}
+};

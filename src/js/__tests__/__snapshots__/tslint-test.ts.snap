@@ -67,9 +67,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/data/MesosMasters.tsx - Shadowed name: 'mesosMastersHealth'
 /plugins/nodes/src/js/data/MesosMastersLeader.ts - Shadowed name: 'masterDataSource'
 /plugins/nodes/src/js/data/NodesNetworkResolver.ts - Shadowed name: 'fetchNodesNetwork'
-/plugins/nodes/src/js/filters/__tests__/NodesRegionFilter-test.ts - require statement not part of an import statement
-/plugins/nodes/src/js/filters/__tests__/NodesTextFilter-test.ts - require statement not part of an import statement
-/plugins/nodes/src/js/filters/__tests__/NodesZoneFilter-test.ts - require statement not part of an import statement
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
 /plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx - Shadowed name: 'network'
 /plugins/oauth/components/AuthenticatedUserAccountDropdown.tsx - don't declare variable menuItems to return it immediately
@@ -135,21 +132,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/data/groups/fetchers.ts - Shadowed name: 'groups'
 /plugins/services/src/js/events/__tests__/MarathonActions-test.ts - require statement not part of an import statement
 /plugins/services/src/js/events/__tests__/ServiceActions-test.ts - Shadowed name: 'serviceDefinition'
-/plugins/services/src/js/filters/__tests__/PodInstanceStatusFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeHasVolumesFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeHealthFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeIsCatalogFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeIsFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeIsPodFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceAttributeNoHealthchecksFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/ServiceNameTextFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/TaskNameTextFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/TaskStatusFilter-test.ts - require statement not part of an import statement
-/plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts - require statement not part of an import statement
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
@@ -362,6 +344,5 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/js/utils/__tests__/TemplateUtil-test.tsx - Missing \\"key\\" prop for element.
 /src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
-/src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed.
-/src/resources/grammar/__tests__/SearchDSL-test.ts - require statement not part of an import statement"
+/src/resources/grammar/__tests__/SearchDSL-test.ts - A maximum of 1 class per file is allowed."
 `;

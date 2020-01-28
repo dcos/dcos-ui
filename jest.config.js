@@ -26,17 +26,17 @@ module.exports = {
   },
   roots,
   transform: {
-    "^.+\\.jsx?$": "babel-jest",
+    "^.+\\.jsx?$": "ts-jest",
     "^.+\\.tsx?$": "ts-jest"
   },
-  setupTestFrameworkScriptFile: "./jest/setupTestFramework.js",
-  setupFiles: ["./jest/setupEnv.js"],
+  setupTestFrameworkScriptFile: "./jest/setupTestFramework.ts",
+  setupFiles: ["./jest/setupEnv.ts"],
   testRegex: "/__tests__/.*\\-test\\.(jsx?|tsx?)$",
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
     "#EXTERNAL_PLUGINS/([^\\.]*)$": "<rootDir>/plugins-ee/$1",
-    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.js"
+    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.ts"
   },
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],

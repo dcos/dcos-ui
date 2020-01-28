@@ -4,7 +4,7 @@ import InstanceUtil from "../../utils/InstanceUtil";
 
 jest.mock("../../utils/TaskUtil");
 
-const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import SearchDSL from "#SRC/resources/grammar/SearchDSL";
 
 let thisMockItems;
 

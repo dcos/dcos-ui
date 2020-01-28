@@ -4,7 +4,7 @@ import Framework from "../../structs/Framework";
 import Pod from "../../structs/Pod";
 import ServiceAttributeIsCatalogFilter from "../ServiceAttributeIsCatalogFilter";
 
-const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import SearchDSL from "#SRC/resources/grammar/SearchDSL";
 
 let thisMockItems;
 

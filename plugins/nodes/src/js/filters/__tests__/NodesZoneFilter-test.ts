@@ -1,7 +1,7 @@
 import List from "#SRC/js/structs/List";
 import NodesZoneFilter from "../NodesZoneFilter";
 
-const SearchDSL = require("#SRC/resources/grammar/SearchDSL");
+import SearchDSL from "#SRC/resources/grammar/SearchDSL";
 
 let thisMockItems;
 
