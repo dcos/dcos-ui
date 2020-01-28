@@ -48,7 +48,6 @@ NODE_ENV="testing"
 
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../" && pwd)"
 CYPRESS_FOLDER="results"
-TESTS_FOLDER="system-tests"
 
 while getopts 's:hdnr:?' flag; do
   case "${flag}" in
@@ -81,7 +80,7 @@ done
 REPORT=${REPORT_TO_DATADOG:-true}
 DISTRIBUTION=${REPORT_DISTRIBUTION:-oss}
 BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
-TESTS_FOLDER='system-tests'
+TESTS_FOLDER=${TESTS_FOLDER:-'system-tests'}
 
 # System test related Variables
 CLUSTER_URL="${CLUSTER_URL:-}"

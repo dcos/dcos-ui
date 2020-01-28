@@ -1,6 +1,11 @@
 #!/usr/bin/env bash
 
-CLUSTER_INFO=/tmp/cluster-info.json
+if [ -z "${VARIANT}" ]; then
+  echo -e "Error: Please specify the VARIANT environment variable"
+  exit 1
+fi
+
+CLUSTER_INFO=/tmp/cluster-info-$VARIANT.json
 
 if ! dcos-launch delete -i ${CLUSTER_INFO} 1>&2; then
   echo "Cluster deletion failed."

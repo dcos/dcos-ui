@@ -2,15 +2,19 @@
 
 set -e
 
-if [ -z "${1}" ] && [ -z "${INSTALLER_URL}" ]; then
-  echo -e "Error: Please pass the installer url or" \
-    "specify the INSTALLER_URL environment variable"
+if [ -z "${INSTALLER_URL}" ]; then
+  echo -e "Error: Please specify the INSTALLER_URL environment variable"
   exit 1
 fi
 
-CLUSTER_CONFIG=/tmp/cluster-config.yaml
-CLUSTER_INFO=/tmp/cluster-info.json
-CLUSTER_URL_FILE=/tmp/cluster_url.txt
+if [ -z "${VARIANT}" ]; then
+  echo -e "Error: Please specify the VARIANT environment variable"
+  exit 1
+fi
+
+CLUSTER_CONFIG=/tmp/cluster-config-$VARIANT.yaml
+CLUSTER_INFO=/tmp/cluster-info-$VARIANT.json
+CLUSTER_URL_FILE=/tmp/cluster_url-$VARIANT.txt
 
 rm ${CLUSTER_INFO} || echo "No file to delete"
 
@@ -24,7 +28,7 @@ fi
 cat <<EOF >${CLUSTER_CONFIG}
 ---
 launch_config_version: 1
-deployment_name: dcos-ui-system-test-$(date +%s)
+deployment_name: dcos-ui-system-test-$VARIANT-$(date +%s)
 installer_url: ${1:-$INSTALLER_URL}
 platform: aws
 provider: onprem
