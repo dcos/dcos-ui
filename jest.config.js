@@ -29,7 +29,7 @@ module.exports = {
     "^.+\\.jsx?$": "ts-jest",
     "^.+\\.tsx?$": "ts-jest"
   },
-  setupTestFrameworkScriptFile: "./jest/setupTestFramework.ts",
+  setupFilesAfterEnv: ["./jest/setupTestFramework.ts"],
   setupFiles: ["./jest/setupEnv.ts"],
   testRegex: "/__tests__/.*\\-test\\.(jsx?|tsx?)$",
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
