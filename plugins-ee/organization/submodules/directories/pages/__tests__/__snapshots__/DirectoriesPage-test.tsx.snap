@@ -11,9 +11,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
@@ -25,9 +23,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
@@ -39,16 +35,12 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Attempt StartTLS, proceed unencrypted if it fails
         </span>
       </div>
@@ -59,9 +51,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Lookup DN
         </span>
       </div>
@@ -75,9 +65,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           User DN Template
         </span>
       </div>
@@ -92,9 +80,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading"
     >
-      <span
-        className={undefined}
-      />
+      <span />
     </h1>
     <div
       className="configuration-map-row table-row"
@@ -102,9 +88,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Group Search Base
         </span>
       </div>
@@ -120,9 +104,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested group config
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Group Search Filter Template
         </span>
       </div>
@@ -147,9 +129,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
@@ -163,9 +143,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
@@ -179,16 +157,12 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        />
+        <span />
       </div>
       <div
         className="configuration-map-value"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Use SSL/TLS for all connections
         </span>
       </div>
@@ -199,9 +173,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           Lookup DN
         </span>
       </div>
@@ -215,9 +187,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           User DN Template
         </span>
       </div>
@@ -232,9 +202,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
     <h1
       className="detail-view-section-heading detail-view-section-heading-primary configuration-map-heading"
     >
-      <span
-        className={undefined}
-      />
+      <span />
     </h1>
     <div
       className="configuration-map-row table-row"
@@ -242,9 +210,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           User Search Base
         </span>
       </div>
@@ -260,9 +226,7 @@ exports[`DirectoriesPage #getDirectoryDetails translates the nested user config 
       <div
         className="configuration-map-label"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           User Search Filter Template
         </span>
       </div>

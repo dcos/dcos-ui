@@ -5,7 +5,6 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
   <div />
   <div
     className="panel alert-panel text-align-center flush-bottom"
-    onClick={undefined}
   >
     <div
       className="panel-content panel-cell panel-cell-borderless panel-cell-wider panel-cell-taller"
@@ -13,9 +12,7 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
       <h2
         className="flush-top"
       >
-        <span
-          className={undefined}
-        >
+        <span>
           No package repositories
         </span>
       </h2>
@@ -39,9 +36,7 @@ exports[`PackagesTab with empty state displays AlertPanel with action to Package
           onClick={[Function]}
           style={Object {}}
         >
-          <span
-            className={undefined}
-          >
+          <span>
             Add Package Repository
           </span>
         </a>
@@ -116,9 +111,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                 className="button button-outline"
                 onClick={[Function]}
               >
-                <b
-                  className={undefined}
-                >
+                <b>
                   All
                 </b>
                 <span
@@ -134,9 +127,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                 className="button button-outline active"
                 onClick={[Function]}
               >
-                <b
-                  className={undefined}
-                >
+                <b>
                   Certified
                 </b>
                 <span
@@ -152,9 +143,7 @@ exports[`PackagesTab with packages on the list displays the catalog with package
                 className="button button-outline"
                 onClick={[Function]}
               >
-                <b
-                  className={undefined}
-                >
+                <b>
                   Community
                 </b>
                 <span

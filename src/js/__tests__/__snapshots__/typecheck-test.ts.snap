@@ -169,7 +169,6 @@ plugins/intercom/hooks.ts: error TS2339: Property 'Intercom' does not exist on t
 plugins/intercom/hooks.ts: error TS2339: Property 'configuration' does not exist on type *.
 plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/intercom/stores/IntercomStore.ts: error TS2571: Object is of type 'unknown'.
-plugins/intercom/stores/__tests__/IntercomStore-test.ts: error TS2551: Property 'genMockFunction' does not exist on type *. Did you mean 'isMockFunction'?
 plugins/intercom/stores/__tests__/IntercomStore-test.ts: error TS2339: Property 'mockResolvedValue' does not exist on type *.
 plugins/jobs/src/js/JobDelete.tsx: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/JobDelete.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -4234,7 +4233,6 @@ src/js/components/__tests__/ExpandingTable-test.tsx: error TS2322: type * is not
 src/js/components/__tests__/FilterBar-test.tsx: error TS2769: No overload matches this call.
 src/js/components/__tests__/FilterBar-test.tsx: error TS2769: No overload matches this call.
 src/js/components/__tests__/FilterButtons-test.tsx: error TS2769: No overload matches this call.
-src/js/components/__tests__/FilterButtons-test.tsx: error TS2551: Property 'genMockFunction' does not exist on type *. Did you mean 'isMockFunction'?
 src/js/components/__tests__/FrameworkConfigurationForm-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/JSONEditor-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/JSONEditor-test.tsx: error TS2322: type * is not assignable to type *.

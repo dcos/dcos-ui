@@ -17,9 +17,7 @@ exports[`PlacementRegionSelection #localRegionOptions attaches local to option t
           className="form-group-heading-content form-group-heading-content-primary"
           title="Region"
         >
-          <span
-            className={undefined}
-          />
+          <span />
         </div>
       </div>
     </label>
@@ -51,9 +49,7 @@ exports[`PlacementRegionSelection #localRegionOptions attaches local to option t
     <p
       className="form-control-feedback column-12 text-no-transform"
     >
-      <span
-        className={undefined}
-      />
+      <span />
     </p>
   </div>
 </div>
