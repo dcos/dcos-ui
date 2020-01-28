@@ -19,13 +19,7 @@
           "#TESTS": "./tests"
         }
       }
-    ],
-    "syntax-dynamic-import"
+    ]
   ],
-  "presets": ["env", "stage-3", "react"],
-  "env": {
-    "test": {
-      "plugins": ["dynamic-import-node"]
-    }
-  }
+  "presets": ["env", "react"]
 }
