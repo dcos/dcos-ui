@@ -4,13 +4,6 @@
 # is needed and apply it.
 
 #
-# Define externalplugins if we have mounted such directory
-#
-if [[ -d /dcos-ui-plugins ]]; then
-  npm config set externalplugins ../dcos-ui-plugins
-fi
-
-#
 # Pass through commands or run `tail -f /dev/null` to keep the container alive
 # when started in background
 #
