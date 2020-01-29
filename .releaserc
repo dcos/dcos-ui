@@ -1,5 +1,5 @@
 {
-  "branches": "master",
+  "branches": ["master", {"name": "feature/virtualBursting", "channel": "${name.replace(\"feature/\",\"\")}-snapshot", "prerelease": "${name.replace(\"feature/\",\"\")}"}],
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "analyzeCommits": [
     {
