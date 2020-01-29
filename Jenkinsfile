@@ -7,12 +7,12 @@ def master_branches = ["master", ] as String[]
 pipeline {
   agent {
     dockerfile {
-      args  "--shm-size=1g"
+      args  "--shm-size=2g"
     }
   }
 
   options {
-    timeout(time: 3, unit: "HOURS")
+    timeout(time: 2, unit: "HOURS")
     disableConcurrentBuilds()
   }
 
@@ -41,9 +41,6 @@ pipeline {
 
         // when on PR rebase to target
         sh '[ -z "$CHANGE_TARGET" ] && echo "on release branch" || git rebase origin/${CHANGE_TARGET}'
-
-        // jenkins seem to have this variable set for no reason, explicitly removing it…
-        sh "npm config delete externalplugins"
       }
     }
 
@@ -67,10 +64,12 @@ pipeline {
       }
     }
 
-    stage("Build") {
+    stage("Unit Tests / Lint / Build") {
       steps {
         sh "npm run util:lingui:check"
+        sh "npm run lint"
         sh "npm run build"
+        sh "npm run test"
       }
     }
 
