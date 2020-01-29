@@ -1,69 +1,45 @@
 const checker = require("license-checker");
 const fs = require("fs");
-const packageJSON = require("../package.json");
+const { dependencies, devDependencies } = require("../package.json");
 
-function buildDependenciesArray(dependencies) {
-  return Object.keys(dependencies).map(dependency => {
-    let version = dependencies[dependency];
+const pkgVersion = name =>
+  JSON.parse(fs.readFileSync(`./node_modules/${name}/package.json`, "utf8"))
+    .version;
 
-    if (version.startsWith("github:")) {
-      const json = JSON.parse(
-        fs.readFileSync(
-          "./node_modules/" + dependency + "/package.json",
-          "utf8"
-        )
-      );
-      version = json.version;
-    }
-
-    return dependency + "@" + version;
-  });
-}
-
-var dependencies = buildDependenciesArray(packageJSON.dependencies);
-dependencies = dependencies.concat(
-  buildDependenciesArray(packageJSON.devDependencies)
+// strings like these: `[ "jest@22.0.0", "react@42.0.0" ]`
+const deps = Object.entries({ ...dependencies, ...devDependencies }).map(
+  ([name, v]) => `${name}@${!v.startsWith("github:") ? v : pkgVersion(name)}`
 );
 
-checker.init(
-  {
-    start: "./"
-  },
-  (error, json) => {
-    if (error) {
-      console.log(error);
-      process.exit(1);
-    }
+checker.init({ start: "./" }, (error, json) => {
+  if (error) {
+    console.log(error);
+    process.exit(1);
+  }
 
-    let count = 0;
-    const found = [];
-    Object.keys(json).forEach(dependency => {
-      if (dependencies.indexOf(dependency) === -1) {
-        return;
+  const checkedDependencies = Object.entries(json)
+    .filter(([dependency]) => deps.includes(dependency))
+    .map(([dependency, pkg]) => {
+      if (pkg.licenses === "UNKNOWN") {
+        console.warn("Dependency has an unknown license", pkg);
       }
 
-      count++;
-      found.push(dependency);
-
-      const licenses = json[dependency].licenses;
-      if (licenses === "UNKNOWN") {
-        console.warn("Dependency has an unknown license", json[dependency]);
-      }
-
-      if (licenses.indexOf("LGPL") === -1 && licenses.match(/GPL/gi)) {
-        console.log("Package has invalid license.", json[dependency]);
+      if (pkg.licenses.match(/GPL/gi) && !pkg.licenses.includes("LGPL")) {
+        console.log("Package has invalid license.", pkg);
         process.exit(1);
       }
+
+      return dependency;
     });
 
-    // Ensure we found them all
-    if (count !== dependencies.length) {
-      console.log("Dependency length doesn't match.");
-      const missing = dependencies.filter(dependency => {
-        return found.indexOf(dependency) === -1;
-      });
-      console.log(missing);
-      process.exit(1);
-    }
+  // Ensure we found them all
+  if (checkedDependencies.length !== deps.length) {
+    console.log(`Could not check licenses of these packages:`);
+    console.log(deps.filter(d => !checkedDependencies.includes(d)));
+    console.log(
+      "'npm install' should fix this issue, unless you installed a package with a license we do not want to use."
+    );
+
+    process.exit(1);
   }
-);
+});

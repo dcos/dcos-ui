@@ -11,8 +11,7 @@ function install_marathon_raml() {
   local TARGET_DIR="${PROJECT_ROOT}/src/resources/raml/marathon/v2"
   local VERSION=$1
 
-  if [ -z "$VERSION" ]
-  then
+  if [ -z "$VERSION" ]; then
    warning "You need to specify a version to install the Marathon RAML specs."\
             "Example: install_marathon_raml \"1.4.0-RC1\""
    return
