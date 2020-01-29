@@ -97,7 +97,7 @@ pipeline {
           post {
             always {
               archiveArtifacts "cypress/**/*"
-              junit "cypress/results.xml"
+              junit "cypress/result-integration.xml"
             }
           }
         }
@@ -120,8 +120,7 @@ pipeline {
                   sh '''
                     INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
-                    export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
-                    export CLUSTER_AUTH_INFO=\$(echo '{ "uid": "albert@bekstil.net", "description": "albert" }' | base64)
+                    . scripts/utils/load_auth_env_vars
                     DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
                     npm run test:system
                   '''
@@ -130,8 +129,8 @@ pipeline {
 
               post {
                 always {
-                  archiveArtifacts "results/**/*"
-                  junit "results/results.xml"
+                  archiveArtifacts "cypress/**/*"
+                  junit "cypress/result-system.xml"
                   withCredentials([
                     [
                       $class: "AmazonWebServicesCredentialsBinding",
@@ -168,9 +167,7 @@ pipeline {
                     rsync -aH ./system-tests-ee/ ./system-tests/
                     INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
-                    export AUTHENTICATION_BODY='{ "uid": "bootstrapuser", "password": "deleteme" }'
-                    export CLUSTER_AUTH_TOKEN=\$(./system-tests/_scripts/get_cluster_auth.sh)
-                    export CLUSTER_AUTH_INFO=\$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64 -w 0)
+                    . scripts/utils/load_auth_env_vars
                     DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
                     REPORT_DISTRIBUTION='ee' npm run test:system
                   '''
@@ -179,8 +176,8 @@ pipeline {
 
               post {
                 always {
-                  archiveArtifacts "results/**/*"
-                  junit "results/results.xml"
+                  archiveArtifacts "cypress/**/*"
+                  junit "cypress/result-system.xml"
                   withCredentials([
                     [
                       $class: "AmazonWebServicesCredentialsBinding",

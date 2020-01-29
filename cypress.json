@@ -1,14 +1,19 @@
 {
+  "chromeWebSecurity": false,
   "defaultCommandTimeout": 60000,
-  "pageLoadTimeout": 600000,
   "env": {
     "CLUSTER_URL": "http://localhost:4200"
   },
   "fixturesFolder": "tests/_fixtures",
   "integrationFolder": "tests",
+  "pageLoadTimeout": 600000,
   "projectId": "a209b1cd-e44f-47a4-b22c-d8f26649f43f",
+  "reporter": "junit",
+  "reporterOptions": {
+    "mochaFile": "cypress/result-integration-[hash].xml"
+  },
+  "screenshotsFolder": "cypress/screenshots",
   "supportFile": "tests/_support",
-  "waitForAnimations": true,
-  "videoUploadOnPasses": false,
-  "chromeWebSecurity": false
+  "videosFolder": "cypress/videos",
+  "waitForAnimations": true
 }
