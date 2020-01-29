@@ -2,7 +2,7 @@
 
 @Library("sec_ci_libs@v2-latest") _
 
-def master_branches = ["master", ] as String[]
+def master_branches = ["feature/vertical-bursting", ] as String[]
 def aws_creds = [
   $class: "AmazonWebServicesCredentialsBinding",
   credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
