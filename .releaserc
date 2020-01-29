@@ -1,5 +1,5 @@
 {
-  "branches": "master",
+  "branches": ["master", {"name": "feature/*", "channel": "${name.replace(\"feature/\",\"\")}-snapshot", "prerelease": "${name.replace(\"feature/\",\"\")}-snapshot"}],
   "verifyConditions": ["@semantic-release/github", "semantic-release-jira"],
   "analyzeCommits": [
     {
