@@ -3,6 +3,14 @@
 @Library("sec_ci_libs@v2-latest") _
 
 def master_branches = ["master", ] as String[]
+def aws_creds = [
+  $class: "AmazonWebServicesCredentialsBinding",
+  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
+  accessKeyVariable: "AWS_ACCESS_KEY_ID",
+  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
+]
+def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+
 
 pipeline {
   agent {
@@ -109,14 +117,7 @@ pipeline {
                 REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
               }
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ]
-                ]) {
+                withCredentials([ aws_creds ]) {
                   sh '''
                     INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
                     export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
@@ -131,14 +132,7 @@ pipeline {
                 always {
                   archiveArtifacts "cypress/**/*"
                   junit "cypress/result-system.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
+                  withCredentials([ aws_creds ]) {
                     sh "./system-tests/_scripts/delete-cluster.sh"
                   }
                 }
@@ -150,19 +144,11 @@ pipeline {
                 REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
               }
               steps {
-                withCredentials([
-                  [
-                    $class: "AmazonWebServicesCredentialsBinding",
-                    credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                    accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                    secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                  ],
-                  [
-                    $class: "StringBinding",
-                    credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
-                    variable: "LICENSE_KEY"
-                  ]
-                ]) {
+                withCredentials([ aws_creds, [
+                  $class: "StringBinding",
+                  credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+                  variable: "LICENSE_KEY"
+                ]]) {
                   sh '''
                     rsync -aH ./system-tests-ee/ ./system-tests/
                     INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
@@ -178,14 +164,7 @@ pipeline {
                 always {
                   archiveArtifacts "cypress/**/*"
                   junit "cypress/result-system.xml"
-                  withCredentials([
-                    [
-                      $class: "AmazonWebServicesCredentialsBinding",
-                      credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-                      accessKeyVariable: "AWS_ACCESS_KEY_ID",
-                      secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-                    ]
-                  ]) {
+                  withCredentials([ aws_creds ]) {
                     sh "./system-tests/_scripts/delete-cluster.sh"
                   }
                 }
@@ -214,9 +193,7 @@ pipeline {
 
   post {
     failure {
-      withCredentials([
-        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
-      ]) {
+      withCredentials([ slack_creds ]) {
         slackSend (
           channel: "#frontend-ci-status",
           color: "danger",
@@ -227,9 +204,7 @@ pipeline {
       }
     }
     unstable {
-      withCredentials([
-        string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
-      ]) {
+      withCredentials([ slack_creds ]) {
         slackSend (
           channel: "#frontend-ci-status",
           color: "warning",
