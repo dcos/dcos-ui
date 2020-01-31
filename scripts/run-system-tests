@@ -22,7 +22,7 @@ PROXY_PID=0
 NODE_ENV="testing"
 
 PROJECT_ROOT=$(cd "$SCRIPT_PATH/../" && pwd)
-TESTS_FOLDER="system-tests"
+TESTS_FOLDER=${TESTS_FOLDER:-"system-tests"}
 
 # Used for datadog reporting
 REPORT=${REPORT_TO_DATADOG:-true}

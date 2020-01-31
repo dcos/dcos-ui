@@ -8,23 +8,19 @@ if [ -z "${1}" ] && [ -z "${INSTALLER_URL}" ]; then
   exit 1
 fi
 
-CLUSTER_CONFIG=/tmp/cluster-config.yaml
-CLUSTER_INFO=/tmp/cluster-info.json
-CLUSTER_URL_FILE=/tmp/cluster_url.txt
+CLUSTER_CONFIG=/tmp/cluster_config_$VARIANT.yaml
+CLUSTER_INFO=/tmp/cluster_info_$VARIANT.json
+CLUSTER_URL_FILE=/tmp/cluster_url_$VARIANT.txt
 
-rm ${CLUSTER_INFO} || echo "No file to delete"
+rm -f $CLUSTER_INFO
 
-LICENSE=""
-
-if [[ ! -z "$LICENSE_KEY" ]]; then
-  LICENSE="license_key_contents: ${LICENSE_KEY}"
-fi
+LICENSE=$([[ "$LICENSE_KEY" ]] && echo "license_key_contents: ${LICENSE_KEY}" || echo "")
 
 # Create cluster config
 cat <<EOF >${CLUSTER_CONFIG}
 ---
 launch_config_version: 1
-deployment_name: dcos-ui-system-test-$(date +%s)
+deployment_name: dcos-ui-system-test-$VARIANT-$(date +%s)
 installer_url: ${1:-$INSTALLER_URL}
 platform: aws
 provider: onprem
