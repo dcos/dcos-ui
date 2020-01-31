@@ -20,4 +20,3 @@ RUN set -x \
 
 # Export mountable volumes
 VOLUME /dcos-ui
-VOLUME /dcos-ui-plugins
