@@ -58,9 +58,6 @@ packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'de
 packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'definition' does not exist on type 'RoutingService'.
 packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'definition' does not exist on type 'RoutingService'.
 packages/foundation-ui/src/routing/RoutingService.ts: error TS2339: Property 'instance' does not exist on type 'RoutingService'.
-packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
-packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
-packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 packages/foundation-ui/src/utils/ReactUtil.ts: error TS2554: Expected 1 arguments, but got 2.
 plugins/banner/hooks.tsx: error TS2531: Object is possibly 'null'.
 plugins/banner/hooks.tsx: error TS2339: Property 'historyListenerAdded' does not exist on type *.
@@ -136,9 +133,15 @@ plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS23
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'propTypes' does not exist on type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'repositories' does not exist on type *.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
+plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/catalog/src/js/repositories/data/__tests__/repositoriesModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
@@ -305,6 +308,7 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of t
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobLink>>'.
@@ -2288,7 +2292,7 @@ plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: 
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2739: Type 'Mock<any>' is missing the following properties from type *: DONE, HEADERS_RECEIVED, LOADING, OPENED, UNSENT
+plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2739: type * is missing the following properties from type *: DONE, HEADERS_RECEIVED, LOADING, OPENED, UNSENT
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/filters/PodInstanceStatusFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
@@ -3437,6 +3441,9 @@ plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
 plugins/ui-update/utils/__tests__/index-test.ts: error TS2531: Object is possibly 'null'.
+plugins/ui-update/utils/index.ts: error TS2531: Object is possibly 'null'.
+plugins/ui-update/utils/index.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/ui-update/utils/index.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/components/AccessDeniedPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/BaseConfig.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/BaseConfig.tsx: error TS2322: type * is not assignable to type *.
@@ -4272,6 +4279,8 @@ src/js/components/__tests__/ProgressBar-test.tsx: error TS2769: No overload matc
 src/js/components/__tests__/ServerErrorModal-test.tsx: error TS2605: JSX element type 'ServerErrorModal' is not a constructor function for JSX elements.
 src/js/components/__tests__/SideTabs-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/SplitPanel-test.tsx: error TS2345: Argument of type 'number' is not assignable to parameter of type 'string'.
+src/js/components/__tests__/SplitPanel-test.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/__tests__/SplitPanel-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/TabButton-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/TabButton-test.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/__tests__/TabButton-test.tsx: error TS2322: type * is not assignable to type *.
@@ -4511,6 +4520,16 @@ src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/events/__tests__/CosmosPackagesActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type 'Observable<{}>' is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type 'Observable<{}>' is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
+src/js/events/__tests__/MetronomeClient-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Observable<string>'.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2339: Property 'calls' does not exist on type *.
 src/js/events/__tests__/SystemLogActions-test.ts: error TS2345: Argument of type '\\"EventSource\\"' is not assignable to parameter of type *.
@@ -4586,6 +4605,7 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type 'any' 
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'state' does not exist on type 'PackageDetailTab'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2307: Cannot find module '#PLUGINS/services/src/img/icon-service-default-large@2x.png'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
@@ -4867,7 +4887,6 @@ src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anothe
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin1' does not exist on type *.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin2' does not exist on type *.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2345: Argument of type 'Error' is not assignable to parameter of type *.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
@@ -5571,6 +5590,7 @@ src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/utils/__tests__/WindowResizeUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type '10' is not assignable to parameter of type 'string'.
 src/js/utils/crypto/__tests__/index-test.ts: error TS2540: Cannot assign to 'crypto' because it is a read-only property.

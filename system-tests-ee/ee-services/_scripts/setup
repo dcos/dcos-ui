@@ -1,6 +1,8 @@
 #!/bin/bash
 
-dcos package install --cli dcos-enterprise-cli --yes
+if [ -z "$(dcos package list | grep dcos-enterprise-cli)" ]; then
+  dcos package install --cli dcos-enterprise-cli --yes
+fi
 
 # Create a service group for the test
 cat <<EOF | dcos marathon group add

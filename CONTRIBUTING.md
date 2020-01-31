@@ -384,51 +384,13 @@ necessary to guarantee a particular chart is presented correctly.
 
 ### Integration tests setup
 
-We use cypress to drive a browser and run the unit tests for DC/OS UI. This is
-because we want to integrate our system as close as possible to the environment
-it will run, the user browser.
+We use cypress to integrate our system as close as possible to the environment it will run, the browser.
 
 ```
-npx cypress open
-```
+npm start
 
-### Running Integration Tests
-
-#### Without Plugins
-
-Run the integration tests in testing mode. If you already run a proxy to a cluster or `npm start` the script will take this, otherwise it will start a new server.
-
-```sh
-npm config delete externalplugins
+# in another shell
 npm run test:integration:local
-```
-
-#### With Plugins
-
-```sh
-npm config set externalplugins <path>
-npm run test:integration:plugins:setup
-npm run test:integration:local
-```
-
-NOTE: `npm run test:integration:plugins:setup` will copy plugins test over. Don't forget to remove them. This is a workaround since Cypress can't run tests in multiple directories.
-
-You should see a browser open and your tests running.
-
-![img](docs/images/cypress-tests-running.png?raw=true)
-
-#### Running a single integration test
-
-To run a single integration test, run the following command, where `Filename` is replaced by the name of the integration test you want to run, without `-cy` or `.js`.
-
-```
-npm run test:integration:local -- -s Filename
-```
-
-Example for running `../tests/pages/services/ServiceActions-cy.js`:
-
-```
-npm run test:integration:local -- -s ServiceActions
 ```
 
 ### Example of an Integration test
@@ -454,17 +416,6 @@ that, among other things, include:
 
 For more information, we recommend [cypress documentation](https://docs.cypress.io/guides/overview/why-cypress.html).
 
-### Debugging flaky integration tests
-
-We have tooling to check if a test case (or the implementation) is flaky.
-
-1.  Open up a PR with your changes
-2.  Add a `.only` on the test case you want to check and push the commit
-3.  Wait for the `100` runs to finish
-4.  Check the result on the PR status. If there is still a flake `continuous-integration/jenkins/pr-head` should be red.
-
-If you want to test more runs you can change the number in `Jenkinsfile.reruns`.
-
 ## System Testing
 
 At the System Test level, you want to guarantee that your project works on the
@@ -481,47 +432,13 @@ Before you start, please make sure you are configured against a new and empty cl
 We need a real cluster to work with and the tests are going to make changes to that cluster.
 We also need to run these commands (replacing the cluster url with a real one):
 
-```
-export CLUSTER_URL=http://example-cluster.com
-export PROXY_PORT="4200"
-export URLPREFIX="${CLUSTER_URL}/acs/api/v1";
-export CLUSTER_AUTH_INFO=$(echo '{"uid": "bootstrapuser", "description": "Bootstrap superuser", "is_remote": false}' | base64);
-export CLUSTER_AUTH_TOKEN=$(curl -s --insecure -X POST  --header "Content-Type: application/json" --data '{"uid": "bootstrapuser", "password": "deleteme"}' ${URLPREFIX}/auth/login | jq -r .token)
-```
-
-#### Without Plugins
-
 Run DC/OS UI in testing mode (you have to close `npm start`).
 
 ```sh
-npm config delete externalplugins
 npm start
-# In a different shell
-npm run test:system
-```
 
-#### With Plugins
-
-```sh
-npm config set externalplugins <path>
-npm run test:system:plugins:setup
-npm start
-# In a different shell
-npm run test:system
-```
-
-#### Running a single system test
-
-To run a single system test, run the following command, where `Filename` is replaced by the name of the system test you want to run, without `-cy` or `.js`.
-
-```
-npm run test:system -- -s Filename -hn
-```
-
-Example for running `../system-tests/services/test-jobs-cy.js`:
-
-```
-npm run test:system -- -s "test-jobs" -hn
+# in another shell
+CLUSTER_URL=http://example-cluster.com npm run test:system:local
 ```
 
 ## i18n
