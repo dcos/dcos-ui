@@ -35,6 +35,12 @@ import { Overlay } from "#SRC/js/structs/Overlay";
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
 class NetworkingFormSection extends mixin(StoreMixin) {
+  static propTypes = {
+    data: PropTypes.object,
+    errors: PropTypes.object,
+    onAddItem: PropTypes.func,
+    onRemoveItem: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
 
@@ -739,13 +745,6 @@ NetworkingFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-NetworkingFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func
 };
 
 NetworkingFormSection.configReducers = {

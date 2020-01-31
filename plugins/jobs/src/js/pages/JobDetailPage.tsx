@@ -21,6 +21,17 @@ import JobDelete from "../JobDelete";
 import jobsMenu from "../jobsMenu";
 
 class JobDetailPage extends React.Component<{ currentTab: string; job: Job }> {
+  static propTypes = {
+    children: PropTypes.any,
+    closeDialog: PropTypes.func,
+    handleEditButtonClick: PropTypes.func.isRequired,
+    handleDestroyButtonClick: PropTypes.func.isRequired,
+    onJobDeleteSuccess: PropTypes.func.isRequired,
+    job: PropTypes.shape({
+      json: PropTypes.string.isRequired
+    }),
+    jobActionDialog: PropTypes.any
+  };
   constructor(props) {
     super(props);
     this.renderBreadcrumbStates = this.renderBreadcrumbStates.bind(this);
@@ -119,18 +130,6 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: Job }> {
 
 JobDetailPage.contextTypes = {
   router: routerShape
-};
-
-JobDetailPage.propTypes = {
-  children: PropTypes.any,
-  closeDialog: PropTypes.func,
-  handleEditButtonClick: PropTypes.func.isRequired,
-  handleDestroyButtonClick: PropTypes.func.isRequired,
-  onJobDeleteSuccess: PropTypes.func.isRequired,
-  job: PropTypes.shape({
-    json: PropTypes.string.isRequired
-  }),
-  jobActionDialog: PropTypes.any
 };
 
 export default JobDetailPage;

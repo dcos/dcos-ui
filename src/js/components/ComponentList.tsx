@@ -6,6 +6,11 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class ComponentList extends React.PureComponent {
+  static propTypes = {
+    displayCount: PropTypes.number,
+    // Required object of type HealthUnitsList.
+    units: PropTypes.object.isRequired
+  };
   getComponentListContent(units) {
     return units.map(unit => {
       const health = unit.getHealth();
@@ -127,12 +132,6 @@ class ComponentList extends React.PureComponent {
 
 ComponentList.defaultProps = {
   displayCount: 0
-};
-
-ComponentList.propTypes = {
-  displayCount: PropTypes.number,
-  // Required object of type HealthUnitsList.
-  units: PropTypes.object.isRequired
 };
 
 export default ComponentList;

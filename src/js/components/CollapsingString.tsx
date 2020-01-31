@@ -6,6 +6,19 @@ import ReactDOM from "react-dom";
 import DOMUtils from "../utils/DOMUtils";
 
 class CollapsingString extends React.Component {
+  static propTypes = {
+    // The number of characters to keep visible at the end of the string.
+    endLength: PropTypes.number,
+    fullStringClassName: PropTypes.string,
+    // The selector for the parent whose width should be referenced. By default,
+    // the node's direct parent will be used.
+    parentSelector: PropTypes.string,
+    string: PropTypes.string.isRequired,
+    truncatedStringEndClassName: PropTypes.string,
+    truncatedStringStartClassName: PropTypes.string,
+    truncatedWrapperClassName: PropTypes.string,
+    wrapperClassName: PropTypes.string
+  };
   constructor(...args) {
     super(...args);
 
@@ -160,20 +173,6 @@ CollapsingString.defaultProps = {
   truncatedStringStartClassName: "collapsing-string-truncated-start",
   truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
   wrapperClassName: "collapsing-string"
-};
-
-CollapsingString.propTypes = {
-  // The number of characters to keep visible at the end of the string.
-  endLength: PropTypes.number,
-  fullStringClassName: PropTypes.string,
-  // The selector for the parent whose width should be referenced. By default,
-  // the node's direct parent will be used.
-  parentSelector: PropTypes.string,
-  string: PropTypes.string.isRequired,
-  truncatedStringEndClassName: PropTypes.string,
-  truncatedStringStartClassName: PropTypes.string,
-  truncatedWrapperClassName: PropTypes.string,
-  wrapperClassName: PropTypes.string
 };
 
 export default CollapsingString;

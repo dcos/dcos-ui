@@ -16,6 +16,10 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 
 class TaskDetail extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object,
+    routes: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
 
@@ -209,11 +213,6 @@ class TaskDetail extends mixin(StoreMixin) {
 
 TaskDetail.contextTypes = {
   router: routerShape
-};
-
-TaskDetail.propTypes = {
-  params: PropTypes.object,
-  routes: PropTypes.array
 };
 
 export default TaskDetail;

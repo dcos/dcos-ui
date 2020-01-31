@@ -23,6 +23,15 @@ class ServiceDetail extends React.Component<
   { service: ServiceTree },
   { actionDisabledID: null | string; actionDisabledModalOpen: boolean }
 > {
+  static propTypes = {
+    actions: PropTypes.object.isRequired,
+    clearError: PropTypes.func,
+    errors: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired,
+    service: PropTypes.instanceOf(Service).isRequired,
+    children: PropTypes.node
+  };
+
   constructor(a, ...args) {
     super(a, ...args);
 
@@ -280,15 +289,6 @@ ServiceDetail.contextTypes = {
     resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-ServiceDetail.propTypes = {
-  actions: PropTypes.object.isRequired,
-  clearError: PropTypes.func,
-  errors: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired,
-  service: PropTypes.instanceOf(Service).isRequired,
-  children: PropTypes.node
 };
 
 export default ServiceDetail;

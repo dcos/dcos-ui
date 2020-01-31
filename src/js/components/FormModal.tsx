@@ -6,6 +6,24 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 export default class FormModal extends React.Component {
+  static propTypes = {
+    buttonDefinition: PropTypes.array,
+    children: PropTypes.node,
+    contentClasses: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    contentFooter: PropTypes.node,
+    definition: PropTypes.array,
+    disabled: PropTypes.bool,
+    extraFooterContent: PropTypes.node,
+    modalProps: PropTypes.object,
+    onChange: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
+    open: PropTypes.bool
+  };
   constructor() {
     super();
     this.triggerSubmit = () => {};
@@ -150,23 +168,4 @@ FormModal.defaultProps = {
   onClose() {},
   open: false,
   modalProps: {}
-};
-
-FormModal.propTypes = {
-  buttonDefinition: PropTypes.array,
-  children: PropTypes.node,
-  contentClasses: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  contentFooter: PropTypes.node,
-  definition: PropTypes.array,
-  disabled: PropTypes.bool,
-  extraFooterContent: PropTypes.node,
-  modalProps: PropTypes.object,
-  onChange: PropTypes.func,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool
 };

@@ -35,6 +35,12 @@ import HealthCheckUtil from "../../utils/HealthCheckUtil";
 const errorsLens = Objektiv.attr("healthChecks", []);
 
 class HealthChecksFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.object,
+    errors: PropTypes.object,
+    onAddItem: PropTypes.func,
+    onRemoveItem: PropTypes.func
+  };
   getAdvancedSettings(healthCheck, key) {
     if (
       healthCheck.protocol !== COMMAND &&
@@ -547,13 +553,6 @@ HealthChecksFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-HealthChecksFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func
 };
 
 HealthChecksFormSection.configReducers = {

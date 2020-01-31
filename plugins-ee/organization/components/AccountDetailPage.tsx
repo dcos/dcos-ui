@@ -33,6 +33,9 @@ const EXTERNAL_CHANGE_EVENTS = [
 ];
 
 class AccountDetailPage extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object
+  };
   constructor(...args) {
     super(...args);
 
@@ -302,10 +305,6 @@ class AccountDetailPage extends mixin(StoreMixin) {
 
 AccountDetailPage.contextTypes = {
   router: routerShape
-};
-
-AccountDetailPage.propTypes = {
-  params: PropTypes.object
 };
 
 export default AccountDetailPage;

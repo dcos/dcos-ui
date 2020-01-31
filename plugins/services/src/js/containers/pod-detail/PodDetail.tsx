@@ -26,6 +26,10 @@ const STOP = ServiceActionItem.STOP;
 const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
 class PodDetail extends React.Component<{ pod }> {
+  static propTypes = {
+    children: PropTypes.node,
+    pod: PropTypes.instanceOf(Pod)
+  };
   constructor(a, ...args) {
     super(a, ...args);
 
@@ -238,11 +242,6 @@ PodDetail.contextTypes = {
     deleteService: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-PodDetail.propTypes = {
-  children: PropTypes.node,
-  pod: PropTypes.instanceOf(Pod)
 };
 
 export default PodDetail;

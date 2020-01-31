@@ -11,6 +11,10 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
+  static propTypes = {
+    appConfig: PropTypes.object,
+    onEditClick: PropTypes.func
+  };
   getColumns() {
     return [
       {
@@ -83,11 +87,6 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
 PodPlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodPlacementConstraintsConfigSection.propTypes = {
-  appConfig: PropTypes.object,
-  onEditClick: PropTypes.func
 };
 
 export default PodPlacementConstraintsConfigSection;

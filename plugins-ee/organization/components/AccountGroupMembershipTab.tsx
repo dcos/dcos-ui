@@ -16,6 +16,10 @@ import ACLGroupStore from "../submodules/groups/stores/ACLGroupStore";
 import ACLGroupsStore from "../submodules/groups/stores/ACLGroupsStore";
 
 class AccountGroupMembershipTab extends mixin(StoreMixin) {
+  static propTypes = {
+    accountID: PropTypes.string.isRequired,
+    getAccountDetails: PropTypes.func.isRequired
+  };
   constructor() {
     super();
 
@@ -146,10 +150,5 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
     );
   }
 }
-
-AccountGroupMembershipTab.propTypes = {
-  accountID: PropTypes.string.isRequired,
-  getAccountDetails: PropTypes.func.isRequired
-};
 
 export default withI18n()(AccountGroupMembershipTab);

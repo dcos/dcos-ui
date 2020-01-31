@@ -17,6 +17,10 @@ const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => (
 );
 
 export default class ResourceSwitchDropdown extends React.Component {
+  static propTypes = {
+    selectedResource: PropTypes.string.isRequired,
+    onResourceSelectionChange: PropTypes.func.isRequired
+  };
   handleItemSelection(item) {
     if (item.onClick) {
       item.onClick();
@@ -74,8 +78,3 @@ export default class ResourceSwitchDropdown extends React.Component {
     );
   }
 }
-
-ResourceSwitchDropdown.propTypes = {
-  selectedResource: PropTypes.string.isRequired,
-  onResourceSelectionChange: PropTypes.func.isRequired
-};

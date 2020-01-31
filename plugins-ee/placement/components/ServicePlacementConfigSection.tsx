@@ -12,6 +12,10 @@ import RegionConstraintsSection from "./RegionConstraintsSection";
 import ZoneConstraintsSection from "./ZoneConstraintsSection";
 
 class ServicePlacementConfigSection extends React.Component {
+  static propTypes = {
+    appConfig: PropTypes.object,
+    onEditClick: PropTypes.func
+  };
   getConstraints() {
     return this.props.appConfig.constraints || [];
   }
@@ -83,11 +87,6 @@ class ServicePlacementConfigSection extends React.Component {
 
 ServicePlacementConfigSection.defaultProps = {
   appConfig: {}
-};
-
-ServicePlacementConfigSection.propTypes = {
-  appConfig: PropTypes.object,
-  onEditClick: PropTypes.func
 };
 
 export default ServicePlacementConfigSection;

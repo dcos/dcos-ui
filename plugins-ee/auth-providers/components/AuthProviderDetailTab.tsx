@@ -16,6 +16,9 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Util from "#SRC/js/utils/Util";
 
 class AuthProviderDetailTab extends React.Component {
+  static propTypes = {
+    provider: PropTypes.object
+  };
   constructor(...args) {
     super(...args);
 
@@ -129,9 +132,5 @@ class AuthProviderDetailTab extends React.Component {
     );
   }
 }
-
-AuthProviderDetailTab.propTypes = {
-  provider: PropTypes.object
-};
 
 export default AuthProviderDetailTab;

@@ -25,6 +25,9 @@ import PermissionBuilderModal from "./PermissionBuilderModal";
 
 // This component is extended by Accounts and Groups
 class AdvancedACLsTab extends mixin(StoreMixin) {
+  static propTypes = {
+    itemID: PropTypes.string.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -326,10 +329,6 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
 
 AdvancedACLsTab.contextTypes = {
   router: routerShape
-};
-
-AdvancedACLsTab.propTypes = {
-  itemID: PropTypes.string.isRequired
 };
 
 export default AdvancedACLsTab;

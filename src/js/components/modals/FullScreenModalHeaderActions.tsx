@@ -4,6 +4,17 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class FullScreenModalHeaderActions extends React.Component {
+  static propTypes = {
+    actions: PropTypes.arrayOf(
+      PropTypes.shape({
+        className: classProps,
+        clickHandler: PropTypes.func,
+        label: PropTypes.node
+      })
+    ),
+    className: classProps,
+    type: PropTypes.oneOf(["primary", "secondary"]).isRequired
+  };
   getActions() {
     const { actions } = this.props;
 
@@ -50,17 +61,5 @@ const classProps = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-FullScreenModalHeaderActions.propTypes = {
-  actions: PropTypes.arrayOf(
-    PropTypes.shape({
-      className: classProps,
-      clickHandler: PropTypes.func,
-      label: PropTypes.node
-    })
-  ),
-  className: classProps,
-  type: PropTypes.oneOf(["primary", "secondary"]).isRequired
-};
 
 export default FullScreenModalHeaderActions;

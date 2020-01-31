@@ -9,6 +9,12 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class UserEditFormModal extends mixin(StoreMixin) {
+  static propTypes = {
+    account: PropTypes.object,
+    onClose: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -156,12 +162,5 @@ class UserEditFormModal extends mixin(StoreMixin) {
     );
   }
 }
-
-UserEditFormModal.propTypes = {
-  account: PropTypes.object,
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
-};
 
 export default withI18n()(UserEditFormModal);

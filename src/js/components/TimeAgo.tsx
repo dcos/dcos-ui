@@ -9,6 +9,13 @@ const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
 
 export default class TimeAgo extends React.Component {
+  static propTypes = {
+    autoUpdate: PropTypes.bool,
+    className: PropTypes.string,
+    prefix: PropTypes.node,
+    suppressSuffix: PropTypes.bool,
+    time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
+  };
   constructor(...args) {
     super(...args);
 
@@ -79,12 +86,4 @@ export default class TimeAgo extends React.Component {
 TimeAgo.defaultProps = {
   autoUpdate: true,
   suppressSuffix: false
-};
-
-TimeAgo.propTypes = {
-  autoUpdate: PropTypes.bool,
-  className: PropTypes.string,
-  prefix: PropTypes.node,
-  suppressSuffix: PropTypes.bool,
-  time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
 };

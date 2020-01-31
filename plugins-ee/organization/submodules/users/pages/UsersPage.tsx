@@ -38,6 +38,9 @@ const UsersBreadcrumbs = () => {
 };
 
 class UsersPage extends mixin(StoreMixin) {
+  static propTypes = {
+    items: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -142,9 +145,5 @@ class UsersPage extends mixin(StoreMixin) {
     );
   }
 }
-
-UsersPage.propTypes = {
-  items: PropTypes.array.isRequired
-};
 
 export default UsersPage;

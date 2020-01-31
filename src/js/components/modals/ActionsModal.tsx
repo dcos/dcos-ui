@@ -13,6 +13,14 @@ const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
 class ActionsModal extends mixin(StoreMixin) {
+  static propTypes = {
+    action: PropTypes.string.isRequired,
+    actionText: PropTypes.object.isRequired,
+    itemID: PropTypes.string.isRequired,
+    itemType: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    selectedItems: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -253,14 +261,5 @@ class ActionsModal extends mixin(StoreMixin) {
     );
   }
 }
-
-ActionsModal.propTypes = {
-  action: PropTypes.string.isRequired,
-  actionText: PropTypes.object.isRequired,
-  itemID: PropTypes.string.isRequired,
-  itemType: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  selectedItems: PropTypes.array.isRequired
-};
 
 export default ActionsModal;

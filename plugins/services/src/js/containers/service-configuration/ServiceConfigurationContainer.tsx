@@ -8,6 +8,11 @@ import Service from "../../structs/Service";
 import ServiceConfiguration from "./ServiceConfiguration";
 
 class ServiceConfigurationContainer extends React.Component {
+  static propTypes = {
+    onEditClick: PropTypes.func,
+    errors: PropTypes.array,
+    service: PropTypes.instanceOf(Service)
+  };
   UNSAFE_componentWillMount() {
     const { service } = this.props;
 
@@ -43,12 +48,6 @@ class ServiceConfigurationContainer extends React.Component {
 
 ServiceConfigurationContainer.defaultProps = {
   errors: []
-};
-
-ServiceConfigurationContainer.propTypes = {
-  onEditClick: PropTypes.func,
-  errors: PropTypes.array,
-  service: PropTypes.instanceOf(Service)
 };
 
 export default ServiceConfigurationContainer;

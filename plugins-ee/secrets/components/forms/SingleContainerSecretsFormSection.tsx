@@ -27,6 +27,27 @@ function getNewID(data, index = data.length) {
 }
 
 class SingleContainerSecretsFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      secrets: PropTypes.arrayOf(
+        PropTypes.shape({
+          exposures: PropTypes.arrayOf(
+            PropTypes.shape({
+              type: PropTypes.oneOf(["", "file", "envVar"]),
+              value: PropTypes.string
+            })
+          ),
+          key: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
+    }).isRequired,
+    errors: PropTypes.shape({
+      secrets: PropTypes.object
+    }).isRequired,
+    onAddItem: PropTypes.func.isRequired,
+    onRemoveItem: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
 
@@ -216,27 +237,5 @@ class SingleContainerSecretsFormSection extends React.Component {
     );
   }
 }
-
-SingleContainerSecretsFormSection.propTypes = {
-  data: PropTypes.shape({
-    secrets: PropTypes.arrayOf(
-      PropTypes.shape({
-        exposures: PropTypes.arrayOf(
-          PropTypes.shape({
-            type: PropTypes.oneOf(["", "file", "envVar"]),
-            value: PropTypes.string
-          })
-        ),
-        key: PropTypes.string,
-        value: PropTypes.string
-      })
-    )
-  }).isRequired,
-  errors: PropTypes.shape({
-    secrets: PropTypes.object
-  }).isRequired,
-  onAddItem: PropTypes.func.isRequired,
-  onRemoveItem: PropTypes.func.isRequired
-};
 
 export default SingleContainerSecretsFormSection;

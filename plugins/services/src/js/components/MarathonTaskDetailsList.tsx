@@ -13,6 +13,9 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TaskStates from "../constants/TaskStates";
 
 class MarathonTaskDetailsList extends React.Component {
+  static propTypes = {
+    taskID: PropTypes.string.isRequired
+  };
   getTaskPorts(task) {
     const { ports } = task;
     if (!ports || !ports.length) {
@@ -184,9 +187,5 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 }
-
-MarathonTaskDetailsList.propTypes = {
-  taskID: PropTypes.string.isRequired
-};
 
 export default MarathonTaskDetailsList;

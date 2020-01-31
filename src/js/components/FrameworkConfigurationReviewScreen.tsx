@@ -16,6 +16,12 @@ import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 class FrameworkConfigurationReviewScreen extends React.Component {
+  static propTypes = {
+    onEditClick: PropTypes.func.isRequired,
+    frameworkData: PropTypes.object.isRequired,
+    title: PropTypes.string,
+    frameworkMeta: PropTypes.string
+  };
   constructor(props) {
     super(props);
   }
@@ -178,13 +184,6 @@ class FrameworkConfigurationReviewScreen extends React.Component {
 
 FrameworkConfigurationReviewScreen.defaultProps = {
   title: ""
-};
-
-FrameworkConfigurationReviewScreen.propTypes = {
-  onEditClick: PropTypes.func.isRequired,
-  frameworkData: PropTypes.object.isRequired,
-  title: PropTypes.string,
-  frameworkMeta: PropTypes.string
 };
 
 export default FrameworkConfigurationReviewScreen;

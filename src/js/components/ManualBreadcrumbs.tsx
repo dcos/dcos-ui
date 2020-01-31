@@ -14,6 +14,14 @@ const LAST_ITEM_OFFSET = 150; // Difference between scrollWidth and outerWidth
 const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
 class ManualBreadcrumbs extends React.Component {
+  static propTypes = {
+    breadcrumbClasses: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    crumbs: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
 
@@ -193,15 +201,6 @@ class ManualBreadcrumbs extends React.Component {
 
 ManualBreadcrumbs.defaultProps = {
   crumbs: []
-};
-
-ManualBreadcrumbs.propTypes = {
-  breadcrumbClasses: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  crumbs: PropTypes.array
 };
 
 export default ManualBreadcrumbs;

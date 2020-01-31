@@ -20,6 +20,16 @@ import ReactUtil from "../utils/ReactUtil";
  *
  */
 class Mount extends React.Component {
+  static propTypes = {
+    alwaysWrap: PropTypes.bool,
+    limit: PropTypes.number,
+    children: PropTypes.oneOfType([
+      PropTypes.arrayOf(PropTypes.node),
+      PropTypes.node
+    ]),
+    type: PropTypes.string.isRequired,
+    wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+  };
   constructor(props) {
     super(props);
 
@@ -88,17 +98,6 @@ Mount.defaultProps = {
   alwaysWrap: false,
   limit: Number.MAX_SAFE_INTEGER,
   wrapper: "div"
-};
-
-Mount.propTypes = {
-  alwaysWrap: PropTypes.bool,
-  limit: PropTypes.number,
-  children: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  type: PropTypes.string.isRequired,
-  wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
 };
 
 export default Mount;

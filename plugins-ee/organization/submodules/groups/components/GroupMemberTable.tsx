@@ -14,6 +14,10 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import ACLGroupStore from "../stores/ACLGroupStore";
 
 class GroupMemberTable extends mixin(StoreMixin) {
+  static propTypes = {
+    accountType: PropTypes.string.isRequired,
+    groupID: PropTypes.string.isRequired
+  };
   constructor() {
     super();
 
@@ -211,10 +215,5 @@ class GroupMemberTable extends mixin(StoreMixin) {
     );
   }
 }
-
-GroupMemberTable.propTypes = {
-  accountType: PropTypes.string.isRequired,
-  groupID: PropTypes.string.isRequired
-};
 
 export default withI18n()(GroupMemberTable);

@@ -20,6 +20,15 @@ const ACTION_DISPLAY_NAMES_CONTINUOUS = {
 };
 
 class KillTaskModal extends React.PureComponent {
+  static propTypes = {
+    action: PropTypes.string,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    killTasks: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    selectedItems: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
 
@@ -168,16 +177,6 @@ KillTaskModal.defaultProps = {
   action: "restart",
   killTasks: () => {},
   selectedItems: []
-};
-
-KillTaskModal.propTypes = {
-  action: PropTypes.string,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  killTasks: PropTypes.func,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  selectedItems: PropTypes.array
 };
 
 export default withI18n()(KillTaskModal);

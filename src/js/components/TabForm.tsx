@@ -10,6 +10,19 @@ import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
 
 class TabForm extends React.Component {
+  static propTypes = {
+    className: classPropType,
+    defaultTab: PropTypes.string,
+    definition: PropTypes.object.isRequired,
+    formContentClassNames: classPropType,
+    formRowClass: classPropType,
+    getTriggerSubmit: PropTypes.func,
+    navigationContentClassNames: classPropType,
+    onError: PropTypes.func,
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    onTabClick: PropTypes.func
+  };
   constructor() {
     super();
 
@@ -216,19 +229,5 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-TabForm.propTypes = {
-  className: classPropType,
-  defaultTab: PropTypes.string,
-  definition: PropTypes.object.isRequired,
-  formContentClassNames: classPropType,
-  formRowClass: classPropType,
-  getTriggerSubmit: PropTypes.func,
-  navigationContentClassNames: classPropType,
-  onError: PropTypes.func,
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  onTabClick: PropTypes.func
-};
 
 export default TabForm;

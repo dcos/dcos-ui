@@ -21,6 +21,11 @@ const EXPRESSION_PARTS = {
 };
 
 class FuzzyTextDSLSection extends React.Component {
+  static propTypes = {
+    onApply: PropTypes.func,
+    onChange: PropTypes.func.isRequired,
+    expression: PropTypes.instanceOf(DSLExpression).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -103,11 +108,5 @@ class FuzzyTextDSLSection extends React.Component {
     );
   }
 }
-
-FuzzyTextDSLSection.propTypes = {
-  onApply: PropTypes.func,
-  onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
-};
 
 export default withI18n()(FuzzyTextDSLSection);

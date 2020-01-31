@@ -10,6 +10,12 @@ import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
  * filtering function when there is a change.
  */
 class DSLFilterField extends React.Component {
+  static propTypes = {
+    expression: PropTypes.instanceOf(DSLExpression).isRequired,
+    filters: PropTypes.instanceOf(Array).isRequired,
+    formSections: PropTypes.array,
+    onChange: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
 
@@ -125,13 +131,6 @@ class DSLFilterField extends React.Component {
 DSLFilterField.defaultProps = {
   formSections: [],
   onChange() {}
-};
-
-DSLFilterField.propTypes = {
-  expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  filters: PropTypes.instanceOf(Array).isRequired,
-  formSections: PropTypes.array,
-  onChange: PropTypes.func
 };
 
 export default DSLFilterField;

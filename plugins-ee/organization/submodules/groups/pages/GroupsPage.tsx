@@ -39,6 +39,9 @@ const GroupsBreadcrumbs = () => {
 };
 
 class GroupsPage extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object
+  };
   constructor(...args) {
     super(...args);
 
@@ -168,10 +171,6 @@ class GroupsPage extends mixin(StoreMixin) {
     );
   }
 }
-
-GroupsPage.propTypes = {
-  params: PropTypes.object
-};
 
 GroupsPage.routeConfig = {
   label: i18nMark("Groups"),

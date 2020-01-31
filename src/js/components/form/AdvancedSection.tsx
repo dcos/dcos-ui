@@ -6,6 +6,16 @@ import AdvancedSectionContent from "./AdvancedSectionContent";
 import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
 class AdvancedSection extends React.Component {
+  static propTypes = {
+    initialIsExpanded: PropTypes.bool,
+    children: PropTypes.node,
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    shouldExpand: PropTypes.bool
+  };
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.shouldExpand) {
       return { isExpanded: true };
@@ -44,16 +54,5 @@ class AdvancedSection extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-AdvancedSection.propTypes = {
-  initialIsExpanded: PropTypes.bool,
-  children: PropTypes.node,
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  shouldExpand: PropTypes.bool
-};
 
 export default AdvancedSection;

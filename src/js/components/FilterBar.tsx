@@ -2,6 +2,12 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class FilterBar extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    rightAlignLastNChildren: PropTypes.number,
+    leftChildrenClass: PropTypes.string,
+    rightChildrenClass: PropTypes.string
+  };
   getFilterBarLeft(filterItems, rightAlignCount) {
     if (filterItems.length === rightAlignCount) {
       return null;
@@ -51,13 +57,6 @@ class FilterBar extends React.PureComponent {
     );
   }
 }
-
-FilterBar.propTypes = {
-  className: PropTypes.string,
-  rightAlignLastNChildren: PropTypes.number,
-  leftChildrenClass: PropTypes.string,
-  rightChildrenClass: PropTypes.string
-};
 
 FilterBar.defaultProps = {
   className: "filter-bar",

@@ -2,6 +2,9 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class ClickToSelect extends React.Component {
+  static propTypes = {
+    children: PropTypes.any
+  };
   constructor() {
     super();
     this.nodeRef = React.createRef();
@@ -27,9 +30,5 @@ class ClickToSelect extends React.Component {
     );
   }
 }
-
-ClickToSelect.propTypes = {
-  children: PropTypes.any
-};
 
 export default ClickToSelect;

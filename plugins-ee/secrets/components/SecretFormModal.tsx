@@ -92,6 +92,11 @@ const browserSupportsFileApi = (() => {
 })();
 
 class SecretFormModal extends mixin(StoreMixin) {
+  static propTypes = {
+    secret: PropTypes.object,
+    onClose: PropTypes.func,
+    open: PropTypes.bool
+  };
   constructor(...args) {
     super(...args);
 
@@ -598,12 +603,6 @@ SecretFormModal.defaultProps = {
   secret: {},
   onClose() {},
   open: false
-};
-
-SecretFormModal.propTypes = {
-  secret: PropTypes.object,
-  onClose: PropTypes.func,
-  open: PropTypes.bool
 };
 
 export default withI18n()(SecretFormModal);

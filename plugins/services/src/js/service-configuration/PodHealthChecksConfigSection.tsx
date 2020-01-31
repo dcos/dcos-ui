@@ -44,6 +44,10 @@ const COMMON_COLUMNS = [
 ];
 
 class PodHealthChecksConfigSection extends React.Component {
+  static propTypes = {
+    appConfig: PropTypes.object,
+    onEditClick: PropTypes.func
+  };
   getCommandColumns() {
     return [
       {
@@ -196,11 +200,6 @@ class PodHealthChecksConfigSection extends React.Component {
 
 PodHealthChecksConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodHealthChecksConfigSection.propTypes = {
-  appConfig: PropTypes.object,
-  onEditClick: PropTypes.func
 };
 
 export default PodHealthChecksConfigSection;

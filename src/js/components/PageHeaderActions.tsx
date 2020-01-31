@@ -25,6 +25,17 @@ const getDropdownAction = (action, index) => {
 };
 
 class PageHeaderActions extends React.Component {
+  static propTypes = {
+    addButton: PropTypes.oneOfType([
+      PropTypes.arrayOf(menuActionsProps),
+      menuActionsProps
+    ]),
+    actions: PropTypes.arrayOf(
+      PropTypes.oneOfType([PropTypes.node, menuActionsProps])
+    ),
+    supplementalContent: PropTypes.node,
+    actionsDisabled: PropTypes.bool
+  };
   renderActionsMenu() {
     const { actions, actionsDisabled } = this.props;
 
@@ -109,17 +120,5 @@ const menuActionsProps = PropTypes.shape({
   onItemSelect: PropTypes.func.isRequired,
   label: PropTypes.node.isRequired
 });
-
-PageHeaderActions.propTypes = {
-  addButton: PropTypes.oneOfType([
-    PropTypes.arrayOf(menuActionsProps),
-    menuActionsProps
-  ]),
-  actions: PropTypes.arrayOf(
-    PropTypes.oneOfType([PropTypes.node, menuActionsProps])
-  ),
-  supplementalContent: PropTypes.node,
-  actionsDisabled: PropTypes.bool
-};
 
 export default PageHeaderActions;

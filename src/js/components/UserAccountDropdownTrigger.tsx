@@ -4,6 +4,11 @@ import * as React from "react";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
+  static propTypes = {
+    content: PropTypes.string.isRequired,
+    onUpdate: PropTypes.func,
+    onTrigger: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
 
@@ -30,9 +35,3 @@ export default class UserAccountDropdownTrigger extends mixin(StoreMixin) {
     );
   }
 }
-
-UserAccountDropdownTrigger.propTypes = {
-  content: PropTypes.string.isRequired,
-  onUpdate: PropTypes.func,
-  onTrigger: PropTypes.func
-};

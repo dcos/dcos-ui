@@ -28,6 +28,9 @@ const JobsCronTooltip = React.lazy(() =>
 
 // TODO: DCOS-38858
 export default class JobsOverviewTable extends React.Component {
+  static propTypes = {
+    data: PropTypes.object.isRequired // JobConnection
+  };
   constructor() {
     super();
   }
@@ -329,7 +332,3 @@ export default class JobsOverviewTable extends React.Component {
     );
   }
 }
-
-JobsOverviewTable.propTypes = {
-  data: PropTypes.object.isRequired // JobConnection
-};

@@ -21,6 +21,16 @@ const ACTION_DISPLAY_NAMES_CONTINUOUS = {
 };
 
 class KillPodInstanceModal extends React.PureComponent {
+  static propTypes = {
+    action: PropTypes.string,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    killPodInstances: PropTypes.func,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    pod: PropTypes.instanceOf(Pod),
+    selectedItems: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
 
@@ -172,17 +182,6 @@ KillPodInstanceModal.defaultProps = {
   killPodInstances: () => {},
   pod: new Pod(),
   selectedItems: []
-};
-
-KillPodInstanceModal.propTypes = {
-  action: PropTypes.string,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  killPodInstances: PropTypes.func,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  pod: PropTypes.instanceOf(Pod),
-  selectedItems: PropTypes.array
 };
 
 export default withI18n()(KillPodInstanceModal);

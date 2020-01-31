@@ -15,6 +15,10 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class NodesTaskDetailPage extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object,
+    routes: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
 
@@ -69,10 +73,5 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-NodesTaskDetailPage.propTypes = {
-  params: PropTypes.object,
-  routes: PropTypes.array
-};
 
 export default withNode(NodesTaskDetailPage);

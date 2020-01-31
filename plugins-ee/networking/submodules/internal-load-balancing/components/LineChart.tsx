@@ -7,6 +7,11 @@ import * as React from "react";
 import Units from "#SRC/js/utils/Units";
 
 class LineChart extends React.Component {
+  static propTypes = {
+    labels: PropTypes.array.isRequired,
+    data: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
+    chartOptions: PropTypes.object
+  };
   constructor() {
     super();
 
@@ -203,12 +208,6 @@ class LineChart extends React.Component {
     );
   }
 }
-
-LineChart.propTypes = {
-  labels: PropTypes.array.isRequired,
-  data: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
-  chartOptions: PropTypes.object
-};
 
 LineChart.defaultProps = {
   chartOptions: {

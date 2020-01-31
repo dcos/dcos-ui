@@ -10,6 +10,9 @@ import ServiceItemNotFound from "../../components/ServiceItemNotFound";
 import PodVolumeDetail from "./PodVolumeDetail";
 
 class PodVolumeContainer extends React.Component {
+  static propTypes = {
+    params: PropTypes.object.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -78,9 +81,5 @@ class PodVolumeContainer extends React.Component {
     return <PodVolumeDetail service={service} volume={volume} />;
   }
 }
-
-PodVolumeContainer.propTypes = {
-  params: PropTypes.object.isRequired
-};
 
 export default PodVolumeContainer;

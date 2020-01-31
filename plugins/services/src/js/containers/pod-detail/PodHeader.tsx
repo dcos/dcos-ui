@@ -13,6 +13,14 @@ import Pod from "../../structs/Pod";
 import PodActionItem from "../../constants/PodActionItem";
 
 class PodHeader extends React.Component {
+  static propTypes = {
+    onDestroy: PropTypes.func,
+    onEdit: PropTypes.func,
+    onScale: PropTypes.func,
+    onStop: PropTypes.func,
+    pod: PropTypes.instanceOf(Pod).isRequired,
+    tabs: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
   }
@@ -172,15 +180,6 @@ PodHeader.defaultProps = {
   onStop() {},
   pod: null,
   tabs: []
-};
-
-PodHeader.propTypes = {
-  onDestroy: PropTypes.func,
-  onEdit: PropTypes.func,
-  onScale: PropTypes.func,
-  onStop: PropTypes.func,
-  pod: PropTypes.instanceOf(Pod).isRequired,
-  tabs: PropTypes.array
 };
 
 export default PodHeader;

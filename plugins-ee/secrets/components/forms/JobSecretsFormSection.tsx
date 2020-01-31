@@ -19,6 +19,26 @@ import JobSecret from "./JobSecret";
 const SecretStore = getSecretStore();
 
 class JobSecretsFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      secrets: PropTypes.arrayOf(
+        PropTypes.shape({
+          exposureType: PropTypes.string,
+          exposureValue: PropTypes.string,
+          key: PropTypes.string,
+          secretPath: PropTypes.string
+        })
+      )
+    }).isRequired,
+    errors: PropTypes.arrayOf(
+      PropTypes.shape({
+        message: PropTypes.string,
+        path: PropTypes.arrayOf(PropTypes.string)
+      })
+    ),
+    onAddItem: PropTypes.func.isRequired,
+    onRemoveItem: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
 
@@ -149,26 +169,5 @@ class JobSecretsFormSection extends React.Component {
     );
   }
 }
-
-JobSecretsFormSection.propTypes = {
-  data: PropTypes.shape({
-    secrets: PropTypes.arrayOf(
-      PropTypes.shape({
-        exposureType: PropTypes.string,
-        exposureValue: PropTypes.string,
-        key: PropTypes.string,
-        secretPath: PropTypes.string
-      })
-    )
-  }).isRequired,
-  errors: PropTypes.arrayOf(
-    PropTypes.shape({
-      message: PropTypes.string,
-      path: PropTypes.arrayOf(PropTypes.string)
-    })
-  ),
-  onAddItem: PropTypes.func.isRequired,
-  onRemoveItem: PropTypes.func.isRequired
-};
 
 export default JobSecretsFormSection;

@@ -8,6 +8,17 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class NestedServiceLinks extends React.Component {
+  static propTypes = {
+    serviceLink: PropTypes.string.isRequired,
+    serviceID: PropTypes.string.isRequired,
+    // Classes
+    className: classPropType,
+    majorLinkAnchorClassName: classPropType,
+    majorLinkClassName: classPropType,
+    minorLinkAnchorClassName: classPropType,
+    minorLinkClassName: classPropType,
+    minorLinkWrapperClassName: classPropType
+  };
   getMinorLink(label, id, key, minorLinkClasses, minorLinkAnchorClasses) {
     return (
       <div key={key} className="table-cell-value">
@@ -149,17 +160,5 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-NestedServiceLinks.propTypes = {
-  serviceLink: PropTypes.string.isRequired,
-  serviceID: PropTypes.string.isRequired,
-  // Classes
-  className: classPropType,
-  majorLinkAnchorClassName: classPropType,
-  majorLinkClassName: classPropType,
-  minorLinkAnchorClassName: classPropType,
-  minorLinkClassName: classPropType,
-  minorLinkWrapperClassName: classPropType
-};
 
 export default NestedServiceLinks;

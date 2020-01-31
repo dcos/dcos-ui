@@ -13,6 +13,14 @@ import Highlight from "./Highlight";
 const CONTAINER_OFFSET_HEIGHT = 25;
 
 class LogView extends React.Component {
+  static propTypes = {
+    hasLoadedTop: PropTypes.bool,
+    highlightText: PropTypes.string,
+    fetchPreviousLogs: PropTypes.func,
+    onCountChange: PropTypes.func,
+    logName: PropTypes.string,
+    watching: PropTypes.number
+  };
   constructor(...args) {
     super(...args);
 
@@ -301,15 +309,6 @@ LogView.defaultProps = {
   highlightText: "",
   fetchPreviousLogs() {},
   onCountChange() {}
-};
-
-LogView.propTypes = {
-  hasLoadedTop: PropTypes.bool,
-  highlightText: PropTypes.string,
-  fetchPreviousLogs: PropTypes.func,
-  onCountChange: PropTypes.func,
-  logName: PropTypes.string,
-  watching: PropTypes.number
 };
 
 export default LogView;

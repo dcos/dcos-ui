@@ -8,6 +8,16 @@ import ConfigurationMapSection from "./ConfigurationMapSection";
 import ConfigurationMapValue from "./ConfigurationMapValue";
 
 class HashMapDisplay extends React.PureComponent {
+  static propTypes = {
+    headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
+    headlineClassName: PropTypes.string,
+    headline: PropTypes.node,
+    hash: PropTypes.object,
+    // Optional object with keys consisting of keys in `props.hash` to be
+    // replaced, and with corresponding values of the replacement to be rendered.
+    renderKeys: PropTypes.object,
+    emptyValue: PropTypes.string
+  };
   constructor(...args) {
     super(...args);
   }
@@ -122,17 +132,6 @@ class HashMapDisplay extends React.PureComponent {
 HashMapDisplay.defaultProps = {
   headingLevel: 1,
   renderKeys: {}
-};
-
-HashMapDisplay.propTypes = {
-  headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
-  headlineClassName: PropTypes.string,
-  headline: PropTypes.node,
-  hash: PropTypes.object,
-  // Optional object with keys consisting of keys in `props.hash` to be
-  // replaced, and with corresponding values of the replacement to be rendered.
-  renderKeys: PropTypes.object,
-  emptyValue: PropTypes.string
 };
 
 export default HashMapDisplay;

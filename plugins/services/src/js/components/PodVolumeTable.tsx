@@ -11,6 +11,11 @@ import { profileFromVolume } from "../constants/VolumeProfile";
 import VolumeDefinitions from "../constants/VolumeDefinitions";
 
 class PodVolumeTable extends React.Component {
+  static propTypes = {
+    volumes: PropTypes.array,
+    params: PropTypes.object.isRequired,
+    routes: PropTypes.array.isRequired
+  };
   constructor() {
     super();
   }
@@ -184,11 +189,5 @@ class PodVolumeTable extends React.Component {
     );
   }
 }
-
-PodVolumeTable.propTypes = {
-  volumes: PropTypes.array,
-  params: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
-};
 
 export default PodVolumeTable;

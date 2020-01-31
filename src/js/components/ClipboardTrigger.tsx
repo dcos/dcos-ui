@@ -12,6 +12,13 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class ClipboardTrigger extends React.Component {
+  static propTypes = {
+    children: PropTypes.node,
+    className: PropTypes.string,
+    copyText: PropTypes.string,
+    onTextCopy: PropTypes.func,
+    useTooltip: PropTypes.bool
+  };
   constructor() {
     super();
 
@@ -96,13 +103,5 @@ class ClipboardTrigger extends React.Component {
     return this.getTriggerContent();
   }
 }
-
-ClipboardTrigger.propTypes = {
-  children: PropTypes.node,
-  className: PropTypes.string,
-  copyText: PropTypes.string,
-  onTextCopy: PropTypes.func,
-  useTooltip: PropTypes.bool
-};
 
 export default ClipboardTrigger;
