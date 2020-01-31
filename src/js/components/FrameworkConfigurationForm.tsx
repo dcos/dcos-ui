@@ -54,6 +54,27 @@ MountService.MountService.registerComponent(
 );
 
 class FrameworkConfigurationForm extends React.Component {
+  static propTypes = {
+    packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
+    jsonEditorActive: PropTypes.bool.isRequired,
+    formData: PropTypes.object.isRequired,
+    formErrors: PropTypes.object.isRequired,
+    focusField: PropTypes.string.isRequired,
+    activeTab: PropTypes.string.isRequired,
+    onFormDataChange: PropTypes.func.isRequired,
+    onFormErrorChange: PropTypes.func.isRequired,
+    onFormSubmit: PropTypes.func.isRequired,
+    handleActiveTabChange: PropTypes.func.isRequired,
+    handleFocusFieldChange: PropTypes.func.isRequired,
+    defaultConfigWarning: PropTypes.string,
+
+    // Will be populated with a reference to the form submit button in order
+    // to enable the form to be controlled externally
+    //
+    // See https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
+    submitRef: PropTypes.func,
+    liveValidate: PropTypes.bool
+  };
   constructor(props) {
     super(props);
 
@@ -395,28 +416,6 @@ FrameworkConfigurationForm.defaultProps = {
   deployErrors: null,
   submitRef: () => {},
   liveValidate: false
-};
-
-FrameworkConfigurationForm.propTypes = {
-  packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
-  jsonEditorActive: PropTypes.bool.isRequired,
-  formData: PropTypes.object.isRequired,
-  formErrors: PropTypes.object.isRequired,
-  focusField: PropTypes.string.isRequired,
-  activeTab: PropTypes.string.isRequired,
-  onFormDataChange: PropTypes.func.isRequired,
-  onFormErrorChange: PropTypes.func.isRequired,
-  onFormSubmit: PropTypes.func.isRequired,
-  handleActiveTabChange: PropTypes.func.isRequired,
-  handleFocusFieldChange: PropTypes.func.isRequired,
-  defaultConfigWarning: PropTypes.string,
-
-  // Will be populated with a reference to the form submit button in order
-  // to enable the form to be controlled externally
-  //
-  // See https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
-  submitRef: PropTypes.func,
-  liveValidate: PropTypes.bool
 };
 
 export default withI18n()(FrameworkConfigurationForm);

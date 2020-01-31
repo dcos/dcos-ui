@@ -20,6 +20,9 @@ import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
+  static propTypes = {
+    task: PropTypes.object
+  };
   getContainerInfo(task) {
     if (task == null || !task.container) {
       return null;
@@ -191,10 +194,6 @@ class TaskDetailsTab extends React.Component {
     );
   }
 }
-
-TaskDetailsTab.propTypes = {
-  task: PropTypes.object
-};
 
 TaskDetailsTab.defaultProps = {
   task: {}

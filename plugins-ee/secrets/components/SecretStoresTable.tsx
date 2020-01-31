@@ -14,6 +14,10 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import TableUtil from "#SRC/js/utils/TableUtil";
 
 class SecretStoresTable extends React.Component {
+  static propTypes = {
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
+    stores: PropTypes.object
+  };
   getColGroup() {
     return (
       <colgroup>
@@ -122,10 +126,5 @@ class SecretStoresTable extends React.Component {
     );
   }
 }
-
-SecretStoresTable.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-  stores: PropTypes.object
-};
 
 export default SecretStoresTable;

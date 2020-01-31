@@ -8,6 +8,11 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 
 class SearchLog extends React.PureComponent {
+  static propTypes = {
+    logFiles: PropTypes.array,
+    actions: PropTypes.node,
+    children: PropTypes.node
+  };
   constructor(...args) {
     super(...args);
 
@@ -145,12 +150,6 @@ class SearchLog extends React.PureComponent {
 
 SearchLog.defaultProps = {
   logFiles: []
-};
-
-SearchLog.propTypes = {
-  logFiles: PropTypes.array,
-  actions: PropTypes.node,
-  children: PropTypes.node
 };
 
 export default withI18n()(SearchLog);

@@ -12,6 +12,17 @@ import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceStopModal extends React.PureComponent {
+  static propTypes = {
+    stopItem: PropTypes.func.isRequired,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ]).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -137,17 +148,5 @@ class ServiceStopModal extends React.PureComponent {
     );
   }
 }
-
-ServiceStopModal.propTypes = {
-  stopItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 export default withI18n()(ServiceStopModal);

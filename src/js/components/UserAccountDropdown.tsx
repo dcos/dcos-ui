@@ -3,6 +3,10 @@ import PropTypes from "prop-types";
 import { Dropdown } from "reactjs-components";
 
 export default class UserAccountDropdown extends React.Component {
+  static propTypes = {
+    menuItems: PropTypes.arrayOf(PropTypes.object),
+    trigger: PropTypes.node
+  };
   handleItemSelection(item) {
     if (item.onClick) {
       item.onClick();
@@ -23,8 +27,3 @@ export default class UserAccountDropdown extends React.Component {
     );
   }
 }
-
-UserAccountDropdown.propTypes = {
-  menuItems: PropTypes.arrayOf(PropTypes.object),
-  trigger: PropTypes.node
-};

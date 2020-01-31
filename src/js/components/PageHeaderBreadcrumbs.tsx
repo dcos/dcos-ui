@@ -10,6 +10,10 @@ import Breadcrumb from "./Breadcrumb";
 import BreadcrumbCaret from "./BreadcrumbCaret";
 
 class PageHeaderBreadcrumbs extends React.Component {
+  static propTypes = {
+    iconID: PropTypes.string.isRequired,
+    breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
+  };
   getCaret(key) {
     return <BreadcrumbCaret key={`caret-${key}`} />;
   }
@@ -69,10 +73,5 @@ class PageHeaderBreadcrumbs extends React.Component {
     return <div className={breadcrumbClasses}>{breadcrumbElements}</div>;
   }
 }
-
-PageHeaderBreadcrumbs.propTypes = {
-  iconID: PropTypes.string.isRequired,
-  breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
-};
 
 export default PageHeaderBreadcrumbs;

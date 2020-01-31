@@ -14,6 +14,13 @@ import DSLExpression from "../structs/DSLExpression";
  * This component synchronizes
  */
 class DSLFormDropdownPanel extends React.Component {
+  static propTypes = {
+    expression: PropTypes.instanceOf(DSLExpression).isRequired,
+    isVisible: PropTypes.bool,
+    onChange: PropTypes.func,
+    onClose: PropTypes.func,
+    sections: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -103,14 +110,6 @@ DSLFormDropdownPanel.defaultProps = {
   isVisible: false,
   onChange() {},
   onClose() {}
-};
-
-DSLFormDropdownPanel.propTypes = {
-  expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  isVisible: PropTypes.bool,
-  onChange: PropTypes.func,
-  onClose: PropTypes.func,
-  sections: PropTypes.array.isRequired
 };
 
 export default DSLFormDropdownPanel;

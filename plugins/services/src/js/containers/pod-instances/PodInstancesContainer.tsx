@@ -31,6 +31,9 @@ import {
 } from "../../constants/ActionTypes";
 
 class PodInstancesContainer extends React.Component {
+  static propTypes = {
+    pod: PropTypes.instanceOf(Pod)
+  };
   constructor(...args) {
     super(...args);
 
@@ -342,10 +345,6 @@ PodInstancesContainer.childContextTypes = {
 
 PodInstancesContainer.contextTypes = {
   router: routerShape
-};
-
-PodInstancesContainer.propTypes = {
-  pod: PropTypes.instanceOf(Pod)
 };
 
 export default PodInstancesContainer;

@@ -9,6 +9,10 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
 class PodContainerTerminationTable extends React.Component {
+  static propTypes = {
+    className: PropTypes.string,
+    containers: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
   }
@@ -102,11 +106,6 @@ PodContainerTerminationTable.defaultProps = {
   className:
     "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
   containers: []
-};
-
-PodContainerTerminationTable.propTypes = {
-  className: PropTypes.string,
-  containers: PropTypes.array.isRequired
 };
 
 export default PodContainerTerminationTable;

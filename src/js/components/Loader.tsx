@@ -44,6 +44,19 @@ const typeMap = {
 };
 
 class Loader extends React.Component {
+  static propTypes = {
+    suppressHorizontalCenter: PropTypes.bool,
+    className: classPropType,
+    flip: PropTypes.oneOf(["horizontal"]),
+    innerClassName: classPropType,
+    size: PropTypes.oneOf(["small", "mini"]),
+    type: PropTypes.oneOf([
+      "ballBeat",
+      "ballScale",
+      "ballSpinFadeLoader",
+      "lineSpinFadeLoader"
+    ])
+  };
   getDivs(length) {
     return Array.from({ length }).map((_, index) => (
       <div className="loader-element" key={index} />
@@ -87,19 +100,5 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-Loader.propTypes = {
-  suppressHorizontalCenter: PropTypes.bool,
-  className: classPropType,
-  flip: PropTypes.oneOf(["horizontal"]),
-  innerClassName: classPropType,
-  size: PropTypes.oneOf(["small", "mini"]),
-  type: PropTypes.oneOf([
-    "ballBeat",
-    "ballScale",
-    "ballSpinFadeLoader",
-    "lineSpinFadeLoader"
-  ])
-};
 
 export default Loader;

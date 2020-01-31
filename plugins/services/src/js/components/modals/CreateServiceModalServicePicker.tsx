@@ -56,6 +56,9 @@ function JSONOption({ columnClasses, onOptionSelect }) {
 const OPTIONS = [JSONOption, MultiContainerOption, SingleContainerOption];
 
 class CreateServiceModalServicePicker extends React.Component {
+  static propTypes = {
+    onServiceSelect: PropTypes.func
+  };
   componentDidMount() {
     OPTIONS.forEach((component, index) => {
       MountService.MountService.registerComponent(
@@ -92,9 +95,5 @@ class CreateServiceModalServicePicker extends React.Component {
     );
   }
 }
-
-CreateServiceModalServicePicker.propTypes = {
-  onServiceSelect: PropTypes.func
-};
 
 export default CreateServiceModalServicePicker;

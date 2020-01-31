@@ -7,6 +7,11 @@ import ACLStore from "../submodules/acl/stores/ACLStore";
 import AdvancedACLsTab from "./AdvancedACLsTab";
 
 class AccountAdvancedACLsTab extends AdvancedACLsTab {
+  static propTypes = {
+    fetchPermissions: PropTypes.func.isRequired,
+    getAccountDetails: PropTypes.func.isRequired,
+    storeListenerName: PropTypes.string.isRequired
+  };
   constructor(props) {
     super(...arguments);
 
@@ -155,11 +160,5 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
     return acls;
   }
 }
-
-AccountAdvancedACLsTab.propTypes = {
-  fetchPermissions: PropTypes.func.isRequired,
-  getAccountDetails: PropTypes.func.isRequired,
-  storeListenerName: PropTypes.string.isRequired
-};
 
 export default AccountAdvancedACLsTab;

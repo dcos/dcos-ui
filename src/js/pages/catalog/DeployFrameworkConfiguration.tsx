@@ -14,6 +14,9 @@ import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class DeployFrameworkConfiguration extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object.isRequired
+  };
   constructor(props) {
     super(props);
 
@@ -142,10 +145,6 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
 DeployFrameworkConfiguration.contextTypes = {
   router: routerShape
-};
-
-DeployFrameworkConfiguration.propTypes = {
-  params: PropTypes.object.isRequired
 };
 
 export default DeployFrameworkConfiguration;

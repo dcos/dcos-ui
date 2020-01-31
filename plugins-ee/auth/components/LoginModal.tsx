@@ -14,6 +14,9 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 const SDK = require("../SDK");
 
 class LoginModal extends mixin(StoreMixin) {
+  static propTypes = {
+    target: PropTypes.string
+  };
   constructor() {
     super();
 
@@ -161,10 +164,6 @@ class LoginModal extends mixin(StoreMixin) {
 
 LoginModal.contextTypes = {
   router: routerShape
-};
-
-LoginModal.propTypes = {
-  target: PropTypes.string
 };
 
 export default withI18n()(LoginModal);

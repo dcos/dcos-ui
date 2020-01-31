@@ -3,6 +3,19 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class FilterButtons extends React.Component {
+  static propTypes = {
+    filters: PropTypes.array,
+    // The key in itemList that is being filtered
+    filterByKey: PropTypes.string,
+    inverseStyle: PropTypes.bool,
+    itemList: PropTypes.array.isRequired,
+    // A function that returns the onClick for a filter button given the filter.
+    onFilterChange: PropTypes.func,
+    // Optional function to generate button text. args: (filter, count)
+    renderButtonContent: PropTypes.func,
+    // The filter in props.filters that is currently selected.
+    selectedFilter: PropTypes.string
+  };
   getCount(items) {
     const counts = {};
 
@@ -76,20 +89,6 @@ FilterButtons.defaultProps = {
   renderButtonContent(title) {
     return title;
   }
-};
-
-FilterButtons.propTypes = {
-  filters: PropTypes.array,
-  // The key in itemList that is being filtered
-  filterByKey: PropTypes.string,
-  inverseStyle: PropTypes.bool,
-  itemList: PropTypes.array.isRequired,
-  // A function that returns the onClick for a filter button given the filter.
-  onFilterChange: PropTypes.func,
-  // Optional function to generate button text. args: (filter, count)
-  renderButtonContent: PropTypes.func,
-  // The filter in props.filters that is currently selected.
-  selectedFilter: PropTypes.string
 };
 
 export default FilterButtons;

@@ -60,6 +60,18 @@ const IS_TYPING_TIMEOUT = 2000;
  *
  */
 class JSONEditor extends React.Component {
+  static propTypes = {
+    errors: PropTypes.array,
+    editorProps: PropTypes.object,
+    height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
+    onBlur: PropTypes.func,
+    onChange: PropTypes.func,
+    onErrorStateChange: PropTypes.func,
+    onFocus: PropTypes.func,
+    onPropertyChange: PropTypes.func,
+    value: PropTypes.object,
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+  };
   constructor(...args) {
     super(...args);
     // Clone the given initial value
@@ -506,19 +518,6 @@ JSONEditor.defaultProps = {
   onPropertyChange() {},
   value: {},
   width: "100%"
-};
-
-JSONEditor.propTypes = {
-  errors: PropTypes.array,
-  editorProps: PropTypes.object,
-  height: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
-  onBlur: PropTypes.func,
-  onChange: PropTypes.func,
-  onErrorStateChange: PropTypes.func,
-  onFocus: PropTypes.func,
-  onPropertyChange: PropTypes.func,
-  value: PropTypes.object,
-  width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default JSONEditor;

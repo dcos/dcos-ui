@@ -20,6 +20,10 @@ import GroupMemberTable from "./GroupMemberTable";
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
 
 class GroupAccountMembershipTab extends mixin(StoreMixin) {
+  static propTypes = {
+    accountType: PropTypes.string,
+    groupID: PropTypes.string
+  };
   constructor() {
     super();
 
@@ -169,10 +173,5 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
     );
   }
 }
-
-GroupAccountMembershipTab.propTypes = {
-  accountType: PropTypes.string,
-  groupID: PropTypes.string
-};
 
 export default withI18n()(GroupAccountMembershipTab);

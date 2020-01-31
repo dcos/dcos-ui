@@ -18,6 +18,10 @@ import { profileFromVolume } from "../../constants/VolumeProfile";
 import VolumeStatus, { statusFromVolume } from "../../constants/VolumeStatus";
 
 class PodVolumeDetail extends React.Component {
+  static propTypes = {
+    service: PropTypes.object.isRequired,
+    volume: PropTypes.object.isRequired
+  };
   getSizeLabel() {
     if (this.props.volume.type === "External") {
       return <Trans render="span">Size (GiB)</Trans>;
@@ -108,10 +112,5 @@ class PodVolumeDetail extends React.Component {
     );
   }
 }
-
-PodVolumeDetail.propTypes = {
-  service: PropTypes.object.isRequired,
-  volume: PropTypes.object.isRequired
-};
 
 export default PodVolumeDetail;

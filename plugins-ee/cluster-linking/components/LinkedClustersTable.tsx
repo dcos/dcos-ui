@@ -10,6 +10,9 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 import TableUtil from "#SRC/js/utils/TableUtil";
 
 class LinkedClustersTable extends React.Component {
+  static propTypes = {
+    clusters: PropTypes.array
+  };
   constructor() {
     super();
   }
@@ -131,9 +134,5 @@ class LinkedClustersTable extends React.Component {
     );
   }
 }
-
-LinkedClustersTable.propTypes = {
-  clusters: PropTypes.array
-};
 
 export default withI18n()(LinkedClustersTable);

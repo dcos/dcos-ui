@@ -20,6 +20,27 @@ import MultiContainerSecret from "./MultiContainerSecret";
 const SecretStore = getSecretStore();
 
 class MultiContainerSecretsFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.shape({
+      secrets: PropTypes.arrayOf(
+        PropTypes.shape({
+          environmentVars: PropTypes.arrayOf(PropTypes.string),
+          key: PropTypes.string,
+          value: PropTypes.string
+        })
+      )
+    }).isRequired,
+    errors: PropTypes.shape({
+      secrets: PropTypes.arrayOf(
+        PropTypes.oneOf([
+          PropTypes.string,
+          PropTypes.shape({ source: PropTypes.string })
+        ])
+      )
+    }).isRequired,
+    onAddItem: PropTypes.func.isRequired,
+    onRemoveItem: PropTypes.func.isRequired
+  };
   constructor(props) {
     super(props);
 
@@ -276,27 +297,5 @@ class MultiContainerSecretsFormSection extends React.Component {
     );
   }
 }
-
-MultiContainerSecretsFormSection.propTypes = {
-  data: PropTypes.shape({
-    secrets: PropTypes.arrayOf(
-      PropTypes.shape({
-        environmentVars: PropTypes.arrayOf(PropTypes.string),
-        key: PropTypes.string,
-        value: PropTypes.string
-      })
-    )
-  }).isRequired,
-  errors: PropTypes.shape({
-    secrets: PropTypes.arrayOf(
-      PropTypes.oneOf([
-        PropTypes.string,
-        PropTypes.shape({ source: PropTypes.string })
-      ])
-    )
-  }).isRequired,
-  onAddItem: PropTypes.func.isRequired,
-  onRemoveItem: PropTypes.func.isRequired
-};
 
 export default MultiContainerSecretsFormSection;

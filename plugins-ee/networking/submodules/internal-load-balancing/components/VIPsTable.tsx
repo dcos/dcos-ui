@@ -28,6 +28,19 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
 ];
 
 class VIPsTable extends React.Component {
+  static propTypes = {
+    vips: PropTypes.arrayOf(
+      PropTypes.shape({
+        vip: PropTypes.string,
+        successLastMinute: PropTypes.number,
+        failLastMinute: PropTypes.number,
+        failurePercent: PropTypes.number,
+        applicationReachabilityPercent: PropTypes.number,
+        machineReachabilityPercent: PropTypes.number,
+        p99Latency: PropTypes.number
+      })
+    )
+  };
   constructor() {
     super();
   }
@@ -195,20 +208,6 @@ class VIPsTable extends React.Component {
 
 VIPsTable.defaultProps = {
   vips: []
-};
-
-VIPsTable.propTypes = {
-  vips: PropTypes.arrayOf(
-    PropTypes.shape({
-      vip: PropTypes.string,
-      successLastMinute: PropTypes.number,
-      failLastMinute: PropTypes.number,
-      failurePercent: PropTypes.number,
-      applicationReachabilityPercent: PropTypes.number,
-      machineReachabilityPercent: PropTypes.number,
-      p99Latency: PropTypes.number
-    })
-  )
 };
 
 export default VIPsTable;

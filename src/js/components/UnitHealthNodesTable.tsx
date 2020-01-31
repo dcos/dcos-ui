@@ -10,6 +10,10 @@ import TableUtil from "../utils/TableUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 
 class UnitHealthNodesTable extends React.Component {
+  static propTypes = {
+    nodes: PropTypes.array.isRequired,
+    params: PropTypes.object
+  };
   constructor() {
     super();
   }
@@ -115,10 +119,5 @@ class UnitHealthNodesTable extends React.Component {
     );
   }
 }
-
-UnitHealthNodesTable.propTypes = {
-  nodes: PropTypes.array.isRequired,
-  params: PropTypes.object
-};
 
 export default UnitHealthNodesTable;

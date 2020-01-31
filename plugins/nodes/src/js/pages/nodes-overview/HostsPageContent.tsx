@@ -35,6 +35,21 @@ const dslFormSections = () => [
 ];
 
 class HostsPageContent extends React.PureComponent {
+  static propTypes = {
+    byServiceFilter: PropTypes.string,
+    filterInputText: PropTypes.node,
+    filteredNodeCount: PropTypes.number.isRequired,
+    handleFilterChange: PropTypes.func.isRequired,
+    hosts: PropTypes.instanceOf(NodesList).isRequired,
+    isFiltering: PropTypes.bool,
+    onFilterChange: PropTypes.func,
+    onResetFilter: PropTypes.func.isRequired,
+    onResourceSelectionChange: PropTypes.func.isRequired,
+    selectedResource: PropTypes.string.isRequired,
+    services: PropTypes.array.isRequired,
+    totalNodeCount: PropTypes.number.isRequired,
+    viewTypeRadioButtons: PropTypes.node.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -223,21 +238,5 @@ class HostsPageContent extends React.PureComponent {
     );
   }
 }
-
-HostsPageContent.propTypes = {
-  byServiceFilter: PropTypes.string,
-  filterInputText: PropTypes.node,
-  filteredNodeCount: PropTypes.number.isRequired,
-  handleFilterChange: PropTypes.func.isRequired,
-  hosts: PropTypes.instanceOf(NodesList).isRequired,
-  isFiltering: PropTypes.bool,
-  onFilterChange: PropTypes.func,
-  onResetFilter: PropTypes.func.isRequired,
-  onResourceSelectionChange: PropTypes.func.isRequired,
-  selectedResource: PropTypes.string.isRequired,
-  services: PropTypes.array.isRequired,
-  totalNodeCount: PropTypes.number.isRequired,
-  viewTypeRadioButtons: PropTypes.node.isRequired
-};
 
 export default withI18n()(HostsPageContent);

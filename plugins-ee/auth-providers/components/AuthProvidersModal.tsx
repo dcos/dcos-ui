@@ -10,6 +10,12 @@ import AuthProvidersModalButtonContents from "./AuthProvidersModalButtonContents
 import AuthProvidersModalForm from "./AuthProvidersModalForm";
 
 class AuthProvidersModal extends React.Component {
+  static propTypes = {
+    onClose: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func,
+    open: PropTypes.bool.isRequired,
+    provider: PropTypes.instanceOf(AuthProvider)
+  };
   constructor(...args) {
     super(...args);
 
@@ -140,12 +146,5 @@ class AuthProvidersModal extends React.Component {
     );
   }
 }
-
-AuthProvidersModal.propTypes = {
-  onClose: PropTypes.func.isRequired,
-  onSubmit: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-  provider: PropTypes.instanceOf(AuthProvider)
-};
 
 export default AuthProvidersModal;

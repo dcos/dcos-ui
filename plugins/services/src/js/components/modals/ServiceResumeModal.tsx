@@ -15,6 +15,17 @@ import ServiceTree from "../../structs/ServiceTree";
 import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
 class ServiceResumeModal extends React.PureComponent {
+  static propTypes = {
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    resumeService: PropTypes.func.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ]).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -174,17 +185,5 @@ class ServiceResumeModal extends React.PureComponent {
     );
   }
 }
-
-ServiceResumeModal.propTypes = {
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  resumeService: PropTypes.func.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 export default withI18n()(ServiceResumeModal);

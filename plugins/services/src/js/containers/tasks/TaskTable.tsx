@@ -42,6 +42,14 @@ const tableColumnClasses = {
 };
 
 class TaskTable extends React.Component {
+  static propTypes = {
+    checkedItemsMap: PropTypes.object,
+    className: PropTypes.string,
+    onCheckboxChange: PropTypes.func,
+    params: PropTypes.object.isRequired,
+    tasks: PropTypes.array.isRequired,
+    i18n: PropTypes.object
+  };
   constructor(props) {
     super(props);
   }
@@ -445,15 +453,6 @@ class TaskTable extends React.Component {
 
 TaskTable.contextTypes = {
   router: routerShape.isRequired
-};
-
-TaskTable.propTypes = {
-  checkedItemsMap: PropTypes.object,
-  className: PropTypes.string,
-  onCheckboxChange: PropTypes.func,
-  params: PropTypes.object.isRequired,
-  tasks: PropTypes.array.isRequired,
-  i18n: PropTypes.object
 };
 
 TaskTable.defaultProps = {

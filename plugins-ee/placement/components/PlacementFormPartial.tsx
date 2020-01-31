@@ -49,6 +49,13 @@ function partitionConstraints(memo, constraint, index) {
 }
 
 export default class PlacementFormPartial extends React.Component {
+  static propTypes = {
+    renderRegion: PropTypes.bool,
+    data: PropTypes.object.isRequired,
+    errors: PropTypes.object,
+    onAddItem: PropTypes.func.isRequired,
+    onRemoveItem: PropTypes.func.isRequired
+  };
   render() {
     const { data, errors, onAddItem, onRemoveItem, renderRegion } = this.props;
 
@@ -125,12 +132,4 @@ export default class PlacementFormPartial extends React.Component {
 PlacementFormPartial.defaultProps = {
   renderRegion: true,
   onRemoveItem: () => {}
-};
-
-PlacementFormPartial.propTypes = {
-  renderRegion: PropTypes.bool,
-  data: PropTypes.object.isRequired,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func.isRequired,
-  onRemoveItem: PropTypes.func.isRequired
 };

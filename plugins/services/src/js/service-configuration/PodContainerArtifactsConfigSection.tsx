@@ -15,6 +15,11 @@ const BOOLEAN_OPTIONS = {
 };
 
 class PodContainerArtifactsConfigSection extends React.Component {
+  static propTypes = {
+    artifacts: PropTypes.array,
+    index: PropTypes.number,
+    onEditClick: PropTypes.func
+  };
   getColumns() {
     return [
       {
@@ -108,12 +113,6 @@ class PodContainerArtifactsConfigSection extends React.Component {
 
 PodContainerArtifactsConfigSection.defaultProps = {
   artifacts: []
-};
-
-PodContainerArtifactsConfigSection.propTypes = {
-  artifacts: PropTypes.array,
-  index: PropTypes.number,
-  onEditClick: PropTypes.func
 };
 
 export default PodContainerArtifactsConfigSection;

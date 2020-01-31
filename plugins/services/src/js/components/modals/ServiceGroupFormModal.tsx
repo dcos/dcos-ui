@@ -8,6 +8,14 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import ServiceValidatorUtil from "../../utils/ServiceValidatorUtil";
 
 class ServiceGroupFormModal extends React.PureComponent {
+  static propTypes = {
+    clearError: PropTypes.func.isRequired,
+    createGroup: PropTypes.func.isRequired,
+    errors: PropTypes.string,
+    isPending: PropTypes.bool.isRequired,
+    parentGroupId: PropTypes.string,
+    onClose: PropTypes.func.isRequired
+  };
   constructor(...args) {
     super(...args);
   }
@@ -119,14 +127,5 @@ class ServiceGroupFormModal extends React.PureComponent {
     );
   }
 }
-
-ServiceGroupFormModal.propTypes = {
-  clearError: PropTypes.func.isRequired,
-  createGroup: PropTypes.func.isRequired,
-  errors: PropTypes.string,
-  isPending: PropTypes.bool.isRequired,
-  parentGroupId: PropTypes.string,
-  onClose: PropTypes.func.isRequired
-};
 
 export default withI18n()(ServiceGroupFormModal);

@@ -5,6 +5,18 @@ import * as React from "react";
 import TabButtonList from "./TabButtonList";
 
 class Tabs extends React.Component {
+  static propTypes = {
+    // Optional variable to set active tab from owner component
+    activeTab: PropTypes.string,
+    children: PropTypes.node.isRequired,
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    handleTabChange: PropTypes.func.isRequired,
+    vertical: PropTypes.bool
+  };
   getChildren() {
     const { props } = this;
 
@@ -28,18 +40,5 @@ class Tabs extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-Tabs.propTypes = {
-  // Optional variable to set active tab from owner component
-  activeTab: PropTypes.string,
-  children: PropTypes.node.isRequired,
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  handleTabChange: PropTypes.func.isRequired,
-  vertical: PropTypes.bool
-};
 
 export default Tabs;

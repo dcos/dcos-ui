@@ -5,6 +5,20 @@ import * as React from "react";
 import CollapsingString from "./CollapsingString";
 
 class DetailViewHeader extends React.Component {
+  static propTypes = {
+    actionButtons: PropTypes.arrayOf(PropTypes.element),
+    icon: PropTypes.node,
+    navigationTabs: PropTypes.node,
+    subTitle: PropTypes.node,
+    title: PropTypes.string,
+
+    className: classPropType,
+    detailViewHeaderClassNames: classPropType,
+    detailViewHeaderContentHeadingClassNames: classPropType,
+    detailViewHeaderContentWrapperClassNames: classPropType,
+    titleClassName: classPropType,
+    iconClassName: classPropType
+  };
   getIcon() {
     const { icon, iconClassName } = this.props;
 
@@ -117,21 +131,6 @@ const classPropType = PropTypes.oneOfType([
 
 DetailViewHeader.defaultProps = {
   actionButtons: []
-};
-
-DetailViewHeader.propTypes = {
-  actionButtons: PropTypes.arrayOf(PropTypes.element),
-  icon: PropTypes.node,
-  navigationTabs: PropTypes.node,
-  subTitle: PropTypes.node,
-  title: PropTypes.string,
-
-  className: classPropType,
-  detailViewHeaderClassNames: classPropType,
-  detailViewHeaderContentHeadingClassNames: classPropType,
-  detailViewHeaderContentWrapperClassNames: classPropType,
-  titleClassName: classPropType,
-  iconClassName: classPropType
 };
 
 export default DetailViewHeader;

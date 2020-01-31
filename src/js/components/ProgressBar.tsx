@@ -56,6 +56,20 @@ const getProgressBarData = memoize(
 );
 
 class ProgressBar extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    total: PropTypes.number,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        className: PropTypes.string,
+        value: PropTypes.number.isRequired
+      })
+    ).isRequired
+  };
   static getDataFromValue(value, className) {
     return getProgressBarData(value, className);
   }
@@ -122,21 +136,6 @@ class ProgressBar extends React.PureComponent {
 
 ProgressBar.defaultProps = {
   total: 0
-};
-
-ProgressBar.propTypes = {
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  total: PropTypes.number,
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      className: PropTypes.string,
-      value: PropTypes.number.isRequired
-    })
-  ).isRequired
 };
 
 export default ProgressBar;

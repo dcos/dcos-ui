@@ -13,6 +13,10 @@ import {
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 class PodLabelsConfigSection extends React.Component {
+  static propTypes = {
+    appConfig: PropTypes.object,
+    onEditClick: PropTypes.func
+  };
   getColumns() {
     return [
       {
@@ -101,11 +105,6 @@ class PodLabelsConfigSection extends React.Component {
 
 PodLabelsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodLabelsConfigSection.propTypes = {
-  appConfig: PropTypes.object,
-  onEditClick: PropTypes.func
 };
 
 export default PodLabelsConfigSection;

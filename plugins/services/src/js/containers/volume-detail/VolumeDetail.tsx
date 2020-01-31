@@ -17,6 +17,10 @@ import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import VolumeStatus, { statusFromVolume } from "../../constants/VolumeStatus";
 
 class VolumeDetail extends React.Component {
+  static propTypes = {
+    service: PropTypes.object.isRequired,
+    volume: PropTypes.object.isRequired
+  };
   getSizeLabel() {
     if (this.props.volume.type === "External") {
       return <Trans render="span">Size (GiB)</Trans>;
@@ -101,10 +105,5 @@ class VolumeDetail extends React.Component {
     );
   }
 }
-
-VolumeDetail.propTypes = {
-  service: PropTypes.object.isRequired,
-  volume: PropTypes.object.isRequired
-};
 
 export default VolumeDetail;

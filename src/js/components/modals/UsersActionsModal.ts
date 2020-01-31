@@ -4,6 +4,13 @@ import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";
 
 class UsersActionsModal extends ActionsModal {
+  static propTypes = {
+    action: PropTypes.string.isRequired,
+    actionText: PropTypes.object.isRequired,
+    itemID: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    selectedItems: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -32,13 +39,5 @@ class UsersActionsModal extends ActionsModal {
     this.setState({ pendingRequest: true, requestErrors: [] });
   }
 }
-
-UsersActionsModal.propTypes = {
-  action: PropTypes.string.isRequired,
-  actionText: PropTypes.object.isRequired,
-  itemID: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  selectedItems: PropTypes.array.isRequired
-};
 
 export default UsersActionsModal;

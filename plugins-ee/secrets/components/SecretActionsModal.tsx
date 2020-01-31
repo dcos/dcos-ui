@@ -19,6 +19,14 @@ const SecretStore = getSecretStore();
 const i18n = container.get(TYPES.I18n);
 
 class SecretActionsModal extends mixin(StoreMixin) {
+  static propTypes = {
+    action: PropTypes.string,
+    itemID: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    onSuccess: PropTypes.func,
+    open: PropTypes.bool.isRequired,
+    selectedItems: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -159,15 +167,6 @@ class SecretActionsModal extends mixin(StoreMixin) {
 
 SecretActionsModal.defaultProps = {
   onSuccess() {}
-};
-
-SecretActionsModal.propTypes = {
-  action: PropTypes.string,
-  itemID: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired,
-  selectedItems: PropTypes.array.isRequired
 };
 
 export default SecretActionsModal;
