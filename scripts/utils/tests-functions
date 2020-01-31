@@ -25,7 +25,7 @@ function executeCypress() {
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
     --spec "${FILE}" \
     --config-file ${CYPRESS_CONFIG_FILE:-"cypress.json"} \
-    --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}"
+    --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}$ADDITIONAL_CYPRESS_CONFIG"
 }
 
 # runs tests for matched file
@@ -47,7 +47,7 @@ function runTestFile() {
 
     if [ -f "$DIR/_scripts/setup" ]; then
       echo "==> Running setup script"
-      TEST_UUID=${TEST_UUID} $DIR/_scripts/setup
+      DCOS_DIR=${DCOS_DIR} TEST_UUID=${TEST_UUID} $DIR/_scripts/setup
     fi
 
     # TODO: env vars for cypress
@@ -60,7 +60,7 @@ function runTestFile() {
 
     if [ -f "$DIR/_scripts/teardown" ]; then
       echo "==> Running teardown script"
-      TEST_UUID=${TEST_UUID} $DIR/_scripts/teardown
+      DCOS_DIR=${DCOS_DIR} TEST_UUID=${TEST_UUID} $DIR/_scripts/teardown
     fi
 
     if [ $EXIT_CODE -eq 0 ]; then
