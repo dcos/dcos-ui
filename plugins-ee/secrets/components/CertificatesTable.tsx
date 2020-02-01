@@ -9,6 +9,9 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
 class CertificatesTable extends React.Component {
+  static propTypes = {
+    certificates: PropTypes.array
+  };
   constructor() {
     super();
   }
@@ -112,9 +115,5 @@ class CertificatesTable extends React.Component {
     );
   }
 }
-
-CertificatesTable.propTypes = {
-  certificates: PropTypes.array
-};
 
 export default CertificatesTable;

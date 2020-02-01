@@ -17,6 +17,10 @@ import Breadcrumbs from "../components/Breadcrumbs";
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
 class JobTaskDetailPage extends React.Component {
+  static propTypes = {
+    params: PropTypes.object,
+    routes: PropTypes.array
+  };
   constructor(...args) {
     super(...args);
     this.state = { mesosStateStoreLoaded: false };
@@ -86,10 +90,5 @@ class JobTaskDetailPage extends React.Component {
     );
   }
 }
-
-JobTaskDetailPage.propTypes = {
-  params: PropTypes.object,
-  routes: PropTypes.array
-};
 
 export default JobTaskDetailPage;

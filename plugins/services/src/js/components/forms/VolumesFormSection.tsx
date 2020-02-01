@@ -34,6 +34,12 @@ const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
 class VolumesFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.object,
+    errors: PropTypes.object,
+    onAddItem: PropTypes.func,
+    onRemoveItem: PropTypes.func
+  };
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== "PERSISTENT") {
       return null;
@@ -471,13 +477,6 @@ VolumesFormSection.defaultProps = {
   errors: {},
   onAddItem() {},
   onRemoveItem() {}
-};
-
-VolumesFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func
 };
 
 VolumesFormSection.configReducers = {

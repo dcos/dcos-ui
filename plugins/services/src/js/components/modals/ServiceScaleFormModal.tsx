@@ -13,6 +13,17 @@ import ServiceTree from "../../structs/ServiceTree";
 import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
 class ServiceScaleFormModal extends React.PureComponent {
+  static propTypes = {
+    scaleItem: PropTypes.func.isRequired,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ]).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -175,17 +186,5 @@ class ServiceScaleFormModal extends React.PureComponent {
     );
   }
 }
-
-ServiceScaleFormModal.propTypes = {
-  scaleItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 export default ServiceScaleFormModal;

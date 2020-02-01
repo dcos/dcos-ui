@@ -22,6 +22,11 @@ import OperatorTypes from "#PLUGINS/services/src/js/constants/OperatorTypes";
 const NBSP = "\u00A0";
 
 class PlacementConstraintsFields extends React.Component {
+  static propTypes = {
+    data: PropTypes.array.isRequired,
+    errors: PropTypes.object,
+    onRemoveItem: PropTypes.func.isRequired
+  };
   getToolTip(fieldValue, content) {
     return (
       <Tooltip
@@ -201,11 +206,5 @@ class PlacementConstraintsFields extends React.Component {
     return <div>{list}</div>;
   }
 }
-
-PlacementConstraintsFields.propTypes = {
-  data: PropTypes.array.isRequired,
-  errors: PropTypes.object,
-  onRemoveItem: PropTypes.func.isRequired
-};
 
 export default withI18n()(PlacementConstraintsFields);

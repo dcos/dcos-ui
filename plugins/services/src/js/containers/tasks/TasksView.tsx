@@ -35,6 +35,12 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class TasksView extends React.Component {
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+    inverseStyle: PropTypes.bool,
+    itemID: PropTypes.string,
+    tasks: PropTypes.array
+  };
   constructor() {
     super();
 
@@ -277,13 +283,6 @@ TasksView.defaultProps = {
   inverseStyle: false,
   itemID: "",
   tasks: []
-};
-
-TasksView.propTypes = {
-  params: PropTypes.object.isRequired,
-  inverseStyle: PropTypes.bool,
-  itemID: PropTypes.string,
-  tasks: PropTypes.array
 };
 
 TasksView.contextTypes = {

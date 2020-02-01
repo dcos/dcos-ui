@@ -13,6 +13,12 @@ import {
 import keyCodes from "../../utils/KeyboardUtil";
 
 class ImageViewerModal extends React.Component {
+  static propTypes = {
+    images: PropTypes.arrayOf(PropTypes.string),
+    onLeftClick: PropTypes.func.isRequired,
+    onRightClick: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -143,13 +149,6 @@ class ImageViewerModal extends React.Component {
 
 ImageViewerModal.defaultProps = {
   images: []
-};
-
-ImageViewerModal.propTypes = {
-  images: PropTypes.arrayOf(PropTypes.string),
-  onLeftClick: PropTypes.func.isRequired,
-  onRightClick: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired
 };
 
 export default ImageViewerModal;

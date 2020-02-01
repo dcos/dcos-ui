@@ -4,6 +4,17 @@ import * as React from "react";
 import ReactDOM from "react-dom";
 
 class Image extends React.Component {
+  static propTypes = {
+    src: PropTypes.string.isRequired,
+    fallbackSrc: PropTypes.string,
+
+    // Classes
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ])
+  };
   constructor(...args) {
     super(...args);
 
@@ -59,17 +70,5 @@ class Image extends React.Component {
     );
   }
 }
-
-Image.propTypes = {
-  src: PropTypes.string.isRequired,
-  fallbackSrc: PropTypes.string,
-
-  // Classes
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ])
-};
 
 export default Image;

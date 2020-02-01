@@ -8,6 +8,16 @@ import isEqual from "lodash.isequal";
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
 class PageHeaderTabs extends React.Component {
+  static propTypes = {
+    tabs: PropTypes.arrayOf(
+      PropTypes.shape({
+        isActive: PropTypes.bool,
+        label: PropTypes.node.isRequired,
+        routePath: PropTypes.string,
+        callback: PropTypes.func
+      })
+    )
+  };
   constructor(...args) {
     super(...args);
   }
@@ -118,17 +128,6 @@ PageHeaderTabs.contextTypes = {
 
 PageHeaderTabs.defaultProps = {
   tabs: []
-};
-
-PageHeaderTabs.propTypes = {
-  tabs: PropTypes.arrayOf(
-    PropTypes.shape({
-      isActive: PropTypes.bool,
-      label: PropTypes.node.isRequired,
-      routePath: PropTypes.string,
-      callback: PropTypes.func
-    })
-  )
 };
 
 export default PageHeaderTabs;

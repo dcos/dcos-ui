@@ -26,6 +26,10 @@ import {
 } from "../../constants/ActionTypes";
 
 class TasksContainer extends React.Component {
+  static propTypes = {
+    tasks: PropTypes.array.isRequired,
+    params: PropTypes.object.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -301,11 +305,6 @@ TasksContainer.childContextTypes = {
 
 TasksContainer.contextTypes = {
   router: routerShape
-};
-
-TasksContainer.propTypes = {
-  tasks: PropTypes.array.isRequired,
-  params: PropTypes.object.isRequired
 };
 
 export default TasksContainer;

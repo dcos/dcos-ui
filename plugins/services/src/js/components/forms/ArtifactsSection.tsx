@@ -16,6 +16,14 @@ import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 class ArtifactsSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        uri: PropTypes.string
+      })
+    ),
+    path: PropTypes.string
+  };
   getArtifactsLabel() {
     const tooltipContent = (
       <Trans render="span">
@@ -115,14 +123,5 @@ class ArtifactsSection extends React.Component {
     );
   }
 }
-
-ArtifactsSection.propTypes = {
-  data: PropTypes.arrayOf(
-    PropTypes.shape({
-      uri: PropTypes.string
-    })
-  ),
-  path: PropTypes.string
-};
 
 export default ArtifactsSection;

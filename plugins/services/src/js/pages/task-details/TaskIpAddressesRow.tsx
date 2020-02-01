@@ -10,6 +10,9 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Pod from "#PLUGINS/services/src/js/structs/Pod";
 
 export default class TaskIpAddressesRow extends React.Component {
+  static propTypes = {
+    taskId: PropTypes.string.isRequired
+  };
   getIPAddressesForTask(service, taskId) {
     if (service instanceof Application) {
       const marathonTask = service.findTaskById(taskId) || { ipAddresses: [] };
@@ -47,7 +50,3 @@ export default class TaskIpAddressesRow extends React.Component {
     );
   }
 }
-
-TaskIpAddressesRow.propTypes = {
-  taskId: PropTypes.string.isRequired
-};

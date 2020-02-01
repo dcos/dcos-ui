@@ -16,6 +16,22 @@ import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
  * the update of the DSL expression based on the part definition given.
  */
 class DSLFormWithExpressionUpdates extends React.Component {
+  static propTypes = {
+    enabled: PropTypes.bool,
+    expression: PropTypes.instanceOf(DSLExpression).isRequired,
+    groupCombiner: PropTypes.oneOf(
+      Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
+    ),
+    itemCombiner: PropTypes.oneOf(
+      Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
+    ),
+    onChange: PropTypes.func,
+    onSubmit: PropTypes.func,
+    parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
+    updatePolicy: PropTypes.oneOf(
+      Object.keys(DSLUpdatePolicy).map(key => DSLUpdatePolicy[key])
+    )
+  };
   constructor(...args) {
     super(...args);
   }
@@ -223,23 +239,6 @@ DSLFormWithExpressionUpdates.defaultProps = {
   onChange() {},
   onSubmit() {},
   updatePolicy: DSLUpdatePolicy.Checkbox
-};
-
-DSLFormWithExpressionUpdates.propTypes = {
-  enabled: PropTypes.bool,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired,
-  groupCombiner: PropTypes.oneOf(
-    Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
-  ),
-  itemCombiner: PropTypes.oneOf(
-    Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
-  ),
-  onChange: PropTypes.func,
-  onSubmit: PropTypes.func,
-  parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
-  updatePolicy: PropTypes.oneOf(
-    Object.keys(DSLUpdatePolicy).map(key => DSLUpdatePolicy[key])
-  )
 };
 
 export default DSLFormWithExpressionUpdates;

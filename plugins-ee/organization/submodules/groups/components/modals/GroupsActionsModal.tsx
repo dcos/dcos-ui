@@ -11,6 +11,13 @@ import Util from "#SRC/js/utils/Util";
 import ACLGroupStore from "../../stores/ACLGroupStore";
 
 class GroupsActionsModal extends ActionsModal {
+  static propTypes = {
+    action: PropTypes.string.isRequired,
+    actionText: PropTypes.object.isRequired,
+    itemID: PropTypes.string.isRequired,
+    onClose: PropTypes.func.isRequired,
+    selectedItems: PropTypes.array.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -99,13 +106,5 @@ class GroupsActionsModal extends ActionsModal {
     return dropdownItems;
   }
 }
-
-GroupsActionsModal.propTypes = {
-  action: PropTypes.string.isRequired,
-  actionText: PropTypes.object.isRequired,
-  itemID: PropTypes.string.isRequired,
-  onClose: PropTypes.func.isRequired,
-  selectedItems: PropTypes.array.isRequired
-};
 
 export default GroupsActionsModal;

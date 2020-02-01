@@ -11,6 +11,10 @@ import Service from "../../structs/Service";
 import TasksContainer from "../tasks/TasksContainer";
 
 class ServiceInstancesContainer extends mixin(StoreMixin) {
+  static propTypes = {
+    service: PropTypes.instanceOf(Service),
+    params: PropTypes.object.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -70,10 +74,5 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-ServiceInstancesContainer.propTypes = {
-  service: PropTypes.instanceOf(Service),
-  params: PropTypes.object.isRequired
-};
 
 export default ServiceInstancesContainer;

@@ -8,6 +8,18 @@ import Util from "../utils/Util";
 const WHITESPACE = "\u00A0";
 
 class ExpandingTable extends React.Component {
+  static propTypes = {
+    alignCells: PropTypes.oneOf(["top", "middle", "bottom"]),
+    childRowClassName: PropTypes.string,
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    expandAll: PropTypes.bool,
+    expandRowsByDefault: PropTypes.bool,
+    tableComponent: PropTypes.func
+  };
   constructor(props) {
     super(props);
 
@@ -148,19 +160,6 @@ ExpandingTable.defaultProps = {
   expandAll: false,
   expandRowsByDefault: false,
   tableComponent: Table
-};
-
-ExpandingTable.propTypes = {
-  alignCells: PropTypes.oneOf(["top", "middle", "bottom"]),
-  childRowClassName: PropTypes.string,
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  expandAll: PropTypes.bool,
-  expandRowsByDefault: PropTypes.bool,
-  tableComponent: PropTypes.func
 };
 
 export default ExpandingTable;

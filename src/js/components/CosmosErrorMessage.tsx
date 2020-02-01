@@ -20,6 +20,14 @@ const REPOSITORY_ERRORS = [
 ];
 
 class CosmosErrorMessage extends React.Component {
+  static propTypes = {
+    error: PropTypes.shape({
+      message: PropTypes.node,
+      type: PropTypes.string,
+      data: PropTypes.object
+    }),
+    flushBottom: PropTypes.bool
+  };
   getMessage() {
     const { error } = this.props;
     if (!error) {
@@ -148,15 +156,6 @@ class CosmosErrorMessage extends React.Component {
 CosmosErrorMessage.defaultProps = {
   error: { message: i18nMark("Please try again.") },
   flushBottom: false
-};
-
-CosmosErrorMessage.propTypes = {
-  error: PropTypes.shape({
-    message: PropTypes.node,
-    type: PropTypes.string,
-    data: PropTypes.object
-  }),
-  flushBottom: PropTypes.bool
 };
 
 export default CosmosErrorMessage;

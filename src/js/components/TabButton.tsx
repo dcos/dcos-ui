@@ -5,6 +5,18 @@ import { Tooltip } from "reactjs-components";
 import { BadgeButton } from "@dcos/ui-kit";
 
 class TabButton extends React.Component {
+  static propTypes = {
+    active: PropTypes.bool,
+    children: PropTypes.node,
+    className: classProps,
+    id: PropTypes.string.isRequired,
+    label: PropTypes.node,
+    labelClassName: classProps,
+    showErrorBadge: PropTypes.bool,
+    count: PropTypes.number,
+    description: PropTypes.node,
+    onClickBadge: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
   }
@@ -89,18 +101,5 @@ const classProps = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-TabButton.propTypes = {
-  active: PropTypes.bool,
-  children: PropTypes.node,
-  className: classProps,
-  id: PropTypes.string.isRequired,
-  label: PropTypes.node,
-  labelClassName: classProps,
-  showErrorBadge: PropTypes.bool,
-  count: PropTypes.number,
-  description: PropTypes.node,
-  onClickBadge: PropTypes.func
-};
 
 export default TabButton;

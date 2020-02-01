@@ -3,6 +3,17 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class TabButtonList extends React.Component {
+  static propTypes = {
+    activeTab: PropTypes.string,
+    children: PropTypes.node,
+    className: PropTypes.oneOfType([
+      PropTypes.array,
+      PropTypes.object,
+      PropTypes.string
+    ]),
+    onChange: PropTypes.func,
+    vertical: PropTypes.bool
+  };
   getChildren() {
     const { activeTab, children, onChange } = this.props;
 
@@ -33,17 +44,5 @@ class TabButtonList extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-TabButtonList.propTypes = {
-  activeTab: PropTypes.string,
-  children: PropTypes.node,
-  className: PropTypes.oneOfType([
-    PropTypes.array,
-    PropTypes.object,
-    PropTypes.string
-  ]),
-  onChange: PropTypes.func,
-  vertical: PropTypes.bool
-};
 
 export default TabButtonList;

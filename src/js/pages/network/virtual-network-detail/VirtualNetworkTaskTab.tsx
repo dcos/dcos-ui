@@ -31,6 +31,9 @@ const headerMapping = {
 const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
+  static propTypes = {
+    overlay: PropTypes.instanceOf(Overlay)
+  };
   constructor(...args) {
     super(...args);
 
@@ -291,10 +294,6 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
 VirtualNetworkTaskTab.contextTypes = {
   router: routerShape
-};
-
-VirtualNetworkTaskTab.propTypes = {
-  overlay: PropTypes.instanceOf(Overlay)
 };
 
 export default withI18n()(VirtualNetworkTaskTab);

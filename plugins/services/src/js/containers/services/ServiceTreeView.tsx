@@ -38,6 +38,21 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class ServiceTreeView extends React.Component {
+  static propTypes = {
+    filters: PropTypes.instanceOf(Array).isRequired,
+    filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
+    isEmpty: PropTypes.bool,
+    children: PropTypes.node,
+    onFilterExpressionChange: PropTypes.func,
+    services: PropTypes.arrayOf(
+      PropTypes.oneOfType([
+        PropTypes.instanceOf(Service),
+        PropTypes.instanceOf(ServiceTree)
+      ])
+    ).isRequired,
+    serviceTree: PropTypes.instanceOf(ServiceTree),
+    roles: PropTypes.array
+  };
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
 
@@ -267,22 +282,6 @@ ServiceTreeView.contextTypes = {
 ServiceTreeView.defaultProps = {
   onFilterExpressionChange() {},
   isEmpty: false
-};
-
-ServiceTreeView.propTypes = {
-  filters: PropTypes.instanceOf(Array).isRequired,
-  filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
-  isEmpty: PropTypes.bool,
-  children: PropTypes.node,
-  onFilterExpressionChange: PropTypes.func,
-  services: PropTypes.arrayOf(
-    PropTypes.oneOfType([
-      PropTypes.instanceOf(Service),
-      PropTypes.instanceOf(ServiceTree)
-    ])
-  ).isRequired,
-  serviceTree: PropTypes.instanceOf(ServiceTree),
-  roles: PropTypes.array
 };
 
 export default ServiceTreeView;

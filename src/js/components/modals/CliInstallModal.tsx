@@ -21,6 +21,13 @@ const osTypes = {
 };
 
 class CliInstallModal extends React.Component {
+  static propTypes = {
+    title: PropTypes.string.isRequired,
+    subHeaderContent: PropTypes.string,
+    showFooter: PropTypes.bool.isRequired,
+    footer: PropTypes.node,
+    onClose: PropTypes.func.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -201,13 +208,5 @@ class CliInstallModal extends React.Component {
     );
   }
 }
-
-CliInstallModal.propTypes = {
-  title: PropTypes.string.isRequired,
-  subHeaderContent: PropTypes.string,
-  showFooter: PropTypes.bool.isRequired,
-  footer: PropTypes.node,
-  onClose: PropTypes.func.isRequired
-};
 
 export default CliInstallModal;

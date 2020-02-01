@@ -20,6 +20,12 @@ import {
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 class FrameworkConfigurationContainer extends React.Component {
+  static propTypes = {
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(Framework),
+      PropTypes.instanceOf(Application)
+    ]).isRequired
+  };
   constructor(props) {
     super(props);
 
@@ -109,13 +115,6 @@ class FrameworkConfigurationContainer extends React.Component {
     );
   }
 }
-
-FrameworkConfigurationContainer.propTypes = {
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(Framework),
-    PropTypes.instanceOf(Application)
-  ]).isRequired
-};
 
 FrameworkConfigurationContainer.contextTypes = {
   router: routerShape

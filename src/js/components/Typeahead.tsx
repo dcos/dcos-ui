@@ -7,6 +7,22 @@ import * as React from "react";
 import FilterInputText from "./FilterInputText";
 
 class Typeahead extends FilterInputText {
+  static propTypes = {
+    emptyLabel: PropTypes.string,
+    labelKey: PropTypes.string.isRequired,
+    onDropdownItemSelection: PropTypes.func,
+    handleFilterChange: PropTypes.func.isRequired,
+    inverseStyle: PropTypes.bool,
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string,
+        name: PropTypes.node
+      })
+    ),
+    selected: PropTypes.array,
+    placeholder: PropTypes.string,
+    searchString: PropTypes.string.isRequired
+  };
   // Use this method to clear the input field with a ref.
   // See: https://github.com/mesosphere/react-typeahead#public-methods
   handleInputClear() {
@@ -64,23 +80,6 @@ Typeahead.defaultProps = {
   items: [],
   selected: [],
   placeholder: "Filter"
-};
-
-Typeahead.propTypes = {
-  emptyLabel: PropTypes.string,
-  labelKey: PropTypes.string.isRequired,
-  onDropdownItemSelection: PropTypes.func,
-  handleFilterChange: PropTypes.func.isRequired,
-  inverseStyle: PropTypes.bool,
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.string,
-      name: PropTypes.node
-    })
-  ),
-  selected: PropTypes.array,
-  placeholder: PropTypes.string,
-  searchString: PropTypes.string.isRequired
 };
 
 export default Typeahead;

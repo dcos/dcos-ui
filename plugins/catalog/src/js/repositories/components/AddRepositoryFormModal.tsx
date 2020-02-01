@@ -10,6 +10,11 @@ import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 
 class AddRepositoryFormModal extends React.Component {
+  static propTypes = {
+    numberOfRepositories: PropTypes.number.isRequired,
+    open: PropTypes.bool,
+    addRepository: PropTypes.func.isRequired
+  };
   constructor() {
     super();
   }
@@ -126,11 +131,5 @@ class AddRepositoryFormModal extends React.Component {
     );
   }
 }
-
-AddRepositoryFormModal.propTypes = {
-  numberOfRepositories: PropTypes.number.isRequired,
-  open: PropTypes.bool,
-  addRepository: PropTypes.func.isRequired
-};
 
 export default withI18n()(AddRepositoryFormModal);

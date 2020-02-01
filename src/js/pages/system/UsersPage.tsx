@@ -33,6 +33,9 @@ const UsersBreadcrumbs = () => {
 };
 
 class UsersPage extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object
+  };
   constructor(...args) {
     super(...args);
 
@@ -105,10 +108,6 @@ class UsersPage extends mixin(StoreMixin) {
     return this.getContents();
   }
 }
-
-UsersPage.propTypes = {
-  params: PropTypes.object
-};
 
 UsersPage.routeConfig = {
   label: i18nMark("Users"),

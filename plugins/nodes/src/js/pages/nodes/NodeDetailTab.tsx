@@ -23,6 +23,9 @@ import Loader from "#SRC/js/components/Loader";
 import { Status } from "../../types/Status";
 
 class NodeDetailTab extends React.PureComponent {
+  static propTypes = {
+    node: PropTypes.instanceOf(Node)
+  };
   constructor(...args) {
     super(...args);
 
@@ -191,9 +194,5 @@ class NodeDetailTab extends React.PureComponent {
     );
   }
 }
-
-NodeDetailTab.propTypes = {
-  node: PropTypes.instanceOf(Node)
-};
 
 export default NodeDetailTab;

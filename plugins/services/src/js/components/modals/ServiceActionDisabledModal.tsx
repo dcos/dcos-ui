@@ -28,6 +28,15 @@ const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 
 class ServiceActionDisabledModal extends React.Component {
+  static propTypes = {
+    actionID: PropTypes.string,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ])
+  };
   constructor(...args) {
     super(...args);
 
@@ -398,15 +407,5 @@ class ServiceActionDisabledModal extends React.Component {
     );
   }
 }
-
-ServiceActionDisabledModal.propTypes = {
-  actionID: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ])
-};
 
 export default withI18n()(ServiceActionDisabledModal);

@@ -14,6 +14,11 @@ import UnitHealthDropdown from "#SRC/js/components/UnitHealthDropdown";
 import UnitHealthUtil from "#SRC/js/utils/UnitHealthUtil";
 
 class HealthTab extends React.PureComponent {
+  static propTypes = {
+    node: PropTypes.object.isRequired,
+    units: PropTypes.object.isRequired,
+    params: PropTypes.object.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -155,11 +160,5 @@ class HealthTab extends React.PureComponent {
     );
   }
 }
-
-HealthTab.propTypes = {
-  node: PropTypes.object.isRequired,
-  units: PropTypes.object.isRequired,
-  params: PropTypes.object.isRequired
-};
 
 export default withI18n()(HealthTab);

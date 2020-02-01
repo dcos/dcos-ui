@@ -22,6 +22,9 @@ import PodContainerTerminationTable from "./PodContainerTerminationTable";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 
 class PodDebugTabView extends React.Component {
+  static propTypes = {
+    pod: PropTypes.instanceOf(Pod)
+  };
   constructor(...args) {
     super(...args);
   }
@@ -287,10 +290,6 @@ class PodDebugTabView extends React.Component {
 
 PodDebugTabView.contextTypes = {
   router: routerShape
-};
-
-PodDebugTabView.propTypes = {
-  pod: PropTypes.instanceOf(Pod)
 };
 
 export default PodDebugTabView;

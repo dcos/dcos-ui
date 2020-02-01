@@ -5,6 +5,9 @@ import * as React from "react";
 import ProviderTypes from "../constants/ProviderTypes";
 
 class AuthProvidersModalButtonContents extends React.Component {
+  static propTypes = {
+    onClick: PropTypes.func
+  };
   getButtons() {
     const { onClick } = this.props;
 
@@ -47,9 +50,5 @@ class AuthProvidersModalButtonContents extends React.Component {
     );
   }
 }
-
-AuthProvidersModalButtonContents.propTypes = {
-  onClick: PropTypes.func
-};
 
 export default AuthProvidersModalButtonContents;

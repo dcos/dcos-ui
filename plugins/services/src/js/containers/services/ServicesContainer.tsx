@@ -149,6 +149,10 @@ function getMesosRoles$() {
 }
 
 class ServicesContainer extends React.Component {
+  static propTypes = {
+    params: PropTypes.object.isRequired,
+    location: PropTypes.object.isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -730,11 +734,6 @@ ServicesContainer.childContextTypes = {
     openServiceUI: PropTypes.func,
     resetDelayedService: PropTypes.func
   })
-};
-
-ServicesContainer.propTypes = {
-  params: PropTypes.object.isRequired,
-  location: PropTypes.object.isRequired
 };
 
 ServicesContainer.contextTypes = {

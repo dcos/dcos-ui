@@ -37,6 +37,9 @@ const ServiceAccountsBreadcrumbs = () => {
 };
 
 class ServiceAccountsPage extends mixin(StoreMixin) {
+  static propTypes = {
+    params: PropTypes.object
+  };
   constructor(...args) {
     super(...args);
 
@@ -122,10 +125,6 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
     );
   }
 }
-
-ServiceAccountsPage.propTypes = {
-  params: PropTypes.object
-};
 
 ServiceAccountsPage.routeConfig = {
   label: i18nMark("Service Accounts"),

@@ -41,6 +41,13 @@ const tableColumnClasses = {
 };
 
 class PodInstancesTable extends React.Component {
+  static propTypes = {
+    filterText: PropTypes.string,
+    instances: PropTypes.instanceOf(Array),
+    inverseStyle: PropTypes.bool,
+    onSelectionChange: PropTypes.func,
+    pod: PropTypes.instanceOf(Pod).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -532,14 +539,6 @@ PodInstancesTable.defaultProps = {
   inverseStyle: false,
   onSelectionChange() {},
   pod: null
-};
-
-PodInstancesTable.propTypes = {
-  filterText: PropTypes.string,
-  instances: PropTypes.instanceOf(Array),
-  inverseStyle: PropTypes.bool,
-  onSelectionChange: PropTypes.func,
-  pod: PropTypes.instanceOf(Pod).isRequired
 };
 
 export default PodInstancesTable;

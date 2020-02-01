@@ -10,6 +10,16 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class PageHeaderNavigationDropdown extends React.Component {
+  static propTypes = {
+    items: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+          .isRequired,
+        isActive: PropTypes.bool.isRequired,
+        label: PropTypes.node.isRequired
+      })
+    )
+  };
   getActiveItemID() {
     const { items } = this.props;
     const activeTab = items.find(item => item.isActive);
@@ -80,16 +90,6 @@ class PageHeaderNavigationDropdown extends React.Component {
 
 PageHeaderNavigationDropdown.defaultProps = {
   items: []
-};
-
-PageHeaderNavigationDropdown.propTypes = {
-  items: PropTypes.arrayOf(
-    PropTypes.shape({
-      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
-      isActive: PropTypes.bool.isRequired,
-      label: PropTypes.node.isRequired
-    })
-  )
 };
 
 export default PageHeaderNavigationDropdown;

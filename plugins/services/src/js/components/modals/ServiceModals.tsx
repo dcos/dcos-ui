@@ -15,6 +15,14 @@ import ServiceStopModal from "./ServiceStopModal";
 import DisabledGroupDestroyModal from "./DisabledGroupDestroyModal";
 
 class ServiceModals extends React.Component {
+  static propTypes = {
+    actionErrors: PropTypes.object.isRequired,
+    actions: actionPropTypes,
+    clearError: PropTypes.func.isRequired,
+    onClose: PropTypes.func.isRequired,
+    modalProps: PropTypes.object,
+    pendingActions: PropTypes.object
+  };
   getGroupModal() {
     const {
       actions,
@@ -262,14 +270,5 @@ const actionPropTypes = PropTypes.shape({
   restartService: PropTypes.func,
   resetDelayedService: PropTypes.func
 }).isRequired;
-
-ServiceModals.propTypes = {
-  actionErrors: PropTypes.object.isRequired,
-  actions: actionPropTypes,
-  clearError: PropTypes.func.isRequired,
-  onClose: PropTypes.func.isRequired,
-  modalProps: PropTypes.object,
-  pendingActions: PropTypes.object
-};
 
 export default ServiceModals;

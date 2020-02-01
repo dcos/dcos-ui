@@ -13,6 +13,12 @@ const DEFAULT_ITEM = {
 };
 
 class UnitHealthDropdown extends React.PureComponent {
+  static propTypes = {
+    className: PropTypes.string,
+    dropdownMenuClassName: PropTypes.string,
+    initialID: PropTypes.string,
+    onHealthSelection: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
     this.state = { dropdownItems: this.getDropdownItems() };
@@ -66,13 +72,6 @@ class UnitHealthDropdown extends React.PureComponent {
     );
   }
 }
-
-UnitHealthDropdown.propTypes = {
-  className: PropTypes.string,
-  dropdownMenuClassName: PropTypes.string,
-  initialID: PropTypes.string,
-  onHealthSelection: PropTypes.func
-};
 
 UnitHealthDropdown.defaultProps = {
   className: "button dropdown-toggle text-align-left",

@@ -22,6 +22,9 @@ import SDKEndpointStore from "../../stores/SDKEndpointStore";
 import MesosDNSList from "./MesosDNSList";
 
 class SDKServiceConnectionEndpointList extends React.Component {
+  static propTypes = {
+    service: PropTypes.instanceOf(Service)
+  };
   constructor(...args) {
     super(...args);
 
@@ -182,10 +185,6 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
 SDKServiceConnectionEndpointList.contextTypes = {
   router: routerShape
-};
-
-SDKServiceConnectionEndpointList.propTypes = {
-  service: PropTypes.instanceOf(Service)
 };
 
 export default SDKServiceConnectionEndpointList;

@@ -32,6 +32,11 @@ function fetchVersion(service, versionID) {
 }
 
 class ServiceConfiguration extends mixin(StoreMixin) {
+  static propTypes = {
+    onEditClick: PropTypes.func.isRequired,
+    errors: PropTypes.array,
+    service: PropTypes.instanceOf(Service).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -258,12 +263,6 @@ ServiceConfiguration.contextTypes = {
 
 ServiceConfiguration.defaultProps = {
   errors: []
-};
-
-ServiceConfiguration.propTypes = {
-  onEditClick: PropTypes.func.isRequired,
-  errors: PropTypes.array,
-  service: PropTypes.instanceOf(Service).isRequired
 };
 
 export default ServiceConfiguration;

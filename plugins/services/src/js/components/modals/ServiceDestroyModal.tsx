@@ -35,6 +35,19 @@ function i18nTranslate(id, values) {
 }
 
 class ServiceDestroyModal extends React.PureComponent {
+  static propTypes = {
+    deleteItem: PropTypes.func.isRequired,
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(Framework),
+      PropTypes.instanceOf(Pod),
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ]).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -269,20 +282,6 @@ class ServiceDestroyModal extends React.PureComponent {
 
 ServiceDestroyModal.contextTypes = {
   router: routerShape
-};
-
-ServiceDestroyModal.propTypes = {
-  deleteItem: PropTypes.func.isRequired,
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(Framework),
-    PropTypes.instanceOf(Pod),
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
 };
 
 export default withI18n()(ServiceDestroyModal);

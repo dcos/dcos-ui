@@ -25,6 +25,21 @@ function escapeStringRegexp(str) {
 let debounceTimeout = null;
 
 class Highlight extends React.Component {
+  static propTypes = {
+    search: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.number,
+      PropTypes.bool,
+      regExpPropType
+    ]).isRequired,
+    caseSensitive: PropTypes.bool,
+    matchElement: PropTypes.string,
+    matchClass: PropTypes.string,
+    searchDebounceDelay: PropTypes.number,
+    searchDebounceThreshold: PropTypes.number,
+    selectedMatchClass: PropTypes.string,
+    watching: PropTypes.number
+  };
   constructor(...args) {
     super(...args);
     this.count = 0;
@@ -247,22 +262,6 @@ Highlight.defaultProps = {
   searchDebounceDelay: 500,
   searchDebounceThreshold: 2,
   selectedMatchClass: "highlight selected"
-};
-
-Highlight.propTypes = {
-  search: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.number,
-    PropTypes.bool,
-    regExpPropType
-  ]).isRequired,
-  caseSensitive: PropTypes.bool,
-  matchElement: PropTypes.string,
-  matchClass: PropTypes.string,
-  searchDebounceDelay: PropTypes.number,
-  searchDebounceThreshold: PropTypes.number,
-  selectedMatchClass: PropTypes.string,
-  watching: PropTypes.number
 };
 
 export default Highlight;

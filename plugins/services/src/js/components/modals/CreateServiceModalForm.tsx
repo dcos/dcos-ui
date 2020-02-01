@@ -98,6 +98,18 @@ const JSONEditor = React.lazy(() =>
 );
 
 class CreateServiceModalForm extends React.Component {
+  static propTypes = {
+    activeTab: PropTypes.string,
+    errors: PropTypes.array,
+    expandAdvancedSettings: PropTypes.bool,
+    handleTabChange: PropTypes.func,
+    isJSONModeActive: PropTypes.bool,
+    onChange: PropTypes.func,
+    onErrorStateChange: PropTypes.func,
+    service: PropTypes.object,
+    showAllErrors: PropTypes.bool,
+    resetExpandAdvancedSettings: PropTypes.func
+  };
   constructor(...args) {
     super(...args);
 
@@ -883,19 +895,6 @@ CreateServiceModalForm.defaultProps = {
   onChange() {},
   onErrorStateChange() {},
   showAllErrors: false
-};
-
-CreateServiceModalForm.propTypes = {
-  activeTab: PropTypes.string,
-  errors: PropTypes.array,
-  expandAdvancedSettings: PropTypes.bool,
-  handleTabChange: PropTypes.func,
-  isJSONModeActive: PropTypes.bool,
-  onChange: PropTypes.func,
-  onErrorStateChange: PropTypes.func,
-  service: PropTypes.object,
-  showAllErrors: PropTypes.bool,
-  resetExpandAdvancedSettings: PropTypes.func
 };
 
 export default withI18n()(CreateServiceModalForm);

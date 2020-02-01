@@ -12,6 +12,17 @@ import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 
 class ServiceRestartModal extends React.PureComponent {
+  static propTypes = {
+    errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
+    isPending: PropTypes.bool.isRequired,
+    onClose: PropTypes.func.isRequired,
+    open: PropTypes.bool.isRequired,
+    restartService: PropTypes.func.isRequired,
+    service: PropTypes.oneOfType([
+      PropTypes.instanceOf(ServiceTree),
+      PropTypes.instanceOf(Service)
+    ]).isRequired
+  };
   constructor(...args) {
     super(...args);
 
@@ -147,17 +158,5 @@ class ServiceRestartModal extends React.PureComponent {
     );
   }
 }
-
-ServiceRestartModal.propTypes = {
-  errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-  isPending: PropTypes.bool.isRequired,
-  onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired,
-  restartService: PropTypes.func.isRequired,
-  service: PropTypes.oneOfType([
-    PropTypes.instanceOf(ServiceTree),
-    PropTypes.instanceOf(Service)
-  ]).isRequired
-};
 
 export default withI18n()(ServiceRestartModal);

@@ -14,6 +14,10 @@ import RegionConstraintsSection from "./RegionConstraintsSection";
 import ZoneConstraintsSection from "./ZoneConstraintsSection";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
+  static propTypes = {
+    appConfig: PropTypes.object,
+    onEditClick: PropTypes.func
+  };
   getConstraints() {
     return (
       findNestedPropertyInObject(
@@ -92,11 +96,6 @@ class PodPlacementConstraintsConfigSection extends React.Component {
 
 PodPlacementConstraintsConfigSection.defaultProps = {
   appConfig: {}
-};
-
-PodPlacementConstraintsConfigSection.propTypes = {
-  appConfig: PropTypes.object,
-  onEditClick: PropTypes.func
 };
 
 export default PodPlacementConstraintsConfigSection;

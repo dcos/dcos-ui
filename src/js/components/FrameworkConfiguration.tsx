@@ -25,6 +25,18 @@ import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
 import * as LastUpdated from "#SRC/js/components/LastUpdated";
 
 class FrameworkConfiguration extends React.Component {
+  static propTypes = {
+    formData: PropTypes.object.isRequired,
+    formErrors: PropTypes.object.isRequired,
+    onFormDataChange: PropTypes.func.isRequired,
+    onFormErrorChange: PropTypes.func.isRequired,
+    packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
+    handleRun: PropTypes.func.isRequired,
+    handleGoBack: PropTypes.func.isRequired,
+    isInitialDeploy: PropTypes.bool,
+    deployErrors: PropTypes.object,
+    defaultConfigWarning: PropTypes.string
+  };
   constructor(props) {
     super(props);
 
@@ -384,18 +396,5 @@ class FrameworkConfiguration extends React.Component {
     );
   }
 }
-
-FrameworkConfiguration.propTypes = {
-  formData: PropTypes.object.isRequired,
-  formErrors: PropTypes.object.isRequired,
-  onFormDataChange: PropTypes.func.isRequired,
-  onFormErrorChange: PropTypes.func.isRequired,
-  packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
-  handleRun: PropTypes.func.isRequired,
-  handleGoBack: PropTypes.func.isRequired,
-  isInitialDeploy: PropTypes.bool,
-  deployErrors: PropTypes.object,
-  defaultConfigWarning: PropTypes.string
-};
 
 export default withI18n()(FrameworkConfiguration);

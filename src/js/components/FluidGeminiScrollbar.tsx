@@ -34,6 +34,9 @@ let componentMountCount = 0;
 let styleElement = null;
 
 class FluidGeminiScrollbar extends React.Component {
+  static propTypes = {
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+  };
   constructor(...args) {
     super(...args);
 
@@ -111,9 +114,5 @@ class FluidGeminiScrollbar extends React.Component {
     );
   }
 }
-
-FluidGeminiScrollbar.propTypes = {
-  className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
-};
 
 export default FluidGeminiScrollbar;

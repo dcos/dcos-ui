@@ -10,6 +10,11 @@ import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
 import { profileFromVolume } from "../constants/VolumeProfile";
 
 class VolumeTable extends React.Component {
+  static propTypes = {
+    volumes: PropTypes.array.isRequired,
+    params: PropTypes.object.isRequired,
+    routes: PropTypes.array.isRequired
+  };
   constructor() {
     super();
   }
@@ -168,11 +173,5 @@ class VolumeTable extends React.Component {
     );
   }
 }
-
-VolumeTable.propTypes = {
-  volumes: PropTypes.array.isRequired,
-  params: PropTypes.object.isRequired,
-  routes: PropTypes.array.isRequired
-};
 
 export default VolumeTable;

@@ -25,6 +25,11 @@ function hypenize(str) {
 }
 
 class OrganizationTab extends React.Component {
+  static propTypes = {
+    items: PropTypes.array.isRequired,
+    itemID: PropTypes.string.isRequired,
+    itemName: PropTypes.string.isRequired
+  };
   constructor() {
     super();
 
@@ -608,11 +613,5 @@ class OrganizationTab extends React.Component {
     );
   }
 }
-
-OrganizationTab.propTypes = {
-  items: PropTypes.array.isRequired,
-  itemID: PropTypes.string.isRequired,
-  itemName: PropTypes.string.isRequired
-};
 
 export default OrganizationTab;

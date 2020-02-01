@@ -39,6 +39,13 @@ const podPaths = {
 };
 
 class ContainerServiceFormSection extends React.Component {
+  static propTypes = {
+    data: PropTypes.object,
+    errors: PropTypes.object,
+    onAddItem: PropTypes.func,
+    onRemoveItem: PropTypes.func,
+    path: PropTypes.string
+  };
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
       return podPaths[fieldName].replace("{basePath}", basePath);
@@ -263,14 +270,6 @@ ContainerServiceFormSection.defaultProps = {
   onAddItem() {},
   onRemoveItem() {},
   path: "container"
-};
-
-ContainerServiceFormSection.propTypes = {
-  data: PropTypes.object,
-  errors: PropTypes.object,
-  onAddItem: PropTypes.func,
-  onRemoveItem: PropTypes.func,
-  path: PropTypes.string
 };
 
 ContainerServiceFormSection.configReducers = {
