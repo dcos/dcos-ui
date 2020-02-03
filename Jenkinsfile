@@ -72,13 +72,21 @@ pipeline {
       }
     }
 
-    stage("Unit Tests / Lint / Build") {
-      steps {
-        sh "npm run util:lingui:check"
-        sh "npm run lint"
-        sh "npm run build"
-        sh "npm run test"
-      }
+    stage("Check Translations") {
+      steps { sh "npm run util:lingui:check" }
+    }
+    stage("Lint") {
+      steps { sh "npm run lint" }
+    }
+    stage("build") {
+      steps { sh "npm run build" }
+    }
+    stage("Test Types") {
+      // we separate type-related tests for now as they seem to be flaky
+      steps { sh "npx jest typecheck tslint" }
+    }
+    stage("Unit Tests") {
+      steps { sh "npm run test -- --testPathIgnorePatterns tslint typecheck" }
     }
 
     stage("Setup Data Dog") {

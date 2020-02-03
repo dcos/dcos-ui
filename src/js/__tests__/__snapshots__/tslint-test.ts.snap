@@ -3,58 +3,423 @@
 exports[`tslint snapshot should be up to date 1`] = `
 "
 
+
 /packages/@extension-kid/data-layer/__tests__/dataLayer-test.ts - A maximum of 1 class per file is allowed.
 /packages/@extension-kid/notification-service/Notification.ts - require statement not part of an import statement
+/packages/@extension-kid/toast-notifications/ToastExtension.ts - Shadowed name: 'toast'
+/packages/@extension-kid/toast-notifications/ToastExtension.ts - Shadowed name: 'toast'
 /packages/@extension-kid/toast-notifications/ToastExtension.ts - Shadowed name: 'toasts'
-/packages/@extension-kid/toast-notifications/ToastExtension.ts - Shadowed name: 'toast'
-/packages/@extension-kid/toast-notifications/ToastExtension.ts - Shadowed name: 'toast'
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/Reducer.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/actions/AuthProviderActions.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/hooks.tsx - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/AuthProviderStore.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/AuthProvidersStore.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProviderStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProviderStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProviderStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProviderStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProviderStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/stores/__tests__/AuthProvidersStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
+/plugins-ee/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
+/plugins-ee/auth/Reducer.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/auth/components/AuthenticatedClusterDropdown.tsx - require statement not part of an import statement
+/plugins-ee/auth/components/AuthenticatedUserAccountDropdown.tsx - don't declare variable menuItems to return it immediately
+/plugins-ee/auth/components/LoginModal.tsx - require statement not part of an import statement
+/plugins-ee/auth/events/ACLAuthenticatedUserActions.ts - require statement not part of an import statement
+/plugins-ee/auth/events/__tests__/ACLAuthenticatedUserActions-test.ts - require statement not part of an import statement
+/plugins-ee/auth/events/__tests__/ACLAuthenticatedUserActions-test.ts - require statement not part of an import statement
+/plugins-ee/auth/hooks.tsx - require statement not part of an import statement
+/plugins-ee/auth/stores/ACLAuthenticatedUserStore.ts - require statement not part of an import statement
+/plugins-ee/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/Reducer.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/components/BootstrapConfigHashMap.tsx - require statement not part of an import statement
+/plugins-ee/bootstrap-config/events/BootstrapConfigActions.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/events/__tests__/BootstrapConfigActions-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/BootstrapConfigStore.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
+/plugins-ee/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
+/plugins-ee/branding/hooks.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/actions/ClusterLinkingActions.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/actions/__tests__/ClusterLinkingActions-test.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/actions/__tests__/ClusterLinkingActions-test.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/stores/ClusterLinkingStore.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
+/plugins-ee/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
+/plugins-ee/external-links/hooks.ts - require statement not part of an import statement
+/plugins-ee/intercom-private/hooks.ts - require statement not part of an import statement
+/plugins-ee/licensing/actions/LicensingActions.ts - require statement not part of an import statement
+/plugins-ee/licensing/actions/__tests__/LicensingActions-test.ts - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingExpirationRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/components/__tests__/LicensingNodeCapacityRow-test.tsx - require statement not part of an import statement
+/plugins-ee/licensing/stores/LicensingStore.ts - require statement not part of an import statement
+/plugins-ee/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
+/plugins-ee/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
+/plugins-ee/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
+/plugins-ee/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
+/plugins-ee/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/hooks.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/Reducer.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/__tests__/utils-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/actions/NetworkingActions.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/actions/__tests__/NetworkingActions-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/LineChart.tsx - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
+/plugins-ee/networking/submodules/internal-load-balancing/components/NetworkItemChart.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/networking/submodules/internal-load-balancing/components/NetworkItemChart.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins-ee/networking/submodules/internal-load-balancing/components/NetworkItemChart.tsx - unnecessary else
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/BackendsTable-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/BackendsTable-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/BackendsTable-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/components/__tests__/LoadBalancingTabContent-test.tsx - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/NetworkingBackendConnectionsStore.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/NetworkingNodeMembershipsStore.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/NetworkingVIPSummariesStore.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/NetworkingVIPsStore.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingBackendConnectionsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingBackendConnectionsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingBackendConnectionsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingNodeMembershipsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingNodeMembershipsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingNodeMembershipsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPSummariesStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPSummariesStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPSummariesStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/stores/__tests__/NetworkingVIPsStore-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/Backend-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/BackendConnection-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/BackendList-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/Client-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/ClientList-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/VIPDetail-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/VIPSummary-test.ts - require statement not part of an import statement
+/plugins-ee/networking/submodules/internal-load-balancing/structs/__tests__/VIPSummaryList-test.ts - require statement not part of an import statement
+/plugins-ee/organization/components/AccountDetailPage.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/components/AccountDetailPage.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins-ee/organization/components/AdvancedACLsTab.tsx - Use a conditional expression instead of assigning to 'newState.permissionBuilderView' in multiple places.
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/hooks.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/Reducer.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/actions/ACLActions.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/actions/__tests__/ACLActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/ACLStore.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - == should be ===
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/structs/__tests__/ACLList-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/acl/structs/__tests__/PermissionTree-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/Reducer.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/actions/ACLDirectoriesActions.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/actions/__tests__/ACLDirectoriesActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/components/DirectoryFormModal.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/DirectoryFormModal.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/hooks.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/stores/ACLDirectoriesStore.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/Reducer.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/actions/ACLGroupsActions.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/components/modals/LDAPGroupFormModal.tsx - Pass a callback to ref prop instead of a string literal
+/plugins-ee/organization/submodules/groups/hooks.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/ACLGroupStore.ts - The function has a cyclomatic complexity of 22 which is higher than the threshold of 20
+/plugins-ee/organization/submodules/groups/stores/ACLGroupStore.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/ACLGroupsStore.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/stores/__tests__/ACLGroupsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/groups/structs/__tests__/GroupsList-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/Reducer.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/actions/ACLServiceAccountActions.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/actions/__tests__/ACLServiceAccountActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/hooks.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
+/plugins-ee/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
+/plugins-ee/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
+/plugins-ee/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
+/plugins-ee/organization/submodules/service-accounts/stores/__tests__/ACLServiceAccountsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/stores/__tests__/ACLServiceAccountsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/stores/__tests__/ACLServiceAccountsStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/structs/__tests__/ServiceAccount-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/service-accounts/structs/__tests__/ServiceAccountList-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/Reducer.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/actions/ACLUsersActions.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/actions/__tests__/ACLUsersActions-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/UserDetailPage.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/users/components/UserDetailPage.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/organization/submodules/users/components/UserDetailPage.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins-ee/organization/submodules/users/components/UserDetailPage.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/hooks.tsx - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/ACLUserStore.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/structs/__tests__/User-test.ts - require statement not part of an import statement
+/plugins-ee/organization/submodules/users/structs/__tests__/User-test.ts - require statement not part of an import statement
+/plugins-ee/placement/components/PlacementConstraintsFields.tsx - Shadowed name: 'index'
+/plugins-ee/placement/components/__tests__/PlacementRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementSchemaField-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementSchemaField-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/PlacementSchemaField-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
+/plugins-ee/sdk-services/hooks.ts - require statement not part of an import statement
+/plugins-ee/secrets/Reducer.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/CertificateActions.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/SecretActions.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/__tests__/CertificateActions-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/components/SecretActionsModal.tsx - Shadowed name: 'action'
+/plugins-ee/secrets/components/SecretActionsModal.tsx - Use a conditional expression instead of assigning to 'secretText' in multiple places.
+/plugins-ee/secrets/components/SecretFormModal.tsx - The preceding \`if\` block ends with a \`return\` statement. This \`else\` is unnecessary.
+/plugins-ee/secrets/components/SecretFormModal.tsx - Use a conditional expression instead of assigning to 'value' in multiple places.
+/plugins-ee/secrets/components/SecretFormModal.tsx - unnecessary else
+/plugins-ee/secrets/components/SecretFormModal.tsx - unused expression, expected an assignment or function call
+/plugins-ee/secrets/components/forms/MultiContainerFileInput.tsx - Shadowed name: 'index'
+/plugins-ee/secrets/components/forms/MultiContainerSecretsFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/secrets/components/forms/MultiContainerSecretsFormSection.tsx - Shadowed name: 'volumeCounts'
+/plugins-ee/secrets/components/forms/SingleContainerSecret.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/secrets/components/forms/SingleContainerSecretsFormSection.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/secrets/hooks.tsx - Shadowed name: 'propKey'
+/plugins-ee/secrets/hooks.tsx - don't declare variable output to return it immediately
+/plugins-ee/secrets/pages/SecretStorePage.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
+/plugins-ee/secrets/reducers/Secrets.ts - Shadowed name: 'index'
+/plugins-ee/secrets/reducers/Secrets.ts - Shadowed name: 'index'
+/plugins-ee/secrets/reducers/Secrets.ts - Shadowed name: 'index'
+/plugins-ee/secrets/reducers/Secrets.ts - Shadowed name: 'index'
+/plugins-ee/secrets/reducers/__tests__/Container-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/reducers/__tests__/Containers-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/reducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/reducers/__tests__/Secrets-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/reducers/__tests__/Volumes-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/CertificateStore.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'thisUseFixtures' is never reassigned; use 'const' instead of 'let'.
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'secrets' is never reassigned; use 'const' instead of 'let'.
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'stores' is never reassigned; use 'const' instead of 'let'.
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/Certificate.ts - All 'name' signatures should be adjacent
+/plugins-ee/secrets/structs/Certificate.ts - All 'status' signatures should be adjacent
+/plugins-ee/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/CertificatesList-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/SecretStoreStruct-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/SecretStoreStructList-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/SecretsList-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/structs/__tests__/SecretsList-test.ts - require statement not part of an import statement
+/plugins-ee/secrets/validators/__tests__/SecretsValidators-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
 /plugins/catalog/src/js/repositories/RepositoriesDelete.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/RepositoriesList.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'liveFetchRepositories'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'addRepository'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'deleteRepository'
+/plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'liveFetchRepositories'
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Shadowed name: 'container'
 /plugins/jobs/src/js/components/form/PlacementPartial.tsx - Shadowed name: 'index'
 /plugins/jobs/src/js/components/form/helpers/JobParsers.ts - The function jobSpecToOutputParser has a cyclomatic complexity of 38 which is higher than the threshold of 20
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
+/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
 /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
 /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
-/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
-/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
-/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
-/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
 /plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - == should be ===
-/plugins/jobs/src/js/components/form/helpers/MetronomeJobValidators.ts - != should be !==
 /plugins/jobs/src/js/components/form/reducers/EnvironmentReducers.ts - Shadowed name: 'env'
 /plugins/jobs/src/js/components/form/reducers/EnvironmentReducers.ts - Shadowed name: 'env'
 /plugins/jobs/src/js/components/form/reducers/EnvironmentReducers.ts - Shadowed name: 'env'
-/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
-/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
-/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'artifacts'
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'artifacts'
 /plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'artifacts'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobs'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobDetail'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'runJob'
+/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
+/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
+/plugins/jobs/src/js/components/form/reducers/RunConfigReducers.ts - Shadowed name: 'labels'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'createJob'
+/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'deleteJob'
+/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobDetail'
+/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'fetchJobs'
+/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'runJob'
+/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'stopJobRun'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'updateJob'
 /plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'updateSchedule'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'deleteJob'
-/plugins/jobs/src/js/data/JobModel.ts - Shadowed name: 'stopJobRun'
-/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'startedAt'
+/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'finishedAt'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'runTime'
+/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'startedAt'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'status'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'statusClasses'
-/plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/HealthTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/NodesGridDials.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/NodesTable.tsx - The function render has a cyclomatic complexity of 40 which is higher than the threshold of 20
@@ -62,8 +427,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/nodes/src/js/components/__tests__/NodesGridView-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/nodes/src/js/components/modals/DeactivateNodeConfirm.tsx - Shadowed name: 'node'
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'node'
-/plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'props'
 /plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'onClose'
+/plugins/nodes/src/js/components/modals/DrainNodeModal.tsx - Shadowed name: 'props'
 /plugins/nodes/src/js/data/MesosMasters.tsx - Shadowed name: 'mesosMastersHealth'
 /plugins/nodes/src/js/data/MesosMastersLeader.ts - Shadowed name: 'masterDataSource'
 /plugins/nodes/src/js/data/NodesNetworkResolver.ts - Shadowed name: 'fetchNodesNetwork'
@@ -83,12 +448,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/components/forms/EnvironmentFormSection.tsx - Shadowed name: 'env'
 /plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx - Shadowed name: 'volumeMounts'
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
-/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
 /plugins/services/src/js/components/forms/NetworkingFormSection.tsx - Shadowed name: 'networks'
+/plugins/services/src/js/components/forms/NetworkingFormSection.tsx - don't declare variable selections to return it immediately
 /plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx - Use a conditional expression instead of assigning to 'newObject' in multiple places.
 /plugins/services/src/js/components/modals/CreateServiceModal.tsx - don't declare variable newState to return it immediately
-/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Shadowed name: 'tabs'
 /plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/components/modals/CreateServiceModalForm.tsx - Shadowed name: 'tabs'
 /plugins/services/src/js/components/modals/ServiceModals.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/ServiceModals.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/components/modals/ServiceModals.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -111,18 +476,18 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Shadowed name: 'service'
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Missing \\"key\\" prop for element.
+/plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Shadowed name: 'service'
 /plugins/services/src/js/containers/service-debug/ServiceDebugContainer.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
-/plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Shadowed name: 'Component'
+/plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
 /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Identifier 'thisGetNodeFromID' is never reassigned; use 'const' instead of 'let'.
+/plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/volume-detail/PodVolumeContainer.tsx - Shadowed name: 'volume'
 /plugins/services/src/js/containers/volume-detail/PodVolumeDetail.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/volume-detail/ServiceVolumeContainer.tsx - Shadowed name: 'volume'
@@ -136,8 +501,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/pages/EditFrameworkConfiguration.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
-/plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Shadowed name: 'file'
 /plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/pages/task-details/TaskFileViewer.tsx - Shadowed name: 'file'
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/pages/task-details/__tests__/TaskIpAddressesRow-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
@@ -147,13 +512,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/Container.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Artifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Constraints.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/EnvironmentVariables.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - The function FormReducer has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/FormReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'state[index].protocol' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/Networks.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/FormReducers/SingleContainerPortDefinitionsReducer.ts - Shadowed name: 'index'
@@ -163,20 +528,20 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/FormReducers/__tests__/MultiContainerArtifacts-test.ts - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Artifacts.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function JSONReducer has a cyclomatic complexity of 39 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts - The function has a cyclomatic complexity of 21 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Endpoints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/EnvironmentVariables.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
-/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - The function JSONReducer has a cyclomatic complexity of 27 which is higher than the threshold of 20
+/plugins/services/src/js/reducers/serviceForm/JSONReducers/HealthChecks.ts - Use a conditional expression instead of assigning to 'this.healthChecks[index].protocol' in multiple places.
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Labels.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerArtifacts.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/MultiContainerVolumeMounts.ts - Shadowed name: 'index'
@@ -188,17 +553,17 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/JSONReducers/Volumes.ts - The function reduceVolumes has a cyclomatic complexity of 36 which is higher than the threshold of 20
 /plugins/services/src/js/reducers/serviceForm/MultiContainerHealthChecks.ts - Use a conditional expression instead of assigning to 'newState.http.scheme' in multiple places.
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - The function MultiContainerVolumeMountsJSONReducer has a cyclomatic complexity of 25 which is higher than the threshold of 20
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
-/plugins/services/src/js/reducers/serviceForm/MultiContainerVolumes.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/PortDefinitions.ts - Shadowed name: 'protocol'
 /plugins/services/src/js/reducers/serviceForm/__tests__/Container-test.ts - Shadowed name: 'batch'
-/plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'value'
-/plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'index'
 /plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - != should be !==
+/plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'index'
+/plugins/services/src/js/reducers/serviceForm/common/Constraints.ts - Shadowed name: 'value'
 /plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx - Shadowed name: 'environment'
 /plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx - Shadowed name: 'labels'
 /plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx - Shadowed name: 'endpoints'
@@ -212,8 +577,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts - Shadowed name: 'endpoints'
 /plugins/services/src/js/structs/Framework.ts - Shadowed name: 'memo'
 /plugins/services/src/js/structs/LogBuffer.ts - Use a conditional expression instead of assigning to 'start' in multiple places.
-/plugins/services/src/js/structs/ServiceTree.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
 /plugins/services/src/js/structs/ServiceTree.ts - == should be ===
+/plugins/services/src/js/structs/ServiceTree.ts - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
 /plugins/services/src/js/structs/ServiceTree.ts - Shadowed name: 'marathonTask'
 /plugins/services/src/js/utils/DeclinedOffersUtil.ts - Shadowed name: 'value'
 /plugins/services/src/js/utils/HostUtil.ts - Shadowed name: 'string'
@@ -222,8 +587,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/utils/MarathonUtil.ts - Shadowed name: 'id'
 /plugins/services/src/js/utils/QuotaUtil.ts - Shadowed name: 'role'
 /plugins/services/src/js/utils/TaskUtil.ts - don't declare variable node to return it immediately
-/plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'type'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'isUnanchored'
+/plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'type'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'variables'
 /plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
 /plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
@@ -242,13 +607,13 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/RequestErrorMsg.tsx - Missing \\"key\\" prop for element.
 /src/js/components/ResourceSwitchDropdown.tsx - don't declare variable menuItems to return it immediately
 /src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/SchemaField.tsx - Missing \\"key\\" prop for element.
-/src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/SchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/src/js/components/Sidebar.tsx - Shadowed name: 'path'
-/src/js/components/Sidebar.tsx - Shadowed name: 'path'
-/src/js/components/Sidebar.tsx - Shadowed name: 'children'
 /src/js/components/Sidebar.tsx - Missing \\"key\\" prop for element.
+/src/js/components/Sidebar.tsx - Shadowed name: 'children'
+/src/js/components/Sidebar.tsx - Shadowed name: 'path'
+/src/js/components/Sidebar.tsx - Shadowed name: 'path'
 /src/js/components/ToggleValue.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/YamlEditorSchemaField.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/components/__tests__/Authenticated-test.tsx - require statement not part of an import statement
@@ -260,12 +625,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/components/modals/__tests__/CliInstallModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/events/VirtualNetworksActions.ts - require statement not part of an import statement
 /src/js/events/__tests__/CosmosPackagesActions-test.ts - require statement not part of an import statement
-/src/js/index.tsx - require statement not part of an import statement
-/src/js/index.tsx - require statement not part of an import statement
 /src/js/index.tsx - non-arrow functions are forbidden
-/src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
+/src/js/index.tsx - require statement not part of an import statement
+/src/js/index.tsx - require statement not part of an import statement
 /src/js/pages/catalog/PackageDetailTab.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /src/js/pages/catalog/PackageDetailTab.tsx - Shadowed name: 'dependency'
+/src/js/pages/catalog/PackageDetailTab.tsx - don't declare variable item to return it immediately
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
 /src/js/pages/catalog/PackagesTab.tsx - Missing \\"key\\" prop for element.
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
@@ -274,18 +639,18 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
 /src/js/plugin-bridge/Loader.ts - require statement not part of an import statement
 /src/js/plugin-bridge/PluginSDK.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
-/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
-/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
-/src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'pluginsList'
 /src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'externalPluginsList'
 /src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'path'
+/src/js/plugin-bridge/PluginTestUtils.ts - Shadowed name: 'pluginsList'
 /src/js/plugin-bridge/PluginTestUtils.ts - Use a conditional expression instead of assigning to 'path' in multiple places.
+/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
+/src/js/plugin-bridge/PluginTestUtils.ts - require statement not part of an import statement
 /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - require statement not part of an import statement
 /src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
-/src/js/stores/MesosStateStore.ts - Shadowed name: 'framework'
 /src/js/stores/MesosStateStore.ts - Shadowed name: 'MesosStreamType'
+/src/js/stores/MesosStateStore.ts - Shadowed name: 'framework'
 /src/js/stores/MesosStateStore.ts - require statement not part of an import statement
 /src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts - Shadowed name: 'message'
 /src/js/stores/MesosStream/parsers/__tests__/tasks-test.ts - Shadowed name: 'message'
@@ -303,12 +668,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/structs/DSLExpressionPart.ts - Use an optional parameter instead of initializing to 'undefined'. Also, the type declaration does not need to include '| undefined'.
 /src/js/structs/Job.ts - don't declare variable cmd to return it immediately
 /src/js/structs/JobTree.ts - == should be ===
+/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
+/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
+/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
+/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
 /src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'values'
 /src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'values'
-/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
-/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
-/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
-/src/js/structs/__tests__/Batch-test.ts - Shadowed name: 'sum'
 /src/js/structs/__tests__/DSLExpression-test.ts - require statement not part of an import statement
 /src/js/structs/__tests__/List-test.ts - A maximum of 1 class per file is allowed.
 /src/js/structs/__tests__/List-test.ts - unused expression, expected an assignment or function call
@@ -316,12 +681,12 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/utils/DOMUtils.ts - Use a conditional expression instead of assigning to 'compstyle' in multiple places.
 /src/js/utils/ErrorMessageUtil.ts - Shadowed name: 'rule'
 /src/js/utils/ErrorMessageUtil.ts - Shadowed name: 'rule'
-/src/js/utils/JSONUtil.ts - Use a conditional expression instead of assigning to 'arrayIndex' in multiple places.
 /src/js/utils/JSONUtil.ts - The function getObjectInformation has a cyclomatic complexity of 23 which is higher than the threshold of 20
+/src/js/utils/JSONUtil.ts - Use a conditional expression instead of assigning to 'arrayIndex' in multiple places.
 /src/js/utils/JestUtil.tsx - A maximum of 1 class per file is allowed.
 /src/js/utils/Maths.ts - asterisks in jsdoc must be aligned
-/src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
 /src/js/utils/Maths.ts - asterisks in jsdoc must be aligned
+/src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
 /src/js/utils/Maths.ts - jsdoc is not formatted correctly on this line
 /src/js/utils/MesosStateUtil.ts - Shadowed name: 'memo'
 /src/js/utils/TableUtil.ts - == should be ===
