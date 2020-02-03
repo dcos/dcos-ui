@@ -218,11 +218,7 @@ class ServiceTreeView extends React.Component {
       const pageHeader = serviceTree.isTopLevel() ? (
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-          supplementalContent={
-            <React.Fragment>
-              <DeploymentStatusIndicator />
-            </React.Fragment>
-          }
+          supplementalContent={<DeploymentStatusIndicator />}
           actions={editGroupActions}
           tabs={tabs}
         />

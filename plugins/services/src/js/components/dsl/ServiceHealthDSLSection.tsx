@@ -37,7 +37,7 @@ const ServiceHealthDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.is_healthy}
+                defaultChecked={data.is_healthy}
                 disabled={!enabled}
                 name="is_healthy"
                 type="checkbox"
@@ -46,7 +46,7 @@ const ServiceHealthDSLSection = props => {
             </FieldLabel>
             <FieldLabel>
               <FieldInput
-                checked={data.no_healthchecks}
+                defaultChecked={data.no_healthchecks}
                 disabled={!enabled}
                 name="no_healthchecks"
                 type="checkbox"
@@ -59,7 +59,7 @@ const ServiceHealthDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.is_unhealthy}
+                defaultChecked={data.is_unhealthy}
                 disabled={!enabled}
                 name="is_unhealthy"
                 type="checkbox"

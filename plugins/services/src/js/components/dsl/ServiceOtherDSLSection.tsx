@@ -37,7 +37,7 @@ const ServiceOtherDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.is_catalog}
+                defaultChecked={data.is_catalog}
                 disabled={!enabled}
                 name="is_catalog"
                 type="checkbox"
@@ -46,7 +46,7 @@ const ServiceOtherDSLSection = props => {
             </FieldLabel>
             <FieldLabel>
               <FieldInput
-                checked={data.is_pod}
+                defaultChecked={data.is_pod}
                 disabled={!enabled}
                 name="is_pod"
                 type="checkbox"
@@ -59,7 +59,7 @@ const ServiceOtherDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.has_volumes}
+                defaultChecked={data.has_volumes}
                 disabled={!enabled}
                 name="has_volumes"
                 type="checkbox"

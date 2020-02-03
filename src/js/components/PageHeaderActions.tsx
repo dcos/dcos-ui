@@ -24,7 +24,19 @@ const getDropdownAction = (action, index) => {
   );
 };
 
-class PageHeaderActions extends React.Component {
+const classProps = PropTypes.oneOfType([
+  PropTypes.array,
+  PropTypes.object,
+  PropTypes.string
+]);
+
+const menuActionsProps = PropTypes.shape({
+  className: classProps,
+  onItemSelect: PropTypes.func.isRequired,
+  label: PropTypes.node.isRequired
+});
+
+export default class PageHeaderActions extends React.Component {
   static defaultProps = {
     actions: [],
     actionsDisabled: false
@@ -107,17 +119,3 @@ class PageHeaderActions extends React.Component {
     );
   }
 }
-
-const classProps = PropTypes.oneOfType([
-  PropTypes.array,
-  PropTypes.object,
-  PropTypes.string
-]);
-
-const menuActionsProps = PropTypes.shape({
-  className: classProps,
-  onItemSelect: PropTypes.func.isRequired,
-  label: PropTypes.node.isRequired
-});
-
-export default PageHeaderActions;
