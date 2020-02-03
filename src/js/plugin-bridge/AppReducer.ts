@@ -1,11 +1,10 @@
 import { APPLICATION } from "#SRC/js/constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";
-import StructUtil from "../utils/StructUtil";
 
 // Compute new state based on action
+// NOTE: this is currently only ever called when the configstore sets a new config.
 function updateState(prevState, action) {
-  // Peel away Structs and assign to State tree rooted at storeID
-  prevState[action.storeID] = StructUtil.copyRawObject(action.data);
+  prevState[action.storeID] = action.data;
 
   return prevState;
 }
