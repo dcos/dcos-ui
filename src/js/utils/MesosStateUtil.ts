@@ -1,6 +1,5 @@
 import { isSDKService } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 
-import StructUtil from "#SRC/js/utils/StructUtil";
 import TaskStates from "#PLUGINS/services/src/js/constants/TaskStates";
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
 import PodInstanceState from "#PLUGINS/services/src/js/constants/PodInstanceState";
@@ -100,9 +99,7 @@ const MesosStateUtil = {
 
         const resources = element.resources;
         if (memo[element.slave_id][frameworkKey] == null) {
-          memo[element.slave_id][frameworkKey] = StructUtil.copyRawObject(
-            resources
-          );
+          memo[element.slave_id][frameworkKey] = { ...resources };
         } else {
           // Aggregates used resources from each executor
           RESOURCE_KEYS.forEach(key => {

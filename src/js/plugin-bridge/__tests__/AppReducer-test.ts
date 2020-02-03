@@ -111,21 +111,4 @@ describe("AppReducer", () => {
     delete state.config;
     expect(isEqual(state, expectedState)).toEqual(true);
   });
-
-  it("clones state", () => {
-    const nestedObj = {};
-    const data = {
-      foo: "bar",
-      nested: nestedObj
-    };
-    PluginSDK.dispatch({
-      type: EventTypes.APP_STORE_CHANGE,
-      storeID: "foo",
-      data
-    });
-    const state = getApplicationState();
-
-    expect(state.foo !== data).toEqual(true);
-    expect(state.foo.nestedObj !== nestedObj).toEqual(true);
-  });
 });

@@ -5161,7 +5161,6 @@ src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'nul
 src/js/utils/__tests__/StringUtil-test.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type '{}' is not assignable to parameter of type 'never[]'.
 src/js/utils/__tests__/StringUtil-test.ts: error TS2345: Argument of type 'number[]' is not assignable to parameter of type 'never[]'.
-src/js/utils/__tests__/StructUtil-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/utils/__tests__/TableUtil-test.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/utils/__tests__/TemplateUtil-test.tsx: error TS2532: Object is possibly 'undefined'.
