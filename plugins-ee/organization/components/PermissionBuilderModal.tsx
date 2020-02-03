@@ -192,17 +192,10 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
 
     // Create input value array sorted after index in the resource
     const values = Object.keys(model)
-      .filter(
-        (
-          item // Filter out items that do not have a number as key
-        ) => !isNaN(parseInt(item, 10))
-      )
-      .sort(
-        (
-          a,
-          b // Remove 'input' from key, and parse integer to sort correctly
-        ) => parseInt(a, 10) - parseInt(b, 10)
-      )
+      // Filter out items that do not have a number as key
+      .filter(item => !isNaN(parseInt(item, 10)))
+      // Remove 'input' from key, and parse integer to sort correctly
+      .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
       .map(valueKey => model[valueKey]);
 
     // Replace occurances of '*' with model values
