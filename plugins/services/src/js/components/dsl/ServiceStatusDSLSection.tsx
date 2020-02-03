@@ -39,7 +39,7 @@ const ServiceStatusDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.is_running}
+                defaultChecked={data.is_running}
                 disabled={!enabled}
                 name="is_running"
                 type="checkbox"
@@ -48,7 +48,7 @@ const ServiceStatusDSLSection = props => {
             </FieldLabel>
             <FieldLabel>
               <FieldInput
-                checked={data.is_deploying}
+                defaultChecked={data.is_deploying}
                 disabled={!enabled}
                 name="is_deploying"
                 type="checkbox"
@@ -57,7 +57,7 @@ const ServiceStatusDSLSection = props => {
             </FieldLabel>
             <FieldLabel>
               <FieldInput
-                checked={data.is_recovering}
+                defaultChecked={data.is_recovering}
                 disabled={!enabled}
                 name="is_recovering"
                 type="checkbox"
@@ -70,7 +70,7 @@ const ServiceStatusDSLSection = props => {
           <FormGroup>
             <FieldLabel>
               <FieldInput
-                checked={data.is_stopped}
+                defaultChecked={data.is_stopped}
                 disabled={!enabled}
                 name="is_stopped"
                 type="checkbox"
@@ -79,7 +79,7 @@ const ServiceStatusDSLSection = props => {
             </FieldLabel>
             <FieldLabel>
               <FieldInput
-                checked={data.is_deleting}
+                defaultChecked={data.is_deleting}
                 disabled={!enabled}
                 name="is_deleting"
                 type="checkbox"

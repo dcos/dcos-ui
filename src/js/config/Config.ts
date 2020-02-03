@@ -32,7 +32,6 @@ interface IConfiguration {
   stateLongPoll: number;
   supportEmail: string;
   tailRefresh: number;
-  testHistoryInterval: number;
   uiConfigurationFixture?: object;
   useUIConfigFixtures?: boolean;
   unitHealthAPIPrefix: string;
@@ -59,7 +58,6 @@ let Config: IConfiguration = {
   metronomeAPI: "/service/metronome",
   productName: "Mesosphere DC/OS",
   productHomepageURI: "https://dcos.io",
-  testHistoryInterval: 10000,
   rootUrl: "",
   slackChannel: "https://dcos-community.slack.com/messages/general/",
   defaultRefreshRate: 2000,

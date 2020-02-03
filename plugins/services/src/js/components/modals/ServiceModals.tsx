@@ -14,7 +14,17 @@ import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
 import ServiceStopModal from "./ServiceStopModal";
 import DisabledGroupDestroyModal from "./DisabledGroupDestroyModal";
 
-class ServiceModals extends React.Component {
+const actionPropTypes = PropTypes.shape({
+  revertDeployment: PropTypes.func,
+  createGroup: PropTypes.func,
+  deleteGroup: PropTypes.func,
+  editGroup: PropTypes.func,
+  deleteService: PropTypes.func,
+  restartService: PropTypes.func,
+  resetDelayedService: PropTypes.func
+}).isRequired;
+
+export default class ServiceModals extends React.Component {
   static propTypes = {
     actionErrors: PropTypes.object.isRequired,
     actions: actionPropTypes,
@@ -260,15 +270,3 @@ class ServiceModals extends React.Component {
     );
   }
 }
-
-const actionPropTypes = PropTypes.shape({
-  revertDeployment: PropTypes.func,
-  createGroup: PropTypes.func,
-  deleteGroup: PropTypes.func,
-  editGroup: PropTypes.func,
-  deleteService: PropTypes.func,
-  restartService: PropTypes.func,
-  resetDelayedService: PropTypes.func
-}).isRequired;
-
-export default ServiceModals;
