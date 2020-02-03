@@ -16,6 +16,9 @@ import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 class FrameworkConfigurationReviewScreen extends React.Component {
+  static defaultProps = {
+    title: ""
+  };
   static propTypes = {
     onEditClick: PropTypes.func.isRequired,
     frameworkData: PropTypes.object.isRequired,
@@ -181,9 +184,5 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     );
   }
 }
-
-FrameworkConfigurationReviewScreen.defaultProps = {
-  title: ""
-};
 
 export default FrameworkConfigurationReviewScreen;

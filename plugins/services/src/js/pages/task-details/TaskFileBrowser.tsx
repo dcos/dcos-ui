@@ -5,6 +5,9 @@ import TaskDirectoryTable from "../../components/TaskDirectoryTable";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 
 class TaskFileBrowser extends React.Component {
+  static defaultProps = {
+    task: {}
+  };
   static propTypes = {
     directory: PropTypes.object,
     task: PropTypes.object
@@ -29,9 +32,5 @@ class TaskFileBrowser extends React.Component {
     );
   }
 }
-
-TaskFileBrowser.defaultProps = {
-  task: {}
-};
 
 export default TaskFileBrowser;

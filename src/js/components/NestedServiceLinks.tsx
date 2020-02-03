@@ -8,6 +8,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import { iconSizeXxs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class NestedServiceLinks extends React.Component {
+  static defaultProps = {};
   static propTypes = {
     serviceLink: PropTypes.string.isRequired,
     serviceID: PropTypes.string.isRequired,
@@ -152,8 +153,6 @@ class NestedServiceLinks extends React.Component {
     );
   }
 }
-
-NestedServiceLinks.defaultProps = {};
 
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,

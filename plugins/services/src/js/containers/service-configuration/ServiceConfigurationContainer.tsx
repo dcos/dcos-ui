@@ -8,6 +8,9 @@ import Service from "../../structs/Service";
 import ServiceConfiguration from "./ServiceConfiguration";
 
 class ServiceConfigurationContainer extends React.Component {
+  static defaultProps = {
+    errors: []
+  };
   static propTypes = {
     onEditClick: PropTypes.func,
     errors: PropTypes.array,
@@ -45,9 +48,5 @@ class ServiceConfigurationContainer extends React.Component {
     );
   }
 }
-
-ServiceConfigurationContainer.defaultProps = {
-  errors: []
-};
 
 export default ServiceConfigurationContainer;

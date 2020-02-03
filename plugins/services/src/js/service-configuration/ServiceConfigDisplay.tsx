@@ -68,6 +68,9 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({ MOUNT_TYPE, COMPONENTS }) => {
 });
 
 class ServiceConfigDisplay extends React.Component {
+  static defaultProps = {
+    errors: []
+  };
   static propTypes = {
     appConfig: PropTypes.object.isRequired,
     errors: PropTypes.array,
@@ -110,9 +113,5 @@ class ServiceConfigDisplay extends React.Component {
     );
   }
 }
-
-ServiceConfigDisplay.defaultProps = {
-  errors: []
-};
 
 export default ServiceConfigDisplay;

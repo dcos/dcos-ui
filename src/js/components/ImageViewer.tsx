@@ -4,6 +4,9 @@ import * as React from "react";
 import ImageViewerModal from "./modals/ImageViewerModal";
 
 class ImageViewer extends React.Component {
+  static defaultProps = {
+    images: []
+  };
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string)
   };
@@ -74,9 +77,5 @@ class ImageViewer extends React.Component {
     );
   }
 }
-
-ImageViewer.defaultProps = {
-  images: []
-};
 
 export default ImageViewer;

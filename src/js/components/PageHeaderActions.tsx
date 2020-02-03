@@ -25,6 +25,10 @@ const getDropdownAction = (action, index) => {
 };
 
 class PageHeaderActions extends React.Component {
+  static defaultProps = {
+    actions: [],
+    actionsDisabled: false
+  };
   static propTypes = {
     addButton: PropTypes.oneOfType([
       PropTypes.arrayOf(menuActionsProps),
@@ -103,11 +107,6 @@ class PageHeaderActions extends React.Component {
     );
   }
 }
-
-PageHeaderActions.defaultProps = {
-  actions: [],
-  actionsDisabled: false
-};
 
 const classProps = PropTypes.oneOfType([
   PropTypes.array,

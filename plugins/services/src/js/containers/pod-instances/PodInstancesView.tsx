@@ -31,6 +31,12 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class PodInstancesView extends React.Component {
+  static defaultProps = {
+    inverseStyle: false,
+    instances: [],
+    totalInstances: 0,
+    handleExpressionChange() {}
+  };
   static propTypes = {
     inverseStyle: PropTypes.bool,
     instances: PropTypes.instanceOf(Array).isRequired,
@@ -183,13 +189,6 @@ PodInstancesView.contextTypes = {
     killPodInstances: PropTypes.func.isRequired
   }).isRequired,
   router: routerShape
-};
-
-PodInstancesView.defaultProps = {
-  inverseStyle: false,
-  instances: [],
-  totalInstances: 0,
-  handleExpressionChange() {}
 };
 
 export default withI18n()(PodInstancesView);

@@ -17,6 +17,9 @@ const BOOLEAN_OPTIONS = {
 };
 
 class PodStorageConfigSection extends React.Component {
+  static defaultProps = {
+    appConfig: {}
+  };
   static propTypes = {
     appConfig: PropTypes.object,
     onEditClick: PropTypes.func
@@ -172,9 +175,5 @@ class PodStorageConfigSection extends React.Component {
     );
   }
 }
-
-PodStorageConfigSection.defaultProps = {
-  appConfig: {}
-};
 
 export default PodStorageConfigSection;

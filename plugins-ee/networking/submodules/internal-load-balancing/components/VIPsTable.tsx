@@ -28,6 +28,9 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
 ];
 
 class VIPsTable extends React.Component {
+  static defaultProps = {
+    vips: []
+  };
   static propTypes = {
     vips: PropTypes.arrayOf(
       PropTypes.shape({
@@ -205,9 +208,5 @@ class VIPsTable extends React.Component {
     );
   }
 }
-
-VIPsTable.defaultProps = {
-  vips: []
-};
 
 export default VIPsTable;

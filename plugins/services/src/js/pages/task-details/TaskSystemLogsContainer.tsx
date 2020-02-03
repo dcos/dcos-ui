@@ -37,6 +37,9 @@ function getLogParameters(task, options) {
 }
 
 class TaskSystemLogsContainer extends mixin(StoreMixin) {
+  static defaultProps = {
+    highlightText: ""
+  };
   static propTypes = {
     task: PropTypes.shape({
       slave_id: PropTypes.string
@@ -349,10 +352,6 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     return <SearchLog actions={actions}>{this.getLogView()}</SearchLog>;
   }
 }
-
-TaskSystemLogsContainer.defaultProps = {
-  highlightText: ""
-};
 
 TaskSystemLogsContainer.propTypes = {
   filePath: PropTypes.string,

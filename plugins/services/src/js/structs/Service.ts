@@ -169,8 +169,4 @@ export default class Service extends Item {
       { count: 0, rolesCount: 0, groupRoleCount: 0 }
     );
   }
-
-  toJSON() {
-    return this.get();
-  }
 }

@@ -50,6 +50,12 @@ const getVirtualNetworks = () =>
     ));
 
 class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -660,13 +666,6 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     );
   }
 }
-
-MultiContainerNetworkingFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
 
 MultiContainerNetworkingFormSection.configReducers = {
   networks

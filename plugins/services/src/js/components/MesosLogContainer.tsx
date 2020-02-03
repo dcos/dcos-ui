@@ -13,6 +13,9 @@ import MesosLogStore from "../stores/MesosLogStore";
 import TaskDirectoryStore from "../stores/TaskDirectoryStore";
 
 class MesosLogContainer extends mixin(StoreMixin) {
+  static defaultProps = {
+    highlightText: ""
+  };
   static propTypes = {
     filePath: PropTypes.string,
     highlightText: PropTypes.string,
@@ -227,9 +230,5 @@ class MesosLogContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-MesosLogContainer.defaultProps = {
-  highlightText: ""
-};
 
 export default MesosLogContainer;

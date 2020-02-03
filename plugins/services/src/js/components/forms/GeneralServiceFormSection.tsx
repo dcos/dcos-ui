@@ -53,6 +53,13 @@ const containerRuntimes = {
 };
 
 class GeneralServiceFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    expandAdvancedSettings: false,
+    onAddItem() {},
+    onRemoveItem() {}
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -456,14 +463,6 @@ class GeneralServiceFormSection extends React.Component {
     );
   }
 }
-
-GeneralServiceFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  expandAdvancedSettings: false,
-  onAddItem() {},
-  onRemoveItem() {}
-};
 
 GeneralServiceFormSection.configReducers = General;
 

@@ -56,6 +56,9 @@ const getProgressBarData = memoize(
 );
 
 class ProgressBar extends React.PureComponent {
+  static defaultProps = {
+    total: 0
+  };
   static propTypes = {
     className: PropTypes.oneOfType([
       PropTypes.array,
@@ -133,9 +136,5 @@ class ProgressBar extends React.PureComponent {
     return <div className={classes}>{this.getBars(data)}</div>;
   }
 }
-
-ProgressBar.defaultProps = {
-  total: 0
-};
 
 export default ProgressBar;

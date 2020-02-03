@@ -15,6 +15,9 @@ import AuthProvidersFormDefinitions from "../constants/AuthProvidersFormDefiniti
 import ProviderTypes from "../constants/ProviderTypes";
 
 class AuthProvidersModalForm extends mixin(StoreMixin) {
+  static defaultProps = {
+    onError() {}
+  };
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     onError: PropTypes.func,
@@ -201,9 +204,5 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
     );
   }
 }
-
-AuthProvidersModalForm.defaultProps = {
-  onError() {}
-};
 
 export default withI18n()(AuthProvidersModalForm);

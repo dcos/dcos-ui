@@ -19,6 +19,11 @@ const JSONEditor = React.lazy(() =>
 );
 
 class CreateServiceJsonOnly extends React.Component {
+  static defaultProps = {
+    onChange() {},
+    onErrorsChange() {},
+    onPropertyChange() {}
+  };
   static propTypes = {
     errors: PropTypes.array.isRequired,
     onChange: PropTypes.func,
@@ -129,11 +134,5 @@ class CreateServiceJsonOnly extends React.Component {
     );
   }
 }
-
-CreateServiceJsonOnly.defaultProps = {
-  onChange() {},
-  onErrorsChange() {},
-  onPropertyChange() {}
-};
 
 export default withI18n()(CreateServiceJsonOnly);

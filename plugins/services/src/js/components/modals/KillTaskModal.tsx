@@ -20,6 +20,11 @@ const ACTION_DISPLAY_NAMES_CONTINUOUS = {
 };
 
 class KillTaskModal extends React.PureComponent {
+  static defaultProps = {
+    action: "restart",
+    killTasks: () => {},
+    selectedItems: []
+  };
   static propTypes = {
     action: PropTypes.string,
     errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -172,11 +177,5 @@ class KillTaskModal extends React.PureComponent {
     );
   }
 }
-
-KillTaskModal.defaultProps = {
-  action: "restart",
-  killTasks: () => {},
-  selectedItems: []
-};
 
 export default withI18n()(KillTaskModal);

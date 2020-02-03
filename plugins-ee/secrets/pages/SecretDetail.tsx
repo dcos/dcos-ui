@@ -244,13 +244,7 @@ class SecretDetail extends mixin(StoreMixin) {
             {creationDetailsRow}
             <ConfigurationMapRow>
               <ConfigurationMapLabel>
-                {secret.isBinary() ? (
-                  <Trans>File</Trans>
-                ) : (
-                  <React.Fragment>
-                    <Trans>Value</Trans>
-                  </React.Fragment>
-                )}
+                {secret.isBinary() ? <Trans>File</Trans> : <Trans>Value</Trans>}
               </ConfigurationMapLabel>
               <ConfigurationMapValue>
                 {secret.isBinary() ? (

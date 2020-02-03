@@ -32,6 +32,9 @@ function fetchVersion(service, versionID) {
 }
 
 class ServiceConfiguration extends mixin(StoreMixin) {
+  static defaultProps = {
+    errors: []
+  };
   static propTypes = {
     onEditClick: PropTypes.func.isRequired,
     errors: PropTypes.array,
@@ -259,10 +262,6 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
 ServiceConfiguration.contextTypes = {
   router: routerShape
-};
-
-ServiceConfiguration.defaultProps = {
-  errors: []
 };
 
 export default ServiceConfiguration;

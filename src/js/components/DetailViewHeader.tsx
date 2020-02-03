@@ -5,6 +5,9 @@ import * as React from "react";
 import CollapsingString from "./CollapsingString";
 
 class DetailViewHeader extends React.Component {
+  static defaultProps = {
+    actionButtons: []
+  };
   static propTypes = {
     actionButtons: PropTypes.arrayOf(PropTypes.element),
     icon: PropTypes.node,
@@ -128,9 +131,5 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-DetailViewHeader.defaultProps = {
-  actionButtons: []
-};
 
 export default DetailViewHeader;
