@@ -342,10 +342,9 @@ plugins/jobs/src/js/jobsRunNow.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/jobsToggleSchedule.ts: error TS2571: Object is of type 'unknown'.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2741: Property 'id' is missing in type 'Job' but required in type *.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2741: Property 'id' is missing in type '{}' but required in type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2739: Type 'Job' is missing the following properties from type 'JobResponse': historySummary, id, labels, run, schedules
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'json' does not exist on type 'Job'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'json' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'jobActionDialog' does not exist on type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'closeDialog' does not exist on type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2322: type * is not assignable to type *.
@@ -357,8 +356,8 @@ plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'handleEditB
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'handleDestroyButtonClick' does not exist on type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'params' does not exist on type *.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'path' does not exist on type 'Job'.
-plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'name' does not exist on type 'Job'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'path' does not exist on type '{}'.
+plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'name' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobDetailPage.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
 plugins/jobs/src/js/pages/JobRunHistoryTable.tsx: error TS2339: Property 'mesosStateStoreLoaded' does not exist on type 'Readonly<{}>'.
@@ -4687,13 +4686,6 @@ src/js/structs/DSLExpression.ts: error TS6133: 'filters' is declared but its val
 src/js/structs/HealthUnit.ts: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 src/js/structs/JobTaskList.ts: error TS2531: Object is possibly 'null'.
 src/js/structs/JobTaskList.ts: error TS2531: Object is possibly 'null'.
-src/js/structs/JobTree.ts: error TS2525: Initializer provides no value for this binding element and the binding element has no default value.
-src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
-src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
-src/js/structs/JobTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
-src/js/structs/JobTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
-src/js/structs/JobTree.ts: error TS2351: This expression is not constructable.
-src/js/structs/JobTree.ts: error TS2339: Property 'id' does not exist on type 'JobTree'.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -4772,8 +4764,6 @@ src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'a' does not exist
 src/js/structs/__tests__/Item-test.ts: error TS2339: Property 'b' does not exist on type 'Item'.
 src/js/structs/__tests__/JobTaskList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/JobTaskList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-src/js/structs/__tests__/JobTree-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-src/js/structs/__tests__/JobTree-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/List-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 src/js/structs/__tests__/NodesList-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.

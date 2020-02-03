@@ -13,8 +13,4 @@ export default class ServiceSpec extends Item {
       disk: 0
     };
   }
-
-  toJSON() {
-    return this.get();
-  }
 }

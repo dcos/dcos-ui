@@ -6,7 +6,6 @@ import { routerShape } from "react-router";
 import PropTypes from "prop-types";
 
 import Page from "#SRC/js/components/Page";
-import Job from "#SRC/js/structs/Job";
 import Util from "#SRC/js/utils/Util";
 
 import JobFormModal from "../components/JobsFormModal";
@@ -20,7 +19,7 @@ import JobDelete from "../JobDelete";
 
 import jobsMenu from "../jobsMenu";
 
-class JobDetailPage extends React.Component<{ currentTab: string; job: Job }> {
+class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
   static propTypes = {
     children: PropTypes.any,
     closeDialog: PropTypes.func,
@@ -113,7 +112,7 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: Job }> {
 
         <JobFormModal
           isEdit={true}
-          job={new Job(JSON.parse(job.json))}
+          job={JSON.parse(job.json)}
           isOpen={this.props.jobActionDialog === DIALOGS.EDIT}
           closeModal={this.props.closeDialog}
         />
