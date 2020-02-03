@@ -20,6 +20,9 @@ import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
+  static defaultProps = {
+    task: {}
+  };
   static propTypes = {
     task: PropTypes.object
   };
@@ -194,9 +197,5 @@ class TaskDetailsTab extends React.Component {
     );
   }
 }
-
-TaskDetailsTab.defaultProps = {
-  task: {}
-};
 
 export default TaskDetailsTab;

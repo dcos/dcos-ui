@@ -23,6 +23,10 @@ function renderByProperty(prop, directoryItem) {
 }
 
 class TaskDirectoryTable extends React.Component {
+  static defaultProps = {
+    onOpenLogClick() {},
+    files: []
+  };
   static propTypes = {
     directoryPath: PropTypes.string,
     onOpenLogClick: PropTypes.func,
@@ -215,10 +219,5 @@ class TaskDirectoryTable extends React.Component {
     );
   }
 }
-
-TaskDirectoryTable.defaultProps = {
-  onOpenLogClick() {},
-  files: []
-};
 
 export default TaskDirectoryTable;

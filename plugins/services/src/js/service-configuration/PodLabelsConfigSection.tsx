@@ -13,6 +13,9 @@ import {
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 class PodLabelsConfigSection extends React.Component {
+  static defaultProps = {
+    appConfig: {}
+  };
   static propTypes = {
     appConfig: PropTypes.object,
     onEditClick: PropTypes.func
@@ -102,9 +105,5 @@ class PodLabelsConfigSection extends React.Component {
     );
   }
 }
-
-PodLabelsConfigSection.defaultProps = {
-  appConfig: {}
-};
 
 export default PodLabelsConfigSection;

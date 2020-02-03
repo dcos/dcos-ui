@@ -7,6 +7,31 @@ import * as React from "react";
 import Units from "#SRC/js/utils/Units";
 
 class LineChart extends React.Component {
+  static defaultProps = {
+    chartOptions: {
+      drawPoints: false,
+      axisLineColor: "#CBCED1",
+      gridLineColor: "#CBCED1",
+      highlightSeriesBackgroundAlpha: 1,
+      highlightSeriesOpts: {
+        strokeBorderColor: "#ffffff",
+        strokeBorderWidth: 0.5,
+        strokeWidth: 1.75,
+        highlightCircleSize: 3
+      },
+      labelsDiv: "dygraph-hover-label",
+      labelsSeparateLines: true,
+      legend: "follow",
+      yLabelWidth: 200,
+      showLabelsOnHighlight: true,
+      strokeWidth: 1.25,
+      axes: {
+        y: {
+          axisLabelWidth: 35
+        }
+      }
+    }
+  };
   static propTypes = {
     labels: PropTypes.array.isRequired,
     data: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
@@ -208,31 +233,5 @@ class LineChart extends React.Component {
     );
   }
 }
-
-LineChart.defaultProps = {
-  chartOptions: {
-    drawPoints: false,
-    axisLineColor: "#CBCED1",
-    gridLineColor: "#CBCED1",
-    highlightSeriesBackgroundAlpha: 1,
-    highlightSeriesOpts: {
-      strokeBorderColor: "#ffffff",
-      strokeBorderWidth: 0.5,
-      strokeWidth: 1.75,
-      highlightCircleSize: 3
-    },
-    labelsDiv: "dygraph-hover-label",
-    labelsSeparateLines: true,
-    legend: "follow",
-    yLabelWidth: 200,
-    showLabelsOnHighlight: true,
-    strokeWidth: 1.25,
-    axes: {
-      y: {
-        axisLabelWidth: 35
-      }
-    }
-  }
-};
 
 export default LineChart;

@@ -29,6 +29,13 @@ const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["DSS", "EXTERNAL"];
 
 class MultiContainerVolumesFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    handleTabChange() {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -342,14 +349,6 @@ class MultiContainerVolumesFormSection extends React.Component {
     );
   }
 }
-
-MultiContainerVolumesFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  handleTabChange() {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
 
 MultiContainerVolumesFormSection.configReducers = {
   volumeMounts

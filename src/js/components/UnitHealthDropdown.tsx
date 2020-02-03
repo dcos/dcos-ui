@@ -13,6 +13,10 @@ const DEFAULT_ITEM = {
 };
 
 class UnitHealthDropdown extends React.PureComponent {
+  static defaultProps = {
+    className: "button dropdown-toggle text-align-left",
+    dropdownMenuClassName: "dropdown-menu"
+  };
   static propTypes = {
     className: PropTypes.string,
     dropdownMenuClassName: PropTypes.string,
@@ -72,10 +76,5 @@ class UnitHealthDropdown extends React.PureComponent {
     );
   }
 }
-
-UnitHealthDropdown.defaultProps = {
-  className: "button dropdown-toggle text-align-left",
-  dropdownMenuClassName: "dropdown-menu"
-};
 
 export default UnitHealthDropdown;

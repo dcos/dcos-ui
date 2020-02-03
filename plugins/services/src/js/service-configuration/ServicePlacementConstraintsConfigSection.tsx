@@ -10,6 +10,9 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class ServicePlacementConstraintsConfigSection extends React.Component {
+  static defaultProps = {
+    appConfig: {}
+  };
   static propTypes = {
     appConfig: PropTypes.object,
     onEditClick: PropTypes.func
@@ -80,9 +83,5 @@ class ServicePlacementConstraintsConfigSection extends React.Component {
     );
   }
 }
-
-ServicePlacementConstraintsConfigSection.defaultProps = {
-  appConfig: {}
-};
 
 export default ServicePlacementConstraintsConfigSection;

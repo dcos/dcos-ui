@@ -39,6 +39,13 @@ const podPaths = {
 };
 
 class ContainerServiceFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {},
+    path: "container"
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -263,14 +270,6 @@ class ContainerServiceFormSection extends React.Component {
     );
   }
 }
-
-ContainerServiceFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {},
-  path: "container"
-};
 
 ContainerServiceFormSection.configReducers = {
   container: ContainerReducer,

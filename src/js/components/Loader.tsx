@@ -44,6 +44,12 @@ const typeMap = {
 };
 
 class Loader extends React.Component {
+  static defaultProps = {
+    className: "",
+    innerClassName: "",
+    type: "ballScale",
+    suppressHorizontalCenter: false
+  };
   static propTypes = {
     suppressHorizontalCenter: PropTypes.bool,
     className: classPropType,
@@ -87,13 +93,6 @@ class Loader extends React.Component {
     );
   }
 }
-
-Loader.defaultProps = {
-  className: "",
-  innerClassName: "",
-  type: "ballScale",
-  suppressHorizontalCenter: false
-};
 
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,

@@ -25,6 +25,14 @@ function escapeStringRegexp(str) {
 let debounceTimeout = null;
 
 class Highlight extends React.Component {
+  static defaultProps = {
+    caseSensitive: false,
+    matchElement: "strong",
+    matchClass: "highlight",
+    searchDebounceDelay: 500,
+    searchDebounceThreshold: 2,
+    selectedMatchClass: "highlight selected"
+  };
   static propTypes = {
     search: PropTypes.oneOfType([
       PropTypes.string,
@@ -254,14 +262,5 @@ class Highlight extends React.Component {
     return <div {...this.props}>{this.renderElement(this.props.children)}</div>;
   }
 }
-
-Highlight.defaultProps = {
-  caseSensitive: false,
-  matchElement: "strong",
-  matchClass: "highlight",
-  searchDebounceDelay: 500,
-  searchDebounceThreshold: 2,
-  selectedMatchClass: "highlight selected"
-};
 
 export default Highlight;

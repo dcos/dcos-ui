@@ -40,6 +40,9 @@ function getNetworkNames(networks) {
 }
 
 class PodNetworkConfigSection extends React.Component {
+  static defaultProps = {
+    appConfig: {}
+  };
   static propTypes = {
     appConfig: PropTypes.object,
     onEditClick: PropTypes.func
@@ -175,9 +178,5 @@ class PodNetworkConfigSection extends React.Component {
     );
   }
 }
-
-PodNetworkConfigSection.defaultProps = {
-  appConfig: {}
-};
 
 export default withI18n()(PodNetworkConfigSection);

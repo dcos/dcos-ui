@@ -3,6 +3,13 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class FilterButtons extends React.Component {
+  static defaultProps = {
+    inverseStyle: false,
+    onFilterChange() {},
+    renderButtonContent(title) {
+      return title;
+    }
+  };
   static propTypes = {
     filters: PropTypes.array,
     // The key in itemList that is being filtered
@@ -82,13 +89,5 @@ class FilterButtons extends React.Component {
     );
   }
 }
-
-FilterButtons.defaultProps = {
-  inverseStyle: false,
-  onFilterChange() {},
-  renderButtonContent(title) {
-    return title;
-  }
-};
 
 export default FilterButtons;

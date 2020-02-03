@@ -134,6 +134,10 @@ function sortData(
 export const columnWidthsStorageKey = "servicesTableColWidths";
 
 class ServicesTable extends React.Component {
+  static defaultProps = {
+    isFiltered: false,
+    services: []
+  };
   static propTypes = {
     isFiltered: PropTypes.bool,
     services: PropTypes.array
@@ -621,11 +625,6 @@ ServicesTable.contextTypes = {
     resetDelayedService: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-ServicesTable.defaultProps = {
-  isFiltered: false,
-  services: []
 };
 
 function withMasterRegionName(Component) {

@@ -16,6 +16,14 @@ import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
  * the update of the DSL expression based on the part definition given.
  */
 class DSLFormWithExpressionUpdates extends React.Component {
+  static defaultProps = {
+    enabled: true,
+    groupCombiner: DSLCombinerTypes.AND,
+    itemCombiner: DSLCombinerTypes.AND,
+    onChange() {},
+    onSubmit() {},
+    updatePolicy: DSLUpdatePolicy.Checkbox
+  };
   static propTypes = {
     enabled: PropTypes.bool,
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
@@ -231,14 +239,5 @@ class DSLFormWithExpressionUpdates extends React.Component {
     );
   }
 }
-
-DSLFormWithExpressionUpdates.defaultProps = {
-  enabled: true,
-  groupCombiner: DSLCombinerTypes.AND,
-  itemCombiner: DSLCombinerTypes.AND,
-  onChange() {},
-  onSubmit() {},
-  updatePolicy: DSLUpdatePolicy.Checkbox
-};
 
 export default DSLFormWithExpressionUpdates;

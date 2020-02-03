@@ -9,6 +9,10 @@ const HOUR = 60 * HOUR;
 const DAY = 24 * DAY;
 
 export default class TimeAgo extends React.Component {
+  static defaultProps = {
+    autoUpdate: true,
+    suppressSuffix: false
+  };
   static propTypes = {
     autoUpdate: PropTypes.bool,
     className: PropTypes.string,
@@ -82,8 +86,3 @@ export default class TimeAgo extends React.Component {
     );
   }
 }
-
-TimeAgo.defaultProps = {
-  autoUpdate: true,
-  suppressSuffix: false
-};

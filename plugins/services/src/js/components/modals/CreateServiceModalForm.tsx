@@ -98,6 +98,15 @@ const JSONEditor = React.lazy(() =>
 );
 
 class CreateServiceModalForm extends React.Component {
+  static defaultProps = {
+    errors: [],
+    expandAdvancedSettings: false,
+    handleTabChange() {},
+    isJSONModeActive: false,
+    onChange() {},
+    onErrorStateChange() {},
+    showAllErrors: false
+  };
   static propTypes = {
     activeTab: PropTypes.string,
     errors: PropTypes.array,
@@ -886,15 +895,5 @@ class CreateServiceModalForm extends React.Component {
     );
   }
 }
-
-CreateServiceModalForm.defaultProps = {
-  errors: [],
-  expandAdvancedSettings: false,
-  handleTabChange() {},
-  isJSONModeActive: false,
-  onChange() {},
-  onErrorStateChange() {},
-  showAllErrors: false
-};
 
 export default withI18n()(CreateServiceModalForm);

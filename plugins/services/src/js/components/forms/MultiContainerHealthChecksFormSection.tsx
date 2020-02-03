@@ -30,6 +30,13 @@ import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 class MultiContainerHealthChecksFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    handleTabChange() {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -533,13 +540,5 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     );
   }
 }
-
-MultiContainerHealthChecksFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  handleTabChange() {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
 
 export default MultiContainerHealthChecksFormSection;

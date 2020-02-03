@@ -3,6 +3,11 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class SideTabs extends React.Component {
+  static defaultProps = {
+    className: "multiple-form-modal-sidebar-tabs",
+    onTabClick() {},
+    tabs: []
+  };
   static propTypes = {
     className: PropTypes.string,
     onTabClick: PropTypes.func,
@@ -108,11 +113,5 @@ class SideTabs extends React.Component {
     );
   }
 }
-
-SideTabs.defaultProps = {
-  className: "multiple-form-modal-sidebar-tabs",
-  onTabClick() {},
-  tabs: []
-};
 
 export default SideTabs;

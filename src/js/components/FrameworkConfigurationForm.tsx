@@ -54,6 +54,11 @@ MountService.MountService.registerComponent(
 );
 
 class FrameworkConfigurationForm extends React.Component {
+  static defaultProps = {
+    deployErrors: null,
+    submitRef: () => {},
+    liveValidate: false
+  };
   static propTypes = {
     packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
     jsonEditorActive: PropTypes.bool.isRequired,
@@ -411,12 +416,6 @@ class FrameworkConfigurationForm extends React.Component {
     );
   }
 }
-
-FrameworkConfigurationForm.defaultProps = {
-  deployErrors: null,
-  submitRef: () => {},
-  liveValidate: false
-};
 
 export default withI18n()(FrameworkConfigurationForm);
 export function unwrapped() {

@@ -20,6 +20,11 @@ import ReactUtil from "../utils/ReactUtil";
  *
  */
 class Mount extends React.Component {
+  static defaultProps = {
+    alwaysWrap: false,
+    limit: Number.MAX_SAFE_INTEGER,
+    wrapper: "div"
+  };
   static propTypes = {
     alwaysWrap: PropTypes.bool,
     limit: PropTypes.number,
@@ -93,11 +98,5 @@ class Mount extends React.Component {
     return ReactUtil.wrapElements(children, wrapper, alwaysWrap);
   }
 }
-
-Mount.defaultProps = {
-  alwaysWrap: false,
-  limit: Number.MAX_SAFE_INTEGER,
-  wrapper: "div"
-};
 
 export default Mount;

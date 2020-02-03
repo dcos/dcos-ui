@@ -7,6 +7,14 @@ import * as React from "react";
 import FilterInputText from "./FilterInputText";
 
 class Typeahead extends FilterInputText {
+  static defaultProps = {
+    emptyLabel: "Nothing to show.",
+    onDropdownItemSelection() {},
+    inverseStyle: false,
+    items: [],
+    selected: [],
+    placeholder: "Filter"
+  };
   static propTypes = {
     emptyLabel: PropTypes.string,
     labelKey: PropTypes.string.isRequired,
@@ -72,14 +80,5 @@ class Typeahead extends FilterInputText {
     );
   }
 }
-
-Typeahead.defaultProps = {
-  emptyLabel: "Nothing to show.",
-  onDropdownItemSelection() {},
-  inverseStyle: false,
-  items: [],
-  selected: [],
-  placeholder: "Filter"
-};
 
 export default Typeahead;

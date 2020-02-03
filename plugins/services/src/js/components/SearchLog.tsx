@@ -8,6 +8,9 @@ import FilterBar from "#SRC/js/components/FilterBar";
 import FilterInputText from "#SRC/js/components/FilterInputText";
 
 class SearchLog extends React.PureComponent {
+  static defaultProps = {
+    logFiles: []
+  };
   static propTypes = {
     logFiles: PropTypes.array,
     actions: PropTypes.node,
@@ -147,9 +150,5 @@ class SearchLog extends React.PureComponent {
     );
   }
 }
-
-SearchLog.defaultProps = {
-  logFiles: []
-};
 
 export default withI18n()(SearchLog);

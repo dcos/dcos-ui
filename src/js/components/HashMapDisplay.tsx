@@ -8,6 +8,10 @@ import ConfigurationMapSection from "./ConfigurationMapSection";
 import ConfigurationMapValue from "./ConfigurationMapValue";
 
 class HashMapDisplay extends React.PureComponent {
+  static defaultProps = {
+    headingLevel: 1,
+    renderKeys: {}
+  };
   static propTypes = {
     headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
     headlineClassName: PropTypes.string,
@@ -128,10 +132,5 @@ class HashMapDisplay extends React.PureComponent {
     );
   };
 }
-
-HashMapDisplay.defaultProps = {
-  headingLevel: 1,
-  renderKeys: {}
-};
 
 export default HashMapDisplay;

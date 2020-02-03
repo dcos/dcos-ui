@@ -8,6 +8,9 @@ import isEqual from "lodash.isequal";
 import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
 class PageHeaderTabs extends React.Component {
+  static defaultProps = {
+    tabs: []
+  };
   static propTypes = {
     tabs: PropTypes.arrayOf(
       PropTypes.shape({
@@ -124,10 +127,6 @@ class PageHeaderTabs extends React.Component {
 
 PageHeaderTabs.contextTypes = {
   router: routerShape
-};
-
-PageHeaderTabs.defaultProps = {
-  tabs: []
 };
 
 export default PageHeaderTabs;

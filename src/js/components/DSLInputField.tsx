@@ -34,6 +34,17 @@ import DSLExpression from "../structs/DSLExpression";
  *   />
  */
 class DSLInputField extends React.Component {
+  static defaultProps = {
+    className: {},
+    dropdownVisible: false,
+    hasDropdown: true,
+    inverseStyle: false,
+    onChange() {},
+    onBlur() {},
+    onDropdownClick() {},
+    onFocus() {},
+    placeholder: i18nMark("Filter")
+  };
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     dropdownVisible: PropTypes.bool,
@@ -273,17 +284,5 @@ class DSLInputField extends React.Component {
     );
   }
 }
-
-DSLInputField.defaultProps = {
-  className: {},
-  dropdownVisible: false,
-  hasDropdown: true,
-  inverseStyle: false,
-  onChange() {},
-  onBlur() {},
-  onDropdownClick() {},
-  onFocus() {},
-  placeholder: i18nMark("Filter")
-};
 
 export default withI18n()(DSLInputField);

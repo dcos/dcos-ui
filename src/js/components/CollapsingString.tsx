@@ -6,6 +6,13 @@ import ReactDOM from "react-dom";
 import DOMUtils from "../utils/DOMUtils";
 
 class CollapsingString extends React.Component {
+  static defaultProps = {
+    fullStringClassName: "collapsing-string-full-string",
+    truncatedStringEndClassName: "collapsing-string-truncated-end",
+    truncatedStringStartClassName: "collapsing-string-truncated-start",
+    truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
+    wrapperClassName: "collapsing-string"
+  };
   static propTypes = {
     // The number of characters to keep visible at the end of the string.
     endLength: PropTypes.number,
@@ -166,13 +173,5 @@ class CollapsingString extends React.Component {
     );
   }
 }
-
-CollapsingString.defaultProps = {
-  fullStringClassName: "collapsing-string-full-string",
-  truncatedStringEndClassName: "collapsing-string-truncated-end",
-  truncatedStringStartClassName: "collapsing-string-truncated-start",
-  truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
-  wrapperClassName: "collapsing-string"
-};
 
 export default CollapsingString;

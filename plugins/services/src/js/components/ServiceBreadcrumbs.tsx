@@ -21,6 +21,9 @@ import ServiceStatusWarningWithDebugInformation from "./ServiceStatusWarningWith
 const BREADCRUMB_CONTENT_MARGIN = 7;
 
 class ServiceBreadcrumbs extends React.Component {
+  static defaultProps = {
+    serviceID: ""
+  };
   static propTypes = {
     extra: PropTypes.arrayOf(PropTypes.node),
     serviceID: PropTypes.string,
@@ -297,9 +300,5 @@ class ServiceBreadcrumbs extends React.Component {
     );
   }
 }
-
-ServiceBreadcrumbs.defaultProps = {
-  serviceID: ""
-};
 
 export default ServiceBreadcrumbs;

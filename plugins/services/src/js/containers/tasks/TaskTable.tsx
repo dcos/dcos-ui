@@ -42,6 +42,11 @@ const tableColumnClasses = {
 };
 
 class TaskTable extends React.Component {
+  static defaultProps = {
+    className:
+      "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
+    tasks: []
+  };
   static propTypes = {
     checkedItemsMap: PropTypes.object,
     className: PropTypes.string,
@@ -453,12 +458,6 @@ class TaskTable extends React.Component {
 
 TaskTable.contextTypes = {
   router: routerShape.isRequired
-};
-
-TaskTable.defaultProps = {
-  className:
-    "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
-  tasks: []
 };
 
 export default TaskTable;

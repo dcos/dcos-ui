@@ -60,6 +60,18 @@ const IS_TYPING_TIMEOUT = 2000;
  *
  */
 class JSONEditor extends React.Component {
+  static defaultProps = {
+    errors: [],
+    editorProps: { $blockScrolling: Infinity },
+    height: "100%",
+    onBlur() {},
+    onChange() {},
+    onErrorStateChange() {},
+    onFocus() {},
+    onPropertyChange() {},
+    value: {},
+    width: "100%"
+  };
   static propTypes = {
     errors: PropTypes.array,
     editorProps: PropTypes.object,
@@ -506,18 +518,5 @@ class JSONEditor extends React.Component {
     );
   }
 }
-
-JSONEditor.defaultProps = {
-  errors: [],
-  editorProps: { $blockScrolling: Infinity },
-  height: "100%",
-  onBlur() {},
-  onChange() {},
-  onErrorStateChange() {},
-  onFocus() {},
-  onPropertyChange() {},
-  value: {},
-  width: "100%"
-};
 
 export default JSONEditor;
