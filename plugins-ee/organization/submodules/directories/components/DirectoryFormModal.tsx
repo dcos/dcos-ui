@@ -24,6 +24,12 @@ const BLACKLISTED_FORM_FIELDS = [
 ];
 
 class DirectoryFormModal extends React.Component {
+  static defaultProps = {
+    changeModalOpenState() {},
+    editMode: true,
+    model: {},
+    onFormSubmit() {}
+  };
   static propTypes = {
     changeModalOpenState: PropTypes.func,
     editMode: PropTypes.bool,
@@ -726,12 +732,5 @@ class DirectoryFormModal extends React.Component {
     );
   }
 }
-
-DirectoryFormModal.defaultProps = {
-  changeModalOpenState() {},
-  editMode: true,
-  model: {},
-  onFormSubmit() {}
-};
 
 export default withI18n()(DirectoryFormModal);

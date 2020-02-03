@@ -15,6 +15,9 @@ const BOOLEAN_OPTIONS = {
 };
 
 class PodContainerArtifactsConfigSection extends React.Component {
+  static defaultProps = {
+    artifacts: []
+  };
   static propTypes = {
     artifacts: PropTypes.array,
     index: PropTypes.number,
@@ -110,9 +113,5 @@ class PodContainerArtifactsConfigSection extends React.Component {
     );
   }
 }
-
-PodContainerArtifactsConfigSection.defaultProps = {
-  artifacts: []
-};
 
 export default PodContainerArtifactsConfigSection;

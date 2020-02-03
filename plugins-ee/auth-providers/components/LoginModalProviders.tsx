@@ -14,6 +14,9 @@ import "../styles/auth-providers.less";
 const SERVICE_ACCOUNT_DISPLAY_LIMIT = 3;
 
 class LoginModalProviders extends mixin(StoreMixin) {
+  static defaultProps = {
+    onUpdate() {}
+  };
   static propTypes = {
     onUpdate: PropTypes.func,
     target: PropTypes.string
@@ -124,9 +127,5 @@ class LoginModalProviders extends mixin(StoreMixin) {
     );
   }
 }
-
-LoginModalProviders.defaultProps = {
-  onUpdate() {}
-};
 
 export default withI18n()(LoginModalProviders);

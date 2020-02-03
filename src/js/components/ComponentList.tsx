@@ -6,6 +6,9 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 class ComponentList extends React.PureComponent {
+  static defaultProps = {
+    displayCount: 0
+  };
   static propTypes = {
     displayCount: PropTypes.number,
     // Required object of type HealthUnitsList.
@@ -129,9 +132,5 @@ class ComponentList extends React.PureComponent {
     );
   }
 }
-
-ComponentList.defaultProps = {
-  displayCount: 0
-};
 
 export default ComponentList;

@@ -20,6 +20,13 @@ import { FormReducer as env } from "../../reducers/serviceForm/FormReducers/Envi
 import { FormReducer as labels } from "../../reducers/serviceForm/FormReducers/Labels";
 
 class EnvironmentFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {},
+    mountType: "CreateService:EnvironmentFormSection"
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -299,14 +306,6 @@ class EnvironmentFormSection extends React.Component {
     );
   }
 }
-
-EnvironmentFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {},
-  mountType: "CreateService:EnvironmentFormSection"
-};
 
 EnvironmentFormSection.configReducers = {
   env,

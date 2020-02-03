@@ -11,6 +11,9 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
+  static defaultProps = {
+    appConfig: {}
+  };
   static propTypes = {
     appConfig: PropTypes.object,
     onEditClick: PropTypes.func
@@ -84,9 +87,5 @@ class PodPlacementConstraintsConfigSection extends React.Component {
     );
   }
 }
-
-PodPlacementConstraintsConfigSection.defaultProps = {
-  appConfig: {}
-};
 
 export default PodPlacementConstraintsConfigSection;

@@ -8,6 +8,13 @@ import Util from "../utils/Util";
 const WHITESPACE = "\u00A0";
 
 class ExpandingTable extends React.Component {
+  static defaultProps = {
+    alignCells: "top",
+    childRowClassName: "text-overflow",
+    expandAll: false,
+    expandRowsByDefault: false,
+    tableComponent: Table
+  };
   static propTypes = {
     alignCells: PropTypes.oneOf(["top", "middle", "bottom"]),
     childRowClassName: PropTypes.string,
@@ -153,13 +160,5 @@ class ExpandingTable extends React.Component {
     );
   }
 }
-
-ExpandingTable.defaultProps = {
-  alignCells: "top",
-  childRowClassName: "text-overflow",
-  expandAll: false,
-  expandRowsByDefault: false,
-  tableComponent: Table
-};
 
 export default ExpandingTable;

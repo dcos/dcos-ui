@@ -15,6 +15,9 @@ import UserActions from "#SRC/js/constants/UserActions";
 import RepositoriesDelete from "../RepositoriesDelete";
 
 class RepositoriesTable extends React.Component {
+  static defaultProps = {
+    repositories: new List()
+  };
   static propTypes = {
     repositories: PropTypes.object.isRequired,
     removeRepository: PropTypes.func.isRequired,
@@ -153,9 +156,5 @@ class RepositoriesTable extends React.Component {
     );
   }
 }
-
-RepositoriesTable.defaultProps = {
-  repositories: new List()
-};
 
 export default RepositoriesTable;

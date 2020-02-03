@@ -8,7 +8,6 @@ packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'alwaysWrap' 
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'limit' does not exist on type *.
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'wrapper' does not exist on type *.
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'components' does not exist on type 'Readonly<{}>'.
-packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 packages/foundation-ui/src/mount/MountService.ts: error TS2339: Property 'components' does not exist on type 'MountService'.
 packages/foundation-ui/src/mount/MountService.ts: error TS2339: Property 'instance' does not exist on type 'MountService'.
 packages/foundation-ui/src/mount/MountService.ts: error TS2339: Property 'components' does not exist on type 'MountService'.
@@ -114,7 +113,6 @@ plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS61
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'repositories' does not exist on type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'repositoryToRemove' does not exist on type 'Readonly<{}>'.
-plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/catalog/src/js/repositories/components/RepositoriesTable.tsx: error TS2339: Property 'repositories' does not exist on type *.
 plugins/catalog/src/js/repositories/data/__tests__/PackageRepositoryClient-test.ts: error TS2345: Argument of type 'Observable<string>' is not assignable to parameter of type 'Observable<RequestResponse<unknown>>'.
@@ -680,6 +678,8 @@ plugins/services/src/js/components/FilterByFramework.tsx: error TS2769: No overl
 plugins/services/src/js/components/HighOrderServiceInstances.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/HighOrderServiceInstances.tsx: error TS2605: JSX element type 'ServiceInstancesContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/components/HighOrderServiceInstances.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
+plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'caseSensitive' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
@@ -705,23 +705,22 @@ plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'matchE
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'selectedMatchClass' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'count' does not exist on type 'Highlight'.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'matchElement' does not exist on type *.
-plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2322: type * is not assignable to type 'Validator<any>'.
 plugins/services/src/js/components/Highlight.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'count' does not exist on type 'Highlight'.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
+plugins/services/src/js/components/Highlight.tsx: error TS7030: Not all code paths return a value.
 plugins/services/src/js/components/Highlight.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'searchDebounceThreshold' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'searchDebounceDelay' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2322: Type 'Timeout' is not assignable to type 'null'.
-plugins/services/src/js/components/Highlight.tsx: error TS7030: Not all code paths return a value.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'highlightCount' does not exist on type 'Highlight'.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'onCountChange' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
 plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
-plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
-plugins/services/src/js/components/Highlight.tsx: error TS2339: Property 'search' does not exist on type *.
+plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
+plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'watching' does not exist on type *.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'highlightText' does not exist on type *.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'direction' does not exist on type *.
@@ -751,17 +750,14 @@ plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'onCountC
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'watching' does not exist on type *.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'fullLog' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'logContainer' does not exist on type 'LogView'.
-plugins/services/src/js/components/LogView.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/LogView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'highlightText' does not exist on type *.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'isAtBottom' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'hasLoadedTop' does not exist on type *.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+plugins/services/src/js/components/LogView.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
+plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'logContainer' does not exist on type 'LogView'.
 plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'isAtBottom' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
-plugins/services/src/js/components/LogView.tsx: error TS2339: Property 'updatingScrollPosition' does not exist on type 'LogView'.
 plugins/services/src/js/components/MarathonTaskDetailsList.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
 plugins/services/src/js/components/MarathonTaskDetailsList.tsx: error TS2339: Property 'taskID' does not exist on type *.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'props' does not exist on type 'MesosLogContainer'.
@@ -779,7 +775,6 @@ plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'state' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'state' does not exist on type 'MesosLogContainer'.
-plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'state' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MesosLogContainer'.
 plugins/services/src/js/components/MesosLogContainer.tsx: error TS2339: Property 'props' does not exist on type 'MesosLogContainer'.
@@ -837,7 +832,6 @@ plugins/services/src/js/components/SearchLog.tsx: error TS2769: No overload matc
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'filterInputRef' does not exist on type 'SearchLog'.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/SearchLog.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'filterInputRef' does not exist on type 'SearchLog'.
 plugins/services/src/js/components/SearchLog.tsx: error TS6133: 'nextProps' is declared but its value is never read.
@@ -851,6 +845,7 @@ plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'search
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'totalFound' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'watching' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/SearchLog.tsx: error TS2339: Property 'totalFound' does not exist on type 'Readonly<{}>'.
+plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'shouldRenderServiceStatus' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'shouldRenderServiceStatus' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'breadcrumbStatusRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'lastStatusWidth' does not exist on type 'ServiceBreadcrumbs'.
@@ -875,7 +870,6 @@ plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * 
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'primaryBreadcrumbTextRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'breadcrumbStatusRef' does not exist on type 'ServiceBreadcrumbs'.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'primaryBreadcrumbTextRef' does not exist on type 'ServiceBreadcrumbs'.
@@ -888,19 +882,17 @@ plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Propert
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'runningInstances' does not exist on type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'serviceStatus' does not exist on type *.
 plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'primaryBreadcrumbTextRef' does not exist on type 'ServiceBreadcrumbs'.
-plugins/services/src/js/components/ServiceBreadcrumbs.tsx: error TS2339: Property 'shouldRenderServiceStatus' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/ServicesQuotaOverviewDetail.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type *.
 plugins/services/src/js/components/ServicesQuotaOverviewTable.tsx: error TS2345: Argument of type '{}[]' is not assignable to parameter of type *.
+plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'files' does not exist on type *.
-plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'onFileClick' does not exist on type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'nodeID' does not exist on type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'onOpenLogClick' does not exist on type *.
 plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2339: Property 'directoryPath' does not exist on type *.
-plugins/services/src/js/components/TaskDirectoryTable.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/VolumeTable.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/services/src/js/components/VolumeTable.tsx: error TS2339: Property 'params' does not exist on type *.
 plugins/services/src/js/components/VolumeTable.tsx: error TS2339: Property 'routes' does not exist on type *.
@@ -968,6 +960,8 @@ plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Pro
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/ArtifactsSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
+plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
+plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
@@ -981,11 +975,8 @@ plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'service' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/ContainerServiceFormAdvancedSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'path' does not exist on type *.
@@ -996,7 +987,6 @@ plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error 
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'path' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/ContainerServiceFormSection.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
@@ -1010,9 +1000,8 @@ plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS233
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
-plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
+plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/EnvironmentFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
@@ -1041,7 +1030,6 @@ plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'convertToPodModalOpen' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/forms/GeneralServiceFormSection.tsx: error TS2339: Property 'onConvertToPod' does not exist on type *.
@@ -1060,11 +1048,10 @@ plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS23
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'validationReducers' does not exist on type *.
+plugins/services/src/js/components/forms/HealthChecksFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
@@ -1073,11 +1060,10 @@ plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.t
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+plugins/services/src/js/components/forms/MultiContainerHealthChecksFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type 'string'.
@@ -1097,10 +1083,11 @@ plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'MultiContainerNetworkingFormSection'.
+plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'MultiContainerNetworkingFormSection'.
 plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'MultiContainerNetworkingFormSection'.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerNetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
+plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
+plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
@@ -1109,14 +1096,11 @@ plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: e
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'handleTabChange' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/services/src/js/components/forms/MultiContainerVolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
@@ -1128,20 +1112,19 @@ plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
+plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'forceUpdate' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'props' does not exist on type 'NetworkingFormSection'.
-plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/NetworkingFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/PlacementSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
@@ -1159,13 +1142,14 @@ plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: t
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'configReducers' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'validationReducers' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/forms/VolumesFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
+plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
+plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'errors' does not exist on type *.
+plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'onPropertyChange' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'service' does not exist on type *.
@@ -1173,9 +1157,6 @@ plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS233
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'onErrorsChange' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'appConfig' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceJsonOnly.tsx: error TS2339: Property 'onPropertyChange' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'unregisterLeaveHook' does not exist on type 'CreateServiceModal'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'params' does not exist on type *.
@@ -1349,7 +1330,6 @@ plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS23
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/CreateServiceModalForm.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/icon-service-default-large@2x.png'.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2307: Cannot find module '../../../img/service-image-json-large@2x.png'.
 plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: error TS2322: type * is not assignable to type *.
@@ -1357,6 +1337,7 @@ plugins/services/src/js/components/modals/CreateServiceModalServicePicker.tsx: e
 plugins/services/src/js/components/modals/DisabledGroupDestroyModal.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2605: JSX element type 'EditFrameworkConfiguration' is not a constructor function for JSX elements.
 plugins/services/src/js/components/modals/EditServiceModal.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
+plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2741: Property 'service' is missing in type '{}' but required in type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'action' does not exist on type *.
@@ -1369,14 +1350,12 @@ plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'isPending' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/components/modals/KillPodInstanceModal.tsx: error TS2741: Property 'service' is missing in type '{}' but required in type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'action' does not exist on type *.
@@ -1388,7 +1367,6 @@ plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Prope
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'isPending' does not exist on type *.
 plugins/services/src/js/components/modals/KillTaskModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
@@ -1591,14 +1569,13 @@ plugins/services/src/js/containers/framework-configuration/FrameworkConfiguratio
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'frameworkData' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/framework-configuration/FrameworkConfigurationContainer.tsx: error TS2339: Property 'cosmosError' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2339: Property 'containers' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2339: Property 'className' does not exist on type *.
-plugins/services/src/js/containers/pod-debug/PodContainerTerminationTable.tsx: error TS2339: Property 'containers' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-debug/PodDebugContainer.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -1648,7 +1625,6 @@ plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Prope
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'tabs' does not exist on type *.
-plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'onScale' does not exist on type *.
@@ -1708,7 +1684,6 @@ plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'filterText' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'onSelectionChange' does not exist on type *.
@@ -1724,7 +1699,6 @@ plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'filterParams' does not exist on type 'never'.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'selectedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'selectedItems' does not exist on type 'Readonly<{}>'.
@@ -1752,7 +1726,6 @@ plugins/services/src/js/containers/service-configuration/ServiceConfiguration.ts
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'props' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'state' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'contextTypes' does not exist on type *.
-plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'state' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'store_listeners' does not exist on type 'ServiceConfiguration'.
 plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx: error TS2339: Property 'props' does not exist on type 'ServiceConfiguration'.
@@ -1773,7 +1746,6 @@ plugins/services/src/js/containers/service-configuration/ServiceConfigurationCon
 plugins/services/src/js/containers/service-configuration/ServiceConfigurationContainer.tsx: error TS2339: Property 'service' does not exist on type *.
 plugins/services/src/js/containers/service-configuration/ServiceConfigurationContainer.tsx: error TS2605: JSX element type 'ServiceConfiguration' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/service-configuration/ServiceConfigurationContainer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
-plugins/services/src/js/containers/service-configuration/ServiceConfigurationContainer.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-connection/MesosDNSList.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/service-connection/SDKServiceConnectionEndpointList.tsx: error TS2339: Property 'service' does not exist on type *.
@@ -1859,7 +1831,6 @@ plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2605: J
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2605: JSX element type 'DeploymentStatusIndicator' is not a constructor function for JSX elements.
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2339: Property 'filters' does not exist on type *.
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2339: Property 'filterExpression' does not exist on type *.
 plugins/services/src/js/containers/services/ServiceTreeView.tsx: error TS2339: Property 'onFilterExpressionChange' does not exist on type *.
@@ -1953,7 +1924,6 @@ plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2339: Pro
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 plugins/services/src/js/containers/services/ServicesTable.tsx: error TS2493: Tuple type * of length '1' has no element at index '1'.
@@ -1987,7 +1957,6 @@ plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2339: Property '
 plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2339: Property 'onCheckboxChange' does not exist on type *.
 plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2339: Property 'tasks' does not exist on type *.
 plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/tasks/TaskTable.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Property 'defaultFilterData' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/tasks/TasksContainer.tsx: error TS2339: Property 'defaultFilterData' does not exist on type 'Readonly<{}>'.
@@ -2029,7 +1998,6 @@ plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property '
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/services/src/js/containers/tasks/TasksView.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
@@ -2160,7 +2128,6 @@ plugins/services/src/js/pages/task-details/TaskDetail.tsx: error TS2339: Propert
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2339: Property 'task' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2345: Argument of type '\\"statesProcessed\\"' is not assignable to parameter of type 'never'.
-plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2345: Argument of type '\\"sandBoxPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element[]' is not assignable to type 'null'.
 plugins/services/src/js/pages/task-details/TaskDetailsTab.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
@@ -2173,7 +2140,6 @@ plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2339: Pr
 plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2339: Property 'onOpenLogClick' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2339: Property 'task' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/pages/task-details/TaskFileBrowser.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Property 'currentFile' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Property 'params' does not exist on type *.
@@ -2185,7 +2151,6 @@ plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2322: typ
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2605: JSX element type 'MesosLogContainer' is not a constructor function for JSX elements.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2607: JSX element class does not support attributes because it does not have a 'props' property.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Property 'task' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/pages/task-details/TaskFileViewer.tsx: error TS2339: Property 'task' does not exist on type *.
@@ -2243,7 +2208,6 @@ plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'state' does not exist on type 'TaskSystemLogsContainer'.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2741: Property 'isRequired' is missing in type 'Validator<object>' but required in type *.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'state' does not exist on type 'TaskSystemLogsContainer'.
 plugins/services/src/js/pages/task-details/TaskSystemLogsContainer.tsx: error TS2339: Property 'store_listeners' does not exist on type 'TaskSystemLogsContainer'.
@@ -2797,7 +2761,6 @@ plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/common/Constraints.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'artifacts' does not exist on type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'index' does not exist on type *.
 plugins/services/src/js/service-configuration/PodContainerArtifactsConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
@@ -2812,6 +2775,7 @@ plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSecti
 plugins/services/src/js/service-configuration/PodEnvironmentVariablesConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodGeneralConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodGeneralConfigSection.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'command' does not exist on type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'command' does not exist on type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'endpoint' does not exist on type *.
@@ -2825,11 +2789,8 @@ plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: 
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2769: No overload matches this call.
 plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
-plugins/services/src/js/service-configuration/PodHealthChecksConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
-plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx: error TS2322: Type 'Element' is not assignable to type 'never'.
@@ -2841,7 +2802,6 @@ plugins/services/src/js/service-configuration/PodLabelsConfigSection.tsx: error 
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'i18n' does not exist on type *.
 plugins/services/src/js/service-configuration/PodNetworkConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
@@ -2852,11 +2812,9 @@ plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSecti
 plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodPlacementConstraintsConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/services/src/js/service-configuration/PodStorageConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'appConfig' does not exist on type *.
@@ -2877,7 +2835,6 @@ plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.ts
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'label' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigBaseSectionDisplay.tsx: error TS2339: Property 'type' does not exist on type 'never'.
 plugins/services/src/js/service-configuration/ServiceConfigDisplay.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/ServiceConfigDisplay.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceConfigDisplay.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceConfigDisplay.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceConfigDisplay.tsx: error TS2345: Argument of type * is not assignable to parameter of type 'PathTranslationRules[]'.
@@ -2937,7 +2894,6 @@ plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigS
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/service-configuration/ServicePlacementConstraintsConfigSection.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2345: Argument of type '\\"EXTERNAL\\"' is not assignable to parameter of type *.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2339: Property 'appConfig' does not exist on type *.
 plugins/services/src/js/service-configuration/ServiceStorageConfigSection.tsx: error TS2416: Property 'getDefinition' in type 'ServiceStorageConfigSection' is not assignable to the same property in base type 'ServiceConfigBaseSectionDisplay'.
@@ -3267,7 +3223,6 @@ src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringClassN
 src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' does not exist on type 'CollapsingString'.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'truncatedWrapperClassName' does not exist on type *.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'truncatedStringStartClassName' does not exist on type *.
-src/js/components/CollapsingString.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/CollapsingString.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' does not exist on type 'CollapsingString'.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'parentSelector' does not exist on type *.
@@ -3276,29 +3231,25 @@ src/js/components/CollapsingString.tsx: error TS2322: Type 'HTMLElement' is not 
 src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' does not exist on type 'CollapsingString'.
 src/js/components/CollapsingString.tsx: error TS2339: Property 'fullStringRef' does not exist on type 'CollapsingString'.
 src/js/components/ComponentList.tsx: error TS2339: Property 'units' does not exist on type *.
-src/js/components/ComponentList.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/ComponentList.tsx: error TS2339: Property 'displayCount' does not exist on type *.
 src/js/components/ConfigurationMapHeading.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CosmosErrorMessage.tsx: error TS2339: Property 'error' does not exist on type *.
 src/js/components/CreateServiceModalCatalogPanelOption.tsx: error TS2307: Cannot find module '../../img/service-picker-options/service-image-package-large@2x.png'.
 src/js/components/CreateServiceModalServicePickerOption.tsx: error TS2339: Property 'type' does not exist on type *.
+src/js/components/DSLFilterField.tsx: error TS2339: Property 'expression' does not exist on type *.
+src/js/components/DSLFilterField.tsx: error TS2339: Property 'formSections' does not exist on type *.
+src/js/components/DSLFilterField.tsx: error TS2339: Property 'onChange' does not exist on type *.
+src/js/components/DSLFilterField.tsx: error TS2339: Property 'defaultData' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'dropdownVisible' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLFilterField.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/DSLFilterField.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'expression' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'filters' does not exist on type *.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'dropdownVisible' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'dropdownVisible' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLFilterField.tsx: error TS2339: Property 'dropdownVisible' does not exist on type 'Readonly<{}>'.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'expression' does not exist on type *.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'formSections' does not exist on type *.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'onChange' does not exist on type *.
-src/js/components/DSLFilterField.tsx: error TS2339: Property 'defaultData' does not exist on type *.
-src/js/components/DSLFormDropdownPanel.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/DSLFormDropdownPanel.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/DSLFormDropdownPanel.tsx: error TS2339: Property 'expression' does not exist on type *.
 src/js/components/DSLFormDropdownPanel.tsx: error TS2339: Property 'isVisible' does not exist on type *.
@@ -3322,12 +3273,12 @@ src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'item
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'parts' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'updatePolicy' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'enabled' does not exist on type *.
-src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'parts' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/DSLFormWithExpressionUpdates.tsx: error TS2339: Property 'parts' does not exist on type *.
+src/js/components/DSLInputField.tsx: error TS2339: Property 'onBlur' does not exist on type *.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'expression' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'onFocus' does not exist on type *.
@@ -3349,7 +3300,6 @@ src/js/components/DSLInputField.tsx: error TS2339: Property 'inputContainerClass
 src/js/components/DSLInputField.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'expression' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
-src/js/components/DSLInputField.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/DSLInputField.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'expression' does not exist on type *.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'expression' does not exist on type 'Readonly<{}>'.
@@ -3357,8 +3307,6 @@ src/js/components/DSLInputField.tsx: error TS6133: 'prevProps' is declared but i
 src/js/components/DSLInputField.tsx: error TS2339: Property 'focus' does not exist on type 'Readonly<{}>'.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'inputField' does not exist on type 'DSLInputField'.
 src/js/components/DSLInputField.tsx: error TS2339: Property 'inputField' does not exist on type 'DSLInputField'.
-src/js/components/DSLInputField.tsx: error TS2339: Property 'onBlur' does not exist on type *.
-src/js/components/DetailViewHeader.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/DetailViewHeader.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/DetailViewHeader.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/DetailViewHeader.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
@@ -3380,22 +3328,20 @@ src/js/components/ErrorsAlert.tsx: error TS2339: Property 'isPermissive' does no
 src/js/components/ErrorsAlert.tsx: error TS2339: Property 'path' does not exist on type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'childRowClassName' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'alignCells' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'alignCells' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'tableComponent' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'columns' does not exist on type *.
-src/js/components/ExpandingTable.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandAll' does not exist on type *.
-src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/FilterBar.tsx: error TS2339: Property 'leftChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'rightChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'rightAlignLastNChildren' does not exist on type *.
-src/js/components/FilterBar.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'all' does not exist on type '{}'.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'onFilterChange' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'filterByKey' does not exist on type *.
@@ -3404,7 +3350,6 @@ src/js/components/FilterButtons.tsx: error TS2339: Property 'inverseStyle' does 
 src/js/components/FilterButtons.tsx: error TS2339: Property 'itemList' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'selectedFilter' does not exist on type *.
 src/js/components/FilterButtons.tsx: error TS2339: Property 'renderButtonContent' does not exist on type *.
-src/js/components/FilterButtons.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2339: Property 'geminiRef' does not exist on type 'FluidGeminiScrollbar'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
@@ -3419,6 +3364,9 @@ src/js/components/FluidGeminiScrollbar.tsx: error TS2345: Argument of type 'null
 src/js/components/FluidGeminiScrollbar.tsx: error TS2358: The left-hand side of an 'instanceof' expression must be of type 'any', an object type or a type parameter.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
 src/js/components/FluidGeminiScrollbar.tsx: error TS2531: Object is possibly 'null'.
+src/js/components/FormModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
+src/js/components/FormModal.tsx: error TS2322: type * is not assignable to type 'string'.
+src/js/components/FormModal.tsx: error TS2339: Property 'disabled' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'extraFooterContent' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'disabled' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
@@ -3431,7 +3379,6 @@ src/js/components/FormModal.tsx: error TS2339: Property 'definition' does not ex
 src/js/components/FormModal.tsx: error TS2339: Property 'onSubmit' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'contentFooter' does not exist on type *.
-src/js/components/FormModal.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/components/FormModal.tsx: error TS2339: Property 'triggerSubmit' does not exist on type 'FormModal'.
 src/js/components/FormModal.tsx: error TS2339: Property 'formWrapperRef' does not exist on type 'FormModal'.
@@ -3445,9 +3392,6 @@ src/js/components/FormModal.tsx: error TS2339: Property 'formWrapperRef' does no
 src/js/components/FormModal.tsx: error TS2339: Property 'buttonDefinition' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2339: Property 'disabled' does not exist on type *.
 src/js/components/FormModal.tsx: error TS2322: Type 'string' is not assignable to type *.
-src/js/components/FormModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
-src/js/components/FormModal.tsx: error TS2322: type * is not assignable to type 'string'.
-src/js/components/FormModal.tsx: error TS2339: Property 'disabled' does not exist on type *.
 src/js/components/FrameworkConfiguration.tsx: error TS2339: Property 'handleRun' does not exist on type *.
 src/js/components/FrameworkConfiguration.tsx: error TS2339: Property 'reviewActive' does not exist on type 'Readonly<{}>'.
 src/js/components/FrameworkConfiguration.tsx: error TS2339: Property 'submitButton' does not exist on type 'FrameworkConfiguration'.
@@ -3526,7 +3470,6 @@ src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'schema
 src/js/components/FrameworkConfigurationForm.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'editorWidth' does not exist on type 'Readonly<{}>'.
-src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'errorSchema' does not exist on type 'Readonly<{}>'.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'formData' does not exist on type *.
 src/js/components/FrameworkConfigurationForm.tsx: error TS2339: Property 'handleFocusFieldChange' does not exist on type *.
@@ -3535,11 +3478,9 @@ src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property
 src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property 'title' does not exist on type *.
 src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property 'frameworkMeta' does not exist on type *.
-src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/FrameworkConfigurationReviewScreen.tsx: error TS2339: Property 'frameworkMeta' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'emptyValue' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'emptyValue' does not exist on type *.
-src/js/components/HashMapDisplay.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headline' does not exist on type *.
 src/js/components/HashMapDisplay.tsx: error TS2339: Property 'headlineClassName' does not exist on type *.
@@ -3567,7 +3508,11 @@ src/js/components/ImageViewer.tsx: error TS2339: Property 'images' does not exis
 src/js/components/ImageViewer.tsx: error TS2339: Property 'images' does not exist on type *.
 src/js/components/ImageViewer.tsx: error TS2339: Property 'selectedImage' does not exist on type 'Readonly<{}>'.
 src/js/components/ImageViewer.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/ImageViewer.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+src/js/components/JSONEditor.tsx: error TS2339: Property 'externalErrors' does not exist on type 'JSONEditor'.
+src/js/components/JSONEditor.tsx: error TS2339: Property 'errors' does not exist on type *.
+src/js/components/JSONEditor.tsx: error TS2339: Property 'jsonError' does not exist on type 'JSONEditor'.
+src/js/components/JSONEditor.tsx: error TS2339: Property 'jsonMeta' does not exist on type 'JSONEditor'.
+src/js/components/JSONEditor.tsx: error TS2551: Property 'jsonText' does not exist on type 'JSONEditor'. Did you mean 'context'?
 src/js/components/JSONEditor.tsx: error TS2339: Property 'jsonValue' does not exist on type 'JSONEditor'.
 src/js/components/JSONEditor.tsx: error TS2339: Property 'aceEditor' does not exist on type 'JSONEditor'.
 src/js/components/JSONEditor.tsx: error TS2339: Property 'isFocused' does not exist on type 'JSONEditor'.
@@ -3626,14 +3571,8 @@ src/js/components/JSONEditor.tsx: error TS2339: Property 'height' does not exist
 src/js/components/JSONEditor.tsx: error TS2339: Property 'editorProps' does not exist on type *.
 src/js/components/JSONEditor.tsx: error TS2339: Property 'aceEditorState' does not exist on type 'Readonly<{}>'.
 src/js/components/JSONEditor.tsx: error TS2769: No overload matches this call.
-src/js/components/JSONEditor.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/JSONEditor.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/JSONEditor.tsx: error TS2339: Property 'value' does not exist on type *.
-src/js/components/JSONEditor.tsx: error TS2339: Property 'externalErrors' does not exist on type 'JSONEditor'.
-src/js/components/JSONEditor.tsx: error TS2339: Property 'errors' does not exist on type *.
-src/js/components/JSONEditor.tsx: error TS2339: Property 'jsonError' does not exist on type 'JSONEditor'.
-src/js/components/JSONEditor.tsx: error TS2339: Property 'jsonMeta' does not exist on type 'JSONEditor'.
-src/js/components/JSONEditor.tsx: error TS2551: Property 'jsonText' does not exist on type 'JSONEditor'. Did you mean 'context'?
 src/js/components/Loader.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/Loader.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/Loader.tsx: error TS2339: Property 'className' does not exist on type *.
@@ -3642,12 +3581,10 @@ src/js/components/Loader.tsx: error TS2339: Property 'flip' does not exist on ty
 src/js/components/Loader.tsx: error TS2339: Property 'size' does not exist on type *.
 src/js/components/Loader.tsx: error TS2339: Property 'type' does not exist on type *.
 src/js/components/Loader.tsx: error TS2339: Property 'suppressHorizontalCenter' does not exist on type *.
-src/js/components/Loader.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'collapsed' does not exist on type 'Readonly<{}>'.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'collapsed' does not exist on type 'Readonly<{}>'.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'breadcrumbClasses' does not exist on type *.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'crumbs' does not exist on type *.
-src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/ManualBreadcrumbs.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'collapsed' does not exist on type 'Readonly<{}>'.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'expandedWidth' does not exist on type 'Readonly<{}>'.
@@ -3664,7 +3601,6 @@ src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'className' doe
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'majorLinkClassName' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'minorLinkWrapperClassName' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
-src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/NestedServiceLinks.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/NestedServiceLinks.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
@@ -3677,7 +3613,7 @@ src/js/components/NestedServiceLinks.tsx: error TS2345: Argument of type 'Elemen
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'majorLinkAnchorClassName' does not exist on type *.
 src/js/components/NestedServiceLinks.tsx: error TS2339: Property 'serviceLink' does not exist on type *.
 src/js/components/Page.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/PageHeaderActions.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+src/js/components/PageHeaderActions.tsx: error TS2339: Property 'supplementalContent' does not exist on type *.
 src/js/components/PageHeaderActions.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/PageHeaderActions.tsx: error TS2448: Block-scoped variable 'menuActionsProps' used before its declaration.
 src/js/components/PageHeaderActions.tsx: error TS2448: Block-scoped variable 'menuActionsProps' used before its declaration.
@@ -3689,17 +3625,14 @@ src/js/components/PageHeaderActions.tsx: error TS2741: Property 'iconID' is miss
 src/js/components/PageHeaderActions.tsx: error TS7030: Not all code paths return a value.
 src/js/components/PageHeaderActions.tsx: error TS2339: Property 'addButton' does not exist on type *.
 src/js/components/PageHeaderActions.tsx: error TS2339: Property 'actionsDisabled' does not exist on type *.
-src/js/components/PageHeaderActions.tsx: error TS2339: Property 'supplementalContent' does not exist on type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'breadcrumbs' does not exist on type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'iconID' does not exist on type *.
 src/js/components/PageHeaderBreadcrumbs.tsx: error TS2339: Property 'iconRoute' does not exist on type *.
 src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'items' does not exist on type *.
 src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'items' does not exist on type *.
 src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'handleNavigationItemSelection' does not exist on type *.
-src/js/components/PageHeaderNavigationDropdown.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/PageHeaderTabs.tsx: error TS2769: No overload matches this call.
 src/js/components/PageHeaderTabs.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-src/js/components/PageHeaderTabs.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/PageHeaderTabs.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/PageHeaderTabs.tsx: error TS2339: Property 'tabs' does not exist on type *.
 src/js/components/PageHeaderTabs.tsx: error TS2339: Property 'tabs' does not exist on type *.
@@ -3741,7 +3674,6 @@ src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'b
 src/js/components/PlacementConstraintsSchemaField.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'data' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'className' does not exist on type *.
-src/js/components/ProgressBar.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'total' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2339: Property 'total' does not exist on type *.
 src/js/components/ProgressBar.tsx: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
@@ -3779,7 +3711,6 @@ src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not 
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'setState' does not exist on type 'ServerErrorModal'.
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not exist on type 'ServerErrorModal'.
 src/js/components/ServerErrorModal.tsx: error TS2339: Property 'state' does not exist on type 'ServerErrorModal'.
-src/js/components/SideTabs.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/SideTabs.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/components/SideTabs.tsx: error TS2339: Property 'dropdownOpen' does not exist on type 'Readonly<{}>'.
 src/js/components/SideTabs.tsx: error TS2339: Property 'onTabClick' does not exist on type *.
@@ -3841,20 +3772,19 @@ src/js/components/TabButtonList.tsx: error TS2339: Property 'className' does not
 src/js/components/TabButtonList.tsx: error TS2339: Property 'vertical' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 src/js/components/TabForm.tsx: error TS2339: Property 'navigationContentClassNames' does not exist on type *.
-src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/TabForm.tsx: error TS2339: Property 'currentTab' does not exist on type 'Readonly<{}>'.
 src/js/components/TabForm.tsx: error TS2339: Property 'definition' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2339: Property 'formContentClassNames' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2339: Property 'formRowClass' does not exist on type *.
-src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
-src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/TabForm.tsx: error TS2339: Property 'onChange' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2339: Property 'renderGemini' does not exist on type 'Readonly<{}>'.
 src/js/components/TabForm.tsx: error TS2339: Property 'geminiRef' does not exist on type 'TabForm'.
-src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/TabForm.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/TabForm.tsx: error TS2339: Property 'definition' does not exist on type *.
-src/js/components/TabForm.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
+src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
+src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
+src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
+src/js/components/TabForm.tsx: error TS2448: Block-scoped variable 'classPropType' used before its declaration.
 src/js/components/TabForm.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/components/TabForm.tsx: error TS2339: Property 'geminiRef' does not exist on type 'TabForm'.
 src/js/components/TabForm.tsx: error TS2339: Property 'triggerSubmit' does not exist on type 'TabForm'.
@@ -3905,7 +3835,6 @@ src/js/components/TimeAgo.tsx: error TS2339: Property 'time' does not exist on t
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'MINUTE' used before its declaration.
 src/js/components/TimeAgo.tsx: error TS2339: Property 'className' does not exist on type *.
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'HOUR' used before its declaration.
-src/js/components/TimeAgo.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/TimeAgo.tsx: error TS2448: Block-scoped variable 'DAY' used before its declaration.
 src/js/components/ToggleValue.tsx: error TS2339: Property 'toggled' does not exist on type 'Readonly<{}>'.
 src/js/components/ToggleValue.tsx: error TS2339: Property 'primaryValue' does not exist on type *.
@@ -3918,7 +3847,6 @@ src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'initialID' doe
 src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'onHealthSelection' does not exist on type *.
 src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'dropdownItems' does not exist on type 'Readonly<{}>'.
 src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'dropdown' does not exist on type 'UnitHealthDropdown'.
-src/js/components/UnitHealthDropdown.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/UnitHealthNodesTable.tsx: error TS2339: Property 'nodes' does not exist on type *.
 src/js/components/UnitHealthNodesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/components/UnitHealthNodesTable.tsx: error TS2339: Property 'params' does not exist on type *.
@@ -4095,7 +4023,6 @@ src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'onClose' 
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'open' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'images' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'images' does not exist on type *.
-src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'open' does not exist on type *.
 src/js/components/modals/ImageViewerModal.tsx: error TS2339: Property 'open' does not exist on type *.

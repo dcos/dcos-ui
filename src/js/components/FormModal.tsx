@@ -6,6 +6,26 @@ import PropTypes from "prop-types";
 import * as React from "react";
 
 export default class FormModal extends React.Component {
+  static defaultProps = {
+    buttonDefinition: [
+      {
+        text: i18nMark("Cancel"),
+        className: "button button-primary-link flush-left",
+        isClose: true
+      },
+      {
+        text: i18nMark("Create"),
+        className: "button button-primary",
+        isSubmit: true
+      }
+    ],
+    disabled: false,
+    extraFooterContent: null,
+    onChange() {},
+    onClose() {},
+    open: false,
+    modalProps: {}
+  };
   static propTypes = {
     buttonDefinition: PropTypes.array,
     children: PropTypes.node,
@@ -148,24 +168,3 @@ export default class FormModal extends React.Component {
     );
   }
 }
-
-FormModal.defaultProps = {
-  buttonDefinition: [
-    {
-      text: i18nMark("Cancel"),
-      className: "button button-primary-link flush-left",
-      isClose: true
-    },
-    {
-      text: i18nMark("Create"),
-      className: "button button-primary",
-      isSubmit: true
-    }
-  ],
-  disabled: false,
-  extraFooterContent: null,
-  onChange() {},
-  onClose() {},
-  open: false,
-  modalProps: {}
-};

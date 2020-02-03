@@ -38,6 +38,10 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class ServiceTreeView extends React.Component {
+  static defaultProps = {
+    onFilterExpressionChange() {},
+    isEmpty: false
+  };
   static propTypes = {
     filters: PropTypes.instanceOf(Array).isRequired,
     filterExpression: PropTypes.instanceOf(DSLExpression).isRequired,
@@ -277,11 +281,6 @@ ServiceTreeView.contextTypes = {
     createGroup: PropTypes.func
   }).isRequired,
   router: routerShape
-};
-
-ServiceTreeView.defaultProps = {
-  onFilterExpressionChange() {},
-  isEmpty: false
 };
 
 export default ServiceTreeView;

@@ -34,6 +34,12 @@ const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
 class VolumesFormSection extends React.Component {
+  static defaultProps = {
+    data: {},
+    errors: {},
+    onAddItem() {},
+    onRemoveItem() {}
+  };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
@@ -471,13 +477,6 @@ class VolumesFormSection extends React.Component {
     );
   }
 }
-
-VolumesFormSection.defaultProps = {
-  data: {},
-  errors: {},
-  onAddItem() {},
-  onRemoveItem() {}
-};
 
 VolumesFormSection.configReducers = {
   volumes

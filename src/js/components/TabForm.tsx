@@ -10,6 +10,14 @@ import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
 
 class TabForm extends React.Component {
+  static defaultProps = {
+    defaultTab: "",
+    getTriggerSubmit() {},
+    onChange() {},
+    onError() {},
+    onSubmit() {},
+    onTabClick() {}
+  };
   static propTypes = {
     className: classPropType,
     defaultTab: PropTypes.string,
@@ -214,15 +222,6 @@ class TabForm extends React.Component {
     );
   }
 }
-
-TabForm.defaultProps = {
-  defaultTab: "",
-  getTriggerSubmit() {},
-  onChange() {},
-  onError() {},
-  onSubmit() {},
-  onTabClick() {}
-};
 
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,

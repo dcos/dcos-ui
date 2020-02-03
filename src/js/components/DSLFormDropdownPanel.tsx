@@ -14,6 +14,11 @@ import DSLExpression from "../structs/DSLExpression";
  * This component synchronizes
  */
 class DSLFormDropdownPanel extends React.Component {
+  static defaultProps = {
+    isVisible: false,
+    onChange() {},
+    onClose() {}
+  };
   static propTypes = {
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
     isVisible: PropTypes.bool,
@@ -105,11 +110,5 @@ class DSLFormDropdownPanel extends React.Component {
     );
   }
 }
-
-DSLFormDropdownPanel.defaultProps = {
-  isVisible: false,
-  onChange() {},
-  onClose() {}
-};
 
 export default DSLFormDropdownPanel;

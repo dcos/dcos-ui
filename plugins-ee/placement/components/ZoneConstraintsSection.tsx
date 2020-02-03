@@ -7,6 +7,10 @@ import ConfigurationMapLabel from "#SRC/js/components/ConfigurationMapLabel";
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 export default class ZoneConstraintsSection extends React.Component {
+  static defaultProps = {
+    zone: "",
+    onEditClick() {}
+  };
   static propTypes = {
     zone: PropTypes.string,
     onEditClick: PropTypes.func
@@ -46,8 +50,3 @@ export default class ZoneConstraintsSection extends React.Component {
     );
   }
 }
-
-ZoneConstraintsSection.defaultProps = {
-  zone: "",
-  onEditClick() {}
-};

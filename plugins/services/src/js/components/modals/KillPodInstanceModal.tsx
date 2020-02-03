@@ -21,6 +21,12 @@ const ACTION_DISPLAY_NAMES_CONTINUOUS = {
 };
 
 class KillPodInstanceModal extends React.PureComponent {
+  static defaultProps = {
+    action: "restart",
+    killPodInstances: () => {},
+    pod: new Pod(),
+    selectedItems: []
+  };
   static propTypes = {
     action: PropTypes.string,
     errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -176,12 +182,5 @@ class KillPodInstanceModal extends React.PureComponent {
     );
   }
 }
-
-KillPodInstanceModal.defaultProps = {
-  action: "restart",
-  killPodInstances: () => {},
-  pod: new Pod(),
-  selectedItems: []
-};
 
 export default withI18n()(KillPodInstanceModal);

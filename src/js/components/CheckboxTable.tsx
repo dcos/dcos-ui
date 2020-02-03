@@ -7,6 +7,18 @@ import ResourceTableUtil from "../utils/ResourceTableUtil";
 import TableUtil from "../utils/TableUtil";
 
 class CheckboxTable extends React.Component {
+  static defaultProps = {
+    allowMultipleSelect: true,
+    checkedItemsMap: {},
+    columns: [],
+    data: [],
+    disabledItemsMap: {},
+    inactiveItemsMap: {},
+    getColGroup() {},
+    labelClass: {},
+    onCheckboxChange() {},
+    sortOrder: "asc"
+  };
   static propTypes = {
     checkedItemsMap: PropTypes.object,
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -219,18 +231,5 @@ class CheckboxTable extends React.Component {
     );
   }
 }
-
-CheckboxTable.defaultProps = {
-  allowMultipleSelect: true,
-  checkedItemsMap: {},
-  columns: [],
-  data: [],
-  disabledItemsMap: {},
-  inactiveItemsMap: {},
-  getColGroup() {},
-  labelClass: {},
-  onCheckboxChange() {},
-  sortOrder: "asc"
-};
 
 export default CheckboxTable;

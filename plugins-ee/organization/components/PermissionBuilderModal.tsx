@@ -20,6 +20,17 @@ import ToggleButton from "#SRC/js/components/ToggleButton";
 import ACLStore from "../submodules/acl/stores/ACLStore";
 
 class PermissionBuilderModal extends mixin(StoreMixin) {
+  static defaultProps = {
+    activeView: "builder",
+    disabled: false,
+    dupesFound: [],
+    errors: [],
+    handleBulkAddToggle() {},
+    open: false,
+    onClose() {},
+    onSubmit() {},
+    permissionsAddedCount: 0
+  };
   static propTypes = {
     activeView: PropTypes.oneOf(["builder", "bulk"]),
     disabled: PropTypes.bool,
@@ -761,17 +772,5 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     );
   }
 }
-
-PermissionBuilderModal.defaultProps = {
-  activeView: "builder",
-  disabled: false,
-  dupesFound: [],
-  errors: [],
-  handleBulkAddToggle() {},
-  open: false,
-  onClose() {},
-  onSubmit() {},
-  permissionsAddedCount: 0
-};
 
 export default withI18n()(PermissionBuilderModal);

@@ -7,6 +7,10 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapTable from "#PLUGINS/services/src/js/components/ConfigurationMapTable";
 
 class AdvancedConstraintsSection extends React.Component {
+  static defaultProps = {
+    constraints: [],
+    onEditClick() {}
+  };
   static propTypes = {
     constraints: PropTypes.array,
     onEditClick: PropTypes.func
@@ -47,10 +51,5 @@ class AdvancedConstraintsSection extends React.Component {
     );
   }
 }
-
-AdvancedConstraintsSection.defaultProps = {
-  constraints: [],
-  onEditClick() {}
-};
 
 export default AdvancedConstraintsSection;
