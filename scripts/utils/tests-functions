@@ -23,6 +23,8 @@ function executeCypress() {
   npx cypress run \
     ${CYPRESS_HEADED:+"--headed"} \
     ${CYPRESS_NO_EXIT:+"--no-exit"} \
+    --headless
+    --browser chrome
     --spec "${FILE}" \
     --config-file ${CYPRESS_CONFIG_FILE:-"cypress.json"} \
     --config "numTestsKeptInMemory=0,video=${RECORD_VIDEO:-'false'}$ADDITIONAL_CYPRESS_CONFIG"

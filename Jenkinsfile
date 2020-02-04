@@ -100,7 +100,8 @@ pipeline {
     stage("Test current versions") {
       parallel {
         stage("Unit Tests") {
-          steps { sh "npm run test -- --testPathIgnorePatterns tslint typecheck" }
+          // runInBand to not starve cypress-processes
+          steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
         }
 
         stage("Integration Test") {

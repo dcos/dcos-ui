@@ -1,11 +1,10 @@
-FROM cypress/base:10.18.0
+FROM cypress/browsers:node12.14.0-chrome79-ff71
 
 # Expose the 4200 port
 EXPOSE 4200
 
 # Copy required files in order to be able to do npm install
 WORKDIR /dcos-ui
-
 
 # Install required components & prepare environment
 RUN set -x \
