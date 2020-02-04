@@ -118,64 +118,66 @@ pipeline {
           }
         }
 
-        stage("System Test") {
-          stages {
-            stage("OSS") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-              }
-              steps {
-                withCredentials([ aws_creds ]) {
-                  sh '''
-                    INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
-                    export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
-                    . scripts/utils/load_auth_env_vars
-                    DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
-                    npm run test:system
-                  '''
-                }
-              }
+        stage("System Test OSS") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            withCredentials([ aws_creds ]) {
+              sh '''
+                export VARIANT=OSS
+                export DCOS_DIR=/tmp/.dcos-OSS
+                INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url_OSS.txt)
+                . scripts/utils/load_auth_env_vars
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+                npm run test:system
+              '''
+            }
+          }
 
-              post {
-                always {
-                  archiveArtifacts "cypress/**/*"
-                  junit "cypress/result-system.xml"
-                  withCredentials([ aws_creds ]) {
-                    sh "./system-tests/_scripts/delete-cluster.sh"
-                  }
-                }
+          post {
+            always {
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/result-system.xml"
+              withCredentials([ aws_creds ]) {
+                sh "VARIANT=OSS ./system-tests/_scripts/delete-cluster.sh"
               }
             }
+          }
+        }
 
-            stage("EE") {
-              environment {
-                REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-              }
-              steps {
-                withCredentials([ aws_creds, [
-                  $class: "StringBinding",
-                  credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
-                  variable: "LICENSE_KEY"
-                ]]) {
-                  sh '''
-                    rsync -aH ./system-tests-ee/ ./system-tests/
-                    INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
-                    export CLUSTER_URL=\$(cat /tmp/cluster_url.txt)
-                    . scripts/utils/load_auth_env_vars
-                    DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
-                    REPORT_DISTRIBUTION='ee' npm run test:system
-                  '''
-                }
-              }
+        stage("System Test EE") {
+          environment {
+            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+          }
+          steps {
+            withCredentials([ aws_creds, [
+              $class: "StringBinding",
+              credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
+              variable: "LICENSE_KEY"
+            ]]) {
+              sh '''
+                export VARIANT=EE
+                export DCOS_DIR=/tmp/.dcos-EE
+                rsync -aH ./system-tests/ ./system-tests-ee/
+                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
+                INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
+                export CLUSTER_URL=\$(cat /tmp/cluster_url_EE.txt)
+                . scripts/utils/load_auth_env_vars
+                ls -al ./system-tests-ee/
+                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
+              '''
+            }
+          }
 
-              post {
-                always {
-                  archiveArtifacts "cypress/**/*"
-                  junit "cypress/result-system.xml"
-                  withCredentials([ aws_creds ]) {
-                    sh "./system-tests/_scripts/delete-cluster.sh"
-                  }
-                }
+          post {
+            always {
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/result-system.xml"
+              withCredentials([ aws_creds ]) {
+                sh "VARIANT=EE ./system-tests/_scripts/delete-cluster.sh"
               }
             }
           }

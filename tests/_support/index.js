@@ -899,6 +899,10 @@ Cypress.Commands.add("getAPIResponse", (endpoint, callback) => {
   router.getAPIResponse(endpoint, callback);
 });
 
+Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
+  cy.wrap(subject).type(`{selectall}${text}`)
+);
+
 beforeEach(() => {
   // now this runs prior to every test
   // across all files no matter what
