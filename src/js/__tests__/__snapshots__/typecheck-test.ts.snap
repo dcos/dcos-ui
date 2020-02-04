@@ -1222,7 +1222,7 @@ plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: 
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'isJSONModeActive' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'params' does not exist on type *.
-plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2740: Type 'ServiceSpec' is missing the following properties from type 'ApplicationSpec': getAcceptedResourceRoles, getArguments, getCommand, getContainerSettings, and 15 more.
+plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2740: Type 'ServiceSpec' is missing the following properties from type 'ApplicationSpec': getAcceptedResourceRoles, getCommand, getConstraints, getCpus, and 6 more.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'location' does not exist on type *.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'servicePickerActive' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/components/modals/CreateServiceModal.tsx: error TS2339: Property 'serviceReviewActive' does not exist on type 'Readonly<{}>'.
@@ -2946,9 +2946,9 @@ plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2345:
 plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts: error TS2531: Object is possibly 'null'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2416: Property 'getTasksSummary' in type 'Application' is not assignable to the same property in base type 'Service'.
-plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksOverCapacity' does not exist on type *.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property 'tasksRunning' does not exist on type *.
+plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
 plugins/services/src/js/structs/Application.ts: error TS2339: Property '_spec' does not exist on type 'Application'.
@@ -2988,7 +2988,6 @@ plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' do
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2345: Argument of type 'this' is not assignable to parameter of type *.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getId' does not exist on type '{}'.
@@ -2998,17 +2997,16 @@ plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type '{}'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'labels' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'push' does not exist on type '{}'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'enforceRole' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'items' does not exist on type '{}'.
 plugins/services/src/js/structs/ServiceTree.ts: error TS2351: This expression is not constructable.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getDeployments' does not exist on type 'Service'.
-plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'getDeployments' does not exist on type 'Service'.
+plugins/services/src/js/structs/ServiceTree.ts: error TS2339: Property 'id' does not exist on type 'ServiceTree'.
 plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'id' does not exist on type 'Framework'.
 plugins/services/src/js/structs/ServicesList.ts: error TS2339: Property 'used_resources' does not exist on type 'Framework'.
 plugins/services/src/js/structs/TaskStats.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
