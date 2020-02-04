@@ -1,10 +1,14 @@
+const nameError =
+  "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot.";
+const groupNameError =
+  "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot.";
+
 describe("Group Modals", () => {
   function openDropdown(serviceName) {
     cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
-    cy.wait(2000); // wait for data to load
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column
@@ -41,88 +45,63 @@ describe("Group Modals", () => {
         .click();
     });
 
-    it("displays an error for a group name starting with a dot", () => {
+    it("displays proper errors ", () => {
       cy.get(".form-group")
         .find('.form-control[name="id"]')
-        .type(".test");
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
-      cy.get(".errorsAlert-list").contains(
-        "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
-      cy.get(".form-control-feedback").contains(
-        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
-    });
+        .as("idInput");
 
-    it("displays an error for a group name ending with a dot", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="id"]')
-        .type("test.");
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
-        .click();
-      cy.get(".form-control-feedback").contains(
-        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
-    });
+        .as("submit");
 
-    it("displays an error for a group name starting with a dash", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="id"]')
-        .type("-test");
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
-      cy.get(".form-control-feedback").contains(
-        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
-    });
+      cy.log("group name starting with a dot");
 
-    it("displays an error for a group name ending with a dash", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="id"]')
-        .type("test-");
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
-      cy.get(".form-control-feedback").contains(
-        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
-    });
+      cy.get("@idInput").type(".test");
+      cy.get("@submit").click();
+      cy.get(".errorsAlert-list").contains(groupNameError);
+      cy.get(".form-control-feedback").contains(nameError);
 
-    it("displays an error for a group name containing unallowed symbols", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="id"]')
-        .type(".te$t");
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
-      cy.get(".form-control-feedback").contains(
-        "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-      );
+      cy.log("displays an error for a group name ending with a dot");
+      cy.get("@idInput").retype("test.");
+      cy.get("@submit").click();
+      cy.get(".form-control-feedback").contains(nameError);
+
+      cy.log("displays an error for a group name starting with a dash");
+      cy.get("@idInput").retype("-test");
+      cy.get("@submit").click();
+      cy.get(".form-control-feedback").contains(nameError);
+
+      cy.log("displays an error for a group name ending with a dash");
+      cy.get("@idInput").retype("test-");
+      cy.get("@submit").click();
+      cy.get(".form-control-feedback").contains(nameError);
+
+      cy.log("displays an error for a group name containing unallowed symbols");
+      cy.get("@idInput").retype(".te$t");
+      cy.get("@submit").click();
+      cy.get(".form-control-feedback").contains(nameError);
+
+      cy.get("@idInput").retype("test");
+      cy.get("@submit").click();
+      cy.get(".form-control-feedback").should("not.contain", nameError);
     });
 
     context("Create modal", () => {
-      it("displays a fullscreen modal for top level groups", () => {
-        cy.get(".modal-full-screen");
-      });
-
       it("displays the fullscreen modal when visiting the url", () => {
         cy.visitUrl({ url: "/services/overview/create_group" });
         cy.get(".modal-full-screen");
       });
 
-      it("displays a header", () => {
+      it("has a reasonable acting fullscreen modal for top level groups", () => {
+        cy.get(".modal-full-screen");
+
+        cy.log("displays a header");
         cy.get(".modal-full-screen-header-title").contains("New Group");
-      });
 
-      it("displays a General section", () => {
+        cy.log("displays a General section");
         cy.get("h1").contains("General");
-      });
 
-      it("displays a name label input", () => {
+        cy.log("displays a name label input");
         cy.get(".form-group-heading-content").contains("Name");
         cy.get(".form-group-heading-content")
           .contains("Name")
@@ -132,52 +111,44 @@ describe("Group Modals", () => {
         getInput("id");
         getInput("id").type("group-name");
         getInput("id").should("have.value", "group-name");
-      });
 
-      it("displays a path", () => {
+        cy.log("displays a path");
         cy.get(".form-group-heading-content").contains("Path");
         cy.get("div").contains("/");
         getInput("id").type("group-name");
         cy.get("div").contains("/group-name");
-      });
 
-      it("displays a Quota section", () => {
+        cy.log("displays a Quota section");
         cy.get(".form-group-heading-content").contains("Quota");
-      });
 
-      it("displays a CPUs label and input", () => {
+        cy.log("displays a CPUs label and input");
         cy.get(".form-group-heading-content").contains("CPUs");
         getInput("quota.cpus");
         getInput("quota.cpus").type("1");
         getInput("quota.cpus").should("have.value", "1");
-      });
 
-      it("displays a Memory label and input", () => {
+        cy.log("displays a Memory label and input");
         cy.get(".form-group-heading-content").contains("Mem (MiB)");
         getInput("quota.mem");
         getInput("quota.mem").type("10");
         getInput("quota.mem").should("have.value", "10");
-      });
 
-      it("displays a Disk label and input", () => {
+        cy.log("displays a Disk label and input");
         cy.get(".form-group-heading-content").contains("Disk (MiB)");
         getInput("quota.disk");
         getInput("quota.disk").type("5");
         getInput("quota.disk").should("have.value", "5");
-      });
 
-      it("displays a GPUs label and input", () => {
+        cy.log("displays a GPUs label and input");
         cy.get(".form-group-heading-content").contains("GPUs");
         getInput("quota.gpus");
         getInput("quota.gpus").type("0.5");
         getInput("quota.gpus").should("have.value", "0.5");
-      });
 
-      it("displays advanced settings", () => {
+        cy.log("displays advanced settings");
         cy.get(".advanced-section-label").contains("Advanced Settings");
-      });
 
-      it("shows and hides the advanced settings", () => {
+        cy.log("shows and hides the advanced settings");
         cy.get(".advanced-section-content").should("not.exist");
         cy.get(".advanced-section-label")
           .contains("Advanced Settings")
@@ -187,9 +158,8 @@ describe("Group Modals", () => {
           .contains("Advanced Settings")
           .click();
         cy.get(".advanced-section-content").should("not.exist");
-      });
 
-      it("shows role enforcement labels and checkboxes", () => {
+        cy.log("shows role enforcement labels and checkboxes");
         cy.get(".advanced-section-label")
           .contains("Advanced Settings")
           .click();
@@ -205,140 +175,87 @@ describe("Group Modals", () => {
         );
       });
 
-      it("fails to submit if name value is invalid", () => {
-        getInput("id").type(".");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains(
-          "Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        );
-        cy.get(".form-control-feedback").contains(
-          "Name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot."
-        );
-      });
+      it("fails to submit", () => {
+        const submit = () => {
+          cy.get(".button-primary")
+            .contains("Create")
+            .click();
+        };
+        const msgContains = msg => cy.get(".errorsAlert-message").contains(msg);
+        const hintContains = msg =>
+          cy.get(".form-control-feedback").contains(msg);
 
-      it("fails to submit if CPUs value is invalid", () => {
-        getInput("quota.cpus").type("-1");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains(
-          "CPU must be bigger than or equal to 0"
-        );
-        cy.get(".form-control-feedback").contains(
-          "Must be bigger than or equal to 0"
-        );
+        cy.log("if name is invalid");
+        getInput("id").retype(".");
+        submit();
+        cy.get(".errorsAlert-message").as("msg");
+        msgContains("An error occurred with your configuration.");
+        msgContains(groupNameError);
+        hintContains(nameError);
 
-        getInput("quota.cpus").type("a");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains("CPU must be a number");
-        cy.get(".form-control-feedback").contains("Must be a number");
-      });
+        cy.log("fails to submit if CPUs value is invalid");
+        getInput("quota.cpus").retype("-1");
+        submit();
+        msgContains("CPU must be bigger than or equal to 0");
+        hintContains("Must be bigger than or equal to 0");
 
-      it("fails to submit if memory value is invalid", () => {
-        getInput("quota.mem").type("-1");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains(
-          "Mem must be bigger than or equal to 0"
-        );
-        cy.get(".form-control-feedback").contains(
-          "Must be bigger than or equal to 0"
-        );
+        getInput("quota.cpus").retype("a");
+        submit();
+        msgContains("CPU must be a number");
+        hintContains("Must be a number");
+        getInput("quota.cpus").clear();
 
-        getInput("quota.mem").type("a");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains("Mem must be a number");
-        cy.get(".form-control-feedback").contains("Must be a number");
-      });
+        cy.log("fails to submit if memory value is invalid");
+        getInput("quota.mem").retype("-1");
+        submit();
+        msgContains("Mem must be bigger than or equal to 0");
+        hintContains("Must be bigger than or equal to 0");
+        getInput("quota.mem").retype("a");
+        submit();
+        msgContains("Mem must be a number");
+        hintContains("Must be a number");
+        getInput("quota.mem").clear();
 
-      it("fails to submit if disk value is invalid", () => {
-        getInput("quota.disk").type("-1");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains(
-          "Disk must be bigger than or equal to 0"
-        );
-        cy.get(".form-control-feedback").contains(
-          "Must be bigger than or equal to 0"
-        );
+        cy.log("fails to submit if disk value is invalid");
+        getInput("quota.disk").retype("-1");
+        submit();
+        msgContains("An error occurred with your configuration.");
+        msgContains("Disk must be bigger than or equal to 0");
+        hintContains("Must be bigger than or equal to 0");
 
-        getInput("quota.disk").type("a");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains("Disk must be a number");
-        cy.get(".form-control-feedback").contains("Must be a number");
-      });
+        getInput("quota.disk").retype("a");
+        submit();
+        msgContains("An error occurred with your configuration.");
+        msgContains("Disk must be a number");
+        hintContains("Must be a number");
+        getInput("quota.disk").clear();
 
-      it("fails to submit if GPUs value is invalid", () => {
-        getInput("quota.gpus").type("-1");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
-        cy.get(".errorsAlert-message").contains(
-          "GPU must be bigger than or equal to 0"
-        );
-        cy.get(".form-control-feedback").contains(
-          "Must be bigger than or equal to 0"
-        );
+        cy.log("fails to submit if GPUs value is invalid");
+        getInput("quota.gpus").retype("-1");
+        submit();
+        msgContains("An error occurred with your configuration.");
+        msgContains("GPU must be bigger than or equal to 0");
+        hintContains("Must be bigger than or equal to 0");
 
-        getInput("quota.gpus").type("a");
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
+        getInput("quota.gpus").retype("a");
+        submit();
+        msgContains("An error occurred with your configuration.");
+        msgContains("GPU must be a number");
+        hintContains("Must be a number");
+        getInput("quota.gpus").clear();
+
+        cy.log(
+          "fails to create a group for a user with insufficient permissions"
         );
-        cy.get(".errorsAlert-message").contains("GPU must be a number");
-        cy.get(".form-control-feedback").contains("Must be a number");
-      });
+        getInput("id").retype("group-name");
+        getInput("quota.cpus").retype("1");
+        getInput("quota.mem").retype("10");
+        getInput("quota.disk").retype("5");
+        getInput("quota.gpus").retype("0.5");
 
-      it("fails to create a group for a user with insufficient permissions", () => {
-        getInput("id").type("group-name");
-        getInput("quota.cpus").type("1");
-        getInput("quota.mem").type("10");
-        getInput("quota.disk").type("5");
-        getInput("quota.gpus").type("0.5");
+        submit();
 
-        cy.get(".button-primary")
-          .contains("Create")
-          .click();
-
-        cy.get(".errorsAlert-message").contains(
-          "An error occurred with your configuration."
-        );
+        msgContains("An error occurred with your configuration.");
       });
     });
 
@@ -348,39 +265,30 @@ describe("Group Modals", () => {
         openDropdown("services");
       });
 
-      it("shows edit action for top-level groups", () => {
+      it("shows and does meaningful things ", () => {
+        cy.log("an edit action for top-level groups");
         cy.get(".dropdown-menu-items li").contains("Edit");
-      });
 
-      it("opens the edit modal", () => {
         clickDropdownAction("Edit");
 
-        // Shows correct title.
+        cy.log("modal shows correct title");
         cy.get(".modal-full-screen-header-title").contains("Edit Group");
-      });
 
-      it("shows the correct id and the input is disabled", () => {
-        clickDropdownAction("Edit");
+        cy.log("shows the correct id and the input is disabled");
         getInput("id")
           .should("have.attr", "value", "/services")
           .should("have.attr", "disabled");
-      });
 
-      it("shows the correct path", () => {
-        clickDropdownAction("Edit");
+        cy.log("shows the correct path");
         cy.get("div").contains("/services");
-      });
 
-      it("shows the correct Quota inputs", () => {
-        clickDropdownAction("Edit");
+        cy.log("shows the correct Quota inputs");
         getInput("quota.cpus");
         getInput("quota.mem");
         getInput("quota.disk");
         getInput("quota.gpus");
-      });
 
-      it("allows Quota values to be changed", () => {
-        clickDropdownAction("Edit");
+        cy.log("allows Quota values to be changed");
         getInput("quota.cpus").should("have.attr", "value", "");
         getInput("quota.cpus").type("1");
         getInput("quota.cpus").should("have.attr", "value", "1");
