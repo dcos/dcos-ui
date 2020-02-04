@@ -8,7 +8,13 @@ import sort from "array-sort";
 import { componentFromStream } from "@dcos/data-service";
 import { combineLatest, pipe } from "rxjs";
 import { map } from "rxjs/operators";
-import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
+import {
+  Icon,
+  Table,
+  Column,
+  SortableHeaderCell,
+  NumberCell
+} from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
@@ -24,36 +30,25 @@ import {
   getMasterRegionName
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
-import TableUtil from "#SRC/js/utils/TableUtil";
 
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceTree from "../../structs/ServiceTree";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import * as Version from "../../utils/Version";
 
-import { nameRenderer, nameWidth } from "../../columns/ServicesTableNameColumn";
-import {
-  statusRenderer,
-  statusWidth
-} from "../../columns/ServicesTableStatusColumn";
-import {
-  versionRenderer,
-  versionWidth
-} from "../../columns/ServicesTableVersionColumn";
-import {
-  regionRendererFactory,
-  regionWidth
-} from "../../columns/ServicesTableRegionColumn";
-import {
-  instancesRenderer,
-  instancesWidth
-} from "../../columns/ServicesTableInstancesColumn";
-import { cpuRenderer, cpuWidth } from "../../columns/ServicesTableCPUColumn";
-import { memRenderer, memWidth } from "../../columns/ServicesTableMemColumn";
-import { diskRenderer, diskWidth } from "../../columns/ServicesTableDiskColumn";
-import { gpuRenderer, gpuWidth } from "../../columns/ServicesTableGPUColumn";
+import { nameRenderer } from "../../columns/ServicesTableNameColumn";
+import { statusRenderer } from "../../columns/ServicesTableStatusColumn";
+import { versionRenderer } from "../../columns/ServicesTableVersionColumn";
+import { regionRendererFactory } from "../../columns/ServicesTableRegionColumn";
+import { instancesRenderer } from "../../columns/ServicesTableInstancesColumn";
+import { memRenderer } from "../../columns/ServicesTableMemColumn";
+import { diskRenderer } from "../../columns/ServicesTableDiskColumn";
+import { gpuRenderer } from "../../columns/ServicesTableGPUColumn";
 
 import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
+import Service from "../../structs/Service";
+import Pod from "../../structs/Pod";
+import Units from "#SRC/js/utils/Units";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
@@ -130,6 +125,15 @@ function sortData(
     sortDirection
   };
 }
+
+const widthFor = (col: string) =>
+  TableColumnResizeStore.get(columnWidthsStorageKey)?.[col];
+
+const cpuRenderer = (service: Service | Pod | ServiceTree): React.ReactNode => (
+  <NumberCell>
+    <span>{Units.formatResource("cpus", service.getResources()[`cpus`])}</span>
+  </NumberCell>
+);
 
 export const columnWidthsStorageKey = "servicesTableColWidths";
 
@@ -301,21 +305,11 @@ class ServicesTable extends React.Component {
               false,
               ...args
             )}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
-                ? undefined
-                : 200
-            }
+            growToFill={!widthFor("name")}
+            minWidth={widthFor("name") ? undefined : 200}
             resizable={true}
             onResize={this.handleResize.bind(null, "name")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "name")
-                ? nameWidth
-                : undefined
-            }
+            width={() => widthFor("name")}
           />
 
           <Column
@@ -359,21 +353,11 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={statusRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
-                ? undefined
-                : 210
-            }
+            growToFill={!widthFor("status")}
+            minWidth={widthFor("status") ? undefined : 210}
             resizable={true}
             onResize={this.handleResize.bind(null, "status")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "status")
-                ? statusWidth
-                : undefined
-            }
+            width={() => widthFor("status")}
           />
 
           <Column
@@ -385,21 +369,11 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={versionRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
-                ? undefined
-                : 120
-            }
+            growToFill={!widthFor("version")}
+            maxWidth={widthFor("version") ? undefined : 120}
             resizable={true}
             onResize={this.handleResize.bind(null, "version")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "version")
-                ? versionWidth
-                : undefined
-            }
+            width={() => widthFor("version")}
           />
 
           <Column
@@ -411,26 +385,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={this.regionRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-                ? undefined
-                : 60
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-                ? undefined
-                : 150
-            }
+            growToFill={!widthFor("region")}
+            minWidth={widthFor("region") ? undefined : 60}
+            maxWidth={widthFor("region") ? undefined : 150}
             resizable={true}
             onResize={this.handleResize.bind(null, "region")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "region")
-                ? regionWidth
-                : undefined
-            }
+            width={() => widthFor("region")}
           />
 
           <Column
@@ -445,26 +405,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={instancesRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
-                ? undefined
-                : 100
-            }
-            maxWidth={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
-                ? undefined
-                : 120
-            }
+            growToFill={!widthFor("instances")}
+            minWidth={widthFor("instances") ? undefined : 100}
+            maxWidth={!widthFor("instances") ? undefined : 120}
             resizable={true}
             onResize={this.handleResize.bind(null, "instances")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "instances")
-                ? instancesWidth
-                : undefined
-            }
+            width={() => widthFor("instances")}
           />
 
           <Column
@@ -477,26 +423,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={cpuRenderer}
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-                ? undefined
-                : 135
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-                ? undefined
-                : 150
-            }
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-            }
+            minWidth={widthFor("cpu") ? undefined : 135}
+            maxWidth={widthFor("cpu") ? undefined : 150}
+            growToFill={!widthFor("cpu")}
             resizable={true}
             onResize={this.handleResize.bind(null, "cpu")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "cpu")
-                ? cpuWidth
-                : undefined
-            }
+            width={() => widthFor("cpu")}
           />
 
           <Column
@@ -509,26 +441,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={memRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-                ? undefined
-                : 140
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-                ? undefined
-                : 155
-            }
+            growToFill={!widthFor("mem")}
+            minWidth={widthFor("mem") ? undefined : 140}
+            maxWidth={widthFor("mem") ? undefined : 155}
             resizable={true}
             onResize={this.handleResize.bind(null, "mem")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "mem")
-                ? memWidth
-                : undefined
-            }
+            width={() => widthFor("mem")}
           />
 
           <Column
@@ -541,26 +459,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={diskRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-                ? undefined
-                : 140
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-                ? undefined
-                : 150
-            }
+            growToFill={!widthFor("disk")}
+            minWidth={widthFor("disk") ? undefined : 140}
+            maxWidth={widthFor("disk") ? undefined : 150}
             resizable={true}
             onResize={this.handleResize.bind(null, "disk")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "disk")
-                ? diskWidth
-                : undefined
-            }
+            width={() => widthFor("disk")}
           />
 
           <Column
@@ -573,26 +477,12 @@ class ServicesTable extends React.Component {
               />
             }
             cellRenderer={gpuRenderer}
-            growToFill={
-              !TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-            }
-            minWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-                ? undefined
-                : 135
-            }
-            maxWidth={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-                ? undefined
-                : 135
-            }
+            growToFill={!widthFor("gpu")}
+            minWidth={widthFor("gpu") ? undefined : 135}
+            maxWidth={widthFor("gpu") ? undefined : 135}
             resizable={true}
             onResize={this.handleResize.bind(null, "gpu")}
-            width={
-              TableUtil.isColWidthCustom(columnWidthsStorageKey, "gpu")
-                ? gpuWidth
-                : undefined
-            }
+            width={() => widthFor("gpu")}
           />
 
           <Column
