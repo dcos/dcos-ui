@@ -68,73 +68,62 @@ describe("Service Actions", () => {
       });
 
       cy.visitUrl({ url: "/services/detail/%2Fcassandra-healthy" });
-
       clickHeaderAction("Edit");
     });
 
-    it("navigates to the correct route", () => {
+    it("does meaningful things", () => {
+      const cancel = () =>
+        cy
+          .get("button")
+          .contains("Cancel")
+          .click();
+
+      const discard = () =>
+        cy
+          .get("button")
+          .contains("Discard")
+          .click();
+
+      cy.log("navigates to the correct route");
       cy.location()
         .its("hash")
         .should("include", "#/services/detail/%2Fcassandra-healthy/edit");
-    });
 
-    it("opens the correct service edit modal", () => {
+      cy.log("opens the correct service edit modal");
       cy.get('.modal .menu-tabbed-container input[name="name"]').should(
         "to.have.value",
         "elastic"
       );
-    });
 
-    it("closes modal on successful API request", () => {
+      cy.log("closes modal on successful API request");
       cy.get(".modal .modal-header .button")
         .contains("Review & Run")
         .click();
-
       cy.get(".modal .modal-header .button")
         .contains("Run Service")
         .click();
-
       cy.get(".modal").should("to.have.length", 0);
-    });
 
-    it("opens confirm after edits", () => {
+      cy.log("opens confirm after edits");
+      clickHeaderAction("Edit");
       cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
-
-      cy.get(".modal .modal-header .button")
-        .contains("Cancel")
-        .click();
-
+      cancel();
       cy.get(".modal-small").should("to.have.length", 1);
-    });
-
-    it("closes both confirm and edit modal after confirmation", () => {
-      cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
-      cy.get(".modal .modal-header .button")
-        .contains("Cancel")
-        .click();
-
-      cy.get(".modal-small .button")
-        .contains("Discard")
-        .click();
-
-      cy.get(".modal-small").should("to.have.length", 0);
+      discard();
       cy.get(".modal").should("to.have.length", 0);
-    });
 
-    it("it stays in the edit modal after cancelling confirmation", () => {
+      cy.log("it stays in the edit modal after cancelling confirmation");
+      clickHeaderAction("Edit");
       cy.get('.modal .menu-tabbed-container input[name="name"]').type("elast");
-      cy.get(".modal .modal-header .button")
-        .contains("Cancel")
-        .click();
-      cy.get(".modal-small .button")
+      cancel();
+      cy.get(".modal-small button")
         .contains("Cancel")
         .click();
 
       cy.get(".modal-small").should("to.have.length", 0);
       cy.get(".modal").should("to.have.length", 1);
-    });
 
-    it("opens and closes the JSON mode after clicking toggle", () => {
+      cy.log("opens and closes the JSON mode after clicking toggle");
       cy.get(".modal .modal-header span")
         .contains("JSON Editor")
         .click();
@@ -152,12 +141,9 @@ describe("Service Actions", () => {
         "to.have.length",
         0
       );
-    });
 
-    it("shows tab error badge when error in form section", () => {
-      cy.get('.modal .menu-tabbed-container input[name="name"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
+      cy.log("shows tab error badge when error in form section");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -167,13 +153,9 @@ describe("Service Actions", () => {
         "to.have.length",
         1
       );
-    });
 
-    it("shows anchored error when error in form section", () => {
-      cy.get('.modal .menu-tabbed-container input[name="name"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
-
+      cy.log("shows anchored error when error in form section");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
         .click();
@@ -181,12 +163,9 @@ describe("Service Actions", () => {
       cy.get(".modal .menu-tabbed-container .form-control-feedback")
         .contains("Expecting a string here")
         .should("to.have.length", 1);
-    });
 
-    it("shows error message in JSON when form error", () => {
-      cy.get('.modal .menu-tabbed-container input[name="name"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
+      cy.log("shows error message in JSON when form error");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -195,12 +174,9 @@ describe("Service Actions", () => {
       cy.get(
         ".modal .modal-full-screen-side-panel .ace_gutter-cell.ace_error"
       ).should("to.have.length", 1);
-    });
 
-    it("disables Review & Run button when error", () => {
-      cy.get('.modal .menu-tabbed-container input[name="name"]')
-        .type("{selectall}{backspace}")
-        .type("{selectall}{backspace}");
+      cy.log("disables Review & Run button when error");
+      cy.get('.modal .menu-tabbed-container input[name="name"]').clear();
 
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
@@ -209,9 +185,8 @@ describe("Service Actions", () => {
       cy.get(".modal .modal-header button[disabled]")
         .contains("Review & Run")
         .should("to.have.length", 1);
-    });
 
-    it("change JSON editor contents when form content change", () => {
+      cy.log("change JSON editor contents when form content change");
       cy.get('.modal .menu-tabbed-container input[name="name"]').type(
         `{selectall}elast`
       );
@@ -219,9 +194,8 @@ describe("Service Actions", () => {
       cy.get(".modal .modal-full-screen-side-panel .ace_line")
         .contains("elast")
         .should("to.have.length", 1);
-    });
 
-    it("shows review screen when Review & Run clicked", () => {
+      cy.log("shows review screen when Review & Run clicked");
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
         .click();
@@ -229,13 +203,8 @@ describe("Service Actions", () => {
       cy.get(".modal .configuration-map-label")
         .contains("Name")
         .should("to.have.length", 1);
-    });
 
-    it("back button on review screen goes back to form", () => {
-      cy.get(".modal .modal-header button")
-        .contains("Review & Run")
-        .click();
-
+      cy.log("back button on review screen goes back to form");
       cy.get(".modal .modal-header button")
         .contains("Back")
         .click();
@@ -244,9 +213,8 @@ describe("Service Actions", () => {
         "have.length",
         1
       );
-    });
 
-    it("shows edit config button on review screen that opens form", () => {
+      cy.log("shows edit config button on review screen that opens form");
       cy.get(".modal .modal-header button")
         .contains("Review & Run")
         .click();
@@ -257,7 +225,7 @@ describe("Service Actions", () => {
 
       cy.get('.modal .menu-tabbed-container input[name="name"]').should(
         "to.have.value",
-        "elastic"
+        "elast"
       );
     });
   });
@@ -299,24 +267,11 @@ describe("Service Actions", () => {
         cy.get(".modal-body p strong")
           .contains("sleep")
           .should("to.have.length", 1);
-      });
 
-      it("disable danger button while service name isn't correct", () => {
+        cy.log("disable danger button while service name isn't correct");
         cy.get(".modal-small .button-danger").should("have.class", "disabled");
-      });
 
-      it("closes dialog when user type correct service name", () => {
-        cy.route({
-          method: "DELETE",
-          url: /marathon\/v2\/apps\/\/sleep/,
-          response: []
-        });
-        cy.get(".modal-body .filter-input-text").type("sleep");
-        cy.get(".modal-small .button-danger").click();
-        cy.get(".modal-small").should("to.have.length", 0);
-      });
-
-      it("shows error message on conflict", () => {
+        cy.log("shows error message on conflict");
         cy.route({
           method: "DELETE",
           status: 409,
@@ -326,12 +281,11 @@ describe("Service Actions", () => {
         cy.get(".modal-body .filter-input-text").type("sleep");
         cy.get(".modal-small .button-danger").click();
         cy.get(".modal-body .text-danger").should(
-          "to.have.text",
+          "have.text",
           "App is locked by one or more deployments."
         );
-      });
 
-      it("shows error message on not authorized", () => {
+        cy.log("shows error message on not authorized");
         cy.route({
           method: "DELETE",
           status: 403,
@@ -344,9 +298,8 @@ describe("Service Actions", () => {
           "to.have.text",
           "Not Authorized to perform this action!"
         );
-      });
 
-      it("re-enables button after faulty request", () => {
+        cy.log("re-enables button after faulty request");
         cy.route({
           method: "DELETE",
           status: 403,
@@ -356,15 +309,25 @@ describe("Service Actions", () => {
           },
           delay: SERVER_RESPONSE_DELAY
         });
-        cy.get(".modal-small .button-danger").as("dangerButton");
         cy.get(".modal-body .filter-input-text").type("sleep");
+        cy.get(".modal-small .button-danger").as("dangerButton");
         cy.get("@dangerButton").should("not.have.class", "disabled");
-      });
 
-      it("closes dialog on secondary button click", () => {
+        cy.log("closes dialog on secondary button click");
         cy.get(".modal-small .button")
           .contains("Cancel")
           .click();
+        cy.get(".modal-small").should("to.have.length", 0);
+
+        cy.log("closes dialog when server responds with success");
+        cy.route({
+          method: "DELETE",
+          url: /marathon\/v2\/apps\/\/sleep/,
+          response: []
+        });
+        clickHeaderAction("Delete");
+        cy.get(".modal-body .filter-input-text").type("sleep");
+        cy.get(".modal-small .button-danger").click();
         cy.get(".modal-small").should("to.have.length", 0);
       });
     });
@@ -381,13 +344,12 @@ describe("Service Actions", () => {
       clickHeaderAction("Scale");
     });
 
-    it("opens the correct service scale dialog", () => {
+    it("opens the scale dialog", () => {
       cy.get(".modal-header")
         .contains("Scale Service")
         .should("to.have.length", 1);
-    });
 
-    it("disables button during API request", () => {
+      cy.log("disables button during API request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -397,19 +359,12 @@ describe("Service Actions", () => {
       cy.get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
-    });
 
-    it("closes dialog on successful API request", () => {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/cassandra-healthy/,
-        response: []
-      });
-      cy.get(".modal-footer .button-primary").click();
+      cy.log("modal closes eventually");
       cy.get(".modal-body").should("to.have.length", 0);
-    });
 
-    it("shows error message on conflict", () => {
+      cy.log("shows error message on conflict");
+      clickHeaderAction("Scale");
       cy.route({
         method: "PUT",
         status: 409,
@@ -423,9 +378,8 @@ describe("Service Actions", () => {
         "to.have.text",
         "App is locked by one or more deployments."
       );
-    });
 
-    it("shows error message on not authorized", () => {
+      cy.log("shows error message on not authorized");
       cy.route({
         method: "PUT",
         status: 403,
@@ -439,9 +393,8 @@ describe("Service Actions", () => {
         "to.have.text",
         "Not Authorized to perform this action!"
       );
-    });
 
-    it("re-enables button after faulty request", () => {
+      cy.log("re-enables button after faulty request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -453,9 +406,9 @@ describe("Service Actions", () => {
         .click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
-    });
 
-    it("closes dialog on secondary button click", () => {
+      cy.log("closes dialog on secondary button click");
+      clickHeaderAction("Scale");
       cy.get(".modal-footer .button")
         .contains("Cancel")
         .click();
@@ -478,9 +431,8 @@ describe("Service Actions", () => {
       cy.get(".modal-small p strong")
         .contains("cassandra-healthy")
         .should("to.have.length", 1);
-    });
 
-    it("disables button during API request", () => {
+      cy.log("disables button during API request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -490,19 +442,11 @@ describe("Service Actions", () => {
       cy.get(".modal-small .button-danger")
         .click()
         .should("have.class", "disabled");
-    });
 
-    it("closes dialog on successful API request", () => {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/cassandra-healthy/,
-        response: []
-      });
-      cy.get(".modal-small .button-danger").click();
+      cy.log("closes dialog on successful API request");
       cy.get(".modal-small").should("to.have.length", 0);
-    });
 
-    it("shows error message on conflict", () => {
+      cy.log("shows error message on conflict");
       cy.route({
         method: "PUT",
         status: 409,
@@ -511,14 +455,14 @@ describe("Service Actions", () => {
           message: "App is locked by one or more deployments."
         }
       });
+      clickHeaderAction("Stop");
       cy.get(".modal-small .button-danger").click();
       cy.get(".modal-small .text-danger").should(
         "to.have.text",
         "App is locked by one or more deployments."
       );
-    });
 
-    it("shows error message on not authorized", () => {
+      cy.log("shows error message on not authorized");
       cy.route({
         method: "PUT",
         status: 403,
@@ -532,9 +476,8 @@ describe("Service Actions", () => {
         "to.have.text",
         "Not Authorized to perform this action!"
       );
-    });
 
-    it("re-enables button after faulty request", () => {
+      cy.log("re-enables button after faulty request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/cassandra-healthy/,
@@ -546,9 +489,9 @@ describe("Service Actions", () => {
         .click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
-    });
 
-    it("closes dialog on secondary button click", () => {
+      cy.log("closes dialog on secondary button click");
+      clickHeaderAction("Stop");
       cy.get(".modal-small .button")
         .contains("Cancel")
         .click();
@@ -570,70 +513,51 @@ describe("Service Actions", () => {
       cy.get(".page-header-actions .dropdown").click();
 
       cy.get(".dropdown-menu-items li").should("not.contain", "Stop");
-    });
 
-    it("shows the resume option in the service action dropdown", () => {
-      cy.get(".page-header-actions .dropdown").click();
-
+      cy.log("shows the resume option in the service action dropdown");
       cy.get(".dropdown-menu-items li")
         .contains("Resume")
         .should("not.have.class", "hidden");
-    });
 
-    it("opens the resume dialog", () => {
-      clickHeaderAction("Resume");
+      cy.log("opens the resume dialog");
+      cy.get(".dropdown-menu-items")
+        .contains("Resume")
+        .click();
 
       cy.get(".modal-header")
         .contains("Resume Service")
         .should("have.length", 1);
-    });
 
-    it("opens the resume dialog with the instances textbox if the single app instance label does not exist", () => {
-      clickHeaderAction("Resume");
-
+      cy.log(
+        "opens the resume dialog with the instances textbox if the single app instance label does not exist"
+      );
       cy.get('input[name="instances"]').should("have.length", 1);
-    });
 
-    it("opens the resume dialog without the instances textbox if the single app instance label exists", () => {
+      cy.log(
+        "opens the resume dialog without the instances textbox if the single app instance label exists"
+      );
       cy.configureCluster({
         mesos: "1-service-suspended-single-instance",
         nodeHealth: true
       });
-
-      clickHeaderAction("Resume");
-
       cy.get('input[name="instances"]').should("have.length", 0);
-    });
 
-    it("disables button during API request", () => {
+      cy.log("disables button during API request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
         delay: SERVER_RESPONSE_DELAY
       });
-
-      clickHeaderAction("Resume");
-
       cy.get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
-    });
 
-    it("closes dialog on successful API request", () => {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
-      });
-
-      clickHeaderAction("Resume");
-
-      cy.get(".modal-footer .button-primary").click();
+      cy.log("closes dialog on successful API request");
       cy.get(".modal-body").should("to.have.length", 0);
-    });
 
-    it("shows error message on conflict", () => {
+      cy.log("shows error message on conflict");
+      clickHeaderAction("Resume");
       cy.route({
         method: "PUT",
         status: 409,
@@ -642,17 +566,13 @@ describe("Service Actions", () => {
           message: "App is locked by one or more deployments."
         }
       });
-
-      clickHeaderAction("Resume");
-
       cy.get(".modal-footer .button-primary").click();
       cy.get(".modal-body .text-danger").should(
         "to.have.text",
         "App is locked by one or more deployments."
       );
-    });
 
-    it("shows error message on not authorized", () => {
+      cy.log("shows error message on not authorized");
       cy.route({
         method: "PUT",
         status: 403,
@@ -661,34 +581,26 @@ describe("Service Actions", () => {
           message: "Not Authorized to perform this action!"
         }
       });
-
-      clickHeaderAction("Resume");
-
       cy.get(".modal-footer .button-primary").click();
       cy.get(".modal-body .text-danger").should(
         "to.have.text",
         "Not Authorized to perform this action!"
       );
-    });
 
-    it("re-enables button after faulty request", () => {
+      cy.log("re-enables button after faulty request");
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
         delay: SERVER_RESPONSE_DELAY
       });
-
-      clickHeaderAction("Resume");
-
       cy.get(".modal-footer .button-primary")
         .as("primaryButton")
         .click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
-    });
 
-    it("closes dialog on secondary button click", () => {
+      cy.log("closes dialog on secondary button click");
       clickHeaderAction("Resume");
 
       cy.get(".modal-footer .button")
@@ -710,65 +622,51 @@ describe("Service Actions", () => {
 
     it("opens the destroy dialog", () => {
       clickHeaderAction("Delete");
+      cy.get(".modal-header")
+        .contains("Delete Service")
+        .should("to.have.length", 1);
+      cy.get(".modal-body p").contains("sdk-sleep");
+      cy.get(".modal .filter-input-text");
+      cy.get(".modal button")
+        .contains("Cancel")
+        .click();
+      cy.get(".modal").should("not.exist");
 
+      cy.log("submits destroy with enter");
+      clickHeaderAction("Delete");
       cy.get(".modal-header")
         .contains("Delete Service")
         .should("to.have.length", 1);
 
       cy.get(".modal-body p").contains("sdk-sleep");
-      cy.get(".modal .filter-input-text");
-
+      cy.get(".modal .filter-input-text").type("sdk-sleep{enter}");
+      cy.get(".modal .filter-input-text").should("be.empty");
       cy.get(".modal button")
         .contains("Cancel")
         .click();
 
-      cy.get(".modal").should("not.exist");
-    });
-
-    it("submits destroy with enter", () => {
-      clickHeaderAction("Delete");
-
-      cy.get(".modal-header")
-        .contains("Delete Service")
-        .should("to.have.length", 1);
-
-      cy.get(".modal-body p").contains("sdk-sleep");
-      cy.get(".modal .filter-input-text");
-
-      cy.get(".modal .filter-input-text").type("sdk-sleep{enter}");
-      cy.get(".modal .filter-input-text").should("be.empty");
-    });
-
-    it("opens the scale dialog", () => {
+      cy.log("opens the scale dialog");
       clickHeaderAction("Scale");
-
       cy.get(".modal-header")
         .contains("Scale Service")
         .should("to.have.length", 1);
-
       cy.get(".modal pre").contains(
         "dcos test --name=/services/sdk-sleep update start --options=options.json"
       );
-
       cy.get(".modal button")
         .contains("Close")
         .click();
-
       cy.get(".modal").should("not.exist");
-    });
 
-    it("restart does not exist", () => {
+      cy.log("restart does not exist");
       cy.get(".page-header-actions .dropdown")
         .click()
-        .contains("restart")
-        .should("not.exist");
-    });
+        .should("not.contain", "restart");
 
-    it("stop does not exist", () => {
+      cy.log("stop does not exist");
       cy.get(".page-header-actions .dropdown")
         .click()
-        .contains("stop")
-        .should("not.exist");
+        .should("not.contain", "stop");
     });
   });
 });
