@@ -43,7 +43,7 @@ const typeMap = {
   // triangleSkewSpin: {className: 'triangle-skew-spin', divCount: 1}
 };
 
-class Loader extends React.Component {
+export default class Loader extends React.Component {
   static defaultProps = {
     className: "",
     innerClassName: "",
@@ -52,9 +52,8 @@ class Loader extends React.Component {
   };
   static propTypes = {
     suppressHorizontalCenter: PropTypes.bool,
-    className: classPropType,
+    className: PropTypes.string,
     flip: PropTypes.oneOf(["horizontal"]),
-    innerClassName: classPropType,
     size: PropTypes.oneOf(["small", "mini"]),
     type: PropTypes.oneOf([
       "ballBeat",
@@ -70,21 +69,17 @@ class Loader extends React.Component {
   }
 
   render() {
-    const { className, innerClassName, flip, size, type } = this.props;
+    const { className, flip, size, type } = this.props;
     const config = typeMap[type] || typeMap.ballScale;
     const classes = classNames("loader", className, {
       "horizontal-center": !this.props.suppressHorizontalCenter
     });
 
-    const innerClasses = classNames(
-      config.className,
-      {
-        "loader--small": size === "small",
-        "loader--mini": size === "mini",
-        [`loader--flip-${flip}`]: flip != null
-      },
-      innerClassName
-    );
+    const innerClasses = classNames(config.className, {
+      "loader--small": size === "small",
+      "loader--mini": size === "mini",
+      [`loader--flip-${flip}`]: flip != null
+    });
 
     return (
       <div className={classes}>
@@ -93,11 +88,3 @@ class Loader extends React.Component {
     );
   }
 }
-
-const classPropType = PropTypes.oneOfType([
-  PropTypes.array,
-  PropTypes.object,
-  PropTypes.string
-]);
-
-export default Loader;

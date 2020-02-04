@@ -153,8 +153,8 @@ class ServicesContainer extends React.Component {
     params: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
   };
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
 
     this.state = {
       actionErrors: {},
@@ -165,18 +165,17 @@ class ServicesContainer extends React.Component {
       pendingActions: {},
       roles: []
     };
+  }
 
+  componentDidMount() {
     // This is so we get notified when the serviceTree is ready in DCOSStore. Making this a promise would be nice.
+    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
     DCOSStore.on(DCOS_CHANGE, () => {
       if (this.state.isLoading) {
         this.forceUpdate();
       }
     });
     this.onStoreChange();
-  }
-
-  componentDidMount() {
-    DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
 
     // Listen for server actions so we can update state immediately
     // on the completion of an API request.

@@ -108,11 +108,8 @@ class DSLInputField extends React.Component {
    * @param {SyntheticEvent} event - The change event
    */
   handleChange = event => {
-    this.setState(
-      {
-        expression: new DSLExpression(event.target.value)
-      },
-      () => this.props.onChange(this.state.expression)
+    this.setState({ expression: new DSLExpression(event.target.value) }, () =>
+      this.props.onChange(this.state.expression)
     );
   };
 
@@ -234,9 +231,7 @@ class DSLInputField extends React.Component {
     const { expression, focus } = this.state;
 
     let iconColor = greyDark;
-    const iconSearchClasses = classNames({
-      active: focus
-    });
+    const iconSearchClasses = classNames({ active: focus });
 
     if (!inverseStyle && (focus || expression.defined)) {
       iconColor = purple;
@@ -256,10 +251,8 @@ class DSLInputField extends React.Component {
     );
 
     const formGroupClasses = classNames(
-      {
-        "form-group": true,
-        "form-group-danger": expression.hasErrors
-      },
+      "form-group",
+      { "form-group-danger": expression.hasErrors },
       className
     );
 

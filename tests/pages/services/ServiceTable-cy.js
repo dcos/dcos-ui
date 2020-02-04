@@ -2,11 +2,14 @@ import { SERVER_RESPONSE_DELAY } from "../../_support/constants/Timeouts";
 
 describe("Service Table", () => {
   function openDropdown(serviceName) {
-    cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
+    if (serviceName) {
+      cy.get(".filter-input-text").type(`{selectall}${serviceName}`);
+      // filter to find the correct service
+    }
+
     cy.get(".form-control-group-add-on")
       .eq(-1)
       .click(); // close filter window
-    cy.wait(2000); // wait for data to load
     cy.get(".ReactVirtualized__Grid")
       .eq(-1) // bottom right grid
       .scrollTo("right"); // scroll to the actions column
@@ -60,7 +63,7 @@ describe("Service Table", () => {
       });
       cy.visitUrl({ url: "/services/overview" });
 
-      openDropdown("sleep");
+      openDropdown();
       clickDropdownAction("Delete");
     });
 
@@ -82,54 +85,6 @@ describe("Service Table", () => {
         nodeHealth: true
       });
 
-      cy.visitUrl({ url: "/services/overview" });
-    });
-
-    it("hides the stop option in the service action dropdown", () => {
-      openDropdown("sleep");
-
-      cy.get(".dropdown-menu-items li")
-        .contains("Stop")
-        .should("not.exist");
-    });
-
-    it("shows the resume option in the service action dropdown", () => {
-      openDropdown("sleep");
-
-      cy.get(".dropdown-menu-items li")
-        .contains("Resume")
-        .should("not.have.class", "hidden");
-    });
-
-    it("opens the resume dialog", () => {
-      openDropdown("sleep");
-      clickDropdownAction("Resume");
-
-      cy.get(".modal-header")
-        .contains("Resume Service")
-        .should("have.length", 1);
-    });
-
-    it("opens the resume dialog with the instances textbox if the single app instance label does not exist", () => {
-      openDropdown("sleep");
-      clickDropdownAction("Resume");
-
-      cy.get('input[name="instances"]').should("have.length", 1);
-    });
-
-    it("opens the resume dialog without the instances textbox if the single app instance label exists", () => {
-      cy.configureCluster({
-        mesos: "1-service-suspended-single-instance",
-        nodeHealth: true
-      });
-
-      openDropdown("sleep");
-      clickDropdownAction("Resume");
-
-      cy.get('input[name="instances"]').should("have.length", 0);
-    });
-
-    it("disables button during API request", () => {
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
@@ -137,26 +92,51 @@ describe("Service Table", () => {
         delay: SERVER_RESPONSE_DELAY
       });
 
-      openDropdown("sleep");
-      clickDropdownAction("Resume");
+      cy.visitUrl({ url: "/services/overview" });
+    });
 
+    it("has a reasonable dropdown", () => {
+      openDropdown();
+
+      // hides stop
+      cy.get(".dropdown-menu-items li")
+        .contains("Stop")
+        .should("not.exist");
+
+      // shows resume
+      cy.get(".dropdown-menu-items li")
+        .contains("Resume")
+        .should("not.have.class", "hidden");
+
+      // opens resume
+      clickDropdownAction("Resume");
+      cy.get(".modal-header")
+        .contains("Resume Service")
+        .should("have.length", 1);
+
+      // opens the resume dialog with the instances textbox if the single app instance label does not exist
+      cy.get('input[name="instances"]').should("have.length", 1);
+
+      // disables button during API request
       cy.get(".modal-footer .button-primary")
         .click()
         .should("have.class", "disabled");
-    });
 
-    it("closes dialog on successful API request", () => {
-      cy.route({
-        method: "PUT",
-        url: /marathon\/v2\/apps\/\/sleep/,
-        response: []
-      });
-
-      openDropdown("sleep");
+      // closes dialog on successful API request
+      openDropdown();
       clickDropdownAction("Resume");
-
       cy.get(".modal-footer .button-primary").click();
       cy.get(".modal-body").should("to.have.length", 0);
+
+      // opens the resume dialog without the instances textbox if the single app instance label exists
+      cy.configureCluster({
+        mesos: "1-service-suspended-single-instance",
+        nodeHealth: true
+      });
+      openDropdown();
+      clickDropdownAction("Resume");
+
+      cy.get('input[name="instances"]').should("have.length", 0);
     });
 
     it("shows error message on conflict", () => {
@@ -169,7 +149,7 @@ describe("Service Table", () => {
         }
       });
 
-      openDropdown("sleep");
+      openDropdown();
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-primary").click();
@@ -189,7 +169,7 @@ describe("Service Table", () => {
         }
       });
 
-      openDropdown("sleep");
+      openDropdown();
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-primary").click();
@@ -207,7 +187,7 @@ describe("Service Table", () => {
         delay: SERVER_RESPONSE_DELAY
       });
 
-      openDropdown("sleep");
+      openDropdown();
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button-primary")
@@ -218,7 +198,7 @@ describe("Service Table", () => {
     });
 
     it("closes dialog on secondary button click", () => {
-      openDropdown("sleep");
+      openDropdown();
       clickDropdownAction("Resume");
 
       cy.get(".modal-footer .button")
@@ -259,7 +239,7 @@ describe("Service Table", () => {
         });
         cy.visitUrl({ url: "/services/overview" });
 
-        openDropdown("sleep");
+        openDropdown();
       });
 
       it("doesn't have a reset delayed action", () => {
@@ -334,8 +314,21 @@ describe("Service Table", () => {
       );
     });
 
-    it("opens the destroy dialog", () => {
-      openDropdown("sdk-sleep");
+    it("has a reasonable Dropdown", () => {
+      openDropdown("sleep");
+
+      // restart does not exist
+      cy.get(".dropdown-menu-items")
+        .contains("restart")
+        .should("not.exist");
+
+      // stop does not exist
+      cy.get(".dropdown-menu-items")
+        .contains("stop")
+        .should("not.exist");
+
+      // opens the destroy dialog
+      openDropdown("sleep");
       clickDropdownAction("Delete");
 
       cy.get(".modal-header")
@@ -350,10 +343,9 @@ describe("Service Table", () => {
         .click();
 
       cy.get(".modal").should("not.exist");
-    });
 
-    it("opens the scale dialog", () => {
-      openDropdown("sdk-sleep");
+      // opens the scale dialog
+      openDropdown("sleep");
       clickDropdownAction("Scale");
 
       cy.get(".modal-header")
@@ -369,27 +361,9 @@ describe("Service Table", () => {
         .click();
 
       cy.get(".modal").should("not.exist");
-    });
 
-    it("restart does not exist", () => {
-      openDropdown("sdk-sleep");
-
-      cy.get(".dropdown-menu-items")
-        .contains("restart")
-        .should("not.exist");
-    });
-
-    it("stop does not exist", () => {
-      openDropdown("sdk-sleep");
-
-      cy.get(".dropdown-menu-items")
-        .contains("stop")
-        .should("not.exist");
-    });
-
-    it("has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set", () => {
+      // has an 'Open Service'-DropdownItem when DCOS_SERVICE_WEB_PATH-label is set
       openDropdown("sdk-sleep-with-image");
-
       cy.get(".dropdown-menu-items").contains("Open Service");
     });
 
@@ -504,40 +478,34 @@ describe("Service Table", () => {
     });
   });
 
-  context("Groups", () => {
-    beforeEach(() => {
-      cy.configureCluster({
-        mesos: "1-sdk-service",
-        nodeHealth: true
-      });
-
-      cy.visitUrl({ url: "/services/overview" });
+  it("renders groups", () => {
+    cy.configureCluster({
+      mesos: "1-sdk-service",
+      nodeHealth: true
     });
 
-    it("group status is an aggregate of children", () => {
-      cy.get(".status-bar-text")
-        .eq(1)
-        .contains("Running (3 of 3)");
-    });
+    cy.visitUrl({ url: "/services/overview" });
 
-    it("shows service status counts in group tooltip", () => {
-      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
-        .eq(1)
-        .trigger("mouseover");
-      cy.get(".tooltip").contains("3 Running");
-    });
+    // group status shows the highest priority
+    cy.get(".status-bar-text")
+      .eq(0)
+      .contains("Running (1 of 2)");
 
-    it("group status shows the highest priority", () => {
-      cy.get(".status-bar-text")
-        .eq(0)
-        .contains("Running (1 of 2)");
-    });
+    // group status is an aggregate of children"
+    cy.get(".status-bar-text")
+      .eq(1)
+      .contains("Running (3 of 3)");
 
-    it("shows service status counts in group tooltip", () => {
-      cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
-        .eq(0)
-        .trigger("mouseover");
-      cy.get(".tooltip").contains("1 Stopped");
-    });
+    // shows service status counts in group tooltip
+    cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+      .eq(0)
+      .trigger("mouseover");
+    cy.get(".tooltip").contains("1 Stopped");
+
+    // shows service status counts in group tooltip
+    cy.get(".service-status-icon-wrapper > .tooltip-wrapper")
+      .eq(1)
+      .trigger("mouseover");
+    cy.get(".tooltip").contains("3 Running");
   });
 });

@@ -119,15 +119,7 @@ function getServiceLink(
     : `/services/detail/${id}`;
 
   if (isFiltered) {
-    return (
-      <NestedServiceLinks
-        serviceLink={serviceLink}
-        serviceID={id}
-        className="service-breadcrumb"
-        majorLinkClassName="service-breadcrumb-service-id"
-        minorLinkWrapperClassName="service-breadcrumb-crumb"
-      />
-    );
+    return <NestedServiceLinks serviceLink={serviceLink} serviceID={id} />;
   }
 
   return (
