@@ -7,7 +7,7 @@ import Util from "../utils/Util";
 
 const WHITESPACE = "\u00A0";
 
-class ExpandingTable extends React.Component {
+export default class ExpandingTable extends React.Component {
   static defaultProps = {
     alignCells: "top",
     childRowClassName: "text-overflow",
@@ -160,5 +160,3 @@ class ExpandingTable extends React.Component {
     );
   }
 }
-
-export default ExpandingTable;

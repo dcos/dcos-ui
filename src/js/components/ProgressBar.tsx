@@ -55,7 +55,7 @@ const getProgressBarData = memoize(
   (...args) => args.join()
 );
 
-class ProgressBar extends React.PureComponent {
+export default class ProgressBar extends React.PureComponent {
   static defaultProps = {
     total: 0
   };
@@ -136,5 +136,3 @@ class ProgressBar extends React.PureComponent {
     return <div className={classes}>{this.getBars(data)}</div>;
   }
 }
-
-export default ProgressBar;

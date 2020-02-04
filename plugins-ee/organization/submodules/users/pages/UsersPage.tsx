@@ -37,7 +37,7 @@ const UsersBreadcrumbs = () => {
   );
 };
 
-class UsersPage extends mixin(StoreMixin) {
+export default class UsersPage extends mixin(StoreMixin) {
   static propTypes = {
     items: PropTypes.array.isRequired
   };
@@ -145,5 +145,3 @@ class UsersPage extends mixin(StoreMixin) {
     );
   }
 }
-
-export default UsersPage;

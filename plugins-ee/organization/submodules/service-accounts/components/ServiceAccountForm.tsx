@@ -30,7 +30,7 @@ interface ServiceAccountFormState {
   generatedSecretId: string;
 }
 
-class ServiceAccountForm extends React.Component<
+export default class ServiceAccountForm extends React.Component<
   ServiceAccountFormProps,
   ServiceAccountFormState
 > {
@@ -219,5 +219,3 @@ class ServiceAccountForm extends React.Component<
     );
   }
 }
-
-export default ServiceAccountForm;

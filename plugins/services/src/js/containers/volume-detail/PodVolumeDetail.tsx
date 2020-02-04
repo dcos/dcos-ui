@@ -17,7 +17,7 @@ import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import { profileFromVolume } from "../../constants/VolumeProfile";
 import VolumeStatus, { statusFromVolume } from "../../constants/VolumeStatus";
 
-class PodVolumeDetail extends React.Component {
+export default class PodVolumeDetail extends React.Component {
   static propTypes = {
     service: PropTypes.object.isRequired,
     volume: PropTypes.object.isRequired
@@ -112,5 +112,3 @@ class PodVolumeDetail extends React.Component {
     );
   }
 }
-
-export default PodVolumeDetail;

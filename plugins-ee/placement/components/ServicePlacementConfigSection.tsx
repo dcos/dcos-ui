@@ -11,7 +11,7 @@ import AdvancedConstraintsSection from "./AdvancedConstraintsSection";
 import RegionConstraintsSection from "./RegionConstraintsSection";
 import ZoneConstraintsSection from "./ZoneConstraintsSection";
 
-class ServicePlacementConfigSection extends React.Component {
+export default class ServicePlacementConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -87,5 +87,3 @@ class ServicePlacementConfigSection extends React.Component {
     );
   }
 }
-
-export default ServicePlacementConfigSection;

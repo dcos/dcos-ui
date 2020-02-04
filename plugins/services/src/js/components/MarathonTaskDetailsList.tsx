@@ -12,7 +12,7 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import TaskStates from "../constants/TaskStates";
 
-class MarathonTaskDetailsList extends React.Component {
+export default class MarathonTaskDetailsList extends React.Component {
   static propTypes = {
     taskID: PropTypes.string.isRequired
   };
@@ -187,5 +187,3 @@ class MarathonTaskDetailsList extends React.Component {
     );
   }
 }
-
-export default MarathonTaskDetailsList;

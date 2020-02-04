@@ -7,7 +7,7 @@ import getACLServiceAccountsStore from "../../service-accounts/stores/ACLService
 
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
 
-class ServiceAccountsActionsModal extends AccountActionsModal {
+export default class ServiceAccountsActionsModal extends AccountActionsModal {
   constructor(...args) {
     super(...args);
 
@@ -64,5 +64,3 @@ class ServiceAccountsActionsModal extends AccountActionsModal {
     }
   }
 }
-
-export default ServiceAccountsActionsModal;

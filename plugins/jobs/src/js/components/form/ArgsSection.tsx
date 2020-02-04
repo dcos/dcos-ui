@@ -24,7 +24,7 @@ interface ArgsSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ArgsSection extends React.Component<ArgsSectionProps> {
+export default class ArgsSection extends React.Component<ArgsSectionProps> {
   constructor(props: ArgsSectionProps) {
     super(props);
   }
@@ -109,5 +109,3 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
     );
   }
 }
-
-export default ArgsSection;

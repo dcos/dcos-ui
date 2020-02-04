@@ -6,7 +6,7 @@ const LABEL = "zone";
 /**
  * This filter handles the `zone:XXXX` for nodes
  */
-class NodesZoneFilter extends DSLFilter {
+export default class NodesZoneFilter extends DSLFilter {
   constructor(zones) {
     super();
     this.zones = [];
@@ -48,5 +48,3 @@ class NodesZoneFilter extends DSLFilter {
     );
   }
 }
-
-export default NodesZoneFilter;

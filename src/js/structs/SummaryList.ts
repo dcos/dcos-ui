@@ -2,7 +2,7 @@ import List from "./List";
 import MesosSummaryUtil from "../utils/MesosSummaryUtil";
 import StateSummary from "./StateSummary";
 
-class SummaryList extends List {
+export default class SummaryList extends List {
   constructor(options = {}) {
     super(...arguments);
     this.maxLength = options.maxLength || null;
@@ -73,5 +73,3 @@ class SummaryList extends List {
     return lastState ? lastState.getClusterName() : null;
   }
 }
-
-export default SummaryList;

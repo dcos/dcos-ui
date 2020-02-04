@@ -7,7 +7,7 @@ const LABEL = "region";
 /**
  * This filter handles the `region:XXXX` for instances
  */
-class PodInstancesRegionFilter extends DSLFilter {
+export default class PodInstancesRegionFilter extends DSLFilter {
   constructor(regions = []) {
     super();
     this.regions = regions;
@@ -48,5 +48,3 @@ class PodInstancesRegionFilter extends DSLFilter {
     });
   }
 }
-
-export default PodInstancesRegionFilter;

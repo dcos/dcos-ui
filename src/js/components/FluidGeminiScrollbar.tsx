@@ -33,7 +33,7 @@ import Util from "../utils/Util";
 let componentMountCount = 0;
 let styleElement = null;
 
-class FluidGeminiScrollbar extends React.Component {
+export default class FluidGeminiScrollbar extends React.Component {
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
   };
@@ -114,5 +114,3 @@ class FluidGeminiScrollbar extends React.Component {
     );
   }
 }
-
-export default FluidGeminiScrollbar;

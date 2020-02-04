@@ -13,7 +13,7 @@ import DSLExpression from "../structs/DSLExpression";
  *
  * This component synchronizes
  */
-class DSLFormDropdownPanel extends React.Component {
+export default class DSLFormDropdownPanel extends React.Component {
   static defaultProps = {
     isVisible: false,
     onChange() {},
@@ -110,5 +110,3 @@ class DSLFormDropdownPanel extends React.Component {
     );
   }
 }
-
-export default DSLFormDropdownPanel;

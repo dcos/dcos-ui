@@ -4,7 +4,7 @@ import * as React from "react";
 import TaskDirectoryTable from "../../components/TaskDirectoryTable";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 
-class TaskFileBrowser extends React.Component {
+export default class TaskFileBrowser extends React.Component {
   static defaultProps = {
     task: {}
   };
@@ -32,5 +32,3 @@ class TaskFileBrowser extends React.Component {
     );
   }
 }
-
-export default TaskFileBrowser;

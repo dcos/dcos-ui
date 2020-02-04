@@ -9,7 +9,7 @@ import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
  * This component interactively edits a DSL expression and calls back with the
  * filtering function when there is a change.
  */
-class DSLFilterField extends React.Component {
+export default class DSLFilterField extends React.Component {
   static defaultProps = {
     formSections: [],
     onChange() {}
@@ -131,5 +131,3 @@ class DSLFilterField extends React.Component {
     );
   }
 }
-
-export default DSLFilterField;

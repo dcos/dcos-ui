@@ -25,7 +25,15 @@ const SCALE = ServiceActionItem.SCALE;
 const STOP = ServiceActionItem.STOP;
 const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 
-class PodDetail extends React.Component<{ pod }> {
+export default class PodDetail extends React.Component<{ pod }> {
+  static contextTypes = {
+    modalHandlers: PropTypes.shape({
+      scaleService: PropTypes.func,
+      stopService: PropTypes.func,
+      deleteService: PropTypes.func
+    }).isRequired,
+    router: routerShape
+  };
   static propTypes = {
     children: PropTypes.node,
     pod: PropTypes.instanceOf(Pod)
@@ -234,14 +242,3 @@ class PodDetail extends React.Component<{ pod }> {
     );
   }
 }
-
-PodDetail.contextTypes = {
-  modalHandlers: PropTypes.shape({
-    scaleService: PropTypes.func,
-    stopService: PropTypes.func,
-    deleteService: PropTypes.func
-  }).isRequired,
-  router: routerShape
-};
-
-export default PodDetail;

@@ -12,7 +12,7 @@ import {
 
 import { JobOutput, DockerParameter } from "../form/helpers/JobFormData";
 
-class ContainerConfigSection extends BaseConfig<JobOutput> {
+export default class ContainerConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(_: Value<JobOutput>) {
     const { config } = this.props;
     return (
@@ -79,5 +79,3 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default ContainerConfigSection;

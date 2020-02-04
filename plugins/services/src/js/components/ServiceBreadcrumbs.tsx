@@ -20,7 +20,7 @@ import ServiceStatusWarningWithDebugInformation from "./ServiceStatusWarningWith
 // The breadcrumb's margin is hardcoded to avoid calling #getComputedStyle.
 const BREADCRUMB_CONTENT_MARGIN = 7;
 
-class ServiceBreadcrumbs extends React.Component {
+export default class ServiceBreadcrumbs extends React.Component {
   static defaultProps = {
     serviceID: ""
   };
@@ -300,5 +300,3 @@ class ServiceBreadcrumbs extends React.Component {
     );
   }
 }
-
-export default ServiceBreadcrumbs;

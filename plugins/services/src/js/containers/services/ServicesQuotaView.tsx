@@ -23,7 +23,10 @@ interface ServicesQuotaViewProps {
   serviceTree: ServiceTree;
 }
 
-class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
+export default class ServicesQuotaView extends React.Component<
+  ServicesQuotaViewProps,
+  {}
+> {
   public static contextTypes = {
     modalHandlers: PropTypes.shape({
       createGroup: PropTypes.func
@@ -160,5 +163,3 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
     );
   }
 }
-
-export default ServicesQuotaView;

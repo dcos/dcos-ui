@@ -7,7 +7,7 @@ import Loader from "#SRC/js/components/Loader";
 import Service from "../../structs/Service";
 import ServiceConfiguration from "./ServiceConfiguration";
 
-class ServiceConfigurationContainer extends React.Component {
+export default class ServiceConfigurationContainer extends React.Component {
   static defaultProps = {
     errors: []
   };
@@ -48,5 +48,3 @@ class ServiceConfigurationContainer extends React.Component {
     );
   }
 }
-
-export default ServiceConfigurationContainer;

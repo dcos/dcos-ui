@@ -13,7 +13,7 @@ import AdvancedConstraintsSection from "./AdvancedConstraintsSection";
 import RegionConstraintsSection from "./RegionConstraintsSection";
 import ZoneConstraintsSection from "./ZoneConstraintsSection";
 
-class PodPlacementConstraintsConfigSection extends React.Component {
+export default class PodPlacementConstraintsConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -96,5 +96,3 @@ class PodPlacementConstraintsConfigSection extends React.Component {
     );
   }
 }
-
-export default PodPlacementConstraintsConfigSection;

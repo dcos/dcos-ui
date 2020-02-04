@@ -14,7 +14,7 @@ const BOOLEAN_OPTIONS = {
   falsy: i18nMark("FALSE")
 };
 
-class PodContainerArtifactsConfigSection extends React.Component {
+export default class PodContainerArtifactsConfigSection extends React.Component {
   static defaultProps = {
     artifacts: []
   };
@@ -113,5 +113,3 @@ class PodContainerArtifactsConfigSection extends React.Component {
     );
   }
 }
-
-export default PodContainerArtifactsConfigSection;

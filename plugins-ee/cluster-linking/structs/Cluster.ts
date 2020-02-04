@@ -4,7 +4,7 @@ const AUTH_TYPE_SAML_SP_INITIATED = "saml-sp-initiated";
 const AUTH_TYPE_OIDC_AUTHORIZATION_CODE_FLOW = "oidc-authorization-code-flow";
 const AUTH_TYPE_OIDC_IMPLICIT_FLOW = "oidc-implicit-flow";
 
-class Cluster extends Item {
+export default class Cluster extends Item {
   getName() {
     return this.get("name");
   }
@@ -27,5 +27,3 @@ class Cluster extends Item {
     return this.getUrl();
   }
 }
-
-export default Cluster;

@@ -22,7 +22,7 @@ interface JobPlacementSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class JobPlacementSection extends React.Component<
+export default class JobPlacementSection extends React.Component<
   JobPlacementSectionProps,
   {}
 > {
@@ -134,5 +134,3 @@ class JobPlacementSection extends React.Component<
     );
   }
 }
-
-export default JobPlacementSection;

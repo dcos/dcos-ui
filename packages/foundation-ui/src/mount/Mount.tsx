@@ -19,7 +19,7 @@ import ReactUtil from "../utils/ReactUtil";
  * </Mount>
  *
  */
-class Mount extends React.Component {
+export default class Mount extends React.Component {
   static defaultProps = {
     alwaysWrap: false,
     limit: Number.MAX_SAFE_INTEGER,
@@ -98,5 +98,3 @@ class Mount extends React.Component {
     return ReactUtil.wrapElements(children, wrapper, alwaysWrap);
   }
 }
-
-export default Mount;

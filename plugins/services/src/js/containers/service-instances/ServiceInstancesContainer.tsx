@@ -10,7 +10,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Service from "../../structs/Service";
 import TasksContainer from "../tasks/TasksContainer";
 
-class ServiceInstancesContainer extends mixin(StoreMixin) {
+export default class ServiceInstancesContainer extends mixin(StoreMixin) {
   static propTypes = {
     service: PropTypes.instanceOf(Service),
     params: PropTypes.object.isRequired
@@ -74,5 +74,3 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-export default ServiceInstancesContainer;

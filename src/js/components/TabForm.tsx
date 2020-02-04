@@ -9,7 +9,7 @@ import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import ScrollbarUtil from "../utils/ScrollbarUtil";
 import SideTabs from "./SideTabs";
 
-class TabForm extends React.Component {
+export default class TabForm extends React.Component {
   static defaultProps = {
     defaultTab: "",
     getTriggerSubmit() {},
@@ -228,5 +228,3 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-export default TabForm;

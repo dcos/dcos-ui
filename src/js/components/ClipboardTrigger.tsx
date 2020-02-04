@@ -11,7 +11,7 @@ import {
   purple
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-class ClipboardTrigger extends React.Component {
+export default class ClipboardTrigger extends React.Component {
   static propTypes = {
     children: PropTypes.node,
     className: PropTypes.string,
@@ -103,5 +103,3 @@ class ClipboardTrigger extends React.Component {
     return this.getTriggerContent();
   }
 }
-
-export default ClipboardTrigger;

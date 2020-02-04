@@ -25,7 +25,10 @@ import {
   REQUEST_MARATHON_TASK_KILL_SUCCESS
 } from "../../constants/ActionTypes";
 
-class TasksContainer extends React.Component {
+export default class TasksContainer extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     tasks: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired
@@ -302,9 +305,3 @@ TasksContainer.childContextTypes = {
     killTasks: PropTypes.func
   })
 };
-
-TasksContainer.contextTypes = {
-  router: routerShape
-};
-
-export default TasksContainer;

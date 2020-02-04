@@ -9,7 +9,7 @@ const functionMap = {
   totalSummary: "getStatsForAllTasks"
 };
 
-class TaskStats extends Item {
+export default class TaskStats extends Item {
   /**
    * @return {TaskStat} task statistic about all tasks that run with the same
    * config as the latest app version.
@@ -70,5 +70,3 @@ class TaskStats extends Item {
     return new List({ items });
   }
 }
-
-export default TaskStats;

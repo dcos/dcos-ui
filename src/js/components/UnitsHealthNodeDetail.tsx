@@ -9,7 +9,7 @@ import UnitHealthStore from "../stores/UnitHealthStore";
 import UnitsHealthNodeDetailPanel from "../pages/system/units-health-node-detail/UnitsHealthNodeDetailPanel";
 import UnitSummaries from "../constants/UnitSummaries";
 
-class UnitsHealthNodeDetail extends mixin(StoreMixin) {
+export default class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -85,5 +85,3 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     );
   }
 }
-
-export default UnitsHealthNodeDetail;

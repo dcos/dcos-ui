@@ -6,7 +6,7 @@ import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
 import { JobOutput } from "../form/helpers/JobFormData";
 
-class GeneralConfigSection extends BaseConfig<JobOutput> {
+export default class GeneralConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     switch (row.key) {
@@ -64,5 +64,3 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default GeneralConfigSection;

@@ -9,7 +9,7 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
 import { profileFromVolume } from "../constants/VolumeProfile";
 
-class VolumeTable extends React.Component {
+export default class VolumeTable extends React.Component {
   static propTypes = {
     volumes: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired,
@@ -173,5 +173,3 @@ class VolumeTable extends React.Component {
     );
   }
 }
-
-export default VolumeTable;

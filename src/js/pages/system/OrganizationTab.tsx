@@ -45,7 +45,7 @@ const UsersBreadcrumbs = () => {
   );
 };
 
-class OrganizationTab extends mixin(StoreMixin) {
+export default class OrganizationTab extends mixin(StoreMixin) {
   static propTypes = {
     items: PropTypes.array.isRequired,
     itemID: PropTypes.string.isRequired,
@@ -483,5 +483,3 @@ class OrganizationTab extends mixin(StoreMixin) {
     );
   }
 }
-
-export default OrganizationTab;

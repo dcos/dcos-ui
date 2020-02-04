@@ -19,7 +19,7 @@ const REPOSITORY_ERRORS = [
   "RepositoryUriSyntax"
 ];
 
-class CosmosErrorMessage extends React.Component {
+export default class CosmosErrorMessage extends React.Component {
   static defaultProps = {
     error: { message: i18nMark("Please try again.") },
     flushBottom: false
@@ -156,5 +156,3 @@ class CosmosErrorMessage extends React.Component {
     );
   }
 }
-
-export default CosmosErrorMessage;

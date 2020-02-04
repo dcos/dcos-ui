@@ -11,7 +11,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
 
-class ServiceConfigBaseSectionDisplay extends React.Component {
+export default class ServiceConfigBaseSectionDisplay extends React.Component {
   shouldExcludeItem() {
     return false;
   }
@@ -112,5 +112,3 @@ class ServiceConfigBaseSectionDisplay extends React.Component {
     );
   }
 }
-
-export default ServiceConfigBaseSectionDisplay;

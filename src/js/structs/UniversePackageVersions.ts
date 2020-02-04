@@ -1,6 +1,6 @@
 import Item from "./Item";
 
-class UniversePackageVersions extends Item {
+export default class UniversePackageVersions extends Item {
   getVersions() {
     if (this.get("packageVersions") == null) {
       return [];
@@ -19,5 +19,3 @@ class UniversePackageVersions extends Item {
     });
   }
 }
-
-export default UniversePackageVersions;

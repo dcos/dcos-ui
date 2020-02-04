@@ -2,7 +2,7 @@ import UserStore from "#SRC/js/stores/UserStore";
 
 import AccountActionsModal from "../../../../components/AccountActionsModal";
 
-class UsersActionsModal extends AccountActionsModal {
+export default class UsersActionsModal extends AccountActionsModal {
   constructor(...args) {
     super(...args);
 
@@ -23,5 +23,3 @@ class UsersActionsModal extends AccountActionsModal {
     UserStore.deleteUser(userID);
   }
 }
-
-export default UsersActionsModal;

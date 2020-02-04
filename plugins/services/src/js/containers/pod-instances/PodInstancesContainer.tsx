@@ -30,7 +30,10 @@ import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
 } from "../../constants/ActionTypes";
 
-class PodInstancesContainer extends React.Component {
+export default class PodInstancesContainer extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     pod: PropTypes.instanceOf(Pod)
   };
@@ -342,9 +345,3 @@ PodInstancesContainer.childContextTypes = {
     killPodInstances: PropTypes.func
   })
 };
-
-PodInstancesContainer.contextTypes = {
-  router: routerShape
-};
-
-export default PodInstancesContainer;

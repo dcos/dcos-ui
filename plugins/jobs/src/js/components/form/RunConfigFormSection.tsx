@@ -27,7 +27,9 @@ interface RunConfigSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
+export default class RunConfigFormSection extends React.Component<
+  RunConfigSectionProps
+> {
   constructor(props: RunConfigSectionProps) {
     super(props);
   }
@@ -418,5 +420,3 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
     }
   }
 }
-
-export default RunConfigFormSection;

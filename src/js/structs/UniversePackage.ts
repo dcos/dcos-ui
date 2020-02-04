@@ -3,7 +3,7 @@ import FrameworkUtil from "../../../plugins/services/src/js/utils/FrameworkUtil"
 import Util from "../utils/Util";
 import StringUtil from "../utils/StringUtil";
 
-class UniversePackage extends Item {
+export default class UniversePackage extends Item {
   getAppId() {
     return this.get("appId");
   }
@@ -83,5 +83,3 @@ class UniversePackage extends Item {
     return this.get("selected");
   }
 }
-
-export default UniversePackage;

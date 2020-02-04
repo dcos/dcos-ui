@@ -26,7 +26,7 @@ const headerMapping = {
   getMedianLifeTime: i18nMark("MEDIAN LIFETIME")
 };
 
-class TaskStatsTable extends React.Component {
+export default class TaskStatsTable extends React.Component {
   getClassName(prop, sortBy) {
     const shouldAlignRight =
       taskStatus.includes(prop) || prop === "getMedianLifeTime";
@@ -158,5 +158,3 @@ class TaskStatsTable extends React.Component {
     );
   }
 }
-
-export default TaskStatsTable;

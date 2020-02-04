@@ -32,7 +32,10 @@ const EXTERNAL_CHANGE_EVENTS = [
   "onAclGroupStoreDeleteUserSuccess"
 ];
 
-class AccountDetailPage extends mixin(StoreMixin) {
+export default class AccountDetailPage extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     params: PropTypes.object
   };
@@ -302,9 +305,3 @@ class AccountDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-AccountDetailPage.contextTypes = {
-  router: routerShape
-};
-
-export default AccountDetailPage;

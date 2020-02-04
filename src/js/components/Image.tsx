@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import * as React from "react";
 import ReactDOM from "react-dom";
 
-class Image extends React.Component {
+export default class Image extends React.Component {
   static propTypes = {
     src: PropTypes.string.isRequired,
     fallbackSrc: PropTypes.string,
@@ -70,5 +70,3 @@ class Image extends React.Component {
     );
   }
 }
-
-export default Image;

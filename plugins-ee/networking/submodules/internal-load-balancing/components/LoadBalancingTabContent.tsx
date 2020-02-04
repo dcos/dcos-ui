@@ -39,7 +39,10 @@ const LoadBalancingBreadcrumbs = () => {
   );
 };
 
-class LoadBalancingTabContent extends mixin(StoreMixin) {
+export default class LoadBalancingTabContent extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor() {
     super();
 
@@ -201,9 +204,3 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
     );
   }
 }
-
-LoadBalancingTabContent.contextTypes = {
-  router: routerShape
-};
-
-export default LoadBalancingTabContent;

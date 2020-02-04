@@ -5,7 +5,7 @@ import * as React from "react";
 import AdvancedSectionContent from "./AdvancedSectionContent";
 import AdvancedSectionLabel from "./AdvancedSectionLabel";
 
-class AdvancedSection extends React.Component {
+export default class AdvancedSection extends React.Component {
   static propTypes = {
     initialIsExpanded: PropTypes.bool,
     children: PropTypes.node,
@@ -54,5 +54,3 @@ class AdvancedSection extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-export default AdvancedSection;

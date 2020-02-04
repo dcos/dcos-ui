@@ -15,7 +15,10 @@ import Service from "../../structs/Service";
 import MesosDNSList from "./MesosDNSList";
 import { getDisplayValue } from "../../utils/ServiceConfigDisplayUtil";
 
-class ServicePodConnectionEndpointList extends React.Component {
+export default class ServicePodConnectionEndpointList extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     onEditClick: PropTypes.func,
     errors: PropTypes.array,
@@ -138,9 +141,3 @@ class ServicePodConnectionEndpointList extends React.Component {
     );
   }
 }
-
-ServicePodConnectionEndpointList.contextTypes = {
-  router: routerShape
-};
-
-export default ServicePodConnectionEndpointList;

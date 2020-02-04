@@ -70,7 +70,10 @@ interface EnvVarPartialProps {
   onAddItem: (path: string) => void;
 }
 
-class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
+export default class EnvVarPartial extends React.Component<
+  EnvVarPartialProps,
+  {}
+> {
   public render() {
     const {
       onRemoveItem,
@@ -154,5 +157,3 @@ class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
     );
   }
 }
-
-export default EnvVarPartial;

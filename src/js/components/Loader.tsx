@@ -43,7 +43,7 @@ const typeMap = {
   // triangleSkewSpin: {className: 'triangle-skew-spin', divCount: 1}
 };
 
-class Loader extends React.Component {
+export default class Loader extends React.Component {
   static defaultProps = {
     className: "",
     innerClassName: "",
@@ -99,5 +99,3 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-export default Loader;

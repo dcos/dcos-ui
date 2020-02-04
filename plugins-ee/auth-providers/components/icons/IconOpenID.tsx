@@ -1,6 +1,6 @@
 import * as React from "react";
 
-class IconOpenID extends React.Component {
+export default class IconOpenID extends React.Component {
   render() {
     return (
       <svg
@@ -21,5 +21,3 @@ class IconOpenID extends React.Component {
     );
   }
 }
-
-export default IconOpenID;

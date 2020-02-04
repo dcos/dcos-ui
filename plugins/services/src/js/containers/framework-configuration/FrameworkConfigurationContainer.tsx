@@ -19,7 +19,10 @@ import {
 } from "#SRC/js/constants/EventTypes";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
-class FrameworkConfigurationContainer extends React.Component {
+export default class FrameworkConfigurationContainer extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(Framework),
@@ -115,9 +118,3 @@ class FrameworkConfigurationContainer extends React.Component {
     );
   }
 }
-
-FrameworkConfigurationContainer.contextTypes = {
-  router: routerShape
-};
-
-export default FrameworkConfigurationContainer;

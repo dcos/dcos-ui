@@ -2,7 +2,7 @@ import * as React from "react";
 
 import RegionSelection from "./RegionSelection";
 
-class SchemaRegionSelection extends React.Component {
+export default class SchemaRegionSelection extends React.Component {
   render() {
     const { name, formData, onChange, onBlur, onFocus } = this.props.fieldProps;
 
@@ -18,5 +18,3 @@ class SchemaRegionSelection extends React.Component {
     return <RegionSelection selectProps={selectProps} />;
   }
 }
-
-export default SchemaRegionSelection;

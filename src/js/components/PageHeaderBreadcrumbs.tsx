@@ -9,7 +9,7 @@ import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/des
 import Breadcrumb from "./Breadcrumb";
 import BreadcrumbCaret from "./BreadcrumbCaret";
 
-class PageHeaderBreadcrumbs extends React.Component {
+export default class PageHeaderBreadcrumbs extends React.Component {
   static propTypes = {
     iconID: PropTypes.string.isRequired,
     breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
@@ -73,5 +73,3 @@ class PageHeaderBreadcrumbs extends React.Component {
     return <div className={breadcrumbClasses}>{breadcrumbElements}</div>;
   }
 }
-
-export default PageHeaderBreadcrumbs;

@@ -19,7 +19,10 @@ export interface SDKPlansTabProps {
   handleSelectPlan: (name: string) => void;
 }
 
-class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
+export default class SDKPlansTab extends React.PureComponent<
+  SDKPlansTabProps,
+  {}
+> {
   constructor(props: SDKPlansTabProps) {
     super(props);
 
@@ -130,5 +133,3 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     );
   }
 }
-
-export default SDKPlansTab;

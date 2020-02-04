@@ -4,7 +4,7 @@ import DSLFilter from "#SRC/js/structs/DSLFilter";
 /**
  * This filter handles the `text` attributes against pod instance's `id` value
  */
-class PodInstanceTextFilter extends DSLFilter {
+export default class PodInstanceTextFilter extends DSLFilter {
   /**
    * Handle all `id` attribute filters that we can handle.
    *
@@ -36,5 +36,3 @@ class PodInstanceTextFilter extends DSLFilter {
     return resultSet;
   }
 }
-
-export default PodInstanceTextFilter;

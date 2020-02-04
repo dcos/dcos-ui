@@ -19,7 +19,13 @@ import JobDelete from "../JobDelete";
 
 import jobsMenu from "../jobsMenu";
 
-class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
+export default class JobDetailPage extends React.Component<{
+  currentTab: string;
+  job: {};
+}> {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     children: PropTypes.any,
     closeDialog: PropTypes.func,
@@ -126,9 +132,3 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
     );
   }
 }
-
-JobDetailPage.contextTypes = {
-  router: routerShape
-};
-
-export default JobDetailPage;

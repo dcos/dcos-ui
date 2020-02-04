@@ -9,7 +9,7 @@ import AuthProvider from "../structs/AuthProvider";
 import AuthProvidersModalButtonContents from "./AuthProvidersModalButtonContents";
 import AuthProvidersModalForm from "./AuthProvidersModalForm";
 
-class AuthProvidersModal extends React.Component {
+export default class AuthProvidersModal extends React.Component {
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
@@ -146,5 +146,3 @@ class AuthProvidersModal extends React.Component {
     );
   }
 }
-
-export default AuthProvidersModal;

@@ -4,7 +4,7 @@ import DSLFilter from "#SRC/js/structs/DSLFilter";
 /**
  * This filter handles the `text` attributes against taks's `name` value
  */
-class TaskNameTextFilter extends DSLFilter {
+export default class TaskNameTextFilter extends DSLFilter {
   /**
    * Handle all `name` attribute filters that we can handle.
    *
@@ -29,5 +29,3 @@ class TaskNameTextFilter extends DSLFilter {
     );
   }
 }
-
-export default TaskNameTextFilter;

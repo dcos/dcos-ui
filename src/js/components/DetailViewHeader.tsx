@@ -4,7 +4,7 @@ import * as React from "react";
 
 import CollapsingString from "./CollapsingString";
 
-class DetailViewHeader extends React.Component {
+export default class DetailViewHeader extends React.Component {
   static defaultProps = {
     actionButtons: []
   };
@@ -131,5 +131,3 @@ const classPropType = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-export default DetailViewHeader;

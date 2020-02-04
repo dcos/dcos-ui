@@ -3,7 +3,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class FullScreenModalHeaderActions extends React.Component {
+export default class FullScreenModalHeaderActions extends React.Component {
   static propTypes = {
     actions: PropTypes.arrayOf(
       PropTypes.shape({
@@ -61,5 +61,3 @@ const classProps = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-export default FullScreenModalHeaderActions;

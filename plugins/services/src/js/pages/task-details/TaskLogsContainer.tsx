@@ -14,7 +14,7 @@ import TaskSystemLogsContainer from "./TaskSystemLogsContainer";
 
 const SYSTEM_LOGS = "journald";
 
-class TaskLogsContainer extends mixin(StoreMixin) {
+export default class TaskLogsContainer extends mixin(StoreMixin) {
   static propTypes = {
     directory: PropTypes.instanceOf(TaskDirectory),
     params: PropTypes.object,
@@ -83,5 +83,3 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-export default TaskLogsContainer;

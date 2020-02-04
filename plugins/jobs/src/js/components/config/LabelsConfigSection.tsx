@@ -17,7 +17,7 @@ interface KeyValue {
   value: string;
 }
 
-class LabelsConfigSection extends BaseConfig<JobOutput> {
+export default class LabelsConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(_: Value<JobOutput>) {
     const { labels } = this.props.config;
 
@@ -83,5 +83,3 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default LabelsConfigSection;

@@ -40,7 +40,7 @@ const tableColumnClasses = {
   version: "task-table-column-version"
 };
 
-class PodInstancesTable extends React.Component {
+export default class PodInstancesTable extends React.Component {
   static defaultProps = {
     filterText: "",
     instances: null,
@@ -539,5 +539,3 @@ class PodInstancesTable extends React.Component {
     );
   }
 }
-
-export default PodInstancesTable;

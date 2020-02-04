@@ -10,7 +10,7 @@ import UserAccountDropdown from "#SRC/js/components/UserAccountDropdown";
 import UserAccountDropdownTrigger from "#SRC/js/components/UserAccountDropdownTrigger";
 import UserLanguageStore from "#SRC/js/stores/UserLanguageStore";
 
-class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
+export default class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
   constructor(...args) {
     super(...args);
 
@@ -56,5 +56,3 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
     return menuItems;
   }
 }
-
-export default AuthenticatedUserAccountDropdown;

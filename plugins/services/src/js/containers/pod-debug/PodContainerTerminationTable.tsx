@@ -8,7 +8,7 @@ import { i18nMark } from "@lingui/react";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
-class PodContainerTerminationTable extends React.Component {
+export default class PodContainerTerminationTable extends React.Component {
   static defaultProps = {
     className:
       "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
@@ -106,5 +106,3 @@ class PodContainerTerminationTable extends React.Component {
     );
   }
 }
-
-export default PodContainerTerminationTable;

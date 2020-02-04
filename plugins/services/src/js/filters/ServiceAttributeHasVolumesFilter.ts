@@ -7,7 +7,7 @@ const LABEL_TEXT = "volumes";
 /**
  * This filter handles the `has:volumes` for filtering services with volumes
  */
-class ServiceAttributeHasVolumesFilter extends DSLFilter {
+export default class ServiceAttributeHasVolumesFilter extends DSLFilter {
   /**
    * Handle all `has:volumes` attrib filters.
    *
@@ -34,5 +34,3 @@ class ServiceAttributeHasVolumesFilter extends DSLFilter {
     });
   }
 }
-
-export default ServiceAttributeHasVolumesFilter;

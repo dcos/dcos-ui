@@ -7,7 +7,10 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import TasksContainer from "../../../../../services/src/js/containers/tasks/TasksContainer";
 
-class NodeDetailTaskTab extends React.Component {
+export default class NodeDetailTaskTab extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -48,9 +51,3 @@ class NodeDetailTaskTab extends React.Component {
     return <TasksContainer location={location} params={params} tasks={tasks} />;
   }
 }
-
-NodeDetailTaskTab.contextTypes = {
-  router: routerShape
-};
-
-export default NodeDetailTaskTab;

@@ -9,7 +9,7 @@ import {
   iconSizeXxs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-class PageHeaderNavigationDropdown extends React.Component {
+export default class PageHeaderNavigationDropdown extends React.Component {
   static defaultProps = {
     items: []
   };
@@ -90,5 +90,3 @@ class PageHeaderNavigationDropdown extends React.Component {
     );
   }
 }
-
-export default PageHeaderNavigationDropdown;

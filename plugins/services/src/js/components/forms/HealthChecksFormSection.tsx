@@ -34,7 +34,7 @@ import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
 const errorsLens = Objektiv.attr("healthChecks", []);
 
-class HealthChecksFormSection extends React.Component {
+export default class HealthChecksFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -563,5 +563,3 @@ HealthChecksFormSection.validationReducers = {
     return [];
   }
 };
-
-export default HealthChecksFormSection;

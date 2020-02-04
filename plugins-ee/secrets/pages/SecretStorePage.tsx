@@ -32,7 +32,11 @@ const SecretStoreBreadcrumbs = () => {
   );
 };
 
-class SecretStorePage extends mixin(StoreMixin) {
+export default class SecretStorePage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Secret Stores"),
+    matches: /^\/settings\/stores/
+  };
   constructor(...args) {
     super(...args);
 
@@ -95,10 +99,3 @@ class SecretStorePage extends mixin(StoreMixin) {
     );
   }
 }
-
-SecretStorePage.routeConfig = {
-  label: i18nMark("Secret Stores"),
-  matches: /^\/settings\/stores/
-};
-
-export default SecretStorePage;

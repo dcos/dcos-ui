@@ -18,7 +18,7 @@ const EXPRESSION_PARTS = Object.keys(Status.filters).reduce(
   {}
 );
 
-class NodesStatusDSLSection extends React.PureComponent<{
+export default class NodesStatusDSLSection extends React.PureComponent<{
   expression: string;
   onChange: () => void;
 }> {
@@ -73,5 +73,3 @@ const checkbox = (o: {
     </FormGroup>
   </div>
 );
-
-export default NodesStatusDSLSection;

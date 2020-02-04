@@ -19,7 +19,7 @@ import ServiceModals from "../../components/modals/ServiceModals";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
 import { ServiceActionItem as Action } from "../../constants/ServiceActionItem";
 
-class ServiceDetail extends React.Component<
+export default class ServiceDetail extends React.Component<
   { service: ServiceTree },
   { actionDisabledID: null | string; actionDisabledModalOpen: boolean }
 > {
@@ -277,18 +277,3 @@ class ServiceDetail extends React.Component<
     );
   }
 }
-
-ServiceDetail.contextTypes = {
-  clearError() {},
-  modalHandlers: PropTypes.shape({
-    scaleService: PropTypes.func,
-    restartService: PropTypes.func,
-    stopService: PropTypes.func,
-    deleteService: PropTypes.func,
-    openService: PropTypes.func,
-    resetDelayedService: PropTypes.func
-  }).isRequired,
-  router: routerShape
-};
-
-export default ServiceDetail;

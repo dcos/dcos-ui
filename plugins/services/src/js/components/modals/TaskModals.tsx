@@ -6,7 +6,7 @@ import KillPodInstanceModal from "./KillPodInstanceModal";
 import KillTaskModal from "./KillTaskModal";
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
 
-class TaskModals extends React.Component {
+export default class TaskModals extends React.Component {
   static propTypes = {
     actionErrors: PropTypes.object.isRequired,
     actions: actionPropTypes,
@@ -79,5 +79,3 @@ const actionPropTypes = PropTypes.shape({
   killPodInstances: PropTypes.func,
   killTasks: PropTypes.func
 }).isRequired;
-
-export default TaskModals;

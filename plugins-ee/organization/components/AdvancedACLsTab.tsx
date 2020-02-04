@@ -24,7 +24,10 @@ import ACLStore from "../submodules/acl/stores/ACLStore";
 import PermissionBuilderModal from "./PermissionBuilderModal";
 
 // This component is extended by Accounts and Groups
-class AdvancedACLsTab extends mixin(StoreMixin) {
+export default class AdvancedACLsTab extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     itemID: PropTypes.string.isRequired
   };
@@ -326,9 +329,3 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
     );
   }
 }
-
-AdvancedACLsTab.contextTypes = {
-  router: routerShape
-};
-
-export default AdvancedACLsTab;

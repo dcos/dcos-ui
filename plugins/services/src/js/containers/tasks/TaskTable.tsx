@@ -41,7 +41,10 @@ const tableColumnClasses = {
   updated: "task-table-column-updated"
 };
 
-class TaskTable extends React.Component {
+export default class TaskTable extends React.Component {
+  static contextTypes = {
+    router: routerShape.isRequired
+  };
   static defaultProps = {
     className:
       "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
@@ -455,9 +458,3 @@ class TaskTable extends React.Component {
     );
   }
 }
-
-TaskTable.contextTypes = {
-  router: routerShape.isRequired
-};
-
-export default TaskTable;

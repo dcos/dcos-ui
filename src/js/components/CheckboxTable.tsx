@@ -6,7 +6,7 @@ import * as React from "react";
 import ResourceTableUtil from "../utils/ResourceTableUtil";
 import TableUtil from "../utils/TableUtil";
 
-class CheckboxTable extends React.Component {
+export default class CheckboxTable extends React.Component {
   static defaultProps = {
     allowMultipleSelect: true,
     checkedItemsMap: {},
@@ -231,5 +231,3 @@ class CheckboxTable extends React.Component {
     );
   }
 }
-
-export default CheckboxTable;

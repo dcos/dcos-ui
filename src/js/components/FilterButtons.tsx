@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class FilterButtons extends React.Component {
+export default class FilterButtons extends React.Component {
   static defaultProps = {
     inverseStyle: false,
     onFilterChange() {},
@@ -89,5 +89,3 @@ class FilterButtons extends React.Component {
     );
   }
 }
-
-export default FilterButtons;

@@ -8,7 +8,7 @@ import VolumeConstants from "#PLUGINS/services/src/js/constants/VolumeConstants"
 import { getDisplayValue } from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
-class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
+export default class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
@@ -174,5 +174,3 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
     return config;
   }
 }
-
-export default ServiceStorageConfigSection;

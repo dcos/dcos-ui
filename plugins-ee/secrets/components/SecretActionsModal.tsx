@@ -18,7 +18,7 @@ const SecretStore = getSecretStore();
 
 const i18n = container.get(TYPES.I18n);
 
-class SecretActionsModal extends mixin(StoreMixin) {
+export default class SecretActionsModal extends mixin(StoreMixin) {
   static defaultProps = {
     onSuccess() {}
   };
@@ -167,5 +167,3 @@ class SecretActionsModal extends mixin(StoreMixin) {
     );
   }
 }
-
-export default SecretActionsModal;

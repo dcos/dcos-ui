@@ -15,7 +15,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 
-class FrameworkConfigurationReviewScreen extends React.Component {
+export default class FrameworkConfigurationReviewScreen extends React.Component {
   static defaultProps = {
     title: ""
   };
@@ -184,5 +184,3 @@ class FrameworkConfigurationReviewScreen extends React.Component {
     );
   }
 }
-
-export default FrameworkConfigurationReviewScreen;

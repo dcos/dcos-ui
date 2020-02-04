@@ -18,7 +18,7 @@ import JobSecret from "./JobSecret";
 
 const SecretStore = getSecretStore();
 
-class JobSecretsFormSection extends React.Component {
+export default class JobSecretsFormSection extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       secrets: PropTypes.arrayOf(
@@ -169,5 +169,3 @@ class JobSecretsFormSection extends React.Component {
     );
   }
 }
-
-export default JobSecretsFormSection;

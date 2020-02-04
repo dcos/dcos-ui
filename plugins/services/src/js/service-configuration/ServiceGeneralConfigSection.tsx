@@ -20,7 +20,7 @@ const {
   labelMap
 } = ContainerConstants;
 
-class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
+export default class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
@@ -311,5 +311,3 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
     };
   }
 }
-
-export default ServiceGeneralConfigSection;

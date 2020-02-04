@@ -50,7 +50,11 @@ const SystemOverviewBreadcrumbs = () => {
   );
 };
 
-class OverviewDetailTab extends mixin(StoreMixin) {
+export default class OverviewDetailTab extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Overview"),
+    matches: /^\/overview\/details/
+  };
   constructor(...args) {
     super(...args);
 
@@ -344,10 +348,3 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     );
   }
 }
-
-OverviewDetailTab.routeConfig = {
-  label: i18nMark("Overview"),
-  matches: /^\/overview\/details/
-};
-
-export default OverviewDetailTab;

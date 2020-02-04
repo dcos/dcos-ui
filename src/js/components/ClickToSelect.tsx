@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class ClickToSelect extends React.Component {
+export default class ClickToSelect extends React.Component {
   static propTypes = {
     children: PropTypes.any
   };
@@ -30,5 +30,3 @@ class ClickToSelect extends React.Component {
     );
   }
 }
-
-export default ClickToSelect;

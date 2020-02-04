@@ -21,7 +21,7 @@ const userHasCapability = SDK.getSDK().Hooks.applyFilter.bind(
   "metadataAPI"
 );
 
-class BootstrapConfigHashMap extends React.Component {
+export default class BootstrapConfigHashMap extends React.Component {
   constructor(...args) {
     super(...args);
 
@@ -78,5 +78,3 @@ class BootstrapConfigHashMap extends React.Component {
     );
   }
 }
-
-export default BootstrapConfigHashMap;

@@ -12,7 +12,7 @@ const DEFAULT_ITEM = {
   selectedHtml: <Trans render="span">All Health Checks</Trans>
 };
 
-class UnitHealthDropdown extends React.PureComponent {
+export default class UnitHealthDropdown extends React.PureComponent {
   static defaultProps = {
     className: "button dropdown-toggle text-align-left",
     dropdownMenuClassName: "dropdown-menu"
@@ -76,5 +76,3 @@ class UnitHealthDropdown extends React.PureComponent {
     );
   }
 }
-
-export default UnitHealthDropdown;

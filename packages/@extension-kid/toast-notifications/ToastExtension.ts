@@ -8,7 +8,8 @@ import {
 import { ToastNotification } from "./ToastNotification";
 
 @injectable()
-class ToastExtension implements NotificationServiceExtensionInterface {
+export default class ToastExtension
+  implements NotificationServiceExtensionInterface {
   public id = ToastNotification.NotificationType;
   public readonly Toast$: BehaviorSubject<ToastNotification[]>;
   private toasts: ToastNotification[] = [];
@@ -66,5 +67,3 @@ class ToastExtension implements NotificationServiceExtensionInterface {
     return null;
   }
 }
-
-export default ToastExtension;

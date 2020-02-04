@@ -14,7 +14,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 import UserActions from "#SRC/js/constants/UserActions";
 import RepositoriesDelete from "../RepositoriesDelete";
 
-class RepositoriesTable extends React.Component {
+export default class RepositoriesTable extends React.Component {
   static defaultProps = {
     repositories: new List()
   };
@@ -156,5 +156,3 @@ class RepositoriesTable extends React.Component {
     );
   }
 }
-
-export default RepositoriesTable;

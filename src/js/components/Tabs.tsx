@@ -4,7 +4,7 @@ import * as React from "react";
 
 import TabButtonList from "./TabButtonList";
 
-class Tabs extends React.Component {
+export default class Tabs extends React.Component {
   static propTypes = {
     // Optional variable to set active tab from owner component
     activeTab: PropTypes.string,
@@ -40,5 +40,3 @@ class Tabs extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-export default Tabs;

@@ -36,7 +36,11 @@ const AuthProvidersBreadcrumbs = () => {
   );
 };
 
-class AuthProvidersTab extends mixin(StoreMixin) {
+export default class AuthProvidersTab extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Identity Providers"),
+    matches: /^\/settings\/identity-providers/
+  };
   constructor(...args) {
     super(...args);
 
@@ -156,10 +160,3 @@ class AuthProvidersTab extends mixin(StoreMixin) {
     );
   }
 }
-
-AuthProvidersTab.routeConfig = {
-  label: i18nMark("Identity Providers"),
-  matches: /^\/settings\/identity-providers/
-};
-
-export default AuthProvidersTab;

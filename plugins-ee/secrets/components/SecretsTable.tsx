@@ -24,7 +24,7 @@ interface SecretsTableState {
   sortDirection: "ASC" | "DESC";
 }
 
-class ServicesTable extends React.PureComponent<
+export default class ServicesTable extends React.PureComponent<
   SecretsTableProps,
   SecretsTableState
 > {
@@ -112,5 +112,3 @@ class ServicesTable extends React.PureComponent<
     );
   }
 }
-
-export default ServicesTable;

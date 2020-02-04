@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class FilterBar extends React.PureComponent {
+export default class FilterBar extends React.PureComponent {
   static defaultProps = {
     className: "filter-bar",
     leftChildrenClass: "filter-bar-left",
@@ -63,5 +63,3 @@ class FilterBar extends React.PureComponent {
     );
   }
 }
-
-export default FilterBar;

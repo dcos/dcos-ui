@@ -5,15 +5,14 @@ import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icon
 import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class SecurityPage extends React.Component {
+  static routeConfig = {
+    label: i18nMark("Secrets"),
+    icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
+    matches: /^\/secrets/
+  };
   render() {
     return this.props.children;
   }
 }
-
-SecurityPage.routeConfig = {
-  label: i18nMark("Secrets"),
-  icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
-  matches: /^\/secrets/
-};
 
 module.exports = SecurityPage;

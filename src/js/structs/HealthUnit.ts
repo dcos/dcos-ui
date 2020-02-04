@@ -5,7 +5,7 @@ import UnitHealthUtil from "../utils/UnitHealthUtil";
 const ID_PREFIX = "dcos-";
 const REPLACE_IN_ID = { dns: "DNS" };
 
-class HealthUnit extends Item {
+export default class HealthUnit extends Item {
   getHealth() {
     return UnitHealthUtil.getHealth(this.get("health"));
   }
@@ -30,5 +30,3 @@ class HealthUnit extends Item {
     return StringUtil.idToTitle([id], [".", "-"], REPLACE_IN_ID, true);
   }
 }
-
-export default HealthUnit;

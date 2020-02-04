@@ -5,7 +5,7 @@ import ReactDOM from "react-dom";
 
 import DOMUtils from "../utils/DOMUtils";
 
-class CollapsingString extends React.Component {
+export default class CollapsingString extends React.Component {
   static defaultProps = {
     fullStringClassName: "collapsing-string-full-string",
     truncatedStringEndClassName: "collapsing-string-truncated-end",
@@ -173,5 +173,3 @@ class CollapsingString extends React.Component {
     );
   }
 }
-
-export default CollapsingString;

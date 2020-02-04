@@ -31,7 +31,10 @@ interface Definition<T> {
   tabViewID?: string;
 }
 
-class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
+export default class BaseConfig<T> extends React.Component<
+  BaseConfigProps<T>,
+  object
+> {
   public shouldExcludeItem(_value: Value<T>) {
     return false;
   }
@@ -131,5 +134,3 @@ class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
     );
   }
 }
-
-export default BaseConfig;

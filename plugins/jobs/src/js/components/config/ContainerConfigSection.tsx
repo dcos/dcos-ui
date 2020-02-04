@@ -6,7 +6,7 @@ import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput } from "../form/helpers/JobFormData";
 
-class ContainerConfigSection extends BaseConfig<JobOutput> {
+export default class ContainerConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     if (row.key === "kind" && !config.run.ucr) {
@@ -112,5 +112,3 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default ContainerConfigSection;

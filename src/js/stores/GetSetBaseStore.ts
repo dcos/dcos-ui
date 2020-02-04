@@ -1,7 +1,7 @@
 import BaseStore from "./BaseStore";
 
 // TODO: DCOS-6404, remove getters and setters from stores
-class GetSetBaseStore<
+export default class GetSetBaseStore<
   T extends Record<string, unknown> = {}
 > extends BaseStore {
   getSet_data: T;
@@ -28,5 +28,3 @@ class GetSetBaseStore<
     Object.assign(this.getSet_data, data);
   }
 }
-
-export default GetSetBaseStore;

@@ -13,7 +13,10 @@ import Loader from "#SRC/js/components/Loader";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
-class EditFrameworkConfiguration extends mixin(StoreMixin) {
+export default class EditFrameworkConfiguration extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     params: PropTypes.object.isRequired
   };
@@ -147,9 +150,3 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
     );
   }
 }
-
-EditFrameworkConfiguration.contextTypes = {
-  router: routerShape
-};
-
-export default EditFrameworkConfiguration;

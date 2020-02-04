@@ -7,7 +7,7 @@ const LABEL = "region";
 /**
  * This filter handles the `region:XXXX` for tasks
  */
-class TasksRegionFilter extends DSLFilter {
+export default class TasksRegionFilter extends DSLFilter {
   constructor(regions = []) {
     super();
     this.regions = regions;
@@ -48,5 +48,3 @@ class TasksRegionFilter extends DSLFilter {
     });
   }
 }
-
-export default TasksRegionFilter;

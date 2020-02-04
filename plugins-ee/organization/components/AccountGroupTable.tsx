@@ -13,7 +13,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import ACLGroupStore from "../submodules/groups/stores/ACLGroupStore";
 
-class AccountGroupTable extends mixin(StoreMixin) {
+export default class AccountGroupTable extends mixin(StoreMixin) {
   static propTypes = {
     getAccountDetails: PropTypes.func.isRequired
   };
@@ -190,5 +190,3 @@ class AccountGroupTable extends mixin(StoreMixin) {
     );
   }
 }
-
-export default AccountGroupTable;

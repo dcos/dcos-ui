@@ -1,6 +1,6 @@
 import * as React from "react";
 
-class IconSAML extends React.Component {
+export default class IconSAML extends React.Component {
   render() {
     return (
       <svg
@@ -20,5 +20,3 @@ class IconSAML extends React.Component {
     );
   }
 }
-
-export default IconSAML;

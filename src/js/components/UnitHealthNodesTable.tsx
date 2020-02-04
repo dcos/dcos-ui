@@ -9,7 +9,7 @@ import StringUtil from "../utils/StringUtil";
 import TableUtil from "../utils/TableUtil";
 import UnitHealthUtil from "../utils/UnitHealthUtil";
 
-class UnitHealthNodesTable extends React.Component {
+export default class UnitHealthNodesTable extends React.Component {
   static propTypes = {
     nodes: PropTypes.array.isRequired,
     params: PropTypes.object
@@ -119,5 +119,3 @@ class UnitHealthNodesTable extends React.Component {
     );
   }
 }
-
-export default UnitHealthNodesTable;

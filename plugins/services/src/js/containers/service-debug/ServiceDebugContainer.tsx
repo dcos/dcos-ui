@@ -22,7 +22,10 @@ import Service from "../../structs/Service";
 import Framework from "../../structs/Framework";
 import TaskStatsTable from "./TaskStatsTable";
 
-class ServiceDebugContainer extends React.Component {
+export default class ServiceDebugContainer extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     service: PropTypes.instanceOf(Service)
   };
@@ -411,9 +414,3 @@ class ServiceDebugContainer extends React.Component {
     );
   }
 }
-
-ServiceDebugContainer.contextTypes = {
-  router: routerShape
-};
-
-export default ServiceDebugContainer;

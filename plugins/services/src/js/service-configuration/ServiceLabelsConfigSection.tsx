@@ -6,7 +6,7 @@ import { i18nMark } from "@lingui/react";
 import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
-class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
+export default class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
@@ -108,5 +108,3 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
     };
   }
 }
-
-export default ServiceLabelsConfigSection;

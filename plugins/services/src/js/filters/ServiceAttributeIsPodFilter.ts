@@ -8,7 +8,7 @@ const LABEL_TEXT = "pod";
 /**
  * This filter handles the `is:pod` for filtering pod instances
  */
-class ServiceAttributeIsPodFilter extends DSLFilter {
+export default class ServiceAttributeIsPodFilter extends DSLFilter {
   /**
    * Handle all `is:pod` attribute filters.
    *
@@ -31,5 +31,3 @@ class ServiceAttributeIsPodFilter extends DSLFilter {
     return resultset.filterItems(service => service instanceof Pod);
   }
 }
-
-export default ServiceAttributeIsPodFilter;

@@ -10,7 +10,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 const RIGHT_ALIGNED_TABLE_CELLS = ["p99Latency"];
 
-class ClientsTable extends React.Component {
+export default class ClientsTable extends React.Component {
   constructor() {
     super();
 
@@ -182,5 +182,3 @@ class ClientsTable extends React.Component {
     );
   }
 }
-
-export default ClientsTable;

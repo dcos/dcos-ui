@@ -9,7 +9,7 @@ const LABEL_TEXT = "healthchecks";
  * This filter handles the `no:healthckecks` filter that returns the services
  * without health checks
  */
-class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
+export default class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
   /**
    * Handle all `no:healthckecks` attribute filters.
    *
@@ -34,5 +34,3 @@ class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
     );
   }
 }
-
-export default ServiceAttributeNoHealthchecksFilter;

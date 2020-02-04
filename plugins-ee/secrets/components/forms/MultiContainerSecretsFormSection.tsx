@@ -19,7 +19,7 @@ import MultiContainerSecret from "./MultiContainerSecret";
 
 const SecretStore = getSecretStore();
 
-class MultiContainerSecretsFormSection extends React.Component {
+export default class MultiContainerSecretsFormSection extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       secrets: PropTypes.arrayOf(
@@ -297,5 +297,3 @@ class MultiContainerSecretsFormSection extends React.Component {
     );
   }
 }
-
-export default MultiContainerSecretsFormSection;

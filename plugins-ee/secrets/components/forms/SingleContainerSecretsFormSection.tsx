@@ -26,7 +26,7 @@ function getNewID(data, index = data.length) {
     : getNewID(data, index + 1);
 }
 
-class SingleContainerSecretsFormSection extends React.Component {
+export default class SingleContainerSecretsFormSection extends React.Component {
   static propTypes = {
     data: PropTypes.shape({
       secrets: PropTypes.arrayOf(
@@ -237,5 +237,3 @@ class SingleContainerSecretsFormSection extends React.Component {
     );
   }
 }
-
-export default SingleContainerSecretsFormSection;

@@ -16,7 +16,7 @@ import {
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 
-class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
+export default class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
@@ -234,5 +234,3 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
     };
   }
 }
-
-export default ServiceNetworkingConfigSection;

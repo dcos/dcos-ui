@@ -4,7 +4,7 @@ import { CHANGE } from "./MountEvent";
 /**
  * MountService
  */
-class MountService extends EventEmitter {
+export default class MountService extends EventEmitter {
   constructor(...args) {
     super(...args);
 
@@ -129,5 +129,3 @@ class MountService extends EventEmitter {
       .map(descriptor => descriptor.component);
   }
 }
-
-export default MountService;

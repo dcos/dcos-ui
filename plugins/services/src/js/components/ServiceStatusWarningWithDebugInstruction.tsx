@@ -4,7 +4,7 @@ import { Trans } from "@lingui/macro";
 import DateUtil from "#SRC/js/utils/DateUtil";
 import ServiceStatusIcon from "./ServiceStatusIcon";
 
-class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
+export default class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
   getTooltipContent(timeWaiting) {
     return (
       <Trans render="span">
@@ -15,5 +15,3 @@ class ServiceStatusWarningWithDebugInstruction extends ServiceStatusIcon {
     );
   }
 }
-
-export default ServiceStatusWarningWithDebugInstruction;

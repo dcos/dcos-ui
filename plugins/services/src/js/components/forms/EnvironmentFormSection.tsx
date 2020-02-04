@@ -19,7 +19,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { FormReducer as env } from "../../reducers/serviceForm/FormReducers/EnvironmentVariables";
 import { FormReducer as labels } from "../../reducers/serviceForm/FormReducers/Labels";
 
-class EnvironmentFormSection extends React.Component {
+export default class EnvironmentFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -311,5 +311,3 @@ EnvironmentFormSection.configReducers = {
   env,
   labels
 };
-
-export default EnvironmentFormSection;

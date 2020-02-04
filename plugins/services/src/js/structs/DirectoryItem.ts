@@ -6,7 +6,7 @@ const DISPLAY_NAMES = {
   stderr: "Error (stderr)"
 };
 
-class DirectoryItem extends Item {
+export default class DirectoryItem extends Item {
   getDisplayName() {
     const name = this.getName();
     const displayName = DISPLAY_NAMES[name];
@@ -30,5 +30,3 @@ class DirectoryItem extends Item {
     return !this.isDirectory();
   }
 }
-
-export default DirectoryItem;

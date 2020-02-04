@@ -38,7 +38,7 @@ const podPaths = {
   type: "{basePath}.type"
 };
 
-class ContainerServiceFormSection extends React.Component {
+export default class ContainerServiceFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -275,5 +275,3 @@ ContainerServiceFormSection.configReducers = {
   container: ContainerReducer,
   containers: ContainersReducer
 };
-
-export default ContainerServiceFormSection;

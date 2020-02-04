@@ -1,7 +1,7 @@
 import List from "./List";
 import UniversePackage from "./UniversePackage";
 
-class UniverseInstalledPackagesList extends List {
+export default class UniverseInstalledPackagesList extends List {
   constructor(options = {}) {
     // Specify filter properties if not specified
     if (!options.filterProperties) {
@@ -33,5 +33,3 @@ class UniverseInstalledPackagesList extends List {
     });
   }
 }
-
-export default UniverseInstalledPackagesList;

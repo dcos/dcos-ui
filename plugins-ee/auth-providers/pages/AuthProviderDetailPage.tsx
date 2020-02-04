@@ -51,6 +51,9 @@ const AuthProviderDetailBreadcrumbs = ({ provider }) => {
 };
 
 class AuthProviderDetailPage extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -277,9 +280,5 @@ class AuthProviderDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-AuthProviderDetailPage.contextTypes = {
-  router: routerShape
-};
 
 export default withI18n()(AuthProviderDetailPage);

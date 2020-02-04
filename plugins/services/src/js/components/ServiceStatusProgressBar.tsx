@@ -44,7 +44,7 @@ export const ServiceProgressBar = React.memo(
   )
 );
 
-class ServiceStatusProgressBar extends React.Component<
+export default class ServiceStatusProgressBar extends React.Component<
   ServiceStatusProgressBarProps
 > {
   public static propTypes = {
@@ -72,5 +72,3 @@ class ServiceStatusProgressBar extends React.Component<
     );
   }
 }
-
-export default ServiceStatusProgressBar;

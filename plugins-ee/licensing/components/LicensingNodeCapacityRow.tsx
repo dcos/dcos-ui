@@ -15,7 +15,7 @@ import LicensingStore from "../stores/LicensingStore";
 import LicensingConfig from "../config/LicensingConfig";
 import { LICENSING_SUMMARY_SUCCESS } from "../constants/EventTypes";
 
-class LicensingNodeCapacityRow extends React.Component {
+export default class LicensingNodeCapacityRow extends React.Component {
   constructor(props) {
     super(props);
 
@@ -109,5 +109,3 @@ class LicensingNodeCapacityRow extends React.Component {
     );
   }
 }
-
-export default LicensingNodeCapacityRow;

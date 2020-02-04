@@ -7,7 +7,7 @@ import ModalHeading from "../modals/ModalHeading";
 
 import * as MetronomeClient from "../../events/MetronomeClient";
 
-class JobStopRunModal extends React.Component {
+export default class JobStopRunModal extends React.Component {
   static propTypes = {
     jobID: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
@@ -67,5 +67,3 @@ class JobStopRunModal extends React.Component {
     );
   }
 }
-
-export default JobStopRunModal;

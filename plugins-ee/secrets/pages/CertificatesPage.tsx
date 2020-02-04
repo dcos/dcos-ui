@@ -37,6 +37,10 @@ const CertificatesBreadcrumbs = () => {
 };
 
 class CertificatesPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Certificates"),
+    matches: /^\/secrets\/certificates/
+  };
   constructor(...args) {
     super(...args);
 
@@ -166,10 +170,5 @@ class CertificatesPage extends mixin(StoreMixin) {
     );
   }
 }
-
-CertificatesPage.routeConfig = {
-  label: i18nMark("Certificates"),
-  matches: /^\/secrets\/certificates/
-};
 
 module.exports = CertificatesPage;

@@ -22,7 +22,7 @@ type Props = {
 
 type State = { secrets: Array<{ path: string }> };
 
-class SecretsSelect extends React.Component<Props, State> {
+export default class SecretsSelect extends React.Component<Props, State> {
   constructor(props: Props) {
     super(props);
 
@@ -93,5 +93,3 @@ class SecretsSelect extends React.Component<Props, State> {
     return <div>{this.renderSecrets()}</div>;
   }
 }
-
-export default SecretsSelect;

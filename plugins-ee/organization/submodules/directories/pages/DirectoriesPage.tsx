@@ -45,7 +45,11 @@ const DirectoriesBreadcrumbs = () => {
   );
 };
 
-class DirectoriesPage extends mixin(StoreMixin) {
+export default class DirectoriesPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("LDAP Directory"),
+    matches: /^\/settings\/directory/
+  };
   constructor(...args) {
     super(...args);
 
@@ -362,10 +366,3 @@ class DirectoriesPage extends mixin(StoreMixin) {
     );
   }
 }
-
-DirectoriesPage.routeConfig = {
-  label: i18nMark("LDAP Directory"),
-  matches: /^\/settings\/directory/
-};
-
-export default DirectoriesPage;

@@ -13,7 +13,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 
 import TableUtil from "#SRC/js/utils/TableUtil";
 
-class SecretStoresTable extends React.Component {
+export default class SecretStoresTable extends React.Component {
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
     stores: PropTypes.object
@@ -126,5 +126,3 @@ class SecretStoresTable extends React.Component {
     );
   }
 }
-
-export default SecretStoresTable;

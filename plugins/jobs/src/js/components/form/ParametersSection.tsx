@@ -22,7 +22,7 @@ interface ParametersSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ParametersSection extends React.Component<
+export default class ParametersSection extends React.Component<
   ParametersSectionProps,
   object
 > {
@@ -137,5 +137,3 @@ class ParametersSection extends React.Component<
     );
   }
 }
-
-export default ParametersSection;

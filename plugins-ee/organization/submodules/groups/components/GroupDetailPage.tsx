@@ -41,6 +41,10 @@ const GroupDetailBreadcrumbs = ({ groupID }) => {
 };
 
 class GroupDetailPage extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape,
+    groupID: PropTypes.string
+  };
   constructor(...args) {
     super(...args);
 
@@ -271,10 +275,5 @@ class GroupDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-GroupDetailPage.contextTypes = {
-  router: routerShape,
-  groupID: PropTypes.string
-};
 
 export default withI18n()(GroupDetailPage);

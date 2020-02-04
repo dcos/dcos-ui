@@ -10,7 +10,7 @@ import VolumeStatus, { statusFromVolume } from "../constants/VolumeStatus";
 import { profileFromVolume } from "../constants/VolumeProfile";
 import VolumeDefinitions from "../constants/VolumeDefinitions";
 
-class PodVolumeTable extends React.Component {
+export default class PodVolumeTable extends React.Component {
   static propTypes = {
     volumes: PropTypes.array,
     params: PropTypes.object.isRequired,
@@ -189,5 +189,3 @@ class PodVolumeTable extends React.Component {
     );
   }
 }
-
-export default PodVolumeTable;

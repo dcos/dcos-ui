@@ -15,7 +15,7 @@ import { createNodeComparisionFunction } from "../utils/DSLFormUtil";
  * This <form /> component wraps a set of <input /> elements and automates
  * the update of the DSL expression based on the part definition given.
  */
-class DSLFormWithExpressionUpdates extends React.Component {
+export default class DSLFormWithExpressionUpdates extends React.Component {
   static defaultProps = {
     enabled: true,
     groupCombiner: DSLCombinerTypes.AND,
@@ -239,5 +239,3 @@ class DSLFormWithExpressionUpdates extends React.Component {
     );
   }
 }
-
-export default DSLFormWithExpressionUpdates;

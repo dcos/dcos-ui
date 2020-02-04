@@ -124,7 +124,10 @@ function intersperse<A>(list: A[], sep: JSX.Element) {
   return Array.prototype.concat(...list.map(e => [sep, e])).slice(1);
 }
 
-class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
+export default class SplitPanel extends React.PureComponent<
+  SplitPanelProps,
+  SplitPanelState
+> {
   public containerRef = React.createRef<HTMLDivElement>();
 
   constructor(props: SplitPanelProps) {
@@ -240,5 +243,3 @@ class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
     }
   }
 }
-
-export default SplitPanel;

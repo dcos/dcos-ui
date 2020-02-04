@@ -8,7 +8,7 @@ const LABEL_TEXT = "catalog";
 /**
  * This filter handles the `is:catalog` for filtering catalog frameworks
  */
-class ServiceAttributeIsCatalogFilter extends DSLFilter {
+export default class ServiceAttributeIsCatalogFilter extends DSLFilter {
   /**
    * Handle all `is:catalog` attrib filters that we can handle.
    *
@@ -31,5 +31,3 @@ class ServiceAttributeIsCatalogFilter extends DSLFilter {
     return resultset.filterItems(service => service instanceof Framework);
   }
 }
-
-export default ServiceAttributeIsCatalogFilter;

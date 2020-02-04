@@ -8,7 +8,7 @@ const LABEL_TO_HEALTH = {
   unhealthy: "unhealthy"
 };
 
-class NodesHealthFilter extends DSLFilter {
+export default class NodesHealthFilter extends DSLFilter {
   /**
    * Handle all `is:healthy||unhealthy` attribute filters that we can handle.
    *
@@ -36,5 +36,3 @@ class NodesHealthFilter extends DSLFilter {
     );
   }
 }
-
-export default NodesHealthFilter;

@@ -34,7 +34,7 @@ import { Overlay } from "#SRC/js/structs/Overlay";
 
 const { BRIDGE, HOST, CONTAINER } = Networking.type;
 
-class NetworkingFormSection extends mixin(StoreMixin) {
+export default class NetworkingFormSection extends mixin(StoreMixin) {
   static defaultProps = {
     data: {},
     errors: {},
@@ -760,5 +760,3 @@ NetworkingFormSection.configReducers = {
     return state;
   }
 };
-
-export default NetworkingFormSection;

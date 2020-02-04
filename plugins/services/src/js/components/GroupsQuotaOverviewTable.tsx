@@ -62,7 +62,7 @@ function sortForColumn(
   }
 }
 
-class GroupsQuotaOverviewTable extends React.Component<
+export default class GroupsQuotaOverviewTable extends React.Component<
   GroupsQuotaOverviewTableProps,
   GroupsQuotaOverViewTableState
 > {
@@ -221,5 +221,3 @@ class GroupsQuotaOverviewTable extends React.Component<
     );
   }
 }
-
-export default GroupsQuotaOverviewTable;

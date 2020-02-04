@@ -8,7 +8,7 @@ const LABEL_TO_TYPE = {
   public: "public"
 };
 
-class NodesTypeFilter extends DSLFilter {
+export default class NodesTypeFilter extends DSLFilter {
   /**
    * Handle all `is:private||public` attribute filters that we can handle.
    *
@@ -37,5 +37,3 @@ class NodesTypeFilter extends DSLFilter {
     });
   }
 }
-
-export default NodesTypeFilter;

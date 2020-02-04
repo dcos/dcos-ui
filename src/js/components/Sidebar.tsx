@@ -35,7 +35,10 @@ const defaultMenuItems = [
 
 const { Hooks } = PluginSDK;
 
-class Sidebar extends React.Component {
+export default class Sidebar extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor() {
     super();
 
@@ -326,9 +329,3 @@ class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.contextTypes = {
-  router: routerShape
-};
-
-export default Sidebar;

@@ -66,7 +66,12 @@ const PermissionErrorMessage = () => {
   return <RequestErrorMsg header={header} message={message} />;
 };
 
-class SecretsPage extends mixin(StoreMixin) {
+export default class SecretsPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
+    label: i18nMark("Secrets"),
+    matches: /^\/secrets/
+  };
   constructor(...args) {
     super(...args);
 
@@ -321,11 +326,3 @@ class SecretsPage extends mixin(StoreMixin) {
     );
   }
 }
-
-SecretsPage.routeConfig = {
-  icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
-  label: i18nMark("Secrets"),
-  matches: /^\/secrets/
-};
-
-export default SecretsPage;

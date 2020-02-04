@@ -24,7 +24,7 @@ function hypenize(str) {
   return str.replace(/[A-Z]/g, x => `-${x.toLowerCase()}`);
 }
 
-class OrganizationTab extends React.Component {
+export default class OrganizationTab extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     itemID: PropTypes.string.isRequired,
@@ -613,5 +613,3 @@ class OrganizationTab extends React.Component {
     );
   }
 }
-
-export default OrganizationTab;

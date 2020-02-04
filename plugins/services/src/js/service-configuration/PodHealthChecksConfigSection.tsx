@@ -43,7 +43,7 @@ const COMMON_COLUMNS = [
   }
 ];
 
-class PodHealthChecksConfigSection extends React.Component {
+export default class PodHealthChecksConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -200,5 +200,3 @@ class PodHealthChecksConfigSection extends React.Component {
     );
   }
 }
-
-export default PodHealthChecksConfigSection;

@@ -2,7 +2,7 @@ import * as React from "react";
 
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
 
-class NetworkItemDetails extends React.Component {
+export default class NetworkItemDetails extends React.Component {
   render() {
     const details = this.props.details.map((detail, index) => (
       <HashMapDisplay headline={detail.name} hash={detail.labels} key={index} />
@@ -11,5 +11,3 @@ class NetworkItemDetails extends React.Component {
     return <div>{details}</div>;
   }
 }
-
-export default NetworkItemDetails;

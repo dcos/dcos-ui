@@ -30,7 +30,10 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
   "machineReachability"
 ];
 
-class BackendsTable extends React.Component {
+export default class BackendsTable extends React.Component {
+  static contextTypes = {
+    router: PropTypes.object
+  };
   constructor() {
     super();
 
@@ -355,9 +358,3 @@ class BackendsTable extends React.Component {
     );
   }
 }
-
-BackendsTable.contextTypes = {
-  router: PropTypes.object
-};
-
-export default BackendsTable;

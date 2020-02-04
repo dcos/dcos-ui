@@ -3,7 +3,7 @@ import * as TransactionTypes from "../constants/TransactionTypes";
 const validTypes = Object.values(TransactionTypes);
 const validKeys = Object.keys(TransactionTypes);
 
-class Transaction {
+export default class Transaction {
   public readonly path: Array<string | number>;
   public readonly value: unknown;
   public readonly type: symbol;
@@ -34,5 +34,3 @@ class Transaction {
     });
   }
 }
-
-export default Transaction;

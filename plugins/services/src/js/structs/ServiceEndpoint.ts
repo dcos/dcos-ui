@@ -1,6 +1,6 @@
 import Item from "#SRC/js/structs/Item";
 
-class ServiceEndpoint extends Item {
+export default class ServiceEndpoint extends Item {
   getName() {
     return this.get("endpointName");
   }
@@ -41,5 +41,3 @@ class ServiceEndpoint extends Item {
     return this.get("contentType") === "application/json";
   }
 }
-
-export default ServiceEndpoint;

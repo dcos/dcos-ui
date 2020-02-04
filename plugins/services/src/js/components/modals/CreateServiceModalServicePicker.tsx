@@ -55,7 +55,7 @@ function JSONOption({ columnClasses, onOptionSelect }) {
 
 const OPTIONS = [JSONOption, MultiContainerOption, SingleContainerOption];
 
-class CreateServiceModalServicePicker extends React.Component {
+export default class CreateServiceModalServicePicker extends React.Component {
   static propTypes = {
     onServiceSelect: PropTypes.func
   };
@@ -95,5 +95,3 @@ class CreateServiceModalServicePicker extends React.Component {
     );
   }
 }
-
-export default CreateServiceModalServicePicker;

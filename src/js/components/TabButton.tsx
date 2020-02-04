@@ -4,7 +4,7 @@ import * as React from "react";
 import { Tooltip } from "reactjs-components";
 import { BadgeButton } from "@dcos/ui-kit";
 
-class TabButton extends React.Component {
+export default class TabButton extends React.Component {
   static propTypes = {
     active: PropTypes.bool,
     children: PropTypes.node,
@@ -101,5 +101,3 @@ const classProps = PropTypes.oneOfType([
   PropTypes.object,
   PropTypes.string
 ]);
-
-export default TabButton;

@@ -12,7 +12,7 @@ import Service from "../../structs/Service";
 import ServiceTree from "../../structs/ServiceTree";
 import { getActionModalReadableError } from "../../utils/ServiceActionModalsUtil";
 
-class ServiceScaleFormModal extends React.PureComponent {
+export default class ServiceScaleFormModal extends React.PureComponent {
   static propTypes = {
     scaleItem: PropTypes.func.isRequired,
     errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -186,5 +186,3 @@ class ServiceScaleFormModal extends React.PureComponent {
     );
   }
 }
-
-export default ServiceScaleFormModal;

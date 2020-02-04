@@ -7,7 +7,7 @@ const LABEL = "zone";
 /**
  * This filter handles the `zone:XXXX` for tasks
  */
-class TasksZoneFilter extends DSLFilter {
+export default class TasksZoneFilter extends DSLFilter {
   constructor(zones = []) {
     super();
     this.zones = zones;
@@ -48,5 +48,3 @@ class TasksZoneFilter extends DSLFilter {
     });
   }
 }
-
-export default TasksZoneFilter;

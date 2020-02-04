@@ -36,7 +36,11 @@ const ServiceAccountsBreadcrumbs = () => {
   );
 };
 
-class ServiceAccountsPage extends mixin(StoreMixin) {
+export default class ServiceAccountsPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Service Accounts"),
+    matches: /^\/organization\/service-accounts/
+  };
   static propTypes = {
     params: PropTypes.object
   };
@@ -125,10 +129,3 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
     );
   }
 }
-
-ServiceAccountsPage.routeConfig = {
-  label: i18nMark("Service Accounts"),
-  matches: /^\/organization\/service-accounts/
-};
-
-export default ServiceAccountsPage;

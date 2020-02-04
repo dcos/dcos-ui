@@ -22,7 +22,7 @@ import Units from "#SRC/js/utils/Units";
 
 import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
 
-class DeclinedOffersTable extends React.Component {
+export default class DeclinedOffersTable extends React.Component {
   areResourcesMatched(requestedResource, receivedResource) {
     if (Array.isArray(receivedResource)) {
       return receivedResource.includes(requestedResource);
@@ -384,5 +384,3 @@ class DeclinedOffersTable extends React.Component {
     );
   }
 }
-
-export default DeclinedOffersTable;

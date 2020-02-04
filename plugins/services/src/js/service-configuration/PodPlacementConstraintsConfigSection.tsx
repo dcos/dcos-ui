@@ -10,7 +10,7 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
-class PodPlacementConstraintsConfigSection extends React.Component {
+export default class PodPlacementConstraintsConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -87,5 +87,3 @@ class PodPlacementConstraintsConfigSection extends React.Component {
     );
   }
 }
-
-export default PodPlacementConstraintsConfigSection;

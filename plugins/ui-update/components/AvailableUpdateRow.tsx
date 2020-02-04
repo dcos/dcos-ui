@@ -17,7 +17,7 @@ export interface AvailableUpdateRowProps {
   onUpdateClick: (version: string) => void;
 }
 
-class AvailableUpdateRow extends React.PureComponent<
+export default class AvailableUpdateRow extends React.PureComponent<
   AvailableUpdateRowProps,
   {}
 > {
@@ -95,5 +95,3 @@ class AvailableUpdateRow extends React.PureComponent<
     );
   }
 }
-
-export default AvailableUpdateRow;

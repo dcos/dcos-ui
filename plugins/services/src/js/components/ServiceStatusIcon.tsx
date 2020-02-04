@@ -36,7 +36,7 @@ const getTooltipContent = (service: Service | Pod, content: JSX.Element) => {
 
 type TreeNode = Service | ServiceTree | Pod;
 
-class ServiceStatusIcon extends React.Component<{
+export default class ServiceStatusIcon extends React.Component<{
   showTooltip?: boolean;
   tooltipContent: React.ReactNode;
   service: TreeNode;
@@ -201,5 +201,3 @@ class ServiceStatusIcon extends React.Component<{
     return this.renderIcon(iconState);
   }
 }
-
-export default ServiceStatusIcon;

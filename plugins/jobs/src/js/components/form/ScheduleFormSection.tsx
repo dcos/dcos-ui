@@ -22,7 +22,9 @@ interface ScheduleSectionProps {
   showErrors: boolean;
 }
 
-class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
+export default class ScheduleFormSection extends React.Component<
+  ScheduleSectionProps
+> {
   constructor(props: ScheduleSectionProps) {
     super(props);
   }
@@ -203,5 +205,3 @@ class ScheduleFormSection extends React.Component<ScheduleSectionProps> {
     );
   }
 }
-
-export default ScheduleFormSection;

@@ -21,7 +21,10 @@ import Pod from "../../structs/Pod";
 import PodContainerTerminationTable from "./PodContainerTerminationTable";
 import RecentOffersSummary from "../../components/RecentOffersSummary";
 
-class PodDebugTabView extends React.Component {
+export default class PodDebugTabView extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     pod: PropTypes.instanceOf(Pod)
   };
@@ -287,9 +290,3 @@ class PodDebugTabView extends React.Component {
     );
   }
 }
-
-PodDebugTabView.contextTypes = {
-  router: routerShape
-};
-
-export default PodDebugTabView;

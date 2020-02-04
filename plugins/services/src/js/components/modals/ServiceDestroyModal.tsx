@@ -35,6 +35,9 @@ function i18nTranslate(id, values) {
 }
 
 class ServiceDestroyModal extends React.PureComponent {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     deleteItem: PropTypes.func.isRequired,
     errors: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
@@ -279,9 +282,5 @@ class ServiceDestroyModal extends React.PureComponent {
     return this.getDestroyServiceModal();
   }
 }
-
-ServiceDestroyModal.contextTypes = {
-  router: routerShape
-};
 
 export default withI18n()(ServiceDestroyModal);

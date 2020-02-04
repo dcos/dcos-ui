@@ -67,7 +67,7 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({ MOUNT_TYPE, COMPONENTS }) => {
   });
 });
 
-class ServiceConfigDisplay extends React.Component {
+export default class ServiceConfigDisplay extends React.Component {
   static defaultProps = {
     errors: []
   };
@@ -113,5 +113,3 @@ class ServiceConfigDisplay extends React.Component {
     );
   }
 }
-
-export default ServiceConfigDisplay;

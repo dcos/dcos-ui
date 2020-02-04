@@ -59,6 +59,10 @@ const NetworksBreadcrumbs = () => {
 };
 
 class VirtualNetworksTabContent extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Networks"),
+    matches: /^\/networking\/networks/
+  };
   constructor(props) {
     super(props);
 
@@ -139,10 +143,5 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     );
   }
 }
-
-VirtualNetworksTabContent.routeConfig = {
-  label: i18nMark("Networks"),
-  matches: /^\/networking\/networks/
-};
 
 export default withI18n()(VirtualNetworksTabContent);

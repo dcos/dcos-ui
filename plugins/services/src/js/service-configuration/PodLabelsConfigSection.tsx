@@ -12,7 +12,7 @@ import {
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
-class PodLabelsConfigSection extends React.Component {
+export default class PodLabelsConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -105,5 +105,3 @@ class PodLabelsConfigSection extends React.Component {
     );
   }
 }
-
-export default PodLabelsConfigSection;

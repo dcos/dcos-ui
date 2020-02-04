@@ -5,7 +5,10 @@ import { InfoBoxBanner } from "@dcos/ui-kit";
 import LicensingStore from "../stores/LicensingStore";
 import { LICENSING_SUMMARY_SUCCESS } from "../constants/EventTypes";
 
-class LicensingBanner extends React.Component {
+export default class LicensingBanner extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(props) {
     super(props);
 
@@ -113,9 +116,3 @@ class LicensingBanner extends React.Component {
     );
   }
 }
-
-LicensingBanner.contextTypes = {
-  router: routerShape
-};
-
-export default LicensingBanner;

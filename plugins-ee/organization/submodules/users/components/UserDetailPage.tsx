@@ -11,7 +11,11 @@ import ACLUsersActions from "../actions/ACLUsersActions";
 import ACLUserStore from "../stores/ACLUserStore";
 import UserEditFormModal from "./modals/UserEditFormModal";
 
-class UserDetailPage extends AccountDetailPage {
+export default class UserDetailPage extends AccountDetailPage {
+  static routeConfig = {
+    label: i18nMark("Users"),
+    matches: /^\/organization\/users/
+  };
   constructor(...args) {
     super(...args);
 
@@ -115,10 +119,3 @@ class UserDetailPage extends AccountDetailPage {
     );
   }
 }
-
-UserDetailPage.routeConfig = {
-  label: i18nMark("Users"),
-  matches: /^\/organization\/users/
-};
-
-export default UserDetailPage;

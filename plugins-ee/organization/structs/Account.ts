@@ -8,7 +8,7 @@ function reduceAcls(acls, match, accumulator) {
   });
 }
 
-class Account extends Item {
+export default class Account extends Item {
   getDescription() {
     return this.get("description");
   }
@@ -60,5 +60,3 @@ class Account extends Item {
     return Object.keys(aclurls).map(aclurl => aclurls[aclurl]);
   }
 }
-
-export default Account;

@@ -20,7 +20,7 @@ const osTypes = {
   Linux: "linux"
 };
 
-class CliInstallModal extends React.Component {
+export default class CliInstallModal extends React.Component {
   static propTypes = {
     title: PropTypes.string.isRequired,
     subHeaderContent: PropTypes.string,
@@ -208,5 +208,3 @@ class CliInstallModal extends React.Component {
     );
   }
 }
-
-export default CliInstallModal;

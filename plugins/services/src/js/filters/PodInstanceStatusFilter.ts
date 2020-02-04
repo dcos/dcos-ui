@@ -11,7 +11,7 @@ const LABEL_TO_STATUS = {
 /**
  * This filter handles the `is:state` for instances
  */
-class PodInstanceStatusFilter extends DSLFilter {
+export default class PodInstanceStatusFilter extends DSLFilter {
   /**
    * Handle all `is:XXXX` attribute filters that we can handle.
    *
@@ -49,5 +49,3 @@ class PodInstanceStatusFilter extends DSLFilter {
     });
   }
 }
-
-export default PodInstanceStatusFilter;

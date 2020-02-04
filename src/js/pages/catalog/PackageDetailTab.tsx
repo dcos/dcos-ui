@@ -76,7 +76,10 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   );
 };
 
-class PackageDetailTab extends mixin(StoreMixin) {
+export default class PackageDetailTab extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -672,10 +675,6 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 }
 
-PackageDetailTab.contextTypes = {
-  router: routerShape
-};
-
 const dependency = cosmosPackage => (cosmosPackage.manager || {}).packageName;
 
 const renderUnresolvedDependency = dependency => (
@@ -696,5 +695,3 @@ const renderUnresolvedDependency = dependency => (
     />
   </div>
 );
-
-export default PackageDetailTab;

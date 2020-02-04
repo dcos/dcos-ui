@@ -45,7 +45,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
     );
 });
 
-class ServicesQuotaOverviewWithMesosState extends React.Component<
+export default class ServicesQuotaOverviewWithMesosState extends React.Component<
   {},
   { mesosStateLoaded: boolean }
 > {
@@ -84,5 +84,3 @@ class ServicesQuotaOverviewWithMesosState extends React.Component<
     return <Loader />;
   }
 }
-
-export default ServicesQuotaOverviewWithMesosState;

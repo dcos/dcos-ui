@@ -78,7 +78,7 @@ function getSecretsLines(
   });
 }
 
-class JobsEnvSecretsPartial extends React.Component<
+export default class JobsEnvSecretsPartial extends React.Component<
   JobEnvSecretsPartialProps,
   {}
 > {
@@ -140,5 +140,3 @@ class JobsEnvSecretsPartial extends React.Component<
     );
   }
 }
-
-export default JobsEnvSecretsPartial;

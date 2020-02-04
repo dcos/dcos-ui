@@ -20,7 +20,9 @@ interface ContainerSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class ContainerFormSection extends React.Component<ContainerSectionProps> {
+export default class ContainerFormSection extends React.Component<
+  ContainerSectionProps
+> {
   constructor(props: ContainerSectionProps) {
     super(props);
   }
@@ -190,5 +192,3 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
     );
   }
 }
-
-export default ContainerFormSection;

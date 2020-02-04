@@ -148,7 +148,15 @@ function getMesosRoles$() {
     .pipe(map(result => result.data.roles));
 }
 
-class ServicesContainer extends React.Component {
+export default class ServicesContainer extends React.Component {
+  static routeConfig = {
+    label: i18nMark("Services"),
+    icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
+    matches: /^\/services\/(detail|overview|quota)/
+  };
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     params: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
@@ -735,15 +743,3 @@ ServicesContainer.childContextTypes = {
     resetDelayedService: PropTypes.func
   })
 };
-
-ServicesContainer.contextTypes = {
-  router: routerShape
-};
-
-ServicesContainer.routeConfig = {
-  label: i18nMark("Services"),
-  icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-  matches: /^\/services\/(detail|overview|quota)/
-};
-
-export default ServicesContainer;

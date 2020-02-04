@@ -17,6 +17,9 @@ import TaskDirectory from "../../structs/TaskDirectory";
 import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 
 export default class TaskFileViewer extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static defaultProps = {
     limitLogFiles: [],
     task: {}
@@ -244,7 +247,3 @@ export default class TaskFileViewer extends React.Component {
     );
   }
 }
-
-TaskFileViewer.contextTypes = {
-  router: routerShape
-};

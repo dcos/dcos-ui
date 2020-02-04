@@ -116,7 +116,7 @@ interface ServiceRootGroupModalProps {
   id: string;
 }
 
-class ServiceRootGroupModal extends React.Component<
+export default class ServiceRootGroupModal extends React.Component<
   ServiceRootGroupModalProps,
   ServiceRootGroupModalState
 > {
@@ -644,5 +644,3 @@ class ServiceRootGroupModal extends React.Component<
     );
   }
 }
-
-export default ServiceRootGroupModal;

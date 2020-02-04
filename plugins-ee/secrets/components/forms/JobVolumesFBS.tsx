@@ -8,7 +8,10 @@ interface JobVolumesFBSProps {
   volumes: SecretVolume[];
 }
 
-class JobVolumesFBS extends React.Component<JobVolumesFBSProps, {}> {
+export default class JobVolumesFBS extends React.Component<
+  JobVolumesFBSProps,
+  {}
+> {
   public render() {
     const { volumes } = this.props;
     const containerPaths = volumes
@@ -41,5 +44,3 @@ class JobVolumesFBS extends React.Component<JobVolumesFBSProps, {}> {
     );
   }
 }
-
-export default JobVolumesFBS;

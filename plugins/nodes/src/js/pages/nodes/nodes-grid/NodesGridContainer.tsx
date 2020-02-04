@@ -14,7 +14,11 @@ const MAX_SERVICES_TO_SHOW = 32;
 
 const OTHER_SERVICES_COLOR = 32;
 
-class NodesGridContainer extends mixin(StoreMixin) {
+export default class NodesGridContainer extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape.isRequired,
+    selectedResource: PropTypes.string
+  };
   constructor(...args) {
     super(...args);
 
@@ -154,10 +158,3 @@ class NodesGridContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-NodesGridContainer.contextTypes = {
-  router: routerShape.isRequired,
-  selectedResource: PropTypes.string
-};
-
-export default NodesGridContainer;

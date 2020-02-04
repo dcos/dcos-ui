@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class SideTabs extends React.Component {
+export default class SideTabs extends React.Component {
   static defaultProps = {
     className: "multiple-form-modal-sidebar-tabs",
     onTabClick() {},
@@ -113,5 +113,3 @@ class SideTabs extends React.Component {
     );
   }
 }
-
-export default SideTabs;

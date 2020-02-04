@@ -84,6 +84,9 @@ const POD_VALIDATORS = [
 ];
 
 class CreateServiceModal extends React.Component {
+  static contextTypes = {
+    router: routerShape
+  };
   static propTypes = {
     params: PropTypes.object.isRequired,
     location: PropTypes.object.isRequired
@@ -943,9 +946,5 @@ class CreateServiceModal extends React.Component {
     );
   }
 }
-
-CreateServiceModal.contextTypes = {
-  router: routerShape
-};
 
 export default withI18n()(CreateServiceModal);

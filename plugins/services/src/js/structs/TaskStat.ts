@@ -1,6 +1,6 @@
 import Item from "#SRC/js/structs/Item";
 
-class TaskStat extends Item {
+export default class TaskStat extends Item {
   isEmpty() {
     return (
       typeof this.get("stats") !== "object" ||
@@ -66,5 +66,3 @@ class TaskStat extends Item {
     return 0;
   }
 }
-
-export default TaskStat;

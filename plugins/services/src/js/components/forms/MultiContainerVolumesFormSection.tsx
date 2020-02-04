@@ -28,7 +28,7 @@ import VolumeConstants from "../../constants/VolumeConstants";
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["DSS", "EXTERNAL"];
 
-class MultiContainerVolumesFormSection extends React.Component {
+export default class MultiContainerVolumesFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -353,5 +353,3 @@ class MultiContainerVolumesFormSection extends React.Component {
 MultiContainerVolumesFormSection.configReducers = {
   volumeMounts
 };
-
-export default MultiContainerVolumesFormSection;

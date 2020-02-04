@@ -6,7 +6,7 @@ import * as React from "react";
 
 import Units from "#SRC/js/utils/Units";
 
-class LineChart extends React.Component {
+export default class LineChart extends React.Component {
   static defaultProps = {
     chartOptions: {
       drawPoints: false,
@@ -233,5 +233,3 @@ class LineChart extends React.Component {
     );
   }
 }
-
-export default LineChart;

@@ -6,7 +6,7 @@ import * as React from "react";
 
 import FilterInputText from "./FilterInputText";
 
-class Typeahead extends FilterInputText {
+export default class Typeahead extends FilterInputText {
   static defaultProps = {
     emptyLabel: "Nothing to show.",
     onDropdownItemSelection() {},
@@ -80,5 +80,3 @@ class Typeahead extends FilterInputText {
     );
   }
 }
-
-export default Typeahead;

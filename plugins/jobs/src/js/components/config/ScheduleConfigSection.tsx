@@ -7,7 +7,7 @@ import { getDisplayValue } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput } from "../form/helpers/JobFormData";
 
-class ScheduleConfigSection extends BaseConfig<JobOutput> {
+export default class ScheduleConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(row: Value<JobOutput>) {
     const { config } = this.props;
     if (config.schedules && config.schedules[0]) {
@@ -91,5 +91,3 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default ScheduleConfigSection;

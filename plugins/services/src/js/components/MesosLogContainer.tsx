@@ -12,7 +12,7 @@ import LogView from "./LogView";
 import MesosLogStore from "../stores/MesosLogStore";
 import TaskDirectoryStore from "../stores/TaskDirectoryStore";
 
-class MesosLogContainer extends mixin(StoreMixin) {
+export default class MesosLogContainer extends mixin(StoreMixin) {
   static defaultProps = {
     highlightText: ""
   };
@@ -230,5 +230,3 @@ class MesosLogContainer extends mixin(StoreMixin) {
     );
   }
 }
-
-export default MesosLogContainer;

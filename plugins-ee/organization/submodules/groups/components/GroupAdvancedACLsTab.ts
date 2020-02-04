@@ -4,7 +4,7 @@ import ACLGroupsActions from "../actions/ACLGroupsActions";
 import ACLGroupStore from "../stores/ACLGroupStore";
 import AdvancedACLsTab from "../../../components/AdvancedACLsTab";
 
-class GroupAdvancedACLsTab extends AdvancedACLsTab {
+export default class GroupAdvancedACLsTab extends AdvancedACLsTab {
   constructor(...args) {
     super(...args);
 
@@ -137,5 +137,3 @@ class GroupAdvancedACLsTab extends AdvancedACLsTab {
     return acls;
   }
 }
-
-export default GroupAdvancedACLsTab;

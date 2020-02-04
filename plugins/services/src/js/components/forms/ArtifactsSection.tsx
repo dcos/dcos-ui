@@ -15,7 +15,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-class ArtifactsSection extends React.Component {
+export default class ArtifactsSection extends React.Component {
   static propTypes = {
     data: PropTypes.arrayOf(
       PropTypes.shape({
@@ -123,5 +123,3 @@ class ArtifactsSection extends React.Component {
     );
   }
 }
-
-export default ArtifactsSection;

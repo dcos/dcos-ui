@@ -5,7 +5,7 @@ import { List } from "reactjs-components";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class ComponentList extends React.PureComponent {
+export default class ComponentList extends React.PureComponent {
   static defaultProps = {
     displayCount: 0
   };
@@ -132,5 +132,3 @@ class ComponentList extends React.PureComponent {
     );
   }
 }
-
-export default ComponentList;

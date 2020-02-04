@@ -24,7 +24,7 @@ function escapeStringRegexp(str) {
 
 let debounceTimeout = null;
 
-class Highlight extends React.Component {
+export default class Highlight extends React.Component {
   static defaultProps = {
     caseSensitive: false,
     matchElement: "strong",
@@ -262,5 +262,3 @@ class Highlight extends React.Component {
     return <div {...this.props}>{this.renderElement(this.props.children)}</div>;
   }
 }
-
-export default Highlight;

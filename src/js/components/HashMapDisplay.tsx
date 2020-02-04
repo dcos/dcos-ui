@@ -7,7 +7,7 @@ import ConfigurationMapRow from "./ConfigurationMapRow";
 import ConfigurationMapSection from "./ConfigurationMapSection";
 import ConfigurationMapValue from "./ConfigurationMapValue";
 
-class HashMapDisplay extends React.PureComponent {
+export default class HashMapDisplay extends React.PureComponent {
   static defaultProps = {
     headingLevel: 1,
     renderKeys: {}
@@ -132,5 +132,3 @@ class HashMapDisplay extends React.PureComponent {
     );
   };
 }
-
-export default HashMapDisplay;

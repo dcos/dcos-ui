@@ -17,7 +17,7 @@ interface KeyValue {
   value: string;
 }
 
-class EnvVarConfigSection extends BaseConfig<JobOutput> {
+export default class EnvVarConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(_: Value<JobOutput>) {
     const {
       run: { env }
@@ -90,5 +90,3 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
     };
   }
 }
-
-export default EnvVarConfigSection;

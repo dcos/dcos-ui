@@ -12,7 +12,7 @@ import ServiceStatusProgressBar from "../../components/ServiceStatusProgressBar"
 import Pod from "../../structs/Pod";
 import PodActionItem from "../../constants/PodActionItem";
 
-class PodHeader extends React.Component {
+export default class PodHeader extends React.Component {
   static defaultProps = {
     onDestroy() {},
     onEdit() {},
@@ -180,5 +180,3 @@ class PodHeader extends React.Component {
     );
   }
 }
-
-export default PodHeader;

@@ -31,7 +31,10 @@ function fetchVersion(service, versionID) {
   }
 }
 
-class ServiceConfiguration extends mixin(StoreMixin) {
+export default class ServiceConfiguration extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   static defaultProps = {
     errors: []
   };
@@ -259,9 +262,3 @@ class ServiceConfiguration extends mixin(StoreMixin) {
     );
   }
 }
-
-ServiceConfiguration.contextTypes = {
-  router: routerShape
-};
-
-export default ServiceConfiguration;

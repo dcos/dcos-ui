@@ -8,7 +8,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import LearnMoreTooltip from "./LearnMoreTooltip";
 import PlacementFormPartial from "./PlacementFormPartial";
 
-class PlacementSection extends React.Component {
+export default class PlacementSection extends React.Component {
   render() {
     const { data = {}, errors, onAddItem, onRemoveItem } = this.props;
 
@@ -49,5 +49,3 @@ class PlacementSection extends React.Component {
     );
   }
 }
-
-export default PlacementSection;

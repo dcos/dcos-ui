@@ -37,7 +37,9 @@ function isFBS(volume: JobVolume | SecretVolume): volume is SecretVolume {
   return volume.hasOwnProperty("secret");
 }
 
-class VolumesFormSection extends React.Component<VolumesSectionProps> {
+export default class VolumesFormSection extends React.Component<
+  VolumesSectionProps
+> {
   constructor(props: VolumesSectionProps) {
     super(props);
   }
@@ -228,5 +230,3 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
     );
   }
 }
-
-export default VolumesFormSection;

@@ -40,7 +40,7 @@ function sortForColumn(
   }
 }
 
-class ServicesQuotaOverviewTable extends React.Component<
+export default class ServicesQuotaOverviewTable extends React.Component<
   ServicesQuotaOverviewTableProps,
   ServicesQuotaOverviewTableState
 > {
@@ -121,5 +121,3 @@ class ServicesQuotaOverviewTable extends React.Component<
     );
   }
 }
-
-export default ServicesQuotaOverviewTable;

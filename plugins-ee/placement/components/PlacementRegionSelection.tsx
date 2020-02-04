@@ -2,7 +2,7 @@ import * as React from "react";
 
 import RegionSelection from "./RegionSelection";
 
-class PlacementRegionSelection extends React.Component {
+export default class PlacementRegionSelection extends React.Component {
   render() {
     const { constraint = { value: "" }, index } = this.props.data;
 
@@ -15,5 +15,3 @@ class PlacementRegionSelection extends React.Component {
     return <RegionSelection selectProps={selectProps} />;
   }
 }
-
-export default PlacementRegionSelection;

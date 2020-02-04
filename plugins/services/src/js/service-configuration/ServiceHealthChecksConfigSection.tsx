@@ -33,7 +33,7 @@ function renderDuration(prop, row) {
   );
 }
 
-class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
+export default class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
   /**
    * @override
    */
@@ -306,5 +306,3 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
     };
   }
 }
-
-export default ServiceHealthChecksConfigSection;

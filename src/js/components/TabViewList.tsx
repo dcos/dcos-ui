@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class TabViewList extends React.Component {
+export default class TabViewList extends React.Component {
   static propTypes = {
     activeTab: PropTypes.string,
     children: PropTypes.node,
@@ -33,5 +33,3 @@ class TabViewList extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-export default TabViewList;

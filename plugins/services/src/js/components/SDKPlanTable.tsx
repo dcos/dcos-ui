@@ -196,7 +196,10 @@ export interface SDKPlanTableProps {
   plan: ServicePlan;
 }
 
-class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
+export default class SDKPlanTable extends React.PureComponent<
+  SDKPlanTableProps,
+  {}
+> {
   public render() {
     const tableData = flattenServicePlanPhases(this.props.plan);
 
@@ -230,5 +233,3 @@ class SDKPlanTable extends React.PureComponent<SDKPlanTableProps, {}> {
     );
   }
 }
-
-export default SDKPlanTable;

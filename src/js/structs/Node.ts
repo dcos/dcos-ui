@@ -9,7 +9,7 @@ type Stats = {
   disk: number;
 };
 
-class Node extends Item {
+export default class Node extends Item {
   resources?: Stats;
   usedResources?: Stats;
 
@@ -117,5 +117,3 @@ class Node extends Item {
     return this.get("network")?.public_ips || [];
   }
 }
-
-export default Node;

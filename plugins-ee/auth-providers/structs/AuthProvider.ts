@@ -2,7 +2,7 @@ import { i18nMark } from "@lingui/react";
 import Config from "#SRC/js/config/Config";
 import Item from "#SRC/js/structs/Item";
 
-class AuthProvider extends Item {
+export default class AuthProvider extends Item {
   // SAML
   // OpenID
   getDescription() {
@@ -117,5 +117,3 @@ class AuthProvider extends Item {
     };
   }
 }
-
-export default AuthProvider;

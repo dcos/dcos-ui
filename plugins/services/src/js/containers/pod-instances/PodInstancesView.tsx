@@ -31,6 +31,12 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class PodInstancesView extends React.Component {
+  static contextTypes = {
+    modalHandlers: PropTypes.shape({
+      killPodInstances: PropTypes.func.isRequired
+    }).isRequired,
+    router: routerShape
+  };
   static defaultProps = {
     inverseStyle: false,
     instances: [],
@@ -183,12 +189,5 @@ class PodInstancesView extends React.Component {
     );
   }
 }
-
-PodInstancesView.contextTypes = {
-  modalHandlers: PropTypes.shape({
-    killPodInstances: PropTypes.func.isRequired
-  }).isRequired,
-  router: routerShape
-};
 
 export default withI18n()(PodInstancesView);

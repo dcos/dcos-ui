@@ -37,7 +37,13 @@ const DSL_FORM_SECTIONS = [
   FuzzyTextDSLSection
 ];
 
-class ServiceTreeView extends React.Component {
+export default class ServiceTreeView extends React.Component {
+  static contextTypes = {
+    modalHandlers: PropTypes.shape({
+      createGroup: PropTypes.func
+    }).isRequired,
+    router: routerShape
+  };
   static defaultProps = {
     onFilterExpressionChange() {},
     isEmpty: false
@@ -275,12 +281,3 @@ class ServiceTreeView extends React.Component {
     );
   }
 }
-
-ServiceTreeView.contextTypes = {
-  modalHandlers: PropTypes.shape({
-    createGroup: PropTypes.func
-  }).isRequired,
-  router: routerShape
-};
-
-export default ServiceTreeView;

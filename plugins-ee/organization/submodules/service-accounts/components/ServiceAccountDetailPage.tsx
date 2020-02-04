@@ -17,7 +17,7 @@ import ServiceAccountsFormModal from "./ServiceAccountsFormModal";
 
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
 
-class ServiceAccountDetailPage extends AccountDetailPage {
+export default class ServiceAccountDetailPage extends AccountDetailPage {
   constructor(...args) {
     super(...args);
 
@@ -153,5 +153,3 @@ class ServiceAccountDetailPage extends AccountDetailPage {
     );
   }
 }
-
-export default ServiceAccountDetailPage;

@@ -7,7 +7,7 @@ const LABEL = "zone";
 /**
  * This filter handles the `zone:XXXX` for instances
  */
-class PodInstancesZoneFilter extends DSLFilter {
+export default class PodInstancesZoneFilter extends DSLFilter {
   constructor(zones = []) {
     super();
     this.zones = zones;
@@ -48,5 +48,3 @@ class PodInstancesZoneFilter extends DSLFilter {
     });
   }
 }
-
-export default PodInstancesZoneFilter;

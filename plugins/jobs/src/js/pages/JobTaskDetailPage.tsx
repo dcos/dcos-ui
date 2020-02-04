@@ -16,7 +16,7 @@ import Breadcrumbs from "../components/Breadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
-class JobTaskDetailPage extends React.Component {
+export default class JobTaskDetailPage extends React.Component {
   static propTypes = {
     params: PropTypes.object,
     routes: PropTypes.array
@@ -90,5 +90,3 @@ class JobTaskDetailPage extends React.Component {
     );
   }
 }
-
-export default JobTaskDetailPage;

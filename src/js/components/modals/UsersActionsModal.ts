@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import ActionsModal from "./ActionsModal";
 import UserStore from "../../stores/UserStore";
 
-class UsersActionsModal extends ActionsModal {
+export default class UsersActionsModal extends ActionsModal {
   static propTypes = {
     action: PropTypes.string.isRequired,
     actionText: PropTypes.object.isRequired,
@@ -39,5 +39,3 @@ class UsersActionsModal extends ActionsModal {
     this.setState({ pendingRequest: true, requestErrors: [] });
   }
 }
-
-export default UsersActionsModal;

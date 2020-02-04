@@ -14,7 +14,7 @@ import ServiceSpecUtil from "../../utils/ServiceSpecUtil";
 import ServiceStopModal from "./ServiceStopModal";
 import DisabledGroupDestroyModal from "./DisabledGroupDestroyModal";
 
-class ServiceModals extends React.Component {
+export default class ServiceModals extends React.Component {
   static propTypes = {
     actionErrors: PropTypes.object.isRequired,
     actions: actionPropTypes,
@@ -270,5 +270,3 @@ const actionPropTypes = PropTypes.shape({
   restartService: PropTypes.func,
   resetDelayedService: PropTypes.func
 }).isRequired;
-
-export default ServiceModals;

@@ -19,7 +19,7 @@ const BIND_SUCCESS_HANDLERS = [
   "onAclGroupStoreDeleteUserSuccess"
 ];
 
-class AccountsActionsModal extends ActionsModal {
+export default class AccountsActionsModal extends ActionsModal {
   static propTypes = {
     action: PropTypes.string.isRequired,
     actionText: PropTypes.object.isRequired,
@@ -103,5 +103,3 @@ class AccountsActionsModal extends ActionsModal {
     return dropdownItems;
   }
 }
-
-export default AccountsActionsModal;

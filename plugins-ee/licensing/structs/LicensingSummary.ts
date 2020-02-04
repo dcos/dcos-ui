@@ -1,7 +1,7 @@
 import Item from "#SRC/js/structs/Item";
 import differenceInDays from "date-fns/differenceInDays";
 
-class LicensingSummary extends Item {
+export default class LicensingSummary extends Item {
   getNodeCapacity() {
     return this.get("node_capacity");
   }
@@ -35,5 +35,3 @@ class LicensingSummary extends Item {
     return this.getDaysExceeded() >= 0;
   }
 }
-
-export default LicensingSummary;

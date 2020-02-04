@@ -4,7 +4,7 @@ import DSLFilter from "#SRC/js/structs/DSLFilter";
 /**
  * This filter handles the `text` attributes against service's `getName` value
  */
-class ServiceNameTextFilter extends DSLFilter {
+export default class ServiceNameTextFilter extends DSLFilter {
   /**
    * Handle all `name` attribute filters that we can handle.
    *
@@ -27,5 +27,3 @@ class ServiceNameTextFilter extends DSLFilter {
     );
   }
 }
-
-export default ServiceNameTextFilter;

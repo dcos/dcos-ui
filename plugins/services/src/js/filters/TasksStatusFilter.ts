@@ -14,7 +14,7 @@ const LABEL_TO_STATUS = {
 /**
  * This filter handles the `is:state` for tasks
  */
-class TasksStatusFilter extends DSLFilter {
+export default class TasksStatusFilter extends DSLFilter {
   /**
    * Handle all `is:XXXX` attribute filters that we can handle.
    *
@@ -42,5 +42,3 @@ class TasksStatusFilter extends DSLFilter {
     );
   }
 }
-
-export default TasksStatusFilter;

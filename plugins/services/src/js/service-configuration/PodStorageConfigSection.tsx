@@ -16,7 +16,7 @@ const BOOLEAN_OPTIONS = {
   falsy: i18nMark("FALSE")
 };
 
-class PodStorageConfigSection extends React.Component {
+export default class PodStorageConfigSection extends React.Component {
   static defaultProps = {
     appConfig: {}
   };
@@ -175,5 +175,3 @@ class PodStorageConfigSection extends React.Component {
     );
   }
 }
-
-export default PodStorageConfigSection;

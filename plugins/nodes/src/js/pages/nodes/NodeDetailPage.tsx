@@ -20,6 +20,9 @@ import NodeBreadcrumbs from "../../components/NodeBreadcrumbs";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 
 class NodeDetailPage extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -182,9 +185,5 @@ class NodeDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-NodeDetailPage.contextTypes = {
-  router: routerShape
-};
 
 export default withNode(NodeDetailPage);

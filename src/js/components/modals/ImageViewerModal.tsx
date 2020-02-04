@@ -12,7 +12,7 @@ import {
 
 import keyCodes from "../../utils/KeyboardUtil";
 
-class ImageViewerModal extends React.Component {
+export default class ImageViewerModal extends React.Component {
   static defaultProps = {
     images: []
   };
@@ -149,5 +149,3 @@ class ImageViewerModal extends React.Component {
     );
   }
 }
-
-export default ImageViewerModal;

@@ -35,6 +35,11 @@ const DSL_FORM_SECTIONS = [
 ];
 
 class TasksView extends React.Component {
+  static contextTypes = {
+    modalHandlers: PropTypes.shape({ createGroup: PropTypes.func }).isRequired,
+    router: routerShape
+  };
+
   static defaultProps = {
     inverseStyle: false,
     itemID: "",
@@ -277,18 +282,5 @@ class TasksView extends React.Component {
     );
   }
 }
-
-TasksView.contextTypes = {
-  modalHandlers: PropTypes.shape({
-    killTasks: PropTypes.func.isRequired
-  }).isRequired
-};
-
-TasksView.contextTypes = {
-  modalHandlers: PropTypes.shape({
-    createGroup: PropTypes.func
-  }).isRequired,
-  router: routerShape
-};
 
 export default withI18n()(TasksView);

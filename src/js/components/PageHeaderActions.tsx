@@ -24,7 +24,7 @@ const getDropdownAction = (action, index) => {
   );
 };
 
-class PageHeaderActions extends React.Component {
+export default class PageHeaderActions extends React.Component {
   static defaultProps = {
     actions: [],
     actionsDisabled: false
@@ -119,5 +119,3 @@ const menuActionsProps = PropTypes.shape({
   onItemSelect: PropTypes.func.isRequired,
   label: PropTypes.node.isRequired
 });
-
-export default PageHeaderActions;

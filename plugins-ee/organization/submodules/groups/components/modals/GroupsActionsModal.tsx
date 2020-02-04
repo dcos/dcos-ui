@@ -10,7 +10,7 @@ import Util from "#SRC/js/utils/Util";
 
 import ACLGroupStore from "../../stores/ACLGroupStore";
 
-class GroupsActionsModal extends ActionsModal {
+export default class GroupsActionsModal extends ActionsModal {
   static propTypes = {
     action: PropTypes.string.isRequired,
     actionText: PropTypes.object.isRequired,
@@ -106,5 +106,3 @@ class GroupsActionsModal extends ActionsModal {
     return dropdownItems;
   }
 }
-
-export default GroupsActionsModal;

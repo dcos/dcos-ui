@@ -1,7 +1,7 @@
 import { EventEmitter } from "events";
 import { NAVIGATION_CHANGE } from "./EventTypes";
 
-class NavigationService extends EventEmitter {
+export default class NavigationService extends EventEmitter {
   constructor() {
     super();
 
@@ -159,5 +159,3 @@ class NavigationService extends EventEmitter {
     this.instance.emit(NAVIGATION_CHANGE);
   }
 }
-
-export default NavigationService;

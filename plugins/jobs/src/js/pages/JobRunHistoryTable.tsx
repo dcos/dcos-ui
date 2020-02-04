@@ -55,7 +55,9 @@ const colGroup = (
   </colgroup>
 );
 
-class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
+export default class JobRunHistoryTable extends React.Component<{
+  job: { id: string };
+}> {
   static propTypes = {
     params: PropTypes.object
   };
@@ -392,5 +394,3 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
     );
   }
 }
-
-export default JobRunHistoryTable;

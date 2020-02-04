@@ -97,7 +97,10 @@ const SecretsDetailPageLoading = ({ path }) => (
   </SecretsDetailPageLayout>
 );
 
-class SecretDetail extends mixin(StoreMixin) {
+export default class SecretDetail extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -365,9 +368,3 @@ class SecretDetail extends mixin(StoreMixin) {
     );
   }
 }
-
-SecretDetail.contextTypes = {
-  router: routerShape
-};
-
-export default SecretDetail;

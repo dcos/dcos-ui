@@ -20,7 +20,10 @@ type Props = {
 
 type State = { serviceAccounts: string[] };
 
-class ServiceAccountSelect extends React.Component<Props, State> {
+export default class ServiceAccountSelect extends React.Component<
+  Props,
+  State
+> {
   constructor(props: Props) {
     super(props);
 
@@ -100,5 +103,3 @@ class ServiceAccountSelect extends React.Component<Props, State> {
     );
   }
 }
-
-export default ServiceAccountSelect;

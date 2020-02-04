@@ -17,7 +17,10 @@ interface PlacementSectionProps {
   onAddItem: (path: string) => void;
 }
 
-class PlacementSection extends React.Component<PlacementSectionProps, {}> {
+export default class PlacementSection extends React.Component<
+  PlacementSectionProps,
+  {}
+> {
   public render() {
     const placementTooltipContent = (
       <Trans render="span">
@@ -51,5 +54,3 @@ class PlacementSection extends React.Component<PlacementSectionProps, {}> {
     );
   }
 }
-
-export default PlacementSection;

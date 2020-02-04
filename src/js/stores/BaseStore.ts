@@ -2,7 +2,7 @@ import { EventEmitter } from "events";
 
 type fn = (...args: any[]) => void;
 
-class BaseStore extends EventEmitter {
+export default class BaseStore extends EventEmitter {
   public addChangeListener(eventName: string, callback: fn) {
     this.on(eventName, callback);
   }
@@ -11,5 +11,3 @@ class BaseStore extends EventEmitter {
     this.removeListener(eventName, callback);
   }
 }
-
-export default BaseStore;

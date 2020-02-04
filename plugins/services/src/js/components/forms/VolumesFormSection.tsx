@@ -33,7 +33,7 @@ const {
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 const excludedTypes = ["EPHEMERAL", "DSS"];
 
-class VolumesFormSection extends React.Component {
+export default class VolumesFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -487,5 +487,3 @@ VolumesFormSection.validationReducers = {
     return [];
   }
 };
-
-export default VolumesFormSection;

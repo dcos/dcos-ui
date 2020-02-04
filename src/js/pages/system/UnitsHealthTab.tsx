@@ -40,6 +40,10 @@ const UnitHealthBreadcrumbs = () => {
 };
 
 class UnitsHealthTab extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Components"),
+    matches: /^\/components\/overview/
+  };
   constructor(...args) {
     super(...args);
 
@@ -232,10 +236,5 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     );
   }
 }
-
-UnitsHealthTab.routeConfig = {
-  label: i18nMark("Components"),
-  matches: /^\/components\/overview/
-};
 
 export default withI18n()(UnitsHealthTab);

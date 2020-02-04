@@ -19,6 +19,9 @@ MountService.MountService.registerComponent(
 );
 
 export default class ClusterHeader extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor(...args) {
     super(...args);
 
@@ -134,7 +137,3 @@ export default class ClusterHeader extends mixin(StoreMixin) {
     );
   }
 }
-
-ClusterHeader.contextTypes = {
-  router: routerShape
-};

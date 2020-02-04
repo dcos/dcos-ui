@@ -27,7 +27,7 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
   "p99Latency"
 ];
 
-class VIPsTable extends React.Component {
+export default class VIPsTable extends React.Component {
   static defaultProps = {
     vips: []
   };
@@ -208,5 +208,3 @@ class VIPsTable extends React.Component {
     );
   }
 }
-
-export default VIPsTable;

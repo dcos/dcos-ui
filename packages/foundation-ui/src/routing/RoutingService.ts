@@ -9,7 +9,7 @@ function throwError(error) {
   }
 }
 
-class RoutingService extends EventEmitter {
+export default class RoutingService extends EventEmitter {
   constructor() {
     super();
 
@@ -172,5 +172,3 @@ class RoutingService extends EventEmitter {
     this.instance.emit(ROUTING_CHANGE);
   }
 }
-
-export default RoutingService;

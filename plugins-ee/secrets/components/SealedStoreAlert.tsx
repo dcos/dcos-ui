@@ -5,7 +5,7 @@ import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-class SealedStoreAlert extends React.Component {
+export default class SealedStoreAlert extends React.Component {
   render() {
     const docsLink = MetadataStore.buildDocsURI(
       "/security/ent/secrets/unseal-store/"
@@ -28,5 +28,3 @@ class SealedStoreAlert extends React.Component {
     );
   }
 }
-
-export default SealedStoreAlert;

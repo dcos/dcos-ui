@@ -2,7 +2,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class TabButtonList extends React.Component {
+export default class TabButtonList extends React.Component {
   static propTypes = {
     activeTab: PropTypes.string,
     children: PropTypes.node,
@@ -44,5 +44,3 @@ class TabButtonList extends React.Component {
     return <div className={classes}>{this.getChildren()}</div>;
   }
 }
-
-export default TabButtonList;

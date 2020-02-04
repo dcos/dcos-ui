@@ -1,7 +1,7 @@
 import List from "#SRC/js/structs/List";
 import SecretStoreStruct from "./SecretStoreStruct";
 
-class SecretStoreStructList extends List {
+export default class SecretStoreStructList extends List {
   getSealedCount() {
     return this.getItems().reduce((tally, secretStore) => {
       if (secretStore.getSealed()) {
@@ -13,5 +13,3 @@ class SecretStoreStructList extends List {
   }
 }
 SecretStoreStructList.type = SecretStoreStruct;
-
-export default SecretStoreStructList;

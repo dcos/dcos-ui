@@ -36,7 +36,7 @@ function getLogParameters(task, options) {
   };
 }
 
-class TaskSystemLogsContainer extends mixin(StoreMixin) {
+export default class TaskSystemLogsContainer extends mixin(StoreMixin) {
   static defaultProps = {
     highlightText: ""
   };
@@ -361,5 +361,3 @@ TaskSystemLogsContainer.propTypes = {
   task: PropTypes.object.isRequired,
   watching: PropTypes.number
 };
-
-export default TaskSystemLogsContainer;

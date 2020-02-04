@@ -63,7 +63,11 @@ const EmptyLinkedClustersAlert = () => (
   </AlertPanel>
 );
 
-class LinkedClustersPage extends React.Component {
+export default class LinkedClustersPage extends React.Component {
+  static routeConfig = {
+    label: i18nMark("Linked Clusters"),
+    matches: /^\/cluster\/linked/
+  };
   constructor() {
     super();
     this.state = {
@@ -120,10 +124,3 @@ class LinkedClustersPage extends React.Component {
     );
   }
 }
-
-LinkedClustersPage.routeConfig = {
-  label: i18nMark("Linked Clusters"),
-  matches: /^\/cluster\/linked/
-};
-
-export default LinkedClustersPage;

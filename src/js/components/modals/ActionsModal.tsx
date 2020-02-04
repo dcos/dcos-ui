@@ -12,7 +12,7 @@ import Util from "../../utils/Util";
 const DEFAULT_ID = "DEFAULT";
 const ITEMS_DISPLAYED = 3;
 
-class ActionsModal extends mixin(StoreMixin) {
+export default class ActionsModal extends mixin(StoreMixin) {
   static propTypes = {
     action: PropTypes.string.isRequired,
     actionText: PropTypes.object.isRequired,
@@ -261,5 +261,3 @@ class ActionsModal extends mixin(StoreMixin) {
     );
   }
 }
-
-export default ActionsModal;

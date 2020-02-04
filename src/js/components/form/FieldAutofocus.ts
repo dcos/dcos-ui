@@ -4,7 +4,7 @@ import DOMUtils from "#SRC/js/utils/DOMUtils";
 
 let lockFieldAutofocus = false;
 
-class FieldAutofocus extends React.Component {
+export default class FieldAutofocus extends React.Component {
   componentDidMount() {
     if (lockFieldAutofocus) {
       return;
@@ -26,5 +26,3 @@ class FieldAutofocus extends React.Component {
     return this.props.children;
   }
 }
-
-export default FieldAutofocus;

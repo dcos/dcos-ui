@@ -63,7 +63,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
   );
 };
 
-class UnitsHealthNodeDetail extends mixin(StoreMixin) {
+export default class UnitsHealthNodeDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -147,4 +147,3 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     );
   }
 }
-export default UnitsHealthNodeDetail;

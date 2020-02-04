@@ -9,7 +9,7 @@ const ClusterDropdownTrigger = ({ onTrigger, children }) => (
   </span>
 );
 
-class ClusterDropdown extends React.Component {
+export default class ClusterDropdown extends React.Component {
   getMenuItems() {
     return this.props.menuItems;
   }
@@ -37,5 +37,3 @@ class ClusterDropdown extends React.Component {
     );
   }
 }
-
-export default ClusterDropdown;

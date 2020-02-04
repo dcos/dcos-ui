@@ -32,7 +32,7 @@ function getFieldError(path: string, errors: FormError[]) {
     .join(" ");
 }
 
-class GeneralFormSection extends React.Component<GeneralProps> {
+export default class GeneralFormSection extends React.Component<GeneralProps> {
   constructor(props: Readonly<GeneralProps>) {
     super(props);
   }
@@ -362,5 +362,3 @@ class GeneralFormSection extends React.Component<GeneralProps> {
     );
   }
 }
-
-export default GeneralFormSection;

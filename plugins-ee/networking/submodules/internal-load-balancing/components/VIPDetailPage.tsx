@@ -52,7 +52,7 @@ const VIPBreadcrumbs = ({ vip: { vip, port, protocol } }) => {
   );
 };
 
-class VIPDetail extends mixin(StoreMixin) {
+export default class VIPDetail extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -323,5 +323,3 @@ class VIPDetail extends mixin(StoreMixin) {
     );
   }
 }
-
-export default VIPDetail;

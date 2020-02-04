@@ -11,7 +11,10 @@ import MySDK from "../SDK";
 
 const SDK = MySDK.getSDK();
 
-class LoginPage extends mixin(StoreMixin) {
+export default class LoginPage extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   UNSAFE_componentWillMount() {
     if (AuthStore.getUser()) {
       this.context.router.push("/");
@@ -116,9 +119,3 @@ class LoginPage extends mixin(StoreMixin) {
     );
   }
 }
-
-LoginPage.contextTypes = {
-  router: routerShape
-};
-
-export default LoginPage;

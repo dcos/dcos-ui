@@ -52,6 +52,10 @@ const ConfigurationRow = ({ keyValue, title, value, action }) => {
 };
 
 class UISettingsPage extends React.Component {
+  static routeConfig = {
+    label: i18nMark("UI Settings"),
+    matches: /^\/settings\/ui-settings/
+  };
   constructor(...args) {
     super(...args);
     this.state = {
@@ -156,10 +160,5 @@ class UISettingsPage extends React.Component {
     );
   }
 }
-
-UISettingsPage.routeConfig = {
-  label: i18nMark("UI Settings"),
-  matches: /^\/settings\/ui-settings/
-};
 
 export default withI18n()(UISettingsPage);

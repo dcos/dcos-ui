@@ -15,7 +15,7 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import Util from "#SRC/js/utils/Util";
 
-class AuthProviderDetailTab extends React.Component {
+export default class AuthProviderDetailTab extends React.Component {
   static propTypes = {
     provider: PropTypes.object
   };
@@ -132,5 +132,3 @@ class AuthProviderDetailTab extends React.Component {
     );
   }
 }
-
-export default AuthProviderDetailTab;

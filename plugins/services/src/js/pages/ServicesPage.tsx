@@ -9,7 +9,7 @@ import { iconSizeS } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/des
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
-class ServicesPage extends mixin(StoreMixin) {
+export default class ServicesPage extends mixin(StoreMixin) {
   public static contextTypes = {
     router: routerShape
   };
@@ -35,5 +35,3 @@ class ServicesPage extends mixin(StoreMixin) {
     return this.props.children;
   }
 }
-
-export default ServicesPage;

@@ -12,7 +12,7 @@ const LABEL_TO_HEALTH = {
 /**
  * This filter handles the `health:status` for services using `getHealth`
  */
-class ServiceAttribHealthFilter extends DSLFilter {
+export default class ServiceAttribHealthFilter extends DSLFilter {
   /**
    * Handle all `health:XXXX` attribute filters that we can handle.
    *
@@ -38,5 +38,3 @@ class ServiceAttribHealthFilter extends DSLFilter {
     return resultset.filterItems(service => service.getHealth() === testStatus);
   }
 }
-
-export default ServiceAttribHealthFilter;

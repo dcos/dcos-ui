@@ -6,7 +6,7 @@ import Util from "#SRC/js/utils/Util";
 import ACLStore from "../submodules/acl/stores/ACLStore";
 import AdvancedACLsTab from "./AdvancedACLsTab";
 
-class AccountAdvancedACLsTab extends AdvancedACLsTab {
+export default class AccountAdvancedACLsTab extends AdvancedACLsTab {
   static propTypes = {
     fetchPermissions: PropTypes.func.isRequired,
     getAccountDetails: PropTypes.func.isRequired,
@@ -160,5 +160,3 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
     return acls;
   }
 }
-
-export default AccountAdvancedACLsTab;

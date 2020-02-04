@@ -8,7 +8,7 @@ import * as React from "react";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 
-class AuthProvidersTable extends React.Component {
+export default class AuthProvidersTable extends React.Component {
   static propTypes = {
     data: PropTypes.array
   };
@@ -79,5 +79,3 @@ class AuthProvidersTable extends React.Component {
     );
   }
 }
-
-export default AuthProvidersTable;

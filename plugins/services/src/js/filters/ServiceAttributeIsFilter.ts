@@ -5,7 +5,7 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 /**
  * This filter handles the `is:status` for services using `getServiceStatus`
  */
-class ServiceAttribIsFilter extends DSLFilter {
+export default class ServiceAttribIsFilter extends DSLFilter {
   /**
    * Handle all `is:XXXX` attribute filters that we can handle.
    *
@@ -33,5 +33,3 @@ class ServiceAttribIsFilter extends DSLFilter {
     );
   }
 }
-
-export default ServiceAttribIsFilter;

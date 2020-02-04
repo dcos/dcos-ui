@@ -22,7 +22,7 @@ function renderByProperty(prop, directoryItem) {
   return directoryItem.get(prop);
 }
 
-class TaskDirectoryTable extends React.Component {
+export default class TaskDirectoryTable extends React.Component {
   static defaultProps = {
     onOpenLogClick() {},
     files: []
@@ -219,5 +219,3 @@ class TaskDirectoryTable extends React.Component {
     );
   }
 }
-
-export default TaskDirectoryTable;

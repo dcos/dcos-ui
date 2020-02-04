@@ -49,7 +49,9 @@ const getVirtualNetworks = () =>
       />
     ));
 
-class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
+export default class MultiContainerNetworkingFormSection extends mixin(
+  StoreMixin
+) {
   static defaultProps = {
     data: {},
     errors: {},
@@ -670,5 +672,3 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 MultiContainerNetworkingFormSection.configReducers = {
   networks
 };
-
-export default MultiContainerNetworkingFormSection;

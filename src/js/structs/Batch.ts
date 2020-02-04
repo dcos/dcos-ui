@@ -43,7 +43,7 @@ import Transaction from "./Transaction";
  *
  */
 
-class Batch {
+export default class Batch {
   constructor(batch: Transaction[] = []) {
     this.add = this.add.bind(batch);
     this.reduce = this.reduce.bind(batch);
@@ -97,5 +97,3 @@ class Batch {
     return this.reduce(callback, data);
   }
 }
-
-export default Batch;

@@ -38,7 +38,11 @@ const GroupsBreadcrumbs = () => {
   );
 };
 
-class GroupsPage extends mixin(StoreMixin) {
+export default class GroupsPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Groups"),
+    matches: /^\/organization\/groups/
+  };
   static propTypes = {
     params: PropTypes.object
   };
@@ -171,10 +175,3 @@ class GroupsPage extends mixin(StoreMixin) {
     );
   }
 }
-
-GroupsPage.routeConfig = {
-  label: i18nMark("Groups"),
-  matches: /^\/organization\/groups/
-};
-
-export default GroupsPage;

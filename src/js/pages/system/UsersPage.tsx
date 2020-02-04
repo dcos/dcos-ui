@@ -32,7 +32,11 @@ const UsersBreadcrumbs = () => {
   );
 };
 
-class UsersPage extends mixin(StoreMixin) {
+export default class UsersPage extends mixin(StoreMixin) {
+  static routeConfig = {
+    label: i18nMark("Users"),
+    matches: /^\/organization\/users/
+  };
   static propTypes = {
     params: PropTypes.object
   };
@@ -108,10 +112,3 @@ class UsersPage extends mixin(StoreMixin) {
     return this.getContents();
   }
 }
-
-UsersPage.routeConfig = {
-  label: i18nMark("Users"),
-  matches: /^\/organization\/users/
-};
-
-export default UsersPage;

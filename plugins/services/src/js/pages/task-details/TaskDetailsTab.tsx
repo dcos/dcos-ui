@@ -19,7 +19,7 @@ import MarathonTaskDetailsList from "../../components/MarathonTaskDetailsList";
 import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 import TaskUtil from "../../utils/TaskUtil";
 
-class TaskDetailsTab extends React.Component {
+export default class TaskDetailsTab extends React.Component {
   static defaultProps = {
     task: {}
   };
@@ -197,5 +197,3 @@ class TaskDetailsTab extends React.Component {
     );
   }
 }
-
-export default TaskDetailsTab;

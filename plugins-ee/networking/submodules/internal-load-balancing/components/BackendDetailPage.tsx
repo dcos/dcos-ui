@@ -69,7 +69,7 @@ const BackendBreadcrumbs = ({ params }) => {
   );
 };
 
-class BackendDetailPage extends mixin(StoreMixin) {
+export default class BackendDetailPage extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
 
@@ -314,5 +314,3 @@ class BackendDetailPage extends mixin(StoreMixin) {
     );
   }
 }
-
-export default BackendDetailPage;

@@ -99,7 +99,10 @@ function renderPage(content) {
   );
 }
 
-class PackagesTab extends mixin(StoreMixin) {
+export default class PackagesTab extends mixin(StoreMixin) {
+  static contextTypes = {
+    router: routerShape
+  };
   constructor() {
     super();
 
@@ -343,9 +346,3 @@ class PackagesTab extends mixin(StoreMixin) {
     );
   }
 }
-
-PackagesTab.contextTypes = {
-  router: routerShape
-};
-
-export default PackagesTab;

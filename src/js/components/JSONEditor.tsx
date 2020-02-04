@@ -59,7 +59,7 @@ const IS_TYPING_TIMEOUT = 2000;
  * };
  *
  */
-class JSONEditor extends React.Component {
+export default class JSONEditor extends React.Component {
   static defaultProps = {
     errors: [],
     editorProps: { $blockScrolling: Infinity },
@@ -518,5 +518,3 @@ class JSONEditor extends React.Component {
     );
   }
 }
-
-export default JSONEditor;

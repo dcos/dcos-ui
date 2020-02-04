@@ -29,7 +29,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import { HTTP, TCP, COMMAND } from "../../constants/HealthCheckProtocols";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
 
-class MultiContainerHealthChecksFormSection extends React.Component {
+export default class MultiContainerHealthChecksFormSection extends React.Component {
   static defaultProps = {
     data: {},
     errors: {},
@@ -540,5 +540,3 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     );
   }
 }
-
-export default MultiContainerHealthChecksFormSection;

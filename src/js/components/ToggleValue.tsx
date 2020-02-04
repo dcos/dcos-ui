@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-class ToggleValue extends React.Component {
+export default class ToggleValue extends React.Component {
   static propTypes = {
     primaryValue: PropTypes.string.isRequired,
     secondaryValue: PropTypes.string.isRequired
@@ -28,5 +28,3 @@ class ToggleValue extends React.Component {
     );
   }
 }
-
-export default ToggleValue;
