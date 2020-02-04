@@ -18,10 +18,6 @@ export default class Application extends Service {
     this._spec = null;
   }
 
-  getDeployments() {
-    return this.get("deployments");
-  }
-
   /**
    * @override
    */
@@ -65,7 +61,9 @@ export default class Application extends Service {
    * @override
    */
   getImages() {
-    const images = this.getMetadata().images || this.get("images");
+    const images =
+      FrameworkUtil.getMetadataFromLabels(this.getLabels()).images ||
+      this.get("images");
 
     return FrameworkUtil.getServiceImages(images);
   }
@@ -84,20 +82,8 @@ export default class Application extends Service {
     return this.getSpec().getLabels() || {};
   }
 
-  getLastConfigChange() {
-    return this.getVersionInfo().lastConfigChangeAt;
-  }
-
-  getLastScaled() {
-    return this.getVersionInfo().lastScalingAt;
-  }
-
   getLastTaskFailure() {
     return this.get("lastTaskFailure");
-  }
-
-  getMetadata() {
-    return FrameworkUtil.getMetadataFromLabels(this.getLabels());
   }
 
   getName() {
@@ -108,10 +94,6 @@ export default class Application extends Service {
 
   getPorts() {
     return this.get("ports");
-  }
-
-  getResidency() {
-    return this.get("residency");
   }
 
   getStatus() {
@@ -129,7 +111,7 @@ export default class Application extends Service {
     }
 
     const { tasksRunning } = this.getTasksSummary();
-    const deployments = this.getDeployments();
+    const deployments = this.get("deployments");
     const queue = this.getQueue();
     const instances = this.getInstancesCount();
 
@@ -185,7 +167,6 @@ export default class Application extends Service {
       0,
       tasksSum - this.getInstancesCount()
     );
-
     healthData.tasksRunning = this.get("tasksRunning");
 
     return healthData;

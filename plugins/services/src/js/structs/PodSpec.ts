@@ -63,19 +63,11 @@ export default class PodSpec extends ServiceSpec {
     return scaling.instances;
   }
 
-  getSecrets() {
-    return this.get("secrets") || {};
-  }
-
   getVersion() {
     return this.get("version") || "";
   }
 
   getVolumes() {
     return this.get("volumes") || [];
-  }
-
-  getUser() {
-    return this.get("user") || "";
   }
 }

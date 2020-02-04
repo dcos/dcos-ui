@@ -6,26 +6,6 @@ import TaskStats from "../TaskStats";
 import ServiceImages from "../../constants/ServiceImages";
 
 describe("Application", () => {
-  describe("#getDeployments", () => {
-    it("returns an empty array", () => {
-      const service = new Application({
-        deployments: []
-      });
-
-      expect(service.getDeployments()).toEqual([]);
-    });
-
-    it("returns an array with one deployment", () => {
-      const service = new Application({
-        deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7" }]
-      });
-
-      expect(service.getDeployments()).toEqual([
-        { id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f7" }
-      ]);
-    });
-  });
-
   describe("#getHealth", () => {
     it("returns NA health status", () => {
       const service = new Application();
@@ -172,30 +152,6 @@ describe("Application", () => {
         label_1: "1",
         label_2: "2"
       });
-    });
-  });
-
-  describe("#getLastConfigChange", () => {
-    it("returns correct date", () => {
-      const service = new Application({
-        versionInfo: {
-          lastConfigChangeAt: "2016-03-22T10:46:07.354Z"
-        }
-      });
-
-      expect(service.getLastConfigChange()).toEqual("2016-03-22T10:46:07.354Z");
-    });
-  });
-
-  describe("#getLastScaled", () => {
-    it("returns correct date", () => {
-      const service = new Application({
-        versionInfo: {
-          lastScalingAt: "2016-03-22T10:46:07.354Z"
-        }
-      });
-
-      expect(service.getLastScaled()).toEqual("2016-03-22T10:46:07.354Z");
     });
   });
 

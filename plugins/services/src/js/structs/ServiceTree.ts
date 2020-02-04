@@ -71,16 +71,6 @@ export default class ServiceTree extends Tree {
     });
   }
 
-  getDeployments() {
-    return this.reduceItems((deployments, item) => {
-      if (item instanceof Service && item.getDeployments() != null) {
-        deployments = deployments.concat(item.getDeployments());
-      }
-
-      return deployments;
-    }, []);
-  }
-
   getQueue() {
     return null;
   }

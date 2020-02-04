@@ -124,19 +124,6 @@ describe("PodSpec", () => {
     });
   });
 
-  describe("#getUser", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getUser()).toEqual("root");
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getUser()).toBeFalsy();
-    });
-  });
-
   describe("#getScaling", () => {
     it("returns the correct value", () => {
       const podSpec = new PodSpec(PodFixture.spec);
@@ -147,19 +134,6 @@ describe("PodSpec", () => {
     it("returns the correct default value", () => {
       const podSpec = new PodSpec();
       expect(podSpec.getScaling()).toEqual({});
-    });
-  });
-
-  describe("#getSecrets", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getSecrets()).toEqual(PodFixture.spec.secrets);
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getSecrets()).toEqual({});
     });
   });
 

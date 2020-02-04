@@ -5,16 +5,8 @@ export default class ApplicationSpec extends ServiceSpec {
     return this.get("acceptedResourceRoles");
   }
 
-  getArguments() {
-    return this.get("args");
-  }
-
   getCommand() {
     return this.get("cmd");
-  }
-
-  getContainerSettings() {
-    return this.get("container");
   }
 
   getConstraints() {
@@ -27,14 +19,6 @@ export default class ApplicationSpec extends ServiceSpec {
 
   getDisk() {
     return this.get("disk");
-  }
-
-  getEnvironmentVariables() {
-    return this.get("env");
-  }
-
-  getExecutor() {
-    return this.get("executor");
   }
 
   getFetch() {
@@ -63,18 +47,6 @@ export default class ApplicationSpec extends ServiceSpec {
     return this.get("labels");
   }
 
-  getMem() {
-    return this.get("mem");
-  }
-
-  getPortDefinitions() {
-    return this.get("portDefinitions");
-  }
-
-  getResidency() {
-    return this.get("residency");
-  }
-
   /**
    * @override
    */
@@ -85,13 +57,5 @@ export default class ApplicationSpec extends ServiceSpec {
       gpus: this.get("gpus") || 0,
       disk: this.get("disk") || 0
     };
-  }
-
-  getUpdateStrategy() {
-    return this.get("updateStrategy");
-  }
-
-  getUser() {
-    return this.get("user");
   }
 }
