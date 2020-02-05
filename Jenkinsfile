@@ -85,9 +85,6 @@ pipeline {
       // we separate type-related tests for now as they seem to be flaky
       steps { sh "npx jest typecheck tslint" }
     }
-    stage("Unit Tests") {
-      steps { sh "npm run test -- --testPathIgnorePatterns tslint typecheck" }
-    }
 
     stage("Setup Data Dog") {
       steps {
@@ -102,6 +99,9 @@ pipeline {
 
     stage("Test current versions") {
       parallel {
+        stage("Unit Tests") {
+          steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
+        }
         stage("Integration Test") {
           environment {
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
