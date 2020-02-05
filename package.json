@@ -212,7 +212,7 @@
     "typecheck": "jest typecheck",
     "updateTSSnapshots": "jest typecheck -u; jest tslint -u",
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
-    "util:lingui:extract": "lingui extract --clean --config ./linguirc",
+    "util:lingui:extract": "lingui extract --config ./linguirc",
     "util:lingui:check": "./scripts/lingui-ensure-extracted",
     "util:scaffold": "node ./scripts/ensureConfig.js",
     "versions": "echo npm: $(npm --version) && echo node: $(node --version)"
