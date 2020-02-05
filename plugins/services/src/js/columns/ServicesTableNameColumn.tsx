@@ -7,14 +7,11 @@ import {
   greyDark,
   iconSizeXs
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
-import { WidthArgs } from "@dcos/ui-kit/dist/packages/table/components/Column";
 
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
-import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import ServiceTree from "../structs/ServiceTree";
 import Service from "../structs/Service";
 import Pod from "../structs/Pod";
-import { columnWidthsStorageKey } from "../containers/services/ServicesTable";
 
 const ServiceName = React.memo(
   ({
@@ -160,8 +157,4 @@ function hasWebUI(service: any): any {
     service.getWebURL() != null &&
     service.getWebURL() !== ""
   );
-}
-
-export function nameWidth(_: WidthArgs) {
-  return TableColumnResizeStore.get(columnWidthsStorageKey).name;
 }

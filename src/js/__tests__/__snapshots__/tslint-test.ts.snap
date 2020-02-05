@@ -482,8 +482,17 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/service-debug/TaskStatsTable.tsx - Forbidden constructor, use a literal or simple function call instead
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
+/plugins/services/src/js/containers/services/ServicesTable.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/services/ServicesTable.tsx - Shadowed name: 'Component'
-/plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 38 which is higher than the threshold of 20
+/plugins/services/src/js/containers/services/ServicesTable.tsx - The function render has a cyclomatic complexity of 29 which is higher than the threshold of 20
 /plugins/services/src/js/containers/services/__tests__/ServicesContainer-test.tsx - require statement not part of an import statement
 /plugins/services/src/js/containers/tasks/TasksView.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/tasks/__tests__/TaskTable-test.tsx - Identifier 'thisGetNodeFromID' is never reassigned; use 'const' instead of 'let'.
