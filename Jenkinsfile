@@ -86,6 +86,7 @@ pipeline {
       steps { sh "npx jest typecheck tslint" }
     }
     stage("Unit Tests") {
+      // jest seems to be faster on CI if we don't let it run tests in parallel...
       steps { sh "npm run test -- --testPathIgnorePatterns tslint typecheck" }
     }
 
