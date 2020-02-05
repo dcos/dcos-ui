@@ -12,8 +12,7 @@
   "reporterOptions": {
     "mochaFile": "cypress/result-integration-[hash].xml"
   },
-  "screenshotsFolder": "cypress/screenshots",
   "supportFile": "tests/_support",
-  "videosFolder": "cypress/videos",
+  "testFiles": "**/*-cy.js",
   "waitForAnimations": true
 }
