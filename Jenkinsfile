@@ -59,40 +59,40 @@ pipeline {
       }
     }
 
-
-    stage("Lint Commits") {
-      when {
-        expression {
-          !master_branches.contains(BRANCH_NAME)
+    stage("Lint / Build") {
+      parallel {
+        stage("Lint Commits") {
+          when {
+            expression {
+              !master_branches.contains(BRANCH_NAME)
+            }
+          }
+          steps {
+            sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
+          }
         }
-      }
-
-      steps {
-        sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
-      }
-    }
-
-    stage("Check Translations") {
-      steps { sh "npm run util:lingui:check" }
-    }
-    stage("Lint") {
-      steps { sh "npm run lint" }
-    }
-    stage("build") {
-      steps { sh "npm run build" }
-    }
-    stage("Test Types") {
-      // we separate type-related tests for now as they seem to be flaky
-      steps { sh "npx jest typecheck tslint" }
-    }
-
-    stage("Setup Data Dog") {
-      steps {
-        withCredentials([
-          string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
-          string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
-        ]) {
-          sh "./scripts/ci/createDatadogConfig.sh"
+        stage("Lint") {
+          steps { sh "npm run lint" }
+        }
+        stage("build") {
+          steps { sh "npm run build" }
+        }
+        stage("Test Types") {
+          // we separate type-related tests for now as they seem to be flaky
+          steps { sh "npx jest typecheck" }
+        }
+        stage("Setup Data Dog") {
+          steps {
+            withCredentials([
+              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
+              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
+            ]) {
+              sh "./scripts/ci/createDatadogConfig.sh"
+            }
+          }
+        }
+        stage("Check Translations") {
+          steps { sh "npm run util:lingui:check" }
         }
       }
     }
@@ -100,6 +100,7 @@ pipeline {
     stage("Test current versions") {
       parallel {
         stage("Unit Tests") {
+          // at this point we already ran tslint and the typecheck, see above!
           steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
         }
         stage("Integration Test") {
