@@ -1,6 +1,5 @@
 import { Trans } from "@lingui/macro";
 import * as React from "react";
-import PropTypes from "prop-types";
 import Batch from "#SRC/js/structs/Batch";
 
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
@@ -39,7 +38,13 @@ export function PlacementSchemaZoneField(props) {
   return <PlacementSchemaField {...props} renderRegion={false} />;
 }
 
-const JsonField = props => (
+const JsonField = (props: {
+  fieldName: string;
+  label: string;
+  json: {};
+  replacer?: () => void;
+  space?: number;
+}) => (
   <div>
     <FieldLabel>{props.label}</FieldLabel>
     <pre>{JSON.stringify(props.json, props.replacer, props.space)}</pre>
@@ -51,19 +56,26 @@ const JsonField = props => (
   </div>
 );
 
-JsonField.propTypes = {
-  fieldName: PropTypes.string.isRequired,
-  label: PropTypes.string.isRequired,
-  json: PropTypes.object.isRequired,
-  replacer: PropTypes.func,
-  space: PropTypes.number
-};
-
 JsonField.defaultProps = {
   space: 2
 };
 
-export class PlacementSchemaField extends React.Component {
+export class PlacementSchemaField extends React.Component<{
+  errorMessage: React.ReactNode;
+  fieldProps: {
+    formData: unknown;
+    onChange: (a: unknown) => void;
+    schema: unknown;
+  };
+  label: string;
+  renderRegion: boolean;
+  schema: {};
+}> {
+  static defaultProps = {
+    renderRegion: true,
+    onChange() {}
+  };
+
   constructor(props) {
     super(props);
 
@@ -72,9 +84,19 @@ export class PlacementSchemaField extends React.Component {
       formData: this.props.fieldProps.formData
     };
     this.state.batch = this.generateBatchFromInput();
-
-    this.handleBatchChange = this.handleBatchChange.bind(this);
   }
+
+  handleBatchChange = batch => {
+    const { onChange, schema } = this.props.fieldProps;
+    const { constraints } = batch.reduce(jsonReducer, []);
+
+    const formData =
+      schema?.type === "string" ? JSON.stringify(constraints) : constraints;
+
+    this.setState({ batch, formData }, () => {
+      onChange(formData);
+    });
+  };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.fieldProps.formData !== this.state.formData) {
@@ -108,16 +130,6 @@ export class PlacementSchemaField extends React.Component {
       (batch, item) => batch.add(item),
       new Batch()
     );
-  }
-
-  handleBatchChange(batch) {
-    const { onChange } = this.props.fieldProps;
-    const newJson = batch.reduce(jsonReducer, []);
-    const newData = JSON.stringify(newJson.constraints);
-
-    this.setState({ batch, formData: newData }, () => {
-      onChange(newData);
-    });
   }
 
   render() {
@@ -168,21 +180,3 @@ export class PlacementSchemaField extends React.Component {
     );
   }
 }
-
-PlacementSchemaField.defaultProps = {
-  renderRegion: true,
-  onChange() {}
-};
-
-PlacementSchemaField.propTypes = {
-  renderRegion: PropTypes.bool,
-  label: PropTypes.string.isRequired,
-  fieldProps: PropTypes.object.isRequired,
-  schema: PropTypes.object.isRequired,
-  errorMessage: PropTypes.oneOfType([
-    PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
-  ]),
-  autofocus: PropTypes.bool,
-  onChange: PropTypes.func
-};
