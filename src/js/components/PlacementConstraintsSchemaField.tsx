@@ -92,9 +92,12 @@ export default class PlacementConstraintsSchemaField extends React.Component {
   }
 
   handleBatchChange(batch) {
-    const { formData, onChange } = this.props.fieldProps;
-    const newJson = batch.reduce(jsonReducer, []);
-    const newData = JSON.stringify(newJson.constraints);
+    const { formData, onChange, schema } = this.props.fieldProps;
+    const { constraints } = batch.reduce(jsonReducer, []);
+
+    // handle differently depending on `type` of jsonschema-field
+    const newData =
+      schema.type === "string" ? JSON.stringify(constraints) : constraints;
 
     if (newData !== formData) {
       onChange(newData);

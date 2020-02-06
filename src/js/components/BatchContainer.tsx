@@ -2,10 +2,18 @@ import * as React from "react";
 
 import Transaction from "#SRC/js/structs/Transaction";
 import * as TransactionTypes from "#SRC/js/constants/TransactionTypes";
+import Batch from "../structs/Batch";
 
-export default class BatchContainer extends React.Component {
-  constructor(...args) {
-    super(...args);
+type BatchContainerProps = {
+  batch: Batch;
+  onChange: (batch: Batch, fieldName?: string) => void;
+};
+
+export default class BatchContainer extends React.Component<
+  BatchContainerProps
+> {
+  constructor(props: BatchContainerProps) {
+    super(props);
 
     this.handleChange = this.handleChange.bind(this);
     this.handleAddItem = this.handleAddItem.bind(this);

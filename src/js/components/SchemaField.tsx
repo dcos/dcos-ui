@@ -276,12 +276,10 @@ class SchemaField extends React.Component {
       case "boolean":
         return this.renderCheckbox(errorMessage, this.props);
       case "string":
-        if (schema.enum && schema.enum.length <= RADIO_SELECT_THRESHOLD) {
-          return this.renderRadioButtons(errorMessage, this.props);
-        }
-
-        if (schema.enum && schema.enum.length > RADIO_SELECT_THRESHOLD) {
-          return this.renderSelect(errorMessage, autofocus, this.props);
+        if (schema.enum) {
+          return schema.enum.length <= RADIO_SELECT_THRESHOLD
+            ? this.renderRadioButtons(errorMessage, this.props)
+            : this.renderSelect(errorMessage, autofocus, this.props);
         }
 
         return this.renderTextInput(errorMessage, autofocus, this.props);
