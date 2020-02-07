@@ -45,7 +45,7 @@ class SecretsSelect extends React.Component<Props, State> {
   }
 
   public onFetchedSecrets = () => {
-    this.setState({ secrets: SecretStore.getSecrets().getItems() });
+    this.setState({ secrets: SecretStore.getSecrets() });
   };
 
   public handleChange = (e: React.FormEvent<HTMLInputElement>) => {

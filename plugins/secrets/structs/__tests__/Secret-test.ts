@@ -27,7 +27,7 @@ describe("Secret", () => {
   });
 
   describe("#getCreatedAt", () => {
-    it("returns an instance of SecretsList", () => {
+    it("returns an instance of Secret", () => {
       const secret = new Secret({
         created: "10/19/1993"
       });

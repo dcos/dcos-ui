@@ -268,19 +268,17 @@ module.exports = {
    * @return {type}  description
    */
   environmentVariableValueList() {
-    let secrets = SecretStore.getSecrets()
-      .getItems()
-      .map(secret => ({
-        html: secret.getPath(),
-        id: secret.getPath(),
-        value: secret.getPath(),
+    let secrets = SecretStore.getSecrets().map(secret => ({
+      html: secret.getPath(),
+      id: secret.getPath(),
+      value: secret.getPath(),
 
-        selectedHtml: (
-          <span className="text-overflow text-overflow-word-break">
-            {secret.getPath()}
-          </span>
-        )
-      }));
+      selectedHtml: (
+        <span className="text-overflow text-overflow-word-break">
+          {secret.getPath()}
+        </span>
+      )
+    }));
 
     secrets = secrets || [];
 

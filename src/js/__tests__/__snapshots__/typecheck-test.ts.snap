@@ -1900,13 +1900,12 @@ plugins/secrets/components/forms/EnvironmentVariableInput.tsx: error TS2322: typ
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: Type 'string' is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobSecret.tsx: error TS2322: type * is not assignable to type *.
-plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'showErrors' does not exist on type *.
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'secrets' does not exist on type 'Readonly<{}>'.
+plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
 plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
@@ -1929,24 +1928,19 @@ plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2
 plugins/secrets/components/forms/SecretExposureTypeSelect.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/SecretInput.tsx: error TS2322: Type 'RefObject<HTMLInputElement>' is not assignable to type 'string'.
 plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
-plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
-plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'onAddItem' does not exist on type *.
-plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'secrets' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'onRemoveItem' does not exist on type *.
+plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
+plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/hooks.tsx: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
 plugins/secrets/hooks.tsx: error TS6133: 'propKey' is declared but its value is never read.
 plugins/secrets/hooks.tsx: error TS2531: Object is possibly 'null'.
 plugins/secrets/hooks.tsx: error TS2531: Object is possibly 'null'.
-plugins/secrets/hooks.tsx: error TS2339: Property 'getPath' does not exist on type '{}'.
-plugins/secrets/hooks.tsx: error TS2339: Property 'getPath' does not exist on type '{}'.
-plugins/secrets/hooks.tsx: error TS2339: Property 'getPath' does not exist on type '{}'.
-plugins/secrets/hooks.tsx: error TS2339: Property 'getPath' does not exist on type '{}'.
 plugins/secrets/hooks.tsx: error TS2769: No overload matches this call.
 plugins/secrets/hooks.tsx: error TS6133: 'formData' is declared but its value is never read.
 plugins/secrets/hooks.tsx: error TS2531: Object is possibly 'null'.
@@ -1964,7 +1958,7 @@ plugins/secrets/hooks.tsx: error TS6133: 'state' is declared but its value is ne
 plugins/secrets/hooks.tsx: error TS2554: Expected 3 arguments, but got 4.
 plugins/secrets/hooks.tsx: error TS6133: 'state' is declared but its value is never read.
 plugins/secrets/hooks.tsx: error TS2554: Expected 3 arguments, but got 4.
-plugins/secrets/hooks.tsx: error TS2322: type * is not assignable to type *.
+plugins/secrets/hooks.tsx: error TS2769: No overload matches this call.
 plugins/secrets/index.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
 plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'healthFilter' does not exist on type 'Readonly<{}>'.
 plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'isLoading' does not exist on type 'Readonly<{}>'.
@@ -2069,7 +2063,6 @@ plugins/secrets/structs/SecretStoreStructList.ts: error TS2339: Property 'getSea
 plugins/secrets/structs/SecretStoreStructList.ts: error TS2365: Operator '+' cannot be applied to types '{}' and 'number'.
 plugins/secrets/structs/__tests__/CertificatesList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
-plugins/secrets/structs/__tests__/SecretsList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
