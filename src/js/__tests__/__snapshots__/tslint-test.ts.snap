@@ -431,8 +431,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/SecretStoreStruct-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretsList-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretsList-test.ts - require statement not part of an import statement
 /plugins/secrets/validators/__tests__/SecretsValidators-test.ts - require statement not part of an import statement
 /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/components/DeploymentsModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact

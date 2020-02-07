@@ -19,7 +19,6 @@ import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
-import List from "#SRC/js/structs/List";
 
 import SealedStoreAlert from "../components/SealedStoreAlert";
 import SecretActionsModal from "../components/SecretActionsModal";
@@ -155,15 +154,13 @@ class SecretsPage extends mixin(StoreMixin) {
   };
 
   getVisibleItems(items, searchString) {
-    return items
-      .filterItems(item => item.getPath().includes(searchString))
-      .getItems();
+    return items.filter(item => item.getPath().includes(searchString));
   }
 
   getCheckedItems(items) {
     const { checkedItems } = this.state;
 
-    return items.filterItems(item => checkedItems[item.getPath()]).getItems();
+    return items.filter(item => checkedItems[item.getPath()]);
   }
 
   getActionDropdown(checkedItems) {
@@ -246,9 +243,8 @@ class SecretsPage extends mixin(StoreMixin) {
     }
 
     const secrets =
-      requestErrorType === "permission"
-        ? new List({ items: [] })
-        : SecretStore.getSecrets();
+      requestErrorType === "permission" ? [] : SecretStore.getSecrets();
+
     const visibleItems = this.getVisibleItems(secrets, searchString);
 
     const secretStores = SecretStore.getStores();
@@ -271,7 +267,7 @@ class SecretsPage extends mixin(StoreMixin) {
           }}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
-          {secrets.getItems().length ? (
+          {secrets.length ? (
             <React.Fragment>
               <div className="users-table-header">
                 <FilterHeadline
@@ -279,7 +275,7 @@ class SecretsPage extends mixin(StoreMixin) {
                   isFiltering={healthFilter !== "all" || searchString !== ""}
                   name="Secret"
                   onReset={this.resetFilter}
-                  totalLength={secrets.getItems().length}
+                  totalLength={secrets.length}
                 />
                 <FilterBar>
                   <FilterInputText

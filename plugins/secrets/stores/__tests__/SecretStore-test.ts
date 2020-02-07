@@ -1,6 +1,4 @@
 import NotificationStore from "#SRC/js/stores/NotificationStore";
-import SecretsList from "../../structs/SecretsList";
-
 import PluginTestUtils from "PluginTestUtils";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
@@ -218,16 +216,12 @@ describe("SecretStore", () => {
       SecretStore.get = thisPrevGet;
     });
 
-    it("turns an array of paths into a SecretsList", () => {
-      expect(thisResult instanceof SecretsList).toEqual(true);
-    });
-
     it("has 3 items", () => {
-      expect(thisResult.getItems().length).toEqual(3);
+      expect(thisResult.length).toEqual(3);
     });
 
     it("creates Secrets with the paths", () => {
-      expect(thisResult.getItems()[0].getPath()).toEqual("a/list");
+      expect(thisResult[0].getPath()).toEqual("a/list");
     });
   });
 });

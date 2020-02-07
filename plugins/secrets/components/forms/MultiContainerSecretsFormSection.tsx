@@ -44,7 +44,7 @@ class MultiContainerSecretsFormSection extends React.Component {
   constructor(props) {
     super(props);
 
-    this.state = { secrets: SecretStore.getSecrets().getItems() };
+    this.state = { secrets: SecretStore.getSecrets() };
 
     this.getSecretsLines = this.getSecretsLines.bind(this);
     this.onStoreSuccess = this.onStoreSuccess.bind(this);
@@ -66,7 +66,7 @@ class MultiContainerSecretsFormSection extends React.Component {
   }
 
   onStoreSuccess() {
-    this.setState({ secrets: SecretStore.getSecrets().getItems() });
+    this.setState({ secrets: SecretStore.getSecrets() });
   }
 
   getAllVolumeMountCounts() {

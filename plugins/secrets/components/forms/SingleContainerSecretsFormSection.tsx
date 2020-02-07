@@ -48,13 +48,8 @@ class SingleContainerSecretsFormSection extends React.Component {
     onAddItem: PropTypes.func.isRequired,
     onRemoveItem: PropTypes.func.isRequired
   };
-  constructor(props) {
-    super(props);
 
-    this.state = {
-      secrets: SecretStore.getSecrets().getItems()
-    };
-  }
+  state = { secrets: SecretStore.getSecrets() };
 
   componentDidMount() {
     SecretStore.fetchSecrets();
@@ -68,7 +63,7 @@ class SingleContainerSecretsFormSection extends React.Component {
     );
   }
   onStoreSuccess = () => {
-    this.setState({ secrets: SecretStore.getSecrets().getItems() });
+    this.setState({ secrets: SecretStore.getSecrets() });
   };
   getSecretsLines = (data, showErrors, errors) => {
     const secrets = this.state.secrets.map(secret => secret.getPath());

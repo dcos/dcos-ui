@@ -6,7 +6,6 @@ import * as EventTypes from "../constants/EventTypes";
 import SecretActions from "../actions/SecretActions";
 import Secret from "../structs/Secret";
 import SecretStoreStructList from "../structs/SecretStoreStructList";
-import SecretsList from "../structs/SecretsList";
 import PrivatePluginsConfig from "../../PrivatePluginsConfig";
 
 import { getSDK } from "../SDK";
@@ -186,10 +185,8 @@ class SecretStore extends EventEmitter {
     return new Secret(secretDetail);
   }
 
-  public getSecrets() {
-    const secrets = this.get("secrets").map((path: string) => ({ path }));
-
-    return new SecretsList({ items: secrets });
+  public getSecrets(): Secret[] {
+    return this.get("secrets").map((path: string) => new Secret({ path }));
   }
 
   public processStores(stores: any) {
