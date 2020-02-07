@@ -9,7 +9,7 @@ import {
   SingleContainerReducerContext
 } from "./types";
 
-module.exports = {
+export default {
   JSONReducer(
     this: SingleContainerReducerContext,
     state: object,

@@ -1,5 +1,5 @@
 import { MountService } from "foundation-ui";
-import { EDIT } from "#PLUGINS/services/src/js/constants/ServiceActionItem";
+import { ServiceActionItem } from "#PLUGINS/services/src/js/constants/ServiceActionItem";
 import SDKServiceEdit from "./components/SDKServiceEdit";
 
 const SDK = require("./SDK");
@@ -19,6 +19,6 @@ module.exports = {
   },
 
   isEnabledSDKAction(actionID) {
-    return actionID === EDIT;
+    return actionID === ServiceActionItem.EDIT;
   }
 };

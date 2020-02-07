@@ -7,7 +7,7 @@ const List = require("#SRC/js/structs/List").default;
 const AuthProvider = require("../../structs/AuthProvider").default;
 const AuthProvidersStore = require("../AuthProvidersStore").default;
 import * as ActionTypes from "../../constants/ActionTypes";
-const EventTypes = require("../../constants/EventTypes");
+import * as EventTypes from "../../constants/EventTypes";
 const AuthProviderReducer = require("../../Reducer");
 
 PluginTestUtils.addReducer("auth-providers", AuthProviderReducer);
@@ -114,7 +114,7 @@ describe("AuthProvidersStore", () => {
       const error = { err: "error" };
       const mockFn = jest.fn();
 
-      AuthProvidersStore.addChangeListener(EventTypes.PROVIDERS_ERROR, mockFn);
+      AuthProvidersStore.addChangeListener(EventTypes.PROVIDERS_ERRORS, mockFn);
 
       SDK.dispatch({
         type: ActionTypes.REQUEST_PROVIDERS_ERROR,

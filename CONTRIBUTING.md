@@ -485,23 +485,3 @@ When adding a new translation file store in `src/js/translations` directory and 
 ## Packages
 
 Documentation can be found [here](packages/README.md)
-
-## Nice to knows
-
-### Resolve webpack aliases in VSCode
-
-Add this part to your `jsconfig.json` in the root of this project
-
-```json
-{
-  "compilerOptions": {
-    "baseUrl": "./", // all paths are relative to the baseUrl
-    "paths": {
-      "#SRC/*": ["dcos-ui/src/*"],
-      "#LOCALE/*": ["dcos-ui/locale/*"],
-      "#EXTERNAL_PLUGINS/*": ["dcos-ui/plugins-ee/*"],
-      "#PLUGINS/*": ["dcos-ui/plugins/*"]
-    }
-  }
-}
-```

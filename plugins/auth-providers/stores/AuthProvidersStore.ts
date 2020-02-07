@@ -8,7 +8,7 @@ import {
 
 import {
   PROVIDERS_CHANGE,
-  PROVIDERS_ERROR,
+  PROVIDERS_ERRORS,
   // Events triggered from AuthProviderStore
   PROVIDER_CREATE_SUCCESS,
   PROVIDER_DELETE_SUCCESS,
@@ -21,15 +21,15 @@ import AuthProvider from "../structs/AuthProvider";
 const SDK = require("../SDK").getSDK();
 
 class AuthProvidersStore extends BaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     SDK.addStoreConfig({
       store: this,
       storeID: "authProviders",
       events: {
         change: PROVIDERS_CHANGE,
-        error: PROVIDERS_ERROR
+        error: PROVIDERS_ERRORS
       },
       unmountWhen: () => false
     });
@@ -102,7 +102,7 @@ class AuthProvidersStore extends BaseStore {
   }
 
   processProvidersError(error) {
-    this.emit(PROVIDERS_ERROR, error);
+    this.emit(PROVIDERS_ERRORS, error);
   }
 }
 
