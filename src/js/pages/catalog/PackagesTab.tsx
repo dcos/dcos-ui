@@ -64,7 +64,9 @@ const PackagesEmptyState = () => (
       components={[
         <a
           target="_blank"
-          href={MetadataStore.buildDocsURI("/administering-clusters/repo")}
+          href={MetadataStore.buildDocsURI(
+            "/administering-clusters/package-registry/ "
+          )}
         />
       ]}
     />

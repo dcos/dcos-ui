@@ -9,7 +9,6 @@ import {
   SERVER_ACTION
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
-import Config from "../config/Config";
 import {
   DCOS_METADATA_CHANGE,
   DCOS_BUILD_INFO_ERROR,
@@ -108,7 +107,7 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   buildDocsURI(path) {
-    return `${Config.documentationURI}/${this.parsedVersion}${path}`;
+    return `https://docs.d2iq.com/mesosphere/dcos/${this.parsedVersion}${path}`;
   }
 
   fetchDCOSBuildInfo() {

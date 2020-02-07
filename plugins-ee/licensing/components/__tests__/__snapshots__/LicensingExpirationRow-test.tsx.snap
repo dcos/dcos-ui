@@ -19,7 +19,7 @@ exports[`LicensingExpirationRow #render renders entire expiration row 1`] = `
   </div>
   <a
     className="button button-primary-link text-no-transform"
-    href="https://docs.mesosphere.com/latest/administering-clusters/licenses"
+    href="https://docs.d2iq.com/mesosphere/dcos/latest/administering-clusters/licenses"
     target="_blank"
   />
 </div>

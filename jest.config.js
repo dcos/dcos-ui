@@ -12,7 +12,7 @@ const dirs = path => (path ? glob.sync(`${path}/*/`) : []);
 const roots = ["./src", "./tests"].concat(
   dirs("./plugins"),
   dirs("./packages"),
-  dirs(process.env.npm_config_externalplugins)
+  dirs("./plugins-ee")
 );
 
 module.exports = {

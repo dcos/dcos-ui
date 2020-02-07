@@ -4,7 +4,7 @@ import * as React from "react";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
 const summaryDocsURL = MetadataStore.buildDocsURI(
-  "/overview/concepts/#mesos-resource-offer"
+  "/monitoring/debugging/stuck-deployment/"
 );
 
 export default {
