@@ -1,10 +1,10 @@
 import DCOSStore from "../DCOSStore";
 import NotificationStore from "../NotificationStore";
-import DeploymentsList from "../../../../plugins/services/src/js/structs/DeploymentsList";
 import ServiceTree from "../../../../plugins/services/src/js/structs/ServiceTree";
 import SummaryList from "../../structs/SummaryList";
 import StateSummary from "../../structs/StateSummary";
 import * as EventTypes from "../../constants/EventTypes";
+import Deployment from "#PLUGINS/services/src/js/structs/Deployment";
 
 jest.mock("../MesosSummaryStore");
 jest.mock("../../../../plugins/services/src/js/stores/MarathonStore");
@@ -13,25 +13,16 @@ const MesosSummaryStore = require("../MesosSummaryStore").default;
 const MarathonStore = require("../../../../plugins/services/src/js/stores/MarathonStore")
   .default;
 
+const last = <A>(xs: A[]): A | null => xs[xs.length - 1];
+
 describe("DCOSStore", () => {
   beforeEach(() => {
     // Mock Marathon and  Mesos  data and handle data change
     MarathonStore.__setKeyResponse("groups", new ServiceTree({ apps: [] }));
-    MarathonStore.__setKeyResponse(
-      "deployments",
-      new DeploymentsList({
-        items: []
-      })
-    );
+    MarathonStore.__setKeyResponse("deployments", []);
     MesosSummaryStore.__setKeyResponse(
       "states",
-      new SummaryList({
-        items: [
-          new StateSummary({
-            successful: true
-          })
-        ]
-      })
+      new SummaryList({ items: [new StateSummary({ successful: true })] })
     );
 
     DCOSStore.onMarathonDeploymentsChange();
@@ -41,7 +32,7 @@ describe("DCOSStore", () => {
 
   describe("#constructor", () => {
     it("exposes an empty deployments list", () => {
-      expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
+      expect(DCOSStore.deploymentsList.length).toEqual(0);
     });
   });
 
@@ -75,20 +66,15 @@ describe("DCOSStore", () => {
 
   describe("#onMarathonDeploymentsChange", () => {
     beforeEach(() => {
-      MarathonStore.__setKeyResponse(
-        "deployments",
-        new DeploymentsList({
-          items: [
-            {
-              id: "deployment-id",
-              version: "2001-01-01T01:01:01.001Z",
-              affectedApps: ["/app1", "/app2"],
-              currentStep: 2,
-              totalSteps: 3
-            }
-          ]
+      MarathonStore.__setKeyResponse("deployments", [
+        new Deployment({
+          id: "deployment-id",
+          version: "2001-01-01T01:01:01.001Z",
+          affectedApps: ["/app1", "/app2"],
+          currentStep: 2,
+          totalSteps: 3
         })
-      );
+      ]);
       MarathonStore.__setKeyResponse(
         "groups",
         new ServiceTree({
@@ -109,7 +95,7 @@ describe("DCOSStore", () => {
       });
 
       it("does not update the deployments list", () => {
-        expect(DCOSStore.deploymentsList.getItems().length).toEqual(0);
+        expect(DCOSStore.deploymentsList.length).toEqual(0);
       });
 
       it("does not update the notification store", () => {
@@ -130,12 +116,12 @@ describe("DCOSStore", () => {
       });
 
       it("updates the deployments list", () => {
-        expect(DCOSStore.deploymentsList.getItems().length).toEqual(1);
-        expect(DCOSStore.deploymentsList.last().id).toEqual("deployment-id");
+        expect(DCOSStore.deploymentsList.length).toEqual(1);
+        expect(last(DCOSStore.deploymentsList).id).toEqual("deployment-id");
       });
 
       it("populates the deployments with relevant services", () => {
-        const deployment = DCOSStore.deploymentsList.last();
+        const deployment = last(DCOSStore.deploymentsList);
         const services = deployment.getAffectedServices();
         expect(services.length).toEqual(2);
       });
@@ -157,7 +143,7 @@ describe("DCOSStore", () => {
       });
 
       it("trims stale services", () => {
-        const deployment = DCOSStore.deploymentsList.last();
+        const deployment = new Deployment(last(DCOSStore.deploymentsList));
         const services = deployment.getAffectedServices();
         expect(services.length).toEqual(0);
       });
@@ -195,10 +181,7 @@ describe("DCOSStore", () => {
         "groups",
         new ServiceTree({
           items: [
-            {
-              id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
+            { id: "/alpha", labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" } }
           ]
         })
       );

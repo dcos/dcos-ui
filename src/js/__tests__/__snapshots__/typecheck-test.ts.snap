@@ -4568,6 +4568,7 @@ plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Ob
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
+plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'unknown[]'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
@@ -6281,18 +6282,20 @@ src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
 src/js/stores/__tests__/CosmosPackagesStore-test.ts: error TS2339: Property 'get' does not exist on type '{}'.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2571: Object is of type 'unknown'.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/__tests__/DCOSStore-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2769: No overload matches this call.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+src/js/stores/__tests__/DCOSStore-test.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/__tests__/GetSetBaseStore-test.ts: error TS2345: Argument of type '\\"foo\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type *.
 src/js/stores/__tests__/MesosSummaryStore-test.ts: error TS2339: Property 'mock' does not exist on type *.

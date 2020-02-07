@@ -1,4 +1,3 @@
-import DeploymentsList from "../../structs/DeploymentsList";
 import HealthTypes from "../../constants/HealthTypes";
 import MockAppMetadata from "./fixtures/MockAppMetadata";
 
@@ -10,6 +9,8 @@ import MarathonStore from "../MarathonStore";
 window.atob = () => MockAppMetadata.decodedString;
 
 let thisHandler;
+
+const last = <A>(xs: A[]): A | null => xs[xs.length - 1];
 
 describe("MarathonStore", () => {
   describe("#getFrameworkHealth", () => {
@@ -145,8 +146,7 @@ describe("MarathonStore", () => {
 
     it("holds the supplied deployments data on the store", () => {
       const deployments = MarathonStore.get("deployments");
-      expect(deployments).toEqual(jasmine.any(DeploymentsList));
-      expect(deployments.last().getId()).toEqual("deployment-id");
+      expect(last(deployments).getId()).toEqual("deployment-id");
     });
 
     it("emits a marathon deployment event", () => {
@@ -155,8 +155,7 @@ describe("MarathonStore", () => {
 
     it("emits a populated DeploymentsList", () => {
       const deployments = thisHandler.mock.calls[0][0];
-      expect(deployments).toEqual(jasmine.any(DeploymentsList));
-      expect(deployments.last().getId()).toEqual("deployment-id");
+      expect(last(deployments).getId()).toEqual("deployment-id");
     });
 
     it("emits an error if the data is not an array", () => {
@@ -295,7 +294,7 @@ describe("MarathonStore", () => {
       MarathonStore.processMarathonDeploymentRollback({
         originalDeploymentID: "deployment-id"
       });
-      expect(MarathonStore.get("deployments").getItems().length).toEqual(0);
+      expect(MarathonStore.get("deployments").length).toEqual(0);
     });
 
     it("emits a deployments change event", () => {

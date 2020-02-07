@@ -42,7 +42,6 @@ import {
   REQUEST_MARATHON_TASK_KILL_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS
 } from "../constants/ActionTypes";
-import DeploymentsList from "../structs/DeploymentsList";
 import HealthStatus from "../constants/HealthStatus";
 import MarathonActions from "../events/MarathonActions";
 import {
@@ -89,6 +88,7 @@ import ServiceImages from "../constants/ServiceImages";
 import ServiceTree from "../structs/ServiceTree";
 
 import ServiceValidatorUtil from "../utils/ServiceValidatorUtil";
+import Deployment from "../structs/Deployment";
 
 let requestInterval: NodeJS.Timeout | null = null;
 let shouldEmbedLastUnusedOffers = false;
@@ -143,7 +143,7 @@ class MarathonStore extends GetSetBaseStore<{
 
     this.getSet_data = {
       apps: {},
-      deployments: new DeploymentsList(),
+      deployments: [],
       groups: new ServiceTree(),
       info: {}
     };
@@ -473,7 +473,7 @@ class MarathonStore extends GetSetBaseStore<{
 
   processMarathonDeployments(data) {
     if (Array.isArray(data)) {
-      const deployments = new DeploymentsList({ items: data });
+      const deployments = data.map(d => new Deployment(d));
       this.set({ deployments });
       this.emit(MARATHON_DEPLOYMENTS_CHANGE, deployments);
     } else {
@@ -488,9 +488,9 @@ class MarathonStore extends GetSetBaseStore<{
   processMarathonDeploymentRollback(data) {
     const id = data.originalDeploymentID;
     if (id != null) {
-      const deployments = this.get("deployments").filterItems(
-        deployment => deployment.getId() !== id
-      );
+      const deployments = this.get("deployments")
+        .filter(deployment => deployment.getId() !== id)
+        .map(d => new Deployment(d));
       this.set({ deployments });
       this.emit(MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, data);
       this.emit(MARATHON_DEPLOYMENTS_CHANGE);

@@ -11,7 +11,6 @@ import {
 } from "../../../plugins/services/src/js/constants/EventTypes";
 
 import DeclinedOffersUtil from "../../../plugins/services/src/js/utils/DeclinedOffersUtil";
-import DeploymentsList from "../../../plugins/services/src/js/structs/DeploymentsList";
 import Item from "../structs/Item";
 import Framework from "../../../plugins/services/src/js/structs/Framework";
 import MarathonStore from "../../../plugins/services/src/js/stores/MarathonStore";
@@ -19,6 +18,7 @@ import MesosSummaryStore from "./MesosSummaryStore";
 import NotificationStore from "./NotificationStore";
 import ServiceTree from "../../../plugins/services/src/js/structs/ServiceTree";
 import SummaryList from "../structs/SummaryList";
+import Deployment from "#PLUGINS/services/src/js/structs/Deployment";
 
 const EVENT_DEBOUNCE_TIME = 250;
 const events = { change: DCOS_CHANGE };
@@ -38,7 +38,7 @@ class DCOSStore extends EventEmitter {
       marathon: {
         serviceTree: new ServiceTree(),
         queue: new Map(),
-        deploymentsList: new DeploymentsList(),
+        deploymentsList: [],
         versions: new Map(),
         dataReceived: false
       },
@@ -122,7 +122,7 @@ class DCOSStore extends EventEmitter {
     const deploymentsList = MarathonStore.get("deployments");
     const serviceTree = MarathonStore.get("groups");
 
-    const deploymentListLength = deploymentsList.getItems().length;
+    const deploymentListLength = deploymentsList.length;
     const currentDeploymentCount = NotificationStore.getNotificationCount(
       "services-deployments"
     );
@@ -136,30 +136,27 @@ class DCOSStore extends EventEmitter {
     }
 
     // Populate deployments with affected services
-    this.data.marathon.deploymentsList = deploymentsList.mapItems(
-      deployment => {
-        const ids = deployment.getAffectedServiceIds();
-        const services = ids.reduce(
-          (memo, id) => {
-            const service = serviceTree.findItemById(id);
-            if (service != null) {
-              memo.affected.push(service);
-            } else {
-              memo.stale.push(id);
-            }
+    this.data.marathon.deploymentsList = deploymentsList.map(deployment => {
+      const { affected, stale } = deployment.getAffectedServiceIds().reduce(
+        (memo, id) => {
+          const service = serviceTree.findItemById(id);
+          if (service != null) {
+            memo.affected.push(service);
+          } else {
+            memo.stale.push(id);
+          }
 
-            return memo;
-          },
-          { affected: [], stale: [] }
-        );
+          return memo;
+        },
+        { affected: [], stale: [] }
+      );
 
-        return {
-          affectedServices: services.affected,
-          staleServiceIds: services.stale,
-          ...deployment
-        };
-      }
-    );
+      return new Deployment({
+        affectedServices: affected,
+        staleServiceIds: stale,
+        ...deployment
+      });
+    });
 
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
@@ -338,9 +335,6 @@ class DCOSStore extends EventEmitter {
     return this;
   }
 
-  /**
-   * @type {DeploymentsList}
-   */
   get deploymentsList() {
     return this.data.marathon.deploymentsList;
   }
