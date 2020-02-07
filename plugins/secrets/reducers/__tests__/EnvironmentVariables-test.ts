@@ -1,7 +1,7 @@
 import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import Batch from "#SRC/js/structs/Batch";
 import Transaction from "#SRC/js/structs/Transaction";
-import { JSONReducer } from "../EnvironmentVariables";
+import EnvVarsReducer from "../EnvironmentVariables";
 import { emptySingleContainerSecret } from "../Secrets";
 
 import PluginTestUtils from "PluginTestUtils";
@@ -32,7 +32,10 @@ describe("Secrets", () => {
     });
 
     it("generates correct definition", () => {
-      const definition = thisBatch.reduce(JSONReducer.bind({}), {});
+      const definition = thisBatch.reduce(
+        EnvVarsReducer.JSONReducer.bind({}),
+        {}
+      );
 
       expect(definition).toEqual({
         DB_PASS: {
@@ -59,7 +62,7 @@ describe("Secrets", () => {
         )
       );
 
-      const definition = batch.reduce(JSONReducer.bind({}), {});
+      const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});
 
       expect(definition).toEqual({
         DB_PASS: { secret: "secret0" },
@@ -86,7 +89,7 @@ describe("Secrets", () => {
         )
       );
 
-      const definition = batch.reduce(JSONReducer.bind({}), {});
+      const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});
 
       expect(definition).toEqual({
         DB_PASS: { secret: "secret0" },
@@ -98,7 +101,7 @@ describe("Secrets", () => {
     it("removes secret element", () => {
       const batch = thisBatch.add(new Transaction(["secrets"], 0, REMOVE_ITEM));
 
-      const definition = batch.reduce(JSONReducer.bind({}), {});
+      const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});
 
       expect(definition).toEqual({});
     });
@@ -108,7 +111,7 @@ describe("Secrets", () => {
         new Transaction(["secrets", 0, "exposures"], 0, REMOVE_ITEM)
       );
 
-      const definition = batch.reduce(JSONReducer.bind({}), {});
+      const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});
 
       expect(definition).toEqual({
         ROOT_PASS: {
@@ -135,7 +138,7 @@ describe("Secrets", () => {
         new Transaction(["secrets", 0, "exposures", 0, "type"], "envVar", SET)
       ]);
 
-      const definition = batch.reduce(JSONReducer.bind({}), {});
+      const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});
 
       expect(definition).toEqual({});
     });

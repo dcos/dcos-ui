@@ -17,10 +17,7 @@ import { JobFormActionType } from "#PLUGINS/jobs/src/js/components/form/helpers/
 import { getSDK } from "./SDK";
 import { JSONSingleContainerReducer as containerJSONReducer } from "./reducers/Container";
 import { JSONReducer as containersJSONReducer } from "./reducers/Containers";
-import {
-  JSONReducer as envJSONReducer,
-  MultiContainerJSONReducer as envMultiContainerJSONReducer
-} from "./reducers/EnvironmentVariables";
+import envReducer from "./reducers/EnvironmentVariables";
 import {
   UnknownVolumesParser,
   JSONMultiContainerReducer as volumesJSONMultiContainerReducer
@@ -552,7 +549,7 @@ module.exports = {
         // that context has to be passed to the reducers we want to combine,
         // thus we're binding `this` here
         return {
-          ...envJSONReducer.call(this, ...args),
+          ...envReducer.JSONReducer.call(this, ...args),
           ...reducers.env.call(this, ...args)
         };
       },
@@ -605,7 +602,7 @@ module.exports = {
 
       environment(...args) {
         return {
-          ...envMultiContainerJSONReducer.call(this, ...args),
+          ...envReducer.MultiContainerJSONReducer.call(this, ...args),
           ...reducers.environment.call(this, ...args)
         };
       },

@@ -49,11 +49,7 @@ module.exports = {
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
-      "@styles": path.resolve(__dirname, "../src/styles"),
-      "#EXTERNAL_PLUGINS": path.resolve(
-        __dirname,
-        `../${process.env.npm_config_externalplugins || "../plugins"}`
-      )
+      "@styles": path.resolve(__dirname, "../src/styles")
     },
     modules: [
       // include packages

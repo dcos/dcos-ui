@@ -54,7 +54,6 @@ pipeline {
 
     stage("Install") {
       steps {
-        sh "npm config set externalplugins ./plugins-ee"
         sh "npm --unsafe-perm ci"
       }
     }

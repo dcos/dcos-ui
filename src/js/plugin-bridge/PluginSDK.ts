@@ -45,11 +45,11 @@ const Store = createStore(
  * @param {Object} pluginsConfig - Plugin configuration
  */
 const initialize = pluginsConfig => {
-  const { pluginsList, externalPluginsList } = Loader.getAvailablePlugins();
+  const { pluginsList } = Loader.getAvailablePlugins();
 
   Object.keys(pluginsConfig).forEach(pluginID => {
     // Make sure plugin is bundled
-    if (!(pluginID in pluginsList) && !(pluginID in externalPluginsList)) {
+    if (!(pluginID in pluginsList)) {
       if (Config.environment === "development") {
         console.warn(`Plugin ${pluginID} not available in bundle`);
       }
@@ -57,17 +57,9 @@ const initialize = pluginsConfig => {
       return;
     }
 
-    let path;
-    // Default to always selecting internal plugin if same pluginID
-    // exists in external plugins. This makes mocking easier.
-    if (pluginID in pluginsList) {
-      path = pluginsList[pluginID];
-    } else {
-      path = externalPluginsList[pluginID];
-    }
     // Bootstrap if plugin enabled
     if (pluginsConfig[pluginID] && pluginsConfig[pluginID].enabled) {
-      bootstrapPlugin(pluginID, path, pluginsConfig[pluginID]);
+      bootstrapPlugin(pluginID, pluginsList[pluginID], pluginsConfig[pluginID]);
     }
   });
 
