@@ -9,44 +9,24 @@ import {
 
 import AppDispatcher from "./AppDispatcher";
 
+const dispatch = action => AppDispatcher.dispatch({ action });
 export default {
   open() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_OPEN,
-      isVisible: true
-    });
+    dispatch({ type: REQUEST_SIDEBAR_OPEN, isVisible: true });
   },
-
   close() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_CLOSE,
-      isVisible: false
-    });
+    dispatch({ type: REQUEST_SIDEBAR_CLOSE, isVisible: false });
   },
-
   toggle() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_TOGGLE
-    });
+    dispatch({ type: REQUEST_SIDEBAR_TOGGLE });
   },
-
   openCliInstructions() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_CLI_INSTRUCTIONS,
-      data: false
-    });
+    dispatch({ type: REQUEST_CLI_INSTRUCTIONS, data: false });
   },
-
   openClusterLinkingModal() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_CLUSTER_LINKING,
-      data: false
-    });
+    dispatch({ type: REQUEST_CLUSTER_LINKING, data: false });
   },
-
   sidebarWidthChange() {
-    AppDispatcher.handleSidebarAction({
-      type: REQUEST_SIDEBAR_WIDTH_CHANGE
-    });
+    dispatch({ type: REQUEST_SIDEBAR_WIDTH_CHANGE });
   }
 };

@@ -85,9 +85,7 @@ const Page = createReactClass({
   },
 
   componentDidMount() {
-    this.setState({
-      rendered: true
-    });
+    this.setState({ rendered: true });
   },
 
   onSidebarStoreWidthChange() {
