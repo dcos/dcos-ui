@@ -1909,7 +1909,7 @@ plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Proper
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Property 'secrets' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
-plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: dir, form, select, slot, and 289 more.
+plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
@@ -1928,7 +1928,7 @@ plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SecretExposureTypeSelect.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/SecretInput.tsx: error TS2322: Type 'RefObject<HTMLInputElement>' is not assignable to type 'string'.
-plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: dir, form, select, slot, and 289 more.
+plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 289 more.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
@@ -5070,8 +5070,8 @@ src/js/components/ManualBreadcrumbs.tsx: error TS2556: Expected 1-2 arguments, b
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'collapsed' does not exist on type 'Readonly<{}>'.
 src/js/components/ManualBreadcrumbs.tsx: error TS2339: Property 'expandedWidth' does not exist on type 'Readonly<{}>'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
-src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
+src/js/components/Modals.tsx: error TS2345: Argument of type '\\"isVisible\\"' is not assignable to parameter of type 'never'.
 src/js/components/Modals.tsx: error TS2322: type * is not assignable to type *.
 src/js/components/Modals.tsx: error TS2339: Property 'modalErrorMsg' does not exist on type *.
 src/js/components/Modals.tsx: error TS2339: Property 'showErrorModal' does not exist on type *.
@@ -5541,8 +5541,6 @@ src/js/core/MesosStream.ts: error TS2339: Property 'toObject' does not exist on 
 src/js/core/MesosStream.ts: error TS2531: Object is possibly 'null'.
 src/js/core/MesosStream.ts: error TS2531: Object is possibly 'null'.
 src/js/core/MesosStream.ts: error TS2339: Property 'decode' does not exist on type 'ReflectionObject'.
-src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
-src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
 src/js/events/AppDispatcher.ts: error TS2339: Property 'dispatch' does not exist on type *.
 src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type *.
 src/js/events/ConfigActions.ts: error TS2339: Property 'APPLICATION_CONFIGURATION' does not exist on type *.
