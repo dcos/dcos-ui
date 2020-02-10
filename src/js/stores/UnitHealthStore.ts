@@ -1,7 +1,6 @@
 import PluginSDK from "PluginSDK";
 
 import {
-  SERVER_ACTION,
   REQUEST_HEALTH_UNITS_SUCCESS,
   REQUEST_HEALTH_UNITS_ERROR,
   REQUEST_HEALTH_UNIT_SUCCESS,
@@ -50,8 +49,8 @@ function stopPolling() {
 }
 
 class UnitHealthStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.getSet_data = {
       units: [],
@@ -77,10 +76,6 @@ class UnitHealthStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       const data = action.data;
 

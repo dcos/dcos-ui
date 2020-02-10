@@ -4,8 +4,7 @@ import {
   REQUEST_CLUSTER_CCID_ERROR,
   REQUEST_CLUSTER_CCID_SUCCESS,
   REQUEST_CONFIG_ERROR,
-  REQUEST_CONFIG_SUCCESS,
-  SERVER_ACTION
+  REQUEST_CONFIG_SUCCESS
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import ConfigActions from "../events/ConfigActions";
@@ -44,10 +43,6 @@ class ConfigStore extends GetSetBaseStore<{ ccid: unknown; config: unknown }> {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       switch (action.type) {
         case REQUEST_CONFIG_SUCCESS:

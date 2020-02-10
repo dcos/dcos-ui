@@ -4371,9 +4371,7 @@ plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' d
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS6133: 'slaveID' is declared but its value is never read.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
-plugins/services/src/js/stores/MesosLogStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/MesosLogStore.ts: error TS2339: Property 'logs' does not exist on type 'MesosLogStore'.
-plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2345: Argument of type '\\"services\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/SDKEndpointStore.ts: error TS2571: Object is of type 'unknown'.
@@ -4385,7 +4383,6 @@ plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of 
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2345: Argument of type '\\"innerPath\\"' is not assignable to parameter of type 'never'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/services/src/js/stores/TaskDirectoryStore.ts: error TS2322: Type 'void' is not assignable to type 'null'.
 plugins/services/src/js/stores/__mocks__/MarathonStore.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/stores/__tests__/MarathonStore-test.ts: error TS2769: No overload matches this call.
@@ -5867,7 +5864,6 @@ src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__addReducer' does no
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2740: Type '{}' is missing the following properties from type *: \\"auth-providers\\", \\"bootstrap-config\\", \\"cluster-linking\\", \\"external-links\\", and 16 more.
-src/js/plugin-bridge/PluginTestUtils.ts: error TS6133: 'pluginsList' is declared but its value is never read.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__getSDK' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__addReducer' does not exist on type *.
@@ -5885,7 +5881,6 @@ src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anothe
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin1' does not exist on type *.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin2' does not exist on type *.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
-src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/CosmosPackagesStore.ts: error TS6133: 'store' is declared but its value is never read.
@@ -5909,7 +5904,6 @@ src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"package
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"repositories\\"' is not assignable to parameter of type 'never'.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
 src/js/stores/CosmosPackagesStore.ts: error TS2345: Argument of type '\\"packagesVersions\\"' is not assignable to parameter of type 'never'.
-src/js/stores/CosmosPackagesStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
 src/js/stores/DCOSStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/DCOSStore.ts: error TS2339: Property 'data' does not exist on type 'DCOSStore'.
@@ -5953,7 +5947,6 @@ src/js/stores/DCOSStore.ts: error TS2322: Type 'MesosSummaryStore' is not assign
 src/js/stores/DCOSStore.ts: error TS2769: No overload matches this call.
 src/js/stores/GetSetBaseStore.ts: error TS2322: Type '{}' is not assignable to type 'T'.
 src/js/stores/GetSetBaseStore.ts: error TS2564: Property 'getSet_data' has no initializer and is not definitely assigned in the constructor.
-src/js/stores/LanguageModalStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"master\\"' is not assignable to parameter of type 'never'.
@@ -5974,7 +5967,6 @@ src/js/stores/MesosSummaryStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2339: Property 'silent' does not exist on type '{}'.
 src/js/stores/MesosSummaryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2769: No overload matches this call.
-src/js/stores/MesosSummaryStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2339: Property 'CLUSTER_ID' does not exist on type 'never'.
@@ -5982,7 +5974,6 @@ src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2339: Property 'version' does not exist on type 'never'.
-src/js/stores/MetadataStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosMetadata\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosBuildInfo\\"' is not assignable to parameter of type 'never'.
@@ -6017,7 +6008,6 @@ src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
-src/js/stores/SystemLogStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/SystemLogStore.ts: error TS2339: Property 'logs' does not exist on type 'SystemLogStore'.
 src/js/stores/TableColumnResizeStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"units\\"' is not assignable to parameter of type 'never'.
@@ -6036,10 +6026,7 @@ src/js/stores/UnitHealthStore.ts: error TS2345: Argument of type '\\"nodesByID\\
 src/js/stores/UnitHealthStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/UnitHealthStore.ts: error TS2769: No overload matches this call.
-src/js/stores/UnitHealthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UserLanguageStore.ts: error TS2571: Object is of type 'unknown'.
-src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-src/js/stores/UsersStore.ts: error TS7030: Not all code paths return a value.
 src/js/stores/UsersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 src/js/stores/UsersStore.ts: error TS2345: Argument of type '\\"users\\"' is not assignable to parameter of type 'never'.
 src/js/stores/__mocks__/MesosSummaryStore.ts: error TS2571: Object is of type 'unknown'.

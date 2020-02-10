@@ -580,7 +580,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/service-configuration/ServiceHealthChecksConfigSection.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/service-configuration/ServiceNetworkingConfigSection.tsx - Missing \\"key\\" prop for element.
-/plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 36 which is higher than the threshold of 20
+/plugins/services/src/js/stores/MarathonStore.ts - The function has a cyclomatic complexity of 35 which is higher than the threshold of 20
 /plugins/services/src/js/stores/MesosLogStore.ts - don't declare variable logBuffer to return it immediately
 /plugins/services/src/js/stores/__tests__/SDKEndpointStore-test.ts - Shadowed name: 'endpoints'
 /plugins/services/src/js/structs/Framework.ts - Shadowed name: 'memo'
@@ -646,7 +646,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
 /src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - require statement not part of an import statement
-/src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 24 which is higher than the threshold of 20
+/src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 23 which is higher than the threshold of 20
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
 /src/js/stores/MesosStateStore.ts - Shadowed name: 'MesosStreamType'

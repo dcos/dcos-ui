@@ -6,7 +6,6 @@ import {
   REQUEST_SIDEBAR_WIDTH_CHANGE,
   REQUEST_VERSIONS_ERROR,
   REQUEST_VERSIONS_SUCCESS,
-  SIDEBAR_ACTION,
   REQUEST_SIDEBAR_TOGGLE,
   REQUEST_SIDEBAR_CLOSE,
   REQUEST_SIDEBAR_OPEN
@@ -43,11 +42,6 @@ class SidebarStore extends GetSetBaseStore<{
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== SIDEBAR_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
 
       switch (action.type) {

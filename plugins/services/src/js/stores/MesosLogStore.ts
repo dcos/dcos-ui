@@ -1,6 +1,5 @@
 import PluginSDK from "PluginSDK";
 
-import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
 import BaseStore from "#SRC/js/stores/BaseStore";
@@ -27,8 +26,8 @@ import MesosLogActions from "../events/MesosLogActions";
 const MAX_FILE_SIZE = 50000;
 
 class MesosLogStore extends BaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.logs = {};
 
@@ -46,11 +45,6 @@ class MesosLogStore extends BaseStore {
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
 
       switch (action.type) {
