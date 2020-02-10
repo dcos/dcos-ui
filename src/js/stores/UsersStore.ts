@@ -2,8 +2,7 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_USERS_SUCCESS,
-  REQUEST_USERS_ERROR,
-  SERVER_ACTION
+  REQUEST_USERS_ERROR
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import { USERS_CHANGE, USERS_REQUEST_ERROR } from "../constants/EventTypes";
@@ -12,8 +11,8 @@ import UsersActions from "../events/UsersActions";
 import Item from "../structs/Item";
 
 class UsersStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.getSet_data = { users: [] };
 
@@ -28,10 +27,6 @@ class UsersStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       switch (action.type) {
         case REQUEST_USERS_SUCCESS:

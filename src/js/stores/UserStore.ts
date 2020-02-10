@@ -6,8 +6,7 @@ import {
   REQUEST_USER_CREATE_SUCCESS,
   REQUEST_USER_CREATE_ERROR,
   REQUEST_USER_DELETE_SUCCESS,
-  REQUEST_USER_DELETE_ERROR,
-  SERVER_ACTION
+  REQUEST_USER_DELETE_ERROR
 } from "../constants/ActionTypes";
 import {
   USER_CREATE_SUCCESS,
@@ -43,12 +42,7 @@ class UserStore extends EventEmitter {
       unmountWhen: () => false
     });
 
-    AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return;
-      }
-
-      const action = payload.action;
+    AppDispatcher.register(({ action }) => {
       switch (action.type) {
         // Create user
         case REQUEST_USER_CREATE_SUCCESS:

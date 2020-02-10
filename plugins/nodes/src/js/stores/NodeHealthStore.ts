@@ -1,7 +1,6 @@
 import PluginSDK from "PluginSDK";
 
 import {
-  SERVER_ACTION,
   REQUEST_HEALTH_NODE_ERROR,
   REQUEST_HEALTH_NODE_SUCCESS,
   REQUEST_HEALTH_NODE_UNITS_ERROR,
@@ -78,10 +77,6 @@ class NodeHealthStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       const data = action.data;
 

@@ -1,6 +1,5 @@
 import PluginSDK from "PluginSDK";
 
-import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
@@ -41,8 +40,8 @@ function startPolling(task, innerPath) {
 }
 
 class TaskDirectoryStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.getSet_data = {
       directory: null,
@@ -62,10 +61,6 @@ class TaskDirectoryStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const { data, innerPath, task, type } = payload.action;
       switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:

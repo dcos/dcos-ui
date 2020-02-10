@@ -3,8 +3,7 @@ import PluginSDK from "PluginSDK";
 import {
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING,
-  REQUEST_SUMMARY_SUCCESS,
-  SERVER_ACTION
+  REQUEST_SUMMARY_SUCCESS
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import CompositeState from "../structs/CompositeState";
@@ -43,8 +42,8 @@ function stopPolling() {
 }
 
 class MesosSummaryStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -57,10 +56,6 @@ class MesosSummaryStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       switch (action.type) {
         case REQUEST_SUMMARY_SUCCESS:

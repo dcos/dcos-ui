@@ -5,8 +5,7 @@ import {
   REQUEST_DCOS_METADATA,
   REQUEST_DCOS_BUILD_INFO_ERROR,
   REQUEST_DCOS_BUILD_INFO_SUCCESS,
-  REQUEST_METADATA,
-  SERVER_ACTION
+  REQUEST_METADATA
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import {
@@ -21,8 +20,8 @@ import MetadataActions from "../events/MetadataActions";
 class MetadataStore extends GetSetBaseStore {
   storeID = "metadata";
 
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -37,11 +36,6 @@ class MetadataStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
 
       switch (action.type) {

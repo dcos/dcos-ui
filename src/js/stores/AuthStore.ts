@@ -4,8 +4,7 @@ import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_ERROR,
   REQUEST_LOGOUT_SUCCESS,
-  REQUEST_LOGOUT_ERROR,
-  SERVER_ACTION
+  REQUEST_LOGOUT_ERROR
 } from "../constants/ActionTypes";
 import {
   AUTH_USER_LOGIN_CHANGED,
@@ -19,8 +18,8 @@ import CookieUtils from "../utils/CookieUtils";
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class AuthStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -35,10 +34,6 @@ class AuthStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       switch (action.type) {
         case REQUEST_LOGIN_SUCCESS:

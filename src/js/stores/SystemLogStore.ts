@@ -6,8 +6,7 @@ import {
   REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
   REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
-  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
-  SERVER_ACTION
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import {
@@ -27,8 +26,8 @@ const { msToLogTime } = DateUtil;
 const MESSAGE = "MESSAGE";
 
 class SystemLogStore extends BaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.logs = {};
 
@@ -46,11 +45,6 @@ class SystemLogStore extends BaseStore {
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== SERVER_ACTION) {
-        return false;
-      }
-
       const { data, firstEntry, subscriptionID, type } = payload.action;
 
       switch (type) {

@@ -7,8 +7,7 @@ import {
 } from "../constants/EventTypes";
 import {
   REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-  REQUEST_VIRTUAL_NETWORKS_ERROR,
-  SERVER_ACTION
+  REQUEST_VIRTUAL_NETWORKS_ERROR
 } from "../constants/ActionTypes";
 import BaseStore from "./BaseStore";
 import { Overlay } from "../structs/Overlay";
@@ -36,10 +35,7 @@ class VirtualNetworksStore extends BaseStore {
     });
 
     // Handle app actions
-    AppDispatcher.register(({ source, action }) => {
-      if (source !== SERVER_ACTION) {
-        return;
-      }
+    AppDispatcher.register(({ action }) => {
       switch (action.type) {
         case REQUEST_VIRTUAL_NETWORKS_SUCCESS:
           this.overlays = action.data.map(Overlay.from);

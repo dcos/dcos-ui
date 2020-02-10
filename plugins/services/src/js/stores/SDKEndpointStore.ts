@@ -1,6 +1,5 @@
 import PluginSDK from "PluginSDK";
 
-import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
 import Util from "#SRC/js/utils/Util";
@@ -16,8 +15,8 @@ import SDKEndpointActions from "../events/SDKEndpointActions";
 import ServiceEndpoint from "../structs/ServiceEndpoint";
 
 class SDKEndpointStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.getSet_data = {
       services: {}
@@ -30,10 +29,6 @@ class SDKEndpointStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const { type, data } = payload.action;
       switch (type) {
         case REQUEST_SDK_ENDPOINTS_SUCCESS:

@@ -49,8 +49,7 @@ import {
   REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
   REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
   REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
-  REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
-  SERVER_ACTION
+  REQUEST_COSMOS_SERVICE_UPDATE_ERROR
 } from "../constants/ActionTypes";
 import RepositoryList from "../structs/RepositoryList";
 import UniverseInstalledPackagesList from "../structs/UniverseInstalledPackagesList";
@@ -59,8 +58,8 @@ import UniversePackageVersions from "../structs/UniversePackageVersions";
 import UniversePackagesList from "../structs/UniversePackagesList";
 
 class CosmosPackagesStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     this.getSet_data = {
       availablePackages: [],
@@ -108,11 +107,6 @@ class CosmosPackagesStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
       const data = action.data;
 

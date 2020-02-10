@@ -1,7 +1,6 @@
 import PluginSDK from "PluginSDK";
 
 import {
-  LANGUAGE_MODAL_ACTION,
   REQUEST_LANGUAGE_MODAL_OPEN,
   REQUEST_LANGUAGE_MODAL_CLOSE
 } from "../constants/ActionTypes";
@@ -14,8 +13,8 @@ import AppDispatcher from "../events/AppDispatcher";
 import GetSetBaseStore from "./GetSetBaseStore";
 
 class LanguageModalStore extends GetSetBaseStore {
-  constructor(...args) {
-    super(...args);
+  constructor() {
+    super();
 
     PluginSDK.addStoreConfig({
       store: this,
@@ -24,11 +23,6 @@ class LanguageModalStore extends GetSetBaseStore {
     });
 
     AppDispatcher.register(payload => {
-      const source = payload.source;
-      if (source !== LANGUAGE_MODAL_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
 
       switch (action.type) {

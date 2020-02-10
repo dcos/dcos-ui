@@ -1,6 +1,5 @@
 import PluginSDK from "PluginSDK";
 
-import { SERVER_ACTION } from "#SRC/js/constants/ActionTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import Config from "#SRC/js/config/Config";
 import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
@@ -187,10 +186,6 @@ class MarathonStore extends GetSetBaseStore<{
     });
 
     AppDispatcher.register(payload => {
-      if (payload.source !== SERVER_ACTION) {
-        return false;
-      }
-
       const action = payload.action;
 
       switch (action.type) {
