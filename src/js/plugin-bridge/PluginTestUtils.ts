@@ -1,25 +1,16 @@
 import PluginSDK from "PluginSDK";
 import Loader from "./Loader";
-import pluginsList from "../../../plugins";
 
 let _plugins = {};
-
-function __getAvailablePlugins() {
-  return { pluginsList: _plugins };
-}
-
 // Add custom methods for testing
-Loader.__setMockPlugins = plugins => {
+const __setMockPlugins = plugins => {
   _plugins = {};
   Object.keys(plugins).forEach(pluginID => {
     _plugins[pluginID] = plugins[pluginID];
   });
 };
 
-// Rewire so PluginSDK loads the mocked version. But still provide access
-// to original method for PluginTestUtils to load actual plugins
-Loader.__getAvailablePlugins = () => ({ pluginsList });
-Loader.getAvailablePlugins = __getAvailablePlugins;
+Loader.getAvailablePlugins = () => ({ pluginsList: _plugins });
 
 /**
  * Loads whatever plugins are passed in. Could be Mocks
@@ -34,7 +25,7 @@ function loadPlugins(plugins) {
     pluginConfig[pluginID] = plugins[pluginID].config;
   });
 
-  Loader.__setMockPlugins(availablePlugins);
+  __setMockPlugins(availablePlugins);
   PluginSDK.initialize(pluginConfig);
 }
 
