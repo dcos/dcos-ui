@@ -54,16 +54,6 @@ export default class Modals extends React.Component {
       this.handleShowClusterLinking
     );
 
-    SidebarStore.addChangeListener(
-      EventTypes.SHOW_VERSIONS_SUCCESS,
-      this.handleShowVersionsSuccess
-    );
-
-    SidebarStore.addChangeListener(
-      EventTypes.SHOW_VERSIONS_ERROR,
-      this.handleShowVersionsError
-    );
-
     LanguageModalStore.addChangeListener(
       EventTypes.LANGUAGE_MODAL_CHANGE,
       this.handleLanguageModalToggle
@@ -79,16 +69,6 @@ export default class Modals extends React.Component {
     SidebarStore.removeChangeListener(
       EventTypes.SHOW_CLUSTER_LINKING,
       this.handleShowClusterLinking
-    );
-
-    SidebarStore.removeChangeListener(
-      EventTypes.SHOW_VERSIONS_SUCCESS,
-      this.handleShowVersionsSuccess
-    );
-
-    SidebarStore.removeChangeListener(
-      EventTypes.SHOW_VERSIONS_ERROR,
-      this.handleShowVersionsError
     );
 
     LanguageModalStore.removeChangeListener(

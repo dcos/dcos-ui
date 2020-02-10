@@ -4,8 +4,6 @@ import {
   REQUEST_CLI_INSTRUCTIONS,
   REQUEST_CLUSTER_LINKING,
   REQUEST_SIDEBAR_WIDTH_CHANGE,
-  REQUEST_VERSIONS_ERROR,
-  REQUEST_VERSIONS_SUCCESS,
   REQUEST_SIDEBAR_TOGGLE,
   REQUEST_SIDEBAR_CLOSE,
   REQUEST_SIDEBAR_OPEN
@@ -13,8 +11,6 @@ import {
 import {
   SHOW_CLI_INSTRUCTIONS,
   SHOW_CLUSTER_LINKING,
-  SHOW_VERSIONS_ERROR,
-  SHOW_VERSIONS_SUCCESS,
   SIDEBAR_CHANGE,
   SIDEBAR_WIDTH_CHANGE
 } from "../constants/EventTypes";
@@ -41,9 +37,7 @@ class SidebarStore extends GetSetBaseStore<{
       unmountWhen: () => false
     });
 
-    AppDispatcher.register(payload => {
-      const action = payload.action;
-
+    AppDispatcher.register(({ action }) => {
       switch (action.type) {
         case REQUEST_SIDEBAR_TOGGLE:
         case REQUEST_SIDEBAR_CLOSE:
@@ -67,13 +61,6 @@ class SidebarStore extends GetSetBaseStore<{
           break;
         case REQUEST_CLUSTER_LINKING:
           this.emitChange(SHOW_CLUSTER_LINKING);
-          break;
-        case REQUEST_VERSIONS_SUCCESS:
-          this.set({ versions: action.data });
-          this.emitChange(SHOW_VERSIONS_SUCCESS);
-          break;
-        case REQUEST_VERSIONS_ERROR:
-          this.emitChange(SHOW_VERSIONS_ERROR);
           break;
         case REQUEST_SIDEBAR_WIDTH_CHANGE:
           this.emitChange(SIDEBAR_WIDTH_CHANGE);
