@@ -5863,8 +5863,6 @@ src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'mock' does not exist on type 'Dispatch<any>'.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'mock' does not exist on type 'Dispatch<any>'.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'dispatch' does not exist on type '{}'.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.
 src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.

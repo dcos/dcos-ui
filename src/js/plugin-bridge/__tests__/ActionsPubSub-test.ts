@@ -1,6 +1,4 @@
-import { APPLICATION } from "#SRC/js/constants/PluginConstants";
-
-const PluginSDK = require("PluginSDK").default;
+import PluginSDK from "PluginSDK";
 
 let thisMockFn, thisMockFn1, thisUnsubscribe;
 
@@ -16,10 +14,7 @@ describe("#ActionsPubSub", () => {
     PluginSDK.dispatch({ type: "foo" });
     expect(thisMockFn.mock.calls.length).toEqual(1);
     expect(thisMockFn1.mock.calls.length).toEqual(1);
-    expect(thisMockFn.mock.calls[0][0]).toEqual({
-      type: "foo",
-      __origin: APPLICATION
-    });
+    expect(thisMockFn.mock.calls[0][0]).toEqual({ type: "foo" });
   });
 
   it("stops receiving actions after unsubscribing", () => {

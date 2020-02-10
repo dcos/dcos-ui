@@ -13,7 +13,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/mount/__tests__/Mount-test.tsx - Missing \\"key\\" prop for element.
 /packages/foundation-ui/src/routing/__tests__/RoutingService-test.ts - require statement not part of an import statement
-/plugins/auth-providers/Reducer.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/AuthProviderActions.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
 /plugins/auth-providers/actions/__tests__/AuthProviderActions-test.ts - require statement not part of an import statement
@@ -33,7 +32,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
 /plugins/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
 /plugins/auth-providers/structs/__tests__/AuthProvider-test.ts - require statement not part of an import statement
-/plugins/auth/Reducer.ts - require statement not part of an import statement
 /plugins/auth/__tests__/hooks-test.ts - require statement not part of an import statement
 /plugins/auth/__tests__/hooks-test.ts - require statement not part of an import statement
 /plugins/auth/__tests__/hooks-test.ts - require statement not part of an import statement
@@ -55,7 +53,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
-/plugins/bootstrap-config/Reducer.ts - require statement not part of an import statement
 /plugins/bootstrap-config/components/BootstrapConfigHashMap.tsx - require statement not part of an import statement
 /plugins/bootstrap-config/events/BootstrapConfigActions.ts - require statement not part of an import statement
 /plugins/bootstrap-config/events/__tests__/BootstrapConfigActions-test.ts - require statement not part of an import statement
@@ -143,7 +140,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
 /plugins/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
 /plugins/networking/hooks.ts - require statement not part of an import statement
-/plugins/networking/submodules/internal-load-balancing/Reducer.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/__tests__/utils-test.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/actions/NetworkingActions.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/actions/__tests__/NetworkingActions-test.ts - require statement not part of an import statement
@@ -217,7 +213,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
 /plugins/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
 /plugins/organization/hooks.ts - require statement not part of an import statement
-/plugins/organization/submodules/acl/Reducer.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/actions/ACLActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/actions/__tests__/ACLActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/stores/ACLStore.ts - require statement not part of an import statement
@@ -232,7 +227,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/structs/__tests__/ACLList-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/structs/__tests__/PermissionTree-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/directories/Reducer.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/actions/ACLDirectoriesActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/actions/__tests__/ACLDirectoriesActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/DirectoryFormModal.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
@@ -280,7 +274,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/groups/Reducer.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/actions/ACLGroupsActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
@@ -319,7 +312,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/structs/__tests__/GroupsList-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/service-accounts/Reducer.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/actions/ACLServiceAccountActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/actions/__tests__/ACLServiceAccountActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/hooks.ts - require statement not part of an import statement
@@ -332,7 +324,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/service-accounts/stores/__tests__/ACLServiceAccountsStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccount-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccountList-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/users/Reducer.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/actions/ACLUsersActions.ts - require statement not part of an import statement
@@ -369,7 +360,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/sdk-services/hooks.ts - require statement not part of an import statement
-/plugins/secrets/Reducer.ts - require statement not part of an import statement
 /plugins/secrets/actions/CertificateActions.ts - require statement not part of an import statement
 /plugins/secrets/actions/SecretActions.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/CertificateActions-test.ts - require statement not part of an import statement
@@ -643,7 +633,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/catalog/__tests__/PackagesTab-test.tsx - require statement not part of an import statement
 /src/js/pages/system/OverviewDetailTab.tsx - Use a conditional expression instead of assigning to 'ccid' in multiple places.
-/src/js/plugin-bridge/__tests__/ActionsPubSub-test.ts - require statement not part of an import statement
 /src/js/stores/CosmosPackagesStore.ts - The function has a cyclomatic complexity of 23 which is higher than the threshold of 20
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.
 /src/js/stores/DCOSStore.ts - Use a conditional expression instead of assigning to 'id' in multiple places.

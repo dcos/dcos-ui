@@ -61,10 +61,7 @@ describe("PluginSDK", () => {
           PluginTestUtils.loadPlugins({
             badFakePlugin: {
               module: mockPlugin,
-              config: {
-                enabled: true,
-                foo: "bar"
-              }
+              config: { enabled: true, foo: "bar" }
             }
           });
         }).toThrow(new Error("Reducer for badFakePlugin must be a function"));
@@ -79,10 +76,7 @@ describe("PluginSDK", () => {
       PluginTestUtils.loadPlugins({
         fakePlugin3: {
           module: thisMockPlugin,
-          config: {
-            enabled: true,
-            foo: "bar"
-          }
+          config: { enabled: true, foo: "bar" }
         }
       });
     });
@@ -105,30 +99,6 @@ describe("PluginSDK", () => {
       const store = thisMockPlugin.mock.calls[0][0].Store;
       expect(typeof store.subscribe).toEqual("function");
       expect(typeof store.getState).toEqual("function");
-    });
-
-    it("contains personal dispatch in PluginSDK", () => {
-      const SDK = thisMockPlugin.mock.calls[0][0];
-      const store = PluginSDK.Store;
-      const dispatch = SDK.dispatch;
-      const pluginID = SDK.pluginID;
-      const storeDispatch = store.dispatch;
-      store.dispatch = jest.fn();
-      dispatch({
-        type: "foo",
-        data: "bar"
-      });
-      const dispatchedObject = {
-        type: "foo",
-        data: "bar",
-        __origin: pluginID
-      };
-      expect(store.dispatch.mock.calls.length).toEqual(1);
-      expect(
-        isEqual(store.dispatch.mock.calls[0][0], dispatchedObject)
-      ).toEqual(true);
-      // Undo
-      store.dispatch = storeDispatch;
     });
 
     it("contains pluginID in PluginSDK", () => {
@@ -192,16 +162,14 @@ describe("PluginSDK", () => {
 
     it("calls reducer with correct state", () => {
       thisTestArgs.dispatch({ type: "foo" });
-      const prevState = thisMockReducer.mock.calls[3][0];
+      const prevState = thisMockReducer.mock.calls[2][0];
       expect(isEqual(prevState, { foo: 1 })).toEqual(true);
     });
 
     it("calls reducer with correct action", () => {
       thisTestArgs.dispatch({ type: "foo" });
       const action = thisMockReducer.mock.calls[3][1];
-      expect(
-        isEqual(action, { type: "foo", __origin: "anotherFakePlugin" })
-      ).toEqual(true);
+      expect(isEqual(action, { type: "foo" })).toEqual(true);
     });
 
     it("updates Store with new state #1", () => {

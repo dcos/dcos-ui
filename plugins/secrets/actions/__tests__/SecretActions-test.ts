@@ -49,7 +49,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStoreInitializationStatus();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
           data: { bar: "baz" }
         });
@@ -62,7 +61,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStoreInitializationStatus();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
           data: { bar: "baz" }
         });
@@ -85,7 +83,6 @@ describe("SecretActions", () => {
       SecretActions.initializeStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
           data: { bar: "baz" }
         });
@@ -98,7 +95,6 @@ describe("SecretActions", () => {
       SecretActions.initializeStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
           data: { bar: "baz" }
         });
@@ -126,7 +122,6 @@ describe("SecretActions", () => {
       SecretActions.fetchSealStatus();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_SUCCESS,
           data: { bar: "baz" }
         });
@@ -139,7 +134,6 @@ describe("SecretActions", () => {
       SecretActions.fetchSealStatus();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
           data: { bar: "baz" }
         });
@@ -162,7 +156,6 @@ describe("SecretActions", () => {
       SecretActions.unsealStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
           data: { bar: "baz" }
         });
@@ -175,7 +168,6 @@ describe("SecretActions", () => {
       SecretActions.unsealStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
           data: { bar: "baz" }
         });
@@ -209,7 +201,6 @@ describe("SecretActions", () => {
 
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           contentType: "application/json",
           type: ActionTypes.REQUEST_STORE_SECRET_SUCCESS,
           data: { bar: "baz" },
@@ -227,7 +218,6 @@ describe("SecretActions", () => {
 
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_SECRET_ERROR,
           data: "Error",
           storeName: "StoreName",
@@ -246,7 +236,6 @@ describe("SecretActions", () => {
       SecretActions.createSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_SUCCESS,
           data: { bar: "baz" }
         });
@@ -259,7 +248,6 @@ describe("SecretActions", () => {
       SecretActions.createSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_ERROR,
           data: { responseJSON: { description: { bar: "baz" } } }
         });
@@ -279,7 +267,6 @@ describe("SecretActions", () => {
       SecretActions.updateSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_SUCCESS,
           data: { bar: "baz" }
         });
@@ -291,7 +278,6 @@ describe("SecretActions", () => {
       SecretActions.updateSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_ERROR,
           data: { responseJSON: { description: { bar: "baz" } } }
         });
@@ -310,7 +296,6 @@ describe("SecretActions", () => {
       SecretActions.deleteSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_SUCCESS,
           data: { bar: "baz" }
         });
@@ -323,7 +308,6 @@ describe("SecretActions", () => {
       SecretActions.deleteSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_ERROR,
           data: { bar: "baz" }
         });
@@ -351,7 +335,6 @@ describe("SecretActions", () => {
       SecretActions.fetchSecrets();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
           data: { bar: "baz" }
         });
@@ -364,7 +347,6 @@ describe("SecretActions", () => {
       SecretActions.fetchSecrets();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_SECRETS_ERROR,
           data: { responseJSON: { description: { bar: "baz" } } }
         });
@@ -387,7 +369,6 @@ describe("SecretActions", () => {
       SecretActions.revokeSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_SUCCESS,
           data: { bar: "baz" }
         });
@@ -400,7 +381,6 @@ describe("SecretActions", () => {
       SecretActions.revokeSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_ERROR,
           data: { bar: "baz" }
         });
@@ -428,7 +408,6 @@ describe("SecretActions", () => {
       SecretActions.renewSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_SUCCESS,
           data: { bar: "baz" }
         });
@@ -441,7 +420,6 @@ describe("SecretActions", () => {
       SecretActions.renewSecret();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_ERROR,
           data: { bar: "baz" }
         });
@@ -469,7 +447,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStores();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
           data: { bar: "baz" }
         });
@@ -482,7 +459,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStores();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_ALL_STORES_ERROR,
           data: { bar: "baz" }
         });
@@ -505,7 +481,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_SUCCESS,
           data: { bar: "baz" }
         });
@@ -518,7 +493,6 @@ describe("SecretActions", () => {
       SecretActions.fetchStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_ERROR,
           data: { bar: "baz" }
         });
@@ -541,7 +515,6 @@ describe("SecretActions", () => {
       SecretActions.createStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_SUCCESS,
           data: { bar: "baz" }
         });
@@ -554,7 +527,6 @@ describe("SecretActions", () => {
       SecretActions.createStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_ERROR,
           data: { bar: "baz" }
         });
@@ -582,7 +554,6 @@ describe("SecretActions", () => {
       SecretActions.deleteStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_SUCCESS,
           data: { bar: "baz" }
         });
@@ -595,7 +566,6 @@ describe("SecretActions", () => {
       SecretActions.deleteStore();
       unsubscribe = SDK.onDispatch(action => {
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_ERROR,
           data: { bar: "baz" }
         });

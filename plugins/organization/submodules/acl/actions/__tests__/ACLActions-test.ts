@@ -35,7 +35,7 @@ describe("ACLActions", () => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
-          __origin: "organization",
+
           data: { bar: "baz" },
           resourceType: "foo"
         });
@@ -50,7 +50,7 @@ describe("ACLActions", () => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_ERROR,
-          __origin: "organization",
+
           data: "bar",
           resourceType: "bar"
         });
@@ -89,7 +89,7 @@ describe("ACLActions", () => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_SCHEMA_SUCCESS,
-          __origin: "organization",
+
           data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] }
         });
       });
@@ -108,7 +108,6 @@ describe("ACLActions", () => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_SCHEMA_ERROR,
-          __origin: "organization",
           data: "bar"
         });
       });
@@ -140,7 +139,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_CREATE_SUCCESS,
           resourceID: "some.resource"
         });
@@ -153,7 +151,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_CREATE_ERROR,
           resourceID: "some.resource",
           data: "bar"
@@ -198,7 +195,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
           triple: { userID: "foo", action: "full", resourceID: "bar" }
         });
@@ -211,7 +207,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { userID: "foo", action: "full", resourceID: "bar" },
@@ -248,7 +243,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
           triple: { userID: "foo", action: "full", resourceID: "bar" }
         });
@@ -261,7 +255,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
           data: "bar",
           triple: { userID: "foo", action: "full", resourceID: "bar" }
@@ -297,7 +290,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_SUCCESS,
           triple: { groupID: "foo", action: "full", resourceID: "bar" }
         });
@@ -310,7 +302,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { groupID: "foo", action: "full", resourceID: "bar" },
@@ -347,7 +338,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_SUCCESS,
           triple: { groupID: "foo", action: "full", resourceID: "bar" }
         });
@@ -360,7 +350,6 @@ describe("ACLActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_ERROR,
           data: "bar",
           triple: { groupID: "foo", resourceID: "bar", action: "full" }

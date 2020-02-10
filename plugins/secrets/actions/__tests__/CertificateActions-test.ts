@@ -38,7 +38,6 @@ describe("CertificateActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS,
           data: { bar: "baz" }
         });
@@ -52,7 +51,6 @@ describe("CertificateActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "secrets",
           type: ActionTypes.REQUEST_ALL_CERTIFICATES_ERROR,
           data: { bar: "baz" }
         });
