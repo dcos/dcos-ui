@@ -650,7 +650,6 @@ describe("ACLGroupsActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
           userID: "bar",
           groupID: "foo"
@@ -664,7 +663,6 @@ describe("ACLGroupsActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_ERROR,
           data: "bar",
           userID: "bar",
@@ -687,7 +685,6 @@ describe("ACLGroupsActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           userID: "bar",
           groupID: "foo"
@@ -701,7 +698,6 @@ describe("ACLGroupsActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: "bar",
           userID: "bar",

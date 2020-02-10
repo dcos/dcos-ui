@@ -84,22 +84,6 @@ const initialize = pluginsConfig => {
 };
 
 /**
- * Creates a personalized dispatch for each plugin
- * @param  {String} pluginID Plugin pluginID
- * @return {Function}    Dispatch method
- */
-const createDispatcher = pluginID => action => {
-  // Inject origin namespace if simple Object
-  if (action === Object(action)) {
-    action = {
-      ...action,
-      __origin: pluginID
-    };
-  }
-  Store.dispatch(action);
-};
-
-/**
  * Builds Actions API for registerActions and getActions.
  * Get Actions automatically instantiates actions module with
  * the requesting Plugin's SDK so dispatch is bound to the requesting Plugin.
@@ -209,7 +193,7 @@ const getSDK = (pluginID, config) => {
     onDispatch,
     pluginID,
     config: config || {},
-    dispatch: createDispatcher(pluginID),
+    dispatch: Store.dispatch,
     Hooks: hooks,
     Store: StoreAPI
   };

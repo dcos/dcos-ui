@@ -48,7 +48,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
           data: [{ foo: "bar" }]
         });
@@ -63,7 +62,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_ERROR,
           data: "No LDAP configuration stored yet."
         });
@@ -106,7 +104,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS
         });
       });
@@ -120,7 +117,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_ERROR,
           data: "Foo"
         });
@@ -163,7 +159,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
         });
       });
@@ -177,7 +172,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_ERROR,
           data: "Foo"
         });
@@ -232,7 +226,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_SUCCESS,
           data: { description: "foo" }
         });
@@ -247,7 +240,6 @@ describe("ACLDirectoriesActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "organization",
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ERROR,
           data: "Foo"
         });

@@ -5,23 +5,12 @@ import {
   PROVIDERS_CHANGE
 } from "./constants/EventTypes";
 
-const SDK = require("./SDK").getSDK();
-
 const initialState = {
-  providers: {
-    oidc: {},
-    saml: {}
-  },
-  providerDetail: {
-    oidc: {},
-    saml: {}
-  }
+  providers: { oidc: {}, saml: {} },
+  providerDetail: { oidc: {}, saml: {} }
 };
 
 module.exports = (state = initialState, action) => {
-  if (action.__origin !== SDK.pluginID) {
-    return state;
-  }
   let { callbackURL, provider, providerID, providerType } = action;
   let newProviderTypeDetail, newProviderDetail;
 
@@ -29,29 +18,18 @@ module.exports = (state = initialState, action) => {
     case PROVIDER_SUCCESS:
       const prevProvider = state.providerDetail[providerType][providerID] || {};
 
-      provider = {
-        ...prevProvider,
-        ...provider
-      };
+      provider = { ...prevProvider, ...provider };
 
       newProviderTypeDetail = {
         ...state.providerDetail[providerType],
-
-        [providerID]: {
-          providerID,
-          ...provider
-        }
+        [providerID]: { providerID, ...provider }
       };
-
       newProviderDetail = {
         ...state.providerDetail,
         [providerType]: newProviderTypeDetail
       };
 
-      return {
-        ...state,
-        providerDetail: newProviderDetail
-      };
+      return { ...state, providerDetail: newProviderDetail };
 
     case PROVIDER_CALLBACK_URL_SUCCESS:
       provider = state.providerDetail.saml[providerID] || {};
@@ -60,30 +38,18 @@ module.exports = (state = initialState, action) => {
         ...state.providerDetail,
         saml: { [providerID]: provider }
       };
-
-      return {
-        ...state,
-        providerDetail: newProviderDetail
-      };
+      return { ...state, providerDetail: newProviderDetail };
 
     case PROVIDER_DELETE_SUCCESS:
-      const providerDetail = {
-        ...state.providerDetail
-      };
+      const providerDetail = { ...state.providerDetail };
       if (providerID in providerDetail[providerType]) {
         delete providerDetail[providerType][providerID];
       }
 
-      return {
-        ...state,
-        providerDetail
-      };
+      return { ...state, providerDetail };
 
     case PROVIDERS_CHANGE:
-      return {
-        ...state,
-        providers: action.providers
-      };
+      return { ...state, providers: action.providers };
 
     default:
       return state;

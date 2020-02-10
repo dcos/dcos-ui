@@ -35,8 +35,7 @@ describe("BootstrapConfigActions", () => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
-          data: { foo: "bar" },
-          __origin: "bootstrapConfig"
+          data: { foo: "bar" }
         });
         done();
       });

@@ -15,10 +15,7 @@ const performComplexMath = (Store, prevState, action, factor) => {
   newState.countSoFar = prevState.countSoFar + action.payload * factor;
 
   // Don't mutate state - return new state
-  return {
-    ...prevState,
-    ...newState
-  };
+  return { ...prevState, ...newState };
 };
 
 export default PluginSDK => {
@@ -37,13 +34,6 @@ export default PluginSDK => {
   }
 
   function RootReducer(state = initialPluginState, action) {
-    // Prevent all other plugins from calling my actions and altering my state.
-    // Example for not doing this might be in an analytics plugin that want's to
-    // track the number of times an action occurs.
-    if (action.__origin !== name) {
-      return state;
-    }
-
     switch (action.type) {
       case EXAMPLE_PLUGIN_EVENT:
         return performComplexMath(Store, ...arguments, config.multiplier);

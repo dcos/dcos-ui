@@ -6,8 +6,6 @@ import {
   ACL_USER_DETAILS_FETCHED_ERROR
 } from "./constants/EventTypes";
 
-const SDK = require("../../SDK");
-
 const initialState = {
   users: [],
   userDetail: {},
@@ -15,30 +13,17 @@ const initialState = {
 };
 
 module.exports = (state = initialState, action) => {
-  if (action.__origin !== SDK.getSDK().pluginID) {
-    return state;
-  }
-
   switch (action.type) {
     case ACL_USERS_CHANGE:
-      return {
-        ...state,
-        users: action.users
-      };
+      return { ...state, users: action.users };
 
     case ACL_USER_SET_USER:
-      return {
-        ...state,
-        userDetail: action.users
-      };
+      return { ...state, userDetail: action.users };
 
     case ACL_USER_DETAILS_FETCH_START:
     case ACL_USER_DETAILS_FETCHED_SUCCESS:
     case ACL_USER_DETAILS_FETCHED_ERROR:
-      return {
-        ...state,
-        usersFetching: action.usersFetching
-      };
+      return { ...state, usersFetching: action.usersFetching };
 
     default:
       return state;

@@ -38,7 +38,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIPS_SUCCESS,
           data: { bar: "baz" }
         });
@@ -52,7 +51,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIPS_ERROR,
           data: { bar: "baz" }
         });
@@ -76,7 +74,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
           data: { bar: "baz" },
           vip: "foo:bar:baz"
@@ -91,7 +88,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_ERROR,
           data: { bar: "baz" },
           vip: "foo:bar:baz"
@@ -123,7 +119,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
           data: { bar: "baz" },
           vip: "foo:bar:baz"
@@ -138,7 +133,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_ERROR,
           data: { bar: "baz" },
           vip: "foo:bar:baz"
@@ -170,7 +164,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS,
           data: { bar: "baz" }
         });
@@ -184,7 +177,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_ERROR,
           data: { bar: "baz" }
         });
@@ -208,7 +200,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS,
           data: { bar: "baz" }
         });
@@ -222,7 +213,6 @@ describe("NetworkingActions", () => {
       const unsubscribe = SDK.onDispatch(action => {
         unsubscribe();
         expect(action).toEqual({
-          __origin: "networking",
           type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_ERROR,
           data: { bar: "baz" }
         });

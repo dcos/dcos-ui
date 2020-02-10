@@ -84,31 +84,4 @@ describe("AppReducer", () => {
     delete state.config;
     expect(isEqual(state, expectedState)).toEqual(true);
   });
-
-  it("does not alter state if action dispatched from plugin", () => {
-    let pluginDispatch;
-    // Mock a fake plugin
-    const mockPlugin = jest.fn(SDK => {
-      pluginDispatch = SDK.dispatch;
-    });
-
-    PluginTestUtils.loadPlugins({
-      fakePluginAgain: {
-        module: mockPlugin,
-        config: {
-          enabled: true
-        }
-      }
-    });
-
-    pluginDispatch({
-      type: EventTypes.APP_STORE_CHANGE,
-      storeID: "foo",
-      data: "boom"
-    });
-    const state = getApplicationState();
-    // lets remove the config stuff just for ease
-    delete state.config;
-    expect(isEqual(state, expectedState)).toEqual(true);
-  });
 });
