@@ -1,6 +1,5 @@
 import { Trans, DateFormat } from "@lingui/react";
 
-require("babel-polyfill");
 require("reflect-metadata");
 const EventEmitter = require("events").EventEmitter;
 
