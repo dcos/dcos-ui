@@ -1,9 +1,9 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import { licensingAPIPrefix } from "../../config/LicensingConfig";
 import LicensingActions from "../LicensingActions";
 
-const SDK = PluginTestUtils.getSDK("licensing", { enabled: true });
+const SDK = PluginSDK.__getSDK("licensing", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 import * as ActionTypes from "../../constants/ActionTypes";

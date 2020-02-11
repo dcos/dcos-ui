@@ -1,8 +1,8 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import ClusterLinkingActions from "../ClusterLinkingActions";
 
-const SDK = PluginTestUtils.getSDK("cluster-linking", { enabled: true });
+const SDK = PluginSDK.__getSDK("cluster-linking", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 import * as ActionTypes from "../../constants/ActionTypes";

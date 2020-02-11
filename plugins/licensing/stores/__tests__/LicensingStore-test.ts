@@ -1,7 +1,7 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("licensing", { enabled: true });
+const SDK = PluginSDK.__getSDK("licensing", { enabled: true });
 require("../../SDK").setSDK(SDK);
 const LicensingStore = require("../LicensingStore").default;
 const LicensingSummary = require("../../structs/LicensingSummary").default;

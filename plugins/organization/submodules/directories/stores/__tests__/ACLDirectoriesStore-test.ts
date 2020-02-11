@@ -1,15 +1,15 @@
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLDirectoriesStore = require("../ACLDirectoriesStore").default;
 const OrganizationReducer = require("../../../../Reducer");
 import * as ActionTypes from "../../constants/ActionTypes";
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 describe("ACLDirectoriesStore dispatcher", () => {
   describe("fetch", () => {

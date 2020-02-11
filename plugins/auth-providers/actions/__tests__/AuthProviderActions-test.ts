@@ -1,8 +1,8 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("auth-providers", { enabled: true });
+const SDK = PluginSDK.__getSDK("auth-providers", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 const AuthProviderActions = require("../AuthProviderActions").default;

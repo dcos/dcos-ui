@@ -1,8 +1,8 @@
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLUsersActions = require("../../actions/ACLUsersActions").default;
@@ -11,7 +11,7 @@ const User = require("../../structs/User").default;
 import * as ActionTypes from "../../constants/ActionTypes";
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 describe("ACLUserStore", () => {
   beforeEach(() => {

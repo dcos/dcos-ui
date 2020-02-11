@@ -1,8 +1,8 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.mock("react-router");
 
-const SDK = PluginTestUtils.getSDK("networking", { enabled: true });
+const SDK = PluginSDK.__getSDK("networking", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const LoadBalancingTabContent = require("../LoadBalancingTabContent").default;

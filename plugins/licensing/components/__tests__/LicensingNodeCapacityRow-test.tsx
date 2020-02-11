@@ -1,11 +1,11 @@
 import * as React from "react";
 import { shallow, mount } from "enzyme";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 const renderer = require("react-test-renderer");
 
-const SDK = PluginTestUtils.getSDK("licensing", { enabled: true });
+const SDK = PluginSDK.__getSDK("licensing", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 

@@ -1,6 +1,6 @@
 import DOMUtils from "#SRC/js/utils/DOMUtils";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.setMock("react-router", {
   hashHistory: {
@@ -16,7 +16,7 @@ const mockAuthStore = {
 
 jest.mock("#SRC/js/stores/AuthStore", () => mockAuthStore);
 
-const SDK = PluginTestUtils.getSDK("intercom", { enabled: true });
+const SDK = PluginSDK.__getSDK("intercom", { enabled: true });
 require("../SDK").default.setSDK(SDK);
 
 const IntercomHooks = require("../hooks").default;

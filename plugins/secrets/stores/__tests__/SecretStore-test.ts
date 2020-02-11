@@ -1,5 +1,5 @@
 import NotificationStore from "#SRC/js/stores/NotificationStore";
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
@@ -11,14 +11,14 @@ const secretsFixture = require("../../../../tests/_fixtures/secrets/secrets.json
 const storesFixture = require("../../../../tests/_fixtures/secrets/stores.json");
 const secretFixture = require("../../../../tests/_fixtures/secrets/secret.json");
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 const SecretsReducer = require("../../Reducer");
 const getSecretStore = require("../SecretStore").default;
 
 const SecretStore = getSecretStore();
-PluginTestUtils.addReducer("secrets", SecretsReducer);
+PluginSDK.__addReducer("secrets", SecretsReducer);
 
 let thisRequestFn,
   thisSecretsFixture,

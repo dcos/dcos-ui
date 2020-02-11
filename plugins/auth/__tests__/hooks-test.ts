@@ -1,10 +1,10 @@
 import { MountService as MService } from "foundation-ui";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.mock("react-router");
 
-const SDK = PluginTestUtils.getSDK("authentication", { enabled: true });
+const SDK = PluginSDK.__getSDK("authentication", { enabled: true });
 
 require("../SDK").setSDK(SDK);
 require("react");
@@ -20,7 +20,7 @@ const AuthenticatedUserAccountDropdown = require("../components/AuthenticatedUse
 const AuthenticatedClusterDropdown = require("../components/AuthenticatedClusterDropdown")
   .default;
 
-PluginTestUtils.addReducer("authentication", AuthenticationReducer);
+PluginSDK.__addReducer("authentication", AuthenticationReducer);
 
 AuthHooks.initialize();
 

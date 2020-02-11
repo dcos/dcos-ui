@@ -1,15 +1,15 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 const cookie = require("cookie");
 
-const SDK = PluginTestUtils.getSDK("authentication", { enabled: true });
+const SDK = PluginSDK.__getSDK("authentication", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 const ACLAuthenticatedUserStore = require("../ACLAuthenticatedUserStore")
   .default;
 const AuthenticationReducer = require("../../Reducer");
 
-PluginTestUtils.addReducer("authentication", AuthenticationReducer);
+PluginSDK.__addReducer("authentication", AuthenticationReducer);
 
 let thisCookieParse;
 

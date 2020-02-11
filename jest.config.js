@@ -19,7 +19,6 @@ module.exports = {
   verbose: true,
   testURL: "http://localhost/",
   globals: {
-    __DEV__: true,
     "ts-jest": {
       useBabelrc: true
     }

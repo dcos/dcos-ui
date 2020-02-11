@@ -1,10 +1,10 @@
 import BootstrapConfigActions from "../BootstrapConfigActions";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("bootstrapConfig", { enabled: true });
+const SDK = PluginSDK.__getSDK("bootstrapConfig", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 import * as ActionTypes from "../../constants/ActionTypes";

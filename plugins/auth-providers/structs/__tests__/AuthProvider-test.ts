@@ -1,8 +1,8 @@
 import AuthProvider from "../AuthProvider";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("auth-providers", { enabled: true });
+const SDK = PluginSDK.__getSDK("auth-providers", { enabled: true });
 require("../../SDK").setSDK(SDK);
 const oidcProviderFixture = require("../../../../tests/_fixtures/OpenIDAuthProviders/provider.json");
 const samlProviderFixture = require("../../../../tests/_fixtures/SAMLAuthProviders/provider.json");

@@ -1,4 +1,4 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import * as React from "react";
 
@@ -6,7 +6,7 @@ import { mount } from "enzyme";
 
 import JestUtil from "#SRC/js/utils/JestUtil";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const List = require("#SRC/js/structs/List").default;

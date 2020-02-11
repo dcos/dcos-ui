@@ -1,8 +1,8 @@
 import User from "../User";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 const userFixture = require("../../../../../../tests/_fixtures/acl/user-with-details.json");
 

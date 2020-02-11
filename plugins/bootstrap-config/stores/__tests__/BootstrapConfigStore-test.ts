@@ -1,6 +1,6 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("bootstrapConfig", { enabled: true });
+const SDK = PluginSDK.__getSDK("bootstrapConfig", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 
@@ -11,7 +11,7 @@ const BootstrapConfigStore = require("../BootstrapConfigStore").default;
 const EventTypes = require("../../constants/EventTypes");
 const BootstrapConfigReducer = require("../../Reducer");
 
-PluginTestUtils.addReducer("bootstrapConfig", BootstrapConfigReducer);
+PluginSDK.__addReducer("bootstrapConfig", BootstrapConfigReducer);
 
 let thisHandler;
 

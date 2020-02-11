@@ -2,9 +2,9 @@ import * as React from "react";
 import { shallow, mount } from "enzyme";
 import JestUtil from "#SRC/js/utils/JestUtil";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const GroupMemberTable = require("../GroupMemberTable").default;
@@ -12,7 +12,7 @@ const ACLGroupStore = require("../../stores/ACLGroupStore").default;
 const ActionTypes = require("../../constants/ActionTypes");
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 const groupDetailsFixture = require("../../../../../../tests/_fixtures/acl/group-with-details.json");
 

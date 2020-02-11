@@ -1,11 +1,11 @@
 import GroupsList from "../../structs/GroupsList";
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLGroupsStore = require("../ACLGroupsStore").default;
@@ -13,7 +13,7 @@ import Config from "#SRC/js/config/Config";
 import * as ActionTypes from "../../constants/ActionTypes";
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 const groupsFixture = require("../../../../../../tests/_fixtures/acl/groups-unicode.json");
 

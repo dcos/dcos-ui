@@ -3,9 +3,9 @@ import ServiceAccount from "../../../service-accounts/structs/ServiceAccount";
 import User from "../../../users/structs/User";
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLGroupsActions = require("../../actions/ACLGroupsActions").default;
@@ -13,7 +13,7 @@ const ACLGroupStore = require("../ACLGroupStore").default;
 import * as ActionTypes from "../../constants/ActionTypes";
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 describe("ACLGroupStore", () => {
   beforeEach(() => {

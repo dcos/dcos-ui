@@ -1,9 +1,9 @@
 import * as React from "react";
 import { shallow } from "enzyme";
 import TestRenderer from "react-test-renderer";
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const List = require("#SRC/js/structs/List").default;

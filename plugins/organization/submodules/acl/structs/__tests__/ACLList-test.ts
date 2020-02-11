@@ -1,9 +1,9 @@
 import Item from "#SRC/js/structs/Item";
 import ACLList from "../ACLList";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 describe("ACLList", () => {
