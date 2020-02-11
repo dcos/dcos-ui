@@ -1,9 +1,9 @@
 import Backend from "../Backend";
 import BackendList from "../BackendList";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("networking", { enabled: true });
+const SDK = PluginSDK.__getSDK("networking", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 describe("BackendList", () => {

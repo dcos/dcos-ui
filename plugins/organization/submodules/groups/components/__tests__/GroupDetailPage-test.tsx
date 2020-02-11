@@ -4,9 +4,9 @@ import JestUtil from "#SRC/js/utils/JestUtil";
 
 import Group from "../../structs/Group";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLGroupStore = require("../../stores/ACLGroupStore").default;
@@ -14,7 +14,7 @@ const GroupDetailPage = require("../GroupDetailPage").default;
 const GroupAdvancedACLsTab = require("../GroupAdvancedACLsTab").default;
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 const groupDetailsFixture = require("../../../../../../tests/_fixtures/acl/group-with-details.json");
 
@@ -32,7 +32,7 @@ describe("GroupDetailPage", () => {
   beforeEach(() => {
     thisGroupStoreGetGroup = ACLGroupStore.getGroup;
 
-    PluginTestUtils.addReducer(APPLICATION, () => ({
+    PluginSDK.__addReducer(APPLICATION, () => ({
       summary: {
         statesProcessed: true
       }
@@ -68,7 +68,7 @@ describe("GroupDetailPage", () => {
     });
 
     it("shows loading screen if still waiting on Store", () => {
-      PluginTestUtils.addReducer(APPLICATION, () => ({
+      PluginSDK.__addReducer(APPLICATION, () => ({
         summary: {
           statesProcessed: false
         }

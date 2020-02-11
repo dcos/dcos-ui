@@ -33,6 +33,17 @@ const reducers = {
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
+/**
+ * Add reducer to Store (only available in test mode so we can test plugins
+ * that rely on State)
+ * @param {String} pluginID - Plugin ID
+ * @param  {Function} reducer - A reducer
+ */
+const __addReducer = (pluginID, reducer) => {
+  addPluginReducer(reducer, pluginID);
+  replaceStoreReducers();
+};
+
 // Create Redux Store
 const Store = createStore(
   combineReducers(reducers),
@@ -194,7 +205,12 @@ const getSDK = (pluginID, config) => {
     config: config || {},
     dispatch: Store.dispatch,
     Hooks: hooks,
-    Store: StoreAPI
+    Store: StoreAPI,
+    initialize,
+
+    // helpers for testing
+    __getSDK: getSDK,
+    __addReducer
   };
 
   extendSDK(SDK, getActionsAPI(SDK));
@@ -245,17 +261,6 @@ const replaceStoreReducers = () => {
 };
 
 /**
- * Add reducer to Store (only available in test mode so we can test plugins
- * that rely on State)
- * @param {String} pluginID - Plugin ID
- * @param  {Function} reducer - A reducer
- */
-const __addReducer = (pluginID, reducer) => {
-  addPluginReducer(reducer, pluginID);
-  replaceStoreReducers();
-};
-
-/**
  * Register a callback to be invoked for every dispatched action
  * @param  {Function} callback - Function invoked with action as argument for all dispatched Actions.
  * @returns {Function} - unsubscribe
@@ -282,15 +287,6 @@ const unSubscribe = Store.subscribe(() => {
 const ApplicationSDK = getSDK(APPLICATION, Config);
 // Register our Actions
 AppHooks.initialize(ApplicationSDK);
-
-// Add helper for PluginTestUtils. This allows us to get SDKS for other plugins
-if (window.__DEV__) {
-  ApplicationSDK.__getSDK = getSDK;
-  ApplicationSDK.__addReducer = __addReducer;
-}
-
-// Add manual load method
-ApplicationSDK.initialize = initialize;
 
 export default ApplicationSDK;
 export const Hooks = ApplicationSDK.Hooks;

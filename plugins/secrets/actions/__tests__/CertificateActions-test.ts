@@ -1,10 +1,10 @@
 import CertificateActions from "../CertificateActions";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 

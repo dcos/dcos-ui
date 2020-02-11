@@ -1,6 +1,6 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("auth-providers", { enabled: true });
+const SDK = PluginSDK.__getSDK("auth-providers", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 const List = require("#SRC/js/structs/List").default;
@@ -10,7 +10,7 @@ import * as ActionTypes from "../../constants/ActionTypes";
 import * as EventTypes from "../../constants/EventTypes";
 const AuthProviderReducer = require("../../Reducer");
 
-PluginTestUtils.addReducer("auth-providers", AuthProviderReducer);
+PluginSDK.__addReducer("auth-providers", AuthProviderReducer);
 
 describe("AuthProvidersStore", () => {
   describe("#getProvider", () => {

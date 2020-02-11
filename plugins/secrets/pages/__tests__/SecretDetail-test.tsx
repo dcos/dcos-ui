@@ -1,4 +1,4 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.mock("#SRC/js/components/Page", () => {
   const Page = ({ children }) => <div>{children}</div>;
@@ -7,7 +7,7 @@ jest.mock("#SRC/js/components/Page", () => {
   return Page;
 });
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 const React = require("react");

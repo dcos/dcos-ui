@@ -5851,15 +5851,7 @@ src/js/plugin-bridge/PluginSDK.ts: error TS2307: Cannot find module './Loader'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__DEV__' does not exist on type *.
-src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not exist on type *.
-src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__addReducer' does not exist on type *.
-src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.
-src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__getSDK' does not exist on type *.
-src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__addReducer' does not exist on type *.
-src/js/plugin-bridge/__tests__/AppReducer-test.ts: error TS6133: 'PluginTestUtils' is declared but its value is never read.
-src/js/plugin-bridge/__tests__/AppReducer-test.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.

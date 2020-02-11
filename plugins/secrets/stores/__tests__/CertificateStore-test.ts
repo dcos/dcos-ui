@@ -1,11 +1,11 @@
 import * as ActionTypes from "../../constants/ActionTypes";
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 
@@ -16,7 +16,7 @@ const certificatesFixture = require("../../../../tests/_fixtures/secrets/certifi
   .result;
 const SecretsReducer = require("../../Reducer");
 
-PluginTestUtils.addReducer("secrets", SecretsReducer);
+PluginSDK.__addReducer("secrets", SecretsReducer);
 
 let thisRequestFn, thisCertificatesFixture, thisUseFixtures;
 

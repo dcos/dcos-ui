@@ -1,8 +1,8 @@
 import Certificate from "../Certificate";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 require("../../SDK").setSDK(SDK);
 const certificateFixture = require("../../../../tests/_fixtures/secrets/certificate.json");
 

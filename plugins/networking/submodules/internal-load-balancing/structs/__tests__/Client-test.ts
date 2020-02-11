@@ -1,8 +1,8 @@
 import Client from "../Client";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("networking", { enabled: true });
+const SDK = PluginSDK.__getSDK("networking", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 let thisClientFixture, thisClient;

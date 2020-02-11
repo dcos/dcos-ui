@@ -2,9 +2,9 @@ import * as React from "react";
 import { mount } from "enzyme";
 import JestUtil from "#SRC/js/utils/JestUtil";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("licensing", { enabled: true });
+const SDK = PluginSDK.__getSDK("licensing", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 const LicensingStore = require("../../stores/LicensingStore").default;

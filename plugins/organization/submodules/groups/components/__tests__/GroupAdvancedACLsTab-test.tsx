@@ -1,10 +1,10 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 const React = require("react");
 
 const ReactDOM = require("react-dom");
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLGroupStore = require("../../stores/ACLGroupStore").default;

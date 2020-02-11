@@ -1,6 +1,6 @@
 import DOMUtils from "#SRC/js/utils/DOMUtils";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.setMock("react-router", {
   hashHistory: {
@@ -9,7 +9,7 @@ jest.setMock("react-router", {
   }
 });
 
-const SDK = PluginTestUtils.getSDK("tracking", { enabled: true });
+const SDK = PluginSDK.__getSDK("tracking", { enabled: true });
 require("../SDK").default.setSDK(SDK);
 
 const TrackingHooks = require("../hooks").default;

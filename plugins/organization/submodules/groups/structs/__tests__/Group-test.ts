@@ -1,9 +1,9 @@
 import Group from "../Group";
 import ServiceAccountList from "../../../service-accounts/structs/ServiceAccountList";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 const groupFixture = require("../../../../../../tests/_fixtures/acl/group-with-details.json");
 

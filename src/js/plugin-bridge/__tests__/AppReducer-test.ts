@@ -1,11 +1,7 @@
-import PluginTestUtils from "PluginTestUtils";
-
-import { APPLICATION } from "#SRC/js/constants/PluginConstants";
-
-import * as EventTypes from "../../constants/EventTypes";
-
-import isEqual from "deep-equal";
 import PluginSDK from "PluginSDK";
+import { APPLICATION } from "#SRC/js/constants/PluginConstants";
+import * as EventTypes from "../../constants/EventTypes";
+import isEqual from "deep-equal";
 
 // Get State specific to Application
 function getApplicationState() {

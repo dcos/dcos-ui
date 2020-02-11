@@ -4,9 +4,9 @@ import Transaction from "#SRC/js/structs/Transaction";
 import { JSONSingleContainerReducer } from "../Container";
 import { emptySingleContainerSecret } from "../Secrets";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 

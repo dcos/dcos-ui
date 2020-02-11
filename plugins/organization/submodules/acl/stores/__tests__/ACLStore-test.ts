@@ -1,10 +1,10 @@
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 
 const ACLActions = require("../../actions/ACLActions").default;
@@ -14,7 +14,7 @@ const PermissionTree = require("../../structs/PermissionTree").default;
 import * as ActionTypes from "../../constants/ActionTypes";
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 const aclsFixture = require("../../../../../../tests/_fixtures/acl/acls-unicode.json");
 const aclSchema = require("../../../../../../tests/_fixtures/acl/acl-schema.json");

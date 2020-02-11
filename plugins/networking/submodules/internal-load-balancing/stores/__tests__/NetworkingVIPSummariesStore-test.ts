@@ -1,10 +1,10 @@
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 import { RequestUtil } from "mesosphere-shared-reactjs";
 
-const SDK = PluginTestUtils.getSDK("networking", { enabled: true });
+const SDK = PluginSDK.__getSDK("networking", { enabled: true });
 
 require("../../../../SDK").setSDK(SDK);
 
@@ -15,7 +15,7 @@ import * as ActionTypes from "../../constants/ActionTypes";
 const NetworkingReducer = require("../../../../Reducer");
 import vipSummariesFixture from "../../../../../../tests/_fixtures/networking/networking-vip-summaries.json";
 
-PluginTestUtils.addReducer("networking", NetworkingReducer);
+PluginSDK.__addReducer("networking", NetworkingReducer);
 
 let thisRequestFn, thisVipSummaries, thisUseFixtures;
 

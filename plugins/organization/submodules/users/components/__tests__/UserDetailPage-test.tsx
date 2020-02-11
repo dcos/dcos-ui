@@ -4,9 +4,9 @@ import { shallow, mount } from "enzyme";
 import JestUtil from "#SRC/js/utils/JestUtil";
 import User from "../../structs/User";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 const UserDetailPage = require("../UserDetailPage").default;
 const AccountAdvancedACLsTab = require("../../../../components/AccountAdvancedACLsTab")
@@ -14,7 +14,7 @@ const AccountAdvancedACLsTab = require("../../../../components/AccountAdvancedAC
 const ACLUserStore = require("../../stores/ACLUserStore").default;
 const OrganizationReducer = require("../../../../Reducer");
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 const userDetailsFixture = require("../../../../../../tests/_fixtures/acl/user-with-details.json");
 
@@ -30,7 +30,7 @@ describe("UserDetailPage", () => {
   beforeEach(() => {
     thisUserStoreGetUser = ACLUserStore.getUser;
 
-    PluginTestUtils.addReducer(APPLICATION, () => ({
+    PluginSDK.__addReducer(APPLICATION, () => ({
       summary: {
         statesProcessed: true
       }
@@ -82,7 +82,7 @@ describe("UserDetailPage", () => {
     });
 
     it("shows loading screen if still waiting on Store", () => {
-      PluginTestUtils.addReducer(APPLICATION, () => ({
+      PluginSDK.__addReducer(APPLICATION, () => ({
         summary: {
           statesProcessed: false
         }

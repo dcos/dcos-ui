@@ -1,5 +1,5 @@
 import SecretActions from "../SecretActions";
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 jest.mock("@dcos/http-service");
 
@@ -7,7 +7,7 @@ const { of, throwError } = require("rxjs");
 import { RequestUtil } from "mesosphere-shared-reactjs";
 const httpService = require("@dcos/http-service");
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 
 require("../../SDK").setSDK(SDK);
 

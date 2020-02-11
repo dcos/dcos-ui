@@ -3,9 +3,9 @@ import ServiceAccount from "../../structs/ServiceAccount";
 import ServiceAccountList from "../../structs/ServiceAccountList";
 import * as EventTypes from "../../constants/EventTypes";
 
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
-const SDK = PluginTestUtils.getSDK("organization", { enabled: true });
+const SDK = PluginSDK.__getSDK("organization", { enabled: true });
 require("../../../../SDK").setSDK(SDK);
 const getACLServiceAccountsStore = require("../ACLServiceAccountsStore")
   .default;
@@ -14,7 +14,7 @@ const OrganizationReducer = require("../../../../Reducer");
 
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
 
-PluginTestUtils.addReducer("organization", OrganizationReducer);
+PluginSDK.__addReducer("organization", OrganizationReducer);
 
 let thisFetchAll;
 

@@ -1,8 +1,8 @@
-import PluginTestUtils from "PluginTestUtils";
+import PluginSDK from "PluginSDK";
 
 const Secret = require("../../structs/Secret").default;
 
-const SDK = PluginTestUtils.getSDK("secrets", { enabled: true });
+const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
 require("../../SDK").setSDK(SDK);
 
 describe("Secret", () => {
