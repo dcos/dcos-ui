@@ -1,6 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
+import pluginsList from "#PLUGINS";
 
 import {
   APPLICATION,
@@ -45,8 +46,6 @@ const Store = createStore(
  * @param {Object} pluginsConfig - Plugin configuration
  */
 const initialize = pluginsConfig => {
-  const { pluginsList } = Loader.getAvailablePlugins();
-
   Object.keys(pluginsConfig).forEach(pluginID => {
     // Make sure plugin is bundled
     if (!(pluginID in pluginsList)) {

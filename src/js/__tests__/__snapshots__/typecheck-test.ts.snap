@@ -5846,6 +5846,8 @@ src/js/pages/system/UsersPage.tsx: error TS2339: Property 'usersStoreSuccess' do
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
+src/js/plugin-bridge/PluginSDK.ts: error TS6133: 'Loader' is declared but its value is never read.
+src/js/plugin-bridge/PluginSDK.ts: error TS2307: Cannot find module './Loader'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
@@ -5854,21 +5856,14 @@ src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__getSDK' does not ex
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__addReducer' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.
-src/js/plugin-bridge/PluginTestUtils.ts: error TS2740: Type '{}' is missing the following properties from type *: \\"auth-providers\\", \\"bootstrap-config\\", \\"cluster-linking\\", \\"external-links\\", and 16 more.
-src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__getSDK' does not exist on type *.
 src/js/plugin-bridge/PluginTestUtils.ts: error TS2339: Property '__addReducer' does not exist on type *.
+src/js/plugin-bridge/__tests__/AppReducer-test.ts: error TS6133: 'PluginTestUtils' is declared but its value is never read.
 src/js/plugin-bridge/__tests__/AppReducer-test.ts: error TS2339: Property 'initialize' does not exist on type *.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/__tests__/Hooks-test.ts: error TS2350: Only a void function can be called with the 'new' keyword.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'dispatch' does not exist on type '{}'.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'anotherFakePlugin' does not exist on type *.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin1' does not exist on type *.
-src/js/plugin-bridge/__tests__/PluginSDK-test.ts: error TS2339: Property 'fakePlugin2' does not exist on type *.
 src/js/routes/index.ts: error TS2769: No overload matches this call.
 src/js/stores/AuthStore.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/stores/AuthStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
