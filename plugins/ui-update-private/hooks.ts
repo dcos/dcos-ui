@@ -7,10 +7,7 @@ import {
   loadNotifications,
   UIUpdateNotificationsType
 } from "#PLUGINS/ui-update/notifications";
-import { getSDK } from "./SDK";
-
-const SDK = getSDK();
-const { Hooks } = SDK;
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   actions: ["userCapabilitiesFetched", "userLogoutSuccess", "redirectToLogin"],
@@ -22,7 +19,7 @@ module.exports = {
 
   initialize() {
     this.actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
 
     loadNotifications(container);

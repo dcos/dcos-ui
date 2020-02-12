@@ -14,20 +14,20 @@ import {
   REQUEST_ACL_USER_UPDATE_ERROR
 } from "../constants/ActionTypes";
 
-const SDK = require("../../../SDK");
+import SDK from "PluginSDK";
 
 const ACLUsersActions = {
   fetchUser(userID) {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID
@@ -40,14 +40,14 @@ const ACLUsersActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}/groups`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_GROUPS_SUCCESS,
           data: response.array,
           userID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_GROUPS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID
@@ -60,14 +60,14 @@ const ACLUsersActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${userID}/permissions`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_PERMISSIONS_SUCCESS,
           data: response,
           userID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID
@@ -82,13 +82,13 @@ const ACLUsersActions = {
       method: "POST",
       data,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_LDAP_USER_CREATE_SUCCESS,
           userID: data.username
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_LDAP_USER_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID: data.username
@@ -103,13 +103,13 @@ const ACLUsersActions = {
       method: "PATCH",
       data: patchData,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_UPDATE_SUCCESS,
           userID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID

@@ -5,7 +5,7 @@ import {
   REQUEST_CLUSTER_LIST_ERROR
 } from "../constants/ActionTypes";
 
-const SDK = require("../SDK");
+import SDK from "PluginSDK";
 
 const ClusterLinkingActions = {
   fetchClusterLinkingList() {
@@ -13,13 +13,13 @@ const ClusterLinkingActions = {
       method: "GET",
       url: `${Config.rootUrl}/cluster/v1/links`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_CLUSTER_LIST_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_CLUSTER_LIST_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           xhr

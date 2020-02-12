@@ -2,17 +2,14 @@ import { MountService } from "foundation-ui";
 import LicensingBanner from "./components/LicensingBanner";
 import LicensingNodeCapacityRow from "./components/LicensingNodeCapacityRow";
 import LicensingExpirationRow from "./components/LicensingExpirationRow";
-import { getSDK } from "./SDK";
-
-const SDK = getSDK();
-const { Hooks } = SDK;
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   actions: ["userCapabilitiesFetched"],
 
   initialize() {
     this.actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   },
 

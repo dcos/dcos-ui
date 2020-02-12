@@ -1,14 +1,13 @@
 import LicensingStore from "../licensing/stores/LicensingStore";
 import { LICENSING_SUMMARY_SUCCESS } from "../licensing/constants/EventTypes";
-
-const SDK = require("./SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   actions: ["intercomBoot", "intercomShutdown"],
 
   initialize() {
     this.actions.forEach(action => {
-      SDK.getSDK().Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   },
 

@@ -212,7 +212,6 @@ plugins/bootstrap-config/index.ts: error TS2306: File '/plugins/bootstrap-config
 plugins/bootstrap-config/stores/BootstrapConfigStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/bootstrap-config/stores/BootstrapConfigStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/branding/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/branding/hooks.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/branding/index.ts: error TS2306: File '/plugins/branding/SDK.ts' is not a module.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
 plugins/catalog/src/js/repositories/RepositoriesAdd.tsx: error TS2571: Object is of type 'unknown'.
@@ -318,7 +317,6 @@ plugins/cluster-linking/components/LinkedClustersTable.tsx: error TS2322: Type '
 plugins/cluster-linking/components/LinkedClustersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'never'.
 plugins/cluster-linking/components/LinkedClustersTable.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/cluster-linking/components/LinkedClustersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'never'.
-plugins/cluster-linking/hooks.ts: error TS2306: File '/plugins/cluster-linking/SDK.ts' is not a module.
 plugins/cluster-linking/index.ts: error TS2306: File '/plugins/cluster-linking/SDK.ts' is not a module.
 plugins/cluster-linking/pages/LinkedClustersPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/cluster-linking/pages/LinkedClustersPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
@@ -342,7 +340,6 @@ plugins/example/index.ts: error TS2554: Expected 0 arguments, but got 1.
 plugins/example/index.ts: error TS2556: Expected 4 arguments, but got 2 or more.
 plugins/example/index.ts: error TS6133: 'Store' is declared but its value is never read.
 plugins/external-links/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/external-links/hooks.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/external-links/index.ts: error TS2306: File '/plugins/external-links/SDK.ts' is not a module.
 plugins/intercom-private/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/intercom-private/hooks.ts: error TS2339: Property 'Intercom' does not exist on type *.
@@ -592,7 +589,6 @@ plugins/licensing/components/LicensingExpirationRow.tsx: error TS2322: Type 'Ele
 plugins/licensing/components/LicensingNodeCapacityRow.tsx: error TS2306: File '/plugins/licensing/config/LicensingConfig.ts' is not a module.
 plugins/licensing/components/LicensingNodeCapacityRow.tsx: error TS2339: Property 'licensingSummary' does not exist on type 'Readonly<{}>'.
 plugins/licensing/components/LicensingNodeCapacityRow.tsx: error TS2339: Property 'licensingSummary' does not exist on type 'Readonly<{}>'.
-plugins/licensing/hooks.ts: error TS2306: File '/plugins/licensing/SDK.ts' is not a module.
 plugins/licensing/index.ts: error TS2306: File '/plugins/licensing/SDK.ts' is not a module.
 plugins/licensing/stores/LicensingStore.ts: error TS2339: Property 'licensingSummary' does not exist on type 'LicensingStore'.
 plugins/licensing/stores/LicensingStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
@@ -1024,7 +1020,6 @@ plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'store_listeners'
 plugins/oauth/components/LoginPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/oauth/components/LoginPage.tsx: error TS6133: 'message' is declared but its value is never read.
 plugins/oauth/components/LoginPage.tsx: error TS2339: Property 'showClusterError' does not exist on type 'Readonly<{}>'.
-plugins/oauth/hooks.tsx: error TS2350: Only a void function can be called with the 'new' keyword.
 plugins/oauth/hooks.tsx: error TS2721: Cannot invoke an object which is possibly 'null'.
 plugins/oauth/hooks.tsx: error TS2721: Cannot invoke an object which is possibly 'null'.
 plugins/oauth/hooks.tsx: error TS2339: Property 'name' does not exist on type 'never'.
@@ -1036,6 +1031,7 @@ plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
 plugins/oauth/hooks.tsx: error TS2322: Type 'boolean' is not assignable to type 'string'.
 plugins/oauth/hooks.tsx: error TS2345: Argument of type '\\"loginRedirectRoute\\"' is not assignable to parameter of type 'never'.
 plugins/oauth/hooks.tsx: error TS2554: Expected 2 arguments, but got 0.
+plugins/oauth/hooks.tsx: error TS2350: Only a void function can be called with the 'new' keyword.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/acl/Reducer\\"' has no default export.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/directories/Reducer\\"' has no default export.
 plugins/organization/Reducer.ts: error TS1192: Module '\\"/plugins/organization/submodules/groups/Reducer\\"' has no default export.
@@ -1764,18 +1760,17 @@ plugins/placement/hooks.ts: error TS2345: Argument of type * is not assignable t
 plugins/placement/hooks.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/placement/hooks.ts: error TS2769: No overload matches this call.
 plugins/placement/hooks.ts: error TS2769: No overload matches this call.
-plugins/placement/hooks.ts: error TS2306: File '/plugins/placement/SDK.ts' is not a module.
 plugins/placement/index.ts: error TS2306: File '/plugins/placement/SDK.ts' is not a module.
 plugins/placement/reducers/constraints.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/placement/reducers/constraints.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/sdk-services/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/sdk-services/index.ts: error TS2306: File '/plugins/sdk-services/SDK.ts' is not a module.
 plugins/secrets/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 plugins/secrets/actions/SecretActions.ts: error TS2571: Object is of type 'unknown'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
@@ -1937,7 +1932,6 @@ plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
-plugins/secrets/hooks.tsx: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
 plugins/secrets/hooks.tsx: error TS6133: 'propKey' is declared but its value is never read.
 plugins/secrets/hooks.tsx: error TS2531: Object is possibly 'null'.
 plugins/secrets/hooks.tsx: error TS2531: Object is possibly 'null'.
@@ -4595,7 +4589,6 @@ plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on
 plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
 plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
 plugins/ui-update-private/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/ui-update-private/hooks.ts: error TS2306: File '/plugins/ui-update-private/SDK.ts' is not a module.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.

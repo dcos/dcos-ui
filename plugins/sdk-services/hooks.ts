@@ -1,8 +1,7 @@
 import { MountService } from "foundation-ui";
 import { ServiceActionItem } from "#PLUGINS/services/src/js/constants/ServiceActionItem";
 import SDKServiceEdit from "./components/SDKServiceEdit";
-
-const SDK = require("./SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   filters: ["isEnabledSDKAction"],
@@ -14,7 +13,7 @@ module.exports = {
     );
 
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 

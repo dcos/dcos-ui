@@ -1,14 +1,12 @@
 import { Route } from "react-router";
 import { MountService } from "foundation-ui";
-import { getSDK } from "./SDK";
 
 import ClusterLinkingModal from "./components/ClusterLinkingModal";
 import ClusterLinkingModalTrigger from "./components/ClusterLinkingModalTrigger";
 import LinkedClustersPage from "./pages/LinkedClustersPage";
+import { Hooks } from "PluginSDK";
 
 import "./styles/cluster-linking-modal.less";
-
-const SDK = getSDK();
 
 module.exports = {
   filters: ["applicationRoutes"],
@@ -25,7 +23,7 @@ module.exports = {
     );
 
     this.filters.forEach(filter => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 

@@ -3,6 +3,7 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 import Config from "#SRC/js/config/Config";
 import Util from "#SRC/js/utils/Util";
 import PrivatePluginsConfig from "../../../../PrivatePluginsConfig";
+import SDK from "PluginSDK";
 
 import * as ActionTypes from "../constants/ActionTypes";
 
@@ -22,8 +23,6 @@ const {
   REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
   REQUEST_ACL_SERVICE_ACCOUNTS_ERROR
 } = ActionTypes;
-
-const SDK = require("../../../SDK");
 
 // Helper function to create a secret alongside the service account when
 // auto-generating key pairs.
@@ -45,7 +44,7 @@ const addAccountSecretOrDeleteAccount = (serviceAccountID, data) => {
       })
     },
     success() {
-      SDK.getSDK().dispatch({
+      SDK.dispatch({
         type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
         serviceAccountID
       });
@@ -64,7 +63,7 @@ const addAccountSecretOrDeleteAccount = (serviceAccountID, data) => {
         errorMessage = RequestUtil.getErrorFromXHR(xhr);
       }
 
-      SDK.getSDK().dispatch({
+      SDK.dispatch({
         type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_ERROR,
         data: errorMessage,
         serviceAccountID,
@@ -105,13 +104,13 @@ const ACLServiceAccountActions = {
           return;
         }
 
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID,
@@ -128,13 +127,13 @@ const ACLServiceAccountActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${encodedID}`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_DELETE_SUCCESS,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID
@@ -149,14 +148,14 @@ const ACLServiceAccountActions = {
       timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${encodedID}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_SUCCESS,
           data: response,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID
@@ -170,13 +169,13 @@ const ACLServiceAccountActions = {
       timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users?type=service`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
           data: response.array
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNTS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -190,14 +189,14 @@ const ACLServiceAccountActions = {
       timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${encodedID}/groups`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_SUCCESS,
           data: response.array,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID
@@ -212,14 +211,14 @@ const ACLServiceAccountActions = {
       timeout: null,
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/users/${encodedID}/permissions`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_SUCCESS,
           data: response,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID
@@ -236,14 +235,14 @@ const ACLServiceAccountActions = {
       method: "PATCH",
       data: patchData,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
           data: response,
           serviceAccountID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID

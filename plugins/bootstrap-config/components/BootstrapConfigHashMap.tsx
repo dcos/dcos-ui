@@ -10,12 +10,11 @@ import Loader from "#SRC/js/components/Loader";
 
 import { BOOTSTRAP_CONFIG_SUCCESS } from "../constants/EventTypes";
 import BootstrapConfigStore from "../stores/BootstrapConfigStore";
-
-const SDK = require("../SDK");
+import { Hooks } from "PluginSDK";
 
 // Check permissions on poll and render in case the store was updated.
-const userHasCapability = SDK.getSDK().Hooks.applyFilter.bind(
-  SDK.getSDK().Hooks,
+const userHasCapability = Hooks.applyFilter.bind(
+  Hooks,
   "hasCapability",
   false,
   "metadataAPI"

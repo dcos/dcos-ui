@@ -3,7 +3,7 @@ import { Route } from "react-router";
 import GroupDetailPage from "./components/GroupDetailPage";
 import GroupsPage from "./pages/GroupsPage";
 
-const SDK = require("../../SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   appendRoutes(route) {
@@ -25,9 +25,6 @@ module.exports = {
   },
 
   initialize() {
-    SDK.getSDK().Hooks.addFilter(
-      "organizationRoutes",
-      this.appendRoutes.bind(this)
-    );
+    Hooks.addFilter("organizationRoutes", this.appendRoutes.bind(this));
   }
 };

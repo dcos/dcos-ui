@@ -2,8 +2,7 @@ import { Route } from "react-router";
 import { i18nMark } from "@lingui/react";
 
 import DirectoriesPage from "./pages/DirectoriesPage";
-
-const SDK = require("../../SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   configuration: {
@@ -37,9 +36,6 @@ module.exports = {
   },
 
   initialize() {
-    SDK.getSDK().Hooks.addFilter(
-      "applicationRoutes",
-      this.appendRoutes.bind(this)
-    );
+    Hooks.addFilter("applicationRoutes", this.appendRoutes.bind(this));
   }
 };

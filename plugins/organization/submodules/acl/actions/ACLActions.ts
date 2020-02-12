@@ -19,7 +19,7 @@ import {
   REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS
 } from "../constants/ActionTypes";
 
-const SDK = require("../../../SDK");
+import SDK from "PluginSDK";
 
 function encodeSlashes(string) {
   return string.replace(/\//g, "%252F");
@@ -33,13 +33,13 @@ const ACLActions = {
       method: "PUT",
       data,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_CREATE_SUCCESS,
           resourceID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           resourceID
@@ -57,14 +57,14 @@ const ACLActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/acls${query}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: response.array,
           resourceType
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_RESOURCE_ACLS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           resourceType
@@ -78,13 +78,13 @@ const ACLActions = {
       // Not part of the actual API, just a file being served
       url: `${Config.rootUrl}/acs/acl-schema.json`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SCHEMA_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_SCHEMA_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -98,13 +98,13 @@ const ACLActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/acls/${encodedResource}/users/${userID}/${action}`,
       method: "PUT",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
           triple: { userID, action, resourceID }
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_GRANT_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { userID, action, resourceID },
@@ -120,13 +120,13 @@ const ACLActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/acls/${encodedResource}/users/${userID}/${action}`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
           triple: { userID, action, resourceID }
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { userID, action, resourceID }
@@ -141,13 +141,13 @@ const ACLActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/acls/${encodedResource}/groups/${groupID}/${action}`,
       method: "PUT",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_GROUP_GRANT_ACTION_SUCCESS,
           triple: { groupID, action, resourceID }
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_GROUP_GRANT_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { groupID, action, resourceID },
@@ -163,13 +163,13 @@ const ACLActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/acls/${encodedResource}/groups/${groupID}/${action}`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_GROUP_REVOKE_ACTION_SUCCESS,
           triple: { groupID, action, resourceID }
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_ACL_GROUP_REVOKE_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { groupID, action, resourceID }

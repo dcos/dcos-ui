@@ -5,20 +5,20 @@ import Config from "#SRC/js/config/Config";
 import Util from "#SRC/js/utils/Util";
 import * as ActionTypes from "../constants/ActionTypes";
 
-const SDK = require("../../../SDK");
+import SDK from "PluginSDK";
 
 const ACLGroupsActions = {
   fetch() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUPS_SUCCESS,
           data: response.array
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUPS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -30,13 +30,13 @@ const ACLGroupsActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -49,14 +49,14 @@ const ACLGroupsActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}/permissions`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_SUCCESS,
           data: response.array,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -69,14 +69,14 @@ const ACLGroupsActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}/users`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_SUCCESS,
           data: response.array,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -89,14 +89,14 @@ const ACLGroupsActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}/users?type=service`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_SUCCESS,
           data: response.array,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -118,13 +118,13 @@ const ACLGroupsActions = {
       method: "PUT",
       data,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -143,7 +143,7 @@ const ACLGroupsActions = {
     }).subscribe({
       next: ({ code, response }) => {
         if (code === 202) {
-          SDK.getSDK().dispatch({
+          SDK.dispatch({
             type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_PARTIAL_SUCCESS,
             groupID: data.groupname,
             data: {
@@ -151,7 +151,7 @@ const ACLGroupsActions = {
             }
           });
         } else {
-          SDK.getSDK().dispatch({
+          SDK.dispatch({
             type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_SUCCESS,
             groupID: data.groupname
           });
@@ -167,7 +167,7 @@ const ACLGroupsActions = {
             ? response.description
             : defaultError;
 
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_ERROR,
           data: codeType === "4" ? description : defaultError,
           groupID: data.groupname
@@ -182,13 +182,13 @@ const ACLGroupsActions = {
       method: "PATCH",
       data: patchData,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -202,13 +202,13 @@ const ACLGroupsActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS,
           groupID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID
@@ -222,14 +222,14 @@ const ACLGroupsActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}/users/${userID}`,
       method: "PUT",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
           groupID,
           userID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID,
@@ -244,14 +244,14 @@ const ACLGroupsActions = {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/groups/${groupID}/users/${userID}`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           groupID,
           userID
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID,

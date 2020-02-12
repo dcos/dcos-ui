@@ -12,8 +12,7 @@ import UsersStore from "#SRC/js/stores/UsersStore";
 import User from "./structs/User";
 import UserDetailPage from "./components/UserDetailPage";
 import UsersPage from "./pages/UsersPage";
-
-const SDK = require("../../SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   filters: [
@@ -31,7 +30,7 @@ module.exports = {
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 

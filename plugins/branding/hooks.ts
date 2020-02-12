@@ -1,4 +1,4 @@
-const SDK = require("./SDK");
+import { Hooks } from "PluginSDK";
 
 document.title = "Mesosphere DC/OS Enterprise";
 
@@ -7,7 +7,7 @@ module.exports = {
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 

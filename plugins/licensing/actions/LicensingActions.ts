@@ -6,7 +6,7 @@ import {
 } from "../constants/ActionTypes";
 import { licensingAPIPrefix } from "../config/LicensingConfig";
 
-const SDK = require("../SDK");
+import SDK from "PluginSDK";
 
 const LicensingActions = {
   fetchLicensingSummary() {
@@ -14,13 +14,13 @@ const LicensingActions = {
       method: "GET",
       url: `${Config.rootUrl}${licensingAPIPrefix}/status`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_LICENSING_SUMMARY_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_LICENSING_SUMMARY_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           xhr
