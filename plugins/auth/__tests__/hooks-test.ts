@@ -1,41 +1,25 @@
 import { MountService as MService } from "foundation-ui";
-
 import PluginSDK from "PluginSDK";
+import AuthenticationReducer from "../Reducer";
+import ACLAuthenticatedUserStore from "../stores/ACLAuthenticatedUserStore";
+import AuthHooks from "../hooks";
+import AuthenticatedUserAccountDropdown from "../components/AuthenticatedUserAccountDropdown";
+import AuthenticatedClusterDropdown from "../components/AuthenticatedClusterDropdown";
 
 jest.mock("react-router");
 
 const SDK = PluginSDK.__getSDK("authentication", { enabled: true });
-
-require("../SDK").setSDK(SDK);
-require("react");
-
 const { MountService } = MService;
-
-const ACLAuthenticatedUserStore = require("../stores/ACLAuthenticatedUserStore")
-  .default;
-const AuthenticationReducer = require("../Reducer");
-const AuthHooks = require("../hooks");
-const AuthenticatedUserAccountDropdown = require("../components/AuthenticatedUserAccountDropdown")
-  .default;
-const AuthenticatedClusterDropdown = require("../components/AuthenticatedClusterDropdown")
-  .default;
 
 PluginSDK.__addReducer("authentication", AuthenticationReducer);
 
-AuthHooks.initialize();
+AuthHooks(SDK).initialize();
 
-let thisHooks, thisCachedGetPermissions, thisMenuItems;
+let thisCachedGetPermissions, thisMenuItems;
 
 describe("AuthHooks", () => {
   describe("#initialize", () => {
     beforeEach(() => {
-      thisHooks = SDK.Hooks;
-
-      SDK.Hooks = {
-        addAction: jest.fn(),
-        addFilter: jest.fn()
-      };
-
       MountService.unregisterComponent(
         AuthenticatedUserAccountDropdown,
         "Header:UserAccountDropdown"
@@ -46,73 +30,57 @@ describe("AuthHooks", () => {
         "Header:ClusterDropdown"
       );
 
-      AuthHooks.initialize();
-    });
-
-    afterEach(() => {
-      SDK.Hooks = thisHooks;
-    });
-
-    it("adds sidebarNavigation filter with high priority", () => {
-      let foundCall = null;
-      SDK.Hooks.addFilter.mock.calls.forEach(call => {
-        if (call[0] === "sidebarNavigation") {
-          foundCall = call;
-        }
-      });
-
-      expect(!!foundCall).toBeTruthy();
-      expect(foundCall[2]).toBeGreaterThan(100);
+      AuthHooks(SDK).initialize();
     });
   });
 
   describe("#hasCapability", () => {
     beforeEach(() => {
-      thisCachedGetPermissions = ACLAuthenticatedUserStore.getPermissions;
+      thisCachedGetPermissions = ACLAuthenticatedUserStore(SDK).getPermissions;
     });
 
     afterEach(() => {
-      ACLAuthenticatedUserStore.getPermissions = thisCachedGetPermissions;
+      ACLAuthenticatedUserStore(SDK).getPermissions = thisCachedGetPermissions;
     });
 
     it("dissallows access to empty capability", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:superuser": {}
       });
 
-      expect(AuthHooks.hasCapability(false, "")).toBeFalsy();
-      expect(AuthHooks.hasCapability(false, null)).toBeFalsy();
+      expect(AuthHooks(SDK).hasCapability(false, "")).toBeFalsy();
+      expect(AuthHooks(SDK).hasCapability(false, null)).toBeFalsy();
     });
 
     it("allow all capabilities for superusers", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:superuser": {}
       });
 
-      expect(AuthHooks.hasCapability(false, "foo")).toBeTruthy();
-      expect(AuthHooks.hasCapability(false, "bar")).toBeTruthy();
+      expect(AuthHooks(SDK).hasCapability(false, "foo")).toBeTruthy();
+      expect(AuthHooks(SDK).hasCapability(false, "bar")).toBeTruthy();
     });
 
     it("returns truthy when acl is present", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:adminrouter:ops:mesos": {}
       });
 
-      expect(AuthHooks.hasCapability(false, "mesosAPI")).toBeTruthy();
+      expect(AuthHooks(SDK).hasCapability(false, "mesosAPI")).toBeTruthy();
     });
 
     it("returns falsy when acl is not present", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:adminrouter:ops:mesos": {}
       });
 
-      expect(AuthHooks.hasCapability(false, "networkingAPI")).toBeFalsy();
+      expect(AuthHooks(SDK).hasCapability(false, "networkingAPI")).toBeFalsy();
     });
   });
 
   describe("#hasCapability", () => {
     beforeEach(() => {
-      thisCachedGetPermissions = ACLAuthenticatedUserStore.getPermissions;
+      thisCachedGetPermissions = ACLAuthenticatedUserStore(SDK).getPermissions;
       thisMenuItems = [
         "/dashboard",
         "/services",
@@ -129,15 +97,15 @@ describe("AuthHooks", () => {
     });
 
     afterEach(() => {
-      ACLAuthenticatedUserStore.getPermissions = thisCachedGetPermissions;
+      ACLAuthenticatedUserStore(SDK).getPermissions = thisCachedGetPermissions;
     });
 
     it("allows access to all menus if superuser", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:superuser": {}
       });
 
-      expect(AuthHooks.sidebarNavigation(thisMenuItems)).toEqual([
+      expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/dashboard",
         "/services",
         "/jobs",
@@ -153,20 +121,20 @@ describe("AuthHooks", () => {
     });
 
     it("allows items with 'none' permission", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({});
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({});
 
-      expect(AuthHooks.sidebarNavigation(thisMenuItems)).toEqual([
+      expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/secrets",
         "/settings"
       ]);
     });
 
     it("allows single menu item given permission", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:adminrouter:ops:networking": {}
       });
 
-      expect(AuthHooks.sidebarNavigation(thisMenuItems)).toEqual([
+      expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/networking",
         "/secrets", // always shown due to 'none permission
         "/settings"
@@ -174,12 +142,12 @@ describe("AuthHooks", () => {
     });
 
     it("allows multiple menu items given permissions", () => {
-      ACLAuthenticatedUserStore.getPermissions = () => ({
+      ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:adminrouter:service:marathon": {},
         "dcos:adminrouter:ops:networking": {}
       });
 
-      expect(AuthHooks.sidebarNavigation(thisMenuItems)).toEqual([
+      expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/dashboard",
         "/services",
         "/networking",

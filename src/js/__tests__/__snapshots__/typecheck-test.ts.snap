@@ -157,8 +157,6 @@ plugins/auth-providers/stores/AuthProviderStore.ts: error TS2556: Expected 1 arg
 plugins/auth-providers/stores/AuthProviderStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/auth-providers/stores/AuthProviderStore.ts: error TS2554: Expected 2 arguments, but got 3.
 plugins/auth-providers/stores/AuthProvidersStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
-plugins/auth/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
-plugins/auth/__tests__/hooks-test.ts: error TS2531: Object is possibly 'null'.
 plugins/auth/components/AuthenticatedClusterDropdown.tsx: error TS2339: Property 'menuItems' does not exist on type *.
 plugins/auth/components/AuthenticatedUserAccountDropdown.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/auth/components/AuthenticatedUserAccountDropdown.tsx: error TS2339: Property 'userLabel' does not exist on type 'AuthenticatedUserAccountDropdown'.
@@ -168,7 +166,6 @@ plugins/auth/components/LoginModal.tsx: error TS2339: Property 'i18n' does not e
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'disableLogin' does not exist on type 'Readonly<{}>'.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'disableLogin' does not exist on type 'Readonly<{}>'.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'target' does not exist on type *.
-plugins/auth/components/LoginModal.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 plugins/auth/components/LoginModal.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'store_listeners' does not exist on type 'LoginModal'.
 plugins/auth/components/LoginModal.tsx: error TS2339: Property 'i18n' does not exist on type *.
@@ -187,11 +184,11 @@ plugins/auth/hooks.tsx: error TS2345: Argument of type '\\"loginRedirectRoute\\"
 plugins/auth/hooks.tsx: error TS6133: 'bool' is declared but its value is never read.
 plugins/auth/hooks.tsx: error TS6133: 'bool' is declared but its value is never read.
 plugins/auth/hooks.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
-plugins/auth/index.ts: error TS2306: File '/plugins/auth/SDK.ts' is not a module.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2554: Expected 0 arguments, but got 1.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'store_initializeListeners' does not exist on type 'ACLAuthenticatedUserStore'.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'on' does not exist on type 'ACLAuthenticatedUserStore'.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'removeListener' does not exist on type 'ACLAuthenticatedUserStore'.
+plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'authentication' does not exist on type *.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2556: Expected 1 arguments, but got 0 or more.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'emit' does not exist on type 'ACLAuthenticatedUserStore'.
 plugins/auth/stores/ACLAuthenticatedUserStore.ts: error TS2339: Property 'emit' does not exist on type 'ACLAuthenticatedUserStore'.
@@ -5841,7 +5838,6 @@ src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on
 src/js/plugin-bridge/AppHooks.ts: error TS2339: Property 'SDK' does not exist on type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS6133: 'Loader' is declared but its value is never read.
 src/js/plugin-bridge/PluginSDK.ts: error TS2307: Cannot find module './Loader'.
-src/js/plugin-bridge/PluginSDK.ts: error TS2350: Only a void function can be called with the 'new' keyword.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type *.
 src/js/plugin-bridge/PluginSDK.ts: error TS2322: type * is not assignable to type 'never'.
 src/js/plugin-bridge/PluginSDK.ts: error TS2339: Property '__REDUX_DEVTOOLS_EXTENSION_COMPOSE__' does not exist on type *.

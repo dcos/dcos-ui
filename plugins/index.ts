@@ -1,7 +1,8 @@
+import authentication from "./auth";
 import banner from "./banner/index";
-import tracking from "./tracking/index";
-import oauth from "./oauth/index";
 import intercom from "./intercom/index";
+import oauth from "./oauth/index";
+import tracking from "./tracking/index";
 import uiUpdate from "./ui-update/index";
 
 export default {
@@ -13,7 +14,7 @@ export default {
   "sdk-services": require("./sdk-services/index"),
   "ui-update": uiUpdate,
   "ui-update-private": require("./ui-update-private/index"),
-  authentication: require("./auth/index"),
+  authentication,
   banner,
   branding: require("./branding/index"),
   dss: require("./dss/index"),
