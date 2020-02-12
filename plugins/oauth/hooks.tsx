@@ -14,9 +14,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 import AuthenticatedUserAccountDropdown from "./components/AuthenticatedUserAccountDropdown";
 import LoginPage from "./components/LoginPage";
-import MySDK from "./SDK";
-
-const SDK = MySDK.getSDK();
+import { Hooks } from "PluginSDK";
 
 let configResponseCallback = null;
 const defaultOrganizationRoute = {
@@ -42,10 +40,10 @@ export default {
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
     this.actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
     this.store_initializeListeners([
       { name: "config", events: ["success", "error"] }

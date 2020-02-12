@@ -6,7 +6,7 @@ import Config from "#SRC/js/config/Config";
 import PrivatePluginsConfig from "../../PrivatePluginsConfig";
 import * as ActionTypes from "../constants/ActionTypes";
 
-const SDK = require("../SDK");
+import SDK from "PluginSDK";
 
 const CertificateActions = {
   fetchCertificates: RequestUtil.debounceOnError(
@@ -17,14 +17,14 @@ const CertificateActions = {
         method: "POST",
         data: { serial: "", authority_key_id: "", expired_ok: true },
         success(response) {
-          SDK.getSDK().dispatch({
+          SDK.dispatch({
             type: ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS,
             data: response
           });
           resolve();
         },
         error(xhr) {
-          SDK.getSDK().dispatch({
+          SDK.dispatch({
             type: ActionTypes.REQUEST_ALL_CERTIFICATES_ERROR,
             data: RequestUtil.getErrorFromXHR(xhr)
           });

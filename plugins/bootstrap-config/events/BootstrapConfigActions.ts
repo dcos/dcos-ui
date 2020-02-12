@@ -5,20 +5,20 @@ import {
   REQUEST_BOOTSTRAP_CONFIG_SUCCESS
 } from "../constants/ActionTypes";
 
-const SDK = require("../SDK");
+import SDK from "PluginSDK";
 
 const BootstrapConfigActions = {
   fetchBootstrapConfig() {
     RequestUtil.json({
       url: `${Config.rootUrl}/dcos-metadata/bootstrap-config.json`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
           data: response
         });
       },
       error() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: REQUEST_BOOTSTRAP_CONFIG_ERROR
         });
       }

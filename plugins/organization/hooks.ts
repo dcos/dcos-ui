@@ -1,7 +1,6 @@
 import { Redirect, Route } from "react-router";
 import UsersPage from "#SRC/js/pages/system/UsersPage";
-
-const SDK = require("./SDK");
+import { Hooks } from "PluginSDK";
 
 const defaultOrganizationRoute = {
   routes: []
@@ -14,10 +13,10 @@ module.exports = {
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
     this.actions.forEach(action => {
-      SDK.getSDK().Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   },
 

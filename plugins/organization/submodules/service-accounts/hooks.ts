@@ -3,8 +3,7 @@ import { MountService } from "foundation-ui";
 
 import ServiceAccountsPage from "./pages/ServiceAccountsPage";
 import ServiceAccoutSelect from "./components/ServiceAccountSelect";
-
-const SDK = require("../../SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   filters: ["organizationRoutes"],
@@ -13,11 +12,11 @@ module.exports = {
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
 
     this.actions.forEach(action => {
-      SDK.getSDK().Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   },
 

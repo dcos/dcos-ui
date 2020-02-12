@@ -4,15 +4,14 @@ import BackendDetailPage from "./submodules/internal-load-balancing/components/B
 import LoadBalancingPage from "./submodules/internal-load-balancing/components/LoadBalancingPage";
 import LoadBalancingTabContent from "./submodules/internal-load-balancing/components/LoadBalancingTabContent";
 import VIPDetailPage from "./submodules/internal-load-balancing/components/VIPDetailPage";
-
-const SDK = require("./SDK");
+import { Hooks } from "PluginSDK";
 
 module.exports = {
   filters: ["networkRoutes", "service-addresses-subtabs"],
 
   initialize() {
     this.filters.forEach(filter => {
-      SDK.getSDK().Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 

@@ -14,7 +14,6 @@ import TabView from "#SRC/js/components/TabView";
 
 import { JobFormActionType } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 
-import { getSDK } from "./SDK";
 import { JSONSingleContainerReducer as containerJSONReducer } from "./reducers/Container";
 import { JSONReducer as containersJSONReducer } from "./reducers/Containers";
 import envReducer from "./reducers/EnvironmentVariables";
@@ -48,9 +47,9 @@ import {
 import JobVolumesFBS from "./components/forms/JobVolumesFBS";
 
 import "./styles/service-form.less";
+import { Hooks } from "PluginSDK";
 
 const SecretStore = getSecretStore();
-const SDK = getSDK();
 
 // To put it after Labels
 const REVIEW_SCREEN_PRIORITY = 199;
@@ -68,16 +67,16 @@ module.exports = {
 
   addHooks(filters, actions) {
     filters.forEach(filter => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
 
     actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   },
 
   hasSecretsCapability() {
-    return SDK.Hooks.applyFilter("hasCapability", false, "secretsAPI");
+    return Hooks.applyFilter("hasCapability", false, "secretsAPI");
   },
 
   userCapabilitiesFetched() {

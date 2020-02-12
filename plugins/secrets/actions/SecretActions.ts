@@ -6,25 +6,24 @@ import getFixtureResponses from "#SRC/js/utils/getFixtureResponses";
 
 import PrivatePluginsConfig from "../../PrivatePluginsConfig";
 import * as ActionTypes from "../constants/ActionTypes";
+import SDK from "PluginSDK";
 
 function isFile(value) {
   return value instanceof File;
 }
-
-const SDK = require("../SDK");
 
 const SecretActions = {
   fetchStoreInitializationStatus(storeName) {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/init/${storeName}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -38,13 +37,13 @@ const SecretActions = {
       method: "PUT",
       data: initializationRequest,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -56,13 +55,13 @@ const SecretActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/seal-status/${storeName}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -76,13 +75,13 @@ const SecretActions = {
       method: "PUT",
       data: unsealRequest,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -113,7 +112,7 @@ const SecretActions = {
           }
         }
 
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRET_SUCCESS,
           data,
           storeName,
@@ -122,7 +121,7 @@ const SecretActions = {
         });
       },
       error: event => {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRET_ERROR,
           data: event,
           storeName,
@@ -155,13 +154,13 @@ const SecretActions = {
       next: event => {
         const data = JSON.parse(event.response);
 
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_SUCCESS,
           data
         });
       },
       error: event => {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_ERROR,
           data: event
         });
@@ -197,13 +196,13 @@ const SecretActions = {
           data = event.response;
         }
 
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_SUCCESS,
           data
         });
       },
       error: event => {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_ERROR,
           data: event
         });
@@ -216,13 +215,13 @@ const SecretActions = {
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/secret/${storeName}/${secretPath}`,
       method: "DELETE",
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -234,13 +233,13 @@ const SecretActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/secret/${storeName}/${secretPath}?list=true`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRETS_ERROR,
           data: xhr
         });
@@ -253,13 +252,13 @@ const SecretActions = {
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/revoke/${storeName}/${secretPath}`,
       method: "PUT",
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -273,13 +272,13 @@ const SecretActions = {
       method: "PUT",
       data: durationObject,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -291,13 +290,13 @@ const SecretActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/store`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ALL_STORES_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -309,13 +308,13 @@ const SecretActions = {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/store/${storeName}`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -329,13 +328,13 @@ const SecretActions = {
       method: "PUT",
       data: storeObject,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -349,13 +348,13 @@ const SecretActions = {
       method: "DELETE",
       data: storeObject,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });

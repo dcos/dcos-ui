@@ -3,14 +3,14 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 import Config from "#SRC/js/config/Config";
 import * as ActionTypes from "../constants/ActionTypes";
 
-const SDK = require("../../../SDK");
+import SDK from "PluginSDK";
 
 export default {
   fetchDirectories() {
     RequestUtil.json({
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/ldap/config`,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
           // TODO: Remove this array, currently we're forcing an array
           // even though the API is only storing one directory
@@ -18,7 +18,7 @@ export default {
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -34,12 +34,12 @@ export default {
       method: "PUT",
       data,
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -52,12 +52,12 @@ export default {
       url: `${Config.rootUrl}${Config.acsAPIPrefix}/ldap/config`,
       method: "DELETE",
       success() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
@@ -71,19 +71,19 @@ export default {
       method: "POST",
       data,
       success(response) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_SUCCESS,
           data: response
         });
       },
       error(xhr) {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr)
         });
       },
       hangingRequestCallback() {
-        SDK.getSDK().dispatch({
+        SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ONGOING
         });
       }

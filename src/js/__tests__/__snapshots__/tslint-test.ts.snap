@@ -53,8 +53,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/auth/stores/__tests__/ACLAuthenticatedUserStore-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
 /plugins/banner/__tests__/BannerPlugin-test.ts - require statement not part of an import statement
-/plugins/bootstrap-config/components/BootstrapConfigHashMap.tsx - require statement not part of an import statement
-/plugins/bootstrap-config/events/BootstrapConfigActions.ts - require statement not part of an import statement
 /plugins/bootstrap-config/events/__tests__/BootstrapConfigActions-test.ts - require statement not part of an import statement
 /plugins/bootstrap-config/stores/BootstrapConfigStore.ts - require statement not part of an import statement
 /plugins/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
@@ -62,21 +60,17 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
 /plugins/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
 /plugins/bootstrap-config/stores/__tests__/BootstrapConfigStore-test.ts - require statement not part of an import statement
-/plugins/branding/hooks.ts - require statement not part of an import statement
 /plugins/catalog/src/js/repositories/RepositoriesDelete.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/RepositoriesList.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'addRepository'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'deleteRepository'
 /plugins/catalog/src/js/repositories/data/repositoriesModel.ts - Shadowed name: 'liveFetchRepositories'
-/plugins/cluster-linking/actions/ClusterLinkingActions.ts - require statement not part of an import statement
 /plugins/cluster-linking/actions/__tests__/ClusterLinkingActions-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/actions/__tests__/ClusterLinkingActions-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/ClusterLinkingStore.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
 /plugins/cluster-linking/stores/__tests__/ClusterLinkingStore-test.ts - require statement not part of an import statement
-/plugins/external-links/hooks.ts - require statement not part of an import statement
-/plugins/intercom-private/hooks.ts - require statement not part of an import statement
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/intercom/__tests__/IntercomPlugin-test.ts - require statement not part of an import statement
 /plugins/jobs/src/js/components/JobsFormModal.tsx - Shadowed name: 'container'
@@ -113,7 +107,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'startedAt'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'status'
 /plugins/jobs/src/js/pages/JobRunHistoryTable.tsx - Shadowed name: 'statusClasses'
-/plugins/licensing/actions/LicensingActions.ts - require statement not part of an import statement
 /plugins/licensing/actions/__tests__/LicensingActions-test.ts - require statement not part of an import statement
 /plugins/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
 /plugins/licensing/components/__tests__/LicensingBanner-test.tsx - require statement not part of an import statement
@@ -139,9 +132,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
 /plugins/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
 /plugins/licensing/stores/__tests__/LicensingStore-test.ts - require statement not part of an import statement
-/plugins/networking/hooks.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/__tests__/utils-test.ts - require statement not part of an import statement
-/plugins/networking/submodules/internal-load-balancing/actions/NetworkingActions.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/actions/__tests__/NetworkingActions-test.ts - require statement not part of an import statement
 /plugins/networking/submodules/internal-load-balancing/components/LineChart.tsx - Expected a 'for-of' loop instead of a 'for' loop with this simple iteration
 /plugins/networking/submodules/internal-load-balancing/components/NetworkItemChart.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -212,8 +203,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
 /plugins/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
 /plugins/organization/components/__tests__/AccountGroupTable-test.tsx - require statement not part of an import statement
-/plugins/organization/hooks.ts - require statement not part of an import statement
-/plugins/organization/submodules/acl/actions/ACLActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/actions/__tests__/ACLActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/stores/ACLStore.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - == should be ===
@@ -227,7 +216,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/acl/stores/__tests__/ACLStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/structs/__tests__/ACLList-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/acl/structs/__tests__/PermissionTree-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/directories/actions/ACLDirectoriesActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/actions/__tests__/ACLDirectoriesActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/DirectoryFormModal.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/organization/submodules/directories/components/DirectoryFormModal.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
@@ -265,7 +253,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
-/plugins/organization/submodules/directories/hooks.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/pages/__tests__/DirectoriesPage-test.tsx - require statement not part of an import statement
@@ -274,7 +261,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/stores/__tests__/ACLDirectoriesStore-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/groups/actions/ACLGroupsActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/actions/__tests__/ACLGroupsActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/components/__tests__/GroupAdvancedACLsTab-test.tsx - require statement not part of an import statement
@@ -297,7 +283,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/groups/components/__tests__/GroupMemberTable-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/groups/components/modals/LDAPGroupFormModal.tsx - Pass a callback to ref prop instead of a string literal
-/plugins/organization/submodules/groups/hooks.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/stores/ACLGroupStore.ts - The function has a cyclomatic complexity of 22 which is higher than the threshold of 20
 /plugins/organization/submodules/groups/stores/ACLGroupStore.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/stores/ACLGroupsStore.ts - require statement not part of an import statement
@@ -312,9 +297,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/structs/__tests__/Group-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/groups/structs/__tests__/GroupsList-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/service-accounts/actions/ACLServiceAccountActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/actions/__tests__/ACLServiceAccountActions-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/service-accounts/hooks.ts - require statement not part of an import statement
 /plugins/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
 /plugins/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
 /plugins/organization/submodules/service-accounts/stores/ACLServiceAccountsStore.ts - Declaration of public instance field not allowed after declaration of public instance method. Instead, this should come at the beginning of the class/interface.
@@ -326,7 +309,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/service-accounts/structs/__tests__/ServiceAccountList-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/__tests__/hooks-test.ts - require statement not part of an import statement
-/plugins/organization/submodules/users/actions/ACLUsersActions.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/actions/__tests__/ACLUsersActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/components/UserDetailPage.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/organization/submodules/users/components/UserDetailPage.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
@@ -338,7 +320,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/users/components/__tests__/UserDetailPage-test.tsx - require statement not part of an import statement
-/plugins/organization/submodules/users/hooks.tsx - require statement not part of an import statement
 /plugins/organization/submodules/users/stores/ACLUserStore.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/users/stores/__tests__/ACLUserStore-test.ts - require statement not part of an import statement
@@ -359,9 +340,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
-/plugins/sdk-services/hooks.ts - require statement not part of an import statement
-/plugins/secrets/actions/CertificateActions.ts - require statement not part of an import statement
-/plugins/secrets/actions/SecretActions.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/CertificateActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
@@ -591,7 +569,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/tracking/actions/Actions.ts - require statement not part of an import statement
 /plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
 /plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
-/plugins/tracking/hooks.tsx - require statement not part of an import statement
 /src/js/components/CollapsingString.tsx - Use a conditional expression instead of assigning to 'parent' in multiple places.
 /src/js/components/CosmosErrorMessage.tsx - Shadowed name: 'error'
 /src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.

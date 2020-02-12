@@ -1,13 +1,9 @@
-import { Hooks } from "PluginSDK";
-
 import DOMUtils from "#SRC/js/utils/DOMUtils";
 import AuthStore from "#SRC/js/stores/AuthStore";
 
 import { INTERCOM_CHANGE } from "./constants/EventTypes";
 import IntercomStore from "./stores/IntercomStore";
-import MySDK from "./SDK";
-
-const SDK = MySDK.getSDK();
+import { Hooks } from "PluginSDK";
 
 const INTERCOM_LOAD_TIMEOUT = 500;
 
@@ -19,10 +15,10 @@ export default {
     this.configuration = configuration;
 
     this.filters.forEach(filter => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
     this.actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
 
     this.bootIntercom = this.bootIntercom.bind(this);

@@ -21,9 +21,8 @@ import {
   jobResponseToSpec
 } from "./reducers/jobConstraints";
 import SchemaRegionSelection from "./components/SchemaRegionSelection";
-import { getSDK } from "./SDK";
+import { Hooks } from "PluginSDK";
 
-const SDK = getSDK();
 const PRIORITY = 100;
 
 module.exports = {
@@ -163,11 +162,11 @@ module.exports = {
 
   addHooks(filters, actions) {
     filters.forEach(filter => {
-      SDK.Hooks.addFilter(filter, this[filter].bind(this));
+      Hooks.addFilter(filter, this[filter].bind(this));
     });
 
     actions.forEach(action => {
-      SDK.Hooks.addAction(action, this[action].bind(this));
+      Hooks.addAction(action, this[action].bind(this));
     });
   }
 };
