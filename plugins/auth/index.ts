@@ -1,13 +1,9 @@
-import SDK from "./SDK";
+import AuthenticationReducer from "./Reducer";
 
-module.exports = PluginSDK => {
-  SDK.setSDK(PluginSDK);
+export default SDK => {
+  const PluginHooks = require("./hooks").default;
 
-  const PluginHooks = require("./hooks");
-  const AuthenticationReducer = require("./Reducer");
-
-  // Set plugin's hooks
-  PluginHooks.initialize();
+  PluginHooks(SDK).initialize();
 
   return AuthenticationReducer;
 };

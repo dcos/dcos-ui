@@ -1,16 +1,10 @@
 import PluginSDK from "PluginSDK";
-
 import { RequestUtil } from "mesosphere-shared-reactjs";
-
-const SDK = PluginSDK.__getSDK("networking", { enabled: true });
-
-require("../../SDK").setSDK(SDK);
-
-const ACLAuthenticatedUserActions = require("../ACLAuthenticatedUserActions")
-  .default;
+import ACLAuthenticatedUserActions from "../ACLAuthenticatedUserActions";
 import Config from "#SRC/js/config/Config";
 import * as ActionTypes from "../../constants/ActionTypes";
 
+const SDK = PluginSDK.__getSDK("networking", { enabled: true });
 let thisConfiguration;
 
 describe("ACLAuthenticatedUserActions", () => {

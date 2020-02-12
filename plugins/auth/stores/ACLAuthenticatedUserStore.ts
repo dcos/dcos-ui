@@ -1,24 +1,23 @@
 import { EventEmitter } from "events";
 import { ClassMixin } from "mesosphere-shared-reactjs";
-
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
-
 import {
   REQUEST_PERMISSIONS_SUCCESS,
   REQUEST_PERMISSIONS_ERROR
 } from "../constants/ActionTypes";
-
 import { ACL_AUTH_USER_PERMISSIONS_CHANGED } from "../constants/EventTypes";
-
 import ACLAuthenticatedUserActions from "../events/ACLAuthenticatedUserActions";
+import PluginSDK from "PluginSDK";
 
-const SDK = require("../SDK");
+let Store: ACLAuthenticatedUserStore | null = null;
+
+export default SDK => Store || (Store = new ACLAuthenticatedUserStore(SDK));
 
 class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
-  constructor(...args) {
-    super(...args);
+  constructor(SDK) {
+    super(SDK);
 
-    SDK.getSDK().addStoreConfig({
+    SDK.addStoreConfig({
       store: this,
       storeID: "aclAuthenticatedUser",
       events: {
@@ -27,7 +26,7 @@ class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
       unmountWhen: () => false
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.onDispatch(action => {
       switch (action.type) {
         case REQUEST_PERMISSIONS_SUCCESS:
           this.processPermissionsSuccess(action.data);
@@ -55,8 +54,8 @@ class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
   }
 
   getPermissions() {
-    const permissions = SDK.getSDK().Store.getOwnState().permissions;
-    const user = SDK.getSDK().Hooks.applyFilter("instantiateUserStruct", {
+    const { permissions } = PluginSDK.Store.getState().authentication;
+    const user = PluginSDK.Hooks.applyFilter("instantiateUserStruct", {
       permissions
     });
 
@@ -72,7 +71,7 @@ class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
   }
 
   processPermissionsSuccess(permissions) {
-    SDK.getSDK().dispatch({
+    PluginSDK.dispatch({
       type: ACL_AUTH_USER_PERMISSIONS_CHANGED,
       permissions
     });
@@ -85,7 +84,7 @@ class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
   }
 
   resetPermissions() {
-    SDK.getSDK().dispatch({
+    PluginSDK.dispatch({
       type: ACL_AUTH_USER_PERMISSIONS_CHANGED,
       permissions: { direct: [], groups: [] }
     });
@@ -95,5 +94,3 @@ class ACLAuthenticatedUserStore extends ClassMixin(EventEmitter, StoreMixin) {
     this.resetPermissions();
   }
 }
-
-export default new ACLAuthenticatedUserStore();

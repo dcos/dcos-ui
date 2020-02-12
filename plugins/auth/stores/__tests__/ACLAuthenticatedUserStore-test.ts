@@ -1,18 +1,13 @@
 import PluginSDK from "PluginSDK";
+import cookie from "cookie";
 
-const cookie = require("cookie");
-
-const SDK = PluginSDK.__getSDK("authentication", { enabled: true });
-
-require("../../SDK").setSDK(SDK);
-const ACLAuthenticatedUserStore = require("../ACLAuthenticatedUserStore")
-  .default;
-const AuthenticationReducer = require("../../Reducer");
+import ACLAuthenticatedUserStore from "../ACLAuthenticatedUserStore";
+import AuthenticationReducer from "../../Reducer";
 
 PluginSDK.__addReducer("authentication", AuthenticationReducer);
+const SDK = PluginSDK.__getSDK("authentication", { enabled: true });
 
 let thisCookieParse;
-
 describe("ACLAuthenticatedUserStore", () => {
   let userPermissions = [];
   SDK.Hooks.addFilter("instantiateUserStruct", () => ({
@@ -32,11 +27,11 @@ describe("ACLAuthenticatedUserStore", () => {
 
   describe("#getPermissions", () => {
     afterEach(() => {
-      ACLAuthenticatedUserStore.resetPermissions();
+      ACLAuthenticatedUserStore(SDK).resetPermissions();
     });
 
     it("returns an empty permissions object", () => {
-      expect(ACLAuthenticatedUserStore.getPermissions()).toEqual({});
+      expect(ACLAuthenticatedUserStore(SDK).getPermissions()).toEqual({});
     });
 
     it("returns stored permissions", () => {
@@ -47,7 +42,7 @@ describe("ACLAuthenticatedUserStore", () => {
           rid: "dcos:adminrouter:service:marathon"
         }
       };
-      expect(ACLAuthenticatedUserStore.getPermissions()).toEqual(
+      expect(ACLAuthenticatedUserStore(SDK).getPermissions()).toEqual(
         expectedResult
       );
     });
@@ -63,7 +58,7 @@ describe("ACLAuthenticatedUserStore", () => {
           rid: "dcos:adminrouter:service:marathon"
         }
       };
-      expect(ACLAuthenticatedUserStore.getPermissions()).toEqual(
+      expect(ACLAuthenticatedUserStore(SDK).getPermissions()).toEqual(
         expectedResult
       );
     });

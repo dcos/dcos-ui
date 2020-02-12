@@ -1,12 +1,9 @@
 import { Trans } from "@lingui/macro";
 import * as React from "react";
 import ClusterDropdown from "#SRC/js/components/ClusterDropdown";
+import { Hooks } from "PluginSDK";
 
-const SDK = require("../SDK");
-
-const { Hooks } = SDK.getSDK();
-
-class AuthenticatedClusterDropdown extends ClusterDropdown {
+export default class AuthenticatedClusterDropdown extends ClusterDropdown {
   getFilteredMenuItems() {
     const { menuItems } = this.props;
     const canAccessMesosAPI = Hooks.applyFilter(
@@ -65,5 +62,3 @@ class AuthenticatedClusterDropdown extends ClusterDropdown {
     return this.getFilteredMenuItems();
   }
 }
-
-export default AuthenticatedClusterDropdown;

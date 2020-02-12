@@ -15,7 +15,7 @@ import Config from "../config/Config";
 import HooksMod from "./Hooks";
 import Loader from "./Loader";
 
-const hooks = new HooksMod();
+const hooks = HooksMod();
 const initialState = {};
 const middleware = [ActionsPubSub.pub];
 const PLUGIN_ENV_CACHE = [];
@@ -45,7 +45,7 @@ const __addReducer = (pluginID, reducer) => {
 };
 
 // Create Redux Store
-const Store = createStore(
+export const Store = createStore(
   combineReducers(reducers),
   initialState,
   composeEnhancers(applyMiddleware(...middleware))

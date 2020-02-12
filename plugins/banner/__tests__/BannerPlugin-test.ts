@@ -9,7 +9,7 @@ const BannerPlugin = require("../hooks").default;
 
 const defaultConfiguration = BannerPlugin.configuration;
 
-let thisHooks, thisInstance, thisMockFn, thisIframe;
+let thisInstance, thisMockFn, thisIframe;
 describe("BannerPlugin", () => {
   beforeEach(() => {
     BannerPlugin.configuration = {
@@ -19,30 +19,7 @@ describe("BannerPlugin", () => {
 
   describe("#initialize", () => {
     beforeEach(() => {
-      thisHooks = SDK.Hooks;
-
-      SDK.Hooks = {
-        addAction: jest.fn(),
-        addFilter: jest.fn()
-      };
-
       BannerPlugin.initialize();
-    });
-
-    afterEach(() => {
-      SDK.Hooks = thisHooks;
-    });
-
-    it("adds one action and two filters", () => {
-      expect(SDK.Hooks.addAction.mock.calls[0][0]).toEqual(
-        "applicationRendered"
-      );
-      expect(SDK.Hooks.addFilter.mock.calls[0][0]).toEqual(
-        "applicationContents"
-      );
-      expect(SDK.Hooks.addFilter.mock.calls[1][0]).toEqual(
-        "overlayNewWindowButton"
-      );
     });
   });
 

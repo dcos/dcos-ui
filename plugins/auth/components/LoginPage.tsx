@@ -3,7 +3,7 @@ import { locationShape } from "react-router";
 
 import LoginModal from "./LoginModal";
 
-class LoginPage extends React.Component {
+export default class LoginPage extends React.Component {
   static propTypes = {
     location: locationShape.isRequired
   };
@@ -13,5 +13,3 @@ class LoginPage extends React.Component {
     return <LoginModal target={target} />;
   }
 }
-
-export default LoginPage;
