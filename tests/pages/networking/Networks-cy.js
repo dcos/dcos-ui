@@ -1,5 +1,7 @@
 import { getVisibleTableRows } from "../../_support/utils/testUtil";
 
+const fixture = require("../../_fixtures/mesos/overlay-master");
+
 describe("Networks", () => {
   context("Networks Table", () => {
     beforeEach(() => {
@@ -16,28 +18,24 @@ describe("Networks", () => {
     });
 
     it("displays all columns for each network", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
-        cy.get("tbody tr").should($tableRows => {
-          getVisibleTableRows($tableRows).forEach((tableRow, index) => {
-            const overlayData = fixture.network.overlays[index];
-            const tableCells = tableRow.querySelectorAll("td");
+      cy.get("tbody tr").should($tableRows => {
+        getVisibleTableRows($tableRows).forEach((tableRow, index) => {
+          const overlayData = fixture.network.overlays[index];
+          const tableCells = tableRow.querySelectorAll("td");
 
-            expect(tableCells[0].textContent).to.equal(overlayData.name);
-            expect(tableCells[1].textContent).to.equal(overlayData.subnet);
-            expect(tableCells[2].textContent).to.equal(
-              overlayData.prefix.toString()
-            );
-          });
+          expect(tableCells[0].textContent).to.equal(overlayData.name);
+          expect(tableCells[1].textContent).to.equal(overlayData.subnet);
+          expect(tableCells[2].textContent).to.equal(
+            overlayData.prefix.toString()
+          );
         });
       });
     });
 
     it("allows users to filter the table", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
-        cy.get("input.form-control").type(fixture.network.overlays[0].name);
-        cy.get("tbody tr").should($tableRows => {
-          expect(getVisibleTableRows($tableRows).length).to.equal(1);
-        });
+      cy.get("input.form-control").type(fixture.network.overlays[0].name);
+      cy.get("tbody tr").should($tableRows => {
+        expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });
     });
   });
@@ -52,21 +50,19 @@ describe("Networks", () => {
     });
 
     it("displays all columns for each network", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
-        cy.get("tbody tr").should($tableRows => {
-          getVisibleTableRows($tableRows).forEach(tableRow => {
-            const tableCells = tableRow.querySelectorAll("td");
-            const task = fixture.frameworks[0].tasks[0];
+      cy.get("tbody tr").should($tableRows => {
+        getVisibleTableRows($tableRows).forEach(tableRow => {
+          const tableCells = tableRow.querySelectorAll("td");
+          const task = fixture.frameworks[0].tasks[0];
 
-            expect(tableCells[0].textContent).to.equal(task.id);
-            expect(tableCells[1].textContent).to.equal(
-              task.statuses[0].container_status.network_infos[0].ip_addresses[0]
-                .ip_address
-            );
-            // TODO: Figure out how to determine the port mapping value from
-            // the API response.
-            expect(tableCells[2].textContent).to.equal("N/A");
-          });
+          expect(tableCells[0].textContent).to.equal(task.id);
+          expect(tableCells[1].textContent).to.equal(
+            task.statuses[0].container_status.network_infos[0].ip_addresses[0]
+              .ip_address
+          );
+          // TODO: Figure out how to determine the port mapping value from
+          // the API response.
+          expect(tableCells[2].textContent).to.equal("N/A");
         });
       });
     });

@@ -1730,11 +1730,9 @@ plugins/placement/components/PodPlacementConfigSection.tsx: error TS2322: type *
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'region' does not exist on type *.
 plugins/placement/components/RegionConstraintsSection.tsx: error TS2339: Property 'onEditClick' does not exist on type *.
-plugins/placement/components/RegionSelection.tsx: error TS2554: Expected 1-2 arguments, but got 0.
 plugins/placement/components/RegionSelection.tsx: error TS2345: Argument of type '\\"lastMesosState\\"' is not assignable to parameter of type 'never'.
 plugins/placement/components/RegionSelection.tsx: error TS2339: Property 'selectProps' does not exist on type *.
 plugins/placement/components/RegionSelection.tsx: error TS2339: Property 'i18n' does not exist on type *.
-plugins/placement/components/RegionSelection.tsx: error TS2339: Property 'regions' does not exist on type 'Readonly<{}>'.
 plugins/placement/components/RegionSelection.tsx: error TS2322: type * is not assignable to type *.
 plugins/placement/components/SchemaRegionSelection.tsx: error TS2322: type * is not assignable to type *.
 plugins/placement/components/SchemaRegionSelection.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
@@ -6077,6 +6075,7 @@ src/js/structs/List.ts: error TS2683: 'this' implicitly has type 'any' because i
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2351: This expression is not constructable.
 src/js/structs/List.ts: error TS2339: Property 'type' does not exist on type 'Function'.
+src/js/structs/Node.ts: error TS2339: Property 'domain' does not exist on type 'Node'.
 src/js/structs/NodesList.ts: error TS2339: Property 'id' does not exist on type 'Node'.
 src/js/structs/NodesList.ts: error TS2339: Property 'framework_ids' does not exist on type 'Node'.
 src/js/structs/NodesList.ts: error TS2551: Property 'used_resources' does not exist on type 'Node'. Did you mean 'usedResources'?

@@ -1,6 +1,8 @@
 describe("Cluster Details", () => {
   beforeEach(() => {
-    cy.configureCluster({ mesos: "cluster-overview" });
+    cy.configureCluster();
+    // prettier-ignore
+    cy.route({method: "POST", url: /mesos\/api\/v1\?GET_MASTER/, response: require("../../../_fixtures/v1/get_master")});
   });
 
   it("displays Mesos Details", () => {

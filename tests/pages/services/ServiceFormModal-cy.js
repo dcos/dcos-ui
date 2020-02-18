@@ -37,10 +37,8 @@ describe("Service Form Modal", () => {
     }
 
     beforeEach(() => {
-      cy.configureCluster({
-        mesos: "1-empty-group",
-        nodeHealth: true
-      });
+      cy.configureCluster({ nodeHealth: true });
+      cy.route(/marathon\/v2\/groups/, "fx:marathon-1-group/groups");
       cy.visitUrl({ url: "/services/overview" });
     });
 

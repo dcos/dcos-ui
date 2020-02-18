@@ -55,44 +55,27 @@ class JobPlacementSection extends React.Component<
   }
 
   public getRegionSelection(regionIndex: number): React.ReactNode {
-    const {
-      formData: { placementConstraints = [] }
-    } = this.props;
-    let regionConstraint: Partial<PlacementConstraint> = {
-      value: ""
-    };
-    if (regionIndex < placementConstraints.length) {
-      regionConstraint = placementConstraints[regionIndex];
-    }
+    const { placementConstraints = [] } = this.props.formData;
     const selectProps = {
       name: `${regionIndex}.regionConstraint`,
       type: "text",
-      value: regionConstraint.value
+      value: placementConstraints[regionIndex]?.value || ""
     };
 
     return <RegionSelection selectProps={selectProps} />;
   }
 
   public getRegionIndex(): number {
-    const {
-      formData: { placementConstraints = [] }
-    } = this.props;
-    let regionIndex = placementConstraints.length;
-    for (let i = 0; i < placementConstraints.length; i++) {
-      const constraint = placementConstraints[i];
-      if (constraint.type === "region") {
-        regionIndex = i;
-        break;
-      }
-    }
-    return regionIndex;
+    const { placementConstraints = [] } = this.props.formData;
+    const region = placementConstraints.find(({ type }) => type === "region");
+    return region
+      ? placementConstraints.indexOf(region)
+      : placementConstraints.length;
   }
 
   public isGenericConstraintFactory(index: number) {
     return (constraint: PlacementConstraint) => {
-      const {
-        formData: { placementConstraints = [] }
-      } = this.props;
+      const { placementConstraints = [] } = this.props.formData;
       return constraint !== placementConstraints[index];
     };
   }

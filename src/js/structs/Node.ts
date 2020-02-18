@@ -44,12 +44,7 @@ class Node extends Item {
   }
 
   getRegionName() {
-    const nodeRegionName = findNestedPropertyInObject(
-      this.getDomain(),
-      "fault_domain.region.name"
-    );
-
-    return nodeRegionName || "N/A";
+    return this.domain?.fault_domain?.region?.name || "N/A";
   }
 
   getZoneName() {

@@ -1,3 +1,5 @@
+const fixture = require("../../_fixtures/marathon-1-task/deployments");
+
 describe("Deployments Modal", () => {
   function openDeploymentsModal() {
     cy.get(".button")
@@ -61,24 +63,20 @@ describe("Deployments Modal", () => {
 
       // the `id` column
       cy.get(".modal tbody tr:visible td").then($tableCells => {
-        cy.getAPIResponse("marathon/v2/deployments", response => {
-          expect(
-            $tableCells.get(0).querySelector(".collapsing-string-full-string")
-              .textContent
-          ).to.equal(response[0].id);
-        });
+        expect(
+          $tableCells.get(0).querySelector(".collapsing-string-full-string")
+            .textContent
+        ).to.equal(fixture[0].id);
       });
 
       // the `started` column
       cy.get(".modal tbody tr:visible td").then($tableCells => {
-        cy.getAPIResponse("marathon/v2/deployments", () => {
-          expect(
-            $tableCells
-              .get(1)
-              .querySelector("time")
-              .getAttribute("datetime")
-          ).to.match(/2016-07-05T17:54:37/);
-        });
+        expect(
+          $tableCells
+            .get(1)
+            .querySelector("time")
+            .getAttribute("datetime")
+        ).to.match(/2016-07-05T17:54:37/);
       });
 
       // the `status` column
@@ -92,37 +90,33 @@ describe("Deployments Modal", () => {
       cy.get(
         ".modal tbody tr:visible td .expanding-table-child .table-cell-value"
       ).then($expandedChildText => {
-        cy.getAPIResponse("marathon/v2/deployments", response => {
-          expect($expandedChildText.get(0).textContent).to.equal(
-            response[0].affectedApps[0].replace(/^\//, "")
-          );
-        });
+        expect($expandedChildText.get(0).textContent).to.equal(
+          fixture[0].affectedApps[0].replace(/^\//, "")
+        );
       });
     });
 
     it("dismisses both modals when the rollback is performed", () => {
-      cy.getAPIResponse("marathon/v2/deployments", response => {
-        cy.route({
-          method: "DELETE",
-          url: /marathon\/v2\/deployments/,
-          status: 400,
-          response: {
-            version: response[0].version,
-            deploymentId: response[0].id
-          }
-        });
+      cy.route({
+        method: "DELETE",
+        url: /marathon\/v2\/deployments/,
+        status: 400,
+        response: {
+          version: fixture[0].version,
+          deploymentId: fixture[0].id
+        }
+      });
 
-        cy.get(".modal tbody tr:visible td .dropdown").click();
-        cy.get(".dropdown-menu-items")
-          .contains("Rollback")
-          .click();
-        cy.get(".modal button")
-          .contains("Continue Rollback")
-          .click();
+      cy.get(".modal tbody tr:visible td .dropdown").click();
+      cy.get(".dropdown-menu-items")
+        .contains("Rollback")
+        .click();
+      cy.get(".modal button")
+        .contains("Continue Rollback")
+        .click();
 
-        cy.wait(700).then(() => {
-          expect(document.querySelectorAll(".modal").length).to.equal(0);
-        });
+      cy.wait(700).then(() => {
+        expect(document.querySelectorAll(".modal").length).to.equal(0);
       });
     });
   });
