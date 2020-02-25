@@ -438,7 +438,7 @@ Run DC/OS UI in testing mode (you have to close `npm start`).
 npm start
 
 # in another shell
-CLUSTER_URL=http://example-cluster.com npm run test:system:local
+CLUSTER_URL=http://localhost:4200 npm run test:system:local
 ```
 
 ## i18n

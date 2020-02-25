@@ -58,6 +58,10 @@ export function createService(serviceDefinition) {
   cy.get(".page-body-content .service-table").contains("Running");
 }
 
+Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
+  cy.wrap(subject).type(`{selectall}${text}`)
+);
+
 /**
  * Deletes a service from group TEST_UUID using the dcos CLI.
  *
