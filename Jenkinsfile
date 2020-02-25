@@ -67,7 +67,7 @@ pipeline {
             }
           }
           steps {
-            sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
+            sh 'npm run lint:commits -- --from "origin/${CHANGE_TARGET}"'
           }
         }
         stage("Lint") {
