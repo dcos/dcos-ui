@@ -56,10 +56,6 @@ const getGraphQL = (
   );
 };
 
-const ErrorScreen = () => {
-  return <RequestErrorMsg />;
-};
-
 const WaitingScreen = () => {
   return (
     <Trans render="div" className="plan-sdk-deploying">
@@ -120,9 +116,9 @@ const SDKPlans = componentFromStream(props$ => {
       );
     }),
     retryWhen(errors =>
-      errors.pipe(delay(1000), take(60), concat(throwError(errors)))
+      errors.pipe(delay(1000), take(180), concat(throwError(errors)))
     ),
-    catchError(() => of(<ErrorScreen />)),
+    catchError(() => of(<RequestErrorMsg />)),
     startWith(<WaitingScreen />)
   );
 });
