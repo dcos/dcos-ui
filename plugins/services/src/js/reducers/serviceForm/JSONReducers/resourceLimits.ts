@@ -8,7 +8,7 @@ function resourceLimitReducer(resourceField: string, parseFn = parseInt) {
     const [limit, resource] =
       path.slice(-3)[0] === "limits" ? path.slice(-3) : path.slice(-2);
     const numberValue = parseFn(value);
-    if (limit === "limits" || resourceField === resource) {
+    if (limit !== "limits" || resourceField !== resource) {
       return state;
     }
     if (isNaN(numberValue)) {
