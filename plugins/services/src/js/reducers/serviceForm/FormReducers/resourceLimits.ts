@@ -4,13 +4,13 @@ const resourceLimitReducer = (resourceField: string, parseFn = parseInt) => {
       path.slice(-3)[0] === "limits" ? path.slice(-3) : path.slice(-2);
     const numberValue = parseFn(value);
 
-    if (limit === "limits" || resourceField === resource) {
+    if (limit !== "limits" || resourceField !== resource) {
       return state;
     }
     return !isNaN(numberValue)
       ? { value: numberValue, unlimited: false }
       : {
-          value: state.value,
+          value: state?.value || null,
           unlimited: value === "unlimited" || value === true
         };
   };
