@@ -31,7 +31,7 @@
     "@dcos/data-service": "2.0.0",
     "@dcos/http-service": "2.3.1",
     "@dcos/mesos-client": "1.0.0",
-    "@dcos/ui-kit": "3.73.0",
+    "@dcos/ui-kit": "3.75.0",
     "@extension-kid/core": "0.2.4",
     "@lingui/react": "2.9.1",
     "array-sort": "1.0.0",
