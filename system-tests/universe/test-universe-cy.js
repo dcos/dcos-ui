@@ -5,12 +5,6 @@ describe("Universe", () => {
     cy.visitUrl("catalog/packages");
   });
 
-  afterEach(() => {
-    cy.window().then(win => {
-      win.location.href = "about:blank";
-    });
-  });
-
   it("installs a certified package", () => {
     const packageName = "confluent-kafka";
 
@@ -127,10 +121,7 @@ describe("Universe", () => {
     cy.contains("Edit Config").click();
 
     // Find name input
-    cy.get(".modal input[name=name]")
-      .type("{selectall}{backspace}")
-      .type("{selectall}{backspace}")
-      .type(serviceName);
+    cy.get(".modal input[name=name]").retype(serviceName);
 
     // Wait for the new service to deploy
     cy.get(".modal")
@@ -174,10 +165,7 @@ describe("Universe", () => {
     cy.contains("Edit Config").click();
 
     // Find name input
-    cy.get(".modal input[name=name]")
-      .type("{selectall}{backspace}")
-      .type("{selectall}{backspace}")
-      .type(serviceName);
+    cy.get(".modal input[name=name]").retype(serviceName);
 
     // Wait for the new service to deploy
     cy.get(".modal")
