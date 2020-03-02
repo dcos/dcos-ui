@@ -3832,7 +3832,7 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error T
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type 'ReactText' is not assignable to parameter of type 'string'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type * is not assignable to parameter of type 'string'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2571: Object is of type 'unknown'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
@@ -3846,6 +3846,7 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error T
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
@@ -3858,6 +3859,7 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error T
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'item' is declared but its value is never read.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type '0' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'volumeMounts' does not exist on type *.
@@ -3865,27 +3867,24 @@ plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error T
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'ReactText[]' is not assignable to type 'never[]'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS6133: 'simpleIntReducer' is declared but its value is never read.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: type * is not assignable to type 'never[]'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'endpoints' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'appState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'string[]' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'healthCheckState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'artifactState' does not exist on type *.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'ReactText[]' is not assignable to type 'never[]'.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type '0' is not assignable to type 'never'.
+plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: type * is not assignable to type 'never[]'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'cache' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2698: Spread types may only be created from object types.
-plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2322: Type 'any' is not assignable to type 'never'.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
 plugins/services/src/js/reducers/serviceForm/JSONReducers/Containers.ts: error TS2339: Property 'images' does not exist on type *.
