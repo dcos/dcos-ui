@@ -75,7 +75,16 @@ const podPaths = {
   type: "{basePath}.type"
 };
 
-class ContainerServiceFormAdvancedSection extends React.Component {
+type resourceLimitType = { value: number; unlimited: boolean };
+
+class ContainerServiceFormAdvancedSection extends React.Component<
+  unknown & {
+    errors: unknown & { limits: string };
+    data: unknown & {
+      limits: { cpus: resourceLimitType; mem: resourceLimitType };
+    };
+  }
+> {
   static defaultProps = {
     data: {},
     errors: {},
@@ -240,9 +249,8 @@ class ContainerServiceFormAdvancedSection extends React.Component {
     const artifactErrors =
       findNestedPropertyInObject(errors, artifactsPath) || [];
     const diskPath = this.getFieldPath(path, "disk");
-    const limitsPath = "limits";
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
-    const limitsErrors = findNestedPropertyInObject(errors, limitsPath);
+    const limitsErrors = errors?.limits;
 
     return (
       <div>
@@ -291,30 +299,17 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               step="0.01"
               type="number"
               value={
-                findNestedPropertyInObject(data, limitsPath + ".cpus.value") ||
-                (findNestedPropertyInObject(
-                  data,
-                  limitsPath + ".cpus.value"
-                ) === 0
-                  ? 0
-                  : "")
+                data?.limits?.cpus?.value ||
+                (data?.limits?.cpus?.value === 0 ? 0 : "")
               }
               autoFocus={Boolean(limitsErrors)}
-              disabled={
-                findNestedPropertyInObject(
-                  data,
-                  limitsPath + ".cpus.unlimited"
-                ) === true
-              }
+              disabled={data?.limits?.cpus?.unlimited === true}
             />
             <FieldLabel matchInputHeight={true}>
               <FieldInput
                 name="limits.cpus.unlimited"
                 type="checkbox"
-                checked={findNestedPropertyInObject(
-                  data,
-                  limitsPath + ".cpus.unlimited"
-                )}
+                checked={data?.limits?.cpus?.unlimited}
               />
               unlimited
             </FieldLabel>
@@ -334,28 +329,17 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               step="0.01"
               type="number"
               value={
-                findNestedPropertyInObject(data, limitsPath + ".mem.value") ||
-                (findNestedPropertyInObject(data, limitsPath + ".mem.value") ===
-                0
-                  ? 0
-                  : "")
+                data?.limits?.mem?.value ||
+                (data?.limits?.mem?.value === 0 ? 0 : "")
               }
               autoFocus={Boolean(limitsErrors)}
-              disabled={
-                findNestedPropertyInObject(
-                  data,
-                  limitsPath + ".mem.unlimited"
-                ) === true
-              }
+              disabled={data?.limits?.mem?.unlimited === true}
             />
             <FieldLabel matchInputHeight={true}>
               <FieldInput
                 name="limits.mem.unlimited"
                 type="checkbox"
-                checked={findNestedPropertyInObject(
-                  data,
-                  limitsPath + ".mem.unlimited"
-                )}
+                checked={data?.limits?.mem?.unlimited}
               />
               unlimited
             </FieldLabel>
