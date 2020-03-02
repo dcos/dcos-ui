@@ -3,7 +3,6 @@ import {
   simpleIntReducer,
   simpleReducer
 } from "#SRC/js/utils/ReducerUtil";
-// import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 
 import { JSONReducer as constraints } from "./serviceForm/JSONReducers/Constraints";
 import { JSONReducer as container } from "./serviceForm/Container";
