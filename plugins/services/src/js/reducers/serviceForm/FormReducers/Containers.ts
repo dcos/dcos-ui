@@ -60,7 +60,7 @@ export function FormReducer(
         break;
       case REMOVE_ITEM:
         newState = newState.filter(
-          (_: any, itemIndex: number) => itemIndex !== value
+          (_: unknown, itemIndex: number) => itemIndex !== value
         );
         this.cache = this.cache.filter(
           (_item, itemIndex: number) => itemIndex !== value
