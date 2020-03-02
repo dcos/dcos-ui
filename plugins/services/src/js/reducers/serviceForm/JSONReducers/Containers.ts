@@ -1,9 +1,5 @@
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
-import {
-  combineReducers,
-  simpleFloatReducer,
-  simpleIntReducer
-} from "#SRC/js/utils/ReducerUtil";
+import { combineReducers, simpleFloatReducer } from "#SRC/js/utils/ReducerUtil";
 import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import ContainerUtil from "#SRC/js/utils/ContainerUtil";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
@@ -29,11 +25,6 @@ const containerFloatReducer = combineReducers({
   mem: simpleFloatReducer("resources.mem"),
   disk: simpleFloatReducer("resources.disk")
 });
-
-// const resourceLimitsReducer = combineReducers({
-//   cpus: simpleFloatReducer("limits.cpus"),
-//   mem: simpleIntReducer("limits.mem")
-// });
 
 function mapEndpoints(endpoints = [], networkType, appState) {
   return endpoints.map((endpoint, index) => {
@@ -551,7 +542,7 @@ export function JSONReducer(
     };
   }
 
-  if (type === SET && "resources" === field) {
+  if (type === SET && field === "resources") {
     // Parse numbers
     newState[index].resources = containerFloatReducer.call(
       this.cache[index],
