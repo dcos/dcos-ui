@@ -2503,7 +2503,7 @@ describe("Service Form Modal", () => {
 
           editor.setValue(
             `{
-  "id": "/dieter",
+  "id": "/app-with-resource-limits",
   "containers": [
     {
       "name": "container-1",
