@@ -298,10 +298,7 @@ class ContainerServiceFormAdvancedSection extends React.Component<
               name="limits.cpus"
               step="0.01"
               type="number"
-              value={
-                data?.limits?.cpus?.value ||
-                (data?.limits?.cpus?.value === 0 ? 0 : "")
-              }
+              value={data?.limits?.cpus?.value ?? ""}
               autoFocus={Boolean(limitsErrors)}
               disabled={data?.limits?.cpus?.unlimited === true}
             />
@@ -328,10 +325,7 @@ class ContainerServiceFormAdvancedSection extends React.Component<
               name="limits.mem"
               step="0.01"
               type="number"
-              value={
-                data?.limits?.mem?.value ||
-                (data?.limits?.mem?.value === 0 ? 0 : "")
-              }
+              value={data?.limits?.mem.value ?? ""}
               autoFocus={Boolean(limitsErrors)}
               disabled={data?.limits?.mem?.unlimited === true}
             />
