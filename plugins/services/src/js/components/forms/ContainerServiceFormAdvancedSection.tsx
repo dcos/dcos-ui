@@ -325,7 +325,7 @@ class ContainerServiceFormAdvancedSection extends React.Component<
               name="limits.mem"
               step="0.01"
               type="number"
-              value={data?.limits?.mem.value ?? ""}
+              value={data?.limits?.mem?.value ?? ""}
               autoFocus={Boolean(limitsErrors)}
               disabled={data?.limits?.mem?.unlimited === true}
             />
