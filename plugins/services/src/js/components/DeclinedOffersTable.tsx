@@ -22,6 +22,13 @@ import Units from "#SRC/js/utils/Units";
 
 import DeclinedOffersReasons from "../constants/DeclinedOffersReasons";
 
+const greenCheck = (
+  <Icon color={green} shape={SystemIcons.Check} size={iconSizeS} />
+);
+const redCross = (
+  <Icon color={red} shape={SystemIcons.Close} size={iconSizeXs} />
+);
+
 class DeclinedOffersTable extends React.Component {
   areResourcesMatched(requestedResource, receivedResource) {
     if (Array.isArray(receivedResource)) {
@@ -109,10 +116,9 @@ class DeclinedOffersTable extends React.Component {
 
       let requestedResourceSuffix = "";
       let receivedResourceSuffix = "";
-      let icon = null;
+      const icon = isResourceUnmatched ? redCross : greenCheck;
 
       if (isResourceUnmatched) {
-        icon = <Icon color={red} shape={SystemIcons.Close} size={iconSizeXs} />;
         if (
           unmatchedResource.includes(DeclinedOffersReasons.UNFULFILLED_ROLE) &&
           this.areResourcesMatched(requestedResource, receivedResource)
@@ -128,10 +134,6 @@ class DeclinedOffersTable extends React.Component {
             </Trans>
           );
         }
-      } else {
-        icon = (
-          <Icon color={green} shape={SystemIcons.Check} size={iconSizeS} />
-        );
       }
 
       if (Array.isArray(receivedResource)) {
@@ -184,7 +186,7 @@ class DeclinedOffersTable extends React.Component {
   getColGroup() {
     return (
       <colgroup>
-        <col style={{ width: "135px" }} />
+        <col style={{ width: "13%" }} />
         <col style={{ width: "9%" }} />
         <col style={{ width: "15%" }} />
         <col />
@@ -192,6 +194,7 @@ class DeclinedOffersTable extends React.Component {
         <col className="hidden-medium-down" style={{ width: "9%" }} />
         <col className="hidden-medium-down" style={{ width: "9%" }} />
         <col className="hidden-medium-down" style={{ width: "9%" }} />
+        <col />
         <col />
         <col className="hidden-small-down" style={{ width: "15%" }} />
       </colgroup>
@@ -355,6 +358,33 @@ class DeclinedOffersTable extends React.Component {
             DeclinedOffersReasons.INSUFFICIENT_PORTS
           )
         )
+      },
+      {
+        heading: this.getColumnHeadingFn(i18nMark("Scarce Resources")),
+        prop: "timestamp",
+        className: this.getColumnClassNameFn(
+          "text-align-right hidden-small-down"
+        ),
+        render: (_, row) => {
+          const scarce = row.unmatchedResource?.includes(
+            DeclinedOffersReasons.SCARCE_RESOURCES
+          );
+
+          const icon = scarce ? redCross : greenCheck;
+          const tooltipContent = scarce ? (
+            <Trans id="This host declined an offer because it has scarce resources (e.g. GPUs)." />
+          ) : (
+            ""
+          );
+
+          return (
+            <Tooltip content={tooltipContent} maxWidth={600} wrapText={true}>
+              {icon}
+            </Tooltip>
+          );
+        },
+
+        sortable: true
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Received")),
