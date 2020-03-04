@@ -268,6 +268,7 @@ describe("Service Form Modal", () => {
             .contains("JSON Editor")
             .click();
 
+          // TODO: sometimes the editor does not yet have the content we're deleting in this step
           cy.get(".ace_text-input")
             .focus()
             .type("{selectall}{backspace}", { force: true });
@@ -279,7 +280,7 @@ describe("Service Form Modal", () => {
           // The closing } is auto inserted
           cy.get(".ace_text-input")
             .focus()
-            .type('{{}\n\t"id": "/foo"\n', { force: true });
+            .type('{selectall}{{}\n\t"id": "/foo"\n', { force: true });
 
           cy.get(".infoBoxWrapper").should("not.be.visible");
           cy.get("input[name=id]").should("have.value", "/foo");
