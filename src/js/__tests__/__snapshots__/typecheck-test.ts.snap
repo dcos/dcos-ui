@@ -2096,10 +2096,9 @@ plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
+plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'summary' does not exist on type *.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'string'.
-plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 1 arguments, but got 0.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
@@ -2107,8 +2106,8 @@ plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expect
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
+plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'offers' does not exist on type *.
-plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'summary' does not exist on type *.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DeploymentStatusIndicator'.
 plugins/services/src/js/components/DeploymentStatusIndicator.tsx: error TS2339: Property 'isOpen' does not exist on type 'Readonly<{}>'.
