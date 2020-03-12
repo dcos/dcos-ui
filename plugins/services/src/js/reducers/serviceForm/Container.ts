@@ -1,5 +1,4 @@
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
-import { findNestedPropertyInObject } from "#SRC/js/utils/Util";
 import { SET, ADD_ITEM, REMOVE_ITEM } from "#SRC/js/constants/TransactionTypes";
 import { simpleParser, combineParsers } from "#SRC/js/utils/ParserUtil";
 import Networking from "#SRC/js/constants/Networking";
@@ -318,15 +317,8 @@ export function FormReducer(_, ...args) {
 
 export const JSONParser = combineParsers([
   state => new Transaction(["container"], state.container),
-  state => {
-    let value = findNestedPropertyInObject(state, "container.type");
-
-    if (value == null) {
-      value = MESOS;
-    }
-
-    return new Transaction(["container", "type"], value);
-  },
+  state =>
+    new Transaction(["container", "type"], state.container?.type ?? MESOS),
   simpleParser(["container", DOCKER.toLowerCase()]),
   simpleParser(["container", DOCKER.toLowerCase(), "image"]),
   simpleParser(["container", MESOS.toLowerCase(), "image"]),
