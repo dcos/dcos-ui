@@ -1728,8 +1728,6 @@ plugins/placement/components/PlacementSchemaField.tsx: error TS2322: type * is n
 plugins/placement/components/PlacementSchemaField.tsx: error TS2769: No overload matches this call.
 plugins/placement/components/PlacementSchemaField.tsx: error TS2339: Property 'defaultProps' does not exist on type *.
 plugins/placement/components/PlacementSchemaField.tsx: error TS2339: Property 'propTypes' does not exist on type *.
-plugins/placement/components/PlacementSchemaField.tsx: error TS2322: type * is not assignable to type 'never'.
-plugins/placement/components/PlacementSchemaField.tsx: error TS2322: type * is not assignable to type 'never'.
 plugins/placement/components/PlacementSchemaField.tsx: error TS2339: Property 'fieldProps' does not exist on type *.
 plugins/placement/components/PlacementSchemaField.tsx: error TS2339: Property 'batch' does not exist on type 'Readonly<{}>'.
 plugins/placement/components/PlacementSchemaField.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.
@@ -3688,7 +3686,6 @@ plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: er
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2322: type * is not assignable to type 'DirectoryItem'.
 plugins/services/src/js/pages/task-details/__tests__/TaskFileViewer-test.tsx: error TS2769: No overload matches this call.
-plugins/services/src/js/reducers/__tests__/JSONMultiContainer-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'internalState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS6133: 'state' is declared but its value is never read.
@@ -3723,31 +3720,24 @@ plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' 
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasImage' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasImage' does not exist on type '{}'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasImage' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
+plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'noState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'noState' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'noState' does not exist on type '{}'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
-plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2322: type * is not assignable to type 'never'.
+plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'container' does not exist on type '{}'.
+plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'container' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasVolumes' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasVolumes' does not exist on type '{}'.
 plugins/services/src/js/reducers/serviceForm/Container.ts: error TS2339: Property 'hasImage' does not exist on type '{}'.
@@ -6507,9 +6497,6 @@ src/js/utils/MesosStateUtil.ts: error TS2345: Argument of type 'any' is not assi
 src/js/utils/MesosSummaryUtil.ts: error TS2554: Expected 2 arguments, but got 1.
 src/js/utils/MesosSummaryUtil.ts: error TS2531: Object is possibly 'null'.
 src/js/utils/MesosSummaryUtil.ts: error TS2345: Argument of type 'number' is not assignable to parameter of type 'never'.
-src/js/utils/ParserUtil.ts: error TS2349: This expression is not callable.
-src/js/utils/ParserUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-src/js/utils/ParserUtil.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
 src/js/utils/ResourceTableUtil.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/utils/ResourceTableUtil.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
 src/js/utils/ResourceTableUtil.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -6681,12 +6668,12 @@ src/js/utils/__tests__/MesosStateUtil-test.ts: error TS2345: Argument of type 'n
 src/js/utils/__tests__/NetworkValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/ObjectUtil-test.ts: error TS2339: Property '___object_mark___' does not exist on type '{}'.
 src/js/utils/__tests__/ObjectUtil-test.ts: error TS2339: Property '___object_mark___' does not exist on type '{}'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
-src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'never'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'Parser'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: type * is not assignable to type 'Parser'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'symbol'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'cmd' does not exist on type '{}'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2322: Type 'string' is not assignable to type 'symbol'.
+src/js/utils/__tests__/ParserUtil-test.ts: error TS2339: Property 'container' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'id' does not exist on type '{}'.
 src/js/utils/__tests__/ReducerUtil-test.ts: error TS2339: Property 'port' does not exist on type '{}'.

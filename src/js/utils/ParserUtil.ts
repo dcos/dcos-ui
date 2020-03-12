@@ -1,13 +1,14 @@
 import { findNestedPropertyInObject } from "./Util";
 import Transaction from "../structs/Transaction";
 
-export function combineParsers(parsers = []) {
+type Parser = (a: {}) => Transaction | Transaction[];
+export function combineParsers(parsers: Parser[] = []) {
   parsers = parsers.filter(parser => typeof parser === "function").reverse();
 
   return (state = {}) => {
     let index = parsers.length;
 
-    const transactionLog = [];
+    const transactionLog: Transaction[] = [];
 
     while (--index >= 0) {
       const parser = parsers[index];
@@ -25,16 +26,9 @@ export function combineParsers(parsers = []) {
   };
 }
 
-export function simpleParser(path) {
-  const searchPath = path.join(".");
-
+export function simpleParser(path: string[]): Parser {
   return state => {
-    const value = findNestedPropertyInObject(state, searchPath);
-
-    if (value == null) {
-      return [];
-    }
-
-    return new Transaction(path, value);
+    const value = findNestedPropertyInObject(state, path.join("."));
+    return value == null ? [] : new Transaction(path, value);
   };
 }
