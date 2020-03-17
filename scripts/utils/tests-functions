@@ -114,9 +114,6 @@ function setup() {
     CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
     echo "===> done (PID: ${PROXY_PID})."
   fi
-
-  ## Remove old results
-  rm -rf "${PROJECT_ROOT:?}/cypress"
 }
 
 # tears down everything…
