@@ -3,13 +3,9 @@
 @Library("sec_ci_libs@v2-latest") _
 
 def master_branches = ["master", ] as String[]
-def aws_creds = [
-  $class: "AmazonWebServicesCredentialsBinding",
-  credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde",
-  accessKeyVariable: "AWS_ACCESS_KEY_ID",
-  secretKeyVariable: "AWS_SECRET_ACCESS_KEY"
-]
 def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
+def aws_id = string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID")
+def aws_key = string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
 
 
 pipeline {
@@ -120,15 +116,17 @@ pipeline {
 
         stage("System Test OSS") {
           environment {
+            DCOS_DIR = "/tmp/.dcos-OSS"
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+            TF_VAR_variant = "open"
           }
           steps {
-            withCredentials([ aws_creds ]) {
+            withCredentials([ aws_id, aws_key ]) {
               sh '''
-                export VARIANT=OSS
-                export DCOS_DIR=/tmp/.dcos-OSS
-                INSTALLER_URL="https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh" ./system-tests/_scripts/launch-cluster.sh
-                export CLUSTER_URL=\$(cat /tmp/cluster_url_OSS.txt)
+                export TF_VAR_cluster_name="ui-\$(date +%s)"
+                echo $TF_VAR_cluster_name > /tmp/cluster_name-open
+                export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
+
                 . scripts/utils/load_auth_env_vars
                 DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
                 npm run test:system
@@ -138,35 +136,38 @@ pipeline {
 
           post {
             always {
+              withCredentials([ aws_id, aws_key ]) {
+                sh '''
+                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-open)
+                  cd scripts/terraform && ./down.sh
+                '''
+              }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
-              withCredentials([ aws_creds ]) {
-                sh "VARIANT=OSS ./system-tests/_scripts/delete-cluster.sh"
-              }
             }
           }
         }
 
         stage("System Test EE") {
           environment {
+            DCOS_DIR = "/tmp/.dcos-EE"
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+            TF_VAR_variant = "ee"
           }
           steps {
-            withCredentials([ aws_creds, [
-              $class: "StringBinding",
-              credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea",
-              variable: "LICENSE_KEY"
-            ]]) {
+            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
               sh '''
-                export VARIANT=EE
-                export DCOS_DIR=/tmp/.dcos-EE
+                export TF_VAR_license_key="$LICENSE_KEY"
+                export TF_VAR_cluster_name="ui-\$(date +%s)-$TF_VAR_variant"
+                echo $TF_VAR_cluster_name > /tmp/cluster_name-ee
                 rsync -aH ./system-tests/ ./system-tests-ee/
-                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
-                INSTALLER_URL="http://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh" ./system-tests/_scripts/launch-cluster.sh
-                export CLUSTER_URL=\$(cat /tmp/cluster_url_EE.txt)
+                rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
+                export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)
+
                 . scripts/utils/load_auth_env_vars
-                ls -al ./system-tests-ee/
+
                 DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
                 PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
               '''
             }
@@ -174,11 +175,14 @@ pipeline {
 
           post {
             always {
+              withCredentials([ aws_id, aws_key ]) {
+                sh '''
+                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-ee)
+                  cd scripts/terraform-ee && ./down.sh
+                '''
+              }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
-              withCredentials([ aws_creds ]) {
-                sh "VARIANT=EE ./system-tests/_scripts/delete-cluster.sh"
-              }
             }
           }
         }
