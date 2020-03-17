@@ -130,7 +130,7 @@
     "eslint-config-prettier": "6.10.0",
     "esprima": "4.0.1",
     "execa": "4.0.0",
-    "file-loader": "5.1.0",
+    "file-loader": "6.0.0",
     "glob": "7.1.6",
     "html-loader": "0.5.5",
     "html-webpack-plugin": "3.2.0",
