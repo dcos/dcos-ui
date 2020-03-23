@@ -17,6 +17,16 @@ export default {
   environment,
   scaling,
   labels,
+  legacySharedCgroups: (state, { path, value }) => {
+    const [container, limits] = [path[0], path[2]];
+    if (container === "legacySharedCgroups") {
+      return value;
+    }
+    if (limits === "limits") {
+      return null;
+    }
+    return state;
+  },
   scheduling(state, transaction) {
     if (state == null) {
       return {};
