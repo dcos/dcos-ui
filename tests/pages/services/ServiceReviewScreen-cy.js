@@ -1474,7 +1474,7 @@ describe("Services", () => {
         .contents()
         .should("deep.equal", ["Not Enabled", "Not Enabled"]);
     });
-    describe("Virtual Bursting", () => {
+    describe("Vertical Bursting", () => {
       it("Limits appear in the review screen", () => {
         const serviceName = "app-with-resource-limits";
         const command = "python3 -m http.server 8080";
