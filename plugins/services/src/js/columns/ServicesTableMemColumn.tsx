@@ -28,7 +28,7 @@ export const ServiceMem = React.memo(
             maxWidth={150}
           >
             <Trans
-              id="{resource} are being used with a limit of {limit}"
+              id="{resource} are being guaranteed with a limit of {limit}"
               render="span"
               values={{
                 resource: Units.formatResource("mem", resource),

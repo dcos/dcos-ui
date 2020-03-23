@@ -29,7 +29,7 @@ export const ServiceCPU = React.memo(
             maxWidth={150}
           >
             <Trans
-              id="{resource} cpus are being used with a limit of {limit} cpus"
+              id="{resource} cpus are being guaranteed with a limit of {limit} cpus"
               render="span"
               values={{
                 resource: Units.formatResource("cpus", resource),
