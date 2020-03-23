@@ -1555,7 +1555,7 @@ describe("Services", () => {
           });
         });
     });
-    describe("Virtual Bursting", () => {
+    describe("Vertical Bursting", () => {
       it("Limits appear in the review screen", () => {
         const serviceName = "pod-with-resource-limits";
         const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
