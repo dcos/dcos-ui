@@ -163,7 +163,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "cpus",
-        render: this.renderCPU,
+        render: this.renderCpus,
         sortable: true,
         sortFunction
       },
@@ -349,8 +349,8 @@ class TaskTable extends React.Component {
     );
   };
   renderMem = (_, task) => {
-    const memLimit = getService(task.id).getResourceLimits().mem;
-    if (memLimit !== 0) {
+    const memLimit = getService(task.id)?.getResourceLimits().mem;
+    if (memLimit != null && memLimit !== 0) {
       return (
         <Tooltip
           id={`mem{task.id}`}
@@ -373,9 +373,9 @@ class TaskTable extends React.Component {
     }
     return <span>{Units.formatResource("mem", task.resources.mem)}</span>;
   };
-  renderCPU = (_, task) => {
-    const cpusLimit = getService(task.id).getResourceLimits().cpus;
-    if (cpusLimit !== 0) {
+  renderCpus = (_, task) => {
+    const cpusLimit = getService(task.id)?.getResourceLimits().cpus;
+    if (cpusLimit != null && cpusLimit !== 0) {
       return (
         <Tooltip
           id={`cpu${task.id}`}
