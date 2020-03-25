@@ -24,7 +24,7 @@ data "http" "whatismyip" {
 
 module "dcos" {
   source  = "dcos-terraform/dcos/aws"
-  version = "~> 0.2.0"
+  version = "0.2.10"
 
   providers = {
     aws = "aws"
