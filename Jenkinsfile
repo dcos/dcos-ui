@@ -4,9 +4,7 @@
 
 def master_branches = ["master", ] as String[]
 def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
-def aws_id = string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID")
-def aws_key = string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
-
+def aws_creds = [ $class: "AmazonWebServicesCredentialsBinding", credentialsId: "f40eebe0-f9aa-4336-b460-b2c4d7876fde", accessKeyVariable: "AWS_ACCESS_KEY_ID", secretKeyVariable: "AWS_SECRET_ACCESS_KEY" ]
 
 pipeline {
   agent {
@@ -121,7 +119,7 @@ pipeline {
             TF_VAR_variant = "open"
           }
           steps {
-            withCredentials([ aws_id, aws_key ]) {
+            withCredentials([ aws_creds ]) {
               sh '''
                 export TF_VAR_cluster_name="ui-\$(date +%s)"
                 echo $TF_VAR_cluster_name > /tmp/cluster_name-open
@@ -136,7 +134,7 @@ pipeline {
 
           post {
             always {
-              withCredentials([ aws_id, aws_key ]) {
+              withCredentials([ aws_creds ]) {
                 sh '''
                   export TF_VAR_cluster_name=$(cat /tmp/cluster_name-open)
                   cd scripts/terraform && ./down.sh
@@ -155,7 +153,7 @@ pipeline {
             TF_VAR_variant = "ee"
           }
           steps {
-            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
+            withCredentials([ aws_creds, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
               sh '''
                 export TF_VAR_license_key="$LICENSE_KEY"
                 export TF_VAR_cluster_name="ui-\$(date +%s)-$TF_VAR_variant"
@@ -175,7 +173,7 @@ pipeline {
 
           post {
             always {
-              withCredentials([ aws_id, aws_key ]) {
+              withCredentials([ aws_creds ]) {
                 sh '''
                   export TF_VAR_cluster_name=$(cat /tmp/cluster_name-ee)
                   cd scripts/terraform-ee && ./down.sh
