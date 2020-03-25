@@ -328,16 +328,12 @@ describe("Nodes Page", () => {
             .should("not.contain", "19%");
         });
       });
-
-      context("Without nodes", () => {
-        beforeEach(() => {
-          cy.configureCluster({ mesos: "no-agents" });
-        });
-
-        it("shows an empty page", () => {
-          cy.get("body").contains("No nodes detected");
-        });
-      });
     });
+  });
+
+  it("shows a proper 'empty message' when there are no nodes", () => {
+    cy.configureCluster({ mesos: "no-agents" });
+    cy.visitUrl({ url: "/nodes/agents/grid" });
+    cy.get("body").contains("No nodes detected");
   });
 });
