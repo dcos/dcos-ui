@@ -25,32 +25,4 @@ module.exports = {
 
     return this;
   },
-
-  /**
-   * Retrieve the fixture for a given route.
-   *
-   * @param  {String} routeString - the route that should match the desired
-   * fixture
-   * @param  {Function} callback - the callback will receive the fixture
-   * @return {undefined}
-   */
-  getAPIResponse(routeString, callback) {
-    let desiredFixtureString = null;
-
-    _routes.forEach((fixtureString, routeRegEx) => {
-      if (routeRegEx.test(routeString)) {
-        // The desired fixture string will be the second element in the returned
-        // array.
-        desiredFixtureString = /^(?:fx|fixture):(.*)/.exec(fixtureString)[1];
-      }
-    });
-
-    if (desiredFixtureString == null) {
-      callback(null);
-
-      return;
-    }
-
-    cy.fixture(desiredFixtureString).then(callback);
-  },
 };
