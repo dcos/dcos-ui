@@ -3,7 +3,6 @@
 export default {
   analyticsKey: "39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP",
   rootUrl: "",
-  historyServer: "",
   // Override cluster's uiConfiguration for development
   uiConfigurationFixture: {
     uiConfiguration: {

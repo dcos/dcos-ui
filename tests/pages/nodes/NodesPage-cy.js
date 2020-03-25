@@ -331,9 +331,7 @@ describe("Nodes Page", () => {
 
       context("Without nodes", () => {
         beforeEach(() => {
-          cy.configureCluster({
-            mesos: "no-agents"
-          });
+          cy.configureCluster({ mesos: "no-agents" });
         });
 
         it("shows an empty page", () => {

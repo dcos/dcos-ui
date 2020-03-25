@@ -7,7 +7,6 @@ import Config from "#SRC/js/config/Config";
 
 describe("Mesos State Actions", () => {
   beforeEach(() => {
-    Config.historyServer = "http://historyserver";
     Config.rootUrl = "http://mesosserver";
     spyOn(RequestUtil, "json");
   });
