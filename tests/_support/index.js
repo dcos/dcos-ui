@@ -87,8 +87,6 @@ Cypress.Commands.add("configureCluster", configuration => {
       )
       .route(/metronome\/v1\/jobs/, "fx:metronome/jobs")
       .route(/dcos-version/, "fx:dcos/dcos-version")
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
 
@@ -132,9 +130,7 @@ Cypress.Commands.add("configureCluster", configuration => {
     configuration.mesos === "1-pod" ||
     configuration.mesos === "1-pod-delayed"
   ) {
-    router
-      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
-      .route(/state-summary/, "fx:marathon-1-pod-group/summary");
+    router.route(/state-summary/, "fx:marathon-1-pod-group/summary");
 
     if (configuration.mesos === "1-pod") {
       router.route(
@@ -153,7 +149,6 @@ Cypress.Commands.add("configureCluster", configuration => {
 
   if (configuration.mesos === "1-pod-delayed") {
     router
-      .route(/history\/last/, "fx:marathon-1-pod-group/summary")
       .route(/state-summary/, "fx:marathon-1-pod-group/summary")
       .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups")
       .route(
@@ -197,7 +192,6 @@ Cypress.Commands.add("configureCluster", configuration => {
       )
       .route(/metronome\/v1\/jobs/, "fx:metronome/jobs")
       .route(/dcos-version/, "fx:dcos/dcos-version")
-      .route(/history\/last/, "fx:1-app-for-each-health/summary")
       .route(/state-summary/, "fx:1-app-for-each-health/summary")
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
   }
@@ -250,11 +244,6 @@ Cypress.Commands.add("configureCluster", configuration => {
       )
       .route(/agent\/.*\/files\/read.*\/stdout/, {}, { status: 404 })
       .route(/dcos-version/, "fx:dcos/dcos-version")
-      .route(
-        /history\/minute/,
-        "fx:1-service-with-executor-task/history-minute"
-      )
-      .route(/history\/last/, "fx:1-service-with-executor-task/summary")
       .route(/state-summary/, "fx:1-service-with-executor-task/summary")
       .route(
         /agent\/.*\/slave\(1\)\/state/,
@@ -284,8 +273,6 @@ Cypress.Commands.add("configureCluster", configuration => {
       .route(/marathon\/v2\/groups/, "fx:marathon-1-task-with-volumes/groups")
       .route(/marathon\/v2\/deployments/, "fx:marathon-1-task/deployments")
       .route(/dcos-version/, "fx:dcos/dcos-version")
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -311,7 +298,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /marathon\/v2\/groups/,
         "fx:healthy-tasks-in-mesos-and-marathon/groups"
       )
-      .route(/history\/last/, "fx:healthy-tasks-in-mesos-and-marathon/summary")
       .route(/state-summary/, "fx:healthy-tasks-in-mesos-and-marathon/summary");
   }
 
@@ -348,8 +334,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -367,8 +351,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/recovering/deployments"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
 
     if (configuration.mesos === "1-service-recovering") {
@@ -398,8 +380,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         "fx:marathon-1-task/recovering/deployments"
       )
       .route(/service\/marathon\/v2\/queue/, "fx:marathon-1-task/delayed/queue")
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -418,8 +398,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/deleting/queue"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -453,8 +431,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/apps\/\/services\/sdk-sleep\/versions/,
         "fx:marathon-1-task/versions"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary")
       .route({
         method: "POST",
@@ -492,8 +468,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -527,8 +501,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
       )
-      .route(/history\/minute/, "fx:marathon-1-task/history-minute")
-      .route(/history\/last/, "fx:marathon-1-task/summary")
       .route(/state-summary/, "fx:marathon-1-task/summary");
   }
 
@@ -538,7 +510,6 @@ Cypress.Commands.add("configureCluster", configuration => {
         /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
         "fx:no-agents/nodes"
       )
-      .route(/history\/last/, "fx:no-agents/summary")
       .route(/state-summary/, "fx:no-agents/summary");
   }
 

@@ -16,7 +16,6 @@ interface IConfiguration {
   getRefreshRate: () => number;
   getLongPollingInterval: () => number;
   historyLength: number;
-  historyServer: string;
   logsAPIPrefix: string;
   marathonAPIPrefix: string;
   mesosDocsURI: string;
@@ -50,7 +49,6 @@ let Config: IConfiguration = {
   downloadsURI: "https://downloads.dcos.io",
   environment: process.env.NODE_ENV,
   historyLength: 31,
-  historyServer: "",
   fullProductName: "Mesosphere DC/OS",
   marathonAPIPrefix: "/service/marathon/v2",
   metronomeAPI: "/service/metronome",
