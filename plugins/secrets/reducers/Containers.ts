@@ -4,7 +4,7 @@ import { processPodSecretTransaction } from "./Secrets";
 import {
   MultiContainerReducerContext,
   MultiContainerVolumeMount,
-  PodContainer
+  PodContainer,
 } from "./types";
 import { defaultSecretVolumeKey } from "./Volumes";
 
@@ -33,7 +33,7 @@ function JSONReducer(
   this.secretVolumeMounts = this.secrets.reduce(
     (containerVolumes, secret, secretIndex) => {
       const secretKey = secret.key || `secret${secretIndex}`;
-      secret.exposures.forEach(exposure => {
+      secret.exposures.forEach((exposure) => {
         if (!exposure.mounts || exposure.type !== "file") {
           return;
         }
@@ -45,7 +45,7 @@ function JSONReducer(
             exposure.value || defaultSecretVolumeKey(secretKey, secretIndex);
           containerVolumes[containerIndex].push({
             name,
-            mountPath
+            mountPath,
           });
         });
       });
@@ -70,13 +70,13 @@ function JSONReducer(
     let volumeMounts: MultiContainerVolumeMount[] = [];
     if (this.volumeMounts && this.volumeMounts.length > 0) {
       volumeMounts = this.volumeMounts
-        .filter(volumeMount => {
+        .filter((volumeMount) => {
           return volumeMount.name != null && volumeMount.mountPath[index];
         })
-        .map(volumeMount => {
+        .map((volumeMount) => {
           return {
             name: volumeMount.name,
-            mountPath: volumeMount.mountPath[index]
+            mountPath: volumeMount.mountPath[index],
           };
         });
     }

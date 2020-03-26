@@ -6,16 +6,16 @@ import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 
 class TaskFileBrowser extends React.Component {
   static defaultProps = {
-    task: {}
+    task: {},
   };
   static propTypes = {
     directory: PropTypes.object,
-    task: PropTypes.object
+    task: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
   }
-  handleFileClick = path => {
+  handleFileClick = (path) => {
     TaskDirectoryStore.addPath(this.props.task, path);
   };
 

@@ -5,8 +5,8 @@ import PluginSDK from "PluginSDK";
 jest.setMock("react-router", {
   hashHistory: {
     location: { pathname: "/foo" },
-    listen() {}
-  }
+    listen() {},
+  },
 });
 
 const SDK = PluginSDK.__getSDK("tracking", { enabled: true });

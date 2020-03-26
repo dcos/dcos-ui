@@ -5,7 +5,7 @@ import { Dropdown } from "reactjs-components";
 
 import { Service } from "#PLUGINS/services/src/js/types/Service";
 import SDKPlanTable, {
-  getStatusIcon
+  getStatusIcon,
 } from "#PLUGINS/services/src/js/components/SDKPlanTable";
 import { formatServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import { ServicePlan } from "#PLUGINS/services/src/js/types/ServicePlan";
@@ -50,7 +50,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
           {plan.name} ({plan.strategy}) - {getStatusIcon(plan.status)}{" "}
           {formatServicePlanStatus(plan.status)}
         </span>
-      )
+      ),
     }));
     return (
       <div className="flex-item-grow-1">
@@ -114,7 +114,7 @@ class SDKPlansTab extends React.PureComponent<SDKPlansTabProps, {}> {
     if (service.plans.length === 0) {
       return this.renderNoPlansPanel();
     }
-    let selectedPlan = service.plans.find(plan => plan.name === planName);
+    let selectedPlan = service.plans.find((plan) => plan.name === planName);
     if (selectedPlan === undefined) {
       selectedPlan = service.plans[0];
     }

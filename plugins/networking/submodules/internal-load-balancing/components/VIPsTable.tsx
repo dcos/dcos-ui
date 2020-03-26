@@ -15,7 +15,7 @@ const columnClasses = {
   successLastMinute: "service-addresses-table-column-successes",
   failLastMinute: "service-addresses-table-column-failures",
   failurePercent: "service-addresses-table-column-failure-perecent",
-  p99Latency: "service-addresses-table-column-p99latency"
+  p99Latency: "service-addresses-table-column-p99latency",
 };
 
 const RIGHT_ALIGNED_TABLE_CELLS = [
@@ -24,12 +24,12 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
   "failurePercent",
   "applicationReachabilityPercent",
   "machineReachabilityPercent",
-  "p99Latency"
+  "p99Latency",
 ];
 
 class VIPsTable extends React.Component {
   static defaultProps = {
-    vips: []
+    vips: [],
   };
   static propTypes = {
     vips: PropTypes.arrayOf(
@@ -40,9 +40,9 @@ class VIPsTable extends React.Component {
         failurePercent: PropTypes.number,
         applicationReachabilityPercent: PropTypes.number,
         machineReachabilityPercent: PropTypes.number,
-        p99Latency: PropTypes.number
+        p99Latency: PropTypes.number,
       })
-    )
+    ),
   };
   constructor() {
     super();
@@ -61,7 +61,7 @@ class VIPsTable extends React.Component {
       failurePercent: i18nMark("Failure %"),
       applicationReachabilityPercent: i18nMark("App Reach"),
       machineReachabilityPercent: i18nMark("IP Reach"),
-      p99Latency: i18nMark("P99 Latency")
+      p99Latency: i18nMark("P99 Latency"),
     });
     const sortFunction = TableUtil.getSortFunction(
       "name",
@@ -75,7 +75,7 @@ class VIPsTable extends React.Component {
         prop: "name",
         render: this.renderName,
         sortable: true,
-        heading
+        heading,
       },
       {
         className,
@@ -84,7 +84,7 @@ class VIPsTable extends React.Component {
         render: this.getFailSuccessRenderFn("success"),
         sortable: true,
         heading,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -93,7 +93,7 @@ class VIPsTable extends React.Component {
         render: this.getFailSuccessRenderFn("fail"),
         sortable: true,
         heading,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -102,7 +102,7 @@ class VIPsTable extends React.Component {
         render: this.renderPercentage,
         sortable: true,
         heading,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -111,14 +111,14 @@ class VIPsTable extends React.Component {
         sortable: true,
         render: this.renderMilliseconds,
         heading,
-        sortFunction
-      }
+        sortFunction,
+      },
     ];
   }
   getColumnClassname = (prop, sortBy, row) => {
     return classNames(columnClasses[prop], {
       active: prop === sortBy.prop,
-      clickable: row == null
+      clickable: row == null,
     });
   };
 
@@ -137,7 +137,7 @@ class VIPsTable extends React.Component {
   getFailSuccessRenderFn(type) {
     const classes = classNames({
       "text-danger": type === "fail",
-      "text-success": type === "success"
+      "text-success": type === "success",
     });
 
     return (prop, item) => <span className={classes}>{item[prop]}</span>;
@@ -148,11 +148,11 @@ class VIPsTable extends React.Component {
       const title = config[prop];
       const caret = {
         before: null,
-        after: null
+        after: null,
       };
       const caretClassSet = classNames("caret", {
         [`caret--${order}`]: order != null,
-        "caret--visible": prop === sortBy.prop
+        "caret--visible": prop === sortBy.prop,
       });
 
       if (this.alignTableCellRight(prop)) {

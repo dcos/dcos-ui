@@ -8,19 +8,19 @@ const ServiceErrorTabPathRegexes = {
     /^gpus$/,
     /^container\.docker\.image$/,
     /^args$/,
-    /^cmd$/
+    /^cmd$/,
   ],
   volumes: [
     /^volumes\..*/,
     /^container\.volumes\..*/,
-    /^containers\.[0-9]+\.volumeMounts\..*/
+    /^containers\.[0-9]+\.volumeMounts\..*/,
   ],
   placement: [/^constraints.*/],
   networking: [
     /^portDefinitions\..*/,
     /^container\.portMappings\..*/,
     /^container\.docker\.portMappings\..*/,
-    /^containers\.[0-9]+\.endpoints\..*/
+    /^containers\.[0-9]+\.endpoints\..*/,
   ],
   healthChecks: [/^healthChecks\..*/, /^containers\.[0-9]+\.healthCheck\..*/],
   environment: [/^labels\..*/, /^env\..*/],
@@ -28,8 +28,8 @@ const ServiceErrorTabPathRegexes = {
   containers: [
     /^containers\.[0-9]+\.name$/,
     /^containers\.[0-9]+\.resources$/,
-    /^containers\.[0-9]+\.resources\..*/
-  ]
+    /^containers\.[0-9]+\.resources\..*/,
+  ],
 };
 
 export default ServiceErrorTabPathRegexes;

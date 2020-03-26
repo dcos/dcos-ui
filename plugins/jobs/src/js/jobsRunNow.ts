@@ -26,6 +26,6 @@ export default function jobsRunNow(jobId) {
         // the request, so we don't have to care about unsubscribing.
         .pipe(take(1))
         .subscribe();
-    }
+    },
   };
 }

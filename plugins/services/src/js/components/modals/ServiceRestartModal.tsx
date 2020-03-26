@@ -20,14 +20,14 @@ class ServiceRestartModal extends React.PureComponent {
     restartService: PropTypes.func.isRequired,
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ]).isRequired
+      PropTypes.instanceOf(Service),
+    ]).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
     };
   }
 
@@ -124,7 +124,7 @@ class ServiceRestartModal extends React.PureComponent {
       open,
       service,
       restartService,
-      i18n
+      i18n,
     } = this.props;
     const serviceName = service.getName();
     const serviceLabel = i18n._(this.getServiceLabel());

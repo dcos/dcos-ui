@@ -9,14 +9,14 @@ describe("NodesTextFilter", () => {
   beforeEach(() => {
     thisMockItems = [
       {
-        getHostName: () => "10.0.1.214"
+        getHostName: () => "10.0.1.214",
       },
       {
-        getHostName: () => "10.0.7.139"
+        getHostName: () => "10.0.7.139",
       },
       {
-        getHostName: () => "10.1.8.229"
-      }
+        getHostName: () => "10.1.8.229",
+      },
     ];
   });
 
@@ -28,7 +28,7 @@ describe("NodesTextFilter", () => {
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
       thisMockItems[0],
-      thisMockItems[1]
+      thisMockItems[1],
     ]);
   });
 

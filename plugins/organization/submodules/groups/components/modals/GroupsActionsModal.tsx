@@ -16,7 +16,7 @@ class GroupsActionsModal extends ActionsModal {
     actionText: PropTypes.object.isRequired,
     itemID: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired
+    selectedItems: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -65,18 +65,18 @@ class GroupsActionsModal extends ActionsModal {
     if (selectedItem === null && action !== "delete") {
       this.setState({ validationError: "Select from dropdown." });
     } else {
-      const itemsByID = selectedItems.map(item => item[itemID]);
+      const itemsByID = selectedItems.map((item) => item[itemID]);
 
       if (action === "add") {
-        itemsByID.forEach(groupID => {
+        itemsByID.forEach((groupID) => {
           ACLGroupStore.addUser(groupID, selectedItem.id);
         });
       } else if (action === "remove") {
-        itemsByID.forEach(groupID => {
+        itemsByID.forEach((groupID) => {
           ACLGroupStore.deleteUser(groupID, selectedItem.id);
         });
       } else if (action === "delete") {
-        itemsByID.forEach(groupID => {
+        itemsByID.forEach((groupID) => {
           ACLGroupStore.deleteGroup(groupID);
         });
       }
@@ -90,17 +90,17 @@ class GroupsActionsModal extends ActionsModal {
       Util.getLocaleCompareSortFn("uid")
     );
 
-    const dropdownItems = items.map(itemInfo => ({
+    const dropdownItems = items.map((itemInfo) => ({
       html: itemInfo.uid,
       id: itemInfo.uid,
-      selectedHtml: itemInfo.uid
+      selectedHtml: itemInfo.uid,
     }));
 
     dropdownItems.unshift({
       html: <Trans render="span">Choose a user</Trans>,
       className: "hidden",
       id: "DEFAULT",
-      selectable: false
+      selectable: false,
     });
 
     return dropdownItems;

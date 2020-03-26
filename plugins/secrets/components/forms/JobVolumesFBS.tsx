@@ -12,8 +12,8 @@ class JobVolumesFBS extends React.Component<JobVolumesFBSProps, {}> {
   public render() {
     const { volumes } = this.props;
     const containerPaths = volumes
-      .filter(volume => volume.containerPath)
-      .map(volume => volume.containerPath);
+      .filter((volume) => volume.containerPath)
+      .map((volume) => volume.containerPath);
 
     if (containerPaths == null || !containerPaths.length) {
       return null;

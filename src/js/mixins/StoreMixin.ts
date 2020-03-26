@@ -25,7 +25,7 @@ export default {
 
     // Merges options for each store listener with
     // the ListenersDescription definition above
-    storeListeners.forEach(listener => {
+    storeListeners.forEach((listener) => {
       const { events, name } = listener;
 
       if (!ListenersDescription[name]) {
@@ -73,12 +73,12 @@ export default {
   },
 
   store_addListeners() {
-    Object.keys(this.store_listeners).forEach(storeID => {
+    Object.keys(this.store_listeners).forEach((storeID) => {
       const listenerDetail = this.store_listeners[storeID];
       const events = listenerDetail.events;
 
       // Loop through all available events
-      Object.keys(events).forEach(event => {
+      Object.keys(events).forEach((event) => {
         const eventListenerID = event + LISTENER_SUFFIX;
 
         // Check to see if we are already listening for this event
@@ -103,11 +103,11 @@ export default {
   },
 
   store_removeListeners() {
-    Object.keys(this.store_listeners).forEach(storeID => {
+    Object.keys(this.store_listeners).forEach((storeID) => {
       const listenerDetail = this.store_listeners[storeID];
 
       // Loop through all available events
-      Object.keys(listenerDetail.events).forEach(event => {
+      Object.keys(listenerDetail.events).forEach((event) => {
         this.store_removeEventListenerForStoreID(storeID, event);
       });
     });
@@ -161,5 +161,5 @@ export default {
     const eventName = StringUtil.capitalize(event);
 
     return "on" + storeName + "Store" + eventName;
-  }
+  },
 } as any;

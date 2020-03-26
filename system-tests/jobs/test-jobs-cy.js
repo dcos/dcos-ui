@@ -1,6 +1,6 @@
 describe("Jobs", () => {
   afterEach(() => {
-    cy.window().then(win => {
+    cy.window().then((win) => {
       win.location.href = "about:blank";
     });
   });
@@ -25,21 +25,12 @@ describe("Jobs", () => {
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
 
-    cy.root()
-      .getFormGroupInputFor("CPUs *")
-      .type("{selectall}0.1");
+    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-    cy.root()
-      .getFormGroupInputFor("Mem (MiB) *")
-      .type("{selectall}32");
+    cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
 
-    cy.root()
-      .get("label")
-      .contains("Command Only")
-      .click();
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
+    cy.root().get("label").contains("Command Only").click();
+    cy.root().getFormGroupInputFor("Command *").type(cmdline);
 
     // Click create job
     cy.contains("Submit").click();
@@ -66,14 +57,9 @@ describe("Jobs", () => {
       .getFormGroupInputFor("Job ID *")
       .should("have.value", `${fullJobName}`);
 
-    cy.root()
-      .getFormGroupInputFor("Mem (MiB) *")
-      .should("have.value", "32");
+    cy.root().getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
 
-    cy.root()
-      .get("label")
-      .contains("Command Only")
-      .click();
+    cy.root().get("label").contains("Command Only").click();
 
     cy.root()
       .getFormGroupInputFor("Command *")
@@ -100,27 +86,16 @@ describe("Jobs", () => {
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
 
-    cy.root()
-      .getFormGroupInputFor("CPUs *")
-      .type("{selectall}0.5");
+    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-    cy.root()
-      .getFormGroupInputFor("Mem (MiB) *")
-      .type("{selectall}32");
+    cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
 
     // Select `Container Image` radio button
-    cy.root()
-      .get("label")
-      .contains("Container Image")
-      .click();
-    cy.root()
-      .getFormGroupInputFor("Command")
-      .type(cmdline);
+    cy.root().get("label").contains("Container Image").click();
+    cy.root().getFormGroupInputFor("Command").type(cmdline);
 
     // Fill-in image
-    cy.root()
-      .getFormGroupInputFor("Container Image *")
-      .type("nginx");
+    cy.root().getFormGroupInputFor("Container Image *").type("nginx");
 
     // Click crate job
     cy.contains("Submit").click();
@@ -147,12 +122,8 @@ describe("Jobs", () => {
       .getFormGroupInputFor("Job ID *")
       .should("have.value", `${fullJobName}`);
 
-    cy.root()
-      .getFormGroupInputFor("CPUs *")
-      .type("{selectall}0.5");
-    cy.root()
-      .getFormGroupInputFor("Mem (MiB) *")
-      .should("have.value", "32");
+    cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
+    cy.root().getFormGroupInputFor("Mem (MiB) *").should("have.value", "32");
     cy.root()
       .getFormGroupInputFor("Command")
       .should("have.value", `${cmdline}`);
@@ -179,13 +150,8 @@ describe("Jobs", () => {
       .getFormGroupInputFor("Job ID *")
       .type(`{selectall}${fullJobName}`);
 
-    cy.root()
-      .get("label")
-      .contains("Command Only")
-      .click();
-    cy.root()
-      .getFormGroupInputFor("Command *")
-      .type(cmdline);
+    cy.root().get("label").contains("Command Only").click();
+    cy.root().getFormGroupInputFor("Command *").type(cmdline);
 
     // Click create job
     cy.contains("Submit").click();
@@ -208,16 +174,12 @@ describe("Jobs", () => {
       .click();
 
     // click delete
-    cy.get(".modal .button-danger")
-      .contains("Delete Job")
-      .click();
+    cy.get(".modal .button-danger").contains("Delete Job").click();
 
     // Switch to the group that will contain the service
     cy.visitUrl(`jobs/overview/${Cypress.env("TEST_UUID")}`);
 
     // The job should no longer be in the table
-    cy.get(".page-body-content table")
-      .contains(jobName)
-      .should("not.exist");
+    cy.get(".page-body-content table").contains(jobName).should("not.exist");
   });
 });

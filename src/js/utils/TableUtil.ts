@@ -18,12 +18,12 @@ const TableUtil = {
       mini: { screen: 480, rowHeight: 32 },
       small: { screen: 768, rowHeight: 37 },
       medium: { screen: 992, rowHeight: 45 },
-      large: { screen: 1270, rowHeight: 52 }
+      large: { screen: 1270, rowHeight: 52 },
     };
 
     let rowHeight = null;
     const windowWidth = window.innerWidth;
-    Object.keys(definitionList).forEach(size => {
+    Object.keys(definitionList).forEach((size) => {
       if (windowWidth >= definitionList[size].screen) {
         rowHeight = definitionList[size].rowHeight;
       }
@@ -150,7 +150,7 @@ const TableUtil = {
    */
   isColWidthCustom(colWidthsStorageKey, columnKey) {
     return Boolean(TableColumnResizeStore.get(colWidthsStorageKey)[columnKey]);
-  }
+  },
 };
 
 export default TableUtil;

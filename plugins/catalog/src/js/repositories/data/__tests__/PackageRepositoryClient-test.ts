@@ -5,13 +5,13 @@ import {
   fetchRepositories,
   liveFetchRepositories,
   addRepository,
-  deleteRepository
+  deleteRepository,
 } from "../PackageRepositoryClient";
 
 jest.mock("@dcos/http-service");
 
 describe("#fetchRepositories", () => {
-  it("makes the call with correct arguments", done => {
+  it("makes the call with correct arguments", (done) => {
     const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
     fetchRepositories().subscribe(() => {
@@ -27,15 +27,15 @@ describe("#fetchRepositories", () => {
           Accept:
             "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
           "Content-Type":
-            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1",
+        },
       }
     );
   });
 });
 
 describe("#liveFetchRepositories", () => {
-  it("makes the call with correct arguments", done => {
+  it("makes the call with correct arguments", (done) => {
     const spy = jest.spyOn(httpService, "request").mockReturnValueOnce(of(""));
 
     liveFetchRepositories().subscribe(() => {
@@ -51,15 +51,15 @@ describe("#liveFetchRepositories", () => {
           Accept:
             "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
           "Content-Type":
-            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1",
+        },
       }
     );
   });
 });
 
 describe("#addRepository", () => {
-  it("makes the call with correct arguments", done => {
+  it("makes the call with correct arguments", (done) => {
     const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(() => {
@@ -75,13 +75,13 @@ describe("#addRepository", () => {
           Accept:
             "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
           "Content-Type":
-            "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1",
+        },
       }
     );
   });
 
-  it("triggers #liveFetchRepositories", done => {
+  it("triggers #liveFetchRepositories", (done) => {
     jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(() => {});
@@ -100,7 +100,7 @@ describe("#addRepository", () => {
 });
 
 describe("#deleteRepository", () => {
-  it("makes the call with correct arguments", done => {
+  it("makes the call with correct arguments", (done) => {
     const spy = jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     deleteRepository("bar", "foo").subscribe(() => {
@@ -116,13 +116,13 @@ describe("#deleteRepository", () => {
           Accept:
             "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
           "Content-Type":
-            "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1",
+        },
       }
     );
   });
 
-  it("triggers #liveFetchRepositories", done => {
+  it("triggers #liveFetchRepositories", (done) => {
     jest.spyOn(httpService, "request").mockReturnValue(of(""));
 
     addRepository("bar", "foo", 1).subscribe(() => {});

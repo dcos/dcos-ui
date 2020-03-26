@@ -10,7 +10,7 @@ export function JSONReducer(state = null, { type, path, value }) {
   if (this.internalState == null) {
     this.internalState = {
       instances: 1,
-      kind: "fixed"
+      kind: "fixed",
     };
   }
 

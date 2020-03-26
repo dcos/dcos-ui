@@ -4,11 +4,11 @@ import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 import Util from "#SRC/js/utils/Util";
 
 import ServiceConfigSecretsExposedAsEnvironmentVariable, {
-  SecretEnvExposure
+  SecretEnvExposure,
 } from "./ServiceConfigSecretsExposedAsEnvironmentVariable";
 
 import ServiceConfigSecretsExposedAsFile, {
-  SecretFileExposure
+  SecretFileExposure,
 } from "./ServiceConfigSecretsExposedAsFile";
 
 interface Props {
@@ -22,14 +22,14 @@ function getEnvExposures(appConfig: any): SecretEnvExposure[] {
       const key = appConfig.env[envName].secret;
       if (key && appConfig.secrets[key]) {
         const existing = acc.find(
-          exp => exp.secretPath === appConfig.secrets[key].source
+          (exp) => exp.secretPath === appConfig.secrets[key].source
         );
         if (existing) {
           existing.exposures.push(envName);
         } else {
           acc.push({
             secretPath: appConfig.secrets[key].source,
-            exposures: [envName]
+            exposures: [envName],
           });
         }
       }
@@ -55,14 +55,14 @@ function getFileExposures(appConfig: any): SecretFileExposure[] {
     (acc: SecretFileExposure[], volume: SecretVolume) => {
       if (appConfig.secrets && appConfig.secrets[volume.secret]) {
         const secretPath = appConfig.secrets[volume.secret].source;
-        const existing = acc.find(exp => exp.secretPath === secretPath);
+        const existing = acc.find((exp) => exp.secretPath === secretPath);
 
         if (existing) {
           existing.paths.push(volume.containerPath);
         } else {
           acc.push({
             secretPath,
-            paths: [volume.containerPath]
+            paths: [volume.containerPath],
           });
         }
       }

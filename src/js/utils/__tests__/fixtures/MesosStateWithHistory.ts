@@ -11,8 +11,8 @@ export default {
   frameworks: [
     {
       name: "marathon",
-      id: "marathon_1"
-    }
+      id: "marathon_1",
+    },
   ],
   tasks: [
     {
@@ -24,13 +24,13 @@ export default {
       statuses: [
         {
           state: "TASK_STAGING",
-          timestamp: timestamp01
+          timestamp: timestamp01,
         },
         {
           state: "TASK_FINISHED",
-          timestamp: timestamp02
-        }
-      ]
+          timestamp: timestamp02,
+        },
+      ],
     },
     {
       framework_id: "marathon_1",
@@ -41,13 +41,13 @@ export default {
       statuses: [
         {
           state: "TASK_STAGING",
-          timestamp: timestamp03
+          timestamp: timestamp03,
         },
         {
           state: "TASK_FINISHED",
-          timestamp: timestamp04
-        }
-      ]
+          timestamp: timestamp04,
+        },
+      ],
     },
     {
       framework_id: "marathon_1",
@@ -58,13 +58,13 @@ export default {
       statuses: [
         {
           state: "TASK_STAGING",
-          timestamp: timestamp05
+          timestamp: timestamp05,
         },
         {
           state: "TASK_FINISHED",
-          timestamp: timestamp06
-        }
-      ]
+          timestamp: timestamp06,
+        },
+      ],
     },
     {
       framework_id: "marathon_1",
@@ -75,9 +75,9 @@ export default {
       statuses: [
         {
           state: "TASK_FINISHED",
-          timestamp: timestamp07
-        }
-      ]
+          timestamp: timestamp07,
+        },
+      ],
     },
     {
       framework_id: "marathon_1",
@@ -88,9 +88,9 @@ export default {
       statuses: [
         {
           state: "TASK_FINISHED",
-          timestamp: timestamp08
-        }
-      ]
-    }
-  ]
+          timestamp: timestamp08,
+        },
+      ],
+    },
+  ],
 };

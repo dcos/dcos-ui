@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 const JobsCronTooltip = ({ content }: { content: string }) => {

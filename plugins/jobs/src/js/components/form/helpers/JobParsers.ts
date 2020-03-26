@@ -2,7 +2,7 @@ import { Hooks } from "#SRC/js/plugin-bridge/PluginSDK";
 import {
   deepCopy,
   findNestedPropertyInObject,
-  filterEmptyValues
+  filterEmptyValues,
 } from "#SRC/js/utils/Util";
 
 import {
@@ -11,7 +11,7 @@ import {
   FormOutput,
   JobOutput,
   JobSpec,
-  PlacementConstraint
+  PlacementConstraint,
 } from "./JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "./ScheduleUtil";
 import { isArray } from "util";
@@ -106,7 +106,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
         .map(({ operator, attribute, value }) => ({
           operator,
           attribute,
-          value
+          value,
         }));
       if (!jobSpecCopy.job.run.placement.constraints.length) {
         delete jobSpecCopy.job.run.placement;
@@ -116,7 +116,7 @@ export function jobSpecToOutputParser(jobSpec: JobSpec): JobOutput {
     // RUN CONFIG
     const { artifacts } = jobSpecCopy.job.run;
     jobSpecCopy.job.run.artifacts = Array.isArray(artifacts)
-      ? artifacts.filter(a => a.uri || a.extract || a.executable || a.cache)
+      ? artifacts.filter((a) => a.uri || a.extract || a.executable || a.cache)
       : artifacts;
 
     try {
@@ -233,7 +233,10 @@ export const jobSpecToFormOutputParser = (jobSpec: JobSpec): FormOutput => {
     ),
     volumes: findNestedPropertyInObject(jobSpec, "job.run.volumes") || [],
     placementConstraints,
-    concurrencyPolicy: findNestedPropertyInObject(schedule, "concurrencyPolicy")
+    concurrencyPolicy: findNestedPropertyInObject(
+      schedule,
+      "concurrencyPolicy"
+    ),
   };
 };
 

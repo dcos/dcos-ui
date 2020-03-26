@@ -11,7 +11,7 @@ import {
   REQUEST_ACL_LDAP_USER_CREATE_SUCCESS,
   REQUEST_ACL_LDAP_USER_CREATE_ERROR,
   REQUEST_ACL_USER_UPDATE_SUCCESS,
-  REQUEST_ACL_USER_UPDATE_ERROR
+  REQUEST_ACL_USER_UPDATE_ERROR,
 } from "../constants/ActionTypes";
 
 import SDK from "PluginSDK";
@@ -23,16 +23,16 @@ const ACLUsersActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
         });
-      }
+      },
     });
   },
 
@@ -43,16 +43,16 @@ const ACLUsersActions = {
         SDK.dispatch({
           type: REQUEST_ACL_USER_GROUPS_SUCCESS,
           data: response.array,
-          userID
+          userID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_GROUPS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
         });
-      }
+      },
     });
   },
 
@@ -63,16 +63,16 @@ const ACLUsersActions = {
         SDK.dispatch({
           type: REQUEST_ACL_USER_PERMISSIONS_SUCCESS,
           data: response,
-          userID
+          userID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
         });
-      }
+      },
     });
   },
 
@@ -84,16 +84,16 @@ const ACLUsersActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_LDAP_USER_CREATE_SUCCESS,
-          userID: data.username
+          userID: data.username,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_LDAP_USER_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID: data.username
+          userID: data.username,
         });
-      }
+      },
     });
   },
 
@@ -105,18 +105,18 @@ const ACLUsersActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_USER_UPDATE_SUCCESS,
-          userID
+          userID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -130,25 +130,25 @@ if (Config.useFixtures) {
   if (!window.actionTypes) {
     window.actionTypes = {};
   }
-  Promise.all([userFixture, userDetailsFixture]).then(responses => {
+  Promise.all([userFixture, userDetailsFixture]).then((responses) => {
     window.actionTypes.ACLUsersActions = {
       fetchUser: { event: "success", success: { response: responses[0] } },
       fetchUserGroups: {
         event: "success",
         success: {
-          response: responses[1].groups
-        }
+          response: responses[1].groups,
+        },
       },
       fetchUserPermissions: {
         event: "success",
         success: {
-          response: responses[1].permissions
-        }
+          response: responses[1].permissions,
+        },
       },
-      updateUser: { event: "success" }
+      updateUser: { event: "success" },
     };
 
-    Object.keys(window.actionTypes.ACLUsersActions).forEach(method => {
+    Object.keys(window.actionTypes.ACLUsersActions).forEach((method) => {
       ACLUsersActions[method] = RequestUtil.stubRequest(
         ACLUsersActions,
         "ACLUsersActions",

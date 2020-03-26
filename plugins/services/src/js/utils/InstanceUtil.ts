@@ -41,10 +41,10 @@ const InstanceUtil = {
 
     return nodesList
       .filter({
-        ids: [task.agentId]
+        ids: [task.agentId],
       })
       .last();
-  }
+  },
 };
 
 export default InstanceUtil;

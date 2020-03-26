@@ -122,7 +122,7 @@ describe("MarathonStore", () => {
       MarathonStore.processMarathonGroups(MockMarathonResponse.hasNoHealthy);
       const marathonApps = MarathonStore.get("apps");
 
-      Object.keys(marathonApps).forEach(key => {
+      Object.keys(marathonApps).forEach((key) => {
         const appHealth = marathonApps[key].health;
 
         if (key === "marathon") {
@@ -194,9 +194,9 @@ describe("MarathonStore", () => {
         queue: [
           {
             app: { id: "/service-id" },
-            delay: { overdue: false }
-          }
-        ]
+            delay: { overdue: false },
+          },
+        ],
       });
     });
 
@@ -218,7 +218,7 @@ describe("MarathonStore", () => {
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
         versionID: "version-id",
-        version: {}
+        version: {},
       });
 
       expect(handler).toBeCalled();
@@ -230,7 +230,7 @@ describe("MarathonStore", () => {
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
         versionID: "version-id",
-        version: {}
+        version: {},
       });
       const { serviceID } = handler.mock.calls[0][0];
 
@@ -243,7 +243,7 @@ describe("MarathonStore", () => {
       MarathonStore.processMarathonServiceVersion({
         serviceID: "service-id",
         versionID: "version-id",
-        version: {}
+        version: {},
       });
       const { versionID } = handler.mock.calls[0][0];
 
@@ -257,7 +257,7 @@ describe("MarathonStore", () => {
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
-        versions: []
+        versions: [],
       });
 
       expect(handler).toBeCalled();
@@ -268,7 +268,7 @@ describe("MarathonStore", () => {
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
-        versions: ["2016-05-02T16:07:32.583Z"]
+        versions: ["2016-05-02T16:07:32.583Z"],
       });
       const { versions } = handler.mock.calls[0][0];
 
@@ -281,7 +281,7 @@ describe("MarathonStore", () => {
       MarathonStore.once(EventTypes.MARATHON_SERVICE_VERSIONS_CHANGE, handler);
       MarathonStore.processMarathonServiceVersions({
         serviceID: "service-id",
-        versions: ["2016-05-02T16:07:32.583Z"]
+        versions: ["2016-05-02T16:07:32.583Z"],
       });
       const { serviceID } = handler.mock.calls[0][0];
 
@@ -293,7 +293,7 @@ describe("MarathonStore", () => {
     it("deletes the relevant deployment from the store", () => {
       MarathonStore.processMarathonDeployments([{ id: "deployment-id" }]);
       MarathonStore.processMarathonDeploymentRollback({
-        originalDeploymentID: "deployment-id"
+        originalDeploymentID: "deployment-id",
       });
       expect(MarathonStore.get("deployments").getItems().length).toEqual(0);
     });
@@ -302,7 +302,7 @@ describe("MarathonStore", () => {
       const handler = jest.fn();
       MarathonStore.once(EventTypes.MARATHON_DEPLOYMENTS_CHANGE, handler);
       MarathonStore.processMarathonDeploymentRollback({
-        originalDeploymentID: "deployment-id"
+        originalDeploymentID: "deployment-id",
       });
       expect(handler).toBeCalled();
     });
@@ -314,10 +314,10 @@ describe("MarathonStore", () => {
         handler
       );
       MarathonStore.processMarathonDeploymentRollback({
-        originalDeploymentID: "deployment-id"
+        originalDeploymentID: "deployment-id",
       });
       expect(handler).toBeCalledWith({
-        originalDeploymentID: "deployment-id"
+        originalDeploymentID: "deployment-id",
       });
     });
   });
@@ -331,11 +331,11 @@ describe("MarathonStore", () => {
       );
       MarathonStore.processMarathonDeploymentRollbackError({
         originalDeploymentID: "deployment-id",
-        error: "Guru meditation"
+        error: "Guru meditation",
       });
       expect(handler).toBeCalledWith({
         originalDeploymentID: "deployment-id",
-        error: "Guru meditation"
+        error: "Guru meditation",
       });
     });
   });

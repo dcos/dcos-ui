@@ -27,7 +27,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_SUCCESS);
@@ -37,7 +37,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNITS_ERROR);
@@ -47,18 +47,18 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -81,7 +81,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_SUCCESS);
@@ -92,7 +92,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_ERROR);
@@ -103,18 +103,18 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -137,7 +137,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -150,7 +150,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -163,18 +163,18 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -197,7 +197,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -210,7 +210,7 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_HEALTH_UNIT_NODE_ERROR);
@@ -222,18 +222,18 @@ describe("UnitHealthActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

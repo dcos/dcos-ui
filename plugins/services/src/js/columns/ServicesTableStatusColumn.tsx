@@ -14,7 +14,7 @@ function statusCountsToTooltipContent(counts: {
   status: Record<ServiceStatus.StatusCategory, number>;
 }): JSX.Element[] {
   return Object.keys(counts.status)
-    .filter(value => value in ServiceStatus.StatusCategory)
+    .filter((value) => value in ServiceStatus.StatusCategory)
     .sort(statusCategorySorter)
     .map((value, index) => {
       const category = value as ServiceStatus.StatusCategory;

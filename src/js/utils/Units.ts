@@ -56,7 +56,7 @@ const Units = {
 
     options = {
       decimalPlaces: 2,
-      ...options
+      ...options,
     };
 
     if (amount > 1) {
@@ -103,7 +103,7 @@ const Units = {
     }
 
     return amount + suffix;
-  }
+  },
 };
 
 export default Units;

@@ -22,14 +22,14 @@ export default class PermissionTree extends Tree {
 
     // Converts items into instances of PermissionTree,
     // even if they have no items property.
-    this.list = this.list.map(item => {
+    this.list = this.list.map((item) => {
       if (item instanceof PermissionTree) {
         return item;
       }
 
       return new this.constructor({
         filterProperties: this.getFilterProperties(),
-        ...item
+        ...item,
       });
     });
 
@@ -68,7 +68,7 @@ export default class PermissionTree extends Tree {
   collectChildren(rids = []) {
     const items = [this];
     rids.reduce((current, rid) => {
-      const next = current.getItems().find(item => item.rid === rid);
+      const next = current.getItems().find((item) => item.rid === rid);
 
       if (!(next instanceof PermissionTree)) {
         return current;
@@ -84,7 +84,7 @@ export default class PermissionTree extends Tree {
 
   collectPermissionString(rids) {
     return this.collectChildren(rids)
-      .map(item => item.rid)
+      .map((item) => item.rid)
       .join(":");
   }
 }

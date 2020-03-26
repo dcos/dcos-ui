@@ -8,7 +8,7 @@ export default class StateSummary {
       frameworks: [],
       slaves: [],
       cluster: "",
-      hostname: ""
+      hostname: "",
     };
     // Only place where we normalize server data
     // we may be able to remove this, but it needs testing
@@ -24,11 +24,11 @@ export default class StateSummary {
         options.successful != null ? options.successful : true,
 
       slaveUsedResources: MesosSummaryUtil.sumResources(
-        slaves.map(slave => slave.used_resources)
+        slaves.map((slave) => slave.used_resources)
       ),
       slaveTotalResources: MesosSummaryUtil.sumResources(
-        slaves.map(slave => slave.resources)
-      )
+        slaves.map((slave) => slave.resources)
+      ),
     };
   }
 
@@ -41,7 +41,7 @@ export default class StateSummary {
   }
 
   getActiveSlaves() {
-    return this.snapshot.slaves.filter(slave => slave.active === true);
+    return this.snapshot.slaves.filter((slave) => slave.active === true);
   }
 
   getServiceList() {

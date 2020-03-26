@@ -12,11 +12,11 @@ import ACLGroupsStore from "../submodules/groups/stores/ACLGroupsStore";
 
 const BIND_ERROR_HANDLERS = [
   "onAclGroupStoreAddUserError",
-  "onAclGroupStoreDeleteUserError"
+  "onAclGroupStoreDeleteUserError",
 ];
 const BIND_SUCCESS_HANDLERS = [
   "onAclGroupStoreAddUserSuccess",
-  "onAclGroupStoreDeleteUserSuccess"
+  "onAclGroupStoreDeleteUserSuccess",
 ];
 
 class AccountsActionsModal extends ActionsModal {
@@ -25,7 +25,7 @@ class AccountsActionsModal extends ActionsModal {
     actionText: PropTypes.object.isRequired,
     itemID: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired
+    selectedItems: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -36,11 +36,11 @@ class AccountsActionsModal extends ActionsModal {
       { name: "aclGroup", events: ["addUserError", "addUserSuccess", "deleteUserError", "deleteUserSuccess"], suppressUpdate: true }
     ];
 
-    BIND_ERROR_HANDLERS.forEach(handler => {
+    BIND_ERROR_HANDLERS.forEach((handler) => {
       this[handler] = this.onActionError;
     });
 
-    BIND_SUCCESS_HANDLERS.forEach(handler => {
+    BIND_SUCCESS_HANDLERS.forEach((handler) => {
       this[handler] = this.onActionSuccess;
     });
   }
@@ -60,16 +60,16 @@ class AccountsActionsModal extends ActionsModal {
       return;
     }
 
-    const itemsByID = selectedItems.map(item => item[itemID]);
+    const itemsByID = selectedItems.map((item) => item[itemID]);
 
     switch (action) {
       case "add":
-        itemsByID.forEach(accountID => {
+        itemsByID.forEach((accountID) => {
           ACLGroupStore.addUser(selectedItem.id, accountID);
         });
         break;
       case "remove":
-        itemsByID.forEach(accountID => {
+        itemsByID.forEach((accountID) => {
           ACLGroupStore.deleteUser(selectedItem.id, accountID);
         });
         break;
@@ -87,17 +87,17 @@ class AccountsActionsModal extends ActionsModal {
       .getItems()
       .sort(Util.getLocaleCompareSortFn(itemID));
 
-    const dropdownItems = items.map(itemInfo => ({
+    const dropdownItems = items.map((itemInfo) => ({
       html: itemInfo[itemID],
       id: itemInfo[itemID],
-      selectedHtml: itemInfo[itemID]
+      selectedHtml: itemInfo[itemID],
     }));
 
     dropdownItems.unshift({
       html: <Trans render="span">Choose a group</Trans>,
       className: "hidden",
       id: "DEFAULT",
-      selectable: false
+      selectable: false,
     });
 
     return dropdownItems;

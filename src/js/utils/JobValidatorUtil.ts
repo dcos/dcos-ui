@@ -25,8 +25,10 @@ const JobValidatorUtil = {
     // Make sure each component contains valid characters
     const cronComponentPattern = /^[0-9*]+([0-9\-,/*])*$/;
 
-    return components.every(component => cronComponentPattern.test(component));
-  }
+    return components.every((component) =>
+      cronComponentPattern.test(component)
+    );
+  },
 };
 
 export default JobValidatorUtil;

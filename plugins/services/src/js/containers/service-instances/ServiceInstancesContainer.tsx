@@ -13,18 +13,18 @@ import TasksContainer from "../tasks/TasksContainer";
 class ServiceInstancesContainer extends mixin(StoreMixin) {
   static propTypes = {
     service: PropTypes.instanceOf(Service),
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       lastUpdate: 0,
-      mesosStateErrorCount: 0
+      mesosStateErrorCount: 0,
     };
 
     this.store_listeners = [
-      { name: "state", events: ["success", "error"], suppressUpdate: true }
+      { name: "state", events: ["success", "error"], suppressUpdate: true },
     ];
   }
   onStateStoreSuccess = () => {
@@ -35,13 +35,13 @@ class ServiceInstancesContainer extends mixin(StoreMixin) {
     ) {
       this.setState({
         lastUpdate: Date.now(),
-        mesosStateErrorCount: 0
+        mesosStateErrorCount: 0,
       });
     }
   };
   onStateStoreError = () => {
     this.setState({
-      mesosStateErrorCount: this.state.mesosStateErrorCount + 1
+      mesosStateErrorCount: this.state.mesosStateErrorCount + 1,
     });
   };
 

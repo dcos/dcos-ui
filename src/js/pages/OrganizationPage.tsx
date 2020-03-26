@@ -11,7 +11,7 @@ const OrganizationPage = ({ children }) => {
 OrganizationPage.routeConfig = {
   label: i18nMark("Organization"),
   icon: <Icon shape={ProductIcons.UsersInverse} size={iconSizeS} />,
-  matches: /^\/organization/
+  matches: /^\/organization/,
 };
 
 export default OrganizationPage;

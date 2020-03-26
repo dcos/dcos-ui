@@ -12,45 +12,45 @@ describe("Networks", () => {
         networks: [
           {
             mode: "host",
-            name: "dcos"
-          }
-        ]
+            name: "dcos",
+          },
+        ],
       };
       expect(Networks.JSONParser(state)).toEqual([
         {
           type: ADD_ITEM,
           value: {
             mode: "host",
-            name: "dcos"
+            name: "dcos",
           },
-          path: ["networks"]
+          path: ["networks"],
         },
         { type: SET, value: "dcos", path: ["networks", 0, "name"] },
-        { type: SET, value: "CONTAINER", path: ["networks", 0, "mode"] }
+        { type: SET, value: "CONTAINER", path: ["networks", 0, "mode"] },
       ]);
     });
 
     it("sets BRIDGE mode", () => {
       const state = {
-        networks: [{ mode: "container/bridge" }]
+        networks: [{ mode: "container/bridge" }],
       };
       expect(Networks.JSONParser(state)).toEqual([
         {
           type: ADD_ITEM,
           value: { mode: "container/bridge" },
-          path: ["networks"]
+          path: ["networks"],
         },
-        { type: SET, value: "BRIDGE", path: ["networks", 0, "mode"] }
+        { type: SET, value: "BRIDGE", path: ["networks", 0, "mode"] },
       ]);
     });
 
     it("sets HOST mode", () => {
       const state = {
-        networks: [{ mode: "host" }]
+        networks: [{ mode: "host" }],
       };
       expect(Networks.JSONParser(state)).toEqual([
         { type: ADD_ITEM, value: { mode: "host" }, path: ["networks"] },
-        { type: SET, value: "HOST", path: ["networks", 0, "mode"] }
+        { type: SET, value: "HOST", path: ["networks", 0, "mode"] },
       ]);
     });
 
@@ -59,17 +59,17 @@ describe("Networks", () => {
         mode: "container",
         name: "dcos",
         labels: {
-          foo: "bar"
-        }
+          foo: "bar",
+        },
       };
       const state = {
-        networks: [network]
+        networks: [network],
       };
 
       expect(Networks.JSONParser(state)).toEqual([
         { type: ADD_ITEM, value: network, path: ["networks"] },
         { type: SET, value: "dcos", path: ["networks", 0, "name"] },
-        { type: SET, value: "CONTAINER", path: ["networks", 0, "mode"] }
+        { type: SET, value: "CONTAINER", path: ["networks", 0, "mode"] },
       ]);
     });
   });

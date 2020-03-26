@@ -25,9 +25,9 @@ describe("CompositeState", () => {
           {
             id: "foo-id",
             name: "foo",
-            bar: "baz"
-          }
-        ]
+            bar: "baz",
+          },
+        ],
       });
 
       CompositeState.addState({
@@ -35,9 +35,9 @@ describe("CompositeState", () => {
           {
             id: "bar-id",
             name: "bar",
-            bar: "baz"
-          }
-        ]
+            bar: "baz",
+          },
+        ],
       });
 
       expect(CompositeState.data).toEqual({
@@ -46,9 +46,9 @@ describe("CompositeState", () => {
           {
             id: "bar-id",
             name: "bar",
-            bar: "baz"
-          }
-        ]
+            bar: "baz",
+          },
+        ],
       });
     });
 
@@ -60,7 +60,7 @@ describe("CompositeState", () => {
       expect(CompositeState.data).toEqual({
         master_info: { foo: "bar" },
         bar: "baz",
-        slaves: []
+        slaves: [],
       });
     });
 
@@ -69,17 +69,17 @@ describe("CompositeState", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
-          health: 1
-        }
+          health: 1,
+        },
       ]);
 
       expect(CompositeState.data).toEqual({
         slaves: [
           {
             hostname: "foo",
-            health: 1
-          }
-        ]
+            health: 1,
+          },
+        ],
       });
     });
   });
@@ -90,9 +90,9 @@ describe("CompositeState", () => {
         slaves: [
           {
             id: "foo-id",
-            hostname: "foo"
-          }
-        ]
+            hostname: "foo",
+          },
+        ],
       });
     });
 
@@ -100,8 +100,8 @@ describe("CompositeState", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
-          health: 100
-        }
+          health: 100,
+        },
       ]);
 
       expect(CompositeState.data.slaves[0].health).toEqual(100);
@@ -112,15 +112,15 @@ describe("CompositeState", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
-          health: 5
-        }
+          health: 5,
+        },
       ]);
 
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
-          health: 6
-        }
+          health: 6,
+        },
       ]);
 
       expect(CompositeState.data.slaves[0].health).toEqual(6);
@@ -134,15 +134,15 @@ describe("CompositeState", () => {
       CompositeState.addNodeHealth([
         {
           host_ip: "bar",
-          health: 1
-        }
+          health: 1,
+        },
       ]);
 
       CompositeState.addState({
         slaves: [
           { host_ip: "bar", hostname: "bar" },
-          { host_ip: "foo", hostname: "foo" }
-        ]
+          { host_ip: "foo", hostname: "foo" },
+        ],
       });
 
       expect(CompositeState.data).toEqual({
@@ -150,14 +150,14 @@ describe("CompositeState", () => {
           {
             hostname: "bar",
             host_ip: "bar",
-            health: 1
+            health: 1,
           },
           {
             hostname: "foo",
             host_ip: "foo",
-            health: 3
-          }
-        ]
+            health: 3,
+          },
+        ],
       });
     });
   });
@@ -169,32 +169,32 @@ describe("CompositeState", () => {
           {
             id: "foo-id",
             name: "foo",
-            bar: "baz"
+            bar: "baz",
           },
           {
             id: "quux-id",
             name: "quux",
-            corge: "grault"
-          }
-        ]
+            corge: "grault",
+          },
+        ],
       });
 
       const expectedResult = [
         {
           id: "foo-id",
           name: "foo",
-          bar: "baz"
+          bar: "baz",
         },
         {
           id: "quux-id",
           name: "quux",
-          corge: "grault"
-        }
+          corge: "grault",
+        },
       ];
 
       const serviceList = CompositeState.getServiceList();
 
-      serviceList.getItems().forEach(item => {
+      serviceList.getItems().forEach((item) => {
         expect(item.get()).toEqual(expectedResult.shift());
       });
     });
@@ -206,13 +206,13 @@ describe("CompositeState", () => {
         slaves: [
           {
             id: "foo-id",
-            hostname: "foo"
+            hostname: "foo",
           },
           {
             id: "qq-id",
-            hostname: "qq"
-          }
-        ]
+            hostname: "qq",
+          },
+        ],
       });
     });
 
@@ -223,16 +223,16 @@ describe("CompositeState", () => {
             id: "foo-id",
             hostname: "foo",
             health: 3,
-            _itemData: { id: "foo-id", hostname: "foo", health: 3 }
+            _itemData: { id: "foo-id", hostname: "foo", health: 3 },
           },
           {
             id: "qq-id",
             hostname: "qq",
             health: 3,
-            _itemData: { id: "qq-id", hostname: "qq", health: 3 }
-          }
+            _itemData: { id: "qq-id", hostname: "qq", health: 3 },
+          },
         ],
-        filterProperties: {}
+        filterProperties: {},
       };
 
       const nodesList = CompositeState.getNodesList();
@@ -268,17 +268,17 @@ describe("CompositeState", () => {
         slaves: [
           {
             id: "foo-id",
-            hostname: "foo"
-          }
-        ]
+            hostname: "foo",
+          },
+        ],
       });
 
       CompositeState.disable();
       CompositeState.addNodeHealth([
         {
           host_ip: "foo",
-          health: 100
-        }
+          health: 100,
+        },
       ]);
 
       expect(CompositeState.data.slaves[0].health).not.toEqual(100);

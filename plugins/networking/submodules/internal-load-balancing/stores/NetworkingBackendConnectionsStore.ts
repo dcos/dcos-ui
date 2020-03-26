@@ -1,13 +1,13 @@
 import BaseStore from "#SRC/js/stores/BaseStore";
 import {
   NETWORKING_BACKEND_CONNECTIONS_CHANGE,
-  NETWORKING_BACKEND_CONNECTIONS_REQUEST_ERROR
+  NETWORKING_BACKEND_CONNECTIONS_REQUEST_ERROR,
 } from "../constants/EventTypes";
 
 import {
   REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
   REQUEST_NETWORKING_BACKEND_CONNECTIONS_ERROR,
-  REQUEST_NETWORKING_BACKEND_CONNECTIONS_ONGOING
+  REQUEST_NETWORKING_BACKEND_CONNECTIONS_ONGOING,
 } from "../constants/ActionTypes";
 
 import BackendConnection from "../structs/BackendConnection";
@@ -27,12 +27,12 @@ class NetworkingBackendConnectionsStore extends BaseStore {
       storeID: "networkingBackendConnections",
       events: {
         success: NETWORKING_BACKEND_CONNECTIONS_CHANGE,
-        error: NETWORKING_BACKEND_CONNECTIONS_REQUEST_ERROR
+        error: NETWORKING_BACKEND_CONNECTIONS_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS:
           this.processBackendConnections(action.vip, action.data);
@@ -89,7 +89,7 @@ class NetworkingBackendConnectionsStore extends BaseStore {
     currentBackendConnections[vip] = backendConnections;
     SDK.getSDK().dispatch({
       type: NETWORKING_BACKEND_CONNECTIONS_CHANGE,
-      backendConnections: currentBackendConnections
+      backendConnections: currentBackendConnections,
     });
 
     this.emit(NETWORKING_BACKEND_CONNECTIONS_CHANGE, vip);

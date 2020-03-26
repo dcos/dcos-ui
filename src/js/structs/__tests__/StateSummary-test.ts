@@ -37,7 +37,7 @@ describe("StateSummary", () => {
     it("correctly calculates active slaves", () => {
       const snapshot = {
         frameworks: [],
-        slaves: [{ active: true }, { active: false }, { active: true }]
+        slaves: [{ active: true }, { active: false }, { active: true }],
       };
       const instance = new StateSummary({ snapshot });
       expect(instance.getActiveSlaves().length).toEqual(2);
@@ -89,8 +89,8 @@ describe("StateSummary", () => {
         slaves: [
           { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
           { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
-          { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
-        ]
+          { resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+        ],
       };
       const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
       const instance = new StateSummary({ snapshot });
@@ -111,8 +111,8 @@ describe("StateSummary", () => {
         slaves: [
           { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
           { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
-          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } }
-        ]
+          { used_resources: { cpus: 1, mem: 0, disk: 2, gpus: 0 } },
+        ],
       };
       const aggregate = { cpus: 3, mem: 0, disk: 6, gpus: 0 };
       const instance = new StateSummary({ snapshot });

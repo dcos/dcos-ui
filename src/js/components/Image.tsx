@@ -12,14 +12,14 @@ class Image extends React.Component {
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
-    ])
+      PropTypes.string,
+    ]),
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      imageErrorCount: 0
+      imageErrorCount: 0,
     };
   }
 
@@ -41,10 +41,10 @@ class Image extends React.Component {
       this.setState({ imageErrorCount: 0 });
     }
   }
-  onImageError = event => {
+  onImageError = (event) => {
     const {
       props: { fallbackSrc },
-      state: { imageErrorCount }
+      state: { imageErrorCount },
     } = this;
 
     if (imageErrorCount === 0) {
@@ -58,7 +58,7 @@ class Image extends React.Component {
   render() {
     const {
       props,
-      state: { imageErrorCount }
+      state: { imageErrorCount },
     } = this;
     const classes = classNames(
       { hidden: imageErrorCount > 1 },

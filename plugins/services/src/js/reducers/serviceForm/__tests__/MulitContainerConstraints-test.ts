@@ -10,7 +10,7 @@ describe("MultiContainerConstraints", () => {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
-        new Transaction(["constraints", 0, "value"], "param", SET)
+        new Transaction(["constraints", 0, "value"], "param", SET),
       ]);
 
       // Doesn't expect 'scheduling' in the beginning as this object is passed
@@ -24,7 +24,7 @@ describe("MultiContainerConstraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
-        new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+        new Transaction(["constraints", 0, "operator"], "JOIN", SET),
       ]);
 
       // Doesn't expect 'scheduling' in the beginning as this object is passed
@@ -42,16 +42,16 @@ describe("MultiContainerConstraints", () => {
           scheduling: {
             placement: {
               constraints: [
-                { fieldName: "hostname", operator: "JOIN", value: "param" }
-              ]
-            }
-          }
+                { fieldName: "hostname", operator: "JOIN", value: "param" },
+              ],
+            },
+          },
         })
       ).toEqual([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
-        new Transaction(["constraints", 0, "value"], "param", SET)
+        new Transaction(["constraints", 0, "value"], "param", SET),
       ]);
     });
 
@@ -64,14 +64,14 @@ describe("MultiContainerConstraints", () => {
         MultiContainerConstraints.JSONParser({
           scheduling: {
             placement: {
-              constraints: [{ fieldName: "hostname", operator: "JOIN" }]
-            }
-          }
+              constraints: [{ fieldName: "hostname", operator: "JOIN" }],
+            },
+          },
         })
       ).toEqual([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
-        new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+        new Transaction(["constraints", 0, "operator"], "JOIN", SET),
       ]);
     });
 
@@ -80,9 +80,9 @@ describe("MultiContainerConstraints", () => {
         MultiContainerConstraints.JSONParser({
           scheduling: {
             placement: {
-              constraints: { fieldName: "hostname", operator: "JOIN" }
-            }
-          }
+              constraints: { fieldName: "hostname", operator: "JOIN" },
+            },
+          },
         })
       ).toEqual([new Transaction(["constraints"], "not-list", ERROR)]);
     });
@@ -92,16 +92,16 @@ describe("MultiContainerConstraints", () => {
         MultiContainerConstraints.JSONParser({
           scheduling: {
             placement: {
-              constraints: [["hostname", "UNIQUE"]]
-            }
-          }
+              constraints: [["hostname", "UNIQUE"]],
+            },
+          },
         })
       ).toEqual([
         new Transaction(
           ["constraints", 0, "value"],
           "value-not-converted-to-object",
           ERROR
-        )
+        ),
       ]);
     });
   });
@@ -112,7 +112,7 @@ describe("MultiContainerConstraints", () => {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
-        new Transaction(["constraints", 0, "value"], "param", SET)
+        new Transaction(["constraints", 0, "value"], "param", SET),
       ]);
 
       expect(
@@ -124,7 +124,7 @@ describe("MultiContainerConstraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
-        new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+        new Transaction(["constraints", 0, "operator"], "JOIN", SET),
       ]);
 
       expect(

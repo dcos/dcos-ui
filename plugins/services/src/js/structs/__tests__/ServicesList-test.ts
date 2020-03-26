@@ -22,7 +22,7 @@ describe("ServicesList", () => {
       const items = [
         { id: 1, name: "marathon" },
         { id: 2, name: "metronome" },
-        { id: "3", name: "marathon-user" }
+        { id: "3", name: "marathon-user" },
       ];
       const list = new ServicesList({ items });
       const filteredList = list.filter({ ids: [2, "3"] }).getItems();
@@ -35,7 +35,7 @@ describe("ServicesList", () => {
       const items = [
         { name: "marathon" },
         { name: "metronome" },
-        { name: "marathon-user" }
+        { name: "marathon-user" },
       ];
       const list = new ServicesList({ items });
       const filteredList = list.filter({ name: "marath" }).getItems();
@@ -50,20 +50,20 @@ describe("ServicesList", () => {
           name: "marathon",
           getHealth() {
             return { value: 1 };
-          }
+          },
         },
         {
           name: "metronome",
           getHealth() {
             return { value: 0 };
-          }
+          },
         },
         {
           name: "marathon-user",
           getHealth() {
             return { value: 2 };
-          }
-        }
+          },
+        },
       ];
 
       const list = new ServicesList({ items });
@@ -80,19 +80,19 @@ describe("ServicesList", () => {
         cpus: 0,
         mem: 0,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
 
     it("returns used resources when there's one service", () => {
       const list = new ServicesList({
-        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }]
+        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }],
       });
       expect(list.sumUsedResources()).toEqual({
         cpus: 1,
         mem: 3,
         disk: 1,
-        gpus: 0
+        gpus: 0,
       });
     });
 
@@ -100,14 +100,14 @@ describe("ServicesList", () => {
       const list = new ServicesList({
         items: [
           { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
-          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }
-        ]
+          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
+        ],
       });
       expect(list.sumUsedResources()).toEqual({
         cpus: 2,
         mem: 6,
         disk: 2,
-        gpus: 0
+        gpus: 0,
       });
     });
   });
@@ -122,14 +122,14 @@ describe("ServicesList", () => {
         TASK_FINISHED: 0,
         TASK_FAILED: 0,
         TASK_LOST: 0,
-        TASK_ERROR: 0
+        TASK_ERROR: 0,
       };
       expect(list.sumTaskStates()).toEqual(expectedList);
     });
 
     it("sums tasks for one service", () => {
       const list = new ServicesList({
-        items: [{ TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5 }]
+        items: [{ TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5 }],
       });
       const expectedList = {
         TASK_STAGING: 2,
@@ -138,7 +138,7 @@ describe("ServicesList", () => {
         TASK_FINISHED: 0,
         TASK_FAILED: 0,
         TASK_LOST: 5,
-        TASK_ERROR: 0
+        TASK_ERROR: 0,
       };
       expect(list.sumTaskStates()).toEqual(expectedList);
     });
@@ -147,8 +147,8 @@ describe("ServicesList", () => {
       const list = new ServicesList({
         items: [
           { TASK_STAGING: 2, TASK_STARTING: 10, TASK_LOST: 5 },
-          { TASK_STAGING: 2, TASK_STARTING: 5, TASK_FAILED: 3 }
-        ]
+          { TASK_STAGING: 2, TASK_STARTING: 5, TASK_FAILED: 3 },
+        ],
       });
       const expectedList = {
         TASK_STAGING: 4,
@@ -157,7 +157,7 @@ describe("ServicesList", () => {
         TASK_FINISHED: 0,
         TASK_FAILED: 3,
         TASK_LOST: 5,
-        TASK_ERROR: 0
+        TASK_ERROR: 0,
       };
       expect(list.sumTaskStates()).toEqual(expectedList);
     });

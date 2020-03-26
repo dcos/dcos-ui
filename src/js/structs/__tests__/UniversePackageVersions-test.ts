@@ -4,7 +4,7 @@ describe("UniversePackageVersions", () => {
   describe("#getVersions", () => {
     it("returns empty array if packageVersions is null", () => {
       const versions = new UniversePackageVersions({
-        packageVersions: null
+        packageVersions: null,
       });
 
       expect(versions.getVersions()).toEqual([]);
@@ -15,8 +15,8 @@ describe("UniversePackageVersions", () => {
         packageVersions: {
           "1.1.0": 1,
           "1.4.1": 2,
-          "2.0.0": 3
-        }
+          "2.0.0": 3,
+        },
       });
       const packageVersions = versions.getVersions();
 

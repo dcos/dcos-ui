@@ -6,26 +6,26 @@ class SideTabs extends React.Component {
   static defaultProps = {
     className: "multiple-form-modal-sidebar-tabs",
     onTabClick() {},
-    tabs: []
+    tabs: [],
   };
   static propTypes = {
     className: PropTypes.string,
     onTabClick: PropTypes.func,
     selectedTab: PropTypes.string,
-    tabs: PropTypes.array
+    tabs: PropTypes.array,
   };
   constructor() {
     super();
 
     this.state = {
-      dropdownOpen: false
+      dropdownOpen: false,
     };
   }
 
   handleTabClick(title) {
     const {
       state: { dropdownOpen },
-      props: { onTabClick, selectedTab }
+      props: { onTabClick, selectedTab },
     } = this;
 
     if (title === selectedTab) {
@@ -39,7 +39,7 @@ class SideTabs extends React.Component {
 
   getSelectedTabTitle(selectedTab, tabs) {
     const selectedTabDefinition = tabs.find(
-      tab => tab.selectValue === selectedTab
+      (tab) => tab.selectValue === selectedTab
     );
 
     if (selectedTabDefinition) {
@@ -66,7 +66,7 @@ class SideTabs extends React.Component {
         "multiple-form-modal-sidebar-menu-item clickable visible-block",
         {
           selected: selectValue === selectedTab || title === selectedTab,
-          "has-errors": hasErrors
+          "has-errors": hasErrors,
         }
       );
 
@@ -85,18 +85,18 @@ class SideTabs extends React.Component {
   render() {
     const {
       props: { className, selectedTab, tabs },
-      state: { dropdownOpen }
+      state: { dropdownOpen },
     } = this;
 
     const classes = classNames(
       "list-unstyled multiple-form-modal-sidebar-menu",
       {
-        "is-hidden": !dropdownOpen
+        "is-hidden": !dropdownOpen,
       }
     );
 
     const caretClasses = classNames("caret caret--desc caret--visible", {
-      dropup: dropdownOpen
+      dropup: dropdownOpen,
     });
 
     return (

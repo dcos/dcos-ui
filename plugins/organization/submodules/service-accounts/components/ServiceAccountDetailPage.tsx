@@ -58,14 +58,14 @@ class ServiceAccountDetailPage extends AccountDetailPage {
   onAclServiceAccountsStoreDeleteError(error) {
     this.setState({
       deleteUpdateError: error,
-      pendingRequest: false
+      pendingRequest: false,
     });
   }
 
   onAclServiceAccountsStoreDeleteSuccess() {
     this.setState({
       openDeleteConfirmation: false,
-      pendingRequest: false
+      pendingRequest: false,
     });
 
     this.context.router.push("/organization/service-accounts");
@@ -74,7 +74,7 @@ class ServiceAccountDetailPage extends AccountDetailPage {
   onAclServiceAccountsStoreUpdateSuccess() {
     ACLServiceAccountsStore.fetch(this.getAccountID());
   }
-  handleEditAccount = model => {
+  handleEditAccount = (model) => {
     ACLServiceAccountsStore.update(this.getAccountID(), model);
   };
 
@@ -110,7 +110,7 @@ class ServiceAccountDetailPage extends AccountDetailPage {
             {title}
           </Link>
         </BreadcrumbTextContent>
-      </Breadcrumb>
+      </Breadcrumb>,
     ];
 
     return (

@@ -1,6 +1,6 @@
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import Container from "@extension-kid/core/dist/src/Container";
@@ -14,7 +14,7 @@ import TestModule from "../../__tests__/test-module";
 import {
   fetchPlanDetails,
   fetchPlans,
-  ServicePlanResponse
+  ServicePlanResponse,
 } from "#PLUGINS/services/src/js/data/ServicePlansClient";
 import { ResolverArgs } from "#PLUGINS/services/src/js/data/resolvers";
 import { of } from "rxjs";
@@ -35,11 +35,11 @@ function makeFakePlanResponse(): ServicePlanResponse {
             id: "000A",
             name: "step-0",
             status: "IN_PROGRESS",
-            message: "this is a test"
-          }
-        ]
-      }
-    ]
+            message: "this is a test",
+          },
+        ],
+      },
+    ],
   };
 }
 
@@ -62,25 +62,25 @@ describe("Service Data Layer - Services", () => {
   describe("Query - service.plans", () => {
     it(
       "handles query for services",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({
           fetchServicePlans: (_serviceId: string) =>
             m.cold("(j|)", {
               j: {
                 code: 200,
                 message: "ok",
-                response: ["plan-01", "plan-02", "plan-03"]
-              }
+                response: ["plan-01", "plan-02", "plan-03"],
+              },
             }),
           fetchServicePlanDetail: (_serviceId: string, _planName: string) =>
             m.cold("(j|)", {
               j: {
                 code: 200,
                 message: "ok",
-                response: makeFakePlanResponse()
-              }
+                response: makeFakePlanResponse(),
+              },
             }),
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
         const result$ = dl
           .query(
@@ -108,47 +108,47 @@ describe("Service Data Layer - Services", () => {
                   {
                     name: "plan-01",
                     status: "IN_PROGRESS",
-                    strategy: "serial"
+                    strategy: "serial",
                   },
                   {
                     name: "plan-02",
                     status: "IN_PROGRESS",
-                    strategy: "serial"
+                    strategy: "serial",
                   },
                   {
                     name: "plan-03",
                     status: "IN_PROGRESS",
-                    strategy: "serial"
-                  }
-                ]
-              }
-            }
-          }
+                    strategy: "serial",
+                  },
+                ],
+              },
+            },
+          },
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "polls the endpoints",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({
           fetchServicePlans: (_service: string) =>
             m.cold("j|", {
               j: {
                 code: 200,
                 message: "ok",
-                response: ["plan-01"]
-              }
+                response: ["plan-01"],
+              },
             }),
           fetchServicePlanDetail: (_service: string, _planName: string) =>
             m.cold("--j|", {
               j: {
                 code: 200,
                 message: "ok",
-                response: makeFakePlanResponse()
-              }
+                response: makeFakePlanResponse(),
+              },
             }),
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
 
         const result$ = dl
@@ -173,27 +173,27 @@ describe("Service Data Layer - Services", () => {
                 id: "test",
                 plans: [
                   {
-                    name: "plan-01"
-                  }
-                ]
-              }
-            }
-          }
+                    name: "plan-01",
+                  },
+                ],
+              },
+            },
+          },
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "throws an error if plan detail API returns non-2XX",
-      marbles(m => {
+      marbles((m) => {
         const plansResult$ = m.cold("(j|)", {
-          j: { code: 500, message: "Internal Server Error", response: {} }
+          j: { code: 500, message: "Internal Server Error", response: {} },
         });
         mockRequest.mockReturnValueOnce(plansResult$);
         dl = setupDL({
           fetchServicePlans: fetchPlans,
           fetchServicePlanDetail: fetchPlanDetails,
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
 
         const result$ = dl
@@ -212,26 +212,26 @@ describe("Service Data Layer - Services", () => {
         const expected$ = m.cold("#", undefined, {
           message:
             "Service Plans API request failed: 500 Internal Server Error:{}",
-          name: "Error"
+          name: "Error",
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "throws an error if plans API returns non-2XX",
-      marbles(m => {
+      marbles((m) => {
         const plansResult$ = m.cold("(j|)", {
-          j: { code: 200, message: "ok", response: ["plan-01"] }
+          j: { code: 200, message: "ok", response: ["plan-01"] },
         });
         const planDetailResult$ = m.cold("(j|)", {
-          j: { code: 500, message: "Internal Server Error", response: {} }
+          j: { code: 500, message: "Internal Server Error", response: {} },
         });
         const results = [plansResult$, planDetailResult$];
         mockRequest.mockImplementation(() => results.shift());
         dl = setupDL({
           fetchServicePlans: fetchPlans,
           fetchServicePlanDetail: fetchPlanDetails,
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
 
         const result$ = dl
@@ -250,30 +250,30 @@ describe("Service Data Layer - Services", () => {
         const expected$ = m.cold("#", undefined, {
           message:
             "Service Plan Detail API request failed: 500 Internal Server Error:{}",
-          name: "Error"
+          name: "Error",
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "works with ServicePlansClient",
-      marbles(m => {
+      marbles((m) => {
         const plansResult$ = m.cold("(j|)", {
-          j: { code: 200, message: "ok", response: ["client-plan"] }
+          j: { code: 200, message: "ok", response: ["client-plan"] },
         });
         const planDetailResult$ = m.cold("(j|)", {
           j: {
             code: 200,
             message: "ok",
-            response: makeFakePlanResponse()
-          }
+            response: makeFakePlanResponse(),
+          },
         });
         const results = [plansResult$, planDetailResult$];
         mockRequest.mockImplementation(() => results.shift());
         dl = setupDL({
           fetchServicePlans: fetchPlans,
           fetchServicePlanDetail: fetchPlanDetails,
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
 
         const result$ = dl
@@ -302,12 +302,12 @@ describe("Service Data Layer - Services", () => {
                   {
                     name: "client-plan",
                     status: "IN_PROGRESS",
-                    strategy: "serial"
-                  }
-                ]
-              }
-            }
-          }
+                    strategy: "serial",
+                  },
+                ],
+              },
+            },
+          },
         });
         m.expect(result$).toBeObservable(expected$);
       })
@@ -316,25 +316,25 @@ describe("Service Data Layer - Services", () => {
   describe("Query - service.plan", () => {
     it(
       "handles a graphql query",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({
           fetchServicePlans: (_serviceId: string) =>
             m.cold("(j|)", {
               j: {
                 code: 200,
                 message: "ok",
-                response: ["plan-01", "plan-02", "plan-03"]
-              }
+                response: ["plan-01", "plan-02", "plan-03"],
+              },
             }),
           fetchServicePlanDetail: (_serviceId: string, _planName: string) =>
             m.cold("(j|)", {
               j: {
                 code: 200,
                 message: "ok",
-                response: makeFakePlanResponse()
-              }
+                response: makeFakePlanResponse(),
+              },
             }),
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
         const result$ = dl
           .query(
@@ -362,19 +362,19 @@ describe("Service Data Layer - Services", () => {
                   {
                     name: "plan-01",
                     status: "IN_PROGRESS",
-                    strategy: "serial"
-                  }
-                ]
-              }
-            }
-          }
+                    strategy: "serial",
+                  },
+                ],
+              },
+            },
+          },
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "queries only one plan if name given",
-      fakeSchedulers(advance => {
+      fakeSchedulers((advance) => {
         jest.useFakeTimers();
         const resolverArgs = {
           fetchServicePlans: jest.fn((_serviceId: string) =>
@@ -385,10 +385,10 @@ describe("Service Data Layer - Services", () => {
               of({
                 code: 200,
                 message: "ok",
-                response: makeFakePlanResponse()
+                response: makeFakePlanResponse(),
               })
           ),
-          pollingInterval: 20
+          pollingInterval: 20,
         };
 
         dl = setupDL(resolverArgs);
@@ -416,25 +416,25 @@ describe("Service Data Layer - Services", () => {
     );
     it(
       "polls the endpoint",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({
           fetchServicePlans: (_serviceId: string) =>
             m.cold("(j|)", {
               j: {
                 code: 200,
                 message: "ok",
-                response: ["plan-01", "plan-02", "plan-03"]
-              }
+                response: ["plan-01", "plan-02", "plan-03"],
+              },
             }),
           fetchServicePlanDetail: (_serviceId: string, _planName: string) =>
             m.cold("-j|", {
               j: {
                 code: 200,
                 message: "ok",
-                response: makeFakePlanResponse()
-              }
+                response: makeFakePlanResponse(),
+              },
             }),
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
         const query = gql`
           query {
@@ -458,27 +458,27 @@ describe("Service Data Layer - Services", () => {
                 plans: [
                   {
                     name: "plan-02",
-                    status: "IN_PROGRESS"
-                  }
-                ]
-              }
-            }
-          }
+                    status: "IN_PROGRESS",
+                  },
+                ],
+              },
+            },
+          },
         });
         m.expect(result$).toBeObservable(expected$);
       })
     );
     it(
       "throws an error if API returns non-2XX",
-      marbles(m => {
+      marbles((m) => {
         const planDetailResult$ = m.cold("(j|)", {
-          j: { code: 500, message: "Internal Server Error", response: {} }
+          j: { code: 500, message: "Internal Server Error", response: {} },
         });
         mockRequest.mockReturnValueOnce(planDetailResult$);
         dl = setupDL({
           fetchServicePlans: fetchPlans,
           fetchServicePlanDetail: fetchPlanDetails,
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         });
         const query = gql`
           query {
@@ -496,7 +496,7 @@ describe("Service Data Layer - Services", () => {
         const expected$ = m.cold("#", undefined, {
           message:
             "Service Plan Detail API request failed: 500 Internal Server Error:{}",
-          name: "Error"
+          name: "Error",
         });
         m.expect(result$).toBeObservable(expected$);
       })

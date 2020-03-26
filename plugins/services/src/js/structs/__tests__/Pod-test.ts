@@ -12,7 +12,7 @@ describe("Pod", () => {
   describe("#constructor", () => {
     it("creates instances", () => {
       const instance = new Pod({
-        ...PodFixture
+        ...PodFixture,
       });
       expect(instance.get()).toEqual(PodFixture);
     });
@@ -92,8 +92,8 @@ describe("Pod", () => {
         instances: [
           { agentRegion: "Region-1" },
           { agentRegion: "Region-2" },
-          { agentRegion: "Region-1" }
-        ]
+          { agentRegion: "Region-1" },
+        ],
       });
       expect(pod.getRegions()).toEqual(["Region-1", "Region-2"]);
     });
@@ -112,8 +112,8 @@ describe("Pod", () => {
     it("returns correct version", () => {
       const pod = new Pod({
         spec: {
-          version: "2016-03-22T10:46:07.354Z"
-        }
+          version: "2016-03-22T10:46:07.354Z",
+        },
       });
 
       expect(pod.getVersion()).toEqual("2016-03-22T10:46:07.354Z");
@@ -130,7 +130,7 @@ describe("Pod", () => {
   describe("#getMesosId", () => {
     it("returns correct id", () => {
       const pod = new Pod({
-        id: "/test/cmd"
+        id: "/test/cmd",
       });
 
       expect(pod.getMesosId()).toEqual("test_cmd");
@@ -147,22 +147,22 @@ describe("Pod", () => {
                 cpus: 1,
                 mem: 2,
                 gpus: 3,
-                disk: 4
-              }
-            }
+                disk: 4,
+              },
+            },
           ],
           scaling: {
             kind: "fixed",
-            instances: 1
-          }
-        }
+            instances: 1,
+          },
+        },
       });
 
       expect(pod.getResources()).toEqual({
         cpus: 1,
         mem: 2,
         gpus: 3,
-        disk: 4
+        disk: 4,
       });
     });
 
@@ -175,21 +175,21 @@ describe("Pod", () => {
                 cpus: 1,
                 mem: 2,
                 gpus: 3,
-                disk: 4
-              }
-            }
+                disk: 4,
+              },
+            },
           ],
           scaling: {
             kind: "fixed",
-            instances: 2
-          }
-        }
+            instances: 2,
+          },
+        },
       });
       expect(pod.getResources()).toEqual({
         cpus: 2,
         mem: 4,
         gpus: 6,
-        disk: 8
+        disk: 8,
       });
     });
   });
@@ -200,10 +200,10 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 0
-          }
+            instances: 0,
+          },
         },
-        instances: []
+        instances: [],
       });
 
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.STOPPED);
@@ -214,10 +214,10 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 2
-          }
+            instances: 2,
+          },
         },
-        instances: [{ status: "stable" }]
+        instances: [{ status: "stable" }],
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.DEPLOYING);
     });
@@ -227,10 +227,10 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
-          }
+            instances: 1,
+          },
         },
-        instances: [{ status: "stable" }]
+        instances: [{ status: "stable" }],
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.RUNNING);
     });
@@ -240,10 +240,10 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
-          }
+            instances: 1,
+          },
         },
-        instances: [{ status: "pending" }]
+        instances: [{ status: "pending" }],
       });
       expect(pod.getServiceStatus()).toEqual(ServiceStatus.NA);
     });
@@ -255,9 +255,9 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
-          containers: [{}]
+          containers: [{}],
         },
         instances: [
           {
@@ -271,13 +271,13 @@ describe("Pod", () => {
                     lastUpdated: "2019-01-01T12:00:00.000Z",
                     name: "healthy",
                     reason: "health-reported-by-mesos",
-                    value: "true"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    value: "true",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(pod.getTasksSummary()).toEqual({
@@ -286,7 +286,7 @@ describe("Pod", () => {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksUnknown: 0,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -295,9 +295,9 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
-          containers: [{}]
+          containers: [{}],
         },
         instances: [
           {
@@ -311,13 +311,13 @@ describe("Pod", () => {
                     lastUpdated: "2019-01-01T12:00:00.000Z",
                     name: "healthy",
                     reason: "health-reported-by-mesos",
-                    value: "false"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    value: "false",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(pod.getTasksSummary()).toEqual({
@@ -326,7 +326,7 @@ describe("Pod", () => {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksUnknown: 0,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -335,9 +335,9 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
-          containers: [{}]
+          containers: [{}],
         },
         instances: [
           {
@@ -351,13 +351,13 @@ describe("Pod", () => {
                     lastUpdated: "2019-01-01T12:00:00.000Z",
                     name: "something-else",
                     reason: "health-reported-by-mesos",
-                    value: "true"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    value: "true",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(pod.getTasksSummary()).toEqual({
@@ -366,7 +366,7 @@ describe("Pod", () => {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksUnknown: 1,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -375,9 +375,9 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
-          containers: [{}]
+          containers: [{}],
         },
         instances: [
           {
@@ -385,11 +385,11 @@ describe("Pod", () => {
             containers: [
               {
                 status: "pending",
-                endpoints: [{ name: "nginx" }]
-              }
-            ]
-          }
-        ]
+                endpoints: [{ name: "nginx" }],
+              },
+            ],
+          },
+        ],
       });
 
       expect(pod.getTasksSummary()).toEqual({
@@ -398,7 +398,7 @@ describe("Pod", () => {
         tasksStaged: 1,
         tasksRunning: 0,
         tasksUnknown: 0,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -407,9 +407,9 @@ describe("Pod", () => {
         spec: {
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
-          containers: [{}]
+          containers: [{}],
         },
         instances: [
           {
@@ -423,11 +423,11 @@ describe("Pod", () => {
                     lastUpdated: "2019-01-01T12:00:00.000Z",
                     name: "something-else",
                     reason: "health-reported-by-mesos",
-                    value: "true"
-                  }
-                ]
-              }
-            ]
+                    value: "true",
+                  },
+                ],
+              },
+            ],
           },
           {
             status: "stable",
@@ -440,13 +440,13 @@ describe("Pod", () => {
                     lastUpdated: "2019-01-01T12:00:00.000Z",
                     name: "something-else",
                     reason: "health-reported-by-mesos",
-                    value: "true"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    value: "true",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(pod.getTasksSummary()).toEqual({
@@ -455,7 +455,7 @@ describe("Pod", () => {
         tasksStaged: 0,
         tasksRunning: 2,
         tasksUnknown: 2,
-        tasksOverCapacity: 1
+        tasksOverCapacity: 1,
       });
     });
   });
@@ -465,9 +465,9 @@ describe("Pod", () => {
       const pod = new Pod({
         instances: [
           {
-            id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a"
-          }
-        ]
+            id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a",
+          },
+        ],
       });
 
       expect(
@@ -476,7 +476,7 @@ describe("Pod", () => {
         )
       ).toEqual(
         new PodInstance({
-          id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a"
+          id: "foo_bar.53678488-2775-11e8-88a0-7abb83ecf42a",
         })
       );
     });
@@ -485,9 +485,9 @@ describe("Pod", () => {
       const pod = new Pod({
         instances: [
           {
-            id: "foo.53678488-2775-11e8-88a0-7abb83ecf42a"
-          }
-        ]
+            id: "foo.53678488-2775-11e8-88a0-7abb83ecf42a",
+          },
+        ],
       });
 
       expect(
@@ -502,9 +502,9 @@ describe("Pod", () => {
       const pod = new Pod({
         queue: {
           delay: {
-            overdue: true
-          }
-        }
+            overdue: true,
+          },
+        },
       });
       expect(pod.isDelayed()).toEqual(false);
     });
@@ -512,8 +512,8 @@ describe("Pod", () => {
     it("return false when property is missing", () => {
       const pod = new Pod({
         queue: {
-          delay: {}
-        }
+          delay: {},
+        },
       });
       expect(pod.isDelayed()).toEqual(false);
     });
@@ -522,9 +522,9 @@ describe("Pod", () => {
       const pod = new Pod({
         queue: {
           delay: {
-            overdue: false
-          }
-        }
+            overdue: false,
+          },
+        },
       });
       expect(pod.isDelayed()).toEqual(true);
     });

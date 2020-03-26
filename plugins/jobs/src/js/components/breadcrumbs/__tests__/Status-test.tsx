@@ -9,7 +9,7 @@ describe("Status", () => {
     "TASK_RUNNING",
     "TASK_STARTING",
     "TASK_STARTED",
-    "TASK_FAILED"
+    "TASK_FAILED",
   ];
   for (const state of states) {
     it(`renders ${state}`, () => {

@@ -43,7 +43,7 @@ export interface JobAPIOutput {
 
 export enum ConcurrentPolicy {
   Allow = "ALLOW",
-  Forbid = "FORBID"
+  Forbid = "FORBID",
 }
 
 export interface JobSchedule {
@@ -57,7 +57,7 @@ export interface JobSchedule {
 
 export enum Container {
   Docker = "docker",
-  UCR = "ucr"
+  UCR = "ucr",
 }
 
 export interface JobSpec {
@@ -131,7 +131,7 @@ export interface UcrContainer {
 
 export enum UcrImageKind {
   Docker = "docker",
-  Appc = "appc"
+  Appc = "appc",
 }
 
 export interface UcrImage {
@@ -167,7 +167,7 @@ export interface JobPlacement {
 export enum ConstraintOperator {
   Is = "IS",
   Like = "LIKE",
-  Unlike = "UNLIKE"
+  Unlike = "UNLIKE",
 }
 export interface PlacementConstraint {
   attribute: string;
@@ -178,7 +178,7 @@ export interface PlacementConstraint {
 
 export enum RestartPolicy {
   Never = "NEVER",
-  OnFailure = "ON_FAILURE"
+  OnFailure = "ON_FAILURE",
 }
 
 export interface JobRestart {
@@ -188,7 +188,7 @@ export interface JobRestart {
 
 export enum VolumeMode {
   RO = "RO",
-  RW = "RW"
+  RW = "RW",
 }
 
 export interface JobVolume {
@@ -222,7 +222,7 @@ export enum JobFormActionType {
   SetBool = "SET_BOOL",
   Override = "OVERRIDE",
   AddArrayItem = "ADD_ARRAY_ITEM",
-  RemoveArrayItem = "REMOVE_ARRAY_ITEM"
+  RemoveArrayItem = "REMOVE_ARRAY_ITEM",
 }
 
 export interface Action {

@@ -14,9 +14,9 @@ describe("MarathonPodValidators", () => {
         volumes: [
           {
             containerPath: "path",
-            mode: "RW"
-          }
-        ]
+            mode: "RW",
+          },
+        ],
       };
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -29,14 +29,14 @@ describe("MarathonPodValidators", () => {
               name: "name",
               provider: "dvdi",
               options: {
-                "dvdi/driver": "rexray"
+                "dvdi/driver": "rexray",
               },
-              size: 3
+              size: 3,
             },
             mode: "RW",
-            containerPath: "path"
-          }
-        ]
+            containerPath: "path",
+          },
+        ],
       };
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -46,12 +46,12 @@ describe("MarathonPodValidators", () => {
         volumes: [
           {
             persistent: {
-              size: 3
+              size: 3,
             },
             mode: "RW",
-            containerPath: "path"
-          }
-        ]
+            containerPath: "path",
+          },
+        ],
       };
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -63,12 +63,12 @@ describe("MarathonPodValidators", () => {
             persistent: {
               type: "mount",
               size: 3,
-              profileName: "profile"
+              profileName: "profile",
             },
             mode: "RW",
-            containerPath: "path"
-          }
-        ]
+            containerPath: "path",
+          },
+        ],
       };
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -80,20 +80,20 @@ describe("MarathonPodValidators", () => {
             persistent: {
               type: "root",
               size: 3,
-              profileName: "profile"
+              profileName: "profile",
             },
             mode: "RW",
-            containerPath: "path"
-          }
-        ]
+            containerPath: "path",
+          },
+        ],
       };
       expect(MarathonPodValidators.validateProfileVolumes(spec)).toEqual([
         {
           path: ["volumes", 0, "persistent", "type"],
           message: "Must be mount for volumes with profile name",
           type: GENERIC,
-          variables: { name: "type" }
-        }
+          variables: { name: "type" },
+        },
       ]);
     });
   });

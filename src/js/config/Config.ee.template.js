@@ -9,61 +9,61 @@ const ConfigDev = {
     uiConfiguration: {
       plugins: {
         "auth-providers": {
-          enabled: enterprise
+          enabled: enterprise,
         },
         authentication: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         banner: {
-          enabled: false
+          enabled: false,
         },
         dss: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         branding: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         "cluster-linking": {
-          enabled: enterprise
+          enabled: enterprise,
         },
         "external-links": {
-          enabled: enterprise
+          enabled: enterprise,
         },
         "intercom-private": {
-          enabled: enterprise
+          enabled: enterprise,
         },
         licensing: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         "sdk-services": {
-          enabled: enterprise
+          enabled: enterprise,
         },
         networking: {
           enabled: enterprise,
-          dcosLBPackageName: "dcos-lb"
+          dcosLBPackageName: "dcos-lb",
         },
         oauth: {
           enabled: false,
-          authHost: "https://dcos.auth0.com"
+          authHost: "https://dcos.auth0.com",
         },
         organization: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         secrets: {
-          enabled: enterprise
+          enabled: enterprise,
         },
         tracking: {
-          enabled: true
-        }
-      }
+          enabled: true,
+        },
+      },
     },
     clusterConfiguration: {
       firstUser: true,
-      id: "ui-fixture-cluster-id"
-    }
+      id: "ui-fixture-cluster-id",
+    },
   },
   useFixtures: false,
-  useUIConfigFixtures: false
+  useUIConfigFixtures: false,
 };
 
 module.exports = ConfigDev;

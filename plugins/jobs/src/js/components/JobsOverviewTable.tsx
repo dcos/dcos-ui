@@ -9,7 +9,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import {
   greyDark,
   textColorSecondary,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
@@ -29,7 +29,7 @@ const JobsCronTooltip = React.lazy(() =>
 // TODO: DCOS-38858
 export default class JobsOverviewTable extends React.Component {
   static propTypes = {
-    data: PropTypes.object.isRequired // JobConnection
+    data: PropTypes.object.isRequired, // JobConnection
   };
   constructor() {
     super();
@@ -57,7 +57,7 @@ export default class JobsOverviewTable extends React.Component {
         prop: "name",
         render: this.renderHeadline,
         sortable: true,
-        sortFunction: this.jobSortFunction
+        sortFunction: this.jobSortFunction,
       },
       {
         className,
@@ -66,7 +66,7 @@ export default class JobsOverviewTable extends React.Component {
         prop: "status",
         render: this.renderStatusColumn,
         sortable: true,
-        sortFunction: this.jobSortFunction
+        sortFunction: this.jobSortFunction,
       },
       {
         className,
@@ -75,8 +75,8 @@ export default class JobsOverviewTable extends React.Component {
         prop: "lastRun",
         render: this.renderLastRunStatusColumn,
         sortable: true,
-        sortFunction: this.jobSortFunction
-      }
+        sortFunction: this.jobSortFunction,
+      },
     ];
   }
   /**
@@ -116,7 +116,7 @@ export default class JobsOverviewTable extends React.Component {
           lastRun = {
             status: job.lastRunStatus.status,
             lastSuccessAt: lastRunsSummary.lastSuccessAt,
-            lastFailureAt: lastRunsSummary.lastFailureAt
+            lastFailureAt: lastRunsSummary.lastFailureAt,
           };
 
           schedules = job.schedules;
@@ -139,7 +139,7 @@ export default class JobsOverviewTable extends React.Component {
             name,
             schedules,
             status,
-            lastRun
+            lastRun,
           };
         }
 
@@ -250,7 +250,7 @@ export default class JobsOverviewTable extends React.Component {
     const { lastFailureAt, lastSuccessAt, status } = row[prop];
     const statusClasses = classNames({
       "text-success": status === "Success",
-      "text-danger": status === "Failed"
+      "text-danger": status === "Failed",
     });
     const nodes = [];
     const statusNode = <span className={statusClasses}>{status}</span>;
@@ -307,7 +307,7 @@ export default class JobsOverviewTable extends React.Component {
 
     const statusClasses = classNames({
       "text-success": jobState.stateTypes.includes("success"),
-      "text-danger": jobState.stateTypes.includes("failure")
+      "text-danger": jobState.stateTypes.includes("failure"),
     });
 
     return (

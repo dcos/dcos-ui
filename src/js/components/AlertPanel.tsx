@@ -9,12 +9,12 @@ const AlertPanel = createReactClass({
   displayName: "AlertPanel",
 
   defaultProps: {
-    icon: null
+    icon: null,
   },
 
   propTypes: {
     icon: PropTypes.node,
-    iconClassName: PropTypes.string
+    iconClassName: PropTypes.string,
   },
 
   // TODO: Use iconIDs instead of icon classes.
@@ -45,16 +45,16 @@ const AlertPanel = createReactClass({
           "panel-cell-borderless panel-cell-wider panel-cell-taller",
           {
             "panel-cell-narrow": false,
-            "panel-cell-short": false
-          }
+            "panel-cell-short": false,
+          },
         ]}
         footer={this.props.footer}
         footerClass={[
           "panel-cell-wider panel-cell-taller",
           {
             "panel-cell-narrow": false,
-            "panel-cell-short": false
-          }
+            "panel-cell-short": false,
+          },
         ]}
         heading={this.getIcon()}
         headingClass={[
@@ -62,14 +62,14 @@ const AlertPanel = createReactClass({
           {
             "panel-cell-narrow": false,
             "panel-cell-shorter": false,
-            "panel-cell-light": false
-          }
+            "panel-cell-light": false,
+          },
         ]}
       >
         {this.props.children}
       </Panel>
     );
-  }
+  },
 });
 
 export default AlertPanel;

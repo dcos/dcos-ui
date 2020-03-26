@@ -2,7 +2,7 @@ import Application from "../../../structs/Application";
 import Framework from "../../../structs/Framework";
 import { sortData } from "../ServicesTable";
 
-const application = opts => new Application({ instances: 1, ...opts });
+const application = (opts) => new Application({ instances: 1, ...opts });
 
 describe("ServicesTable", () => {
   describe("#sortData", () => {
@@ -57,7 +57,7 @@ describe("ServicesTable", () => {
     });
 
     it("sorts by version", () => {
-      const framework = version =>
+      const framework = (version) =>
         new Framework({ labels: { DCOS_PACKAGE_VERSION: version } });
 
       const highSemver = framework("2.3.0-3.0.16");
@@ -71,13 +71,13 @@ describe("ServicesTable", () => {
         no,
         nonSemver,
         lowSemver,
-        highSemver
+        highSemver,
       ]);
       expect(sortData(data, "version", "DESC").data).toEqual([
         highSemver,
         lowSemver,
         nonSemver,
-        no
+        no,
       ]);
     });
   });

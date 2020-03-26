@@ -18,7 +18,7 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
       disableNewGroup: false,
       errorMsg: false,
       successMsg: false,
-      groupnameValue: ""
+      groupnameValue: "",
     };
 
     this.formModalRef = React.createRef();
@@ -28,13 +28,13 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
       {name: "aclGroup", events: ["createLDAPSuccess", "createLDAPPartialSuccess", "createLDAPError"]}
     ];
   }
-  onAclGroupStoreCreateLDAPSuccess = successMsg => {
+  onAclGroupStoreCreateLDAPSuccess = (successMsg) => {
     this.setState({
       disableNewGroup: false,
       errorMsg: false,
       successMsg,
       partialSuccess: false,
-      groupnameValue: ""
+      groupnameValue: "",
     });
 
     if (this.formModalRef && this.formModalRef.current) {
@@ -50,24 +50,24 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
       errorMsg: false,
       successMsg,
       partialSuccess: true,
-      groupnameValue: ""
+      groupnameValue: "",
     });
 
     if (this.formModalRef && this.formModalRef.current) {
       this.formModalRef.current.focusOnField();
     }
   };
-  onAclGroupStoreCreateLDAPError = errorMsg => {
+  onAclGroupStoreCreateLDAPError = (errorMsg) => {
     this.setState({
       disableNewGroup: false,
       errorMsg,
-      successMsg: false
+      successMsg: false,
     });
   };
-  handleNewGroupSubmit = model => {
+  handleNewGroupSubmit = (model) => {
     this.setState({
       disableNewGroup: true,
-      groupnameValue: model.groupname
+      groupnameValue: model.groupname,
     });
     ACLGroupStore.addLDAPGroup(model);
   };
@@ -76,7 +76,7 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
       disableNewGroup: false,
       errorMsg: false,
       successMsg: false,
-      groupnameValue: ""
+      groupnameValue: "",
     });
     this.props.onClose();
   };
@@ -86,7 +86,7 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
 
     const { disableNewGroup, errorMsg, groupnameValue } = this.state;
     const addButtonClassSet = classNames("button button-primary", {
-      disabled: disableNewGroup
+      disabled: disableNewGroup,
     });
 
     return [
@@ -103,7 +103,7 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
           validation() {
             return true;
           },
-          value: groupnameValue
+          value: groupnameValue,
         },
         {
           fieldType: "submit",
@@ -112,12 +112,12 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
           formGroupClass: "text-align-right",
           buttonText: i18n._(t`Add`),
           buttonClass: addButtonClassSet,
-          disabled: disableNewGroup
-        }
+          disabled: disableNewGroup,
+        },
       ],
       {
-        render: this.getSuccessMessage
-      }
+        render: this.getSuccessMessage,
+      },
     ];
   }
   getSuccessMessage = () => {
@@ -146,8 +146,8 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
       {
         text: i18n._(t`Cancel`),
         className: "button button-primary-link flush-left",
-        isClose: true
-      }
+        isClose: true,
+      },
     ];
 
     return (
@@ -161,7 +161,7 @@ class LDAPGroupFormModal extends mixin(StoreMixin) {
               <Trans render="span">Import LDAP Groups</Trans>
             </ModalHeading>
           ),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.handleModalClose}
         onSubmit={this.handleNewGroupSubmit}

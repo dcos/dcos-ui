@@ -34,8 +34,8 @@ const SECRET_DROPDOWN_ACTIONS = [
   {
     html: StringUtil.capitalize(UserActions.DELETE),
     id: UserActions.DELETE,
-    selectedHtml: "Actions"
-  }
+    selectedHtml: "Actions",
+  },
 ];
 
 const SecretsBreadcrumbs = () => {
@@ -44,7 +44,7 @@ const SecretsBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/secrets" />}>Secrets</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -79,7 +79,7 @@ class SecretsPage extends mixin(StoreMixin) {
       searchString: "",
       secretFormOpen: false,
       secretToRemove: null,
-      selectedAction: ""
+      selectedAction: "",
     };
 
     // prettier-ignore
@@ -109,22 +109,22 @@ class SecretsPage extends mixin(StoreMixin) {
       this.setState({ requestErrorType: "failure" });
     }
   }
-  handleActionSelection = action => {
+  handleActionSelection = (action) => {
     this.setState({ selectedAction: action.id });
   };
-  handleHealthFilterChange = healthFilter => {
+  handleHealthFilterChange = (healthFilter) => {
     this.setState({ healthFilter });
   };
   handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString });
   };
-  handleItemCheck = idsChecked => {
+  handleItemCheck = (idsChecked) => {
     this.setState({ checkedItems: idsChecked });
   };
-  handleRemoveClick = secret => {
+  handleRemoveClick = (secret) => {
     this.setState({
       selectedAction: UserActions.DELETE,
-      secretToRemove: secret
+      secretToRemove: secret,
     });
   };
   handleSecretFormOpen = () => {
@@ -136,7 +136,7 @@ class SecretsPage extends mixin(StoreMixin) {
   handleActionClose = () => {
     this.setState({
       selectedAction: "",
-      secretToRemove: false
+      secretToRemove: false,
     });
   };
   handleActionSuccess = () => {
@@ -154,13 +154,13 @@ class SecretsPage extends mixin(StoreMixin) {
   };
 
   getVisibleItems(items, searchString) {
-    return items.filter(item => item.getPath().includes(searchString));
+    return items.filter((item) => item.getPath().includes(searchString));
   }
 
   getCheckedItems(items) {
     const { checkedItems } = this.state;
 
-    return items.filter(item => checkedItems[item.getPath()]);
+    return items.filter((item) => checkedItems[item.getPath()]);
   }
 
   getActionDropdown(checkedItems) {
@@ -217,7 +217,7 @@ class SecretsPage extends mixin(StoreMixin) {
       requestErrorType,
       searchString,
       secretFormOpen,
-      selectedAction
+      selectedAction,
     } = this.state;
 
     if (requestErrorType !== null) {
@@ -263,7 +263,7 @@ class SecretsPage extends mixin(StoreMixin) {
           breadcrumbs={<SecretsBreadcrumbs />}
           addButton={{
             onItemSelect: this.handleSecretFormOpen,
-            label: i18nMark("New Secret")
+            label: i18nMark("New Secret"),
           }}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
@@ -321,7 +321,7 @@ class SecretsPage extends mixin(StoreMixin) {
 SecretsPage.routeConfig = {
   icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
   label: i18nMark("Secrets"),
-  matches: /^\/secrets/
+  matches: /^\/secrets/,
 };
 
 export default SecretsPage;

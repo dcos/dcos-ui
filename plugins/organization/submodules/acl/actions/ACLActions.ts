@@ -16,7 +16,7 @@ import {
   REQUEST_ACL_USER_GRANT_ACTION_ERROR,
   REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
   REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
-  REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS
+  REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
 } from "../constants/ActionTypes";
 
 import SDK from "PluginSDK";
@@ -35,16 +35,16 @@ const ACLActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_CREATE_SUCCESS,
-          resourceID
+          resourceID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          resourceID
+          resourceID,
         });
-      }
+      },
     });
   },
 
@@ -60,16 +60,16 @@ const ACLActions = {
         SDK.dispatch({
           type: REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: response.array,
-          resourceType
+          resourceType,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_RESOURCE_ACLS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          resourceType
+          resourceType,
         });
-      }
+      },
     });
   },
 
@@ -80,15 +80,15 @@ const ACLActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_ACL_SCHEMA_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SCHEMA_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -100,7 +100,7 @@ const ACLActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
-          triple: { userID, action, resourceID }
+          triple: { userID, action, resourceID },
         });
       },
       error(xhr) {
@@ -108,9 +108,9 @@ const ACLActions = {
           type: REQUEST_ACL_USER_GRANT_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { userID, action, resourceID },
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -122,16 +122,16 @@ const ACLActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
-          triple: { userID, action, resourceID }
+          triple: { userID, action, resourceID },
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          triple: { userID, action, resourceID }
+          triple: { userID, action, resourceID },
         });
-      }
+      },
     });
   },
 
@@ -143,7 +143,7 @@ const ACLActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_GROUP_GRANT_ACTION_SUCCESS,
-          triple: { groupID, action, resourceID }
+          triple: { groupID, action, resourceID },
         });
       },
       error(xhr) {
@@ -151,9 +151,9 @@ const ACLActions = {
           type: REQUEST_ACL_GROUP_GRANT_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           triple: { groupID, action, resourceID },
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -165,18 +165,18 @@ const ACLActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_GROUP_REVOKE_ACTION_SUCCESS,
-          triple: { groupID, action, resourceID }
+          triple: { groupID, action, resourceID },
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_GROUP_REVOKE_ACTION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          triple: { groupID, action, resourceID }
+          triple: { groupID, action, resourceID },
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -186,7 +186,7 @@ if (Config.useFixtures) {
     ),
     fetchACLSchema: import(
       /* aclSchema */ "../../../../../tests/_fixtures/acl/acl-schema.json"
-    )
+    ),
   };
 
   if (!window.actionTypes) {
@@ -195,20 +195,20 @@ if (Config.useFixtures) {
 
   Promise.all(
     Object.keys(methodFixtureMapping).map(
-      method => methodFixtureMapping[method]
+      (method) => methodFixtureMapping[method]
     )
-  ).then(responses => {
+  ).then((responses) => {
     window.actionTypes.ACLActions = Object.assign(
       getFixtureResponses(methodFixtureMapping, responses),
       {
         grantUserActionToResource: { event: "success" },
         revokeUserActionToResource: { event: "success" },
         grantGroupActionToResource: { event: "success" },
-        revokeGroupActionToResource: { event: "success" }
+        revokeGroupActionToResource: { event: "success" },
       }
     );
 
-    Object.keys(window.actionTypes.ACLActions).forEach(method => {
+    Object.keys(window.actionTypes.ACLActions).forEach((method) => {
       ACLActions[method] = RequestUtil.stubRequest(
         ACLActions,
         "ACLActions",

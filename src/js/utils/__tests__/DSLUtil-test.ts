@@ -15,7 +15,7 @@ describe("DSLUtil", () => {
 
       DSLUtil.reduceAstFilters(ast, handler);
 
-      const texts = handler.mock.calls.map(call => call[1].filterParams.text);
+      const texts = handler.mock.calls.map((call) => call[1].filterParams.text);
 
       expect(texts).toEqual(["foo", "bar", "attribute", "exact"]);
     });
@@ -63,7 +63,7 @@ describe("DSLUtil", () => {
       thisParts = {
         attr: DSLExpressionPart.attribute("is", "foo"),
         exact: DSLExpressionPart.exact,
-        fuzzy: DSLExpressionPart.fuzzy
+        fuzzy: DSLExpressionPart.fuzzy,
       };
     });
 
@@ -139,12 +139,12 @@ describe("DSLUtil", () => {
       thisAttribs = [
         thisAst.children[0].children[0].children[0].children[0].children[0],
         thisAst.children[0].children[0].children[0].children[1],
-        thisAst.children[0].children[0].children[1]
+        thisAst.children[0].children[0].children[1],
       ];
 
       thisFuzzy = [
         thisAst.children[0].children[0].children[0].children[0].children[1],
-        thisAst.children[0].children[1]
+        thisAst.children[0].children[1],
       ];
 
       thisExact = [thisAst.children[1]];
@@ -155,7 +155,7 @@ describe("DSLUtil", () => {
 
       expect(DSLUtil.findNodesByFilter(thisAst, filter)).toEqual([
         thisAttribs[0],
-        thisAttribs[2]
+        thisAttribs[2],
       ]);
     });
 
@@ -177,7 +177,7 @@ describe("DSLUtil", () => {
       thisParts = {
         attr: DSLExpressionPart.attribute("is", "foo"),
         exact: DSLExpressionPart.exact,
-        fuzzy: DSLExpressionPart.fuzzy
+        fuzzy: DSLExpressionPart.fuzzy,
       };
     });
 
@@ -187,7 +187,7 @@ describe("DSLUtil", () => {
       expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: true,
         exact: null,
-        fuzzy: null
+        fuzzy: null,
       });
     });
 
@@ -197,7 +197,7 @@ describe("DSLUtil", () => {
       expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: false,
         exact: "this is a test",
-        fuzzy: null
+        fuzzy: null,
       });
     });
 
@@ -207,7 +207,7 @@ describe("DSLUtil", () => {
       expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: false,
         exact: null,
-        fuzzy: "foo bar token"
+        fuzzy: "foo bar token",
       });
     });
 
@@ -217,7 +217,7 @@ describe("DSLUtil", () => {
       expect(DSLUtil.getPartValues(expression, thisParts)).toEqual({
         attr: true,
         exact: "exact",
-        fuzzy: "foo bar token"
+        fuzzy: "foo bar token",
       });
     });
   });
@@ -226,7 +226,7 @@ describe("DSLUtil", () => {
     it("returns the string of attribute nodes", () => {
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUtil.getNodeString(node)).toEqual("label:text");
@@ -234,7 +234,7 @@ describe("DSLUtil", () => {
 
     it("returns the string of fuzzy nodes", () => {
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUtil.getNodeString(node)).toEqual("text");
@@ -242,7 +242,7 @@ describe("DSLUtil", () => {
 
     it("returns the string of exact nodes", () => {
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUtil.getNodeString(node)).toEqual('"text"');

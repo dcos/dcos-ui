@@ -7,7 +7,7 @@ import {
   MARATHON_GROUPS_CHANGE,
   MARATHON_QUEUE_CHANGE,
   MARATHON_SERVICE_VERSION_CHANGE,
-  MARATHON_SERVICE_VERSIONS_CHANGE
+  MARATHON_SERVICE_VERSIONS_CHANGE,
 } from "../../../plugins/services/src/js/constants/EventTypes";
 
 import DeclinedOffersUtil from "../../../plugins/services/src/js/utils/DeclinedOffersUtil";
@@ -31,7 +31,7 @@ class DCOSStore extends EventEmitter {
       store: this,
       storeID: this.storeID,
       events,
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     this.data = {
@@ -40,9 +40,9 @@ class DCOSStore extends EventEmitter {
         queue: new Map(),
         deploymentsList: new DeploymentsList(),
         versions: new Map(),
-        dataReceived: false
+        dataReceived: false,
       },
-      mesos: new SummaryList()
+      mesos: new SummaryList(),
     };
 
     this.debouncedEvents = new Map();
@@ -62,7 +62,7 @@ class DCOSStore extends EventEmitter {
       proxyListeners.push({
         event: MESOS_SUMMARY_CHANGE,
         handler: this.onMesosSummaryChange,
-        store: MesosSummaryStore
+        store: MesosSummaryStore,
       });
     }
 
@@ -71,28 +71,28 @@ class DCOSStore extends EventEmitter {
         {
           event: MARATHON_DEPLOYMENTS_CHANGE,
           handler: this.onMarathonDeploymentsChange,
-          store: MarathonStore
+          store: MarathonStore,
         },
         {
           event: MARATHON_GROUPS_CHANGE,
           handler: this.onMarathonGroupsChange,
-          store: MarathonStore
+          store: MarathonStore,
         },
         {
           event: MARATHON_QUEUE_CHANGE,
           handler: this.onMarathonQueueChange,
-          store: MarathonStore
+          store: MarathonStore,
         },
         {
           event: MARATHON_SERVICE_VERSION_CHANGE,
           handler: this.onMarathonServiceVersionChange,
-          store: MarathonStore
+          store: MarathonStore,
         },
         {
           event: MARATHON_SERVICE_VERSIONS_CHANGE,
           handler: this.onMarathonServiceVersionsChange,
-          store: MarathonStore
-        }
+          store: MarathonStore,
+        },
       ]);
     }
 
@@ -137,7 +137,7 @@ class DCOSStore extends EventEmitter {
 
     // Populate deployments with affected services
     this.data.marathon.deploymentsList = deploymentsList.mapItems(
-      deployment => {
+      (deployment) => {
         const ids = deployment.getAffectedServiceIds();
         const services = ids.reduce(
           (memo, id) => {
@@ -156,7 +156,7 @@ class DCOSStore extends EventEmitter {
         return {
           affectedServices: services.affected,
           staleServiceIds: services.stale,
-          ...deployment
+          ...deployment,
         };
       }
     );
@@ -197,13 +197,13 @@ class DCOSStore extends EventEmitter {
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   };
-  onMarathonQueueChange = nextQueue => {
+  onMarathonQueueChange = (nextQueue) => {
     const {
-      marathon: { queue }
+      marathon: { queue },
     } = this.data;
 
     const queuedAppIDs = [];
-    nextQueue.forEach(entry => {
+    nextQueue.forEach((entry) => {
       if (entry.app == null && entry.pod == null) {
         return;
       }
@@ -218,14 +218,14 @@ class DCOSStore extends EventEmitter {
 
       entry.declinedOffers = {
         summary: DeclinedOffersUtil.getSummaryFromQueue(entry),
-        offers: DeclinedOffersUtil.getOffersFromQueue(entry)
+        offers: DeclinedOffersUtil.getOffersFromQueue(entry),
       };
 
       queuedAppIDs.push(id);
       queue.set(id, entry);
     });
 
-    queue.forEach(entry => {
+    queue.forEach((entry) => {
       let id = null;
 
       if (entry.pod != null) {
@@ -242,10 +242,10 @@ class DCOSStore extends EventEmitter {
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   };
-  onMarathonServiceVersionChange = event => {
+  onMarathonServiceVersionChange = (event) => {
     const { serviceID, versionID, version } = event;
     const {
-      marathon: { versions }
+      marathon: { versions },
     } = this.data;
     let currentVersions = versions.get(serviceID);
 
@@ -259,10 +259,10 @@ class DCOSStore extends EventEmitter {
     this.clearServiceTreeCache();
     this.emit(DCOS_CHANGE);
   };
-  onMarathonServiceVersionsChange = event => {
+  onMarathonServiceVersionsChange = (event) => {
     let { serviceID, versions: nextVersions } = event;
     const {
-      marathon: { versions }
+      marathon: { versions },
     } = this.data;
     const currentVersions = versions.get(serviceID);
 
@@ -286,13 +286,13 @@ class DCOSStore extends EventEmitter {
   };
 
   addProxyListeners() {
-    this.getProxyListeners().forEach(item => {
+    this.getProxyListeners().forEach((item) => {
       item.store.addChangeListener(item.event, item.handler);
     });
   }
 
   removeProxyListeners() {
-    this.getProxyListeners().forEach(item => {
+    this.getProxyListeners().forEach((item) => {
       item.store.removeChangeListener(item.event, item.handler);
     });
   }
@@ -368,7 +368,7 @@ class DCOSStore extends EventEmitter {
   buildServiceTree() {
     const {
       marathon: { serviceTree, queue, versions },
-      mesos
+      mesos,
     } = this.data;
 
     // Create framework dict from Mesos data
@@ -384,7 +384,7 @@ class DCOSStore extends EventEmitter {
       }, {});
 
     // Merge data by framework name, as  Marathon doesn't know framework ids.
-    return serviceTree.mapItems(item => {
+    return serviceTree.mapItems((item) => {
       if (item instanceof ServiceTree) {
         return item;
       }
@@ -392,7 +392,7 @@ class DCOSStore extends EventEmitter {
       const serviceId = item.getId();
       let options = {
         versions: versions.get(serviceId),
-        queue: queue.get(serviceId)
+        queue: queue.get(serviceId),
       };
 
       if (item instanceof Framework) {
@@ -422,10 +422,10 @@ class DCOSStore extends EventEmitter {
       }
 
       if (item.tasks) {
-        item.tasks.forEach(task => {
+        item.tasks.forEach((task) => {
           const taskData = {
             version: task.version,
-            healthCheckResults: task.healthCheckResults
+            healthCheckResults: task.healthCheckResults,
           };
 
           memo[task.id] = taskData;

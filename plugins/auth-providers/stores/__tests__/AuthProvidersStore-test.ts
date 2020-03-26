@@ -20,10 +20,10 @@ describe("AuthProvidersStore", () => {
         data: {
           oidc: {
             foo: "foo description",
-            bar: "bar description"
+            bar: "bar description",
           },
-          saml: {}
-        }
+          saml: {},
+        },
       });
     });
 
@@ -57,10 +57,10 @@ describe("AuthProvidersStore", () => {
         data: {
           oidc: {
             foo: "foo description",
-            bar: "bar description"
+            bar: "bar description",
           },
-          saml: {}
-        }
+          saml: {},
+        },
       });
 
       expect(AuthProvidersStore.getProviders().getItems().length).toEqual(2);
@@ -72,28 +72,22 @@ describe("AuthProvidersStore", () => {
         data: {
           oidc: {},
           saml: {
-            foo: "foo description"
-          }
-        }
+            foo: "foo description",
+          },
+        },
       });
 
       expect(AuthProvidersStore.getProviders().getItems().length).toEqual(1);
       expect(
-        AuthProvidersStore.getProviders()
-          .getItems()[0]
-          .getDescription()
+        AuthProvidersStore.getProviders().getItems()[0].getDescription()
       ).toEqual("foo description");
 
-      expect(
-        AuthProvidersStore.getProviders()
-          .getItems()[0]
-          .getID()
-      ).toEqual("foo");
+      expect(AuthProvidersStore.getProviders().getItems()[0].getID()).toEqual(
+        "foo"
+      );
 
       expect(
-        AuthProvidersStore.getProviders()
-          .getItems()[0]
-          .getProviderType()
+        AuthProvidersStore.getProviders().getItems()[0].getProviderType()
       ).toEqual("saml");
     });
 
@@ -104,7 +98,7 @@ describe("AuthProvidersStore", () => {
 
       SDK.dispatch({
         type: ActionTypes.REQUEST_PROVIDERS_SUCCESS,
-        data: { oidc: {}, saml: {} }
+        data: { oidc: {}, saml: {} },
       });
 
       expect(mockFn.mock.calls.length).toEqual(1);
@@ -118,7 +112,7 @@ describe("AuthProvidersStore", () => {
 
       SDK.dispatch({
         type: ActionTypes.REQUEST_PROVIDERS_ERROR,
-        data: error
+        data: error,
       });
 
       expect(mockFn.mock.calls.length).toEqual(1);
@@ -127,7 +121,7 @@ describe("AuthProvidersStore", () => {
 
     it("fetches providers on AuthProviderStore create success", () => {
       SDK.dispatch({
-        type: EventTypes.PROVIDER_CREATE_SUCCESS
+        type: EventTypes.PROVIDER_CREATE_SUCCESS,
       });
 
       expect(AuthProvidersStore.fetch).toHaveBeenCalled();
@@ -139,16 +133,16 @@ describe("AuthProvidersStore", () => {
         data: {
           oidc: {
             foo: "foo description",
-            bar: "bar description"
+            bar: "bar description",
           },
-          saml: {}
-        }
+          saml: {},
+        },
       });
 
       SDK.dispatch({
         type: EventTypes.PROVIDER_DELETE_SUCCESS,
         providerID: "foo",
-        providerType: "oidc"
+        providerType: "oidc",
       });
 
       expect(AuthProvidersStore.fetch).toHaveBeenCalled();
@@ -156,7 +150,7 @@ describe("AuthProvidersStore", () => {
 
     it("fetches providers on AuthProviderStore update success", () => {
       SDK.dispatch({
-        type: EventTypes.PROVIDER_UPDATE_SUCCESS
+        type: EventTypes.PROVIDER_UPDATE_SUCCESS,
       });
 
       expect(AuthProvidersStore.fetch).toHaveBeenCalled();

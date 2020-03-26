@@ -27,12 +27,12 @@ class NodesTableContainer extends mixin(StoreMixin) {
       masterRegion: null,
       selectedNodeToDrain: null,
       selectedNodeToDeactivate: null,
-      reactivateNetworkError: false
+      reactivateNetworkError: false,
     };
 
     this.store_listeners = [
       { events: ["success"], name: "nodeHealth", suppressUpdate: true },
-      { name: "state", events: ["success"], suppressUpdate: true }
+      { name: "state", events: ["success"], suppressUpdate: true },
     ];
 
     this.handleNodeAction = this.handleNodeAction.bind(this);
@@ -46,7 +46,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
     const filters = {
       health: location.query.filterHealth || "all",
       name: location.query.searchString || "",
-      service: location.query.filterService || null
+      service: location.query.filterService || null,
     };
 
     this.setFilters(hosts, networks, filters);
@@ -57,7 +57,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
     const filters = {
       health: location.query.filterHealth || "all",
       name: location.query.searchString || "",
-      service: location.query.filterService || null
+      service: location.query.filterService || null,
     };
 
     // when trying to optimize here, please account for data that may change in `hosts`,
@@ -69,10 +69,10 @@ class NodesTableContainer extends mixin(StoreMixin) {
     const { networks = [] } = this.props;
 
     return new NodesList({
-      items: this.props.hosts.getItems().map(node => {
+      items: this.props.hosts.getItems().map((node) => {
         const hostname = node.getHostName();
         const network = networks.find(
-          network => network.private_ip === hostname
+          (network) => network.private_ip === hostname
         );
 
         if (network == null) {
@@ -80,7 +80,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
         }
 
         return new Node({ ...node.toJSON(), network });
-      })
+      }),
     }).filter(filters);
   }
 
@@ -91,10 +91,10 @@ class NodesTableContainer extends mixin(StoreMixin) {
     }
 
     const newNodes = new NodesList({
-      items: nodes.getItems().map(node => {
+      items: nodes.getItems().map((node) => {
         const hostname = node.getHostName();
         const network = networks.find(
-          network => network.private_ip === hostname
+          (network) => network.private_ip === hostname
         );
 
         if (network == null) {
@@ -102,11 +102,11 @@ class NodesTableContainer extends mixin(StoreMixin) {
         }
 
         return new Node({ ...node.toJSON(), network });
-      })
+      }),
     });
     const filters = {
       ...this.state.filters,
-      ...newFilters
+      ...newFilters,
     };
     const filteredNodes = newNodes.filter(filters);
 
@@ -119,7 +119,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
 
   onStateStoreSuccess() {
     this.setState({
-      masterRegion: CompositeState.getMasterNode().getRegionName()
+      masterRegion: CompositeState.getMasterNode().getRegionName(),
     });
   }
 
@@ -134,7 +134,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
         onSuccess: () => {
           MesosSummaryActions.fetchSummary();
         },
-        onError: defaultNetworkErrorHandler
+        onError: defaultNetworkErrorHandler,
       });
     }
   }
@@ -142,7 +142,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
   handleCloseModal() {
     this.setState({
       selectedNodeToDrain: null,
-      selectedNodeToDeactivate: null
+      selectedNodeToDeactivate: null,
     });
     MesosSummaryActions.fetchSummary();
   }
@@ -152,7 +152,7 @@ class NodesTableContainer extends mixin(StoreMixin) {
       filteredNodes,
       masterRegion,
       selectedNodeToDrain,
-      selectedNodeToDeactivate
+      selectedNodeToDeactivate,
     } = this.state;
     const { networks = [] } = this.props;
 
@@ -191,11 +191,11 @@ const networks$ = graphqlObservable(
   schema,
   {}
 ).pipe(
-  map(response => response.data.networks),
+  map((response) => response.data.networks),
   catchError(() => of([]))
 );
 
-export default componentFromStream(props$ =>
+export default componentFromStream((props$) =>
   combineLatest(props$, networks$).pipe(
     map(([props, networks]) => (
       <NodesTableContainer {...props} networks={networks} />

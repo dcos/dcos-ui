@@ -13,7 +13,7 @@ describe("Labels", () => {
       batch = batch.add(new Transaction(["labels", 0, "value"], "value"));
 
       expect(batch.reduce(Labels.JSONReducer.bind({}), {})).toEqual({
-        key: "value"
+        key: "value",
       });
     });
     it("keeps the last value if they have the same key", () => {
@@ -26,7 +26,7 @@ describe("Labels", () => {
       batch = batch.add(new Transaction(["labels", 1, "value"], "value2"));
 
       expect(batch.reduce(Labels.JSONReducer.bind({}), {})).toEqual({
-        key: "value2"
+        key: "value2",
       });
     });
     it("keeps remove the first item", () => {
@@ -40,7 +40,7 @@ describe("Labels", () => {
       batch = batch.add(new Transaction(["labels"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(Labels.JSONReducer.bind({}), {})).toEqual({
-        second: "value"
+        second: "value",
       });
     });
   });
@@ -52,7 +52,7 @@ describe("Labels", () => {
       expect(Labels.JSONParser({ labels: { key: "value" } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["labels"] },
         { type: SET, value: "key", path: ["labels", 0, "key"] },
-        { type: SET, value: "value", path: ["labels", 0, "value"] }
+        { type: SET, value: "value", path: ["labels", 0, "value"] },
       ]);
     });
   });

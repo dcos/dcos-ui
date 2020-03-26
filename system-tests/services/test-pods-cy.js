@@ -10,7 +10,7 @@ describe("Services", () => {
     });
 
     afterEach(() => {
-      cy.window().then(win => {
+      cy.window().then((win) => {
         win.location.href = "about:blank";
       });
     });
@@ -25,29 +25,17 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -68,21 +56,15 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(command);
+      cy.root().getFormGroupInputFor("Command").contains(command);
     });
 
     it("creates a pod with multiple containers", () => {
@@ -98,74 +80,47 @@ describe("Services", () => {
         .type(`{selectall}{rightarrow}${serviceName}`);
 
       // Select first container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("container-1").click();
 
       // Configure container
       cy.root()
         .getFormGroupInputFor("Container Name")
         .type("{selectall}first-container");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Go back to Service
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Service")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
 
       // Add a container
       cy.contains("Add Container").click();
 
       // Ensure the name changes to 'Services'
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Services");
+      cy.root().get(".menu-tabbed-item").contains("Services");
 
       // Select second container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("container-2")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("container-2").click();
 
       // Configure container
       cy.root()
         .getFormGroupInputFor("Container Name")
         .type("{selectall}second-container");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table")
@@ -187,10 +142,7 @@ describe("Services", () => {
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
       // Select first container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("first-container")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("first-container").click();
 
       // Configure container
       cy.root()
@@ -200,28 +152,19 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(cmdline);
+      cy.root().getFormGroupInputFor("Command").contains(cmdline);
 
       // Go back to Service
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Service")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
 
       // Ensure the name changes to 'Services'
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Services");
+      cy.root().get(".menu-tabbed-item").contains("Services");
 
       // Select second container
       cy.root()
@@ -237,17 +180,13 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Container Image")
         .should("have.value", "nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(cmdline);
+      cy.root().getFormGroupInputFor("Command").contains(cmdline);
     });
 
     it("creates a pod with service address", () => {
@@ -261,57 +200,35 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       cy.get('input[name="containers.0.endpoints.0.loadBalanced"]')
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -332,13 +249,9 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -348,13 +261,9 @@ describe("Services", () => {
         .getFormGroupInputFor("Container Image")
         .should("have.value", containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(command);
+      cy.root().getFormGroupInputFor("Command").contains(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
@@ -384,53 +293,35 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".advanced-section")
-        .contains("More Settings")
-        .click();
+      cy.get(".advanced-section").contains("More Settings").click();
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.0.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/1"
       );
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.1.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/2"
       );
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.2.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/3"
       );
 
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -451,21 +342,15 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(command);
+      cy.root().getFormGroupInputFor("Command").contains(command);
 
-      cy.get(".advanced-section")
-        .contains("More Settings")
-        .click();
+      cy.get(".advanced-section").contains("More Settings").click();
 
       cy.get('input[name="containers.0.artifacts.0.uri"]').should(
         "have.value",
@@ -494,53 +379,31 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -561,13 +424,9 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -577,13 +436,9 @@ describe("Services", () => {
         .getFormGroupInputFor("Container Image")
         .should("have.value", containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .contains(command);
+      cy.root().getFormGroupInputFor("Command").contains(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       // Virtual Network: dcos
       cy.root()
@@ -609,47 +464,27 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.get(".button")
-        .contains("Add Volume")
-        .click();
+      cy.get(".button").contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
       cy.root()
         .contains(".dropdown-select-item-title", "Ephemeral Storage")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Name")
-        .type("test");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Name").type("test");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -670,29 +505,19 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", command);
+      cy.root().getFormGroupInputFor("Command").should("have.value", command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.root()
-        .getFormGroupInputFor("Name")
-        .should("have.value", "test");
+      cy.root().getFormGroupInputFor("Name").should("have.value", "test");
 
       cy.root()
         .getFormGroupInputFor("Container Path")
@@ -709,81 +534,43 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Environment").click();
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.0.key"]')
-        .type("camelCase");
+      cy.root().get('input[name="env.0.key"]').type("camelCase");
 
-      cy.root()
-        .get('input[name="env.0.value"]')
-        .type("test");
+      cy.root().get('input[name="env.0.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.1.key"]')
-        .type("snake_case");
+      cy.root().get('input[name="env.1.key"]').type("snake_case");
 
-      cy.root()
-        .get('input[name="env.1.value"]')
-        .type("test");
+      cy.root().get('input[name="env.1.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.2.key"]')
-        .type("lowercase");
+      cy.root().get('input[name="env.2.key"]').type("lowercase");
 
-      cy.root()
-        .get('input[name="env.2.value"]')
-        .type("test");
+      cy.root().get('input[name="env.2.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.3.key"]')
-        .type("UPPERCASE");
+      cy.root().get('input[name="env.3.key"]').type("UPPERCASE");
 
-      cy.root()
-        .get('input[name="env.3.value"]')
-        .type("test");
+      cy.root().get('input[name="env.3.value"]').type("test");
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -804,57 +591,41 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", command);
+      cy.root().getFormGroupInputFor("Command").should("have.value", command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Environment").click();
 
       cy.root()
         .get('input[name="env.0.key"]')
         .should("have.value", "camelCase");
 
-      cy.root()
-        .get('input[name="env.0.value"]')
-        .should("have.value", "test");
+      cy.root().get('input[name="env.0.value"]').should("have.value", "test");
 
       cy.root()
         .get('input[name="env.1.key"]')
         .should("have.value", "snake_case");
 
-      cy.root()
-        .get('input[name="env.1.value"]')
-        .should("have.value", "test");
+      cy.root().get('input[name="env.1.value"]').should("have.value", "test");
 
       cy.root()
         .get('input[name="env.2.key"]')
         .should("have.value", "lowercase");
 
-      cy.root()
-        .get('input[name="env.2.value"]')
-        .should("have.value", "test");
+      cy.root().get('input[name="env.2.value"]').should("have.value", "test");
 
       cy.root()
         .get('input[name="env.3.key"]')
         .should("have.value", "UPPERCASE");
 
-      cy.root()
-        .get('input[name="env.3.value"]')
-        .should("have.value", "test");
+      cy.root().get('input[name="env.3.value"]').should("have.value", "test");
     });
 
     it("creates a pod with labels", () => {
@@ -870,22 +641,13 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains(containerName)
-        .click();
+      cy.get(".menu-tabbed-item").contains(containerName).click();
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Label").click();
@@ -908,14 +670,10 @@ describe("Services", () => {
       cy.get('input[name="labels.3.value"]').type("test");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -940,23 +698,16 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains(containerName)
-        .click();
+      cy.get(".menu-tabbed-item").contains(containerName).click();
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Check labels
       cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
@@ -1023,21 +774,14 @@ describe("Services", () => {
         }`
       );
 
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
-      cy.get("button.button-primary")
-        .contains("button", "Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
+      cy.get("button.button-primary").contains("button", "Run Service").click();
 
       cy.get(".page-body-content .service-table")
         .contains(serviceName)
         .as("serviceName");
 
-      cy.get("@serviceName")
-        .parents("tr")
-        .first()
-        .contains("Running");
+      cy.get("@serviceName").parents("tr").first().contains("Running");
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -1049,9 +793,7 @@ describe("Services", () => {
 
       cy.contains("http-client").click({ force: true });
 
-      cy.get(".menu-tabbed-item")
-        .contains("Logs")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Logs").click();
 
       cy.contains("button", "Output (stdout)").click();
 

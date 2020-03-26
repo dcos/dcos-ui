@@ -44,10 +44,7 @@ describe("PackagesTab", () => {
 
     it("calls handler when panel is clicked", () => {
       thisInstance.setState({ loading: false });
-      thisInstance
-        .find(".panel.clickable")
-        .at(0)
-        .simulate("click");
+      thisInstance.find(".panel.clickable").at(0).simulate("click");
 
       expect(
         thisInstance

@@ -22,7 +22,7 @@ import container from "#SRC/js/container";
 import {
   getDefaultJobSpec,
   getDefaultContainer,
-  getDefaultDocker
+  getDefaultDocker,
 } from "./form/helpers/DefaultFormData";
 import {
   FormError,
@@ -30,17 +30,17 @@ import {
   JobOutput,
   Action,
   Container,
-  JobAPIOutput
+  JobAPIOutput,
 } from "./form/helpers/JobFormData";
 import { JobResponse } from "src/js/events/MetronomeClient";
 import JobForm from "./JobsForm";
 import {
   MetronomeSpecValidators,
-  validateSpec
+  validateSpec,
 } from "./form/helpers/MetronomeJobValidators";
 import {
   jobSpecToOutputParser,
-  removeBlankProperties
+  removeBlankProperties,
 } from "./form/helpers/JobParsers";
 import { jobFormOutputToSpecReducer } from "./form/reducers/JobReducers";
 
@@ -163,7 +163,7 @@ class JobFormModal extends React.Component<
       formInvalid: false,
       submitFailed: false,
       activeTab: "general",
-      isConfirmOpen: false
+      isConfirmOpen: false,
     };
   }
 
@@ -199,7 +199,7 @@ class JobFormModal extends React.Component<
     const jobSpec = {
       cmdOnly,
       container,
-      job: jobOnly
+      job: jobOnly,
     };
     return Hooks.applyFilter("jobResponseToSpecParser", jobSpec);
   }
@@ -246,7 +246,7 @@ class JobFormModal extends React.Component<
     const { isEdit } = this.props;
     const { hasSchedule, scheduleFailure } = this.state;
     const data: JobAPIOutput = {
-      job: jobOutput
+      job: jobOutput,
     };
     if (jobOutput.schedules) {
       data.schedule = jobOutput.schedules[0];
@@ -256,13 +256,13 @@ class JobFormModal extends React.Component<
       const editContext = {
         jobId: jobOutput.id,
         data,
-        existingSchedule: hasSchedule
+        existingSchedule: hasSchedule,
       };
       return dataLayer.query(editJobMutation, editContext);
     }
     {
       const createContext = {
-        data
+        data,
       };
       return dataLayer.query(createJobMutation, createContext);
     }
@@ -282,11 +282,11 @@ class JobFormModal extends React.Component<
           const path = [prefix].concat(
             // Linter does not like `\` but it is necessary here.
 
-            e.path.split("/").filter(pathSegment => pathSegment !== "")
+            e.path.split("/").filter((pathSegment) => pathSegment !== "")
           );
           return {
             path,
-            message: e.errors.join(" ")
+            message: e.errors.join(" "),
           };
         }
       );
@@ -301,8 +301,8 @@ class JobFormModal extends React.Component<
       return [
         {
           path: [],
-          message
-        }
+          message,
+        },
       ];
     }
   }
@@ -327,35 +327,35 @@ class JobFormModal extends React.Component<
       this.setState({
         validationErrors,
         showValidationErrors: true,
-        submitFailed: true
+        submitFailed: true,
       });
     } else {
       this.setState({
         validationErrors,
         processing: true,
         submitFailed: false,
-        jobOutput
+        jobOutput,
       });
       this.getSubmitAction(jobOutput)
         .pipe(take(1))
         .subscribe({
           next: () => this.handleClose(),
-          error: e => {
+          error: (e) => {
             if (e.type === "SCHEDULE") {
               this.setState({
                 scheduleFailure: true,
                 processing: false,
                 serverErrors: this.getErrorMessage(e),
-                showValidationErrors: true
+                showValidationErrors: true,
               });
             } else {
               this.setState({
                 processing: false,
                 serverErrors: this.getErrorMessage(e),
-                showValidationErrors: true
+                showValidationErrors: true,
               });
             }
-          }
+          },
         });
     }
   }
@@ -417,7 +417,7 @@ class JobFormModal extends React.Component<
       isJSONModeActive,
       jobSpec,
       showValidationErrors,
-      activeTab
+      activeTab,
     } = this.state;
 
     const { isEdit } = this.props;
@@ -452,14 +452,14 @@ class JobFormModal extends React.Component<
           >
             <Trans render="span">JSON Editor</Trans>
           </ToggleButton>
-        )
+        ),
       },
       {
         className: "button-primary flush-vertical",
         clickHandler: this.handleJobRun,
         label: processing ? i18nMark("Submitting...") : i18nMark("Submit"),
-        disabled: processing
-      }
+        disabled: processing,
+      },
     ];
   }
 
@@ -468,8 +468,8 @@ class JobFormModal extends React.Component<
       {
         className: "button-primary-link button-flush-horizontal",
         clickHandler: this.confirmClose,
-        label: i18nMark("Cancel")
-      }
+        label: i18nMark("Cancel"),
+      },
     ];
   }
 

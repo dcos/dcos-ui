@@ -11,8 +11,8 @@ const filter: DSLFilter = {
 
   filterApply: (resultSet, _filterType, { text }) =>
     resultSet.filterItems(
-      node =>
+      (node) =>
         Status.fromNode(node).displayName.toLowerCase() === text.toLowerCase()
-    )
+    ),
 };
 export default filter;

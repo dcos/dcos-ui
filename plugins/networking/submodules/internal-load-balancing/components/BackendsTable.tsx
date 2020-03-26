@@ -7,7 +7,7 @@ import { Table } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
@@ -19,7 +19,7 @@ import FilterInputText from "#SRC/js/components/FilterInputText";
 const COLUMNS_TO_HIDE_MINI = [
   "failurePercent",
   "applicationReachabilityPercent",
-  "machineReachabilityPercent"
+  "machineReachabilityPercent",
 ];
 
 const RIGHT_ALIGNED_TABLE_CELLS = [
@@ -27,7 +27,7 @@ const RIGHT_ALIGNED_TABLE_CELLS = [
   "failLastMinute",
   "p99Latency",
   "appReachability",
-  "machineReachability"
+  "machineReachability",
 ];
 
 class BackendsTable extends React.Component {
@@ -35,14 +35,14 @@ class BackendsTable extends React.Component {
     super();
 
     this.state = {
-      searchString: ""
+      searchString: "",
     };
   }
 
   componentDidMount() {
     this.mountedAt = Date.now();
   }
-  alignTableCellRight = prop => {
+  alignTableCellRight = (prop) => {
     return RIGHT_ALIGNED_TABLE_CELLS.indexOf(prop) > -1;
   };
 
@@ -69,7 +69,7 @@ class BackendsTable extends React.Component {
       failLastMinute: i18nMark("Failures"),
       p99Latency: i18nMark("P99 Latency"),
       appReachability: i18nMark("Application Reachability"),
-      machineReachability: i18nMark("IP Reachability")
+      machineReachability: i18nMark("IP Reachability"),
     });
 
     const columns = [
@@ -79,8 +79,8 @@ class BackendsTable extends React.Component {
         prop: "ip",
         render: this.renderBackendName,
         sortable: true,
-        heading
-      }
+        heading,
+      },
     ];
 
     if (displayedData === "app-reachability") {
@@ -91,8 +91,8 @@ class BackendsTable extends React.Component {
           prop: "appReachability",
           render: this.renderPercent,
           sortable: true,
-          heading
-        }
+          heading,
+        },
       ]);
     }
 
@@ -104,8 +104,8 @@ class BackendsTable extends React.Component {
           prop: "machineReachability",
           render: this.renderPercent,
           sortable: true,
-          heading
-        }
+          heading,
+        },
       ]);
     }
 
@@ -117,7 +117,7 @@ class BackendsTable extends React.Component {
         prop: "successLastMinute",
         render: this.getFailSuccessRender("success"),
         sortable: true,
-        heading
+        heading,
       },
       {
         className,
@@ -125,7 +125,7 @@ class BackendsTable extends React.Component {
         prop: "failLastMinute",
         render: this.getFailSuccessRender("fail"),
         sortable: true,
-        heading
+        heading,
       },
       {
         className,
@@ -133,8 +133,8 @@ class BackendsTable extends React.Component {
         prop: "p99Latency",
         render: this.renderMilliseconds,
         sortable: true,
-        heading
-      }
+        heading,
+      },
     ]);
   }
 
@@ -151,7 +151,7 @@ class BackendsTable extends React.Component {
   getFailSuccessRender(type) {
     const classes = classNames({
       "text-danger": type === "fail",
-      "text-success": type === "success"
+      "text-success": type === "success",
     });
 
     return (prop, item) => <span className={classes}>{item[prop]}</span>;
@@ -179,7 +179,7 @@ class BackendsTable extends React.Component {
         "text-align-right": alignTableCellRight(prop),
         "hidden-small-down": hideColumnAtMini(prop),
         active: prop === sortBy.prop,
-        clickable: row == null
+        clickable: row == null,
       });
   }
   handleBackendClick = (backend_protocol, backend_vip, backend_port) => {
@@ -197,7 +197,7 @@ class BackendsTable extends React.Component {
   }
 
   processBackends(backendsList) {
-    return backendsList.getItems().map(backend => ({
+    return backendsList.getItems().map((backend) => ({
       ip: backend.getIP(),
       port: backend.getPort(),
       successLastMinute: backend.getSuccessLastMinute(),
@@ -207,7 +207,7 @@ class BackendsTable extends React.Component {
       frameworkID: backend.getFrameworkID(),
       machineReachability: backend.getMachineReachabilityPercent(),
       appReachability: backend.getApplicationReachabilityPercent(),
-      fullIPString: `${backend.getIP()}:${backend.getPort()}`
+      fullIPString: `${backend.getIP()}:${backend.getPort()}`,
     }));
   }
   renderBackendName = (prop, item) => {
@@ -215,7 +215,7 @@ class BackendsTable extends React.Component {
     let frameworkName = item.frameworkID;
     const selectedService =
       CompositeState.getServiceList().filter({
-        ids: [frameworkName]
+        ids: [frameworkName],
       }) || [];
     const taskID = item.taskID;
 
@@ -244,7 +244,7 @@ class BackendsTable extends React.Component {
           key="task-id"
         >
           <CollapsingString string={taskID} />
-        </div>
+        </div>,
       ];
     } else if (taskID == null && frameworkName != null) {
       backendSubheading = (
@@ -299,11 +299,11 @@ class BackendsTable extends React.Component {
       const title = config[prop];
       const caret = {
         before: null,
-        after: null
+        after: null,
       };
       const caretClassSet = classNames("caret", {
         [`caret--${order}`]: order != null,
-        "caret--visible": prop === sortBy.prop
+        "caret--visible": prop === sortBy.prop,
       });
 
       if (this.alignTableCellRight(prop)) {
@@ -357,7 +357,7 @@ class BackendsTable extends React.Component {
 }
 
 BackendsTable.contextTypes = {
-  router: PropTypes.object
+  router: PropTypes.object,
 };
 
 export default BackendsTable;

@@ -1,6 +1,6 @@
 import {
   jobSpecToOutputParser,
-  jobSpecToFormOutputParser
+  jobSpecToFormOutputParser,
 } from "../JobParsers";
 import { JobSpec, Container } from "../JobFormData";
 import { getDefaultDocker, getDefaultContainer } from "../DefaultFormData";
@@ -14,9 +14,9 @@ describe("JobParsers", () => {
           run: {
             docker: {},
             ucr: {},
-            gpus: 0
-          }
-        }
+            gpus: 0,
+          },
+        },
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
@@ -32,9 +32,9 @@ describe("JobParsers", () => {
         job: {
           run: {
             docker: {},
-            ucr: {}
-          }
-        }
+            ucr: {},
+          },
+        },
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
@@ -50,9 +50,9 @@ describe("JobParsers", () => {
           run: {
             docker: {},
             ucr: {},
-            gpus: 0
-          }
-        }
+            gpus: 0,
+          },
+        },
       };
 
       const parsed = jobSpecToOutputParser(input as JobSpec);
@@ -76,9 +76,9 @@ describe("JobParsers", () => {
           mem: 32,
           gpus: 0,
           docker: getDefaultDocker(),
-          ucr: getDefaultContainer()
-        }
-      }
+          ucr: getDefaultContainer(),
+        },
+      },
     };
 
     const output = {
@@ -98,7 +98,7 @@ describe("JobParsers", () => {
       grantRuntimePrivileges: undefined,
       imageForcePull: undefined,
       volumes: [],
-      placementConstraints: []
+      placementConstraints: [],
     };
 
     it("transforms JobSpec to FormOutput", () => {

@@ -4,7 +4,7 @@ import * as React from "react";
 import { Modal } from "reactjs-components";
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
 
-const DisabledGroupDestroyModal = props => {
+const DisabledGroupDestroyModal = (props) => {
   const modalFooter = (
     <div className="text-align-center">
       <button className="button button-primary-link" onClick={props.onClose}>
@@ -38,12 +38,12 @@ const DisabledGroupDestroyModal = props => {
 };
 
 DisabledGroupDestroyModal.defaultProps = {
-  isOpen: false
+  isOpen: false,
 };
 
 DisabledGroupDestroyModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  isOpen: PropTypes.bool.isRequired
+  isOpen: PropTypes.bool.isRequired,
 };
 
 export default DisabledGroupDestroyModal;

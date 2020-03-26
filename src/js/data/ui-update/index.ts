@@ -4,14 +4,14 @@ import { map, publishReplay, refCount, retry, switchMap } from "rxjs/operators";
 import { RequestResponse } from "@dcos/http-service";
 import {
   DataLayerExtensionInterface,
-  getExtensionModule
+  getExtensionModule,
 } from "@extension-kid/data-layer";
 
 import { DCOSUIUpdateClient, UIVersionResponse } from "./DCOSUIUpdateClient";
 
 import {
   UIMetadata,
-  UIMetadataSchema
+  UIMetadataSchema,
 } from "#SRC/js/data/ui-update/UIMetadata";
 import Config from "#SRC/js/config/Config";
 import { parseVersion } from "./utils";
@@ -76,7 +76,7 @@ export const resolvers = {
           parseVersion(response.buildVersion)
         )
       );
-    }
+    },
   },
   Query: {
     ui(_parent = {}, _args = {}, context: QueryContext = {}) {
@@ -87,7 +87,7 @@ export const resolvers = {
         refCount()
       );
       return of({});
-    }
+    },
   },
   Mutation: {
     updateDCOSUI(_parent = {}, args: PossibleMutationArgs = {}) {
@@ -108,8 +108,8 @@ export const resolvers = {
       return DCOSUIUpdateClient.resetUIVersion(Config.rootUrl).pipe(
         map(({ response }: RequestResponse<string>) => `Complete: ${response}`)
       );
-    }
-  }
+    },
+  },
 };
 
 export interface Query {

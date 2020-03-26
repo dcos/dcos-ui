@@ -18,7 +18,7 @@ const LEFT_ALIGN_PROPS = [
   "mem",
   "mtime",
   "priority",
-  "size"
+  "size",
 ];
 
 function leftAlignCaret(prop) {
@@ -38,20 +38,20 @@ const ResourceTableUtil = {
         leftAlignCaret(prop) || prop === "TASK_RUNNING" || prop === "action",
       "hidden-small-down": leftAlignCaret(prop),
       active: prop === sortBy.prop,
-      clickable: row == null // this is a header
+      clickable: row == null, // this is a header
     });
   },
 
   renderHeading(config) {
-    return function(prop, order, sortBy) {
+    return function (prop, order, sortBy) {
       const title = config[prop];
       const caret = {
         before: null,
-        after: null
+        after: null,
       };
       const caretClassSet = classNames("caret", {
         [`caret--${order}`]: order != null,
-        "caret--visible": prop === sortBy.prop
+        "caret--visible": prop === sortBy.prop,
       });
       let helpIcon = null;
 
@@ -104,7 +104,7 @@ const ResourceTableUtil = {
         <span className="visible-mini-inline"> tasks</span>
       </span>
     );
-  }
+  },
 };
 
 export default ResourceTableUtil;

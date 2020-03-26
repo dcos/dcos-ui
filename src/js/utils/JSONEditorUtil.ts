@@ -76,7 +76,7 @@ const JSONEditorUtil = {
         memo.push({
           path: path.concat([key]),
           value: undefined,
-          previous: oldObj[key]
+          previous: oldObj[key],
         });
 
         return memo;
@@ -98,7 +98,7 @@ const JSONEditorUtil = {
       memo.push({
         path: path.concat([key]),
         value: newObj[key],
-        previous: undefined
+        previous: undefined,
       });
 
       return memo;
@@ -138,7 +138,7 @@ const JSONEditorUtil = {
       // Keep keys that exist in both objects, in the order they appear in the
       // `oldKeys` array. In the same time, strip these keys out of the
       // `newKeys` array in order to keep only the `new` keys.
-      const resultKeys = oldKeys.filter(key => {
+      const resultKeys = oldKeys.filter((key) => {
         if (Object.prototype.hasOwnProperty.call(newVal, key)) {
           const index = newKeys.indexOf(key);
           newKeys.splice(index, 1);
@@ -164,7 +164,7 @@ const JSONEditorUtil = {
     }
 
     return newVal;
-  }
+  },
 };
 
 export default JSONEditorUtil;

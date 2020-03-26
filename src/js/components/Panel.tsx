@@ -10,7 +10,7 @@ const defaultClasses = {
   footer:
     "panel-footer panel-cell panel-cell-narrow panel-cell-short flush-top",
   heading:
-    "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter"
+    "panel-header panel-cell panel-cell-light panel-cell-narrow panel-cell-shorter",
 };
 
 const Panel = createReactClass({
@@ -24,19 +24,19 @@ const Panel = createReactClass({
     contentClass: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     headingClass: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     footerClass: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   },
 
   getNode(nodeName) {
@@ -70,7 +70,7 @@ const Panel = createReactClass({
         {this.getNode("footer")}
       </div>
     );
-  }
+  },
 });
 
 export default Panel;

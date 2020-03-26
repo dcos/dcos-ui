@@ -39,7 +39,7 @@ const oldJSON = RequestUtil.json;
 RequestUtil.json = (options = {}) => {
   // Proxy error function so that we can trigger a plugin event
   const oldHandler = options.error;
-  options.error = function(...args) {
+  options.error = function (...args) {
     if (typeof oldHandler === "function") {
       oldHandler(...args);
     }
@@ -87,7 +87,7 @@ function renderApplicationToDOM() {
           opacity: 0,
           overflow: "hidden",
           visibility: "hidden",
-          width: 0
+          width: 0,
         }}
       >
         <div dangerouslySetInnerHTML={{ __html: systemIconSprite }} />
@@ -112,7 +112,7 @@ function onConfigurationError() {
     "column-small-8": false,
     "column-small-offset-2": false,
     "column-medium-6": false,
-    "column-medium-offset-3": false
+    "column-medium-offset-3": false,
   };
 
   ReactDOM.render(

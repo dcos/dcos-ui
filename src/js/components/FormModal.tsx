@@ -11,20 +11,20 @@ export default class FormModal extends React.Component {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: i18nMark("Create"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ],
     disabled: false,
     extraFooterContent: null,
     onChange() {},
     onClose() {},
     open: false,
-    modalProps: {}
+    modalProps: {},
   };
   static propTypes = {
     buttonDefinition: PropTypes.array,
@@ -32,7 +32,7 @@ export default class FormModal extends React.Component {
     contentClasses: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     contentFooter: PropTypes.node,
     definition: PropTypes.array,
@@ -42,7 +42,7 @@ export default class FormModal extends React.Component {
     onChange: PropTypes.func,
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
-    open: PropTypes.bool
+    open: PropTypes.bool,
   };
   constructor() {
     super();
@@ -63,7 +63,7 @@ export default class FormModal extends React.Component {
   handleTriggerSubmit = () => {
     this.triggerSubmit();
   };
-  getTriggerSubmit = trigger => {
+  getTriggerSubmit = (trigger) => {
     this.triggerSubmit = trigger;
     this.forceUpdate();
   };
@@ -90,7 +90,7 @@ export default class FormModal extends React.Component {
   getButtons() {
     return this.props.buttonDefinition.map((buttonDefinition, i) => {
       let buttonClassSet = {
-        disabled: this.props.disabled
+        disabled: this.props.disabled,
       };
       buttonClassSet[buttonDefinition.className] = true;
       buttonClassSet = classNames(buttonClassSet);

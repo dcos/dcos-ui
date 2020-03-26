@@ -16,12 +16,12 @@ const ResourceTimeSeriesChart = createReactClass({
     totalResources: PropTypes.object.isRequired,
     usedResourcesStates: PropTypes.object.isRequired,
     mode: PropTypes.string,
-    refreshRate: PropTypes.number.isRequired
+    refreshRate: PropTypes.number.isRequired,
   },
 
   getDefaultProps() {
     return {
-      colorIndex: 0
+      colorIndex: 0,
     };
   },
 
@@ -32,8 +32,8 @@ const ResourceTimeSeriesChart = createReactClass({
       {
         name: "Alloc",
         colorIndex,
-        values: usedResourcesStates[mode]
-      }
+        values: usedResourcesStates[mode],
+      },
     ];
   },
 
@@ -80,7 +80,7 @@ const ResourceTimeSeriesChart = createReactClass({
         {this.getChart()}
       </div>
     );
-  }
+  },
 });
 
 export default ResourceTimeSeriesChart;

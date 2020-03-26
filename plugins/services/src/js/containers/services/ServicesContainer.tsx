@@ -10,7 +10,7 @@ import { DataLayerType } from "@extension-kid/data-layer";
 import { NotificationServiceType } from "@extension-kid/notification-service";
 import {
   ToastNotification,
-  ToastAppearance
+  ToastAppearance,
 } from "@extension-kid/toast-notifications";
 import gql from "graphql-tag";
 import { map } from "rxjs/operators";
@@ -27,7 +27,7 @@ import Page from "#SRC/js/components/Page";
 import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import {
   REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
-  REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR
+  REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR,
 } from "#SRC/js/constants/ActionTypes";
 import container from "#SRC/js/container";
 import { TYPES } from "#SRC/js/types/containerTypes";
@@ -70,7 +70,7 @@ import {
   REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
   REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
   REQUEST_MARATHON_SERVICE_RESTART_ERROR,
-  REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
+  REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
 } from "../../constants/ActionTypes";
 
 import {
@@ -81,7 +81,7 @@ import {
   MARATHON_QUEUE_CHANGE,
   MARATHON_QUEUE_ERROR,
   MARATHON_SERVICE_VERSIONS_CHANGE,
-  MARATHON_SERVICE_VERSIONS_ERROR
+  MARATHON_SERVICE_VERSIONS_ERROR,
 } from "../../constants/EventTypes";
 
 const SERVICE_FILTERS = [
@@ -91,7 +91,7 @@ const SERVICE_FILTERS = [
   new ServiceAttributeIsPodFilter(),
   new ServiceAttributeIsCatalogFilter(),
   new ServiceAttributeNoHealthchecksFilter(),
-  new ServiceNameTextFilter()
+  new ServiceNameTextFilter(),
 ];
 
 const dl = container.get(DataLayerType);
@@ -145,13 +145,13 @@ function getMesosRoles$() {
       `,
       {}
     )
-    .pipe(map(result => result.data.roles));
+    .pipe(map((result) => result.data.roles));
 }
 
 class ServicesContainer extends React.Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
   };
   constructor(props) {
     super(props);
@@ -163,7 +163,7 @@ class ServicesContainer extends React.Component {
       isLoading: true,
       lastUpdate: 0,
       pendingActions: {},
-      roles: []
+      roles: [],
     };
   }
 
@@ -182,7 +182,7 @@ class ServicesContainer extends React.Component {
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
     const roles$ = getMesosRoles$();
     if (roles$) {
-      this.rolesSub = roles$.subscribe(roles => {
+      this.rolesSub = roles$.subscribe((roles) => {
         this.setState({ roles });
       });
     }
@@ -208,7 +208,7 @@ class ServicesContainer extends React.Component {
 
   getChildContext() {
     return {
-      modalHandlers: this.getModalHandlers()
+      modalHandlers: this.getModalHandlers(),
     };
   }
 
@@ -218,7 +218,7 @@ class ServicesContainer extends React.Component {
 
     this.setState({
       filterExpression: new DSLExpression(filterQuery),
-      itemId
+      itemId,
     });
   }
   onStoreChange = () => {
@@ -229,7 +229,7 @@ class ServicesContainer extends React.Component {
     ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       });
     }
   };
@@ -273,13 +273,13 @@ class ServicesContainer extends React.Component {
 
     return MarathonActions.resetDelayedService(...args);
   };
-  handleServerAction = payload => {
+  handleServerAction = (payload) => {
     const { action } = payload;
 
     // Increment/clear fetching errors based on action
     const fetchErrors = countFetchErrors(
       {
-        ...this.state.fetchErrors
+        ...this.state.fetchErrors,
       },
       action
     );
@@ -360,16 +360,16 @@ class ServicesContainer extends React.Component {
         break;
     }
   };
-  handleModalClose = key => {
+  handleModalClose = (key) => {
     if (key) {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
   };
-  handleFilterExpressionChange = filterExpression => {
+  handleFilterExpressionChange = (filterExpression) => {
     const { router } = this.context;
     const {
-      location: { pathname }
+      location: { pathname },
     } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
@@ -395,7 +395,7 @@ class ServicesContainer extends React.Component {
         pendingActions,
         actionType,
         true
-      )
+      ),
     });
   }
   /**
@@ -418,10 +418,10 @@ class ServicesContainer extends React.Component {
         pendingActions,
         actionType,
         false
-      )
+      ),
     });
   }
-  clearActionError = actionType => {
+  clearActionError = (actionType) => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -429,7 +429,7 @@ class ServicesContainer extends React.Component {
         actionErrors,
         actionType,
         null
-      )
+      ),
     });
   };
 
@@ -439,8 +439,8 @@ class ServicesContainer extends React.Component {
       this.setState({
         modal: {
           ...props,
-          id
-        }
+          id,
+        },
       });
     };
 
@@ -450,13 +450,14 @@ class ServicesContainer extends React.Component {
         window.open(props.service.getWebURL(), "_blank");
       },
       // All methods below (except resetDelayedService) work on ServiceTree and Service types
-      deleteService: props => set(ServiceActionItem.DELETE, props),
-      editService: props => set(ServiceActionItem.EDIT, props),
-      resetDelayedService: props => set(ServiceActionItem.RESET_DELAYED, props),
-      restartService: props => set(ServiceActionItem.RESTART, props),
-      resumeService: props => set(ServiceActionItem.RESUME, props),
-      scaleService: props => set(ServiceActionItem.SCALE, props),
-      stopService: props => set(ServiceActionItem.STOP, props)
+      deleteService: (props) => set(ServiceActionItem.DELETE, props),
+      editService: (props) => set(ServiceActionItem.EDIT, props),
+      resetDelayedService: (props) =>
+        set(ServiceActionItem.RESET_DELAYED, props),
+      restartService: (props) => set(ServiceActionItem.RESTART, props),
+      resumeService: (props) => set(ServiceActionItem.RESUME, props),
+      scaleService: (props) => set(ServiceActionItem.SCALE, props),
+      stopService: (props) => set(ServiceActionItem.STOP, props),
     };
   }
 
@@ -469,7 +470,7 @@ class ServicesContainer extends React.Component {
       deleteService: this.deleteService,
       editService: this.editService,
       resetDelayedService: this.resetDelayedService,
-      restartService: this.restartService
+      restartService: this.restartService,
     };
   }
 
@@ -500,7 +501,7 @@ class ServicesContainer extends React.Component {
    */
   getCorrectedModalProps(props, service) {
     const modalProps = {
-      ...props
+      ...props,
     };
 
     if (!modalProps.service && service) {
@@ -584,7 +585,7 @@ class ServicesContainer extends React.Component {
       </ServiceDetail>
     );
   }
-  getServiceTree = item => {
+  getServiceTree = (item) => {
     const { children, params, routes } = this.props;
     const { filterExpression, roles } = this.state;
 
@@ -616,7 +617,7 @@ class ServicesContainer extends React.Component {
       </ServiceTreeView>
     );
   };
-  getServiceQuota = item => {
+  getServiceQuota = (item) => {
     const { children, params, routes } = this.props;
     return (
       <ServicesQuotaView params={params} routes={routes} serviceTree={item}>
@@ -625,7 +626,7 @@ class ServicesContainer extends React.Component {
       </ServicesQuotaView>
     );
   };
-  getResetDelaySuccessToast = serviceName => {
+  getResetDelaySuccessToast = (serviceName) => {
     const title = i18nTranslate(i18nMark("Reset Delay Successful"));
     const description = i18nTranslate(
       i18nMark("Delay has cleared and {serviceName} is now relaunching."),
@@ -635,10 +636,10 @@ class ServicesContainer extends React.Component {
     return new ToastNotification(title, {
       appearance: ToastAppearance.Success,
       autodismiss: true,
-      description
+      description,
     });
   };
-  getResetDelayErrorToast = serviceName => {
+  getResetDelayErrorToast = (serviceName) => {
     const title = i18nTranslate(i18nMark("Reset Delay Failed"));
     const description = i18nTranslate(
       i18nMark(
@@ -650,7 +651,7 @@ class ServicesContainer extends React.Component {
     return new ToastNotification(title, {
       appearance: ToastAppearance.Danger,
       autodismiss: true,
-      description
+      description,
     });
   };
 
@@ -676,7 +677,7 @@ class ServicesContainer extends React.Component {
 
     // Check if a single endpoint has failed more than 3 times
     const fetchError = Object.values(fetchErrors).some(
-      errorCount => errorCount > 3
+      (errorCount) => errorCount > 3
     );
 
     // API Failures
@@ -731,18 +732,18 @@ ServicesContainer.childContextTypes = {
     scaleService: PropTypes.func,
     stopService: PropTypes.func,
     openServiceUI: PropTypes.func,
-    resetDelayedService: PropTypes.func
-  })
+    resetDelayedService: PropTypes.func,
+  }),
 };
 
 ServicesContainer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 ServicesContainer.routeConfig = {
   label: i18nMark("Services"),
   icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-  matches: /^\/services\/(detail|overview|quota)/
+  matches: /^\/services\/(detail|overview|quota)/,
 };
 
 export default ServicesContainer;

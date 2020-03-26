@@ -10,13 +10,13 @@ const HealthCheckUtil = {
       ...[
         HealthCheckProtocols.MESOS_HTTP,
         HealthCheckProtocols.MESOS_HTTPS,
-        HealthCheckProtocols.COMMAND
-      ]
+        HealthCheckProtocols.COMMAND,
+      ],
     ].includes(protocol);
   },
   getMetadataText(protocol, portText) {
     const protocolText = PROTOCOLS.filter(
-      protocolKey => protocol[protocolKey]
+      (protocolKey) => protocol[protocolKey]
     ).join(",");
     const delimiter = portText && protocolText ? "/" : "";
 
@@ -38,7 +38,7 @@ const HealthCheckUtil = {
     const portText = hostPort || placeholderText;
 
     return `${name || index} ${this.getMetadataText(protocol, portText)}`;
-  }
+  },
 };
 
 export default HealthCheckUtil;

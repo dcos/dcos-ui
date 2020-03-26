@@ -17,22 +17,22 @@ import { FilterNode } from "#SRC/js/structs/DSLASTNodes";
 import DSLUpdateUtil from "#SRC/js/utils/DSLUpdateUtil";
 
 const EXPRESSION_PARTS = {
-  text: DSLExpressionPart.fuzzy
+  text: DSLExpressionPart.fuzzy,
 };
 
 class FuzzyTextDSLSection extends React.Component {
   static propTypes = {
     onApply: PropTypes.func,
     onChange: PropTypes.func.isRequired,
-    expression: PropTypes.instanceOf(DSLExpression).isRequired
+    expression: PropTypes.instanceOf(DSLExpression).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       data: {
-        text: ""
-      }
+        text: "",
+      },
     };
   }
 
@@ -42,7 +42,7 @@ class FuzzyTextDSLSection extends React.Component {
 
     this.setState({ data });
   }
-  handleTextChange = event => {
+  handleTextChange = (event) => {
     const { onChange, expression } = this.props;
     const { target } = event;
     event.stopPropagation();
@@ -51,15 +51,15 @@ class FuzzyTextDSLSection extends React.Component {
     this.setState({
       data: {
         ...this.state.data,
-        text: value
-      }
+        text: value,
+      },
     });
 
     // TODO: find better abstraction here (DCOS-40235)
     const newFuzzyNodes = value
       .replace(":", " ")
       .split(" ")
-      .map(text => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
+      .map((text) => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
 
     const updateNode = EXPRESSION_PARTS.text;
     // The node(s) relevant to the property we are updating
@@ -71,7 +71,7 @@ class FuzzyTextDSLSection extends React.Component {
       matchingNodes,
       newFuzzyNodes,
       {
-        newCombiner: DSLCombinerTypes.AND
+        newCombiner: DSLCombinerTypes.AND,
       }
     );
 

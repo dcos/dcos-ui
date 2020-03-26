@@ -23,24 +23,24 @@ class Mount extends React.Component {
   static defaultProps = {
     alwaysWrap: false,
     limit: Number.MAX_SAFE_INTEGER,
-    wrapper: "div"
+    wrapper: "div",
   };
   static propTypes = {
     alwaysWrap: PropTypes.bool,
     limit: PropTypes.number,
     children: PropTypes.oneOfType([
       PropTypes.arrayOf(PropTypes.node),
-      PropTypes.node
+      PropTypes.node,
     ]),
     type: PropTypes.string.isRequired,
-    wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func])
+    wrapper: PropTypes.oneOfType([PropTypes.string, PropTypes.func]),
   };
   constructor(props) {
     super(props);
 
     // Get components and init state
     this.state = {
-      components: MountService.findComponentsWithType(this.props.type)
+      components: MountService.findComponentsWithType(this.props.type),
     };
   }
 
@@ -61,7 +61,7 @@ class Mount extends React.Component {
   componentWillUnmount() {
     MountService.removeListener(CHANGE, this.onMountServiceChange);
   }
-  onMountServiceChange = type => {
+  onMountServiceChange = (type) => {
     if (this.props.type !== type) {
       return;
     }

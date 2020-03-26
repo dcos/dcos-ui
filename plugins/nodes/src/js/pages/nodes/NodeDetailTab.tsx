@@ -24,7 +24,7 @@ import { Status } from "../../types/Status";
 
 class NodeDetailTab extends React.PureComponent {
   static propTypes = {
-    node: PropTypes.instanceOf(Node)
+    node: PropTypes.instanceOf(Node),
   };
   constructor(...args) {
     super(...args);
@@ -32,7 +32,7 @@ class NodeDetailTab extends React.PureComponent {
     this.onMesosStateChange = this.onMesosStateChange.bind(this);
 
     this.state = {
-      masterRegion: null
+      masterRegion: null,
     };
   }
 
@@ -42,7 +42,7 @@ class NodeDetailTab extends React.PureComponent {
       this.onMesosStateChange
     );
     request({ type: "GET_VERSION" }, "/mesos/api/v1?GET_VERSION").subscribe(
-      response => {
+      (response) => {
         const { version = null } = JSON.parse(
           response
         ).get_version.version_info;
@@ -62,7 +62,7 @@ class NodeDetailTab extends React.PureComponent {
 
   onMesosStateChange() {
     this.setState({
-      masterRegion: CompositeState.getMasterNode().getRegionName()
+      masterRegion: CompositeState.getMasterNode().getRegionName(),
     });
   }
 

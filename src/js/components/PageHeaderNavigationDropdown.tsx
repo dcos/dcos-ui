@@ -6,12 +6,12 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyLightDarken1,
-  iconSizeXxs
+  iconSizeXxs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class PageHeaderNavigationDropdown extends React.Component {
   static defaultProps = {
-    items: []
+    items: [],
   };
   static propTypes = {
     items: PropTypes.arrayOf(
@@ -19,13 +19,13 @@ class PageHeaderNavigationDropdown extends React.Component {
         id: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
           .isRequired,
         isActive: PropTypes.bool.isRequired,
-        label: PropTypes.node.isRequired
+        label: PropTypes.node.isRequired,
       })
-    )
+    ),
   };
   getActiveItemID() {
     const { items } = this.props;
-    const activeTab = items.find(item => item.isActive);
+    const activeTab = items.find((item) => item.isActive);
 
     if (activeTab) {
       return activeTab.id;
@@ -37,7 +37,7 @@ class PageHeaderNavigationDropdown extends React.Component {
   }
 
   getItems() {
-    return this.props.items.map(item => {
+    return this.props.items.map((item) => {
       const { label } = item;
 
       return {
@@ -59,7 +59,7 @@ class PageHeaderNavigationDropdown extends React.Component {
               />
             </span>
           </div>
-        )
+        ),
       };
     });
   }

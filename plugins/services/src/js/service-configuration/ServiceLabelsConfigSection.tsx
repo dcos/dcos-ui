@@ -35,7 +35,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: "labels",
           heading: <Trans render="span">Labels</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "labels",
@@ -50,7 +50,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
@@ -60,8 +60,8 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-value"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             if (onEditClick) {
@@ -80,7 +80,7 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
@@ -102,9 +102,9 @@ class ServiceLabelsConfigSection extends ServiceConfigBaseSectionDisplay {
                 data={data}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

@@ -15,7 +15,7 @@ export default {
     headerContent: null,
     footerContent: null,
     imagePath: null,
-    dismissible: null
+    dismissible: null,
   },
 
   initialize() {
@@ -36,7 +36,7 @@ export default {
 
   configure(configuration) {
     // Only merge keys that have a non-null value
-    Object.keys(configuration).forEach(key => {
+    Object.keys(configuration).forEach((key) => {
       if (configuration[key] != null) {
         this.configuration[key] = configuration[key];
       }
@@ -114,7 +114,7 @@ export default {
   getColorStyles() {
     return {
       color: this.configuration.foregroundColor,
-      backgroundColor: this.configuration.backgroundColor
+      backgroundColor: this.configuration.backgroundColor,
     };
   },
 
@@ -215,5 +215,5 @@ export default {
         </span>
       </footer>
     );
-  }
+  },
 };

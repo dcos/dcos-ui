@@ -10,20 +10,20 @@ export function translateErrorMessages(errors: FormError[], i18n: any) {
     return errorCopy;
   }
 
-  return errorCopy.map(e => {
+  return errorCopy.map((e) => {
     return {
       ...e,
-      message: i18n._(e.message)
+      message: i18n._(e.message),
     };
   });
 }
 
 export function getFieldError(path: string, errors: FormError[]): string {
   return errors
-    .filter(e => {
+    .filter((e) => {
       const match = e.path.join(".");
       return match === path;
     })
-    .map(e => e.message)
+    .map((e) => e.message)
     .join(". ");
 }

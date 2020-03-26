@@ -28,7 +28,7 @@ class ServiceAttributeIsCatalogFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset) {
-    return resultset.filterItems(service => service instanceof Framework);
+    return resultset.filterItems((service) => service instanceof Framework);
   }
 }
 

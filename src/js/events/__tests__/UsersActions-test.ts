@@ -17,7 +17,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_SUCCESS);
@@ -27,7 +27,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USERS_ERROR);
@@ -37,18 +37,18 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -89,7 +89,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_SUCCESS);
@@ -99,7 +99,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the userID when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -109,7 +109,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_CREATE_ERROR);
@@ -119,7 +119,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -129,7 +129,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the userID when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -139,18 +139,18 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -183,7 +183,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_SUCCESS);
@@ -193,7 +193,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the userID when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -203,7 +203,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_USER_DELETE_ERROR);
@@ -213,7 +213,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -223,7 +223,7 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the userID when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.userID).toEqual("foo");
@@ -233,18 +233,18 @@ describe("UsersActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

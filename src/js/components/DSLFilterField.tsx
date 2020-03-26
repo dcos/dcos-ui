@@ -12,19 +12,19 @@ import DSLFormDropdownPanel from "./DSLFormDropdownPanel";
 class DSLFilterField extends React.Component {
   static defaultProps = {
     formSections: [],
-    onChange() {}
+    onChange() {},
   };
   static propTypes = {
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
     filters: PropTypes.instanceOf(Array).isRequired,
     formSections: PropTypes.array,
-    onChange: PropTypes.func
+    onChange: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      dropdownVisible: false
+      dropdownVisible: false,
     };
   }
 
@@ -95,7 +95,7 @@ class DSLFilterField extends React.Component {
    *
    * @param {SyntheticEvent} event - The click event
    */
-  handleIgnoreClick = event => {
+  handleIgnoreClick = (event) => {
     event.stopPropagation();
   };
 

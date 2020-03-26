@@ -22,17 +22,17 @@ module.exports = {
       "SidebarHeader:SwitchingModalTrigger"
     );
 
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 
   applicationRoutes(routes) {
     // Find the route we wish to modify, the index route.
-    const indexRoute = routes[0].children.find(route => route.id === "index");
+    const indexRoute = routes[0].children.find((route) => route.id === "index");
 
     const clusterRoute = indexRoute.children.find(
-      route => route.id === "cluster"
+      (route) => route.id === "cluster"
     );
 
     if (!clusterRoute || !clusterRoute.children) {
@@ -44,9 +44,9 @@ module.exports = {
       type: Route,
       path: "linked",
       component: LinkedClustersPage,
-      isInSidebar: true
+      isInSidebar: true,
     });
 
     return routes;
-  }
+  },
 };

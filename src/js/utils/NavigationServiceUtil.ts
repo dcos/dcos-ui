@@ -19,7 +19,7 @@ const NavigationServiceUtil = {
       );
     }
 
-    const indexRoute = routes.find(route => route.id === "index");
+    const indexRoute = routes.find((route) => route.id === "index");
 
     if (!indexRoute) {
       return;
@@ -27,14 +27,14 @@ const NavigationServiceUtil = {
 
     indexRoute.childRoutes
       .filter(({ isInSidebar }) => isInSidebar)
-      .forEach(route => {
+      .forEach((route) => {
         const { path, category, childRoutes = [] } = route;
         const primaryPath = `/${path}`;
 
         navigation.NavigationService.registerCategory(category);
 
         const icon = React.cloneElement(route.component.routeConfig.icon, {
-          className: "sidebar-menu-item-icon icon icon-small"
+          className: "sidebar-menu-item-icon icon icon-small",
         });
 
         navigation.NavigationService.registerPrimary(
@@ -44,7 +44,7 @@ const NavigationServiceUtil = {
         );
         childRoutes
           .filter(({ isInSidebar }) => isInSidebar)
-          .forEach(childRoute => {
+          .forEach((childRoute) => {
             navigation.NavigationService.registerSecondary(
               primaryPath,
               childRoute.path,
@@ -53,7 +53,7 @@ const NavigationServiceUtil = {
             );
           });
       });
-  }
+  },
 };
 
 export default NavigationServiceUtil;

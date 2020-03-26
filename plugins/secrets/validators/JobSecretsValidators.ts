@@ -9,7 +9,7 @@ import {
   SecretVolume,
   EnvModel,
   JobSecretExposure,
-  JobVolume
+  JobVolume,
 } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 
 import { isSecretVolume } from "../reducers/JobSecrets";
@@ -28,7 +28,7 @@ export const JobSecretsValidators = {
     const env = findNestedPropertyInObject(formData, "run.env");
     if (env) {
       const envSecrets = (Object.entries(env) as EnvSecrets).filter(
-        e => typeof e[1] === "object" && e[1].secret
+        (e) => typeof e[1] === "object" && e[1].secret
       );
       const secrets: { [key: string]: string } = (Object.entries(
         findNestedPropertyInObject(formData, "run.secrets") || {}
@@ -40,7 +40,7 @@ export const JobSecretsValidators = {
         if (secrets[secret] == null || secrets[secret] === "") {
           errors.push({
             path: ["run", "secrets", secret],
-            message: i18nMark("The secret cannot be empty")
+            message: i18nMark("The secret cannot be empty"),
           });
         }
       });
@@ -66,7 +66,7 @@ export const JobSecretsValidators = {
         if (secrets[secret] == null || secrets[secret] === "") {
           errors.push({
             path: ["run", "secrets", secret],
-            message: i18nMark("The secret cannot be empty")
+            message: i18nMark("The secret cannot be empty"),
           });
         }
       });
@@ -83,14 +83,14 @@ export const JobSecretsValidators = {
       findNestedPropertyInObject(formData, "run.volumes") || [];
     if (secrets) {
       const map: SecretMap = {};
-      Object.keys(secrets).forEach(secret => {
+      Object.keys(secrets).forEach((secret) => {
         map[secret] = {
           env: 0,
-          volumes: 0
+          volumes: 0,
         };
       });
       (Object.entries(env) as EnvSecrets)
-        .filter(e => typeof e[1] === "object" && e[1].secret)
+        .filter((e) => typeof e[1] === "object" && e[1].secret)
         .forEach(([_, { secret }]) => {
           if (map[secret] != null) {
             map[secret].env++;
@@ -103,13 +103,13 @@ export const JobSecretsValidators = {
             map[secret].volumes++;
           }
         });
-      Object.keys(map).forEach(secret => {
+      Object.keys(map).forEach((secret) => {
         if (!map[secret].env && !map[secret].volumes) {
           errors.push({
             path: ["run", "secrets", `${secret}`],
             message: i18nMark(
               "Secret must be provided as an environment variable or file"
-            )
+            ),
           });
         }
       });
@@ -121,14 +121,14 @@ export const JobSecretsValidators = {
     const errors: FormError[] = [];
     const env = findNestedPropertyInObject(formData, "run.env");
     if (env) {
-      Object.keys(env).forEach(key => {
+      Object.keys(env).forEach((key) => {
         if (
           typeof env[key] === "object" &&
           (!env[key].secret || typeof env[key].secret !== "string")
         ) {
           errors.push({
             path: ["run", "env", key],
-            message: i18nMark("Secret must be a non-empty string")
+            message: i18nMark("Secret must be a non-empty string"),
           });
         }
       });
@@ -149,7 +149,7 @@ export const JobSecretsValidators = {
           ) {
             errors.push({
               path: ["run", "secrets", volume.secret, "file"],
-              message: i18nMark("Invalid path.")
+              message: i18nMark("Invalid path."),
             });
           }
         }
@@ -157,7 +157,7 @@ export const JobSecretsValidators = {
     }
 
     return errors;
-  }
+  },
 };
 
 export function JobSpecValidator(errors: FormError[], jobSpec: JobSpec) {
@@ -198,10 +198,10 @@ export function JobSpecValidator(errors: FormError[], jobSpec: JobSpec) {
 
       // Multiple secrets with same variable name
       if (map[key].secrets && (map[key].secrets as number[]).length > 1) {
-        (map[key].secrets as number[]).forEach(i => {
+        (map[key].secrets as number[]).forEach((i) => {
           secretErrors.push({
             path: ["run", "secrets", `${i}`],
-            message: i18nMark("Cannot have duplicate variable names")
+            message: i18nMark("Cannot have duplicate variable names"),
           });
         });
       }
@@ -212,12 +212,12 @@ export function JobSpecValidator(errors: FormError[], jobSpec: JobSpec) {
         (map[key].secrets as number[]).length &&
         (map[key].env as number[]).length
       ) {
-        (map[key].secrets as number[]).forEach(i => {
+        (map[key].secrets as number[]).forEach((i) => {
           secretErrors.push({
             path: ["run", "secrets", `${i}`],
             message: i18nMark(
               "Variable name is already being used as an environment variable key"
-            )
+            ),
           });
         });
       }

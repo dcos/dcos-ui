@@ -32,11 +32,11 @@ let thisRequestFn,
 describe("SecretStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(secretsFixture);
     };
     thisSecretsFixture = {
-      ...secretsFixture
+      ...secretsFixture,
     };
   });
 
@@ -60,7 +60,7 @@ describe("SecretStore", () => {
     it("stores secrets when event is dispatched", () => {
       SDK.dispatch({
         type: EventTypes.SECRET_STORE_SECRETS_SUCCESS,
-        secrets: secretsFixture.array
+        secrets: secretsFixture.array,
       });
 
       let secrets = SecretStore.get("secrets");
@@ -75,7 +75,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
-        data: secretsFixture
+        data: secretsFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -89,7 +89,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_STORE_SECRETS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -100,7 +100,7 @@ describe("SecretStore", () => {
     it("stores secretDetail when event is dispatched", () => {
       SDK.dispatch({
         type: EventTypes.SECRET_STORE_SECRET_SUCCESS,
-        secretDetail: secretFixture
+        secretDetail: secretFixture,
       });
 
       const secret = SecretStore.get("secretDetail");
@@ -115,7 +115,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_STORE_SECRET_SUCCESS,
-        data: secretFixture
+        data: secretFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -129,7 +129,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_STORE_SECRET_ERROR,
-        data: secretFixture
+        data: secretFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -152,7 +152,7 @@ describe("SecretStore", () => {
     it("stores stores when event is dispatched", () => {
       SDK.dispatch({
         type: EventTypes.SECRET_ALL_STORES_SUCCESS,
-        stores: storesFixture.array
+        stores: storesFixture.array,
       });
 
       let stores = SecretStore.get("stores");
@@ -167,7 +167,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-        data: storesFixture
+        data: storesFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -181,7 +181,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ALL_STORES_ERROR,
-        data: storesFixture
+        data: storesFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -198,7 +198,7 @@ describe("SecretStore", () => {
     it("creates a notification if there are stores sealed", () => {
       NotificationStore.addNotification = jasmine.createSpy();
       SecretStore.processStores({
-        array: [{ sealed: true }]
+        array: [{ sealed: true }],
       });
 
       expect(NotificationStore.addNotification).toHaveBeenCalled();

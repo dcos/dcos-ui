@@ -12,7 +12,7 @@ export default class NodesList extends List<Node> {
     if (filters) {
       // Marathon API
       if (filters.ids) {
-        hosts = hosts.filter(host => filters.ids.includes(host.id));
+        hosts = hosts.filter((host) => filters.ids.includes(host.id));
       }
 
       // Marathon API
@@ -43,14 +43,14 @@ export default class NodesList extends List<Node> {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => service.used_resources);
+    const resourcesList = services.map((service) => service.used_resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }
 
   sumResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => service.resources);
+    const resourcesList = services.map((service) => service.resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }

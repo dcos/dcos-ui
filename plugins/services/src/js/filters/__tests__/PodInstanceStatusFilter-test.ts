@@ -10,13 +10,13 @@ describe("PodInstanceStatusFilter", () => {
     thisMockItems = [
       {
         isStaging: () => false,
-        isRunning: () => true
+        isRunning: () => true,
       },
       {
         state: "TASK_FINISHED",
         isStaging: () => false,
-        isRunning: () => false
-      }
+        isRunning: () => false,
+      },
     ];
   });
 
@@ -27,7 +27,7 @@ describe("PodInstanceStatusFilter", () => {
     const filters = [new PodInstanceStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 
@@ -38,7 +38,7 @@ describe("PodInstanceStatusFilter", () => {
     const filters = [new PodInstanceStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[1]
+      thisMockItems[1],
     ]);
   });
 });

@@ -21,7 +21,7 @@ class MountService extends EventEmitter {
     const context = {
       components: [],
       instance: this,
-      rank: 0
+      rank: 0,
     };
 
     this.registerComponent = this.registerComponent.bind(context);
@@ -63,7 +63,7 @@ class MountService extends EventEmitter {
 
     if (
       components.find(
-        descriptor =>
+        (descriptor) =>
           descriptor.component === component && descriptor.type === type
       )
     ) {
@@ -125,8 +125,8 @@ class MountService extends EventEmitter {
     const { components } = this;
 
     return components
-      .filter(descriptor => descriptor.type === type)
-      .map(descriptor => descriptor.component);
+      .filter((descriptor) => descriptor.type === type)
+      .map((descriptor) => descriptor.component);
   }
 }
 

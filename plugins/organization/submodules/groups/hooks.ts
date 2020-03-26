@@ -12,12 +12,12 @@ module.exports = {
         type: Route,
         path: "groups",
         component: GroupsPage,
-        isInSidebar: true
+        isInSidebar: true,
       },
       {
         type: Route,
         path: "groups/:groupID",
-        component: GroupDetailPage
+        component: GroupDetailPage,
       }
     );
 
@@ -26,5 +26,5 @@ module.exports = {
 
   initialize() {
     Hooks.addFilter("organizationRoutes", this.appendRoutes.bind(this));
-  }
+  },
 };

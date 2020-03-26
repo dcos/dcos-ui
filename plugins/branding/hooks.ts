@@ -6,7 +6,7 @@ module.exports = {
   filters: ["applicationConfiguration"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
@@ -16,5 +16,5 @@ module.exports = {
     configuration.productName = "Mesosphere DC/OS Enterprise";
 
     return configuration;
-  }
+  },
 };

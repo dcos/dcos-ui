@@ -4,9 +4,9 @@ import * as React from "react";
 
 import Util from "../../utils/Util";
 
-const FullScreenModal = props => {
+const FullScreenModal = (props) => {
   const geminiClasses = classNames({
-    "gm-scrollbar-container-flex": props.useGemini !== false
+    "gm-scrollbar-container-flex": props.useGemini !== false,
   });
 
   let modalHeight = null;
@@ -32,7 +32,7 @@ const FullScreenModal = props => {
 };
 
 FullScreenModal.defaultProps = {
-  useGemini: true
+  useGemini: true,
 };
 
 export default FullScreenModal;

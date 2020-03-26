@@ -8,7 +8,7 @@ export const volumesReducers = {
     const emptyVolume = {
       containerPath: "",
       hostPath: "",
-      mode: ""
+      mode: "",
     };
     if (!stateCopy.job.run.volumes) {
       stateCopy.job.run.volumes = [];
@@ -36,11 +36,11 @@ export const volumesReducers = {
         volumes[index] = {
           hostPath: "",
           containerPath: "",
-          mode: ""
+          mode: "",
         };
       }
       volumes[index][prop] = value;
     }
     return stateCopy;
-  }
+  },
 };

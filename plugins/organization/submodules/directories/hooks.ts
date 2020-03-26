@@ -6,16 +6,16 @@ import { Hooks } from "PluginSDK";
 
 module.exports = {
   configuration: {
-    enabled: false
+    enabled: false,
   },
 
   appendRoutes(routes) {
     // Find the route we wish to modify, the index route.
-    const indexRoute = routes[0].children.find(route => route.id === "index");
+    const indexRoute = routes[0].children.find((route) => route.id === "index");
 
     // Find the settings route within the index route.
     const settingsRouteIndex = indexRoute.children.findIndex(
-      route => route.path === "settings"
+      (route) => route.path === "settings"
     );
 
     // Append the directories route to the organization route's children.
@@ -27,9 +27,9 @@ module.exports = {
       isInSidebar: true,
       children: [
         {
-          type: Route
-        }
-      ]
+          type: Route,
+        },
+      ],
     });
 
     return routes;
@@ -37,5 +37,5 @@ module.exports = {
 
   initialize() {
     Hooks.addFilter("applicationRoutes", this.appendRoutes.bind(this));
-  }
+  },
 };

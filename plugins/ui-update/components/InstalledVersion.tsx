@@ -9,7 +9,7 @@ import { UIMetadata } from "#SRC/js/data/ui-update/UIMetadata";
 import {
   UIAction,
   UIActions,
-  UIActionType
+  UIActionType,
 } from "#PLUGINS/ui-update/types/UIAction";
 
 interface InstalledVersionProps {

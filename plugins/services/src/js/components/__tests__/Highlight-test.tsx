@@ -60,12 +60,12 @@ describe("Highlight instance", () => {
       </Highlight>
     );
 
-    const matches = instance.find("strong").map(match => match.text());
+    const matches = instance.find("strong").map((match) => match.text());
 
     expect(matches).toEqual(["Easy", "as", "ABC"]);
   });
 
-  it("supports escaping arbitrary string in search", function() {
+  it("supports escaping arbitrary string in search", function () {
     function renderInstance() {
       mount(
         <Highlight className="myHighlighter" search="Test (">

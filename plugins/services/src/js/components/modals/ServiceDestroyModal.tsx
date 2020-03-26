@@ -7,7 +7,7 @@ import * as React from "react";
 import { NotificationServiceType } from "@extension-kid/notification-service";
 import {
   ToastNotification,
-  ToastAppearance
+  ToastAppearance,
 } from "@extension-kid/toast-notifications";
 
 import ModalHeading from "#SRC/js/components/modals/ModalHeading";
@@ -45,15 +45,15 @@ class ServiceDestroyModal extends React.PureComponent {
       PropTypes.instanceOf(Framework),
       PropTypes.instanceOf(Pod),
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ]).isRequired
+      PropTypes.instanceOf(Service),
+    ]).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       errorMsg: null,
-      serviceNameConfirmationValue: ""
+      serviceNameConfirmationValue: "",
     };
   }
 
@@ -119,12 +119,12 @@ class ServiceDestroyModal extends React.PureComponent {
       this.setState({ serviceNameConfirmationValue: "" });
     }
   };
-  handleChangeInputFieldDestroy = event => {
+  handleChangeInputFieldDestroy = (event) => {
     this.setState({
-      serviceNameConfirmationValue: event.target.value
+      serviceNameConfirmationValue: event.target.value,
     });
   };
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     this.handleRightButtonClick();
   };
@@ -150,12 +150,9 @@ class ServiceDestroyModal extends React.PureComponent {
       <h4 className="text-align-center text-danger flush-bottom">{errorMsg}</h4>
     );
   }
-  getNotification = errorMsg => {
+  getNotification = (errorMsg) => {
     const { service } = this.props;
-    const serviceId = service
-      .getId()
-      .split("/")
-      .slice(-1)[0];
+    const serviceId = service.getId().split("/").slice(-1)[0];
     const title = i18nTranslate(
       i18nMark('Failed to delete service "{serviceId}"'),
       { serviceId }
@@ -164,7 +161,7 @@ class ServiceDestroyModal extends React.PureComponent {
     return new ToastNotification(title, {
       appearance: ToastAppearance.Danger,
       autodismiss: true,
-      description: errorMsg
+      description: errorMsg,
     });
   };
 
@@ -281,7 +278,7 @@ class ServiceDestroyModal extends React.PureComponent {
 }
 
 ServiceDestroyModal.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(ServiceDestroyModal);

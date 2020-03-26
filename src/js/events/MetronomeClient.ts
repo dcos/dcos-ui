@@ -4,7 +4,7 @@ import Config from "../config/Config";
 import {
   JobSchedule,
   JobAPIOutput,
-  ConcurrentPolicy
+  ConcurrentPolicy,
 } from "plugins/jobs/src/js/components/form/helpers/JobFormData";
 import { switchMap, catchError } from "rxjs/operators";
 // Add interface information: https://jira.mesosphere.com/browse/DCOS-37725
@@ -143,7 +143,7 @@ export function isDetailResponse(
 }
 
 const defaultHeaders = {
-  "Content-Type": "application/json; charset=utf-8"
+  "Content-Type": "application/json; charset=utf-8",
 };
 
 export function createJob(
@@ -152,7 +152,7 @@ export function createJob(
   const jobRequest = request(`${Config.metronomeAPI}/v1/jobs`, {
     method: "POST",
     body: JSON.stringify(data.job),
-    headers: defaultHeaders
+    headers: defaultHeaders,
   });
   return data.schedule
     ? jobRequest.pipe(
@@ -197,7 +197,7 @@ export function updateJob(
     {
       method: "PUT",
       body: JSON.stringify(data.job),
-      headers: defaultHeaders
+      headers: defaultHeaders,
     }
   );
   const scheduleRequest = () =>
@@ -216,7 +216,7 @@ export function runJob(jobID: string): Observable<RequestResponse<any>> {
     {
       headers: defaultHeaders,
       method: "POST",
-      body: "{}"
+      body: "{}",
     }
   );
 }
@@ -238,7 +238,7 @@ export function updateSchedule(
   return request(
     `${Config.metronomeAPI}/v1/jobs/${jobID}/schedules/${schedule.id}`,
     { method: "PUT", headers: defaultHeaders, body: JSON.stringify(schedule) }
-  ).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
+  ).pipe(catchError((e) => throwError({ ...e, type: "SCHEDULE" })));
 }
 
 export function createSchedule(jobID: string, schedule: JobSchedule) {
@@ -247,7 +247,7 @@ export function createSchedule(jobID: string, schedule: JobSchedule) {
     {
       method: "POST",
       body: JSON.stringify(schedule),
-      headers: defaultHeaders
+      headers: defaultHeaders,
     }
-  ).pipe(catchError(e => throwError({ ...e, type: "SCHEDULE" })));
+  ).pipe(catchError((e) => throwError({ ...e, type: "SCHEDULE" })));
 }

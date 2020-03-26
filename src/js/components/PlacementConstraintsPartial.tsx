@@ -52,7 +52,7 @@ class PlacementConstraintsPartial extends React.Component {
       this.props.errors,
       "constraints"
     );
-    const hideValueColumn = data.every(constraint =>
+    const hideValueColumn = data.every((constraint) =>
       PlacementConstraintsUtil.requiresEmptyValue(constraint.operator)
     );
 
@@ -192,7 +192,7 @@ class PlacementConstraintsPartial extends React.Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {
                 value: index,
-                path: "constraints"
+                path: "constraints",
               })}
             />
           </FormGroup>
@@ -228,7 +228,7 @@ class PlacementConstraintsPartial extends React.Component {
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
                 path: "constraints",
-                value: { type: "default" }
+                value: { type: "default" },
               })}
             >
               <Trans render="span">Add Placement Constraint</Trans>

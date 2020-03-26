@@ -19,14 +19,14 @@ const DialChart = createReactClass({
     data: PropTypes.array.isRequired,
     slices: PropTypes.array,
     duration: PropTypes.number,
-    value: PropTypes.string
+    value: PropTypes.string,
   },
 
   getDefaultProps() {
     return {
       duration: 1000,
       slices: [],
-      value: "value"
+      value: "value",
     };
   },
 
@@ -36,9 +36,9 @@ const DialChart = createReactClass({
       pie: d3.layout
         .pie()
         .sort(null)
-        .value(d => d[value]),
+        .value((d) => d[value]),
 
-      ...this.getArcs(this.props)
+      ...this.getArcs(this.props),
     };
 
     this.data = data;
@@ -49,29 +49,29 @@ const DialChart = createReactClass({
     const arcs = this.getArcs(this.props);
     const innerArc = arcs.innerArc;
 
-    slice.each(function(d) {
+    slice.each(function (d) {
       this._current = d;
     });
 
     slice = this.getSlice(nextProps);
     slice
-      .each(function(d) {
+      .each(function (d) {
         if (d.value > 0) {
           d3.select(this).style("visibility", "inherit");
         }
       })
       .transition()
       .duration(nextProps.duration)
-      .attrTween("d", function(d) {
+      .attrTween("d", function (d) {
         const interpolate = d3.interpolate(this._current, d);
 
-        return t => {
+        return (t) => {
           this._current = interpolate(t);
 
           return innerArc(this._current);
         };
       })
-      .each("end", function(d) {
+      .each("end", function (d) {
         if (d.value === 0) {
           d3.select(this).style("visibility", "hidden");
         }
@@ -98,7 +98,7 @@ const DialChart = createReactClass({
 
     const normalizedNamedData = {
       ...namedSlices,
-      ...namedData
+      ...namedData,
     };
 
     return Object.values(normalizedNamedData);
@@ -137,11 +137,8 @@ const DialChart = createReactClass({
         .arc()
         .outerRadius(radius * 0.9)
         .innerRadius(radius * 0.84),
-      outerArc: d3.svg
-        .arc()
-        .outerRadius(radius)
-        .innerRadius(radius),
-      innerRadius: radius * 0.5
+      outerArc: d3.svg.arc().outerRadius(radius).innerRadius(radius),
+      innerRadius: radius * 0.5,
     };
   },
 
@@ -185,7 +182,7 @@ const DialChart = createReactClass({
         {this.props.children}
       </div>
     );
-  }
+  },
 });
 
 export default DialChart;

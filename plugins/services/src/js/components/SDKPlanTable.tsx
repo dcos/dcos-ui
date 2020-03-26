@@ -9,18 +9,18 @@ import {
   green,
   iconSizeXs,
   red,
-  yellow
+  yellow,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import {
   flattenServicePlanPhases,
   ServicePlan,
   ServicePlanElement,
-  NO_DATA_SERVICE_PLAN_ELEMENT
+  NO_DATA_SERVICE_PLAN_ELEMENT,
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 import {
   formatServicePlanStatus,
-  ServicePlanStatus
+  ServicePlanStatus,
 } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 
 const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
@@ -76,7 +76,7 @@ const getStatusTooltip = (data: ServicePlanElement): React.ReactNode | null => {
           },
           {
             totalSteps: 0,
-            completedSteps: 0
+            completedSteps: 0,
           }
         );
         return (

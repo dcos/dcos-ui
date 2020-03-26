@@ -21,7 +21,7 @@ import OrganizationTab from "../../../components/OrganizationTab";
 const EXTERNAL_CHANGE_EVENTS = [
   "onAclGroupStoreCreateSuccess",
   "onAclGroupStoreDeleteSuccess",
-  "onAclGroupStoreUpdateSuccess"
+  "onAclGroupStoreUpdateSuccess",
 ];
 
 const GroupsBreadcrumbs = () => {
@@ -30,7 +30,7 @@ const GroupsBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/organization/groups" />}>Groups</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -40,7 +40,7 @@ const GroupsBreadcrumbs = () => {
 
 class GroupsPage extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
@@ -55,19 +55,19 @@ class GroupsPage extends mixin(StoreMixin) {
           "createLDAPSuccess",
           "createSuccess",
           "deleteSuccess",
-          "updateSuccess"
-        ]
-      }
+          "updateSuccess",
+        ],
+      },
     ];
 
     this.state = {
       groupsStoreError: false,
       groupsStoreSuccess: false,
       openNewGroupModal: false,
-      openNewLDAPGroupModal: false
+      openNewLDAPGroupModal: false,
     };
 
-    EXTERNAL_CHANGE_EVENTS.forEach(event => {
+    EXTERNAL_CHANGE_EVENTS.forEach((event) => {
       this[event] = this.onAclGroupsChange;
     });
   }
@@ -88,13 +88,13 @@ class GroupsPage extends mixin(StoreMixin) {
   onAclGroupsStoreSuccess = () => {
     this.setState({
       groupsStoreError: false,
-      groupsStoreSuccess: true
+      groupsStoreSuccess: true,
     });
   };
   onAclGroupsStoreError = () => {
     this.setState({
       groupsStoreError: true,
-      groupsStoreSuccess: false
+      groupsStoreSuccess: false,
     });
   };
   handleLDAPGroupClick = () => {
@@ -119,19 +119,19 @@ class GroupsPage extends mixin(StoreMixin) {
     if (!hasDirectories) {
       return {
         label: i18nMark("New Group"),
-        onItemSelect: this.handleNewGroupClick
+        onItemSelect: this.handleNewGroupClick,
       };
     }
 
     return [
       {
         label: i18nMark("Add Local Group"),
-        onItemSelect: this.handleNewGroupClick
+        onItemSelect: this.handleNewGroupClick,
       },
       {
         label: i18nMark("Import LDAP Group"),
-        onItemSelect: this.handleLDAPGroupClick
-      }
+        onItemSelect: this.handleLDAPGroupClick,
+      },
     ];
   }
 
@@ -174,7 +174,7 @@ class GroupsPage extends mixin(StoreMixin) {
 
 GroupsPage.routeConfig = {
   label: i18nMark("Groups"),
-  matches: /^\/organization\/groups/
+  matches: /^\/organization\/groups/,
 };
 
 export default GroupsPage;

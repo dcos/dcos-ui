@@ -18,14 +18,14 @@ import EnvironmentVariableInput from "./EnvironmentVariableInput";
 import SecretInput from "./SecretInput";
 import JobFileInput from "./JobFileInput";
 
-const JobSecret = props => {
+const JobSecret = (props) => {
   const {
     secretIndex,
     secret,
     secrets,
     onRemoveItem,
     errors,
-    showErrors
+    showErrors,
   } = props;
 
   const secretError = getFieldError(`run.secrets.${secret.key}`, errors);
@@ -129,12 +129,12 @@ JobSecret.propTypes = {
     exposureType: PropTypes.string,
     exposureValue: PropTypes.string,
     key: PropTypes.string,
-    secretPath: PropTypes.string
+    secretPath: PropTypes.string,
   }),
   secrets: PropTypes.arrayOf(PropTypes.string),
   valueWithoutKey: PropTypes.bool,
   duplicateValue: PropTypes.bool,
-  onRemoveItem: PropTypes.func.isRequired
+  onRemoveItem: PropTypes.func.isRequired,
 };
 
 export default JobSecret;

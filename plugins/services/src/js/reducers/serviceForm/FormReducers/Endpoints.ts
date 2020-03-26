@@ -10,11 +10,11 @@ const defaultEndpointsFieldValues = {
   name: null,
   protocol: {
     tcp: true,
-    udp: false
+    udp: false,
   },
   servicePort: null,
   vip: null,
-  vipPort: null
+  vipPort: null,
 };
 
 export function FormReducer(state = [], { type, path = [], value }) {
@@ -29,10 +29,10 @@ export function FormReducer(state = [], { type, path = [], value }) {
   switch (type) {
     case ADD_ITEM:
       const endpointDefinition = {
-        ...defaultEndpointsFieldValues
+        ...defaultEndpointsFieldValues,
       };
       endpointDefinition.protocol = {
-        ...defaultEndpointsFieldValues.protocol
+        ...defaultEndpointsFieldValues.protocol,
       };
       newState.push(endpointDefinition);
       break;
@@ -46,7 +46,7 @@ export function FormReducer(state = [], { type, path = [], value }) {
     "automaticPort",
     "loadBalanced",
     "vip",
-    "vipPort"
+    "vipPort",
   ];
   const numericalFiledNames = ["containerPort", "hostPort"];
 

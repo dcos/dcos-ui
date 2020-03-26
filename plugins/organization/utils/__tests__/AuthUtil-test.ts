@@ -6,7 +6,7 @@ describe("AuthUtil", () => {
       const item = {
         isRemote() {
           return false;
-        }
+        },
       };
       expect(AuthUtil.isSubjectRemote(item)).toBeFalsy();
     });
@@ -15,7 +15,7 @@ describe("AuthUtil", () => {
       const item = {
         isRemote() {
           return true;
-        }
+        },
       };
       expect(AuthUtil.isSubjectRemote(item)).toBeTruthy();
     });

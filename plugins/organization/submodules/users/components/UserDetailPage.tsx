@@ -61,19 +61,19 @@ class UserDetailPage extends AccountDetailPage {
   onUserStoreDeleteError(error) {
     this.setState({
       deleteUpdateError: error,
-      pendingRequest: false
+      pendingRequest: false,
     });
   }
 
   onUserStoreDeleteSuccess() {
     this.setState({
       openDeleteConfirmation: false,
-      pendingRequest: false
+      pendingRequest: false,
     });
 
     this.context.router.push("/organization/users");
   }
-  handleEditAccount = model => {
+  handleEditAccount = (model) => {
     ACLUserStore.updateUser(this.getAccountID(), model);
   };
 
@@ -118,7 +118,7 @@ class UserDetailPage extends AccountDetailPage {
 
 UserDetailPage.routeConfig = {
   label: i18nMark("Users"),
-  matches: /^\/organization\/users/
+  matches: /^\/organization\/users/,
 };
 
 export default UserDetailPage;

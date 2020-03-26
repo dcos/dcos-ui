@@ -8,7 +8,7 @@ module.exports = {
   actions: ["userCapabilitiesFetched"],
 
   initialize() {
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
   },
@@ -31,5 +31,5 @@ module.exports = {
       LicensingExpirationRow,
       "OverviewDetailTab:AdditionalGeneralDetails:Date"
     );
-  }
+  },
 };

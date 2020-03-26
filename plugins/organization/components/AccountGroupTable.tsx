@@ -15,7 +15,7 @@ import ACLGroupStore from "../submodules/groups/stores/ACLGroupStore";
 
 class AccountGroupTable extends mixin(StoreMixin) {
   static propTypes = {
-    getAccountDetails: PropTypes.func.isRequired
+    getAccountDetails: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -26,7 +26,7 @@ class AccountGroupTable extends mixin(StoreMixin) {
       pendingRequest: false,
       requestGroupsSuccess: false,
       requestGroupsError: false,
-      userUpdateError: null
+      userUpdateError: null,
     };
 
     // prettier-ignore
@@ -35,11 +35,11 @@ class AccountGroupTable extends mixin(StoreMixin) {
     ];
   }
 
-  handleOpenConfirm = group => {
+  handleOpenConfirm = (group) => {
     this.setState({
       groupID: group.gid,
       openConfirm: true,
-      userUpdateError: null
+      userUpdateError: null,
     });
   };
 
@@ -72,7 +72,7 @@ class AccountGroupTable extends mixin(StoreMixin) {
   getColumns() {
     const className = ResourceTableUtil.getClassName;
     const groupIDHeading = ResourceTableUtil.renderHeading({
-      gid: i18nMark("Group ID")
+      gid: i18nMark("Group ID"),
     });
 
     return [
@@ -86,7 +86,7 @@ class AccountGroupTable extends mixin(StoreMixin) {
           "gid",
           (item, prop) => item[prop] || item.get(prop)
         ),
-        heading: groupIDHeading
+        heading: groupIDHeading,
       },
       {
         className,
@@ -94,15 +94,15 @@ class AccountGroupTable extends mixin(StoreMixin) {
         prop: "remove",
         render: this.renderButton,
         sortable: false,
-        heading: ""
-      }
+        heading: "",
+      },
     ];
   }
 
   getConfirmModalContent(accountDetails) {
     const { groupID, userUpdateError } = this.state;
     let groupLabel = "this group";
-    accountDetails.groups.forEach(group => {
+    accountDetails.groups.forEach((group) => {
       if (group.group.gid === groupID) {
         groupLabel = group.group.gid;
       }
@@ -152,7 +152,7 @@ class AccountGroupTable extends mixin(StoreMixin) {
 
   render() {
     const accountDetails = this.props.getAccountDetails();
-    const userGroups = accountDetails.groups.map(group => group.group);
+    const userGroups = accountDetails.groups.map((group) => group.group);
 
     const confirmHeading = (
       <ModalHeading>

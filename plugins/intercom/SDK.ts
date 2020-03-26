@@ -6,5 +6,5 @@ export default {
   },
   setSDK(pluginSDK) {
     SDK = pluginSDK;
-  }
+  },
 };

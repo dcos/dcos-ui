@@ -5,18 +5,18 @@ import { Icon, Cell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  spaceM
+  spaceM,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Secret from "../../structs/Secret";
 
 const dropdownItems = [
-  { html: <Trans className="text-danger">Delete</Trans>, id: "delete" }
+  { html: <Trans className="text-danger">Delete</Trans>, id: "delete" },
 ];
 
 const DeleteDropdownTrigger = ({
   children,
-  onTrigger
+  onTrigger,
 }: {
   children: React.ReactNode;
   onTrigger?: any;

@@ -33,13 +33,13 @@ describe("CosmosPackagesStore", () => {
   describe("#fetchAvailablePackages", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...packagesSearchFixture
+          ...packagesSearchFixture,
         });
       };
       thisPackagesSearchFixture = {
-        ...packagesSearchFixture
+        ...packagesSearchFixture,
       };
     });
 
@@ -74,7 +74,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { packages: [{ gid: "foo", bar: "baz" }] },
-          query: "foo"
+          query: "foo",
         });
 
         const availablePackages = CosmosPackagesStore.getAvailablePackages().getItems();
@@ -86,7 +86,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { images: { gid: "foo", bar: "baz" } },
-          query: "foo"
+          query: "foo",
         });
 
         const packageImages = CosmosPackagesStore.getPackageImages();
@@ -103,7 +103,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { packages: [{ gid: "foo", bar: "baz" }] },
-          query: "foo"
+          query: "foo",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -118,7 +118,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_SEARCH_ERROR,
           data: "error",
-          query: "foo"
+          query: "foo",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -130,13 +130,13 @@ describe("CosmosPackagesStore", () => {
   describe("#fetchPackageDescription", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...packageDescribeFixture
+          ...packageDescribeFixture,
         });
       };
       thisPackageDescribeFixture = {
-        ...packageDescribeFixture
+        ...packageDescribeFixture,
       };
     });
 
@@ -173,7 +173,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
           packageName: "foo",
-          packageVersion: "bar"
+          packageVersion: "bar",
         });
 
         const pkg = CosmosPackagesStore.getPackageDetails();
@@ -191,7 +191,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
           packageName: "foo",
-          packageVersion: "bar"
+          packageVersion: "bar",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -207,14 +207,14 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR,
           data: "error",
           packageName: "foo",
-          packageVersion: "bar"
+          packageVersion: "bar",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
         expect(mockedFn.calls.mostRecent().args).toEqual([
           "error",
           "foo",
-          "bar"
+          "bar",
         ]);
       });
     });
@@ -225,19 +225,19 @@ describe("CosmosPackagesStore", () => {
       results: {
         "0.4.0": "2",
         "0.3.0": "1",
-        "0.2.1": "0"
-      }
+        "0.2.1": "0",
+      },
     };
 
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...packageVersions
+          ...packageVersions,
         });
       };
       thisPackageListVersionsFixture = {
-        ...packageVersions
+        ...packageVersions,
       };
     });
 
@@ -273,7 +273,7 @@ describe("CosmosPackagesStore", () => {
         JSON.parse(RequestUtil.json.calls.mostRecent().args[0].data)
       ).toEqual({
         packageName: "foo",
-        includePackageVersions: false
+        includePackageVersions: false,
       });
     });
 
@@ -284,17 +284,17 @@ describe("CosmosPackagesStore", () => {
           data: {
             "0.4.0": "2",
             "0.3.0": "1",
-            "0.2.1": "0"
+            "0.2.1": "0",
           },
-          packageName: "foo"
+          packageName: "foo",
         });
 
         expect(CosmosPackagesStore.getPackageVersions("foo").get()).toEqual({
           packageVersions: {
             "0.3.0": "1",
             "0.4.0": "2",
-            "0.2.1": "0"
-          }
+            "0.2.1": "0",
+          },
         });
       });
 
@@ -309,8 +309,8 @@ describe("CosmosPackagesStore", () => {
           data: {
             "0.4.0": "2",
             "0.3.0": "1",
-            "0.2.1": "0"
-          }
+            "0.2.1": "0",
+          },
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -324,7 +324,7 @@ describe("CosmosPackagesStore", () => {
         );
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
-          data: "error"
+          data: "error",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -336,9 +336,9 @@ describe("CosmosPackagesStore", () => {
   describe("#fetchServiceDescription", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...serviceDescribeFixture
+          ...serviceDescribeFixture,
         });
       };
     });
@@ -381,7 +381,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
-          serviceId: "foo"
+          serviceId: "foo",
         });
 
         const serviceDetails = CosmosPackagesStore.getServiceDetails();
@@ -398,7 +398,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
           data: { gid: "foo", bar: "baz" },
-          serviceId: "foo"
+          serviceId: "foo",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -413,7 +413,7 @@ describe("CosmosPackagesStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
           data: "error",
-          serviceId: "foo"
+          serviceId: "foo",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -425,13 +425,13 @@ describe("CosmosPackagesStore", () => {
   describe("#updateService", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...packageDescribeFixture
+          ...packageDescribeFixture,
         });
       };
       thisPackageDescribeFixture = {
-        ...packageDescribeFixture
+        ...packageDescribeFixture,
       };
     });
 
@@ -455,7 +455,7 @@ describe("CosmosPackagesStore", () => {
           mockedFn
         );
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -468,7 +468,7 @@ describe("CosmosPackagesStore", () => {
           mockedFn
         );
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_ERROR
+          type: ActionTypes.REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -479,9 +479,9 @@ describe("CosmosPackagesStore", () => {
   describe("#fetchInstalledPackages", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...packagesListFixture
+          ...packagesListFixture,
         });
       };
     });
@@ -525,7 +525,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
           data: [{ appId: "bar", gid: "foo", bar: "baz" }],
           packageName: "foo",
-          appId: "bar"
+          appId: "bar",
         });
 
         const installedPackages = CosmosPackagesStore.getInstalledPackages().getItems();
@@ -544,7 +544,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
           data: [{ appId: "bar", gid: "foo", bar: "baz" }],
           packageName: "foo",
-          appId: "baz"
+          appId: "baz",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -560,14 +560,14 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGES_LIST_ERROR,
           data: "error",
           packageName: "foo",
-          appId: "bar"
+          appId: "bar",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
         expect(mockedFn.calls.mostRecent().args).toEqual([
           "error",
           "foo",
-          "bar"
+          "bar",
         ]);
       });
     });
@@ -585,7 +585,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS,
           data: [{ foo: "bar" }],
           packageName: "foo",
-          packageVersion: "bar"
+          packageVersion: "bar",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -601,14 +601,14 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_PACKAGE_INSTALL_ERROR,
           data: "error",
           packageName: "foo",
-          packageVersion: "bar"
+          packageVersion: "bar",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
         expect(mockedFn.calls.mostRecent().args).toEqual([
           "error",
           "foo",
-          "bar"
+          "bar",
         ]);
       });
     });
@@ -627,7 +627,7 @@ describe("CosmosPackagesStore", () => {
           data: [{ foo: "bar" }],
           packageName: "foo",
           packageVersion: "bar",
-          appId: "baz"
+          appId: "baz",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -644,7 +644,7 @@ describe("CosmosPackagesStore", () => {
           data: "error",
           packageName: "foo",
           packageVersion: "bar",
-          appId: "baz"
+          appId: "baz",
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -652,7 +652,7 @@ describe("CosmosPackagesStore", () => {
           "error",
           "foo",
           "bar",
-          "baz"
+          "baz",
         ]);
       });
     });
@@ -662,7 +662,7 @@ describe("CosmosPackagesStore", () => {
     beforeEach(() => {
       CosmosPackagesStore.processRepositoriesSuccess([
         { foo: "bar" },
-        { baz: "qux" }
+        { baz: "qux" },
       ]);
     });
 
@@ -682,7 +682,7 @@ describe("CosmosPackagesStore", () => {
         );
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS,
-          data: [{ foo: "bar" }]
+          data: [{ foo: "bar" }],
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -698,7 +698,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_REPOSITORIES_LIST_ERROR,
           data: { foo: "bar" },
           name: "baz",
-          uri: "qux"
+          uri: "qux",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -717,7 +717,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
           data: { foo: "bar" },
           name: "baz",
-          uri: "qux"
+          uri: "qux",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -734,7 +734,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
           data: { foo: "bar" },
           name: "baz",
-          uri: "qux"
+          uri: "qux",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -753,7 +753,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
           data: { foo: "bar" },
           name: "baz",
-          uri: "qux"
+          uri: "qux",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -770,7 +770,7 @@ describe("CosmosPackagesStore", () => {
           type: ActionTypes.REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
           data: { foo: "bar" },
           name: "baz",
-          uri: "qux"
+          uri: "qux",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);

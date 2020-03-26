@@ -5,7 +5,7 @@ import Batch from "#SRC/js/structs/Batch";
 import {
   MultiContainerVolumeMountsJSONReducer as JSONReducer,
   MultiContainerVolumeMountsJSONParser as JSONParser,
-  FormReducer
+  FormReducer,
 } from "../MultiContainerVolumes";
 
 describe("Volumes", () => {
@@ -18,7 +18,7 @@ describe("Volumes", () => {
         );
 
         expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
-          { defaultValue: "foo" }
+          { defaultValue: "foo" },
         ]);
       });
     });
@@ -71,7 +71,7 @@ describe("Volumes", () => {
 
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
         { name: "foo" },
-        { name: "bar" }
+        { name: "bar" },
       ]);
     });
 
@@ -96,7 +96,7 @@ describe("Volumes", () => {
       );
 
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
-        { name: "foo", host: "hostpath" }
+        { name: "foo", host: "hostpath" },
       ]);
     });
     it("handles PERSISTENT type", () => {
@@ -109,7 +109,7 @@ describe("Volumes", () => {
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], "1"));
 
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
-        { name: "foo", persistent: { size: 1 } }
+        { name: "foo", persistent: { size: 1 } },
       ]);
     });
     it("handles DSS type", () => {
@@ -125,8 +125,8 @@ describe("Volumes", () => {
       expect(batch.reduce(JSONReducer.bind({}), [])).toEqual([
         {
           name: "foo",
-          persistent: { size: 1, type: "mount", profileName: "dev" }
-        }
+          persistent: { size: 1, type: "mount", profileName: "dev" },
+        },
       ]);
     });
   });
@@ -137,7 +137,7 @@ describe("Volumes", () => {
       batch = batch.add(new Transaction(["volumeMounts"], null, ADD_ITEM));
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
-        { mountPath: [] }
+        { mountPath: [] },
       ]);
     });
 
@@ -147,7 +147,7 @@ describe("Volumes", () => {
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
-        { name: "foo", mountPath: [] }
+        { name: "foo", mountPath: [] },
       ]);
     });
 
@@ -160,7 +160,7 @@ describe("Volumes", () => {
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { name: "foo", mountPath: [] },
-        { name: "bar", mountPath: [] }
+        { name: "bar", mountPath: [] },
       ]);
     });
 
@@ -173,7 +173,7 @@ describe("Volumes", () => {
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
-        { name: "bar", mountPath: [] }
+        { name: "bar", mountPath: [] },
       ]);
     });
 
@@ -193,12 +193,12 @@ describe("Volumes", () => {
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         {
           name: "foo",
-          mountPath: ["foobar"]
+          mountPath: ["foobar"],
         },
         {
           name: "bar",
-          mountPath: ["barfoo"]
-        }
+          mountPath: ["barfoo"],
+        },
       ]);
     });
     it("handles PERSISTENT type", () => {
@@ -211,7 +211,7 @@ describe("Volumes", () => {
       batch = batch.add(new Transaction(["volumeMounts", 0, "size"], 1));
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
-        { name: "foo", size: 1, type: "PERSISTENT", mountPath: [] }
+        { name: "foo", size: 1, type: "PERSISTENT", mountPath: [] },
       ]);
     });
   });
@@ -221,7 +221,7 @@ describe("Volumes", () => {
       const expectedObject = [
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
-        { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] }
+        { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] },
       ];
 
       expect(
@@ -229,9 +229,9 @@ describe("Volumes", () => {
           containers: [],
           volumes: [
             {
-              name: "foo"
-            }
-          ]
+              name: "foo",
+            },
+          ],
         })
       ).toEqual(expectedObject);
     });
@@ -241,7 +241,7 @@ describe("Volumes", () => {
         { type: ADD_ITEM, value: { name: "foo" }, path: ["volumeMounts"] },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
         { type: SET, value: "EPHEMERAL", path: ["volumeMounts", 0, "type"] },
-        { type: SET, value: "bar", path: ["volumeMounts", 0, "mountPath", 0] }
+        { type: SET, value: "bar", path: ["volumeMounts", 0, "mountPath", 0] },
       ];
 
       expect(
@@ -251,16 +251,16 @@ describe("Volumes", () => {
               volumeMounts: [
                 {
                   name: "foo",
-                  mountPath: "bar"
-                }
-              ]
-            }
+                  mountPath: "bar",
+                },
+              ],
+            },
           ],
           volumes: [
             {
-              name: "foo"
-            }
-          ]
+              name: "foo",
+            },
+          ],
         })
       ).toEqual(expectedObject);
     });
@@ -273,7 +273,7 @@ describe("Volumes", () => {
         {
           type: ADD_ITEM,
           value: { host: "foopath", name: "foo" },
-          path: ["volumeMounts"]
+          path: ["volumeMounts"],
         },
         { type: SET, value: "foo", path: ["volumeMounts", 1, "name"] },
         { type: SET, value: "HOST", path: ["volumeMounts", 1, "type"] },
@@ -282,8 +282,8 @@ describe("Volumes", () => {
         {
           type: SET,
           value: "fooBar",
-          path: ["volumeMounts", 1, "mountPath", 1]
-        }
+          path: ["volumeMounts", 1, "mountPath", 1],
+        },
       ];
 
       expect(
@@ -293,28 +293,28 @@ describe("Volumes", () => {
               volumeMounts: [
                 {
                   name: "foo",
-                  mountPath: "bar"
-                }
-              ]
+                  mountPath: "bar",
+                },
+              ],
             },
             {
               volumeMounts: [
                 {
                   name: "foo",
-                  mountPath: "fooBar"
-                }
-              ]
-            }
+                  mountPath: "fooBar",
+                },
+              ],
+            },
           ],
           volumes: [
             {
-              name: "foobar"
+              name: "foobar",
             },
             {
               name: "foo",
-              host: "foopath"
-            }
-          ]
+              host: "foopath",
+            },
+          ],
         })
       ).toEqual(expectedObject);
     });
@@ -324,14 +324,14 @@ describe("Volumes", () => {
         {
           type: ADD_ITEM,
           value: { unknownField: "foo", name: "unknown volume" },
-          path: ["volumeMounts"]
+          path: ["volumeMounts"],
         },
         {
           type: SET,
           value: "unknown volume",
-          path: ["volumeMounts", 0, "name"]
+          path: ["volumeMounts", 0, "name"],
         },
-        { type: SET, value: "UNKNOWN", path: ["volumeMounts", 0, "type"] }
+        { type: SET, value: "UNKNOWN", path: ["volumeMounts", 0, "type"] },
       ];
 
       expect(
@@ -340,9 +340,9 @@ describe("Volumes", () => {
           volumes: [
             {
               name: "unknown volume",
-              unknownField: "foo"
-            }
-          ]
+              unknownField: "foo",
+            },
+          ],
         })
       ).toEqual(expectedObject);
     });
@@ -351,19 +351,19 @@ describe("Volumes", () => {
         {
           type: ADD_ITEM,
           value: { name: "foo", persistent: { size: 1 } },
-          path: ["volumeMounts"]
+          path: ["volumeMounts"],
         },
         { type: SET, value: "foo", path: ["volumeMounts", 0, "name"] },
         {
           type: SET,
           value: "PERSISTENT",
-          path: ["volumeMounts", 0, "type"]
+          path: ["volumeMounts", 0, "type"],
         },
         {
           type: SET,
           value: { size: 1 },
-          path: ["volumeMounts", 0, "persistent"]
-        }
+          path: ["volumeMounts", 0, "persistent"],
+        },
       ];
 
       expect(
@@ -373,10 +373,10 @@ describe("Volumes", () => {
             {
               name: "foo",
               persistent: {
-                size: 1
-              }
-            }
-          ]
+                size: 1,
+              },
+            },
+          ],
         })
       ).toEqual(expectedObject);
     });

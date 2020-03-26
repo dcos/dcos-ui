@@ -12,7 +12,7 @@ let thisHandleByFrameworkFilterChange,
 
 describe("FilterByFramework", () => {
   beforeEach(() => {
-    thisHandleByFrameworkFilterChange = id => {
+    thisHandleByFrameworkFilterChange = (id) => {
       thisByFrameworkFilter = id;
     };
 

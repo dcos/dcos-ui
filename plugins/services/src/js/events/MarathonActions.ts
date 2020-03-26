@@ -38,7 +38,7 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
   REQUEST_MARATHON_TASK_KILL_SUCCESS,
-  REQUEST_MARATHON_TASK_KILL_ERROR
+  REQUEST_MARATHON_TASK_KILL_ERROR,
 } from "../constants/ActionTypes";
 import MarathonUtil from "../utils/MarathonUtil";
 import Pod from "../structs/Pod";
@@ -57,16 +57,16 @@ const MarathonActions = {
       data,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_GROUP_CREATE_SUCCESS
+          type: REQUEST_MARATHON_GROUP_CREATE_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -83,16 +83,16 @@ const MarathonActions = {
       method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_GROUP_DELETE_SUCCESS
+          type: REQUEST_MARATHON_GROUP_DELETE_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -111,16 +111,16 @@ const MarathonActions = {
       data,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_GROUP_EDIT_SUCCESS
+          type: REQUEST_MARATHON_GROUP_EDIT_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_GROUP_EDIT_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -145,16 +145,16 @@ const MarathonActions = {
       data: spec,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS
+          type: REQUEST_MARATHON_SERVICE_CREATE_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_CREATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -180,16 +180,16 @@ const MarathonActions = {
       method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
+          type: REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_DELETE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -213,7 +213,7 @@ const MarathonActions = {
     let url = buildURI(`/apps/${service.getId()}`);
     const params = {
       force,
-      partialUpdate: false // Switching Marathon edit endpoint into proper PUT
+      partialUpdate: false, // Switching Marathon edit endpoint into proper PUT
     };
 
     if (service instanceof Pod) {
@@ -228,16 +228,16 @@ const MarathonActions = {
       data: spec,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS
+          type: REQUEST_MARATHON_SERVICE_EDIT_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_EDIT_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -258,7 +258,7 @@ const MarathonActions = {
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_RESET_DELAY_SUCCESS,
-          serviceName: service.getName()
+          serviceName: service.getName(),
         });
       },
       error(xhr) {
@@ -266,9 +266,9 @@ const MarathonActions = {
           type: REQUEST_MARATHON_SERVICE_RESET_DELAY_ERROR,
           serviceName: service.getName(),
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -297,16 +297,16 @@ const MarathonActions = {
       data: force,
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_SERVICE_RESTART_SUCCESS
+          type: REQUEST_MARATHON_SERVICE_RESTART_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_RESTART_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -322,7 +322,7 @@ const MarathonActions = {
         { name: "embed", value: "group.apps.counts" },
         { name: "embed", value: "group.apps.tasks" },
         { name: "embed", value: "group.apps.taskStats" },
-        { name: "embed", value: "group.apps.lastTaskFailure" }
+        { name: "embed", value: "group.apps.lastTaskFailure" },
       ];
 
       RequestUtil.json({
@@ -331,7 +331,7 @@ const MarathonActions = {
         success(response) {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_GROUPS_SUCCESS,
-            data: MarathonUtil.parseGroups(response)
+            data: MarathonUtil.parseGroups(response),
           });
           resolve();
         },
@@ -339,10 +339,10 @@ const MarathonActions = {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_GROUPS_ERROR,
             data: xhr.message,
-            xhr
+            xhr,
           });
           reject();
-        }
+        },
       });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
@@ -356,7 +356,7 @@ const MarathonActions = {
         success(response) {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_DEPLOYMENTS_SUCCESS,
-            data: response
+            data: response,
           });
           resolve();
         },
@@ -364,10 +364,10 @@ const MarathonActions = {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_DEPLOYMENTS_ERROR,
             data: xhr.message,
-            xhr
+            xhr,
           });
           reject();
-        }
+        },
       });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
@@ -379,16 +379,16 @@ const MarathonActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_SUCCESS,
-          data: { serviceID, versionID, version: response }
+          data: { serviceID, versionID, version: response },
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSION_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -399,16 +399,16 @@ const MarathonActions = {
         const { versions } = response;
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
-          data: { serviceID, versions }
+          data: { serviceID, versions },
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -418,16 +418,16 @@ const MarathonActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_INSTANCE_INFO_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -441,7 +441,7 @@ const MarathonActions = {
         success(response) {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_QUEUE_SUCCESS,
-            data: response
+            data: response,
           });
           resolve();
         },
@@ -449,10 +449,10 @@ const MarathonActions = {
           AppDispatcher.handleServerAction({
             type: REQUEST_MARATHON_QUEUE_ERROR,
             data: xhr.message,
-            xhr
+            xhr,
           });
           reject();
-        }
+        },
       });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
@@ -467,8 +467,8 @@ const MarathonActions = {
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS,
           data: {
             originalDeploymentID: deploymentID,
-            ...response
-          }
+            ...response,
+          },
         });
       },
       error(xhr) {
@@ -476,11 +476,11 @@ const MarathonActions = {
           type: REQUEST_MARATHON_DEPLOYMENT_ROLLBACK_ERROR,
           data: {
             originalDeploymentID: deploymentID,
-            error: RequestUtil.parseResponseBody(xhr)
+            error: RequestUtil.parseResponseBody(xhr),
           },
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -503,16 +503,16 @@ const MarathonActions = {
       method: "POST",
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_TASK_KILL_SUCCESS
+          type: REQUEST_MARATHON_TASK_KILL_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_TASK_KILL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -530,18 +530,18 @@ const MarathonActions = {
       method: "DELETE",
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
+          type: REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -553,31 +553,31 @@ if (Config.useFixtures) {
     window.actionTypes = {};
   }
 
-  groupsFixtureImportPromise.then(groupsFixture => {
+  groupsFixtureImportPromise.then((groupsFixture) => {
     window.actionTypes.MarathonActions = {
       createService: {
         event: "success",
-        success: { response: {} }
+        success: { response: {} },
       },
       deleteService: {
         event: "success",
-        success: { response: {} }
+        success: { response: {} },
       },
       editService: {
         event: "success",
-        success: { response: {} }
+        success: { response: {} },
       },
       restartService: {
         event: "success",
-        success: { response: {} }
+        success: { response: {} },
       },
       fetchGroups: {
         event: "success",
-        success: { response: groupsFixture }
-      }
+        success: { response: groupsFixture },
+      },
     };
 
-    Object.keys(window.actionTypes.MarathonActions).forEach(method => {
+    Object.keys(window.actionTypes.MarathonActions).forEach((method) => {
       MarathonActions[method] = RequestUtil.stubRequest(
         MarathonActions,
         "MarathonActions",

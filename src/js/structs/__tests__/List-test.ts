@@ -133,7 +133,7 @@ describe("List", () => {
         { name: "foo" },
         { name: "bar" },
         { name: "qux" },
-        { name: "quux" }
+        { name: "quux" },
       ];
 
       thisInstance = new List({ items });
@@ -145,7 +145,7 @@ describe("List", () => {
     });
 
     it("filters items", () => {
-      const items = thisInstance.filterItems(item => item.name === "bar");
+      const items = thisInstance.filterItems((item) => item.name === "bar");
       expect(items.getItems().length).toEqual(1);
       expect(items.getItems()[0]).toEqual({ name: "bar" });
     });
@@ -157,13 +157,13 @@ describe("List", () => {
         {
           name: "foo",
           description: { value: "qux", label: "corge" },
-          subItems: ["one", "two"]
+          subItems: ["one", "two"],
         },
         {
           name: "bar",
           description: { value: "quux", label: "grault" },
-          subItems: ["two", "three"]
-        }
+          subItems: ["two", "three"],
+        },
       ];
       const filterProperties = {
         name: null,
@@ -172,7 +172,7 @@ describe("List", () => {
         },
         subItems(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
 
       thisInstance = new List({ items, filterProperties });
@@ -188,13 +188,13 @@ describe("List", () => {
         new Item({
           name: "foo",
           description: { value: "qux" },
-          subItems: ["one", "two"]
+          subItems: ["one", "two"],
         }),
         new Item({
           name: "bar",
           description: { value: "quux" },
-          subItems: ["two", "three"]
-        })
+          subItems: ["two", "three"],
+        }),
       ];
       const filterProperties = {
         name: null,
@@ -203,7 +203,7 @@ describe("List", () => {
         },
         subItems(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
 
       thisInstance = new List({ items, filterProperties });
@@ -234,7 +234,7 @@ describe("List", () => {
     it("handles filter by with null elements", () => {
       const items = [
         { name: null, description: { value: null }, subItems: [null, "three"] },
-        { description: null, subItems: null }
+        { description: null, subItems: null },
       ];
       const filterProperties = {
         name: null,
@@ -243,7 +243,7 @@ describe("List", () => {
         },
         subItems(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
       const list = new List({ items, filterProperties });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
@@ -253,7 +253,7 @@ describe("List", () => {
       const filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
-        }
+        },
       };
       const filteredItems = thisInstance
         .filterItemsByText("corge", filterProperties)
@@ -272,8 +272,8 @@ describe("List", () => {
     });
 
     it("returns matching item", () => {
-      expect(thisInstance.findItem(item => item.name === "foo")).toEqual({
-        name: "foo"
+      expect(thisInstance.findItem((item) => item.name === "foo")).toEqual({
+        name: "foo",
       });
     });
   });
@@ -284,14 +284,14 @@ describe("List", () => {
     });
 
     it("returns an instance of List", () => {
-      const list = thisInstance.mapItems(item => item);
+      const list = thisInstance.mapItems((item) => item);
       expect(list instanceof List).toEqual(true);
     });
 
     it("apply callbacks to all items", () => {
       const items = thisInstance
-        .mapItems(item => ({
-          name: item.name.toUpperCase()
+        .mapItems((item) => ({
+          name: item.name.toUpperCase(),
         }))
         .getItems();
       expect(items[0].name).toEqual("FOO");

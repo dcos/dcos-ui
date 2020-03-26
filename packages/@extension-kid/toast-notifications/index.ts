@@ -4,7 +4,7 @@ import { makeToastContainer } from "./components/ToastContainer";
 import {
   ToastNotification,
   ToastAppearance,
-  ToastCallbackType
+  ToastCallbackType,
 } from "./ToastNotification";
 
 function bindExtension(_context = {}) {
@@ -16,5 +16,5 @@ export {
   makeToastContainer,
   ToastCallbackType,
   ToastNotification,
-  ToastAppearance
+  ToastAppearance,
 };

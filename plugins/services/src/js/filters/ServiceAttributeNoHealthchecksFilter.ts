@@ -30,7 +30,7 @@ class ServiceAttributeNoHealthchecksFilter extends DSLFilter {
    */
   filterApply(resultset) {
     return resultset.filterItems(
-      service => service.getHealth() === HealthStatus.NA
+      (service) => service.getHealth() === HealthStatus.NA
     );
   }
 }

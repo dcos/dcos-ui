@@ -12,7 +12,7 @@ const ErrorModal = createReactClass({
 
   propTypes: {
     onClose: PropTypes.func.isRequired,
-    errorMsg: PropTypes.element
+    errorMsg: PropTypes.element,
   },
 
   onClose() {
@@ -37,7 +37,7 @@ const ErrorModal = createReactClass({
         {this.props.errorMsg}
       </Modal>
     );
-  }
+  },
 });
 
 export default ErrorModal;

@@ -70,7 +70,7 @@ let Config: IConfiguration = {
   },
   getLongPollingInterval() {
     return this.stateLongPoll;
-  }
+  },
 };
 
 if (Config.environment === "development") {

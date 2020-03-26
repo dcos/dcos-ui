@@ -12,15 +12,15 @@ class Tabs extends React.Component {
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     handleTabChange: PropTypes.func.isRequired,
-    vertical: PropTypes.bool
+    vertical: PropTypes.bool,
   };
   getChildren() {
     const { props } = this;
 
-    return React.Children.map(props.children, tabElement => {
+    return React.Children.map(props.children, (tabElement) => {
       const newTabProps = { activeTab: props.activeTab };
 
       if (tabElement.type === TabButtonList) {
@@ -34,7 +34,7 @@ class Tabs extends React.Component {
 
   render() {
     const classes = classNames("menu-tabbed-container", this.props.className, {
-      "menu-tabbed-container-vertical": this.props.vertical
+      "menu-tabbed-container-vertical": this.props.vertical,
     });
 
     return <div className={classes}>{this.getChildren()}</div>;

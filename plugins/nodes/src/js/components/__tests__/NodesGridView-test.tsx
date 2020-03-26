@@ -22,17 +22,17 @@ describe("NodesGridView", () => {
         items: [
           {
             name: "foo",
-            framework_ids: ["a", "b", "c"]
+            framework_ids: ["a", "b", "c"],
           },
           {
             name: "bar",
-            framework_ids: ["a", "b", "c", "d", "e", "f"]
+            framework_ids: ["a", "b", "c", "d", "e", "f"],
           },
           {
             name: "zoo",
-            framework_ids: ["a", "d", "g", "z"]
-          }
-        ]
+            framework_ids: ["a", "d", "g", "z"],
+          },
+        ],
       });
       thisServices = new ServicesList({
         items: [
@@ -43,8 +43,8 @@ describe("NodesGridView", () => {
           { id: "e", tasks: [] },
           { id: "f", tasks: [] },
           { id: "g", tasks: [] },
-          { id: "z", tasks: [] }
-        ]
+          { id: "z", tasks: [] },
+        ],
       });
 
       thisContainer = window.document.createElement("div");
@@ -73,9 +73,9 @@ describe("NodesGridView", () => {
   });
 
   describe("#shouldRenderLoadingScreen", () => {
-    const shouldRenderLoadingScreen = props =>
+    const shouldRenderLoadingScreen = (props) =>
       NodesGridView.prototype.shouldRenderLoadingScreen.call({
-        props
+        props,
       });
 
     it("returns true if it has a loading error", () => {

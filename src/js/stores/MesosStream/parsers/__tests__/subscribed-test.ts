@@ -10,9 +10,9 @@ describe("subscribed message parser", () => {
           get_frameworks: { frameworks: [] },
           get_tasks: { tasks: [] },
           get_executors: { executors: [] },
-          get_agents: { agents: [] }
-        }
-      }
+          get_agents: { agents: [] },
+        },
+      },
     };
 
     const result = subscribedAction(state, message);
@@ -21,7 +21,7 @@ describe("subscribed message parser", () => {
       frameworks: [],
       tasks: [],
       executors: [],
-      slaves: []
+      slaves: [],
     });
   });
 });

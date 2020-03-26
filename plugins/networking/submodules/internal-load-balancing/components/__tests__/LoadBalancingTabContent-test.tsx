@@ -77,7 +77,7 @@ describe("LoadBalancingTabContent", () => {
         "failurePercent",
         "applicationReachabilityPercent",
         "machineReachabilityPercent",
-        "p99Latency"
+        "p99Latency",
       ]);
     });
   });

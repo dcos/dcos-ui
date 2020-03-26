@@ -3,5 +3,5 @@ import * as EventTypes from "./EventTypes";
 
 export default {
   EventTypes,
-  RoutingService: new RoutingService()
+  RoutingService: new RoutingService(),
 };

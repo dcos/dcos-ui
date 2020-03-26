@@ -37,7 +37,7 @@ describe("LicensingExpirationRow", () => {
 
     it("renders expired message when expired", () => {
       const copy = {
-        ...licensingFixture
+        ...licensingFixture,
       };
       copy.current_timestamp = "2020-01-26T10:05:00+04:00";
       const summary = new LicensingSummary(copy);

@@ -7,22 +7,22 @@ function CatalogPackageOption(props) {
   const contentClasses = [
     "panel-cell horizontal-center text-align-center",
     {
-      "panel-cell-shorter": false
-    }
+      "panel-cell-shorter": false,
+    },
   ];
   const headingClasses = [
     "panel-cell panel-cell-borderless horizontal-center flush-bottom",
     {
       "panel-cell-light": false,
-      "panel-cell-shorter": false
-    }
+      "panel-cell-shorter": false,
+    },
   ];
   const footerClasses = [
     "panel-cell horizontal-center flush-top",
     {
       "panel-cell-short": false,
-      "panel-cell-shorter": false
-    }
+      "panel-cell-shorter": false,
+    },
   ];
 
   return (

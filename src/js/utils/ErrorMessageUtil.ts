@@ -66,11 +66,11 @@ const ErrorMessageUtil = {
     translationRules: PathTranslationRules[],
     i18n: any = null
   ): FormError[] {
-    return errors.map(error => {
+    return errors.map((error) => {
       const { path = [], type, variables } = error;
       const pathString = path.join(".");
 
-      const rule = translationRules.find(rule => {
+      const rule = translationRules.find((rule) => {
         if (rule.path && rule.type === type) {
           return Boolean(rule.path.exec(pathString));
         }
@@ -99,10 +99,10 @@ const ErrorMessageUtil = {
           : "",
         path,
         type,
-        variables
+        variables,
       };
     });
-  }
+  },
 };
 
 export default ErrorMessageUtil;

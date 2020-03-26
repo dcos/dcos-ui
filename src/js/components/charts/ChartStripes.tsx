@@ -8,7 +8,7 @@ const ChartStripes = createReactClass({
   propTypes: {
     count: PropTypes.number.isRequired,
     height: PropTypes.number.isRequired,
-    width: PropTypes.number.isRequired
+    width: PropTypes.number.isRequired,
   },
 
   getStripes(props) {
@@ -37,7 +37,7 @@ const ChartStripes = createReactClass({
 
   render() {
     return <g>{this.getStripes(this.props)}</g>;
-  }
+  },
 });
 
 export default ChartStripes;

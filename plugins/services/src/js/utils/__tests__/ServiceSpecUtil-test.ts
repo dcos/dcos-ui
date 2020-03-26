@@ -13,7 +13,7 @@ describe("ServiceSpecUtil", () => {
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
           kind: "fixed",
-          instances: 10
+          instances: 10,
         });
       });
 
@@ -22,8 +22,8 @@ describe("ServiceSpecUtil", () => {
           scaling: {
             kind: "fixed",
             instances: 1,
-            maxInstances: 50
-          }
+            maxInstances: 50,
+          },
         });
         const newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
@@ -31,7 +31,7 @@ describe("ServiceSpecUtil", () => {
         expect(newSpec.get().scaling).toEqual({
           kind: "fixed",
           instances: 10,
-          maxInstances: 50
+          maxInstances: 50,
         });
       });
 
@@ -40,15 +40,15 @@ describe("ServiceSpecUtil", () => {
           scaling: {
             kind: "different",
             instances: 50,
-            miscFieldThatWillBeDropped: ":("
-          }
+            miscFieldThatWillBeDropped: ":(",
+          },
         });
         const newSpec = ServiceSpecUtil.setPodInstances(spec, 10);
 
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
           kind: "fixed",
-          instances: 10
+          instances: 10,
         });
       });
     });
@@ -61,7 +61,7 @@ describe("ServiceSpecUtil", () => {
         expect(newSpec instanceof PodSpec).toBeTruthy();
         expect(newSpec.get().scaling).toEqual({
           kind: "fixed",
-          instances: 10
+          instances: 10,
         });
       });
     });
@@ -75,7 +75,7 @@ describe("ServiceSpecUtil", () => {
 
         expect(newSpec instanceof ApplicationSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
-          instances: 10
+          instances: 10,
         });
       });
     });
@@ -87,7 +87,7 @@ describe("ServiceSpecUtil", () => {
 
         expect(newSpec instanceof ApplicationSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
-          instances: 10
+          instances: 10,
         });
       });
     });
@@ -101,7 +101,7 @@ describe("ServiceSpecUtil", () => {
 
         expect(newSpec instanceof FrameworkSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
-          instances: 10
+          instances: 10,
         });
       });
     });
@@ -113,7 +113,7 @@ describe("ServiceSpecUtil", () => {
 
         expect(newSpec instanceof FrameworkSpec).toBeTruthy();
         expect(newSpec.get()).toEqual({
-          instances: 10
+          instances: 10,
         });
       });
     });

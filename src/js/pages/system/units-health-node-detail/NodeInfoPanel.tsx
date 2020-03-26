@@ -7,7 +7,7 @@ import ConfigurationMapHeading from "../../../components/ConfigurationMapHeading
 import ConfigurationMapRow from "../../../components/ConfigurationMapRow";
 import ConfigurationMapSection from "../../../components/ConfigurationMapSection";
 
-const NodeInfoPanel = props => {
+const NodeInfoPanel = (props) => {
   const { summary, docsURL, output } = props;
 
   return (
@@ -40,7 +40,7 @@ const NodeInfoPanel = props => {
 NodeInfoPanel.propTypes = {
   docsURL: PropTypes.string,
   output: PropTypes.string,
-  summary: PropTypes.node
+  summary: PropTypes.node,
 };
 
 export default NodeInfoPanel;

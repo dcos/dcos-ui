@@ -12,7 +12,7 @@ describe("MultiContainerVolumeMounts", () => {
       batch = batch.add(new Transaction(["volumeMounts"], 0, ADD_ITEM));
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { mountPath: [] }
+        { mountPath: [] },
       ]);
     });
 
@@ -22,7 +22,7 @@ describe("MultiContainerVolumeMounts", () => {
       batch = batch.add(new Transaction(["volumeMounts", 0, "name"], "foo"));
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "foo", mountPath: [] }
+        { name: "foo", mountPath: [] },
       ]);
     });
 
@@ -35,7 +35,7 @@ describe("MultiContainerVolumeMounts", () => {
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
         { name: "foo", mountPath: [] },
-        { name: "bar", mountPath: [] }
+        { name: "bar", mountPath: [] },
       ]);
     });
 
@@ -48,7 +48,7 @@ describe("MultiContainerVolumeMounts", () => {
       batch = batch.add(new Transaction(["volumeMounts"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
-        { name: "bar", mountPath: [] }
+        { name: "bar", mountPath: [] },
       ]);
     });
 
@@ -68,12 +68,12 @@ describe("MultiContainerVolumeMounts", () => {
       expect(batch.reduce(VolumeMounts.JSONReducer.bind({}), [])).toEqual([
         {
           name: "foo",
-          mountPath: ["foobar"]
+          mountPath: ["foobar"],
         },
         {
           name: "bar",
-          mountPath: ["barfoo"]
-        }
+          mountPath: ["barfoo"],
+        },
       ]);
     });
   });

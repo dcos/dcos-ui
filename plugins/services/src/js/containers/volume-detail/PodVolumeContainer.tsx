@@ -11,14 +11,14 @@ import PodVolumeDetail from "./PodVolumeDetail";
 
 class PodVolumeContainer extends React.Component {
   static propTypes = {
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       isLoading: !DCOSStore.serviceDataReceived,
-      lastUpdate: 0
+      lastUpdate: 0,
     };
   }
 
@@ -37,7 +37,7 @@ class PodVolumeContainer extends React.Component {
     ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       });
     }
   };
@@ -66,7 +66,7 @@ class PodVolumeContainer extends React.Component {
 
     const volume = service
       .getVolumesData()
-      .find(volume => volume.id === volumeId);
+      .find((volume) => volume.id === volumeId);
 
     if (!volume) {
       return (

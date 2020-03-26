@@ -6,7 +6,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import HashMapDisplay from "#SRC/js/components/HashMapDisplay";
@@ -17,28 +17,28 @@ import RouterUtil from "#SRC/js/utils/RouterUtil";
 
 class FrameworkConfigurationReviewScreen extends React.Component {
   static defaultProps = {
-    title: ""
+    title: "",
   };
   static propTypes = {
     onEditClick: PropTypes.func.isRequired,
     frameworkData: PropTypes.object.isRequired,
     title: PropTypes.string,
-    frameworkMeta: PropTypes.string
+    frameworkMeta: PropTypes.string,
   };
   constructor(props) {
     super(props);
   }
-  getHashMapRenderKeys = formData => {
+  getHashMapRenderKeys = (formData) => {
     if (!Util.isObject(formData)) {
       return {};
     }
 
     let renderKeys = {};
-    Object.keys(formData).forEach(key => {
+    Object.keys(formData).forEach((key) => {
       renderKeys[key] = StringUtil.capitalizeEveryWord(key);
       renderKeys = {
         ...renderKeys,
-        ...this.getHashMapRenderKeys(formData[key])
+        ...this.getHashMapRenderKeys(formData[key]),
       };
     });
 
@@ -81,8 +81,8 @@ class FrameworkConfigurationReviewScreen extends React.Component {
               </span>
             </span>
           </div>
-        )
-      }
+        ),
+      },
     ];
 
     return (

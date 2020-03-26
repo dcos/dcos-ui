@@ -86,7 +86,7 @@ describe("LogBuffer", () => {
       logBuffer.add(
         new Item({
           data: "foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 100
+          offset: 100,
         })
       );
       // Explanation of what is going on in the calculation:
@@ -113,7 +113,7 @@ describe("LogBuffer", () => {
       logBuffer.add(
         new Item({
           data: "\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 103
+          offset: 103,
         })
       );
       // Explanation of what is going on in the calculation:
@@ -129,7 +129,7 @@ describe("LogBuffer", () => {
       logBuffer.add(
         new Item({
           data: "\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 106
+          offset: 106,
         })
       );
 
@@ -143,7 +143,7 @@ describe("LogBuffer", () => {
       logBuffer.add(
         new Item({
           data: "\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 106
+          offset: 106,
         })
       );
 
@@ -169,7 +169,7 @@ describe("LogBuffer", () => {
       logBuffer.prepend(
         new Item({
           data: "foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 100
+          offset: 100,
         })
       );
       expect(logBuffer.getStart()).toEqual(logBuffer.getEnd() - 3);
@@ -181,7 +181,7 @@ describe("LogBuffer", () => {
       logBuffer.prepend(
         new Item({
           data: "foo\nbarquisfoofoofoofoofoofoofoofoofoofoofoo\nfoo",
-          offset: 52
+          offset: 52,
         })
       );
       expect(logBuffer.getStart()).toEqual(logBuffer.getEnd() - 3);

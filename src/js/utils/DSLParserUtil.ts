@@ -106,7 +106,7 @@ function filterFunctionFactory(ast) {
     // the will be both be applied.
     //
     filters
-      .filter(f => f.filterCanHandle(ast.filterType, ast.filterParams))
+      .filter((f) => f.filterCanHandle(ast.filterType, ast.filterParams))
       .reduce(
         (currentResultset, filter) =>
           currentResultset.combine(
@@ -142,7 +142,7 @@ export default {
 
       return {
         filter: combineFunctionFactory(ast, f1.filter, f2.filter),
-        ast
+        ast,
       };
     },
 
@@ -159,9 +159,9 @@ export default {
 
       return {
         filter: combineFunctionFactory(ast, f1.filter, f2.filter),
-        ast
+        ast,
       };
-    }
+    },
   },
 
   /**
@@ -185,13 +185,13 @@ export default {
     attribute(label, text, lstart, lend, vstart, vend) {
       const ast = new FilterNode(lstart, lend, DSLFilterTypes.ATTRIB, {
         text,
-        label
+        label,
       });
       ast.position.push([vstart, vend]);
 
       return {
         filter: filterFunctionFactory(ast),
-        ast
+        ast,
       };
     },
 
@@ -209,7 +209,7 @@ export default {
 
       return {
         filter: filterFunctionFactory(ast),
-        ast
+        ast,
       };
     },
 
@@ -227,8 +227,8 @@ export default {
 
       return {
         filter: filterFunctionFactory(ast),
-        ast
+        ast,
       };
-    }
-  }
+    },
+  },
 };

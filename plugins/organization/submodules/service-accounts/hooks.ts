@@ -11,11 +11,11 @@ module.exports = {
   actions: ["userCapabilitiesFetched"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
 
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
   },
@@ -36,11 +36,11 @@ module.exports = {
       children: [
         {
           type: Route,
-          path: ":serviceAccountID"
-        }
-      ]
+          path: ":serviceAccountID",
+        },
+      ],
     });
 
     return route;
-  }
+  },
 };

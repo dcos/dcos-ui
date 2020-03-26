@@ -21,7 +21,7 @@ import {
   REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
   REQUEST_ACL_GROUP_ADD_USER_ERROR,
   REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
-  REQUEST_ACL_GROUP_REMOVE_USER_ERROR
+  REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
 } from "../constants/ActionTypes";
 
 import {
@@ -49,7 +49,7 @@ import {
   ACL_GROUP_USERS_CHANGED,
   ACL_GROUP_ADD_USER_ERROR,
   ACL_GROUP_REMOVE_USER_SUCCESS,
-  ACL_GROUP_REMOVE_USER_ERROR
+  ACL_GROUP_REMOVE_USER_ERROR,
 } from "../constants/EventTypes";
 
 import ACLGroupsActions from "../actions/ACLGroupsActions";
@@ -59,7 +59,7 @@ import User from "../../users/structs/User";
 
 const SDK = require("../../../SDK");
 
-SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", listeners => {
+SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", (listeners) => {
   listeners.push({ name: "aclGroup", events: ["updateError", "deleteError"] });
 
   return listeners;
@@ -98,12 +98,12 @@ class ACLGroupStore extends BaseStore {
         deleteUserSuccess: ACL_GROUP_REMOVE_USER_SUCCESS,
         deleteUserError: ACL_GROUP_REMOVE_USER_ERROR,
         deleteSuccess: ACL_GROUP_DELETE_SUCCESS,
-        deleteError: ACL_GROUP_DELETE_ERROR
+        deleteError: ACL_GROUP_DELETE_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         // Get group details
         case REQUEST_ACL_GROUP_SUCCESS:
@@ -213,7 +213,7 @@ class ACLGroupStore extends BaseStore {
 
   getServiceAccounts(groupID) {
     const items = (this.getGroupRaw(groupID).serviceAccounts || []).map(
-      user => user.user
+      (user) => user.user
     );
 
     return new ServiceAccountList({ items });
@@ -230,7 +230,7 @@ class ACLGroupStore extends BaseStore {
     groups[groupID] = group;
     SDK.getSDK().dispatch({
       type: ACL_GROUP_SET_GROUPS,
-      groups
+      groups,
     });
   }
 
@@ -274,12 +274,12 @@ class ACLGroupStore extends BaseStore {
       group: false,
       serviceAccounts: false,
       users: false,
-      permissions: false
+      permissions: false,
     };
 
     SDK.getSDK().dispatch({
       type: ACL_GROUP_SET_GROUPS_FETCHING,
-      groupsFetching
+      groupsFetching,
     });
 
     ACLGroupsActions.fetchGroup(groupID);
@@ -304,7 +304,7 @@ class ACLGroupStore extends BaseStore {
     groupsFetching[groupID][type] = true;
 
     let fetchedAll = true;
-    Object.keys(groupsFetching[groupID]).forEach(key => {
+    Object.keys(groupsFetching[groupID]).forEach((key) => {
       if (groupsFetching[groupID][key] === false) {
         fetchedAll = false;
       }
@@ -314,7 +314,7 @@ class ACLGroupStore extends BaseStore {
       delete groupsFetching[groupID];
       SDK.getSDK().dispatch({
         type: ACL_GROUP_SET_GROUPS_FETCHING,
-        groupsFetching
+        groupsFetching,
       });
       this.emit(ACL_GROUP_DETAILS_FETCHED_SUCCESS, groupID);
     }
@@ -335,7 +335,7 @@ class ACLGroupStore extends BaseStore {
     delete groupsFetching[groupID];
     SDK.getSDK().dispatch({
       type: ACL_GROUP_SET_GROUPS_FETCHING,
-      groupsFetching
+      groupsFetching,
     });
     this.emit(ACL_GROUP_DETAILS_FETCHED_ERROR, groupID);
   }

@@ -13,7 +13,7 @@ export default {
       showLabel: i18nMark("Provider ID"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -24,7 +24,7 @@ export default {
       showLabel: i18nMark("Description"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "textarea",
@@ -36,7 +36,7 @@ export default {
       showLabel: i18nMark("IdP Metadata"),
       validation,
       value: "",
-      writeType: "input"
+      writeType: "input",
     },
     {
       fieldType: "text",
@@ -47,8 +47,8 @@ export default {
       showLabel: i18nMark("Service Provider Base URL"),
       writeType: "input",
       validation,
-      value: ""
-    }
+      value: "",
+    },
   ],
   oidc: [
     {
@@ -60,7 +60,7 @@ export default {
       showLabel: i18nMark("Provider ID"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -71,7 +71,7 @@ export default {
       showLabel: i18nMark("Description"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -81,7 +81,7 @@ export default {
       showLabel: i18nMark("Issuer"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -92,7 +92,7 @@ export default {
       showLabel: i18nMark("Base URI"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -102,7 +102,7 @@ export default {
       showLabel: i18nMark("Client ID"),
       writeType: "input",
       validation,
-      value: ""
+      value: "",
     },
     {
       fieldType: "text",
@@ -112,7 +112,7 @@ export default {
       showLabel: i18nMark("Client Secret"),
       writeType: "input",
       validation,
-      value: ""
-    }
-  ]
+      value: "",
+    },
+  ],
 };

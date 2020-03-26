@@ -11,7 +11,7 @@ import {
   catchError,
   tap,
   startWith,
-  combineLatest
+  combineLatest,
 } from "rxjs/operators";
 
 import container from "#SRC/js/container";
@@ -45,13 +45,13 @@ const addRepositoryGraphql = (name, uri, index) =>
   dataLayer.query(addPackageRepositoryMutation, {
     name,
     uri,
-    index
+    index,
   });
 
 const addRepositoryEvent$ = new Subject();
 const pendingRequest$ = new BehaviorSubject(false);
 const addRepository$ = addRepositoryEvent$.pipe(
-  switchMap(repository =>
+  switchMap((repository) =>
     addRepositoryGraphql(
       repository.name,
       repository.uri,
@@ -63,28 +63,28 @@ const addRepository$ = addRepositoryEvent$.pipe(
       })
     )
   ),
-  catchError(error => {
+  catchError((error) => {
     pendingRequest$.next(false);
     // Add the error as value and continue
     return addRepository$.pipe(
       startWith({
-        error: getErrorMessage(error.response)
+        error: getErrorMessage(error.response),
       })
     );
   })
 );
 
-const RepositoriesAdd = componentFromStream(props$ =>
+const RepositoriesAdd = componentFromStream((props$) =>
   props$.pipe(
     combineLatest(
       pendingRequest$,
       addRepository$.pipe(startWith({})),
       (props, pendingRequest, result) => {
-        const addRepository = value => {
+        const addRepository = (value) => {
           pendingRequest$.next(true);
           return addRepositoryEvent$.next({
             complete: props.onClose,
-            ...value
+            ...value,
           });
         };
         return (

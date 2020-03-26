@@ -6,7 +6,7 @@ const NetworkValidatorUtil = {
       ValidatorUtil.isInteger(value) &&
       ValidatorUtil.isNumberInRange(value, { min: 0, max: 65535 })
     );
-  }
+  },
 };
 
 export default NetworkValidatorUtil;

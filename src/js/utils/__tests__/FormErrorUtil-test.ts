@@ -5,26 +5,26 @@ describe("FormErrorUtil", () => {
     const errors = [
       {
         path: ["foo"],
-        message: "Foo must be defined"
+        message: "Foo must be defined",
       },
       {
         path: ["bar"],
-        message: "Bar must be defined"
+        message: "Bar must be defined",
       },
       {
         path: ["baz"],
-        message: "Bar must be defined"
+        message: "Bar must be defined",
       },
       {
         path: ["bat"],
-        message: "Bat must be defined"
-      }
+        message: "Bat must be defined",
+      },
     ];
 
     const tabRegexes = {
       services: [/^foo$/],
       placement: [/^bar$/, /^baz$/],
-      volumes: [/^bat$/]
+      volumes: [/^bat$/],
     };
     const topLevelErrors = FormErrorUtil.getTopLevelTabErrors(
       errors,
@@ -43,25 +43,25 @@ describe("FormErrorUtil", () => {
         services: [
           {
             parsedMessage: "foo: Foo must be defined",
-            errorObj: { path: ["foo"], message: "Foo must be defined" }
-          }
+            errorObj: { path: ["foo"], message: "Foo must be defined" },
+          },
         ],
         placement: [
           {
             parsedMessage: "bar: Bar must be defined",
-            errorObj: { path: ["bar"], message: "Bar must be defined" }
+            errorObj: { path: ["bar"], message: "Bar must be defined" },
           },
           {
             parsedMessage: "baz: Bar must be defined",
-            errorObj: { path: ["baz"], message: "Bar must be defined" }
-          }
+            errorObj: { path: ["baz"], message: "Bar must be defined" },
+          },
         ],
         volumes: [
           {
             parsedMessage: "bat: Bat must be defined",
-            errorObj: { path: ["bat"], message: "Bat must be defined" }
-          }
-        ]
+            errorObj: { path: ["bat"], message: "Bat must be defined" },
+          },
+        ],
       };
       expect(JSON.stringify(topLevelErrors)).toEqual(
         JSON.stringify(expectedOutput)
@@ -73,26 +73,26 @@ describe("FormErrorUtil", () => {
     const baseErrors = [
       {
         path: ["foo"],
-        message: "Foo must be defined"
-      }
+        message: "Foo must be defined",
+      },
     ];
 
     const containerErrors = [
       {
         path: ["container", 0, "foo"],
-        message: "Foo must be defined"
+        message: "Foo must be defined",
       },
       {
         path: ["container", 1, "baz"],
-        message: "Baz must be defined"
-      }
+        message: "Baz must be defined",
+      },
     ];
 
     const errors = [...baseErrors, ...containerErrors];
 
     const tabRegexes = {
       services: [/^foo$/],
-      containers: [/^container\..*/]
+      containers: [/^container\..*/],
     };
     const topLevelErrors = FormErrorUtil.getTopLevelTabErrors(
       errors,
@@ -105,7 +105,7 @@ describe("FormErrorUtil", () => {
 
     it("returns the error data from the path that matches the 'containers' regex", () => {
       Object.keys(containerTabErrors).forEach((tabName, i) => {
-        containerTabErrors[tabName].forEach(error => {
+        containerTabErrors[tabName].forEach((error) => {
           expect(JSON.stringify(containerErrors[i])).toEqual(
             JSON.stringify(error.errorObj)
           );
@@ -115,9 +115,11 @@ describe("FormErrorUtil", () => {
 
     it("returns the error data from the path that matches the 'containers' regex", () => {
       const tabErrorKeys = Object.keys(containerTabErrors).map(
-        tabName => tabName
+        (tabName) => tabName
       );
-      const tabIds = containerErrors.map(error => `container${error.path[1]}`);
+      const tabIds = containerErrors.map(
+        (error) => `container${error.path[1]}`
+      );
 
       expect(tabErrorKeys).toEqual(tabIds);
     });

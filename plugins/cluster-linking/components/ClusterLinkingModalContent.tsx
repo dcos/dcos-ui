@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 
 class ClusterLinkingModalContent extends React.Component {
   static propTypes = {
-    clusters: PropTypes.array
+    clusters: PropTypes.array,
   };
   render() {
     const { clusters } = this.props;

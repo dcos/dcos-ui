@@ -14,7 +14,7 @@ const BreadcrumbTextContent = ({ children }) => {
 };
 
 BreadcrumbTextContent.propTypes = {
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default BreadcrumbTextContent;

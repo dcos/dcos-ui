@@ -11,13 +11,13 @@ import Pod from "#PLUGINS/services/src/js/structs/Pod";
 
 export default class TaskIpAddressesRow extends React.Component {
   static propTypes = {
-    taskId: PropTypes.string.isRequired
+    taskId: PropTypes.string.isRequired,
   };
   getIPAddressesForTask(service, taskId) {
     if (service instanceof Application) {
       const marathonTask = service.findTaskById(taskId) || { ipAddresses: [] };
 
-      return marathonTask.ipAddresses.map(ipAddress => ipAddress.ipAddress);
+      return marathonTask.ipAddresses.map((ipAddress) => ipAddress.ipAddress);
     }
 
     if (service instanceof Pod) {

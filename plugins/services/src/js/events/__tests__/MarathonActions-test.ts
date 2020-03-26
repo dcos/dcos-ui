@@ -40,7 +40,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -50,12 +50,12 @@ describe("MarathonActions", () => {
 
       thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
-        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -67,25 +67,25 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
 
   describe("#deleteGroup", () => {
     const groupDefinition = {
-      id: "/test"
+      id: "/test",
     };
 
     beforeEach(() => {
@@ -109,7 +109,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -119,12 +119,12 @@ describe("MarathonActions", () => {
 
       thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
-        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -136,25 +136,25 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
 
   describe("#editGroup", () => {
     const groupDefinition = {
-      id: "/test"
+      id: "/test",
     };
 
     beforeEach(() => {
@@ -187,7 +187,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -197,12 +197,12 @@ describe("MarathonActions", () => {
 
       thisConfiguration.success({
         version: "2016-05-13T10:26:55.840Z",
-        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+        deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -214,18 +214,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -237,7 +237,7 @@ describe("MarathonActions", () => {
         MarathonActions.createService(
           new ApplicationSpec({
             id: "/test",
-            cmd: "sleep 100;"
+            cmd: "sleep 100;",
           })
         );
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
@@ -264,7 +264,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -274,12 +274,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -291,18 +291,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -313,7 +313,7 @@ describe("MarathonActions", () => {
         MarathonActions.createService(
           new PodSpec({
             id: "/test",
-            cmd: "sleep 100;"
+            cmd: "sleep 100;",
           })
         );
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
@@ -340,7 +340,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -350,12 +350,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -367,18 +367,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -407,7 +407,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -417,12 +417,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -434,18 +434,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -472,7 +472,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -482,12 +482,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -499,18 +499,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -551,7 +551,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -561,12 +561,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -578,18 +578,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -628,7 +628,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -638,12 +638,12 @@ describe("MarathonActions", () => {
 
         thisConfiguration.success({
           version: "2016-05-13T10:26:55.840Z",
-          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5"
+          deploymentId: "6119207e-a146-44b4-9c6f-0e4227dc04a5",
         });
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -655,18 +655,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -697,7 +697,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -709,7 +709,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -721,18 +721,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -761,7 +761,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -773,7 +773,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -785,18 +785,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -836,7 +836,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -848,7 +848,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -860,18 +860,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -909,7 +909,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -921,7 +921,7 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -933,18 +933,18 @@ describe("MarathonActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -968,7 +968,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -981,12 +981,12 @@ describe("MarathonActions", () => {
         dependencies: [],
         groups: [],
         id: "/",
-        version: "2001-01-01T01:01:01.001Z"
+        version: "2001-01-01T01:01:01.001Z",
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -998,18 +998,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1032,7 +1032,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1045,12 +1045,12 @@ describe("MarathonActions", () => {
         dependencies: [],
         groups: [],
         id: "/",
-        version: "2016-05-02T16:07:32.583Z"
+        version: "2016-05-02T16:07:32.583Z",
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_GROUPS_ERROR);
@@ -1060,18 +1060,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1094,7 +1094,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_SUCCESS);
@@ -1104,19 +1104,19 @@ describe("MarathonActions", () => {
         queue: [
           {
             app: {
-              id: "/service-id"
+              id: "/service-id",
             },
             delay: {
               timeLeftSeconds: 0,
-              overdue: true
-            }
-          }
-        ]
+              overdue: true,
+            },
+          },
+        ],
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_MARATHON_QUEUE_ERROR);
@@ -1126,18 +1126,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1163,7 +1163,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1174,12 +1174,12 @@ describe("MarathonActions", () => {
       thisConfiguration.success({
         serviceID,
         versionID,
-        versions: ["2016-05-02T16:07:32.583Z"]
+        versions: ["2016-05-02T16:07:32.583Z"],
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1191,18 +1191,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1227,7 +1227,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1237,12 +1237,12 @@ describe("MarathonActions", () => {
 
       thisConfiguration.success({
         serviceID,
-        versions: ["2016-05-02T16:07:32.583Z"]
+        versions: ["2016-05-02T16:07:32.583Z"],
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1254,18 +1254,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1290,7 +1290,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1303,7 +1303,7 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1315,18 +1315,18 @@ describe("MarathonActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1356,7 +1356,7 @@ describe("MarathonActions", () => {
 
     describe("on success", () => {
       it("emits a success event on success", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -1368,7 +1368,7 @@ describe("MarathonActions", () => {
       });
 
       it("emits the original deployment ID as the success payload", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.data.originalDeploymentID).toEqual("deployment-id");
@@ -1379,7 +1379,7 @@ describe("MarathonActions", () => {
     });
 
     it("emits an error event on error", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1391,7 +1391,7 @@ describe("MarathonActions", () => {
     });
 
     it("emits the original deployment ID in the error payload", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.originalDeploymentID).toEqual("deployment-id");
@@ -1401,32 +1401,32 @@ describe("MarathonActions", () => {
     });
 
     it("emits the response text in the error payload", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.error).toEqual({
-          message: "A helpful error message."
+          message: "A helpful error message.",
         });
       });
 
       thisConfiguration.error({
-        responseText: JSON.stringify({ message: "A helpful error message." })
+        responseText: JSON.stringify({ message: "A helpful error message." }),
       });
     });
 
     it("emits the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -1464,7 +1464,7 @@ describe("MarathonActions", () => {
 
     describe("on success", () => {
       it("emits a success event on success", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.type).toEqual(
@@ -1477,7 +1477,7 @@ describe("MarathonActions", () => {
     });
 
     it("emits an error event on error", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1489,30 +1489,30 @@ describe("MarathonActions", () => {
     });
 
     it("emits the response text in the error payload", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ message: "A helpful error message." });
       });
 
       thisConfiguration.error({
-        responseText: JSON.stringify({ message: "A helpful error message." })
+        responseText: JSON.stringify({ message: "A helpful error message." }),
       });
     });
 
     it("emits the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

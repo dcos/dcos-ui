@@ -63,7 +63,7 @@ export default class PodContainer extends Item {
       mem: 0,
       gpus: 0,
       disk: 0,
-      ...this.get("resources")
+      ...this.get("resources"),
     };
   }
 
@@ -78,7 +78,7 @@ export default class PodContainer extends Item {
     return (
       conditions &&
       Array.isArray(conditions) &&
-      conditions.some(cnd => cnd.name === "healthy")
+      conditions.some((cnd) => cnd.name === "healthy")
     );
   }
 
@@ -87,7 +87,7 @@ export default class PodContainer extends Item {
       // If we have at least 1 health check and it has failed, we are assumed to
       // be unhealthy.
       return !this.get("conditions").some(
-        cnd => cnd.name === "healthy" && cnd.value === "false"
+        (cnd) => cnd.name === "healthy" && cnd.value === "false"
       );
     }
     return true;

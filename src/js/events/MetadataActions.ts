@@ -15,16 +15,16 @@ const MetadataActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_DCOS_BUILD_INFO_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_DCOS_BUILD_INFO_ERROR,
           data: xhr.message,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -39,9 +39,9 @@ const MetadataActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_METADATA,
-          data: response
+          data: response,
         });
-      }
+      },
     });
 
     RequestUtil.json({
@@ -49,11 +49,11 @@ const MetadataActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_DCOS_METADATA,
-          data: response
+          data: response,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 export default MetadataActions;

@@ -8,23 +8,23 @@ interface StatusIcon {
 
 const SUCCESS: StatusIcon = {
   shape: SystemIcons.CircleCheck,
-  color: Color.green
+  color: Color.green,
 };
 const LOADING: StatusIcon = {
   shape: SystemIcons.Spinner,
-  color: Color.greyDark
+  color: Color.greyDark,
 };
 const STOPPED: StatusIcon = {
   shape: SystemIcons.CircleMinus,
-  color: Color.greyLightDarken1
+  color: Color.greyLightDarken1,
 };
 const WARNING: StatusIcon = {
   shape: SystemIcons.Yield,
-  color: Color.yellow
+  color: Color.yellow,
 };
 const ERROR: StatusIcon = {
   shape: SystemIcons.CircleClose,
-  color: Color.red
+  color: Color.red,
 };
 
 const StatusIcon = { SUCCESS, LOADING, STOPPED, WARNING, ERROR };

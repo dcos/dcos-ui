@@ -10,7 +10,7 @@ import { ToastNotification } from "../ToastNotification";
 import ToastExtension from "../ToastExtension";
 import {
   NotificationService,
-  NotificationServiceType
+  NotificationServiceType,
 } from "@extension-kid/notification-service";
 import makeToast from "./Toast";
 
@@ -23,7 +23,7 @@ interface ToastContainerProps {
 function makeToastContainer(
   container: Container
 ): React.ComponentType<ToastContainerProps> {
-  return componentFromStream<ToastContainerProps>(props$ => {
+  return componentFromStream<ToastContainerProps>((props$) => {
     const ns = container.get<NotificationService>(NotificationServiceType);
     const extension = ns.findExtension(ToastNotification.NotificationType);
     if (!extension) {
@@ -32,13 +32,13 @@ function makeToastContainer(
     const toastExtension = extension as ToastExtension;
     return combineLatest<[ToastContainerProps, ToastNotification[]]>([
       props$,
-      toastExtension.Toast$
+      toastExtension.Toast$,
     ]).pipe(
       map(([props, toasts]) => {
         return (
           <div className={props.className}>
             <Toaster>
-              {toasts.map(toast =>
+              {toasts.map((toast) =>
                 makeToast(
                   toast,
                   toastExtension,

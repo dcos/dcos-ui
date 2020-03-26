@@ -28,7 +28,7 @@ class ServiceAttributeIsPodFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset) {
-    return resultset.filterItems(service => service instanceof Pod);
+    return resultset.filterItems((service) => service instanceof Pod);
   }
 }
 

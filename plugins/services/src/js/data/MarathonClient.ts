@@ -1,7 +1,7 @@
 import {
   request,
   RequestResponse,
-  RequestResponseError
+  RequestResponseError,
 } from "@dcos/http-service";
 
 import Config from "#SRC/js/config/Config";
@@ -35,7 +35,7 @@ export function createGroup(
       | RequestResponseError<CreateGroupErrorResponse>
   ) => {
     const response = resp.response || {
-      message: "Unknown"
+      message: "Unknown",
     };
     let message: string;
     switch (resp.code) {
@@ -53,16 +53,16 @@ export function createGroup(
   };
   return request(buildMarathonURI("/groups"), {
     method: "POST",
-    body: JSON.stringify({ id, enforceRole })
+    body: JSON.stringify({ id, enforceRole }),
   }).pipe(
-    map(reqResp => {
+    map((reqResp) => {
       const { code } = reqResp;
       if (code > 300) {
         throw createError(reqResp as RequestResponse<CreateGroupErrorResponse>);
       }
       return reqResp.response as CreateGroupResponse;
     }),
-    catchError(errResp => {
+    catchError((errResp) => {
       throw createError(errResp);
     })
   );
@@ -78,7 +78,7 @@ export function editGroup(
       | RequestResponseError<CreateGroupErrorResponse>
   ) => {
     const response = resp.response || {
-      message: "Unknown"
+      message: "Unknown",
     };
     let message: string;
     switch (resp.code) {
@@ -94,16 +94,16 @@ export function editGroup(
 
   return request(buildMarathonURI(`/groups/${id}`), {
     method: "PATCH",
-    body: JSON.stringify({ enforceRole })
+    body: JSON.stringify({ enforceRole }),
   }).pipe(
-    map(reqResp => {
+    map((reqResp) => {
       const { code } = reqResp;
       if (code > 300) {
         throw createError(reqResp as RequestResponse<CreateGroupErrorResponse>);
       }
       return reqResp.response as CreateGroupResponse;
     }),
-    catchError(errResp => {
+    catchError((errResp) => {
       throw createError(errResp);
     })
   );

@@ -6,7 +6,7 @@ import * as React from "react";
 import { Icon } from "@dcos/ui-kit";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
@@ -37,7 +37,7 @@ const DirectoriesBreadcrumbs = () => {
           LDAP Directory
         </Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -53,7 +53,7 @@ class DirectoriesPage extends mixin(StoreMixin) {
       modalEditMode: false,
       modalDisabled: false,
       modalOpen: false,
-      showValue: {}
+      showValue: {},
     };
 
     // prettier-ignore
@@ -90,12 +90,12 @@ class DirectoriesPage extends mixin(StoreMixin) {
   handleFormSubmit = () => {
     this.setState({ modalDisabled: true });
   };
-  handleSecretToggle = fieldName => {
+  handleSecretToggle = (fieldName) => {
     const { showValue } = this.state;
 
     this.setState({ ...showValue, [fieldName]: !showValue[fieldName] });
   };
-  changeModalOpenState = open => {
+  changeModalOpenState = (open) => {
     this.setState({ modalOpen: open, modalDisabled: false });
   };
 
@@ -271,7 +271,7 @@ class DirectoriesPage extends mixin(StoreMixin) {
         </ConfigurationMapRow>
       </ConfigurationMapSection>,
       userSearchSection,
-      groupSearchSection
+      groupSearchSection,
     ];
   }
 
@@ -365,7 +365,7 @@ class DirectoriesPage extends mixin(StoreMixin) {
 
 DirectoriesPage.routeConfig = {
   label: i18nMark("LDAP Directory"),
-  matches: /^\/settings\/directory/
+  matches: /^\/settings\/directory/,
 };
 
 export default DirectoriesPage;

@@ -25,11 +25,11 @@ describe("ACLStore", () => {
   describe("#fetchACLs", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success(aclsFixture);
       };
       thisAclsFixture = {
-        ...aclsFixture
+        ...aclsFixture,
       };
     });
 
@@ -53,11 +53,11 @@ describe("ACLStore", () => {
   describe("#fetchACLSchema", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success(aclSchema);
       };
       thisAclSchema = {
-        ...aclSchema
+        ...aclSchema,
       };
     });
 
@@ -84,7 +84,7 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: [{ rid: "foo", bar: "baz" }],
-          resourceType: "service"
+          resourceType: "service",
         });
 
         const services = ACLStore.getACLs("service").getItems();
@@ -101,7 +101,7 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: [{ rid: "foo", bar: "baz" }],
-          resourceType: "service"
+          resourceType: "service",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -116,7 +116,7 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_ERROR,
           data: "foo",
-          resourceType: "service"
+          resourceType: "service",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -127,7 +127,7 @@ describe("ACLStore", () => {
       it("stores schema when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SCHEMA_SUCCESS,
-          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] }
+          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] },
         });
 
         const permission = ACLStore.getPermissionSchema();
@@ -142,7 +142,7 @@ describe("ACLStore", () => {
         ACLStore.addChangeListener(EventTypes.ACL_SCHEMA_CHANGE, mockedFn);
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SCHEMA_SUCCESS,
-          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] }
+          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] },
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -153,7 +153,7 @@ describe("ACLStore", () => {
         ACLStore.addChangeListener(EventTypes.ACL_SCHEMA_ERROR, mockedFn);
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SCHEMA_ERROR,
-          data: "foo"
+          data: "foo",
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -165,7 +165,7 @@ describe("ACLStore", () => {
       const mockData = {
         ID: "myname",
         action: "full",
-        resourceID: "crazyname"
+        resourceID: "crazyname",
       };
       const ID = "service." + mockData.resourceID;
 
@@ -177,7 +177,7 @@ describe("ACLStore", () => {
         ACLStore.grantUserActionToResource(mockData.ID, mockData.action, ID);
 
         expect(ACLStore.createACLForResource).toBeCalledWith(ID, {
-          description: mockData.resourceID + " service"
+          description: mockData.resourceID + " service",
         });
       });
 
@@ -197,7 +197,7 @@ describe("ACLStore", () => {
 
         expect(ACLActions.grantUserActionToResource.calls.allArgs()).toEqual([
           ["myname", "foo", "service.crazyname"],
-          ["myname", "bar", "service.crazyname"]
+          ["myname", "bar", "service.crazyname"],
         ]);
       });
 
@@ -212,9 +212,9 @@ describe("ACLStore", () => {
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: [
             { rid: "service.foo", bar: "baz" },
-            { rid: "service.baz", bar: "foo" }
+            { rid: "service.baz", bar: "foo" },
           ],
-          resourceType: "service"
+          resourceType: "service",
         });
 
         expect(
@@ -232,7 +232,7 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
           data: [{ rid: "service.foo", bar: "baz" }],
-          resourceType: "service"
+          resourceType: "service",
         });
 
         expect(
@@ -249,7 +249,7 @@ describe("ACLStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_CREATE_ERROR,
-          resourceID: "service.foo"
+          resourceID: "service.foo",
         });
         expect("service.foo" in ACLStore.outstandingGrants).toBeFalsy();
         expect(ACLStore.outstandingGrants["service.baz"].length).toEqual(1);
@@ -265,13 +265,13 @@ describe("ACLStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
-          triple: { userID: "foo", action: "full", resourceID: "marathon" }
+          triple: { userID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0][0]).toEqual({
           userID: "foo",
           action: "full",
-          resourceID: "marathon"
+          resourceID: "marathon",
         });
       });
 
@@ -285,13 +285,13 @@ describe("ACLStore", () => {
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { userID: "foo", action: "full", resourceID: "marathon" },
-          xhr: { data: "foo" }
+          xhr: { data: "foo" },
         });
 
         expect(mockedFn.mock.calls[0]).toEqual([
           "bar",
           { userID: "foo", action: "full", resourceID: "marathon" },
-          { data: "foo" }
+          { data: "foo" },
         ]);
       });
     });
@@ -305,13 +305,13 @@ describe("ACLStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
-          triple: { userID: "foo", action: "full", resourceID: "marathon" }
+          triple: { userID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0][0]).toEqual({
           userID: "foo",
           action: "full",
-          resourceID: "marathon"
+          resourceID: "marathon",
         });
       });
 
@@ -324,12 +324,12 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
           data: "bar",
-          triple: { userID: "foo", action: "full", resourceID: "marathon" }
+          triple: { userID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0]).toEqual([
           "bar",
-          { userID: "foo", action: "full", resourceID: "marathon" }
+          { userID: "foo", action: "full", resourceID: "marathon" },
         ]);
       });
     });
@@ -343,13 +343,13 @@ describe("ACLStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_SUCCESS,
-          triple: { groupID: "foo", action: "full", resourceID: "marathon" }
+          triple: { groupID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0][0]).toEqual({
           groupID: "foo",
           action: "full",
-          resourceID: "marathon"
+          resourceID: "marathon",
         });
       });
 
@@ -363,13 +363,13 @@ describe("ACLStore", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { groupID: "foo", action: "full", resourceID: "marathon" },
-          xhr: { data: "foo" }
+          xhr: { data: "foo" },
         });
 
         expect(mockedFn.mock.calls[0]).toEqual([
           "bar",
           { groupID: "foo", action: "full", resourceID: "marathon" },
-          { data: "foo" }
+          { data: "foo" },
         ]);
       });
     });
@@ -383,13 +383,13 @@ describe("ACLStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_SUCCESS,
-          triple: { groupID: "foo", action: "full", resourceID: "marathon" }
+          triple: { groupID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0][0]).toEqual({
           groupID: "foo",
           action: "full",
-          resourceID: "marathon"
+          resourceID: "marathon",
         });
       });
 
@@ -402,12 +402,12 @@ describe("ACLStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_ERROR,
           data: "bar",
-          triple: { groupID: "foo", action: "full", resourceID: "marathon" }
+          triple: { groupID: "foo", action: "full", resourceID: "marathon" },
         });
 
         expect(mockedFn.mock.calls[0]).toEqual([
           "bar",
-          { groupID: "foo", action: "full", resourceID: "marathon" }
+          { groupID: "foo", action: "full", resourceID: "marathon" },
         ]);
       });
     });

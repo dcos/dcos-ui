@@ -1,4 +1,4 @@
-export const cleanJobJSON = spec =>
+export const cleanJobJSON = (spec) =>
   cleanJSON(spec, ["activeRuns", "history", "historySummary"]);
 
 /*
@@ -8,7 +8,7 @@ export const cleanJobJSON = spec =>
  *
  * @type {array.<string>}
  */
-export const cleanServiceJSON = spec =>
+export const cleanServiceJSON = (spec) =>
   cleanJSON(spec, [
     "uris",
     "ports",
@@ -42,12 +42,12 @@ export const cleanServiceJSON = spec =>
     "TASK_LOST",
     "TASK_ERROR",
     "slave_ids",
-    "volumes"
+    "volumes",
   ]);
 
 function cleanJSON(json, blacklist) {
   return Object.keys(json)
-    .filter(key => !blacklist.includes(key))
+    .filter((key) => !blacklist.includes(key))
     .reduce((memo, key) => {
       memo[key] = json[key];
       return memo;

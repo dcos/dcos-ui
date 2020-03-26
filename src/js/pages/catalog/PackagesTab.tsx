@@ -30,7 +30,7 @@ import MetadataStore from "../../stores/MetadataStore";
 const Filters = {
   all: "all",
   certified: "certified",
-  community: "community"
+  community: "community",
 };
 
 const PackagesBreadcrumbs = () => {
@@ -41,7 +41,7 @@ const PackagesBreadcrumbs = () => {
           <Trans render="span" id="Catalog" />
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -67,7 +67,7 @@ const PackagesEmptyState = () => (
           href={MetadataStore.buildDocsURI(
             "/administering-clusters/package-registry/ "
           )}
-        />
+        />,
       ]}
     />
     <div className="button-collection flush-bottom">
@@ -110,7 +110,7 @@ class PackagesTab extends mixin(StoreMixin) {
       installModalPackage: null,
       isLoading: true,
       searchString: "",
-      searchFilter: Filters.certified
+      searchFilter: Filters.certified,
     };
 
     // prettier-ignore
@@ -137,8 +137,8 @@ class PackagesTab extends mixin(StoreMixin) {
     this.context.router.push({
       pathname: `/catalog/packages/${cosmosPackage.getName()}`,
       query: {
-        version: cosmosPackage.getVersion()
-      }
+        version: cosmosPackage.getVersion(),
+      },
     });
   }
   handleSearchStringChange = (searchString = "") => {
@@ -147,7 +147,7 @@ class PackagesTab extends mixin(StoreMixin) {
   showAll = () => {
     this.setState({
       searchString: "",
-      searchFilter: Filters.all
+      searchFilter: Filters.all,
     });
   };
 
@@ -215,7 +215,7 @@ class PackagesTab extends mixin(StoreMixin) {
     const isSearchActive = this.state.searchString !== "";
     const titleClasses = classNames("flush-top", {
       short: !isSearchActive,
-      tall: isSearchActive
+      tall: isSearchActive,
     });
 
     return (
@@ -236,14 +236,14 @@ class PackagesTab extends mixin(StoreMixin) {
     const numbers = {
       [Filters.all]: selectedLength + communityLength,
       [Filters.certified]: selectedLength,
-      [Filters.community]: communityLength
+      [Filters.community]: communityLength,
     };
 
     const currentFilter = this.state.searchFilter;
 
     const buttons = Object.entries(numbers).map(([filter, number]) => {
       const classSet = classNames("button button-outline", {
-        active: filter === currentFilter
+        active: filter === currentFilter,
       });
 
       const name = StringUtil.capitalize(filter);
@@ -297,10 +297,10 @@ class PackagesTab extends mixin(StoreMixin) {
     }
 
     const certifiedPackages = packages
-      .filterItems(el => el.isCertified())
+      .filterItems((el) => el.isCertified())
       .filterItemsByText(searchString);
     const communityPackages = packages
-      .filterItems(el => !el.isCertified())
+      .filterItems((el) => !el.isCertified())
       .filterItemsByText(searchString);
 
     const hasNoResults = () => {
@@ -347,7 +347,7 @@ class PackagesTab extends mixin(StoreMixin) {
 }
 
 PackagesTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default PackagesTab;

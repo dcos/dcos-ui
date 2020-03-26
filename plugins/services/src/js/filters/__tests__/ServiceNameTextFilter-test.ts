@@ -11,18 +11,18 @@ describe("ServiceNameTextFilter", () => {
       {
         getName() {
           return "foo service";
-        }
+        },
       },
       {
         getName() {
           return "bar service";
-        }
+        },
       },
       {
         getName() {
           return "foo bar service";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -34,7 +34,7 @@ describe("ServiceNameTextFilter", () => {
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0],
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 
@@ -45,7 +45,7 @@ describe("ServiceNameTextFilter", () => {
     const filters = [new ServiceNameTextFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 });

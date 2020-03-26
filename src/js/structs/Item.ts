@@ -2,7 +2,7 @@ export default class Item {
   _itemData;
 
   constructor(item = {}) {
-    Object.keys(item).forEach(key => {
+    Object.keys(item).forEach((key) => {
       this[key] = item[key];
     });
 

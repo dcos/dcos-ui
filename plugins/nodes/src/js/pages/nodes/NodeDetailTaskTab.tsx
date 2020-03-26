@@ -13,7 +13,7 @@ class NodeDetailTaskTab extends React.Component {
 
     this.state = {
       isLoading: true,
-      lastUpdate: 0
+      lastUpdate: 0,
     };
   }
 
@@ -32,7 +32,7 @@ class NodeDetailTaskTab extends React.Component {
     ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       });
     }
   };
@@ -41,7 +41,7 @@ class NodeDetailTaskTab extends React.Component {
     const {
       location,
       params,
-      params: { nodeID }
+      params: { nodeID },
     } = this.props;
     const tasks = MesosStateStore.getTasksFromNodeID(nodeID);
 
@@ -50,7 +50,7 @@ class NodeDetailTaskTab extends React.Component {
 }
 
 NodeDetailTaskTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default NodeDetailTaskTab;

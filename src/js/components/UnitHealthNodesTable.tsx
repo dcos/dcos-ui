@@ -12,7 +12,7 @@ import UnitHealthUtil from "../utils/UnitHealthUtil";
 class UnitHealthNodesTable extends React.Component {
   static propTypes = {
     nodes: PropTypes.array.isRequired,
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor() {
     super();
@@ -33,7 +33,7 @@ class UnitHealthNodesTable extends React.Component {
     const headings = ResourceTableUtil.renderHeading({
       health: i18nMark("Health"),
       host_ip: i18nMark("Node"),
-      role: i18nMark("Role")
+      role: i18nMark("Role"),
     });
 
     const sortFunction = TableUtil.getSortFunction("host_ip", (node, prop) => {
@@ -52,7 +52,7 @@ class UnitHealthNodesTable extends React.Component {
         prop: "health",
         render: this.renderHealth,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: classNameFn,
@@ -61,7 +61,7 @@ class UnitHealthNodesTable extends React.Component {
         prop: "host_ip",
         render: this.renderNode,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: classNameFn,
@@ -70,8 +70,8 @@ class UnitHealthNodesTable extends React.Component {
         prop: "role",
         render: this.renderNodeRole,
         sortable: true,
-        sortFunction
-      }
+        sortFunction,
+      },
     ];
   }
 

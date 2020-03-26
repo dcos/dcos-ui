@@ -6,11 +6,11 @@ export default {
   oidc: {
     description: i18nMark("OpenID Connect"),
     icon: IconOpenID,
-    title: i18nMark("OpenID Connect")
+    title: i18nMark("OpenID Connect"),
   },
   saml: {
     description: i18nMark("SAML 2.0"),
     icon: IconSAML,
-    title: i18nMark("SAML")
-  }
+    title: i18nMark("SAML"),
+  },
 };

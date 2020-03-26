@@ -7,7 +7,7 @@ import Breadcrumb from "#SRC/js/components/Breadcrumb";
 import BreadcrumbTextContent from "#SRC/js/components/BreadcrumbTextContent";
 import Page from "#SRC/js/components/Page";
 
-const RepositoriesBreadcrumbs = addButton => {
+const RepositoriesBreadcrumbs = (addButton) => {
   const crumbs = [
     <Breadcrumb key={-1} title="Repositories">
       <BreadcrumbTextContent>
@@ -15,7 +15,7 @@ const RepositoriesBreadcrumbs = addButton => {
           Package Repositories
         </Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (

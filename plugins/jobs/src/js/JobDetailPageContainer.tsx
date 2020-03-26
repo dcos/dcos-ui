@@ -9,7 +9,7 @@ import {
   map,
   distinctUntilChanged,
   catchError,
-  startWith
+  startWith,
 } from "rxjs/operators";
 import { DataLayerType } from "@extension-kid/data-layer";
 
@@ -23,7 +23,7 @@ const dataLayer = container.get(DataLayerType);
 
 export const DIALOGS = {
   EDIT: "edit",
-  DESTROY: "destroy"
+  DESTROY: "destroy",
 };
 
 const LoadingScreen = () => (
@@ -60,7 +60,7 @@ const closeDialog = () => {
   disabledDialog$.next(null);
 };
 
-const getGraphQL = id =>
+const getGraphQL = (id) =>
   dataLayer.query(
     gql`
       query {
@@ -85,15 +85,15 @@ const getGraphQL = id =>
   );
 
 export default getContext({
-  router: routerShape
+  router: routerShape,
 })(
-  componentFromStream(props$ => {
+  componentFromStream((props$) => {
     const id$ = props$.pipe(
-      map(props => props.params.id),
+      map((props) => props.params.id),
       distinctUntilChanged()
     );
     const job$ = id$.pipe(
-      switchMap(id => getGraphQL(id)),
+      switchMap((id) => getGraphQL(id)),
       map(({ data: { job } }) => job)
     );
 
@@ -101,7 +101,7 @@ export default getContext({
       job$,
       props$,
       jobActionDialog$,
-      disabledDialog$
+      disabledDialog$,
     ]).pipe(
       map(([job, { router, ...props }, jobActionDialog, disabledDialog]) => {
         function onJobDeleteSuccess() {

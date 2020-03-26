@@ -33,18 +33,18 @@ function checkDuplicateOperatorField(constraints) {
           {
             path: ["constraints", index, "operator"],
             message: "Duplicate operator/field set",
-            isPermissive: true
+            isPermissive: true,
           },
           {
             path: ["constraints", index, "fieldName"],
             message: NBSP,
-            isPermissive: true
+            isPermissive: true,
           },
           {
             path: ["constraints", index, "value"],
             message: NBSP,
-            isPermissive: true
-          }
+            isPermissive: true,
+          },
         ]
       );
     }
@@ -73,8 +73,8 @@ const PlacementsValidators = {
         {
           path: [],
           message: "constraints needs to be an array of 2 or 3 element arrays",
-          type: "TYPE_NOT_ARRAY"
-        }
+          type: "TYPE_NOT_ARRAY",
+        },
       ];
     }
 
@@ -91,7 +91,7 @@ const PlacementsValidators = {
         errors.push({
           path: [index],
           message: "Must be an array",
-          type: "TYPE_NOT_ARRAY"
+          type: "TYPE_NOT_ARRAY",
         });
 
         return errors;
@@ -107,7 +107,7 @@ const PlacementsValidators = {
           path: [index, "value"],
           message: isRequiredMessage.replace("{{operator}}", operator),
           type: PROP_MISSING_ONE,
-          variables
+          variables,
         });
       }
 
@@ -120,7 +120,7 @@ const PlacementsValidators = {
           path: [index, "value"],
           message: isRequiredEmptyMessage.replace("{{operator}}", operator),
           type: SYNTAX_ERROR,
-          variables
+          variables,
         });
       }
 
@@ -134,7 +134,7 @@ const PlacementsValidators = {
           path: [index, "value"],
           message: isStringNumberMessage.replace("{{operator}}", operator),
           type: SYNTAX_ERROR,
-          variables
+          variables,
         });
       }
 
@@ -143,10 +143,10 @@ const PlacementsValidators = {
   },
 
   validateNoBatchError(constraintTransactions) {
-    const isErrorTransaction = transaction => transaction.type === ERROR;
+    const isErrorTransaction = (transaction) => transaction.type === ERROR;
 
     return !constraintTransactions.some(isErrorTransaction);
-  }
+  },
 };
 
 export default PlacementsValidators;

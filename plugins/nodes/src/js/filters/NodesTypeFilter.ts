@@ -5,7 +5,7 @@ const LABEL = "is";
 
 const LABEL_TO_TYPE = {
   private: "private",
-  public: "public"
+  public: "public",
 };
 
 class NodesTypeFilter extends DSLFilter {
@@ -31,7 +31,7 @@ class NodesTypeFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = LABEL_TO_TYPE[filterArguments.text.toLowerCase()];
 
-    return resultset.filterItems(node => {
+    return resultset.filterItems((node) => {
       const nodeType = node.isPublic() ? "public" : "private";
       return nodeType === testStatus;
     });

@@ -16,7 +16,7 @@ class TabForm extends React.Component {
     onChange() {},
     onError() {},
     onSubmit() {},
-    onTabClick() {}
+    onTabClick() {},
   };
   static propTypes = {
     className: classPropType,
@@ -29,7 +29,7 @@ class TabForm extends React.Component {
     onError: PropTypes.func,
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
-    onTabClick: PropTypes.func
+    onTabClick: PropTypes.func,
   };
   constructor() {
     super();
@@ -62,7 +62,7 @@ class TabForm extends React.Component {
       ScrollbarUtil.updateWithRef(this.geminiRef);
     });
   }
-  handleTabClick = currentTab => {
+  handleTabClick = (currentTab) => {
     this.props.onTabClick(...arguments);
     this.setState({ currentTab });
   };
@@ -88,7 +88,7 @@ class TabForm extends React.Component {
   buildModel() {
     this.isFormValidated = true;
 
-    Object.keys(this.props.definition).forEach(formKey => {
+    Object.keys(this.props.definition).forEach((formKey) => {
       this.submitMap[formKey]();
     });
   }
@@ -166,14 +166,14 @@ class TabForm extends React.Component {
 
     const panels = Object.keys(multipleDefinition).map((formKey, i) => {
       const formPanelClassSet = classNames("form-panel", {
-        hidden: currentTab !== formKey
+        hidden: currentTab !== formKey,
       });
 
       const { definition, description, title } = multipleDefinition[formKey];
       const formDefinition = [
         {
-          render: this.getHeader.bind(this, title, description)
-        }
+          render: this.getHeader.bind(this, title, description),
+        },
       ].concat(definition);
 
       const formRowClassSet = classNames("row", formRowClass, formKey);
@@ -226,7 +226,7 @@ class TabForm extends React.Component {
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 export default TabForm;

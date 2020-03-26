@@ -20,16 +20,16 @@ class TaskLogsContainer extends mixin(StoreMixin) {
     params: PropTypes.object,
     routes: PropTypes.array,
     selectedLogFile: PropTypes.object,
-    task: PropTypes.instanceOf(Task)
+    task: PropTypes.instanceOf(Task),
   };
   constructor(...args) {
     super(...args);
     this.state = {
-      isLoading: true
+      isLoading: true,
     };
 
     this.store_listeners = [
-      { name: "config", events: ["success", "error"], unmountWhen: () => true }
+      { name: "config", events: ["success", "error"], unmountWhen: () => true },
     ];
   }
 

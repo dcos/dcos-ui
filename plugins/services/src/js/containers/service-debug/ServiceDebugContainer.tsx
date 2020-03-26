@@ -24,7 +24,7 @@ import TaskStatsTable from "./TaskStatsTable";
 
 class ServiceDebugContainer extends React.Component {
   static propTypes = {
-    service: PropTypes.instanceOf(Service)
+    service: PropTypes.instanceOf(Service),
   };
   constructor(...args) {
     super(...args);
@@ -71,7 +71,7 @@ class ServiceDebugContainer extends React.Component {
       taskId,
       state,
       message,
-      host
+      host,
     } = lastTaskFailure;
 
     return (
@@ -181,10 +181,10 @@ class ServiceDebugContainer extends React.Component {
 
     const queue = service.getQueue();
     const {
-      declinedOffers: { summary }
+      declinedOffers: { summary },
     } = queue;
     const {
-      roles: { offers = 0 }
+      roles: { offers = 0 },
     } = summary;
 
     return ` (${offers})`;
@@ -235,7 +235,7 @@ class ServiceDebugContainer extends React.Component {
 
     return (
       <div
-        ref={ref => {
+        ref={(ref) => {
           this.offerSummaryRef = ref;
         }}
       >
@@ -413,7 +413,7 @@ class ServiceDebugContainer extends React.Component {
 }
 
 ServiceDebugContainer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServiceDebugContainer;

@@ -12,13 +12,13 @@ function makeDisplayVolumes(disp, volume) {
   return disp;
 }
 
-const SecretVolumesSection = props => {
+const SecretVolumesSection = (props) => {
   const data = props.data.secrets || [];
   const secretVolumes = data.reduce((volumes, secret) => {
     if (secret.exposures) {
       secret.exposures
-        .filter(exposure => exposure.type === "file" && exposure.value)
-        .forEach(exposure => {
+        .filter((exposure) => exposure.type === "file" && exposure.value)
+        .forEach((exposure) => {
           volumes.push(exposure.value);
         });
     }
@@ -57,14 +57,14 @@ SecretVolumesSection.propTypes = {
         exposures: PropTypes.arrayOf(
           PropTypes.shape({
             type: PropTypes.oneOf(["", "file", "envVar"]),
-            value: PropTypes.string
+            value: PropTypes.string,
           })
         ),
         key: PropTypes.string,
-        value: PropTypes.string
+        value: PropTypes.string,
       })
-    )
-  }).isRequired
+    ),
+  }).isRequired,
 };
 
 export default SecretVolumesSection;

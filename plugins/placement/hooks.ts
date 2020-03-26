@@ -5,7 +5,7 @@ import PlacementSection from "./components/PlacementSection";
 import JobPlacementSection from "./components/JobPlacementSection";
 import {
   PlacementSchemaField,
-  PlacementSchemaZoneField
+  PlacementSchemaZoneField,
 } from "./components/PlacementSchemaField";
 import ServicePlacementConfigSection from "./components/ServicePlacementConfigSection";
 import {
@@ -13,12 +13,12 @@ import {
   singleContainerJSONParser,
   multiContainerJSONParser,
   zoneReducer,
-  regionReducer
+  regionReducer,
 } from "./reducers/constraints";
 import {
   jobRegionConstraintReducers,
   jobJsonReducers,
-  jobResponseToSpec
+  jobResponseToSpec,
 } from "./reducers/jobConstraints";
 import SchemaRegionSelection from "./components/SchemaRegionSelection";
 import { Hooks } from "PluginSDK";
@@ -34,7 +34,7 @@ module.exports = {
     "multiContainerJsonConfigReducers",
     "multiContainerInputConfigReducers",
     "jobResponseToSpecParser",
-    "jobOutputReducers"
+    "jobOutputReducers",
   ],
   actions: [],
 
@@ -105,7 +105,7 @@ module.exports = {
         return [].concat(
           reducers.constraints.bind(this)(newState, { type, path, value })
         );
-      }
+      },
     };
   },
 
@@ -117,16 +117,16 @@ module.exports = {
         const scheduling = reducers.scheduling.bind(this);
 
         let newState = {
-          ...state
+          ...state,
         };
 
         newState = regionReducer(newState, { type, path, value }, scheduling);
         newState = zoneReducer(newState, { type, path, value }, scheduling);
 
         return {
-          ...reducers.scheduling.bind(this)(newState, { type, path, value })
+          ...reducers.scheduling.bind(this)(newState, { type, path, value }),
         };
-      }
+      },
     };
   },
 
@@ -152,7 +152,7 @@ module.exports = {
     return {
       ...reducers,
       json: jobJsonReducers(ossJsonOverrideReducer),
-      regionConstraint: jobRegionConstraintReducers
+      regionConstraint: jobRegionConstraintReducers,
     };
   },
 
@@ -161,12 +161,12 @@ module.exports = {
   },
 
   addHooks(filters, actions) {
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
 
-    actions.forEach(action => {
+    actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
-  }
+  },
 };

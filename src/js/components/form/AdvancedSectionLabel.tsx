@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXxs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 function getStateIndicator(isExpanded) {
@@ -37,10 +37,10 @@ AdvancedSectionLabel.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   isExpanded: PropTypes.bool,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default AdvancedSectionLabel;

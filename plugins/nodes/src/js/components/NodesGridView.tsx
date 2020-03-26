@@ -30,7 +30,7 @@ export default class NodesGridView extends React.PureComponent<
     hasLoadingError: false,
     hiddenServices: [],
     receivedEmptyMesosState: false,
-    receivedNodeHealthResponse: false
+    receivedNodeHealthResponse: false,
   };
 
   public getLoadingScreen() {
@@ -38,7 +38,7 @@ export default class NodesGridView extends React.PureComponent<
     const errorMsg = hasLoadingError ? <RequestErrorMsg /> : null;
 
     const loadingClassSet = classNames({
-      hidden: hasLoadingError
+      hidden: hasLoadingError,
     });
 
     return (
@@ -50,7 +50,7 @@ export default class NodesGridView extends React.PureComponent<
   }
 
   public getActiveServiceIds() {
-    return this.props.services.map(service => service.getId());
+    return this.props.services.map((service) => service.getId());
   }
 
   public getServicesList() {
@@ -61,11 +61,11 @@ export default class NodesGridView extends React.PureComponent<
 
     // Filter out inactive services
     const items = services
-      .filter(service => activeServiceIds.includes(service.id))
+      .filter((service) => activeServiceIds.includes(service.id))
       // Limit to max amount
       .slice(0, MAX_SERVICES_TO_SHOW)
       // Return view definition
-      .map(service => {
+      .map((service) => {
         const color = serviceColors[service.id];
         const className = `dot service-color-${color}`;
 
@@ -98,11 +98,11 @@ export default class NodesGridView extends React.PureComponent<
       hosts,
       resourcesByFramework,
       selectedResource,
-      serviceColors
+      serviceColors,
     } = this.props;
 
     const classSet = classNames({
-      "side-list nodes-grid-legend": true
+      "side-list nodes-grid-legend": true,
     });
 
     return (
@@ -124,7 +124,7 @@ export default class NodesGridView extends React.PureComponent<
     const {
       hasLoadingError,
       receivedEmptyMesosState,
-      receivedNodeHealthResponse
+      receivedNodeHealthResponse,
     } = this.props;
 
     return (

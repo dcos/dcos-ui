@@ -3,7 +3,7 @@ import * as React from "react";
 import classNames from "classnames/dedupe";
 import { omit } from "#SRC/js/utils/Util";
 
-const FieldSelect = props => {
+const FieldSelect = (props) => {
   const { className } = props;
   const classes = classNames("form-control form-control-select", className);
 
@@ -18,7 +18,7 @@ const FieldSelect = props => {
 
 FieldSelect.defaultProps = {
   onChange: () => undefined,
-  value: ""
+  value: "",
 };
 
 FieldSelect.propTypes = {
@@ -28,8 +28,8 @@ FieldSelect.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default FieldSelect;

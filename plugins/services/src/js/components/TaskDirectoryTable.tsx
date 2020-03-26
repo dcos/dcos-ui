@@ -7,7 +7,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import {
   greyDark,
   greyLightDarken1,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
@@ -25,12 +25,12 @@ function renderByProperty(prop, directoryItem) {
 class TaskDirectoryTable extends React.Component {
   static defaultProps = {
     onOpenLogClick() {},
-    files: []
+    files: [],
   };
   static propTypes = {
     directoryPath: PropTypes.string,
     onOpenLogClick: PropTypes.func,
-    files: PropTypes.array
+    files: PropTypes.array,
   };
   handleTaskClick(path) {
     this.props.onFileClick(path);
@@ -117,7 +117,7 @@ class TaskDirectoryTable extends React.Component {
     return classNames({
       "text-align-right": propsToRight.includes(prop),
       active: prop === sortBy.prop && isHeader,
-      clickable: isHeader
+      clickable: isHeader,
     });
   }
 
@@ -162,35 +162,35 @@ class TaskDirectoryTable extends React.Component {
       headerClassName: className,
       render: null,
       sortable: true,
-      sortFunction
+      sortFunction,
     };
 
     return [
       {
         prop: "path",
-        render: this.renderHeadline.bind(this)
+        render: this.renderHeadline.bind(this),
       },
       {
         prop: "mode",
-        render: renderByProperty
+        render: renderByProperty,
       },
       {
         prop: "uid",
-        render: renderByProperty
+        render: renderByProperty,
       },
       {
         prop: "size",
         render: this.renderStats,
-        sortFunction
+        sortFunction,
       },
       {
         prop: "mtime",
         render: this.renderDate,
-        sortFunction
-      }
-    ].map(columnSetting => ({
+        sortFunction,
+      },
+    ].map((columnSetting) => ({
       ...defaultColumnSettings,
-      ...columnSetting
+      ...columnSetting,
     }));
   }
 

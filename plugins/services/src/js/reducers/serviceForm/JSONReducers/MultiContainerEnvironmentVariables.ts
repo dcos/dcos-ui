@@ -8,7 +8,7 @@ export function JSONParser(state) {
 
   return Object.keys(state.environment)
     .filter(
-      key =>
+      (key) =>
         state.environment[key] == null ||
         typeof state.environment[key] === "string"
     )

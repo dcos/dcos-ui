@@ -6,7 +6,7 @@ describe("Task", () => {
   describe("#getId", () => {
     it("returns correct id", () => {
       const task = new Task({
-        id: "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76"
+        id: "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76",
       });
 
       expect(task.getId()).toEqual("test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76");
@@ -31,7 +31,7 @@ describe("Task", () => {
     it("returns correct name", () => {
       const task = new Task({
         id: "test.a1f67e90-1c86-11e6-ae46-0ed0cffa3d76",
-        name: "foo.bar.baz"
+        name: "foo.bar.baz",
       });
 
       expect(task.getName()).toEqual("foo.bar.baz");

@@ -10,7 +10,7 @@ import {
   FormMultiContainerReducer,
   emptySingleContainerSecret,
   emptyMultiContainerSecret,
-  removeSecretVolumes
+  removeSecretVolumes,
 } from "../Secrets";
 
 import PluginSDK from "PluginSDK";
@@ -42,7 +42,7 @@ describe("Secrets", () => {
             ["secrets", 0, "exposures", 0, "value"],
             "DB_PASS",
             SET
-          )
+          ),
         ]);
       });
 
@@ -54,8 +54,8 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
-          }
+            source: "database_password",
+          },
         });
       });
 
@@ -81,11 +81,11 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
+            source: "database_password",
           },
           secret1: {
-            source: "redis_pass"
-          }
+            source: "redis_pass",
+          },
         });
       });
 
@@ -121,8 +121,8 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
-          }
+            source: "database_password",
+          },
         });
       });
     });
@@ -132,33 +132,33 @@ describe("Secrets", () => {
         const json = {
           env: {
             DB_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "database_password"
-            }
-          }
+              source: "database_password",
+            },
+          },
         };
 
         expect(JSONSingleContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptySingleContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "database_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -169,34 +169,34 @@ describe("Secrets", () => {
             volumes: [
               {
                 containerPath: "secrets/sa.json",
-                secret: "secret0"
-              }
-            ]
+                secret: "secret0",
+              },
+            ],
           },
           secrets: {
             secret0: {
-              source: "service_account"
-            }
-          }
+              source: "service_account",
+            },
+          },
         };
 
         expect(JSONSingleContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptySingleContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "service_account",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "file", value: "secrets/sa.json" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -204,49 +204,49 @@ describe("Secrets", () => {
         const json = {
           env: {
             DB_PASS: {
-              secret: "secret0"
+              secret: "secret0",
             },
             REDIS_PASS: {
-              secret: "secret0"
+              secret: "secret0",
             },
             MEMCACHE_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "root_password"
-            }
-          }
+              source: "root_password",
+            },
+          },
         };
 
         expect(JSONSingleContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptySingleContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "root_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "REDIS_PASS" },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "MEMCACHE_PASS" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -254,23 +254,23 @@ describe("Secrets", () => {
         const json = {
           secrets: {
             secret0: {
-              source: "database_password"
-            }
-          }
+              source: "database_password",
+            },
+          },
         };
 
         expect(JSONSingleContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptySingleContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "database_password",
-            path: ["secrets", 0, "value"]
-          }
+            path: ["secrets", 0, "value"],
+          },
         ]);
       });
 
@@ -281,44 +281,44 @@ describe("Secrets", () => {
             volumes: [
               {
                 containerPath: "secrets/db_pass",
-                secret: "secret0"
-              }
-            ]
+                secret: "secret0",
+              },
+            ],
           },
           env: {
             DB_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "root_password"
-            }
-          }
+              source: "root_password",
+            },
+          },
         };
 
         expect(JSONSingleContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptySingleContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "root_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: { type: "file", value: "secrets/db_pass" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
     });
@@ -332,7 +332,7 @@ describe("Secrets", () => {
             ["secrets", 0, "exposures", 0],
             { type: "envVar", value: "DB_PASS" },
             SET
-          )
+          ),
         ]);
       });
 
@@ -343,8 +343,8 @@ describe("Secrets", () => {
           {
             exposures: [{ type: "envVar", value: "DB_PASS" }],
             key: null,
-            value: "database_password"
-          }
+            value: "database_password",
+          },
         ]);
       });
 
@@ -369,13 +369,13 @@ describe("Secrets", () => {
           {
             exposures: [{ type: "envVar", value: "DB_PASS" }],
             key: null,
-            value: "database_password"
+            value: "database_password",
           },
           {
             exposures: [{ type: "file", value: "secrets/sa.json" }],
             value: "service_account",
-            key: null
-          }
+            key: null,
+          },
         ]);
       });
     });
@@ -390,7 +390,7 @@ describe("Secrets", () => {
             ADD_ITEM
           ),
           new Transaction(["secrets", 0, "value"], "database_password", SET),
-          new Transaction(["secrets", 0, "environmentVars", 0], "DB_PASS", SET)
+          new Transaction(["secrets", 0, "environmentVars", 0], "DB_PASS", SET),
         ]);
       });
 
@@ -402,8 +402,8 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
-          }
+            source: "database_password",
+          },
         });
       });
 
@@ -430,11 +430,11 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
+            source: "database_password",
           },
           secret1: {
-            source: "redis_pass"
-          }
+            source: "redis_pass",
+          },
         });
       });
 
@@ -464,8 +464,8 @@ describe("Secrets", () => {
 
         expect(definition).toEqual({
           secret0: {
-            source: "database_password"
-          }
+            source: "database_password",
+          },
         });
       });
     });
@@ -475,33 +475,33 @@ describe("Secrets", () => {
         const json = {
           env: {
             DB_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "database_password"
-            }
-          }
+              source: "database_password",
+            },
+          },
         };
 
         expect(JSONMultiContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "database_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -509,49 +509,49 @@ describe("Secrets", () => {
         const json = {
           env: {
             DB_PASS: {
-              secret: "secret0"
+              secret: "secret0",
             },
             REDIS_PASS: {
-              secret: "secret0"
+              secret: "secret0",
             },
             MEMCACHE_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "root_password"
-            }
-          }
+              source: "root_password",
+            },
+          },
         };
 
         expect(JSONMultiContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "root_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "REDIS_PASS" },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "MEMCACHE_PASS" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -559,33 +559,33 @@ describe("Secrets", () => {
         const json = {
           environment: {
             DB_PASS: {
-              secret: "secret0"
-            }
+              secret: "secret0",
+            },
           },
           secrets: {
             secret0: {
-              source: "database_password"
-            }
-          }
+              source: "database_password",
+            },
+          },
         };
 
         expect(JSONMultiContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "database_password",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: { type: "envVar", value: "DB_PASS" },
-            path: ["secrets", 0, "exposures"]
-          }
+            path: ["secrets", 0, "exposures"],
+          },
         ]);
       });
 
@@ -593,23 +593,23 @@ describe("Secrets", () => {
         const json = {
           secrets: {
             secret0: {
-              source: "database_password"
-            }
-          }
+              source: "database_password",
+            },
+          },
         };
 
         expect(JSONMultiContainerParser(json)).toEqual([
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "database_password",
-            path: ["secrets", 0, "value"]
-          }
+            path: ["secrets", 0, "value"],
+          },
         ]);
       });
 
@@ -622,43 +622,43 @@ describe("Secrets", () => {
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret0", path: ["secrets", 0, "key"] },
           {
             type: SET,
             value: "TEST",
-            path: ["secrets", 0, "value"]
+            path: ["secrets", 0, "value"],
           },
           {
             type: ADD_ITEM,
             value: {
               type: "file",
               value: "test",
-              mounts: ["secrets/test", "", "secrets/tttt"]
+              mounts: ["secrets/test", "", "secrets/tttt"],
             },
-            path: ["secrets", 0, "exposures"]
+            path: ["secrets", 0, "exposures"],
           },
           {
             type: ADD_ITEM,
             value: emptyMultiContainerSecret(),
-            path: ["secrets"]
+            path: ["secrets"],
           },
           { type: SET, value: "secret1", path: ["secrets", 1, "key"] },
           {
             type: SET,
             value: "OTHER",
-            path: ["secrets", 1, "value"]
+            path: ["secrets", 1, "value"],
           },
           {
             type: ADD_ITEM,
             value: {
               type: "file",
               value: "secret1volume1",
-              mounts: ["secret", "thing", "for"]
+              mounts: ["secret", "thing", "for"],
             },
-            path: ["secrets", 1, "exposures"]
-          }
+            path: ["secrets", 1, "exposures"],
+          },
         ]);
       });
     });
@@ -682,7 +682,7 @@ describe("Secrets", () => {
             ["secrets", 0, "exposures", 0, "value"],
             "DB_PASS",
             SET
-          )
+          ),
         ]);
       });
 
@@ -693,8 +693,8 @@ describe("Secrets", () => {
           {
             exposures: [{ type: "envVar", value: "DB_PASS" }],
             value: "database_password",
-            key: null
-          }
+            key: null,
+          },
         ]);
       });
     });
@@ -711,24 +711,24 @@ describe("Secrets", () => {
             {
               name: "other",
               persistent: {
-                size: 10
-              }
+                size: 10,
+              },
             },
             {
               name: "secret-test",
-              secret: "my_secret"
-            }
-          ]
+              secret: "my_secret",
+            },
+          ],
         };
         expect(removeSecretVolumes(state)).toEqual({
           volumes: [
             {
               name: "other",
               persistent: {
-                size: 10
-              }
-            }
-          ]
+                size: 10,
+              },
+            },
+          ],
         });
       });
 
@@ -740,52 +740,52 @@ describe("Secrets", () => {
               volumeMounts: [
                 {
                   name: "other",
-                  mountPath: "data"
+                  mountPath: "data",
                 },
                 {
                   name: "secret-test",
-                  mountPath: "secrets/thing"
-                }
-              ]
+                  mountPath: "secrets/thing",
+                },
+              ],
             },
             {
               name: "test-2",
               volumeMounts: [
                 {
                   name: "secret-test",
-                  mountPath: "secrets/thing"
+                  mountPath: "secrets/thing",
                 },
                 {
                   name: "secret-test-2",
-                  mountPath: "secrets/other"
-                }
-              ]
-            }
+                  mountPath: "secrets/other",
+                },
+              ],
+            },
           ],
           volumes: [
             {
               name: "other",
               persistent: {
-                size: 10
-              }
+                size: 10,
+              },
             },
             {
               name: "secret-test",
-              secret: "my_secret"
+              secret: "my_secret",
             },
             {
               name: "secret-test-2",
-              secret: "other_secert"
-            }
+              secret: "other_secert",
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         };
         expect(removeSecretVolumes(state)).toEqual({
           containers: [
@@ -794,31 +794,31 @@ describe("Secrets", () => {
               volumeMounts: [
                 {
                   name: "other",
-                  mountPath: "data"
-                }
-              ]
+                  mountPath: "data",
+                },
+              ],
             },
             {
               name: "test-2",
-              volumeMounts: []
-            }
+              volumeMounts: [],
+            },
           ],
           volumes: [
             {
               name: "other",
               persistent: {
-                size: 10
-              }
-            }
+                size: 10,
+              },
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         });
       });
 
@@ -826,38 +826,38 @@ describe("Secrets", () => {
         const state = {
           containers: [
             {
-              name: "test-1"
+              name: "test-1",
             },
             {
-              name: "test-2"
-            }
+              name: "test-2",
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         };
         expect(removeSecretVolumes(state)).toEqual({
           containers: [
             {
-              name: "test-1"
+              name: "test-1",
             },
             {
-              name: "test-2"
-            }
+              name: "test-2",
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         });
       });
 
@@ -868,26 +868,26 @@ describe("Secrets", () => {
             {
               name: "other",
               persistent: {
-                size: 10
-              }
+                size: 10,
+              },
             },
             {
               name: "secret-test",
-              secret: "my_secret"
+              secret: "my_secret",
             },
             {
               name: "secret-test-2",
-              secret: "other_secert"
-            }
+              secret: "other_secert",
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         };
         expect(removeSecretVolumes(state)).toEqual({
           containers: [],
@@ -895,18 +895,18 @@ describe("Secrets", () => {
             {
               name: "other",
               persistent: {
-                size: 10
-              }
-            }
+                size: 10,
+              },
+            },
           ],
           secrets: {
             my_secret: {
-              source: "TEST"
+              source: "TEST",
             },
             other_secert: {
-              source: "OTHER_TEST"
-            }
-          }
+              source: "OTHER_TEST",
+            },
+          },
         });
       });
     });

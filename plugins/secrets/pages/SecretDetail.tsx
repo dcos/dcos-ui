@@ -7,7 +7,7 @@ import PropTypes from "prop-types";
 import { Icon } from "@dcos/ui-kit";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
@@ -47,7 +47,7 @@ const SecretDetailBreadcrumbs = ({ secretPath }) => {
           {secretPath}
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -86,9 +86,9 @@ SecretsDetailPageLayout.propTypes = {
   actions: PropTypes.arrayOf(
     PropTypes.shape({
       onItemSelect: PropTypes.func.isRequired,
-      label: PropTypes.string.isRequired
+      label: PropTypes.string.isRequired,
     })
-  )
+  ),
 };
 
 const SecretsDetailPageLoading = ({ path }) => (
@@ -107,7 +107,7 @@ class SecretDetail extends mixin(StoreMixin) {
       loading: true,
       secretFormOpen: false,
       requestErrorType: null,
-      secret: null
+      secret: null,
     };
 
     // prettier-ignore
@@ -174,12 +174,12 @@ class SecretDetail extends mixin(StoreMixin) {
     const actions = [];
     actions.push({
       onItemSelect: this.handleEditClick,
-      label: "Edit"
+      label: "Edit",
     });
     actions.push({
       className: "text-danger",
       onItemSelect: this.handleRemoveClick,
-      label: StringUtil.capitalize(UserActions.DELETE)
+      label: StringUtil.capitalize(UserActions.DELETE),
     });
 
     return actions;
@@ -367,7 +367,7 @@ class SecretDetail extends mixin(StoreMixin) {
 }
 
 SecretDetail.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default SecretDetail;

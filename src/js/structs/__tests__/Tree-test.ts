@@ -76,8 +76,8 @@ describe("Tree", () => {
         items: [
           { name: "foo" },
           { name: "bar" },
-          { items: [{ name: "alpha" }, { name: "beta" }] }
-        ]
+          { items: [{ name: "alpha" }, { name: "beta" }] },
+        ],
       });
     });
 
@@ -104,23 +104,23 @@ describe("Tree", () => {
         {
           items: [
             {
-              name: "alpha"
+              name: "alpha",
             },
             {
-              name: "beta"
+              name: "beta",
             },
             {
               items: [
                 {
-                  name: "one"
+                  name: "one",
                 },
                 {
-                  name: "two"
-                }
-              ]
-            }
-          ]
-        }
+                  name: "two",
+                },
+              ],
+            },
+          ],
+        },
       ];
 
       thisInstance = new Tree({ items });
@@ -133,7 +133,7 @@ describe("Tree", () => {
 
     it("filters items", () => {
       const filteredTree = thisInstance.filterItems(
-        item => item.name === "bar"
+        (item) => item.name === "bar"
       );
 
       expect(filteredTree.getItems().length).toEqual(1);
@@ -142,16 +142,11 @@ describe("Tree", () => {
 
     it("filters sub items", () => {
       const filteredTree = thisInstance.filterItems(
-        item => item.name === "one"
+        (item) => item.name === "one"
       );
 
-      expect(
-        filteredTree
-          .getItems()[0]
-          .getItems()[0]
-          .getItems()[0]
-      ).toEqual({
-        name: "one"
+      expect(filteredTree.getItems()[0].getItems()[0].getItems()[0]).toEqual({
+        name: "one",
       });
     });
   });
@@ -162,27 +157,27 @@ describe("Tree", () => {
         {
           name: "foo",
           description: { value: "qux", label: "corge" },
-          tags: ["one", "two"]
+          tags: ["one", "two"],
         },
         {
           name: "bar",
           description: { value: "quux", label: "grault" },
-          tags: ["two", "three"]
+          tags: ["two", "three"],
         },
         {
           items: [
             {
               name: "alpha",
               description: { value: "gamma", label: "epsilon" },
-              tags: ["one", "two"]
+              tags: ["one", "two"],
             },
             {
               name: "beta",
               description: { value: "delta", label: "zeta" },
-              tags: ["one", "two"]
-            }
-          ]
-        }
+              tags: ["one", "two"],
+            },
+          ],
+        },
       ];
       const filterProperties = {
         name: null,
@@ -191,7 +186,7 @@ describe("Tree", () => {
         },
         tags(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
 
       thisInstance = new Tree({ items, filterProperties });
@@ -215,13 +210,13 @@ describe("Tree", () => {
         new Item({
           name: "foo",
           description: { value: "qux" },
-          tags: ["one", "two"]
+          tags: ["one", "two"],
         }),
         new Item({
           name: "bar",
           description: { value: "quux" },
-          tags: ["two", "three"]
-        })
+          tags: ["two", "three"],
+        }),
       ];
       const filterProperties = {
         name: null,
@@ -230,7 +225,7 @@ describe("Tree", () => {
         },
         tags(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
 
       thisInstance = new Tree({ items, filterProperties });
@@ -261,7 +256,7 @@ describe("Tree", () => {
     it("handles filter by with null elements", () => {
       const items = [
         { name: null, description: { value: null }, tags: [null, "three"] },
-        { description: null, tags: null }
+        { description: null, tags: null },
       ];
       const filterProperties = {
         name: null,
@@ -270,7 +265,7 @@ describe("Tree", () => {
         },
         tags(item, prop) {
           return item[prop] && item[prop].join(" ");
-        }
+        },
       };
       const list = new Tree({ items, filterProperties });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();
@@ -280,7 +275,7 @@ describe("Tree", () => {
       const filterProperties = {
         description(item, prop) {
           return item[prop] && item[prop].label;
-        }
+        },
       };
       const filteredItems = thisInstance
         .filterItemsByText("zeta", filterProperties)
@@ -295,8 +290,8 @@ describe("Tree", () => {
         items: [
           { name: "foo" },
           { name: "bar" },
-          { items: [{ name: "alpha" }, { name: "beta" }] }
-        ]
+          { items: [{ name: "alpha" }, { name: "beta" }] },
+        ],
       });
     });
 
@@ -305,8 +300,8 @@ describe("Tree", () => {
     });
 
     it("returns matching item", () => {
-      expect(thisInstance.findItem(item => item.name === "beta")).toEqual({
-        name: "beta"
+      expect(thisInstance.findItem((item) => item.name === "beta")).toEqual({
+        name: "beta",
       });
     });
   });
@@ -317,19 +312,19 @@ describe("Tree", () => {
         items: [
           { name: "foo" },
           { name: "bar" },
-          { items: [{ name: "alpha" }, { name: "beta" }] }
-        ]
+          { items: [{ name: "alpha" }, { name: "beta" }] },
+        ],
       });
     });
 
     it("returns an instance of Tree", () => {
-      const tree = thisInstance.mapItems(item => item);
+      const tree = thisInstance.mapItems((item) => item);
       expect(tree instanceof Tree).toBeTruthy();
     });
 
     it("apply callbacks to all items", () => {
       const items = thisInstance
-        .mapItems(item => {
+        .mapItems((item) => {
           if (item instanceof Tree) {
             return item;
           }
@@ -353,41 +348,41 @@ describe("Tree", () => {
         items: [
           {
             name: "foo",
-            value: 7
+            value: 7,
           },
           {
             name: "bar",
-            value: 13
+            value: 13,
           },
           {
             items: [
               {
                 name: "alpha",
-                value: 5
+                value: 5,
               },
               {
                 name: "beta",
-                value: 3
+                value: 3,
               },
               {
                 items: [
                   {
                     name: "one",
-                    value: 2
+                    value: 2,
                   },
                   {
                     name: "two",
-                    value: 1
-                  }
-                ]
-              }
-            ]
+                    value: 1,
+                  },
+                ],
+              },
+            ],
           },
           {
             name: "qux",
-            value: 11
-          }
-        ]
+            value: 11,
+          },
+        ],
       });
     });
 
@@ -424,7 +419,7 @@ describe("Tree", () => {
         2,
         "one",
         "two",
-        "qux"
+        "qux",
       ]);
     });
   });

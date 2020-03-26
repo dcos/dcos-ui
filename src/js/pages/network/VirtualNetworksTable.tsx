@@ -9,7 +9,7 @@ import { Overlay } from "src/js/structs/Overlay";
 const headerMapping = {
   name: i18nMark("Name"),
   subnet: i18nMark("IP Subnet"),
-  prefix: i18nMark("Agent Prefix Length")
+  prefix: i18nMark("Agent Prefix Length"),
 };
 
 export default class VirtualNetworksTable extends React.Component<{
@@ -19,7 +19,7 @@ export default class VirtualNetworksTable extends React.Component<{
 
   getClassName(prop, sortBy) {
     return classNames({
-      active: prop === sortBy.prop
+      active: prop === sortBy.prop,
     });
   }
 
@@ -30,12 +30,12 @@ export default class VirtualNetworksTable extends React.Component<{
     return [
       {
         className: getClassName,
-        getValue: overlay => overlay.name,
+        getValue: (overlay) => overlay.name,
         headerClassName: getClassName,
         heading,
         prop: "name",
         render: this.renderName,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -55,11 +55,11 @@ export default class VirtualNetworksTable extends React.Component<{
         headerClassName: getClassName,
         heading,
         prop: "subnet",
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
-        getValue: overlay =>
+        getValue: (overlay) =>
           overlay.prefix && overlay.prefix6 ? (
             <span>
               IPv4: {overlay.prefix}
@@ -72,8 +72,8 @@ export default class VirtualNetworksTable extends React.Component<{
         headerClassName: getClassName,
         heading,
         prop: "prefix",
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   }
 

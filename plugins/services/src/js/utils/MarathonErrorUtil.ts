@@ -42,8 +42,8 @@ const MarathonErrorUtil = {
           path: [],
           message: error,
           type: MarathonErrorUtil.getErrorType(error),
-          variables: {}
-        }
+          variables: {},
+        },
       ];
     }
 
@@ -60,8 +60,8 @@ const MarathonErrorUtil = {
             message:
               "An unknown error occurred (Marathon did not provide any description)",
             type: ServiceErrorTypes.GENERIC,
-            variables: {}
-          }
+            variables: {},
+          },
         ];
       }
 
@@ -78,8 +78,8 @@ const MarathonErrorUtil = {
           path: [],
           message: error.message,
           type: MarathonErrorUtil.getErrorType(error.message),
-          variables: {}
-        }
+          variables: {},
+        },
       ];
     }
 
@@ -90,8 +90,8 @@ const MarathonErrorUtil = {
           path: [],
           message: error.details,
           type: MarathonErrorUtil.getErrorType(error.details),
-          variables: {}
-        }
+          variables: {},
+        },
       ];
     }
 
@@ -113,7 +113,7 @@ const MarathonErrorUtil = {
       // Don't create array with empty first item when we have an empty path
       let pathComponents = [];
       if (pathString !== "") {
-        pathComponents = pathString.split("/").map(component => {
+        pathComponents = pathString.split("/").map((component) => {
           if (ValidatorUtil.isNumber(component)) {
             return Number(component);
           }
@@ -132,13 +132,13 @@ const MarathonErrorUtil = {
           path: pathComponents,
           message: errorMessage,
           type: MarathonErrorUtil.getErrorType(errorMessage),
-          variables: {}
+          variables: {},
         });
 
         return memo;
       }, memo);
     }, []);
-  }
+  },
 };
 
 export default MarathonErrorUtil;

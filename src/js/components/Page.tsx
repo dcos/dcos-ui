@@ -19,7 +19,7 @@ const PageHeader = ({
   breadcrumbs,
   supplementalContent,
   tabs,
-  actionsDisabled
+  actionsDisabled,
 }) => (
   <BasePageHeader
     actions={actions}
@@ -34,25 +34,25 @@ const PageHeader = ({
 TemplateUtil.defineChildren(PageHeader, {
   Breadcrumbs: BasePageHeader.Breadcrumbs,
   Actions: BasePageHeader.Actions,
-  Tabs: BasePageHeader.Actions
+  Tabs: BasePageHeader.Actions,
 });
 
 PageHeader.defaultProps = {
   actions: [],
   tabs: [],
-  actionsDisabled: false
+  actionsDisabled: false,
 };
 
 PageHeader.propTypes = {
   actions: PropTypes.array,
   addButton: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
-    PropTypes.object
+    PropTypes.object,
   ]),
   breadcrumbs: PropTypes.node,
   supplementalContent: PropTypes.node,
   tabs: PropTypes.array,
-  actionsDisabled: PropTypes.bool
+  actionsDisabled: PropTypes.bool,
 };
 
 const Page = createReactClass({
@@ -62,7 +62,7 @@ const Page = createReactClass({
 
   getInitialState() {
     return {
-      rendered: false
+      rendered: false,
     };
   },
 
@@ -70,17 +70,17 @@ const Page = createReactClass({
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     dontScroll: PropTypes.bool,
     flushBottom: PropTypes.bool,
     navigation: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
-    title: PropTypes.oneOfType([PropTypes.object, PropTypes.string])
+    title: PropTypes.oneOfType([PropTypes.object, PropTypes.string]),
   },
 
   UNSAFE_componentWillMount() {
     this.store_listeners = [
-      { name: "sidebar", events: ["widthChange"], suppressUpdate: true }
+      { name: "sidebar", events: ["widthChange"], suppressUpdate: true },
     ];
   },
 
@@ -126,7 +126,7 @@ const Page = createReactClass({
       "flex-direction-top-to-bottom flex-item-grow-1",
       {
         "flex-item-shrink-1": dontScroll,
-        "flush-bottom": flushBottom
+        "flush-bottom": flushBottom,
       }
     );
 
@@ -142,7 +142,7 @@ const Page = createReactClass({
         className="page-body flex flex-direction-top-to-bottom
           flex-direction-left-to-right-screen-large flex-item-grow-1
           flex-item-shrink-1 gm-scrollbar-container-flex"
-        ref={ref => (this.geminiRef = ref)}
+        ref={(ref) => (this.geminiRef = ref)}
       >
         {content}
       </FluidGeminiScrollbar>
@@ -155,7 +155,7 @@ const Page = createReactClass({
     const classSet = classNames(
       "page flex flex-direction-top-to-bottom flex-item-grow-1",
       {
-        "flex-item-shrink-1": dontScroll
+        "flex-item-shrink-1": dontScroll,
       },
       className
     );
@@ -167,7 +167,7 @@ const Page = createReactClass({
         {this.getContent()}
       </div>
     );
-  }
+  },
 });
 
 TemplateUtil.defineChildren(Page, { Header: PageHeader });

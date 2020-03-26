@@ -20,7 +20,7 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
       "container.volumes"
     );
 
-    return !volumes.some(v => v.persistent || v.external || v.hostPath);
+    return !volumes.some((v) => v.persistent || v.external || v.hostPath);
   }
 
   /**
@@ -65,9 +65,9 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         {
           key: "container.volumes",
           heading: <Trans render="span">Volumes</Trans>,
-          headingLevel: 1
-        }
-      ]
+          headingLevel: 1,
+        },
+      ],
     };
 
     const volumesConfig = volumes.map((volume, index) => {
@@ -76,21 +76,21 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         return [
           {
             heading: <Trans id={VolumeDefinitions.DSS.name} render="span" />,
-            headingLevel: 2
+            headingLevel: 2,
           },
           {
             key: `container.volumes.${index}.persistent.profileName`,
-            label: <Trans render="span">Profile Name</Trans>
+            label: <Trans render="span">Profile Name</Trans>,
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: <Trans render="span">Container Path</Trans>
+            label: <Trans render="span">Container Path</Trans>,
           },
           {
             key: `container.volumes.${index}.persistent.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: this.getVolumeSizeValue
-          }
+            transformValue: this.getVolumeSizeValue,
+          },
         ];
       }
 
@@ -101,17 +101,17 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
             heading: (
               <Trans id={VolumeDefinitions.PERSISTENT.name} render="span" />
             ),
-            headingLevel: 2
+            headingLevel: 2,
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: <Trans render="span">Container Path</Trans>
+            label: <Trans render="span">Container Path</Trans>,
           },
           {
             key: `container.volumes.${index}.persistent.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: this.getVolumeSizeValue
-          }
+            transformValue: this.getVolumeSizeValue,
+          },
         ];
       }
 
@@ -121,8 +121,9 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
           {
             key: `container.volumes.${index}.external.size`,
             label: <Trans render="span">Size</Trans>,
-            transformValue: value => this.getVolumeSizeValue(value, "EXTERNAL")
-          }
+            transformValue: (value) =>
+              this.getVolumeSizeValue(value, "EXTERNAL"),
+          },
         ];
         const size = volume.external.size == null ? [] : sizeConfig;
 
@@ -131,16 +132,16 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
             heading: (
               <Trans id={VolumeDefinitions.EXTERNAL.name} render="span" />
             ),
-            headingLevel: 2
+            headingLevel: 2,
           },
           {
             key: `container.volumes.${index}.external.name`,
-            label: <Trans render="span">Name</Trans>
+            label: <Trans render="span">Name</Trans>,
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: <Trans render="span">Container Path</Trans>
-          }
+            label: <Trans render="span">Container Path</Trans>,
+          },
         ].concat(size);
       }
 
@@ -149,27 +150,27 @@ class ServiceStorageConfigSection extends ServiceConfigBaseSectionDisplay {
         return [
           {
             heading: <Trans id={VolumeDefinitions.HOST.name} render="span" />,
-            headingLevel: 2
+            headingLevel: 2,
           },
           {
             key: `container.volumes.${index}.hostPath`,
-            label: <Trans render="span">Host Path</Trans>
+            label: <Trans render="span">Host Path</Trans>,
           },
           {
             key: `container.volumes.${index}.containerPath`,
-            label: <Trans render="span">Container Path</Trans>
+            label: <Trans render="span">Container Path</Trans>,
           },
           {
             key: `container.volumes.${index}.mode`,
-            label: <Trans render="span">Mode</Trans>
-          }
+            label: <Trans render="span">Mode</Trans>,
+          },
         ];
       }
 
       return null;
     });
 
-    config.values = config.values.concat(...volumesConfig.filter(v => v));
+    config.values = config.values.concat(...volumesConfig.filter((v) => v));
 
     return config;
   }

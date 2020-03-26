@@ -4,7 +4,7 @@ import { Store } from "PluginSDK";
 import Config from "#SRC/js/config/Config";
 import {
   REQUEST_PERMISSIONS_ERROR,
-  REQUEST_PERMISSIONS_SUCCESS
+  REQUEST_PERMISSIONS_SUCCESS,
 } from "../constants/ActionTypes";
 
 export default {
@@ -15,16 +15,16 @@ export default {
         Store.dispatch({
           type: REQUEST_PERMISSIONS_SUCCESS,
           data: response,
-          userID
+          userID,
         });
       },
       error(xhr) {
         Store.dispatch({
           type: REQUEST_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          userID
+          userID,
         });
-      }
+      },
     });
-  }
+  },
 };

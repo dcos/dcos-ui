@@ -23,7 +23,7 @@ class TaskNameTextFilter extends DSLFilter {
    */
   filterApply(resultSet, filterType, filterArguments) {
     return resultSet.filterItems(
-      task =>
+      (task) =>
         (task.id && task.id.includes(filterArguments.text)) ||
         (task.name && task.name.includes(filterArguments.text))
     );

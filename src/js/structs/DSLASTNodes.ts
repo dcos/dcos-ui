@@ -84,5 +84,5 @@ export class FilterNode extends ASTNode {
  */
 export default {
   CombinerNode,
-  FilterNode
+  FilterNode,
 };

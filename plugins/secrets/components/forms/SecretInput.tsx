@@ -20,7 +20,7 @@ class SecretInput extends React.PureComponent<Props, State> {
   public static propTypes = {
     name: PropTypes.string.isRequired,
     value: PropTypes.string,
-    secrets: PropTypes.arrayOf(PropTypes.string).isRequired
+    secrets: PropTypes.arrayOf(PropTypes.string).isRequired,
   };
 
   private readonly inputRef = React.createRef<HTMLInputElement>();
@@ -32,7 +32,7 @@ class SecretInput extends React.PureComponent<Props, State> {
     this.filterList = this.filterList.bind(this);
 
     this.state = {
-      secretOptions: props.secrets || []
+      secretOptions: props.secrets || [],
     };
   }
 
@@ -71,9 +71,9 @@ class SecretInput extends React.PureComponent<Props, State> {
       this.setState({ secretOptions: secrets });
     } else {
       this.setState({
-        secretOptions: secrets.filter(secret =>
+        secretOptions: secrets.filter((secret) =>
           secret.match(new RegExp(val, "i"))
-        )
+        ),
       });
     }
   }
@@ -89,9 +89,9 @@ class SecretInput extends React.PureComponent<Props, State> {
     }
     return (
       <Typeahead
-        items={this.state.secretOptions.map(secret => ({
+        items={this.state.secretOptions.map((secret) => ({
           label: secret,
-          value: secret
+          value: secret,
         }))}
         textField={
           <FieldInput

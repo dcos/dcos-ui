@@ -8,7 +8,7 @@ export function UnknownVolumesJSONParser(state) {
 
   return state.container.volumes
     .filter(
-      item =>
+      (item) =>
         item.persistent == null &&
         item.external == null &&
         item.hostPath == null &&

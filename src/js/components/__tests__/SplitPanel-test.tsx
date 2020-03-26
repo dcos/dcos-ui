@@ -5,7 +5,7 @@ import SplitPanel, {
   PrimaryPanel,
   SidePanel,
   getSidePanelWidth,
-  getSidePanelProps
+  getSidePanelProps,
 } from "../SplitPanel";
 
 describe("SplitPanel", () => {
@@ -48,7 +48,7 @@ describe("SplitPanel", () => {
         top: 0,
         left: 0,
         bottom: 0,
-        right: 0
+        right: 0,
       }));
     });
     it("calls onResize callback when finished dragging", () => {
@@ -68,7 +68,7 @@ describe("SplitPanel", () => {
         top: 0,
         left: 0,
         bottom: 0,
-        right: 0
+        right: 0,
       }));
 
       separator.simulate("mousedown");

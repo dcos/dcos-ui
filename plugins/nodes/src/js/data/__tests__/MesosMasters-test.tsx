@@ -9,7 +9,7 @@ const leader = {
   version: "2.9.1",
   electedTime: 1532340694.04573,
   startTime: 1232340694.04573,
-  region: "us-east-1"
+  region: "us-east-1",
 };
 
 const nonLeader = [
@@ -22,8 +22,8 @@ const nonLeader = [
       key: "HEALTHY",
       sortingValue: 3,
       title: "Healthy",
-      value: 0
-    }
+      value: 0,
+    },
   },
   {
     host_ip: "192.168.0.2",
@@ -34,8 +34,8 @@ const nonLeader = [
       key: "UNHEALTHY",
       sortingValue: 0,
       title: "Unhealthy",
-      value: 1
-    }
+      value: 1,
+    },
   },
   {
     host_ip: "192.168.0.3",
@@ -46,8 +46,8 @@ const nonLeader = [
       key: "WAR",
       sortingValue: 2,
       title: "Warning",
-      value: 2
-    }
+      value: 2,
+    },
   },
   {
     host_ip: "192.168.0.4",
@@ -58,9 +58,9 @@ const nonLeader = [
       key: "NA",
       sortingValue: 1,
       title: "N/A",
-      value: 3
-    }
-  }
+      value: 3,
+    },
+  },
 ];
 
 function mastersInitialState() {
@@ -71,9 +71,9 @@ function mastersInitialState() {
       version: undefined,
       electedTime: undefined,
       startTime: undefined,
-      region: undefined
+      region: undefined,
     },
-    masters: undefined
+    masters: undefined,
   };
 }
 

@@ -35,7 +35,7 @@ class ParametersSection extends React.Component<
       formData: { dockerParams },
       onRemoveItem,
       errors,
-      showErrors
+      showErrors,
     } = this.props;
 
     return dockerParams.map((parameter: DockerParameter, index: number) => {

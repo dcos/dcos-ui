@@ -13,7 +13,7 @@ describe("DeploymentsModal", () => {
           id: "deployment-id",
           affectedApps: ["app1"],
           affectedServices: [new Application({ name: "app1" })],
-          steps: [{ actions: [{ type: "StartApplication" }] }]
+          steps: [{ actions: [{ type: "StartApplication" }] }],
         })
       ).props.id;
       text = text.replace(/\s{1,}/g, " ");
@@ -26,7 +26,7 @@ describe("DeploymentsModal", () => {
           id: "deployment-id",
           affectedApps: ["app1"],
           affectedServices: [new Application({ name: "app1" })],
-          steps: [{ actions: [{ type: "ScaleApplication" }] }]
+          steps: [{ actions: [{ type: "ScaleApplication" }] }],
         })
       ).props.id;
       expect(text).toContain("revert the affected service");

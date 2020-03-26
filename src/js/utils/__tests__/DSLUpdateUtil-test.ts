@@ -60,7 +60,7 @@ describe("DSLUpdateUtil", () => {
       const node = new DSLExpression(value).ast;
       const replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "bar"
+        text: "bar",
       });
 
       expect(DSLUpdateUtil.updateNodeTextString(value, node, replace)).toEqual(
@@ -74,7 +74,7 @@ describe("DSLUpdateUtil", () => {
       const node = new DSLExpression(value).ast.children[0];
       const replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "bar"
+        text: "bar",
       });
 
       expect(DSLUpdateUtil.updateNodeTextString(value, node, replace)).toEqual(
@@ -87,7 +87,7 @@ describe("DSLUpdateUtil", () => {
 
       const node = new DSLExpression(value).ast;
       const replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(DSLUpdateUtil.updateNodeTextString(value, node, replace)).toEqual(
@@ -100,7 +100,7 @@ describe("DSLUpdateUtil", () => {
 
       const node = new DSLExpression(value).ast;
       const replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(DSLUpdateUtil.updateNodeTextString(value, node, replace)).toEqual(
@@ -115,7 +115,7 @@ describe("DSLUpdateUtil", () => {
       const node = new DSLExpression(parseValue).ast;
       const replace = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "bar"
+        text: "bar",
       });
 
       expect(
@@ -184,7 +184,7 @@ describe("DSLUpdateUtil", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUpdateUtil.applyAdd(expression, [node]).value).toEqual(
@@ -195,7 +195,7 @@ describe("DSLUpdateUtil", () => {
     it("adds fuzzy node to an expression", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUpdateUtil.applyAdd(expression, [node]).value).toEqual(
@@ -206,7 +206,7 @@ describe("DSLUpdateUtil", () => {
     it("adds exact node to an expression", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUpdateUtil.applyAdd(expression, [node]).value).toEqual(
@@ -218,7 +218,7 @@ describe("DSLUpdateUtil", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       expect(DSLUpdateUtil.applyAdd(expression, [node, node]).value).toEqual(
@@ -230,12 +230,12 @@ describe("DSLUpdateUtil", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
-          newCombiner: DSLCombinerTypes.OR
+          newCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("foo bar, label:text");
     });
@@ -243,12 +243,12 @@ describe("DSLUpdateUtil", () => {
     it("adds fuzzy node to an expression with OR", () => {
       const expression = new DSLExpression('"not fuzzy"');
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "text"
+        text: "text",
       });
 
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
-          newCombiner: DSLCombinerTypes.OR
+          newCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual('"not fuzzy", text');
     });
@@ -256,12 +256,12 @@ describe("DSLUpdateUtil", () => {
     it("adds exact node to an expression with OR", () => {
       const expression = new DSLExpression("foo bar");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "text"
+        text: "text",
       });
 
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
-          newCombiner: DSLCombinerTypes.OR
+          newCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual('foo bar, "text"');
     });
@@ -270,12 +270,12 @@ describe("DSLUpdateUtil", () => {
       const expression = new DSLExpression("foo bar label:some");
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
-          itemCombiner: DSLCombinerTypes.OR
+          itemCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("foo bar label:some,text");
     });
@@ -286,14 +286,14 @@ describe("DSLUpdateUtil", () => {
 
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "label",
-        text: "text"
+        text: "text",
       });
 
       let expression = new DSLExpression("label:not_here");
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
           nodeCompareFunction: customComparisionFunction,
-          newCombiner: DSLCombinerTypes.OR
+          newCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("label:not_here, label:text");
 
@@ -301,7 +301,7 @@ describe("DSLUpdateUtil", () => {
       expect(
         DSLUpdateUtil.applyAdd(expression, [node], {
           nodeCompareFunction: customComparisionFunction,
-          itemCombiner: DSLCombinerTypes.OR
+          itemCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("label:here,text");
     });
@@ -317,7 +317,7 @@ describe("DSLUpdateUtil", () => {
 
       const node = new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "is",
-        text: "idle"
+        text: "idle",
       });
 
       expect(
@@ -334,10 +334,10 @@ describe("DSLUpdateUtil", () => {
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-          text: "here"
+          text: "here",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "can" }),
-        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" })
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" }),
       ];
 
       expect(
@@ -354,10 +354,10 @@ describe("DSLUpdateUtil", () => {
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-          text: "here"
+          text: "here",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "can" }),
-        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" })
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" }),
       ];
 
       expect(
@@ -374,10 +374,10 @@ describe("DSLUpdateUtil", () => {
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-          text: "here"
+          text: "here",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "can" }),
-        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" })
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" }),
       ];
 
       expect(
@@ -395,16 +395,16 @@ describe("DSLUpdateUtil", () => {
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "one"
+          text: "one",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "of"
+          text: "of",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "many"
-        })
+          text: "many",
+        }),
       ];
 
       expect(
@@ -421,17 +421,17 @@ describe("DSLUpdateUtil", () => {
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-          text: "here"
+          text: "here",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "can" }),
-        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" })
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" }),
       ];
 
       // NOTE: We already have a fuzzy node, so `newCombiner` should not be
       //       applied to the expression.
       expect(
         DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
-          newCombiner: DSLCombinerTypes.OR
+          newCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("here can be");
     });
@@ -445,15 +445,15 @@ describe("DSLUpdateUtil", () => {
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-          text: "here"
+          text: "here",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "can" }),
-        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" })
+        new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.FUZZY, { text: "be" }),
       ];
 
       expect(
         DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
-          itemCombiner: DSLCombinerTypes.OR
+          itemCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("here, can, be");
     });
@@ -464,25 +464,25 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "label",
-          text: "foo"
+          text: "foo",
         })
       );
 
       const replace = [
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "label",
-          text: "foo"
+          text: "foo",
         }),
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "label",
-          text: "bar"
-        })
+          text: "bar",
+        }),
       ];
 
       expect(
         DSLUpdateUtil.applyReplace(expression, fuzzyNodes, replace, {
           newCombiner: DSLCombinerTypes.OR,
-          itemCombiner: DSLCombinerTypes.OR
+          itemCombiner: DSLCombinerTypes.OR,
         }).value
       ).toEqual("some label:foo,bar");
     });
@@ -504,7 +504,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "a"
+          text: "a",
         })
       );
 
@@ -519,7 +519,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "c"
+          text: "c",
         })
       );
 
@@ -534,7 +534,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "b"
+          text: "b",
         })
       );
 
@@ -549,7 +549,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "a"
+          text: "a",
         })
       );
 
@@ -564,7 +564,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "b"
+          text: "b",
         })
       );
 
@@ -579,7 +579,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "c"
+          text: "c",
         })
       );
 
@@ -594,7 +594,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "b"
+          text: "b",
         })
       );
 
@@ -609,7 +609,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "b"
+          text: "b",
         })
       );
 
@@ -668,7 +668,7 @@ describe("DSLUpdateUtil", () => {
         expression.ast,
         new DSLASTNodes.FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
           label: "is",
-          text: "c"
+          text: "c",
         })
       );
 
@@ -681,10 +681,10 @@ describe("DSLUpdateUtil", () => {
   describe("#defaultNodeCompareFunction", () => {
     it("returns false when comparing nodes of different type", () => {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
-        text: "text"
+        text: "text",
       });
       const nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
-        text: "text"
+        text: "text",
       });
 
       expect(
@@ -694,10 +694,10 @@ describe("DSLUpdateUtil", () => {
 
     it("returns true when both fuzzy regardless of text", () => {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
-        text: "text1"
+        text: "text1",
       });
       const nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.FUZZY, {
-        text: "text2"
+        text: "text2",
       });
 
       expect(
@@ -707,10 +707,10 @@ describe("DSLUpdateUtil", () => {
 
     it("returns true when both exact regardless of text", () => {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
-        text: "text1"
+        text: "text1",
       });
       const nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.EXACT, {
-        text: "text2"
+        text: "text2",
       });
 
       expect(
@@ -721,11 +721,11 @@ describe("DSLUpdateUtil", () => {
     it("returns false when both attrib but different label", () => {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text1",
-        label: "label1"
+        label: "label1",
       });
       const nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text2",
-        label: "label2"
+        label: "label2",
       });
 
       expect(
@@ -736,11 +736,11 @@ describe("DSLUpdateUtil", () => {
     it("returns false when both attrib and same label", () => {
       const nodeA = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text1",
-        label: "label"
+        label: "label",
       });
       const nodeB = new DSLASTNodes.FilterNode(1, 4, DSLFilterTypes.ATTRIB, {
         text: "text2",
-        label: "label"
+        label: "label",
       });
 
       expect(

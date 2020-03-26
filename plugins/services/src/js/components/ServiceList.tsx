@@ -12,16 +12,16 @@ const ServiceList = createReactClass({
   displayName: "ServiceList",
 
   propTypes: {
-    services: PropTypes.array.isRequired
+    services: PropTypes.array.isRequired,
   },
 
   contextTypes: {
-    router: routerShape
+    router: routerShape,
   },
 
   getDefaultProps() {
     return {
-      services: []
+      services: [],
     };
   },
 
@@ -47,7 +47,7 @@ const ServiceList = createReactClass({
   },
 
   getServices(services) {
-    return services.map(service => {
+    return services.map((service) => {
       const instancesCount = service.getInstancesCount();
       const runningInstances = service.getRunningInstancesCount();
 
@@ -74,7 +74,7 @@ const ServiceList = createReactClass({
                 {service.getName()}
               </a>
             ),
-            tag: "span"
+            tag: "span",
           },
           {
             className: "dashboard-health-list-health-label",
@@ -86,9 +86,9 @@ const ServiceList = createReactClass({
                 tooltipContent={tooltipContent}
               />
             ),
-            tag: "div"
-          }
-        ]
+            tag: "div",
+          },
+        ],
       };
     });
   },
@@ -124,7 +124,7 @@ const ServiceList = createReactClass({
     return this.props.services.length === 0
       ? this.getNoServicesMessage()
       : this.getList();
-  }
+  },
 });
 
 export default ServiceList;

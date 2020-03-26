@@ -36,7 +36,7 @@ const ClusterLinkingModal = ({ onClose, open }) => (
 
 ClusterLinkingModal.propTypes = {
   onClose: PropTypes.func.isRequired,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
 };
 
 export default ClusterLinkingModal;

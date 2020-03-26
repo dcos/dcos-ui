@@ -5,7 +5,7 @@ import * as PortMappings from "../PortMappings";
 import { ADD_ITEM } from "#SRC/js/constants/TransactionTypes";
 
 const {
-  type: { DOCKER }
+  type: { DOCKER },
 } = ContainerConstants;
 describe("#JSONParser", () => {
   describe("PortMappings", () => {
@@ -20,10 +20,10 @@ describe("#JSONParser", () => {
                 name: "foo",
                 hostPort: 0,
                 containerPort: 80,
-                protocol: "tcp"
-              }
-            ]
-          }
+                protocol: "tcp",
+              },
+            ],
+          },
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
@@ -32,7 +32,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 0, "portMapping"], true),
         new Transaction(["portDefinitions", 0, "containerPort"], 80),
         new Transaction(["portDefinitions", 0, "protocol", "udp"], false),
-        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
+        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true),
       ]);
     });
 
@@ -47,17 +47,17 @@ describe("#JSONParser", () => {
                 name: "foo",
                 hostPort: 0,
                 containerPort: 80,
-                protocol: "tcp"
-              }
-            ]
+                protocol: "tcp",
+              },
+            ],
           },
           portDefinitions: [
             {
               name: "foo",
               port: 0,
-              protocol: "tcp"
-            }
-          ]
+              protocol: "tcp",
+            },
+          ],
         })
       ).toEqual([
         new Transaction(["portDefinitions", 0, "name"], "foo"),
@@ -65,7 +65,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 0, "portMapping"], true),
         new Transaction(["portDefinitions", 0, "containerPort"], 80),
         new Transaction(["portDefinitions", 0, "protocol", "udp"], false),
-        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
+        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true),
       ]);
     });
 
@@ -77,16 +77,16 @@ describe("#JSONParser", () => {
             docker: {},
             portMappings: [
               {
-                hostPort: 10
-              }
-            ]
-          }
+                hostPort: 10,
+              },
+            ],
+          },
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
         new Transaction(["portDefinitions", 0, "automaticPort"], false),
         new Transaction(["portDefinitions", 0, "portMapping"], true),
-        new Transaction(["portDefinitions", 0, "hostPort"], 10)
+        new Transaction(["portDefinitions", 0, "hostPort"], 10),
       ]);
     });
 
@@ -99,11 +99,11 @@ describe("#JSONParser", () => {
             portMappings: [
               {
                 labels: {
-                  VIP_0: "/:0"
-                }
-              }
-            ]
-          }
+                  VIP_0: "/:0",
+                },
+              },
+            ],
+          },
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
@@ -112,7 +112,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 0, "vipLabel"], "VIP_0"),
         new Transaction(["portDefinitions", 0, "vip"], "/:0"),
         new Transaction(["portDefinitions", 0, "vipPort"], "0"),
-        new Transaction(["portDefinitions", 0, "labels"], { VIP_0: "/:0" })
+        new Transaction(["portDefinitions", 0, "labels"], { VIP_0: "/:0" }),
       ]);
     });
 
@@ -125,11 +125,11 @@ describe("#JSONParser", () => {
             portMappings: [
               {
                 labels: {
-                  vip1: "/:0"
-                }
-              }
-            ]
-          }
+                  vip1: "/:0",
+                },
+              },
+            ],
+          },
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
@@ -138,7 +138,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 0, "vipLabel"], "vip1"),
         new Transaction(["portDefinitions", 0, "vip"], "/:0"),
         new Transaction(["portDefinitions", 0, "vipPort"], "0"),
-        new Transaction(["portDefinitions", 0, "labels"], { vip1: "/:0" })
+        new Transaction(["portDefinitions", 0, "labels"], { vip1: "/:0" }),
       ]);
     });
 
@@ -150,16 +150,16 @@ describe("#JSONParser", () => {
             docker: {},
             portMappings: [
               {
-                protocol: "udp"
-              }
-            ]
-          }
+                protocol: "udp",
+              },
+            ],
+          },
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
         new Transaction(["portDefinitions", 0, "portMapping"], false),
         new Transaction(["portDefinitions", 0, "protocol", "udp"], true),
-        new Transaction(["portDefinitions", 0, "protocol", "tcp"], false)
+        new Transaction(["portDefinitions", 0, "protocol", "tcp"], false),
       ]);
     });
 
@@ -174,7 +174,7 @@ describe("#JSONParser", () => {
                 name: "foo",
                 hostPort: 0,
                 containerPort: 80,
-                protocol: "tcp"
+                protocol: "tcp",
               },
               {
                 name: "bar",
@@ -182,18 +182,18 @@ describe("#JSONParser", () => {
                 containerPort: 81,
                 protocol: "tcp",
                 labels: {
-                  VIP_1: "/:0"
-                }
-              }
-            ]
+                  VIP_1: "/:0",
+                },
+              },
+            ],
           },
           portDefinitions: [
             {
               name: "foo",
               port: 0,
-              protocol: "tcp"
-            }
-          ]
+              protocol: "tcp",
+            },
+          ],
         })
       ).toEqual([
         new Transaction(["portDefinitions"], null, ADD_ITEM),
@@ -214,7 +214,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 1, "vipLabel"], "VIP_1"),
         new Transaction(["portDefinitions", 1, "vip"], "/:0"),
         new Transaction(["portDefinitions", 1, "vipPort"], "0"),
-        new Transaction(["portDefinitions", 1, "labels"], { VIP_1: "/:0" })
+        new Transaction(["portDefinitions", 1, "labels"], { VIP_1: "/:0" }),
       ]);
     });
 
@@ -229,25 +229,25 @@ describe("#JSONParser", () => {
                 name: "foo",
                 hostPort: 0,
                 containerPort: 80,
-                protocol: "tcp"
-              }
-            ]
+                protocol: "tcp",
+              },
+            ],
           },
           portDefinitions: [
             {
               name: "foo",
               port: 0,
-              protocol: "tcp"
+              protocol: "tcp",
             },
             {
               name: "bar",
               port: 10,
               protocol: "tcp",
               labels: {
-                VIP_1: "/:0"
-              }
-            }
-          ]
+                VIP_1: "/:0",
+              },
+            },
+          ],
         })
       ).toEqual([
         new Transaction(["portDefinitions", 0, "name"], "foo"),
@@ -255,7 +255,7 @@ describe("#JSONParser", () => {
         new Transaction(["portDefinitions", 0, "portMapping"], true),
         new Transaction(["portDefinitions", 0, "containerPort"], 80),
         new Transaction(["portDefinitions", 0, "protocol", "udp"], false),
-        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true)
+        new Transaction(["portDefinitions", 0, "protocol", "tcp"], true),
       ]);
     });
   });

@@ -16,10 +16,10 @@ const EXPRESSION_PARTS = {
   is_deploying: DSLExpressionPart.attribute("is", "deploying"),
   is_recovering: DSLExpressionPart.attribute("is", "recovering"),
   is_running: DSLExpressionPart.attribute("is", "running"),
-  is_stopped: DSLExpressionPart.attribute("is", "stopped")
+  is_stopped: DSLExpressionPart.attribute("is", "stopped"),
 };
 
-const ServiceStatusDSLSection = props => {
+const ServiceStatusDSLSection = (props) => {
   const { expression, onChange } = props;
   const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
   const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
@@ -95,7 +95,7 @@ const ServiceStatusDSLSection = props => {
 
 ServiceStatusDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
 };
 
 export default ServiceStatusDSLSection;

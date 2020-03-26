@@ -7,31 +7,31 @@ const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 
 const maybeProfile = process.env.PROFILE_WEBPACK
   ? new SpeedMeasurePlugin().wrap
-  : noop => noop;
+  : (noop) => noop;
 
 module.exports = maybeProfile(
   merge(common, {
     mode: "development",
     entry: {
-      index: "./src/js/index.tsx"
+      index: "./src/js/index.tsx",
     },
     output: {
-      path: path.resolve(__dirname, "../dist/assets")
+      path: path.resolve(__dirname, "../dist/assets"),
     },
     devtool: "cheap-module-eval-source-map",
     plugins: [
       new HtmlWebpackPlugin({
-        template: "./src/index.html"
+        template: "./src/index.html",
       }),
       // Chunks with 'chart' in the name are prefetched in anticipation of being loaded on the dashboard after login.
       // All other chunks that are not dynamically fetched are synchronous
       new ScriptExtHtmlWebpackPlugin({
         prefetch: {
           test: /chart/,
-          chunks: "all"
+          chunks: "all",
         },
-        defaultAttribute: "sync"
-      })
-    ]
+        defaultAttribute: "sync",
+      }),
+    ],
   })
 );

@@ -18,7 +18,7 @@ describe("Backend", () => {
       task_id: "b4b9b02e6f09a9bd760f388b67351e2b",
       p99_latency_ms: 30,
       success_last_minute: 481,
-      fail_last_minute: 3
+      fail_last_minute: 3,
     };
 
     thisBackend = new Backend(thisBackendFixture);
@@ -69,7 +69,7 @@ describe("Backend", () => {
       const backendWithNoCalls = new Backend({
         ...thisBackendFixture,
         success_last_minute: 0,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(backendWithNoCalls.getFailPercent()).toEqual(0);
@@ -79,7 +79,7 @@ describe("Backend", () => {
       const backendWithNoFails = new Backend({
         ...thisBackendFixture,
         success_last_minute: 10,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(backendWithNoFails.getFailPercent()).toEqual(0);
@@ -89,7 +89,7 @@ describe("Backend", () => {
       const backendWithNoSuccesses = new Backend({
         ...thisBackendFixture,
         success_last_minute: 0,
-        fail_last_minute: 10
+        fail_last_minute: 10,
       });
 
       expect(backendWithNoSuccesses.getFailPercent()).toEqual(100);

@@ -30,7 +30,7 @@ function parseApp(app) {
         mode,
         status: VolumeStatus.UNAVAILABLE,
         type: VolumeDefinitions.EXTERNAL.type,
-        ...external
+        ...external,
       });
     }
 
@@ -40,7 +40,7 @@ function parseApp(app) {
       volumeDefinitionMap.set(containerPath, {
         type: VolumeDefinitions.PERSISTENT.type,
         mode,
-        size
+        size,
       });
     }
   });
@@ -48,7 +48,7 @@ function parseApp(app) {
   if (tasks == null || !Array.isArray(tasks)) {
     return {
       volumes,
-      ...app
+      ...app,
     };
   }
 
@@ -70,7 +70,7 @@ function parseApp(app) {
         host,
         containerPath,
         id,
-        taskID
+        taskID,
       };
 
       volumes.push(volume);
@@ -79,7 +79,7 @@ function parseApp(app) {
 
   return {
     volumes,
-    ...app
+    ...app,
   };
 }
 
@@ -111,14 +111,14 @@ function parsePod(pod) {
       volumeDefinitionMap.set(name, {
         type: VolumeDefinitions.PERSISTENT.type,
         mode,
-        size
+        size,
       });
     });
 
   if (instances == null || !Array.isArray(instances)) {
     return {
       volumeData,
-      ...pod
+      ...pod,
     };
   }
 
@@ -147,8 +147,8 @@ function parsePod(pod) {
               ...memo[name],
               {
                 containerName,
-                mountPath
-              }
+                mountPath,
+              },
             ];
           });
 
@@ -166,7 +166,7 @@ function parsePod(pod) {
             containerPath,
             id,
             mounts: mounts[containerPath],
-            taskID
+            taskID,
           };
         })
       );
@@ -175,7 +175,7 @@ function parsePod(pod) {
 
   return {
     volumeData,
-    ...pod
+    ...pod,
   };
 }
 
@@ -201,7 +201,7 @@ const MarathonUtil = {
       result.enforceRole = enforceRole;
     }
     return result;
-  }
+  },
 };
 
 export default MarathonUtil;

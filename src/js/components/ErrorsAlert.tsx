@@ -8,22 +8,22 @@ import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/de
 
 import ErrorMessageUtil from "../utils/ErrorMessageUtil";
 
-const ErrorsAlert = props => {
+const ErrorsAlert = (props) => {
   const {
     errors,
     hideTopLevelErrors,
     hidePermissiveErrors,
     pathMapping,
-    i18n
+    i18n,
   } = props;
   let showErrors = [].concat(...errors);
 
   if (hidePermissiveErrors) {
-    showErrors = showErrors.filter(error => !error.isPermissive);
+    showErrors = showErrors.filter((error) => !error.isPermissive);
   }
 
   if (hideTopLevelErrors) {
-    showErrors = showErrors.filter(error => error.path.length === 0);
+    showErrors = showErrors.filter((error) => error.path.length === 0);
   }
 
   if (showErrors.length === 0) {
@@ -82,14 +82,14 @@ ErrorsAlert.defaultProps = {
   errors: [],
   hideTopLevelErrors: false,
   hidePermissiveErrors: true,
-  pathMapping: []
+  pathMapping: [],
 };
 
 ErrorsAlert.propTypes = {
   errors: PropTypes.array,
   hideTopLevelErrors: PropTypes.bool,
   hidePermissiveErrors: PropTypes.bool,
-  pathMapping: PropTypes.array
+  pathMapping: PropTypes.array,
 };
 
 export default withI18n()(ErrorsAlert);

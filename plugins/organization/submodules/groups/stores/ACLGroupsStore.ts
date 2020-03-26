@@ -1,12 +1,12 @@
 import BaseStore from "#SRC/js/stores/BaseStore";
 import {
   REQUEST_ACL_GROUPS_SUCCESS,
-  REQUEST_ACL_GROUPS_ERROR
+  REQUEST_ACL_GROUPS_ERROR,
 } from "../constants/ActionTypes";
 
 import {
   ACL_GROUPS_CHANGE,
-  ACL_GROUPS_REQUEST_ERROR
+  ACL_GROUPS_REQUEST_ERROR,
 } from "../constants/EventTypes";
 
 import ACLGroupsActions from "../actions/ACLGroupsActions";
@@ -24,12 +24,12 @@ class ACLGroupsStore extends BaseStore {
       storeID: "aclGroups",
       events: {
         success: ACL_GROUPS_CHANGE,
-        error: ACL_GROUPS_REQUEST_ERROR
+        error: ACL_GROUPS_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_ACL_GROUPS_SUCCESS:
           this.processGroups(action.data);
@@ -49,14 +49,14 @@ class ACLGroupsStore extends BaseStore {
 
   getGroups() {
     return new GroupsList({
-      items: SDK.getSDK().Store.getOwnState().groups.groups
+      items: SDK.getSDK().Store.getOwnState().groups.groups,
     });
   }
 
   processGroups(groups) {
     SDK.getSDK().dispatch({
       type: ACL_GROUPS_CHANGE,
-      groups
+      groups,
     });
     this.emit(ACL_GROUPS_CHANGE);
   }

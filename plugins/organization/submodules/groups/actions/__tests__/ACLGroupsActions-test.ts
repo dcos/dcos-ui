@@ -5,7 +5,7 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 const mockRequest = jest.fn();
 
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 const SDK = PluginSDK.__getSDK("organization", { enabled: true });
@@ -28,7 +28,7 @@ describe("ACLGroupsActions", () => {
 
     it("dispatches the correct action when successful", () => {
       ACLGroupsActions.fetch();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUPS_SUCCESS);
       });
@@ -38,7 +38,7 @@ describe("ACLGroupsActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       ACLGroupsActions.fetch();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUPS_ERROR);
       });
@@ -65,7 +65,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_SUCCESS);
       });
@@ -74,7 +74,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ array: { bar: "baz" } });
       });
@@ -83,7 +83,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_ERROR);
       });
@@ -92,7 +92,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -101,7 +101,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -118,7 +118,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_SUCCESS
@@ -129,7 +129,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -138,7 +138,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -147,7 +147,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_ERROR
@@ -158,7 +158,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -167,7 +167,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -184,7 +184,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_USERS_SUCCESS
@@ -195,7 +195,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -204,7 +204,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -213,7 +213,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_USERS_ERROR);
       });
@@ -222,7 +222,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -231,7 +231,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -248,7 +248,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_SUCCESS
@@ -259,7 +259,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -268,7 +268,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -277,7 +277,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_ERROR
@@ -288,7 +288,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -297,7 +297,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches with the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -328,7 +328,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS
@@ -339,7 +339,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct groupID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -348,7 +348,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR);
       });
@@ -357,7 +357,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -366,7 +366,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -380,7 +380,7 @@ describe("ACLGroupsActions", () => {
     beforeEach(() => {
       mockRequest.mockReset();
       mockObservable = {
-        subscribe: jest.fn()
+        subscribe: jest.fn(),
       };
       mockRequest.mockReturnValue(mockObservable);
       ACLGroupsActions.addLDAPGroup({ groupname: "foo" });
@@ -410,7 +410,7 @@ describe("ACLGroupsActions", () => {
 
     it("dispatches the correct action when successful", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_SUCCESS
@@ -419,13 +419,13 @@ describe("ACLGroupsActions", () => {
 
       mockObservable.subscribe.mock.calls[0][0].next({
         code: 200,
-        response: { groupname: "foo" }
+        response: { groupname: "foo" },
       });
     });
 
     it("dispatches the correct action when partially successful", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_PARTIAL_SUCCESS
@@ -436,14 +436,14 @@ describe("ACLGroupsActions", () => {
         code: 202,
         response: {
           groupname: "foo",
-          imported_user_count: 300
-        }
+          imported_user_count: 300,
+        },
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_ERROR
@@ -453,14 +453,14 @@ describe("ACLGroupsActions", () => {
       mockObservable.subscribe.mock.calls[0][0].error({
         code: 400,
         response: {
-          message: "bar"
-        }
+          message: "bar",
+        },
       });
     });
 
     it("dispatches the correct message when unsuccessful", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -468,14 +468,14 @@ describe("ACLGroupsActions", () => {
       mockObservable.subscribe.mock.calls[0][0].error({
         code: 400,
         response: {
-          description: "bar"
-        }
+          description: "bar",
+        },
       });
     });
 
     it("dispatches the groupID when unsuccessful", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -483,17 +483,17 @@ describe("ACLGroupsActions", () => {
       mockObservable.subscribe.mock.calls[0][0].error({
         code: 400,
         response: {
-          message: "bar"
-        }
+          message: "bar",
+        },
       });
     });
 
     it("doesn't fail when no error data", () => {
       expect.assertions(1);
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data.split("?", 1)).toEqual([
-          "Could not import group. Are you sure this group exists"
+          "Could not import group. Are you sure this group exists",
         ]);
       });
 
@@ -523,7 +523,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS
@@ -534,7 +534,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the groupID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -543,7 +543,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR);
       });
@@ -552,7 +552,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -561,7 +561,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -592,7 +592,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS
@@ -603,7 +603,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the groupID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -612,7 +612,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR);
       });
@@ -621,7 +621,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -630,7 +630,7 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the groupID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.groupID).toEqual("foo");
       });
@@ -647,12 +647,12 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
           userID: "bar",
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -660,13 +660,13 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_ERROR,
           data: "bar",
           userID: "bar",
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -682,12 +682,12 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           userID: "bar",
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -695,13 +695,13 @@ describe("ACLGroupsActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: "bar",
           userID: "bar",
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 

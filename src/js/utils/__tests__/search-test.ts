@@ -2,7 +2,7 @@ import search, { tokenize } from "../search";
 
 describe("search util", () => {
   describe("search", () => {
-    const fooExtractor = thing => thing.foo;
+    const fooExtractor = (thing) => thing.foo;
 
     it("sorts by relevance, word distance from beginning of string", () => {
       const _return = search(
@@ -10,7 +10,7 @@ describe("search util", () => {
         [
           { id: 0, foo: "beta-baz" },
           { id: 1, foo: "community-baz" },
-          { id: 2, foo: "baz" }
+          { id: 2, foo: "baz" },
         ],
         fooExtractor
       );
@@ -28,7 +28,7 @@ describe("search util", () => {
           { id: 0, foo: "footballs" },
           { id: 1, foo: "strange bazookas" },
           { id: 2, foo: "bar" },
-          { id: 3, foo: "foo bar baz" }
+          { id: 3, foo: "foo bar baz" },
         ],
         fooExtractor
       );
@@ -75,7 +75,7 @@ describe("search util", () => {
         "grault",
         "garply",
         "waldo",
-        "fred"
+        "fred",
       ]);
     });
 

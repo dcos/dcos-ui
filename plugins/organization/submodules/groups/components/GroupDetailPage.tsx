@@ -32,7 +32,7 @@ const GroupDetailBreadcrumbs = ({ groupID }) => {
       <BreadcrumbTextContent>
         <Link to={`/organization/groups/${groupID}`}>{groupID}</Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -49,7 +49,7 @@ class GroupDetailPage extends mixin(StoreMixin) {
       deleteUpdateError: null,
       fetchedDetailsError: false,
       openDeleteConfirmation: false,
-      pendingRequest: false
+      pendingRequest: false,
     };
 
     // prettier-ignore
@@ -73,18 +73,18 @@ class GroupDetailPage extends mixin(StoreMixin) {
   }
   handleDeleteCancel = () => {
     this.setState({
-      openDeleteConfirmation: false
+      openDeleteConfirmation: false,
     });
   };
   handleDeleteModalOpen = () => {
     this.setState({
       deleteUpdateError: null,
-      openDeleteConfirmation: true
+      openDeleteConfirmation: true,
     });
   };
   handleDeleteGroup = () => {
     this.setState({
-      pendingRequest: true
+      pendingRequest: true,
     });
     ACLGroupStore.deleteGroup(this.props.params.groupID);
   };
@@ -108,14 +108,14 @@ class GroupDetailPage extends mixin(StoreMixin) {
   onAclGroupStoreDeleteError(error) {
     this.setState({
       deleteUpdateError: error,
-      pendingRequest: false
+      pendingRequest: false,
     });
   }
 
   onAclGroupStoreDeleteSuccess() {
     this.setState({
       openDeleteConfirmation: false,
-      pendingRequest: false
+      pendingRequest: false,
     });
 
     this.context.router.push("/organization/groups");
@@ -205,22 +205,22 @@ class GroupDetailPage extends mixin(StoreMixin) {
         callback: () => {
           this.setState({ currentTab: "advancedACLs" });
         },
-        isActive: currentTab === "advancedACLs"
+        isActive: currentTab === "advancedACLs",
       },
       {
         label: i18nMark("Users"),
         callback: () => {
           this.setState({ currentTab: "users" });
         },
-        isActive: currentTab === "users"
+        isActive: currentTab === "users",
       },
       {
         label: i18nMark("Service Accounts"),
         callback: () => {
           this.setState({ currentTab: "serviceAccounts" });
         },
-        isActive: currentTab === "serviceAccounts"
-      }
+        isActive: currentTab === "serviceAccounts",
+      },
     ];
     const deleteActionText = this.state.pendingRequest
       ? i18n._(t`Deleting...`)
@@ -233,8 +233,8 @@ class GroupDetailPage extends mixin(StoreMixin) {
             {
               className: "text-danger",
               label: i18nMark("Delete"),
-              onItemSelect: this.handleDeleteModalOpen
-            }
+              onItemSelect: this.handleDeleteModalOpen,
+            },
           ]}
           breadcrumbs={<GroupDetailBreadcrumbs groupID={group.get("gid")} />}
           tabs={tabs}
@@ -274,7 +274,7 @@ class GroupDetailPage extends mixin(StoreMixin) {
 
 GroupDetailPage.contextTypes = {
   router: routerShape,
-  groupID: PropTypes.string
+  groupID: PropTypes.string,
 };
 
 export default withI18n()(GroupDetailPage);

@@ -22,7 +22,7 @@ const BREADCRUMB_CONTENT_MARGIN = 7;
 
 class ServiceBreadcrumbs extends React.Component {
   static defaultProps = {
-    serviceID: ""
+    serviceID: "",
   };
   static propTypes = {
     extra: PropTypes.arrayOf(PropTypes.node),
@@ -31,7 +31,7 @@ class ServiceBreadcrumbs extends React.Component {
     taskName: PropTypes.string,
     instancesCount: PropTypes.number,
     runningInstancesCount: PropTypes.number,
-    serviceStatus: PropTypes.object
+    serviceStatus: PropTypes.object,
   };
   constructor() {
     super();
@@ -41,7 +41,7 @@ class ServiceBreadcrumbs extends React.Component {
     this.lastStatusWidth = 0;
 
     this.state = {
-      shouldRenderServiceStatus: true
+      shouldRenderServiceStatus: true,
     };
 
     this.handleViewportResize = Util.debounce(this.handleViewportResize, 100);
@@ -191,7 +191,7 @@ class ServiceBreadcrumbs extends React.Component {
 
     return (
       <BreadcrumbSupplementalContent
-        ref={ref => (this.breadcrumbStatusRef = ref)}
+        ref={(ref) => (this.breadcrumbStatusRef = ref)}
       >
         {iconDisplay}
         {progressBar}
@@ -223,7 +223,7 @@ class ServiceBreadcrumbs extends React.Component {
         <BreadcrumbTextContent>
           <Trans render={<Link to="/services" />}>Services</Trans>
         </BreadcrumbTextContent>
-      </Breadcrumb>
+      </Breadcrumb>,
     ];
 
     let aggregateIDs = "";
@@ -251,7 +251,7 @@ class ServiceBreadcrumbs extends React.Component {
           <Breadcrumb key={index} title={ids.slice(0, index + 1).join("/")}>
             {serviceImage}
             <BreadcrumbTextContent
-              ref={ref => (this.primaryBreadcrumbTextRef = ref)}
+              ref={(ref) => (this.primaryBreadcrumbTextRef = ref)}
             >
               <Link to={routePath}>
                 <Tooltip

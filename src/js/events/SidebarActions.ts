@@ -4,12 +4,12 @@ import {
   REQUEST_SIDEBAR_WIDTH_CHANGE,
   REQUEST_SIDEBAR_TOGGLE,
   REQUEST_SIDEBAR_CLOSE,
-  REQUEST_SIDEBAR_OPEN
+  REQUEST_SIDEBAR_OPEN,
 } from "../constants/ActionTypes";
 
 import AppDispatcher from "./AppDispatcher";
 
-const dispatch = action => AppDispatcher.dispatch({ action });
+const dispatch = (action) => AppDispatcher.dispatch({ action });
 export default {
   open() {
     dispatch({ type: REQUEST_SIDEBAR_OPEN, isVisible: true });
@@ -28,5 +28,5 @@ export default {
   },
   sidebarWidthChange() {
     dispatch({ type: REQUEST_SIDEBAR_WIDTH_CHANGE });
-  }
+  },
 };

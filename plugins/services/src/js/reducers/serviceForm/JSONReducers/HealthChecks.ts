@@ -5,7 +5,7 @@ import Transaction from "#SRC/js/structs/Transaction";
 import {
   COMMAND,
   MESOS_HTTP,
-  MESOS_HTTPS
+  MESOS_HTTPS,
 } from "../../../constants/HealthCheckProtocols";
 
 function getMapHealthChecks(runtime) {
@@ -15,14 +15,14 @@ function getMapHealthChecks(runtime) {
       "command",
       "protocol",
       "https",
-      "ipProtocol"
+      "ipProtocol",
     ]);
 
     if (item.protocol != null) {
       newItem.protocol = item.protocol;
       if (item.protocol.toUpperCase() === COMMAND && item.command != null) {
         newItem.command = {
-          value: item.command
+          value: item.command,
         };
       }
 
@@ -66,7 +66,7 @@ export function JSONReducer(state, { type, path, value }) {
   }
   if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
     this.healthChecks = this.healthChecks
-      .map(item => {
+      .map((item) => {
         if (item.portIndex === value) {
           return null;
         }
@@ -77,7 +77,7 @@ export function JSONReducer(state, { type, path, value }) {
 
         return item;
       })
-      .filter(item => item != null);
+      .filter((item) => item != null);
   }
 
   if (joinedPath.search("healthChecks") !== -1) {
@@ -193,8 +193,8 @@ export function JSONParser(state) {
       "gracePeriodSeconds",
       "intervalSeconds",
       "timeoutSeconds",
-      "maxConsecutiveFailures"
-    ].forEach(key => {
+      "maxConsecutiveFailures",
+    ].forEach((key) => {
       if (item[key] != null) {
         memo.push(
           new Transaction(["healthChecks", index, key], item[key], SET)

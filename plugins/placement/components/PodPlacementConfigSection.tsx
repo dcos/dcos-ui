@@ -15,11 +15,11 @@ import ZoneConstraintsSection from "./ZoneConstraintsSection";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getConstraints() {
     return (

@@ -49,7 +49,7 @@ const FrameworkUtil = {
    */
   getServiceImages(images) {
     return ["small", "medium", "large"].every(
-      size => this.getImageSizeFromImagesObject(images, size) != null
+      (size) => this.getImageSizeFromImagesObject(images, size) != null
     )
       ? images
       : ServiceImages.NA_IMAGES;
@@ -66,7 +66,7 @@ const FrameworkUtil = {
     return cosmosPackage?.lastUpdated
       ? DateUtil.msToUTCDay(new Date(cosmosPackage.lastUpdated * 1000))
       : null;
-  }
+  },
 };
 
 export default FrameworkUtil;

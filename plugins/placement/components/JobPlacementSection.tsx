@@ -9,7 +9,7 @@ import PlacementPartial from "#PLUGINS/jobs/src/js/components/form/PlacementPart
 import {
   PlacementConstraint,
   FormError,
-  FormOutput
+  FormOutput,
 } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 
 import RegionSelection from "./RegionSelection";
@@ -59,7 +59,7 @@ class JobPlacementSection extends React.Component<
     const selectProps = {
       name: `${regionIndex}.regionConstraint`,
       type: "text",
-      value: placementConstraints[regionIndex]?.value || ""
+      value: placementConstraints[regionIndex]?.value || "",
     };
 
     return <RegionSelection selectProps={selectProps} />;
@@ -67,7 +67,7 @@ class JobPlacementSection extends React.Component<
 
   public getRegionIndex(): number {
     const { placementConstraints = [] } = this.props.formData;
-    const index = placementConstraints.findIndex(c => c.type === "region");
+    const index = placementConstraints.findIndex((c) => c.type === "region");
     return index !== -1 ? index : placementConstraints.length;
   }
 

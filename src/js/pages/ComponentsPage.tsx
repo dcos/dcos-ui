@@ -11,7 +11,7 @@ const ComponentsPage = ({ children }) => {
 ComponentsPage.routeConfig = {
   label: i18nMark("Components"),
   icon: <Icon shape={ProductIcons.ComponentsInverse} size={iconSizeS} />,
-  matches: /^\/components/
+  matches: /^\/components/,
 };
 
 export default ComponentsPage;

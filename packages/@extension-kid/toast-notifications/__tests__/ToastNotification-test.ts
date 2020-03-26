@@ -1,7 +1,7 @@
 import {
   ToastAppearance,
   ToastNotification,
-  ToastNotificationOptions
+  ToastNotificationOptions,
 } from "../ToastNotification";
 
 describe("ToastNotification", () => {
@@ -18,7 +18,7 @@ describe("ToastNotification", () => {
         callback,
         description: "A description",
         primaryActionText: "My action",
-        secondaryActionText: "other action"
+        secondaryActionText: "other action",
       };
       title = "my test";
     });

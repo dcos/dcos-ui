@@ -12,7 +12,7 @@ import DSLFilterTypes from "../constants/DSLFilterTypes";
  * @returns {function} Returns a compatible function for use by applyadd
  */
 export function createNodeComparisionFunction(parts) {
-  const referenceNodes = Object.keys(parts).map(key => parts[key]);
+  const referenceNodes = Object.keys(parts).map((key) => parts[key]);
 
   /**
    * The returned function is called when the node `nodeAdded` is about to
@@ -36,7 +36,7 @@ export function createNodeComparisionFunction(parts) {
    * @returns {Boolean} Return true if the two nodes are compatible
    */
   return (nodeAdded, astNode) =>
-    referenceNodes.some(referenceNode => {
+    referenceNodes.some((referenceNode) => {
       if (referenceNode.filterType !== astNode.filterType) {
         return false;
       }

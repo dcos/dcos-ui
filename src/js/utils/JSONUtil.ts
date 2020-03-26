@@ -12,7 +12,7 @@ const TOKENIZER_TOKENS = {
   null: /null/g,
   boolean: /(true|false)/g,
   number: /-?\d+(\.\d+)?([eE]-?\d+)?/g,
-  symbol: /\w+/g
+  symbol: /\w+/g,
 };
 
 // Extract only keys
@@ -145,7 +145,7 @@ export default {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: "object",
-              position: [offset, i]
+              position: [offset, i],
             };
 
             keyLines.push(blockToken);
@@ -161,7 +161,7 @@ export default {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: "object",
-              position: [offset, i]
+              position: [offset, i],
             };
 
             keyLines.push(blockToken);
@@ -183,7 +183,7 @@ export default {
               path: [].concat(path, objectKey),
               line: lineNo,
               type: "array",
-              position: [offset, i]
+              position: [offset, i],
             };
 
             keyLines.push(blockToken);
@@ -199,7 +199,7 @@ export default {
               path: [].concat(path, arrayIndex),
               line: lineNo,
               type: "array",
-              position: [offset, i]
+              position: [offset, i],
             };
 
             keyLines.push(blockToken);
@@ -282,7 +282,7 @@ export default {
               line: lineNo,
               value: match,
               type: "literal",
-              position: [offset, i]
+              position: [offset, i],
             });
             objectKey = null;
           }
@@ -294,7 +294,7 @@ export default {
               line: lineNo,
               value: match,
               type: "literal",
-              position: [offset, i]
+              position: [offset, i],
             });
           }
           break;
@@ -303,5 +303,5 @@ export default {
 
     // Return the key line numbers
     return keyLines;
-  }
+  },
 };

@@ -4,12 +4,12 @@ import Util from "../utils/Util";
 import ServicesList from "../../../plugins/services/src/js/structs/ServicesList";
 
 const MISSING_HEALTH_NODE = {
-  health: 3
+  health: 3,
 };
 
 // Mutates node data with node health data. This is much faster than mapping and creating new node objects
 const enrichNodeDataWithHealthData = (nodes, healthData) => {
-  nodes.forEach(node => {
+  nodes.forEach((node) => {
     const matchedHealthNode = healthData[node.hostname] || MISSING_HEALTH_NODE;
 
     node.health = matchedHealthNode.health;
@@ -100,7 +100,7 @@ class CompositeState {
 
   getServiceList() {
     return new ServicesList({
-      items: this.data.frameworks
+      items: this.data.frameworks,
     });
   }
 

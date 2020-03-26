@@ -8,7 +8,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  greyDark
+  greyDark,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
@@ -23,7 +23,7 @@ export default class DeploymentStatusIndicator extends mixin(StoreMixin) {
     this.store_listeners = [{ name: "dcos", events: ["change"] }];
 
     this.state = {
-      isOpen: false
+      isOpen: false,
     };
   }
 

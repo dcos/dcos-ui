@@ -14,14 +14,14 @@ describe("Mesos State Actions", () => {
   describe("#fetchSummary", () => {
     beforeEach(() => {
       spyOn(AppDispatcher, "handleServerAction");
-      RequestUtil.json.and.callFake(req => {
+      RequestUtil.json.and.callFake((req) => {
         req.error({ message: "Guru Meditation" });
       });
     });
 
     afterEach(() => {
       // Clean up debouncing
-      RequestUtil.json.and.callFake(req => {
+      RequestUtil.json.and.callFake((req) => {
         req.success();
       });
       MesosSummaryActions.fetchSummary();

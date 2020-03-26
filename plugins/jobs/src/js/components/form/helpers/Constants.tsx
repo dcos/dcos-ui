@@ -20,7 +20,7 @@ export const OperatorTypes: { [key in ConstraintOperator]: OperatorData } = {
     name: i18nMark("Is"),
     description: i18nMark(
       "Run job on nodes having attribute ID with a specific value"
-    )
+    ),
   },
   [ConstraintOperator.Like]: {
     requiresValue: true,
@@ -28,7 +28,7 @@ export const OperatorTypes: { [key in ConstraintOperator]: OperatorData } = {
     stringNumberValue: false,
     tooltipContent: null,
     name: i18nMark("Like"),
-    description: i18nMark("Run job on a particular set of attribute IDs")
+    description: i18nMark("Run job on a particular set of attribute IDs"),
   },
   [ConstraintOperator.Unlike]: {
     requiresValue: true,
@@ -36,6 +36,6 @@ export const OperatorTypes: { [key in ConstraintOperator]: OperatorData } = {
     stringNumberValue: false,
     tooltipContent: null,
     name: i18nMark("Unlike"),
-    description: i18nMark("Don't run job on a particular set of attribute IDs")
-  }
+    description: i18nMark("Don't run job on a particular set of attribute IDs"),
+  },
 };

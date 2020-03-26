@@ -17,46 +17,46 @@ const COMMON_COLUMNS = [
     prop: "gracePeriod",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
-    }
+    },
   },
   {
     heading: <Trans render="span">Interval</Trans>,
     prop: "interval",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
-    }
+    },
   },
   {
     heading: <Trans render="span">Timeout</Trans>,
     prop: "timeout",
     render(prop, row) {
       return <ConfigurationMapDurationValue units="sec" value={row[prop]} />;
-    }
+    },
   },
   {
     heading: <Trans render="span">Max Failures</Trans>,
-    prop: "maxFailures"
+    prop: "maxFailures",
   },
   {
     heading: <Trans render="span">Container</Trans>,
-    prop: "container"
-  }
+    prop: "container",
+  },
 ];
 
 class PodHealthChecksConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getCommandColumns() {
     return [
       {
         heading: <Trans render="span">Command</Trans>,
-        prop: "command"
-      }
+        prop: "command",
+      },
     ].concat(COMMON_COLUMNS);
   }
 
@@ -68,7 +68,7 @@ class PodHealthChecksConfigSection extends React.Component {
         // all elements as <Div/>s. Otherwise the boolean's look
         // funny.
         return <ConfigurationMapValueWithDefault value={row[prop]} />;
-      }
+      },
     };
   }
 
@@ -78,20 +78,20 @@ class PodHealthChecksConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Service Endpoint</Trans>;
         },
-        prop: "endpoint"
+        prop: "endpoint",
       },
       {
         heading() {
           return <Trans render="span">Proto</Trans>;
         },
-        prop: "protocol"
+        prop: "protocol",
       },
       {
         heading() {
           return <Trans render="span">Path</Trans>;
         },
-        prop: "path"
-      }
+        prop: "path",
+      },
     ].concat(COMMON_COLUMNS);
   }
 
@@ -111,7 +111,7 @@ class PodHealthChecksConfigSection extends React.Component {
           gracePeriod: healthCheck.gracePeriodSeconds,
           maxFailures: healthCheck.maxConsecutiveFailures,
           timeout: healthCheck.timeoutSeconds,
-          container: getContainerNameWithIcon(container)
+          container: getContainerNameWithIcon(container),
         };
 
         if (healthCheck.exec != null) {

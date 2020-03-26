@@ -9,22 +9,22 @@ const conditions = {
     lastUpdated: "2019-01-01T12:00:00.000Z",
     name: "healthy",
     reason: "health-reported-by-mesos",
-    value: "false"
+    value: "false",
   },
   healthyConditions: {
     lastChanged: "2019-01-01T12:00:00.000Z",
     lastUpdated: "2019-01-01T12:00:00.000Z",
     name: "healthy",
     reason: "health-reported-by-mesos",
-    value: "true"
+    value: "true",
   },
   somethingelseConditions: {
     lastChanged: "2019-01-01T12:00:00.000Z",
     lastUpdated: "2019-01-01T12:00:00.000Z",
     name: "something-else",
     reason: "health-reported-by-mesos",
-    value: "true"
-  }
+    value: "true",
+  },
 };
 
 describe("PodInstance", () => {
@@ -32,7 +32,7 @@ describe("PodInstance", () => {
     it("creates instances", () => {
       const instanceSpec = PodFixture.instances[0];
       const instance = new PodInstance({
-        ...instanceSpec
+        ...instanceSpec,
       });
 
       expect(instance.get()).toEqual(instanceSpec);
@@ -110,9 +110,9 @@ describe("PodInstance", () => {
         status: "terminal",
         containers: [
           {
-            status: "TASK_FINISHED"
-          }
-        ]
+            status: "TASK_FINISHED",
+          },
+        ],
       });
 
       // when we are in TERMINAL state, but all containers are FINISHED, then
@@ -126,7 +126,7 @@ describe("PodInstance", () => {
   describe("#getInstanceStatus", () => {
     it("detects container in PENDING state", () => {
       const podInstance = new PodInstance({
-        status: "pending"
+        status: "pending",
       });
 
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.STAGED);
@@ -134,7 +134,7 @@ describe("PodInstance", () => {
 
     it("detects container in STAGING state", () => {
       const podInstance = new PodInstance({
-        status: "staging"
+        status: "staging",
       });
 
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.STAGED);
@@ -142,7 +142,7 @@ describe("PodInstance", () => {
 
     it("detects container in DEGRADED state", () => {
       const podInstance = new PodInstance({
-        status: "degraded"
+        status: "degraded",
       });
 
       expect(podInstance.getInstanceStatus()).toEqual(
@@ -152,7 +152,7 @@ describe("PodInstance", () => {
 
     it("detects container in TERMINAL state", () => {
       const podInstance = new PodInstance({
-        status: "terminal"
+        status: "terminal",
       });
 
       expect(podInstance.getInstanceStatus()).toEqual(PodInstanceStatus.KILLED);
@@ -160,7 +160,7 @@ describe("PodInstance", () => {
 
     it("detects container in STABLE state", () => {
       const podInstance = new PodInstance({
-        status: "stable"
+        status: "stable",
       });
 
       // No health checks, returns RUNNING
@@ -174,9 +174,9 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.unhealthyConditions]
-          }
-        ]
+            conditions: [conditions.unhealthyConditions],
+          },
+        ],
       });
 
       // Single failing test, returns UNHEALTHY
@@ -190,9 +190,9 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
-          }
-        ]
+            conditions: [conditions.healthyConditions],
+          },
+        ],
       });
 
       // All tests passing, returns HEALTHY
@@ -233,14 +233,14 @@ describe("PodInstance", () => {
   describe("#getResources", () => {
     it("returns the correct resources", () => {
       const podInstance = new PodInstance({
-        resources: { cpus: 0.5, mem: 64 }
+        resources: { cpus: 0.5, mem: 64 },
       });
 
       expect(podInstance.getResources()).toEqual({
         cpus: 0.5,
         mem: 64,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
 
@@ -250,7 +250,7 @@ describe("PodInstance", () => {
         cpus: 0,
         mem: 0,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
   });
@@ -261,12 +261,12 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
+            conditions: [conditions.healthyConditions],
           },
           {
-            conditions: [conditions.unhealthyConditions]
-          }
-        ]
+            conditions: [conditions.unhealthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.hasHealthChecks()).toBeTruthy();
@@ -277,9 +277,9 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
-          }
-        ]
+            conditions: [conditions.healthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.hasHealthChecks()).toEqual(true);
@@ -292,16 +292,16 @@ describe("PodInstance", () => {
           {
             endpoints: [
               { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
+              { name: "marathon", healthy: true },
+            ],
           },
           {
             endpoints: [
               { name: "nginx", healthy: true },
-              { name: "marathon", healthy: true }
-            ]
-          }
-        ]
+              { name: "marathon", healthy: true },
+            ],
+          },
+        ],
       });
 
       // It returns true in order to display the `unhelathy` state
@@ -313,12 +313,12 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
+            conditions: [conditions.healthyConditions],
           },
           {
-            conditions: [conditions.unhealthyConditions]
-          }
-        ]
+            conditions: [conditions.unhealthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.hasHealthChecks()).toBeTruthy();
@@ -327,7 +327,7 @@ describe("PodInstance", () => {
     it("returns false if there are no containers", () => {
       const podInstance = new PodInstance({
         status: "stable",
-        containers: []
+        containers: [],
       });
 
       expect(podInstance.hasHealthChecks()).toBeFalsy();
@@ -340,12 +340,12 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
+            conditions: [conditions.healthyConditions],
           },
           {
-            conditions: [conditions.healthyConditions]
-          }
-        ]
+            conditions: [conditions.healthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.isHealthy()).toBeTruthy();
@@ -356,9 +356,9 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.somethingelseConditions]
-          }
-        ]
+            conditions: [conditions.somethingelseConditions],
+          },
+        ],
       });
 
       expect(podInstance.isHealthy()).toBeTruthy();
@@ -369,12 +369,12 @@ describe("PodInstance", () => {
         status: "degraded",
         containers: [
           {
-            conditions: [conditions.healthyConditions]
+            conditions: [conditions.healthyConditions],
           },
           {
-            conditions: [conditions.unhealthyConditions]
-          }
-        ]
+            conditions: [conditions.unhealthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.isHealthy()).toBeFalsy();
@@ -385,9 +385,9 @@ describe("PodInstance", () => {
         status: "stable",
         containers: [
           {
-            conditions: [conditions.unhealthyConditions]
-          }
-        ]
+            conditions: [conditions.unhealthyConditions],
+          },
+        ],
       });
 
       expect(podInstance.isHealthy()).toBeFalsy();
@@ -396,7 +396,7 @@ describe("PodInstance", () => {
     it("returns true if there are no containers", () => {
       const podInstance = new PodInstance({
         status: "stable",
-        containers: []
+        containers: [],
       });
 
       expect(podInstance.isHealthy()).toBeTruthy();
@@ -452,7 +452,7 @@ describe("PodInstance", () => {
   describe("#getIpAddresses", () => {
     it("returns an array of IP Addresses", () => {
       const podInstance = new PodInstance({
-        networks: [{ addresses: ["9.0.0.1"] }]
+        networks: [{ addresses: ["9.0.0.1"] }],
       });
       expect(podInstance.getIpAddresses()).toEqual(["9.0.0.1"]);
     });
@@ -461,13 +461,13 @@ describe("PodInstance", () => {
       const podInstance = new PodInstance({
         networks: [
           { addresses: ["9.0.0.1"] },
-          { addresses: ["9.0.0.10", "9.0.0.11"] }
-        ]
+          { addresses: ["9.0.0.10", "9.0.0.11"] },
+        ],
       });
       expect(podInstance.getIpAddresses()).toEqual([
         "9.0.0.1",
         "9.0.0.10",
-        "9.0.0.11"
+        "9.0.0.11",
       ]);
     });
 

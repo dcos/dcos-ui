@@ -24,7 +24,7 @@ let thisUserStoreGetUser, thisContainer, thisInstance;
 describe("AccountAdvancedACLsTab", () => {
   beforeEach(() => {
     thisUserStoreGetUser = ACLUserStore.getUser;
-    ACLUserStore.getUser = userID => {
+    ACLUserStore.getUser = (userID) => {
       if (userID === "unicode") {
         return new User(userDetailsFixture);
       }
@@ -64,7 +64,7 @@ describe("AccountAdvancedACLsTab", () => {
           actions: ["full"],
           removable: true,
           description: "Marathon",
-          aclurl: "/acls/dcos:adminrouter:service:marathon"
+          aclurl: "/acls/dcos:adminrouter:service:marathon",
         },
         {
           rid: "dcos:adminrouter:service:marathon",
@@ -73,8 +73,8 @@ describe("AccountAdvancedACLsTab", () => {
           description: "Marathon",
           aclurl: "/acls/dcos:adminrouter:service:marathon",
           membershipurl: "/groups/quis/users/quis",
-          gid: "ölis"
-        }
+          gid: "ölis",
+        },
       ]);
     });
   });
@@ -85,13 +85,13 @@ describe("AccountAdvancedACLsTab", () => {
 
       thisInstance.handleFormSubmit([
         { actions: "foo", resource: "bar" },
-        { actions: "baz", resource: "qux" }
+        { actions: "baz", resource: "qux" },
       ]);
 
       expect(ACLStore.grantUserActionToResource.calls.count()).toEqual(2);
       expect(ACLStore.grantUserActionToResource.calls.allArgs()).toEqual([
         ["unicode", "foo", "bar"],
-        ["unicode", "baz", "qux"]
+        ["unicode", "baz", "qux"],
       ]);
     });
   });

@@ -27,9 +27,9 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
     handleDestroyButtonClick: PropTypes.func.isRequired,
     onJobDeleteSuccess: PropTypes.func.isRequired,
     job: PropTypes.shape({
-      json: PropTypes.string.isRequired
+      json: PropTypes.string.isRequired,
     }),
-    jobActionDialog: PropTypes.any
+    jobActionDialog: PropTypes.any,
   };
   constructor(props) {
     super(props);
@@ -54,7 +54,7 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
 
     return [
       schedule ? <ItemSchedule key="schedule" schedule={schedule} /> : null,
-      status ? <ItemStatus key="status" status={status} /> : null
+      status ? <ItemStatus key="status" status={status} /> : null,
     ];
   }
 
@@ -63,7 +63,7 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
 
     const customActionHandlers = {
       edit: this.props.handleEditButtonClick,
-      delete: this.props.handleDestroyButtonClick
+      delete: this.props.handleDestroyButtonClick,
     };
 
     return jobsMenu(job, customActionHandlers);
@@ -94,13 +94,13 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
             {
               label: i18nMark("Run History"),
               callback: setTab("runHistory"),
-              isActive: this.state.currentTab === "runHistory"
+              isActive: this.state.currentTab === "runHistory",
             },
             {
               label: i18nMark("Configuration"),
               callback: setTab("configuration"),
-              isActive: this.state.currentTab === "configuration"
-            }
+              isActive: this.state.currentTab === "configuration",
+            },
           ]}
         />
 
@@ -128,7 +128,7 @@ class JobDetailPage extends React.Component<{ currentTab: string; job: {} }> {
 }
 
 JobDetailPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default JobDetailPage;

@@ -6,7 +6,7 @@ import ContainerConstants from "../../constants/ContainerConstants";
 const { DOCKER } = ContainerConstants.type;
 
 function getContainerSettingsReducer(name) {
-  return function(_, { type, path = [], value }) {
+  return function (_, { type, path = [], value }) {
     const joinedPath = path.join(".");
     if (joinedPath === "container.type" && Boolean(value)) {
       this.networkType = value;
@@ -26,5 +26,5 @@ function getContainerSettingsReducer(name) {
 export default combineReducers({
   privileged: getContainerSettingsReducer("privileged"),
   forcePullImage: simpleReducer("container.docker.forcePullImage", null),
-  image: simpleReducer("container.docker.image", "")
+  image: simpleReducer("container.docker.image", ""),
 });

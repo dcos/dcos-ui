@@ -11,7 +11,7 @@ import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
-  getDisplayValue
+  getDisplayValue,
 } from "../utils/ServiceConfigDisplayUtil";
 import ServiceConfigUtil from "../utils/ServiceConfigUtil";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
@@ -49,15 +49,15 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
       values: [
         {
           heading: <Trans render="span">Networking</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "networks.0.mode",
-          label: <Trans render="span">Network Mode</Trans>
+          label: <Trans render="span">Network Mode</Trans>,
         },
         {
           key: "networks.0.name",
-          label: <Trans render="span">Network Name</Trans>
+          label: <Trans render="span">Network Name</Trans>,
         },
         {
           key: "portDefinitions",
@@ -67,7 +67,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
               port: "port",
               protocol: "protocol",
               labels: "labels",
-              service: "servicePort"
+              service: "servicePort",
             };
 
             const networkType = findNestedPropertyInObject(
@@ -101,7 +101,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                   return getDisplayValue(row[prop]);
                 },
                 className: getColumnClassNameFn(),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Protocol")),
@@ -113,7 +113,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
 
                   return getDisplayValue(protocol);
                 },
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Host Port")),
@@ -122,7 +122,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 render(prop, row) {
                   return getDisplayValue(row[prop]) || "Auto Assigned";
                 },
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Load Balanced Address")),
@@ -141,15 +141,15 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
 
                   return <Trans render="em">Not Enabled</Trans>;
                 },
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             // We add the container port column if the network type is anything
             // but HOST.
             if (networkType !== Networking.type.HOST) {
               const hostPortIndex = columns.findIndex(
-                column => column.prop === keys.port
+                (column) => column.prop === keys.port
               );
 
               columns.splice(hostPortIndex, 0, {
@@ -159,19 +159,19 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 render(prop, row) {
                   return getDisplayValue(row[prop]);
                 },
-                sortable: true
+                sortable: true,
               });
             }
 
             const containsServicePorts = portDefinitions.some(
-              portDefinition =>
+              (portDefinition) =>
                 portDefinition.servicePort != null &&
                 portDefinition.servicePort !== 0
             );
 
             if (containsServicePorts) {
               const hostPortIndex = columns.findIndex(
-                column => column.prop === keys.port
+                (column) => column.prop === keys.port
               );
               const servicePortsPosition = hostPortIndex + 1;
 
@@ -182,7 +182,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 render(prop, row) {
                   return getDisplayValue(row[prop]);
                 },
-                sortable: true
+                sortable: true,
               });
             }
 
@@ -202,7 +202,7 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
@@ -226,11 +226,11 @@ class ServiceNetworkingConfigSection extends ServiceConfigBaseSectionDisplay {
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={portDefinitions}
-              />
+              />,
             ];
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

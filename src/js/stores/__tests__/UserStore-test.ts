@@ -17,18 +17,21 @@ describe("UserStore", () => {
         });
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_USER_CREATE_SUCCESS
+          type: ActionTypes.REQUEST_USER_CREATE_SUCCESS,
         });
       });
 
       it("emits success event with the userID", () => {
-        UserStore.addChangeListener(EventTypes.USER_CREATE_SUCCESS, userID => {
-          expect(userID).toEqual("foo");
-        });
+        UserStore.addChangeListener(
+          EventTypes.USER_CREATE_SUCCESS,
+          (userID) => {
+            expect(userID).toEqual("foo");
+          }
+        );
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_USER_CREATE_SUCCESS,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
@@ -38,7 +41,7 @@ describe("UserStore", () => {
         });
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_USER_CREATE_ERROR
+          type: ActionTypes.REQUEST_USER_CREATE_ERROR,
         });
       });
 
@@ -52,7 +55,7 @@ describe("UserStore", () => {
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_USER_CREATE_ERROR,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
@@ -67,7 +70,7 @@ describe("UserStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_USER_CREATE_ERROR,
           userID: "foo",
-          xhr: { foo: "bar" }
+          xhr: { foo: "bar" },
         });
       });
     });
@@ -79,18 +82,21 @@ describe("UserStore", () => {
         });
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_USER_DELETE_SUCCESS
+          type: ActionTypes.REQUEST_USER_DELETE_SUCCESS,
         });
       });
 
       it("emits success event with the userID", () => {
-        UserStore.addChangeListener(EventTypes.USER_DELETE_SUCCESS, userID => {
-          expect(userID).toEqual("foo");
-        });
+        UserStore.addChangeListener(
+          EventTypes.USER_DELETE_SUCCESS,
+          (userID) => {
+            expect(userID).toEqual("foo");
+          }
+        );
 
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_USER_DELETE_SUCCESS,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
@@ -100,7 +106,7 @@ describe("UserStore", () => {
         });
 
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_USER_DELETE_ERROR
+          type: ActionTypes.REQUEST_USER_DELETE_ERROR,
         });
       });
 
@@ -116,7 +122,7 @@ describe("UserStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_USER_DELETE_ERROR,
           userID: "foo",
-          data: "error"
+          data: "error",
         });
       });
     });

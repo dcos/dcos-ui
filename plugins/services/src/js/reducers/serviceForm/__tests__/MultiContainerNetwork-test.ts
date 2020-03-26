@@ -11,7 +11,7 @@ describe("MultiContainerNetwork", () => {
       const batch = new Batch();
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
-        { mode: "host" }
+        { mode: "host" },
       ]);
     });
 
@@ -21,7 +21,7 @@ describe("MultiContainerNetwork", () => {
       batch = batch.add(new Transaction(["networks", 0], Networking.type.HOST));
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
-        { mode: "host" }
+        { mode: "host" },
       ]);
     });
 
@@ -33,7 +33,7 @@ describe("MultiContainerNetwork", () => {
       );
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
-        { mode: "container", name: "foo" }
+        { mode: "container", name: "foo" },
       ]);
     });
 
@@ -46,7 +46,7 @@ describe("MultiContainerNetwork", () => {
       batch = batch.add(new Transaction(["networks", 0], Networking.type.HOST));
 
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
-        { mode: "host" }
+        { mode: "host" },
       ]);
     });
 
@@ -68,8 +68,8 @@ describe("MultiContainerNetwork", () => {
       expect(batch.reduce(MultiContainerNetwork.JSONReducer.bind({}))).toEqual([
         {
           mode: "container",
-          name: "foo"
-        }
+          name: "foo",
+        },
       ]);
     });
   });
@@ -92,8 +92,8 @@ describe("MultiContainerNetwork", () => {
       expect(batch.reduce(MultiContainerNetwork.FormReducer.bind({}))).toEqual([
         {
           mode: "CONTAINER",
-          name: "foo"
-        }
+          name: "foo",
+        },
       ]);
     });
   });

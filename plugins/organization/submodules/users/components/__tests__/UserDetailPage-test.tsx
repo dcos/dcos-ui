@@ -32,11 +32,11 @@ describe("UserDetailPage", () => {
 
     PluginSDK.__addReducer(APPLICATION, () => ({
       summary: {
-        statesProcessed: true
-      }
+        statesProcessed: true,
+      },
     }));
 
-    ACLUserStore.getUser = userID => {
+    ACLUserStore.getUser = (userID) => {
       if (userID === "unicode") {
         return new User(userDetailsFixture);
       }
@@ -70,13 +70,7 @@ describe("UserDetailPage", () => {
 
       ACLUserStore.processUserError(userID);
 
-      expect(
-        instance
-          .find(UserDetailPage)
-          .render()
-          .find("h3")
-          .text()
-      ).toEqual(
+      expect(instance.find(UserDetailPage).render().find("h3").text()).toEqual(
         "DC/OS UI cannot retrieve the requested information at this moment."
       );
     });
@@ -84,8 +78,8 @@ describe("UserDetailPage", () => {
     it("shows loading screen if still waiting on Store", () => {
       PluginSDK.__addReducer(APPLICATION, () => ({
         summary: {
-          statesProcessed: false
-        }
+          statesProcessed: false,
+        },
       }));
 
       const userID = "unicode";

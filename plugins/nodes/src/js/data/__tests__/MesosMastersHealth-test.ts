@@ -8,7 +8,7 @@ const nonLeaders = [
   { host_ip: "192.168.0.1", health: 0, role: "master" },
   { host_ip: "192.168.0.2", health: 1, role: "master" },
   { host_ip: "192.168.0.3", health: 2, role: "master" },
-  { host_ip: "192.168.0.4", health: 4, role: "master" }
+  { host_ip: "192.168.0.4", health: 4, role: "master" },
 ];
 
 const nonLeadersWithHealth = [
@@ -21,8 +21,8 @@ const nonLeadersWithHealth = [
       key: "HEALTHY",
       sortingValue: 3,
       title: "Healthy",
-      value: 0
-    }
+      value: 0,
+    },
   },
   {
     host_ip: "192.168.0.2",
@@ -33,8 +33,8 @@ const nonLeadersWithHealth = [
       key: "UNHEALTHY",
       sortingValue: 0,
       title: "Unhealthy",
-      value: 1
-    }
+      value: 1,
+    },
   },
   {
     host_ip: "192.168.0.3",
@@ -45,8 +45,8 @@ const nonLeadersWithHealth = [
       key: "WAR",
       sortingValue: 2,
       title: "Warning",
-      value: 2
-    }
+      value: 2,
+    },
   },
   {
     host_ip: "192.168.0.4",
@@ -57,22 +57,22 @@ const nonLeadersWithHealth = [
       key: "NA",
       sortingValue: 1,
       title: "N/A",
-      value: 3
-    }
-  }
+      value: 3,
+    },
+  },
 ];
 
 describe("MesosMastersHealth", () => {
   describe("#mesosMasterInfo", () => {
     it(
       "emits correct master",
-      marbles(m => {
+      marbles((m) => {
         const master$ = mesosMastersHealthQuery(
           () => of(nonLeaders),
           m.time("--|")
         );
         const expected$ = m.cold("a-(a|)", {
-          a: nonLeadersWithHealth
+          a: nonLeadersWithHealth,
         });
 
         m.expect(master$.pipe(take(2))).toBeObservable(expected$);

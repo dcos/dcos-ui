@@ -12,7 +12,7 @@ import { JSONReducer as endpointsJSONReducer } from "./Endpoints";
 import { JSONReducer as multiContainerArtifactsJSONReducer } from "./MultiContainerArtifacts";
 import {
   JSONSegmentReducer as multiContainerHealthCheckReducer,
-  JSONSegmentParser as multiContainerHealthCheckParser
+  JSONSegmentParser as multiContainerHealthCheckParser,
 } from "../MultiContainerHealthChecks";
 import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../../utils/VipLabelUtil";
@@ -22,7 +22,7 @@ const { CONTAINER, HOST } = Networking.type;
 const containerFloatReducer = combineReducers({
   cpus: simpleFloatReducer("resources.cpus"),
   mem: simpleFloatReducer("resources.mem"),
-  disk: simpleFloatReducer("resources.disk")
+  disk: simpleFloatReducer("resources.disk"),
 });
 
 function mapEndpoints(endpoints = [], networkType, appState) {
@@ -36,10 +36,10 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       protocol,
       vipLabel,
       vipPort,
-      labels
+      labels,
     } = endpoint;
 
-    protocol = Object.keys(protocol).filter(key => protocol[key]);
+    protocol = Object.keys(protocol).filter((key) => protocol[key]);
 
     if (automaticPort) {
       hostPort = 0;
@@ -59,7 +59,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
         containerPort,
         hostPort,
         protocol,
-        labels
+        labels,
       };
     }
 
@@ -68,7 +68,7 @@ function mapEndpoints(endpoints = [], networkType, appState) {
       networkNames,
       hostPort,
       protocol,
-      labels
+      labels,
     };
   });
 }
@@ -139,7 +139,7 @@ function containersParser(state) {
         multiContainerHealthCheckParser(item.healthCheck, [
           "containers",
           index,
-          "healthCheck"
+          "healthCheck",
         ])
       );
     }
@@ -159,7 +159,7 @@ function containersParser(state) {
 
         memo = memo.concat(
           Object.keys(artifact).map(
-            key =>
+            (key) =>
               new Transaction(
                 ["containers", index, "artifacts", artifactIndex, key],
                 artifact[key]
@@ -174,7 +174,7 @@ function containersParser(state) {
 
       item.endpoints.forEach((_endpoint, endpointIndex) => {
         const endpoint = {
-          ..._endpoint
+          ..._endpoint,
         };
         // Internal representation of protocols field differs from the JSON
         // Thus we need to delete the field from the ADD_ITEM value so that
@@ -203,7 +203,7 @@ function containersParser(state) {
           new Transaction(
             ["containers", index, "endpoints", endpointIndex, "name"],
             endpoint.name
-          )
+          ),
         ]);
 
         if (endpoint.labels != null) {
@@ -232,7 +232,7 @@ function containersParser(state) {
                 index,
                 "endpoints",
                 endpointIndex,
-                "containerPort"
+                "containerPort",
               ],
               endpoint.containerPort
             )
@@ -278,7 +278,7 @@ function containersParser(state) {
         }
 
         const protocols = endpointProtocol || [];
-        PROTOCOLS.forEach(protocol => {
+        PROTOCOLS.forEach((protocol) => {
           memo.push(
             new Transaction(
               [
@@ -287,7 +287,7 @@ function containersParser(state) {
                 "endpoints",
                 endpointIndex,
                 "protocol",
-                protocol
+                protocol,
               ],
               protocols.includes(protocol),
               SET
@@ -410,7 +410,7 @@ export function JSONReducer(
         newState.push({
           ...DEFAULT_POD_CONTAINER,
           name,
-          ...value
+          ...value,
         });
         this.cache.push({});
         this.endpoints.push([]);
@@ -430,19 +430,19 @@ export function JSONReducer(
   this.volumeMounts = volumeMountsReducer(this.volumeMounts, {
     type,
     path,
-    value
+    value,
   });
 
   newState = state.map((container, index) => {
     if (this.volumeMounts.length !== 0) {
       container.volumeMounts = this.volumeMounts
         .filter(
-          volumeMount =>
+          (volumeMount) =>
             volumeMount.name != null && volumeMount.mountPath[index]
         )
-        .map(volumeMount => ({
+        .map((volumeMount) => ({
           name: volumeMount.name,
-          mountPath: volumeMount.mountPath[index]
+          mountPath: volumeMount.mountPath[index],
         }));
     }
 
@@ -461,7 +461,7 @@ export function JSONReducer(
     this.endpoints = endpointsJSONReducer(this.endpoints, {
       type,
       path,
-      value
+      value,
     });
   }
   newState = newState.map((container, index) => {
@@ -512,7 +512,7 @@ export function JSONReducer(
   if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
     newState[index].exec = {
       ...newState[index].exec,
-      command: { shell: value }
+      command: { shell: value },
     };
   }
 
@@ -528,7 +528,7 @@ export function JSONReducer(
   if (type === SET && joinedPath === `containers.${index}.image`) {
     newState[index].image = this.images[index] = {
       ...newState[index].image,
-      ...value
+      ...value,
     };
   }
 
@@ -536,7 +536,7 @@ export function JSONReducer(
     newState[index].image = this.images[index] = {
       ...this.images[index],
       id: value,
-      kind: "DOCKER"
+      kind: "DOCKER",
     };
     if (shouldDeleteContainerImage(newState[index].image)) {
       delete newState[index].image;
@@ -546,7 +546,7 @@ export function JSONReducer(
   if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
     newState[index].image = this.images[index] = {
       ...this.images[index],
-      forcePull: value
+      forcePull: value,
     };
     if (shouldDeleteContainerImage(newState[index].image)) {
       delete newState[index].image;

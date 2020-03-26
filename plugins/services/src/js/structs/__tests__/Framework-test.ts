@@ -32,7 +32,7 @@ describe("Framework", () => {
   describe("#getUsageStats", () => {
     it("returns an object containing the value for the resource", () => {
       const framework = new Framework({
-        used_resources: { cpus: 1, mem: 512 }
+        used_resources: { cpus: 1, mem: 512 },
       });
       expect(framework.getUsageStats("cpus").value).toEqual(1);
       expect(framework.getUsageStats("mem").value).toEqual(512);
@@ -44,8 +44,8 @@ describe("Framework", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
-          DCOS_PACKAGE_NAME: "Framework"
-        }
+          DCOS_PACKAGE_NAME: "Framework",
+        },
       });
 
       expect(service.getPackageName()).toEqual("Framework");
@@ -53,7 +53,7 @@ describe("Framework", () => {
 
     it("returns undefined if package name is undefined", () => {
       const service = new Framework({
-        id: "/test/framework"
+        id: "/test/framework",
       });
 
       expect(service.getPackageName()).toEqual(undefined);
@@ -65,8 +65,8 @@ describe("Framework", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
-          DCOS_PACKAGE_VERSION: "1"
-        }
+          DCOS_PACKAGE_VERSION: "1",
+        },
       });
 
       expect(service.getVersion()).toEqual("1");
@@ -74,7 +74,7 @@ describe("Framework", () => {
 
     it("returns undefined if package version is undefined", () => {
       const service = new Framework({
-        id: "/test/framework"
+        id: "/test/framework",
       });
 
       expect(service.getVersion()).toEqual(undefined);
@@ -86,8 +86,8 @@ describe("Framework", () => {
       const service = new Framework({
         id: "/test/framework",
         labels: {
-          DCOS_PACKAGE_FRAMEWORK_NAME: "group/Framework"
-        }
+          DCOS_PACKAGE_FRAMEWORK_NAME: "group/Framework",
+        },
       });
 
       expect(service.getFrameworkName()).toEqual("group/Framework");
@@ -95,7 +95,7 @@ describe("Framework", () => {
 
     it("returns undefined if package name is undefined", () => {
       const service = new Framework({
-        id: "/test/framework"
+        id: "/test/framework",
       });
 
       expect(service.getFrameworkName()).toEqual(undefined);
@@ -109,7 +109,7 @@ describe("Framework", () => {
         tasksStaged: 0,
         tasksRunning: 1,
         tasksHealthy: 1,
-        tasksUnhealthy: 0
+        tasksUnhealthy: 0,
       });
 
       expect(service.getTasksSummary()).toEqual({
@@ -118,7 +118,7 @@ describe("Framework", () => {
         tasksHealthy: 1,
         tasksUnhealthy: 0,
         tasksUnknown: 0,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -128,7 +128,7 @@ describe("Framework", () => {
         tasksStaged: 0,
         tasksRunning: 4,
         tasksHealthy: 2,
-        tasksUnhealthy: 0
+        tasksUnhealthy: 0,
       });
 
       expect(service.getTasksSummary()).toEqual({
@@ -137,7 +137,7 @@ describe("Framework", () => {
         tasksHealthy: 2,
         tasksUnhealthy: 0,
         tasksUnknown: 2,
-        tasksOverCapacity: 2
+        tasksOverCapacity: 2,
       });
     });
 
@@ -148,7 +148,7 @@ describe("Framework", () => {
         tasksRunning: 1,
         tasksHealthy: 1,
         tasksUnhealthy: 0,
-        TASK_RUNNING: 1
+        TASK_RUNNING: 1,
       });
 
       expect(service.getTasksSummary()).toEqual({
@@ -157,7 +157,7 @@ describe("Framework", () => {
         tasksHealthy: 1,
         tasksUnhealthy: 0,
         tasksUnknown: 1,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -168,38 +168,38 @@ describe("Framework", () => {
           id: "/fake_1",
           isStartedByMarathon: true,
           state: "TASK_RUNNING",
-          resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
+          resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 },
         },
         {
           id: "/fake_2",
           state: "TASK_RUNNING",
           statuses: [
             {
-              healthy: true
-            }
+              healthy: true,
+            },
           ],
-          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 },
         },
         {
           id: "/fake_2",
           state: "TASK_RUNNING",
           statuses: [
             {
-              healthy: false
-            }
+              healthy: false,
+            },
           ],
-          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 },
         },
         {
           id: "/fake_3",
           state: "TASK_FINISHED",
           statuses: [
             {
-              healthy: false
-            }
+              healthy: false,
+            },
           ],
-          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 }
-        }
+          resources: { cpus: 0.8, mem: 700, gpus: 0, disk: 0 },
+        },
       ];
 
       const service = new Framework({
@@ -210,7 +210,7 @@ describe("Framework", () => {
         tasksStaged: 0,
         tasksUnhealthy: 0,
         cpus: 1,
-        mem: 1000
+        mem: 1000,
       });
 
       expect(service.getTasksSummary()).toEqual({
@@ -219,7 +219,7 @@ describe("Framework", () => {
         tasksStaged: 0,
         tasksUnhealthy: 1,
         tasksOverCapacity: 0,
-        tasksUnknown: 0
+        tasksUnknown: 0,
       });
 
       MesosStateStore.getTasksByService = getTasksByService;
@@ -229,7 +229,7 @@ describe("Framework", () => {
   describe("#getInstancesCount", () => {
     it("returns correct instances", () => {
       const service = new Framework({
-        instances: 1
+        instances: 1,
       });
 
       expect(service.getInstancesCount()).toEqual(1);
@@ -238,7 +238,7 @@ describe("Framework", () => {
     it("returns correct instances with Framework data", () => {
       const service = new Framework({
         instances: 1,
-        TASK_RUNNING: 1
+        TASK_RUNNING: 1,
       });
 
       expect(service.getInstancesCount()).toEqual(1);
@@ -252,14 +252,14 @@ describe("Framework", () => {
         cpus: 0.2,
         mem: 300,
         gpus: 1,
-        disk: 10
+        disk: 10,
       });
 
       expect(service.getResources()).toEqual({
         cpus: 0.2,
         mem: 300,
         gpus: 1,
-        disk: 10
+        disk: 10,
       });
     });
 
@@ -270,14 +270,14 @@ describe("Framework", () => {
         cpus: 0.2,
         mem: 300,
         gpus: 1,
-        disk: 10
+        disk: 10,
       });
 
       expect(service.getResources()).toEqual({
         cpus: 1.2,
         mem: 1324,
         gpus: 1,
-        disk: 20
+        disk: 20,
       });
     });
   });

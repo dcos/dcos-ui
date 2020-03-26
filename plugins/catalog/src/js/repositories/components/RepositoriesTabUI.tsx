@@ -14,7 +14,7 @@ class RepositoriesTabUI extends React.Component {
     super();
 
     this.state = {
-      addRepositoryModalOpen: false
+      addRepositoryModalOpen: false,
     };
   }
   handleCloseAddRepository = () => {
@@ -32,7 +32,7 @@ class RepositoriesTabUI extends React.Component {
       <RepositoriesPage
         addButton={{
           onItemSelect: this.handleOpenAddRepository,
-          label: i18nMark("Add Repository")
+          label: i18nMark("Add Repository"),
         }}
       >
         <div>

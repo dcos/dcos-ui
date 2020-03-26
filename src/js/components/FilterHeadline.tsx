@@ -15,7 +15,7 @@ export default class FilterHeadline extends React.PureComponent<{
   totalLength: number;
 }> {
   static defaultProps = {
-    inverseStyle: false
+    inverseStyle: false,
   };
 
   handleReset = (e: React.MouseEvent) => {
@@ -30,7 +30,7 @@ export default class FilterHeadline extends React.PureComponent<{
       inverseStyle,
       isFiltering,
       name,
-      totalLength
+      totalLength,
     } = this.props;
     const hideFilteredClasses =
       (isFiltering == null && currentLength === totalLength) ||
@@ -39,23 +39,23 @@ export default class FilterHeadline extends React.PureComponent<{
 
     const filteredClassSet = classNames("flush", {
       inverse: inverseStyle,
-      hidden: hideFilteredClasses
+      hidden: hideFilteredClasses,
     });
 
     const unfilteredClassSet = classNames("flush", {
       inverse: inverseStyle,
-      hidden: !hideFilteredClasses
+      hidden: !hideFilteredClasses,
     });
 
     const anchorClassSet = classNames("clickable flush-top", {
       inverse: inverseStyle,
-      hidden: hideFilteredClasses
+      hidden: hideFilteredClasses,
     });
 
     const listClassSet = classNames(
       "filter-headline list list-unstyled list-inline h4 flush-left flush-top",
       {
-        inverse: inverseStyle
+        inverse: inverseStyle,
       },
       className
     );

@@ -11,8 +11,8 @@ describe("TaskTableUtil", () => {
       updated: 0,
       resources: {
         cpus: 100,
-        mem: [{ value: 2 }, { value: 3 }]
-      }
+        mem: [{ value: 2 }, { value: 3 }],
+      },
     };
     thisBar = {
       name: "bar",
@@ -20,8 +20,8 @@ describe("TaskTableUtil", () => {
       updated: 1,
       resources: {
         cpus: 5,
-        mem: [{ value: 0 }, { value: 1 }]
-      }
+        mem: [{ value: 0 }, { value: 1 }],
+      },
     };
 
     thisFooStruct = new Service({
@@ -30,8 +30,8 @@ describe("TaskTableUtil", () => {
       updated: 0,
       used_resources: {
         cpus: 100,
-        mem: [{ value: 2 }, { value: 3 }]
-      }
+        mem: [{ value: 2 }, { value: 3 }],
+      },
     });
     thisBarStruct = new Service({
       name: "barStruct",
@@ -39,8 +39,8 @@ describe("TaskTableUtil", () => {
       updated: 1,
       used_resources: {
         cpus: 5,
-        mem: [{ value: 0 }, { value: 1 }]
-      }
+        mem: [{ value: 0 }, { value: 1 }],
+      },
     });
 
     thisGetComparator = TaskTableUtil.getSortFunction("name");

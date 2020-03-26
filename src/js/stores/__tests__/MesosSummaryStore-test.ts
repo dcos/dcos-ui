@@ -30,16 +30,16 @@ describe("Mesos State Store", () => {
   describe("#hasServiceUrl", () => {
     beforeEach(() => {
       thisGetServiceFromName = MesosSummaryStore.getServiceFromName;
-      MesosSummaryStore.getServiceFromName = hasUrl => {
+      MesosSummaryStore.getServiceFromName = (hasUrl) => {
         if (hasUrl === "name_of_service_with_url") {
           return new Framework({
             name: "fake_service",
-            webui_url: "http://google.com"
+            webui_url: "http://google.com",
           });
         }
 
         return new Framework({
-          name: "fake_service"
+          name: "fake_service",
         });
       };
     });

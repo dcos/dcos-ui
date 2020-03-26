@@ -23,7 +23,7 @@ export const DCOSUIUpdateClient = {
     return request<string>(
       `${rootUrl}dcos-ui-update-service/api/v1/update/${newPackageVersion}/`,
       {
-        method: "POST"
+        method: "POST",
       }
     ).pipe(tap(handleBadResponses));
   },
@@ -31,9 +31,9 @@ export const DCOSUIUpdateClient = {
     rootUrl: string = "/"
   ): Observable<RequestResponse<string>> => {
     return request<string>(`${rootUrl}dcos-ui-update-service/api/v1/reset/`, {
-      method: "DELETE"
+      method: "DELETE",
     }).pipe(tap(handleBadResponses));
-  }
+  },
 };
 
 export function getErrorMessage(reqResp: RequestResponse<any>): string {

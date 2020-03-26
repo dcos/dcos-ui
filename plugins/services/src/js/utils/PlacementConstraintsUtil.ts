@@ -17,5 +17,5 @@ export default {
     const constraintType = OperatorTypes[operator] || {};
 
     return constraintType.requiresEmptyValue;
-  }
+  },
 };

@@ -9,7 +9,7 @@ import {
   REQUEST_ACL_DIRECTORY_DELETE_SUCCESS,
   REQUEST_ACL_DIRECTORY_DELETE_ERROR,
   REQUEST_ACL_DIRECTORY_TEST_SUCCESS,
-  REQUEST_ACL_DIRECTORY_TEST_ERROR
+  REQUEST_ACL_DIRECTORY_TEST_ERROR,
 } from "../constants/ActionTypes";
 
 import {
@@ -20,14 +20,14 @@ import {
   ACL_DIRECTORY_DELETE_SUCCESS,
   ACL_DIRECTORY_DELETE_ERROR,
   ACL_DIRECTORY_TEST_SUCCESS,
-  ACL_DIRECTORY_TEST_ERROR
+  ACL_DIRECTORY_TEST_ERROR,
 } from "../constants/EventTypes";
 
 import ACLDirectoriesActions from "../actions/ACLDirectoriesActions";
 
 const SDK = require("../../../SDK");
 
-SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", listeners => {
+SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", (listeners) => {
   listeners.push({ name: "aclDirectories", events: ["addError", "testError"] });
 
   return listeners;
@@ -48,12 +48,12 @@ class ACLDirectoriesStore extends BaseStore {
         deleteSuccess: ACL_DIRECTORY_DELETE_SUCCESS,
         deleteError: ACL_DIRECTORY_DELETE_ERROR,
         testSuccess: ACL_DIRECTORY_TEST_SUCCESS,
-        testError: ACL_DIRECTORY_TEST_ERROR
+        testError: ACL_DIRECTORY_TEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       const { data, type } = action;
 
       switch (type) {
@@ -106,14 +106,14 @@ class ACLDirectoriesStore extends BaseStore {
   processDirectoriesSuccess(directories) {
     SDK.getSDK().dispatch({
       type: ACL_DIRECTORIES_CHANGED,
-      directories
+      directories,
     });
     this.emit(ACL_DIRECTORIES_CHANGED);
   }
 
   getDirectories() {
     return new List({
-      items: SDK.getSDK().Store.getOwnState().directories.list
+      items: SDK.getSDK().Store.getOwnState().directories.list,
     });
   }
 }

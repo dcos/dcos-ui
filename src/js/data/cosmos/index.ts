@@ -8,7 +8,7 @@ import { PackageVersionSchema } from "#SRC/js/data/cosmos/PackageVersion";
 import { injectable } from "inversify";
 import {
   DataLayerExtensionInterface,
-  getExtensionModule
+  getExtensionModule,
 } from "@extension-kid/data-layer";
 
 const client = CosmosClient(Config.rootUrl);
@@ -35,11 +35,11 @@ export const resolvers = {
         map(({ response }) =>
           Object.entries(response.results).map(([version, revision]) => ({
             version,
-            revision
+            revision,
           }))
         )
       );
-    }
+    },
   },
   Query: {
     package(_parent: {}, args: PossibleQueryArgs = {}) {
@@ -50,8 +50,8 @@ export const resolvers = {
       }
 
       return of({ name: args.name });
-    }
-  }
+    },
+  },
 };
 
 export const schema = `

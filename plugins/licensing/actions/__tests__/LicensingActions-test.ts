@@ -19,7 +19,7 @@ describe("CertificateActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_LICENSING_SUMMARY_SUCCESS
@@ -30,7 +30,7 @@ describe("CertificateActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ number_of_breaches: 2 });
       });
@@ -39,7 +39,7 @@ describe("CertificateActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_LICENSING_SUMMARY_ERROR
@@ -50,7 +50,7 @@ describe("CertificateActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("error");
       });
@@ -59,7 +59,7 @@ describe("CertificateActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.xhr).toEqual({ message: "error" });
       });

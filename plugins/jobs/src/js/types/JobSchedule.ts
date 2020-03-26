@@ -37,5 +37,5 @@ export const JobScheduleTypeResolver = (
   id: schedule.id,
   startingDeadlineSeconds: schedule.startingDeadlineSeconds,
   timezone: schedule.timezone,
-  concurrencyPolicy: schedule.concurrencyPolicy
+  concurrencyPolicy: schedule.concurrencyPolicy,
 });

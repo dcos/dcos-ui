@@ -26,18 +26,18 @@ class JobSecretsFormSection extends React.Component {
           exposureType: PropTypes.string,
           exposureValue: PropTypes.string,
           key: PropTypes.string,
-          secretPath: PropTypes.string
+          secretPath: PropTypes.string,
         })
-      )
+      ),
     }).isRequired,
     errors: PropTypes.arrayOf(
       PropTypes.shape({
         message: PropTypes.string,
-        path: PropTypes.arrayOf(PropTypes.string)
+        path: PropTypes.arrayOf(PropTypes.string),
       })
     ),
     onAddItem: PropTypes.func.isRequired,
-    onRemoveItem: PropTypes.func.isRequired
+    onRemoveItem: PropTypes.func.isRequired,
   };
 
   state = { secrets: SecretStore.getSecrets() };
@@ -61,7 +61,7 @@ class JobSecretsFormSection extends React.Component {
   };
 
   getSecretsLines = (data, errors) => {
-    const secrets = this.state.secrets.map(secret => secret.getPath());
+    const secrets = this.state.secrets.map((secret) => secret.getPath());
     const valueCounts = data.reduce(
       (counts, secret) => {
         if (secret.exposureType === "") {

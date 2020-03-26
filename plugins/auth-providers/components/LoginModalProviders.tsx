@@ -15,11 +15,11 @@ const SERVICE_ACCOUNT_DISPLAY_LIMIT = 3;
 
 class LoginModalProviders extends mixin(StoreMixin) {
   static defaultProps = {
-    onUpdate() {}
+    onUpdate() {},
   };
   static propTypes = {
     onUpdate: PropTypes.func,
-    target: PropTypes.string
+    target: PropTypes.string,
   };
   constructor(...args) {
     super(...args);

@@ -1,6 +1,6 @@
 import {
   MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR
+  MESOS_SUMMARY_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import MesosSummaryStore from "../stores/MesosSummaryStore";
 
@@ -31,15 +31,15 @@ export default {
         keepPollingAlive
       );
 
-      mesosEvents.forEach(event => {
+      mesosEvents.forEach((event) => {
         MesosSummaryStore.removeChangeListener(event, onMesosSummaryChange);
       });
 
       onSummaryReceivedCallback();
     }
 
-    mesosEvents.forEach(event => {
+    mesosEvents.forEach((event) => {
       MesosSummaryStore.addChangeListener(event, onMesosSummaryChange);
     });
-  }
+  },
 };

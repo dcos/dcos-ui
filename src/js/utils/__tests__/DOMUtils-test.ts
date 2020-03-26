@@ -13,11 +13,11 @@ describe("DOMUtils", () => {
             id: "something-fake",
             matches() {
               return true;
-            }
+            },
           },
           matches() {
             return false;
-          }
+          },
         };
         const match = DOMUtils.closest(el, ".fake-selector");
 
@@ -33,7 +33,7 @@ describe("DOMUtils", () => {
           parentElement: null,
           matches() {
             return true;
-          }
+          },
         };
         const match = DOMUtils.closest(el, ".fake-selector");
 
@@ -50,12 +50,12 @@ describe("DOMUtils", () => {
             id: "something-fake",
             matches() {
               return false;
-            }
+            },
           },
           id: "child-element",
           matches() {
             return true;
-          }
+          },
         };
         const match = DOMUtils.closest(el, ".fake-selector");
 
@@ -79,7 +79,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
       // jsdom doesn't calculate offsetWidth
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 101)
+        get: jest.fn(() => 101),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -92,7 +92,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 101)
+        get: jest.fn(() => 101),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -105,7 +105,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 101)
+        get: jest.fn(() => 101),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -118,7 +118,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 101)
+        get: jest.fn(() => 101),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -136,7 +136,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 104)
+        get: jest.fn(() => 104),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -154,7 +154,7 @@ describe("DOMUtils", () => {
       const div = document.querySelector("div");
 
       Object.defineProperty(div, "offsetWidth", {
-        get: jest.fn(() => 100)
+        get: jest.fn(() => 100),
       });
 
       const width = DOMUtils.getComputedWidth(div);
@@ -165,7 +165,7 @@ describe("DOMUtils", () => {
   describe("#scrollTo", () => {
     beforeEach(() => {
       thisPreviousRequest = window.requestAnimationFrame;
-      window.requestAnimationFrame = func => {
+      window.requestAnimationFrame = (func) => {
         setTimeout(func, 15);
       };
 
@@ -202,7 +202,7 @@ describe("DOMUtils", () => {
       const container = { scrollTop: 500, scrollHeight: 1500 };
       DOMUtils.scrollTo(container, 1500, 1000);
       let callCount = 0;
-      window.requestAnimationFrame = func => {
+      window.requestAnimationFrame = (func) => {
         callCount++;
         setTimeout(func, 15);
         // Reset scrollTop to stay in the same spot
@@ -219,16 +219,16 @@ describe("DOMUtils", () => {
       thisElement = {
         getBoundingClientRect() {
           return {
-            top: 300
+            top: 300,
           };
         },
         parentNode: {
           getBoundingClientRect() {
             return {
-              top: 200
+              top: 200,
             };
-          }
-        }
+          },
+        },
       };
     });
 

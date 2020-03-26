@@ -9,11 +9,11 @@ const mockHost = {
   id: "foo",
   active: true,
   resources: {
-    cpus: 4
+    cpus: 4,
   },
   used_resources: {
-    cpus: 2
-  }
+    cpus: 2,
+  },
 };
 
 let thisHosts, thisInstance, thisActiveSlices;
@@ -22,8 +22,8 @@ describe("NodesGridDials", () => {
   beforeEach(() => {
     thisHosts = [
       new Node({
-        ...mockHost
-      })
+        ...mockHost,
+      }),
     ];
     thisInstance = shallow(
       <NodesGridDials
@@ -45,8 +45,8 @@ describe("NodesGridDials", () => {
           resourcesByFramework={{
             foo: {
               cpus: 1,
-              mem: 256
-            }
+              mem: 256,
+            },
           }}
         />
       );
@@ -81,14 +81,14 @@ describe("NodesGridDials", () => {
 
     it("contains an unused resources slice", () => {
       const slice = thisActiveSlices.data.find(
-        datum => datum.name === "Unused"
+        (datum) => datum.name === "Unused"
       );
       expect(typeof slice).toEqual("object");
     });
 
     it("uses gray for the unused slice", () => {
       const slice = thisActiveSlices.data.find(
-        datum => datum.name === "Unused"
+        (datum) => datum.name === "Unused"
       );
       expect(slice.colorIndex).toEqual("unused");
     });
@@ -109,13 +109,13 @@ describe("NodesGridDials", () => {
   describe("#getDialConfig", () => {
     it("returns different configurations depending on the active parameter", () => {
       let host = {
-        ...thisHosts[0]
+        ...thisHosts[0],
       };
       host.active = true;
       const config1 = thisInstance.instance().getDialConfig(new Node(host));
 
       host = {
-        ...thisHosts[0]
+        ...thisHosts[0],
       };
       host.active = false;
       const config2 = thisInstance.instance().getDialConfig(new Node(host));
@@ -131,7 +131,7 @@ describe("NodesGridDials", () => {
 
     it("renders the correct number of charts", () => {
       const host = {
-        ...thisHosts[0]
+        ...thisHosts[0],
       };
       host.id = "bar";
       thisHosts.push(new Node(host));

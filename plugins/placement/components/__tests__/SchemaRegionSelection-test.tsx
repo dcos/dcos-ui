@@ -23,10 +23,10 @@ describe("SchemaRegionSelection", () => {
     MesosStateStore.getTaskFromTaskID = () =>
       new Task({
         id: "bar",
-        state: "TASK_RUNNING"
+        state: "TASK_RUNNING",
       });
     // Create mock functions
-    MesosStateStore.get = key => {
+    MesosStateStore.get = (key) => {
       if (key === "lastMesosState") {
         return {
           slaves: [
@@ -34,11 +34,11 @@ describe("SchemaRegionSelection", () => {
               domain: {
                 fault_domain: {
                   region: { name: "us-west-2" },
-                  zone: { name: "us-west-2b" }
-                }
-              }
-            }
-          ]
+                  zone: { name: "us-west-2b" },
+                },
+              },
+            },
+          ],
         };
       }
     };
@@ -52,7 +52,7 @@ describe("SchemaRegionSelection", () => {
         value: {},
         onChange: () => {},
         onBlur: () => {},
-        onFocus: () => {}
+        onFocus: () => {},
       };
       const WrappedComponent = JestUtil.withI18nProvider(SchemaRegionSelection);
       thisInstance = renderer.create(

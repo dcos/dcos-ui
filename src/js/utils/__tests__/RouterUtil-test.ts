@@ -15,8 +15,8 @@ describe("RouterUtil", () => {
         {
           type: Route,
           path: "foo",
-          component: thisComponent
-        }
+          component: thisComponent,
+        },
       ]);
 
       expect(components[0]).toBeInstanceOf(Object);
@@ -27,8 +27,8 @@ describe("RouterUtil", () => {
         {
           type: Route,
           path: "foo",
-          component: thisComponent
-        }
+          component: thisComponent,
+        },
       ]);
 
       expect(components[0].type.displayName).toBe("Route");
@@ -39,8 +39,8 @@ describe("RouterUtil", () => {
         {
           type: Route,
           path: "foo",
-          component: thisComponent
-        }
+          component: thisComponent,
+        },
       ]);
       const props = components[0].props;
 
@@ -58,10 +58,10 @@ describe("RouterUtil", () => {
             {
               type: Redirect,
               path: "bar",
-              to: "baz"
-            }
-          ]
-        }
+              to: "baz",
+            },
+          ],
+        },
       ]);
       const component = components[0].props.children;
 
@@ -85,12 +85,12 @@ describe("RouterUtil", () => {
                 {
                   type: Route,
                   path: "baz",
-                  component() {}
-                }
-              ]
-            }
-          ]
-        }
+                  component() {},
+                },
+              ],
+            },
+          ],
+        },
       ];
 
       const routes = RouterUtil.buildRoutes(routeConfiguration);
@@ -198,7 +198,7 @@ describe("RouterUtil", () => {
   describe("#getQueryStringInUrl", () => {
     const expectedResult = {
       redirect: "http://www.google.com/",
-      something: "foo"
+      something: "foo",
     };
     const searchQuery = "?redirect=http://www.google.com/&something=foo";
     const hash = `#/some/path${searchQuery}`;

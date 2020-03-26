@@ -6,7 +6,7 @@ import PodInstancesContainer from "../containers/pod-instances/PodInstancesConta
 import Service from "../structs/Service";
 import ServiceInstancesContainer from "../containers/service-instances/ServiceInstancesContainer";
 
-const HighOrderServiceInstances = props => {
+const HighOrderServiceInstances = (props) => {
   const { service, params, location } = props;
   if (service instanceof Pod) {
     return (
@@ -31,8 +31,8 @@ HighOrderServiceInstances.propTypes = {
   params: PropTypes.object.isRequired,
   service: PropTypes.oneOfType([
     PropTypes.instanceOf(Pod),
-    PropTypes.instanceOf(Service)
-  ])
+    PropTypes.instanceOf(Service),
+  ]),
 };
 
 export default HighOrderServiceInstances;

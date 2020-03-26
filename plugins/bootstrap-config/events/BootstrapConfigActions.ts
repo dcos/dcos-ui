@@ -2,7 +2,7 @@ import { RequestUtil } from "mesosphere-shared-reactjs";
 import Config from "#SRC/js/config/Config";
 import {
   REQUEST_BOOTSTRAP_CONFIG_ERROR,
-  REQUEST_BOOTSTRAP_CONFIG_SUCCESS
+  REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
 } from "../constants/ActionTypes";
 
 import SDK from "PluginSDK";
@@ -14,16 +14,16 @@ const BootstrapConfigActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error() {
         SDK.dispatch({
-          type: REQUEST_BOOTSTRAP_CONFIG_ERROR
+          type: REQUEST_BOOTSTRAP_CONFIG_ERROR,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 export default BootstrapConfigActions;

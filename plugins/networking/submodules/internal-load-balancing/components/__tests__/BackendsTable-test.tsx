@@ -37,11 +37,11 @@ describe("BackendsTable", () => {
       const rightAlignedProps = [
         "successLastMinute",
         "failLastMinute",
-        "p99Latency"
+        "p99Latency",
       ];
 
       const alignTableCellRight = thisInstance.alignTableCellRight;
-      rightAlignedProps.forEach(prop => {
+      rightAlignedProps.forEach((prop) => {
         expect(alignTableCellRight(prop)).toEqual(true);
       });
     });
@@ -64,11 +64,11 @@ describe("BackendsTable", () => {
       const hiddenColumnsAtMini = [
         "failurePercent",
         "applicationReachabilityPercent",
-        "machineReachabilityPercent"
+        "machineReachabilityPercent",
       ];
 
       const hideColumnAtMini = thisInstance.hideColumnAtMini;
-      hiddenColumnsAtMini.forEach(prop => {
+      hiddenColumnsAtMini.forEach((prop) => {
         expect(hideColumnAtMini(prop)).toEqual(true);
       });
     });
@@ -90,7 +90,7 @@ describe("BackendsTable", () => {
         "frameworkID",
         "machineReachability",
         "appReachability",
-        "fullIPString"
+        "fullIPString",
       ]);
     });
   });
@@ -98,7 +98,7 @@ describe("BackendsTable", () => {
   describe("#renderMilliseconds", () => {
     it("returns the specified key's value from an object with the string 'ms' appended", () => {
       const percentage = thisInstance.renderMilliseconds("foo", {
-        foo: "100"
+        foo: "100",
       });
       expect(percentage).toEqual("100ms");
     });

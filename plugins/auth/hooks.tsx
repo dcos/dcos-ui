@@ -34,7 +34,7 @@ const API_PERMISSIONS = {
   packageAPI: "dcos:adminrouter:package",
   secretsAPI: "dcos:adminrouter:secrets",
   systemHealthAPI: "dcos:adminrouter:ops:system-health",
-  uiUpdate: "dcos:adminrouter:ops:dcos-ui-update-service"
+  uiUpdate: "dcos:adminrouter:ops:dcos-ui-update-service",
 };
 
 const SIDEBAR_MENU_MAP = {
@@ -48,20 +48,20 @@ const SIDEBAR_MENU_MAP = {
   "/cluster": ["superadmin"],
   "/components": ["systemHealthAPI"],
   "/settings": ["superadmin", "acsAPI", "none"],
-  "/organization": ["acsAPI"]
+  "/organization": ["acsAPI"],
 };
 
 const MESOS_ACCESS_DENIED_MOUNTS = [
   "ServiceInstancesContainer:TasksContainer",
-  "DeclinedOffersTable"
+  "DeclinedOffersTable",
 ];
 
-export default SDK => {
+export default (SDK) => {
   const ACLAuthenticatedUserStore = ACLAuthenticatedUserStoreFactory(SDK);
   return {
     arePluginsConfigured: false,
     configuration: {
-      enabled: false
+      enabled: false,
     },
 
     actions: [
@@ -69,7 +69,7 @@ export default SDK => {
       { id: "pluginsConfigured" },
       { id: "redirectToLogin" },
       { id: "userLoginSuccess" },
-      { id: "userLogoutSuccess", priority: 10 }
+      { id: "userLogoutSuccess", priority: 10 },
     ],
 
     filters: [
@@ -81,7 +81,7 @@ export default SDK => {
       { id: "hasAuthorization" },
       { id: "hasCapability", priority: 15 },
       { id: "sidebarNavigation", priority: 999999 },
-      { id: "secondaryNavigation", priority: 999999 }
+      { id: "secondaryNavigation", priority: 999999 },
     ],
 
     initialize() {
@@ -112,7 +112,7 @@ export default SDK => {
 
     configure(configuration) {
       // Only merge keys that have a non-null value
-      Object.keys(configuration).forEach(key => {
+      Object.keys(configuration).forEach((key) => {
         if (configuration[key] != null) {
           this.configuration[key] = configuration[key];
         }
@@ -139,7 +139,7 @@ export default SDK => {
 
     registerMesosDeniedAccess(xhr) {
       if (xhr.status === 403) {
-        MESOS_ACCESS_DENIED_MOUNTS.forEach(type => {
+        MESOS_ACCESS_DENIED_MOUNTS.forEach((type) => {
           MountService.MountService.registerComponent(
             this.getMesosAccessDeniedMessage,
             type
@@ -159,7 +159,7 @@ export default SDK => {
     },
 
     unregisterMesosDeniedAccess() {
-      MESOS_ACCESS_DENIED_MOUNTS.forEach(type => {
+      MESOS_ACCESS_DENIED_MOUNTS.forEach((type) => {
         MountService.MountService.unregisterComponent(
           this.getMesosAccessDeniedMessage,
           type
@@ -257,7 +257,7 @@ export default SDK => {
         return true;
       }
 
-      const currentRoutePath = Object.keys(SIDEBAR_MENU_MAP).find(route =>
+      const currentRoutePath = Object.keys(SIDEBAR_MENU_MAP).find((route) =>
         location.startsWith(route)
       );
 
@@ -265,7 +265,7 @@ export default SDK => {
         return false;
       }
 
-      return SIDEBAR_MENU_MAP[currentRoutePath].some(api =>
+      return SIDEBAR_MENU_MAP[currentRoutePath].some((api) =>
         Hooks.applyFilter("hasCapability", false, api)
       );
     },
@@ -283,7 +283,7 @@ export default SDK => {
     applicationRoutes(routes) {
       if (this.isEnabled() === true) {
         // Override handler of index to be 'authenticated'
-        routes[0].children.forEach(child => {
+        routes[0].children.forEach((child) => {
           if (child.id === "index") {
             child.component = new Authenticated(child.component);
             child.onEnter = child.component.willTransitionTo;
@@ -295,12 +295,12 @@ export default SDK => {
           {
             component: AccessDeniedPage,
             path: "/access-denied",
-            type: Route
+            type: Route,
           },
           {
             component: LoginPage,
             path: "/login",
-            type: Route
+            type: Route,
           }
         );
       }
@@ -315,7 +315,7 @@ export default SDK => {
         const user = AuthStore.getUser();
         if (user) {
           // Create a new promise that needs to be resolved before the app loads
-          const promise = new Promise(resolve => {
+          const promise = new Promise((resolve) => {
             this.fetchPermissionsForUserID(user.uid, resolve);
           });
 
@@ -351,7 +351,7 @@ export default SDK => {
         "/networking": SIDEBAR_MENU_MAP["/networking"],
         "/components": ["systemHealthAPI"],
         "/organization": ["acsAPI"],
-        "/secrets": ["secretsAPI"]
+        "/secrets": ["secretsAPI"],
       };
 
       const items = this.filterViewableItems(
@@ -540,13 +540,13 @@ export default SDK => {
           "/settings/repositories": ["superadmin"],
           "/settings/stores": ["superadmin"],
           "/settings/identity-providers": ["acsAPI"],
-          "/settings/directory": ["acsAPI"]
+          "/settings/directory": ["acsAPI"],
         };
 
         return this.filterViewableItems(tabMap, tabs);
       }
 
       return tabs;
-    }
+    },
   };
 };

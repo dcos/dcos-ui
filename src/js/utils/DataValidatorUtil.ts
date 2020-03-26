@@ -60,7 +60,7 @@ const DataValidatorUtil = {
 
       return lens.set(errorMap, message);
     }, {});
-  }
+  },
 };
 
 export default DataValidatorUtil;

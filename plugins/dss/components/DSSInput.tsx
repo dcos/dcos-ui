@@ -64,7 +64,7 @@ function getContainerMounts(containers, volumeMountIndex, volumeMounts) {
     );
   });
 }
-export default function(props) {
+export default function (props) {
   const { volumes, index, offset } = props;
   if (volumes.type !== VolumeConstants.type.dss) {
     return (

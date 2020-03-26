@@ -24,11 +24,11 @@ interface GeneralProps {
 
 function getFieldError(path: string, errors: FormError[]) {
   return errors
-    .filter(e => {
+    .filter((e) => {
       const match = e.path.join(".");
       return match === path;
     })
-    .map(e => e.message)
+    .map((e) => e.message)
     .join(" ");
 }
 

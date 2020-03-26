@@ -12,7 +12,7 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
     super(props);
 
     this.state = {
-      isOpen: props.isOpen || false
+      isOpen: props.isOpen || false,
     };
 
     this.handleClose = this.handleClose.bind(this);
@@ -38,9 +38,9 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
   }
 
   getLanguagePreferenceDefinition() {
-    const languages = Object.keys(Languages).map(lang => ({
+    const languages = Object.keys(Languages).map((lang) => ({
       html: Languages[lang],
-      id: lang
+      id: lang,
     }));
 
     return [
@@ -53,8 +53,8 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
         options: languages,
         value: UserLanguageStore.get(),
         name: "language",
-        formElementClass: "languageDropdown-wrapper"
-      }
+        formElementClass: "languageDropdown-wrapper",
+      },
     ];
   }
 
@@ -63,13 +63,13 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: i18nMark("Save"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
   }
 
@@ -88,7 +88,7 @@ export class LanguagePreferenceFormModalComponent extends React.Component {
         definition={this.getLanguagePreferenceDefinition()}
         modalProps={{
           header: this.getHeader(),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.handleClose}
         onSubmit={this.handleLanguagePrefSubmit}

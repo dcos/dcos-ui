@@ -24,7 +24,7 @@ export function regionRendererFactory(localRegion: string | undefined) {
   return (service: Service | Pod | ServiceTree) => {
     let regions: string[] = service.getRegions();
 
-    regions = regions.map(region =>
+    regions = regions.map((region) =>
       region === localRegion ? region + " (Local)" : region
     );
 

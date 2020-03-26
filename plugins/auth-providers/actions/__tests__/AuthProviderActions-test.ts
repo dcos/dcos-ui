@@ -19,7 +19,7 @@ describe("AuthProviderActions", () => {
 
     it("dispatches the correct action when successful", () => {
       AuthProviderActions.fetchAll();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDERS_SUCCESS);
       });
@@ -35,13 +35,13 @@ describe("AuthProviderActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       AuthProviderActions.fetchAll();
       const callLength = RequestUtil.json.calls.all().length;
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDERS_ERROR);
       });
 
       RequestUtil.json.calls.all()[callLength - 1].args[0].error({
-        responseJSON: { description: "bar" }
+        responseJSON: { description: "bar" },
       });
     });
 
@@ -65,7 +65,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDER_SUCCESS);
       });
@@ -74,7 +74,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -83,7 +83,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDER_ERROR);
       });
@@ -107,13 +107,13 @@ describe("AuthProviderActions", () => {
       spyOn(RequestUtil, "json");
       AuthProviderActions.create("oidc", "foo", {
         providerID: "foo",
-        description: "bar"
+        description: "bar",
       });
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PROVIDER_CREATE_SUCCESS
@@ -124,7 +124,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ providerID: "foo", description: "bar" });
       });
@@ -133,7 +133,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -142,7 +142,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDER_CREATE_ERROR);
       });
@@ -155,7 +155,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -164,7 +164,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -178,13 +178,13 @@ describe("AuthProviderActions", () => {
       spyOn(RequestUtil, "json");
       AuthProviderActions.update("oidc", "foo", {
         providerID: "foo",
-        description: "bar"
+        description: "bar",
       });
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PROVIDER_UPDATE_SUCCESS
@@ -195,7 +195,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
         expect(action.providerType).toEqual("oidc");
@@ -205,7 +205,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -214,7 +214,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDER_UPDATE_ERROR);
       });
@@ -227,7 +227,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -236,7 +236,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -253,7 +253,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PROVIDER_DELETE_SUCCESS
@@ -264,7 +264,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ providerID: "foo", description: "bar" });
       });
@@ -273,7 +273,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -282,7 +282,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PROVIDER_DELETE_ERROR);
       });
@@ -295,7 +295,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -304,7 +304,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -321,7 +321,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PROVIDER_CALLBACK_URL_SUCCESS
@@ -332,7 +332,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches with the providerID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.providerID).toEqual("foo");
       });
@@ -341,7 +341,7 @@ describe("AuthProviderActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_PROVIDER_CALLBACK_URL_ERROR

@@ -11,18 +11,18 @@ describe("ServiceAttributeHasVolumesFilter", () => {
       {
         getVolumes() {
           return [];
-        }
+        },
       },
       {
         getVolumes() {
           return ["foo"];
-        }
+        },
       },
       {
         getVolumes() {
           return ["foo", "bar"];
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -34,7 +34,7 @@ describe("ServiceAttributeHasVolumesFilter", () => {
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1],
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 
@@ -55,7 +55,7 @@ describe("ServiceAttributeHasVolumesFilter", () => {
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1],
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 });

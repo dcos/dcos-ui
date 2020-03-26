@@ -15,7 +15,7 @@ const NodeBreadcrumbs = ({ node, taskID, taskName, unitID }) => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/nodes" key={-1} />} id="Nodes" />
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (node) {
@@ -75,7 +75,7 @@ NodeBreadcrumbs.propTypes = {
   node: PropTypes.object,
   taskID: PropTypes.string,
   taskName: PropTypes.string,
-  unitID: PropTypes.string
+  unitID: PropTypes.string,
 };
 
 export default NodeBreadcrumbs;

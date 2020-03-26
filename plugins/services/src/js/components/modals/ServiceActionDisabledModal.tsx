@@ -13,7 +13,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import Pod from "../../structs/Pod";
 import Service from "../../structs/Service";
@@ -34,8 +34,8 @@ class ServiceActionDisabledModal extends React.Component {
     open: PropTypes.bool.isRequired,
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ])
+      PropTypes.instanceOf(Service),
+    ]),
   };
   constructor(...args) {
     super(...args);
@@ -48,7 +48,7 @@ class ServiceActionDisabledModal extends React.Component {
       this.setState({ copiedCommand: false });
     }
   }
-  handleTextCopy = copiedCommand => {
+  handleTextCopy = (copiedCommand) => {
     this.setState({ copiedCommand });
   };
 
@@ -229,7 +229,7 @@ class ServiceActionDisabledModal extends React.Component {
   }
 
   getServiceListCommand(services, commandFunction) {
-    return services.map(item => commandFunction(item)).join(" &&\n");
+    return services.map((item) => commandFunction(item)).join(" &&\n");
   }
 
   getGroupUpdateMessage(updateDescription) {

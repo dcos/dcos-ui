@@ -5,7 +5,7 @@ import {
   PROP_DEPRECATED,
   PROP_MISSING_ONE,
   SYNTAX_ERROR,
-  GENERIC
+  GENERIC,
 } from "../constants/ServiceErrorTypes";
 import ContainerConstants from "../constants/ContainerConstants";
 import PlacementValidators from "./PlacementsValidators";
@@ -36,7 +36,7 @@ const MarathonAppValidators = {
       const isUnanchored = true;
       const variables = {
         feature1: "cmd",
-        feature2: "args"
+        feature2: "args",
       };
 
       return [
@@ -45,15 +45,15 @@ const MarathonAppValidators = {
           message: notBothMessage,
           type,
           isUnanchored,
-          variables
+          variables,
         },
         {
           path: ["args"],
           message: notBothMessage,
           type,
           isUnanchored,
-          variables
-        }
+          variables,
+        },
       ];
     }
 
@@ -82,9 +82,9 @@ const MarathonAppValidators = {
               message: "AppContainer id should start with 'sha512-'",
               type: "STRING_PATTERN",
               variables: {
-                pattern: "^sha512-"
-              }
-            }
+                pattern: "^sha512-",
+              },
+            },
           ];
         }
 
@@ -97,7 +97,7 @@ const MarathonAppValidators = {
     const message = "You must specify a command, an argument or a container";
     const type = PROP_MISSING_ONE;
     const variables = {
-      names: "cmd, args, container.docker.image"
+      names: "cmd, args, container.docker.image",
     };
     const isUnanchored = true;
 
@@ -109,8 +109,8 @@ const MarathonAppValidators = {
         message,
         type,
         isUnanchored,
-        variables
-      }
+        variables,
+      },
     ];
   },
 
@@ -129,8 +129,8 @@ const MarathonAppValidators = {
           message:
             'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
           type: "PROP_IS_MISSING",
-          variables: {}
-        }
+          variables: {},
+        },
       ];
     }
 
@@ -149,7 +149,7 @@ const MarathonAppValidators = {
       const message = "`uris` are deprecated. Please use `fetch` instead";
       const type = PROP_DEPRECATED;
       const variables = {
-        name: "uris"
+        name: "uris",
       };
 
       return [{ path: ["uris"], message, type, variables }];
@@ -164,10 +164,10 @@ const MarathonAppValidators = {
 
     const errors = [];
 
-    PlacementValidators.validateConstraints(constraints).map(error => {
+    PlacementValidators.validateConstraints(constraints).map((error) => {
       errors.push({
         ...error,
-        path: ["constraints"].concat(error.path)
+        path: ["constraints"].concat(error.path),
       });
     });
 
@@ -190,11 +190,11 @@ const MarathonAppValidators = {
 
           return accumulator;
         }, [])
-        .map(labelPath => ({
+        .map((labelPath) => ({
           path: [labelPath],
           message: "Keys must not start or end with whitespace characters",
           type: SYNTAX_ERROR,
-          variables: { name: "labels" }
+          variables: { name: "labels" },
         }));
     }
 
@@ -224,7 +224,7 @@ const MarathonAppValidators = {
             path: ["container", "volumes", index, "persistent", "type"],
             message: "Must be mount for volumes with profile name",
             type: GENERIC,
-            variables: { name: "type" }
+            variables: { name: "type" },
           });
         }
 
@@ -234,7 +234,7 @@ const MarathonAppValidators = {
 
     // No errors
     return [];
-  }
+  },
 };
 
 export default MarathonAppValidators;

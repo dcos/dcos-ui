@@ -27,13 +27,13 @@ describe("DirectoriesPage", () => {
       "use-ldaps": true,
       "user-search": {
         "search-base": "qux",
-        "search-filter-template": "quux"
+        "search-filter-template": "quux",
       },
       "lookup-dn": null,
       "group-search": {
         "search-base": "corge",
-        "search-filter-template": "grault"
-      }
+        "search-filter-template": "grault",
+      },
     };
 
     ACLDirectoriesStore.addDirectory = () => {};
@@ -58,8 +58,8 @@ describe("DirectoriesPage", () => {
             "use-ldaps": true,
             "user-search": {
               "search-base": "foo",
-              "search-filter-template": "bar"
-            }
+              "search-filter-template": "bar",
+            },
           })}
         </div>
       );
@@ -73,8 +73,8 @@ describe("DirectoriesPage", () => {
           {thisInstance.instance().getDirectoryDetails({
             "group-search": {
               "search-base": "foo",
-              "search-filter-template": "bar"
-            }
+              "search-filter-template": "bar",
+            },
           })}
         </div>
       );

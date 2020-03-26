@@ -28,7 +28,7 @@ const LoadBalancingBreadcrumbs = () => {
           Service Addresses
         </Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -46,11 +46,11 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
     this.state = {
       receivedVIPSummaries: false,
       searchString: "",
-      vipSummariesErrorCount: 0
+      vipSummariesErrorCount: 0,
     };
 
     this.store_listeners = [
-      { name: "networkingVIPSummaries", events: ["success", "error"] }
+      { name: "networkingVIPSummaries", events: ["success", "error"] },
     ];
   }
 
@@ -102,7 +102,7 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
       return vipSummaries;
     }
 
-    return vipSummaries.filter(vipSummary => {
+    return vipSummaries.filter((vipSummary) => {
       const name = Util.findNestedPropertyInObject(vipSummary, "fullVIP.name");
       const port = Util.findNestedPropertyInObject(vipSummary, "fullVIP.port");
 
@@ -158,7 +158,7 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
   getVIPSummaries() {
     const vipSummaries = NetworkingVIPSummariesStore.getVIPSummaries().getItems();
 
-    return vipSummaries.map(vipSummary => ({
+    return vipSummaries.map((vipSummary) => ({
       name: vipSummary.getName(),
       fullVIP: vipSummary.getVIP(),
       vip: vipSummary.getVIPString(),
@@ -167,7 +167,7 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
       failurePercent: vipSummary.getFailPercent(),
       applicationReachabilityPercent: vipSummary.getApplicationReachabilityPercent(),
       machineReachabilityPercent: vipSummary.getMachineReachabilityPercent(),
-      p99Latency: vipSummary.getP99Latency()
+      p99Latency: vipSummary.getP99Latency(),
     }));
   }
   handleSearchStringChange = (searchString = "") => {
@@ -203,7 +203,7 @@ class LoadBalancingTabContent extends mixin(StoreMixin) {
 }
 
 LoadBalancingTabContent.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default LoadBalancingTabContent;

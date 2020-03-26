@@ -11,7 +11,9 @@ class AttribFilter extends DSLFilter {
     return filterType === DSLFilterTypes.ATTRIB;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => item.text.indexOf("attribute") !== -1);
+    return resultset.filterItems(
+      (item) => item.text.indexOf("attribute") !== -1
+    );
   }
 }
 
@@ -20,7 +22,7 @@ class ExactFilter extends DSLFilter {
     return filterType === DSLFilterTypes.EXACT;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => item.text.indexOf("exact") !== -1);
+    return resultset.filterItems((item) => item.text.indexOf("exact") !== -1);
   }
 }
 
@@ -29,7 +31,7 @@ class FuzzyFilter extends DSLFilter {
     return filterType === DSLFilterTypes.FUZZY;
   }
   filterApply(resultset) {
-    return resultset.filterItems(item => item.text.indexOf("fuzzy") !== -1);
+    return resultset.filterItems((item) => item.text.indexOf("fuzzy") !== -1);
   }
 }
 
@@ -42,8 +44,8 @@ describe("DSLParserUtil", () => {
         { text: "attribute" },
         { text: "fuzzy" },
         { text: "exact" },
-        { text: "attribute fuzzy" }
-      ]
+        { text: "attribute fuzzy" },
+      ],
     });
   });
 
@@ -60,14 +62,14 @@ describe("DSLParserUtil", () => {
       expect(ast.children).toEqual([]);
       expect(ast.position).toEqual([
         [0, 5],
-        [10, 20]
+        [10, 20],
       ]);
 
       // FilterNode properties
       expect(ast.filterType).toEqual(DSLFilterTypes.ATTRIB);
       expect(ast.filterParams).toEqual({
         label: "label",
-        text: "text"
+        text: "text",
       });
     });
 
@@ -80,7 +82,7 @@ describe("DSLParserUtil", () => {
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
-        { text: "attribute fuzzy" }
+        { text: "attribute fuzzy" },
       ]);
     });
   });
@@ -101,7 +103,7 @@ describe("DSLParserUtil", () => {
       // FilterNode properties
       expect(ast.filterType).toEqual(DSLFilterTypes.EXACT);
       expect(ast.filterParams).toEqual({
-        text: "text"
+        text: "text",
       });
     });
 
@@ -113,7 +115,7 @@ describe("DSLParserUtil", () => {
       const filters = [new ExactFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
-        { text: "exact" }
+        { text: "exact" },
       ]);
     });
   });
@@ -134,7 +136,7 @@ describe("DSLParserUtil", () => {
       // FilterNode properties
       expect(ast.filterType).toEqual(DSLFilterTypes.FUZZY);
       expect(ast.filterParams).toEqual({
-        text: "text"
+        text: "text",
       });
     });
 
@@ -147,7 +149,7 @@ describe("DSLParserUtil", () => {
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "fuzzy" },
-        { text: "attribute fuzzy" }
+        { text: "attribute fuzzy" },
       ]);
     });
   });
@@ -186,7 +188,7 @@ describe("DSLParserUtil", () => {
       const filters = [new AttribFilter(), new FuzzyFilter()];
 
       expect(filter(filters, thisMockData).getItems()).toEqual([
-        { text: "attribute fuzzy" }
+        { text: "attribute fuzzy" },
       ]);
     });
   });
@@ -227,7 +229,7 @@ describe("DSLParserUtil", () => {
       expect(filter(filters, thisMockData).getItems()).toEqual([
         { text: "attribute" },
         { text: "attribute fuzzy" },
-        { text: "fuzzy" }
+        { text: "fuzzy" },
       ]);
     });
   });

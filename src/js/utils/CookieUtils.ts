@@ -8,7 +8,7 @@ const Utils = {
   },
   emptyCookieWithExpiry(date) {
     return cookie.serialize(USER_COOKIE_KEY, "", { expires: date });
-  }
+  },
 };
 
 export default Utils;

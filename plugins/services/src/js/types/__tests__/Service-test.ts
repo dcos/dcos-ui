@@ -5,11 +5,11 @@ describe("Service", () => {
     it("returns true for same service", () => {
       const serviceA: Service = {
         id: "/my_service",
-        plans: []
+        plans: [],
       };
       const serviceB: Service = {
         id: "/my_service",
-        plans: []
+        plans: [],
       };
 
       expect(compare(serviceA, serviceB)).toEqual(true);
@@ -18,11 +18,11 @@ describe("Service", () => {
     it("return false if services don't match", () => {
       const serviceA: Service = {
         id: "/my_service",
-        plans: []
+        plans: [],
       };
       const serviceB: Service = {
         id: "/my-other-service",
-        plans: []
+        plans: [],
       };
 
       expect(compare(serviceA, serviceB)).toEqual(false);

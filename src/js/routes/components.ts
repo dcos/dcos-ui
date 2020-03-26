@@ -15,17 +15,17 @@ export default {
   children: [
     {
       type: IndexRoute,
-      component: UnitsHealthTab
+      component: UnitsHealthTab,
     },
     {
       type: Route,
       path: ":unitID",
-      component: UnitsHealthDetail
+      component: UnitsHealthDetail,
     },
     {
       type: Route,
       path: ":unitID/nodes/:unitNodeID",
-      component: ComponentsUnitsHealthNodeDetailPage
-    }
-  ]
+      component: ComponentsUnitsHealthNodeDetailPage,
+    },
+  ],
 };

@@ -1,7 +1,7 @@
 import { ServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import {
   ServicePlanStep,
-  compare as compareSteps
+  compare as compareSteps,
 } from "#PLUGINS/services/src/js/types/ServicePlanStep";
 
 export interface ServicePlanPhase {

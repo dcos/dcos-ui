@@ -39,7 +39,7 @@ export interface ServiceResolverArgs {
 export function resolvers({
   fetchServicePlans,
   fetchServicePlanDetail,
-  pollingInterval
+  pollingInterval,
 }: ServiceResolverArgs): IResolvers {
   return {
     Service: {
@@ -71,12 +71,12 @@ export function resolvers({
                 retry(2),
                 map(({ response }) => response),
                 map((plans: string[]) => {
-                  return plans.map(name => ({ name }));
+                  return plans.map((name) => ({ name }));
                 })
               )
             ),
-            switchMap(plans => {
-              const planDetails = plans.map(plan => {
+            switchMap((plans) => {
+              const planDetails = plans.map((plan) => {
                 return fetchServicePlanDetail(parent.id, plan.name).pipe(
                   retry(2),
                   map(({ response }) => ({ name: plan.name, ...response }))
@@ -86,7 +86,7 @@ export function resolvers({
             })
           );
         }
-      }
+      },
     },
     Query: {
       service(_parent = {}, args: GeneralArgs = {}) {
@@ -97,7 +97,7 @@ export function resolvers({
         }
 
         return of({ id: args.id });
-      }
-    }
+      },
+    },
   };
 }

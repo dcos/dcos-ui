@@ -20,7 +20,7 @@ function getRegionOptionText(region) {
   return `${region}${zone === region ? " (Local)" : ""}`;
 }
 
-const getRegionOptions = regions =>
+const getRegionOptions = (regions) =>
   regions.map((region, index) => (
     <option key={index} value={region}>
       {getRegionOptionText(region)}
@@ -50,7 +50,7 @@ class RegionSelection extends React.Component {
       regions: (MesosStateStore.get("lastMesosState").slaves || [])
         .map(({ domain }) => domain?.fault_domain?.region?.name)
         // filter undefineds and duplicates
-        .filter((x, i, self) => x && self.indexOf(x) === i)
+        .filter((x, i, self) => x && self.indexOf(x) === i),
     });
   };
 

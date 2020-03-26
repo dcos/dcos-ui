@@ -22,28 +22,28 @@ class DSLFormWithExpressionUpdates extends React.Component {
     itemCombiner: DSLCombinerTypes.AND,
     onChange() {},
     onSubmit() {},
-    updatePolicy: DSLUpdatePolicy.Checkbox
+    updatePolicy: DSLUpdatePolicy.Checkbox,
   };
   static propTypes = {
     enabled: PropTypes.bool,
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
     groupCombiner: PropTypes.oneOf(
-      Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
+      Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
     ),
     itemCombiner: PropTypes.oneOf(
-      Object.keys(DSLCombinerTypes).map(key => DSLCombinerTypes[key])
+      Object.keys(DSLCombinerTypes).map((key) => DSLCombinerTypes[key])
     ),
     onChange: PropTypes.func,
     onSubmit: PropTypes.func,
     parts: PropTypes.objectOf(PropTypes.instanceOf(FilterNode)).isRequired,
     updatePolicy: PropTypes.oneOf(
-      Object.keys(DSLUpdatePolicy).map(key => DSLUpdatePolicy[key])
-    )
+      Object.keys(DSLUpdatePolicy).map((key) => DSLUpdatePolicy[key])
+    ),
   };
   constructor(...args) {
     super(...args);
   }
-  handleFormBlur = event => {
+  handleFormBlur = (event) => {
     const { target } = event;
     const { onChange, parts } = this.props;
     let { value } = target;
@@ -77,7 +77,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
    *
    * @param {Object} event
    */
-  handleFormChange = event => {
+  handleFormChange = (event) => {
     const { target } = event;
     const { onChange, parts } = this.props;
     let { value } = target;
@@ -105,7 +105,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
     // Callback with the new expression
     onChange(this.getUpdatedExpression(updateNode, value));
   };
-  handleFormSubmit = event => {
+  handleFormSubmit = (event) => {
     event.preventDefault();
     this.props.onSubmit();
   };
@@ -124,7 +124,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
       groupCombiner,
       itemCombiner,
       parts,
-      updatePolicy
+      updatePolicy,
     } = this.props;
 
     // The node(s) relevant to the property we are updating
@@ -156,7 +156,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
               {
                 nodeCompareFunction: createNodeComparisionFunction(parts),
                 itemCombiner,
-                newCombiner: groupCombiner
+                newCombiner: groupCombiner,
               }
             );
           } else {
@@ -170,7 +170,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
           expression = DSLUpdateUtil.applyAdd(expression, [updateNode], {
             nodeCompareFunction: createNodeComparisionFunction(parts),
             itemCombiner,
-            newCombiner: groupCombiner
+            newCombiner: groupCombiner,
           });
         } else {
           expression = DSLUpdateUtil.applyDelete(expression, matchingNodes);
@@ -181,7 +181,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
       //
       case DSLFilterTypes.EXACT:
         const newExactNode = new FilterNode(0, 0, DSLFilterTypes.EXACT, {
-          text: value
+          text: value,
         });
 
         expression = DSLUpdateUtil.applyReplace(
@@ -189,7 +189,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
           matchingNodes,
           [newExactNode],
           {
-            newCombiner: groupCombiner
+            newCombiner: groupCombiner,
           }
         );
         break;
@@ -200,7 +200,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
         const newFuzzyNodes = value
           .replace(":", " ")
           .split(" ")
-          .map(text => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
+          .map((text) => new FilterNode(0, 0, DSLFilterTypes.FUZZY, { text }));
 
         // And replace the existing fuzzy nodes
         expression = DSLUpdateUtil.applyReplace(
@@ -208,7 +208,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
           matchingNodes,
           newFuzzyNodes,
           {
-            newCombiner: groupCombiner
+            newCombiner: groupCombiner,
           }
         );
         break;
@@ -224,7 +224,7 @@ class DSLFormWithExpressionUpdates extends React.Component {
     const { enabled } = this.props;
     const formClasses = classNames({
       "dsl-form-group form-group tall": true,
-      disabled: !enabled
+      disabled: !enabled,
     });
 
     return (

@@ -42,7 +42,7 @@ const NonLeaderList = ({ masters }) => {
 
   return (
     <ConfigurationMapSection>
-      {masters.map(master => (
+      {masters.map((master) => (
         <NonLeader key={master.host_ip} master={master} />
       ))}
     </ConfigurationMapSection>

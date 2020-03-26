@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  yellow
+  yellow,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ConfigurationMapRow from "#SRC/js/components/ConfigurationMapRow";
@@ -20,7 +20,7 @@ class LicensingNodeCapacityRow extends React.Component {
     super(props);
 
     this.state = {
-      licensingSummary: LicensingStore.getLicensingSummary()
+      licensingSummary: LicensingStore.getLicensingSummary(),
     };
   }
 

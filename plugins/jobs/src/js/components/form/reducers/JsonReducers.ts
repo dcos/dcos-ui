@@ -4,7 +4,7 @@ import {
   JobSpec,
   JobOutput,
   JobFormActionType,
-  Container
+  Container,
 } from "../helpers/JobFormData";
 
 export const jsonReducers = {
@@ -19,7 +19,7 @@ export const jsonReducers = {
       return {
         job: stateCopy.job,
         cmdOnly: stateCopy.cmdOnly,
-        container: stateCopy.container
+        container: stateCopy.container,
       };
     }
 
@@ -36,9 +36,9 @@ export const jsonReducers = {
           ...stateCopy.job,
           ...valueCopy,
           run: {
-            ...stateCopy.job.run
-          }
-        }
+            ...stateCopy.job.run,
+          },
+        },
       };
     }
 
@@ -65,7 +65,7 @@ export const jsonReducers = {
       ...stateCopy,
       job: valueCopy,
       cmdOnly,
-      container
+      container,
     };
     if (!newState.job.run.docker) {
       newState.job.run.docker = stateCopy.job.run.docker;
@@ -81,5 +81,5 @@ export const jsonReducers = {
       }
     }
     return newState;
-  }
+  },
 };

@@ -19,13 +19,13 @@ import TaskDirectoryActions from "../../events/TaskDirectoryActions";
 export default class TaskFileViewer extends React.Component {
   static defaultProps = {
     limitLogFiles: [],
-    task: {}
+    task: {},
   };
   static propTypes = {
     directory: PropTypes.instanceOf(TaskDirectory),
     limitLogFiles: PropTypes.arrayOf(PropTypes.string),
     selectedLogFile: PropTypes.object,
-    task: PropTypes.object
+    task: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
@@ -72,7 +72,7 @@ export default class TaskFileViewer extends React.Component {
     this.context.router.push(
       formatPattern(RouterUtil.getCorrectedFileRoutePath(routePath), {
         ...params,
-        filePath: encodeURIComponent(path)
+        filePath: encodeURIComponent(path),
       })
     );
   }
@@ -86,7 +86,7 @@ export default class TaskFileViewer extends React.Component {
 
     const limitLogFilesIsNotEmpty = limitLogFiles.length > 0;
 
-    directory.getItems().forEach(item => {
+    directory.getItems().forEach((item) => {
       const excludeFile =
         limitLogFilesIsNotEmpty && !limitLogFiles.includes(item.getName());
 
@@ -106,7 +106,7 @@ export default class TaskFileViewer extends React.Component {
 
       const classes = classNames({
         "button button-outline": true,
-        active: name === selectedName
+        active: name === selectedName,
       });
 
       return (
@@ -136,7 +136,7 @@ export default class TaskFileViewer extends React.Component {
   }
 
   getDropdownItems(logFiles) {
-    return logFiles.map(function(item) {
+    return logFiles.map(function (item) {
       const displayName = item.getDisplayName();
       const selectedHtml = this.getItemHtml(displayName);
       const dropdownHtml = <a>{selectedHtml}</a>;
@@ -146,7 +146,7 @@ export default class TaskFileViewer extends React.Component {
         name: displayName,
         html: dropdownHtml,
         selectedHtml,
-        value: item
+        value: item,
       };
     }, this);
   }
@@ -164,7 +164,7 @@ export default class TaskFileViewer extends React.Component {
       return null;
     }
 
-    return files.find(file => file.getName() === "stderr") || files[0];
+    return files.find((file) => file.getName() === "stderr") || files[0];
   }
 
   getSelectionComponent(selectedLogFile) {
@@ -210,7 +210,7 @@ export default class TaskFileViewer extends React.Component {
         >
           <Icon shape={SystemIcons.Download} size={iconSizeXs} />
         </a>
-      </Tooltip>
+      </Tooltip>,
     ];
   }
 
@@ -246,5 +246,5 @@ export default class TaskFileViewer extends React.Component {
 }
 
 TaskFileViewer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };

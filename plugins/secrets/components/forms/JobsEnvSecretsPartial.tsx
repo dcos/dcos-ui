@@ -13,7 +13,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import FieldError from "#SRC/js/components/form/FieldError";
 import {
   FormOutput,
-  FormError
+  FormError,
 } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 import { getFieldError } from "#PLUGINS/jobs/src/js/components/form/helpers/ErrorUtil";
 import SecretInput from "./SecretInput";
@@ -89,7 +89,7 @@ class JobsEnvSecretsPartial extends React.Component<
       errors,
       onAddItem,
       secrets,
-      showErrors
+      showErrors,
     } = this.props;
 
     const secretsLines = getSecretsLines(

@@ -8,7 +8,7 @@ const LABEL_TO_STATUS = {
   active: "active",
   completed: "completed",
   failed: "failure",
-  killed: "killed"
+  killed: "killed",
 };
 
 /**
@@ -37,7 +37,7 @@ class TasksStatusFilter extends DSLFilter {
   filterApply(resultSet, filterType, filterArguments) {
     const testStatus = LABEL_TO_STATUS[filterArguments.text.toLowerCase()];
 
-    return resultSet.filterItems(task =>
+    return resultSet.filterItems((task) =>
       TaskStates[task.state].stateTypes.includes(testStatus.toLowerCase())
     );
   }

@@ -1,7 +1,7 @@
 import {
   MetronomeSpecValidators,
   validateSpec,
-  constraintsAreComplete
+  constraintsAreComplete,
 } from "../MetronomeJobValidators";
 import { JobOutput } from "../JobFormData";
 
@@ -9,146 +9,146 @@ const JOBID_ERRORS = [
   {
     path: ["id"],
     message:
-      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
-  }
+      "ID must be at least 1 character and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash",
+  },
 ];
 const CMDARGSERROR = [
   {
     path: ["run", "cmd"],
-    message: "Please specify only one of `cmd` or `args`"
+    message: "Please specify only one of `cmd` or `args`",
   },
   {
     path: ["run", "args"],
-    message: "Please specify only one of `cmd` or `args`"
-  }
+    message: "Please specify only one of `cmd` or `args`",
+  },
 ];
 
 const CMDARGSCONTAINERERROR = [
   {
     path: ["run", "cmd"],
     message:
-      "You must specify a command, an argument or a container with an image"
+      "You must specify a command, an argument or a container with an image",
   },
   {
     path: ["run", "args"],
     message:
-      "You must specify a command, an argument or a container with an image"
+      "You must specify a command, an argument or a container with an image",
   },
   {
     path: [],
     message:
-      "You must specify a command, an argument or a container with an image"
-  }
+      "You must specify a command, an argument or a container with an image",
+  },
 ];
 
 const MUSTCONTAINIMAGEFORDOCKER = [
   {
     path: ["run", "docker", "image"],
-    message: "Must be specified when using the Docker Engine runtime"
-  }
+    message: "Must be specified when using the Docker Engine runtime",
+  },
 ];
 
 const MUSTCONTAINIMAGEFORUCR = [
   {
     path: ["run", "ucr", "image", "id"],
-    message: "Must be specified when using UCR"
-  }
+    message: "Must be specified when using UCR",
+  },
 ];
 
 const GPUSERROR = [
   {
     path: ["run", "gpus"],
-    message: "GPUs are only available with UCR"
-  }
+    message: "GPUs are only available with UCR",
+  },
 ];
 
 const CPURANGEERROR = [
   {
     path: ["run", "cpus"],
-    message: "Minimum value is 0.01"
-  }
+    message: "Minimum value is 0.01",
+  },
 ];
 
 const MEMRANGEERROR = [
   {
     path: ["run", "mem"],
-    message: "Minimum value is 32"
-  }
+    message: "Minimum value is 32",
+  },
 ];
 
 const DISKRANGEERROR = [
   {
     path: ["run", "disk"],
-    message: "Minimum value is 0"
-  }
+    message: "Minimum value is 0",
+  },
 ];
 
 const GPURANGEERROR = [
   {
     path: ["run", "gpus"],
-    message: "Minimum value is 0"
-  }
+    message: "Minimum value is 0",
+  },
 ];
 
 const EMPTYARGGERROR = [
   {
     path: ["run", "args", "0"],
-    message: "Arg cannot be empty"
-  }
+    message: "Arg cannot be empty",
+  },
 ];
 
 const ARGSWITHOUTDOCKERERROR = [
   {
     path: ["run", "args"],
-    message: "Args can only be used with Docker"
-  }
+    message: "Args can only be used with Docker",
+  },
 ];
 
 const UCRANDDOCKERERROR = [
   {
     path: ["run", "docker"],
-    message: "Only one of UCR or Docker is allowed"
+    message: "Only one of UCR or Docker is allowed",
   },
   {
     path: ["run", "ucr"],
-    message: "Only one of UCR or Docker is allowed"
-  }
+    message: "Only one of UCR or Docker is allowed",
+  },
 ];
 
 const SCHEDULEIDERROR = [
   {
     path: ["schedules", "0", "id"],
-    message: "ID is required"
-  }
+    message: "ID is required",
+  },
 ];
 
 const SCHEDULEIDREGEXERROR = [
   {
     path: ["schedules", "0", "id"],
     message:
-      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash"
-  }
+      "ID must be at least 2 characters and may only contain digits (`0-9`), dashes (`-`), and lowercase letters (`a-z`). The ID may not begin or end with a dash",
+  },
 ];
 
 const CRONERROR = [
   {
     path: ["schedules", "0", "cron"],
-    message: "CRON schedule is required"
-  }
+    message: "CRON schedule is required",
+  },
 ];
 
 const STARTINGDEADLINETYPEERROR = [
   {
     path: ["schedules", "0", "startingDeadlineSeconds"],
-    message: "Starting deadline must be a number"
-  }
+    message: "Starting deadline must be a number",
+  },
 ];
 
 const STARTINGDEADLINEVALUEERROR = [
   {
     path: ["schedules", "0", "startingDeadlineSeconds"],
-    message: "Minimum value is 1"
-  }
+    message: "Minimum value is 1",
+  },
 ];
 
 const validJobSpec = (): JobOutput => ({
@@ -156,8 +156,8 @@ const validJobSpec = (): JobOutput => ({
   run: {
     cpus: 1,
     mem: 128,
-    disk: 32
-  }
+    disk: 32,
+  },
 });
 
 describe("MetronomeSpecValidators", () => {
@@ -168,7 +168,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         path: ["id"],
-        message: "Must be a string"
+        message: "Must be a string",
       });
     });
 
@@ -183,7 +183,7 @@ describe("MetronomeSpecValidators", () => {
 
     it("returns error if id contains uppercase letters", () => {
       const spec = {
-        id: "Test"
+        id: "Test",
       };
       expect(MetronomeSpecValidators.jobIdIsValid(spec as JobOutput)).toEqual(
         JOBID_ERRORS
@@ -192,7 +192,7 @@ describe("MetronomeSpecValidators", () => {
 
     it("returns error if id starts with a dash", () => {
       const spec = {
-        id: "-test"
+        id: "-test",
       };
       expect(MetronomeSpecValidators.jobIdIsValid(spec as JobOutput)).toEqual(
         JOBID_ERRORS
@@ -201,7 +201,7 @@ describe("MetronomeSpecValidators", () => {
 
     it("returns error if id ends with a dash", () => {
       const spec = {
-        id: "test-"
+        id: "test-",
       };
       expect(MetronomeSpecValidators.jobIdIsValid(spec as JobOutput)).toEqual(
         JOBID_ERRORS
@@ -210,7 +210,7 @@ describe("MetronomeSpecValidators", () => {
 
     it("does not return error for id with lowercase letters and dashes", () => {
       const spec = {
-        id: "test-1"
+        id: "test-1",
       };
       expect(MetronomeSpecValidators.jobIdIsValid(spec as JobOutput)).toEqual(
         []
@@ -222,8 +222,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns no errors if `cmd` defined", () => {
       const spec = {
         run: {
-          cmd: "sleep 100"
-        }
+          cmd: "sleep 100",
+        },
       };
       expect(
         MetronomeSpecValidators.containsCmdArgsOrContainer(spec as JobOutput)
@@ -233,8 +233,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns no errors if `args` defined", () => {
       const spec = {
         run: {
-          args: ["sleep 100"]
-        }
+          args: ["sleep 100"],
+        },
       };
       expect(
         MetronomeSpecValidators.containsCmdArgsOrContainer(spec as JobOutput)
@@ -245,9 +245,9 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         run: {
           docker: {
-            image: "foo"
-          }
-        }
+            image: "foo",
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.containsCmdArgsOrContainer(spec as JobOutput)
@@ -259,10 +259,10 @@ describe("MetronomeSpecValidators", () => {
         run: {
           ucr: {
             image: {
-              id: "foo"
-            }
-          }
-        }
+              id: "foo",
+            },
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.containsCmdArgsOrContainer(spec as JobOutput)
@@ -273,8 +273,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         run: {
           args: ["sleep 100"],
-          cmd: "sleep 100"
-        }
+          cmd: "sleep 100",
+        },
       };
       expect(
         MetronomeSpecValidators.containsCmdArgsOrContainer(spec as JobOutput)
@@ -293,8 +293,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if runtime is docker but image is missing", () => {
       const spec = {
         run: {
-          docker: {}
-        }
+          docker: {},
+        },
       };
       expect(
         MetronomeSpecValidators.mustContainImageOnDockerOrUCR(spec as JobOutput)
@@ -306,7 +306,7 @@ describe("MetronomeSpecValidators", () => {
       spec.run.docker = "not an object";
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be an object",
-        path: ["run", "docker"]
+        path: ["run", "docker"],
       });
     });
 
@@ -316,7 +316,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be an object",
-        path: ["run", "ucr"]
+        path: ["run", "ucr"],
       });
     });
 
@@ -363,10 +363,10 @@ describe("MetronomeSpecValidators", () => {
           gpus: 0,
           ucr: {
             image: {
-              id: "foo"
-            }
-          }
-        }
+              id: "foo",
+            },
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.gpusOnlyWithUCR(spec as JobOutput)
@@ -378,9 +378,9 @@ describe("MetronomeSpecValidators", () => {
         run: {
           gpus: 0,
           docker: {
-            image: "foo"
-          }
-        }
+            image: "foo",
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.gpusOnlyWithUCR(spec as JobOutput)
@@ -390,8 +390,8 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error when gpus are used without explicit container", () => {
       const spec = {
         run: {
-          gpus: 0
-        }
+          gpus: 0,
+        },
       };
       expect(
         MetronomeSpecValidators.gpusOnlyWithUCR(spec as JobOutput)
@@ -409,7 +409,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.id;
       expect(MetronomeSpecValidators.validate(spec)).toEqual([
-        { message: "Must be present", path: ["id"] }
+        { message: "Must be present", path: ["id"] },
       ]);
     });
 
@@ -417,7 +417,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.run.cpus;
       expect(MetronomeSpecValidators.validate(spec)).toEqual([
-        { message: "Must be present", path: ["run", "cpus"] }
+        { message: "Must be present", path: ["run", "cpus"] },
       ]);
     });
 
@@ -425,7 +425,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.run.mem;
       expect(MetronomeSpecValidators.validate(spec)).toEqual([
-        { message: "Must be present", path: ["run", "mem"] }
+        { message: "Must be present", path: ["run", "mem"] },
       ]);
     });
 
@@ -433,7 +433,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       delete spec.run.disk;
       expect(MetronomeSpecValidators.validate(spec)).toEqual([
-        { message: "Must be present", path: ["run", "disk"] }
+        { message: "Must be present", path: ["run", "disk"] },
       ]);
     });
 
@@ -444,7 +444,7 @@ describe("MetronomeSpecValidators", () => {
         { message: "Must be present", path: ["id"] },
         { message: "Must be present", path: ["run", "cpus"] },
         { message: "Must be present", path: ["run", "disk"] },
-        { message: "Must be present", path: ["run", "mem"] }
+        { message: "Must be present", path: ["run", "mem"] },
       ]);
     });
   });
@@ -456,8 +456,8 @@ describe("MetronomeSpecValidators", () => {
         run: {
           cpus: 1,
           mem: 32,
-          disk: 0
-        }
+          disk: 0,
+        },
       };
       expect(MetronomeSpecValidators.valuesAreWithinRange(spec)).toEqual([]);
     });
@@ -465,8 +465,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if cpus is not within range", () => {
       const spec = {
         run: {
-          cpus: 0
-        }
+          cpus: 0,
+        },
       };
       expect(
         MetronomeSpecValidators.valuesAreWithinRange(spec as JobOutput)
@@ -476,8 +476,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if mem is not within range", () => {
       const spec = {
         run: {
-          mem: 0
-        }
+          mem: 0,
+        },
       };
       expect(
         MetronomeSpecValidators.valuesAreWithinRange(spec as JobOutput)
@@ -487,8 +487,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if disk is not within range", () => {
       const spec = {
         run: {
-          disk: -1
-        }
+          disk: -1,
+        },
       };
       expect(
         MetronomeSpecValidators.valuesAreWithinRange(spec as JobOutput)
@@ -500,8 +500,8 @@ describe("MetronomeSpecValidators", () => {
         run: {
           disk: -1,
           cpus: 0,
-          mem: 0
-        }
+          mem: 0,
+        },
       };
       expect(
         MetronomeSpecValidators.valuesAreWithinRange(spec as JobOutput)
@@ -514,8 +514,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          gpus: 0
-        }
+          gpus: 0,
+        },
       };
       expect(
         MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
@@ -525,7 +525,7 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error if gpus not present", () => {
       const spec = {
         id: "id",
-        run: {}
+        run: {},
       };
       expect(
         MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
@@ -535,8 +535,8 @@ describe("MetronomeSpecValidators", () => {
     it("returns error if gpus < 0", () => {
       const spec = {
         run: {
-          gpus: -1
-        }
+          gpus: -1,
+        },
       };
       expect(
         MetronomeSpecValidators.gpusWithinRange(spec as JobOutput)
@@ -549,7 +549,7 @@ describe("MetronomeSpecValidators", () => {
       const spec = validJobSpec();
       spec.run.docker = {
         image: "",
-        parameters: [{ key: "key", value: "value" }]
+        parameters: [{ key: "key", value: "value" }],
       };
       expect(MetronomeSpecValidators.validate(spec)).toEqual([]);
     });
@@ -565,14 +565,14 @@ describe("MetronomeSpecValidators", () => {
         id: "id",
         run: {
           docker: {
-            parameters: []
-          }
-        }
+            parameters: [],
+          },
+        },
       };
 
       expect(MetronomeSpecValidators.validate(spec as any)).not.toContainEqual({
         message: "Must be present",
-        path: ["run", "docker", "parameters", "0", "value"]
+        path: ["run", "docker", "parameters", "0", "value"],
       });
     });
 
@@ -584,17 +584,17 @@ describe("MetronomeSpecValidators", () => {
             parameters: [
               {
                 key: "",
-                value: "value"
-              }
-            ]
-          }
-        }
+                value: "value",
+              },
+            ],
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.validate(spec as JobOutput)
       ).toContainEqual({
         message: "Must be present",
-        path: ["run", "docker", "parameters", "0", "key"]
+        path: ["run", "docker", "parameters", "0", "key"],
       });
     });
 
@@ -606,18 +606,18 @@ describe("MetronomeSpecValidators", () => {
             parameters: [
               {
                 key: "key",
-                value: ""
-              }
-            ]
-          }
-        }
+                value: "",
+              },
+            ],
+          },
+        },
       };
 
       expect(
         MetronomeSpecValidators.validate(spec as JobOutput)
       ).toContainEqual({
         message: "Must be present",
-        path: ["run", "docker", "parameters", "0", "value"]
+        path: ["run", "docker", "parameters", "0", "value"],
       });
     });
   });
@@ -627,8 +627,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: ["arg"]
-        }
+          args: ["arg"],
+        },
       };
       expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
         []
@@ -638,7 +638,7 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error if there are no args", () => {
       const spec = {
         id: "id",
-        run: {}
+        run: {},
       };
       expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
         []
@@ -649,8 +649,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: [""]
-        }
+          args: [""],
+        },
       };
       expect(MetronomeSpecValidators.noEmptyArgs(spec as JobOutput)).toEqual(
         EMPTYARGGERROR
@@ -664,8 +664,8 @@ describe("MetronomeSpecValidators", () => {
         id: "id",
         run: {
           args: [],
-          docker: {}
-        }
+          docker: {},
+        },
       };
       expect(
         MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as any)
@@ -675,7 +675,7 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error if there are no args", () => {
       const spec = {
         id: "id",
-        run: {}
+        run: {},
       };
       expect(
         MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
@@ -686,8 +686,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: ["arg"]
-        }
+          args: ["arg"],
+        },
       };
       expect(
         MetronomeSpecValidators.argsUsedOnlyWithDocker(spec as JobOutput)
@@ -700,8 +700,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
-        }
+          cmd: "cmd",
+        },
       };
       expect(
         MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
@@ -712,8 +712,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          ucr: {}
-        }
+          ucr: {},
+        },
       };
       expect(
         MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
@@ -724,8 +724,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          docker: {}
-        }
+          docker: {},
+        },
       };
       expect(
         MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
@@ -737,8 +737,8 @@ describe("MetronomeSpecValidators", () => {
         id: "id",
         run: {
           docker: {},
-          ucr: {}
-        }
+          ucr: {},
+        },
       };
       expect(
         MetronomeSpecValidators.oneOfUcrOrDocker(spec as JobOutput)
@@ -751,8 +751,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          docker: {}
-        }
+          docker: {},
+        },
       };
       expect(
         MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
@@ -764,9 +764,9 @@ describe("MetronomeSpecValidators", () => {
         id: "id",
         run: {
           docker: {
-            parameters: [{ key: "key", value: "value" }]
-          }
-        }
+            parameters: [{ key: "key", value: "value" }],
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
@@ -780,10 +780,10 @@ describe("MetronomeSpecValidators", () => {
           docker: {
             parameters: [
               { key: "key", value: "value" },
-              { key: "key2", value: "value" }
-            ]
-          }
-        }
+              { key: "key2", value: "value" },
+            ],
+          },
+        },
       };
       expect(
         MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
@@ -797,20 +797,20 @@ describe("MetronomeSpecValidators", () => {
           docker: {
             parameters: [
               { key: "key", value: "value" },
-              { key: "key", value: "value" }
-            ]
-          }
-        }
+              { key: "key", value: "value" },
+            ],
+          },
+        },
       };
       const errors = [
         {
           path: ["run", "docker", "parameters", "0"],
-          message: "No duplicate parameters"
+          message: "No duplicate parameters",
         },
         {
           path: ["run", "docker", "parameters", "1"],
-          message: "No duplicate parameters"
-        }
+          message: "No duplicate parameters",
+        },
       ];
       expect(
         MetronomeSpecValidators.noDuplicateParams(spec as JobOutput)
@@ -822,7 +822,7 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error if there are no args", () => {
       const spec = {
         id: "id",
-        run: {}
+        run: {},
       };
       expect(
         MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
@@ -833,8 +833,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: ["arg"]
-        }
+          args: ["arg"],
+        },
       };
       expect(
         MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
@@ -845,8 +845,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: ["arg1", "arg2"]
-        }
+          args: ["arg1", "arg2"],
+        },
       };
       expect(
         MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
@@ -857,18 +857,18 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          args: ["arg", "arg"]
-        }
+          args: ["arg", "arg"],
+        },
       };
       const errors = [
         {
           path: ["run", "args", "0"],
-          message: "No duplicate args"
+          message: "No duplicate args",
         },
         {
           path: ["run", "args", "1"],
-          message: "No duplicate args"
-        }
+          message: "No duplicate args",
+        },
       ];
       expect(
         MetronomeSpecValidators.noDuplicateArgs(spec as JobOutput)
@@ -883,7 +883,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a string",
-        path: ["run", "cmd"]
+        path: ["run", "cmd"],
       });
     });
 
@@ -893,7 +893,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a number",
-        path: ["run", "cpus"]
+        path: ["run", "cpus"],
       });
     });
 
@@ -903,7 +903,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a number",
-        path: ["run", "disk"]
+        path: ["run", "disk"],
       });
     });
 
@@ -913,7 +913,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a number",
-        path: ["run", "mem"]
+        path: ["run", "mem"],
       });
     });
   });
@@ -925,7 +925,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a string",
-        path: ["run", "docker", "image"]
+        path: ["run", "docker", "image"],
       });
     });
 
@@ -935,7 +935,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a boolean",
-        path: ["run", "docker", "forcePullImage"]
+        path: ["run", "docker", "forcePullImage"],
       });
     });
 
@@ -945,7 +945,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a boolean",
-        path: ["run", "docker", "privileged"]
+        path: ["run", "docker", "privileged"],
       });
     });
   });
@@ -958,11 +958,11 @@ describe("MetronomeSpecValidators", () => {
             image: {
               id: "image",
               kind: "docker",
-              forcePull: true
+              forcePull: true,
             },
-            privileged: false
-          }
-        }
+            privileged: false,
+          },
+        },
       };
       expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
         []
@@ -971,7 +971,7 @@ describe("MetronomeSpecValidators", () => {
 
     it("does not return error if no ucr", () => {
       const spec = {
-        run: {}
+        run: {},
       };
       expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
         []
@@ -984,7 +984,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be an object",
-        path: ["run", "ucr", "image"]
+        path: ["run", "ucr", "image"],
       });
     });
 
@@ -994,7 +994,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a boolean",
-        path: ["run", "ucr", "privileged"]
+        path: ["run", "ucr", "privileged"],
       });
     });
 
@@ -1004,7 +1004,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a string",
-        path: ["run", "ucr", "image", "id"]
+        path: ["run", "ucr", "image", "id"],
       });
     });
 
@@ -1013,17 +1013,17 @@ describe("MetronomeSpecValidators", () => {
         run: {
           ucr: {
             image: {
-              kind: 123
-            }
-          }
-        }
+              kind: 123,
+            },
+          },
+        },
       };
       expect(MetronomeSpecValidators.checkTypesOfUcrProps(spec as any)).toEqual(
         [
           {
             path: ["run", "ucr", "image", "kind"],
-            message: "Image kind must be one of `docker` or `appc`"
-          }
+            message: "Image kind must be one of `docker` or `appc`",
+          },
         ]
       );
     });
@@ -1034,7 +1034,7 @@ describe("MetronomeSpecValidators", () => {
 
       expect(MetronomeSpecValidators.validate(spec)).toContainEqual({
         message: "Must be a boolean",
-        path: ["run", "ucr", "image", "forcePull"]
+        path: ["run", "ucr", "image", "forcePull"],
       });
     });
   });
@@ -1044,8 +1044,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
-        }
+          cmd: "cmd",
+        },
       };
       expect(MetronomeSpecValidators.scheduleHasId(spec as JobOutput)).toEqual(
         []
@@ -1056,9 +1056,9 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          ucr: {}
+          ucr: {},
         },
-        schedules: [{}]
+        schedules: [{}],
       };
       expect(MetronomeSpecValidators.scheduleHasId(spec as JobOutput)).toEqual(
         SCHEDULEIDERROR
@@ -1071,8 +1071,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
-        }
+          cmd: "cmd",
+        },
       };
       expect(
         MetronomeSpecValidators.scheduleIdIsValid(spec as JobOutput)
@@ -1083,9 +1083,9 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "-id",
         run: {
-          ucr: {}
+          ucr: {},
         },
-        schedules: [{}]
+        schedules: [{}],
       };
       expect(
         MetronomeSpecValidators.scheduleIdIsValid(spec as JobOutput)
@@ -1098,8 +1098,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
-        }
+          cmd: "cmd",
+        },
       };
       expect(
         MetronomeSpecValidators.scheduleHasCron(spec as JobOutput)
@@ -1110,9 +1110,9 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "-id",
         run: {
-          ucr: {}
+          ucr: {},
         },
-        schedules: [{}]
+        schedules: [{}],
       };
       expect(
         MetronomeSpecValidators.scheduleHasCron(spec as JobOutput)
@@ -1125,8 +1125,8 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
-        }
+          cmd: "cmd",
+        },
       };
       expect(
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
@@ -1139,13 +1139,13 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "id",
         run: {
-          cmd: "cmd"
+          cmd: "cmd",
         },
         schedules: [
           {
-            startingDeadlineSeconds: 1
-          }
-        ]
+            startingDeadlineSeconds: 1,
+          },
+        ],
       };
       expect(
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
@@ -1158,13 +1158,13 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "-id",
         run: {
-          ucr: {}
+          ucr: {},
         },
         schedules: [
           {
-            startingDeadlineSeconds: 0
-          }
-        ]
+            startingDeadlineSeconds: 0,
+          },
+        ],
       };
       expect(
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(
@@ -1177,13 +1177,13 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         id: "-id",
         run: {
-          ucr: {}
+          ucr: {},
         },
         schedules: [
           {
-            startingDeadlineSeconds: "not a number"
-          }
-        ]
+            startingDeadlineSeconds: "not a number",
+          },
+        ],
       };
       expect(
         MetronomeSpecValidators.scheduleStartingDeadlineIsValid(spec as any)
@@ -1197,10 +1197,10 @@ describe("MetronomeSpecValidators", () => {
         job: {
           run: {
             placement: {
-              constraints: []
-            }
-          }
-        }
+              constraints: [],
+            },
+          },
+        },
       };
       expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
         []
@@ -1211,9 +1211,9 @@ describe("MetronomeSpecValidators", () => {
       const spec = {
         job: {
           run: {
-            placement: {}
-          }
-        }
+            placement: {},
+          },
+        },
       };
       expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
         []
@@ -1223,8 +1223,8 @@ describe("MetronomeSpecValidators", () => {
     it("does not return error if no placement present", () => {
       const spec = {
         job: {
-          run: {}
-        }
+          run: {},
+        },
       };
       expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual(
         []
@@ -1236,16 +1236,16 @@ describe("MetronomeSpecValidators", () => {
         job: {
           run: {
             placement: {
-              constraints: {}
-            }
-          }
-        }
+              constraints: {},
+            },
+          },
+        },
       };
       expect(MetronomeSpecValidators.constraintsAreArray(spec as any)).toEqual([
         {
           path: ["run", "placement", "constraints"],
-          message: "Constraints must be an array"
-        }
+          message: "Constraints must be an array",
+        },
       ]);
     });
   });
@@ -1256,9 +1256,9 @@ describe("#constraintsAreComplete", () => {
     const spec = {
       job: {
         run: {
-          placement: {}
-        }
-      }
+          placement: {},
+        },
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([]);
   });
@@ -1266,8 +1266,8 @@ describe("#constraintsAreComplete", () => {
   it("does not return error if no placement present", () => {
     const spec = {
       job: {
-        run: {}
-      }
+        run: {},
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([]);
   });
@@ -1281,12 +1281,12 @@ describe("#constraintsAreComplete", () => {
               {
                 attribute: "a",
                 operator: "IS",
-                value: "c"
-              }
-            ]
-          }
-        }
-      }
+                value: "c",
+              },
+            ],
+          },
+        },
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([]);
   });
@@ -1299,18 +1299,18 @@ describe("#constraintsAreComplete", () => {
             constraints: [
               {
                 attribute: "a",
-                operator: "IS"
-              }
-            ]
-          }
-        }
-      }
+                operator: "IS",
+              },
+            ],
+          },
+        },
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["run", "placement", "constraints", "0", "value"],
-        message: "Value is required"
-      }
+        message: "Value is required",
+      },
     ]);
   });
 
@@ -1322,18 +1322,18 @@ describe("#constraintsAreComplete", () => {
             constraints: [
               {
                 operator: "IS",
-                value: "b"
-              }
-            ]
-          }
-        }
-      }
+                value: "b",
+              },
+            ],
+          },
+        },
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["run", "placement", "constraints", "0", "attribute"],
-        message: "Field is required"
-      }
+        message: "Field is required",
+      },
     ]);
   });
 
@@ -1345,18 +1345,18 @@ describe("#constraintsAreComplete", () => {
             constraints: [
               {
                 value: "b",
-                attribute: "a"
-              }
-            ]
-          }
-        }
-      }
+                attribute: "a",
+              },
+            ],
+          },
+        },
+      },
     };
     expect(constraintsAreComplete(spec as any)).toEqual([
       {
         path: ["run", "placement", "constraints", "0", "operator"],
-        message: "Operator is required"
-      }
+        message: "Operator is required",
+      },
     ]);
   });
 });
@@ -1374,9 +1374,9 @@ describe("validateSpec", () => {
         job: {
           labels: [
             ["a", "b"],
-            ["c", "d"]
-          ]
-        }
+            ["c", "d"],
+          ],
+        },
       };
 
       expect(validateSpec(spec as any)).toEqual([]);
@@ -1387,16 +1387,16 @@ describe("validateSpec", () => {
         job: {
           labels: [
             ["a", "b"],
-            ["a", "d"]
-          ]
-        }
+            ["a", "d"],
+          ],
+        },
       };
       const message = "Cannot have multiple labels with the same key";
 
       expect(validateSpec(spec as any)).toEqual([
         { path: ["labels"], message },
         { path: ["labels", "0"], message },
-        { path: ["labels", "1"], message }
+        { path: ["labels", "1"], message },
       ]);
     });
   });
@@ -1413,10 +1413,10 @@ describe("validateSpec", () => {
           run: {
             env: [
               ["a", "b"],
-              ["c", "d"]
-            ]
-          }
-        }
+              ["c", "d"],
+            ],
+          },
+        },
       };
 
       expect(validateSpec(spec as any)).toEqual([]);
@@ -1428,17 +1428,17 @@ describe("validateSpec", () => {
           run: {
             env: [
               ["a", "b"],
-              ["a", "d"]
-            ]
-          }
-        }
+              ["a", "d"],
+            ],
+          },
+        },
       };
       const message =
         "Cannot have multiple environment variables with the same key";
 
       expect(validateSpec(spec as any)).toEqual([
         { path: ["run", "env", "0"], message },
-        { path: ["run", "env", "1"], message }
+        { path: ["run", "env", "1"], message },
       ]);
     });
   });

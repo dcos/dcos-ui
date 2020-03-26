@@ -18,7 +18,7 @@ interface Props {
 
 const DEFAULT_DRAIN_OPTIONS: DrainOptions = {
   maxGracePeriod: null,
-  decommission: false
+  decommission: false,
 };
 
 function DrainNodeModal(props: Props) {
@@ -35,7 +35,7 @@ function DrainNodeModal(props: Props) {
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [
     networkError,
-    setNetworkError
+    setNetworkError,
   ] = React.useState<React.ReactElement | null>(null);
 
   const handleDrainOptions = (options: Partial<DrainOptions>) => {
@@ -72,7 +72,7 @@ function DrainNodeModal(props: Props) {
             )
           );
           setInProgress(false);
-        }
+        },
       });
     }
   };

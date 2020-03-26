@@ -18,10 +18,7 @@ describe("TasksChart", () => {
 
     it("renders its label", () => {
       expect(
-        thisInstance
-          .render()
-          .find(".description .unit-label")
-          .text()
+        thisInstance.render().find(".description .unit-label").text()
       ).toEqual("Total Tasks");
     });
   });
@@ -32,10 +29,7 @@ describe("TasksChart", () => {
     });
 
     it("renders two task info labels when there is no data", () => {
-      const taskLabels = thisInstance
-        .find(".row")
-        .last()
-        .find(".unit");
+      const taskLabels = thisInstance.find(".row").last().find(".unit");
       expect(taskLabels.length).toEqual(2);
     });
 
@@ -44,10 +38,7 @@ describe("TasksChart", () => {
         <TasksChart tasks={{ tasks: { TASK_RUNNING: 1 } }} />
       );
 
-      const taskLabels = thisInstance
-        .find(".row")
-        .last()
-        .find(".unit");
+      const taskLabels = thisInstance.find(".row").last().find(".unit");
       expect(taskLabels.length).toEqual(2);
     });
   });

@@ -1,6 +1,6 @@
 const mockRequest = jest.fn(() => of("test"));
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 // TODO: remove this disable with https://jira.mesosphere.com/browse/DCOS_OSS-3579
@@ -19,7 +19,7 @@ import {
   deleteJob,
   stopJobRun,
   JobResponse,
-  JobDetailResponse
+  JobDetailResponse,
 } from "../MetronomeClient";
 import Config from "../../config/Config";
 import { RestartPolicy } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
@@ -39,16 +39,16 @@ describe("MetronomeClient", () => {
       cmd: "sleep 10",
       maxLaunchDelay: 3600,
       restart: {
-        policy: restartPolicy
+        policy: restartPolicy,
       },
       volumes: [],
       env: {},
       placement: {
-        constraints: []
+        constraints: [],
       },
       artifacts: [],
-      secrets: {}
-    }
+      secrets: {},
+    },
   };
   const jobData: JobResponse = {
     ...job,
@@ -57,8 +57,8 @@ describe("MetronomeClient", () => {
       failureCount: 0,
       lastFailureAt: null,
       lastSuccessAt: "2018-06-07T11:48:17.278+0000",
-      successCount: 90
-    }
+      successCount: 90,
+    },
   };
 
   const jobDetailData: JobDetailResponse = {
@@ -75,39 +75,39 @@ describe("MetronomeClient", () => {
         {
           id: "20180606104932xsDzH",
           createdAt: "2018-06-06T10:49:32.336+0000",
-          finishedAt: "2018-06-06T10:49:44.471+0000"
+          finishedAt: "2018-06-06T10:49:44.471+0000",
         },
         {
           id: "20180606104545rjSRE",
           createdAt: "2018-06-06T10:45:45.890+0000",
-          finishedAt: "2018-06-06T10:45:57.236+0000"
+          finishedAt: "2018-06-06T10:45:57.236+0000",
         },
         {
           id: "20180606100732E88WQ",
           createdAt: "2018-06-06T10:07:32.972+0000",
-          finishedAt: "2018-06-06T10:07:44.265+0000"
-        }
+          finishedAt: "2018-06-06T10:07:44.265+0000",
+        },
       ],
       failedFinishedRuns: [
         {
           createdAt: "2018-06-06T09:31:46.254+0000",
           finishedAt: "2018-06-06T09:31:47.760+0000",
-          id: "20180606093146gr5Pi"
-        }
-      ]
-    }
+          id: "20180606093146gr5Pi",
+        },
+      ],
+    },
   };
   const createUpdateV1Data = {
     job,
-    schedule: undefined
+    schedule: undefined,
   };
   const scheduleData = {
     id: "my-schedule-data",
-    cron: "0 4 * * *"
+    cron: "0 4 * * *",
   };
   const createUpdateWithSchedule = {
     job,
-    schedule: scheduleData
+    schedule: scheduleData,
   };
 
   beforeEach(() => {
@@ -133,7 +133,7 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         body: expect.anything(),
         method: "POST",
-        headers: expect.anything()
+        headers: expect.anything(),
       });
     });
 
@@ -142,7 +142,7 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         body: JSON.stringify(createUpdateV1Data.job),
         method: expect.anything(),
-        headers: expect.anything()
+        headers: expect.anything(),
       });
     });
 
@@ -177,7 +177,7 @@ describe("MetronomeClient", () => {
             expect(mockRequest).toHaveBeenLastCalledWith(expect.anything(), {
               body: JSON.stringify(createUpdateWithSchedule.schedule),
               method: "POST",
-              headers: expect.anything()
+              headers: expect.anything(),
             })
           )
         );
@@ -186,13 +186,13 @@ describe("MetronomeClient", () => {
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData,
             code: 200,
-            message: "ok"
-          }
+            message: "ok",
+          },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -220,14 +220,14 @@ describe("MetronomeClient", () => {
 
     it(
       "emits an event if the data is received",
-      marbles(m => {
+      marbles((m) => {
         const expectedResult = [jobData, jobData] as JobResponse[];
         const expected$ = m.cold("--j|", {
           j: {
             response: expectedResult,
             code: 200,
-            message: "ok"
-          }
+            message: "ok",
+          },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -252,13 +252,13 @@ describe("MetronomeClient", () => {
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
           j: {
             response: jobDetailData,
             code: 200,
-            message: "ok"
-          }
+            message: "ok",
+          },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -287,15 +287,15 @@ describe("MetronomeClient", () => {
       deleteJob(jobId, true);
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "DELETE",
-        headers: expect.anything()
+        headers: expect.anything(),
       });
     });
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
-          j: { response: null, code: 200, message: "ok" }
+          j: { response: null, code: 200, message: "ok" },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -325,7 +325,7 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",
         body: JSON.stringify(createUpdateV1Data.job),
-        headers: expect.anything()
+        headers: expect.anything(),
       });
     });
 
@@ -333,7 +333,7 @@ describe("MetronomeClient", () => {
       "sends 2 requests if schedule is present",
       observe(() => {
         const {
-          job: { id }
+          job: { id },
         } = createUpdateWithSchedule;
         return updateJob(id, createUpdateWithSchedule).pipe(
           tap(() => expect(mockRequest).toHaveBeenCalledTimes(2))
@@ -345,7 +345,7 @@ describe("MetronomeClient", () => {
       "sends schedule request to correct URL if schedule is present",
       observe(() => {
         const {
-          job: { id }
+          job: { id },
         } = createUpdateWithSchedule;
         return updateJob(id, createUpdateWithSchedule).pipe(
           tap(() =>
@@ -362,14 +362,14 @@ describe("MetronomeClient", () => {
       "sends schedule request with correct data if schedule is present",
       observe(() => {
         const {
-          job: { id }
+          job: { id },
         } = createUpdateWithSchedule;
         return updateJob(id, createUpdateWithSchedule).pipe(
           tap(() =>
             expect(mockRequest).toHaveBeenLastCalledWith(expect.anything(), {
               body: JSON.stringify(createUpdateWithSchedule.schedule),
               method: "PUT",
-              headers: expect.anything()
+              headers: expect.anything(),
             })
           )
         );
@@ -378,9 +378,9 @@ describe("MetronomeClient", () => {
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
-          j: { response: jobDetailData, code: 200, message: "ok" }
+          j: { response: jobDetailData, code: 200, message: "ok" },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -410,15 +410,15 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         headers: expect.anything(),
         method: "POST",
-        body: "{}"
+        body: "{}",
       });
     });
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
-          j: { response: null, code: 200, message: "ok" }
+          j: { response: null, code: 200, message: "ok" },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -448,15 +448,15 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "POST",
         headers: expect.anything(),
-        body: "{}"
+        body: "{}",
       });
     });
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
-          j: { response: null, code: 200, message: "ok" }
+          j: { response: null, code: 200, message: "ok" },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -486,15 +486,15 @@ describe("MetronomeClient", () => {
       expect(mockRequest).toHaveBeenCalledWith(expect.anything(), {
         method: "PUT",
         headers: expect.anything(),
-        body: JSON.stringify(scheduleData)
+        body: JSON.stringify(scheduleData),
       });
     });
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--j|", {
-          j: { response: null, code: 200, message: "ok" }
+          j: { response: null, code: 200, message: "ok" },
         });
 
         mockRequest.mockReturnValueOnce(expected$);

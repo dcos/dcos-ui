@@ -9,8 +9,8 @@ describe("state message parser", () => {
         get_frameworks: { frameworks: [] },
         get_tasks: { tasks: [] },
         get_executors: { executors: [] },
-        get_agents: { agents: [] }
-      }
+        get_agents: { agents: [] },
+      },
     };
 
     const result = getStateAction(state, message);
@@ -19,7 +19,7 @@ describe("state message parser", () => {
       frameworks: [],
       tasks: [],
       executors: [],
-      slaves: []
+      slaves: [],
     });
   });
 });

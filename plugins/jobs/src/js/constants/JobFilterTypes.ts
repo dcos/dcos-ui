@@ -3,7 +3,7 @@ export interface JobFilterTypes {
 }
 
 const states: JobFilterTypes = {
-  TEXT: "searchString"
+  TEXT: "searchString",
 };
 
 export default states;

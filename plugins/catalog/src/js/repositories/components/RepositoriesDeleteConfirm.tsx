@@ -30,7 +30,7 @@ const RepositoriesDeleteConfirm = ({
   pendingRequest,
   repository,
   deleteError,
-  i18n
+  i18n,
 }) => {
   const heading = (
     <ModalHeading>

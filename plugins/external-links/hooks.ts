@@ -4,7 +4,7 @@ module.exports = {
   filters: ["applicationConfiguration"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
@@ -16,5 +16,5 @@ module.exports = {
     configuration.supportEmail = "support@mesosphere.com";
 
     return configuration;
-  }
+  },
 };

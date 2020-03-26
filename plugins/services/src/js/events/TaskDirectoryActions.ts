@@ -8,7 +8,7 @@ import {
   REQUEST_NODE_STATE_ERROR,
   REQUEST_NODE_STATE_SUCCESS,
   REQUEST_TASK_DIRECTORY_ERROR,
-  REQUEST_TASK_DIRECTORY_SUCCESS
+  REQUEST_TASK_DIRECTORY_SUCCESS,
 } from "../constants/ActionTypes";
 
 function getNodeStateURL(task, node) {
@@ -41,7 +41,7 @@ const TaskDirectoryActions = {
             data: response,
             task,
             node,
-            innerPath
+            innerPath,
           });
           resolve();
         },
@@ -57,10 +57,10 @@ const TaskDirectoryActions = {
             data: xhr.message,
             task,
             node,
-            xhr
+            xhr,
           });
           reject();
-        }
+        },
       }),
     { delayAfterCount: Config.delayAfterErrorCount }
   ),
@@ -71,7 +71,7 @@ const TaskDirectoryActions = {
     if (path == null) {
       AppDispatcher.handleServerAction({
         type: REQUEST_TASK_DIRECTORY_ERROR,
-        task
+        task,
       });
 
       return;
@@ -85,7 +85,7 @@ const TaskDirectoryActions = {
           type: REQUEST_TASK_DIRECTORY_SUCCESS,
           data: directory,
           innerPath,
-          task
+          task,
         });
       },
       error(xhr) {
@@ -97,11 +97,11 @@ const TaskDirectoryActions = {
           type: REQUEST_TASK_DIRECTORY_ERROR,
           data: xhr.message,
           task,
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 export default TaskDirectoryActions;

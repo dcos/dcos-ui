@@ -1,12 +1,12 @@
 import BaseStore from "#SRC/js/stores/BaseStore";
 import {
   NETWORKING_NODE_MEMBERSHIP_CHANGE,
-  NETWORKING_NODE_MEMBERSHIP_REQUEST_ERROR
+  NETWORKING_NODE_MEMBERSHIP_REQUEST_ERROR,
 } from "../constants/EventTypes";
 
 import {
   REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS,
-  REQUEST_NETWORKING_NODE_MEMBERSHIPS_ERROR
+  REQUEST_NETWORKING_NODE_MEMBERSHIPS_ERROR,
 } from "../constants/ActionTypes";
 
 import NetworkingActions from "../actions/NetworkingActions";
@@ -22,12 +22,12 @@ class NetworkingNodeMembershipsStore extends BaseStore {
       storeID: "networkingNodeMemberships",
       events: {
         success: NETWORKING_NODE_MEMBERSHIP_CHANGE,
-        error: NETWORKING_NODE_MEMBERSHIP_REQUEST_ERROR
+        error: NETWORKING_NODE_MEMBERSHIP_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS:
           this.processNodeMemberships(action.data);
@@ -50,7 +50,7 @@ class NetworkingNodeMembershipsStore extends BaseStore {
   processNodeMemberships(nodeMemberships) {
     SDK.getSDK().dispatch({
       type: NETWORKING_NODE_MEMBERSHIP_CHANGE,
-      nodeMemberships
+      nodeMemberships,
     });
     this.emit(NETWORKING_NODE_MEMBERSHIP_CHANGE);
   }

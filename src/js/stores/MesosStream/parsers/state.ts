@@ -3,7 +3,7 @@ import {
   GET_AGENTS,
   GET_FRAMEWORKS,
   GET_TASKS,
-  GET_EXECUTORS
+  GET_EXECUTORS,
 } from "../../../constants/MesosStreamMessageTypes";
 
 import { getFrameworksAction } from "./frameworks";
@@ -18,13 +18,13 @@ export default function getStateAction(state, message) {
 
   const getFrameworksMessage = {
     type: GET_FRAMEWORKS,
-    get_frameworks: message.get_state.get_frameworks
+    get_frameworks: message.get_state.get_frameworks,
   };
   const frameworksPartial = getFrameworksAction({}, getFrameworksMessage);
 
   const getTasksMessage = {
     type: GET_TASKS,
-    get_tasks: message.get_state.get_tasks
+    get_tasks: message.get_state.get_tasks,
   };
   const tasksPartial = getTasksAction(
     { ...frameworksPartial },
@@ -33,7 +33,7 @@ export default function getStateAction(state, message) {
 
   const getExecutorsMessage = {
     type: GET_EXECUTORS,
-    get_executors: message.get_state.get_executors
+    get_executors: message.get_state.get_executors,
   };
   const executorsPartial = getExecutorsAction({}, getExecutorsMessage);
 
@@ -41,7 +41,7 @@ export default function getStateAction(state, message) {
   if (message.get_state.get_agents) {
     const getAgentsMessage = {
       type: GET_AGENTS,
-      get_agents: message.get_state.get_agents
+      get_agents: message.get_state.get_agents,
     };
 
     agentsPartial = getAgentsAction({}, getAgentsMessage);
@@ -52,6 +52,6 @@ export default function getStateAction(state, message) {
     ...agentsPartial,
     ...executorsPartial,
     ...frameworksPartial,
-    ...tasksPartial
+    ...tasksPartial,
   };
 }

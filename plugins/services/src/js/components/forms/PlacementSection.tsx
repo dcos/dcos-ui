@@ -8,7 +8,7 @@ import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingCon
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
 
-export default props => {
+export default (props) => {
   const { data, onAddItem, onRemoveItem, errors } = props;
   const placementTooltipContent = (
     <Trans render="span">

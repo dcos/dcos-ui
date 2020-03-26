@@ -9,19 +9,19 @@ import UnitHealthStatus from "../constants/UnitHealthStatus";
 const DEFAULT_ITEM = {
   id: "all",
   html: <Trans render="span">All Health Checks</Trans>,
-  selectedHtml: <Trans render="span">All Health Checks</Trans>
+  selectedHtml: <Trans render="span">All Health Checks</Trans>,
 };
 
 class UnitHealthDropdown extends React.PureComponent {
   static defaultProps = {
     className: "button dropdown-toggle text-align-left",
-    dropdownMenuClassName: "dropdown-menu"
+    dropdownMenuClassName: "dropdown-menu",
   };
   static propTypes = {
     className: PropTypes.string,
     dropdownMenuClassName: PropTypes.string,
     initialID: PropTypes.string,
-    onHealthSelection: PropTypes.func
+    onHealthSelection: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -30,13 +30,13 @@ class UnitHealthDropdown extends React.PureComponent {
 
   getDropdownItems() {
     const keys = Object.keys(UnitHealthStatus).filter(
-      key => key !== "NA" && key !== "WARN"
+      (key) => key !== "NA" && key !== "WARN"
     );
 
-    const items = keys.map(key => ({
+    const items = keys.map((key) => ({
       id: key,
       html: <Trans render="span" id={UnitHealthStatus[key].title} />,
-      selectedHtml: <Trans render="span" id={UnitHealthStatus[key].title} />
+      selectedHtml: <Trans render="span" id={UnitHealthStatus[key].title} />,
     }));
 
     items.unshift(DEFAULT_ITEM);
@@ -46,7 +46,7 @@ class UnitHealthDropdown extends React.PureComponent {
 
   setDropdownValue(id) {
     this.dropdown.setState({
-      selectedID: id
+      selectedID: id,
     });
   }
 
@@ -55,7 +55,7 @@ class UnitHealthDropdown extends React.PureComponent {
       className,
       dropdownMenuClassName,
       initialID,
-      onHealthSelection
+      onHealthSelection,
     } = this.props;
     const { dropdownItems } = this.state;
 
@@ -67,7 +67,7 @@ class UnitHealthDropdown extends React.PureComponent {
         initialID={initialID}
         items={dropdownItems}
         onItemSelection={onHealthSelection}
-        ref={ref => (this.dropdown = ref)}
+        ref={(ref) => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}

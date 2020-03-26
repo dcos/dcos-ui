@@ -20,7 +20,7 @@ describe("Residency", () => {
       batch = batch.add(new Transaction(["residency"], { foo: "bar" }));
 
       expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual({
-        foo: "bar"
+        foo: "bar",
       });
     });
 
@@ -49,7 +49,7 @@ describe("Residency", () => {
       batch = batch.add(new Transaction(["volumes", 0, "type"], "PERSISTENT"));
 
       expect(batch.reduce(Residency.JSONReducer.bind({}))).toEqual({
-        foo: "bar"
+        foo: "bar",
       });
     });
   });
@@ -62,7 +62,7 @@ describe("Residency", () => {
       expect(Residency.JSONParser({ residency: { foo: "bar" } })).toEqual({
         type: SET,
         path: ["residency"],
-        value: { foo: "bar" }
+        value: { foo: "bar" },
       });
     });
   });

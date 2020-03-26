@@ -1,7 +1,7 @@
 import {
   ServicePlan,
   compare,
-  flattenServicePlanPhases
+  flattenServicePlanPhases,
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 
 describe("ServicePlan", () => {
@@ -12,14 +12,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(true);
@@ -34,12 +34,12 @@ describe("ServicePlan", () => {
             name: "test-phase",
             steps: [],
             strategy: "serial",
-            status: "COMPLETE"
-          }
+            status: "COMPLETE",
+          },
         ],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
@@ -49,12 +49,12 @@ describe("ServicePlan", () => {
             name: "test-phase",
             steps: [],
             strategy: "serial",
-            status: "COMPLETE"
-          }
+            status: "COMPLETE",
+          },
         ],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(true);
@@ -66,14 +66,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan-two",
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -85,14 +85,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
         phases: [],
         status: "WAITING",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -104,14 +104,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "serial"
+        strategy: "serial",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -123,14 +123,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
         phases: [],
         status: "COMPLETE",
         errors: ["I'm a new error"],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -142,14 +142,14 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: ["I'm a different error"],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
         phases: [],
         status: "COMPLETE",
         errors: ["I'm a new error"],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -161,7 +161,7 @@ describe("ServicePlan", () => {
         phases: [],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
@@ -171,12 +171,12 @@ describe("ServicePlan", () => {
             name: "test-phase",
             steps: [],
             strategy: "serial",
-            status: "COMPLETE"
-          }
+            status: "COMPLETE",
+          },
         ],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -191,12 +191,12 @@ describe("ServicePlan", () => {
             name: "test-phase",
             steps: [],
             strategy: "serial",
-            status: "COMPLETE"
-          }
+            status: "COMPLETE",
+          },
         ],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
       const planB: ServicePlan = {
         name: "plan",
@@ -206,12 +206,12 @@ describe("ServicePlan", () => {
             name: "test-phase",
             steps: [],
             strategy: "serial",
-            status: "COMPLETE"
-          }
+            status: "COMPLETE",
+          },
         ],
         status: "COMPLETE",
         errors: [],
-        strategy: "parallel"
+        strategy: "parallel",
       };
 
       expect(compare(planA, planB)).toEqual(false);
@@ -236,17 +236,17 @@ describe("ServicePlan", () => {
                 id: "step-id-01",
                 name: "step-01",
                 status: "COMPLETE",
-                message: "this is a message"
+                message: "this is a message",
               },
               {
                 id: "step-id-02",
                 name: "step-02",
                 status: "PREPARED",
-                message: "this is another message"
-              }
-            ]
-          }
-        ]
+                message: "this is another message",
+              },
+            ],
+          },
+        ],
       };
 
       expect(flattenServicePlanPhases(plan)).toEqual([
@@ -263,7 +263,7 @@ describe("ServicePlan", () => {
               id: "step-id-01",
               name: "step-01",
               status: "COMPLETE",
-              message: "this is a message"
+              message: "this is a message",
             },
             {
               type: "step",
@@ -271,9 +271,9 @@ describe("ServicePlan", () => {
               id: "step-id-02",
               name: "step-02",
               status: "PREPARED",
-              message: "this is another message"
-            }
-          ]
+              message: "this is another message",
+            },
+          ],
         },
         {
           type: "step",
@@ -281,7 +281,7 @@ describe("ServicePlan", () => {
           id: "step-id-01",
           name: "step-01",
           status: "COMPLETE",
-          message: "this is a message"
+          message: "this is a message",
         },
         {
           type: "step",
@@ -289,8 +289,8 @@ describe("ServicePlan", () => {
           id: "step-id-02",
           name: "step-02",
           status: "PREPARED",
-          message: "this is another message"
-        }
+          message: "this is another message",
+        },
       ]);
     });
   });

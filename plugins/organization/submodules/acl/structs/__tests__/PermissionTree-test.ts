@@ -17,15 +17,15 @@ describe("PermissionTree", () => {
         {
           displayName: "Alpha Item",
           rid: "alpha",
-          actions: ["read"]
+          actions: ["read"],
         },
         {
           rid: "beta",
-          name: "Beta Name"
+          name: "Beta Name",
         },
         {
           rid: "gamma",
-          items: []
+          items: [],
         },
         {
           rid: "delta",
@@ -33,14 +33,14 @@ describe("PermissionTree", () => {
           items: [
             {
               rid: "foo",
-              actions: ["read"]
+              actions: ["read"],
             },
             {
-              rid: "bar"
-            }
-          ]
-        }
-      ]
+              rid: "bar",
+            },
+          ],
+        },
+      ],
     });
   });
 
@@ -98,7 +98,7 @@ describe("PermissionTree", () => {
     it("collects all actions from listed rids", () => {
       expect(thisInstance.collectActions(["top", "delta", "foo"])).toEqual([
         "write",
-        "read"
+        "read",
       ]);
     });
 
@@ -108,7 +108,7 @@ describe("PermissionTree", () => {
 
     it("re-tries child until rid match, and continues after", () => {
       expect(thisInstance.collectActions(["top", "zeta", "alpha"])).toEqual([
-        "read"
+        "read",
       ]);
     });
   });
@@ -132,7 +132,7 @@ describe("PermissionTree", () => {
         "top",
         "epsilon",
         "delta",
-        "foo"
+        "foo",
       ]);
       expect(Array.isArray(children)).toEqual(true);
       expect(children[0].rid).toEqual("top");

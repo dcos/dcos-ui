@@ -3,7 +3,7 @@
  */
 const DSL_UPDATE_POLICY = {
   Checkbox: Symbol("Checkbox"),
-  Radio: Symbol("Radio")
+  Radio: Symbol("Radio"),
 };
 
 export default DSL_UPDATE_POLICY;

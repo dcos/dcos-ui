@@ -60,7 +60,7 @@ SecretFormInput.propTypes = {
   value: PropTypes.string,
   secrets: PropTypes.arrayOf(PropTypes.string).isRequired,
   showErrors: PropTypes.bool,
-  errors: PropTypes.object
+  errors: PropTypes.object,
 };
 
 export default SecretFormInput;

@@ -6,7 +6,7 @@ describe("PodSpec", () => {
   describe("#constructor", () => {
     it("creates instances", () => {
       const instance = new PodSpec({
-        ...PodFixture.spec
+        ...PodFixture.spec,
       });
 
       expect(instance.get()).toEqual(PodFixture.spec);
@@ -70,7 +70,7 @@ describe("PodSpec", () => {
         cpus: 1,
         mem: 128,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -80,7 +80,7 @@ describe("PodSpec", () => {
         cpus: 0,
         mem: 0,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
   });

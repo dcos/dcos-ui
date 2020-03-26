@@ -1,13 +1,13 @@
 import {
   ACL_GROUPS_CHANGE,
   ACL_GROUP_SET_GROUPS,
-  ACL_GROUP_SET_GROUPS_FETCHING
+  ACL_GROUP_SET_GROUPS_FETCHING,
 } from "./constants/EventTypes";
 
 const initialState = {
   groups: [],
   groupDetail: {},
-  groupsFetching: {}
+  groupsFetching: {},
 };
 
 module.exports = (state = initialState, action) => {

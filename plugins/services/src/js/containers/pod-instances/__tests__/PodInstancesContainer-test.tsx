@@ -80,7 +80,7 @@ describe("PodInstancesContainer", () => {
       it("returns matching instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["instance-1"]);
       });
@@ -105,7 +105,7 @@ describe("PodInstancesContainer", () => {
       it("returns matching instances and containers", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         // The table is expanded and the containers are filtered, therefore
         // we should see 1 Header + 1 Child for every instance.
@@ -117,14 +117,14 @@ describe("PodInstancesContainer", () => {
           "instance-1",
           "container-1",
           "instance-2",
-          "container-1"
+          "container-1",
         ]);
       });
 
       it("always shows instance total resources", () => {
         const mem = thisInstance
           .find("td.task-table-column-mem span")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(mem).toEqual(["128 MiB", "64 MiB", "128 MiB", "64 MiB"]);
       });
@@ -149,7 +149,7 @@ describe("PodInstancesContainer", () => {
       it("shows all instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
@@ -174,7 +174,7 @@ describe("PodInstancesContainer", () => {
       it("shows no instances", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([]);
       });

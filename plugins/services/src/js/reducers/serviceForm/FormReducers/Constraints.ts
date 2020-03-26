@@ -19,7 +19,7 @@ function processTransaction(state, { type, path, value }) {
     if (value != null && value.type != null) {
       defaultValue = {
         ...defaultValue,
-        ...value
+        ...value,
       };
     }
 

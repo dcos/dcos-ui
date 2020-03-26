@@ -22,11 +22,11 @@ let thisRequestFn, thisVipsFixture, thisUseFixtures;
 describe("NetworkingVIPsStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(vipsFixture);
     };
     thisVipsFixture = {
-      ...vipsFixture
+      ...vipsFixture,
     };
   });
 
@@ -50,7 +50,7 @@ describe("NetworkingVIPsStore", () => {
     it("stores VIPs when event is dispatched", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIPS_SUCCESS,
-        data: [{ ip: "foo", port: "bar", protocol: "baz" }]
+        data: [{ ip: "foo", port: "bar", protocol: "baz" }],
       });
 
       const vips = NetworkingVIPsStore.get("vips");
@@ -67,7 +67,7 @@ describe("NetworkingVIPsStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIPS_SUCCESS,
-        data: [{ ip: "foo", port: "bar", protocol: "baz" }]
+        data: [{ ip: "foo", port: "bar", protocol: "baz" }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -83,7 +83,7 @@ describe("NetworkingVIPsStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIPS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);
@@ -96,7 +96,7 @@ describe("NetworkingVIPsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
         data: { qux: "quux" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       const vipDetails = NetworkingVIPsStore.get("vipDetail");
@@ -107,14 +107,14 @@ describe("NetworkingVIPsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
         data: { qux: "quux", grault: "garply", waldo: "fred" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       const vipDetails = NetworkingVIPsStore.get("vipDetail");
       expect(vipDetails["foo:bar:baz"]).toEqual({
         qux: "quux",
         grault: "garply",
-        waldo: "fred"
+        waldo: "fred",
       });
     });
 
@@ -127,7 +127,7 @@ describe("NetworkingVIPsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
         data: { qux: "quux", grault: "garply", waldo: "fred" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);
@@ -145,7 +145,7 @@ describe("NetworkingVIPsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_ERROR,
         data: "foo",
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

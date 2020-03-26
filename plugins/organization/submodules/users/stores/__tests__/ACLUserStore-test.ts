@@ -20,11 +20,11 @@ describe("ACLUserStore", () => {
 
     SDK.dispatch({
       type: EventTypes.ACL_USER_SET_USER,
-      users
+      users,
     });
     SDK.dispatch({
       type: EventTypes.ACL_USER_DETAILS_FETCH_START,
-      usersFetching
+      usersFetching,
     });
   });
 
@@ -33,7 +33,7 @@ describe("ACLUserStore", () => {
       const users = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_USER_SET_USER,
-        users
+        users,
       });
       expect(ACLUserStore.getUserRaw("foo")).toEqual({ bar: "baz" });
     });
@@ -44,7 +44,7 @@ describe("ACLUserStore", () => {
       const users = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_USER_SET_USER,
-        users
+        users,
       });
       expect(ACLUserStore.getUser("foo") instanceof User).toBeTruthy();
     });
@@ -53,7 +53,7 @@ describe("ACLUserStore", () => {
       const users = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_USER_SET_USER,
-        users
+        users,
       });
       expect(ACLUserStore.getUser("foo").get()).toEqual({ bar: "baz" });
     });
@@ -79,8 +79,8 @@ describe("ACLUserStore", () => {
         foo: {
           user: false,
           groups: false,
-          permissions: false
-        }
+          permissions: false,
+        },
       });
     });
 
@@ -101,40 +101,40 @@ describe("ACLUserStore", () => {
       it("stores user when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_SUCCESS,
-          data: { uid: "foo", bar: "baz" }
+          data: { uid: "foo", bar: "baz" },
         });
 
         expect(ACLUserStore.getUserRaw("foo")).toEqual({
           uid: "foo",
-          bar: "baz"
+          bar: "baz",
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_USER_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_SUCCESS,
-          data: { uid: "foo" }
+          data: { uid: "foo" },
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_USER_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_ERROR,
-          userID: "foo"
+          userID: "foo",
         });
       });
     });
@@ -144,39 +144,39 @@ describe("ACLUserStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_GROUPS_SUCCESS,
           data: { bar: "baz" },
-          userID: "foo"
+          userID: "foo",
         });
 
         expect(ACLUserStore.getUserRaw("foo")).toEqual({
-          groups: { bar: "baz" }
+          groups: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_GROUPS_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_GROUPS_SUCCESS,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_GROUPS_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_GROUPS_ERROR,
-          userID: "foo"
+          userID: "foo",
         });
       });
     });
@@ -186,39 +186,39 @@ describe("ACLUserStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_PERMISSIONS_SUCCESS,
           data: { bar: "baz" },
-          userID: "foo"
+          userID: "foo",
         });
 
         expect(ACLUserStore.getUserRaw("foo")).toEqual({
-          permissions: { bar: "baz" }
+          permissions: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_PERMISSIONS_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_PERMISSIONS_SUCCESS,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_DETAILS_PERMISSIONS_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_PERMISSIONS_ERROR,
-          userID: "foo"
+          userID: "foo",
         });
       });
     });
@@ -233,21 +233,21 @@ describe("ACLUserStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_USER_UPDATE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_USER_UPDATE_SUCCESS,
         });
       });
 
       it("emits success event with the userID", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_UPDATE_SUCCESS,
-          userID => {
+          (userID) => {
             expect(userID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_UPDATE_SUCCESS,
-          userID: "foo"
+          userID: "foo",
         });
       });
 
@@ -257,7 +257,7 @@ describe("ACLUserStore", () => {
         });
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_USER_UPDATE_ERROR
+          type: ActionTypes.REQUEST_ACL_USER_UPDATE_ERROR,
         });
       });
 
@@ -272,14 +272,14 @@ describe("ACLUserStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_UPDATE_ERROR,
           data: "bar",
-          userID: "foo"
+          userID: "foo",
         });
       });
 
       it("emits error event with the error message", () => {
         ACLUserStore.addChangeListener(
           EventTypes.ACL_USER_UPDATE_ERROR,
-          error => {
+          (error) => {
             expect(error).toEqual("bar");
           }
         );
@@ -287,7 +287,7 @@ describe("ACLUserStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_USER_UPDATE_ERROR,
           data: "bar",
-          userID: "foo"
+          userID: "foo",
         });
       });
     });

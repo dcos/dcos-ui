@@ -25,19 +25,19 @@ describe("MesosStateStore", () => {
         [],
         ["tasks"],
         ["frameworks", "slaves"],
-        ["frameworks", "tasks", "executors"]
+        ["frameworks", "tasks", "executors"],
       ];
       const allFields = ["tasks", "frameworks", "slaves", "executors"];
 
-      testCases.map(testCase => {
+      testCases.map((testCase) => {
         it(`when [${testCase.join(", ")}] are set`, () => {
           const returnObj = {};
-          testCase.forEach(field => (returnObj[field] = [{}]));
+          testCase.forEach((field) => (returnObj[field] = [{}]));
           MesosStateStore.get = () => returnObj;
 
           const lastState = MesosStateStore.getLastMesosState();
 
-          allFields.forEach(field =>
+          allFields.forEach((field) =>
             expect(lastState[field].length).toBe(
               testCase.includes(field) ? 1 : 0
             )
@@ -51,7 +51,7 @@ describe("MesosStateStore", () => {
         tasks: [{}],
         frameworks: [{}],
         slaves: [{}],
-        executors: [{}]
+        executors: [{}],
       });
 
       const lastState = MesosStateStore.getLastMesosState();
@@ -70,18 +70,18 @@ describe("MesosStateStore", () => {
           {
             name: "marathon",
             id: "marathon_1",
-            active: true
+            active: true,
           },
           {
             name: "spark",
             id: "spark_0",
-            active: false
+            active: false,
           },
           {
             name: "spark",
             id: "spark_1",
-            active: true
-          }
+            active: true,
+          },
         ],
 
         tasks: [
@@ -89,36 +89,36 @@ describe("MesosStateStore", () => {
             name: "spark",
             id: "spark.instance.1",
             framework_id: "marathon_1",
-            isStartedByMarathon: true
+            isStartedByMarathon: true,
           },
           {
             name: "alpha",
             id: "alpha.instance.1",
             framework_id: "marathon_1",
-            isStartedByMarathon: true
+            isStartedByMarathon: true,
           },
           {
             name: "alpha",
             id: "alpha.instance.2",
             framework_id: "marathon_1",
-            isStartedByMarathon: true
+            isStartedByMarathon: true,
           },
           {
             name: "alpha",
             id: "alpha.instance.3",
             framework_id: "marathon_1",
-            isStartedByMarathon: true
+            isStartedByMarathon: true,
           },
           {
             name: "alpha",
             id: "pod_alpha.instance.3",
             framework_id: "marathon_1",
-            isStartedByMarathon: true
+            isStartedByMarathon: true,
           },
           { name: "1", framework_id: "spark_1" },
           { name: "2", framework_id: "spark_1" },
-          { name: "3", framework_id: "spark_1" }
-        ]
+          { name: "3", framework_id: "spark_1" },
+        ],
       });
     });
 
@@ -130,7 +130,7 @@ describe("MesosStateStore", () => {
       const tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
-          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
+          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" },
         })
       );
       expect(tasks).toEqual([
@@ -138,11 +138,11 @@ describe("MesosStateStore", () => {
           name: "spark",
           id: "spark.instance.1",
           framework_id: "marathon_1",
-          isStartedByMarathon: true
+          isStartedByMarathon: true,
         },
         { name: "1", framework_id: "spark_1" },
         { name: "2", framework_id: "spark_1" },
-        { name: "3", framework_id: "spark_1" }
+        { name: "3", framework_id: "spark_1" },
       ]);
     });
 
@@ -155,20 +155,20 @@ describe("MesosStateStore", () => {
           name: "alpha",
           id: "alpha.instance.1",
           framework_id: "marathon_1",
-          isStartedByMarathon: true
+          isStartedByMarathon: true,
         },
         {
           name: "alpha",
           id: "alpha.instance.2",
           framework_id: "marathon_1",
-          isStartedByMarathon: true
+          isStartedByMarathon: true,
         },
         {
           name: "alpha",
           id: "alpha.instance.3",
           framework_id: "marathon_1",
-          isStartedByMarathon: true
-        }
+          isStartedByMarathon: true,
+        },
       ]);
     });
 
@@ -192,7 +192,7 @@ describe("MesosStateStore", () => {
       const tasks = MesosStateStore.getTasksByService(
         new Framework({
           id: "/spark",
-          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" }
+          labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "spark" },
         })
       );
       expect(tasks).toEqual([]);
@@ -204,8 +204,8 @@ describe("MesosStateStore", () => {
           id: "/spark",
           labels: {
             DCOS_COMMONS_API_VERSION: 1,
-            DCOS_PACKAGE_FRAMEWORK_NAME: "spark"
-          }
+            DCOS_PACKAGE_FRAMEWORK_NAME: "spark",
+          },
         })
       );
       expect(tasks).toEqual([
@@ -214,23 +214,23 @@ describe("MesosStateStore", () => {
           id: "spark.instance.1",
           framework_id: "marathon_1",
           isStartedByMarathon: true,
-          sdkTask: true
+          sdkTask: true,
         },
         {
           name: "1",
           framework_id: "spark_1",
-          sdkTask: true
+          sdkTask: true,
         },
         {
           name: "2",
           framework_id: "spark_1",
-          sdkTask: true
+          sdkTask: true,
         },
         {
           name: "3",
           framework_id: "spark_1",
-          sdkTask: true
-        }
+          sdkTask: true,
+        },
       ]);
     });
   });
@@ -247,9 +247,9 @@ describe("MesosStateStore", () => {
           slaves: [
             {
               id: "amazon-thing",
-              fakeProp: "fake"
-            }
-          ]
+              fakeProp: "fake",
+            },
+          ],
         });
       });
 
@@ -269,8 +269,8 @@ describe("MesosStateStore", () => {
         thisGet = MesosStateStore.get;
         MesosStateStore.set({
           lastMesosState: {
-            slaves: null
-          }
+            slaves: null,
+          },
         });
       });
 
@@ -289,9 +289,9 @@ describe("MesosStateStore", () => {
           {
             id: "amazon-thing",
             fakeProp: "fake",
-            hostname: "my-host"
-          }
-        ]
+            hostname: "my-host",
+          },
+        ],
       });
     });
 
@@ -333,19 +333,19 @@ describe("MesosStateStore", () => {
       MesosStateStore.get = () => ({
         tasks: [
           { id: 1, framework_id: "foo", slave_id: "node-1" },
-          { id: 2, framework_id: "bar", slave_id: "node-1" }
-        ]
+          { id: 2, framework_id: "bar", slave_id: "node-1" },
+        ],
       });
 
       thisGetFrameworkToServicesMap = MesosStateUtil.getFrameworkToServicesMap;
       MesosStateUtil.getFrameworkToServicesMap = () => ({
-        foo: new Framework({ labels: { DCOS_COMMONS_API_VERSION: 1 } })
+        foo: new Framework({ labels: { DCOS_COMMONS_API_VERSION: 1 } }),
       });
 
       const result = MesosStateStore.getTasksFromNodeID("node-1");
       expect(result).toEqual([
         { id: 1, framework_id: "foo", sdkTask: true, slave_id: "node-1" },
-        { id: 2, framework_id: "bar", slave_id: "node-1" }
+        { id: 2, framework_id: "bar", slave_id: "node-1" },
       ]);
 
       MesosStateStore.get = thisGet;
@@ -372,7 +372,7 @@ describe("MesosStateStore", () => {
       thisGet = MesosStateStore.get;
       const data = {
         frameworks: [{}],
-        tasks: [{ id: 1 }, { id: 2 }]
+        tasks: [{ id: 1 }, { id: 2 }],
       };
 
       MesosStateStore.get = () => data;

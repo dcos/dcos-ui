@@ -11,7 +11,7 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 
-const JobFileInput = props => {
+const JobFileInput = (props) => {
   const { name, value, duplicateValue, error, autoFocus } = props;
 
   const helpText = (
@@ -60,7 +60,7 @@ JobFileInput.propTypes = {
   value: PropTypes.string,
   error: PropTypes.string,
   duplicateValue: PropTypes.bool,
-  autoFocus: PropTypes.bool
+  autoFocus: PropTypes.bool,
 };
 
 export default JobFileInput;

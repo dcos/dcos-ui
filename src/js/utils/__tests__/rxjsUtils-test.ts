@@ -8,7 +8,7 @@ describe("linearBackoff", () => {
     "retries maxRetries times",
     // To setup marbles test env pass your function wrapped with `marbels`
     // it will inject Context as the first argument named `m` by convention
-    marbles(m => {
+    marbles((m) => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2#");
 
@@ -22,7 +22,7 @@ describe("linearBackoff", () => {
 
   it(
     "retries infinitey when no maxRetries given",
-    marbles(m => {
+    marbles((m) => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2------1--(2|)");
 
@@ -33,7 +33,7 @@ describe("linearBackoff", () => {
 
   it(
     "linearly grows the retry delay",
-    marbles(m => {
+    marbles((m) => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2------1--2#");
 
@@ -44,7 +44,7 @@ describe("linearBackoff", () => {
 
   it(
     "delays the retry no longer than max delay",
-    marbles(m => {
+    marbles((m) => {
       const source = m.cold("1--2#");
       const expected = m.cold("1--2--1--2----1--2----1--2----1--2#");
 

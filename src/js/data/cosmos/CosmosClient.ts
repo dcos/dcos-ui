@@ -11,7 +11,7 @@ export const CosmosClient = (rootUrl: string) => ({
       method: "POST",
       body: JSON.stringify({
         includePackageVersions: true,
-        packageName
+        packageName,
       }),
       headers: {
         Accept: buildRequestHeader(
@@ -25,15 +25,15 @@ export const CosmosClient = (rootUrl: string) => ({
           "request",
           "package",
           "v1"
-        )
-      }
+        ),
+      },
     }).pipe(
-      tap(requestResponse => {
+      tap((requestResponse) => {
         if (requestResponse.code >= 300) {
           throw new Error(getErrorMessage(requestResponse));
         }
       })
-    )
+    ),
 });
 
 export function buildRequestHeader(
@@ -47,7 +47,7 @@ export function buildRequestHeader(
 
 export function getErrorMessage({
   response,
-  message
+  message,
 }: RequestResponse<any>): string {
   if (typeof response === "string") {
     return response;

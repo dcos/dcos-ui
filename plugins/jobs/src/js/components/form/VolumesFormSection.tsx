@@ -21,7 +21,7 @@ import {
   FormError,
   JobVolume,
   SecretVolume,
-  VolumeMode
+  VolumeMode,
 } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
 
@@ -47,7 +47,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
       formData: { volumes = [] },
       onRemoveItem,
       errors,
-      showErrors
+      showErrors,
     } = this.props;
     let firstIndex = 0;
 
@@ -176,7 +176,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
   public render() {
     const {
       onAddItem,
-      formData: { volumes = [] }
+      formData: { volumes = [] },
     } = this.props;
 
     const tooltipContent = (
@@ -189,7 +189,7 @@ class VolumesFormSection extends React.Component<VolumesSectionProps> {
       </Trans>
     );
     const fbs = Array.isArray(volumes)
-      ? volumes.filter(volume => isFBS(volume))
+      ? volumes.filter((volume) => isFBS(volume))
       : [];
 
     return (

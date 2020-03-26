@@ -13,10 +13,10 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
   is_healthy: DSLExpressionPart.attribute("is", "healthy"),
-  is_unhealthy: DSLExpressionPart.attribute("is", "unhealthy")
+  is_unhealthy: DSLExpressionPart.attribute("is", "unhealthy"),
 };
 
-const NodesHealthDSLSection = props => {
+const NodesHealthDSLSection = (props) => {
   const { expression, onChange } = props;
   const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
   const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
@@ -65,7 +65,7 @@ const NodesHealthDSLSection = props => {
 
 NodesHealthDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
 };
 
 export default NodesHealthDSLSection;

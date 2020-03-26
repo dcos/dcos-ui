@@ -29,7 +29,7 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS);
@@ -40,7 +40,7 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_CCID_ERROR);
@@ -50,18 +50,18 @@ describe("ConfigActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

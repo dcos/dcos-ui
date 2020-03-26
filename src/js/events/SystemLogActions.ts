@@ -6,7 +6,7 @@ import {
   REQUEST_SYSTEM_LOG_ERROR,
   REQUEST_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
-  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -35,7 +35,7 @@ function subscribe(url, onMessage, onError) {
   urlToEventSourceMap[url] = {
     errorListener: onError,
     messageListener: onMessage,
-    source
+    source,
   };
 
   return url;
@@ -122,7 +122,7 @@ const SystemLogActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_SYSTEM_LOG_ERROR,
           data: errors,
-          subscriptionID
+          subscriptionID,
         });
       }
 
@@ -140,7 +140,7 @@ const SystemLogActions = {
       AppDispatcher.handleServerAction({
         type: REQUEST_SYSTEM_LOG_SUCCESS,
         data: events,
-        subscriptionID
+        subscriptionID,
       });
     }
 
@@ -153,7 +153,7 @@ const SystemLogActions = {
       AppDispatcher.handleServerAction({
         type: REQUEST_SYSTEM_LOG_ERROR,
         data: event,
-        subscriptionID
+        subscriptionID,
       });
     }
 
@@ -220,7 +220,7 @@ const SystemLogActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
           data: error,
-          subscriptionID
+          subscriptionID,
         });
       }
 
@@ -236,13 +236,13 @@ const SystemLogActions = {
           type: REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
           data: items,
           firstEntry: items.length < limit,
-          subscriptionID
+          subscriptionID,
         });
       } else {
         AppDispatcher.handleServerAction({
           type: REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
           data: event,
-          subscriptionID
+          subscriptionID,
         });
       }
 
@@ -258,18 +258,18 @@ const SystemLogActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 export default SystemLogActions;

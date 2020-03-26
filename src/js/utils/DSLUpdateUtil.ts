@@ -43,7 +43,7 @@ const DSLUpdateUtil = {
     const strings = [];
 
     // Extract string expressions so we have a simpler expression to work with
-    src = src.replace(STRING_EXPR, match => {
+    src = src.replace(STRING_EXPR, (match) => {
       strings.push(match);
 
       return "\x01";
@@ -80,7 +80,7 @@ const DSLUpdateUtil = {
     let textStart = position[0][0] + offset;
     let textEnd = position[0][1] + offset;
     let {
-      filterParams: { text }
+      filterParams: { text },
     } = newNode;
 
     if (filterType !== newNode.filterType) {
@@ -120,7 +120,7 @@ const DSLUpdateUtil = {
     const labelStart = position[0][0] + offset;
     const labelEnd = position[0][1] + offset;
     const {
-      filterParams: { label }
+      filterParams: { label },
     } = newNode;
 
     if (filterType !== newNode.filterType) {
@@ -259,7 +259,7 @@ const DSLUpdateUtil = {
     const {
       nodeCompareFunction = DSLUpdateUtil.defaultNodeCompareFunction,
       itemCombiner = DSLCombinerTypes.AND,
-      newCombiner = DSLCombinerTypes.AND
+      newCombiner = DSLCombinerTypes.AND,
     } = options;
 
     const expressionUpdate = nodes.reduce(
@@ -393,10 +393,10 @@ const DSLUpdateUtil = {
     if (newNodes.length < nodes.length) {
       // Note that the offsets in the `nodes` array point to the old expression
       // so they have to be updated in order to match the new expression
-      const deleteNodes = nodes.slice(updateCount).map(node => {
+      const deleteNodes = nodes.slice(updateCount).map((node) => {
         node.position = node.position.map(([start, end]) => [
           start + offset,
-          end + offset
+          end + offset,
         ]);
 
         return node;
@@ -418,7 +418,7 @@ const DSLUpdateUtil = {
 
     // Otherwise just return the expression
     return newExpression;
-  }
+  },
 };
 
 export default DSLUpdateUtil;

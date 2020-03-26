@@ -21,14 +21,14 @@ import ServiceAccountsActionsModal from "../submodules/service-accounts/componen
 import UsersActionsModal from "../submodules/users/components/modals/UsersActionsModal";
 
 function hypenize(str) {
-  return str.replace(/[A-Z]/g, x => `-${x.toLowerCase()}`);
+  return str.replace(/[A-Z]/g, (x) => `-${x.toLowerCase()}`);
 }
 
 class OrganizationTab extends React.Component {
   static propTypes = {
     items: PropTypes.array.isRequired,
     itemID: PropTypes.string.isRequired,
-    itemName: PropTypes.string.isRequired
+    itemName: PropTypes.string.isRequired,
   };
   constructor() {
     super();
@@ -39,7 +39,7 @@ class OrganizationTab extends React.Component {
       showActionDropdown: false,
       searchFilter: "all",
       searchString: "",
-      selectedAction: null
+      selectedAction: null,
     };
 
     this.selectedIDSet = {};
@@ -65,15 +65,15 @@ class OrganizationTab extends React.Component {
     }
   }
 
-  handleActionSelection = dropdownItem => {
+  handleActionSelection = (dropdownItem) => {
     this.setState({
-      selectedAction: dropdownItem.id
+      selectedAction: dropdownItem.id,
     });
   };
 
   handleActionSelectionClose = () => {
     this.setState({
-      selectedAction: null
+      selectedAction: null,
     });
     this.bulkCheck(false);
   };
@@ -88,7 +88,7 @@ class OrganizationTab extends React.Component {
 
     this.setState({
       checkedCount,
-      showActionDropdown: checkedCount > 0
+      showActionDropdown: checkedCount > 0,
     });
   };
 
@@ -180,8 +180,8 @@ class OrganizationTab extends React.Component {
             fieldType: "checkbox",
             labelClass: "form-row-element form-element-checkbox",
             name: rowID,
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleCheckboxChange}
       />
@@ -216,8 +216,8 @@ class OrganizationTab extends React.Component {
             indeterminate,
             labelClass: "form-row-element form-element-checkbox",
             name: "headingCheckbox",
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleHeadingCheckboxChange}
       />
@@ -256,7 +256,7 @@ class OrganizationTab extends React.Component {
 
   getGroupsClassName(prop, sortBy, row) {
     return classNames({
-      clickable: row == null // this is a header
+      clickable: row == null, // this is a header
     });
   }
 
@@ -269,8 +269,8 @@ class OrganizationTab extends React.Component {
         prop: "selected",
         render: this.renderCheckbox,
         sortable: false,
-        heading: this.renderHeadingCheckbox
-      }
+        heading: this.renderHeadingCheckbox,
+      },
     ];
     const sortFunction = TableUtil.getSortFunction(
       this.props.itemID,
@@ -287,7 +287,7 @@ class OrganizationTab extends React.Component {
           render: this.renderID,
           sortable: true,
           sortFunction,
-          heading: ResourceTableUtil.renderHeading({ gid: "ID" })
+          heading: ResourceTableUtil.renderHeading({ gid: "ID" }),
         });
         break;
 
@@ -306,7 +306,7 @@ class OrganizationTab extends React.Component {
             render: this.renderID,
             sortable: true,
             sortFunction,
-            heading: ResourceTableUtil.renderHeading({ uid })
+            heading: ResourceTableUtil.renderHeading({ uid }),
           },
           {
             className,
@@ -319,8 +319,8 @@ class OrganizationTab extends React.Component {
               description:
                 itemName === "user"
                   ? i18nMark("Full Name")
-                  : i18nMark("Description")
-            })
+                  : i18nMark("Description"),
+            }),
           }
         );
         break;
@@ -360,10 +360,10 @@ class OrganizationTab extends React.Component {
   }
 
   getActionsDropdownItems(actionPhrases) {
-    return Object.keys(actionPhrases).map(action => ({
+    return Object.keys(actionPhrases).map((action) => ({
       html: actionPhrases[action].dropdownOption,
       id: action,
-      selectedHtml: "Actions"
+      selectedHtml: "Actions",
     }));
   }
 
@@ -372,13 +372,13 @@ class OrganizationTab extends React.Component {
       const checkboxStates = this.selectedIDSet;
       const selectedItems = {};
 
-      Object.keys(checkboxStates).forEach(id => {
+      Object.keys(checkboxStates).forEach((id) => {
         if (checkboxStates[id] === true) {
           selectedItems[id] = true;
         }
       });
 
-      return items.filter(item => {
+      return items.filter((item) => {
         const itemID = item[itemIDName];
 
         return selectedItems[itemID] || false;
@@ -395,15 +395,15 @@ class OrganizationTab extends React.Component {
       case "all":
         break;
       case "local":
-        items = items.filter(item => !AuthUtil.isSubjectRemote(item));
+        items = items.filter((item) => !AuthUtil.isSubjectRemote(item));
         break;
       case "external":
-        items = items.filter(item => AuthUtil.isSubjectRemote(item));
+        items = items.filter((item) => AuthUtil.isSubjectRemote(item));
         break;
     }
 
     if (searchString !== "") {
-      return items.filter(item => {
+      return items.filter((item) => {
         let description = item.getDescription().toLowerCase();
         const id = item.get(this.props.itemID).toLowerCase();
 
@@ -434,7 +434,7 @@ class OrganizationTab extends React.Component {
       itemID,
       itemType,
       onClose: this.handleActionSelectionClose,
-      selectedItems
+      selectedItems,
     };
     switch (itemType) {
       case "group":
@@ -467,14 +467,14 @@ class OrganizationTab extends React.Component {
     const numbers = {
       all: items.length,
       local: items.length - external.length,
-      external: external.length
+      external: external.length,
     };
 
     const currentFilter = this.state.searchFilter;
 
     const buttons = Object.entries(numbers).map(([filter, number]) => {
       const classSet = classNames("button button-outline", {
-        active: filter === currentFilter
+        active: filter === currentFilter,
       });
 
       return (
@@ -491,7 +491,7 @@ class OrganizationTab extends React.Component {
     return <div className="button-group flush-bottom">{buttons}</div>;
   }
 
-  getTableRowOptions = row => {
+  getTableRowOptions = (row) => {
     const selectedIDSet = this.selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
       return { className: "selected" };
@@ -504,7 +504,7 @@ class OrganizationTab extends React.Component {
     let checkedCount = 0;
     const selectedIDSet = this.selectedIDSet;
 
-    Object.keys(selectedIDSet).forEach(id => {
+    Object.keys(selectedIDSet).forEach((id) => {
       selectedIDSet[id] = isChecked;
     });
     this.selectedIDSet = selectedIDSet;
@@ -515,7 +515,7 @@ class OrganizationTab extends React.Component {
 
     this.setState({
       checkedCount,
-      showActionDropdown: checkedCount > 0
+      showActionDropdown: checkedCount > 0,
     });
   }
 
@@ -526,7 +526,7 @@ class OrganizationTab extends React.Component {
     let checkableCount = 0;
 
     // Initializing hash of items' IDs and corresponding checkbox state.
-    items.forEach(item => {
+    items.forEach((item) => {
       const id = item.get(itemID);
 
       checkableCount += 1;
@@ -540,7 +540,7 @@ class OrganizationTab extends React.Component {
   resetFilter = () => {
     this.setState({
       searchString: "",
-      searchFilter: "all"
+      searchFilter: "all",
     });
   };
 
@@ -550,7 +550,7 @@ class OrganizationTab extends React.Component {
       selectedAction,
       searchFilter,
       searchString,
-      showActionDropdown
+      showActionDropdown,
     } = this.state;
     let capitalizedItemName = StringUtil.capitalize(itemName);
     const columns = this.getColumns(itemName);

@@ -1,6 +1,6 @@
 import {
   ServicePlanStep,
-  compare
+  compare,
 } from "#PLUGINS/services/src/js/types/ServicePlanStep";
 
 describe("ServicePlanStep", () => {
@@ -10,13 +10,13 @@ describe("ServicePlanStep", () => {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
       const stepB: ServicePlanStep = {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
 
       expect(compare(stepA, stepB)).toEqual(true);
@@ -27,13 +27,13 @@ describe("ServicePlanStep", () => {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
       const stepB: ServicePlanStep = {
         id: "test-step-02",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
 
       expect(compare(stepA, stepB)).toEqual(false);
@@ -44,13 +44,13 @@ describe("ServicePlanStep", () => {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
       const stepB: ServicePlanStep = {
         id: "test-step-01",
         name: "test step one",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
 
       expect(compare(stepA, stepB)).toEqual(false);
@@ -61,13 +61,13 @@ describe("ServicePlanStep", () => {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
       const stepB: ServicePlanStep = {
         id: "test-step-01",
         name: "test step",
         status: "STARTING",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
 
       expect(compare(stepA, stepB)).toEqual(false);
@@ -78,13 +78,13 @@ describe("ServicePlanStep", () => {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a boring message for a unit test"
+        message: "I'm a boring message for a unit test",
       };
       const stepB: ServicePlanStep = {
         id: "test-step-01",
         name: "test step",
         status: "STARTED",
-        message: "I'm a different boring message for a unit test"
+        message: "I'm a different boring message for a unit test",
       };
 
       expect(compare(stepA, stepB)).toEqual(false);

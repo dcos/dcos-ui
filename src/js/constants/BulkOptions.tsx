@@ -12,9 +12,9 @@ const BulkOptions = {
         </Trans>
       ),
       title: i18nMark("Are you sure?"),
-      actionPhrase: i18nMark("will be deleted")
-    }
-  }
+      actionPhrase: i18nMark("will be deleted"),
+    },
+  },
 };
 
 export default BulkOptions;

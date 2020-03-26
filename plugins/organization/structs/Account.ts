@@ -1,7 +1,7 @@
 import Item from "#SRC/js/structs/Item";
 
 function reduceAcls(acls, match, accumulator) {
-  acls.forEach(acl => {
+  acls.forEach((acl) => {
     if (!match || match.test(acl.rid)) {
       accumulator[acl.aclurl] = acl;
     }
@@ -20,7 +20,7 @@ class Account extends Item {
   getDetails() {
     return {
       ID: this.getID(),
-      Description: this.getDescription()
+      Description: this.getDescription(),
     };
   }
 
@@ -48,7 +48,7 @@ class Account extends Item {
     }
 
     // Add group description for rendering purposes
-    Object.keys(aclurls).forEach(aclurl => {
+    Object.keys(aclurls).forEach((aclurl) => {
       const acl = aclurls[aclurl];
       acl.groupDescription = groupDescriptions[acl.gid];
     });
@@ -57,7 +57,7 @@ class Account extends Item {
       reduceAcls(permissions.direct, match, aclurls);
     }
 
-    return Object.keys(aclurls).map(aclurl => aclurls[aclurl]);
+    return Object.keys(aclurls).map((aclurl) => aclurls[aclurl]);
   }
 }
 

@@ -15,20 +15,20 @@ export default class TimeSeriesChart extends React.Component {
   static defaultProps = {
     axisConfiguration: {
       x: {
-        showZeroTick: true
-      }
+        showZeroTick: true,
+      },
     },
     margin: {
       top: 10,
       left: 45,
       bottom: 25,
-      right: 5
+      right: 5,
     },
     maxY: 10,
     refreshRate: 0,
     ticksY: 3,
     y: "y",
-    yFormat: ValueTypes.PERCENTAGE
+    yFormat: ValueTypes.PERCENTAGE,
   };
 
   getHeight = ({ height, margin }) => height - margin.top - margin.bottom;
@@ -45,13 +45,10 @@ export default class TimeSeriesChart extends React.Component {
     const length = data[0]?.values?.length ?? width;
     const timeAgo = -(length - 1) * (refreshRate / 1000);
 
-    return d3.scale
-      .linear()
-      .range([0, width])
-      .domain([timeAgo, 0]);
+    return d3.scale.linear().range([0, width]).domain([timeAgo, 0]);
   }
 
-  formatXAxis = d => {
+  formatXAxis = (d) => {
     const hideMatch = this.props.axisConfiguration.x.hideMatch;
     if (hideMatch && hideMatch.test(d.toString())) {
       return "";
@@ -93,8 +90,8 @@ export default class TimeSeriesChart extends React.Component {
     const prevVal = props.data[0].values;
     const nextVal = nextProps.data[0].values;
 
-    const prevY = prevVal.map(value => value[props.y]);
-    const nextY = nextVal.map(value => value[props.y]);
+    const prevY = prevVal.map((value) => value[props.y]);
+    const nextY = nextVal.map((value) => value[props.y]);
 
     return !isEqual(prevY, nextY);
   }
@@ -121,7 +118,7 @@ export default class TimeSeriesChart extends React.Component {
   updateClipPath(width, height) {
     d3.select("#" + this.clipPathID + " rect").attr({
       width,
-      height
+      height,
     });
   }
 
@@ -134,9 +131,9 @@ export default class TimeSeriesChart extends React.Component {
 
     return d3.svg
       .area()
-      .x(d => xTimeScale(d.date))
+      .x((d) => xTimeScale(d.date))
       .y0(() => yScale(0))
-      .y1(d => {
+      .y1((d) => {
         if (d[y] != null) {
           successfulValue = yScale(d[y]);
         }
@@ -156,9 +153,9 @@ export default class TimeSeriesChart extends React.Component {
 
     return d3.svg
       .line()
-      .defined(d => d[y] != null)
-      .x(d => xTimeScale(d.date))
-      .y(d => {
+      .defined((d) => d[y] != null)
+      .x((d) => xTimeScale(d.date))
+      .y((d) => {
         if (d[y] != null) {
           successfulValue = yScale(d[y] || 0.1);
         }
@@ -178,8 +175,8 @@ export default class TimeSeriesChart extends React.Component {
 
     return d3.svg
       .line()
-      .x(d => xTimeScale(d.date))
-      .y(d => {
+      .x((d) => xTimeScale(d.date))
+      .y((d) => {
         if (d[y] != null) {
           successfulValue = yScale(d[y] || 0.1);
         }
@@ -211,10 +208,7 @@ export default class TimeSeriesChart extends React.Component {
       dateDelta = values[values.length - 1 - hiddenValuesCount].date;
     }
 
-    return d3.time
-      .scale()
-      .range([0, width])
-      .domain([date, dateDelta]);
+    return d3.time.scale().range([0, width]).domain([date, dateDelta]);
   }
 
   getYScale(height, maxY) {
@@ -243,10 +237,10 @@ export default class TimeSeriesChart extends React.Component {
         .linear()
         .tickFormat(ticksY, ".0" + this.getYCaption(yFormat));
 
-      return d => (d >= maxY ? "100%" : formatPercent(d / maxY));
+      return (d) => (d >= maxY ? "100%" : formatPercent(d / maxY));
     }
 
-    return d => (d >= maxY ? maxY : d);
+    return (d) => (d >= maxY ? maxY : d);
   }
 
   renderAxis(props, width, height) {
@@ -319,7 +313,7 @@ export default class TimeSeriesChart extends React.Component {
   getAreaList(props, yScale, xTimeScale) {
     const firstSuccess =
       props.data[0].values.find(
-        stateResource => stateResource[props.y] != null
+        (stateResource) => stateResource[props.y] != null
       ) || {};
     // We need firstSuccess because if the current value is null,
     // we want to make it equal to the most recent successful value in order to
@@ -389,7 +383,7 @@ export default class TimeSeriesChart extends React.Component {
         top: elPosition.top + margin.top,
         right: elPosition.left + props.width - margin.right,
         bottom: elPosition.top + props.height - margin.bottom,
-        left: elPosition.left + margin.left
+        left: elPosition.left + margin.left,
       };
     };
   }
@@ -415,7 +409,7 @@ export default class TimeSeriesChart extends React.Component {
       refreshRate,
       width,
       yFormat,
-      y
+      y,
     } = this.props;
     const stripeHeight = this.getHeight(this.props);
     const stripeWidth = this.getWidth(this.props);
@@ -430,9 +424,12 @@ export default class TimeSeriesChart extends React.Component {
         <svg height={height} width={width}>
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>
             <ChartStripes count={4} height={stripeHeight} width={stripeWidth} />
-            <g className="bars grid-graph" ref={ref => (this.gridRef = ref)} />
-            <g className="y axis" ref={ref => (this.yAxisRef = ref)} />
-            <g className="x axis" ref={ref => (this.xAxisRef = ref)} />
+            <g
+              className="bars grid-graph"
+              ref={(ref) => (this.gridRef = ref)}
+            />
+            <g className="y axis" ref={(ref) => (this.yAxisRef = ref)} />
+            <g className="x axis" ref={(ref) => (this.xAxisRef = ref)} />
             <TimeSeriesMouseOver
               addMouseHandler={this.addMouseHandler}
               data={this.props.data}
@@ -451,7 +448,7 @@ export default class TimeSeriesChart extends React.Component {
         <svg
           height={height}
           width={width}
-          ref={ref => (this.movingElsRef = ref)}
+          ref={(ref) => (this.movingElsRef = ref)}
           className="moving-elements"
         >
           <g transform={"translate(" + margin.left + "," + margin.top + ")"}>

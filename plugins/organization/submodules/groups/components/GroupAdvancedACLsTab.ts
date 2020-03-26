@@ -77,10 +77,10 @@ class GroupAdvancedACLsTab extends AdvancedACLsTab {
   onAclGroupStorePermissionsError() {
     ACLGroupsActions.fetchGroupPermissions(this.props.itemID);
     this.setState({
-      itemPermissionsRequestErrors: this.state.itemPermissionsRequestErrors + 1
+      itemPermissionsRequestErrors: this.state.itemPermissionsRequestErrors + 1,
     });
   }
-  handleFormSubmit = acls => {
+  handleFormSubmit = (acls) => {
     const { itemID } = this.props;
     acls.forEach(({ actions, resource }) => {
       ACLStore.grantGroupActionToResource(itemID, actions, resource);
@@ -100,7 +100,7 @@ class GroupAdvancedACLsTab extends AdvancedACLsTab {
     }
 
     this.revokeActionsRemaining = actions.length;
-    actions.forEach(action => {
+    actions.forEach((action) => {
       ACLStore.revokeGroupActionToResource(
         this.props.itemID,
         action,
@@ -120,16 +120,16 @@ class GroupAdvancedACLsTab extends AdvancedACLsTab {
     const acls = [];
 
     if (allACLs && allACLs.length) {
-      allACLs.forEach(acl => {
+      allACLs.forEach((acl) => {
         const actions = [];
-        acl.actions.forEach(action => {
+        acl.actions.forEach((action) => {
           actions.push(action.name);
         });
 
         acls.push({
           rid: acl.rid,
           actions,
-          removable: true
+          removable: true,
         });
       });
     }

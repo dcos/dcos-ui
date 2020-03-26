@@ -15,7 +15,7 @@ describe("TaskDirectoryActions", () => {
   beforeEach(() => {
     thisConfiguration = null;
     thisRequestUtilJSON = RequestUtil.json;
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
     thisConfigRootUrl = Config.rootUrl;
@@ -52,7 +52,7 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_SUCCESS);
@@ -66,7 +66,7 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_NODE_STATE_ERROR);
@@ -79,18 +79,18 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });
@@ -103,8 +103,8 @@ describe("TaskDirectoryActions", () => {
         "",
         {
           frameworks: [
-            { id: "foo", executors: [{ id: "bar", directory: "quis" }] }
-          ]
+            { id: "foo", executors: [{ id: "bar", directory: "quis" }] },
+          ],
         }
       );
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
@@ -125,7 +125,7 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_SUCCESS);
@@ -138,7 +138,7 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_TASK_DIRECTORY_ERROR);
@@ -150,18 +150,18 @@ describe("TaskDirectoryActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

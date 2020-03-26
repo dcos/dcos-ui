@@ -47,7 +47,7 @@ const PodContainersConfigSection = ({ appConfig, onEditClick }) => {
 };
 
 PodContainersConfigSection.propTypes = {
-  onEditClick: PropTypes.func
+  onEditClick: PropTypes.func,
 };
 
 export default PodContainersConfigSection;

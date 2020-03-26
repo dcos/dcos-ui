@@ -29,7 +29,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     open: false,
     onClose() {},
     onSubmit() {},
-    permissionsAddedCount: 0
+    permissionsAddedCount: 0,
   };
   static propTypes = {
     activeView: PropTypes.oneOf(["builder", "bulk"]),
@@ -41,7 +41,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     onClose: PropTypes.func,
     onSubmit: PropTypes.func,
     permissionsAddedCount: PropTypes.number,
-    subject: PropTypes.object
+    subject: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
@@ -51,11 +51,11 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
       chosenRIDs: [],
       errorMsg: null,
       model: {},
-      resource: ""
+      resource: "",
     };
 
     this.store_listeners = [
-      { name: "acl", events: ["fetchSchemaSuccess", "fetchSchemaError"] }
+      { name: "acl", events: ["fetchSchemaSuccess", "fetchSchemaError"] },
     ];
   }
 
@@ -99,16 +99,16 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
 
     this.setState(newState);
   };
-  handleBulkFormChange = changeModel => {
+  handleBulkFormChange = (changeModel) => {
     this.setState(changeModel);
   };
 
   handleAllowAllActions(actions) {
     const { model } = this.state;
-    model.actions = actions.map(name => ({
+    model.actions = actions.map((name) => ({
       checked: true,
       label: StringUtil.capitalize(name),
-      name
+      name,
     }));
 
     this.setState({ model });
@@ -137,12 +137,12 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
         id: "default-item",
         permission,
         index,
-        selectedHtml: "Select " + groupName
-      }
+        selectedHtml: "Select " + groupName,
+      },
     ];
 
     return defaultItem.concat(
-      permission.getItems().map(item => {
+      permission.getItems().map((item) => {
         const itemName = item.name;
 
         return {
@@ -151,7 +151,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
           id: item.rid,
           permission: item,
           index,
-          selectedHtml: itemName
+          selectedHtml: itemName,
         };
       })
     );
@@ -173,26 +173,26 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     if (this.isBulkAdd() && bulkacls !== null) {
       return bulkacls
         .split("\n")
-        .filter(aclLine => aclLine.length)
-        .map(aclLine => {
+        .filter((aclLine) => aclLine.length)
+        .map((aclLine) => {
           const splitLine = aclLine.trim().split(" ");
           const resource = splitLine.shift().trim();
           const actions = splitLine
             .join(" ")
             .split(",")
-            .map(action => action.trim().toLowerCase());
+            .map((action) => action.trim().toLowerCase());
 
           return {
             actions,
-            resource
+            resource,
           };
         });
     }
     return [
       {
         actions: this.getSelectedActions(model.actions),
-        resource: this.getResourceString(model, chosenRIDs)
-      }
+        resource: this.getResourceString(model, chosenRIDs),
+      },
     ];
   }
 
@@ -204,10 +204,10 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
     // Create input value array sorted after index in the resource
     const values = Object.keys(model)
       // Filter out items that do not have a number as key
-      .filter(item => !isNaN(parseInt(item, 10)))
+      .filter((item) => !isNaN(parseInt(item, 10)))
       // Remove 'input' from key, and parse integer to sort correctly
       .sort((a, b) => parseInt(a, 10) - parseInt(b, 10))
-      .map(valueKey => model[valueKey]);
+      .map((valueKey) => model[valueKey]);
 
     // Replace occurances of '*' with model values
     const segments = resource.split("*");
@@ -261,16 +261,16 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
       itemWrapperClass: "media-object media-object-wrap",
       name: "actions",
       validation(value) {
-        return value.some(checkbox => checkbox.checked);
+        return value.some((checkbox) => checkbox.checked);
       },
       showLabel,
       validationErrorText: i18n._(t`Please select at least one option.`),
-      value: actions.map(name => ({
+      value: actions.map((name) => ({
         checked: actionValues[name],
         label: StringUtil.capitalize(name),
-        name
+        name,
       })),
-      writeType: "input"
+      writeType: "input",
     };
   }
   getFormElementDefinition = (permission, index) => {
@@ -299,7 +299,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
         fieldType: "text",
         formElementClass: {
           "column-4": false, // Disable column class
-          "media-object-item": true
+          "media-object-item": true,
         },
         name: indexString,
         placeholder: name,
@@ -323,7 +323,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
           return true;
         },
         value: model[indexString],
-        writeType: "input"
+        writeType: "input",
       };
     }
 
@@ -339,7 +339,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
       fieldType: "select",
       formElementClass: {
         "column-4": false, // Disable column class
-        "media-object-item": true
+        "media-object-item": true,
       },
       label: groupName,
       showLabel: true,
@@ -350,7 +350,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
         return true;
       },
       value: model[rid],
-      writeType: "input"
+      writeType: "input",
     };
   };
 
@@ -378,7 +378,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
   toggleBulkAdd = () => {
     this.props.handleBulkAddToggle();
   };
-  setTriggerSubmit = triggerSubmit => {
+  setTriggerSubmit = (triggerSubmit) => {
     this.triggerSubmit = triggerSubmit;
   };
 
@@ -409,9 +409,9 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
           validation() {
             return true;
           },
-          value
-        }
-      ]
+          value,
+        },
+      ],
     ];
 
     if (errors.length) {
@@ -472,7 +472,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
           className="form flush-bottom media-object-spacing-wrapper media-object-spacing-narrow media-object-offset"
           formRowClass={{
             "media-object media-object-wrap": true,
-            row: false
+            row: false,
           }}
           definition={this.getFormDefinition()}
           onError={this.handleError}
@@ -643,7 +643,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
       // L10NTODO: Pluralize
       dupeMessages = dupesFound
         .slice(0, 5) // Show first five errors.
-        .map(duplicate => (
+        .map((duplicate) => (
           <Trans render="li" key={duplicate} className="errorsAlert-listItem">
             Duplicate Resource ID: {duplicate}
           </Trans>
@@ -736,7 +736,7 @@ class PermissionBuilderModal extends mixin(StoreMixin) {
 
   render() {
     const modalClass = classNames("modal modal-large", {
-      "permission-form-modal": !this.isBulkAdd()
+      "permission-form-modal": !this.isBulkAdd(),
     });
 
     return (

@@ -21,7 +21,7 @@ export default {
         type: Route,
         path: "networks",
         component: VirtualNetworksTab,
-        isInSidebar: true
+        isInSidebar: true,
       },
       {
         type: Route,
@@ -31,19 +31,19 @@ export default {
           {
             type: Route,
             path: "tasks",
-            component: VirtualNetworkTaskTab
+            component: VirtualNetworkTaskTab,
           },
           {
             type: Route,
             path: "details",
-            component: VirtualNetworkDetailsTab
-          }
-        ]
+            component: VirtualNetworkDetailsTab,
+          },
+        ],
       },
       {
         type: Redirect,
         path: "/networking/networks/:overlayName/tasks/:taskID",
-        to: "/networking/networks/:overlayName/tasks/:taskID/details"
+        to: "/networking/networks/:overlayName/tasks/:taskID/details",
       },
       {
         type: Route,
@@ -54,7 +54,7 @@ export default {
             component: TaskDetailsTab,
             path: "details",
             title: "Details",
-            type: Route
+            type: Route,
           },
           {
             component: TaskFilesTab,
@@ -66,14 +66,14 @@ export default {
                 component: TaskFileBrowser,
                 fileViewerRoutePath:
                   "/networking/networks/:overlayName/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                type: IndexRoute
+                type: IndexRoute,
               },
               {
                 component: TaskFileViewer,
                 path: "view(/:filePath(/:innerPath))",
-                type: Route
-              }
-            ]
+                type: Route,
+              },
+            ],
           },
           {
             component: TaskLogsContainer,
@@ -83,12 +83,12 @@ export default {
             children: [
               {
                 path: ":filePath",
-                type: Route
-              }
-            ]
-          }
-        ]
-      }
+                type: Route,
+              },
+            ],
+          },
+        ],
+      },
     ];
 
     // Return filtered Routes
@@ -98,8 +98,8 @@ export default {
       redirect: {
         type: Redirect,
         from: "/networking",
-        to: "/networking/networks"
-      }
+        to: "/networking/networks",
+      },
     });
   },
 
@@ -115,8 +115,8 @@ export default {
         component: NetworkPage,
         category: i18nMark("resources"),
         isInSidebar: true,
-        children: routes
-      }
+        children: routes,
+      },
     ];
-  }
+  },
 };

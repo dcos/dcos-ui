@@ -17,7 +17,7 @@ export function augmentConstraintsReducer(reducers) {
       return [].concat(
         reducers.constraints.bind(this)(newState, { type, path, value })
       );
-    }
+    },
   };
 }
 
@@ -28,29 +28,29 @@ export function regionReducer(state, { path, value }, constraints) {
       state = constraints(state, {
         type: ADD_ITEM,
         path: [fieldName],
-        value: { type: "region" }
+        value: { type: "region" },
       });
     }
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "fieldName"],
-      value: "@region"
+      value: "@region",
     });
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "operator"],
-      value: "IS"
+      value: "IS",
     });
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "value"],
-      value
+      value,
     });
     if (value === "") {
       state = constraints(state, {
         type: REMOVE_ITEM,
         path: [fieldName],
-        value: parseInt(index, 10)
+        value: parseInt(index, 10),
       });
     }
   }
@@ -65,29 +65,29 @@ export function zoneReducer(state, { path, value }, constraints) {
       state = constraints(state, {
         type: ADD_ITEM,
         path: [fieldName],
-        value: { type: "zone" }
+        value: { type: "zone" },
       });
     }
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "fieldName"],
-      value: "@zone"
+      value: "@zone",
     });
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "operator"],
-      value: "GROUP_BY"
+      value: "GROUP_BY",
     });
     state = constraints(state, {
       type: SET,
       path: [fieldName, index, "value"],
-      value
+      value,
     });
     if (value === "") {
       state = constraints(state, {
         type: REMOVE_ITEM,
         path: [fieldName],
-        value: parseInt(index, 10)
+        value: parseInt(index, 10),
       });
     }
   }

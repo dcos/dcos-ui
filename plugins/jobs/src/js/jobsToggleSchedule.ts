@@ -25,7 +25,7 @@ export default function jobsToggleSchedule(job) {
 
   const data = {
     ...schedule,
-    enabled: !isEnabled
+    enabled: !isEnabled,
   };
 
   return {
@@ -36,10 +36,10 @@ export default function jobsToggleSchedule(job) {
       dataLayer
         .query(runUpdateSchedule, {
           jobId: job.id,
-          data
+          data,
         })
         .pipe(take(1))
         .subscribe();
-    }
+    },
   };
 }

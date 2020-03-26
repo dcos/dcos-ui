@@ -10,15 +10,15 @@ describe("Constraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
-        new Transaction(["constraints", 0, "fieldName"], "HOSTNAME", SET)
+        new Transaction(["constraints", 0, "fieldName"], "HOSTNAME", SET),
       ]);
 
       expect(batch.reduce(Constraints.JSONReducer.bind({}), [])).toEqual([
         {
           fieldName: "HOSTNAME",
           operator: "UNIQUE",
-          value: null
-        }
+          value: null,
+        },
       ]);
     });
 
@@ -27,15 +27,15 @@ describe("Constraints", () => {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
         new Transaction(["constraints", 0, "fieldName"], "LOCAL", SET),
-        new Transaction(["constraints", 0, "operator"], "CLUSTER", SET)
+        new Transaction(["constraints", 0, "operator"], "CLUSTER", SET),
       ]);
 
       expect(batch.reduce(Constraints.JSONReducer.bind({}), [])).toEqual([
         {
           fieldName: "LOCAL",
           operator: "CLUSTER",
-          value: null
-        }
+          value: null,
+        },
       ]);
     });
 
@@ -53,13 +53,13 @@ describe("Constraints", () => {
           ["constraints", 0, "value"],
           "value-not-converted-to-object",
           ERROR
-        )
+        ),
       ]);
     });
 
     it("adds error transaction when constraint is an invalid item", () => {
       expect(Constraints.JSONParser([1])).toEqual([
-        new Transaction(["constraints", 0, "value"], "value-not-object", ERROR)
+        new Transaction(["constraints", 0, "value"], "value-not-object", ERROR),
       ]);
     });
 
@@ -71,7 +71,7 @@ describe("Constraints", () => {
           ["constraints", 0, "value"],
           "value-is-malformed",
           ERROR
-        )
+        ),
       ]);
     });
   });

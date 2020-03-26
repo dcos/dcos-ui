@@ -21,16 +21,16 @@ export function getRegion(master) {
 
 export function mesosMasterLeaderQuery(masterDataSource, interval) {
   return timer(0, interval).pipe(
-    map(_ => masterDataSource()),
-    map(mesosState => mesosState.master_info),
-    filter(master => !isEmptyObject(master)),
-    map(master => ({
+    map((_) => masterDataSource()),
+    map((mesosState) => mesosState.master_info),
+    filter((master) => !isEmptyObject(master)),
+    map((master) => ({
       hostPort: hostWithPort(master.address),
       hostIp: findNestedPropertyInObject(master, "address.ip"),
       version: master.version,
       electedTime: master.elected_time,
       startTime: master.start_time,
-      region: getRegion(master)
+      region: getRegion(master),
     }))
   );
 }

@@ -6,7 +6,7 @@ import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import Units from "#SRC/js/utils/Units";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-const ConfigurationMapSizeValue = props => {
+const ConfigurationMapSizeValue = (props) => {
   const {
     decimals,
     defaultValue,
@@ -14,7 +14,7 @@ const ConfigurationMapSizeValue = props => {
     scale,
     threshold,
     units,
-    value
+    value,
   } = props;
 
   // Bail early with default if empty
@@ -36,7 +36,7 @@ ConfigurationMapSizeValue.defaultProps = {
   scale: 1024 * 1024,
   threshold: 800,
   units: ["B", "KiB", "MiB", "GiB", "TiB", "PiB"],
-  value: 0
+  value: 0,
 };
 
 ConfigurationMapSizeValue.propTypes = {
@@ -46,7 +46,7 @@ ConfigurationMapSizeValue.propTypes = {
   scale: PropTypes.number,
   threshold: PropTypes.number,
   units: PropTypes.array,
-  value: PropTypes.number
+  value: PropTypes.number,
 };
 
 export default ConfigurationMapSizeValue;

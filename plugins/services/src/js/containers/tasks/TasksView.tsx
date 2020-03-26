@@ -31,26 +31,26 @@ const DSL_FORM_SECTIONS = [
   TaskStatusDSLSection,
   TaskZoneDSLSection,
   TaskRegionDSLSection,
-  FuzzyTextDSLSection
+  FuzzyTextDSLSection,
 ];
 
 class TasksView extends React.Component {
   static defaultProps = {
     inverseStyle: false,
     itemID: "",
-    tasks: []
+    tasks: [],
   };
   static propTypes = {
     params: PropTypes.object.isRequired,
     inverseStyle: PropTypes.bool,
     itemID: PropTypes.string,
-    tasks: PropTypes.array
+    tasks: PropTypes.array,
   };
   constructor() {
     super();
 
     this.state = {
-      checkedItems: {}
+      checkedItems: {},
     };
   }
 
@@ -58,7 +58,7 @@ class TasksView extends React.Component {
     const prevCheckedItems = this.state.checkedItems;
     const checkedItems = {};
 
-    nextProps.tasks.forEach(task => {
+    nextProps.tasks.forEach((task) => {
       if (prevCheckedItems[task.id]) {
         checkedItems[task.id] = true;
       }
@@ -66,9 +66,9 @@ class TasksView extends React.Component {
 
     this.setState({ checkedItems });
   }
-  handleItemCheck = idsChecked => {
+  handleItemCheck = (idsChecked) => {
     const checkedItems = {};
-    idsChecked.forEach(id => {
+    idsChecked.forEach((id) => {
       checkedItems[id] = true;
     });
 
@@ -84,7 +84,7 @@ class TasksView extends React.Component {
 
     this.context.modalHandlers.killTasks({
       action: killAction,
-      selectedItems: Object.keys(checkedItems)
+      selectedItems: Object.keys(checkedItems),
     });
   }
 
@@ -94,7 +94,7 @@ class TasksView extends React.Component {
     const classSet = classNames({
       "table table-flush table-borderless-outer table-borderless-inner-columns": true,
       "flush-bottom": true,
-      inverse: inverseStyle
+      inverse: inverseStyle,
     });
 
     return (
@@ -129,13 +129,13 @@ class TasksView extends React.Component {
     }
 
     // Only allow restarting the task if the service isn't deploying.
-    const isDeploying = Object.keys(checkedItems).some(taskId => {
+    const isDeploying = Object.keys(checkedItems).some((taskId) => {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
       return service && service.getServiceStatus() === ServiceStatus.DEPLOYING;
     });
 
-    const isSDK = Object.keys(checkedItems).some(taskId => {
+    const isSDK = Object.keys(checkedItems).some((taskId) => {
       const service = DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
       return service && isSDKService(service);
@@ -143,7 +143,7 @@ class TasksView extends React.Component {
 
     // Only show Stop if a scheduler task isn't selected
     const hasSchedulerTask = tasks.some(
-      task => task.id in checkedItems && task.isSchedulerTask
+      (task) => task.id in checkedItems && task.isSchedulerTask
     );
 
     // Using Button's native "disabled" prop prevents onMouseLeave from
@@ -162,10 +162,10 @@ class TasksView extends React.Component {
     }
 
     const restartButtonClasses = classNames("button button-primary-link", {
-      disabled: isDeploying || isSDK
+      disabled: isDeploying || isSDK,
     });
     const stopButtonClasses = classNames("button button-primary-link", {
-      disabled: hasSchedulerTask
+      disabled: hasSchedulerTask,
     });
 
     return (
@@ -211,14 +211,14 @@ class TasksView extends React.Component {
       filters,
       filterExpression,
       handleExpressionChange,
-      defaultFilterData
+      defaultFilterData,
     } = this.props;
 
     const filterExpressionValue = filterExpression.value;
 
     const hostClasses = classNames("flush-left", {
       "column-medium-5": !filterExpressionValue,
-      "column-medium-12": filterExpressionValue
+      "column-medium-12": filterExpressionValue,
     });
 
     return (
@@ -240,7 +240,7 @@ class TasksView extends React.Component {
       tasks,
       totalTasks,
       handleExpressionChange,
-      i18n
+      i18n,
     } = this.props;
 
     const { checkedItems } = this.state;
@@ -280,15 +280,15 @@ class TasksView extends React.Component {
 
 TasksView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    killTasks: PropTypes.func.isRequired
-  }).isRequired
+    killTasks: PropTypes.func.isRequired,
+  }).isRequired,
 };
 
 TasksView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    createGroup: PropTypes.func
+    createGroup: PropTypes.func,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(TasksView);

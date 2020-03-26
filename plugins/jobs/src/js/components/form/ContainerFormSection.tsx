@@ -103,7 +103,7 @@ class ContainerFormSection extends React.Component<ContainerSectionProps> {
       errors,
       showErrors,
       onAddItem,
-      onRemoveItem
+      onRemoveItem,
     } = this.props;
     const selectedContainer = formData.container;
 

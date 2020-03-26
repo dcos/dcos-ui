@@ -6,7 +6,7 @@ import Node from "#SRC/js/structs/Node";
 import NodeHealthStore from "../../stores/NodeHealthStore";
 import HealthTab from "../../components/HealthTab";
 
-const NodeDetailHealthTab = props => {
+const NodeDetailHealthTab = (props) => {
   const { node } = props;
   if (!node) {
     return null;
@@ -17,11 +17,11 @@ const NodeDetailHealthTab = props => {
 };
 
 NodeDetailHealthTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 NodeDetailHealthTab.propTypes = {
-  node: PropTypes.instanceOf(Node)
+  node: PropTypes.instanceOf(Node),
 };
 
 export default NodeDetailHealthTab;

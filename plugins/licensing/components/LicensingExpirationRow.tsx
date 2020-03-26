@@ -15,7 +15,7 @@ class LicensingExpirationRow extends React.Component {
     super(props);
 
     this.state = {
-      licensingSummary: LicensingStore.getLicensingSummary()
+      licensingSummary: LicensingStore.getLicensingSummary(),
     };
   }
 

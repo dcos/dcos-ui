@@ -17,7 +17,7 @@ describe("ChartStripes", () => {
   it("has correct width on each stripe", () => {
     const stripes = thisInstance.find(".background");
 
-    stripes.forEach(stripe => {
+    stripes.forEach((stripe) => {
       expect(parseInt(stripe.props().width, 10)).toEqual(25);
     });
   });
@@ -39,7 +39,7 @@ describe("ChartStripes", () => {
     stripes = thisInstance.find(".background");
     expect(stripes.length).toEqual(5);
 
-    stripes.forEach(stripe => {
+    stripes.forEach((stripe) => {
       expect(parseInt(stripe.props().width, 10)).toEqual(30);
     });
 

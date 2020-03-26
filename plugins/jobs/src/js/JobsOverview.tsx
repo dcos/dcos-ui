@@ -2,14 +2,14 @@ import * as React from "react";
 import Router, {
   InjectedRouter,
   LocationDescriptor,
-  withRouter
+  withRouter,
 } from "react-router";
 import {
   BehaviorSubject,
   Observable,
   Subscribable as RxSubscribable,
   combineLatest,
-  of
+  of,
 } from "rxjs";
 import {
   map,
@@ -17,7 +17,7 @@ import {
   switchMap,
   startWith,
   catchError,
-  distinctUntilChanged
+  distinctUntilChanged,
 } from "rxjs/operators";
 import { Subscribable } from "recompose";
 import isEqual from "lodash.isequal";
@@ -69,11 +69,11 @@ const JobsOverview = withRouter(
 
       (props$ as Observable<JobsOverviewProps>)
         .pipe(
-          map(props => [
+          map((props) => [
             props.params && props.params.path
               ? props.params.path.split(".")
               : [],
-            props.location.query ? props.location.query.searchString : ""
+            props.location.query ? props.location.query.searchString : "",
           ])
         )
         .subscribe(([path, filter]) => {
@@ -87,10 +87,10 @@ const JobsOverview = withRouter(
         switchMap(([path, filter]) => {
           return dataLayer.query(jobsOverviewQuery, {
             path,
-            filter
+            filter,
           }) as Observable<{ data: { jobs: JobConnection } }>;
         }),
-        map(data => data.data.jobs),
+        map((data) => data.data.jobs),
         distinctUntilChanged(isEqual)
       );
 
@@ -101,11 +101,11 @@ const JobsOverview = withRouter(
             (prevProps as any).location.pathname ===
             (nextProps as any).location.pathname
         ),
-        map(props => (filter: string) => {
+        map((props) => (filter: string) => {
           const query = filter === "" ? {} : { searchString: filter };
           (props as any).router.push({
             pathname: (props as any).location.pathname,
-            query
+            query,
           });
 
           filter$.next(filter);
@@ -127,7 +127,7 @@ const JobsOverview = withRouter(
           );
         }),
         startWith(<JobsOverviewLoading />),
-        catchError(e => {
+        catchError((e) => {
           console.error(e);
           return of(<JobsOverviewError />);
         })

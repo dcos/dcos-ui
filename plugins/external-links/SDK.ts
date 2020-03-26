@@ -6,5 +6,5 @@ module.exports = {
   },
   setSDK(pluginSDK) {
     SDK = pluginSDK;
-  }
+  },
 };

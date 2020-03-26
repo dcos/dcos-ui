@@ -7,7 +7,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import {
   UIAction,
   UIActions,
-  UIActionType
+  UIActionType,
 } from "#PLUGINS/ui-update/types/UIAction";
 import { FormattedPackageVersion } from "#PLUGINS/ui-update/types/FormattedPackageVersion";
 

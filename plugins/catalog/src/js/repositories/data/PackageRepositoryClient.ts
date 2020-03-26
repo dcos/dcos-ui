@@ -5,7 +5,7 @@ import Config from "#SRC/js/config/Config";
 
 const reloadSubject = new Subject();
 
-export const fetchRepositories = type =>
+export const fetchRepositories = (type) =>
   reloadSubject.pipe(
     startWith(null),
     concatMap(() =>
@@ -16,13 +16,13 @@ export const fetchRepositories = type =>
           Accept:
             "application/vnd.dcos.package.repository.list-response+json;charset=utf-8;version=v1",
           "Content-Type":
-            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.repository.list-request+json;charset=utf-8;version=v1",
+        },
       })
     )
   );
 
-export const liveFetchRepositories = type =>
+export const liveFetchRepositories = (type) =>
   reloadSubject.pipe(
     startWith(null),
     concatMap(() => fetchRepositories(type))
@@ -36,8 +36,8 @@ export const addRepository = (name, uri, index) =>
       Accept:
         "application/vnd.dcos.package.repository.add-response+json;charset=utf-8;version=v1",
       "Content-Type":
-        "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1"
-    }
+        "application/vnd.dcos.package.repository.add-request+json;charset=utf-8;version=v1",
+    },
   }).pipe(tap(() => reloadSubject.next()));
 
 export const deleteRepository = (name, uri) =>
@@ -48,6 +48,6 @@ export const deleteRepository = (name, uri) =>
       Accept:
         "application/vnd.dcos.package.repository.delete-response+json;charset=utf-8;version=v1",
       "Content-Type":
-        "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1"
-    }
+        "application/vnd.dcos.package.repository.delete-request+json;charset=utf-8;version=v1",
+    },
   }).pipe(tap(() => reloadSubject.next()));

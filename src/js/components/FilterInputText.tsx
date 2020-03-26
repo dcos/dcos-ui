@@ -6,7 +6,7 @@ import {
   greyDark,
   iconSizeXs,
   white,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import keyCodes from "#SRC/js/utils/KeyboardUtil";
@@ -16,7 +16,7 @@ enum ServiceFilterType {
   other = "filterOther",
   status = "filterStatus",
   labels = "filterLabels",
-  text = "searchString"
+  text = "searchString",
 }
 
 export default class FilterInputText extends React.Component<{
@@ -34,7 +34,7 @@ export default class FilterInputText extends React.Component<{
     inverseStyle: false,
     placeholder: "Filter",
     searchString: "",
-    sideText: null
+    sideText: null,
   };
 
   inputField?: HTMLInputElement | null;
@@ -74,7 +74,7 @@ export default class FilterInputText extends React.Component<{
 
     const inputClasses = classNames({
       "form-control filter-input-text": true,
-      "form-control-inverse": inverseStyle
+      "form-control-inverse": inverseStyle,
     });
 
     return (
@@ -82,7 +82,7 @@ export default class FilterInputText extends React.Component<{
         className={inputClasses}
         placeholder={placeholder}
         onChange={this.handleChange}
-        ref={ref => (this.inputField = ref)}
+        ref={(ref) => (this.inputField = ref)}
         onKeyDown={this.handleKeyDown}
         type="text"
         value={searchString}
@@ -103,7 +103,7 @@ export default class FilterInputText extends React.Component<{
     }
 
     const iconClassNames = classNames("clickable", {
-      "icon-margin-left": !!sideText
+      "icon-margin-left": !!sideText,
     });
 
     return (
@@ -128,7 +128,7 @@ export default class FilterInputText extends React.Component<{
 
     let iconColor = greyDark;
     const iconSearchClasses = classNames({
-      active: focus
+      active: focus,
     });
 
     if (!inverseStyle && focus) {
@@ -139,7 +139,7 @@ export default class FilterInputText extends React.Component<{
       {
         focus,
         "form-control form-control-group filter-input-text-group": true,
-        "form-control-inverse": inverseStyle
+        "form-control-inverse": inverseStyle,
       },
       inputContainerClass
     );

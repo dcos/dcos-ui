@@ -16,7 +16,7 @@ export function linearBackoff(
 
         return count + 1;
       }, 0),
-      delayWhen(val =>
+      delayWhen((val) =>
         timer(
           Math.min(val * delay, maxDelay || Number.MAX_SAFE_INTEGER),
           undefined,

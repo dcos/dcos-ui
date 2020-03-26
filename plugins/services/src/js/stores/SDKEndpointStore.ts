@@ -8,7 +8,7 @@ import {
   REQUEST_SDK_ENDPOINTS_SUCCESS,
   REQUEST_SDK_ENDPOINTS_ERROR,
   REQUEST_SDK_ENDPOINT_SUCCESS,
-  REQUEST_SDK_ENDPOINT_ERROR
+  REQUEST_SDK_ENDPOINT_ERROR,
 } from "../constants/ActionTypes";
 
 import SDKEndpointActions from "../events/SDKEndpointActions";
@@ -19,16 +19,16 @@ class SDKEndpointStore extends GetSetBaseStore {
     super();
 
     this.getSet_data = {
-      services: {}
+      services: {},
     };
 
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const { type, data } = payload.action;
       switch (type) {
         case REQUEST_SDK_ENDPOINTS_SUCCESS:
@@ -37,7 +37,7 @@ class SDKEndpointStore extends GetSetBaseStore {
         case REQUEST_SDK_ENDPOINTS_ERROR:
           this.setService(data.serviceId, {
             endpoints: [],
-            error: data.error.description
+            error: data.error.description,
           });
           break;
         case REQUEST_SDK_ENDPOINT_SUCCESS:
@@ -51,7 +51,7 @@ class SDKEndpointStore extends GetSetBaseStore {
         case REQUEST_SDK_ENDPOINT_ERROR:
           this.setService(data.serviceId, {
             endpoints: [],
-            error: data.error
+            error: data.error,
           });
           break;
       }
@@ -76,7 +76,7 @@ class SDKEndpointStore extends GetSetBaseStore {
         new ServiceEndpoint({
           endpointName,
           endpointData: endpoint.endpointData,
-          contentType: endpoint.contentType
+          contentType: endpoint.contentType,
         })
     );
   }
@@ -95,7 +95,7 @@ class SDKEndpointStore extends GetSetBaseStore {
     const services = this.getServices();
     services[serviceId] = {
       endpoints: serviceData.endpoints,
-      error: serviceData.error
+      error: serviceData.error,
     };
 
     this.set({ services });
@@ -110,10 +110,10 @@ class SDKEndpointStore extends GetSetBaseStore {
 
     this.setService(serviceId, {
       endpoints,
-      error: ""
+      error: "",
     });
 
-    endpointsArray.forEach(endpoint => {
+    endpointsArray.forEach((endpoint) => {
       SDKEndpointActions.fetchEndpoint(serviceId, endpoint);
     }, this);
   }
@@ -127,7 +127,7 @@ class SDKEndpointStore extends GetSetBaseStore {
 
     this.setService(serviceId, {
       endpoints: service.endpoints,
-      error: ""
+      error: "",
     });
   }
 

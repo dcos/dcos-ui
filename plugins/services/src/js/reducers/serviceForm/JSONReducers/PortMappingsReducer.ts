@@ -12,7 +12,7 @@ const FIELDS = [
   "servicePort",
   "vip",
   "vipPort",
-  "vipLabel"
+  "vipLabel",
 ];
 
 /**
@@ -43,12 +43,12 @@ function PortMappingsReducer(state = [], action) {
               portMapping: false,
               protocol: {
                 tcp: true,
-                udp: false
+                udp: false,
               },
               servicePort: null,
               vip: null,
               vipPort: null,
-              vipLabel: null
+              vipLabel: null,
             }
           );
           break;

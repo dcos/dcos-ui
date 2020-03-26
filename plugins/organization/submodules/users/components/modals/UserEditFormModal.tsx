@@ -13,7 +13,7 @@ class UserEditFormModal extends mixin(StoreMixin) {
     account: PropTypes.object,
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    open: PropTypes.bool.isRequired
+    open: PropTypes.bool.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -25,38 +25,38 @@ class UserEditFormModal extends mixin(StoreMixin) {
 
     this.state = {
       disableSubmit: false,
-      errorMsg: false
+      errorMsg: false,
     };
   }
   onAclUserStoreUpdateSuccess = () => {
     this.setState({
       disableSubmit: false,
-      errorMsg: false
+      errorMsg: false,
     });
     this.props.onClose();
   };
-  onAclUserStoreUpdateError = errorMsg => {
+  onAclUserStoreUpdateError = (errorMsg) => {
     this.setState({
       disableSubmit: false,
-      errorMsg
+      errorMsg,
     });
   };
   handleUserClose = () => {
     this.setState({ errorMsg: false });
     this.props.onClose();
   };
-  handleUserSubmit = model => {
+  handleUserSubmit = (model) => {
     const { i18n } = this.props;
 
     if (model.password !== model.confirmPassword) {
       // Check if passwords match.
       return this.setState({
-        errorMsg: i18n._(t`Passwords do not match.`)
+        errorMsg: i18n._(t`Passwords do not match.`),
       });
     }
     delete model.confirmPassword; // We don't need to send this to the backend.
 
-    Object.keys(model).forEach(key => {
+    Object.keys(model).forEach((key) => {
       if (!model[key] || model[key].length === 0) {
         delete model[key];
       }
@@ -74,13 +74,13 @@ class UserEditFormModal extends mixin(StoreMixin) {
       {
         text: i18n._(t`Cancel`),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: disableSubmit ? i18n._(t`Saving...`) : i18n._(t`Save`),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
   }
 
@@ -89,7 +89,7 @@ class UserEditFormModal extends mixin(StoreMixin) {
     const { errorMsg } = this.state;
     const passwordErrors = [
       "Passwords do not match.",
-      "Password does not match rules: Must be at least 5 characters long."
+      "Password does not match rules: Must be at least 5 characters long.",
     ];
     // We do not want to show password errors under the name field.
     const nameErrorMsg = passwordErrors.includes(errorMsg) ? null : errorMsg;
@@ -106,7 +106,7 @@ class UserEditFormModal extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: this.props.account.get("description")
+        value: this.props.account.get("description"),
       },
       {
         fieldType: "password",
@@ -119,7 +119,7 @@ class UserEditFormModal extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "password",
@@ -132,8 +132,8 @@ class UserEditFormModal extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: ""
-      }
+        value: "",
+      },
     ];
   }
 
@@ -153,7 +153,7 @@ class UserEditFormModal extends mixin(StoreMixin) {
         disabled={this.state.disableSubmit}
         modalProps={{
           header: this.getHeader(),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.handleUserClose}
         onSubmit={this.handleUserSubmit}

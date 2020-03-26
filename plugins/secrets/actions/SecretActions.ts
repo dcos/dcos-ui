@@ -19,15 +19,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -39,15 +39,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -57,15 +57,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -77,15 +77,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -94,7 +94,7 @@ const SecretActions = {
 
     request(url, {
       headers: { Accept: "*/*" },
-      responseType: "text"
+      responseType: "text",
     }).subscribe({
       next: ({ response, responseHeaders }) => {
         let data;
@@ -117,17 +117,17 @@ const SecretActions = {
           data,
           storeName,
           secretPath,
-          contentType
+          contentType,
         });
       },
-      error: event => {
+      error: (event) => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRET_ERROR,
           data: event,
           storeName,
-          secretPath
+          secretPath,
         });
-      }
+      },
     });
   },
 
@@ -145,26 +145,26 @@ const SecretActions = {
           Accept: "application/json",
           "Content-Type": isFile(value)
             ? "application/octet-stream"
-            : "application/json"
+            : "application/json",
         },
         method: "PUT",
-        body
+        body,
       }
     ).subscribe({
-      next: event => {
+      next: (event) => {
         const data = JSON.parse(event.response);
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_SUCCESS,
-          data
+          data,
         });
       },
-      error: event => {
+      error: (event) => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_ERROR,
-          data: event
+          data: event,
         });
-      }
+      },
     });
   },
 
@@ -182,13 +182,13 @@ const SecretActions = {
           Accept: "application/json",
           "Content-Type": isFile(value)
             ? "application/octet-stream"
-            : "application/json"
+            : "application/json",
         },
         method: "PATCH",
-        body
+        body,
       }
     ).subscribe({
-      next: event => {
+      next: (event) => {
         let data;
         try {
           data = JSON.parse(event.response);
@@ -198,15 +198,15 @@ const SecretActions = {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_SUCCESS,
-          data
+          data,
         });
       },
-      error: event => {
+      error: (event) => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_ERROR,
-          data: event
+          data: event,
         });
-      }
+      },
     });
   },
 
@@ -217,15 +217,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -235,15 +235,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SECRETS_ERROR,
-          data: xhr
+          data: xhr,
         });
-      }
+      },
     });
   },
 
@@ -254,15 +254,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -274,15 +274,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -292,15 +292,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ALL_STORES_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -310,15 +310,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -330,15 +330,15 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -350,17 +350,17 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -391,7 +391,7 @@ if (Config.useFixtures) {
     ),
     fetchStore: import(
       /* backend */ "../../../tests/_fixtures/secrets/backend.json"
-    )
+    ),
   };
 
   if (!window.actionTypes) {
@@ -404,40 +404,40 @@ if (Config.useFixtures) {
 
   Promise.all(
     Object.keys(methodFixtureMapping).map(
-      method => methodFixtureMapping[method]
+      (method) => methodFixtureMapping[method]
     )
-  ).then(responses => {
+  ).then((responses) => {
     window.actionTypes.SecretActions = Object.assign(
       getFixtureResponses(methodFixtureMapping, responses),
       {
         initializeStore: {
           event: "success",
-          success: { response: {} }
+          success: { response: {} },
         },
         deleteSecret: {
           event: "success",
-          success: { response: "Secret deleted." }
+          success: { response: "Secret deleted." },
         },
         revokeSecret: {
           event: "success",
-          success: { response: "Secret revoked." }
+          success: { response: "Secret revoked." },
         },
         renewSecret: {
           event: "success",
-          success: { response: "Secret renewed." }
+          success: { response: "Secret renewed." },
         },
         createStore: {
           event: "success",
-          success: { response: "Backend created." }
+          success: { response: "Backend created." },
         },
         deleteStore: {
           event: "success",
-          success: { response: "Backend deleted." }
-        }
+          success: { response: "Backend deleted." },
+        },
       }
     );
 
-    Object.keys(window.actionTypes.SecretActions).forEach(method => {
+    Object.keys(window.actionTypes.SecretActions).forEach((method) => {
       SecretActions[method] = RequestUtil.stubRequest(
         SecretActions,
         "SecretActions",

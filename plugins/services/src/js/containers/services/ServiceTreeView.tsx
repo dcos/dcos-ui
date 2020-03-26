@@ -9,7 +9,7 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownMenuItem,
-  PrimaryDropdownButton
+  PrimaryDropdownButton,
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
@@ -34,13 +34,13 @@ const DSL_FORM_SECTIONS = [
   ServiceStatusDSLSection,
   ServiceHealthDSLSection,
   ServiceOtherDSLSection,
-  FuzzyTextDSLSection
+  FuzzyTextDSLSection,
 ];
 
 class ServiceTreeView extends React.Component {
   static defaultProps = {
     onFilterExpressionChange() {},
-    isEmpty: false
+    isEmpty: false,
   };
   static propTypes = {
     filters: PropTypes.instanceOf(Array).isRequired,
@@ -51,18 +51,18 @@ class ServiceTreeView extends React.Component {
     services: PropTypes.arrayOf(
       PropTypes.oneOfType([
         PropTypes.instanceOf(Service),
-        PropTypes.instanceOf(ServiceTree)
+        PropTypes.instanceOf(ServiceTree),
       ])
     ).isRequired,
     serviceTree: PropTypes.instanceOf(ServiceTree),
-    roles: PropTypes.array
+    roles: PropTypes.array,
   };
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
 
     const hostClasses = classNames({
       "column-medium-5": !filterExpression.value,
-      "column-medium-12": filterExpression.value
+      "column-medium-12": filterExpression.value,
     });
 
     return (
@@ -109,14 +109,14 @@ class ServiceTreeView extends React.Component {
           label: i18nMark("Services"),
           routePath: serviceTree.isRoot()
             ? "/services/overview"
-            : `/services/overview/${encodeURIComponent(id)}`
+            : `/services/overview/${encodeURIComponent(id)}`,
         },
         {
           label: i18nMark("Quota"),
           routePath: serviceTree.isRoot()
             ? "/services/quota"
-            : `/services/quota/${encodeURIComponent(id)}`
-        }
+            : `/services/quota/${encodeURIComponent(id)}`,
+        },
       ];
     }
     return [];
@@ -138,7 +138,7 @@ class ServiceTreeView extends React.Component {
       isEmpty,
       serviceTree,
       services,
-      roles
+      roles,
     } = this.props;
 
     const { modalHandlers } = this.context;
@@ -162,7 +162,7 @@ class ServiceTreeView extends React.Component {
       createGroup = modalHandlers.createGroup;
     }
 
-    const onAddSelect = selectedItem => {
+    const onAddSelect = (selectedItem) => {
       switch (selectedItem) {
         case "runService":
           createService();
@@ -209,8 +209,8 @@ class ServiceTreeView extends React.Component {
     const editGroupActions = [
       {
         onItemSelect: onEditSelect,
-        label: i18nMark("Edit Group")
-      }
+        label: i18nMark("Edit Group"),
+      },
     ];
 
     if (isEmpty) {
@@ -274,9 +274,9 @@ class ServiceTreeView extends React.Component {
 
 ServiceTreeView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    createGroup: PropTypes.func
+    createGroup: PropTypes.func,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServiceTreeView;

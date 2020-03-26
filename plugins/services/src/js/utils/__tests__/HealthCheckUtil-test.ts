@@ -10,8 +10,8 @@ describe("HealthCheckUtil", () => {
     [
       HealthCheckProtocols.MESOS_HTTP,
       HealthCheckProtocols.MESOS_HTTPS,
-      HealthCheckProtocols.COMMAND
-    ].forEach(protocol => {
+      HealthCheckProtocols.COMMAND,
+    ].forEach((protocol) => {
       it(`returns true for ${protocol}`, () => {
         expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(true);
       });
@@ -20,8 +20,8 @@ describe("HealthCheckUtil", () => {
     [
       HealthCheckProtocols.HTTP,
       HealthCheckProtocols.HTTPS,
-      HealthCheckProtocols.TCP
-    ].forEach(protocol => {
+      HealthCheckProtocols.TCP,
+    ].forEach((protocol) => {
       it(`returns false for deprecated ${protocol}`, () => {
         expect(HealthCheckUtil.isKnownProtocol(protocol)).toEqual(false);
       });
@@ -34,10 +34,10 @@ describe("HealthCheckUtil", () => {
 
   describe("#getMetadataText", () => {
     const protocolTrue = {
-      tcp: true
+      tcp: true,
     };
     const protocolFalse = {
-      tcp: false
+      tcp: false,
     };
     it("returns a string with the protocol and the port text", () => {
       expect(HealthCheckUtil.getMetadataText(protocolTrue, "80")).toBe(
@@ -59,15 +59,15 @@ describe("HealthCheckUtil", () => {
     it("returns a string with the hostPort value if one is defined", () => {
       const data = {
         portsAutoAssign: false,
-        networks: [{ mode: "HOST" }]
+        networks: [{ mode: "HOST" }],
       };
 
       const endpoint = {
         hostPort: "80",
         name: "endpointone",
         protocol: {
-          tcp: true
-        }
+          tcp: true,
+        },
       };
 
       expect(HealthCheckUtil.getEndpointText(0, endpoint, data)).toContain(
@@ -78,14 +78,14 @@ describe("HealthCheckUtil", () => {
     it("returns a string with an environment variable placeholder if a port is automatically asigned", () => {
       const data = {
         portsAutoAssign: true,
-        networks: [{ mode: "HOST" }]
+        networks: [{ mode: "HOST" }],
       };
 
       const endpoint = {
         name: "endpointone",
         protocol: {
-          tcp: true
-        }
+          tcp: true,
+        },
       };
 
       expect(HealthCheckUtil.getEndpointText(0, endpoint, data)).toContain(

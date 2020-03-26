@@ -94,7 +94,7 @@ export function getWebURL(labels, rootUrl) {
     DCOS_SERVICE_NAME: name,
     DCOS_SERVICE_PORT_INDEX: portIndex,
     DCOS_SERVICE_SCHEME: scheme,
-    DCOS_SERVICE_WEB_PATH: webPath = ""
+    DCOS_SERVICE_WEB_PATH: webPath = "",
   } = labels;
   const serviceName = encodeURIComponent(name);
   const hasNewWebUiLabel = serviceName && webPath;
@@ -116,5 +116,5 @@ export default {
   getServiceJSON,
   getServiceIDFromTaskID,
   isSDKService,
-  getWebURL
+  getWebURL,
 };

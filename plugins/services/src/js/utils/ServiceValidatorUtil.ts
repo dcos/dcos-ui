@@ -72,7 +72,7 @@ const ServiceValidatorUtil = {
           segment !== ".." &&
           groupIDSegmentPattern.test(segment)
       );
-  }
+  },
 };
 
 export default ServiceValidatorUtil;

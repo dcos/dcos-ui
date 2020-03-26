@@ -14,7 +14,7 @@ describe("PortDefinitions", () => {
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 0, protocol: "tcp", labels: null }
+        { name: null, port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -43,7 +43,7 @@ describe("PortDefinitions", () => {
       batch = batch.add(new Transaction(["portDefinitions"], null, ADD_ITEM));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 0, protocol: "tcp", labels: null }
+        { name: null, port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -74,7 +74,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: null },
-        { name: null, port: 0, protocol: "tcp", labels: null }
+        { name: null, port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -84,7 +84,7 @@ describe("PortDefinitions", () => {
       batch = batch.add(new Transaction(["portDefinitions", 0, "name"], "foo"));
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: "foo", port: 0, protocol: "tcp", labels: null }
+        { name: "foo", port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -97,7 +97,7 @@ describe("PortDefinitions", () => {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 100, protocol: "tcp", labels: null }
+        { name: null, port: 100, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -110,7 +110,7 @@ describe("PortDefinitions", () => {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 100, protocol: "tcp", labels: null }
+        { name: null, port: 100, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -125,7 +125,7 @@ describe("PortDefinitions", () => {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: null, port: 0, protocol: "udp", labels: null }
+        { name: null, port: 0, protocol: "udp", labels: null },
       ]);
     });
 
@@ -136,7 +136,7 @@ describe("PortDefinitions", () => {
           ["portDefinitions"],
           {
             name: "http",
-            port: 0
+            port: 0,
           },
           ADD_ITEM
         )
@@ -146,7 +146,7 @@ describe("PortDefinitions", () => {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: "http", port: 0, protocol: "tcp", labels: null }
+        { name: "http", port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -159,8 +159,8 @@ describe("PortDefinitions", () => {
             name: "http",
             port: 0,
             protocol: {
-              udp: true
-            }
+              udp: true,
+            },
           },
           ADD_ITEM
         )
@@ -170,7 +170,7 @@ describe("PortDefinitions", () => {
       );
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
-        { name: "http", port: 0, protocol: "udp,tcp", labels: null }
+        { name: "http", port: 0, protocol: "udp,tcp", labels: null },
       ]);
     });
 
@@ -184,7 +184,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: null },
-        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: ":null" } }
+        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: ":null" } },
       ]);
     });
 
@@ -201,7 +201,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: { VIP_0: ":null" } },
-        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: ":null" } }
+        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: ":null" } },
       ]);
     });
 
@@ -219,7 +219,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 300, protocol: "tcp", labels: { VIP_0: ":300" } },
-        { name: null, port: 0, protocol: "tcp", labels: null }
+        { name: null, port: 0, protocol: "tcp", labels: null },
       ]);
     });
 
@@ -235,7 +235,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: null },
-        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: "foo:null" } }
+        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: "foo:null" } },
       ]);
     });
 
@@ -253,7 +253,7 @@ describe("PortDefinitions", () => {
 
       expect(batch.reduce(PortDefinitions.JSONReducer.bind({}), {})).toEqual([
         { name: null, port: 0, protocol: "tcp", labels: null },
-        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: "foo:null" } }
+        { name: null, port: 0, protocol: "tcp", labels: { VIP_1: "foo:null" } },
       ]);
     });
   });

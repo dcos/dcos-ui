@@ -127,7 +127,7 @@ describe("Units", () => {
         "byte",
         "KB",
         "MB",
-        "GB"
+        "GB",
       ]);
       expect(filesize).toBe("0.8 GB");
     });
@@ -205,7 +205,7 @@ describe("Units", () => {
 
       return expect(
         Units.contractNumber(1.123456, {
-          decimalPlaces: 4
+          decimalPlaces: 4,
         })
       ).toEqual("1.1235");
     });
@@ -215,7 +215,7 @@ describe("Units", () => {
 
       return expect(
         Units.contractNumber(0.123456, {
-          decimalPlaces: 4
+          decimalPlaces: 4,
         })
       ).toEqual("0.123456");
     });
@@ -225,7 +225,7 @@ describe("Units", () => {
 
       return expect(
         Units.contractNumber(1, {
-          decimalPlaces: 4
+          decimalPlaces: 4,
         })
       ).toEqual("1");
     });
@@ -239,7 +239,7 @@ describe("Units", () => {
       expect(
         Units.contractNumber(0.123456, {
           forceFixedPrecision: true,
-          decimalPlaces: 3
+          decimalPlaces: 3,
         })
       ).toEqual("0.123"));
 

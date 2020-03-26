@@ -9,7 +9,7 @@ import {
   combineLatest,
   startWith,
   catchError,
-  mapTo
+  mapTo,
 } from "rxjs/operators";
 
 import gql from "graphql-tag";
@@ -31,16 +31,16 @@ function executeDeleteMutation({
   jobId,
   stopCurrentJobRuns,
   onSuccess,
-  errorMessage
+  errorMessage,
 }) {
   return dataLayer
     .query(deleteJobMutation, {
       jobId,
-      stopCurrentJobRuns
+      stopCurrentJobRuns,
     })
     .pipe(
       mapTo({ done: true, stopCurrentJobRuns, errorMessage }),
-      tap(_ => onSuccess()),
+      tap((_) => onSuccess()),
       startWith({ done: false, stopCurrentJobRuns, errorMessage })
     );
 }
@@ -49,11 +49,11 @@ function deleteEventHandler() {
   const deleteSubject$ = new Subject();
   const delete$ = deleteSubject$.pipe(
     switchMap(executeDeleteMutation),
-    catchError(error =>
+    catchError((error) =>
       delete$.pipe(
         startWith({
           errorMessage: error && error.response && error.response.message,
-          done: true
+          done: true,
         })
       )
     )
@@ -66,9 +66,9 @@ function deleteEventHandler() {
         jobId,
         stopCurrentJobRuns,
         onSuccess,
-        errorMessage
+        errorMessage,
       });
-    }
+    },
   };
 }
 
@@ -76,7 +76,7 @@ function isTaskCurrentlyRunning(errorMessage) {
   return (errorMessage || "").includes("stopCurrentJobRuns=true");
 }
 
-const JobDelete = componentFromStream(prop$ => {
+const JobDelete = componentFromStream((prop$) => {
   const { delete$, deleteHandler } = deleteEventHandler();
   const deleteWithInitialValue$ = delete$.pipe(startWith({ done: null }));
 
@@ -84,7 +84,7 @@ const JobDelete = componentFromStream(prop$ => {
     combineLatest(deleteWithInitialValue$, (props, { done, errorMessage }) => ({
       ...props,
       done,
-      errorMessage
+      errorMessage,
     })),
     map(({ open, jobId, onClose, onSuccess, errorMessage, done }) => {
       const stopCurrentJobRuns = isTaskCurrentlyRunning(errorMessage);
@@ -111,7 +111,7 @@ JobDelete.propTypes = {
   jobId: PropTypes.string.isRequired,
   onClose: PropTypes.func.isRequired,
   onSuccess: PropTypes.func,
-  open: PropTypes.bool.isRequired
+  open: PropTypes.bool.isRequired,
 };
 
 export default JobDelete;

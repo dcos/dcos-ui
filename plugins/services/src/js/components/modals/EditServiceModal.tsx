@@ -8,7 +8,7 @@ import DCOSStore from "#SRC/js/stores/DCOSStore";
 import FullScreenModal from "#SRC/js/components/modals/FullScreenModal";
 import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
 
-const EditServiceModal = props => {
+const EditServiceModal = (props) => {
   const { id = "/" } = props.params;
   const serviceID = decodeURIComponent(id);
   const serviceLoaded = DCOSStore.serviceDataReceived;

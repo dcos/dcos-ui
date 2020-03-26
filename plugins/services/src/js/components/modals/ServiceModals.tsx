@@ -21,7 +21,7 @@ const actionPropTypes = PropTypes.shape({
   editGroup: PropTypes.func,
   deleteService: PropTypes.func,
   restartService: PropTypes.func,
-  resetDelayedService: PropTypes.func
+  resetDelayedService: PropTypes.func,
 }).isRequired;
 
 export default class ServiceModals extends React.Component {
@@ -31,7 +31,7 @@ export default class ServiceModals extends React.Component {
     clearError: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     modalProps: PropTypes.object,
-    pendingActions: PropTypes.object
+    pendingActions: PropTypes.object,
   };
   getGroupModal() {
     const {
@@ -40,7 +40,7 @@ export default class ServiceModals extends React.Component {
       clearError,
       onClose,
       modalProps,
-      pendingActions
+      pendingActions,
     } = this.props;
 
     if (modalProps.service == null) {
@@ -84,11 +84,12 @@ export default class ServiceModals extends React.Component {
       return this.getDisabledGroupDestroyModal();
     }
 
-    let deleteItem = force => this.props.actions.deleteService(service, force);
+    let deleteItem = (force) =>
+      this.props.actions.deleteService(service, force);
     let key = ActionKeys.SERVICE_DELETE;
 
     if (isGroup) {
-      deleteItem = force => this.props.actions.deleteGroup(service, force);
+      deleteItem = (force) => this.props.actions.deleteGroup(service, force);
       key = ActionKeys.GROUP_DELETE;
     }
 
@@ -110,7 +111,7 @@ export default class ServiceModals extends React.Component {
       actionErrors,
       onClose,
       modalProps,
-      pendingActions
+      pendingActions,
     } = this.props;
 
     const key = ActionKeys.SERVICE_RESTART;
@@ -134,7 +135,7 @@ export default class ServiceModals extends React.Component {
       actionErrors,
       onClose,
       modalProps,
-      pendingActions
+      pendingActions,
     } = this.props;
 
     const key = ActionKeys.SERVICE_EDIT;
@@ -185,7 +186,7 @@ export default class ServiceModals extends React.Component {
         this.props.actions.editGroup(
           {
             id: service.id,
-            scaleBy: parseInt(instances, 10)
+            scaleBy: parseInt(instances, 10),
           },
           force
         );
@@ -210,7 +211,7 @@ export default class ServiceModals extends React.Component {
     const isGroup = service instanceof ServiceTree;
 
     let key = ActionKeys.SERVICE_EDIT;
-    let stopItem = force =>
+    let stopItem = (force) =>
       this.props.actions.editService(
         service,
         ServiceSpecUtil.setServiceInstances(service.getSpec(), 0),
@@ -219,11 +220,11 @@ export default class ServiceModals extends React.Component {
 
     if (isGroup) {
       key = ActionKeys.GROUP_EDIT;
-      stopItem = force =>
+      stopItem = (force) =>
         this.props.actions.editGroup(
           {
             id: service.getId(),
-            scaleBy: 0
+            scaleBy: 0,
           },
           force
         );

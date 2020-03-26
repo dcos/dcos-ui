@@ -27,7 +27,7 @@ describe("Secrets", () => {
           ["secrets", 0, "exposures", 1],
           { type: "envVar", value: "ROOT_PASS" },
           SET
-        )
+        ),
       ]);
     });
 
@@ -39,11 +39,11 @@ describe("Secrets", () => {
 
       expect(definition).toEqual({
         DB_PASS: {
-          secret: "secret0"
+          secret: "secret0",
         },
         ROOT_PASS: {
-          secret: "secret0"
-        }
+          secret: "secret0",
+        },
       });
     });
 
@@ -67,7 +67,7 @@ describe("Secrets", () => {
       expect(definition).toEqual({
         DB_PASS: { secret: "secret0" },
         ROOT_PASS: { secret: "secret0" },
-        REDIS_PASS: { secret: "secret1" }
+        REDIS_PASS: { secret: "secret1" },
       });
     });
 
@@ -94,7 +94,7 @@ describe("Secrets", () => {
       expect(definition).toEqual({
         DB_PASS: { secret: "secret0" },
         ROOT_PASS: { secret: "secret0" },
-        REDIS_PASS: { secret: "redis-password" }
+        REDIS_PASS: { secret: "redis-password" },
       });
     });
 
@@ -115,8 +115,8 @@ describe("Secrets", () => {
 
       expect(definition).toEqual({
         ROOT_PASS: {
-          secret: "secret0"
-        }
+          secret: "secret0",
+        },
       });
     });
 
@@ -135,7 +135,7 @@ describe("Secrets", () => {
           "secrets/test",
           SET
         ),
-        new Transaction(["secrets", 0, "exposures", 0, "type"], "envVar", SET)
+        new Transaction(["secrets", 0, "exposures", 0, "type"], "envVar", SET),
       ]);
 
       const definition = batch.reduce(EnvVarsReducer.JSONReducer.bind({}), {});

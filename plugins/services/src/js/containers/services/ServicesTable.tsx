@@ -13,12 +13,12 @@ import {
   Table,
   Column,
   SortableHeaderCell,
-  NumberCell
+  NumberCell,
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import CompositeState from "#SRC/js/structs/CompositeState";
 
@@ -27,7 +27,7 @@ import MetadataStore from "#SRC/js/stores/MetadataStore";
 import TableColumnResizeStore from "#SRC/js/stores/TableColumnResizeStore";
 import {
   MesosMasterRequestType,
-  getMasterRegionName
+  getMasterRegionName,
 } from "#SRC/js/core/MesosMasterRequest";
 import container from "#SRC/js/container";
 
@@ -61,7 +61,7 @@ const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 const VIEW_PLANS = ServiceActionItem.VIEW_PLANS;
 const VIEW_ENDPOINTS = ServiceActionItem.VIEW_ENDPOINTS;
 
-const serviceToVersion = serviceTreeNode => {
+const serviceToVersion = (serviceTreeNode) => {
   if (serviceTreeNode instanceof ServiceTree) {
     return "";
   }
@@ -113,16 +113,16 @@ function sortData(
           ? copiedData
           : copiedData.reverse(),
       sortColumn,
-      sortDirection
+      sortDirection,
     };
   }
 
   return {
     data: sort(copiedData, sortForColumn(sortColumn), {
-      reverse: sortDirection !== "ASC"
+      reverse: sortDirection !== "ASC",
     }),
     sortColumn,
-    sortDirection
+    sortDirection,
   };
 }
 
@@ -140,11 +140,11 @@ export const columnWidthsStorageKey = "servicesTableColWidths";
 class ServicesTable extends React.Component {
   static defaultProps = {
     isFiltered: false,
-    services: []
+    services: [],
   };
   static propTypes = {
     isFiltered: PropTypes.bool,
-    services: PropTypes.array
+    services: PropTypes.array,
   };
   constructor(props) {
     super(...arguments);
@@ -157,7 +157,7 @@ class ServicesTable extends React.Component {
       actionDisabledService: null,
       data: [],
       sortColumn: "name",
-      sortDirection: "ASC"
+      sortDirection: "ASC",
     };
 
     this.regionRenderer = regionRendererFactory(props.masterRegionName);
@@ -231,7 +231,7 @@ class ServicesTable extends React.Component {
   handleActionDisabledModalClose = () => {
     this.setState({ actionDisabledService: null, actionDisabledID: null });
   };
-  handleSortClick = columnName => {
+  handleSortClick = (columnName) => {
     const toggledDirection =
       this.state.sortDirection === "ASC" || this.state.sortColumn !== columnName
         ? "DESC"
@@ -249,8 +249,10 @@ class ServicesTable extends React.Component {
   };
 
   sortGroupsOnTop(data) {
-    const groups = data.filter(service => service instanceof ServiceTree);
-    const services = data.filter(service => !(service instanceof ServiceTree));
+    const groups = data.filter((service) => service instanceof ServiceTree);
+    const services = data.filter(
+      (service) => !(service instanceof ServiceTree)
+    );
 
     return [...groups, ...services];
   }
@@ -259,7 +261,7 @@ class ServicesTable extends React.Component {
     const savedColWidths = TableColumnResizeStore.get(columnWidthsStorageKey);
     TableColumnResizeStore.set(columnWidthsStorageKey, {
       ...savedColWidths,
-      [columnName]: resizedColWidth
+      [columnName]: resizedColWidth,
     });
   }
 
@@ -269,7 +271,7 @@ class ServicesTable extends React.Component {
       actionDisabledID,
       data,
       sortColumn,
-      sortDirection
+      sortDirection,
     } = this.state;
 
     if (data.length === 0) {
@@ -512,18 +514,18 @@ ServicesTable.contextTypes = {
     resumeService: PropTypes.func,
     stopService: PropTypes.func,
     deleteService: PropTypes.func,
-    resetDelayedService: PropTypes.func
+    resetDelayedService: PropTypes.func,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 function withMasterRegionName(Component) {
   const master$ = container
     .get(MesosMasterRequestType)
-    .pipe(map(data => JSON.parse(data)));
+    .pipe(map((data) => JSON.parse(data)));
   const masterRegionName$ = getMasterRegionName(master$);
 
-  return componentFromStream(prop$ =>
+  return componentFromStream((prop$) =>
     combineLatest([prop$, masterRegionName$]).pipe(
       map(([props, masterRegionName]) => (
         <Component {...props} masterRegionName={masterRegionName} />

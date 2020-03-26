@@ -11,7 +11,7 @@ const SystemOverviewPage = ({ children }) => {
 SystemOverviewPage.routeConfig = {
   label: i18nMark("Cluster"),
   icon: <Icon shape={ProductIcons.ClusterInverse} size={iconSizeS} />,
-  matches: /^\/cluster/
+  matches: /^\/cluster/,
 };
 
 export default SystemOverviewPage;

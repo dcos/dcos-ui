@@ -7,7 +7,7 @@ import {
   catchError,
   map,
   debounceTime,
-  startWith
+  startWith,
 } from "rxjs/operators";
 
 import { DataLayerType } from "@extension-kid/data-layer";
@@ -24,7 +24,7 @@ import RepositoriesError from "./components/RepositoriesError";
 
 const dataLayer = container.get(DataLayerType);
 
-const packageRepositoryQuery = filter => gql`
+const packageRepositoryQuery = (filter) => gql`
   query {
     packageRepository(filter: "${filter}") {
       name
@@ -38,7 +38,7 @@ const searchTerm$ = new BehaviorSubject("");
 const keypressDebounceTime = 250;
 const searchResults$ = searchTerm$.pipe(
   debounceTime(keypressDebounceTime),
-  switchMap(searchTerm => {
+  switchMap((searchTerm) => {
     const query = packageRepositoryQuery(searchTerm);
 
     return dataLayer.query(query).pipe(
@@ -47,7 +47,7 @@ const searchResults$ = searchTerm$.pipe(
           result // Backwards compatible with the previous struct/RepositoryList for packages
         ) =>
           new RepositoryList({
-            items: result.data.packageRepository
+            items: result.data.packageRepository,
           })
       )
     );
@@ -57,20 +57,20 @@ const searchResults$ = searchTerm$.pipe(
 const components$ = searchTerm$.pipe(
   combineLatest(searchResults$, (searchTerm, packageRepository) => ({
     packageRepository,
-    searchTerm
+    searchTerm,
   })),
   // We map over the data and return a component to render
-  map(data => (
+  map((data) => (
     <RepositoriesTabUI
       repositories={data.packageRepository}
       searchTerm={data.searchTerm}
-      onSearch={value => searchTerm$.next(value)}
+      onSearch={(value) => searchTerm$.next(value)}
     />
   )),
   // The first component is the loading
   startWith(<RepositoriesLoading />),
   // If anything goes wrong, we render an error component
-  catchError(err => of(<RepositoriesError err={err} />))
+  catchError((err) => of(<RepositoriesError err={err} />))
 );
 
 // componentFromStream create a single component who render the latest emitted
@@ -81,7 +81,7 @@ const RepositoriesList = componentFromStream(() => components$);
 // router specific things
 RepositoriesList.routeConfig = {
   label: i18nMark("Package Repositories"),
-  matches: /^\/settings\/repositories/
+  matches: /^\/settings\/repositories/,
 };
 
 export default RepositoriesList;

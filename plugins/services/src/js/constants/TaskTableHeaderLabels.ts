@@ -13,7 +13,7 @@ const TaskTableHeaderLabels = {
   status: i18nMark("Status"),
   health: i18nMark("Health"),
   updated: i18nMark("Updated"),
-  version: i18nMark("Version")
+  version: i18nMark("Version"),
 };
 
 export default TaskTableHeaderLabels;

@@ -1,10 +1,10 @@
 const mockMarathonGet = jest.fn();
 const mockRequest = jest.fn();
 jest.mock("../../../stores/MarathonStore", () => ({
-  get: mockMarathonGet
+  get: mockMarathonGet,
 }));
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import { Container } from "@extension-kid/core";
@@ -32,8 +32,8 @@ const getTasksByService = () => {
       id: "/fake_1",
       isStartedByMarathon: true,
       state: "TASK_RUNNING",
-      resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 }
-    }
+      resources: { cpus: 0.2, mem: 300, gpus: 0, disk: 0 },
+    },
   ];
 };
 
@@ -56,14 +56,14 @@ describe("Services Data Layer - Groups", () => {
   describe("Query - groups", () => {
     it(
       "handles query for all groups",
-      marbles(m => {
+      marbles((m) => {
         const marathonServiceTree = makeServiceTree(marathonGroups);
         const roles$ = m.cold("(a|)", {
           a: {
             code: 200,
             message: "OK",
-            response: JSON.stringify(rolesDev)
-          }
+            response: JSON.stringify(rolesDev),
+          },
         });
         mockMarathonGet.mockReturnValue(marathonServiceTree);
         mockRequest.mockReturnValue(roles$);
@@ -95,24 +95,24 @@ describe("Services Data Layer - Groups", () => {
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
+                      consumed: 0,
+                    },
+                  },
                 },
                 {
                   id: "/staging",
@@ -121,8 +121,8 @@ describe("Services Data Layer - Groups", () => {
                     cpus: undefined,
                     memory: undefined,
                     disk: undefined,
-                    gpus: undefined
-                  }
+                    gpus: undefined,
+                  },
                 },
                 {
                   id: "/prod",
@@ -131,12 +131,12 @@ describe("Services Data Layer - Groups", () => {
                     cpus: undefined,
                     memory: undefined,
                     disk: undefined,
-                    gpus: undefined
-                  }
-                }
-              ]
-            }
-          }
+                    gpus: undefined,
+                  },
+                },
+              ],
+            },
+          },
         });
         m.expect(
           dl
@@ -148,7 +148,7 @@ describe("Services Data Layer - Groups", () => {
 
     it(
       "aggregates roles",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({ pollingInterval: m.time("--|") });
 
         const marathonServiceTree = makeServiceTree(marathonRoleGroups);
@@ -156,8 +156,8 @@ describe("Services Data Layer - Groups", () => {
           a: {
             code: 200,
             message: "OK",
-            response: JSON.stringify(rolesAll)
-          }
+            response: JSON.stringify(rolesAll),
+          },
         });
         mockMarathonGet.mockReturnValue(marathonServiceTree);
         mockRequest.mockReturnValue(roles$);
@@ -183,29 +183,29 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Applied",
                     serviceRoles: {
                       count: 2,
-                      groupRoleCount: 2
+                      groupRoleCount: 2,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
+                      consumed: 0,
+                    },
+                  },
                 },
                 {
                   id: "/staging",
@@ -215,29 +215,29 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Partially Applied",
                     serviceRoles: {
                       count: 2,
-                      groupRoleCount: 1
+                      groupRoleCount: 1,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
+                      consumed: 0,
+                    },
+                  },
                 },
                 {
                   id: "/prod",
@@ -247,33 +247,33 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Not Applied",
                     serviceRoles: {
                       count: 1,
-                      groupRoleCount: 0
+                      groupRoleCount: 0,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
-                }
-              ]
-            }
-          }
+                      consumed: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          },
         });
         m.expect(
           dl
@@ -285,7 +285,7 @@ describe("Services Data Layer - Groups", () => {
 
     it(
       "aggregates roles",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({ pollingInterval: m.time("--|") });
 
         const marathonServiceTree = makeServiceTree(marathonRoleGroups);
@@ -293,8 +293,8 @@ describe("Services Data Layer - Groups", () => {
           a: {
             code: 200,
             message: "OK",
-            response: JSON.stringify(rolesAll)
-          }
+            response: JSON.stringify(rolesAll),
+          },
         });
         mockMarathonGet.mockReturnValue(marathonServiceTree);
         mockRequest.mockReturnValue(roles$);
@@ -320,29 +320,29 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Applied",
                     serviceRoles: {
                       count: 2,
-                      groupRoleCount: 2
+                      groupRoleCount: 2,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
+                      consumed: 0,
+                    },
+                  },
                 },
                 {
                   id: "/staging",
@@ -352,29 +352,29 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Partially Applied",
                     serviceRoles: {
                       count: 2,
-                      groupRoleCount: 1
+                      groupRoleCount: 1,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
+                      consumed: 0,
+                    },
+                  },
                 },
                 {
                   id: "/prod",
@@ -384,33 +384,33 @@ describe("Services Data Layer - Groups", () => {
                     limitStatus: "Not Applied",
                     serviceRoles: {
                       count: 1,
-                      groupRoleCount: 0
+                      groupRoleCount: 0,
                     },
                     cpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     memory: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     disk: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
+                      consumed: 0,
                     },
                     gpus: {
                       guarantee: 0,
                       limit: 0,
-                      consumed: 0
-                    }
-                  }
-                }
-              ]
-            }
-          }
+                      consumed: 0,
+                    },
+                  },
+                },
+              ],
+            },
+          },
         });
         m.expect(
           dl
@@ -424,7 +424,7 @@ describe("Services Data Layer - Groups", () => {
   describe("Query - group", () => {
     it(
       "returns a group when given id",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({ pollingInterval: m.time("--|") });
 
         const marathonServiceTree = makeServiceTree(marathonGroups);
@@ -432,8 +432,8 @@ describe("Services Data Layer - Groups", () => {
           a: {
             code: 200,
             message: "OK",
-            response: JSON.stringify(rolesDev)
-          }
+            response: JSON.stringify(rolesDev),
+          },
         });
         mockMarathonGet.mockReturnValue(marathonServiceTree);
         mockRequest.mockReturnValue(roles$);
@@ -456,32 +456,32 @@ describe("Services Data Layer - Groups", () => {
                   limitStatus: "Applied",
                   serviceRoles: {
                     count: 0,
-                    groupRoleCount: 0
+                    groupRoleCount: 0,
                   },
                   cpus: {
                     guarantee: 0,
                     limit: 0,
-                    consumed: 0
+                    consumed: 0,
                   },
                   memory: {
                     guarantee: 0,
                     limit: 0,
-                    consumed: 0
+                    consumed: 0,
                   },
                   disk: {
                     guarantee: 0,
                     limit: 0,
-                    consumed: 0
+                    consumed: 0,
                   },
                   gpus: {
                     guarantee: 0,
                     limit: 0,
-                    consumed: 0
-                  }
-                }
-              }
-            }
-          }
+                    consumed: 0,
+                  },
+                },
+              },
+            },
+          },
         });
         m.expect(
           dl
@@ -493,7 +493,7 @@ describe("Services Data Layer - Groups", () => {
 
     it(
       "returns an error when query not given an id",
-      marbles(m => {
+      marbles((m) => {
         dl = setupDL({ pollingInterval: m.time("--|") });
 
         const query = gql`

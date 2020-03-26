@@ -3,11 +3,11 @@ import PluginSDK from "PluginSDK";
 import AppDispatcher from "../events/AppDispatcher";
 import {
   VIRTUAL_NETWORKS_CHANGE,
-  VIRTUAL_NETWORKS_REQUEST_ERROR
+  VIRTUAL_NETWORKS_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import {
   REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-  REQUEST_VIRTUAL_NETWORKS_ERROR
+  REQUEST_VIRTUAL_NETWORKS_ERROR,
 } from "../constants/ActionTypes";
 import BaseStore from "./BaseStore";
 import { Overlay } from "../structs/Overlay";
@@ -29,9 +29,9 @@ class VirtualNetworksStore extends BaseStore {
       storeID: this.storeID,
       events: {
         success: VIRTUAL_NETWORKS_CHANGE,
-        error: VIRTUAL_NETWORKS_REQUEST_ERROR
+        error: VIRTUAL_NETWORKS_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     // Handle app actions

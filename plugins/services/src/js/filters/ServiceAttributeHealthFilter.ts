@@ -6,7 +6,7 @@ const LABEL = "is";
 
 const LABEL_TO_HEALTH = {
   healthy: HealthStatus.HEALTHY,
-  unhealthy: HealthStatus.UNHEALTHY
+  unhealthy: HealthStatus.UNHEALTHY,
 };
 
 /**
@@ -35,7 +35,9 @@ class ServiceAttribHealthFilter extends DSLFilter {
   filterApply(resultset, filterType, filterArguments) {
     const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
-    return resultset.filterItems(service => service.getHealth() === testStatus);
+    return resultset.filterItems(
+      (service) => service.getHealth() === testStatus
+    );
   }
 }
 

@@ -6,7 +6,7 @@ import {
   publishReplay,
   refCount,
   switchMap,
-  catchError
+  catchError,
 } from "rxjs/operators";
 
 import { fetchServiceGroups, fetchRoles } from "./fetchers";
@@ -16,7 +16,7 @@ import { MesosRole } from "../../types/MesosRoles";
 import {
   getQuotaLimit,
   quotaHasLimit,
-  populateResourcesFromRole
+  populateResourcesFromRole,
 } from "../../utils/QuotaUtil";
 
 import { createGroup, editGroup } from "../MarathonClient";
@@ -59,9 +59,9 @@ function processServiceGroup(
       limitStatus: "N/A",
       serviceRoles: {
         count: serviceRoles.count,
-        groupRoleCount: serviceRoles.groupRoleCount
-      }
-    }
+        groupRoleCount: serviceRoles.groupRoleCount,
+      },
+    },
   };
 }
 
@@ -95,10 +95,10 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             let result: ServiceGroupQuota = {
               enforced: quota.enforced,
               limitStatus: quota.limitStatus,
-              serviceRoles: quota.serviceRoles
+              serviceRoles: quota.serviceRoles,
             };
 
-            const groupRole = roles.find(role => id === `/${role.name}`);
+            const groupRole = roles.find((role) => id === `/${role.name}`);
             if (groupRole) {
               result = populateResourcesFromRole(result, groupRole);
             }
@@ -108,7 +108,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
             return of(result);
           })
         );
-      }
+      },
     },
     Query: {
       group(_parent = {}, args: Record<string, unknown> = {}, context) {
@@ -118,9 +118,9 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           );
         }
         return makeGroups$().pipe(
-          map(groups => {
+          map((groups) => {
             const group = groups.find(
-              serviceTree => serviceTree.getId() === args.id
+              (serviceTree) => serviceTree.getId() === args.id
             );
             return group ? processServiceGroup(context, group) : null;
           })
@@ -128,12 +128,12 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
       },
       groups(_parent, _args, context) {
         return groups$.pipe(
-          map(groups => groups.map(processServiceGroup.bind(null, context)))
+          map((groups) => groups.map(processServiceGroup.bind(null, context)))
         );
       },
       roles() {
         return roles$;
-      }
+      },
     },
     Mutation: {
       createGroup(
@@ -151,11 +151,11 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           }),
           switchMap(() => {
             return updateQuota(args.data.id, args.data.quota).pipe(
-              map(updateResp => ({
+              map((updateResp) => ({
                 code: 200,
                 success: true,
                 message: updateResp,
-                partialSuccess: false
+                partialSuccess: false,
               }))
             );
           }),
@@ -166,7 +166,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                 code: createError.responseCode,
                 success: false,
                 message: createError.message,
-                partialSuccess: false
+                partialSuccess: false,
               });
             }
             if (err.name === "UpdateQuotaError") {
@@ -175,14 +175,14 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                 code: 0,
                 success: false,
                 message: quotaErr.message,
-                partialSuccess: true
+                partialSuccess: true,
               });
             }
             return of({
               code: 0,
               success: false,
               message: err.message,
-              partialSuccess: false
+              partialSuccess: false,
             });
           })
         );
@@ -201,21 +201,21 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
           map(() => {
             return "SUCCESS";
           }),
-          switchMap(groupResp => {
+          switchMap((groupResp) => {
             if (groupResp !== "SUCCESS") {
               return of({
                 code: 0,
                 success: false,
                 message: groupResp,
-                partialSuccess: false
+                partialSuccess: false,
               });
             }
             return updateQuota(args.data.id, args.data.quota).pipe(
-              map(updateResp => ({
+              map((updateResp) => ({
                 code: 200,
                 success: true,
                 message: updateResp,
-                partialSuccess: true
+                partialSuccess: true,
               }))
             );
           }),
@@ -227,7 +227,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                   code: createError.responseCode,
                   success: false,
                   message: createError.message,
-                  partialSuccess: false
+                  partialSuccess: false,
                 });
               case "UpdateQuotaError":
                 const quotaErr = err as UpdateQuotaError;
@@ -235,7 +235,7 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                   code: quotaErr.responseCode,
                   success: false,
                   message: quotaErr.message,
-                  partialSuccess: true
+                  partialSuccess: true,
                 });
               case "OvercommitQuotaError":
                 const commitErr = err as OvercommitQuotaError;
@@ -244,19 +244,19 @@ export function resolvers({ pollingInterval }: ResolverArgs): IResolvers {
                   success: false,
                   message: "Overcommit",
                   partialSuccess: true,
-                  data: commitErr.overcommittedResources
+                  data: commitErr.overcommittedResources,
                 });
               default:
                 return of({
                   code: 0,
                   success: false,
                   message: err.message,
-                  partialSuccess: false
+                  partialSuccess: false,
                 });
             }
           })
         );
-      }
-    }
+      },
+    },
   };
 }

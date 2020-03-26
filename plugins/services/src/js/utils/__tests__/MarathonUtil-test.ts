@@ -42,12 +42,12 @@ describe("MarathonUtil", () => {
       const instance = MarathonUtil.parseGroups({
         id: "/",
         apps: [{ id: "/alpha" }],
-        groups: [{ id: "/foo", apps: [{ id: "/foo/beta" }] }]
+        groups: [{ id: "/foo", apps: [{ id: "/foo/beta" }] }],
       });
 
       expect(instance).toEqual({
         id: "/",
-        items: [{ id: "/foo", items: [{ id: "/foo/beta" }] }, { id: "/alpha" }]
+        items: [{ id: "/foo", items: [{ id: "/foo/beta" }] }, { id: "/alpha" }],
       });
     });
 
@@ -65,14 +65,14 @@ describe("MarathonUtil", () => {
                     size: 2048,
                     name: "volume-name",
                     options: { "volume/driver": "value" },
-                    provider: "volume-provide"
+                    provider: "volume-provide",
                   },
-                  mode: "RW"
-                }
-              ]
-            }
-          }
-        ]
+                  mode: "RW",
+                },
+              ],
+            },
+          },
+        ],
       });
 
       expect(instance.items[0].volumes[0]).toEqual({
@@ -84,7 +84,7 @@ describe("MarathonUtil", () => {
         provider: "volume-provide",
         size: 2048,
         status: "N/A",
-        type: "External"
+        type: "External",
       });
     });
 
@@ -101,10 +101,10 @@ describe("MarathonUtil", () => {
                   mode: "RW",
                   persistent: {
                     size: 2048,
-                    type: "root"
-                  }
-                }
-              ]
+                    type: "root",
+                  },
+                },
+              ],
             },
             tasks: [
               {
@@ -114,13 +114,13 @@ describe("MarathonUtil", () => {
                 localVolumes: [
                   {
                     containerPath: "path",
-                    persistenceId: "volume-id-1"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    persistenceId: "volume-id-1",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance.items[0].volumes[0]).toEqual({
@@ -131,7 +131,7 @@ describe("MarathonUtil", () => {
         size: 2048,
         status: "Attached",
         taskID: "task-id-1",
-        type: "Persistent"
+        type: "Persistent",
       });
     });
 
@@ -148,10 +148,10 @@ describe("MarathonUtil", () => {
                   mode: "RW",
                   persistent: {
                     size: 2048,
-                    type: "root"
-                  }
-                }
-              ]
+                    type: "root",
+                  },
+                },
+              ],
             },
             tasks: [
               {
@@ -161,9 +161,9 @@ describe("MarathonUtil", () => {
                 localVolumes: [
                   {
                     containerPath: "path",
-                    persistenceId: "volume-id-1"
-                  }
-                ]
+                    persistenceId: "volume-id-1",
+                  },
+                ],
               },
               {
                 id: "task-id-2",
@@ -172,13 +172,13 @@ describe("MarathonUtil", () => {
                 localVolumes: [
                   {
                     containerPath: "path",
-                    persistenceId: "volume-id-2"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    persistenceId: "volume-id-2",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance.items[0].volumes[0].id).toEqual("volume-id-1");
@@ -197,10 +197,10 @@ describe("MarathonUtil", () => {
                   containerPath: "path",
                   mode: "RW",
                   persistent: {
-                    size: 2048
-                  }
-                }
-              ]
+                    size: 2048,
+                  },
+                },
+              ],
             },
             tasks: [
               {
@@ -210,13 +210,13 @@ describe("MarathonUtil", () => {
                 localVolumes: [
                   {
                     containerPath: "path",
-                    persistenceId: "volume-id"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    persistenceId: "volume-id",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance.items[0].volumes[0].status).toEqual("Attached");
@@ -234,10 +234,10 @@ describe("MarathonUtil", () => {
                   containerPath: "path",
                   mode: "RW",
                   persistent: {
-                    size: 2048
-                  }
-                }
-              ]
+                    size: 2048,
+                  },
+                },
+              ],
             },
             tasks: [
               {
@@ -246,13 +246,13 @@ describe("MarathonUtil", () => {
                 localVolumes: [
                   {
                     containerPath: "path",
-                    persistenceId: "volume-id"
-                  }
-                ]
-              }
-            ]
-          }
-        ]
+                    persistenceId: "volume-id",
+                  },
+                ],
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance.items[0].volumes[0].status).toEqual("Detached");
@@ -270,20 +270,20 @@ describe("MarathonUtil", () => {
                   containerPath: "path",
                   mode: "RW",
                   persistent: {
-                    size: 2048
-                  }
-                }
-              ]
+                    size: 2048,
+                  },
+                },
+              ],
             },
             tasks: [
               {
                 id: "task-id",
                 host: "0.0.0.1",
-                localVolumes: null
-              }
-            ]
-          }
-        ]
+                localVolumes: null,
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance).not.toThrow();
@@ -301,19 +301,19 @@ describe("MarathonUtil", () => {
                   containerPath: "path",
                   mode: "RW",
                   persistent: {
-                    size: 2048
-                  }
-                }
-              ]
+                    size: 2048,
+                  },
+                },
+              ],
             },
             tasks: [
               {
                 id: "task-id",
-                host: "0.0.0.1"
-              }
-            ]
-          }
-        ]
+                host: "0.0.0.1",
+              },
+            ],
+          },
+        ],
       });
 
       expect(instance).not.toThrow();
@@ -322,7 +322,7 @@ describe("MarathonUtil", () => {
     it("doesn't adds volumes array to all services", () => {
       const instance = MarathonUtil.parseGroups({
         id: "/",
-        apps: [{ id: "/alpha" }]
+        apps: [{ id: "/alpha" }],
       });
 
       expect(instance.items[0]).toEqual({ id: "/alpha" });
@@ -335,8 +335,8 @@ describe("MarathonUtil", () => {
         groups: [
           { id: "/foo", apps: [{ id: "/foo/beta" }], enforceRole: true },
           { id: "/bar", apps: [{ id: "/bar/beta-01" }], enforceRole: false },
-          { id: "/baz", apps: [{ id: "/baz/beta-02" }] }
-        ]
+          { id: "/baz", apps: [{ id: "/baz/beta-02" }] },
+        ],
       });
 
       expect(instance).toEqual({
@@ -345,8 +345,8 @@ describe("MarathonUtil", () => {
           { id: "/foo", items: [{ id: "/foo/beta" }], enforceRole: true },
           { id: "/bar", items: [{ id: "/bar/beta-01" }], enforceRole: false },
           { id: "/baz", items: [{ id: "/baz/beta-02" }] },
-          { id: "/alpha" }
-        ]
+          { id: "/alpha" },
+        ],
       });
     });
   });
@@ -364,44 +364,44 @@ describe("MarathonUtil", () => {
                 cpus: 0.1,
                 mem: 128,
                 disk: 0,
-                gpus: 0
+                gpus: 0,
               },
               image: {
                 kind: "DOCKER",
-                id: "nginx"
-              }
-            }
+                id: "nginx",
+              },
+            },
           ],
           networks: [
             {
-              mode: "host"
-            }
+              mode: "host",
+            },
           ],
           scaling: {
             kind: "fixed",
-            instances: 1
+            instances: 1,
           },
           scheduling: {
             backoff: {
               backoff: 1,
               backoffFactor: 1.15,
-              maxLaunchDelay: 3600
+              maxLaunchDelay: 3600,
             },
             upgrade: {
               minimumHealthCapacity: 1,
-              maximumOverCapacity: 1
+              maximumOverCapacity: 1,
             },
             killSelection: "YOUNGEST_FIRST",
             unreachableStrategy: {
               inactiveAfterSeconds: 0,
-              expungeAfterSeconds: 0
-            }
+              expungeAfterSeconds: 0,
+            },
           },
           executorResources: {
             cpus: 0.1,
             mem: 32,
-            disk: 10
-          }
+            disk: 10,
+          },
         },
         status: "STABLE",
         statusSince: "2018-04-30T13:36:22.741Z",
@@ -416,12 +416,12 @@ describe("MarathonUtil", () => {
               cpus: 0.2,
               mem: 160,
               disk: 10,
-              gpus: 0
+              gpus: 0,
             },
             networks: [
               {
-                addresses: ["10.0.2.229"]
-              }
+                addresses: ["10.0.2.229"],
+              },
             ],
             containers: [
               {
@@ -436,22 +436,22 @@ describe("MarathonUtil", () => {
                   cpus: 0.1,
                   mem: 128,
                   disk: 0,
-                  gpus: 0
+                  gpus: 0,
                 },
                 lastUpdated: "2018-04-30T13:36:22.741Z",
-                lastChanged: "2018-04-30T13:36:22.741Z"
-              }
+                lastChanged: "2018-04-30T13:36:22.741Z",
+              },
             ],
             specReference:
               "/v2/pods/pod-without-volumes::versions/2018-04-30T13:36:15.993Z",
             localVolumes: [],
             lastUpdated: "2018-04-30T13:36:22.741Z",
-            lastChanged: "2018-04-30T13:36:22.741Z"
-          }
+            lastChanged: "2018-04-30T13:36:22.741Z",
+          },
         ],
         terminationHistory: [],
         lastUpdated: "2018-04-30T13:36:51.756Z",
-        lastChanged: "2018-04-30T13:36:22.741Z"
+        lastChanged: "2018-04-30T13:36:22.741Z",
       });
 
       expect(data).toEqual({ id: "/pod-without-volumes", items: [] });
@@ -476,15 +476,15 @@ describe("MarathonUtil", () => {
                   resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                   image: { kind: "DOCKER", id: "nginx" },
                   volumeMounts: [
-                    { name: "home", mountPath: "/var/log", readOnly: false }
-                  ]
-                }
+                    { name: "home", mountPath: "/var/log", readOnly: false },
+                  ],
+                },
               ],
               volumes: [
                 {
                   name: "home",
-                  persistent: { type: "root", size: 10, constraints: [] }
-                }
+                  persistent: { type: "root", size: 10, constraints: [] },
+                },
               ],
               networks: [{ mode: "host" }],
               scaling: { kind: "fixed", instances: 1 },
@@ -492,13 +492,13 @@ describe("MarathonUtil", () => {
                 backoff: {
                   backoff: 1,
                   backoffFactor: 1.15,
-                  maxLaunchDelay: 3600
+                  maxLaunchDelay: 3600,
                 },
                 upgrade: { minimumHealthCapacity: 0.5, maximumOverCapacity: 0 },
                 killSelection: "YOUNGEST_FIRST",
-                unreachableStrategy: "disabled"
+                unreachableStrategy: "disabled",
               },
-              executorResources: { cpus: 0.1, mem: 32, disk: 10 }
+              executorResources: { cpus: 0.1, mem: 32, disk: 10 },
             },
             status: "DEGRADED",
             statusSince: "2018-04-30T13:52:01.687Z",
@@ -522,8 +522,8 @@ describe("MarathonUtil", () => {
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:52:00.698Z",
-                    lastChanged: "2018-04-30T13:52:00.698Z"
-                  }
+                    lastChanged: "2018-04-30T13:52:00.698Z",
+                  },
                 ],
                 specReference:
                   "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
@@ -533,18 +533,18 @@ describe("MarathonUtil", () => {
                     containerPath: "home",
                     uuid: "9bf97558-4c7d-11e8-9c30-2641ffb20201",
                     persistenceId:
-                      "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201"
-                  }
+                      "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201",
+                  },
                 ],
                 lastUpdated: "2018-04-30T13:52:01.687Z",
-                lastChanged: "2018-04-30T13:52:01.687Z"
-              }
+                lastChanged: "2018-04-30T13:52:01.687Z",
+              },
             ],
             terminationHistory: [],
             lastUpdated: "2018-04-30T13:59:11.717Z",
-            lastChanged: "2018-04-30T13:52:01.687Z"
-          }
-        ]
+            lastChanged: "2018-04-30T13:52:01.687Z",
+          },
+        ],
       });
 
       expect(data).toEqual({
@@ -566,8 +566,8 @@ describe("MarathonUtil", () => {
                     name: "container-1",
                     resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
                     status: "TASK_STARTING",
-                    statusSince: "2018-04-30T13:52:00.698Z"
-                  }
+                    statusSince: "2018-04-30T13:52:00.698Z",
+                  },
                 ],
                 id:
                   "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
@@ -579,16 +579,16 @@ describe("MarathonUtil", () => {
                     persistenceId:
                       "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201",
                     runSpecId: "/pod-with-volume",
-                    uuid: "9bf97558-4c7d-11e8-9c30-2641ffb20201"
-                  }
+                    uuid: "9bf97558-4c7d-11e8-9c30-2641ffb20201",
+                  },
                 ],
                 networks: [],
                 resources: { cpus: 0.2, disk: 10, gpus: 0, mem: 160 },
                 specReference:
                   "/v2/pods/pod-with-volume::versions/2018-04-30T13:51:40.599Z",
                 status: "STAGING",
-                statusSince: "2018-04-30T13:52:01.687Z"
-              }
+                statusSince: "2018-04-30T13:52:01.687Z",
+              },
             ],
             lastChanged: "2018-04-30T13:52:01.687Z",
             lastUpdated: "2018-04-30T13:59:11.717Z",
@@ -599,9 +599,9 @@ describe("MarathonUtil", () => {
                   name: "container-1",
                   resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
                   volumeMounts: [
-                    { mountPath: "/var/log", name: "home", readOnly: false }
-                  ]
-                }
+                    { mountPath: "/var/log", name: "home", readOnly: false },
+                  ],
+                },
               ],
               executorResources: { cpus: 0.1, disk: 10, mem: 32 },
               id: "/pod-with-volume",
@@ -611,19 +611,19 @@ describe("MarathonUtil", () => {
                 backoff: {
                   backoff: 1,
                   backoffFactor: 1.15,
-                  maxLaunchDelay: 3600
+                  maxLaunchDelay: 3600,
                 },
                 killSelection: "YOUNGEST_FIRST",
                 unreachableStrategy: "disabled",
-                upgrade: { maximumOverCapacity: 0, minimumHealthCapacity: 0.5 }
+                upgrade: { maximumOverCapacity: 0, minimumHealthCapacity: 0.5 },
               },
               version: "2018-04-30T13:51:40.599Z",
               volumes: [
                 {
                   name: "home",
-                  persistent: { constraints: [], size: 10, type: "root" }
-                }
-              ]
+                  persistent: { constraints: [], size: 10, type: "root" },
+                },
+              ],
             },
             status: "DEGRADED",
             statusSince: "2018-04-30T13:52:01.687Z",
@@ -635,17 +635,17 @@ describe("MarathonUtil", () => {
                 id: "pod-with-volume#home#9bf97558-4c7d-11e8-9c30-2641ffb20201",
                 mode: undefined,
                 mounts: [
-                  { containerName: "container-1", mountPath: "/var/log" }
+                  { containerName: "container-1", mountPath: "/var/log" },
                 ],
                 size: 10,
                 status: "Detached",
                 taskID:
                   "pod-with-volume.instance-9bf97559-4c7d-11e8-9c30-2641ffb20201",
-                type: "Persistent"
-              }
-            ]
-          }
-        ]
+                type: "Persistent",
+              },
+            ],
+          },
+        ],
       });
     });
     it("contains a pod with volumes and mounts in only one container", () => {
@@ -667,23 +667,23 @@ describe("MarathonUtil", () => {
                   resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                   image: { kind: "DOCKER", id: "nginx" },
                   volumeMounts: [
-                    { name: "home", mountPath: "/var/log", readOnly: false }
-                  ]
+                    { name: "home", mountPath: "/var/log", readOnly: false },
+                  ],
                 },
                 {
                   name: "container-2",
                   exec: {
-                    command: { shell: "while true; do: sleep 1000; done;" }
+                    command: { shell: "while true; do: sleep 1000; done;" },
                   },
                   resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
-                  image: { kind: "DOCKER", id: "alpine" }
-                }
+                  image: { kind: "DOCKER", id: "alpine" },
+                },
               ],
               volumes: [
                 {
                   name: "home",
-                  persistent: { type: "root", size: 10, constraints: [] }
-                }
+                  persistent: { type: "root", size: 10, constraints: [] },
+                },
               ],
               networks: [{ mode: "host" }],
               scaling: { kind: "fixed", instances: 1 },
@@ -691,13 +691,13 @@ describe("MarathonUtil", () => {
                 backoff: {
                   backoff: 1,
                   backoffFactor: 1.15,
-                  maxLaunchDelay: 3600
+                  maxLaunchDelay: 3600,
                 },
                 upgrade: { minimumHealthCapacity: 0.5, maximumOverCapacity: 0 },
                 killSelection: "YOUNGEST_FIRST",
-                unreachableStrategy: "disabled"
+                unreachableStrategy: "disabled",
               },
-              executorResources: { cpus: 0.1, mem: 32, disk: 10 }
+              executorResources: { cpus: 0.1, mem: 32, disk: 10 },
             },
             status: "DEGRADED",
             statusSince: "2018-04-30T13:59:08.689Z",
@@ -713,7 +713,7 @@ describe("MarathonUtil", () => {
                   cpus: 0.30000000000000004,
                   mem: 288,
                   disk: 10,
-                  gpus: 0
+                  gpus: 0,
                 },
                 networks: [],
                 containers: [
@@ -727,7 +727,7 @@ describe("MarathonUtil", () => {
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:59:07.759Z",
-                    lastChanged: "2018-04-30T13:59:07.759Z"
+                    lastChanged: "2018-04-30T13:59:07.759Z",
                   },
                   {
                     name: "container-2",
@@ -739,8 +739,8 @@ describe("MarathonUtil", () => {
                     endpoints: [],
                     resources: { cpus: 0.1, mem: 128, disk: 0, gpus: 0 },
                     lastUpdated: "2018-04-30T13:59:07.759Z",
-                    lastChanged: "2018-04-30T13:59:07.759Z"
-                  }
+                    lastChanged: "2018-04-30T13:59:07.759Z",
+                  },
                 ],
                 specReference:
                   "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
@@ -750,18 +750,18 @@ describe("MarathonUtil", () => {
                     containerPath: "home",
                     uuid: "a643c6ea-4c7e-11e8-9c30-2641ffb20201",
                     persistenceId:
-                      "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201"
-                  }
+                      "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201",
+                  },
                 ],
                 lastUpdated: "2018-04-30T13:59:08.689Z",
-                lastChanged: "2018-04-30T13:59:08.689Z"
-              }
+                lastChanged: "2018-04-30T13:59:08.689Z",
+              },
             ],
             terminationHistory: [],
             lastUpdated: "2018-04-30T13:59:11.717Z",
-            lastChanged: "2018-04-30T13:59:08.689Z"
-          }
-        ]
+            lastChanged: "2018-04-30T13:59:08.689Z",
+          },
+        ],
       });
 
       expect(data).toEqual({
@@ -783,7 +783,7 @@ describe("MarathonUtil", () => {
                     name: "container-1",
                     resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
                     status: "TASK_STARTING",
-                    statusSince: "2018-04-30T13:59:07.759Z"
+                    statusSince: "2018-04-30T13:59:07.759Z",
                   },
                   {
                     conditions: [],
@@ -795,8 +795,8 @@ describe("MarathonUtil", () => {
                     name: "container-2",
                     resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
                     status: "TASK_STARTING",
-                    statusSince: "2018-04-30T13:59:07.759Z"
-                  }
+                    statusSince: "2018-04-30T13:59:07.759Z",
+                  },
                 ],
                 id:
                   "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
@@ -808,21 +808,21 @@ describe("MarathonUtil", () => {
                     persistenceId:
                       "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201",
                     runSpecId: "/pod-with-volume",
-                    uuid: "a643c6ea-4c7e-11e8-9c30-2641ffb20201"
-                  }
+                    uuid: "a643c6ea-4c7e-11e8-9c30-2641ffb20201",
+                  },
                 ],
                 networks: [],
                 resources: {
                   cpus: 0.30000000000000004,
                   disk: 10,
                   gpus: 0,
-                  mem: 288
+                  mem: 288,
                 },
                 specReference:
                   "/v2/pods/pod-with-volume::versions/2018-04-30T13:59:05.786Z",
                 status: "STAGING",
-                statusSince: "2018-04-30T13:59:08.689Z"
-              }
+                statusSince: "2018-04-30T13:59:08.689Z",
+              },
             ],
             lastChanged: "2018-04-30T13:59:08.689Z",
             lastUpdated: "2018-04-30T13:59:11.717Z",
@@ -833,17 +833,17 @@ describe("MarathonUtil", () => {
                   name: "container-1",
                   resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
                   volumeMounts: [
-                    { mountPath: "/var/log", name: "home", readOnly: false }
-                  ]
+                    { mountPath: "/var/log", name: "home", readOnly: false },
+                  ],
                 },
                 {
                   exec: {
-                    command: { shell: "while true; do: sleep 1000; done;" }
+                    command: { shell: "while true; do: sleep 1000; done;" },
                   },
                   image: { id: "alpine", kind: "DOCKER" },
                   name: "container-2",
-                  resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 }
-                }
+                  resources: { cpus: 0.1, disk: 0, gpus: 0, mem: 128 },
+                },
               ],
               executorResources: { cpus: 0.1, disk: 10, mem: 32 },
               id: "/pod-with-volume",
@@ -853,19 +853,19 @@ describe("MarathonUtil", () => {
                 backoff: {
                   backoff: 1,
                   backoffFactor: 1.15,
-                  maxLaunchDelay: 3600
+                  maxLaunchDelay: 3600,
                 },
                 killSelection: "YOUNGEST_FIRST",
                 unreachableStrategy: "disabled",
-                upgrade: { maximumOverCapacity: 0, minimumHealthCapacity: 0.5 }
+                upgrade: { maximumOverCapacity: 0, minimumHealthCapacity: 0.5 },
               },
               version: "2018-04-30T13:59:05.786Z",
               volumes: [
                 {
                   name: "home",
-                  persistent: { constraints: [], size: 10, type: "root" }
-                }
-              ]
+                  persistent: { constraints: [], size: 10, type: "root" },
+                },
+              ],
             },
             status: "DEGRADED",
             statusSince: "2018-04-30T13:59:08.689Z",
@@ -877,17 +877,17 @@ describe("MarathonUtil", () => {
                 id: "pod-with-volume#home#a643c6ea-4c7e-11e8-9c30-2641ffb20201",
                 mode: undefined,
                 mounts: [
-                  { containerName: "container-1", mountPath: "/var/log" }
+                  { containerName: "container-1", mountPath: "/var/log" },
                 ],
                 size: 10,
                 status: "Detached",
                 taskID:
                   "pod-with-volume.instance-a643c6eb-4c7e-11e8-9c30-2641ffb20201",
-                type: "Persistent"
-              }
-            ]
-          }
-        ]
+                type: "Persistent",
+              },
+            ],
+          },
+        ],
       });
     });
   });

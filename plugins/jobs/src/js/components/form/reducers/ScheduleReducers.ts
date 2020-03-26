@@ -3,7 +3,7 @@ import { deepCopy } from "#SRC/js/utils/Util";
 import {
   JobSpec,
   JobFormActionType,
-  ConcurrentPolicy
+  ConcurrentPolicy,
 } from "../helpers/JobFormData";
 import { schedulePropertiesCanBeDiscarded } from "../helpers/ScheduleUtil";
 
@@ -22,7 +22,7 @@ export const enabledReducers = {
       stateCopy.job.schedules = undefined;
     }
     return stateCopy;
-  }
+  },
 };
 
 export const concurrencyPolicyReducers = {
@@ -45,7 +45,7 @@ export const concurrencyPolicyReducers = {
       stateCopy.job.schedules = undefined;
     }
     return stateCopy;
-  }
+  },
 };
 
 function updateScheduleAt(state: JobSpec, path: string[], value: any) {
@@ -81,5 +81,5 @@ export const schedulesReducers = {
     const numValue = parseFloat(value);
     const newValue = !isNaN(numValue) ? numValue : "";
     return updateScheduleAt(state, path, newValue);
-  }
+  },
 };

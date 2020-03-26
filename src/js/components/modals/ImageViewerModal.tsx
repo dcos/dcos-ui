@@ -7,20 +7,20 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 import {
   iconSizeXs,
   iconSizeS,
-  white
+  white,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import keyCodes from "../../utils/KeyboardUtil";
 
 class ImageViewerModal extends React.Component {
   static defaultProps = {
-    images: []
+    images: [],
   };
   static propTypes = {
     images: PropTypes.arrayOf(PropTypes.string),
     onLeftClick: PropTypes.func.isRequired,
     onRightClick: PropTypes.func.isRequired,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -44,7 +44,7 @@ class ImageViewerModal extends React.Component {
       window.addEventListener("keydown", this.handleKeyPress, true);
     }
   }
-  handleKeyPress = event => {
+  handleKeyPress = (event) => {
     const { images } = this.props;
     // Should do nothing if the key event was already consumed, or there is only
     // one or no images
@@ -63,7 +63,7 @@ class ImageViewerModal extends React.Component {
     // Consume the event for suppressing "double action".
     event.preventDefault();
   };
-  handleClick = direction => {
+  handleClick = (direction) => {
     if (direction === "left") {
       this.props.onLeftClick();
     }
@@ -129,7 +129,7 @@ class ImageViewerModal extends React.Component {
     const { props, state } = this;
     const closeIcon = <Icon shape={SystemIcons.Close} size={iconSizeXs} />;
     const modalClasses = classNames("modal modal-image-viewer", {
-      hidden: state.isLoadingImage
+      hidden: state.isLoadingImage,
     });
 
     return (

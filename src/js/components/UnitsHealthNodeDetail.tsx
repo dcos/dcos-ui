@@ -16,7 +16,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     this.state = {
       hasError: false,
       isLoadingUnit: true,
-      isLoadingNode: true
+      isLoadingNode: true,
     };
 
     // prettier-ignore

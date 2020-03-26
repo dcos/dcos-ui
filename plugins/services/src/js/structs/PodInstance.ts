@@ -14,7 +14,7 @@ export default class PodInstance extends Item {
   getContainers() {
     const containers = this.get("containers") || [];
 
-    return containers.map(container => new PodContainer(container));
+    return containers.map((container) => new PodContainer(container));
   }
 
   getId() {
@@ -56,7 +56,7 @@ export default class PodInstance extends Item {
         const isFinished =
           containers.length > 0 &&
           containers.every(
-            container =>
+            (container) =>
               container.getContainerStatus() === PodContainerStatus.FINISHED
           );
 
@@ -68,7 +68,7 @@ export default class PodInstance extends Item {
 
       default:
         return Object.assign(Object.create(PodInstanceStatus.NA), {
-          displayName: StringUtil.capitalize(this.getStatus())
+          displayName: StringUtil.capitalize(this.getStatus()),
         });
     }
   }
@@ -97,7 +97,7 @@ export default class PodInstance extends Item {
       mem: 0,
       gpus: 0,
       disk: 0,
-      ...resources
+      ...resources,
     };
   }
 
@@ -121,7 +121,7 @@ export default class PodInstance extends Item {
     }
 
     // If there are containers ALL of them must have health checks
-    return containers.every(container => container.hasHealthChecks());
+    return containers.every((container) => container.hasHealthChecks());
   }
 
   isHealthy() {
@@ -129,7 +129,7 @@ export default class PodInstance extends Item {
       return false;
     }
 
-    return this.getContainers().every(container => container.isHealthy());
+    return this.getContainers().every((container) => container.isHealthy());
   }
 
   isRunning() {

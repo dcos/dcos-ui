@@ -8,7 +8,7 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 
 import {
   getSharedIconWithLabel,
-  getContainerNameWithIcon
+  getContainerNameWithIcon,
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
@@ -17,20 +17,20 @@ const columns = [
     heading() {
       return <Trans render="span">Key</Trans>;
     },
-    prop: "key"
+    prop: "key",
   },
   {
     heading() {
       return <Trans render="span">Value</Trans>;
     },
-    prop: "value"
+    prop: "value",
   },
   {
     heading() {
       return <Trans render="span">Container</Trans>;
     },
-    prop: "container"
-  }
+    prop: "container",
+  },
 ];
 
 const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
@@ -41,12 +41,12 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
   }
 
   let combinedEnv = Object.keys(environment)
-    .filter(key => typeof environment[key] === "string")
+    .filter((key) => typeof environment[key] === "string")
     .reduce((memo, key) => {
       memo.push({
         key: <code>{key}</code>,
         value: environment[key],
-        container: getSharedIconWithLabel()
+        container: getSharedIconWithLabel(),
       });
 
       return memo;
@@ -59,7 +59,7 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
       cvMemo.push({
         key: <code>{key}</code>,
         value: environment[key],
-        container: getContainerNameWithIcon(container)
+        container: getContainerNameWithIcon(container),
       });
 
       return cvMemo;
@@ -95,7 +95,7 @@ const PodEnvironmentVariablesConfigSection = ({ appConfig, onEditClick }) => {
 };
 
 PodEnvironmentVariablesConfigSection.propTypes = {
-  onEditClick: PropTypes.func
+  onEditClick: PropTypes.func,
 };
 
 export default PodEnvironmentVariablesConfigSection;

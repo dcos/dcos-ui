@@ -6,7 +6,7 @@ describe("JSONEditorUtil", () => {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(0, text)).toEqual({
         row: 0,
-        column: 0
+        column: 0,
       });
     });
 
@@ -14,7 +14,7 @@ describe("JSONEditorUtil", () => {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(16, text)).toEqual({
         row: 0,
-        column: 16
+        column: 16,
       });
     });
 
@@ -22,7 +22,7 @@ describe("JSONEditorUtil", () => {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(-1, text)).toEqual({
         row: 0,
-        column: 0
+        column: 0,
       });
     });
 
@@ -30,7 +30,7 @@ describe("JSONEditorUtil", () => {
       const text = "some oneline text";
       expect(JSONEditorUtil.cursorFromOffset(20, text)).toEqual({
         row: 0,
-        column: 17
+        column: 17,
       });
     });
 
@@ -38,7 +38,7 @@ describe("JSONEditorUtil", () => {
       const text = "first line\nsecond line\nthird line";
       expect(JSONEditorUtil.cursorFromOffset(13, text)).toEqual({
         row: 1,
-        column: 2
+        column: 2,
       });
     });
   });
@@ -50,7 +50,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: "foo", previous: undefined },
-        { path: [], value: { a: "foo" }, previous: {} }
+        { path: [], value: { a: "foo" }, previous: {} },
       ]);
     });
 
@@ -60,7 +60,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: undefined, previous: "foo" },
-        { path: [], value: {}, previous: { a: "foo" } }
+        { path: [], value: {}, previous: { a: "foo" } },
       ]);
     });
 
@@ -70,7 +70,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: "bar", previous: "foo" },
-        { path: [], value: { a: "bar" }, previous: { a: "foo" } }
+        { path: [], value: { a: "bar" }, previous: { a: "foo" } },
       ]);
     });
 
@@ -81,7 +81,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "0"], value: "foo", previous: undefined },
         { path: ["a"], value: ["foo"], previous: [] },
-        { path: [], value: { a: ["foo"] }, previous: { a: [] } }
+        { path: [], value: { a: ["foo"] }, previous: { a: [] } },
       ]);
     });
 
@@ -92,7 +92,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "0"], value: undefined, previous: "foo" },
         { path: ["a"], value: [], previous: ["foo"] },
-        { path: [], value: { a: [] }, previous: { a: ["foo"] } }
+        { path: [], value: { a: [] }, previous: { a: ["foo"] } },
       ]);
     });
 
@@ -103,7 +103,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "0"], value: "bar", previous: "foo" },
         { path: ["a"], value: ["bar"], previous: ["foo"] },
-        { path: [], value: { a: ["bar"] }, previous: { a: ["foo"] } }
+        { path: [], value: { a: ["bar"] }, previous: { a: ["foo"] } },
       ]);
     });
 
@@ -114,7 +114,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "b"], value: "foo", previous: undefined },
         { path: ["a"], value: { b: "foo" }, previous: {} },
-        { path: [], value: { a: { b: "foo" } }, previous: { a: {} } }
+        { path: [], value: { a: { b: "foo" } }, previous: { a: {} } },
       ]);
     });
 
@@ -125,7 +125,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "b"], value: undefined, previous: "foo" },
         { path: ["a"], value: {}, previous: { b: "foo" } },
-        { path: [], value: { a: {} }, previous: { a: { b: "foo" } } }
+        { path: [], value: { a: {} }, previous: { a: { b: "foo" } } },
       ]);
     });
 
@@ -136,7 +136,7 @@ describe("JSONEditorUtil", () => {
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a", "b"], value: "bar", previous: "foo" },
         { path: ["a"], value: { b: "bar" }, previous: { b: "foo" } },
-        { path: [], value: { a: { b: "bar" } }, previous: { a: { b: "foo" } } }
+        { path: [], value: { a: { b: "bar" } }, previous: { a: { b: "foo" } } },
       ]);
     });
 
@@ -148,7 +148,7 @@ describe("JSONEditorUtil", () => {
         { path: ["a", "b"], value: undefined, previous: "foo" },
         { path: ["a", "0"], value: "foo", previous: undefined },
         { path: ["a"], value: ["foo"], previous: { b: "foo" } },
-        { path: [], value: { a: ["foo"] }, previous: { a: { b: "foo" } } }
+        { path: [], value: { a: ["foo"] }, previous: { a: { b: "foo" } } },
       ]);
     });
 
@@ -158,7 +158,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: "bar", previous: { b: "foo" } },
-        { path: [], value: { a: "bar" }, previous: { a: { b: "foo" } } }
+        { path: [], value: { a: "bar" }, previous: { a: { b: "foo" } } },
       ]);
     });
 
@@ -170,7 +170,7 @@ describe("JSONEditorUtil", () => {
         { path: ["a", "0"], value: undefined, previous: "foo" },
         { path: ["a", "b"], value: "foo", previous: undefined },
         { path: ["a"], value: { b: "foo" }, previous: ["foo"] },
-        { path: [], value: { a: { b: "foo" } }, previous: { a: ["foo"] } }
+        { path: [], value: { a: { b: "foo" } }, previous: { a: ["foo"] } },
       ]);
     });
 
@@ -180,7 +180,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: { b: "foo" }, previous: "bar" },
-        { path: [], value: { a: { b: "foo" } }, previous: { a: "bar" } }
+        { path: [], value: { a: { b: "foo" } }, previous: { a: "bar" } },
       ]);
     });
 
@@ -190,7 +190,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: { b: "foo" }, previous: null },
-        { path: [], value: { a: { b: "foo" } }, previous: { a: null } }
+        { path: [], value: { a: { b: "foo" } }, previous: { a: null } },
       ]);
     });
 
@@ -200,7 +200,7 @@ describe("JSONEditorUtil", () => {
 
       expect(JSONEditorUtil.deepObjectDiff(a, b)).toEqual([
         { path: ["a"], value: null, previous: { b: "foo" } },
-        { path: [], value: { a: null }, previous: { a: { b: "foo" } } }
+        { path: [], value: { a: null }, previous: { a: { b: "foo" } } },
       ]);
     });
   });

@@ -48,7 +48,7 @@ class ServiceAccountSelect extends React.Component<Props, State> {
         uid: string;
       }>)
         .filter(({ uid }) => !/^dcos_/.test(uid))
-        .map(({ uid }) => uid)
+        .map(({ uid }) => uid),
     });
   };
 

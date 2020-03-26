@@ -9,12 +9,12 @@ import ServiceConfiguration from "./ServiceConfiguration";
 
 class ServiceConfigurationContainer extends React.Component {
   static defaultProps = {
-    errors: []
+    errors: [],
   };
   static propTypes = {
     onEditClick: PropTypes.func,
     errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service)
+    service: PropTypes.instanceOf(Service),
   };
   UNSAFE_componentWillMount() {
     const { service } = this.props;

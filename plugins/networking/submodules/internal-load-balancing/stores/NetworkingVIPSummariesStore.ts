@@ -3,12 +3,12 @@ import BaseStore from "#SRC/js/stores/BaseStore";
 import {
   REQUEST_NETWORKING_VIP_SUMMARIES_ERROR,
   REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS,
-  REQUEST_NETWORKING_VIP_SUMMARIES_ONGOING
+  REQUEST_NETWORKING_VIP_SUMMARIES_ONGOING,
 } from "../constants/ActionTypes";
 
 import {
   NETWORKING_VIP_SUMMARIES_CHANGE,
-  NETWORKING_VIP_SUMMARIES_ERROR
+  NETWORKING_VIP_SUMMARIES_ERROR,
 } from "../constants/EventTypes";
 
 import NetworkingActions from "../actions/NetworkingActions";
@@ -28,12 +28,12 @@ class NetworkingVIPSummariesStore extends BaseStore {
       storeID: "networkingVIPSummaries",
       events: {
         success: NETWORKING_VIP_SUMMARIES_CHANGE,
-        error: NETWORKING_VIP_SUMMARIES_ERROR
+        error: NETWORKING_VIP_SUMMARIES_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS:
           this.processVIPSummaries(action.data);
@@ -84,7 +84,7 @@ class NetworkingVIPSummariesStore extends BaseStore {
   processVIPSummaries(vipSummaries) {
     SDK.getSDK().dispatch({
       vipSummaries,
-      type: NETWORKING_VIP_SUMMARIES_CHANGE
+      type: NETWORKING_VIP_SUMMARIES_CHANGE,
     });
     this.emit(NETWORKING_VIP_SUMMARIES_CHANGE);
   }

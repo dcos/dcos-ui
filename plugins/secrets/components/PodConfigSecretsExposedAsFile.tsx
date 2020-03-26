@@ -26,7 +26,7 @@ interface Props {
 
 function ServiceConfigSecretsExposedAsFile({
   onEditClick,
-  secretExposures
+  secretExposures,
 }: Props) {
   if (secretExposures.length === 0) {
     return null;
@@ -63,7 +63,7 @@ function ServiceConfigSecretsExposedAsFile({
                   <ConfigurationMapRow>
                     <ConfigurationMapLabel>
                       {getContainerNameWithIcon({
-                        name: exposure.containerName
+                        name: exposure.containerName,
                       })}
                     </ConfigurationMapLabel>
                     <ConfigurationMapValue

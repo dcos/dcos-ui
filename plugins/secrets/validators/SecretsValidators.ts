@@ -4,7 +4,7 @@ import {
   SingleContainerSecretVolume,
   EnvironmentSecret,
   MultiContainerServiceJSON,
-  MultiContainerSecretVolume
+  MultiContainerSecretVolume,
 } from "../reducers/types";
 
 interface ServiceError {
@@ -56,7 +56,7 @@ export default {
     const secrets = Object.keys(app.secrets || {});
 
     return Object.keys(env)
-      .filter(key => {
+      .filter((key) => {
         return typeof env[key] === "object";
       })
       .reduce((memo, key) => {
@@ -66,7 +66,7 @@ export default {
           memo.push({
             path: ["secrets", env[key].secret],
             message: i18nMark("The secret cannot be empty"),
-            type: "SECRET_MISSING"
+            type: "SECRET_MISSING",
           });
         }
 
@@ -82,7 +82,7 @@ export default {
       return [];
     }
     const secretVolumes: SingleContainerSecretVolume[] = app.container.volumes.filter(
-      vol => vol.secret
+      (vol) => vol.secret
     ) as SingleContainerSecretVolume[];
     if (secretVolumes.length === 0) {
       return [];
@@ -90,11 +90,11 @@ export default {
     const secrets = Object.keys(app.secrets || {});
 
     return secretVolumes
-      .filter(vol => !secrets.includes(vol.secret))
-      .map(vol => ({
+      .filter((vol) => !secrets.includes(vol.secret))
+      .map((vol) => ({
         path: ["secrets", vol.secret],
         type: "SECRET_MISSING",
-        message: i18nMark("The secret cannot be empty")
+        message: i18nMark("The secret cannot be empty"),
       }));
   },
   appSecretVolumesSupported(app: SingleContainerServiceJSON): ServiceError[] {
@@ -114,7 +114,7 @@ export default {
           type: "NOT_SUPPORTED",
           message: i18nMark(
             "Secret volumes are not supported when using Docker Engine Container Runtime"
-          )
+          ),
         });
       }
     });
@@ -125,16 +125,16 @@ export default {
       return [];
     }
     const secretVolumes = pod.volumes.filter(
-      vol => vol.secret
+      (vol) => vol.secret
     ) as MultiContainerSecretVolume[];
     const secrets = Object.keys(pod.secrets || {});
 
     return secretVolumes
-      .filter(vol => !secrets.includes(vol.secret))
-      .map(vol => ({
+      .filter((vol) => !secrets.includes(vol.secret))
+      .map((vol) => ({
         path: ["secrets", vol.secret],
         type: "SECRET_MISSING",
-        message: i18nMark("The secret cannot be empty")
+        message: i18nMark("The secret cannot be empty"),
       }));
-  }
+  },
 };

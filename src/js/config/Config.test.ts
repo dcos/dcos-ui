@@ -4,5 +4,5 @@ export default {
   analyticsKey: "39uhSEOoRHMw6cMR6st9tYXDbAL3JSaP",
   defaultRefreshRate: 3000,
   useFixtures: false,
-  useUIConfigFixtures: false
+  useUIConfigFixtures: false,
 };

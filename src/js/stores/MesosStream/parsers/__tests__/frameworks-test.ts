@@ -2,7 +2,7 @@ import {
   getFrameworksAction,
   frameworkAddedAction,
   frameworkUpdatedAction,
-  frameworkRemovedAction
+  frameworkRemovedAction,
 } from "../frameworks";
 
 describe("frameworks parser", () => {
@@ -16,14 +16,14 @@ describe("frameworks parser", () => {
             {
               framework_info: {
                 id: {
-                  value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
+                  value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
                 },
                 name: "default",
-                user: "root"
-              }
-            }
-          ]
-        }
+                user: "root",
+              },
+            },
+          ],
+        },
       };
 
       const result = getFrameworksAction(state, message);
@@ -33,9 +33,9 @@ describe("frameworks parser", () => {
           {
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             name: "default",
-            user: "root"
-          }
-        ]
+            user: "root",
+          },
+        ],
       });
     });
   });
@@ -49,13 +49,13 @@ describe("frameworks parser", () => {
           framework: {
             framework_info: {
               id: {
-                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
+                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
               },
               name: "default",
-              user: "root"
-            }
-          }
-        }
+              user: "root",
+            },
+          },
+        },
       };
 
       const result = frameworkAddedAction(state, message);
@@ -65,9 +65,9 @@ describe("frameworks parser", () => {
           {
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             name: "default",
-            user: "root"
-          }
-        ]
+            user: "root",
+          },
+        ],
       });
     });
   });
@@ -79,9 +79,9 @@ describe("frameworks parser", () => {
           {
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             name: "default",
-            user: "root"
-          }
-        ]
+            user: "root",
+          },
+        ],
       };
       const message = {
         type: "FRAMEWORK_UPDATED",
@@ -89,13 +89,13 @@ describe("frameworks parser", () => {
           framework: {
             framework_info: {
               id: {
-                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
+                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
               },
               name: "default-1",
-              user: "root"
-            }
-          }
-        }
+              user: "root",
+            },
+          },
+        },
       };
 
       const result = frameworkUpdatedAction(state, message);
@@ -105,9 +105,9 @@ describe("frameworks parser", () => {
           {
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             name: "default-1",
-            user: "root"
-          }
-        ]
+            user: "root",
+          },
+        ],
       });
     });
   });
@@ -119,21 +119,21 @@ describe("frameworks parser", () => {
           {
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             name: "default",
-            user: "root"
-          }
-        ]
+            user: "root",
+          },
+        ],
       };
       const message = {
         type: "FRAMEWORK_REMOVED",
         framework_removed: {
           framework_info: {
             id: {
-              value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000"
+              value: "628984d0-4213-4140-bcb0-99d7ef46b1df-0000",
             },
             name: "default",
-            user: "root"
-          }
-        }
+            user: "root",
+          },
+        },
       };
 
       const result = frameworkRemovedAction(state, message);

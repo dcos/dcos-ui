@@ -8,14 +8,14 @@ import { Badge, Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DCOSStore from "#SRC/js/stores/DCOSStore";
 import Loader from "#SRC/js/components/Loader";
 import {
   isSDKService,
-  getDefinitionFromSpec
+  getDefinitionFromSpec,
 } from "#PLUGINS/services/src/js/utils/ServiceUtil";
 import RouterUtil from "#SRC/js/utils/RouterUtil";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
@@ -33,18 +33,18 @@ function fetchVersion(service, versionID) {
 
 class ServiceConfiguration extends mixin(StoreMixin) {
   static defaultProps = {
-    errors: []
+    errors: [],
   };
   static propTypes = {
     onEditClick: PropTypes.func.isRequired,
     errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service).isRequired
+    service: PropTypes.instanceOf(Service).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      selectedVersionID: null
+      selectedVersionID: null,
     };
 
     this.store_listeners = [{ name: "dcos", events: ["change"] }];
@@ -88,7 +88,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
       `/services/detail/${serviceID}/edit/${selectedVersionID}`
     );
   };
-  handleVersionSelection = versionItem => {
+  handleVersionSelection = (versionItem) => {
     fetchVersion(this.props.service, versionItem.id);
 
     this.setState({ selectedVersionID: versionItem.id });
@@ -136,7 +136,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 
     const versionItems = Array.from(versions.keys())
       .sort((a, b) => new Date(a) - new Date(b))
-      .map(version => ({
+      .map((version) => ({
         id: version,
 
         html: (
@@ -172,7 +172,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
               </span>
             </span>
           </div>
-        )
+        ),
       }));
 
     return (
@@ -261,7 +261,7 @@ class ServiceConfiguration extends mixin(StoreMixin) {
 }
 
 ServiceConfiguration.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServiceConfiguration;

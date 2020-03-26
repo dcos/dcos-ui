@@ -14,14 +14,14 @@ import TaskDirectoryStore from "../stores/TaskDirectoryStore";
 
 class MesosLogContainer extends mixin(StoreMixin) {
   static defaultProps = {
-    highlightText: ""
+    highlightText: "",
   };
   static propTypes = {
     filePath: PropTypes.string,
     highlightText: PropTypes.string,
     logName: PropTypes.string,
     task: PropTypes.object.isRequired,
-    watching: PropTypes.number
+    watching: PropTypes.number,
   };
   constructor(...args) {
     super(...args);
@@ -32,7 +32,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       isFetchingPrevious: false,
       isLoading: true,
       hasLoadingError: 0,
-      hasOffsetLoadingError: false
+      hasOffsetLoadingError: false,
     };
 
     // prettier-ignore
@@ -63,7 +63,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       fullLog: null,
       isFetchingPrevious: false,
       isLoading: true,
-      hasLoadingError: 0
+      hasLoadingError: 0,
     });
     if (props.filePath) {
       // Clean up data as well
@@ -88,7 +88,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       "logName",
       "highlightText",
       "watching",
-      "onCountChange"
+      "onCountChange",
     ];
 
     const stateToCheck = [
@@ -97,7 +97,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       "hasOffsetLoadingError",
       "isFetchingPrevious",
       "isLoading",
-      "fullLog" // Check fullLog at the end, as this could be a long string
+      "fullLog", // Check fullLog at the end, as this could be a long string
     ];
 
     // Check task (slave_id is the only property being used)
@@ -106,11 +106,11 @@ class MesosLogContainer extends mixin(StoreMixin) {
     }
 
     return (
-      propsToCheck.some(key => curProps[key] !== nextProps[key]) ||
-      stateToCheck.some(key => curState[key] !== nextState[key])
+      propsToCheck.some((key) => curProps[key] !== nextProps[key]) ||
+      stateToCheck.some((key) => curState[key] !== nextState[key])
     );
   }
-  onMesosLogStoreError = path => {
+  onMesosLogStoreError = (path) => {
     // Check the filePath before we reload
     if (path !== this.props.filePath) {
       // This event is not for our filePath
@@ -119,17 +119,17 @@ class MesosLogContainer extends mixin(StoreMixin) {
 
     this.setState({
       hasLoadingError: this.state.hasLoadingError + 1,
-      isFetchingPrevious: false
+      isFetchingPrevious: false,
     });
   };
   onMesosLogStoreOffsetError = () => {
     this.setState({
-      hasOffsetLoadingError: true
+      hasOffsetLoadingError: true,
     });
   };
   onMesosLogStoreOffsetSuccess = () => {
     this.setState({
-      hasOffsetLoadingError: false
+      hasOffsetLoadingError: false,
     });
   };
   onMesosLogStoreSuccess = (path, direction) => {
@@ -148,7 +148,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       hasLoadingError: 0,
       isFetchingPrevious: false,
       isLoading: !filePath,
-      fullLog
+      fullLog,
     });
   };
   handleGoToWorkingDirectory = () => {
@@ -176,7 +176,7 @@ class MesosLogContainer extends mixin(StoreMixin) {
       highlightText,
       logName,
       onCountChange,
-      watching
+      watching,
     } = this.props;
     const { direction, fullLog } = this.state;
 

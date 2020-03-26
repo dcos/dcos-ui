@@ -8,7 +8,7 @@ import {
   artifacts,
   labels,
   activeDeadlineSeconds,
-  restartPolicy
+  restartPolicy,
 } from "./RunConfigReducers";
 import { stringToBool } from "../Utils";
 import {
@@ -17,14 +17,14 @@ import {
   dockerParamsReducers,
   imageForcePullReducers,
   grantRuntimePrivilegesReducers,
-  containerImageReducers
+  containerImageReducers,
 } from "./ContainerReducers";
 import { placementReducers } from "./PlacementReducers";
 import { volumesReducers } from "./VolumesReducers";
 import {
   enabledReducers,
   concurrencyPolicyReducers,
-  schedulesReducers
+  schedulesReducers,
 } from "./ScheduleReducers";
 
 type DefaultReducerFunction = (
@@ -62,7 +62,7 @@ const defaultReducer: DefaultReducer = {
     const numValue = parseFloat(value);
     const newValue = !isNaN(numValue) ? numValue : "";
     return updateAt(state, path, newValue);
-  }
+  },
 };
 
 type ReducerFunction = (value: any, state: JobSpec, path: string[]) => JobSpec;
@@ -87,7 +87,7 @@ const combinedReducers: CombinedReducers = {
   artifacts,
   activeDeadlineSeconds,
   restartPolicy,
-  env
+  env,
 };
 
 export function jobFormOutputToSpecReducer(

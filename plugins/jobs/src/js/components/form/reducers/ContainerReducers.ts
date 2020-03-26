@@ -13,7 +13,7 @@ export const cmdOnlyReducers = {
       throw new Error(`expected 'true' or 'false', received ${value}`);
     }
     return stateCopy;
-  }
+  },
 };
 
 export const containerImageReducers = {
@@ -22,18 +22,18 @@ export const containerImageReducers = {
     if (stateCopy.job.run.ucr) {
       const prevUcrImage = { ...stateCopy.job.run.ucr.image };
       const newUcrImage = {
-        id: value
+        id: value,
       };
       stateCopy.job.run.ucr.image = {
         ...prevUcrImage,
-        ...newUcrImage
+        ...newUcrImage,
       };
     }
     if (stateCopy.job.run.docker) {
       stateCopy.job.run.docker.image = value;
     }
     return stateCopy;
-  }
+  },
 };
 
 export const dockerParamsReducers = {
@@ -42,7 +42,7 @@ export const dockerParamsReducers = {
     const docker = stateCopy.job.run.docker;
     const emptyParam = {
       key: "",
-      value: ""
+      value: "",
     };
     if (docker) {
       if (!docker.parameters) {
@@ -78,13 +78,13 @@ export const dockerParamsReducers = {
       if (typeof docker.parameters[index] !== "object") {
         docker.parameters[index] = {
           key: "",
-          value: ""
+          value: "",
         };
       }
       docker.parameters[index][prop] = value;
     }
     return stateCopy;
-  }
+  },
 };
 
 export const argsReducers = {
@@ -113,7 +113,7 @@ export const argsReducers = {
       args[index] = value;
     }
     return stateCopy;
-  }
+  },
 };
 
 export const imageForcePullReducers = {
@@ -133,7 +133,7 @@ export const imageForcePullReducers = {
       ucr.image.forcePull = newValue;
     }
     return stateCopy;
-  }
+  },
 };
 
 export const grantRuntimePrivilegesReducers = {
@@ -145,5 +145,5 @@ export const grantRuntimePrivilegesReducers = {
       docker.privileged = !prevValue;
     }
     return stateCopy;
-  }
+  },
 };

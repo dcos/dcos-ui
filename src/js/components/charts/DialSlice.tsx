@@ -8,12 +8,12 @@ const DialSlice = createReactClass({
 
   propTypes: {
     colorIndex: PropTypes.node,
-    path: PropTypes.string.isRequired
+    path: PropTypes.string.isRequired,
   },
 
   render() {
     const classes = {
-      arc: true
+      arc: true,
     };
     if (this.props.colorIndex != null) {
       classes["path-color-" + this.props.colorIndex] = true;
@@ -25,7 +25,7 @@ const DialSlice = createReactClass({
         <path d={this.props.path} />
       </g>
     );
-  }
+  },
 });
 
 export default DialSlice;

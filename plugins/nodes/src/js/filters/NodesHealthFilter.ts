@@ -5,7 +5,7 @@ const LABEL = "is";
 
 const LABEL_TO_HEALTH = {
   healthy: "healthy",
-  unhealthy: "unhealthy"
+  unhealthy: "unhealthy",
 };
 
 class NodesHealthFilter extends DSLFilter {
@@ -32,7 +32,7 @@ class NodesHealthFilter extends DSLFilter {
     const testStatus = LABEL_TO_HEALTH[filterArguments.text.toLowerCase()];
 
     return resultset.filterItems(
-      node => node.getHealth().key.toLowerCase() === testStatus
+      (node) => node.getHealth().key.toLowerCase() === testStatus
     );
   }
 }

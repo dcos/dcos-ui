@@ -9,12 +9,12 @@ import FilterInputText from "#SRC/js/components/FilterInputText";
 
 class SearchLog extends React.PureComponent {
   static defaultProps = {
-    logFiles: []
+    logFiles: [],
   };
   static propTypes = {
     logFiles: PropTypes.array,
     actions: PropTypes.node,
-    children: PropTypes.node
+    children: PropTypes.node,
   };
   constructor(...args) {
     super(...args);
@@ -22,7 +22,7 @@ class SearchLog extends React.PureComponent {
     this.state = {
       searchString: "",
       totalFound: 0,
-      watching: 0
+      watching: 0,
     };
 
     this.filterInputRef = React.createRef();
@@ -50,7 +50,7 @@ class SearchLog extends React.PureComponent {
   handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString, watching: 1 });
   };
-  handleCountChange = totalFound => {
+  handleCountChange = (totalFound) => {
     this.setState({ totalFound });
   };
 
@@ -118,11 +118,11 @@ class SearchLog extends React.PureComponent {
       React.cloneElement(children, {
         highlightText: searchString,
         watching,
-        onCountChange: this.handleCountChange
+        onCountChange: this.handleCountChange,
       });
 
     const inputContainerClassSet = classNames({
-      "filter-input-text-group-wide": this.state.searchString
+      "filter-input-text-group-wide": this.state.searchString,
     });
 
     return (

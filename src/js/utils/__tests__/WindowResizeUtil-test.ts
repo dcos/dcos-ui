@@ -5,7 +5,7 @@ describe("WindowResizeUtil", () => {
     beforeEach(() => {
       jest
         .spyOn(window, "requestAnimationFrame")
-        .mockImplementation(cb => cb());
+        .mockImplementation((cb) => cb());
     });
 
     it("can be triggered globally", () => {

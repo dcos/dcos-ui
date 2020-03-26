@@ -9,7 +9,7 @@ const FIELDS = [
   "servicePort",
   "vip",
   "vipPort",
-  "vipLabel"
+  "vipLabel",
 ];
 
 function transformPortDefinition(definition) {
@@ -20,7 +20,7 @@ function transformPortDefinition(definition) {
   ) {
     definition.protocol = {
       tcp: definition.protocol.search("tcp"),
-      udp: definition.protocol.search("udp")
+      udp: definition.protocol.search("udp"),
     };
   }
 
@@ -51,18 +51,18 @@ function PortDefinitionsReducer(state = [], action) {
             name: null,
             protocol: {
               tcp: false,
-              udp: false
+              udp: false,
             },
             servicePort: null,
             vip: null,
             vipPort: null,
-            vipLabel: null
+            vipLabel: null,
           };
           const defaults = { protocol: { tcp: true } };
 
           state.push({
             ...definition,
-            ...(transformPortDefinition(value) || defaults)
+            ...(transformPortDefinition(value) || defaults),
           });
           break;
         case REMOVE_ITEM:

@@ -27,7 +27,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>Schedule</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "id",
@@ -36,7 +36,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             const { schedules } = config;
             const schedule = schedules && schedules[0];
             return getDisplayValue(schedule && schedule.id);
-          }
+          },
         },
         {
           key: "cron",
@@ -45,7 +45,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             const { schedules } = config;
             const schedule = schedules && schedules[0];
             return getDisplayValue(schedule && schedule.cron);
-          }
+          },
         },
         {
           key: "timezone",
@@ -54,7 +54,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             const { schedules } = config;
             const schedule = schedules && schedules[0];
             return getDisplayValue(schedule && schedule.timezone);
-          }
+          },
         },
         {
           key: "startingDeadlineSeconds",
@@ -65,7 +65,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             return getDisplayValue(
               schedule && schedule.startingDeadlineSeconds
             );
-          }
+          },
         },
         {
           key: "concurrencyPolicy",
@@ -74,7 +74,7 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             const { schedules } = config;
             const schedule = schedules && schedules[0];
             return getDisplayValue(schedule && schedule.concurrencyPolicy);
-          }
+          },
         },
         {
           key: "enabled",
@@ -85,9 +85,9 @@ class ScheduleConfigSection extends BaseConfig<JobOutput> {
             return `${
               schedule ? (schedule.enabled != null ? schedule.enabled : "") : ""
             }`;
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

@@ -28,7 +28,7 @@ const CertificatesBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/secrets/certificates" />}>Certificates</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -44,7 +44,7 @@ class CertificatesPage extends mixin(StoreMixin) {
       healthFilter: "all",
       isLoading: true,
       requestError: false,
-      searchString: ""
+      searchString: "",
     };
 
     // prettier-ignore
@@ -68,7 +68,7 @@ class CertificatesPage extends mixin(StoreMixin) {
   handleSearchStringChange = (searchString = "") => {
     this.setState({ searchString: searchString.toLowerCase() });
   };
-  handleHealthFilterChange = healthFilter => {
+  handleHealthFilterChange = (healthFilter) => {
     this.setState({ healthFilter });
   };
   resetFilter = () => {
@@ -79,7 +79,7 @@ class CertificatesPage extends mixin(StoreMixin) {
     const dotClassSet = classNames({
       dot: filterName !== "all",
       danger: filterName === "expired",
-      success: filterName === "active"
+      success: filterName === "active",
     });
 
     return (
@@ -95,7 +95,7 @@ class CertificatesPage extends mixin(StoreMixin) {
 
   getVisibleItems(items, searchString, healthFilter) {
     return items
-      .filterItems(item => {
+      .filterItems((item) => {
         const name = item.name.toLowerCase();
         const status = item.status.toLowerCase();
 
@@ -169,7 +169,7 @@ class CertificatesPage extends mixin(StoreMixin) {
 
 CertificatesPage.routeConfig = {
   label: i18nMark("Certificates"),
-  matches: /^\/secrets\/certificates/
+  matches: /^\/secrets\/certificates/,
 };
 
 module.exports = CertificatesPage;

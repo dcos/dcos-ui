@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { isObject } from "#SRC/js/utils/Util";
@@ -20,7 +20,7 @@ export function getColumnHeadingFn(defaultHeading) {
   return (prop, order, sortBy) => {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null && sortBy.prop === prop,
-      "caret--visible": sortBy.prop === prop
+      "caret--visible": sortBy.prop === prop,
     });
 
     return (
@@ -70,5 +70,5 @@ export default {
   getColumnHeadingFn,
   getContainerNameWithIcon,
   getDisplayValue,
-  getSharedIconWithLabel
+  getSharedIconWithLabel,
 };

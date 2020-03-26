@@ -9,11 +9,11 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 export default class RegionConstraintsSection extends React.Component {
   static defaultProps = {
     region: "",
-    onEditClick() {}
+    onEditClick() {},
   };
   static propTypes = {
     region: PropTypes.string,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getEditButton() {
     const { onEditClick } = this.props;

@@ -9,12 +9,12 @@ describe("ServiceUtil", () => {
     it("creates the correct definition for ApplicationSpec", () => {
       const service = new ApplicationSpec({
         id: "/test",
-        cmd: "sleep 1000;"
+        cmd: "sleep 1000;",
       });
 
       expect(ServiceUtil.getDefinitionFromSpec(service)).toEqual({
         id: "/test",
-        cmd: "sleep 1000;"
+        cmd: "sleep 1000;",
       });
     });
   });
@@ -22,10 +22,10 @@ describe("ServiceUtil", () => {
   describe("#isEqual", () => {
     it("returns false if services have different type", () => {
       const serviceA = new Application({
-        id: "foo"
+        id: "foo",
       });
       const serviceB = new Pod({
-        id: "foo"
+        id: "foo",
       });
 
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
@@ -33,10 +33,10 @@ describe("ServiceUtil", () => {
 
     it("returns false if same type but different content", () => {
       const serviceA = new Application({
-        id: "foo"
+        id: "foo",
       });
       const serviceB = new Application({
-        id: "bar"
+        id: "bar",
       });
 
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeFalsy();
@@ -44,10 +44,10 @@ describe("ServiceUtil", () => {
 
     it("returns true if same type and same content", () => {
       const serviceA = new Application({
-        id: "foo"
+        id: "foo",
       });
       const serviceB = new Application({
-        id: "foo"
+        id: "foo",
       });
 
       expect(ServiceUtil.isEqual(serviceA, serviceB)).toBeTruthy();
@@ -59,8 +59,8 @@ describe("ServiceUtil", () => {
       const service = new Framework({
         id: "/foo",
         labels: {
-          DCOS_COMMONS_API_VERSION: "v1"
-        }
+          DCOS_COMMONS_API_VERSION: "v1",
+        },
       });
 
       expect(ServiceUtil.isSDKService(service)).toEqual(true);
@@ -70,8 +70,8 @@ describe("ServiceUtil", () => {
       const service = new Framework({
         id: "/foo",
         labels: {
-          FOO_LABEL: "foo value"
-        }
+          FOO_LABEL: "foo value",
+        },
       });
 
       expect(ServiceUtil.isSDKService(service)).toEqual(false);
@@ -111,7 +111,7 @@ describe("ServiceUtil", () => {
         DCOS_SERVICE_PORT_INDEX: "80",
         DCOS_SERVICE_SCHEME: "https",
         DCOS_COMMONS_API_VERSION: "notnull",
-        DCOS_SERVICE_WEB_PATH: "/baz"
+        DCOS_SERVICE_WEB_PATH: "/baz",
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual(
         "foo/service/bar/baz"
@@ -123,7 +123,7 @@ describe("ServiceUtil", () => {
         DCOS_SERVICE_PORT_INDEX: "80",
         DCOS_SERVICE_SCHEME: "https",
         DCOS_COMMONS_API_VERSION: "notnull",
-        DCOS_SERVICE_WEB_PATH: "/baz"
+        DCOS_SERVICE_WEB_PATH: "/baz",
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });
@@ -132,7 +132,7 @@ describe("ServiceUtil", () => {
         DCOS_SERVICE_NAME: "bar",
         DCOS_SERVICE_PORT_INDEX: "80",
         DCOS_SERVICE_SCHEME: "https",
-        DCOS_COMMONS_API_VERSION: "notnull"
+        DCOS_COMMONS_API_VERSION: "notnull",
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });
@@ -140,7 +140,7 @@ describe("ServiceUtil", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         DCOS_SERVICE_PORT_INDEX: "80",
-        DCOS_SERVICE_SCHEME: "https"
+        DCOS_SERVICE_SCHEME: "https",
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("foo/service/bar/");
     });
@@ -148,7 +148,7 @@ describe("ServiceUtil", () => {
       const labels = {
         DCOS_SERVICE_NAME: "bar",
         // DCOS_SERVICE_PORT_INDEX: "80",
-        DCOS_SERVICE_SCHEME: "https"
+        DCOS_SERVICE_SCHEME: "https",
       };
       expect(ServiceUtil.getWebURL(labels, "foo")).toEqual("");
     });

@@ -6,7 +6,7 @@ describe("ReactUtil", () => {
   it("wraps the elements if there is more than one", () => {
     const result = ReactUtil.wrapElements([
       <span key="1">test</span>,
-      <span key="2">test</span>
+      <span key="2">test</span>,
     ]);
 
     expect(result.type).toBe("div");

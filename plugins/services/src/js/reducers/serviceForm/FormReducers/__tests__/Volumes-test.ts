@@ -16,8 +16,8 @@ describe("Volumes", () => {
           containerPath: null,
           mode: "RW",
           profileName: null,
-          type: "PERSISTENT"
-        }
+          type: "PERSISTENT",
+        },
       ]);
     });
 
@@ -33,8 +33,8 @@ describe("Volumes", () => {
           containerPath: "/dev/null",
           mode: "RW",
           profileName: null,
-          type: "PERSISTENT"
-        }
+          type: "PERSISTENT",
+        },
       ]);
     });
 
@@ -53,8 +53,8 @@ describe("Volumes", () => {
           containerPath: "123",
           mode: "123",
           profileName: null,
-          type: "123"
-        }
+          type: "123",
+        },
       ]);
     });
 
@@ -74,15 +74,15 @@ describe("Volumes", () => {
           containerPath: "/dev/null",
           mode: "RW",
           profileName: null,
-          type: "PERSISTENT"
+          type: "PERSISTENT",
         },
         {
           size: 512,
           containerPath: "/dev/dev2",
           mode: "RW",
           profileName: null,
-          type: "PERSISTENT"
-        }
+          type: "PERSISTENT",
+        },
       ]);
     });
 
@@ -104,8 +104,8 @@ describe("Volumes", () => {
           containerPath: "/dev/dev2",
           mode: "RW",
           profileName: null,
-          type: "PERSISTENT"
-        }
+          type: "PERSISTENT",
+        },
       ]);
     });
 
@@ -123,8 +123,8 @@ describe("Volumes", () => {
           containerPath: "/dev/null",
           mode: "READ",
           profileName: null,
-          type: "PERSISTENT"
-        }
+          type: "PERSISTENT",
+        },
       ]);
     });
   });

@@ -34,14 +34,14 @@ export function JSONReducer(
       if (mode === Networking.type.CONTAINER) {
         newState[index] = {
           name,
-          mode: mode.toLowerCase()
+          mode: mode.toLowerCase(),
         };
 
         return newState;
       }
 
       newState[index] = {
-        mode: mode.toLowerCase()
+        mode: mode.toLowerCase(),
       };
     }
   }
@@ -61,7 +61,7 @@ export function JSONParser(state) {
   if (state.networks.length === 0) {
     return [
       new Transaction(["networks"], {}, ADD_ITEM),
-      new Transaction(["networks", 0], Networking.type.HOST)
+      new Transaction(["networks", 0], Networking.type.HOST),
     ];
   }
 
@@ -119,14 +119,14 @@ export function FormReducer(
       if (mode === Networking.type.CONTAINER) {
         newState[index] = {
           name,
-          mode
+          mode,
         };
 
         return newState;
       }
 
       newState[index] = {
-        mode
+        mode,
       };
     }
   }

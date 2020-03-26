@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { omit } from "../../utils/Util";
 
-const FieldTextarea = props => {
+const FieldTextarea = (props) => {
   const { className } = props;
   const classes = classNames("form-control", className);
 
@@ -13,7 +13,7 @@ const FieldTextarea = props => {
 
 FieldTextarea.defaultProps = {
   onChange: () => undefined,
-  value: ""
+  value: "",
 };
 
 FieldTextarea.propTypes = {
@@ -24,8 +24,8 @@ FieldTextarea.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default FieldTextarea;

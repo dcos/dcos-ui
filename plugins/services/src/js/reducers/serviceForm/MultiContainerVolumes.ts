@@ -12,7 +12,7 @@ function transformContainers(memo, container, containerIndex) {
     return memo;
   }
 
-  const tuples = container.volumeMounts.map(mount => [containerIndex, mount]);
+  const tuples = container.volumeMounts.map((mount) => [containerIndex, mount]);
 
   return memo.concat(tuples);
 }
@@ -45,7 +45,7 @@ export function MultiContainerVolumeMountsJSONReducer(
   switch (type) {
     case ADD_ITEM:
       this.volumes.push({
-        ...value
+        ...value,
       });
       break;
     case REMOVE_ITEM:
@@ -74,7 +74,7 @@ export function MultiContainerVolumeMountsJSONReducer(
   if (name === "type" && value === VolumeConstants.type.dss) {
     this.volumes[index].persistent = {
       size: this.localSize[index],
-      type: "mount"
+      type: "mount",
     };
   }
   if (name === "size") {
@@ -123,7 +123,7 @@ export function MultiContainerVolumeMountsJSONParser(state) {
         new Transaction(
           ["volumeMounts", volumeIndexMap[volume.name], "type"],
           VolumeConstants.type.unknown
-        )
+        ),
       ];
 
       // Ephemeral Volumes have only name
@@ -132,7 +132,7 @@ export function MultiContainerVolumeMountsJSONParser(state) {
           new Transaction(
             ["volumeMounts", volumeIndexMap[volume.name], "type"],
             VolumeConstants.type.ephemeral
-          )
+          ),
         ];
       }
 
@@ -145,7 +145,7 @@ export function MultiContainerVolumeMountsJSONParser(state) {
           new Transaction(
             ["volumeMounts", volumeIndexMap[volume.name], "hostPath"],
             volume.host
-          )
+          ),
         ];
       }
 
@@ -159,7 +159,7 @@ export function MultiContainerVolumeMountsJSONParser(state) {
             new Transaction(
               ["volumeMounts", volumeIndexMap[volume.name], "persistent"],
               volume.persistent
-            )
+            ),
           ];
         } else {
           volumeTypeTransactions = [
@@ -174,7 +174,7 @@ export function MultiContainerVolumeMountsJSONParser(state) {
             new Transaction(
               ["volumeMounts", volumeIndexMap[volume.name], "profileName"],
               volume.persistent.profileName
-            )
+            ),
           ];
         }
       }
@@ -227,14 +227,14 @@ export function FormReducer(state = [], { type, path, value }) {
   if (base === "containers") {
     switch (type) {
       case ADD_ITEM:
-        newState = newState.map(volumeMount => {
+        newState = newState.map((volumeMount) => {
           volumeMount.mountPath.push("");
 
           return volumeMount;
         });
         break;
       case REMOVE_ITEM:
-        newState = newState.map(volumeMount => {
+        newState = newState.map((volumeMount) => {
           volumeMount.mountPath = volumeMount.mountPath.filter(
             (item, index) => index !== value
           );
@@ -253,7 +253,7 @@ export function FormReducer(state = [], { type, path, value }) {
     case ADD_ITEM:
       newState.push({
         mountPath: [],
-        ...value
+        ...value,
       });
       break;
     case REMOVE_ITEM:

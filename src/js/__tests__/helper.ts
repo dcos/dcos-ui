@@ -6,7 +6,7 @@ const replaceRoot = new RegExp(projectRoot, "g");
 
 export const getOutput = (cmd: string, params: string[]) =>
   execa(cmd, params)
-    .then(out => {
+    .then((out) => {
       console.log(cmd, params, "does not yield any errors anymore!", out);
       return "";
     })

@@ -9,11 +9,11 @@ describe("TaskStatusFilter", () => {
   beforeEach(() => {
     thisMockItems = [
       {
-        state: "TASK_RUNNING"
+        state: "TASK_RUNNING",
       },
       {
-        state: "TASK_FINISHED"
-      }
+        state: "TASK_FINISHED",
+      },
     ];
   });
 
@@ -24,7 +24,7 @@ describe("TaskStatusFilter", () => {
     const filters = [new TasksStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 
@@ -35,7 +35,7 @@ describe("TaskStatusFilter", () => {
     const filters = [new TasksStatusFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[1]
+      thisMockItems[1],
     ]);
   });
 });

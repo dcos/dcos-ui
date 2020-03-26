@@ -18,16 +18,16 @@ export interface ResolverArgs {
 
 export const resolvers = (args: ResolverArgs) => {
   const groupResolvers = GroupResolvers({
-    pollingInterval: args.pollingInterval
+    pollingInterval: args.pollingInterval,
   });
   const servicesResolvers = ServicesResolvers({
     fetchServicePlans: args.fetchServicePlans,
     fetchServicePlanDetail: args.fetchServicePlanDetail,
-    pollingInterval: args.pollingInterval
+    pollingInterval: args.pollingInterval,
   });
   const Query = {
     ...groupResolvers.Query,
-    ...servicesResolvers.Query
+    ...servicesResolvers.Query,
   };
   return { ...groupResolvers, ...servicesResolvers, Query };
 };

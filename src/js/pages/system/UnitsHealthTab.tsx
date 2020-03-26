@@ -28,7 +28,7 @@ const UnitHealthBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/components" />}>Components</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -50,7 +50,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
 
     this.state = {
       healthFilter: "all",
-      searchString: ""
+      searchString: "",
     };
   }
 
@@ -86,7 +86,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     const dotClassSet = classNames({
       dot: filterName !== "all",
       danger: filterName === "unhealthy",
-      success: filterName === "healthy"
+      success: filterName === "healthy",
     });
 
     isActive = isActive ? "outline" : "default";
@@ -124,22 +124,22 @@ class UnitsHealthTab extends mixin(StoreMixin) {
         prop: "name",
         render: this.renderUnit,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: classNameFn,
         headerClassName: classNameFn,
         heading: ResourceTableUtil.renderHeading({
-          health: i18nMark("Health")
+          health: i18nMark("Health"),
         }),
         prop: "health",
         render: this.renderHealth,
         sortable: true,
-        sortFunction: getHealthSortingOrder
-      }
+        sortFunction: getHealthSortingOrder,
+      },
     ];
   }
-  handleHealthFilterChange = healthFilter => {
+  handleHealthFilterChange = (healthFilter) => {
     this.setState({ healthFilter });
   };
 
@@ -151,7 +151,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
   resetFilter = () => {
     this.setState({
       searchString: "",
-      healthFilter: "all"
+      healthFilter: "all",
     });
   };
 
@@ -161,20 +161,20 @@ class UnitsHealthTab extends mixin(StoreMixin) {
     const { healthFilter, searchString } = this.state;
     const { i18n } = this.props;
     const visibleData = this.getVisibleData(data, searchString, healthFilter);
-    const dataHealth = dataItems.map(unit => unit.getHealth());
+    const dataHealth = dataItems.map((unit) => unit.getHealth());
     const filters = [
       {
         filter: "all",
-        marked: i18nMark("All")
+        marked: i18nMark("All"),
       },
       {
         filter: "healthy",
-        marked: i18nMark("Healthy")
+        marked: i18nMark("Healthy"),
       },
       {
         filter: "unhealthy",
-        marked: i18nMark("Unhealthy")
-      }
+        marked: i18nMark("Unhealthy"),
+      },
     ];
 
     return (
@@ -200,7 +200,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
               />
               <FilterButtons
                 renderButtonContent={this.getButtonContent}
-                filters={filters.map(f => f.filter)}
+                filters={filters.map((f) => f.filter)}
                 filterByKey="title"
                 onFilterChange={this.handleHealthFilterChange}
                 itemList={dataHealth}
@@ -235,7 +235,7 @@ class UnitsHealthTab extends mixin(StoreMixin) {
 
 UnitsHealthTab.routeConfig = {
   label: i18nMark("Components"),
-  matches: /^\/components\/overview/
+  matches: /^\/components\/overview/,
 };
 
 export default withI18n()(UnitsHealthTab);

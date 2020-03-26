@@ -27,7 +27,7 @@ const PodConfigurationTabView = ({ pod }) => {
 };
 
 PodConfigurationTabView.propTypes = {
-  pod: PropTypes.instanceOf(Pod)
+  pod: PropTypes.instanceOf(Pod),
 };
 
 export default PodConfigurationTabView;

@@ -29,7 +29,7 @@ describe("UniverseInstalledPackagesList", () => {
     it("filters by name", () => {
       let items = [
         { appId: "baz", name: "foo" },
-        { appId: "baz", name: "bar" }
+        { appId: "baz", name: "bar" },
       ];
       const list = new UniverseInstalledPackagesList({ items });
       items = list.filterItemsByText("bar").getItems();
@@ -40,7 +40,7 @@ describe("UniverseInstalledPackagesList", () => {
     it("filters by description", () => {
       let items = [
         { appId: "baz", description: "foo" },
-        { appId: "baz", description: "bar" }
+        { appId: "baz", description: "bar" },
       ];
       const list = new UniverseInstalledPackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
@@ -52,7 +52,7 @@ describe("UniverseInstalledPackagesList", () => {
       let items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },
-        { appId: "baz", tags: [] }
+        { appId: "baz", tags: [] },
       ];
       const list = new UniverseInstalledPackagesList({ items });
       items = list.filterItemsByText("foo").getItems();
@@ -65,7 +65,7 @@ describe("UniverseInstalledPackagesList", () => {
       const items = [
         { appId: "baz", tags: ["foo", "bar"] },
         { appId: "baz", tags: ["foo"] },
-        { appId: "baz", tags: null }
+        { appId: "baz", tags: null },
       ];
       const list = new UniverseInstalledPackagesList({ items });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();

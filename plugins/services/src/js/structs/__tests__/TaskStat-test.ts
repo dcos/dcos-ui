@@ -130,7 +130,7 @@ describe("TaskStat", () => {
 
     it("returns correct life time", () => {
       const statistics = new TaskStat({
-        stats: { lifeTime: { averageSeconds: 60 } }
+        stats: { lifeTime: { averageSeconds: 60 } },
       });
 
       expect(statistics.getAverageLifeTime()).toEqual(60);
@@ -152,7 +152,7 @@ describe("TaskStat", () => {
 
     it("returns correct life time", () => {
       const statistics = new TaskStat({
-        stats: { lifeTime: { medianSeconds: 40 } }
+        stats: { lifeTime: { medianSeconds: 40 } },
       });
 
       expect(statistics.getMedianLifeTime()).toEqual(40);

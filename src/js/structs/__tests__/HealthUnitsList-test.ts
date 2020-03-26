@@ -31,7 +31,7 @@ describe("HealthUnitsList", () => {
       const items = [
         { id: "foo", health: 0 },
         { id: "bar", health: 0 },
-        { id: "bluh", health: 2 }
+        { id: "bluh", health: 2 },
       ];
       const list = new HealthUnitsList({ items });
       const filteredList = list.filter({ health: "healthy" }).getItems();

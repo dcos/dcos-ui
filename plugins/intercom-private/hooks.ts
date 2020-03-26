@@ -6,7 +6,7 @@ module.exports = {
   actions: ["intercomBoot", "intercomShutdown"],
 
   initialize() {
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
   },
@@ -16,7 +16,7 @@ module.exports = {
 
     window.Intercom("update", {
       node_capacity: licensingSummary.getNodeCapacity(),
-      license_expiration_date: licensingSummary.getExpiration()
+      license_expiration_date: licensingSummary.getExpiration(),
     });
   },
 
@@ -36,5 +36,5 @@ module.exports = {
       LICENSING_SUMMARY_SUCCESS,
       this.addLicensingAttributes
     );
-  }
+  },
 };

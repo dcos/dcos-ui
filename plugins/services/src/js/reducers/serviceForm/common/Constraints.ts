@@ -2,7 +2,7 @@ import {
   ADD_ITEM,
   REMOVE_ITEM,
   SET,
-  ERROR
+  ERROR,
 } from "#SRC/js/constants/TransactionTypes";
 import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
@@ -109,7 +109,7 @@ export function JSONReducer(state, { type, path, value }) {
   this.constraints = processTransaction(this.constraints, {
     type,
     path,
-    value
+    value,
   });
 
   return this.constraints
@@ -117,7 +117,7 @@ export function JSONReducer(state, { type, path, value }) {
     .map(({ fieldName, operator, value }) => ({
       fieldName,
       value,
-      operator: operator.toUpperCase()
+      operator: operator.toUpperCase(),
     }));
 }
 

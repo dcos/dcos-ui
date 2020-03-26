@@ -14,15 +14,15 @@ const defaultJobDetailData = {
     cmd: "sleep 10",
     env: {},
     placement: {
-      constraints: []
+      constraints: [],
     },
     artifacts: [],
     maxLaunchDelay: 3600,
     volumes: [],
     restart: {
-      policy: "NEVER"
+      policy: "NEVER",
     },
-    secrets: {}
+    secrets: {},
   },
   schedules: [],
   activeRuns: [],
@@ -35,27 +35,27 @@ const defaultJobDetailData = {
       {
         id: "20180606104932xsDzH",
         createdAt: "2018-06-06T10:49:32.336+0000",
-        finishedAt: "2018-06-06T10:49:44.471+0000"
+        finishedAt: "2018-06-06T10:49:44.471+0000",
       },
       {
         id: "20180606104545rjSRE",
         createdAt: "2018-06-06T10:45:45.890+0000",
-        finishedAt: "2018-06-06T10:45:57.236+0000"
+        finishedAt: "2018-06-06T10:45:57.236+0000",
       },
       {
         id: "20180606100732E88WQ",
         createdAt: "2018-06-06T10:07:32.972+0000",
-        finishedAt: "2018-06-06T10:07:44.265+0000"
-      }
+        finishedAt: "2018-06-06T10:07:44.265+0000",
+      },
     ],
     failedFinishedRuns: [
       {
         createdAt: "2018-06-06T09:31:46.254+0000",
         finishedAt: "2018-06-06T09:31:47.760+0000",
-        id: "20180606093146gr5Pi"
-      }
-    ]
-  }
+        id: "20180606093146gr5Pi",
+      },
+    ],
+  },
 };
 
 describe("JobModel Resolver", () => {
@@ -71,8 +71,8 @@ describe("JobModel Resolver", () => {
             createdAt: "2018-06-12T16:25:35.593+0000",
             completedAt: "2018-06-12T17:25:35.593+0000",
             status: "FAILED",
-            tasks: []
-          }
+            tasks: [],
+          },
         ],
         schedules: [
           {
@@ -82,8 +82,8 @@ describe("JobModel Resolver", () => {
             id: "default",
             nextRunAt: "2018-06-13T08:39:00.000+0000",
             startingDeadlineSeconds: 900,
-            timezone: "UTC"
-          }
+            timezone: "UTC",
+          },
         ],
         history: {
           lastFailureAt: "2018-06-12T16:25:35.593+0000",
@@ -91,8 +91,8 @@ describe("JobModel Resolver", () => {
           successCount: 0,
           failureCount: 0,
           successfulFinishedRuns: [],
-          failedFinishedRuns: []
-        }
+          failedFinishedRuns: [],
+        },
       },
       b: {
         ...defaultJobDetailData,
@@ -103,8 +103,8 @@ describe("JobModel Resolver", () => {
             createdAt: "2018-06-12T16:25:35.593+0000",
             completedAt: "2018-06-12T17:25:35.593+0000",
             status: "COMPLETED",
-            tasks: []
-          }
+            tasks: [],
+          },
         ],
         schedules: [
           {
@@ -114,8 +114,8 @@ describe("JobModel Resolver", () => {
             id: "default",
             nextRunAt: "2018-06-13T08:39:00.000+0000",
             startingDeadlineSeconds: 900,
-            timezone: "UTC"
-          }
+            timezone: "UTC",
+          },
         ],
         history: {
           lastFailureAt: null,
@@ -123,15 +123,15 @@ describe("JobModel Resolver", () => {
           successCount: 0,
           failureCount: 0,
           successfulFinishedRuns: [],
-          failedFinishedRuns: []
-        }
+          failedFinishedRuns: [],
+        },
       },
       c: {
         ...defaultJobDetailData,
         id: "c",
         activeRuns: [],
-        schedules: []
-      }
+        schedules: [],
+      },
     };
 
     jobsList = Object.values(jobsData);
@@ -145,12 +145,12 @@ describe("JobModel Resolver", () => {
       sortDirection = "ASC"
     ) => {
       const fetchJobs = () => m.cold("(j|)", { j: { response: jobsList } });
-      const fetchJobDetail = id =>
+      const fetchJobDetail = (id) =>
         m.cold("(j|)", { j: { response: jobsData[id] } });
       const resolverResult$ = resolvers({
         fetchJobs,
         fetchJobDetail,
-        pollingInterval: m.time("--|")
+        pollingInterval: m.time("--|"),
       }).Query.jobs({}, { sortBy, sortDirection, filter, path: [] });
 
       return resolverResult$.pipe(take(1));
@@ -159,24 +159,24 @@ describe("JobModel Resolver", () => {
     describe("nodes", () => {
       it(
         "returns a list of jobs",
-        marbles(m => {
+        marbles((m) => {
           const fetchJobs = () =>
             m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
-          const fetchJobDetail = _id =>
+          const fetchJobDetail = (_id) =>
             m.cold("(j|)", { j: { response: defaultJobDetailData } });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
-            pollingInterval: m.time("--|")
+            pollingInterval: m.time("--|"),
           }).Query.jobs({}, { path: [] });
 
           const expected$ = m.cold("(j|)", {
-            j: true
+            j: true,
           });
 
           const result$ = resolverResult$.pipe(
             take(1),
-            map(jobsConnection => Array.isArray(jobsConnection.nodes))
+            map((jobsConnection) => Array.isArray(jobsConnection.nodes))
           );
 
           m.expect(result$).toBeObservable(expected$);
@@ -185,24 +185,24 @@ describe("JobModel Resolver", () => {
 
       it(
         "polls the endpoint",
-        marbles(m => {
+        marbles((m) => {
           const fetchJobs = () =>
             m.cold("(j|)", { j: { response: [defaultJobDetailData] } });
-          const fetchJobDetail = _id =>
+          const fetchJobDetail = (_id) =>
             m.cold("(j|)", { j: { response: defaultJobDetailData } });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
-            pollingInterval: m.time("--|")
+            pollingInterval: m.time("--|"),
           }).Query.jobs({}, { path: [] });
 
           const expected$ = m.cold("(j|)", {
-            j: ["testid"]
+            j: ["testid"],
           });
 
           const result$ = resolverResult$.pipe(
             take(1),
-            map(({ nodes }) => nodes.map(job => job.id))
+            map(({ nodes }) => nodes.map((job) => job.id))
           );
           m.expect(result$).toBeObservable(expected$);
         })
@@ -210,16 +210,17 @@ describe("JobModel Resolver", () => {
 
       it(
         "shares the subscription",
-        fakeSchedulers(advance => {
+        fakeSchedulers((advance) => {
           jest.useFakeTimers();
           const fetchJobs = jest.fn(() =>
             of({ response: [defaultJobDetailData] })
           );
-          const fetchJobDetail = _id => of({ response: defaultJobDetailData });
+          const fetchJobDetail = (_id) =>
+            of({ response: defaultJobDetailData });
           const jobsQuery = resolvers({
             fetchJobs,
             fetchJobDetail,
-            pollingInterval: 20
+            pollingInterval: 20,
           }).Query.jobs;
 
           concat(
@@ -243,14 +244,14 @@ describe("JobModel Resolver", () => {
       describe("ordering", () => {
         it(
           "orders by ID",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m, undefined, "ID", "ASC").pipe(
-              map(({ nodes }) => nodes.map(job => job.id)),
-              map(jobs => jobs)
+              map(({ nodes }) => nodes.map((job) => job.id)),
+              map((jobs) => jobs)
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["a", "b", "c"]
+              j: ["a", "b", "c"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -259,13 +260,13 @@ describe("JobModel Resolver", () => {
 
         it(
           "orders by ID DESC",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m, undefined, "ID", "DESC").pipe(
-              map(({ nodes }) => nodes.map(job => job.id))
+              map(({ nodes }) => nodes.map((job) => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["c", "b", "a"]
+              j: ["c", "b", "a"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -274,13 +275,13 @@ describe("JobModel Resolver", () => {
 
         it(
           "orders by STATUS",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m, undefined, "STATUS", "ASC").pipe(
-              map(({ nodes }) => nodes.map(job => job.scheduleStatus))
+              map(({ nodes }) => nodes.map((job) => job.scheduleStatus))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["FAILED", "UNSCHEDULED", "COMPLETED"]
+              j: ["FAILED", "UNSCHEDULED", "COMPLETED"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -289,18 +290,18 @@ describe("JobModel Resolver", () => {
 
         it(
           "orders by LAST_RUN",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(
               m,
               undefined,
               "LAST_RUN",
               "ASC"
             ).pipe(
-              map(({ nodes }) => nodes.map(job => job.lastRunStatus.status))
+              map(({ nodes }) => nodes.map((job) => job.lastRunStatus.status))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["Failed", "N/A", "Success"]
+              j: ["Failed", "N/A", "Success"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -311,13 +312,13 @@ describe("JobModel Resolver", () => {
       describe("filter", () => {
         it(
           "filters by ID",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m, "b").pipe(
-              map(({ nodes }) => nodes.map(job => job.id))
+              map(({ nodes }) => nodes.map((job) => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["b"]
+              j: ["b"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -325,13 +326,13 @@ describe("JobModel Resolver", () => {
         );
         it(
           "filters by empty string",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m, "").pipe(
-              map(({ nodes }) => nodes.map(job => job.id))
+              map(({ nodes }) => nodes.map((job) => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["a", "b", "c"]
+              j: ["a", "b", "c"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -339,13 +340,13 @@ describe("JobModel Resolver", () => {
         );
         it(
           "filters by undefined",
-          marbles(m => {
+          marbles((m) => {
             const result$ = oneJobsResponse(m).pipe(
-              map(({ nodes }) => nodes.map(job => job.id))
+              map(({ nodes }) => nodes.map((job) => job.id))
             );
 
             const expected$ = m.cold("(j|)", {
-              j: ["a", "b", "c"]
+              j: ["a", "b", "c"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -357,16 +358,18 @@ describe("JobModel Resolver", () => {
         const jobsResponseWithIds = (m, ids, path, filter) => {
           const fetchJobs = () =>
             m.cold("(j|)", {
-              j: { response: ids.map(id => ({ ...defaultJobDetailData, id })) }
+              j: {
+                response: ids.map((id) => ({ ...defaultJobDetailData, id })),
+              },
             });
-          const fetchJobDetail = id =>
+          const fetchJobDetail = (id) =>
             m.cold("(j|)", {
-              j: { response: { ...defaultJobDetailData, id } }
+              j: { response: { ...defaultJobDetailData, id } },
             });
           const resolverResult$ = resolvers({
             fetchJobs,
             fetchJobDetail,
-            pollingInterval: m.time("--|")
+            pollingInterval: m.time("--|"),
           }).Query.jobs({}, { path, filter });
 
           return resolverResult$.pipe(take(1));
@@ -374,7 +377,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "only shows jobs within the path",
-          marbles(m => {
+          marbles((m) => {
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -382,13 +385,13 @@ describe("JobModel Resolver", () => {
                 "bat.bar",
                 "foo.bar.other",
                 "foo.bar.clock",
-                "bar.cocktails"
+                "bar.cocktails",
               ],
               ["foo"]
-            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
+            ).pipe(map(({ nodes }) => nodes.map((job) => job.id)));
 
             const expected$ = m.cold("(j|)", {
-              j: ["foo.bar.baz", "foo.bar.clock", "foo.bar.other"]
+              j: ["foo.bar.baz", "foo.bar.clock", "foo.bar.other"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -397,7 +400,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "handles nested path",
-          marbles(m => {
+          marbles((m) => {
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -405,13 +408,13 @@ describe("JobModel Resolver", () => {
                 "bat.bar",
                 "foo.big.other",
                 "foo.baz.clock",
-                "bar.cocktails"
+                "bar.cocktails",
               ],
               ["foo", "bar"]
-            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
+            ).pipe(map(({ nodes }) => nodes.map((job) => job.id)));
 
             const expected$ = m.cold("(j|)", {
-              j: ["foo.bar.baz"]
+              j: ["foo.bar.baz"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -420,7 +423,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "filters by ID within the path",
-          marbles(m => {
+          marbles((m) => {
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -428,14 +431,14 @@ describe("JobModel Resolver", () => {
                 "bat.bar",
                 "foo.big.other",
                 "foo.baz.clock",
-                "bar.cocktails"
+                "bar.cocktails",
               ],
               ["foo"],
               "ba"
-            ).pipe(map(({ nodes }) => nodes.map(job => job.id)));
+            ).pipe(map(({ nodes }) => nodes.map((job) => job.id)));
 
             const expected$ = m.cold("(j|)", {
-              j: ["foo.bar.baz", "foo.baz.clock"]
+              j: ["foo.bar.baz", "foo.baz.clock"],
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -444,7 +447,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "calculates the filteredCount from pathd jobs",
-          marbles(m => {
+          marbles((m) => {
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -452,14 +455,14 @@ describe("JobModel Resolver", () => {
                 "bat.bar",
                 "foo.big.other",
                 "foo.baz.clock",
-                "bar.cocktails"
+                "bar.cocktails",
               ],
               ["foo"],
               "ba"
             ).pipe(map(({ filteredCount }) => filteredCount));
 
             const expected$ = m.cold("(j|)", {
-              j: 2
+              j: 2,
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -468,7 +471,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "calculates the totalCount from pathd jobs",
-          marbles(m => {
+          marbles((m) => {
             const result$ = jobsResponseWithIds(
               m,
               [
@@ -476,14 +479,14 @@ describe("JobModel Resolver", () => {
                 "bat.bar",
                 "foo.big.other",
                 "foo.baz.clock",
-                "bar.cocktails"
+                "bar.cocktails",
               ],
               ["foo"],
               "ba"
             ).pipe(map(({ totalCount }) => totalCount));
 
             const expected$ = m.cold("(j|)", {
-              j: 3
+              j: 3,
             });
 
             m.expect(result$).toBeObservable(expected$);
@@ -495,13 +498,13 @@ describe("JobModel Resolver", () => {
     describe("filteredCount", () => {
       it(
         "returns number of jobs after filtering",
-        marbles(m => {
+        marbles((m) => {
           const result$ = oneJobsResponse(m, "b").pipe(
-            map(jobsConnection => jobsConnection.filteredCount)
+            map((jobsConnection) => jobsConnection.filteredCount)
           );
 
           const expected$ = m.cold("(j|)", {
-            j: 1
+            j: 1,
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -512,13 +515,13 @@ describe("JobModel Resolver", () => {
     describe("totalCount", () => {
       it(
         "returns number of jobs after filtering",
-        marbles(m => {
+        marbles((m) => {
           const result$ = oneJobsResponse(m, "b").pipe(
-            map(jobsConnection => jobsConnection.totalCount)
+            map((jobsConnection) => jobsConnection.totalCount)
           );
 
           const expected$ = m.cold("(j|)", {
-            j: 3
+            j: 3,
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -530,22 +533,22 @@ describe("JobModel Resolver", () => {
   describe("job", () => {
     it(
       "polls the endpoint",
-      marbles(m => {
-        const fetchJobDetail = id =>
+      marbles((m) => {
+        const fetchJobDetail = (id) =>
           m.cold("--x|", { x: { response: { ...defaultJobDetailData, id } } });
         const result$ = resolvers({
           fetchJobDetail,
-          pollingInterval: m.time("--|")
+          pollingInterval: m.time("--|"),
         }).Query.job({}, { id: "foo" });
 
         const expected$ = m.cold("--x-x-(x|)", {
-          x: "foo"
+          x: "foo",
         });
 
         m.expect(
           result$.pipe(
             take(3),
-            map(x => x.id)
+            map((x) => x.id)
           )
         ).toBeObservable(expected$);
       })
@@ -553,10 +556,10 @@ describe("JobModel Resolver", () => {
 
     it(
       "returns plain job data (id, disk, description, cpus, command, mem)",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           fetchJobDetail: () => of({ response: defaultJobDetailData }),
-          pollingInterval: m.time("-|")
+          pollingInterval: m.time("-|"),
         }).Query.job({}, { id: "foo" });
 
         m.expect(
@@ -568,7 +571,7 @@ describe("JobModel Resolver", () => {
               description,
               cpus,
               command,
-              mem
+              mem,
             }))
           )
         ).toBeObservable(
@@ -579,8 +582,8 @@ describe("JobModel Resolver", () => {
               description: "test description",
               cpus: 0.01,
               mem: 128,
-              command: "sleep 10"
-            }
+              command: "sleep 10",
+            },
           })
         );
       })
@@ -588,13 +591,13 @@ describe("JobModel Resolver", () => {
 
     it(
       "returns the name",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           fetchJobDetail: () =>
             of({
-              response: { ...defaultJobDetailData, id: "foo.bar.baz" }
+              response: { ...defaultJobDetailData, id: "foo.bar.baz" },
             }),
-          pollingInterval: m.time("-|")
+          pollingInterval: m.time("-|"),
         }).Query.job({}, { id: "foo" });
 
         m.expect(
@@ -604,7 +607,7 @@ describe("JobModel Resolver", () => {
           )
         ).toBeObservable(
           m.cold("(x|)", {
-            x: "baz"
+            x: "baz",
           })
         );
       })
@@ -612,13 +615,13 @@ describe("JobModel Resolver", () => {
 
     it(
       "returns path when job has one",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           fetchJobDetail: () =>
             of({
-              response: { ...defaultJobDetailData, id: "foo.bar.baz" }
+              response: { ...defaultJobDetailData, id: "foo.bar.baz" },
             }),
-          pollingInterval: m.time("-|")
+          pollingInterval: m.time("-|"),
         }).Query.job({}, { id: "foo" });
 
         m.expect(
@@ -628,7 +631,7 @@ describe("JobModel Resolver", () => {
           )
         ).toBeObservable(
           m.cold("(x|)", {
-            x: ["foo", "bar"]
+            x: ["foo", "bar"],
           })
         );
       })
@@ -636,11 +639,11 @@ describe("JobModel Resolver", () => {
 
     it(
       "returns empty array when job has no path",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           fetchJobDetail: () =>
             of({ response: { ...defaultJobDetailData, id: "foo" } }),
-          pollingInterval: m.time("-|")
+          pollingInterval: m.time("-|"),
         }).Query.job({}, { id: "foo" });
 
         m.expect(
@@ -650,7 +653,7 @@ describe("JobModel Resolver", () => {
           )
         ).toBeObservable(
           m.cold("(x|)", {
-            x: []
+            x: [],
           })
         );
       })
@@ -659,7 +662,7 @@ describe("JobModel Resolver", () => {
     describe("scheduleStatus", () => {
       it(
         "returns the longest running job's status",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -670,18 +673,18 @@ describe("JobModel Resolver", () => {
                       jobId: 1,
                       status: "foo",
                       createdAt: "1985-01-03t00:00:00z",
-                      tasks: []
+                      tasks: [],
                     },
                     {
                       jobId: 2,
                       status: "bar",
                       createdAt: "1990-01-03t00:00:00z",
-                      tasks: []
-                    }
-                  ]
-                }
+                      tasks: [],
+                    },
+                  ],
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -691,7 +694,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "foo"
+              x: "foo",
             })
           );
         })
@@ -699,7 +702,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns scheduled if there are no active runs and the schedule is enabled",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -709,12 +712,12 @@ describe("JobModel Resolver", () => {
                   activeRuns: [],
                   schedules: [
                     {
-                      enabled: true
-                    }
-                  ]
-                }
+                      enabled: true,
+                    },
+                  ],
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -724,7 +727,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "SCHEDULED"
+              x: "SCHEDULED",
             })
           );
         })
@@ -732,7 +735,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns unscheduled if there are no active runs and the schedule is enabled",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -742,12 +745,12 @@ describe("JobModel Resolver", () => {
                   activeRuns: [],
                   scheduled: [
                     {
-                      enabled: false
-                    }
-                  ]
-                }
+                      enabled: false,
+                    },
+                  ],
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -757,7 +760,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "UNSCHEDULED"
+              x: "UNSCHEDULED",
             })
           );
         })
@@ -765,17 +768,17 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns unscheduled if there are no active runs and no schedule",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
                   ...defaultJobDetailData,
                   id: "/foo",
-                  activeRuns: []
-                }
+                  activeRuns: [],
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -785,7 +788,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "UNSCHEDULED"
+              x: "UNSCHEDULED",
             })
           );
         })
@@ -796,17 +799,17 @@ describe("JobModel Resolver", () => {
       describe("longestRunningActiveRun", () => {
         it(
           "returns null if no runs are there",
-          marbles(m => {
+          marbles((m) => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 of({
                   response: {
                     ...defaultJobDetailData,
                     id: "/foo",
-                    activeRuns: []
-                  }
+                    activeRuns: [],
+                  },
                 }),
-              pollingInterval: m.time("-|")
+              pollingInterval: m.time("-|"),
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
@@ -819,7 +822,7 @@ describe("JobModel Resolver", () => {
               )
             ).toBeObservable(
               m.cold("(x|)", {
-                x: null
+                x: null,
               })
             );
           })
@@ -827,7 +830,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "returns the longest running active run",
-          marbles(m => {
+          marbles((m) => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 of({
@@ -839,24 +842,24 @@ describe("JobModel Resolver", () => {
                         id: "1",
                         jobId: "foo",
                         createdAt: "1990-01-03T00:00:00Z-1",
-                        tasks: []
+                        tasks: [],
                       },
                       {
                         id: "2",
                         jobId: "foo",
                         createdAt: "1985-01-03T00:00:00Z-1",
-                        tasks: []
+                        tasks: [],
                       },
                       {
                         id: "3",
                         jobId: "foo",
                         createdAt: "1995-01-03T00:00:00Z-1",
-                        tasks: []
-                      }
-                    ]
-                  }
+                        tasks: [],
+                      },
+                    ],
+                  },
                 }),
-              pollingInterval: m.time("-|")
+              pollingInterval: m.time("-|"),
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
@@ -869,7 +872,7 @@ describe("JobModel Resolver", () => {
               )
             ).toBeObservable(
               m.cold("(x|)", {
-                x: "2"
+                x: "2",
               })
             );
           })
@@ -877,7 +880,7 @@ describe("JobModel Resolver", () => {
 
         it(
           "ignores runs without a createdAt field",
-          marbles(m => {
+          marbles((m) => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 of({
@@ -889,19 +892,19 @@ describe("JobModel Resolver", () => {
                         id: "1",
                         jobId: "foo",
                         createdAt: "1990-01-03T00:00:00Z-1",
-                        tasks: []
+                        tasks: [],
                       },
                       { id: "2", jobId: "foo", createdAt: null, tasks: [] },
                       {
                         id: "3",
                         jobId: "foo",
                         createdAt: "1995-01-03T00:00:00Z-1",
-                        tasks: []
-                      }
-                    ]
-                  }
+                        tasks: [],
+                      },
+                    ],
+                  },
                 }),
-              pollingInterval: m.time("-|")
+              pollingInterval: m.time("-|"),
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
@@ -914,7 +917,7 @@ describe("JobModel Resolver", () => {
               )
             ).toBeObservable(
               m.cold("(x|)", {
-                x: "1"
+                x: "1",
               })
             );
           })
@@ -924,7 +927,7 @@ describe("JobModel Resolver", () => {
       describe("nodes", () => {
         it(
           "returns all active runs",
-          marbles(m => {
+          marbles((m) => {
             const result$ = resolvers({
               fetchJobDetail: () =>
                 of({
@@ -935,18 +938,18 @@ describe("JobModel Resolver", () => {
                       {
                         jobId: "1",
                         createdAt: "1990-01-03T00:00:00Z-1",
-                        tasks: []
+                        tasks: [],
                       },
                       { jobId: "2", createdAt: null, tasks: [] },
                       {
                         jobId: "3",
                         createdAt: "1995-01-03T00:00:00Z-1",
-                        tasks: []
-                      }
-                    ]
-                  }
+                        tasks: [],
+                      },
+                    ],
+                  },
                 }),
-              pollingInterval: m.time("-|")
+              pollingInterval: m.time("-|"),
             }).Query.job({}, { id: "xyz" });
 
             m.expect(
@@ -956,7 +959,7 @@ describe("JobModel Resolver", () => {
               )
             ).toBeObservable(
               m.cold("(x|)", {
-                x: 3
+                x: 3,
               })
             );
           })
@@ -965,7 +968,7 @@ describe("JobModel Resolver", () => {
         describe("JobRun", () => {
           it(
             "contains dates as integers",
-            marbles(m => {
+            marbles((m) => {
               const result$ = resolvers({
                 fetchJobDetail: () =>
                   of({
@@ -979,12 +982,12 @@ describe("JobModel Resolver", () => {
                           completedAt: "2018-06-12T17:25:35.593+0000",
                           status: "ACTIVE",
                           id: "20180612162535qXvcx",
-                          tasks: []
-                        }
-                      ]
-                    }
+                          tasks: [],
+                        },
+                      ],
+                    },
                   }),
-                pollingInterval: m.time("-|")
+                pollingInterval: m.time("-|"),
               }).Query.job({}, { id: "xyz" });
 
               m.expect(
@@ -992,15 +995,15 @@ describe("JobModel Resolver", () => {
                   take(1),
                   map(({ activeRuns: { nodes } }) => ({
                     dateCreated: nodes[0].dateCreated,
-                    dateFinished: nodes[0].dateFinished
+                    dateFinished: nodes[0].dateFinished,
                   }))
                 )
               ).toBeObservable(
                 m.cold("(x|)", {
                   x: {
                     dateCreated: 1528820735593,
-                    dateFinished: 1528824335593
-                  }
+                    dateFinished: 1528824335593,
+                  },
                 })
               );
             })
@@ -1008,7 +1011,7 @@ describe("JobModel Resolver", () => {
 
           it(
             "contains a status",
-            marbles(m => {
+            marbles((m) => {
               const result$ = resolvers({
                 fetchJobDetail: () =>
                   of({
@@ -1022,12 +1025,12 @@ describe("JobModel Resolver", () => {
                           completedAt: "2018-06-12T17:25:35.593+0000",
                           status: "ACTIVE",
                           id: "20180612162535qXvcx",
-                          tasks: []
-                        }
-                      ]
-                    }
+                          tasks: [],
+                        },
+                      ],
+                    },
                   }),
-                pollingInterval: m.time("-|")
+                pollingInterval: m.time("-|"),
               }).Query.job({}, { id: "xyz" });
 
               m.expect(
@@ -1037,7 +1040,7 @@ describe("JobModel Resolver", () => {
                 )
               ).toBeObservable(
                 m.cold("(x|)", {
-                  x: "ACTIVE"
+                  x: "ACTIVE",
                 })
               );
             })
@@ -1046,7 +1049,7 @@ describe("JobModel Resolver", () => {
           describe("tasks", () => {
             it(
               "nodes contains all tasks",
-              marbles(m => {
+              marbles((m) => {
                 const result$ = resolvers({
                   fetchJobDetail: () =>
                     of({
@@ -1065,32 +1068,32 @@ describe("JobModel Resolver", () => {
                                 id:
                                   "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
                                 startedAt: "2018-06-13T08:08:34.773+0000",
-                                status: "TASK_RUNNING"
+                                status: "TASK_RUNNING",
                               },
                               {
                                 id:
                                   "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                 startedAt: "2018-06-13T08:09:34.773+0000",
-                                status: "TASK_STARTING"
+                                status: "TASK_STARTING",
                               },
                               {
                                 id:
                                   "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                 startedAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_RUNNING"
+                                status: "TASK_RUNNING",
                               },
                               {
                                 id:
                                   "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                 startedAt: "2018-06-12T08:09:34.773+0000",
-                                status: "TASK_FINISHED"
-                              }
-                            ]
-                          }
-                        ]
-                      }
+                                status: "TASK_FINISHED",
+                              },
+                            ],
+                          },
+                        ],
+                      },
                     }),
-                  pollingInterval: m.time("-|")
+                  pollingInterval: m.time("-|"),
                 }).Query.job({}, { id: "xyz" });
 
                 m.expect(
@@ -1102,7 +1105,7 @@ describe("JobModel Resolver", () => {
                   )
                 ).toBeObservable(
                   m.cold("(x|)", {
-                    x: 4
+                    x: 4,
                   })
                 );
               })
@@ -1111,7 +1114,7 @@ describe("JobModel Resolver", () => {
             describe("JobTask", () => {
               it(
                 "contains the dates as numbers",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1130,33 +1133,33 @@ describe("JobModel Resolver", () => {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
                                   createdAt: "2018-06-13T08:08:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-13T08:09:34.773+0000",
-                                  status: "TASK_STARTING"
+                                  status: "TASK_STARTING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
                                   status: "TASK_FINISHED",
-                                  finishedAt: "2018-06-13T08:10:15.367+0000"
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                                  finishedAt: "2018-06-13T08:10:15.367+0000",
+                                },
+                              ],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1164,15 +1167,15 @@ describe("JobModel Resolver", () => {
                       take(1),
                       map(({ activeRuns: { nodes } }) => ({
                         dateCompleted: nodes[0].tasks.nodes[3].dateCompleted,
-                        dateStarted: nodes[0].tasks.nodes[3].dateStarted
+                        dateStarted: nodes[0].tasks.nodes[3].dateStarted,
                       }))
                     )
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x: {
                         dateCompleted: 1528877415367,
-                        dateStarted: 1528790974773
-                      }
+                        dateStarted: 1528790974773,
+                      },
                     })
                   );
                 })
@@ -1180,7 +1183,7 @@ describe("JobModel Resolver", () => {
 
               it(
                 "contains the taskId",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1199,33 +1202,33 @@ describe("JobModel Resolver", () => {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
                                   createdAt: "2018-06-13T08:08:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-13T08:09:34.773+0000",
-                                  status: "TASK_STARTING"
+                                  status: "TASK_STARTING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
                                   status: "TASK_FINISHED",
-                                  finishedAt: "2018-06-13T08:10:15.367+0000"
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                                  finishedAt: "2018-06-13T08:10:15.367+0000",
+                                },
+                              ],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1239,7 +1242,7 @@ describe("JobModel Resolver", () => {
                   ).toBeObservable(
                     m.cold("(x|)", {
                       x:
-                        "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282"
+                        "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
                     })
                   );
                 })
@@ -1247,7 +1250,7 @@ describe("JobModel Resolver", () => {
 
               it(
                 "contains the status",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1266,33 +1269,33 @@ describe("JobModel Resolver", () => {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471282",
                                   createdAt: "2018-06-13T08:08:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-13T08:09:34.773+0000",
-                                  status: "TASK_STARTING"
+                                  status: "TASK_STARTING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id:
                                     "foo_20180613080833uHuVo.f76c008f-6ee0-11e8-90f4-a20d8c471283",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
                                   status: "TASK_FINISHED",
-                                  finishedAt: "2018-06-13T08:10:15.367+0000"
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                                  finishedAt: "2018-06-13T08:10:15.367+0000",
+                                },
+                              ],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1305,7 +1308,7 @@ describe("JobModel Resolver", () => {
                     )
                   ).toBeObservable(
                     m.cold("(x|)", {
-                      x: "TASK_RUNNING"
+                      x: "TASK_RUNNING",
                     })
                   );
                 })
@@ -1315,7 +1318,7 @@ describe("JobModel Resolver", () => {
             describe("longestRunningTask", () => {
               it(
                 "returns longest running",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1333,24 +1336,24 @@ describe("JobModel Resolver", () => {
                                 {
                                   id: "shortest-running",
                                   createdAt: "2018-06-13T08:08:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id: "middle-running",
                                   createdAt: "2018-06-13T08:09:34.773+0000",
-                                  status: "TASK_STARTING"
+                                  status: "TASK_STARTING",
                                 },
                                 {
                                   id: "longest-running",
                                   createdAt: "2018-06-12T08:09:34.773+0000",
-                                  status: "TASK_RUNNING"
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                                  status: "TASK_RUNNING",
+                                },
+                              ],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1363,7 +1366,7 @@ describe("JobModel Resolver", () => {
                     )
                   ).toBeObservable(
                     m.cold("(x|)", {
-                      x: "longest-running"
+                      x: "longest-running",
                     })
                   );
                 })
@@ -1371,7 +1374,7 @@ describe("JobModel Resolver", () => {
 
               it(
                 "ignores createdAt",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1389,23 +1392,23 @@ describe("JobModel Resolver", () => {
                                 {
                                   id: "shortest-running",
                                   createdAt: "2018-06-13T08:08:34.773+0000",
-                                  status: "TASK_RUNNING"
+                                  status: "TASK_RUNNING",
                                 },
                                 {
                                   id: "longest-running",
                                   createdAt: "2017-06-13T08:09:34.773+0000",
-                                  status: "TASK_STARTING"
+                                  status: "TASK_STARTING",
                                 },
                                 {
                                   id: "without-created-at",
-                                  status: "TASK_RUNNING"
-                                }
-                              ]
-                            }
-                          ]
-                        }
+                                  status: "TASK_RUNNING",
+                                },
+                              ],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1418,7 +1421,7 @@ describe("JobModel Resolver", () => {
                     )
                   ).toBeObservable(
                     m.cold("(x|)", {
-                      x: "longest-running"
+                      x: "longest-running",
                     })
                   );
                 })
@@ -1426,7 +1429,7 @@ describe("JobModel Resolver", () => {
 
               it(
                 "returns null if there are no tasks",
-                marbles(m => {
+                marbles((m) => {
                   const result$ = resolvers({
                     fetchJobDetail: () =>
                       of({
@@ -1440,12 +1443,12 @@ describe("JobModel Resolver", () => {
                               completedAt: "2018-06-12T17:25:35.593+0000",
                               status: "ACTIVE",
                               id: "20180612162535qXvcx",
-                              tasks: []
-                            }
-                          ]
-                        }
+                              tasks: [],
+                            },
+                          ],
+                        },
                       }),
-                    pollingInterval: m.time("-|")
+                    pollingInterval: m.time("-|"),
                   }).Query.job({}, { id: "xyz" });
 
                   m.expect(
@@ -1458,7 +1461,7 @@ describe("JobModel Resolver", () => {
                     )
                   ).toBeObservable(
                     m.cold("(x|)", {
-                      x: null
+                      x: null,
                     })
                   );
                 })
@@ -1472,7 +1475,7 @@ describe("JobModel Resolver", () => {
     describe("jobRuns", () => {
       it(
         "contains all types of job runs",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1486,38 +1489,38 @@ describe("JobModel Resolver", () => {
                       createdAt: "2018-06-12T16:25:35.593+0000",
                       completedAt: "2018-06-12T17:25:35.593+0000",
                       status: "ACTIVE",
-                      tasks: []
-                    }
+                      tasks: [],
+                    },
                   ],
                   history: {
                     successfulFinishedRuns: [
                       {
                         id: "2",
                         createdAt: "2018-06-12T16:25:35.593+0000",
-                        finishedAt: "2018-06-12T17:25:35.593+0000"
-                      }
+                        finishedAt: "2018-06-12T17:25:35.593+0000",
+                      },
                     ],
                     failedFinishedRuns: [
                       {
                         id: "3",
                         createdAt: "2018-06-12T16:25:35.593+0000",
-                        finishedAt: "2018-06-12T17:25:35.593+0000"
-                      }
-                    ]
-                  }
-                }
+                        finishedAt: "2018-06-12T17:25:35.593+0000",
+                      },
+                    ],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(({ jobRuns: { nodes } }) => nodes.map(node => node.jobID))
+              map(({ jobRuns: { nodes } }) => nodes.map((node) => node.jobID))
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: ["1", "2", "3"]
+              x: ["1", "2", "3"],
             })
           );
         })
@@ -1525,7 +1528,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "contains same information for each type",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1539,39 +1542,39 @@ describe("JobModel Resolver", () => {
                       completedAt: "2018-06-12T17:25:35.593+0000",
                       status: "ACTIVE",
                       id: "1",
-                      tasks: []
-                    }
+                      tasks: [],
+                    },
                   ],
                   history: {
                     successfulFinishedRuns: [
                       {
                         id: "2",
                         createdAt: "2018-06-12T16:25:35.593+0000",
-                        finishedAt: "2018-06-12T17:25:35.593+0000"
-                      }
+                        finishedAt: "2018-06-12T17:25:35.593+0000",
+                      },
                     ],
                     failedFinishedRuns: [
                       {
                         id: "3",
                         createdAt: "2018-06-12T16:25:35.593+0000",
-                        finishedAt: "2018-06-12T17:25:35.593+0000"
-                      }
-                    ]
-                  }
-                }
+                        finishedAt: "2018-06-12T17:25:35.593+0000",
+                      },
+                    ],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           const emptyTasks = {
             longestRunningTask: null,
-            nodes: []
+            nodes: [],
           };
 
           m.expect(
             result$.pipe(
               take(1),
-              map(({ jobRuns: { nodes } }) => nodes.map(node => node))
+              map(({ jobRuns: { nodes } }) => nodes.map((node) => node))
             )
           ).toBeObservable(
             m.cold("(x|)", {
@@ -1581,23 +1584,23 @@ describe("JobModel Resolver", () => {
                   dateFinished: 1528824335593,
                   jobID: "1",
                   status: "ACTIVE",
-                  tasks: emptyTasks
+                  tasks: emptyTasks,
                 },
                 {
                   dateCreated: 1528820735593,
                   dateFinished: 1528824335593,
                   jobID: "2",
                   status: "COMPLETED",
-                  tasks: emptyTasks
+                  tasks: emptyTasks,
                 },
                 {
                   dateCreated: 1528820735593,
                   dateFinished: 1528824335593,
                   jobID: "3",
                   status: "FAILED",
-                  tasks: emptyTasks
-                }
-              ]
+                  tasks: emptyTasks,
+                },
+              ],
             })
           );
         })
@@ -1607,7 +1610,7 @@ describe("JobModel Resolver", () => {
     describe("lastRunsSummary", () => {
       it(
         "contains default if job wasnt run yet",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1619,17 +1622,17 @@ describe("JobModel Resolver", () => {
                     lastSuccessAt: null,
                     successCount: 0,
                     successfulFinishedRuns: [],
-                    failedFinishedRuns: []
-                  }
-                }
+                    failedFinishedRuns: [],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => response.lastRunsSummary)
+              map((response) => response.lastRunsSummary)
             )
           ).toBeObservable(
             m.cold("(x|)", {
@@ -1637,8 +1640,8 @@ describe("JobModel Resolver", () => {
                 failureCount: 0,
                 lastFailureAt: null,
                 lastSuccessAt: null,
-                successCount: 0
-              }
+                successCount: 0,
+              },
             })
           );
         })
@@ -1648,7 +1651,7 @@ describe("JobModel Resolver", () => {
     describe("docker", () => {
       it(
         "is null if no docker information is provided",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1656,17 +1659,17 @@ describe("JobModel Resolver", () => {
                   ...defaultJobDetailData,
                   run: {
                     ...defaultJobDetailData.run,
-                    docker: null
-                  }
-                }
+                    docker: null,
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => response.docker)
+              map((response) => response.docker)
             )
           ).toBeObservable(m.cold("(x|)", { x: null }));
         })
@@ -1674,7 +1677,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns forcePullImage",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1684,18 +1687,18 @@ describe("JobModel Resolver", () => {
                     ...defaultJobDetailData.run,
                     docker: {
                       forcePullImage: true,
-                      image: "node:10"
-                    }
-                  }
-                }
+                      image: "node:10",
+                    },
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => response.docker.forcePullImage)
+              map((response) => response.docker.forcePullImage)
             )
           ).toBeObservable(m.cold("(x|)", { x: true }));
         })
@@ -1703,7 +1706,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns image",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1713,18 +1716,18 @@ describe("JobModel Resolver", () => {
                     ...defaultJobDetailData.run,
                     docker: {
                       forcePullImage: true,
-                      image: "node:10"
-                    }
-                  }
-                }
+                      image: "node:10",
+                    },
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => response.docker.image)
+              map((response) => response.docker.image)
             )
           ).toBeObservable(m.cold("(x|)", { x: "node:10" }));
         })
@@ -1734,22 +1737,22 @@ describe("JobModel Resolver", () => {
     describe("json", () => {
       it(
         "returns json representation",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
                   ...defaultJobDetailData,
-                  id: "json-id"
-                }
+                  id: "json-id",
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => JSON.parse(response.json).id)
+              map((response) => JSON.parse(response.json).id)
             )
           ).toBeObservable(m.cold("(x|)", { x: "json-id" }));
         })
@@ -1757,21 +1760,21 @@ describe("JobModel Resolver", () => {
 
       it(
         "removes blacklisted keys from JSON",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
-                  ...defaultJobDetailData
-                }
+                  ...defaultJobDetailData,
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
             result$.pipe(
               take(1),
-              map(response => JSON.parse(response.json).history)
+              map((response) => JSON.parse(response.json).history)
             )
           ).toBeObservable(m.cold("(x|)", { x: undefined }));
         })
@@ -1780,7 +1783,7 @@ describe("JobModel Resolver", () => {
 
     it(
       "returns labels as array of key and value",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           fetchJobDetail: () =>
             of({
@@ -1788,24 +1791,24 @@ describe("JobModel Resolver", () => {
                 ...defaultJobDetailData,
                 labels: {
                   foo: "bar",
-                  baz: "nice"
-                }
-              }
+                  baz: "nice",
+                },
+              },
             }),
-          pollingInterval: m.time("-|")
+          pollingInterval: m.time("-|"),
         }).Query.job({}, { id: "xyz" });
 
         m.expect(
           result$.pipe(
             take(1),
-            map(response => response.labels)
+            map((response) => response.labels)
           )
         ).toBeObservable(
           m.cold("(x|)", {
             x: [
               { key: "foo", value: "bar" },
-              { key: "baz", value: "nice" }
-            ]
+              { key: "baz", value: "nice" },
+            ],
           })
         );
       })
@@ -1814,15 +1817,15 @@ describe("JobModel Resolver", () => {
     describe("lastRunStatus", () => {
       it(
         "returns status of last run",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
-                  ...defaultJobDetailData
-                }
+                  ...defaultJobDetailData,
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1832,22 +1835,22 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "Success"
+              x: "Success",
             })
           );
         })
       );
       it(
         "returns time of last run",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
-                  ...defaultJobDetailData
-                }
+                  ...defaultJobDetailData,
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1857,7 +1860,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: 1528282184471
+              x: 1528282184471,
             })
           );
         })
@@ -1865,7 +1868,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns status N/A for new Job",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1877,11 +1880,11 @@ describe("JobModel Resolver", () => {
                     successCount: 0,
                     failureCount: 0,
                     successfulFinishedRuns: [],
-                    failedFinishedRuns: []
-                  }
-                }
+                    failedFinishedRuns: [],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1891,7 +1894,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "N/A"
+              x: "N/A",
             })
           );
         })
@@ -1899,7 +1902,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns time null for new Job",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1911,11 +1914,11 @@ describe("JobModel Resolver", () => {
                     successCount: 0,
                     failureCount: 0,
                     successfulFinishedRuns: [],
-                    failedFinishedRuns: []
-                  }
-                }
+                    failedFinishedRuns: [],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1925,7 +1928,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: null
+              x: null,
             })
           );
         })
@@ -1933,7 +1936,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns failed for job with only failed",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -1949,13 +1952,13 @@ describe("JobModel Resolver", () => {
                       {
                         createdAt: "2018-06-06T09:31:46.254+0000",
                         finishedAt: "2018-06-06T09:31:47.760+0000",
-                        id: "20180606093146gr5Pi"
-                      }
-                    ]
-                  }
-                }
+                        id: "20180606093146gr5Pi",
+                      },
+                    ],
+                  },
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1965,7 +1968,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: "Failed"
+              x: "Failed",
             })
           );
         })
@@ -1973,15 +1976,15 @@ describe("JobModel Resolver", () => {
 
       it(
         "returns Success for first failed then successful Job",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
-                  ...defaultJobDetailData
-                }
+                  ...defaultJobDetailData,
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -1991,7 +1994,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: { status: "Success", time: 1528282184471 }
+              x: { status: "Success", time: 1528282184471 },
             })
           );
         })
@@ -2001,15 +2004,15 @@ describe("JobModel Resolver", () => {
     describe("schedules", () => {
       it(
         "contains empty array for schedules if response did",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
                 response: {
-                  ...defaultJobDetailData
-                }
+                  ...defaultJobDetailData,
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -2019,7 +2022,7 @@ describe("JobModel Resolver", () => {
             )
           ).toBeObservable(
             m.cold("(x|)", {
-              x: { nodes: [] }
+              x: { nodes: [] },
             })
           );
         })
@@ -2027,7 +2030,7 @@ describe("JobModel Resolver", () => {
 
       it(
         "contains schedule if response did",
-        marbles(m => {
+        marbles((m) => {
           const result$ = resolvers({
             fetchJobDetail: () =>
               of({
@@ -2041,12 +2044,12 @@ describe("JobModel Resolver", () => {
                       id: "default",
                       nextRunAt: "2018-06-13T08:39:00.000+0000",
                       startingDeadlineSeconds: 900,
-                      timezone: "UTC"
-                    }
-                  ]
-                }
+                      timezone: "UTC",
+                    },
+                  ],
+                },
               }),
-            pollingInterval: m.time("-|")
+            pollingInterval: m.time("-|"),
           }).Query.job({}, { id: "xyz" });
 
           m.expect(
@@ -2064,10 +2067,10 @@ describe("JobModel Resolver", () => {
                     enabled: false,
                     id: "default",
                     startingDeadlineSeconds: 900,
-                    timezone: "UTC"
-                  }
-                ]
-              }
+                    timezone: "UTC",
+                  },
+                ],
+              },
             })
           );
         })
@@ -2078,22 +2081,22 @@ describe("JobModel Resolver", () => {
   describe("runNow", () => {
     it(
       "returns a JobLink shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           runJob: () =>
             of({
               response: {
                 jobId: "bestJobEver",
-                somethingElse: true
-              }
-            })
+                somethingElse: true,
+              },
+            }),
         }).Mutation.runJob({}, { id: "bestJobEver" });
 
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
-              jobId: "bestJobEver"
-            }
+              jobId: "bestJobEver",
+            },
           })
         );
       })
@@ -2101,9 +2104,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          runjob: () => {}
+          runjob: () => {},
         }).Mutation.runJob({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2112,8 +2115,8 @@ describe("JobModel Resolver", () => {
             {},
             {
               response: {
-                message: "runJob requires the `id` of the job to run"
-              }
+                message: "runJob requires the `id` of the job to run",
+              },
             }
           )
         );
@@ -2124,15 +2127,15 @@ describe("JobModel Resolver", () => {
   describe("deleteJob", () => {
     it(
       "returns a JobLink shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           deleteJob: () =>
             of({
               response: {
                 jobId: "bestJobEver",
-                somethingElse: true
-              }
-            })
+                somethingElse: true,
+              },
+            }),
         }).Mutation.deleteJob(
           {},
           { id: "bestJobEver", stopCurrentJobRuns: false }
@@ -2141,8 +2144,8 @@ describe("JobModel Resolver", () => {
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
-              jobId: "bestJobEver"
-            }
+              jobId: "bestJobEver",
+            },
           })
         );
       })
@@ -2150,9 +2153,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          deleteJob: () => {}
+          deleteJob: () => {},
         }).Mutation.deleteJob({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2162,8 +2165,8 @@ describe("JobModel Resolver", () => {
             {
               response: {
                 message:
-                  "deleteJob requires both `id` and `stopCurrentJobRuns` to be provided!"
-              }
+                  "deleteJob requires both `id` and `stopCurrentJobRuns` to be provided!",
+              },
             }
           )
         );
@@ -2174,15 +2177,15 @@ describe("JobModel Resolver", () => {
   describe("stopJobRun", () => {
     it(
       "returns a JobLink shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           stopJobRun: () =>
             of({
               response: {
                 jobId: "bestJobEver",
-                somethingElse: true
-              }
-            })
+                somethingElse: true,
+              },
+            }),
         }).Mutation.stopJobRun(
           {},
           { id: "bestJobEver", jobRunId: "theBestRun" }
@@ -2191,8 +2194,8 @@ describe("JobModel Resolver", () => {
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
-              jobId: "bestJobEver"
-            }
+              jobId: "bestJobEver",
+            },
           })
         );
       })
@@ -2200,9 +2203,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          stopJobRun: () => {}
+          stopJobRun: () => {},
         }).Mutation.stopJobRun({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2212,8 +2215,8 @@ describe("JobModel Resolver", () => {
             {
               response: {
                 message:
-                  "stopJobRun requires both `id` and `jobRunId` to be provided!"
-              }
+                  "stopJobRun requires both `id` and `jobRunId` to be provided!",
+              },
             }
           )
         );
@@ -2224,22 +2227,22 @@ describe("JobModel Resolver", () => {
   describe("updateSchedule", () => {
     it(
       "returns a JobLink shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
           updateSchedule: () =>
             of({
               response: {
                 jobId: "bestJobEver",
-                somethingElse: true
-              }
-            })
+                somethingElse: true,
+              },
+            }),
         }).Mutation.updateSchedule({}, { id: "bestJobEver", data: {} });
 
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
             x: {
-              jobId: "bestJobEver"
-            }
+              jobId: "bestJobEver",
+            },
           })
         );
       })
@@ -2247,9 +2250,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          updateSchedule: () => {}
+          updateSchedule: () => {},
         }).Mutation.updateSchedule({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2259,8 +2262,8 @@ describe("JobModel Resolver", () => {
             {
               response: {
                 message:
-                  "updateSchedule requires the `id` and `data` of the job to run"
-              }
+                  "updateSchedule requires the `id` and `data` of the job to run",
+              },
             }
           )
         );
@@ -2270,19 +2273,19 @@ describe("JobModel Resolver", () => {
 
   describe("updateJob", () => {
     const jobData = {
-      id: "bestJobEver"
+      id: "bestJobEver",
     };
 
     it(
       "returns a JobDetailResponse shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          updateJob: (_id, data) => of({ response: data })
+          updateJob: (_id, data) => of({ response: data }),
         }).Mutation.updateJob({}, { id: "bestJobEver", data: jobData });
 
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
-            x: jobData
+            x: jobData,
           })
         );
       })
@@ -2290,9 +2293,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          update: () => {}
+          update: () => {},
         }).Mutation.updateJob({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2302,8 +2305,8 @@ describe("JobModel Resolver", () => {
             {
               response: {
                 message:
-                  "updateJob requires both `id` and `data` to be provided!"
-              }
+                  "updateJob requires both `id` and `data` to be provided!",
+              },
             }
           )
         );
@@ -2313,19 +2316,19 @@ describe("JobModel Resolver", () => {
 
   describe("createJob", () => {
     const jobData = {
-      id: "bestJobEver"
+      id: "bestJobEver",
     };
 
     it(
       "returns a JobDetailResponse shaped object",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          createJob: data => of({ response: data })
+          createJob: (data) => of({ response: data }),
         }).Mutation.createJob({}, { data: jobData });
 
         m.expect(result$.pipe(take(1))).toBeObservable(
           m.cold("(x|)", {
-            x: jobData
+            x: jobData,
           })
         );
       })
@@ -2333,9 +2336,9 @@ describe("JobModel Resolver", () => {
 
     it(
       "throws when arguments are missing",
-      marbles(m => {
+      marbles((m) => {
         const result$ = resolvers({
-          createJob: () => {}
+          createJob: () => {},
         }).Mutation.createJob({}, {});
 
         m.expect(result$.pipe(take(1))).toBeObservable(
@@ -2344,8 +2347,8 @@ describe("JobModel Resolver", () => {
             {},
             {
               response: {
-                message: "createJob requires `data` to be provided!"
-              }
+                message: "createJob requires `data` to be provided!",
+              },
             }
           )
         );

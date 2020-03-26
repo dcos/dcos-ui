@@ -10,8 +10,8 @@ export default class UniversePackagesList extends List<UniversePackage> {
       filterProperties: {
         name: null, // use default getter
         description: null, // use default getter
-        tags: item => (item.get("tags") || []).join(" ")
-      }
+        tags: (item) => (item.get("tags") || []).join(" "),
+      },
     });
   }
 }

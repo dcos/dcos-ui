@@ -25,7 +25,7 @@ describe("AccountGroupTable", () => {
   beforeEach(() => {
     thisUserStoreGetUser = ACLUserStore.getUser;
 
-    ACLUserStore.getUser = userID => {
+    ACLUserStore.getUser = (userID) => {
       if (userID === "unicode") {
         return new User(userDetailsFixture);
       }
@@ -55,7 +55,7 @@ describe("AccountGroupTable", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: "foo bar",
           groupID: "baz",
-          userID: "unicode"
+          userID: "unicode",
         });
       };
 
@@ -71,7 +71,7 @@ describe("AccountGroupTable", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           data: "foo bar",
           groupID: "baz",
-          userID: "unicode"
+          userID: "unicode",
         });
       };
       thisInstance.instance().onAclGroupStoreDeleteUserSuccess = jest.fn();
@@ -93,7 +93,7 @@ describe("AccountGroupTable", () => {
       const modalContent = thisInstance.instance().getConfirmModalContent({
         uid: "zed",
         description: "foo",
-        groups: [{ group: { gid: "bar", description: "qux" } }]
+        groups: [{ group: { gid: "bar", description: "qux" } }],
       });
 
       const component = shallow(modalContent);
@@ -104,16 +104,11 @@ describe("AccountGroupTable", () => {
       thisInstance.setState({ userUpdateError: "quux" });
       const modalContent = thisInstance.instance().getConfirmModalContent({
         description: "foo",
-        groups: [{ group: { gid: "bar", description: "qux" } }]
+        groups: [{ group: { gid: "bar", description: "qux" } }],
       });
 
       const component = shallow(modalContent);
-      expect(
-        component
-          .find("p")
-          .at(0)
-          .text()
-      ).toEqual("quux");
+      expect(component.find("p").at(0).text()).toEqual("quux");
     });
   });
 
@@ -138,7 +133,7 @@ describe("AccountGroupTable", () => {
       expect(
         thisInstance.instance().handleOpenConfirm.mock.calls[0][0]
       ).toEqual({
-        gid: "bar"
+        gid: "bar",
       });
     });
   });

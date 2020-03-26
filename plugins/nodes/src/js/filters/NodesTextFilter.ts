@@ -22,7 +22,7 @@ class NodesTextFilter extends DSLFilter {
    * @override
    */
   filterApply(resultset, filterType, filterArguments) {
-    return resultset.filterItems(node => {
+    return resultset.filterItems((node) => {
       const hostName = node.getHostName();
 
       return hostName && hostName.includes(filterArguments.text);

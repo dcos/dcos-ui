@@ -7,14 +7,14 @@ function getTaskHealthFromMesos(task) {
     return null;
   }
 
-  const healths = task.statuses.map(status => status.healthy);
+  const healths = task.statuses.map((status) => status.healthy);
 
   const healthDataExists =
     healths.length > 0 &&
-    healths.every(health => typeof health !== "undefined");
+    healths.every((health) => typeof health !== "undefined");
 
   if (healthDataExists) {
-    return healths.some(health => health);
+    return healths.some((health) => health);
   }
 
   return null;
@@ -27,7 +27,7 @@ function getTaskHealthFromMarathon(task, taskLookupTable) {
     const { healthCheckResults } = marathonTask;
 
     if (healthCheckResults != null && healthCheckResults.length > 0) {
-      return healthCheckResults.every(result => result.alive);
+      return healthCheckResults.every((result) => result.alive);
     }
   }
 
@@ -83,9 +83,9 @@ function mergeData(task, taskLookupTable) {
 }
 
 function mergeTaskData(tasks) {
-  return tasks.map(task => mergeData(task, DCOSStore.taskLookupTable));
+  return tasks.map((task) => mergeData(task, DCOSStore.taskLookupTable));
 }
 
 export default {
-  mergeTaskData
+  mergeTaskData,
 };

@@ -1,3 +1,3 @@
 module.exports = {
-  licensingAPIPrefix: "/licensing/v1"
+  licensingAPIPrefix: "/licensing/v1",
 };

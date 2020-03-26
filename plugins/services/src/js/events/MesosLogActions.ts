@@ -14,7 +14,7 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS,
           data: response,
           path,
-          slaveID
+          slaveID,
         });
       },
       error(xhr) {
@@ -23,9 +23,9 @@ const MesosLogActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
           slaveID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -37,7 +37,7 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_MESOS_LOG_SUCCESS,
           data: response,
           path,
-          slaveID
+          slaveID,
         });
       },
       error(xhr) {
@@ -46,9 +46,9 @@ const MesosLogActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
           slaveID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -60,7 +60,7 @@ const MesosLogActions = {
           type: ActionTypes.REQUEST_PREVIOUS_MESOS_LOG_SUCCESS,
           data: response,
           path,
-          slaveID
+          slaveID,
         });
       },
       error(xhr) {
@@ -69,11 +69,11 @@ const MesosLogActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           path,
           slaveID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 export default MesosLogActions;

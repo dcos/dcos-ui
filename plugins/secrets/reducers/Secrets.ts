@@ -12,7 +12,7 @@ import {
   SingleContainerSecretContext,
   SingleContainerServiceJSON,
   MultiContainerVolume,
-  MultiContainerSecretExposure
+  MultiContainerSecretExposure,
 } from "./types";
 
 function defaultSecretVolumeKey(secretKey: string, index: number) {
@@ -266,7 +266,7 @@ function JSONSingleContainerReducer(
     this.secrets = processSecretTransaction(this.secrets, {
       type,
       path,
-      value
+      value,
     });
   }
 
@@ -296,7 +296,7 @@ function JSONSingleContainerParser(
     state.container &&
     state.container.volumes &&
     Array.isArray(state.container.volumes)
-      ? state.container.volumes.filter(vol => vol.secret)
+      ? state.container.volumes.filter((vol) => vol.secret)
       : [];
 
   const result: Transaction[] = [];
@@ -313,13 +313,13 @@ function JSONSingleContainerParser(
 
     if (env) {
       // Search for the secrets name in env variables
-      const environmentVars = Object.keys(env).filter(name => {
+      const environmentVars = Object.keys(env).filter((name) => {
         const envVar = env[name];
 
         return typeof envVar === "object" && envVar.secret === key;
       });
 
-      environmentVars.forEach(name => {
+      environmentVars.forEach((name) => {
         memo.push(
           new Transaction(
             ["secrets", index, "exposures"],
@@ -331,10 +331,10 @@ function JSONSingleContainerParser(
     }
     if (volumes.length > 0) {
       const files = volumes
-        .filter(vol => vol.secret === key)
-        .map(vol => vol.containerPath);
+        .filter((vol) => vol.secret === key)
+        .map((vol) => vol.containerPath);
 
-      files.forEach(path => {
+      files.forEach((path) => {
         memo.push(
           new Transaction(
             ["secrets", index, "exposures"],
@@ -360,7 +360,7 @@ function FormSingleContainerReducer(
   return processSecretTransaction(state, {
     type,
     path,
-    value
+    value,
   });
 }
 
@@ -397,7 +397,7 @@ function JSONMultiContainerReducer(
     this.secrets = processPodSecretTransaction(this.secrets, {
       type,
       path,
-      value
+      value,
     });
   }
 
@@ -422,10 +422,10 @@ function JSONMultiContainerParser(
 
   const env = state.env || state.environment;
   const volumes =
-    (state.volumes && state.volumes.filter(vol => vol.secret && vol.name)) ||
+    (state.volumes && state.volumes.filter((vol) => vol.secret && vol.name)) ||
     [];
   const volumeMap: Record<string, MultiContainerVolume> = {};
-  volumes.forEach(vol => {
+  volumes.forEach((vol) => {
     if (!vol.name) {
       return;
     }
@@ -444,12 +444,12 @@ function JSONMultiContainerParser(
         if (!container.volumeMounts) {
           return mounts;
         }
-        container.volumeMounts.forEach(mount => {
+        container.volumeMounts.forEach((mount) => {
           if (mount.name && mount.name in volumeMap) {
             mounts.push({
               index: containerIndex,
               mountPath: mount.mountPath || "",
-              volumeName: mount.name || ""
+              volumeName: mount.name || "",
             });
           }
         });
@@ -471,13 +471,13 @@ function JSONMultiContainerParser(
 
     if (env) {
       // Search for the secrets name in env variables
-      const environmentVars = Object.keys(env).filter(name => {
+      const environmentVars = Object.keys(env).filter((name) => {
         const envVar = env[name];
 
         return typeof envVar === "object" && envVar.secret === key;
       });
 
-      environmentVars.forEach(name => {
+      environmentVars.forEach((name) => {
         memo.push(
           new Transaction(
             ["secrets", index, "exposures"],
@@ -489,18 +489,18 @@ function JSONMultiContainerParser(
     }
 
     if (volumes) {
-      const secretVolumes = volumes.filter(vol => vol.secret === key);
-      secretVolumes.forEach(volume => {
+      const secretVolumes = volumes.filter((vol) => vol.secret === key);
+      secretVolumes.forEach((volume) => {
         const volumeExposure: MultiContainerSecretExposure = {
           type: "file",
           value: volume.name || defaultSecretVolumeKey(key, index),
-          mounts: []
+          mounts: [],
         };
         for (let i = 0; i < numContainers; i++) {
           // @ts-ignore
           volumeExposure.mounts.push("");
         }
-        containerVolumeMounts.forEach(mount => {
+        containerVolumeMounts.forEach((mount) => {
           if (mount.volumeName === volumeExposure.value) {
             // @ts-ignore
             volumeExposure.mounts[mount.index] = mount.mountPath;
@@ -536,7 +536,7 @@ function FormMultiContainerReducer(
     return processPodSecretTransaction(state, {
       type,
       path,
-      value
+      value,
     });
   }
 
@@ -548,7 +548,7 @@ function removeSecretVolumes(
 ): MultiContainerServiceJSON {
   if (
     !parserState.volumes ||
-    !parserState.volumes.find(volume => volume.secret != null)
+    !parserState.volumes.find((volume) => volume.secret != null)
   ) {
     return parserState;
   }
@@ -556,21 +556,21 @@ function removeSecretVolumes(
   const sanitizedState = deepCopy(parserState) as MultiContainerServiceJSON;
   // @ts-ignore
   const secretVolumeNames: string[] = sanitizedState.volumes
-    .filter(volume => volume.secret && volume.name)
-    .map(volume => volume.name);
+    .filter((volume) => volume.secret && volume.name)
+    .map((volume) => volume.name);
   // Remove secret volumes from state
   // @ts-ignore
   sanitizedState.volumes = sanitizedState.volumes.filter(
-    volume => !volume.secret
+    (volume) => !volume.secret
   );
   // Remove volumeMounts for secret volumes
   if (sanitizedState.containers) {
-    sanitizedState.containers = sanitizedState.containers.map(container => {
+    sanitizedState.containers = sanitizedState.containers.map((container) => {
       if (!container.volumeMounts) {
         return container;
       }
       container.volumeMounts = container.volumeMounts.filter(
-        mount => !secretVolumeNames.includes(mount.name)
+        (mount) => !secretVolumeNames.includes(mount.name)
       );
 
       return container;
@@ -592,5 +592,5 @@ export {
   FormSingleContainerReducer,
   JSONMultiContainerReducer,
   JSONMultiContainerParser,
-  FormMultiContainerReducer
+  FormMultiContainerReducer,
 };

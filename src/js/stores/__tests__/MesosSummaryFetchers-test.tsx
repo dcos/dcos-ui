@@ -4,7 +4,7 @@ import { mount } from "enzyme";
 
 const mockMesosSummaryStore = {
   getLastSuccessfulSummarySnapshot: jest.fn(),
-  addChangeListener: jest.fn()
+  addChangeListener: jest.fn(),
 };
 jest.mock("#SRC/js/stores/MesosSummaryStore", () => mockMesosSummaryStore);
 
@@ -33,10 +33,10 @@ describe("MesosHooks", () => {
       const params = { nodeID: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1" };
       const node = {
         id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-        hostname: "foo.bar.baz"
+        hostname: "foo.bar.baz",
       };
       mockMesosSummaryStore.getLastSuccessfulSummarySnapshot.mockReturnValue({
-        slaves: [node]
+        slaves: [node],
       });
 
       const root = mount(<Component params={params} />);
@@ -48,10 +48,10 @@ describe("MesosHooks", () => {
       const params = { nodeID: "notfound" };
       const node = {
         id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-        hostname: "foo.bar.baz"
+        hostname: "foo.bar.baz",
       };
       mockMesosSummaryStore.getLastSuccessfulSummarySnapshot.mockReturnValue({
-        slaves: [node]
+        slaves: [node],
       });
 
       const root = mount(<Component params={params} />);

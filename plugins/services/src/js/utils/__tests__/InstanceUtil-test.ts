@@ -22,7 +22,7 @@ describe("InstanceUtil", () => {
     it("returns N/A when no region name exists", () => {
       const task = {
         ...NodeInstance,
-        agentId: "2"
+        agentId: "2",
       };
       expect(InstanceUtil.getRegionName(task)).toEqual("N/A");
     });
@@ -47,7 +47,7 @@ describe("InstanceUtil", () => {
     it("returns N/A when no zone name exists", () => {
       const task = {
         ...NodeInstance,
-        agentId: "2"
+        agentId: "2",
       };
       expect(InstanceUtil.getZoneName(task)).toEqual("N/A");
     });

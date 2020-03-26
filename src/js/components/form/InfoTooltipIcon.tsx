@@ -3,7 +3,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  greyLightDarken1
+  greyLightDarken1,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 const InfoTooltipIcon = () => (

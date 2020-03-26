@@ -10,7 +10,7 @@ import ConfigurationMapValue from "./ConfigurationMapValue";
 class HashMapDisplay extends React.PureComponent {
   static defaultProps = {
     headingLevel: 1,
-    renderKeys: {}
+    renderKeys: {},
   };
   static propTypes = {
     headingLevel: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
@@ -20,7 +20,7 @@ class HashMapDisplay extends React.PureComponent {
     // Optional object with keys consisting of keys in `props.hash` to be
     // replaced, and with corresponding values of the replacement to be rendered.
     renderKeys: PropTypes.object,
-    emptyValue: PropTypes.string
+    emptyValue: PropTypes.string,
   };
   constructor(...args) {
     super(...args);
@@ -75,7 +75,7 @@ class HashMapDisplay extends React.PureComponent {
   getItems() {
     const { hash, renderKeys } = this.props;
 
-    return Object.keys(hash).map(key => {
+    return Object.keys(hash).map((key) => {
       const value = hash[key];
 
       if (this.isHashMap(value)) {
@@ -105,7 +105,7 @@ class HashMapDisplay extends React.PureComponent {
       </ConfigurationMapSection>
     );
   }
-  formatValue = value => {
+  formatValue = (value) => {
     if (typeof value === "boolean") {
       value = value.toString();
     }
@@ -120,7 +120,7 @@ class HashMapDisplay extends React.PureComponent {
 
     return value;
   };
-  isHashMap = value => {
+  isHashMap = (value) => {
     // Check whether we are trying to render an object that is not a
     // React component
 

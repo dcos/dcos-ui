@@ -5,7 +5,7 @@ import { Notification } from "./Notification";
 import NotificationService, {
   NotificationServiceExtensionType,
   NotificationServiceType,
-  NotificationServiceExtensionInterface
+  NotificationServiceExtensionInterface,
 } from "./NotificationService";
 
 function getExtensionModule(extension) {
@@ -13,19 +13,15 @@ function getExtensionModule(extension) {
     throw new Error("extension must be provided");
   }
 
-  return new ContainerModule(bind => {
-    bind(NotificationServiceExtensionType)
-      .to(extension)
-      .inSingletonScope();
+  return new ContainerModule((bind) => {
+    bind(NotificationServiceExtensionType).to(extension).inSingletonScope();
   });
 }
 
 function bindService(_context = {}) {
-  return new ContainerModule(bind => {
+  return new ContainerModule((bind) => {
     bindExtensionProvider(bind, NotificationServiceExtensionType);
-    bind(NotificationServiceType)
-      .to(NotificationService)
-      .inSingletonScope();
+    bind(NotificationServiceType).to(NotificationService).inSingletonScope();
   });
 }
 
@@ -36,5 +32,5 @@ export {
   NotificationServiceExtensionType,
   NotificationServiceType,
   NotificationServiceExtensionInterface,
-  NotificationService
+  NotificationService,
 };

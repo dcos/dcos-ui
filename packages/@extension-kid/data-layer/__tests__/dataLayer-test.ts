@@ -4,7 +4,7 @@ import dataLayerContainerModuleFactory, {
   DataLayerExtensionType,
   DataLayerExtensionInterface,
   DataLayerType,
-  DataLayer
+  DataLayer,
 } from "@extension-kid/data-layer";
 import { injectable } from "inversify";
 import gql from "graphql-tag";
@@ -32,8 +32,8 @@ class JobsExtension implements DataLayerExtensionInterface {
       Query: {
         jobs() {
           return [{ id: "foo", docker: "nginx", ...additionalJobData }];
-        }
-      }
+        },
+      },
     };
   }
 
@@ -72,23 +72,23 @@ class TasksExtension implements DataLayerExtensionInterface {
 
           return {
             id,
-            log: id + "log"
+            log: id + "log",
           };
-        }
+        },
       },
       Mutation: {
         deleteTask(id: string) {
           return id === "deletable-task";
-        }
+        },
       },
       Job: {
         task(parent: { id: string }) {
           return {
             id: parent.id + "task",
-            log: parent.id + "tasklog"
+            log: parent.id + "tasklog",
           };
-        }
-      }
+        },
+      },
     };
   }
 
@@ -132,7 +132,7 @@ describe("DataLayer", () => {
 
   it(
     "does not error without an extension",
-    marbles(m => {
+    marbles((m) => {
       const dl = container.get<DataLayer>(DataLayerType);
 
       const query = gql`
@@ -144,9 +144,9 @@ describe("DataLayer", () => {
       const expected$ = m.cold("(a|)", {
         a: {
           data: {
-            isPresent: true
-          }
-        }
+            isPresent: true,
+          },
+        },
       });
 
       m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
@@ -155,7 +155,7 @@ describe("DataLayer", () => {
 
   it(
     "provides an extended schema",
-    marbles(m => {
+    marbles((m) => {
       const jobModuleExtension = getExtensionModule(JobsExtension);
       if (!jobModuleExtension) {
         throw new Error("Could not get extension module for jobs extension");
@@ -186,9 +186,9 @@ describe("DataLayer", () => {
         a: {
           data: {
             jobs: [{ id: "foo", docker: "nginx" }],
-            task: { id: "foo", log: "foolog" }
-          }
-        }
+            task: { id: "foo", log: "foolog" },
+          },
+        },
       });
 
       m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
@@ -197,7 +197,7 @@ describe("DataLayer", () => {
 
   it(
     "provides an extended schema with nested types",
-    marbles(m => {
+    marbles((m) => {
       const query = gql`
         query {
           jobs {
@@ -236,12 +236,12 @@ describe("DataLayer", () => {
               {
                 id: "foo",
                 docker: "nginx",
-                task: { id: "footask", log: "footasklog" }
-              }
+                task: { id: "footask", log: "footasklog" },
+              },
             ],
-            task: { id: "foo", log: "foolog" }
-          }
-        }
+            task: { id: "foo", log: "foolog" },
+          },
+        },
       });
 
       m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
@@ -250,7 +250,7 @@ describe("DataLayer", () => {
 
   it(
     "provides an extended schema with nested types independent of import order",
-    marbles(m => {
+    marbles((m) => {
       const query = gql`
         query {
           jobs {
@@ -289,12 +289,12 @@ describe("DataLayer", () => {
               {
                 id: "foo",
                 docker: "nginx",
-                task: { id: "footask", log: "footasklog" }
-              }
+                task: { id: "footask", log: "footasklog" },
+              },
             ],
-            task: { id: "foo", log: "foolog" }
-          }
-        }
+            task: { id: "foo", log: "foolog" },
+          },
+        },
       });
 
       m.expect(dl.query(query, null).pipe(take(1))).toBeObservable(expected$);
@@ -303,7 +303,7 @@ describe("DataLayer", () => {
 
   it("allows to conditionally extend the schema based on active extensions", async () => {
     jest.useRealTimers();
-    await container.bindAsync(DataLayerExtensionType, bts => {
+    await container.bindAsync(DataLayerExtensionType, (bts) => {
       bts.to(JobsExtension).inSingletonScope();
     });
 
@@ -325,12 +325,12 @@ describe("DataLayer", () => {
       )
     );
 
-    await container.bindAsync(DataLayerExtensionType, bts => {
+    await container.bindAsync(DataLayerExtensionType, (bts) => {
       bts.to(TasksExtension).inSingletonScope();
     });
 
     await expect(toPromise(dl.query(query).pipe(take(1)))).resolves.toEqual({
-      data: { jobs: [{ task: { id: "footask" } }] }
+      data: { jobs: [{ task: { id: "footask" } }] },
     });
   });
 

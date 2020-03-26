@@ -6,7 +6,7 @@ const DEFAULT_OPTIONS = {
   end: -1,
   initialized: false,
   maxFileSize: 250000000,
-  start: -1
+  start: -1,
 };
 
 function truncateItemData(itemData, sizeDiff) {
@@ -25,10 +25,10 @@ export default class LogBuffer extends List<Item> {
     super(...arguments);
 
     this.configuration = {
-      ...DEFAULT_OPTIONS
+      ...DEFAULT_OPTIONS,
     };
 
-    Object.keys(DEFAULT_OPTIONS).forEach(key => {
+    Object.keys(DEFAULT_OPTIONS).forEach((key) => {
       if (Object.prototype.hasOwnProperty.call(options, key)) {
         this.configuration[key] = options[key];
       }
@@ -107,7 +107,7 @@ export default class LogBuffer extends List<Item> {
 
   getFullLog() {
     return this.getItems()
-      .map(item => item.get("data"))
+      .map((item) => item.get("data"))
       .join("");
   }
 
@@ -158,7 +158,7 @@ export default class LogBuffer extends List<Item> {
     if (itemData.length > 0) {
       items[index] = new Item({
         data: itemData,
-        offset: item.get("offset")
+        offset: item.get("offset"),
       });
     } else {
       this.list.splice(index, 1);

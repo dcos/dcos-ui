@@ -12,11 +12,11 @@ let thisRequestFn, thisUsersFixture, thisUseFixtures;
 describe("UsersStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(usersFixture);
     };
     thisUsersFixture = {
-      ...usersFixture
+      ...usersFixture,
     };
     thisUseFixtures = Config.useFixtures;
     Config.useFixtures = true;
@@ -37,7 +37,7 @@ describe("UsersStore", () => {
     it("stores users when event is dispatched", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_SUCCESS,
-        data: [{ gid: "foo", bar: "baz" }]
+        data: [{ gid: "foo", bar: "baz" }],
       });
 
       const users = UsersStore.getUsers();
@@ -50,7 +50,7 @@ describe("UsersStore", () => {
       UsersStore.addChangeListener(EventTypes.USERS_CHANGE, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_SUCCESS,
-        data: [{ gid: "foo", bar: "baz" }]
+        data: [{ gid: "foo", bar: "baz" }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -61,7 +61,7 @@ describe("UsersStore", () => {
       UsersStore.addChangeListener(EventTypes.USERS_REQUEST_ERROR, mockedFn);
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_USERS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

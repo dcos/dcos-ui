@@ -21,7 +21,7 @@ const SecretStore = getSecretStore();
 
 describe("SecretDetail", () => {
   describe("with a secret", () => {
-    beforeEach(function() {
+    beforeEach(function () {
       this.fetchSecret = SecretStore.fetchSecret;
       this.getSecretDetail = SecretStore.getSecretDetail;
 
@@ -29,12 +29,12 @@ describe("SecretDetail", () => {
       SecretStore.getSecretDetail = () => new Secret();
     });
 
-    afterEach(function() {
+    afterEach(function () {
       SecretStore.fetchSecret = this.fetchSecret;
       SecretStore.getSecretDetail = this.getSecretDetail;
     });
 
-    it("displays secrets details", function() {
+    it("displays secrets details", function () {
       this.rendered = renderer.create(
         <SecretDetail params={{ secretPath: "/secret" }} />
       );
@@ -46,7 +46,7 @@ describe("SecretDetail", () => {
   });
 
   describe("with secret store error", () => {
-    beforeEach(function() {
+    beforeEach(function () {
       this.fetchSecret = SecretStore.fetchSecret;
       this.getSecretDetail = SecretStore.getSecretDetail;
 
@@ -54,12 +54,12 @@ describe("SecretDetail", () => {
       SecretStore.getSecretDetail = () => null;
     });
 
-    afterEach(function() {
+    afterEach(function () {
       SecretStore.fetchSecret = this.fetchSecret;
       SecretStore.getSecretDetail = this.getSecretDetail;
     });
 
-    it("displays RequestErrorMsg for default error", function() {
+    it("displays RequestErrorMsg for default error", function () {
       this.rendered = renderer.create(
         <SecretDetail params={{ secretPath: "/secret" }} />
       );
@@ -69,7 +69,7 @@ describe("SecretDetail", () => {
       expect(tree).toMatchSnapshot();
     });
 
-    it("displays PermissionError for 403", function() {
+    it("displays PermissionError for 403", function () {
       this.rendered = renderer.create(
         <SecretDetail params={{ secretPath: "/secret" }} />
       );

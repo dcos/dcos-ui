@@ -7,12 +7,9 @@ describe("ConfigurationMapValueWithDefault", () => {
   it("renders value if specified", () => {
     const instance = mount(<ConfigurationMapValueWithDefault value={"foo"} />);
 
-    expect(
-      instance
-        .find(".configuration-map-value")
-        .text()
-        .trim()
-    ).toEqual("foo");
+    expect(instance.find(".configuration-map-value").text().trim()).toEqual(
+      "foo"
+    );
   });
 
   it("renders `defaultValue` if empty", () => {
@@ -20,11 +17,8 @@ describe("ConfigurationMapValueWithDefault", () => {
       <ConfigurationMapValueWithDefault value={null} defaultValue="-" />
     );
 
-    expect(
-      instance
-        .find(".configuration-map-value")
-        .text()
-        .trim()
-    ).toEqual("-");
+    expect(instance.find(".configuration-map-value").text().trim()).toEqual(
+      "-"
+    );
   });
 });

@@ -11,7 +11,7 @@ const CatalogPage = ({ children }) => {
 CatalogPage.routeConfig = {
   label: i18nMark("Catalog"),
   icon: <Icon shape={ProductIcons.PackagesInverse} size={iconSizeS} />,
-  matches: /^\/catalog/
+  matches: /^\/catalog/,
 };
 
 export default CatalogPage;

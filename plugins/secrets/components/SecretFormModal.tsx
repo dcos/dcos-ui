@@ -37,7 +37,7 @@ const FileSize = ({ value }) => {
       <Trans
         id="{sizeInBytes} B"
         values={{
-          sizeInBytes: toString(sizeInBytes)
+          sizeInBytes: toString(sizeInBytes),
         }}
       />
     );
@@ -49,7 +49,7 @@ const FileSize = ({ value }) => {
       <Trans
         id="{sizeInKB} kB"
         values={{
-          sizeInKB: toString(sizeInKB)
+          sizeInKB: toString(sizeInKB),
         }}
       />
     );
@@ -95,12 +95,12 @@ class SecretFormModal extends mixin(StoreMixin) {
   static defaultProps = {
     secret: {},
     onClose() {},
-    open: false
+    open: false,
   };
   static propTypes = {
     secret: PropTypes.object,
     onClose: PropTypes.func,
-    open: PropTypes.bool
+    open: PropTypes.bool,
   };
   constructor(...args) {
     super(...args);
@@ -113,7 +113,7 @@ class SecretFormModal extends mixin(StoreMixin) {
       textValue: null,
       fileValue: null,
       valueType: "text",
-      pendingRequest: false
+      pendingRequest: false,
     };
 
     // prettier-ignore
@@ -135,7 +135,7 @@ class SecretFormModal extends mixin(StoreMixin) {
         path: nextProps.secret.path || "",
         textValue: !isBinarySecret ? nextProps.secret.value || "" : "",
         fileValue: isBinarySecret ? nextProps.secret.getValue() : undefined,
-        valueType: isBinarySecret ? "file" : "text"
+        valueType: isBinarySecret ? "file" : "text",
       });
     }
   }
@@ -150,7 +150,7 @@ class SecretFormModal extends mixin(StoreMixin) {
         textValue: null,
         fileValue: null,
         valueType: "text",
-        pendingRequest: false
+        pendingRequest: false,
       });
     }
   }
@@ -164,16 +164,16 @@ class SecretFormModal extends mixin(StoreMixin) {
     SecretStore.fetchSecrets();
     this.props.onClose();
   };
-  onSecretsStoreCreateSecretError = error => {
+  onSecretsStoreCreateSecretError = (error) => {
     this.setState({
       ...this.stateFromError(error, "create"),
-      pendingRequest: false
+      pendingRequest: false,
     });
   };
-  onSecretsStoreUpdateSecretError = error => {
+  onSecretsStoreUpdateSecretError = (error) => {
     this.setState({
       ...this.stateFromError(error, "update"),
-      pendingRequest: false
+      pendingRequest: false,
     });
   };
 
@@ -188,13 +188,15 @@ class SecretFormModal extends mixin(StoreMixin) {
           " " +
           operation +
           " " +
-          i18n._(t`this secret. Please contact your super admin to learn more.`)
+          i18n._(
+            t`this secret. Please contact your super admin to learn more.`
+          ),
       };
     }
 
     return {
       requestErrorType: "failure",
-      requestErrorMessage: i18n._(t`An error has occurred.`)
+      requestErrorMessage: i18n._(t`An error has occurred.`),
     };
   }
 
@@ -207,20 +209,20 @@ class SecretFormModal extends mixin(StoreMixin) {
 
     if (path === "" || path == null) {
       return {
-        path: i18n._(t`This field is required.`)
+        path: i18n._(t`This field is required.`),
       };
     }
     if (!this.isPathValid(path)) {
       return {
         path: i18n._(
           t`Invalid syntax. Cannot use slashes at the beginning or end.`
-        )
+        ),
       };
     } else if (!this.isValid(path)) {
       return {
         path: i18n._(
           t`Alphanumerical, dashes, underscores and slashes are allowed.`
-        )
+        ),
       };
     }
 
@@ -232,7 +234,7 @@ class SecretFormModal extends mixin(StoreMixin) {
 
     if (!textValue) {
       return {
-        textValue: i18n._(t`This field is required.`)
+        textValue: i18n._(t`This field is required.`),
       };
     }
 
@@ -244,13 +246,13 @@ class SecretFormModal extends mixin(StoreMixin) {
 
     if (!fileValue) {
       return {
-        file: i18n._(t`This field is required.`)
+        file: i18n._(t`This field is required.`),
       };
     }
 
     if (fileValue.size > FILE_SIZE_LIMIT_IN_BYTES) {
       return {
-        file: i18n._(t`The maximum file size for a secret is 786KB.`)
+        file: i18n._(t`The maximum file size for a secret is 786KB.`),
       };
     }
 
@@ -487,7 +489,7 @@ class SecretFormModal extends mixin(StoreMixin) {
     const localErrors = this.validateFields();
     this.setState({
       localErrors,
-      pendingRequest: Object.keys(localErrors).length < 1
+      pendingRequest: Object.keys(localErrors).length < 1,
     });
 
     if (Object.keys(localErrors).length) {
@@ -528,15 +530,15 @@ class SecretFormModal extends mixin(StoreMixin) {
 
     return valueType === "text";
   }
-  handleFormChange = event => {
+  handleFormChange = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
-  handleFileChange = event => {
+  handleFileChange = (event) => {
     this.setState({ fileValue: event.target.files[0] }, () => {
       const fileErrors = this.getFileFieldErrors();
 
       this.setState(({ localErrors }) => ({
-        localErrors: { ...localErrors, ...fileErrors }
+        localErrors: { ...localErrors, ...fileErrors },
       }));
     });
   };
@@ -562,7 +564,7 @@ class SecretFormModal extends mixin(StoreMixin) {
       ...this.getPathFieldErrors(),
       ...(this.isTextSecret()
         ? this.getValueFieldErrors()
-        : this.getFileFieldErrors())
+        : this.getFileFieldErrors()),
     };
   };
 

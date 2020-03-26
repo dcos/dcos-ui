@@ -32,7 +32,7 @@ describe("TaskFileViewer", () => {
   });
 
   describe("#render", () => {
-    beforeEach(function() {
+    beforeEach(function () {
       thisContainer = window.document.createElement("div");
       const WrappedComponent = JestUtil.withI18nProvider(TaskFileViewer);
       this.instance = mount(
@@ -76,8 +76,8 @@ describe("TaskFileViewer", () => {
             new TaskDirectory({
               items: [
                 { nlink: 1, path: "/stdout" },
-                { nlink: 1, path: "/stderr" }
-              ]
+                { nlink: 1, path: "/stderr" },
+              ],
             })
           }
           params={{ filePath: "/stderr" }}
@@ -99,8 +99,8 @@ describe("TaskFileViewer", () => {
               items: [
                 { nlink: 1, path: "/foo" },
                 { nlink: 1, path: "/stdout" },
-                { nlink: 1, path: "/stderr" }
-              ]
+                { nlink: 1, path: "/stderr" },
+              ],
             })
           }
           params={{}}
@@ -125,8 +125,8 @@ describe("TaskFileViewer", () => {
               items: [
                 { nlink: 1, path: "/foo" },
                 { nlink: 1, path: "/stdout" },
-                { nlink: 1, path: "/stderr" }
-              ]
+                { nlink: 1, path: "/stderr" },
+              ],
             })
           }
           params={{}}

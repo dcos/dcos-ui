@@ -13,33 +13,33 @@ class GroupFormModal extends mixin(StoreMixin) {
 
     this.state = {
       disableNewGroup: false,
-      errorMsg: false
+      errorMsg: false,
     };
 
     this.store_listeners = [
-      { name: "aclGroup", events: ["createSuccess", "createError"] }
+      { name: "aclGroup", events: ["createSuccess", "createError"] },
     ];
   }
   onAclGroupStoreCreateSuccess = () => {
     this.setState({
       disableNewGroup: false,
-      errorMsg: false
+      errorMsg: false,
     });
     this.props.onClose();
   };
-  onAclGroupStoreCreateError = errorMsg => {
+  onAclGroupStoreCreateError = (errorMsg) => {
     this.setState({
       disableNewGroup: false,
-      errorMsg
+      errorMsg,
     });
   };
   onClose = () => {
     this.setState({
-      errorMsg: false
+      errorMsg: false,
     });
     this.props.onClose();
   };
-  handleNewGroupSubmit = model => {
+  handleNewGroupSubmit = (model) => {
     this.setState({ disableNewGroup: true });
     ACLGroupStore.addGroup(model);
   };
@@ -58,8 +58,8 @@ class GroupFormModal extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: ""
-      }
+        value: "",
+      },
     ];
   }
 
@@ -70,15 +70,15 @@ class GroupFormModal extends mixin(StoreMixin) {
       {
         text: i18n._(t`Cancel`),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: this.state.disableNewGroup
           ? i18n._(t`Creating...`)
           : i18n._(t`Create`),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
   }
 
@@ -94,7 +94,7 @@ class GroupFormModal extends mixin(StoreMixin) {
               <Trans render="span">Create New Group</Trans>
             </ModalHeading>
           ),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.onClose}
         onSubmit={this.handleNewGroupSubmit}

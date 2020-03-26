@@ -9,7 +9,7 @@ const MesosSummaryUtil = {
           return memo;
         }
 
-        Object.keys(memo).forEach(key => {
+        Object.keys(memo).forEach((key) => {
           memo[key] = memo[key] + resource[key];
         });
 
@@ -27,8 +27,8 @@ const MesosSummaryUtil = {
 
     stateResources
       .sort((a, b) => (a.date > b.date ? 1 : -1))
-      .forEach(stateResource => {
-        resourceTypes.forEach(resourceType => {
+      .forEach((stateResource) => {
+        resourceTypes.forEach((resourceType) => {
           let percentage = null,
             value = null;
 
@@ -41,7 +41,7 @@ const MesosSummaryUtil = {
           resources[resourceType].push({
             date: stateResource.date,
             percentage,
-            value
+            value,
           });
         });
       });
@@ -58,9 +58,9 @@ const MesosSummaryUtil = {
       reverseRange.push(-i);
     }
 
-    return reverseRange.map(i =>
+    return reverseRange.map((i) =>
       Object.assign(MesosSummaryUtil.getEmptyState(), {
-        date: currentDate + i * Config.getRefreshRate()
+        date: currentDate + i * Config.getRefreshRate(),
       })
     );
   },
@@ -70,9 +70,9 @@ const MesosSummaryUtil = {
       frameworks: [],
       slaves: [],
       used_resources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
-      total_resources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
+      total_resources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
     };
-  }
+  },
 };
 
 export default MesosSummaryUtil;

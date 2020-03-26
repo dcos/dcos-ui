@@ -10,19 +10,19 @@ describe("Environment Variables", () => {
     it("returns an array of transactions", () => {
       expect(
         MultiContainerEnvironmentVariables.JSONParser({
-          environment: { FOO: "value" }
+          environment: { FOO: "value" },
         })
       ).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
         { type: SET, value: "FOO", path: ["env", 0, "key"] },
-        { type: SET, value: "value", path: ["env", 0, "value"] }
+        { type: SET, value: "value", path: ["env", 0, "value"] },
       ]);
     });
 
     it("skips complex values", () => {
       expect(
         MultiContainerEnvironmentVariables.JSONParser({
-          environment: { BAR: {} }
+          environment: { BAR: {} },
         })
       ).toEqual([]);
     });

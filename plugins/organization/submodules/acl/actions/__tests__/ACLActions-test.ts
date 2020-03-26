@@ -17,7 +17,7 @@ describe("ACLActions", () => {
   beforeEach(() => {
     thisConfiguration = null;
     thisRequestUtilJSON = RequestUtil.json;
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
     Config.rootUrl = "";
@@ -31,13 +31,13 @@ describe("ACLActions", () => {
   describe("#fetchACLs", () => {
     it("dispatches the correct action when successful", () => {
       ACLActions.fetchACLs("foo");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_SUCCESS,
 
           data: { bar: "baz" },
-          resourceType: "foo"
+          resourceType: "foo",
         });
       });
 
@@ -46,13 +46,13 @@ describe("ACLActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       ACLActions.fetchACLs("bar");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_RESOURCE_ACLS_ERROR,
 
           data: "bar",
-          resourceType: "bar"
+          resourceType: "bar",
         });
       });
 
@@ -85,12 +85,12 @@ describe("ACLActions", () => {
   describe("#fetchACLSchema", () => {
     it("dispatches the correct action when successful", () => {
       ACLActions.fetchACLSchema();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_SCHEMA_SUCCESS,
 
-          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] }
+          data: { displayName: "foo", groupName: "bar", rid: "baz", items: [] },
         });
       });
 
@@ -98,17 +98,17 @@ describe("ACLActions", () => {
         displayName: "foo",
         groupName: "bar",
         rid: "baz",
-        items: []
+        items: [],
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
       ACLActions.fetchACLSchema();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_SCHEMA_ERROR,
-          data: "bar"
+          data: "bar",
         });
       });
 
@@ -136,11 +136,11 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_CREATE_SUCCESS,
-          resourceID: "some.resource"
+          resourceID: "some.resource",
         });
       });
 
@@ -148,12 +148,12 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_CREATE_ERROR,
           resourceID: "some.resource",
-          data: "bar"
+          data: "bar",
         });
       });
 
@@ -192,11 +192,11 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
-          triple: { userID: "foo", action: "full", resourceID: "bar" }
+          triple: { userID: "foo", action: "full", resourceID: "bar" },
         });
       });
 
@@ -204,13 +204,13 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_USER_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { userID: "foo", action: "full", resourceID: "bar" },
-          xhr: { responseJSON: { description: "bar" } }
+          xhr: { responseJSON: { description: "bar" } },
         });
       });
 
@@ -240,11 +240,11 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
-          triple: { userID: "foo", action: "full", resourceID: "bar" }
+          triple: { userID: "foo", action: "full", resourceID: "bar" },
         });
       });
 
@@ -252,12 +252,12 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
           data: "bar",
-          triple: { userID: "foo", action: "full", resourceID: "bar" }
+          triple: { userID: "foo", action: "full", resourceID: "bar" },
         });
       });
 
@@ -287,11 +287,11 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_SUCCESS,
-          triple: { groupID: "foo", action: "full", resourceID: "bar" }
+          triple: { groupID: "foo", action: "full", resourceID: "bar" },
         });
       });
 
@@ -299,13 +299,13 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_GRANT_ACTION_ERROR,
           data: "bar",
           triple: { groupID: "foo", action: "full", resourceID: "bar" },
-          xhr: { responseJSON: { description: "bar" } }
+          xhr: { responseJSON: { description: "bar" } },
         });
       });
 
@@ -335,11 +335,11 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_SUCCESS,
-          triple: { groupID: "foo", action: "full", resourceID: "bar" }
+          triple: { groupID: "foo", action: "full", resourceID: "bar" },
         });
       });
 
@@ -347,12 +347,12 @@ describe("ACLActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_GROUP_REVOKE_ACTION_ERROR,
           data: "bar",
-          triple: { groupID: "foo", resourceID: "bar", action: "full" }
+          triple: { groupID: "foo", resourceID: "bar", action: "full" },
         });
       });
 

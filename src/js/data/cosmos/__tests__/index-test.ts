@@ -2,7 +2,7 @@ import Container from "@extension-kid/core/dist/src/Container";
 
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
@@ -43,13 +43,13 @@ describe("Cosmos data-layer", () => {
   describe("package", () => {
     it(
       "handles a graphql query",
-      marbles(m => {
+      marbles((m) => {
         const reqResp$ = m.cold("--j|", {
           j: {
             response: { results: { "1.0.0": "1", "1.1.0": "0" } },
             code: 200,
-            message: "OK"
-          }
+            message: "OK",
+          },
         });
         mockRequest.mockReturnValueOnce(reqResp$);
 
@@ -66,7 +66,7 @@ describe("Cosmos data-layer", () => {
         }
 
         const queryResult$ = dl.query(query, {
-          packageName: "dcos-ui"
+          packageName: "dcos-ui",
         });
         const result$ = queryResult$.pipe(take(1));
 
@@ -78,16 +78,16 @@ describe("Cosmos data-layer", () => {
                 versions: [
                   {
                     version: "1.0.0",
-                    revision: "1"
+                    revision: "1",
                   },
                   {
                     version: "1.1.0",
-                    revision: "0"
-                  }
-                ]
-              }
-            }
-          }
+                    revision: "0",
+                  },
+                ],
+              },
+            },
+          },
         });
 
         m.expect(result$).toBeObservable(expected$);
@@ -96,13 +96,13 @@ describe("Cosmos data-layer", () => {
 
     it(
       "throw an error for non-2XX responses",
-      marbles(m => {
+      marbles((m) => {
         const badVersionsResult$ = m.cold("--j|", {
           j: {
             code: 500,
             message: "Internal Server Error",
-            response: {}
-          }
+            response: {},
+          },
         });
 
         mockRequest.mockImplementation(() => badVersionsResult$);
@@ -120,13 +120,13 @@ describe("Cosmos data-layer", () => {
         }
 
         const queryResult$ = dl.query(query, {
-          packageName: "dcos-ui"
+          packageName: "dcos-ui",
         });
 
         const result$ = queryResult$.pipe(take(1));
         const expected$ = m.cold("------#", undefined, {
           message: "Internal Server Error",
-          name: "Error"
+          name: "Error",
         });
 
         m.expect(result$).toBeObservable(expected$);
@@ -139,7 +139,7 @@ describe("Cosmos data-layer", () => {
         const badVersionsResult = {
           code: 500,
           message: "Internal Server Error",
-          response: {}
+          response: {},
         };
         mockRequest.mockImplementation(() => of(badVersionsResult));
 
@@ -157,7 +157,7 @@ describe("Cosmos data-layer", () => {
 
         return dl
           .query(query, {
-            packageName: "dcos-ui"
+            packageName: "dcos-ui",
           })
           .pipe(
             take(1),

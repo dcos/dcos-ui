@@ -13,7 +13,7 @@ class TaskModals extends React.Component {
     clearError: PropTypes.func.isRequired,
     onClose: PropTypes.func.isRequired,
     modalProps: PropTypes.object,
-    pendingActions: PropTypes.object
+    pendingActions: PropTypes.object,
   };
   getKillPodInstancesModal() {
     const {
@@ -22,7 +22,7 @@ class TaskModals extends React.Component {
       clearError,
       onClose,
       modalProps,
-      pendingActions
+      pendingActions,
     } = this.props;
 
     const key = ActionKeys.POD_INSTANCES_KILL;
@@ -47,7 +47,7 @@ class TaskModals extends React.Component {
       clearError,
       onClose,
       modalProps,
-      pendingActions
+      pendingActions,
     } = this.props;
 
     const key = ActionKeys.TASK_KILL;
@@ -77,7 +77,7 @@ class TaskModals extends React.Component {
 
 const actionPropTypes = PropTypes.shape({
   killPodInstances: PropTypes.func,
-  killTasks: PropTypes.func
+  killTasks: PropTypes.func,
 }).isRequired;
 
 export default TaskModals;

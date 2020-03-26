@@ -8,17 +8,17 @@ import ConfigurationMapSection from "#SRC/js/components/ConfigurationMapSection"
 
 import {
   getSharedIconWithLabel,
-  getContainerNameWithIcon
+  getContainerNameWithIcon,
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 class PodLabelsConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
@@ -26,20 +26,20 @@ class PodLabelsConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Key</Trans>;
         },
-        prop: "key"
+        prop: "key",
       },
       {
         heading() {
           return <Trans render="span">Value</Trans>;
         },
-        prop: "value"
+        prop: "value",
       },
       {
         heading() {
           return <Trans render="span">Container</Trans>;
         },
-        prop: "container"
-      }
+        prop: "container",
+      },
     ];
   }
 
@@ -54,7 +54,7 @@ class PodLabelsConfigSection extends React.Component {
         memo.push({
           key: <code>{key}</code>,
           value: labels[key],
-          container: getSharedIconWithLabel()
+          container: getSharedIconWithLabel(),
         });
 
         return memo;
@@ -69,7 +69,7 @@ class PodLabelsConfigSection extends React.Component {
           cvMemo.push({
             key: <code>{key}</code>,
             value: labels[key],
-            container: getContainerNameWithIcon(container)
+            container: getContainerNameWithIcon(container),
           });
 
           return cvMemo;

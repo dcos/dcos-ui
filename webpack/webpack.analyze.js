@@ -7,7 +7,7 @@ module.exports = merge(production, {
   plugins: [
     new BundleAnalyzerPlugin({
       analyzerMode: "static",
-      generateStatsFile: true
-    })
-  ]
+      generateStatsFile: true,
+    }),
+  ],
 });

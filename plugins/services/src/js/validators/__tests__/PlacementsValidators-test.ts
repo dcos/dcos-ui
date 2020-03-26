@@ -5,7 +5,7 @@ import PlacementsValidators from "../PlacementsValidators";
 
 import {
   PROP_MISSING_ONE,
-  SYNTAX_ERROR
+  SYNTAX_ERROR,
 } from "../../constants/ServiceErrorTypes";
 
 describe("PlacementsValidators", () => {
@@ -17,7 +17,7 @@ describe("PlacementsValidators", () => {
     it("returns no errors when all constraints are correctly defined", () => {
       const constraints = [
         ["hostname", "UNIQUE"],
-        ["CPUS", "MAX_PER", "123"]
+        ["CPUS", "MAX_PER", "123"],
       ];
       expect(PlacementsValidators.validateConstraints(constraints)).toEqual([]);
     });
@@ -28,8 +28,8 @@ describe("PlacementsValidators", () => {
         {
           path: [],
           message: "constraints needs to be an array of 2 or 3 element arrays",
-          type: "TYPE_NOT_ARRAY"
-        }
+          type: "TYPE_NOT_ARRAY",
+        },
       ]);
     });
 
@@ -39,8 +39,8 @@ describe("PlacementsValidators", () => {
         {
           path: [0],
           message: "Must be an array",
-          type: "TYPE_NOT_ARRAY"
-        }
+          type: "TYPE_NOT_ARRAY",
+        },
       ]);
     });
 
@@ -51,8 +51,8 @@ describe("PlacementsValidators", () => {
           path: [0, "value"],
           message: "You must specify a value for operator LIKE",
           type: PROP_MISSING_ONE,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
@@ -63,8 +63,8 @@ describe("PlacementsValidators", () => {
           path: [0, "value"],
           message: "Value must be empty for operator UNIQUE",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
@@ -76,8 +76,8 @@ describe("PlacementsValidators", () => {
           message:
             "Must only contain characters between 0-9 for operator GROUP_BY",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
@@ -94,8 +94,8 @@ describe("PlacementsValidators", () => {
           message:
             "Must only contain characters between 0-9 for operator MAX_PER",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
@@ -109,7 +109,7 @@ describe("PlacementsValidators", () => {
     it("accepts a list of non error transactions", () => {
       const transactions = [
         new Transaction(["root"], "any", ADD_ITEM),
-        new Transaction(["root"], "any", ADD_ITEM)
+        new Transaction(["root"], "any", ADD_ITEM),
       ];
 
       expect(PlacementsValidators.validateNoBatchError(transactions)).toEqual(
@@ -120,7 +120,7 @@ describe("PlacementsValidators", () => {
     it("does not accepts a list with any error transaction", () => {
       const transactions = [
         new Transaction(["root"], "any", ADD_ITEM),
-        new Transaction(["root"], "any", ERROR)
+        new Transaction(["root"], "any", ERROR),
       ];
 
       expect(PlacementsValidators.validateNoBatchError(transactions)).toEqual(

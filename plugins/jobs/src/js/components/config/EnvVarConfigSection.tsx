@@ -7,7 +7,7 @@ import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import {
   getColumnHeadingFn,
   getColumnClassNameFn,
-  getDisplayValue
+  getDisplayValue,
 } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput, JobEnv } from "../form/helpers/JobFormData";
@@ -20,12 +20,13 @@ interface KeyValue {
 class EnvVarConfigSection extends BaseConfig<JobOutput> {
   public shouldExcludeItem(_: Value<JobOutput>) {
     const {
-      run: { env }
+      run: { env },
     } = this.props.config;
 
     return (
       env == null ||
-      Object.keys(env).filter(key => typeof env[key] !== "object").length === 0
+      Object.keys(env).filter((key) => typeof env[key] !== "object").length ===
+        0
     );
   }
 
@@ -39,7 +40,7 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>Environment Variables</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "run.env",
@@ -54,7 +55,7 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Value")),
@@ -62,8 +63,8 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-value"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             const data = Object.keys(env).reduce((memo, envKey) => {
@@ -84,9 +85,9 @@ class EnvVarConfigSection extends BaseConfig<JobOutput> {
                 data={data}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

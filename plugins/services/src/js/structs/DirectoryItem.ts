@@ -3,7 +3,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 
 const DISPLAY_NAMES = {
   stdout: "Output (stdout)",
-  stderr: "Error (stderr)"
+  stderr: "Error (stderr)",
 };
 
 class DirectoryItem extends Item {

@@ -12,14 +12,14 @@ import VolumeDetail from "./VolumeDetail";
 
 class TaskVolumeContainer extends React.Component {
   static propTypes = {
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       isLoading: !DCOSStore.serviceDataReceived,
-      lastUpdate: 0
+      lastUpdate: 0,
     };
   }
 
@@ -38,7 +38,7 @@ class TaskVolumeContainer extends React.Component {
     ) {
       this.setState({
         isLoading: !DCOSStore.serviceDataReceived,
-        lastUpdate: Date.now()
+        lastUpdate: Date.now(),
       });
     }
   };
@@ -65,7 +65,9 @@ class TaskVolumeContainer extends React.Component {
       );
     }
 
-    const volume = service.getVolumes().find(volume => volume.id === volumeId);
+    const volume = service
+      .getVolumes()
+      .find((volume) => volume.id === volumeId);
 
     if (!volume) {
       return (

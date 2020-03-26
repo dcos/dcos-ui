@@ -6,7 +6,7 @@ import jobsToggleSchedule from "./jobsToggleSchedule";
 function jobsEdit(editAction) {
   return {
     label: i18nMark("Edit"),
-    onItemSelect: editAction
+    onItemSelect: editAction,
   };
 }
 
@@ -14,7 +14,7 @@ function jobsDelete(deleteHandler) {
   return {
     className: "text-danger",
     label: i18nMark("Delete"),
-    onItemSelect: deleteHandler
+    onItemSelect: deleteHandler,
   };
 }
 
@@ -35,6 +35,6 @@ export default function jobsMenu(job, customActionHandlers) {
     jobsEdit(customActionHandlers.edit),
     jobsRunNow(job.id),
     optionalJobsScheduleMenu(job),
-    jobsDelete(customActionHandlers.delete)
-  ].filter(menuItem => menuItem !== null);
+    jobsDelete(customActionHandlers.delete),
+  ].filter((menuItem) => menuItem !== null);
 }

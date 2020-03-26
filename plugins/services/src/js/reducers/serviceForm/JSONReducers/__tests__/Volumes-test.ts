@@ -24,10 +24,10 @@ describe("Volumes", () => {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: null,
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -48,10 +48,10 @@ describe("Volumes", () => {
         {
           containerPath: "123",
           persistent: {
-            size: 123
+            size: 123,
           },
-          mode: "123"
-        }
+          mode: "123",
+        },
       ]);
     });
 
@@ -71,8 +71,8 @@ describe("Volumes", () => {
         {
           hostPath: "123",
           containerPath: "123",
-          mode: "123"
-        }
+          mode: "123",
+        },
       ]);
     });
 
@@ -89,11 +89,11 @@ describe("Volumes", () => {
             name: null,
             provider: "dvdi",
             options: {
-              "dvdi/driver": "rexray"
-            }
+              "dvdi/driver": "rexray",
+            },
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -120,11 +120,11 @@ describe("Volumes", () => {
             provider: "123",
             size: 123,
             options: {
-              "dvdi/driver": "rexray"
-            }
+              "dvdi/driver": "rexray",
+            },
           },
-          mode: "123"
-        }
+          mode: "123",
+        },
       ]);
     });
 
@@ -137,7 +137,7 @@ describe("Volumes", () => {
           {
             containerPath: "test",
             hostPath: "test",
-            mode: "RW"
+            mode: "RW",
           },
           ADD_ITEM
         )
@@ -154,9 +154,9 @@ describe("Volumes", () => {
           external: {
             name: "test",
             provider: "dvdi",
-            options: { "dvdi/driver": "rexray" }
-          }
-        }
+            options: { "dvdi/driver": "rexray" },
+          },
+        },
       ]);
     });
     it("returns a local and an external volume", () => {
@@ -175,9 +175,9 @@ describe("Volumes", () => {
         {
           containerPath: null,
           persistent: {
-            size: null
+            size: null,
           },
-          mode: "RW"
+          mode: "RW",
         },
         {
           containerPath: null,
@@ -185,11 +185,11 @@ describe("Volumes", () => {
             name: null,
             provider: "dvdi",
             options: {
-              "dvdi/driver": "rexray"
-            }
+              "dvdi/driver": "rexray",
+            },
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -210,10 +210,10 @@ describe("Volumes", () => {
         {
           containerPath: "/dev/null",
           persistent: {
-            size: 1024
+            size: 1024,
           },
-          mode: "READ"
-        }
+          mode: "READ",
+        },
       ]);
     });
 
@@ -244,11 +244,11 @@ describe("Volumes", () => {
             name: "null",
             provider: "provider",
             options: {
-              someValue: true
-            }
+              someValue: true,
+            },
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -278,10 +278,10 @@ describe("Volumes", () => {
         {
           containerPath: "/dev/one",
           persistent: {
-            size: 512
+            size: 512,
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -319,11 +319,11 @@ describe("Volumes", () => {
             name: "one",
             provider: "dvdi",
             options: {
-              "dvdi/driver": "rexray"
-            }
+              "dvdi/driver": "rexray",
+            },
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
 
@@ -377,17 +377,17 @@ describe("Volumes", () => {
             name: "null",
             provider: "provider",
             options: {
-              someValue: true
-            }
+              someValue: true,
+            },
           },
-          mode: "RW"
+          mode: "RW",
         },
         {
           containerPath: "/dev/null",
           persistent: {
-            size: 1024
+            size: 1024,
           },
-          mode: "READ"
+          mode: "READ",
         },
         {
           containerPath: "/dev/one",
@@ -395,18 +395,18 @@ describe("Volumes", () => {
             name: "one",
             provider: "dvdi",
             options: {
-              "dvdi/driver": "rexray"
-            }
+              "dvdi/driver": "rexray",
+            },
           },
-          mode: "RW"
+          mode: "RW",
         },
         {
           containerPath: "/dev/one",
           persistent: {
-            size: 512
+            size: 512,
           },
-          mode: "RW"
-        }
+          mode: "RW",
+        },
       ]);
     });
   });
@@ -421,10 +421,10 @@ describe("Volumes", () => {
           container: {
             volumes: [
               {
-                test: "RW"
-              }
-            ]
-          }
+                test: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([]);
       });
@@ -434,24 +434,24 @@ describe("Volumes", () => {
           container: {
             volumes: [
               {
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
             type: ADD_ITEM,
             value: {
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           {
             type: SET,
             value: "RW",
-            path: ["volumes", 0, "mode"]
-          }
+            path: ["volumes", 0, "mode"],
+          },
         ]);
       });
 
@@ -462,10 +462,10 @@ describe("Volumes", () => {
               {
                 containerPath: "/dev/null",
                 persistent: { size: 1024 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -473,18 +473,18 @@ describe("Volumes", () => {
             value: {
               containerPath: "/dev/null",
               persistent: { size: 1024 },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
           { type: SET, value: 1024, path: ["volumes", 0, "size"] },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
 
@@ -495,10 +495,10 @@ describe("Volumes", () => {
               {
                 containerPath: "/dev/null",
                 persistent: { size: 1024 },
-                mode: "READ"
-              }
-            ]
-          }
+                mode: "READ",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -506,18 +506,18 @@ describe("Volumes", () => {
             value: {
               containerPath: "/dev/null",
               persistent: { size: 1024 },
-              mode: "READ"
+              mode: "READ",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "PERSISTENT", path: ["volumes", 0, "type"] },
           { type: SET, value: 1024, path: ["volumes", 0, "size"] },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "READ", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "READ", path: ["volumes", 0, "mode"] },
         ]);
       });
     });
@@ -534,13 +534,13 @@ describe("Volumes", () => {
                   name: "null",
                   provider: "dvdi",
                   options: {
-                    "dvdi/driver": "rexray"
-                  }
+                    "dvdi/driver": "rexray",
+                  },
                 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -551,29 +551,29 @@ describe("Volumes", () => {
                 name: "null",
                 provider: "dvdi",
                 options: {
-                  "dvdi/driver": "rexray"
-                }
+                  "dvdi/driver": "rexray",
+                },
               },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
           { type: SET, value: "null", path: ["volumes", 0, "name"] },
           {
             type: SET,
             value: {
-              "dvdi/driver": "rexray"
+              "dvdi/driver": "rexray",
             },
-            path: ["volumes", 0, "options"]
+            path: ["volumes", 0, "options"],
           },
           { type: SET, value: "dvdi", path: ["volumes", 0, "provider"] },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
 
@@ -587,13 +587,13 @@ describe("Volumes", () => {
                   name: "null",
                   provider: "provider",
                   options: {
-                    "dvdi/driver": "rexray"
-                  }
+                    "dvdi/driver": "rexray",
+                  },
                 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -604,33 +604,33 @@ describe("Volumes", () => {
                 name: "null",
                 provider: "provider",
                 options: {
-                  "dvdi/driver": "rexray"
-                }
+                  "dvdi/driver": "rexray",
+                },
               },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
           { type: SET, value: "null", path: ["volumes", 0, "name"] },
           {
             type: SET,
             value: {
-              "dvdi/driver": "rexray"
+              "dvdi/driver": "rexray",
             },
-            path: ["volumes", 0, "options"]
+            path: ["volumes", 0, "options"],
           },
           {
             type: SET,
             value: "provider",
-            path: ["volumes", 0, "provider"]
+            path: ["volumes", 0, "provider"],
           },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
 
@@ -644,13 +644,13 @@ describe("Volumes", () => {
                   name: "null",
                   provider: "provider",
                   options: {
-                    someValue: true
-                  }
+                    someValue: true,
+                  },
                 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -661,33 +661,33 @@ describe("Volumes", () => {
                 name: "null",
                 provider: "provider",
                 options: {
-                  someValue: true
-                }
+                  someValue: true,
+                },
               },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
           { type: SET, value: "null", path: ["volumes", 0, "name"] },
           {
             type: SET,
             value: {
-              someValue: true
+              someValue: true,
             },
-            path: ["volumes", 0, "options"]
+            path: ["volumes", 0, "options"],
           },
           {
             type: SET,
             value: "provider",
-            path: ["volumes", 0, "provider"]
+            path: ["volumes", 0, "provider"],
           },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
 
@@ -702,13 +702,13 @@ describe("Volumes", () => {
                   name: "null",
                   provider: "dvdi",
                   options: {
-                    "dvdi/driver": "rexray"
-                  }
+                    "dvdi/driver": "rexray",
+                  },
                 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -720,12 +720,12 @@ describe("Volumes", () => {
                 name: "null",
                 provider: "dvdi",
                 options: {
-                  "dvdi/driver": "rexray"
-                }
+                  "dvdi/driver": "rexray",
+                },
               },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "EXTERNAL", path: ["volumes", 0, "type"] },
           { type: SET, value: "null", path: ["volumes", 0, "name"] },
@@ -733,17 +733,17 @@ describe("Volumes", () => {
           {
             type: SET,
             value: {
-              "dvdi/driver": "rexray"
+              "dvdi/driver": "rexray",
             },
-            path: ["volumes", 0, "options"]
+            path: ["volumes", 0, "options"],
           },
           { type: SET, value: "dvdi", path: ["volumes", 0, "provider"] },
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
     });
@@ -759,12 +759,12 @@ describe("Volumes", () => {
                 persistent: {
                   size: 1,
                   profileName: "devnull",
-                  type: "mount"
+                  type: "mount",
                 },
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(Volumes.JSONParser(state)).toEqual([
           {
@@ -774,11 +774,11 @@ describe("Volumes", () => {
               persistent: {
                 size: 1,
                 profileName: "devnull",
-                type: "mount"
+                type: "mount",
               },
-              mode: "RW"
+              mode: "RW",
             },
-            path: ["volumes"]
+            path: ["volumes"],
           },
           { type: SET, value: "DSS", path: ["volumes", 0, "type"] },
           { type: SET, value: "devnull", path: ["volumes", 0, "profileName"] },
@@ -786,9 +786,9 @@ describe("Volumes", () => {
           {
             type: SET,
             value: "/dev/null",
-            path: ["volumes", 0, "containerPath"]
+            path: ["volumes", 0, "containerPath"],
           },
-          { type: SET, value: "RW", path: ["volumes", 0, "mode"] }
+          { type: SET, value: "RW", path: ["volumes", 0, "mode"] },
         ]);
       });
     });
@@ -805,10 +805,10 @@ describe("Volumes", () => {
             persistent: {
               size: null,
               profileName: null,
-              type: "mount"
+              type: "mount",
             },
-            mode: "RW"
-          }
+            mode: "RW",
+          },
         ]);
       });
 
@@ -835,10 +835,10 @@ describe("Volumes", () => {
             persistent: {
               size: 1024,
               profileName: "dev",
-              type: "mount"
+              type: "mount",
             },
-            mode: "RW"
-          }
+            mode: "RW",
+          },
         ]);
       });
 
@@ -852,9 +852,9 @@ describe("Volumes", () => {
               containerPath: null,
               persistent: {
                 size: 1024,
-                type: "test"
+                type: "test",
               },
-              mode: "RW"
+              mode: "RW",
             },
             ADD_ITEM
           )
@@ -874,10 +874,10 @@ describe("Volumes", () => {
             persistent: {
               size: 1024,
               profileName: "dev",
-              type: "test"
+              type: "test",
             },
-            mode: "RW"
-          }
+            mode: "RW",
+          },
         ]);
       });
 
@@ -896,10 +896,10 @@ describe("Volumes", () => {
             persistent: {
               size: null,
               profileName: "dev",
-              type: "mount"
+              type: "mount",
             },
-            mode: "RW"
-          }
+            mode: "RW",
+          },
         ]);
       });
     });

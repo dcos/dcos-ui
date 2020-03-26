@@ -16,14 +16,14 @@ describe("SecretsValidators", () => {
       const spec = {
         secrets: {
           secret0: {
-            source: "bla"
-          }
+            source: "bla",
+          },
         },
         env: {
           FOO: {
-            secret: "secret0"
-          }
-        }
+            secret: "secret0",
+          },
+        },
       };
       expect(SecretsValidators.envMustHaveSecretPart(spec)).toEqual([]);
     });
@@ -32,23 +32,23 @@ describe("SecretsValidators", () => {
       const spec = {
         env: {
           BAR: {
-            secret: "missing"
-          }
-        }
+            secret: "missing",
+          },
+        },
       };
       expect(SecretsValidators.envMustHaveSecretPart(spec)).toEqual([
         {
           path: ["secrets", "missing"],
           message: "The secret cannot be empty",
-          type: "SECRET_MISSING"
-        }
+          type: "SECRET_MISSING",
+        },
       ]);
     });
   });
   describe("#appVolumeMustHaveSecretPart", () => {
     it("returns no errors when there are no container volumes", () => {
       const spec = {
-        container: {}
+        container: {},
       };
       expect(SecretsValidators.appVolumeMustHaveSecretPart(spec)).toEqual([]);
     });
@@ -56,8 +56,8 @@ describe("SecretsValidators", () => {
     it("returns no errors when there container volumes is empty", () => {
       const spec = {
         container: {
-          volumes: []
-        }
+          volumes: [],
+        },
       };
       expect(SecretsValidators.appVolumeMustHaveSecretPart(spec)).toEqual([]);
     });
@@ -68,15 +68,15 @@ describe("SecretsValidators", () => {
           volumes: [
             {
               containerPath: "secrets/test",
-              secret: "test_secret"
-            }
-          ]
+              secret: "test_secret",
+            },
+          ],
         },
         secrets: {
           test_secret: {
-            source: "foo/bar"
-          }
-        }
+            source: "foo/bar",
+          },
+        },
       };
       expect(SecretsValidators.appVolumeMustHaveSecretPart(spec)).toEqual([]);
     });
@@ -87,17 +87,17 @@ describe("SecretsValidators", () => {
           volumes: [
             {
               containerPath: "secrets/test",
-              secret: "secret0"
-            }
-          ]
-        }
+              secret: "secret0",
+            },
+          ],
+        },
       };
       expect(SecretsValidators.appVolumeMustHaveSecretPart(spec)).toEqual([
         {
           path: ["secrets", "secret0"],
           message: "The secret cannot be empty",
-          type: "SECRET_MISSING"
-        }
+          type: "SECRET_MISSING",
+        },
       ]);
     });
   });
@@ -106,9 +106,9 @@ describe("SecretsValidators", () => {
       const spec = {
         containers: [
           {
-            name: "test"
-          }
-        ]
+            name: "test",
+          },
+        ],
       };
 
       expect(SecretsValidators.podVolumeMustHaveSecretPart(spec)).toEqual([]);
@@ -117,10 +117,10 @@ describe("SecretsValidators", () => {
       const spec = {
         containers: [
           {
-            name: "test"
-          }
+            name: "test",
+          },
         ],
-        volumes: []
+        volumes: [],
       };
 
       expect(SecretsValidators.podVolumeMustHaveSecretPart(spec)).toEqual([]);
@@ -129,20 +129,20 @@ describe("SecretsValidators", () => {
       const spec = {
         containers: [
           {
-            name: "test"
-          }
+            name: "test",
+          },
         ],
         volumes: [
           {
             name: "secret-volume",
-            secret: "secret0"
-          }
+            secret: "secret0",
+          },
         ],
         secrets: {
           secret0: {
-            source: "unit-test"
-          }
-        }
+            source: "unit-test",
+          },
+        },
       };
 
       expect(SecretsValidators.podVolumeMustHaveSecretPart(spec)).toEqual([]);
@@ -151,28 +151,28 @@ describe("SecretsValidators", () => {
       const spec = {
         containers: [
           {
-            name: "test"
-          }
+            name: "test",
+          },
         ],
         volumes: [
           {
             name: "secret-volume",
-            secret: "secret1"
-          }
+            secret: "secret1",
+          },
         ],
         secrets: {
           secret0: {
-            source: "unit-test"
-          }
-        }
+            source: "unit-test",
+          },
+        },
       };
 
       expect(SecretsValidators.podVolumeMustHaveSecretPart(spec)).toEqual([
         {
           path: ["secrets", "secret1"],
           type: "SECRET_MISSING",
-          message: "The secret cannot be empty"
-        }
+          message: "The secret cannot be empty",
+        },
       ]);
     });
   });

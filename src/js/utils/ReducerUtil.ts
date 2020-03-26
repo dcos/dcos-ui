@@ -25,7 +25,7 @@ import * as TransactionTypes from "../constants/TransactionTypes";
  */
 export function combineReducers(reducers = {}) {
   const reducerKeys = Object.keys(reducers).filter(
-    reducerKey => typeof reducers[reducerKey] === "function"
+    (reducerKey) => typeof reducers[reducerKey] === "function"
   );
   // This is creating the context for this combined reducer.
   const context = new WeakMap();
@@ -33,7 +33,7 @@ export function combineReducers(reducers = {}) {
   return (state, action, index = 0) => {
     let reducerIndex = reducerKeys.length;
     const localState = {
-      ...state
+      ...state,
     };
 
     // As the while is faster then the Array.prototype.forEach and this

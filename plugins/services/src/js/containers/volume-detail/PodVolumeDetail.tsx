@@ -20,7 +20,7 @@ import VolumeStatus, { statusFromVolume } from "../../constants/VolumeStatus";
 class PodVolumeDetail extends React.Component {
   static propTypes = {
     service: PropTypes.object.isRequired,
-    volume: PropTypes.object.isRequired
+    volume: PropTypes.object.isRequired,
   };
   getSizeLabel() {
     if (this.props.volume.type === "External") {
@@ -36,7 +36,7 @@ class PodVolumeDetail extends React.Component {
     const status = statusFromVolume(volume);
     const classes = classNames({
       "text-danger": status === VolumeStatus.DETACHED,
-      "text-success": status === VolumeStatus.ATTACHED
+      "text-success": status === VolumeStatus.ATTACHED,
     });
 
     return <span className={classes}>{status}</span>;
@@ -61,7 +61,7 @@ class PodVolumeDetail extends React.Component {
             {volumeId}
           </Link>
         </BreadcrumbTextContent>
-      </Breadcrumb>
+      </Breadcrumb>,
     ];
 
     const breadcrumbs = (

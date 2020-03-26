@@ -5,7 +5,7 @@ const healthySelector =
 
 describe("Nodes", () => {
   afterEach(() => {
-    cy.window().then(win => {
+    cy.window().then((win) => {
       win.location.href = "about:blank";
     });
   });
@@ -22,16 +22,12 @@ describe("Nodes", () => {
 
   it("shows leader in master tab", () => {
     cy.visitUrl("/nodes");
-    cy.get(".menu-tabbed-item-label")
-      .contains("Masters")
-      .click();
+    cy.get(".menu-tabbed-item-label").contains("Masters").click();
     cy.get(".configuration-map-section")
       .first()
       .find(".configuration-map-row.table-row .configuration-map-value")
-      .each(node => {
-        cy.wrap(node)
-          .get(".loader")
-          .should("not.exist");
+      .each((node) => {
+        cy.wrap(node).get(".loader").should("not.exist");
       });
   });
 });

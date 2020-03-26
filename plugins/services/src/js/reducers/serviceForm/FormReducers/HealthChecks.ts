@@ -2,7 +2,7 @@ import { ADD_ITEM, REMOVE_ITEM, SET } from "#SRC/js/constants/TransactionTypes";
 import { parseIntValue } from "#SRC/js/utils/ReducerUtil";
 import {
   MESOS_HTTP,
-  MESOS_HTTPS
+  MESOS_HTTPS,
 } from "../../../constants/HealthCheckProtocols";
 
 export function FormReducer(state = [], { type, path, value }) {
@@ -17,7 +17,7 @@ export function FormReducer(state = [], { type, path, value }) {
 
   if (type === REMOVE_ITEM && joinedPath === "portDefinitions") {
     state = state
-      .map(item => {
+      .map((item) => {
         if (item.portIndex === value) {
           return null;
         }
@@ -28,7 +28,7 @@ export function FormReducer(state = [], { type, path, value }) {
 
         return item;
       })
-      .filter(item => item != null);
+      .filter((item) => item != null);
   }
 
   if (joinedPath.search("healthChecks") !== -1) {

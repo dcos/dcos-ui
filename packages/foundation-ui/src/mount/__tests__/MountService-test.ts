@@ -44,7 +44,7 @@ describe("MountService", () => {
 
       expect(thisInstance.findComponentsWithType("type")).toEqual([
         ReactComponent,
-        FunctionalComponent
+        FunctionalComponent,
       ]);
     });
 
@@ -107,7 +107,7 @@ describe("MountService", () => {
     it("removes matching components", () => {
       thisInstance.unregisterComponent(FunctionalComponent, "type");
       expect(thisInstance.findComponentsWithType("type")).toEqual([
-        ReactComponent
+        ReactComponent,
       ]);
     });
 
@@ -116,7 +116,7 @@ describe("MountService", () => {
 
       expect(thisInstance.findComponentsWithType("type")).toEqual([
         ReactComponent,
-        FunctionalComponent
+        FunctionalComponent,
       ]);
     });
   });
@@ -139,7 +139,7 @@ describe("MountService", () => {
         FirstComponent,
         SecondComponent,
         ThirdComponent,
-        FourthComponent
+        FourthComponent,
       ]);
     });
 

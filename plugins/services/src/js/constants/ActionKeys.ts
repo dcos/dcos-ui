@@ -9,5 +9,5 @@ export default {
   SERVICE_RESET_DELAY: "serviceResetDelay",
   SERVICE_RESTART: "serviceRestart",
   POD_INSTANCES_KILL: "killPodInstances",
-  TASK_KILL: "taskKill"
+  TASK_KILL: "taskKill",
 };

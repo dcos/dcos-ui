@@ -38,7 +38,7 @@ class RunConfigFormSection extends React.Component<RunConfigSectionProps> {
       errors,
       showErrors,
       onAddItem,
-      onRemoveItem
+      onRemoveItem,
     } = this.props;
     const labels = formData.labels || [];
     const artifacts = formData.artifacts || [];

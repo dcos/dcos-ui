@@ -6,7 +6,7 @@ const paramOptions = [
   "postfix",
   "read_reverse",
   "skip_prev",
-  "skip_next"
+  "skip_next",
 ];
 
 /**
@@ -82,7 +82,7 @@ export function accumulatedThrottle(callback, wait) {
   let timeoutID;
   let accumulatedData = [];
 
-  return function(...args) {
+  return function (...args) {
     // Gather data for each call
     accumulatedData.push(args);
 

@@ -9,7 +9,7 @@ import {
   fetchNodesNetwork,
   NodeNetwork,
   NodeNetworkSchema,
-  NodesNetwork
+  NodesNetwork,
 } from "#PLUGINS/nodes/src/js/data/NodesNetworkClient";
 
 export interface ResolverArgs {
@@ -23,7 +23,7 @@ export interface GeneralArgs {
 
 export const resolvers = ({
   fetchNodesNetwork,
-  pollingInterval
+  pollingInterval,
 }: ResolverArgs) => {
   const pollingInterval$ = timer(0, pollingInterval);
   const nodesNetwork$ = pollingInterval$.pipe(
@@ -38,10 +38,10 @@ export const resolvers = ({
           map(
             (reqResp: RequestResponse<NodesNetwork>): NodesNetwork => {
               return [
-                ...reqResp.response.map(item => ({
+                ...reqResp.response.map((item) => ({
                   ...item,
-                  updated: new Date(item.updated)
-                }))
+                  updated: new Date(item.updated),
+                })),
               ];
             }
           )
@@ -59,8 +59,8 @@ export const resolvers = ({
             )
           )
         );
-      }
-    }
+      },
+    },
   };
 };
 
@@ -79,6 +79,6 @@ export default makeExecutableSchema({
   typeDefs: schemas,
   resolvers: resolvers({
     fetchNodesNetwork,
-    pollingInterval: Config.getRefreshRate()
-  })
+    pollingInterval: Config.getRefreshRate(),
+  }),
 });

@@ -20,6 +20,6 @@ export function JSONSingleContainerReducer(
     state != null && state.volumes != null ? state.volumes : [];
   return {
     ...state,
-    volumes: existingVolumes.concat(secretVolumes)
+    volumes: existingVolumes.concat(secretVolumes),
   };
 }

@@ -5,7 +5,7 @@ import { Tooltip } from "reactjs-components";
 
 import Node from "#SRC/js/structs/Node";
 import NodeActionsDropdown, {
-  getAllowedActions
+  getAllowedActions,
 } from "../components/NodeActionsDropdown";
 
 const generateActionsRenderer = (

@@ -5,7 +5,7 @@ const initialState = {
   secrets: [],
   stores: [],
   secretDetail: {},
-  sealedStores: 0
+  sealedStores: 0,
 };
 
 module.exports = (state = initialState, action) => {

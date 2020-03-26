@@ -19,7 +19,7 @@ const NetworksDetailBreadcrumbs = ({ overlayID, overlay }) => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (overlay) {
@@ -55,7 +55,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
 
     this.state = {
       errorCount: 0,
-      receivedVirtualNetworks: false
+      receivedVirtualNetworks: false,
     };
 
     // prettier-ignore
@@ -112,7 +112,7 @@ export default class VirtualNetworkDetail extends mixin(StoreMixin) {
 
     const tabs = [
       { label: i18nMark("Tasks"), routePath: `${prefix}/tasks` },
-      { label: i18nMark("Details"), routePath: `${prefix}/details` }
+      { label: i18nMark("Details"), routePath: `${prefix}/details` },
     ];
 
     const overlay = VirtualNetworksStore.getOverlays().find(

@@ -30,25 +30,25 @@ const $root = (
           java_package: "com.google.protobuf",
           java_outer_classname: "DurationProto",
           java_multiple_files: true,
-          objc_class_prefix: "GPB"
+          objc_class_prefix: "GPB",
         },
         nested: {
           Duration: {
             fields: {
               seconds: { type: "int64", id: 1 },
-              nanos: { type: "int32", id: 2 }
-            }
-          }
-        }
-      }
-    }
+              nanos: { type: "int32", id: 2 },
+            },
+          },
+        },
+      },
+    },
   },
   mesos: {
     nested: {
       v1: {
         options: {
           java_package: "org.apache.mesos.v1",
-          java_outer_classname: "Protos"
+          java_outer_classname: "Protos",
         },
         nested: {
           Status: {
@@ -56,50 +56,50 @@ const $root = (
               DRIVER_NOT_STARTED: 1,
               DRIVER_RUNNING: 2,
               DRIVER_ABORTED: 3,
-              DRIVER_STOPPED: 4
-            }
+              DRIVER_STOPPED: 4,
+            },
           },
           FrameworkID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
           OfferID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
           AgentID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
 
           TaskID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
           ExecutorID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
           ContainerID: {
             fields: {
               value: { rule: "required", type: "string", id: 1 },
-              parent: { type: "ContainerID", id: 2 }
-            }
+              parent: { type: "ContainerID", id: 2 },
+            },
           },
           ResourceProviderID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
           OperationID: {
-            fields: { value: { rule: "required", type: "string", id: 1 } }
+            fields: { value: { rule: "required", type: "string", id: 1 } },
           },
 
           TimeInfo: {
-            fields: { nanoseconds: { rule: "required", type: "int64", id: 1 } }
+            fields: { nanoseconds: { rule: "required", type: "int64", id: 1 } },
           },
           DurationInfo: {
-            fields: { nanoseconds: { rule: "required", type: "int64", id: 1 } }
+            fields: { nanoseconds: { rule: "required", type: "int64", id: 1 } },
           },
           Address: {
             fields: {
               hostname: { type: "string", id: 1 },
               ip: { type: "string", id: 2 },
-              port: { rule: "required", type: "int32", id: 3 }
-            }
+              port: { rule: "required", type: "int32", id: 3 },
+            },
           },
           URL: {
             fields: {
@@ -107,28 +107,28 @@ const $root = (
               address: { rule: "required", type: "Address", id: 2 },
               path: { type: "string", id: 3 },
               query: { rule: "repeated", type: "Parameter", id: 4 },
-              fragment: { type: "string", id: 5 }
-            }
+              fragment: { type: "string", id: 5 },
+            },
           },
           Unavailability: {
             fields: {
               start: { rule: "required", type: "TimeInfo", id: 1 },
-              duration: { type: "DurationInfo", id: 2 }
-            }
+              duration: { type: "DurationInfo", id: 2 },
+            },
           },
           MachineID: {
             fields: {
               hostname: { type: "string", id: 1 },
-              ip: { type: "string", id: 2 }
-            }
+              ip: { type: "string", id: 2 },
+            },
           },
           MachineInfo: {
             fields: {
               id: { rule: "required", type: "MachineID", id: 1 },
               mode: { type: "Mode", id: 2 },
-              unavailability: { type: "Unavailability", id: 3 }
+              unavailability: { type: "Unavailability", id: 3 },
             },
-            nested: { Mode: { values: { UP: 1, DRAINING: 2, DOWN: 3 } } }
+            nested: { Mode: { values: { UP: 1, DRAINING: 2, DOWN: 3 } } },
           },
           FrameworkInfo: {
             fields: {
@@ -138,13 +138,13 @@ const $root = (
               failover_timeout: {
                 type: "double",
                 id: 4,
-                options: { default: 0 }
+                options: { default: 0 },
               },
               checkpoint: { type: "bool", id: 5, options: { default: false } },
               role: {
                 type: "string",
                 id: 6,
-                options: { default: "*", deprecated: true }
+                options: { default: "*", deprecated: true },
               },
               roles: { rule: "repeated", type: "string", id: 12 },
               hostname: { type: "string", id: 7 },
@@ -152,7 +152,11 @@ const $root = (
               webui_url: { type: "string", id: 9 },
               capabilities: { rule: "repeated", type: "Capability", id: 10 },
               labels: { type: "Labels", id: 11 },
-              offer_filters: { keyType: "string", type: "OfferFilters", id: 13 }
+              offer_filters: {
+                keyType: "string",
+                type: "OfferFilters",
+                id: 13,
+              },
             },
             nested: {
               Capability: {
@@ -169,12 +173,12 @@ const $root = (
                       PARTITION_AWARE: 5,
                       MULTI_ROLE: 6,
                       RESERVATION_REFINEMENT: 7,
-                      REGION_AWARE: 8
-                    }
-                  }
-                }
-              }
-            }
+                      REGION_AWARE: 8,
+                    },
+                  },
+                },
+              },
+            },
           },
           CheckInfo: {
             fields: {
@@ -185,69 +189,69 @@ const $root = (
               delay_seconds: {
                 type: "double",
                 id: 4,
-                options: { default: 15 }
+                options: { default: 15 },
               },
               interval_seconds: {
                 type: "double",
                 id: 5,
-                options: { default: 10 }
+                options: { default: 10 },
               },
               timeout_seconds: {
                 type: "double",
                 id: 6,
-                options: { default: 20 }
-              }
+                options: { default: 20 },
+              },
             },
             nested: {
               Type: { values: { UNKNOWN: 0, COMMAND: 1, HTTP: 2, TCP: 3 } },
               Command: {
                 fields: {
-                  command: { rule: "required", type: "CommandInfo", id: 1 }
-                }
+                  command: { rule: "required", type: "CommandInfo", id: 1 },
+                },
               },
               Http: {
                 fields: {
                   port: { rule: "required", type: "uint32", id: 1 },
-                  path: { type: "string", id: 2 }
-                }
+                  path: { type: "string", id: 2 },
+                },
               },
 
               Tcp: {
-                fields: { port: { rule: "required", type: "uint32", id: 1 } }
-              }
-            }
+                fields: { port: { rule: "required", type: "uint32", id: 1 } },
+              },
+            },
           },
           HealthCheck: {
             fields: {
               delay_seconds: {
                 type: "double",
                 id: 2,
-                options: { default: 15 }
+                options: { default: 15 },
               },
               interval_seconds: {
                 type: "double",
                 id: 3,
-                options: { default: 10 }
+                options: { default: 10 },
               },
               timeout_seconds: {
                 type: "double",
                 id: 4,
-                options: { default: 20 }
+                options: { default: 20 },
               },
               consecutive_failures: {
                 type: "uint32",
                 id: 5,
-                options: { default: 3 }
+                options: { default: 3 },
               },
               grace_period_seconds: {
                 type: "double",
                 id: 6,
-                options: { default: 10 }
+                options: { default: 10 },
               },
               type: { type: "Type", id: 8 },
               command: { type: "CommandInfo", id: 7 },
               http: { type: "HTTPCheckInfo", id: 1 },
-              tcp: { type: "TCPCheckInfo", id: 9 }
+              tcp: { type: "TCPCheckInfo", id: 9 },
             },
             nested: {
               Type: { values: { UNKNOWN: 0, COMMAND: 1, HTTP: 2, TCP: 3 } },
@@ -256,7 +260,7 @@ const $root = (
                   protocol: {
                     type: "NetworkInfo.Protocol",
                     id: 5,
-                    options: { default: "IPv4" }
+                    options: { default: "IPv4" },
                   },
                   scheme: { type: "string", id: 3 },
                   port: { rule: "required", type: "uint32", id: 1 },
@@ -265,9 +269,9 @@ const $root = (
                     rule: "repeated",
                     type: "uint32",
                     id: 4,
-                    options: { packed: false }
-                  }
-                }
+                    options: { packed: false },
+                  },
+                },
               },
 
               TCPCheckInfo: {
@@ -275,15 +279,15 @@ const $root = (
                   protocol: {
                     type: "NetworkInfo.Protocol",
                     id: 2,
-                    options: { default: "IPv4" }
+                    options: { default: "IPv4" },
                   },
-                  port: { rule: "required", type: "uint32", id: 1 }
-                }
-              }
-            }
+                  port: { rule: "required", type: "uint32", id: 1 },
+                },
+              },
+            },
           },
           KillPolicy: {
-            fields: { grace_period: { type: "DurationInfo", id: 1 } }
+            fields: { grace_period: { type: "DurationInfo", id: 1 } },
           },
           CommandInfo: {
             fields: {
@@ -292,7 +296,7 @@ const $root = (
               shell: { type: "bool", id: 6, options: { default: true } },
               value: { type: "string", id: 3 },
               arguments: { rule: "repeated", type: "string", id: 7 },
-              user: { type: "string", id: 5 }
+              user: { type: "string", id: 5 },
             },
             nested: {
               URI: {
@@ -301,10 +305,10 @@ const $root = (
                   executable: { type: "bool", id: 2 },
                   extract: { type: "bool", id: 3, options: { default: true } },
                   cache: { type: "bool", id: 4 },
-                  output_file: { type: "string", id: 5 }
-                }
-              }
-            }
+                  output_file: { type: "string", id: 5 },
+                },
+              },
+            },
           },
           ExecutorInfo: {
             fields: {
@@ -319,9 +323,9 @@ const $root = (
               data: { type: "bytes", id: 4 },
               discovery: { type: "DiscoveryInfo", id: 12 },
               shutdown_grace_period: { type: "DurationInfo", id: 13 },
-              labels: { type: "Labels", id: 14 }
+              labels: { type: "Labels", id: 14 },
             },
-            nested: { Type: { values: { UNKNOWN: 0, DEFAULT: 1, CUSTOM: 2 } } }
+            nested: { Type: { values: { UNKNOWN: 0, DEFAULT: 1, CUSTOM: 2 } } },
           },
           DomainInfo: {
             fields: { fault_domain: { type: "FaultDomain", id: 1 } },
@@ -329,22 +333,22 @@ const $root = (
               FaultDomain: {
                 fields: {
                   region: { rule: "required", type: "RegionInfo", id: 1 },
-                  zone: { rule: "required", type: "ZoneInfo", id: 2 }
+                  zone: { rule: "required", type: "ZoneInfo", id: 2 },
                 },
                 nested: {
                   RegionInfo: {
                     fields: {
-                      name: { rule: "required", type: "string", id: 1 }
-                    }
+                      name: { rule: "required", type: "string", id: 1 },
+                    },
                   },
                   ZoneInfo: {
                     fields: {
-                      name: { rule: "required", type: "string", id: 1 }
-                    }
-                  }
-                }
-              }
-            }
+                      name: { rule: "required", type: "string", id: 1 },
+                    },
+                  },
+                },
+              },
+            },
           },
           MasterInfo: {
             fields: {
@@ -354,25 +358,25 @@ const $root = (
                 rule: "required",
                 type: "uint32",
                 id: 3,
-                options: { default: 5050 }
+                options: { default: 5050 },
               },
               pid: { type: "string", id: 4 },
               hostname: { type: "string", id: 5 },
               version: { type: "string", id: 6 },
               address: { type: "Address", id: 7 },
               domain: { type: "DomainInfo", id: 8 },
-              capabilities: { rule: "repeated", type: "Capability", id: 9 }
+              capabilities: { rule: "repeated", type: "Capability", id: 9 },
             },
             nested: {
               Capability: {
                 fields: { type: { type: "Type", id: 1 } },
                 nested: {
                   Type: {
-                    values: { UNKNOWN: 0, AGENT_UPDATE: 1, AGENT_DRAINING: 2 }
-                  }
-                }
-              }
-            }
+                    values: { UNKNOWN: 0, AGENT_UPDATE: 1, AGENT_DRAINING: 2 },
+                  },
+                },
+              },
+            },
           },
           AgentInfo: {
             fields: {
@@ -381,7 +385,7 @@ const $root = (
               resources: { rule: "repeated", type: "Resource", id: 3 },
               attributes: { rule: "repeated", type: "Attribute", id: 5 },
               id: { type: "AgentID", id: 6 },
-              domain: { type: "DomainInfo", id: 10 }
+              domain: { type: "DomainInfo", id: 10 },
             },
             nested: {
               Capability: {
@@ -396,12 +400,12 @@ const $root = (
                       RESOURCE_PROVIDER: 4,
                       RESIZE_VOLUME: 5,
                       AGENT_OPERATION_FEEDBACK: 6,
-                      AGENT_DRAINING: 7
-                    }
-                  }
-                }
-              }
-            }
+                      AGENT_DRAINING: 7,
+                    },
+                  },
+                },
+              },
+            },
           },
           CSIPluginContainerInfo: {
             fields: {
@@ -409,17 +413,17 @@ const $root = (
                 rule: "repeated",
                 type: "Service",
                 id: 1,
-                options: { packed: false }
+                options: { packed: false },
               },
               command: { type: "CommandInfo", id: 2 },
               resources: { rule: "repeated", type: "Resource", id: 3 },
-              container: { type: "ContainerInfo", id: 4 }
+              container: { type: "ContainerInfo", id: 4 },
             },
             nested: {
               Service: {
-                values: { UNKNOWN: 0, CONTROLLER_SERVICE: 1, NODE_SERVICE: 2 }
-              }
-            }
+                values: { UNKNOWN: 0, CONTROLLER_SERVICE: 1, NODE_SERVICE: 2 },
+              },
+            },
           },
           CSIPluginInfo: {
             fields: {
@@ -428,9 +432,9 @@ const $root = (
               containers: {
                 rule: "repeated",
                 type: "CSIPluginContainerInfo",
-                id: 3
-              }
-            }
+                id: 3,
+              },
+            },
           },
           ResourceProviderInfo: {
             fields: {
@@ -441,18 +445,18 @@ const $root = (
               default_reservations: {
                 rule: "repeated",
                 type: "Resource.ReservationInfo",
-                id: 5
+                id: 5,
               },
-              storage: { type: "Storage", id: 6 }
+              storage: { type: "Storage", id: 6 },
             },
             nested: {
               Storage: {
                 fields: {
                   plugin: { rule: "required", type: "CSIPluginInfo", id: 1 },
-                  reconciliation_interval_seconds: { type: "double", id: 2 }
-                }
-              }
-            }
+                  reconciliation_interval_seconds: { type: "double", id: 2 },
+                },
+              },
+            },
           },
           Value: {
             fields: {
@@ -460,30 +464,30 @@ const $root = (
               scalar: { type: "Scalar", id: 2 },
               ranges: { type: "Ranges", id: 3 },
               set: { type: "Set", id: 4 },
-              text: { type: "Text", id: 5 }
+              text: { type: "Text", id: 5 },
             },
             nested: {
               Type: { values: { SCALAR: 0, RANGES: 1, SET: 2, TEXT: 3 } },
               Scalar: {
-                fields: { value: { rule: "required", type: "double", id: 1 } }
+                fields: { value: { rule: "required", type: "double", id: 1 } },
               },
               Range: {
                 fields: {
                   begin: { rule: "required", type: "uint64", id: 1 },
-                  end: { rule: "required", type: "uint64", id: 2 }
-                }
+                  end: { rule: "required", type: "uint64", id: 2 },
+                },
               },
               Ranges: {
-                fields: { range: { rule: "repeated", type: "Range", id: 1 } }
+                fields: { range: { rule: "repeated", type: "Range", id: 1 } },
               },
               Set: {
-                fields: { item: { rule: "repeated", type: "string", id: 1 } }
+                fields: { item: { rule: "repeated", type: "string", id: 1 } },
               },
 
               Text: {
-                fields: { value: { rule: "required", type: "string", id: 1 } }
-              }
-            }
+                fields: { value: { rule: "required", type: "string", id: 1 } },
+              },
+            },
           },
           Attribute: {
             fields: {
@@ -492,8 +496,8 @@ const $root = (
               scalar: { type: "Value.Scalar", id: 3 },
               ranges: { type: "Value.Ranges", id: 4 },
               set: { type: "Value.Set", id: 6 },
-              text: { type: "Value.Text", id: 5 }
-            }
+              text: { type: "Value.Text", id: 5 },
+            },
           },
           Resource: {
             fields: {
@@ -506,18 +510,18 @@ const $root = (
               role: {
                 type: "string",
                 id: 6,
-                options: { default: "*", deprecated: true }
+                options: { default: "*", deprecated: true },
               },
               allocation_info: { type: "AllocationInfo", id: 11 },
               reservation: { type: "ReservationInfo", id: 8 },
               reservations: {
                 rule: "repeated",
                 type: "ReservationInfo",
-                id: 13
+                id: 13,
               },
               disk: { type: "DiskInfo", id: 7 },
               revocable: { type: "RevocableInfo", id: 9 },
-              shared: { type: "SharedInfo", id: 10 }
+              shared: { type: "SharedInfo", id: 10 },
             },
             nested: {
               AllocationInfo: { fields: { role: { type: "string", id: 1 } } },
@@ -526,24 +530,24 @@ const $root = (
                   type: { type: "Type", id: 4 },
                   role: { type: "string", id: 3 },
                   principal: { type: "string", id: 1 },
-                  labels: { type: "Labels", id: 2 }
+                  labels: { type: "Labels", id: 2 },
                 },
                 nested: {
-                  Type: { values: { UNKNOWN: 0, STATIC: 1, DYNAMIC: 2 } }
-                }
+                  Type: { values: { UNKNOWN: 0, STATIC: 1, DYNAMIC: 2 } },
+                },
               },
               DiskInfo: {
                 fields: {
                   persistence: { type: "Persistence", id: 1 },
                   volume: { type: "Volume", id: 2 },
-                  source: { type: "Source", id: 3 }
+                  source: { type: "Source", id: 3 },
                 },
                 nested: {
                   Persistence: {
                     fields: {
                       id: { rule: "required", type: "string", id: 1 },
-                      principal: { type: "string", id: 2 }
-                    }
+                      principal: { type: "string", id: 2 },
+                    },
                   },
                   Source: {
                     fields: {
@@ -553,7 +557,7 @@ const $root = (
                       vendor: { type: "string", id: 7 },
                       id: { type: "string", id: 4 },
                       metadata: { type: "Labels", id: 5 },
-                      profile: { type: "string", id: 6 }
+                      profile: { type: "string", id: 6 },
                     },
                     nested: {
                       Type: {
@@ -562,18 +566,18 @@ const $root = (
                           PATH: 1,
                           MOUNT: 2,
                           BLOCK: 3,
-                          RAW: 4
-                        }
+                          RAW: 4,
+                        },
                       },
                       Path: { fields: { root: { type: "string", id: 1 } } },
-                      Mount: { fields: { root: { type: "string", id: 1 } } }
-                    }
-                  }
-                }
+                      Mount: { fields: { root: { type: "string", id: 1 } } },
+                    },
+                  },
+                },
               },
               RevocableInfo: { fields: {} },
-              SharedInfo: { fields: {} }
-            }
+              SharedInfo: { fields: {} },
+            },
           },
 
           TrafficControlStatistics: {
@@ -587,8 +591,8 @@ const $root = (
               qlen: { type: "uint64", id: 7 },
               ratebps: { type: "uint64", id: 8 },
               ratepps: { type: "uint64", id: 9 },
-              requeues: { type: "uint64", id: 10 }
-            }
+              requeues: { type: "uint64", id: 10 },
+            },
           },
           IpStatistics: {
             fields: {
@@ -610,8 +614,8 @@ const $root = (
               ReasmFails: { type: "int64", id: 16 },
               FragOKs: { type: "int64", id: 17 },
               FragFails: { type: "int64", id: 18 },
-              FragCreates: { type: "int64", id: 19 }
-            }
+              FragCreates: { type: "int64", id: 19 },
+            },
           },
           IcmpStatistics: {
             fields: {
@@ -641,8 +645,8 @@ const $root = (
               OutTimestamps: { type: "int64", id: 24 },
               OutTimestampReps: { type: "int64", id: 25 },
               OutAddrMasks: { type: "int64", id: 26 },
-              OutAddrMaskReps: { type: "int64", id: 27 }
-            }
+              OutAddrMaskReps: { type: "int64", id: 27 },
+            },
           },
 
           TcpStatistics: {
@@ -661,8 +665,8 @@ const $root = (
               RetransSegs: { type: "int64", id: 12 },
               InErrs: { type: "int64", id: 13 },
               OutRsts: { type: "int64", id: 14 },
-              InCsumErrors: { type: "int64", id: 15 }
-            }
+              InCsumErrors: { type: "int64", id: 15 },
+            },
           },
           UdpStatistics: {
             fields: {
@@ -673,24 +677,24 @@ const $root = (
               RcvbufErrors: { type: "int64", id: 5 },
               SndbufErrors: { type: "int64", id: 6 },
               InCsumErrors: { type: "int64", id: 7 },
-              IgnoredMulti: { type: "int64", id: 8 }
-            }
+              IgnoredMulti: { type: "int64", id: 8 },
+            },
           },
           SNMPStatistics: {
             fields: {
               ip_stats: { type: "IpStatistics", id: 1 },
               icmp_stats: { type: "IcmpStatistics", id: 2 },
               tcp_stats: { type: "TcpStatistics", id: 3 },
-              udp_stats: { type: "UdpStatistics", id: 4 }
-            }
+              udp_stats: { type: "UdpStatistics", id: 4 },
+            },
           },
           DiskStatistics: {
             fields: {
               source: { type: "Resource.DiskInfo.Source", id: 1 },
               persistence: { type: "Resource.DiskInfo.Persistence", id: 2 },
               limit_bytes: { type: "uint64", id: 3 },
-              used_bytes: { type: "uint64", id: 4 }
-            }
+              used_bytes: { type: "uint64", id: 4 },
+            },
           },
           ResourceStatistics: {
             fields: {
@@ -722,7 +726,7 @@ const $root = (
               disk_statistics: {
                 rule: "repeated",
                 type: "DiskStatistics",
-                id: 43
+                id: 43,
               },
               blkio_statistics: { type: "CgroupInfo.Blkio.Statistics", id: 44 },
               perf: { type: "PerfStatistics", id: 13 },
@@ -743,15 +747,15 @@ const $root = (
               net_traffic_control_statistics: {
                 rule: "repeated",
                 type: "TrafficControlStatistics",
-                id: 35
+                id: 35,
               },
-              net_snmp_statistics: { type: "SNMPStatistics", id: 42 }
-            }
+              net_snmp_statistics: { type: "SNMPStatistics", id: 42 },
+            },
           },
           ResourceUsage: {
             fields: {
               executors: { rule: "repeated", type: "Executor", id: 1 },
-              total: { rule: "repeated", type: "Resource", id: 2 }
+              total: { rule: "repeated", type: "Resource", id: 2 },
             },
             nested: {
               Executor: {
@@ -759,16 +763,16 @@ const $root = (
                   executor_info: {
                     rule: "required",
                     type: "ExecutorInfo",
-                    id: 1
+                    id: 1,
                   },
                   allocated: { rule: "repeated", type: "Resource", id: 2 },
                   statistics: { type: "ResourceStatistics", id: 3 },
                   container_id: {
                     rule: "required",
                     type: "ContainerID",
-                    id: 4
+                    id: 4,
                   },
-                  tasks: { rule: "repeated", type: "Task", id: 5 }
+                  tasks: { rule: "repeated", type: "Task", id: 5 },
                 },
                 nested: {
                   Task: {
@@ -776,12 +780,12 @@ const $root = (
                       name: { rule: "required", type: "string", id: 1 },
                       id: { rule: "required", type: "TaskID", id: 2 },
                       resources: { rule: "repeated", type: "Resource", id: 3 },
-                      labels: { type: "Labels", id: 4 }
-                    }
-                  }
-                }
-              }
-            }
+                      labels: { type: "Labels", id: 4 },
+                    },
+                  },
+                },
+              },
+            },
           },
           PerfStatistics: {
             fields: {
@@ -837,38 +841,42 @@ const $root = (
               node_stores: { type: "uint64", id: 50 },
               node_store_misses: { type: "uint64", id: 51 },
               node_prefetches: { type: "uint64", id: 52 },
-              node_prefetch_misses: { type: "uint64", id: 53 }
-            }
+              node_prefetch_misses: { type: "uint64", id: 53 },
+            },
           },
           OfferFilters: {
             fields: {
               min_allocatable_resources: {
                 type: "MinAllocatableResources",
-                id: 1
-              }
+                id: 1,
+              },
             },
             nested: {
               ResourceQuantities: {
                 fields: {
-                  quantities: { keyType: "string", type: "Value.Scalar", id: 1 }
-                }
+                  quantities: {
+                    keyType: "string",
+                    type: "Value.Scalar",
+                    id: 1,
+                  },
+                },
               },
               MinAllocatableResources: {
                 fields: {
                   quantities: {
                     rule: "repeated",
                     type: "ResourceQuantities",
-                    id: 1
-                  }
-                }
-              }
-            }
+                    id: 1,
+                  },
+                },
+              },
+            },
           },
           Request: {
             fields: {
               agent_id: { type: "AgentID", id: 1 },
-              resources: { rule: "repeated", type: "Resource", id: 2 }
-            }
+              resources: { rule: "repeated", type: "Resource", id: 2 },
+            },
           },
           Offer: {
             fields: {
@@ -882,7 +890,7 @@ const $root = (
               attributes: { rule: "repeated", type: "Attribute", id: 7 },
               executor_ids: { rule: "repeated", type: "ExecutorID", id: 6 },
               unavailability: { type: "Unavailability", id: 9 },
-              allocation_info: { type: "Resource.AllocationInfo", id: 10 }
+              allocation_info: { type: "Resource.AllocationInfo", id: 10 },
             },
             nested: {
               Operation: {
@@ -898,7 +906,7 @@ const $root = (
                   grow_volume: { type: "GrowVolume", id: 13 },
                   shrink_volume: { type: "ShrinkVolume", id: 14 },
                   create_disk: { type: "CreateDisk", id: 15 },
-                  destroy_disk: { type: "DestroyDisk", id: 16 }
+                  destroy_disk: { type: "DestroyDisk", id: 16 },
                 },
                 nested: {
                   Type: {
@@ -913,54 +921,54 @@ const $root = (
                       GROW_VOLUME: 11,
                       SHRINK_VOLUME: 12,
                       CREATE_DISK: 13,
-                      DESTROY_DISK: 14
-                    }
+                      DESTROY_DISK: 14,
+                    },
                   },
                   Launch: {
                     fields: {
-                      task_infos: { rule: "repeated", type: "TaskInfo", id: 1 }
-                    }
+                      task_infos: { rule: "repeated", type: "TaskInfo", id: 1 },
+                    },
                   },
                   LaunchGroup: {
                     fields: {
                       executor: {
                         rule: "required",
                         type: "ExecutorInfo",
-                        id: 1
+                        id: 1,
                       },
                       task_group: {
                         rule: "required",
                         type: "TaskGroupInfo",
-                        id: 2
-                      }
-                    }
+                        id: 2,
+                      },
+                    },
                   },
                   Reserve: {
                     fields: {
                       source: { rule: "repeated", type: "Resource", id: 2 },
-                      resources: { rule: "repeated", type: "Resource", id: 1 }
-                    }
+                      resources: { rule: "repeated", type: "Resource", id: 1 },
+                    },
                   },
                   Unreserve: {
                     fields: {
-                      resources: { rule: "repeated", type: "Resource", id: 1 }
-                    }
+                      resources: { rule: "repeated", type: "Resource", id: 1 },
+                    },
                   },
                   Create: {
                     fields: {
-                      volumes: { rule: "repeated", type: "Resource", id: 1 }
-                    }
+                      volumes: { rule: "repeated", type: "Resource", id: 1 },
+                    },
                   },
                   Destroy: {
                     fields: {
-                      volumes: { rule: "repeated", type: "Resource", id: 1 }
-                    }
+                      volumes: { rule: "repeated", type: "Resource", id: 1 },
+                    },
                   },
                   GrowVolume: {
                     fields: {
                       volume: { rule: "required", type: "Resource", id: 1 },
-                      addition: { rule: "required", type: "Resource", id: 2 }
-                    }
+                      addition: { rule: "required", type: "Resource", id: 2 },
+                    },
                   },
                   ShrinkVolume: {
                     fields: {
@@ -968,9 +976,9 @@ const $root = (
                       subtract: {
                         rule: "required",
                         type: "Value.Scalar",
-                        id: 2
-                      }
-                    }
+                        id: 2,
+                      },
+                    },
                   },
                   CreateDisk: {
                     fields: {
@@ -978,19 +986,19 @@ const $root = (
                       target_type: {
                         rule: "required",
                         type: "Resource.DiskInfo.Source.Type",
-                        id: 2
+                        id: 2,
                       },
-                      target_profile: { type: "string", id: 3 }
-                    }
+                      target_profile: { type: "string", id: 3 },
+                    },
                   },
                   DestroyDisk: {
                     fields: {
-                      source: { rule: "required", type: "Resource", id: 1 }
-                    }
-                  }
-                }
-              }
-            }
+                      source: { rule: "required", type: "Resource", id: 1 },
+                    },
+                  },
+                },
+              },
+            },
           },
           InverseOffer: {
             fields: {
@@ -1001,10 +1009,10 @@ const $root = (
               unavailability: {
                 rule: "required",
                 type: "Unavailability",
-                id: 5
+                id: 5,
               },
-              resources: { rule: "repeated", type: "Resource", id: 6 }
-            }
+              resources: { rule: "repeated", type: "Resource", id: 6 },
+            },
           },
 
           TaskInfo: {
@@ -1022,12 +1030,12 @@ const $root = (
               data: { type: "bytes", id: 6 },
               labels: { type: "Labels", id: 10 },
               discovery: { type: "DiscoveryInfo", id: 11 },
-              max_completion_time: { type: "DurationInfo", id: 14 }
-            }
+              max_completion_time: { type: "DurationInfo", id: 14 },
+            },
           },
 
           TaskGroupInfo: {
-            fields: { tasks: { rule: "repeated", type: "TaskInfo", id: 1 } }
+            fields: { tasks: { rule: "repeated", type: "TaskInfo", id: 1 } },
           },
 
           Task: {
@@ -1047,8 +1055,8 @@ const $root = (
               container: { type: "ContainerInfo", id: 13 },
               health_check: { type: "HealthCheck", id: 15 },
               kill_policy: { type: "KillPolicy", id: 16 },
-              user: { type: "string", id: 14 }
-            }
+              user: { type: "string", id: 14 },
+            },
           },
 
           TaskState: {
@@ -1079,15 +1087,17 @@ const $root = (
 
               TASK_GONE_BY_OPERATOR: 12,
 
-              TASK_UNKNOWN: 13
-            }
+              TASK_UNKNOWN: 13,
+            },
           },
 
           TaskResourceLimitation: {
-            fields: { resources: { rule: "repeated", type: "Resource", id: 1 } }
+            fields: {
+              resources: { rule: "repeated", type: "Resource", id: 1 },
+            },
           },
           UUID: {
-            fields: { value: { rule: "required", type: "bytes", id: 1 } }
+            fields: { value: { rule: "required", type: "bytes", id: 1 } },
           },
           Operation: {
             fields: {
@@ -1097,11 +1107,11 @@ const $root = (
               latest_status: {
                 rule: "required",
                 type: "OperationStatus",
-                id: 4
+                id: 4,
               },
               statuses: { rule: "repeated", type: "OperationStatus", id: 5 },
-              uuid: { rule: "required", type: "UUID", id: 6 }
-            }
+              uuid: { rule: "required", type: "UUID", id: 6 },
+            },
           },
           OperationState: {
             values: {
@@ -1114,8 +1124,8 @@ const $root = (
               OPERATION_UNREACHABLE: 6,
               OPERATION_GONE_BY_OPERATOR: 7,
               OPERATION_RECOVERING: 8,
-              OPERATION_UNKNOWN: 9
-            }
+              OPERATION_UNKNOWN: 9,
+            },
           },
           OperationStatus: {
             fields: {
@@ -1125,26 +1135,26 @@ const $root = (
               converted_resources: {
                 rule: "repeated",
                 type: "Resource",
-                id: 4
+                id: 4,
               },
               uuid: { type: "UUID", id: 5 },
               agent_id: { type: "AgentID", id: 6 },
-              resource_provider_id: { type: "ResourceProviderID", id: 7 }
-            }
+              resource_provider_id: { type: "ResourceProviderID", id: 7 },
+            },
           },
           CheckStatusInfo: {
             fields: {
               type: { type: "CheckInfo.Type", id: 1 },
               command: { type: "Command", id: 2 },
               http: { type: "Http", id: 3 },
-              tcp: { type: "Tcp", id: 4 }
+              tcp: { type: "Tcp", id: 4 },
             },
             nested: {
               Command: { fields: { exit_code: { type: "int32", id: 1 } } },
               Http: { fields: { status_code: { type: "uint32", id: 1 } } },
 
-              Tcp: { fields: { succeeded: { type: "bool", id: 1 } } }
-            }
+              Tcp: { fields: { succeeded: { type: "bool", id: 1 } } },
+            },
           },
 
           TaskStatus: {
@@ -1164,15 +1174,15 @@ const $root = (
               labels: { type: "Labels", id: 12 },
               container_status: { type: "ContainerStatus", id: 13 },
               unreachable_time: { type: "TimeInfo", id: 14 },
-              limitation: { type: "TaskResourceLimitation", id: 16 }
+              limitation: { type: "TaskResourceLimitation", id: 16 },
             },
             nested: {
               Source: {
                 values: {
                   SOURCE_MASTER: 0,
                   SOURCE_AGENT: 1,
-                  SOURCE_EXECUTOR: 2
-                }
+                  SOURCE_EXECUTOR: 2,
+                },
               },
               Reason: {
                 values: {
@@ -1210,19 +1220,23 @@ const $root = (
                   REASON_TASK_GROUP_UNAUTHORIZED: 26,
                   REASON_TASK_INVALID: 14,
                   REASON_TASK_UNAUTHORIZED: 15,
-                  REASON_TASK_UNKNOWN: 16
-                }
-              }
-            }
+                  REASON_TASK_UNKNOWN: 16,
+                },
+              },
+            },
           },
           Filters: {
             fields: {
-              refuse_seconds: { type: "double", id: 1, options: { default: 5 } }
-            }
+              refuse_seconds: {
+                type: "double",
+                id: 1,
+                options: { default: 5 },
+              },
+            },
           },
           Environment: {
             fields: {
-              variables: { rule: "repeated", type: "Variable", id: 1 }
+              variables: { rule: "repeated", type: "Variable", id: 1 },
             },
             nested: {
               Variable: {
@@ -1230,75 +1244,75 @@ const $root = (
                   name: { rule: "required", type: "string", id: 1 },
                   type: { type: "Type", id: 3, options: { default: "VALUE" } },
                   value: { type: "string", id: 2 },
-                  secret: { type: "Secret", id: 4 }
+                  secret: { type: "Secret", id: 4 },
                 },
                 nested: {
-                  Type: { values: { UNKNOWN: 0, VALUE: 1, SECRET: 2 } }
-                }
-              }
-            }
+                  Type: { values: { UNKNOWN: 0, VALUE: 1, SECRET: 2 } },
+                },
+              },
+            },
           },
           Parameter: {
             fields: {
               key: { rule: "required", type: "string", id: 1 },
-              value: { rule: "required", type: "string", id: 2 }
-            }
+              value: { rule: "required", type: "string", id: 2 },
+            },
           },
           Parameters: {
             fields: {
-              parameter: { rule: "repeated", type: "Parameter", id: 1 }
-            }
+              parameter: { rule: "repeated", type: "Parameter", id: 1 },
+            },
           },
           Credential: {
             fields: {
               principal: { rule: "required", type: "string", id: 1 },
-              secret: { type: "string", id: 2 }
-            }
+              secret: { type: "string", id: 2 },
+            },
           },
           Credentials: {
             fields: {
-              credentials: { rule: "repeated", type: "Credential", id: 1 }
-            }
+              credentials: { rule: "repeated", type: "Credential", id: 1 },
+            },
           },
           Secret: {
             fields: {
               type: { type: "Type", id: 1 },
               reference: { type: "Reference", id: 2 },
-              value: { type: "Value", id: 3 }
+              value: { type: "Value", id: 3 },
             },
             nested: {
               Type: { values: { UNKNOWN: 0, REFERENCE: 1, VALUE: 2 } },
               Reference: {
                 fields: {
                   name: { rule: "required", type: "string", id: 1 },
-                  key: { type: "string", id: 2 }
-                }
+                  key: { type: "string", id: 2 },
+                },
               },
               Value: {
-                fields: { data: { rule: "required", type: "bytes", id: 1 } }
-              }
-            }
+                fields: { data: { rule: "required", type: "bytes", id: 1 } },
+              },
+            },
           },
           RateLimit: {
             fields: {
               qps: { type: "double", id: 1 },
               principal: { rule: "required", type: "string", id: 2 },
-              capacity: { type: "uint64", id: 3 }
-            }
+              capacity: { type: "uint64", id: 3 },
+            },
           },
           RateLimits: {
             fields: {
               limits: { rule: "repeated", type: "RateLimit", id: 1 },
               aggregate_default_qps: { type: "double", id: 2 },
-              aggregate_default_capacity: { type: "uint64", id: 3 }
-            }
+              aggregate_default_capacity: { type: "uint64", id: 3 },
+            },
           },
           Image: {
             fields: {
               type: { rule: "required", type: "Type", id: 1 },
               appc: { type: "Appc", id: 2 },
               docker: { type: "Docker", id: 3 },
-              cached: { type: "bool", id: 4, options: { default: true } }
+              cached: { type: "bool", id: 4, options: { default: true } },
             },
             nested: {
               Type: { values: { APPC: 1, DOCKER: 2 } },
@@ -1306,8 +1320,8 @@ const $root = (
                 fields: {
                   name: { rule: "required", type: "string", id: 1 },
                   id: { type: "string", id: 2 },
-                  labels: { type: "Labels", id: 3 }
-                }
+                  labels: { type: "Labels", id: 3 },
+                },
               },
               Docker: {
                 fields: {
@@ -1315,20 +1329,20 @@ const $root = (
                   credential: {
                     type: "Credential",
                     id: 2,
-                    options: { deprecated: true }
+                    options: { deprecated: true },
                   },
-                  config: { type: "Secret", id: 3 }
-                }
-              }
-            }
+                  config: { type: "Secret", id: 3 },
+                },
+              },
+            },
           },
           MountPropagation: {
             fields: { mode: { type: "Mode", id: 1 } },
             nested: {
               Mode: {
-                values: { UNKNOWN: 0, HOST_TO_CONTAINER: 1, BIDIRECTIONAL: 2 }
-              }
-            }
+                values: { UNKNOWN: 0, HOST_TO_CONTAINER: 1, BIDIRECTIONAL: 2 },
+              },
+            },
           },
           Volume: {
             fields: {
@@ -1336,7 +1350,7 @@ const $root = (
               container_path: { rule: "required", type: "string", id: 1 },
               host_path: { type: "string", id: 2 },
               image: { type: "Image", id: 4 },
-              source: { type: "Source", id: 5 }
+              source: { type: "Source", id: 5 },
             },
             nested: {
               Mode: { values: { RW: 1, RO: 2 } },
@@ -1346,7 +1360,7 @@ const $root = (
                   docker_volume: { type: "DockerVolume", id: 2 },
                   host_path: { type: "HostPath", id: 5 },
                   sandbox_path: { type: "SandboxPath", id: 3 },
-                  secret: { type: "Secret", id: 4 }
+                  secret: { type: "Secret", id: 4 },
                 },
                 nested: {
                   Type: {
@@ -1355,34 +1369,34 @@ const $root = (
                       DOCKER_VOLUME: 1,
                       HOST_PATH: 4,
                       SANDBOX_PATH: 2,
-                      SECRET: 3
-                    }
+                      SECRET: 3,
+                    },
                   },
                   DockerVolume: {
                     fields: {
                       driver: { type: "string", id: 1 },
                       name: { rule: "required", type: "string", id: 2 },
-                      driver_options: { type: "Parameters", id: 3 }
-                    }
+                      driver_options: { type: "Parameters", id: 3 },
+                    },
                   },
                   HostPath: {
                     fields: {
                       path: { rule: "required", type: "string", id: 1 },
-                      mount_propagation: { type: "MountPropagation", id: 2 }
-                    }
+                      mount_propagation: { type: "MountPropagation", id: 2 },
+                    },
                   },
                   SandboxPath: {
                     fields: {
                       type: { type: "Type", id: 1 },
-                      path: { rule: "required", type: "string", id: 2 }
+                      path: { rule: "required", type: "string", id: 2 },
                     },
                     nested: {
-                      Type: { values: { UNKNOWN: 0, SELF: 1, PARENT: 2 } }
-                    }
-                  }
-                }
-              }
-            }
+                      Type: { values: { UNKNOWN: 0, SELF: 1, PARENT: 2 } },
+                    },
+                  },
+                },
+              },
+            },
           },
           NetworkInfo: {
             fields: {
@@ -1390,7 +1404,7 @@ const $root = (
               name: { type: "string", id: 6 },
               groups: { rule: "repeated", type: "string", id: 3 },
               labels: { type: "Labels", id: 4 },
-              port_mappings: { rule: "repeated", type: "PortMapping", id: 7 }
+              port_mappings: { rule: "repeated", type: "PortMapping", id: 7 },
             },
             nested: {
               Protocol: { values: { IPv4: 1, IPv6: 2 } },
@@ -1399,19 +1413,19 @@ const $root = (
                   protocol: {
                     type: "Protocol",
                     id: 1,
-                    options: { default: "IPv4" }
+                    options: { default: "IPv4" },
                   },
-                  ip_address: { type: "string", id: 2 }
-                }
+                  ip_address: { type: "string", id: 2 },
+                },
               },
               PortMapping: {
                 fields: {
                   host_port: { rule: "required", type: "uint32", id: 1 },
                   container_port: { rule: "required", type: "uint32", id: 2 },
-                  protocol: { type: "string", id: 3 }
-                }
-              }
-            }
+                  protocol: { type: "string", id: 3 },
+                },
+              },
+            },
           },
           CapabilityInfo: {
             fields: {
@@ -1419,8 +1433,8 @@ const $root = (
                 rule: "repeated",
                 type: "Capability",
                 id: 1,
-                options: { packed: false }
-              }
+                options: { packed: false },
+              },
             },
             nested: {
               Capability: {
@@ -1463,34 +1477,34 @@ const $root = (
                   SYSLOG: 1034,
                   WAKE_ALARM: 1035,
                   BLOCK_SUSPEND: 1036,
-                  AUDIT_READ: 1037
-                }
-              }
-            }
+                  AUDIT_READ: 1037,
+                },
+              },
+            },
           },
           SeccompInfo: {
             fields: {
               profile_name: { type: "string", id: 1 },
-              unconfined: { type: "bool", id: 2 }
-            }
+              unconfined: { type: "bool", id: 2 },
+            },
           },
           LinuxInfo: {
             fields: {
               capability_info: {
                 type: "CapabilityInfo",
                 id: 1,
-                options: { deprecated: true }
+                options: { deprecated: true },
               },
               bounding_capabilities: { type: "CapabilityInfo", id: 2 },
               effective_capabilities: { type: "CapabilityInfo", id: 3 },
               share_pid_namespace: { type: "bool", id: 4 },
               seccomp: { type: "SeccompInfo", id: 5 },
               ipc_mode: { type: "IpcMode", id: 6 },
-              shm_size: { type: "uint32", id: 7 }
+              shm_size: { type: "uint32", id: 7 },
             },
             nested: {
-              IpcMode: { values: { UNKNOWN: 0, PRIVATE: 1, SHARE_PARENT: 2 } }
-            }
+              IpcMode: { values: { UNKNOWN: 0, PRIVATE: 1, SHARE_PARENT: 2 } },
+            },
           },
           RLimitInfo: {
             fields: { rlimits: { rule: "repeated", type: "RLimit", id: 1 } },
@@ -1499,7 +1513,7 @@ const $root = (
                 fields: {
                   type: { type: "Type", id: 1 },
                   hard: { type: "uint64", id: 2 },
-                  soft: { type: "uint64", id: 3 }
+                  soft: { type: "uint64", id: 3 },
                 },
                 nested: {
                   Type: {
@@ -1520,12 +1534,12 @@ const $root = (
                       RLMT_RTPRIO: 13,
                       RLMT_RTTIME: 14,
                       RLMT_SIGPENDING: 15,
-                      RLMT_STACK: 16
-                    }
-                  }
-                }
-              }
-            }
+                      RLMT_STACK: 16,
+                    },
+                  },
+                },
+              },
+            },
           },
 
           TTYInfo: {
@@ -1534,10 +1548,10 @@ const $root = (
               WindowSize: {
                 fields: {
                   rows: { rule: "required", type: "uint32", id: 1 },
-                  columns: { rule: "required", type: "uint32", id: 2 }
-                }
-              }
-            }
+                  columns: { rule: "required", type: "uint32", id: 2 },
+                },
+              },
+            },
           },
           ContainerInfo: {
             fields: {
@@ -1549,7 +1563,7 @@ const $root = (
               network_infos: { rule: "repeated", type: "NetworkInfo", id: 7 },
               linux_info: { type: "LinuxInfo", id: 8 },
               rlimit_info: { type: "RLimitInfo", id: 9 },
-              tty_info: { type: "TTYInfo", id: 10 }
+              tty_info: { type: "TTYInfo", id: 10 },
             },
             nested: {
               Type: { values: { DOCKER: 1, MESOS: 2 } },
@@ -1559,25 +1573,25 @@ const $root = (
                   network: {
                     type: "Network",
                     id: 2,
-                    options: { default: "HOST" }
+                    options: { default: "HOST" },
                   },
                   port_mappings: {
                     rule: "repeated",
                     type: "PortMapping",
-                    id: 3
+                    id: 3,
                   },
                   privileged: {
                     type: "bool",
                     id: 4,
-                    options: { default: false }
+                    options: { default: false },
                   },
                   parameters: { rule: "repeated", type: "Parameter", id: 5 },
                   force_pull_image: { type: "bool", id: 6 },
                   volume_driver: {
                     type: "string",
                     id: 7,
-                    options: { deprecated: true }
-                  }
+                    options: { deprecated: true },
+                  },
                 },
                 nested: {
                   Network: { values: { HOST: 1, BRIDGE: 2, NONE: 3, USER: 4 } },
@@ -1587,23 +1601,23 @@ const $root = (
                       container_port: {
                         rule: "required",
                         type: "uint32",
-                        id: 2
+                        id: 2,
                       },
-                      protocol: { type: "string", id: 3 }
-                    }
-                  }
-                }
+                      protocol: { type: "string", id: 3 },
+                    },
+                  },
+                },
               },
-              MesosInfo: { fields: { image: { type: "Image", id: 1 } } }
-            }
+              MesosInfo: { fields: { image: { type: "Image", id: 1 } } },
+            },
           },
           ContainerStatus: {
             fields: {
               container_id: { type: "ContainerID", id: 4 },
               network_infos: { rule: "repeated", type: "NetworkInfo", id: 1 },
               cgroup_info: { type: "CgroupInfo", id: 2 },
-              executor_pid: { type: "uint32", id: 3 }
-            }
+              executor_pid: { type: "uint32", id: 3 },
+            },
           },
           CgroupInfo: {
             fields: { net_cls: { type: "NetCls", id: 1 } },
@@ -1620,14 +1634,14 @@ const $root = (
                       WRITE: 3,
                       SYNC: 4,
                       ASYNC: 5,
-                      DISCARD: 6
-                    }
+                      DISCARD: 6,
+                    },
                   },
                   Value: {
                     fields: {
                       op: { type: "Operation", id: 1 },
-                      value: { type: "uint64", id: 2 }
-                    }
+                      value: { type: "uint64", id: 2 },
+                    },
                   },
                   CFQ: {
                     fields: {},
@@ -1640,28 +1654,28 @@ const $root = (
                           io_serviced: {
                             rule: "repeated",
                             type: "Value",
-                            id: 4
+                            id: 4,
                           },
                           io_service_bytes: {
                             rule: "repeated",
                             type: "Value",
-                            id: 5
+                            id: 5,
                           },
                           io_service_time: {
                             rule: "repeated",
                             type: "Value",
-                            id: 6
+                            id: 6,
                           },
                           io_wait_time: {
                             rule: "repeated",
                             type: "Value",
-                            id: 7
+                            id: 7,
                           },
                           io_merged: { rule: "repeated", type: "Value", id: 8 },
-                          io_queued: { rule: "repeated", type: "Value", id: 9 }
-                        }
-                      }
-                    }
+                          io_queued: { rule: "repeated", type: "Value", id: 9 },
+                        },
+                      },
+                    },
                   },
 
                   Throttling: {
@@ -1673,16 +1687,16 @@ const $root = (
                           io_serviced: {
                             rule: "repeated",
                             type: "Value",
-                            id: 2
+                            id: 2,
                           },
                           io_service_bytes: {
                             rule: "repeated",
                             type: "Value",
-                            id: 3
-                          }
-                        }
-                      }
-                    }
+                            id: 3,
+                          },
+                        },
+                      },
+                    },
                   },
                   Statistics: {
                     fields: {
@@ -1690,28 +1704,28 @@ const $root = (
                       cfq_recursive: {
                         rule: "repeated",
                         type: "CFQ.Statistics",
-                        id: 2
+                        id: 2,
                       },
                       throttling: {
                         rule: "repeated",
                         type: "Throttling.Statistics",
-                        id: 3
-                      }
-                    }
-                  }
-                }
+                        id: 3,
+                      },
+                    },
+                  },
+                },
               },
-              NetCls: { fields: { classid: { type: "uint32", id: 1 } } }
-            }
+              NetCls: { fields: { classid: { type: "uint32", id: 1 } } },
+            },
           },
           Labels: {
-            fields: { labels: { rule: "repeated", type: "Label", id: 1 } }
+            fields: { labels: { rule: "repeated", type: "Label", id: 1 } },
           },
           Label: {
             fields: {
               key: { rule: "required", type: "string", id: 1 },
-              value: { type: "string", id: 2 }
-            }
+              value: { type: "string", id: 2 },
+            },
           },
           Port: {
             fields: {
@@ -1719,11 +1733,11 @@ const $root = (
               name: { type: "string", id: 2 },
               protocol: { type: "string", id: 3 },
               visibility: { type: "DiscoveryInfo.Visibility", id: 4 },
-              labels: { type: "Labels", id: 5 }
-            }
+              labels: { type: "Labels", id: 5 },
+            },
           },
           Ports: {
-            fields: { ports: { rule: "repeated", type: "Port", id: 1 } }
+            fields: { ports: { rule: "repeated", type: "Port", id: 1 } },
           },
           DiscoveryInfo: {
             fields: {
@@ -1733,17 +1747,17 @@ const $root = (
               location: { type: "string", id: 4 },
               version: { type: "string", id: 5 },
               ports: { type: "Ports", id: 6 },
-              labels: { type: "Labels", id: 7 }
+              labels: { type: "Labels", id: 7 },
             },
             nested: {
-              Visibility: { values: { FRAMEWORK: 0, CLUSTER: 1, EXTERNAL: 2 } }
-            }
+              Visibility: { values: { FRAMEWORK: 0, CLUSTER: 1, EXTERNAL: 2 } },
+            },
           },
           WeightInfo: {
             fields: {
               weight: { rule: "required", type: "double", id: 1 },
-              role: { type: "string", id: 2 }
-            }
+              role: { type: "string", id: 2 },
+            },
           },
           VersionInfo: {
             fields: {
@@ -1753,28 +1767,28 @@ const $root = (
               build_user: { type: "string", id: 4 },
               git_sha: { type: "string", id: 5 },
               git_branch: { type: "string", id: 6 },
-              git_tag: { type: "string", id: 7 }
-            }
+              git_tag: { type: "string", id: 7 },
+            },
           },
           Flag: {
             fields: {
               name: { rule: "required", type: "string", id: 1 },
-              value: { type: "string", id: 2 }
-            }
+              value: { type: "string", id: 2 },
+            },
           },
           Role: {
             fields: {
               name: { rule: "required", type: "string", id: 1 },
               weight: { rule: "required", type: "double", id: 2 },
               frameworks: { rule: "repeated", type: "FrameworkID", id: 3 },
-              resources: { rule: "repeated", type: "Resource", id: 4 }
-            }
+              resources: { rule: "repeated", type: "Resource", id: 4 },
+            },
           },
           Metric: {
             fields: {
               name: { rule: "required", type: "string", id: 1 },
-              value: { type: "double", id: 2 }
-            }
+              value: { type: "double", id: 2 },
+            },
           },
           FileInfo: {
             fields: {
@@ -1784,60 +1798,64 @@ const $root = (
               mtime: { type: "TimeInfo", id: 4 },
               mode: { type: "uint32", id: 5 },
               uid: { type: "string", id: 6 },
-              gid: { type: "string", id: 7 }
-            }
+              gid: { type: "string", id: 7 },
+            },
           },
           Device: {
             fields: {
               path: { type: "string", id: 1 },
-              number: { type: "Number", id: 2 }
+              number: { type: "Number", id: 2 },
             },
             nested: {
               Number: {
                 fields: {
                   major_number: { rule: "required", type: "uint64", id: 1 },
-                  minor_number: { rule: "required", type: "uint64", id: 2 }
-                }
-              }
-            }
+                  minor_number: { rule: "required", type: "uint64", id: 2 },
+                },
+              },
+            },
           },
           DeviceAccess: {
             fields: {
               device: { rule: "required", type: "Device", id: 1 },
-              access: { rule: "required", type: "Access", id: 2 }
+              access: { rule: "required", type: "Access", id: 2 },
             },
             nested: {
               Access: {
                 fields: {
                   read: { type: "bool", id: 1 },
                   write: { type: "bool", id: 2 },
-                  mknod: { type: "bool", id: 3 }
-                }
-              }
-            }
+                  mknod: { type: "bool", id: 3 },
+                },
+              },
+            },
           },
           DeviceWhitelist: {
             fields: {
-              allowed_devices: { rule: "repeated", type: "DeviceAccess", id: 1 }
-            }
+              allowed_devices: {
+                rule: "repeated",
+                type: "DeviceAccess",
+                id: 1,
+              },
+            },
           },
           DrainState: { values: { UNKNOWN: 0, DRAINING: 1, DRAINED: 2 } },
           DrainConfig: {
             fields: {
               max_grace_period: { type: "DurationInfo", id: 1 },
-              mark_gone: { type: "bool", id: 2, options: { default: false } }
-            }
+              mark_gone: { type: "bool", id: 2, options: { default: false } },
+            },
           },
           DrainInfo: {
             fields: {
               state: { rule: "required", type: "DrainState", id: 1 },
-              config: { rule: "required", type: "DrainConfig", id: 2 }
-            }
+              config: { rule: "required", type: "DrainConfig", id: 2 },
+            },
           },
           maintenance: {
             options: {
               java_package: "org.apache.mesos.v1.maintenance",
-              java_outer_classname: "Protos"
+              java_outer_classname: "Protos",
             },
             nested: {
               Window: {
@@ -1846,21 +1864,23 @@ const $root = (
                   unavailability: {
                     rule: "required",
                     type: "Unavailability",
-                    id: 2
-                  }
-                }
+                    id: 2,
+                  },
+                },
               },
               Schedule: {
-                fields: { windows: { rule: "repeated", type: "Window", id: 1 } }
+                fields: {
+                  windows: { rule: "repeated", type: "Window", id: 1 },
+                },
               },
               ClusterStatus: {
                 fields: {
                   draining_machines: {
                     rule: "repeated",
                     type: "DrainingMachine",
-                    id: 1
+                    id: 1,
                   },
-                  down_machines: { rule: "repeated", type: "MachineID", id: 2 }
+                  down_machines: { rule: "repeated", type: "MachineID", id: 2 },
                 },
                 nested: {
                   DrainingMachine: {
@@ -1869,18 +1889,18 @@ const $root = (
                       statuses: {
                         rule: "repeated",
                         type: "allocator.InverseOfferStatus",
-                        id: 2
-                      }
-                    }
-                  }
-                }
-              }
-            }
+                        id: 2,
+                      },
+                    },
+                  },
+                },
+              },
+            },
           },
           allocator: {
             options: {
               java_package: "org.apache.mesos.v1.allocator",
-              java_outer_classname: "Protos"
+              java_outer_classname: "Protos",
             },
             nested: {
               InverseOfferStatus: {
@@ -1889,35 +1909,35 @@ const $root = (
                   framework_id: {
                     rule: "required",
                     type: "FrameworkID",
-                    id: 2
+                    id: 2,
                   },
-                  timestamp: { rule: "required", type: "TimeInfo", id: 3 }
+                  timestamp: { rule: "required", type: "TimeInfo", id: 3 },
                 },
                 nested: {
-                  Status: { values: { UNKNOWN: 1, ACCEPT: 2, DECLINE: 3 } }
-                }
-              }
-            }
+                  Status: { values: { UNKNOWN: 1, ACCEPT: 2, DECLINE: 3 } },
+                },
+              },
+            },
           },
           quota: {
             options: {
               java_package: "org.apache.mesos.v1.quota",
-              java_outer_classname: "Protos"
+              java_outer_classname: "Protos",
             },
             nested: {
               QuotaInfo: {
                 fields: {
                   role: { type: "string", id: 1 },
                   principal: { type: "string", id: 2 },
-                  guarantee: { rule: "repeated", type: "Resource", id: 3 }
-                }
+                  guarantee: { rule: "repeated", type: "Resource", id: 3 },
+                },
               },
               QuotaRequest: {
                 fields: {
                   force: { type: "bool", id: 1 },
                   role: { type: "string", id: 2 },
-                  guarantee: { rule: "repeated", type: "Resource", id: 3 }
-                }
+                  guarantee: { rule: "repeated", type: "Resource", id: 3 },
+                },
               },
               QuotaConfig: {
                 fields: {
@@ -1925,10 +1945,10 @@ const $root = (
                   guarantees: {
                     keyType: "string",
                     type: "Value.Scalar",
-                    id: 2
+                    id: 2,
                   },
-                  limits: { keyType: "string", type: "Value.Scalar", id: 3 }
-                }
+                  limits: { keyType: "string", type: "Value.Scalar", id: 3 },
+                },
               },
               QuotaStatus: {
                 fields: {
@@ -1936,17 +1956,17 @@ const $root = (
                     rule: "repeated",
                     type: "QuotaInfo",
                     id: 1,
-                    options: { deprecated: true }
+                    options: { deprecated: true },
                   },
-                  configs: { rule: "repeated", type: "QuotaConfig", id: 2 }
-                }
-              }
-            }
+                  configs: { rule: "repeated", type: "QuotaConfig", id: 2 },
+                },
+              },
+            },
           },
           master: {
             options: {
               java_package: "org.apache.mesos.v1.master",
-              java_outer_classname: "Protos"
+              java_outer_classname: "Protos",
             },
             nested: {
               Call: {
@@ -1965,7 +1985,7 @@ const $root = (
                   shrink_volume: { type: "ShrinkVolume", id: 19 },
                   update_maintenance_schedule: {
                     type: "UpdateMaintenanceSchedule",
-                    id: 11
+                    id: 11,
                   },
                   start_maintenance: { type: "StartMaintenance", id: 12 },
                   stop_maintenance: { type: "StopMaintenance", id: 13 },
@@ -1978,13 +1998,13 @@ const $root = (
                   set_quota: {
                     type: "SetQuota",
                     id: 14,
-                    options: { deprecated: true }
+                    options: { deprecated: true },
                   },
                   remove_quota: {
                     type: "RemoveQuota",
                     id: 15,
-                    options: { deprecated: true }
-                  }
+                    options: { deprecated: true },
+                  },
                 },
                 nested: {
                   Type: {
@@ -2029,11 +2049,11 @@ const $root = (
                       REMOVE_QUOTA: 30,
 
                       TEARDOWN: 31,
-                      MARK_AGENT_GONE: 32
-                    }
+                      MARK_AGENT_GONE: 32,
+                    },
                   },
                   GetMetrics: {
-                    fields: { timeout: { type: "DurationInfo", id: 1 } }
+                    fields: { timeout: { type: "DurationInfo", id: 1 } },
                   },
                   SetLoggingLevel: {
                     fields: {
@@ -2041,62 +2061,62 @@ const $root = (
                       duration: {
                         rule: "required",
                         type: "DurationInfo",
-                        id: 2
-                      }
-                    }
+                        id: 2,
+                      },
+                    },
                   },
                   ListFiles: {
                     fields: {
-                      path: { rule: "required", type: "string", id: 1 }
-                    }
+                      path: { rule: "required", type: "string", id: 1 },
+                    },
                   },
                   ReadFile: {
                     fields: {
                       path: { rule: "required", type: "string", id: 1 },
                       offset: { rule: "required", type: "uint64", id: 2 },
-                      length: { type: "uint64", id: 3 }
-                    }
+                      length: { type: "uint64", id: 3 },
+                    },
                   },
                   UpdateWeights: {
                     fields: {
                       weight_infos: {
                         rule: "repeated",
                         type: "WeightInfo",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   ReserveResources: {
                     fields: {
                       agent_id: { rule: "required", type: "AgentID", id: 1 },
                       source: { rule: "repeated", type: "Resource", id: 3 },
-                      resources: { rule: "repeated", type: "Resource", id: 2 }
-                    }
+                      resources: { rule: "repeated", type: "Resource", id: 2 },
+                    },
                   },
                   UnreserveResources: {
                     fields: {
                       agent_id: { rule: "required", type: "AgentID", id: 1 },
-                      resources: { rule: "repeated", type: "Resource", id: 2 }
-                    }
+                      resources: { rule: "repeated", type: "Resource", id: 2 },
+                    },
                   },
                   CreateVolumes: {
                     fields: {
                       agent_id: { rule: "required", type: "AgentID", id: 1 },
-                      volumes: { rule: "repeated", type: "Resource", id: 2 }
-                    }
+                      volumes: { rule: "repeated", type: "Resource", id: 2 },
+                    },
                   },
                   DestroyVolumes: {
                     fields: {
                       agent_id: { rule: "required", type: "AgentID", id: 1 },
-                      volumes: { rule: "repeated", type: "Resource", id: 2 }
-                    }
+                      volumes: { rule: "repeated", type: "Resource", id: 2 },
+                    },
                   },
                   GrowVolume: {
                     fields: {
                       agent_id: { type: "AgentID", id: 1 },
                       volume: { rule: "required", type: "Resource", id: 2 },
-                      addition: { rule: "required", type: "Resource", id: 3 }
-                    }
+                      addition: { rule: "required", type: "Resource", id: 3 },
+                    },
                   },
                   ShrinkVolume: {
                     fields: {
@@ -2105,52 +2125,52 @@ const $root = (
                       subtract: {
                         rule: "required",
                         type: "Value.Scalar",
-                        id: 3
-                      }
-                    }
+                        id: 3,
+                      },
+                    },
                   },
                   UpdateMaintenanceSchedule: {
                     fields: {
                       schedule: {
                         rule: "required",
                         type: "maintenance.Schedule",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   StartMaintenance: {
                     fields: {
-                      machines: { rule: "repeated", type: "MachineID", id: 1 }
-                    }
+                      machines: { rule: "repeated", type: "MachineID", id: 1 },
+                    },
                   },
                   StopMaintenance: {
                     fields: {
-                      machines: { rule: "repeated", type: "MachineID", id: 1 }
-                    }
+                      machines: { rule: "repeated", type: "MachineID", id: 1 },
+                    },
                   },
                   DrainAgent: {
                     fields: {
                       agent_id: { rule: "required", type: "AgentID", id: 1 },
                       max_grace_period: {
                         type: "google.protobuf.Duration",
-                        id: 2
+                        id: 2,
                       },
                       mark_gone: {
                         type: "bool",
                         id: 3,
-                        options: { default: false }
-                      }
-                    }
+                        options: { default: false },
+                      },
+                    },
                   },
                   DeactivateAgent: {
                     fields: {
-                      agent_id: { rule: "required", type: "AgentID", id: 1 }
-                    }
+                      agent_id: { rule: "required", type: "AgentID", id: 1 },
+                    },
                   },
                   ReactivateAgent: {
                     fields: {
-                      agent_id: { rule: "required", type: "AgentID", id: 1 }
-                    }
+                      agent_id: { rule: "required", type: "AgentID", id: 1 },
+                    },
                   },
                   UpdateQuota: {
                     fields: {
@@ -2158,23 +2178,23 @@ const $root = (
                       quota_configs: {
                         rule: "repeated",
                         type: "quota.QuotaConfig",
-                        id: 2
-                      }
-                    }
+                        id: 2,
+                      },
+                    },
                   },
                   SetQuota: {
                     fields: {
                       quota_request: {
                         rule: "required",
                         type: "quota.QuotaRequest",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   RemoveQuota: {
                     fields: {
-                      role: { rule: "required", type: "string", id: 1 }
-                    }
+                      role: { rule: "required", type: "string", id: 1 },
+                    },
                   },
 
                   Teardown: {
@@ -2182,16 +2202,16 @@ const $root = (
                       framework_id: {
                         rule: "required",
                         type: "FrameworkID",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   MarkAgentGone: {
                     fields: {
-                      agent_id: { rule: "required", type: "AgentID", id: 1 }
-                    }
-                  }
-                }
+                      agent_id: { rule: "required", type: "AgentID", id: 1 },
+                    },
+                  },
+                },
               },
               Response: {
                 fields: {
@@ -2214,13 +2234,13 @@ const $root = (
                   get_master: { type: "GetMaster", id: 16 },
                   get_maintenance_status: {
                     type: "GetMaintenanceStatus",
-                    id: 17
+                    id: 17,
                   },
                   get_maintenance_schedule: {
                     type: "GetMaintenanceSchedule",
-                    id: 18
+                    id: 18,
                   },
-                  get_quota: { type: "GetQuota", id: 19 }
+                  get_quota: { type: "GetQuota", id: 19 },
                 },
                 nested: {
                   Type: {
@@ -2244,54 +2264,56 @@ const $root = (
                       GET_MASTER: 15,
                       GET_MAINTENANCE_STATUS: 16,
                       GET_MAINTENANCE_SCHEDULE: 17,
-                      GET_QUOTA: 18
-                    }
+                      GET_QUOTA: 18,
+                    },
                   },
                   GetHealth: {
                     fields: {
-                      healthy: { rule: "required", type: "bool", id: 1 }
-                    }
+                      healthy: { rule: "required", type: "bool", id: 1 },
+                    },
                   },
                   GetFlags: {
-                    fields: { flags: { rule: "repeated", type: "Flag", id: 1 } }
+                    fields: {
+                      flags: { rule: "repeated", type: "Flag", id: 1 },
+                    },
                   },
                   GetVersion: {
                     fields: {
                       version_info: {
                         rule: "required",
                         type: "VersionInfo",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   GetMetrics: {
                     fields: {
-                      metrics: { rule: "repeated", type: "Metric", id: 1 }
-                    }
+                      metrics: { rule: "repeated", type: "Metric", id: 1 },
+                    },
                   },
                   GetLoggingLevel: {
                     fields: {
-                      level: { rule: "required", type: "uint32", id: 1 }
-                    }
+                      level: { rule: "required", type: "uint32", id: 1 },
+                    },
                   },
                   ListFiles: {
                     fields: {
-                      file_infos: { rule: "repeated", type: "FileInfo", id: 1 }
-                    }
+                      file_infos: { rule: "repeated", type: "FileInfo", id: 1 },
+                    },
                   },
                   ReadFile: {
                     fields: {
                       size: { rule: "required", type: "uint64", id: 1 },
-                      data: { rule: "required", type: "bytes", id: 2 }
-                    }
+                      data: { rule: "required", type: "bytes", id: 2 },
+                    },
                   },
                   GetState: {
                     fields: {
                       get_tasks: { type: "GetTasks", id: 1 },
                       get_executors: { type: "GetExecutors", id: 2 },
                       get_frameworks: { type: "GetFrameworks", id: 3 },
-                      get_agents: { type: "GetAgents", id: 4 }
-                    }
+                      get_agents: { type: "GetAgents", id: 4 },
+                    },
                   },
                   GetAgents: {
                     fields: {
@@ -2299,8 +2321,8 @@ const $root = (
                       recovered_agents: {
                         rule: "repeated",
                         type: "AgentInfo",
-                        id: 2
-                      }
+                        id: 2,
+                      },
                     },
                     nested: {
                       Agent: {
@@ -2308,7 +2330,7 @@ const $root = (
                           agent_info: {
                             rule: "required",
                             type: "AgentInfo",
-                            id: 1
+                            id: 1,
                           },
                           active: { rule: "required", type: "bool", id: 2 },
                           deactivated: { type: "bool", id: 12 },
@@ -2319,33 +2341,33 @@ const $root = (
                           total_resources: {
                             rule: "repeated",
                             type: "Resource",
-                            id: 7
+                            id: 7,
                           },
                           allocated_resources: {
                             rule: "repeated",
                             type: "Resource",
-                            id: 8
+                            id: 8,
                           },
                           offered_resources: {
                             rule: "repeated",
                             type: "Resource",
-                            id: 9
+                            id: 9,
                           },
                           capabilities: {
                             rule: "repeated",
                             type: "AgentInfo.Capability",
-                            id: 10
+                            id: 10,
                           },
                           resource_providers: {
                             rule: "repeated",
                             type: "ResourceProvider",
-                            id: 11
+                            id: 11,
                           },
                           drain_info: { type: "DrainInfo", id: 13 },
                           estimated_drain_start_time: {
                             type: "TimeInfo",
-                            id: 14
-                          }
+                            id: 14,
+                          },
                         },
                         nested: {
                           ResourceProvider: {
@@ -2353,37 +2375,37 @@ const $root = (
                               resource_provider_info: {
                                 rule: "required",
                                 type: "ResourceProviderInfo",
-                                id: 1
+                                id: 1,
                               },
                               total_resources: {
                                 rule: "repeated",
                                 type: "Resource",
-                                id: 2
-                              }
-                            }
-                          }
-                        }
-                      }
-                    }
+                                id: 2,
+                              },
+                            },
+                          },
+                        },
+                      },
+                    },
                   },
                   GetFrameworks: {
                     fields: {
                       frameworks: {
                         rule: "repeated",
                         type: "Framework",
-                        id: 1
+                        id: 1,
                       },
                       completed_frameworks: {
                         rule: "repeated",
                         type: "Framework",
-                        id: 2
+                        id: 2,
                       },
                       recovered_frameworks: {
                         rule: "repeated",
                         type: "FrameworkInfo",
                         id: 3,
-                        options: { deprecated: true }
-                      }
+                        options: { deprecated: true },
+                      },
                     },
                     nested: {
                       Framework: {
@@ -2391,7 +2413,7 @@ const $root = (
                           framework_info: {
                             rule: "required",
                             type: "FrameworkInfo",
-                            id: 1
+                            id: 1,
                           },
                           active: { rule: "required", type: "bool", id: 2 },
                           connected: { rule: "required", type: "bool", id: 3 },
@@ -2403,21 +2425,21 @@ const $root = (
                           inverse_offers: {
                             rule: "repeated",
                             type: "InverseOffer",
-                            id: 8
+                            id: 8,
                           },
                           allocated_resources: {
                             rule: "repeated",
                             type: "Resource",
-                            id: 9
+                            id: 9,
                           },
                           offered_resources: {
                             rule: "repeated",
                             type: "Resource",
-                            id: 10
-                          }
-                        }
-                      }
-                    }
+                            id: 10,
+                          },
+                        },
+                      },
+                    },
                   },
                   GetExecutors: {
                     fields: {
@@ -2426,8 +2448,8 @@ const $root = (
                         rule: "repeated",
                         type: "Executor",
                         id: 2,
-                        options: { deprecated: true }
-                      }
+                        options: { deprecated: true },
+                      },
                     },
                     nested: {
                       Executor: {
@@ -2435,17 +2457,25 @@ const $root = (
                           executor_info: {
                             rule: "required",
                             type: "ExecutorInfo",
-                            id: 1
+                            id: 1,
                           },
-                          agent_id: { rule: "required", type: "AgentID", id: 2 }
-                        }
-                      }
-                    }
+                          agent_id: {
+                            rule: "required",
+                            type: "AgentID",
+                            id: 2,
+                          },
+                        },
+                      },
+                    },
                   },
                   GetOperations: {
                     fields: {
-                      operations: { rule: "repeated", type: "Operation", id: 1 }
-                    }
+                      operations: {
+                        rule: "repeated",
+                        type: "Operation",
+                        id: 1,
+                      },
+                    },
                   },
                   GetTasks: {
                     fields: {
@@ -2454,68 +2484,70 @@ const $root = (
                       unreachable_tasks: {
                         rule: "repeated",
                         type: "Task",
-                        id: 5
+                        id: 5,
                       },
                       completed_tasks: {
                         rule: "repeated",
                         type: "Task",
-                        id: 3
+                        id: 3,
                       },
                       orphan_tasks: {
                         rule: "repeated",
                         type: "Task",
                         id: 4,
-                        options: { deprecated: true }
-                      }
-                    }
+                        options: { deprecated: true },
+                      },
+                    },
                   },
                   GetRoles: {
-                    fields: { roles: { rule: "repeated", type: "Role", id: 1 } }
+                    fields: {
+                      roles: { rule: "repeated", type: "Role", id: 1 },
+                    },
                   },
                   GetWeights: {
                     fields: {
                       weight_infos: {
                         rule: "repeated",
                         type: "WeightInfo",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   GetMaster: {
                     fields: {
                       master_info: { type: "MasterInfo", id: 1 },
                       start_time: { type: "double", id: 2 },
-                      elected_time: { type: "double", id: 3 }
-                    }
+                      elected_time: { type: "double", id: 3 },
+                    },
                   },
                   GetMaintenanceStatus: {
                     fields: {
                       status: {
                         rule: "required",
                         type: "maintenance.ClusterStatus",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   GetMaintenanceSchedule: {
                     fields: {
                       schedule: {
                         rule: "required",
                         type: "maintenance.Schedule",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   GetQuota: {
                     fields: {
                       status: {
                         rule: "required",
                         type: "quota.QuotaStatus",
-                        id: 1
-                      }
-                    }
-                  }
-                }
+                        id: 1,
+                      },
+                    },
+                  },
+                },
               },
               Event: {
                 fields: {
@@ -2527,7 +2559,7 @@ const $root = (
                   agent_removed: { type: "AgentRemoved", id: 6 },
                   framework_added: { type: "FrameworkAdded", id: 7 },
                   framework_updated: { type: "FrameworkUpdated", id: 8 },
-                  framework_removed: { type: "FrameworkRemoved", id: 9 }
+                  framework_removed: { type: "FrameworkRemoved", id: 9 },
                 },
                 nested: {
                   Type: {
@@ -2543,18 +2575,18 @@ const $root = (
                       FRAMEWORK_ADDED: 6,
                       FRAMEWORK_UPDATED: 7,
                       FRAMEWORK_REMOVED: 8,
-                      HEARTBEAT: 9
-                    }
+                      HEARTBEAT: 9,
+                    },
                   },
                   Subscribed: {
                     fields: {
                       get_state: { type: "Response.GetState", id: 1 },
-                      heartbeat_interval_seconds: { type: "double", id: 2 }
-                    }
+                      heartbeat_interval_seconds: { type: "double", id: 2 },
+                    },
                   },
 
                   TaskAdded: {
-                    fields: { task: { rule: "required", type: "Task", id: 1 } }
+                    fields: { task: { rule: "required", type: "Task", id: 1 } },
                   },
 
                   TaskUpdated: {
@@ -2562,60 +2594,60 @@ const $root = (
                       framework_id: {
                         rule: "required",
                         type: "FrameworkID",
-                        id: 1
+                        id: 1,
                       },
                       status: { rule: "required", type: "TaskStatus", id: 2 },
-                      state: { rule: "required", type: "TaskState", id: 3 }
-                    }
+                      state: { rule: "required", type: "TaskState", id: 3 },
+                    },
                   },
                   FrameworkAdded: {
                     fields: {
                       framework: {
                         rule: "required",
                         type: "Response.GetFrameworks.Framework",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   FrameworkUpdated: {
                     fields: {
                       framework: {
                         rule: "required",
                         type: "Response.GetFrameworks.Framework",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   FrameworkRemoved: {
                     fields: {
                       framework_info: {
                         rule: "required",
                         type: "FrameworkInfo",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   AgentAdded: {
                     fields: {
                       agent: {
                         rule: "required",
                         type: "Response.GetAgents.Agent",
-                        id: 1
-                      }
-                    }
+                        id: 1,
+                      },
+                    },
                   },
                   AgentRemoved: {
                     fields: {
-                      agent_id: { rule: "required", type: "AgentID", id: 1 }
-                    }
-                  }
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  }
+                      agent_id: { rule: "required", type: "AgentID", id: 1 },
+                    },
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
+    },
+  },
 });
 export { $root as default };

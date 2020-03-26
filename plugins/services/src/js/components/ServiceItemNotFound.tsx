@@ -27,11 +27,11 @@ const ServiceItemNotFound = ({ message }) => {
 };
 
 ServiceItemNotFound.defaultProps = {
-  message: <Trans render="span">Not Found.</Trans>
+  message: <Trans render="span">Not Found.</Trans>,
 };
 
 ServiceItemNotFound.propTypes = {
-  message: PropTypes.node
+  message: PropTypes.node,
 };
 
 export default ServiceItemNotFound;

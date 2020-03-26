@@ -21,7 +21,7 @@ describe("NetworkingActions", () => {
     thisUseFixtures = Config.useFixtures;
     Config.useFixtures = false;
     Config.rootUrl = "";
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
   });
@@ -35,11 +35,11 @@ describe("NetworkingActions", () => {
   describe("#fetchVIPs", () => {
     it("dispatches the correct action when successful", () => {
       NetworkingActions.fetchVIPs();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIPS_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -48,16 +48,16 @@ describe("NetworkingActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       NetworkingActions.fetchVIPs();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIPS_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -71,12 +71,12 @@ describe("NetworkingActions", () => {
   describe("#fetchVIPDetail", () => {
     it("dispatches the correct action when successful", () => {
       NetworkingActions.fetchVIPDetail("foo", "bar", "baz");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
           data: { bar: "baz" },
-          vip: "foo:bar:baz"
+          vip: "foo:bar:baz",
         });
       });
 
@@ -85,17 +85,17 @@ describe("NetworkingActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       NetworkingActions.fetchVIPDetail("foo", "bar", "baz");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIP_DETAIL_ERROR,
           data: { bar: "baz" },
-          vip: "foo:bar:baz"
+          vip: "foo:bar:baz",
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -116,12 +116,12 @@ describe("NetworkingActions", () => {
   describe("#fetchVIPBackendConnections", () => {
     it("dispatches the correct action when successful", () => {
       NetworkingActions.fetchVIPBackendConnections("foo", "bar", "baz");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
           data: { bar: "baz" },
-          vip: "foo:bar:baz"
+          vip: "foo:bar:baz",
         });
       });
 
@@ -130,17 +130,17 @@ describe("NetworkingActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       NetworkingActions.fetchVIPBackendConnections("foo", "bar", "baz");
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_ERROR,
           data: { bar: "baz" },
-          vip: "foo:bar:baz"
+          vip: "foo:bar:baz",
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -161,11 +161,11 @@ describe("NetworkingActions", () => {
   describe("#fetchNodeMemberships", () => {
     it("dispatches the correct action when successful", () => {
       NetworkingActions.fetchNodeMemberships();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -174,16 +174,16 @@ describe("NetworkingActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       NetworkingActions.fetchNodeMemberships();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -197,11 +197,11 @@ describe("NetworkingActions", () => {
   describe("#fetchVIPSummaries", () => {
     it("dispatches the correct action when successful", () => {
       NetworkingActions.fetchVIPSummaries();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -210,16 +210,16 @@ describe("NetworkingActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       NetworkingActions.fetchVIPSummaries();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 

@@ -24,7 +24,7 @@ function getApplicationRoutes() {
     {
       type: Redirect,
       path: "/",
-      to: Hooks.applyFilter("applicationRedirectRoute", "/dashboard")
+      to: Hooks.applyFilter("applicationRedirectRoute", "/dashboard"),
     },
     dashboard,
     services,
@@ -37,7 +37,7 @@ function getApplicationRoutes() {
     // Plugins routes will be appended to this array
   );
 
-  routeFactories.forEach(routeFactory => {
+  routeFactories.forEach((routeFactory) => {
     routes = routes.concat(routeFactory.getRoutes());
   });
 
@@ -49,7 +49,7 @@ function getApplicationRoutes() {
           type: Route,
           id: "index",
           children: routes,
-          component: Index
+          component: Index,
         },
         {
           // This is a bit tricky.
@@ -70,12 +70,12 @@ function getApplicationRoutes() {
             {
               type: Route,
               path: "*",
-              component: NotFoundPage
-            }
-          ]
-        }
-      ]
-    }
+              component: NotFoundPage,
+            },
+          ],
+        },
+      ],
+    },
   ];
 
   return routes;
@@ -88,7 +88,7 @@ function getRoutes() {
   // Provide opportunity for plugins to inject routes
   routes = Hooks.applyFilter("applicationRoutes", routes);
 
-  const indexRoute = routes[0].children.find(route => route.id === "index");
+  const indexRoute = routes[0].children.find((route) => route.id === "index");
 
   // Register packages
   indexRoute.children = indexRoute.children.concat(
@@ -99,5 +99,5 @@ function getRoutes() {
 }
 
 export default {
-  getRoutes
+  getRoutes,
 };

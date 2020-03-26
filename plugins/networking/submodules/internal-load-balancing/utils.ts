@@ -24,7 +24,7 @@ const Utils = {
     // Add all received timestamps to the timestamps array.
     dataSets.forEach((dataSet, index) => {
       normalizedDataSets[index] = [];
-      Object.keys(dataSet).forEach(timestamp => {
+      Object.keys(dataSet).forEach((timestamp) => {
         if (timestamps.indexOf(timestamp) === -1) {
           timestamps.push(timestamp);
         }
@@ -40,7 +40,7 @@ const Utils = {
 
     // For each timestamp, loop through the datasets and create the normalized
     // data array.
-    timestamps.forEach(timestamp => {
+    timestamps.forEach((timestamp) => {
       dataSets.forEach((dataSet, dataSetIndex) => {
         // If the timestamp value is undefined, we need to check the entire
         // array for null values.
@@ -83,12 +83,12 @@ const Utils = {
     }
 
     // Loop over the arrays that need to be checked for full null values.
-    dataSetsToCheckForNullValues.forEach(dataSetIndex => {
+    dataSetsToCheckForNullValues.forEach((dataSetIndex) => {
       let allValuesNull = true;
 
       // If we find any value that is not null, then we don't need to replace
       // the null values with 0.
-      normalizedDataSets[dataSetIndex].some(datum => {
+      normalizedDataSets[dataSetIndex].some((datum) => {
         if (datum != null) {
           allValuesNull = false;
 
@@ -108,7 +108,7 @@ const Utils = {
     });
 
     return normalizedDataSets;
-  }
+  },
 };
 
 module.exports = Utils;

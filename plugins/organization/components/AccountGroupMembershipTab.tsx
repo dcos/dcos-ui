@@ -18,7 +18,7 @@ import ACLGroupsStore from "../submodules/groups/stores/ACLGroupsStore";
 class AccountGroupMembershipTab extends mixin(StoreMixin) {
   static propTypes = {
     accountID: PropTypes.string.isRequired,
-    getAccountDetails: PropTypes.func.isRequired
+    getAccountDetails: PropTypes.func.isRequired,
   };
   constructor() {
     super();
@@ -29,7 +29,7 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
       requestGroupsError: false,
       searchString: "",
       selectedGroup: [],
-      userUpdateError: null
+      userUpdateError: null,
     };
 
     // prettier-ignore
@@ -47,25 +47,25 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
   onAclGroupsStoreError() {
     this.setState({
       requestGroupsSuccess: false,
-      requestGroupsError: true
+      requestGroupsError: true,
     });
   }
 
   onAclGroupsStoreSuccess() {
     this.setState({
       requestGroupsSuccess: true,
-      requestGroupsError: false
+      requestGroupsError: false,
     });
   }
 
   onAclGroupStoreAddUserSuccess() {
     this.setState({
       searchString: "",
-      selectedGroup: []
+      selectedGroup: [],
     });
   }
 
-  handleGroupSelection = selectedGroups => {
+  handleGroupSelection = (selectedGroups) => {
     const group = selectedGroups.shift();
 
     if (!group || !group.id) {
@@ -78,7 +78,7 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
     this.typeahead.handleInputClear();
   };
 
-  handleSearchStringChange = searchString => {
+  handleSearchStringChange = (searchString) => {
     this.setState({ searchString });
   };
 
@@ -89,16 +89,18 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
 
     const userDetails = this.props.getAccountDetails();
     const userGroups = userDetails.getGroups().getItems();
-    const items = groups.filter(group => {
+    const items = groups.filter((group) => {
       // Filter out any group which is in permissions
       const gid = group.get("gid");
 
-      return !userGroups.some(currentGroup => currentGroup.get("gid") === gid);
+      return !userGroups.some(
+        (currentGroup) => currentGroup.get("gid") === gid
+      );
     });
 
-    return items.map(group => ({
+    return items.map((group) => ({
       id: group.gid,
-      name: group.gid
+      name: group.gid,
     }));
   }
 
@@ -108,7 +110,7 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
       searchString,
       requestGroupsError,
       requestGroupsSuccess,
-      selectedGroup
+      selectedGroup,
     } = this.state;
 
     if (requestGroupsError) {
@@ -129,7 +131,7 @@ class AccountGroupMembershipTab extends mixin(StoreMixin) {
             items={this.getDropdownItems()}
             onDropdownItemSelection={this.handleGroupSelection}
             placeholder={i18n._(t`Add Group`)}
-            ref={ref => {
+            ref={(ref) => {
               if (ref) {
                 this.typeahead = ref;
               }

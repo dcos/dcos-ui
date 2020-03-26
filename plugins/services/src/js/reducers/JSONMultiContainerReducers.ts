@@ -38,11 +38,11 @@ export default {
       residency: residency.bind(this)(state.residency, transaction),
       placement: {
         ...placementState,
-        constraints: constraints.bind(this)(constraintsState, transaction)
-      }
+        constraints: constraints.bind(this)(constraintsState, transaction),
+      },
     };
   },
   fetch,
   volumes,
-  networks
+  networks,
 };

@@ -41,12 +41,12 @@ const EmptyServiceTree = ({ onCreateGroup, onCreateService }) => {
 
 EmptyServiceTree.defaultProps = {
   onCreateGroup: () => undefined,
-  onCreateService: () => undefined
+  onCreateService: () => undefined,
 };
 
 EmptyServiceTree.propTypes = {
   onCreateGroup: PropTypes.func,
-  onCreateService: PropTypes.func
+  onCreateService: PropTypes.func,
 };
 
 export default EmptyServiceTree;

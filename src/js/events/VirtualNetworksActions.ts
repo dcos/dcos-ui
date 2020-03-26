@@ -1,7 +1,7 @@
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import {
   REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-  REQUEST_VIRTUAL_NETWORKS_ERROR
+  REQUEST_VIRTUAL_NETWORKS_ERROR,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -14,18 +14,18 @@ const VirtualNetworksActions = {
       success(response: { network: { overlays: APIResponse } }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_SUCCESS,
-          data: response.network.overlays || []
+          data: response.network.overlays || [],
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_VIRTUAL_NETWORKS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -36,10 +36,10 @@ if (Config.useFixtures) {
   }
 
   window.actionTypes.VirtualNetworksActions = {
-    fetch: { event: "success", success: { response: virtualNetworksFixture } }
+    fetch: { event: "success", success: { response: virtualNetworksFixture } },
   };
 
-  Object.keys(window.actionTypes.VirtualNetworksActions).forEach(method => {
+  Object.keys(window.actionTypes.VirtualNetworksActions).forEach((method) => {
     VirtualNetworksActions[method] = RequestUtil.stubRequest(
       VirtualNetworksActions,
       "VirtualNetworksActions",

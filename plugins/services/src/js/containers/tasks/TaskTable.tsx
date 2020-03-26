@@ -11,7 +11,7 @@ import {
   greyLightDarken1,
   iconSizeXxs,
   success,
-  error
+  error,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
@@ -38,14 +38,14 @@ const tableColumnClasses = {
   cpus: "task-table-column-cpus",
   mem: "task-table-column-mem",
   gpus: "task-table-column-gpus",
-  updated: "task-table-column-updated"
+  updated: "task-table-column-updated",
 };
 
 class TaskTable extends React.Component {
   static defaultProps = {
     className:
       "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
-    tasks: []
+    tasks: [],
   };
   static propTypes = {
     checkedItemsMap: PropTypes.object,
@@ -53,7 +53,7 @@ class TaskTable extends React.Component {
     onCheckboxChange: PropTypes.func,
     params: PropTypes.object.isRequired,
     tasks: PropTypes.array.isRequired,
-    i18n: PropTypes.object
+    i18n: PropTypes.object,
   };
   constructor(props) {
     super(props);
@@ -61,14 +61,14 @@ class TaskTable extends React.Component {
   getStatValue(task, prop) {
     return task.resources[prop] || 0;
   }
-  getStatusValue = task => {
+  getStatusValue = (task) => {
     return this.props.i18n._(TaskStates[task.state].displayName);
   };
 
   getClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
       active: prop === sortBy.prop,
-      clickable: row == null && prop !== "logs" // this is a header
+      clickable: row == null && prop !== "logs", // this is a header
     });
   }
 
@@ -87,7 +87,7 @@ class TaskTable extends React.Component {
         prop: "id",
         render: this.renderHeadline({ primary: true }),
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -96,7 +96,7 @@ class TaskTable extends React.Component {
         prop: "name",
         render: this.renderHeadline({ secondary: true }),
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -105,7 +105,7 @@ class TaskTable extends React.Component {
         prop: "host",
         render: this.renderHost,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -114,7 +114,7 @@ class TaskTable extends React.Component {
         prop: "zone",
         render: this.renderZone,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -123,7 +123,7 @@ class TaskTable extends React.Component {
         prop: "region",
         render: this.renderRegion,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         cacheCell: false,
@@ -134,7 +134,7 @@ class TaskTable extends React.Component {
         prop: "status",
         render: this.renderStatus,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         cacheCell: false,
@@ -145,7 +145,7 @@ class TaskTable extends React.Component {
         prop: "health",
         render: this.renderHealth,
         sortable: true,
-        sortFunction: getHealthSorting
+        sortFunction: getHealthSorting,
       },
       {
         cacheCell: false,
@@ -154,7 +154,7 @@ class TaskTable extends React.Component {
         heading,
         prop: "logs",
         render: this.renderLog,
-        sortable: false
+        sortable: false,
       },
       {
         cacheCell: true,
@@ -165,7 +165,7 @@ class TaskTable extends React.Component {
         prop: "cpus",
         render: this.renderStats,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         cacheCell: true,
@@ -176,7 +176,7 @@ class TaskTable extends React.Component {
         prop: "mem",
         render: this.renderStats,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         cacheCell: true,
@@ -187,7 +187,7 @@ class TaskTable extends React.Component {
         prop: "gpus",
         render: this.renderStats,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className,
@@ -196,8 +196,8 @@ class TaskTable extends React.Component {
         prop: "updated",
         render: ResourceTableUtil.renderUpdated,
         sortable: true,
-        sortFunction
-      }
+        sortFunction,
+      },
     ];
   }
 
@@ -224,7 +224,7 @@ class TaskTable extends React.Component {
   getDisabledItemsMap(tasks) {
     return tasks
       .filter(
-        task =>
+        (task) =>
           task.state !== "TASK_UNREACHABLE" &&
           (TaskStates[task.state].stateTypes.includes("completed") ||
             !task.isStartedByMarathon)
@@ -245,11 +245,11 @@ class TaskTable extends React.Component {
       return acc;
     }, {});
   }
-  renderHeadline = options => {
+  renderHeadline = (options) => {
     const anchorClasses = classNames(
       {
         "table-cell-link-primary": options.primary,
-        "table-cell-link-secondary": options.secondary
+        "table-cell-link-secondary": options.secondary,
       },
       "text-overflow"
     );
@@ -369,7 +369,7 @@ class TaskTable extends React.Component {
     const transitional = [
       "TASK_KILLING",
       "TASK_STARTING",
-      "TASK_STAGING"
+      "TASK_STAGING",
     ].includes(state);
 
     const healthy = task.health === TaskHealthStates.HEALTHY;
@@ -457,7 +457,7 @@ class TaskTable extends React.Component {
 }
 
 TaskTable.contextTypes = {
-  router: routerShape.isRequired
+  router: routerShape.isRequired,
 };
 
 export default TaskTable;

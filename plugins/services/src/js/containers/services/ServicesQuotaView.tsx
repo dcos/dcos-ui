@@ -7,7 +7,7 @@ import {
   DropdownMenu,
   DropdownSection,
   DropdownMenuItem,
-  PrimaryDropdownButton
+  PrimaryDropdownButton,
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
@@ -26,12 +26,12 @@ interface ServicesQuotaViewProps {
 class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
   public static contextTypes = {
     modalHandlers: PropTypes.shape({
-      createGroup: PropTypes.func
+      createGroup: PropTypes.func,
     }).isRequired,
-    router: routerShape
+    router: routerShape,
   };
   public static propTypes = {
-    serviceTree: PropTypes.instanceOf(ServiceTree)
+    serviceTree: PropTypes.instanceOf(ServiceTree),
   };
   constructor(props: ServicesQuotaViewProps) {
     super(props);
@@ -47,14 +47,14 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
         label: i18nMark("Services"),
         routePath: serviceTree.isRoot()
           ? "/services/overview"
-          : `/services/overview/${encodeURIComponent(serviceTree.getId())}`
+          : `/services/overview/${encodeURIComponent(serviceTree.getId())}`,
       },
       {
         label: i18nMark("Quota"),
         routePath: serviceTree.isRoot()
           ? "/services/quota"
-          : `/services/quota/${encodeURIComponent(serviceTree.getId())}`
-      }
+          : `/services/quota/${encodeURIComponent(serviceTree.getId())}`,
+      },
     ];
   }
 
@@ -145,8 +145,8 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
               ? [
                   {
                     onItemSelect: onEditSelect,
-                    label: i18nMark("Edit Group")
-                  }
+                    label: i18nMark("Edit Group"),
+                  },
                 ]
               : []
           }

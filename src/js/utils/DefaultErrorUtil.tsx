@@ -5,13 +5,13 @@ import { TYPES } from "#SRC/js/types/containerTypes";
 
 import {
   ToastNotification,
-  ToastAppearance
+  ToastAppearance,
 } from "@extension-kid/toast-notifications";
 
 import container from "#SRC/js/container";
 import {
   NotificationService,
-  NotificationServiceType
+  NotificationServiceType,
 } from "@extension-kid/notification-service";
 
 const notificationService = container.get<NotificationService>(
@@ -22,7 +22,7 @@ const i18n = container.get<I18n>(TYPES.I18n);
 
 const defaultNetworkErrorHandler = ({
   message,
-  code
+  code,
 }: {
   message: string;
   code: number;
@@ -39,7 +39,7 @@ const defaultNetworkErrorHandler = ({
                 "Unable to complete request. Please try again. The error returned was {code} {message}"
               ),
               { code, message }
-            )
+            ),
     })
   );
 };

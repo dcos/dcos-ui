@@ -13,19 +13,19 @@ const AnimationCircle = createReactClass({
     position: PropTypes.array.isRequired,
     radius: PropTypes.number,
     cx: PropTypes.number,
-    cy: PropTypes.number
+    cy: PropTypes.number,
   },
 
   getInitialState() {
     return {
-      didRenderBefore: false
+      didRenderBefore: false,
     };
   },
   getDefaultProps() {
     return {
       radius: 4,
       cx: 0,
-      cy: 0
+      cy: 0,
     };
   },
 
@@ -67,7 +67,7 @@ const AnimationCircle = createReactClass({
     return (
       <circle className={className} r={radius} cx={props.cx} cy={props.cy} />
     );
-  }
+  },
 });
 
 export default AnimationCircle;

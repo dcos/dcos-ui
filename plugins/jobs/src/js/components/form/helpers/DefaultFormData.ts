@@ -4,13 +4,13 @@ import {
   DockerContainer,
   JobSpec,
   Container,
-  UcrImageKind
+  UcrImageKind,
 } from "./JobFormData";
 
 export const JobDataPlaceholders = {
   maxLaunchDelay: 3600,
   timezone: "UTC",
-  startingDeadlineSeconds: 900
+  startingDeadlineSeconds: 900,
 };
 
 export const getDefaultJob = (): JobSpecData => ({
@@ -22,23 +22,23 @@ export const getDefaultJob = (): JobSpecData => ({
     disk: 0,
     mem: 128,
     docker: getDefaultDocker(),
-    ucr: getDefaultContainer()
-  }
+    ucr: getDefaultContainer(),
+  },
 });
 
 export const getDefaultJobSpec = (): JobSpec => ({
   job: getDefaultJob(),
   cmdOnly: false,
-  container: Container.UCR
+  container: Container.UCR,
 });
 
 export const getDefaultContainer = (): UcrContainer => ({
   image: {
     id: "",
-    kind: UcrImageKind.Docker
-  }
+    kind: UcrImageKind.Docker,
+  },
 });
 
 export const getDefaultDocker = (): DockerContainer => ({
-  image: ""
+  image: "",
 });

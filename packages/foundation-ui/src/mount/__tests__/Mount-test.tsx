@@ -4,11 +4,11 @@ import Mount from "../Mount";
 import MountService from "../index";
 
 describe("Mount", () => {
-  const FirstTestComponent = props => (
+  const FirstTestComponent = (props) => (
     <div className="component">{props.message}</div>
   );
 
-  const SecondTestComponent = props => (
+  const SecondTestComponent = (props) => (
     <div className="component">{props.message}</div>
   );
 

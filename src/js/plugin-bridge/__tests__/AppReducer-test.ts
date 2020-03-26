@@ -11,19 +11,19 @@ function getApplicationState() {
 describe("AppReducer", () => {
   const expectedState = {
     foo: "bar",
-    qux: { foo: "bar" }
+    qux: { foo: "bar" },
   };
 
   it("alters state correctly when no plugins loaded", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
-      data: "bar"
+      data: "bar",
     });
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "qux",
-      data: { foo: "bar" }
+      data: { foo: "bar" },
     });
     PluginSDK.initialize({});
 
@@ -36,12 +36,12 @@ describe("AppReducer", () => {
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "foo",
-      data: "bar"
+      data: "bar",
     });
     PluginSDK.dispatch({
       type: EventTypes.APP_STORE_CHANGE,
       storeID: "qux",
-      data: { foo: "bar" }
+      data: { foo: "bar" },
     });
 
     const state = getApplicationState();

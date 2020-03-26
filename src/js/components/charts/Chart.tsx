@@ -12,13 +12,13 @@ const Chart = createReactClass({
 
   propTypes: {
     calcHeight: PropTypes.func,
-    delayRender: PropTypes.bool
+    delayRender: PropTypes.bool,
   },
 
   getDefaultProps() {
     return {
       calcHeight: null,
-      delayRender: false
+      delayRender: false,
     };
   },
 
@@ -79,7 +79,7 @@ const Chart = createReactClass({
       if (Array.isArray(children)) {
         height = height / children.length;
 
-        return children.map(child =>
+        return children.map((child) =>
           React.cloneElement(child, { width, height })
         );
       }
@@ -91,11 +91,11 @@ const Chart = createReactClass({
     // at the moment, 'chart' is used to inject the chart color palette.
     // we should reclaim it as the rightful className of <Chart />
     return (
-      <div ref={el => (this.chartRef = el)} className="chart-chart">
+      <div ref={(el) => (this.chartRef = el)} className="chart-chart">
         {this.getChildren()}
       </div>
     );
-  }
+  },
 });
 
 export default Chart;

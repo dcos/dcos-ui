@@ -6,7 +6,7 @@ const ErrorPaths = {
   id: "appId",
   "/id": "appId",
   apps: "appId",
-  "/": "general"
+  "/": "general",
 };
 
 export default ErrorPaths;

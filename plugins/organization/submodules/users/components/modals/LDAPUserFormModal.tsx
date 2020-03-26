@@ -16,38 +16,38 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
       disableNewUser: false,
       errorMsg: false,
       successMsg: false,
-      usernameValue: ""
+      usernameValue: "",
     };
 
     this.formModalRef = React.createRef();
 
     this.store_listeners = [
-      { name: "aclUser", events: ["createLDAPSuccess", "createLDAPError"] }
+      { name: "aclUser", events: ["createLDAPSuccess", "createLDAPError"] },
     ];
   }
-  onAclUserStoreCreateLDAPSuccess = successMsg => {
+  onAclUserStoreCreateLDAPSuccess = (successMsg) => {
     this.setState({
       disableNewUser: false,
       errorMsg: false,
       successMsg,
-      usernameValue: ""
+      usernameValue: "",
     });
 
     if (this.formModalRef && this.formModalRef.current) {
       this.formModalRef.current.focusOnField();
     }
   };
-  onAclUserStoreCreateLDAPError = errorMsg => {
+  onAclUserStoreCreateLDAPError = (errorMsg) => {
     this.setState({
       disableNewUser: false,
       errorMsg,
-      successMsg: false
+      successMsg: false,
     });
   };
-  handleNewUserSubmit = model => {
+  handleNewUserSubmit = (model) => {
     this.setState({
       disableNewUser: true,
-      usernameValue: model.description
+      usernameValue: model.description,
     });
     ACLUserStore.addLDAPUser(model);
   };
@@ -56,7 +56,7 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
       disableNewUser: false,
       errorMsg: false,
       successMsg: false,
-      usernameValue: ""
+      usernameValue: "",
     });
     this.props.onClose();
   };
@@ -66,7 +66,7 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
 
     const { disableNewUser, errorMsg, usernameValue } = this.state;
     const addButtonClassSet = classNames("button button-primary", {
-      disabled: disableNewUser
+      disabled: disableNewUser,
     });
 
     return [
@@ -83,7 +83,7 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
           validation() {
             return true;
           },
-          value: usernameValue
+          value: usernameValue,
         },
         {
           fieldType: "submit",
@@ -92,12 +92,12 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
           formGroupClass: "text-align-right",
           buttonText: disableNewUser ? i18n._(t`Adding...`) : i18n._(t`Add`),
           buttonClass: addButtonClassSet,
-          disabled: disableNewUser
-        }
+          disabled: disableNewUser,
+        },
       ],
       {
-        render: this.getSuccessMessage
-      }
+        render: this.getSuccessMessage,
+      },
     ];
   }
   getSuccessMessage = () => {
@@ -121,8 +121,8 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
       {
         text: i18n._(t`Cancel`),
         className: "button button-primary-link flush-left",
-        isClose: true
-      }
+        isClose: true,
+      },
     ];
 
     return (
@@ -136,7 +136,7 @@ class LDAPUserFormModal extends mixin(StoreMixin) {
               <Trans render="span">Import LDAP Users</Trans>
             </ModalHeading>
           ),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.handleModalClose}
         onSubmit={this.handleNewUserSubmit}

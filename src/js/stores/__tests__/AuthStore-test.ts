@@ -100,7 +100,7 @@ describe("AuthStore", () => {
     it("gets the user", () => {
       expect(AuthStore.getUser()).toEqual({
         uid: "joe",
-        description: "Joe Doe"
+        description: "Joe Doe",
       });
     });
   });
@@ -113,13 +113,13 @@ describe("AuthStore", () => {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_LOGIN_ERROR,
           data: "foo",
-          xhr: { bar: "baz", qux: "nux" }
+          xhr: { bar: "baz", qux: "nux" },
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
         expect(mockedFn.mock.calls[0]).toEqual([
           "foo",
-          { bar: "baz", qux: "nux" }
+          { bar: "baz", qux: "nux" },
         ]);
       });
     });
@@ -132,7 +132,7 @@ describe("AuthStore", () => {
           mockedFn
         );
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_LOGOUT_SUCCESS
+          type: ActionTypes.REQUEST_LOGOUT_SUCCESS,
         });
 
         expect(mockedFn.calls.count()).toEqual(1);
@@ -145,7 +145,7 @@ describe("AuthStore", () => {
           mockedFn
         );
         AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_LOGOUT_ERROR
+          type: ActionTypes.REQUEST_LOGOUT_ERROR,
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);

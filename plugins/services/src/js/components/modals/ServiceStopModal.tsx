@@ -20,14 +20,14 @@ class ServiceStopModal extends React.PureComponent {
     open: PropTypes.bool.isRequired,
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ]).isRequired
+      PropTypes.instanceOf(Service),
+    ]).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
     };
   }
 

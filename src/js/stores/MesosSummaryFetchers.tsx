@@ -31,13 +31,13 @@ export function withNode<P extends object>(
       super(props);
       this.receiveNewSummary = this.receiveNewSummary.bind(this);
       this.state = {
-        summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot()
+        summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot(),
       };
     }
 
     public receiveNewSummary() {
       this.setState({
-        summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot()
+        summary: MesosSummaryStore.getLastSuccessfulSummarySnapshot(),
       });
     }
 

@@ -20,7 +20,7 @@ class ServiceConnectionEndpointList extends React.Component {
   static propTypes = {
     onEditClick: PropTypes.func,
     errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service)
+    service: PropTypes.instanceOf(Service),
   };
   constructor(...args) {
     super(...args);
@@ -164,8 +164,8 @@ class ServiceConnectionEndpointList extends React.Component {
     let endpoints = [];
 
     if (service.instances && Array.isArray(service.instances)) {
-      service.instances.forEach(instance => {
-        instance.containers.forEach(container => {
+      service.instances.forEach((instance) => {
+        instance.containers.forEach((container) => {
           endpoints = endpoints.concat(container.endpoints);
         });
       });
@@ -194,7 +194,7 @@ class ServiceConnectionEndpointList extends React.Component {
 }
 
 ServiceConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServiceConnectionEndpointList;

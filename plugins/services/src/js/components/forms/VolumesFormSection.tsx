@@ -27,7 +27,7 @@ import ContainerConstants from "../../constants/ContainerConstants";
 import { FormReducer as volumes } from "../../reducers/serviceForm/FormReducers/Volumes";
 
 const {
-  type: { DOCKER }
+  type: { DOCKER },
 } = ContainerConstants;
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
@@ -38,13 +38,13 @@ class VolumesFormSection extends React.Component {
     data: {},
     errors: {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   getPersistentVolumeConfig(volume, key) {
     if (volume.type !== "PERSISTENT") {
@@ -342,7 +342,7 @@ class VolumesFormSection extends React.Component {
             key={key}
             onRemove={this.props.onRemoveItem.bind(this, {
               value: key,
-              path: "volumes"
+              path: "volumes",
             })}
           >
             {this.getUnknownVolumeConfig(volume, key)}
@@ -355,7 +355,7 @@ class VolumesFormSection extends React.Component {
           key={key}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: key,
-            path: "volumes"
+            path: "volumes",
           })}
         >
           <FormRow>
@@ -378,7 +378,7 @@ class VolumesFormSection extends React.Component {
                   placeholder="Select ..."
                 >
                   {Object.keys(VolumeDefinitions)
-                    .filter(type => !excludedTypes.includes(type))
+                    .filter((type) => !excludedTypes.includes(type))
                     .map((type, index) => (
                       <SelectOption
                         key={index}
@@ -463,7 +463,7 @@ class VolumesFormSection extends React.Component {
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {
-              path: "volumes"
+              path: "volumes",
             })}
           >
             <Trans render="span">Add Volume</Trans>
@@ -479,13 +479,13 @@ class VolumesFormSection extends React.Component {
 }
 
 VolumesFormSection.configReducers = {
-  volumes
+  volumes,
 };
 
 VolumesFormSection.validationReducers = {
   volumes() {
     return [];
-  }
+  },
 };
 
 export default VolumesFormSection;

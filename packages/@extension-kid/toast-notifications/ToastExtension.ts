@@ -3,7 +3,7 @@ import { BehaviorSubject } from "rxjs";
 
 import {
   Notification,
-  NotificationServiceExtensionInterface
+  NotificationServiceExtensionInterface,
 } from "../notification-service";
 import { ToastNotification } from "./ToastNotification";
 
@@ -16,7 +16,7 @@ class ToastExtension implements NotificationServiceExtensionInterface {
   constructor() {
     const toasts: ToastNotification[] = [];
     this.Toast$ = new BehaviorSubject<ToastNotification[]>(toasts);
-    this.Toast$.subscribe(toasts => (this.toasts = toasts));
+    this.Toast$.subscribe((toasts) => (this.toasts = toasts));
 
     this.supportedNotifications = this.supportedNotifications.bind(this);
     this.push = this.push.bind(this);
@@ -58,9 +58,9 @@ class ToastExtension implements NotificationServiceExtensionInterface {
   }
 
   private removeToast(toastId: string): ToastNotification | null {
-    const toast = this.toasts.find(toast => toast.id === toastId);
+    const toast = this.toasts.find((toast) => toast.id === toastId);
     if (toast) {
-      this.Toast$.next(this.toasts.filter(toast => toast.id !== toastId));
+      this.Toast$.next(this.toasts.filter((toast) => toast.id !== toastId));
       return toast;
     }
     return null;

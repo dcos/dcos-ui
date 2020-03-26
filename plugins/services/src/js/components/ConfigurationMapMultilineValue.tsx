@@ -5,7 +5,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-const ConfigurationMapMultilineValue = props => {
+const ConfigurationMapMultilineValue = (props) => {
   const { value, defaultValue } = props;
 
   // Bail early with default if empty
@@ -22,12 +22,12 @@ const ConfigurationMapMultilineValue = props => {
 
 ConfigurationMapMultilineValue.defaultProps = {
   defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
-  value: ""
+  value: "",
 };
 
 ConfigurationMapMultilineValue.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default ConfigurationMapMultilineValue;

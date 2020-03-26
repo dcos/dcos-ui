@@ -14,7 +14,7 @@ import { actionAllowed, StatusAction, Status } from "../types/Status";
 const NodeActionLabels = {
   drain: i18nMark("Drain"),
   deactivate: i18nMark("Deactivate"),
-  reactivate: i18nMark("Reactivate")
+  reactivate: i18nMark("Reactivate"),
 };
 
 const MORE = "MORE";
@@ -28,27 +28,27 @@ function getAllowedActions(node: Node) {
     id: MORE,
     selectedHtml: (
       <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-    )
+    ),
   });
 
   if (actionAllowed(StatusAction.DRAIN, status)) {
     actions.push({
       id: StatusAction.DRAIN,
-      html: <Trans render="span" id={NodeActionLabels.drain} />
+      html: <Trans render="span" id={NodeActionLabels.drain} />,
     });
   }
 
   if (actionAllowed(StatusAction.DEACTIVATE, status)) {
     actions.push({
       id: StatusAction.DEACTIVATE,
-      html: <Trans render="span" id={NodeActionLabels.deactivate} />
+      html: <Trans render="span" id={NodeActionLabels.deactivate} />,
     });
   }
 
   if (actionAllowed(StatusAction.REACTIVATE, status)) {
     actions.push({
       id: StatusAction.REACTIVATE,
-      html: <Trans render="span" id={NodeActionLabels.reactivate} />
+      html: <Trans render="span" id={NodeActionLabels.reactivate} />,
     });
   }
 

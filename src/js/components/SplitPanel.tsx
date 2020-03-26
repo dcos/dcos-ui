@@ -55,7 +55,7 @@ export const getSidePanelProps = (
   >
 ) => {
   const sidePanelChild = panelChildren.find(
-    child => React.isValidElement(child) && child.type === SidePanel
+    (child) => React.isValidElement(child) && child.type === SidePanel
   ) as React.ReactElement<SidePanelProps>;
   return sidePanelChild.props;
 };
@@ -65,20 +65,20 @@ export const SidePanel = ({
   className,
   isActive,
   isResizing,
-  width
+  width,
 }: SidePanelProps) => {
   const sidePanelClasses = classNames("modal-full-screen-side-panel", {
-    "is-visible": isActive
+    "is-visible": isActive,
   });
   return (
     <React.Fragment>
       <div
         className={classNames("modal-full-screen-side-panel-placeholder", {
-          "is-visible": isActive
+          "is-visible": isActive,
         })}
         style={{
           width: isActive ? width : undefined,
-          transition: isResizing ? "none" : undefined
+          transition: isResizing ? "none" : undefined,
         }}
       />
       <div
@@ -87,12 +87,12 @@ export const SidePanel = ({
           sidePanelClasses,
           className,
           {
-            noUserSelect: isResizing
+            noUserSelect: isResizing,
           }
         )}
         style={{
           width,
-          right: isActive ? 0 : width && width * -1
+          right: isActive ? 0 : width && width * -1,
         }}
       >
         {children}
@@ -104,7 +104,7 @@ export const SidePanel = ({
 export const PrimaryPanel = ({
   children,
   className,
-  isResizing
+  isResizing,
 }: PanelProps) => (
   <div
     className={classNames(
@@ -112,7 +112,7 @@ export const PrimaryPanel = ({
       "splitPanels-panel--primary",
       className,
       {
-        noUserSelect: isResizing
+        noUserSelect: isResizing,
       }
     )}
   >
@@ -121,7 +121,7 @@ export const PrimaryPanel = ({
 );
 
 function intersperse<A>(list: A[], sep: JSX.Element) {
-  return Array.prototype.concat(...list.map(e => [sep, e])).slice(1);
+  return Array.prototype.concat(...list.map((e) => [sep, e])).slice(1);
 }
 
 class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
@@ -136,7 +136,7 @@ class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
     this.handleWindowResize = this.handleWindowResize.bind(this);
 
     this.state = {
-      isResizing: false
+      isResizing: false,
     };
   }
 
@@ -158,19 +158,19 @@ class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
     const panelChildren = React.Children.toArray(children) as Array<
       React.ReactElement<PanelProps> & React.ReactElement<SidePanelProps>
     >;
-    const panelChildrenArr = panelChildren.map(panel => {
+    const panelChildrenArr = panelChildren.map((panel) => {
       if (React.isValidElement(panel)) {
         if (panel.type === SidePanel) {
           return React.cloneElement(panel, {
             isResizing,
             width: sidePanelWidth,
-            key: "sidePanel"
+            key: "sidePanel",
           });
         }
         if (panel.type === PrimaryPanel) {
           return React.cloneElement(panel, {
             isResizing,
-            key: "primaryPanel"
+            key: "primaryPanel",
           });
         }
       }
@@ -180,12 +180,12 @@ class SplitPanel extends React.PureComponent<SplitPanelProps, SplitPanelState> {
     const panelSeparator = (
       <div
         className={classNames("splitPanels-separator", {
-          "splitPanels-separator--active": isActive
+          "splitPanels-separator--active": isActive,
         })}
         style={{
           transform: `translateX(${isActive ? 0 : sidePanelWidth}px)`,
           right: isActive ? sidePanelWidth : 0,
-          transition: isResizing ? "none" : undefined
+          transition: isResizing ? "none" : undefined,
         }}
         onMouseDown={this.handleMouseDown}
         key="separator"

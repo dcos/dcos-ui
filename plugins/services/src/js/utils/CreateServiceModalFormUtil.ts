@@ -38,7 +38,7 @@ const CreateServiceModalFormUtil = {
 
       return memo;
     }, baseObject);
-  }
+  },
 };
 
 export default CreateServiceModalFormUtil;

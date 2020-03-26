@@ -14,13 +14,13 @@ describe("ClusterLinkingStore", () => {
   describe("#fetchClusterLinkingList", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...clusterLinkingListFixture
+          ...clusterLinkingListFixture,
         });
       };
       thisClusterLinkingListFixture = {
-        ...clusterLinkingListFixture
+        ...clusterLinkingListFixture,
       };
     });
 
@@ -47,7 +47,7 @@ describe("ClusterLinkingStore", () => {
       it("stores cluster list when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_CLUSTER_LIST_SUCCESS,
-          data: thisClusterLinkingListFixture
+          data: thisClusterLinkingListFixture,
         });
 
         const clusterList = ClusterLinkingStore.getLinkedClusters();
@@ -62,7 +62,7 @@ describe("ClusterLinkingStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_CLUSTER_LIST_SUCCESS,
-          data: thisClusterLinkingListFixture
+          data: thisClusterLinkingListFixture,
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);
@@ -76,7 +76,7 @@ describe("ClusterLinkingStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_CLUSTER_LIST_ERROR,
-          data: { message: "error" }
+          data: { message: "error" },
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);

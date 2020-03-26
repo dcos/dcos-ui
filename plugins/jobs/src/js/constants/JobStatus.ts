@@ -10,14 +10,14 @@ export interface JobStatus {
 
 const status: JobStatus = {
   "N/A": {
-    sortOrder: 1
+    sortOrder: 1,
   },
   Success: {
-    sortOrder: 2
+    sortOrder: 2,
   },
   Failed: {
-    sortOrder: 0
-  }
+    sortOrder: 0,
+  },
 };
 
 export default status;

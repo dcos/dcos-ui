@@ -14,7 +14,7 @@ const TaskStatusSorting = {
   TASK_STARTED: 12,
   TASK_DROPPED: 13,
   TASK_STARTING: 14,
-  TASK_UNKNOWN: 15
+  TASK_UNKNOWN: 15,
 };
 
 export default TaskStatusSorting;

@@ -13,19 +13,19 @@ const serviceData = {
       endpointData: {
         address: ["10.0.3.171:1026"],
         dns: ["coordinator-0-node.elastic.autoip.dcos.thisdcos.directory:1026"],
-        vip: "coordinator.elastic.l4lb.thisdcos.directory:9200"
+        vip: "coordinator.elastic.l4lb.thisdcos.directory:9200",
       },
-      contentType: "application/json"
-    }
+      contentType: "application/json",
+    },
   ],
-  error: ""
+  error: "",
 };
 const endpoints = [
   "coordinator-http",
   "coordinator-transport",
   "data-http",
   "data-transport,master-http",
-  "master-transport"
+  "master-transport",
 ];
 const serviceId = "/arangodb";
 
@@ -33,7 +33,7 @@ describe("SDKEndpointStore", () => {
   it("stores service by id", () => {
     const service = {
       endpoints: [],
-      error: null
+      error: null,
     };
 
     SDKEndpointStore.setService(serviceId, service);
@@ -41,14 +41,14 @@ describe("SDKEndpointStore", () => {
     const services = SDKEndpointStore.get("services");
 
     expect(services).toEqual({
-      [serviceId]: service
+      [serviceId]: service,
     });
   });
 
   it("returns an instance of ServiceEndpoint", () => {
     const service = {
       endpoints: [serviceData.endpoints[0]],
-      error: null
+      error: null,
     };
 
     SDKEndpointStore.setService(serviceId, service);
@@ -69,9 +69,9 @@ describe("SDKEndpointStore", () => {
     const endpoint = serviceData.endpoints[0];
     const service = {
       endpoints: {
-        [endpoints[0]]: {}
+        [endpoints[0]]: {},
       },
-      error: ""
+      error: "",
     };
 
     SDKEndpointStore.setService(serviceId, service);
@@ -88,12 +88,12 @@ describe("SDKEndpointStore", () => {
         endpointData: {
           address: ["10.0.3.171:1026"],
           dns: [
-            "coordinator-0-node.elastic.autoip.dcos.thisdcos.directory:1026"
+            "coordinator-0-node.elastic.autoip.dcos.thisdcos.directory:1026",
           ],
-          vip: "coordinator.elastic.l4lb.thisdcos.directory:9200"
+          vip: "coordinator.elastic.l4lb.thisdcos.directory:9200",
         },
-        contentType: "application/text"
-      })
+        contentType: "application/text",
+      }),
     ];
 
     expect(SDKEndpointStore.getServiceEndpoints(serviceId)).toEqual(
@@ -110,14 +110,14 @@ describe("SDKEndpointStore", () => {
         data: {
           serviceId,
           error: {
-            description: "error message"
-          }
-        }
+            description: "error message",
+          },
+        },
       });
 
       expect(SDKEndpointStore.setService).toHaveBeenCalledWith(serviceId, {
         endpoints: [],
-        error: "error message"
+        error: "error message",
       });
     });
 
@@ -128,8 +128,8 @@ describe("SDKEndpointStore", () => {
         type: ActionTypes.REQUEST_SDK_ENDPOINTS_SUCCESS,
         data: {
           serviceId,
-          endpoints
-        }
+          endpoints,
+        },
       });
 
       expect(SDKEndpointStore.processEndpoints).toHaveBeenCalledWith(
@@ -145,7 +145,7 @@ describe("SDKEndpointStore", () => {
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SDK_ENDPOINT_SUCCESS,
-        data
+        data,
       });
 
       expect(SDKEndpointStore.processEndpoint).toHaveBeenCalledWith(
@@ -163,13 +163,13 @@ describe("SDKEndpointStore", () => {
         type: ActionTypes.REQUEST_SDK_ENDPOINT_ERROR,
         data: {
           serviceId,
-          error: "error message"
-        }
+          error: "error message",
+        },
       });
 
       expect(SDKEndpointStore.setService).toHaveBeenCalledWith(serviceId, {
         endpoints: [],
-        error: "error message"
+        error: "error message",
       });
     });
   });

@@ -11,7 +11,9 @@ export default class ServicesList extends List<Framework> {
 
     if (filters) {
       if (filters.ids) {
-        services = services.filter(service => filters.ids.includes(service.id));
+        services = services.filter((service) =>
+          filters.ids.includes(service.id)
+        );
       }
 
       if (filters.name) {
@@ -19,9 +21,9 @@ export default class ServicesList extends List<Framework> {
       }
 
       if (filters.health != null && filters.health.length !== 0) {
-        services = services.filter(service =>
+        services = services.filter((service) =>
           filters.health.some(
-            healthValue =>
+            (healthValue) =>
               service.getHealth().value === parseInt(healthValue, 10)
           )
         );
@@ -33,7 +35,7 @@ export default class ServicesList extends List<Framework> {
 
   sumUsedResources() {
     const services = this.getItems();
-    const resourcesList = services.map(service => service.used_resources);
+    const resourcesList = services.map((service) => service.used_resources);
 
     return MesosSummaryUtil.sumResources(resourcesList);
   }
@@ -48,7 +50,7 @@ export default class ServicesList extends List<Framework> {
       TASK_FINISHED: 0,
       TASK_FAILED: 0,
       TASK_LOST: 0,
-      TASK_ERROR: 0
+      TASK_ERROR: 0,
     };
 
     if (services.length === 0) {
@@ -57,8 +59,8 @@ export default class ServicesList extends List<Framework> {
 
     const taskTypes = Object.keys(tasks);
 
-    services.forEach(service => {
-      taskTypes.forEach(taskType => {
+    services.forEach((service) => {
+      taskTypes.forEach((taskType) => {
         if (service[taskType]) {
           tasks[taskType] += service[taskType];
         }

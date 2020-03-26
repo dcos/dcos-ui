@@ -9,7 +9,7 @@ class PlacementRegionSelection extends React.Component {
     const selectProps = {
       name: `constraints.${index}.region`,
       type: "text",
-      value: constraint.value
+      value: constraint.value,
     };
 
     return <RegionSelection selectProps={selectProps} />;

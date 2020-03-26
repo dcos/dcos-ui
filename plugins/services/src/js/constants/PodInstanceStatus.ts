@@ -5,44 +5,44 @@ const POD_INSTANCE_STATUS = {
     dotClassName: "dot healthy",
     textClassName: "task-status-running",
     displayName: i18nMark("Running"),
-    healthStatus: "HEALTHY"
+    healthStatus: "HEALTHY",
   },
   UNHEALTHY: {
     dotClassName: "dot unhealthy",
     textClassName: "task-status-running",
     displayName: i18nMark("Unhealthy"),
-    healthStatus: "UNHEALTHY"
+    healthStatus: "UNHEALTHY",
   },
   RUNNING: {
     dotClassName: "dot running",
     textClassName: "task-status-running",
     displayName: i18nMark("Running"),
-    healthStatus: "NA"
+    healthStatus: "NA",
   },
   STAGED: {
     dotClassName: "dot staged",
     textClassName: "task-status-staging",
     displayName: i18nMark("Staging"),
-    healthStatus: "NA"
+    healthStatus: "NA",
   },
   KILLED: {
     dotClassName: "dot inactive danger",
     textClassName: "",
     displayName: i18nMark("Killed"),
-    healthStatus: "NA"
+    healthStatus: "NA",
   },
   FINISHED: {
     dotClassName: "dot inactive danger",
     textClassName: "",
     displayName: i18nMark("Completed"),
-    healthStatus: "NA"
+    healthStatus: "NA",
   },
   NA: {
     dotClassName: "dot inactive unknown",
     textClassName: "",
     displayName: i18nMark("N/A"),
-    healthStatus: "NA"
-  }
+    healthStatus: "NA",
+  },
 };
 
 export default POD_INSTANCE_STATUS;

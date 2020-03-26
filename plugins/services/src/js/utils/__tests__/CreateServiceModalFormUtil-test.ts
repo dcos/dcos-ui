@@ -12,7 +12,7 @@ function getTypeName(type) {
 
 describe("CreateServiceModalFormUtil", () => {
   describe("#stripEmptyProperties", () => {
-    EMPTY_TYPES.forEach(emptyType => {
+    EMPTY_TYPES.forEach((emptyType) => {
       const emptyTypeStr = getTypeName(emptyType);
 
       it(`removes ${emptyTypeStr} object properties`, () => {

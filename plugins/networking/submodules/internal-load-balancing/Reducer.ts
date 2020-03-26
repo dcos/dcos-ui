@@ -3,7 +3,7 @@ import {
   NETWORKING_NODE_MEMBERSHIP_CHANGE,
   NETWORKING_VIP_DETAIL_CHANGE,
   NETWORKING_VIP_SUMMARIES_CHANGE,
-  NETWORKING_VIPS_CHANGE
+  NETWORKING_VIPS_CHANGE,
 } from "./constants/EventTypes";
 
 const initialState = {
@@ -11,7 +11,7 @@ const initialState = {
   nodeMemberships: [],
   vips: [],
   vipDetail: {},
-  vipSummaries: []
+  vipSummaries: [],
 };
 
 module.exports = (state = initialState, action) => {

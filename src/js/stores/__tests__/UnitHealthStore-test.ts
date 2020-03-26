@@ -12,11 +12,11 @@ let thisRequestFn, thisUnitsFixture;
 describe("UnitHealthStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(unitsFixture);
     };
     thisUnitsFixture = {
-      ...unitsFixture
+      ...unitsFixture,
     };
   });
 
@@ -49,9 +49,9 @@ describe("UnitHealthStore", () => {
             id: "mesos",
             name: "Mesos",
             version: "0.27.1",
-            health: 3
-          }
-        ]
+            health: 3,
+          },
+        ],
       });
 
       const units = UnitHealthStore.getUnits().getItems();
@@ -67,7 +67,7 @@ describe("UnitHealthStore", () => {
       );
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_UNITS_SUCCESS,
-        data: []
+        data: [],
       });
 
       expect(mockedFn.calls.count()).toEqual(2);
@@ -81,7 +81,7 @@ describe("UnitHealthStore", () => {
       );
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_UNITS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

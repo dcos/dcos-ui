@@ -12,13 +12,13 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
    */
   shouldExcludeItem() {
     const {
-      appConfig: { env }
+      appConfig: { env },
     } = this.props;
 
     return (
       env == null ||
       Object.keys(env).length === 0 ||
-      Object.keys(env).every(key => typeof env[key] !== "string")
+      Object.keys(env).every((key) => typeof env[key] !== "string")
     );
   }
 
@@ -41,7 +41,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
         {
           key: "env",
           heading: <Trans render="span">Environment Variables</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "env",
@@ -56,7 +56,7 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: ServiceConfigDisplayUtil.getColumnHeadingFn(
@@ -71,8 +71,8 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                 className: ServiceConfigDisplayUtil.getColumnClassNameFn(
                   "configuration-map-table-value"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             if (onEditClick) {
@@ -91,14 +91,14 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
             const data = Object.keys(envData)
-              .map(envKey => ({
+              .map((envKey) => ({
                 key: envKey,
-                value: envData[envKey]
+                value: envData[envKey],
               }))
               .filter(({ value }) => typeof value === "string");
 
@@ -110,9 +110,9 @@ class ServiceEnvironmentVariablesConfigSection extends ServiceConfigBaseSectionD
                 data={data}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

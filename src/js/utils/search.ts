@@ -57,7 +57,7 @@ export default function search<T>(
   scoringFunction: ScoringFunction = favorBeginningOfTextScoring
 ): ScoredObject[] {
   return objects
-    .map(obj => {
+    .map((obj) => {
       // Wrap each object in an object that includes a score
       return {
         obj,
@@ -65,9 +65,9 @@ export default function search<T>(
           extractor(obj),
           tokenize(searchString),
           scoringFunction
-        )
+        ),
       };
     })
-    .filter(obj => obj.score > 0) // Objects with a 0 score are not relevant
+    .filter((obj) => obj.score > 0) // Objects with a 0 score are not relevant
     .sort((a, b) => b.score - a.score); // Sort by score, descending
 }

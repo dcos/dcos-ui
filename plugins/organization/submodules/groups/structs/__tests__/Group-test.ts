@@ -16,7 +16,7 @@ let thisGroupFixture, thisInstance;
 describe("Group", () => {
   beforeEach(() => {
     thisGroupFixture = {
-      ...groupFixture
+      ...groupFixture,
     };
     thisInstance = new Group(thisGroupFixture);
   });
@@ -45,21 +45,21 @@ describe("Group", () => {
         thisGroupFixture.permissions = [
           { rid: "dcos:foo:bar" },
           { rid: "dcos:foo:bar/baz" },
-          { rid: "dcos:qux:beez" }
+          { rid: "dcos:qux:beez" },
         ];
         thisInstance = new Group(thisGroupFixture);
       });
 
       it("filters single permission", () => {
         expect(thisInstance.getPermissions(/^dcos:foo:bar$/)).toEqual([
-          { rid: "dcos:foo:bar" }
+          { rid: "dcos:foo:bar" },
         ]);
       });
 
       it("filters permissions", () => {
         expect(thisInstance.getPermissions(/^dcos:foo:bar/)).toEqual([
           { rid: "dcos:foo:bar" },
-          { rid: "dcos:foo:bar/baz" }
+          { rid: "dcos:foo:bar/baz" },
         ]);
       });
     });

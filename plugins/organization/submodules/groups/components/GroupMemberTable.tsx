@@ -16,7 +16,7 @@ import ACLGroupStore from "../stores/ACLGroupStore";
 class GroupMemberTable extends mixin(StoreMixin) {
   static propTypes = {
     accountType: PropTypes.string.isRequired,
-    groupID: PropTypes.string.isRequired
+    groupID: PropTypes.string.isRequired,
   };
   constructor() {
     super();
@@ -27,7 +27,7 @@ class GroupMemberTable extends mixin(StoreMixin) {
       pendingRequest: false,
       requestUsersError: false,
       requestUsersSuccess: false,
-      groupUpdateError: null
+      groupUpdateError: null,
     };
 
     // prettier-ignore
@@ -35,11 +35,11 @@ class GroupMemberTable extends mixin(StoreMixin) {
       {name: "aclGroup", events: ["deleteUserSuccess", "deleteUserError", "usersSuccess", "serviceAccountsSuccess"]}
     ];
   }
-  handleOpenConfirm = user => {
+  handleOpenConfirm = (user) => {
     this.setState({
       userID: user.uid,
       openConfirm: true,
-      groupUpdateError: null
+      groupUpdateError: null,
     });
   };
   handleButtonConfirm = () => {
@@ -65,7 +65,7 @@ class GroupMemberTable extends mixin(StoreMixin) {
   onUsersStoreSuccess() {
     this.setState({
       requestUsersSuccess: true,
-      requestUsersError: false
+      requestUsersError: false,
     });
   }
 
@@ -81,7 +81,7 @@ class GroupMemberTable extends mixin(StoreMixin) {
   getColumns() {
     const className = ResourceTableUtil.getClassName;
     const userIDHeading = ResourceTableUtil.renderHeading({
-      uid: i18nMark("Username")
+      uid: i18nMark("Username"),
     });
 
     return [
@@ -95,7 +95,7 @@ class GroupMemberTable extends mixin(StoreMixin) {
           "uid",
           (item, prop) => item[prop] || item.get(prop)
         ),
-        heading: userIDHeading
+        heading: userIDHeading,
       },
       {
         className,
@@ -103,15 +103,15 @@ class GroupMemberTable extends mixin(StoreMixin) {
         prop: "remove",
         render: this.renderButton,
         sortable: false,
-        heading: ""
-      }
+        heading: "",
+      },
     ];
   }
 
   getConfirmModalContent(groupDetails) {
     const { userID, groupUpdateError } = this.state;
     let userLabel = "This user";
-    groupDetails.users.forEach(user => {
+    groupDetails.users.forEach((user) => {
       if (user.user.uid === userID) {
         userLabel = user.user.uid;
       }

@@ -14,7 +14,7 @@ describe("ToasterExtension", () => {
   describe("#supportedNotifications", () => {
     it("returns toast symbol", () => {
       expect(ext.supportedNotifications()).toEqual([
-        ToastNotification.NotificationType
+        ToastNotification.NotificationType,
       ]);
     });
   });
@@ -50,7 +50,7 @@ describe("ToasterExtension", () => {
       expect(toast$NextCallback).toHaveBeenCalledTimes(1);
       expect(toast$NextCallback).toHaveBeenCalledWith([
         notification01,
-        notification02
+        notification02,
       ]);
     });
   });
@@ -70,7 +70,7 @@ describe("ToasterExtension", () => {
       expect(toast$NextCallback).toHaveBeenCalledTimes(1);
       expect(toast$NextCallback).toHaveBeenCalledWith([
         notification01,
-        notification03
+        notification03,
       ]);
     });
 
@@ -83,7 +83,7 @@ describe("ToasterExtension", () => {
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       ext.dismissToast(notification01.id);
@@ -98,7 +98,7 @@ describe("ToasterExtension", () => {
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       ext.dismissToast(notification01.id);
@@ -111,7 +111,7 @@ describe("ToasterExtension", () => {
       };
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       expect(ext.dismissToast.bind(ext, notification01.id)).not.toThrow();
@@ -132,7 +132,7 @@ describe("ToasterExtension", () => {
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       ext.toastPrimaryAction(notification01.id);
@@ -148,7 +148,7 @@ describe("ToasterExtension", () => {
       };
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       expect(ext.toastPrimaryAction.bind(ext, notification01.id)).not.toThrow();
@@ -169,7 +169,7 @@ describe("ToasterExtension", () => {
       const notificationCallback = jest.fn();
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       ext.toastSecondaryAction(notification01.id);
@@ -185,7 +185,7 @@ describe("ToasterExtension", () => {
       };
 
       const notification01 = new ToastNotification("unit test one", {
-        callback: notificationCallback
+        callback: notificationCallback,
       });
       ext.push(notification01);
       expect(

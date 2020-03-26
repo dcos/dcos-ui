@@ -14,7 +14,7 @@ import ServiceConfigDisplayUtil from "../utils/ServiceConfigDisplayUtil";
  * @returns {Boolean} Returns `true` if all rows have empty value in this prop
  */
 function isColumnEmpty(data, prop) {
-  return data.every(row => ValidatorUtil.isEmpty(row[prop]));
+  return data.every((row) => ValidatorUtil.isEmpty(row[prop]));
 }
 
 /**
@@ -53,20 +53,20 @@ function defaultRenderFunction(prop, row) {
   return <span>{value.toString()}</span>;
 }
 
-const ConfigurationMapTable = props => {
+const ConfigurationMapTable = (props) => {
   let {
     columns = [],
     columnDefaults = {},
     data = [],
     onEditClick,
-    tabViewID
+    tabViewID,
   } = props;
 
   columns = columns
-    .map(column => {
+    .map((column) => {
       column = {
         ...columnDefaults,
-        ...column
+        ...column,
       };
       const {
         className = "",
@@ -74,7 +74,7 @@ const ConfigurationMapTable = props => {
         hideIfEmpty = false,
         placeholder = <em>{EmptyStates.CONFIG_VALUE}</em>,
         prop,
-        render = defaultRenderFunction
+        render = defaultRenderFunction,
       } = column;
 
       // Always use functions in order to display the sorting assets
@@ -97,7 +97,7 @@ const ConfigurationMapTable = props => {
 
       return column;
     })
-    .filter(column => column !== null);
+    .filter((column) => column !== null);
 
   if (onEditClick) {
     columns.push({
@@ -115,7 +115,7 @@ const ConfigurationMapTable = props => {
             <Trans render="span" id="Edit" />
           </a>
         );
-      }
+      },
     });
   }
 
@@ -124,7 +124,7 @@ const ConfigurationMapTable = props => {
       className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
       {...{
         ...props,
-        columns
+        columns,
       }}
     />
   );
@@ -132,7 +132,7 @@ const ConfigurationMapTable = props => {
 
 ConfigurationMapTable.propTypes = {
   onEditClick: PropTypes.func,
-  tabViewID: PropTypes.string
+  tabViewID: PropTypes.string,
 };
 
 export default ConfigurationMapTable;

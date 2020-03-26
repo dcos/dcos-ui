@@ -42,7 +42,7 @@ class SchemaField extends React.Component {
           type="checkbox"
           name={name}
           checked={formData}
-          onChange={event => onChange(event.target.checked)}
+          onChange={(event) => onChange(event.target.checked)}
         />
         {this.getFieldHeading(required, name, schema.description)}
         <FieldError>{errorMessage}</FieldError>
@@ -53,7 +53,7 @@ class SchemaField extends React.Component {
   renderRadioButtons(errorMessage, props) {
     const { required, name, schema, formData, onChange } = props;
 
-    const options = schema.enum.map(option => (
+    const options = schema.enum.map((option) => (
       <FieldLabel key={option}>
         <FieldInput
           type="radio"
@@ -83,10 +83,10 @@ class SchemaField extends React.Component {
       formData,
       onChange,
       onBlur,
-      onFocus
+      onFocus,
     } = props;
 
-    const options = schema.enum.map(option => (
+    const options = schema.enum.map((option) => (
       <option key={option} value={option}>
         {option}
       </option>
@@ -100,9 +100,9 @@ class SchemaField extends React.Component {
         name={name}
         type="text"
         value={formData}
-        onChange={event => onChange(event.target.value)}
-        onBlur={onBlur && (event => onBlur(name, event.target.value))}
-        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+        onChange={(event) => onChange(event.target.value)}
+        onBlur={onBlur && ((event) => onBlur(name, event.target.value))}
+        onFocus={onFocus && ((event) => onFocus(name, event.target.value))}
       >
         {options}
       </FieldSelect>
@@ -130,10 +130,10 @@ class SchemaField extends React.Component {
       formData,
       onChange,
       onBlur,
-      onFocus
+      onFocus,
     } = props;
 
-    const handleChange = event => {
+    const handleChange = (event) => {
       const value = event.target.value;
 
       if (value === "" && !required) {
@@ -152,8 +152,8 @@ class SchemaField extends React.Component {
         name={name}
         value={formData}
         onChange={handleChange}
-        onBlur={onBlur && (event => onBlur(name, event.target.value))}
-        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+        onBlur={onBlur && ((event) => onBlur(name, event.target.value))}
+        onFocus={onFocus && ((event) => onFocus(name, event.target.value))}
       />
     );
     if (autofocus) {
@@ -179,10 +179,10 @@ class SchemaField extends React.Component {
       formData,
       onChange,
       onBlur,
-      onFocus
+      onFocus,
     } = props;
 
-    const handleChange = event => {
+    const handleChange = (event) => {
       const value = event.target.value;
 
       if (value === "" && !required) {
@@ -203,8 +203,8 @@ class SchemaField extends React.Component {
         name={name}
         value={formData}
         onChange={handleChange}
-        onBlur={onBlur && (event => onBlur(name, event.target.value))}
-        onFocus={onFocus && (event => onFocus(name, event.target.value))}
+        onBlur={onBlur && ((event) => onBlur(name, event.target.value))}
+        onFocus={onFocus && ((event) => onFocus(name, event.target.value))}
       />
     );
     if (autofocus) {
@@ -300,7 +300,7 @@ class SchemaField extends React.Component {
         idSchema.$id === "root" ? 0 : registry.formContext.level + 1;
       const nextRegistry = {
         ...registry,
-        formContext: { level: nextLevel }
+        formContext: { level: nextLevel },
       };
 
       return <DefaultSchemaField {...this.props} registry={nextRegistry} />;
@@ -311,7 +311,7 @@ class SchemaField extends React.Component {
     let errorMessage;
     let showError = false;
     if (errorSchema) {
-      errorMessage = errorSchema.__errors.map(error => <div>{error}</div>);
+      errorMessage = errorSchema.__errors.map((error) => <div>{error}</div>);
       showError = errorMessage.length > 0;
     }
 

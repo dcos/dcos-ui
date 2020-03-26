@@ -22,13 +22,13 @@ import TaskUtil from "../../utils/TaskUtil";
 
 import {
   REQUEST_MARATHON_TASK_KILL_ERROR,
-  REQUEST_MARATHON_TASK_KILL_SUCCESS
+  REQUEST_MARATHON_TASK_KILL_SUCCESS,
 } from "../../constants/ActionTypes";
 
 class TasksContainer extends React.Component {
   static propTypes = {
     tasks: PropTypes.array.isRequired,
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -39,7 +39,7 @@ class TasksContainer extends React.Component {
       pendingActions: {},
       filterExpression: new DSLExpression(""),
       filters,
-      defaultFilterData: { zones: [], regions: [] }
+      defaultFilterData: { zones: [], regions: [] },
     };
   }
 
@@ -63,7 +63,7 @@ class TasksContainer extends React.Component {
 
   getChildContext() {
     return {
-      modalHandlers: this.getModalHandlers()
+      modalHandlers: this.getModalHandlers(),
     };
   }
   killTasks = (...args) => {
@@ -71,7 +71,7 @@ class TasksContainer extends React.Component {
 
     return MarathonActions.killTasks(...args);
   };
-  handleServerAction = payload => {
+  handleServerAction = (payload) => {
     const { action } = payload;
 
     switch (action.type) {
@@ -83,16 +83,16 @@ class TasksContainer extends React.Component {
         break;
     }
   };
-  handleModalClose = key => {
+  handleModalClose = (key) => {
     if (key) {
       this.clearActionError(key);
     }
     this.setState({ modal: {} });
   };
-  handleExpressionChange = filterExpression => {
+  handleExpressionChange = (filterExpression) => {
     const { router } = this.context;
     const {
-      location: { pathname }
+      location: { pathname },
     } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
@@ -102,7 +102,7 @@ class TasksContainer extends React.Component {
   propsToState(props) {
     const {
       defaultFilterData: { regions },
-      defaultFilterData: { zones }
+      defaultFilterData: { zones },
     } = this.state;
 
     let query = props.location.query.q;
@@ -144,12 +144,12 @@ class TasksContainer extends React.Component {
     // If no region/ zones added from props return
     if (
       newRegions.length === regions.length &&
-      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newRegions.every((region) => regions.indexOf(region) !== -1) &&
       newZones.length === zones.length &&
-      newZones.every(zone => zones.indexOf(zone) !== -1)
+      newZones.every((zone) => zones.indexOf(zone) !== -1)
     ) {
       this.setState({
-        filterExpression: new DSLExpression(query)
+        filterExpression: new DSLExpression(query),
       });
 
       return;
@@ -159,13 +159,13 @@ class TasksContainer extends React.Component {
       new TasksStatusFilter(),
       new TasksZoneFilter(newZones),
       new TasksRegionFilter(newRegions),
-      new TaskNameTextFilter()
+      new TaskNameTextFilter(),
     ];
 
     this.setState({
       filterExpression: new DSLExpression(query),
       filters,
-      defaultFilterData: { regions: newRegions, zones: newZones }
+      defaultFilterData: { regions: newRegions, zones: newZones },
     });
   }
 
@@ -188,7 +188,7 @@ class TasksContainer extends React.Component {
         pendingActions,
         actionType,
         true
-      )
+      ),
     });
   }
   /**
@@ -211,10 +211,10 @@ class TasksContainer extends React.Component {
         pendingActions,
         actionType,
         false
-      )
+      ),
     });
   }
-  clearActionError = actionType => {
+  clearActionError = (actionType) => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -222,7 +222,7 @@ class TasksContainer extends React.Component {
         actionErrors,
         actionType,
         null
-      )
+      ),
     });
   };
 
@@ -232,25 +232,25 @@ class TasksContainer extends React.Component {
       this.setState({
         modal: {
           ...props,
-          id
-        }
+          id,
+        },
       });
     };
 
     return {
-      killTasks: props => set(ServiceActionItem.KILL_TASKS, props)
+      killTasks: (props) => set(ServiceActionItem.KILL_TASKS, props),
     };
   }
 
   getActions() {
     return {
-      killTasks: this.killTasks
+      killTasks: this.killTasks,
     };
   }
 
   getModals() {
     const modalProps = {
-      ...this.state.modal
+      ...this.state.modal,
     };
 
     return (
@@ -299,12 +299,12 @@ class TasksContainer extends React.Component {
 // so any child can trigger the opening of modals
 TasksContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
-    killTasks: PropTypes.func
-  })
+    killTasks: PropTypes.func,
+  }),
 };
 
 TasksContainer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default TasksContainer;

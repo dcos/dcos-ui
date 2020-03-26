@@ -11,7 +11,7 @@ class UniversePackage extends Item {
   getConfig() {
     return {
       ...this.get("config"),
-      type: "object"
+      type: "object",
     };
   }
 

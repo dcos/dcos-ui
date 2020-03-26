@@ -3,7 +3,7 @@ import Node from "#SRC/js/structs/Node";
 
 const drainInfo = (state: string) => ({
   drain_info: { config: {}, state },
-  deactivated: true
+  deactivated: true,
 });
 
 describe("#fromNode", () => {
@@ -14,8 +14,8 @@ describe("#fromNode", () => {
       // according to the mesos folks an agent can't have drain_info if it's not deactivated - so we preserve that intention here for states that look invalid.
       new Node({ ...drainInfo("UNKNOWN"), deactivated: false }),
       new Node({ ...drainInfo("DRAINED"), deactivated: false }),
-      new Node({ ...drainInfo("DRAINING"), deactivated: false })
-    ].forEach(n => {
+      new Node({ ...drainInfo("DRAINING"), deactivated: false }),
+    ].forEach((n) => {
       expect(Status.fromNode(n)?.displayName).toBe("Active");
     });
   });

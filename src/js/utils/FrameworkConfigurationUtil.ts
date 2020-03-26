@@ -13,6 +13,6 @@ export function getFirstTabAndField(packageDetails) {
 
   return {
     activeTab,
-    focusField
+    focusField,
   };
 }

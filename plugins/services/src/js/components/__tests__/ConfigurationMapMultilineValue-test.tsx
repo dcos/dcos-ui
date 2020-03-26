@@ -8,10 +8,7 @@ describe("ConfigurationMapMultilineValue", () => {
     const text = "Some\nmulti-line\ntext";
     const instance = shallow(<ConfigurationMapMultilineValue value={text} />);
 
-    const contentText = instance
-      .find("pre")
-      .text()
-      .trim();
+    const contentText = instance.find("pre").text().trim();
     expect(contentText).toEqual(text);
   });
 
@@ -20,10 +17,7 @@ describe("ConfigurationMapMultilineValue", () => {
       <ConfigurationMapMultilineValue value={null} defaultValue="-" />
     );
 
-    const contentText = instance
-      .find(".configuration-map-value")
-      .text()
-      .trim();
+    const contentText = instance.find(".configuration-map-value").text().trim();
 
     expect(contentText).toEqual("-");
   });

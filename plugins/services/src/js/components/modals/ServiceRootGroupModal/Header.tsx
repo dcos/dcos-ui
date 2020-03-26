@@ -34,8 +34,8 @@ export default (props: GroupModalHeaderProps) => {
           {
             className: "button-primary-link button-flush-horizontal",
             clickHandler: onClose,
-            label: cancelLabel
-          }
+            label: cancelLabel,
+          },
         ]}
         type="secondary"
       />
@@ -54,8 +54,8 @@ export default (props: GroupModalHeaderProps) => {
                 ? "button-danger flush-vertical"
                 : "button-primary flush-vertical",
             clickHandler: onSave,
-            label: saveLabel
-          }
+            label: saveLabel,
+          },
         ]}
         type="primary"
       />

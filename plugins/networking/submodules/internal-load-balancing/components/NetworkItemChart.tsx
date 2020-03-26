@@ -18,14 +18,14 @@ const REACHABILITY_DATASET_COLORS = [
   "#f34e3d",
   "#16cbff",
   "#fedc39",
-  "#7f33de"
+  "#7f33de",
 ];
 const LATENCY_DATASET_COLORS = [
   "#27c97b",
   "#f34e3d",
   "#16cbff",
   "#fedc39",
-  "#7f33de"
+  "#7f33de",
 ];
 
 class NetworkItemChart extends React.Component {
@@ -58,7 +58,7 @@ class NetworkItemChart extends React.Component {
           itemData.getApplicationReachability75(),
           itemData.getApplicationReachability90(),
           itemData.getApplicationReachability95(),
-          itemData.getApplicationReachability99()
+          itemData.getApplicationReachability99(),
         ],
         { maxIntervals: TIMESERIES_DATA_POINTS }
       );
@@ -69,7 +69,7 @@ class NetworkItemChart extends React.Component {
           itemData.getMachineReachability75(),
           itemData.getMachineReachability90(),
           itemData.getMachineReachability95(),
-          itemData.getMachineReachability99()
+          itemData.getMachineReachability99(),
         ],
         { maxIntervals: TIMESERIES_DATA_POINTS }
       );
@@ -80,7 +80,7 @@ class NetworkItemChart extends React.Component {
           itemData.getConnectionLatency75(),
           itemData.getConnectionLatency90(),
           itemData.getConnectionLatency95(),
-          itemData.getConnectionLatency99()
+          itemData.getConnectionLatency99(),
         ],
         { maxIntervals: TIMESERIES_DATA_POINTS }
       );
@@ -96,7 +96,7 @@ class NetworkItemChart extends React.Component {
       return [
         i18n._(t`Minutes ago`),
         i18n._(t`Successes`),
-        i18n._(t`Failures`)
+        i18n._(t`Failures`),
       ];
     }
     if (
@@ -149,21 +149,21 @@ class NetworkItemChart extends React.Component {
           valueFormatter: this.labelFormatter,
           gridLinePattern: [4, 4],
           // Max of 4 chars (-60m) and each character is 10px in length
-          axisLabelWidth: 4 * 10
+          axisLabelWidth: 4 * 10,
         },
         y: {
           gridLinePattern: 55,
-          axisLabelWidth: 4 * 10
-        }
+          axisLabelWidth: 4 * 10,
+        },
       },
       colors,
       labels: dataLabels,
-      ylabel: yAxisLabel
+      ylabel: yAxisLabel,
     };
 
     return (
       <div className="pod pod-short flush-right flush-left">
-        <Chart calcHeight={w => w / WIDTH_HEIGHT_RATIO} delayRender={true}>
+        <Chart calcHeight={(w) => w / WIDTH_HEIGHT_RATIO} delayRender={true}>
           <LineChart
             data={data}
             key={this.props.selectedData}

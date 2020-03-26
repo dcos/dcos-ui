@@ -27,7 +27,7 @@ export function JSONReducer(state = [], action) {
   if (!this.appState) {
     this.appState = {
       id: "",
-      networkType: HOST
+      networkType: HOST,
     };
   }
 
@@ -70,7 +70,7 @@ export function JSONReducer(state = [], action) {
     let protocol = null;
     if (portDefinition.protocol) {
       protocol = PROTOCOLS.filter(
-        protocol => portDefinition.protocol[protocol]
+        (protocol) => portDefinition.protocol[protocol]
       ).join(",");
     }
 
@@ -85,7 +85,7 @@ export function JSONReducer(state = [], action) {
       labels,
       name,
       protocol,
-      port: hostPort
+      port: hostPort,
     };
   });
 }
@@ -121,7 +121,7 @@ export function JSONParser(state) {
 
     if (item.protocol != null) {
       const protocols = item.protocol.split(",");
-      PROTOCOLS.forEach(protocol => {
+      PROTOCOLS.forEach((protocol) => {
         memo.push(
           new Transaction(
             ["portDefinitions", index, "protocol", protocol],

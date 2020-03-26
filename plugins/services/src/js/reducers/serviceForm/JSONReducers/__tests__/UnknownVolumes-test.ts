@@ -21,13 +21,13 @@ describe("UnknownVolumes", () => {
                     name: "someVolume",
                     provider: "dvdi",
                     options: {
-                      "dvdi/driver": "rexray"
-                    }
+                      "dvdi/driver": "rexray",
+                    },
                   },
-                  mode: "RW"
-                }
-              ]
-            }
+                  mode: "RW",
+                },
+              ],
+            },
           };
           expect(
             UnknownVolumes.UnknownVolumesJSONParser(externalVolume)
@@ -43,10 +43,10 @@ describe("UnknownVolumes", () => {
                 {
                   containerPath: "/dev/null",
                   persistent: { size: 1024 },
-                  mode: "RW"
-                }
-              ]
-            }
+                  mode: "RW",
+                },
+              ],
+            },
           };
           expect(
             UnknownVolumes.UnknownVolumesJSONParser(persistentVolume)
@@ -62,10 +62,10 @@ describe("UnknownVolumes", () => {
                 {
                   hostPath: "some/path",
                   containerPath: "/mnt/volume",
-                  mode: "RW"
-                }
-              ]
-            }
+                  mode: "RW",
+                },
+              ],
+            },
           };
           expect(UnknownVolumes.UnknownVolumesJSONParser(dockerVolume)).toEqual(
             []
@@ -80,20 +80,20 @@ describe("UnknownVolumes", () => {
           container: {
             volumes: [
               {
-                containerPath: "/dev/null"
-              }
-            ]
-          }
+                containerPath: "/dev/null",
+              },
+            ],
+          },
         };
         expect(UnknownVolumes.UnknownVolumesJSONParser(unknownVolumes)).toEqual(
           [
             {
               type: ADD_ITEM,
               value: {
-                containerPath: "/dev/null"
+                containerPath: "/dev/null",
               },
-              path: ["unknownVolumes"]
-            }
+              path: ["unknownVolumes"],
+            },
           ]
         );
       });
@@ -107,38 +107,38 @@ describe("UnknownVolumes", () => {
               {
                 containerPath: "/dev/null",
                 persistent: { size: 1024 },
-                mode: "RW"
+                mode: "RW",
               },
               {
-                containerPath: "/dev/null1"
+                containerPath: "/dev/null1",
               },
               {
                 containerPath: "/dev/null",
                 persistent: { size: 1024 },
-                mode: "RW"
+                mode: "RW",
               },
               {
-                containerPath: "/dev/null2"
-              }
-            ]
-          }
+                containerPath: "/dev/null2",
+              },
+            ],
+          },
         };
         expect(UnknownVolumes.UnknownVolumesJSONParser(unknownVolumes)).toEqual(
           [
             {
               type: ADD_ITEM,
               value: {
-                containerPath: "/dev/null1"
+                containerPath: "/dev/null1",
               },
-              path: ["unknownVolumes"]
+              path: ["unknownVolumes"],
             },
             {
               type: ADD_ITEM,
               value: {
-                containerPath: "/dev/null2"
+                containerPath: "/dev/null2",
               },
-              path: ["unknownVolumes"]
-            }
+              path: ["unknownVolumes"],
+            },
           ]
         );
       });

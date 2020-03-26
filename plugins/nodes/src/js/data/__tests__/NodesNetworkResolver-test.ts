@@ -1,6 +1,6 @@
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 import { NodesNetworkResponse } from "#PLUGINS/nodes/src/js/data/NodesNetworkClient";
 
@@ -13,7 +13,7 @@ import gql from "graphql-tag";
 
 import {
   schemas,
-  resolvers
+  resolvers,
 } from "#PLUGINS/nodes/src/js/data/NodesNetworkResolver";
 
 function makeFakeNodesNetworkResponse(): NodesNetworkResponse {
@@ -22,20 +22,20 @@ function makeFakeNodesNetworkResponse(): NodesNetworkResponse {
       updated: "2019-02-05T13:12:00.979Z",
       public_ips: ["3.2.2.96"],
       private_ip: "13.0.6.125",
-      hostname: "ip-13-0-6-125"
+      hostname: "ip-13-0-6-125",
     },
     {
       updated: "2019-02-05T13:10:47.965Z",
       public_ips: ["3.2.2.134"],
       private_ip: "13.0.6.96",
-      hostname: "ip-13-0-6-96"
+      hostname: "ip-13-0-6-96",
     },
     {
       updated: "2019-02-05T13:12:01.553Z",
       public_ips: [],
       private_ip: "13.0.1.42",
-      hostname: "ip-13-0-1-42"
-    }
+      hostname: "ip-13-0-1-42",
+    },
   ];
 }
 
@@ -46,10 +46,10 @@ function makeResolverConfig(m: any) {
         j: {
           code: 200,
           message: "ok",
-          response: makeFakeNodesNetworkResponse()
-        }
+          response: makeFakeNodesNetworkResponse(),
+        },
       }),
-    pollingInterval: m.time("--|")
+    pollingInterval: m.time("--|"),
   };
 }
 
@@ -62,10 +62,10 @@ describe("Nodes data-layer", () => {
     describe("network", () => {
       it(
         "handles a graphql query",
-        marbles(m => {
+        marbles((m) => {
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
-            resolvers: resolvers(makeResolverConfig(m))
+            resolvers: resolvers(makeResolverConfig(m)),
           });
 
           const query = gql`
@@ -77,7 +77,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const queryResult$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.96", "13.0.6.125"]
+            privateIPs: ["13.0.6.96", "13.0.6.125"],
           });
 
           const result$ = queryResult$.pipe(take(1));
@@ -87,14 +87,14 @@ describe("Nodes data-layer", () => {
               data: {
                 networks: [
                   {
-                    public_ips: ["3.2.2.96"]
+                    public_ips: ["3.2.2.96"],
                   },
                   {
-                    public_ips: ["3.2.2.134"]
-                  }
-                ]
-              }
-            }
+                    public_ips: ["3.2.2.134"],
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -103,10 +103,10 @@ describe("Nodes data-layer", () => {
 
       it(
         "returns all networks",
-        marbles(m => {
+        marbles((m) => {
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
-            resolvers: resolvers(makeResolverConfig(m))
+            resolvers: resolvers(makeResolverConfig(m)),
           });
 
           const query = gql`
@@ -126,17 +126,17 @@ describe("Nodes data-layer", () => {
               data: {
                 networks: [
                   {
-                    public_ips: ["3.2.2.96"]
+                    public_ips: ["3.2.2.96"],
                   },
                   {
-                    public_ips: ["3.2.2.134"]
+                    public_ips: ["3.2.2.134"],
                   },
                   {
-                    public_ips: []
-                  }
-                ]
-              }
-            }
+                    public_ips: [],
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -144,10 +144,10 @@ describe("Nodes data-layer", () => {
       );
       it(
         "returns a full network object",
-        marbles(m => {
+        marbles((m) => {
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
-            resolvers: resolvers(makeResolverConfig(m))
+            resolvers: resolvers(makeResolverConfig(m)),
           });
 
           const query = gql`
@@ -162,7 +162,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const queryResult$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.96", "13.0.6.125"]
+            privateIPs: ["13.0.6.96", "13.0.6.125"],
           });
 
           const result$ = queryResult$.pipe(take(1));
@@ -175,17 +175,17 @@ describe("Nodes data-layer", () => {
                     updated: new Date("2019-02-05T13:12:00.979Z"),
                     public_ips: ["3.2.2.96"],
                     private_ip: "13.0.6.125",
-                    hostname: "ip-13-0-6-125"
+                    hostname: "ip-13-0-6-125",
                   },
                   {
                     updated: new Date("2019-02-05T13:10:47.965Z"),
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
-                  }
-                ]
-              }
-            }
+                    hostname: "ip-13-0-6-96",
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -193,10 +193,10 @@ describe("Nodes data-layer", () => {
       );
       it(
         "Does not fail if one network is not yet available",
-        marbles(m => {
+        marbles((m) => {
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
-            resolvers: resolvers(makeResolverConfig(m))
+            resolvers: resolvers(makeResolverConfig(m)),
           });
 
           const query = gql`
@@ -211,7 +211,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const queryResult$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.96", "13.0.6.126"]
+            privateIPs: ["13.0.6.96", "13.0.6.126"],
           });
 
           const result$ = queryResult$.pipe(take(1));
@@ -224,11 +224,11 @@ describe("Nodes data-layer", () => {
                     updated: new Date("2019-02-05T13:10:47.965Z"),
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
-                  }
-                ]
-              }
-            }
+                    hostname: "ip-13-0-6-96",
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(result$).toBeObservable(expected$);
@@ -237,7 +237,7 @@ describe("Nodes data-layer", () => {
 
       it(
         "polls the endpoint for 1 item",
-        marbles(m => {
+        marbles((m) => {
           const fetchNodesNetwork = () => {
             return m.cold("j|", {
               j: {
@@ -248,18 +248,18 @@ describe("Nodes data-layer", () => {
                     updated: "2019-02-05T13:10:47.965Z",
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
-                  }
-                ]
-              }
+                    hostname: "ip-13-0-6-96",
+                  },
+                ],
+              },
             });
           };
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
             resolvers: resolvers({
               fetchNodesNetwork,
-              pollingInterval: m.time("--|")
-            })
+              pollingInterval: m.time("--|"),
+            }),
           });
 
           const query = gql`
@@ -274,7 +274,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const queryResult$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.96"]
+            privateIPs: ["13.0.6.96"],
           });
 
           const expected$ = m.cold("x-x-(x|)", {
@@ -285,11 +285,11 @@ describe("Nodes data-layer", () => {
                     updated: new Date("2019-02-05T13:10:47.965Z"),
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
-                  }
-                ]
-              }
-            }
+                    hostname: "ip-13-0-6-96",
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
@@ -298,7 +298,7 @@ describe("Nodes data-layer", () => {
 
       it(
         "polls the endpoints for 2 item",
-        marbles(m => {
+        marbles((m) => {
           const fetchNodesNetwork = () => {
             return m.cold("j|", {
               j: {
@@ -309,24 +309,24 @@ describe("Nodes data-layer", () => {
                     updated: "2019-02-05T13:10:47.965Z",
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
+                    hostname: "ip-13-0-6-96",
                   },
                   {
                     updated: "2019-02-05T13:12:00.979Z",
                     public_ips: ["3.2.2.96"],
                     private_ip: "13.0.6.125",
-                    hostname: "ip-13-0-6-125"
-                  }
-                ]
-              }
+                    hostname: "ip-13-0-6-125",
+                  },
+                ],
+              },
             });
           };
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
             resolvers: resolvers({
               fetchNodesNetwork,
-              pollingInterval: m.time("----|")
-            })
+              pollingInterval: m.time("----|"),
+            }),
           });
 
           const query = gql`
@@ -341,7 +341,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const queryResult$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.96", "13.0.6.125"]
+            privateIPs: ["13.0.6.96", "13.0.6.125"],
           });
 
           const expected$ = m.cold("x---x---(x|)", {
@@ -352,17 +352,17 @@ describe("Nodes data-layer", () => {
                     updated: new Date("2019-02-05T13:10:47.965Z"),
                     public_ips: ["3.2.2.134"],
                     private_ip: "13.0.6.96",
-                    hostname: "ip-13-0-6-96"
+                    hostname: "ip-13-0-6-96",
                   },
                   {
                     updated: new Date("2019-02-05T13:12:00.979Z"),
                     public_ips: ["3.2.2.96"],
                     private_ip: "13.0.6.125",
-                    hostname: "ip-13-0-6-125"
-                  }
-                ]
-              }
-            }
+                    hostname: "ip-13-0-6-125",
+                  },
+                ],
+              },
+            },
           });
 
           m.expect(queryResult$.pipe(take(3))).toBeObservable(expected$);
@@ -370,7 +370,7 @@ describe("Nodes data-layer", () => {
       );
       it(
         "shares the subscription",
-        marbles(async m => {
+        marbles(async (m) => {
           const resolverConfig = makeResolverConfig(m);
           resolverConfig.fetchNodesNetwork = jest
             .fn(resolverConfig.fetchNodesNetwork)
@@ -378,7 +378,7 @@ describe("Nodes data-layer", () => {
 
           const nodesSchema = makeExecutableSchema({
             typeDefs: schemas,
-            resolvers: resolvers(resolverConfig)
+            resolvers: resolvers(resolverConfig),
           });
 
           const query = gql`
@@ -390,7 +390,7 @@ describe("Nodes data-layer", () => {
           `;
 
           const output$ = graphqlObservable(query, nodesSchema, {
-            privateIPs: ["13.0.6.125", "13.0.6.96", "13.0.1.42"]
+            privateIPs: ["13.0.6.125", "13.0.6.96", "13.0.1.42"],
           }).pipe(take(1));
 
           await output$.toPromise();

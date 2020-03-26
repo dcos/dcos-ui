@@ -8,7 +8,7 @@ const master = {
   version: "2.9.1",
   electedTime: 1532340694.04573,
   startTime: 1232340694.04573,
-  region: "us-east-1"
+  region: "us-east-1",
 };
 
 describe("LeaderGrid", () => {

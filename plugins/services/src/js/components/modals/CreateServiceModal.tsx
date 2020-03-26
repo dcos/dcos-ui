@@ -35,7 +35,7 @@ import {
   MARATHON_SERVICE_CREATE_ERROR,
   MARATHON_SERVICE_CREATE_SUCCESS,
   MARATHON_SERVICE_EDIT_ERROR,
-  MARATHON_SERVICE_EDIT_SUCCESS
+  MARATHON_SERVICE_EDIT_SUCCESS,
 } from "../../constants/EventTypes";
 
 import { DEFAULT_APP_SPEC } from "../../constants/DefaultApp";
@@ -73,20 +73,20 @@ const APP_VALIDATORS = [
   MarathonAppValidators.validateLabels,
   MarathonAppValidators.mustNotContainUris,
   MarathonAppValidators.validateProfileVolumes,
-  VipLabelsValidators.mustContainPort
+  VipLabelsValidators.mustContainPort,
 ];
 
 const POD_VALIDATORS = [
   PodValidators.Pod,
   MarathonPodValidators.validateProfileVolumes,
   VipLabelsValidators.mustContainPort,
-  PlacementsValidators.mustHaveUniqueOperatorField
+  PlacementsValidators.mustHaveUniqueOperatorField,
 ];
 
 class CreateServiceModal extends React.Component {
   static propTypes = {
     params: PropTypes.object.isRequired,
-    location: PropTypes.object.isRequired
+    location: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -182,19 +182,19 @@ class CreateServiceModal extends React.Component {
     // Also remove DCOS change listener, if still subscribed
     DCOSStore.removeChangeListener(DCOS_CHANGE, this.handleStoreChange);
   }
-  onMarathonStoreServiceCreateError = errors => {
+  onMarathonStoreServiceCreateError = (errors) => {
     this.setState({
       apiErrors: MarathonErrorUtil.parseErrors(errors),
-      isPending: false
+      isPending: false,
     });
   };
   onMarathonStoreServiceCreateSuccess = () => {
     this.setState({ apiErrors: [], isPending: false });
   };
-  onMarathonStoreServiceEditError = errors => {
+  onMarathonStoreServiceEditError = (errors) => {
     this.setState({
       apiErrors: MarathonErrorUtil.parseErrors(errors),
-      isPending: false
+      isPending: false,
     });
   };
   onMarathonStoreServiceEditSuccess = () => {
@@ -203,7 +203,7 @@ class CreateServiceModal extends React.Component {
 
   shouldForceSubmit() {
     return this.state.apiErrors.some(
-      error => error.type === ServiceErrorTypes.SERVICE_DEPLOYING
+      (error) => error.type === ServiceErrorTypes.SERVICE_DEPLOYING
     );
   }
   handleRouterWillLeave = () => {
@@ -236,7 +236,7 @@ class CreateServiceModal extends React.Component {
         isConfirmOpen: false,
         hasChangesApplied: false,
         servicePickerActive: true,
-        serviceFormActive: false
+        serviceFormActive: false,
       });
 
       return;
@@ -248,7 +248,7 @@ class CreateServiceModal extends React.Component {
         isConfirmOpen: false,
         hasChangesApplied: false,
         servicePickerActive: true,
-        serviceJsonActive: false
+        serviceJsonActive: false,
       });
     }
   };
@@ -262,20 +262,20 @@ class CreateServiceModal extends React.Component {
 
     this.setState({ service, serviceSpec: service.getSpec() });
   };
-  handleGoBack = event => {
+  handleGoBack = (event) => {
     const { tabViewID } = event;
     const {
       hasChangesApplied,
       serviceFormActive,
       servicePickerActive,
-      serviceReviewActive
+      serviceReviewActive,
     } = this.state;
 
     if (serviceReviewActive) {
       // Remove the 'Application is deploying' error when we havigate back
       // since it's not related to the form
       const apiErrors = this.state.apiErrors.filter(
-        error => error.type !== ServiceErrorTypes.SERVICE_DEPLOYING
+        (error) => error.type !== ServiceErrorTypes.SERVICE_DEPLOYING
       );
 
       // Just hide review screen. Form or JSON mode will be
@@ -284,7 +284,7 @@ class CreateServiceModal extends React.Component {
         activeTab: tabViewID,
         apiErrors,
         serviceReviewActive: false,
-        showAllErrors: true
+        showAllErrors: true,
       });
 
       return;
@@ -307,13 +307,13 @@ class CreateServiceModal extends React.Component {
 
     this.handleConfirmGoBack();
   };
-  handleTabChange = activeTab => {
+  handleTabChange = (activeTab) => {
     this.setState({ activeTab });
   };
   handleClearError = () => {
     this.setState({
       apiErrors: [],
-      showAllErrors: false
+      showAllErrors: false,
     });
   };
 
@@ -341,7 +341,7 @@ class CreateServiceModal extends React.Component {
     );
     this.setState({ isJSONModeActive: !this.state.isJSONModeActive });
   };
-  handleServiceChange = newService => {
+  handleServiceChange = (newService) => {
     // If there were previous error messages visible it's better to revalidate
     // on each change going forward
     const formErrors = this.state.submitFailed
@@ -351,17 +351,17 @@ class CreateServiceModal extends React.Component {
     this.setState({
       serviceSpec: newService,
       hasChangesApplied: true,
-      formErrors
+      formErrors,
     });
   };
-  handleServiceErrorsChange = errors => {
+  handleServiceErrorsChange = (errors) => {
     this.setState({ serviceFormErrors: errors });
   };
-  handleServicePropertyChange = path => {
+  handleServicePropertyChange = (path) => {
     const refPath = path.join(".");
     let { apiErrors } = this.state;
 
-    apiErrors = apiErrors.filter(error => {
+    apiErrors = apiErrors.filter((error) => {
       const errorPath = error.path.join(".");
 
       // Remove all root errors on a simple update
@@ -375,7 +375,7 @@ class CreateServiceModal extends React.Component {
 
     this.setState({ apiErrors });
   };
-  handleServiceSelection = event => {
+  handleServiceSelection = (event) => {
     const { route, type } = event;
     const { params } = this.props;
     const baseID = getBaseID(decodeURIComponent(params.id || "/"));
@@ -391,9 +391,9 @@ class CreateServiceModal extends React.Component {
           serviceFormActive: true,
           serviceSpec: new ApplicationSpec({
             id: baseID,
-            ...DEFAULT_APP_SPEC
+            ...DEFAULT_APP_SPEC,
           }),
-          showAllErrors: false
+          showAllErrors: false,
         });
         break;
 
@@ -407,9 +407,9 @@ class CreateServiceModal extends React.Component {
           serviceFormActive: true,
           serviceSpec: new PodSpec({
             id: baseID,
-            ...DEFAULT_POD_SPEC
+            ...DEFAULT_POD_SPEC,
           }),
-          showAllErrors: false
+          showAllErrors: false,
         });
         break;
 
@@ -423,9 +423,9 @@ class CreateServiceModal extends React.Component {
           serviceJsonActive: true,
           serviceSpec: new ApplicationSpec({
             id: baseID,
-            ...DEFAULT_APP_SPEC
+            ...DEFAULT_APP_SPEC,
           }),
-          showAllErrors: false
+          showAllErrors: false,
         });
         break;
 
@@ -442,14 +442,14 @@ class CreateServiceModal extends React.Component {
         apiErrors: [],
         formErrors: [],
         serviceReviewActive: true,
-        expandAdvancedSettings
+        expandAdvancedSettings,
       });
     } else {
       this.setState({
         showAllErrors: true,
         submitFailed: true,
         formErrors: this.validateServiceSpec(this.state.serviceSpec),
-        expandAdvancedSettings
+        expandAdvancedSettings,
       });
     }
   };
@@ -490,7 +490,9 @@ class CreateServiceModal extends React.Component {
    */
   criticalFormErrors() {
     const formErrors = this.validateServiceSpec(this.state.serviceSpec);
-    const criticalFormErrors = formErrors.filter(error => !error.isPermissive);
+    const criticalFormErrors = formErrors.filter(
+      (error) => !error.isPermissive
+    );
 
     return criticalFormErrors.concat(this.state.serviceFormErrors);
   }
@@ -605,7 +607,7 @@ class CreateServiceModal extends React.Component {
       serviceJsonActive,
       servicePickerActive,
       serviceReviewActive,
-      expandAdvancedSettings
+      expandAdvancedSettings,
     } = this.state;
 
     // NOTE: Always prioritize review screen check
@@ -641,7 +643,7 @@ class CreateServiceModal extends React.Component {
         GeneralServiceFormSection,
         HealthChecksFormSection,
         NetworkingFormSection,
-        VolumesFormSection
+        VolumesFormSection,
       ];
 
       const MULTI_CONTAINER_SECTIONS = [
@@ -652,7 +654,7 @@ class CreateServiceModal extends React.Component {
         NetworkingFormSection,
         VolumesFormSection,
         MultiContainerVolumesFormSection,
-        MultiContainerNetworkingFormSection
+        MultiContainerNetworkingFormSection,
       ];
 
       let jsonParserReducers;
@@ -679,7 +681,7 @@ class CreateServiceModal extends React.Component {
             "multiContainerInputConfigReducers",
             Object.assign(
               {},
-              ...MULTI_CONTAINER_SECTIONS.map(item => item.configReducers)
+              ...MULTI_CONTAINER_SECTIONS.map((item) => item.configReducers)
             )
           )
         );
@@ -703,7 +705,7 @@ class CreateServiceModal extends React.Component {
             "serviceInputConfigReducers",
             Object.assign(
               {},
-              ...SINGLE_CONTAINER_SECTIONS.map(item => item.configReducers)
+              ...SINGLE_CONTAINER_SECTIONS.map((item) => item.configReducers)
             )
           )
         );
@@ -720,7 +722,7 @@ class CreateServiceModal extends React.Component {
           inputConfigReducers={inputConfigReducers}
           isEdit={this.isLocationEdit(location)}
           isJSONModeActive={isJSONModeActive}
-          ref={ref => (this.createComponent = ref)}
+          ref={(ref) => (this.createComponent = ref)}
           onChange={this.handleServiceChange}
           onConvertToPod={this.handleConvertToPod}
           onErrorsChange={this.handleServiceErrorsChange}
@@ -740,7 +742,7 @@ class CreateServiceModal extends React.Component {
           onChange={this.handleServiceChange}
           onErrorsChange={this.handleServiceErrorsChange}
           onPropertyChange={this.handleServicePropertyChange}
-          ref={ref => (this.createComponent = ref)}
+          ref={(ref) => (this.createComponent = ref)}
           service={serviceSpec}
         />
       );
@@ -754,7 +756,7 @@ class CreateServiceModal extends React.Component {
       serviceFormActive,
       serviceJsonActive,
       servicePickerActive,
-      serviceReviewActive
+      serviceReviewActive,
     } = this.state;
 
     const force = this.shouldForceSubmit();
@@ -763,7 +765,7 @@ class CreateServiceModal extends React.Component {
       : i18nMark("Run Service");
     const runButtonClassNames = classNames("flush-vertical", {
       "button-primary": !force,
-      "button-danger": force
+      "button-danger": force,
     });
 
     // NOTE: Always prioritize review screen check
@@ -775,8 +777,8 @@ class CreateServiceModal extends React.Component {
           label: this.state.isPending
             ? i18nMark("Deploying...")
             : runButtonLabel,
-          disabled: this.state.isPending
-        }
+          disabled: this.state.isPending,
+        },
       ];
     }
 
@@ -797,13 +799,13 @@ class CreateServiceModal extends React.Component {
             >
               <Trans render="span">JSON Editor</Trans>
             </ToggleButton>
-          )
+          ),
         },
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: i18nMark("Review & Run")
-        }
+          label: i18nMark("Review & Run"),
+        },
       ];
     }
 
@@ -812,8 +814,8 @@ class CreateServiceModal extends React.Component {
         {
           className: "button-primary flush-vertical",
           clickHandler: this.handleServiceReview,
-          label: i18nMark("Review & Run")
-        }
+          label: i18nMark("Review & Run"),
+        },
       ];
     }
 
@@ -830,7 +832,7 @@ class CreateServiceModal extends React.Component {
     const isSpecificVersion = service instanceof Application && params.version;
     let serviceSpec = new ApplicationSpec({
       id: getBaseID(serviceID),
-      ...DEFAULT_APP_SPEC
+      ...DEFAULT_APP_SPEC,
     });
 
     if (isEdit && service instanceof Service && !isSpecificVersion) {
@@ -863,7 +865,7 @@ class CreateServiceModal extends React.Component {
       serviceReviewActive: false,
       serviceFormHasErrors: false,
       showAllErrors: false,
-      submitFailed: false // Tried to submit form and form validation failed
+      submitFailed: false, // Tried to submit form and form validation failed
     };
 
     return newState;
@@ -885,8 +887,8 @@ class CreateServiceModal extends React.Component {
       {
         className: "button-primary-link button-flush-horizontal",
         clickHandler: this.handleGoBack,
-        label
-      }
+        label,
+      },
     ];
   }
 
@@ -896,7 +898,7 @@ class CreateServiceModal extends React.Component {
       hasChangesApplied,
       isOpen,
       servicePickerActive,
-      serviceReviewActive
+      serviceReviewActive,
     } = this.state;
     let useGemini = false;
     if (servicePickerActive || serviceReviewActive) {
@@ -945,7 +947,7 @@ class CreateServiceModal extends React.Component {
 }
 
 CreateServiceModal.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(CreateServiceModal);

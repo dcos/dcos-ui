@@ -8,12 +8,12 @@ describe("DSLFormUtil", () => {
   describe("#createNodeComparisionFunction", () => {
     it("returns `true` for FUZZY nodes, for any text", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        fuzzy: DSLExpressionPart.fuzzy
+        fuzzy: DSLExpressionPart.fuzzy,
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.FUZZY, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(fn(unusedNode, astNode)).toBeTruthy();
@@ -21,12 +21,12 @@ describe("DSLFormUtil", () => {
 
     it("returns `false` for FUZZY nodes, if missing", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        fuzzy: DSLExpressionPart.fuzzy
+        fuzzy: DSLExpressionPart.fuzzy,
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.EXACT, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(fn(unusedNode, astNode)).toBeFalsy();
@@ -34,12 +34,12 @@ describe("DSLFormUtil", () => {
 
     it("returns `true` for EXACT nodes, for any text", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        exact: DSLExpressionPart.exact
+        exact: DSLExpressionPart.exact,
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.EXACT, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.EXACT, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(fn(unusedNode, astNode)).toBeTruthy();
@@ -47,12 +47,12 @@ describe("DSLFormUtil", () => {
 
     it("returns `true` for EXACT nodes, if missing", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        exact: DSLExpressionPart.exact
+        exact: DSLExpressionPart.exact,
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.FUZZY, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.FUZZY, {
-        text: "bar"
+        text: "bar",
       });
 
       expect(fn(unusedNode, astNode)).toBeFalsy();
@@ -60,13 +60,13 @@ describe("DSLFormUtil", () => {
 
     it("returns `true` for ATTRIB nodes that match fully", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        attrib: DSLExpressionPart.attribute("is", "value")
+        attrib: DSLExpressionPart.attribute("is", "value"),
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "is",
-        text: "value"
+        text: "value",
       });
 
       expect(fn(unusedNode, astNode)).toBeTruthy();
@@ -74,13 +74,13 @@ describe("DSLFormUtil", () => {
 
     it("returns `false` for ATTRIB nodes that match partially", () => {
       const fn = DSLFormUtil.createNodeComparisionFunction({
-        attrib: DSLExpressionPart.attribute("is", "value")
+        attrib: DSLExpressionPart.attribute("is", "value"),
       });
 
       const unusedNode = new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {});
       const astNode = new FilterNode(0, 0, DSLFilterTypes.ATTRIB, {
         label: "is",
-        text: "valuez"
+        text: "valuez",
       });
 
       expect(fn(unusedNode, astNode)).toBeFalsy();

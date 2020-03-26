@@ -9,18 +9,18 @@ let thisMockItems;
 
 describe("PodInstancesRegionFilter", () => {
   beforeEach(() => {
-    InstanceUtil.getNode = item => item;
+    InstanceUtil.getNode = (item) => item;
     thisMockItems = [
       {
         getRegionName() {
           return "region-1";
-        }
+        },
       },
       {
         getRegionName() {
           return "region-2";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -31,7 +31,7 @@ describe("PodInstancesRegionFilter", () => {
     const filters = [new PodInstancesRegionFilter(["region-1"])];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

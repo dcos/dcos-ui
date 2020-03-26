@@ -9,11 +9,11 @@ class FullScreenModalHeaderActions extends React.Component {
       PropTypes.shape({
         className: classProps,
         clickHandler: PropTypes.func,
-        label: PropTypes.node
+        label: PropTypes.node,
       })
     ),
     className: classProps,
-    type: PropTypes.oneOf(["primary", "secondary"]).isRequired
+    type: PropTypes.oneOf(["primary", "secondary"]).isRequired,
   };
   getActions() {
     const { actions } = this.props;
@@ -59,7 +59,7 @@ class FullScreenModalHeaderActions extends React.Component {
 const classProps = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 export default FullScreenModalHeaderActions;

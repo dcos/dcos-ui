@@ -39,7 +39,7 @@ function VolumeMountTypesSelect(props) {
       placeholder={i18n._(t`Select ...`)}
     >
       {Object.keys(VolumeDefinitions)
-        .filter(type => !excludedTypesMultiContainer.includes(type))
+        .filter((type) => !excludedTypesMultiContainer.includes(type))
         .map(mapOptions)}
     </Select>
   );

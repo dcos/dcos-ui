@@ -31,7 +31,7 @@ class JobsOverviewList extends React.PureComponent<
     super(props);
 
     this.state = {
-      isJobFormModalOpen: false
+      isJobFormModalOpen: false,
     };
 
     this.handleCloseJobFormModal = this.handleCloseJobFormModal.bind(this);
@@ -114,7 +114,7 @@ class JobsOverviewList extends React.PureComponent<
     const addButton = hasJobs
       ? {
           label: <Trans render="span">Create a job</Trans>,
-          onItemSelect: this.handleOpenJobFormModal
+          onItemSelect: this.handleOpenJobFormModal,
         }
       : null;
 

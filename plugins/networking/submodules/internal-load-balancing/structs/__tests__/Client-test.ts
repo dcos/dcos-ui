@@ -15,7 +15,7 @@ describe("Client", () => {
       ip: "10.10.11.13",
       p99_latency_ms: 30,
       success_last_minute: 481,
-      fail_last_minute: 3
+      fail_last_minute: 3,
     };
 
     thisClient = new Client(thisClientFixture);
@@ -64,7 +64,7 @@ describe("Client", () => {
       const clientWithNoCalls = new Client({
         ...thisClientFixture,
         success_last_minute: 0,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(clientWithNoCalls.getFailPercent()).toEqual(0);
@@ -74,7 +74,7 @@ describe("Client", () => {
       const clientWithNoFails = new Client({
         ...thisClientFixture,
         success_last_minute: 10,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(clientWithNoFails.getFailPercent()).toEqual(0);
@@ -84,7 +84,7 @@ describe("Client", () => {
       const clientWithNoSuccesses = new Client({
         ...thisClientFixture,
         success_last_minute: 0,
-        fail_last_minute: 10
+        fail_last_minute: 10,
       });
 
       expect(clientWithNoSuccesses.getFailPercent()).toEqual(100);

@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const BreadcrumbSupplementalContent = props => {
+const BreadcrumbSupplementalContent = (props) => {
   const { children, hasProgressBar } = props;
 
   if (!children) {
@@ -18,11 +18,11 @@ const BreadcrumbSupplementalContent = props => {
 };
 
 BreadcrumbSupplementalContent.defaultProps = {
-  hasProgressBar: false
+  hasProgressBar: false,
 };
 
 BreadcrumbSupplementalContent.propTypes = {
-  hasProgressBar: PropTypes.bool
+  hasProgressBar: PropTypes.bool,
 };
 
 export default BreadcrumbSupplementalContent;

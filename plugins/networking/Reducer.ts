@@ -4,5 +4,5 @@ module.exports = (state = {}, action) => ({
   internalLoadBalancing: internalLoadBalancingReducer(
     state.internalLoadBalancing,
     action
-  )
+  ),
 });

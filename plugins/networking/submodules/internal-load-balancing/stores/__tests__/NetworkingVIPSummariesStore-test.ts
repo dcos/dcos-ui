@@ -22,11 +22,11 @@ let thisRequestFn, thisVipSummaries, thisUseFixtures;
 describe("NetworkingVIPSummariesStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(vipSummariesFixture);
     };
     thisVipSummaries = {
-      ...vipSummariesFixture
+      ...vipSummariesFixture,
     };
   });
 
@@ -50,7 +50,7 @@ describe("NetworkingVIPSummariesStore", () => {
     it("stores VIPs when event is dispatched", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS,
-        data: [{ vip: { ip: "foo", port: "bar", protocol: "baz" } }]
+        data: [{ vip: { ip: "foo", port: "bar", protocol: "baz" } }],
       });
 
       const vipSummaries = NetworkingVIPSummariesStore.get("vipSummaries");
@@ -68,7 +68,7 @@ describe("NetworkingVIPSummariesStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_SUCCESS,
-        data: [{ vip: { ip: "foo", port: "bar", protocol: "baz" } }]
+        data: [{ vip: { ip: "foo", port: "bar", protocol: "baz" } }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -84,7 +84,7 @@ describe("NetworkingVIPSummariesStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_VIP_SUMMARIES_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

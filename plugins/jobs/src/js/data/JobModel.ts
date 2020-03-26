@@ -4,7 +4,7 @@ import {
   publishReplay,
   refCount,
   map,
-  switchMap
+  switchMap,
 } from "rxjs/operators";
 import { IResolvers } from "graphql-tools";
 import { injectable } from "inversify";
@@ -18,7 +18,7 @@ import {
   deleteJob,
   stopJobRun,
   JobResponse as MetronomeJobResponse,
-  JobDetailResponse as MetronomeJobDetailResponse
+  JobDetailResponse as MetronomeJobDetailResponse,
 } from "#SRC/js/events/MetronomeClient";
 import { RequestResponse } from "@dcos/http-service";
 import { DataLayerExtensionInterface } from "@extension-kid/data-layer";
@@ -28,12 +28,12 @@ import {
   JobConnection,
   JobConnectionSchema,
   JobConnectionTypeResolver,
-  JobsQueryArgs
+  JobsQueryArgs,
 } from "#PLUGINS/jobs/src/js/types/JobConnection";
 import {
   Job,
   JobTypeResolver,
-  JobSchema
+  JobSchema,
 } from "#PLUGINS/jobs/src/js/types/Job";
 import { JobLink, JobLinkSchema } from "#PLUGINS/jobs/src/js/types/JobLink";
 import { JobAPIOutput } from "../components/form/helpers/JobFormData";
@@ -143,7 +143,7 @@ export const resolvers = ({
   updateJob,
   updateSchedule,
   deleteJob,
-  stopJobRun
+  stopJobRun,
 }: ResolverArgs): IResolvers => {
   const jobs$ = timer(0, pollingInterval).pipe(
     exhaustMap(fetchJobs),
@@ -186,8 +186,8 @@ export const resolvers = ({
           )
         );
 
-        return responses$.pipe(map(response => JobTypeResolver(response)));
-      }
+        return responses$.pipe(map((response) => JobTypeResolver(response)));
+      },
     },
     Mutation: {
       runJob(
@@ -197,7 +197,7 @@ export const resolvers = ({
       ): Observable<JobLink> {
         if (!args.id) {
           return throwError({
-            response: { message: "runJob requires the `id` of the job to run" }
+            response: { message: "runJob requires the `id` of the job to run" },
           });
         }
 
@@ -214,14 +214,14 @@ export const resolvers = ({
           return throwError({
             response: {
               message:
-                "updateSchedule requires the `id` and `data` of the job to run"
-            }
+                "updateSchedule requires the `id` and `data` of the job to run",
+            },
           });
         }
 
         return updateSchedule(args.id, args.data).pipe(
           map(({ response: { jobId } }) => ({
-            jobId
+            jobId,
           }))
         );
       },
@@ -232,7 +232,7 @@ export const resolvers = ({
       ): Observable<MetronomeJobDetailResponse> {
         if (!args.data) {
           return throwError({
-            response: { message: "createJob requires `data` to be provided!" }
+            response: { message: "createJob requires `data` to be provided!" },
           });
         }
 
@@ -251,14 +251,14 @@ export const resolvers = ({
             response: {
               message:
                 "deleteJob requires both `id` and `stopCurrentJobRuns` to" +
-                " be provided!"
-            }
+                " be provided!",
+            },
           });
         }
 
         return deleteJob(args.id, args.stopCurrentJobRuns).pipe(
           map(({ response: { jobId } }) => ({
-            jobId
+            jobId,
           }))
         );
       },
@@ -271,14 +271,14 @@ export const resolvers = ({
           return throwError({
             response: {
               message:
-                "stopJobRun requires both `id` and `jobRunId` to be provided!"
-            }
+                "stopJobRun requires both `id` and `jobRunId` to be provided!",
+            },
           });
         }
 
         return stopJobRun(args.id, args.jobRunId).pipe(
           map(({ response: { jobId } }) => ({
-            jobId
+            jobId,
           }))
         );
       },
@@ -290,16 +290,17 @@ export const resolvers = ({
         if (!args.id || !args.data) {
           return throwError({
             response: {
-              message: "updateJob requires both `id` and `data` to be provided!"
-            }
+              message:
+                "updateJob requires both `id` and `data` to be provided!",
+            },
           });
         }
 
         return updateJob(args.id, args.data, args.existingSchedule).pipe(
           map(({ response }) => response)
         );
-      }
-    }
+      },
+    },
   };
 };
 
@@ -312,7 +313,7 @@ const boundResolvers = resolvers({
   updateJob,
   updateSchedule,
   deleteJob,
-  stopJobRun
+  stopJobRun,
 });
 
 const JobType = Symbol("Job");

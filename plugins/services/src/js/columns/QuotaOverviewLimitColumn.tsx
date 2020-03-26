@@ -4,13 +4,13 @@ import { Icon, TextCell, Tooltip } from "@dcos/ui-kit";
 import {
   greyLight,
   blue,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
 import {
   ServiceGroup,
-  QuotaLimitStatuses
+  QuotaLimitStatuses,
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
@@ -109,7 +109,7 @@ export function getLimitInfoForPod(item: Pod): LimitInfo {
       item.getRole() === item.getRootGroupName()
         ? QuotaLimitStatuses.applied
         : QuotaLimitStatuses.notApplied,
-    servicesNotLimited: 0
+    servicesNotLimited: 0,
   };
 }
 
@@ -129,9 +129,9 @@ export function getLimitInfoForService(
   return {
     limitText: getQuotaLimit({
       count: stats.count,
-      groupRoleCount: stats.groupRoleCount
+      groupRoleCount: stats.groupRoleCount,
     }),
-    servicesNotLimited: stats.count - stats.groupRoleCount
+    servicesNotLimited: stats.count - stats.groupRoleCount,
   };
 }
 
@@ -139,14 +139,14 @@ export function getLimitInfoForServiceGroup(item: ServiceGroup): LimitInfo {
   if (!item.quota || !item.quota.serviceRoles) {
     return {
       limitText: QuotaLimitStatuses.na,
-      servicesNotLimited: 0
+      servicesNotLimited: 0,
     };
   }
 
   return {
     limitText: getQuotaLimit(item.quota.serviceRoles),
     servicesNotLimited:
-      item.quota.serviceRoles.count - item.quota.serviceRoles.groupRoleCount
+      item.quota.serviceRoles.count - item.quota.serviceRoles.groupRoleCount,
   };
 }
 

@@ -4,7 +4,7 @@ const PodActionItem = {
   EDIT: "edit",
   DELETE: UserActions.DELETE,
   SCALE: "scale",
-  STOP: "stop"
+  STOP: "stop",
 };
 
 export default PodActionItem;

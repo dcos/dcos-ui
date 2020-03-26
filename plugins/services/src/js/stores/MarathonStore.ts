@@ -39,7 +39,7 @@ import {
   REQUEST_MARATHON_SERVICE_VERSIONS_ERROR,
   REQUEST_MARATHON_SERVICE_VERSIONS_SUCCESS,
   REQUEST_MARATHON_TASK_KILL_ERROR,
-  REQUEST_MARATHON_TASK_KILL_SUCCESS
+  REQUEST_MARATHON_TASK_KILL_SUCCESS,
 } from "../constants/ActionTypes";
 import DeploymentsList from "../structs/DeploymentsList";
 import HealthStatus from "../constants/HealthStatus";
@@ -80,7 +80,7 @@ import {
   MARATHON_SERVICE_VERSIONS_CHANGE,
   MARATHON_SERVICE_VERSIONS_ERROR,
   MARATHON_TASK_KILL_ERROR,
-  MARATHON_TASK_KILL_SUCCESS
+  MARATHON_TASK_KILL_SUCCESS,
 } from "../constants/EventTypes";
 import Framework from "../structs/Framework";
 import Application from "../structs/Application";
@@ -144,7 +144,7 @@ class MarathonStore extends GetSetBaseStore<{
       apps: {},
       deployments: new DeploymentsList(),
       groups: new ServiceTree(),
-      info: {}
+      info: {},
     };
 
     PluginSDK.addStoreConfig({
@@ -180,12 +180,12 @@ class MarathonStore extends GetSetBaseStore<{
         serviceRestartError: MARATHON_SERVICE_RESTART_ERROR,
         serviceRestartSuccess: MARATHON_SERVICE_RESTART_SUCCESS,
         taskKillSuccess: MARATHON_TASK_KILL_SUCCESS,
-        taskKillError: MARATHON_TASK_KILL_ERROR
+        taskKillError: MARATHON_TASK_KILL_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
 
       switch (action.type) {
@@ -394,7 +394,7 @@ class MarathonStore extends GetSetBaseStore<{
   }
 
   injectGroupsWithPackageImages(data) {
-    data.items.forEach(item => {
+    data.items.forEach((item) => {
       if (item.items && Array.isArray(item.items)) {
         this.injectGroupsWithPackageImages(item);
       } else if (
@@ -423,7 +423,7 @@ class MarathonStore extends GetSetBaseStore<{
         map[item.getFrameworkName().toLowerCase()] = {
           health: item.getHealth(),
           images: item.getImages(),
-          snapshot: item.get()
+          snapshot: item.get(),
         };
       }
 
@@ -431,7 +431,7 @@ class MarathonStore extends GetSetBaseStore<{
         map[item.getName().toLowerCase()] = {
           health: item.getHealth(),
           images: item.getImages(),
-          snapshot: item.get()
+          snapshot: item.get(),
         };
       }
 
@@ -449,9 +449,9 @@ class MarathonStore extends GetSetBaseStore<{
         healthChecks: [{}],
         // Marathon is healthy if this request returned apps
         tasksHealthy: numberOfApps,
-        tasksRunning: numberOfApps
+        tasksRunning: numberOfApps,
       }),
-      images: ServiceImages.MARATHON_IMAGES
+      images: ServiceImages.MARATHON_IMAGES,
     };
 
     this.set({ apps });
@@ -484,7 +484,7 @@ class MarathonStore extends GetSetBaseStore<{
     const id = data.originalDeploymentID;
     if (id != null) {
       const deployments = this.get("deployments").filterItems(
-        deployment => deployment.getId() !== id
+        (deployment) => deployment.getId() !== id
       );
       this.set({ deployments });
       this.emit(MARATHON_DEPLOYMENT_ROLLBACK_SUCCESS, data);
@@ -523,7 +523,7 @@ class MarathonStore extends GetSetBaseStore<{
     this.emit(MARATHON_SERVICE_VERSION_CHANGE, {
       serviceID,
       versionID,
-      version
+      version,
     });
   }
 

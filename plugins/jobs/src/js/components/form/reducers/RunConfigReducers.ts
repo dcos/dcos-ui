@@ -3,7 +3,7 @@ import {
   JobFormActionType,
   ArrayLabels,
   JobArtifact,
-  RestartPolicy
+  RestartPolicy,
 } from "../helpers/JobFormData";
 import { deepCopy, findNestedPropertyInObject } from "#SRC/js/utils/Util";
 
@@ -14,8 +14,8 @@ const updateLabels = (
   ...state,
   job: {
     ...state.job,
-    labels: updateFn(Array.isArray(state.job.labels) ? state.job.labels : [])
-  }
+    labels: updateFn(Array.isArray(state.job.labels) ? state.job.labels : []),
+  },
 });
 
 const updateArtifacts = (
@@ -29,9 +29,9 @@ const updateArtifacts = (
       ...state.job.run,
       artifacts: updateFn(
         Array.isArray(state.job.run.artifacts) ? state.job.run.artifacts : []
-      )
-    }
-  }
+      ),
+    },
+  },
 });
 
 // TODO: refactor labels to Array<{key: string, value: string}>
@@ -53,11 +53,11 @@ const updateTuple = <A, B>(
 
 const labels = {
   [JobFormActionType.AddArrayItem]: (_: string, state: JobSpec) =>
-    updateLabels(state, labels => labels.concat([["", ""]])),
+    updateLabels(state, (labels) => labels.concat([["", ""]])),
   [JobFormActionType.RemoveArrayItem]: (index: number, state: JobSpec) =>
-    updateLabels(state, labels => [
+    updateLabels(state, (labels) => [
       ...labels.slice(0, index),
-      ...labels.slice(index + 1)
+      ...labels.slice(index + 1),
     ]),
   [JobFormActionType.Set]: (
     value: string,
@@ -65,24 +65,24 @@ const labels = {
     [what, indexS]: string[]
   ) => {
     const index = parseInt(indexS, 10);
-    return updateLabels(state, labels =>
+    return updateLabels(state, (labels) =>
       labels.map((v, i) => (i === index ? updateTuple(v, what, value) : v))
     );
-  }
+  },
 };
 
 const artifacts = {
   [JobFormActionType.AddArrayItem]: (_: string, state: JobSpec) =>
-    updateArtifacts(state, artifacts => artifacts.concat([{ uri: "" }])),
+    updateArtifacts(state, (artifacts) => artifacts.concat([{ uri: "" }])),
   [JobFormActionType.RemoveArrayItem]: (index: number, state: JobSpec) =>
-    updateArtifacts(state, artifacts => [
+    updateArtifacts(state, (artifacts) => [
       ...artifacts.slice(0, index),
-      ...artifacts.slice(index + 1)
+      ...artifacts.slice(index + 1),
     ]),
   [JobFormActionType.Set]: (value: string, state: JobSpec, path: string[]) => {
     const [toUpdate, indexS] = path;
     const index = parseInt(indexS, 10);
-    return updateArtifacts(state, artifacts =>
+    return updateArtifacts(state, (artifacts) =>
       artifacts.map((a, i) => {
         const newValue = ["executable", "extract", "cache"].includes(toUpdate)
           ? !a[toUpdate as keyof JobArtifact]
@@ -90,7 +90,7 @@ const artifacts = {
         return i === index ? { ...a, [toUpdate]: newValue } : a;
       })
     );
-  }
+  },
 };
 
 const activeDeadlineSeconds = {
@@ -101,7 +101,7 @@ const activeDeadlineSeconds = {
     const restart = findNestedPropertyInObject(stateCopy, "job.run.restart");
     if (!restart) {
       stateCopy.job.run.restart = {
-        policy: RestartPolicy.Never
+        policy: RestartPolicy.Never,
       };
     }
     stateCopy.job.run.restart.activeDeadlineSeconds = newValue;
@@ -109,7 +109,7 @@ const activeDeadlineSeconds = {
       stateCopy.job.run.restart.policy = RestartPolicy.Never;
     }
     return stateCopy;
-  }
+  },
 };
 
 const restartPolicy = {
@@ -121,7 +121,7 @@ const restartPolicy = {
     }
     stateCopy.job.run.restart.policy = value;
     return stateCopy;
-  }
+  },
 };
 
 export { artifacts, labels, activeDeadlineSeconds, restartPolicy };

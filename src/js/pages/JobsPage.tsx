@@ -12,13 +12,13 @@ const JobsPage = ({ children }) => {
 };
 
 JobsPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 JobsPage.routeConfig = {
   label: i18nMark("Jobs"),
   icon: <Icon shape={ProductIcons.JobsInverse} size={iconSizeS} />,
-  matches: /^\/jobs/
+  matches: /^\/jobs/,
 };
 
 JobsPage.willTransitionTo = () => {

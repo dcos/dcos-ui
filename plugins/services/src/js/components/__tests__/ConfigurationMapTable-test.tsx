@@ -5,7 +5,7 @@ import ConfigurationMapTable from "../ConfigurationMapTable";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
 function mapValuesOfType(instance, type) {
-  return instance.find(type).map(item => item.text());
+  return instance.find(type).map((item) => item.text());
 }
 
 describe("ConfigurationMapTable", () => {
@@ -15,12 +15,12 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
-            prop: "b"
-          }
+            prop: "b",
+          },
         ]}
         data={[{ a: 1, b: 2 }]}
       />
@@ -42,15 +42,15 @@ describe("ConfigurationMapTable", () => {
             prop: "a",
             render() {
               return "X";
-            }
+            },
           },
           {
             heading: "B",
             prop: "b",
             render() {
               return "Y";
-            }
-          }
+            },
+          },
         ]}
         data={[{ a: 1, b: 2 }]}
       />
@@ -69,13 +69,13 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
             prop: "b",
-            hideIfEmpty: true
-          }
+            hideIfEmpty: true,
+          },
         ]}
         data={[{ a: 1, b: null }]}
       />
@@ -94,13 +94,13 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
             prop: "b",
-            hideIfEmpty: false
-          }
+            hideIfEmpty: false,
+          },
         ]}
         data={[{ a: 1, b: null }]}
       />
@@ -119,13 +119,13 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
             prop: "b",
-            placeholder: "(none)"
-          }
+            placeholder: "(none)",
+          },
         ]}
         data={[{ a: 1, b: null }]}
       />
@@ -144,15 +144,15 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
-            prop: "b"
-          }
+            prop: "b",
+          },
         ]}
         columnDefaults={{
-          className: "foo-bar"
+          className: "foo-bar",
         }}
         data={[{ a: 1, b: 2 }]}
       />
@@ -172,15 +172,15 @@ describe("ConfigurationMapTable", () => {
         columns={[
           {
             heading: "A",
-            prop: "a"
+            prop: "a",
           },
           {
             heading: "B",
-            prop: "b"
-          }
+            prop: "b",
+          },
         ]}
         columnDefaults={{
-          className: "foo-bar"
+          className: "foo-bar",
         }}
         data={[{ a: 1, b: 2 }]}
       />

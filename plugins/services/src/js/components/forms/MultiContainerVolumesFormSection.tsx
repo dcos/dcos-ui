@@ -34,14 +34,14 @@ class MultiContainerVolumesFormSection extends React.Component {
     errors: {},
     handleTabChange() {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     handleTabChange: PropTypes.func,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   getContainerMounts(containers, volumeMountIndex) {
     const { volumeMounts } = this.props.data;
@@ -127,7 +127,7 @@ class MultiContainerVolumesFormSection extends React.Component {
         .get(this.props.errors).name;
       const removeHandler = this.props.onRemoveItem.bind(this, {
         value: key,
-        path: "volumeMounts"
+        path: "volumeMounts",
       });
 
       if (
@@ -163,7 +163,7 @@ class MultiContainerVolumesFormSection extends React.Component {
                   placeholder="Select ..."
                 >
                   {Object.keys(VolumeDefinitions)
-                    .filter(type => !excludedTypes.includes(type))
+                    .filter((type) => !excludedTypes.includes(type))
                     .map((type, index) => (
                       <SelectOption
                         key={index}
@@ -339,7 +339,7 @@ class MultiContainerVolumesFormSection extends React.Component {
         <div>
           <AddButton
             onClick={this.props.onAddItem.bind(this, {
-              path: "volumeMounts"
+              path: "volumeMounts",
             })}
           >
             <Trans render="span">Add Volume</Trans>
@@ -351,7 +351,7 @@ class MultiContainerVolumesFormSection extends React.Component {
 }
 
 MultiContainerVolumesFormSection.configReducers = {
-  volumeMounts
+  volumeMounts,
 };
 
 export default MultiContainerVolumesFormSection;

@@ -14,7 +14,7 @@ import {
   REQUEST_ACL_USER_GRANT_ACTION_ERROR,
   REQUEST_ACL_USER_GRANT_ACTION_SUCCESS,
   REQUEST_ACL_USER_REVOKE_ACTION_ERROR,
-  REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS
+  REQUEST_ACL_USER_REVOKE_ACTION_SUCCESS,
 } from "../constants/ActionTypes";
 
 import {
@@ -31,7 +31,7 @@ import {
   ACL_USER_GRANT_ACTION_CHANGE,
   ACL_USER_GRANT_ACTION_ERROR,
   ACL_USER_REVOKE_ACTION_CHANGE,
-  ACL_USER_REVOKE_ACTION_ERROR
+  ACL_USER_REVOKE_ACTION_ERROR,
 } from "../constants/EventTypes";
 
 import ACLActions from "../actions/ACLActions";
@@ -40,7 +40,7 @@ import PermissionTree from "../structs/PermissionTree";
 
 const SDK = require("../../../SDK");
 
-SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", listeners => {
+SDK.getSDK().Hooks.addFilter("serverErrorModalListeners", (listeners) => {
   // prettier-ignore
   listeners.push({name: "acl", events: ["userRevokeError", "groupRevokeError"]});
 
@@ -70,12 +70,12 @@ class ACLStore extends BaseStore {
         groupGrantSuccess: ACL_GROUP_GRANT_ACTION_CHANGE,
         groupGrantError: ACL_GROUP_GRANT_ACTION_ERROR,
         groupRevokeSuccess: ACL_GROUP_REVOKE_ACTION_CHANGE,
-        groupRevokeError: ACL_GROUP_REVOKE_ACTION_ERROR
+        groupRevokeError: ACL_GROUP_REVOKE_ACTION_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         // Create ACL for resource
         case REQUEST_ACL_CREATE_SUCCESS:
@@ -211,7 +211,7 @@ class ACLStore extends BaseStore {
 
     // First check if ACL exists before requesting grant
     if (this.hasACL(resourceType, resourceID)) {
-      actions.forEach(action => {
+      actions.forEach((action) => {
         aclActionFn(subjectID, action, resourceID);
       });
 
@@ -220,7 +220,7 @@ class ACLStore extends BaseStore {
 
     // Add grant request to callback list and create ACL
     this.addOutstandingGrantRequest(resourceID, () => {
-      actions.forEach(action => {
+      actions.forEach((action) => {
         aclActionFn(subjectID, action, resourceID);
       });
     });
@@ -236,11 +236,11 @@ class ACLStore extends BaseStore {
   processOutstandingGrants(resourceType) {
     this.getACLs(resourceType)
       .getItems()
-      .forEach(acl => {
+      .forEach((acl) => {
         const resourceID = acl.get("rid");
         if (resourceID in this.outstandingGrants) {
           // Run grant requests now that we have an ACL
-          this.outstandingGrants[resourceID].forEach(cb => {
+          this.outstandingGrants[resourceID].forEach((cb) => {
             cb();
           });
           this.removeAllOutstandingGrantRequests(resourceID);
@@ -251,7 +251,7 @@ class ACLStore extends BaseStore {
   processResourcesACLs(items = [], resourceType = "allACLs") {
     SDK.getSDK().dispatch({
       type: ACL_RESOURCE_ACLS_CHANGE,
-      data: { [resourceType]: items }
+      data: { [resourceType]: items },
     });
     this.emit(ACL_RESOURCE_ACLS_CHANGE);
     this.processOutstandingGrants(resourceType);
@@ -260,7 +260,7 @@ class ACLStore extends BaseStore {
   processACLSchema(permissionSchema) {
     SDK.getSDK().dispatch({
       type: ACL_SCHEMA_CHANGE,
-      data: { permissionSchema }
+      data: { permissionSchema },
     });
     this.emit(ACL_SCHEMA_CHANGE);
   }

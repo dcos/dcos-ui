@@ -7,7 +7,7 @@ export default class PodSpec extends ServiceSpec {
   }
 
   getContainerSpec(name) {
-    return this.getContainers().find(container => container.name === name);
+    return this.getContainers().find((container) => container.name === name);
   }
 
   getContainerCount() {
@@ -29,7 +29,7 @@ export default class PodSpec extends ServiceSpec {
   getResources() {
     return this.getContainers().reduce(
       (resources, container) => {
-        Object.keys(container.resources).forEach(key => {
+        Object.keys(container.resources).forEach((key) => {
           resources[key] += container.resources[key];
         });
 
@@ -39,7 +39,7 @@ export default class PodSpec extends ServiceSpec {
         cpus: 0,
         mem: 0,
         gpus: 0,
-        disk: 0
+        disk: 0,
       }
     );
   }

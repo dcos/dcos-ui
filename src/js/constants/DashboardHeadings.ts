@@ -8,7 +8,7 @@ const DashboardHeadings = {
   SERVICES_STATUS: i18nMark("Services Status"),
   TASKS: i18nMark("Tasks"),
   COMPONENT_HEALTH: i18nMark("Components Health"),
-  NODES: i18nMark("Nodes")
+  NODES: i18nMark("Nodes"),
 };
 
 export default DashboardHeadings;

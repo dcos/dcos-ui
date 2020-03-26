@@ -14,7 +14,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/architecture/components/");
-    }
+    },
   },
   "dcos-mesos-dns.service": {
     summary: (
@@ -22,13 +22,13 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/architecture/components/");
-    }
+    },
   },
   "dcos-mesos-master.service": {
     summary: <Trans>The Mesos master process orchestrates agent tasks.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
-    }
+    },
   },
   "dcos-signal.service": {
     summary: (
@@ -40,7 +40,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-gen-resolvconf.timer": {
     summary: (
@@ -50,7 +50,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
-    }
+    },
   },
   "dcos-exhibitor.service": {
     summary: (
@@ -61,7 +61,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/overview/what-is-dcos/");
-    }
+    },
   },
   "dcos-history-service.service": {
     summary: (
@@ -72,7 +72,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-logrotate.service": {
     summary: (
@@ -83,7 +83,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return "https://github.com/logrotate/logrotate/blob/master/README.md";
-    }
+    },
   },
   "dcos-link-env.service": {
     summary: (
@@ -94,7 +94,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-download.service": {
     summary: (
@@ -105,7 +105,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-logrotate.timer": {
     summary: (
@@ -116,7 +116,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-signal.timer": {
     summary: (
@@ -124,7 +124,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-gunicorn-bouncer.service": {
     summary: (
@@ -135,7 +135,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-adminrouter-reload.service": {
     summary: (
@@ -146,7 +146,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-nginx-reload.timer": {
     summary: (
@@ -156,7 +156,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-setup.service": {
     summary: (
@@ -167,13 +167,13 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-mesos-slave.service": {
     summary: <Trans>Runs a Mesos agent on the node.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-keepalived.service": {
     summary: (
@@ -184,7 +184,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-adminrouter-agent.service": {
     summary: (
@@ -196,7 +196,7 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/");
-    }
+    },
   },
   "dcos-gen-resolvconf.service": {
     summary: (
@@ -207,14 +207,14 @@ const UnitSummaries = {
     ),
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/installing/ent/");
-    }
+    },
   },
   "dcos-mesos-slave-public": {
     summary: <Trans>Runs a publicly accessible Mesos agent on the node.</Trans>,
     getDocumentationURI() {
       return MetadataStore.buildDocsURI("/security/");
-    }
-  }
+    },
+  },
 };
 
 export default UnitSummaries;

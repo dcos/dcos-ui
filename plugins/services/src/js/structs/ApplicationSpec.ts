@@ -30,8 +30,8 @@ export default class ApplicationSpec extends ServiceSpec {
 
     // "Clone" health checks to ensure that no one is accidentally altering the
     // properties.
-    return healthChecks.map(healthCheck => ({
-      ...healthCheck
+    return healthChecks.map((healthCheck) => ({
+      ...healthCheck,
     }));
   }
 
@@ -55,7 +55,7 @@ export default class ApplicationSpec extends ServiceSpec {
       cpus: this.get("cpus") || 0,
       mem: this.get("mem") || 0,
       gpus: this.get("gpus") || 0,
-      disk: this.get("disk") || 0
+      disk: this.get("disk") || 0,
     };
   }
 }

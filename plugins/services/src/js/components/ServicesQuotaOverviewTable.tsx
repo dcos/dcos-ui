@@ -9,7 +9,7 @@ import ServiceTree from "../structs/ServiceTree";
 import { nameRenderer } from "../columns/ServicesTableNameColumn";
 import {
   limitRenderer,
-  getLimitInfoForService
+  getLimitInfoForService,
 } from "../columns/QuotaOverviewLimitColumn";
 
 import { SortDirection } from "../types/SortDirection";
@@ -50,7 +50,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     this.state = {
       items: this.sortData(props.serviceTree.getItems(), "name", "ASC"),
       sortColumn: "name",
-      sortDirection: "ASC"
+      sortDirection: "ASC",
     };
   }
 
@@ -58,7 +58,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     nextProps: ServicesQuotaOverviewTableProps
   ) {
     this.setState({
-      items: this.sortData(nextProps.serviceTree.getItems() || [])
+      items: this.sortData(nextProps.serviceTree.getItems() || []),
     });
   }
 
@@ -71,7 +71,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     this.setState({
       items: this.sortData(this.state.items, columnName, toggledDirection),
       sortColumn: columnName,
-      sortDirection: toggledDirection
+      sortDirection: toggledDirection,
     });
   };
 
@@ -81,7 +81,7 @@ class ServicesQuotaOverviewTable extends React.Component<
     sortDirection: SortDirection = this.state.sortDirection
   ): Array<Service | ServiceTree> =>
     sort(items.slice(), sortForColumn(sortColumn), {
-      reverse: sortDirection !== "ASC"
+      reverse: sortDirection !== "ASC",
     });
 
   public render() {

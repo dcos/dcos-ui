@@ -14,7 +14,7 @@ class ServiceGroupFormModal extends React.PureComponent {
     errors: PropTypes.string,
     isPending: PropTypes.bool.isRequired,
     parentGroupId: PropTypes.string,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -29,12 +29,12 @@ class ServiceGroupFormModal extends React.PureComponent {
       this.props.onClose();
     }
   }
-  handleNewGroupSubmit = model => {
+  handleNewGroupSubmit = (model) => {
     const { parentGroupId } = this.props;
 
     this.props.createGroup({
       ...model,
-      id: `${parentGroupId}/${model.id}`
+      id: `${parentGroupId}/${model.id}`,
     });
   };
 
@@ -80,8 +80,8 @@ class ServiceGroupFormModal extends React.PureComponent {
         validation: ServiceValidatorUtil.isValidGroupID,
         validationErrorText: i18n._(
           t`Group name must be at least 1 character and may only contain digits (0-9), dashes (-), dots (.), and lowercase letters (a-z). The name may not begin or end with a dash or dot.`
-        )
-      }
+        ),
+      },
     ];
   }
 
@@ -92,13 +92,13 @@ class ServiceGroupFormModal extends React.PureComponent {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: isPending ? i18nMark("Creating...") : i18nMark("Create Group"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
 
     return (
@@ -111,7 +111,7 @@ class ServiceGroupFormModal extends React.PureComponent {
               <Trans render="span">Create Group</Trans>
             </ModalHeading>
           ),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={onClose}
         onSubmit={this.handleNewGroupSubmit}

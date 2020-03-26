@@ -13,7 +13,7 @@ import { getSDK } from "../SDK";
 const NOTIFICATION_LOCATIONS = [
   "system",
   "system-security",
-  "system-security-stores"
+  "system-security-stores",
 ];
 const NOTIFICATION_ID = "sealedStores";
 
@@ -42,9 +42,9 @@ class SecretStore extends EventEmitter {
         revokeSecretSuccess: EventTypes.SECRET_STORE_REVOKE_SECRET_SUCCESS,
         revokeSecretError: EventTypes.SECRET_STORE_REVOKE_SECRET_ERROR,
         updateSecretSuccess: EventTypes.SECRET_STORE_UPDATE_SECRET_SUCCESS,
-        updateSecretError: EventTypes.SECRET_STORE_UPDATE_SECRET_ERROR
+        updateSecretError: EventTypes.SECRET_STORE_UPDATE_SECRET_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     getSDK().onDispatch((action: any) => {
@@ -192,7 +192,7 @@ class SecretStore extends EventEmitter {
   public processStores(stores: any) {
     getSDK().dispatch({
       type: EventTypes.SECRET_ALL_STORES_SUCCESS,
-      stores: stores.array
+      stores: stores.array,
     });
     const storesList = new SecretStoreStructList({ items: stores.array });
     const notificationCount = NotificationStore.getNotificationCount(
@@ -217,7 +217,7 @@ class SecretStore extends EventEmitter {
   public processSecrets(secrets: any) {
     getSDK().dispatch({
       type: EventTypes.SECRET_STORE_SECRETS_SUCCESS,
-      secrets: secrets.array
+      secrets: secrets.array,
     });
 
     this.emit(EventTypes.SECRET_STORE_SECRETS_SUCCESS);
@@ -226,7 +226,7 @@ class SecretStore extends EventEmitter {
   public processSealStatus(status: any) {
     getSDK().dispatch({
       type: EventTypes.SECRET_STORE_SEAL_STATUS_SUCCESS,
-      isSealed: status.sealed
+      isSealed: status.sealed,
     });
 
     this.emit(EventTypes.SECRET_STORE_SEAL_STATUS_SUCCESS);
@@ -243,7 +243,7 @@ class SecretStore extends EventEmitter {
       secretDetail,
       storeName,
       secretPath,
-      contentType
+      contentType,
     });
 
     this.emit(EventTypes.SECRET_STORE_SECRET_SUCCESS);

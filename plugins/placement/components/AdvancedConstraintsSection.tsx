@@ -9,26 +9,26 @@ import ConfigurationMapTable from "#PLUGINS/services/src/js/components/Configura
 class AdvancedConstraintsSection extends React.Component {
   static defaultProps = {
     constraints: [],
-    onEditClick() {}
+    onEditClick() {},
   };
   static propTypes = {
     constraints: PropTypes.array,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
       {
         heading: <Trans render="span">Operator</Trans>,
-        prop: "operator"
+        prop: "operator",
       },
       {
         heading: <Trans render="span">Field Name</Trans>,
-        prop: "fieldName"
+        prop: "fieldName",
       },
       {
         heading: <Trans render="span">Value</Trans>,
-        prop: "value"
-      }
+        prop: "value",
+      },
     ];
   }
 

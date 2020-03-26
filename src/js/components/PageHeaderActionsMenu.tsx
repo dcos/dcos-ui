@@ -7,7 +7,7 @@ import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-
 const trigger = (iconID: SystemIcons) => ({
   className: "hidden",
   html: <Icon shape={iconID} size={iconSizeXs} color="currentColor" />,
-  id: "trigger"
+  id: "trigger",
 });
 
 const handleItemSelection = (item: { onItemSelect: () => void }) => {
@@ -19,13 +19,13 @@ const handleItemSelection = (item: { onItemSelect: () => void }) => {
 const getDropdownItemFromComponent = (child: JSX.Element, index: number) => ({
   onItemSelect: child.props.onItemSelect,
   html: child,
-  id: index
+  id: index,
 });
 
 export default ({
   children,
   iconID = SystemIcons.EllipsisVertical,
-  actionsDisabled
+  actionsDisabled,
 }: {
   children: JSX.Element | JSX.Element[];
   iconID: SystemIcons;
@@ -36,7 +36,7 @@ export default ({
     buttonClassName="button button-primary-link button-narrow"
     items={[
       trigger(iconID),
-      ...React.Children.map(children, getDropdownItemFromComponent)
+      ...React.Children.map(children, getDropdownItemFromComponent),
     ]}
     onItemSelection={handleItemSelection}
     persistentID="trigger"

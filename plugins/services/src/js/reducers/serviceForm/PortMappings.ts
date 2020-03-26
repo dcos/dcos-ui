@@ -99,7 +99,7 @@ export function JSONParser(state) {
 
     if (item.protocol != null) {
       const protocols = item.protocol.split(",");
-      PROTOCOLS.forEach(protocol => {
+      PROTOCOLS.forEach((protocol) => {
         memo.push(
           new Transaction(
             ["portDefinitions", index, "protocol", protocol],

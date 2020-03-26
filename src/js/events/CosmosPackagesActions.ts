@@ -23,7 +23,7 @@ import {
   REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
   REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
   REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
-  REQUEST_COSMOS_SERVICE_UPDATE_ERROR
+  REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -49,15 +49,15 @@ const CosmosPackagesActions = {
         action: "search",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "search",
           actionType: "response",
           entity: "package",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/search`,
@@ -66,7 +66,7 @@ const CosmosPackagesActions = {
         const packages = response.packages || [];
         const packageImages = {};
 
-        const data = packages.map(cosmosPackage => {
+        const data = packages.map((cosmosPackage) => {
           if (!cosmosPackage.resource) {
             cosmosPackage.resource = {};
           }
@@ -84,7 +84,7 @@ const CosmosPackagesActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGES_SEARCH_SUCCESS,
           data: { packages: data, images: packageImages },
-          query
+          query,
         });
       },
       error(xhr) {
@@ -92,9 +92,9 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGES_SEARCH_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
           query,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -104,15 +104,15 @@ const CosmosPackagesActions = {
         action: "list",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "list",
           actionType: "response",
           entity: "package",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list`,
@@ -120,7 +120,7 @@ const CosmosPackagesActions = {
       success(response) {
         const packages = response.packages || [];
         // Map list data to match other endpoint structures
-        const data = packages.map(item => {
+        const data = packages.map((item) => {
           const cosmosPackage =
             Util.findNestedPropertyInObject(
               item,
@@ -150,7 +150,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGES_LIST_SUCCESS,
           data,
           packageName,
-          appId
+          appId,
         });
       },
       error(xhr) {
@@ -159,9 +159,9 @@ const CosmosPackagesActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
           appId,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -171,21 +171,21 @@ const CosmosPackagesActions = {
         action: "describe",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "describe",
           actionType: "response",
           entity: "package",
-          version: "v3"
-        })
+          version: "v3",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/describe`,
       data: JSON.stringify({
         packageName,
-        ...(packageVersion && { packageVersion })
+        ...(packageVersion && { packageVersion }),
       }),
       success(response) {
         const cosmosPackage = response.package;
@@ -194,7 +194,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_DESCRIBE_SUCCESS,
           data: cosmosPackage,
           packageName,
-          packageVersion
+          packageVersion,
         });
       },
       error(xhr) {
@@ -203,9 +203,9 @@ const CosmosPackagesActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
           packageVersion,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -215,15 +215,15 @@ const CosmosPackagesActions = {
         action: "describe",
         actionType: "request",
         entity: "service",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "describe",
           actionType: "response",
           entity: "service",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}/cosmos/service/describe`,
@@ -232,7 +232,7 @@ const CosmosPackagesActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
           data: response,
-          serviceId
+          serviceId,
         });
       },
       error(xhr) {
@@ -240,9 +240,9 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceId,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -252,31 +252,31 @@ const CosmosPackagesActions = {
         action: "update",
         actionType: "request",
         entity: "service",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "update",
           actionType: "response",
           entity: "service",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}/cosmos/service/update`,
       data: JSON.stringify({ appId: serviceId, options, replace: true }),
       success() {
         AppDispatcher.handleServerAction({
-          type: REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS
+          type: REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
           data: RequestUtil.parseResponseBody(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -290,15 +290,15 @@ const CosmosPackagesActions = {
         action: "list-versions",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "list-versions",
           actionType: "response",
           entity: "package",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/list-versions`,
@@ -309,7 +309,7 @@ const CosmosPackagesActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_SUCCESS,
           data: packageVersions,
-          packageName
+          packageName,
         });
       },
       error(xhr) {
@@ -317,9 +317,9 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_LIST_VERSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           packageName,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -329,15 +329,15 @@ const CosmosPackagesActions = {
         action: "install",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "install",
           actionType: "response",
           entity: "package",
-          version: "v2"
-        })
+          version: "v2",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/install`,
@@ -347,7 +347,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_INSTALL_SUCCESS,
           data: response,
           packageName,
-          packageVersion
+          packageVersion,
         });
       },
       error(xhr) {
@@ -356,9 +356,9 @@ const CosmosPackagesActions = {
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
           packageVersion,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -368,15 +368,15 @@ const CosmosPackagesActions = {
         action: "uninstall",
         actionType: "request",
         entity: "package",
-        version: "v1"
+        version: "v1",
       }),
       headers: {
         Accept: getContentType({
           action: "uninstall",
           actionType: "response",
           entity: "package",
-          version: "v1"
-        })
+          version: "v1",
+        }),
       },
       method: "POST",
       url: `${Config.rootUrl}${Config.cosmosAPIPrefix}/uninstall`,
@@ -386,7 +386,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
           data: response,
           packageName,
-          appId
+          appId,
         });
       },
       error(xhr) {
@@ -395,9 +395,9 @@ const CosmosPackagesActions = {
           data: RequestUtil.parseResponseBody(xhr),
           packageName,
           appId,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -406,13 +406,13 @@ const CosmosPackagesActions = {
       function success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_SUCCESS,
-          data: response.repositories
+          data: response.repositories,
         });
       },
       function error({ response }) {
         AppDispatcher.handleServerAction({
           type: REQUEST_COSMOS_REPOSITORIES_LIST_ERROR,
-          data: getErrorMessage(response)
+          data: getErrorMessage(response),
         });
       }
     );
@@ -426,7 +426,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_ADD_SUCCESS,
           data: response,
           name,
-          uri
+          uri,
         });
       },
       function error({ response }) {
@@ -434,7 +434,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_ADD_ERROR,
           data: getErrorMessage(response),
           name,
-          uri
+          uri,
         });
       }
     );
@@ -448,7 +448,7 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_DELETE_SUCCESS,
           data: response,
           name,
-          uri
+          uri,
         });
       },
       function error({ response }) {
@@ -456,11 +456,11 @@ const CosmosPackagesActions = {
           type: REQUEST_COSMOS_REPOSITORY_DELETE_ERROR,
           data: getErrorMessage(response),
           name,
-          uri
+          uri,
         });
       }
     );
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -482,7 +482,7 @@ if (Config.useFixtures) {
     ),
     fetchRepositories: import(
       /* webpackChunkName: "packagesRepositoriesFixture" */ "../../../tests/_fixtures/cosmos/packages-repositories.json"
-    )
+    ),
   };
 
   if (!window.actionTypes) {
@@ -491,9 +491,9 @@ if (Config.useFixtures) {
 
   Promise.all(
     Object.keys(methodFixtureMapping).map(
-      method => methodFixtureMapping[method]
+      (method) => methodFixtureMapping[method]
     )
-  ).then(responses => {
+  ).then((responses) => {
     window.actionTypes.CosmosPackagesActions = Object.assign(
       getFixtureResponses(methodFixtureMapping, responses),
       {
@@ -501,11 +501,11 @@ if (Config.useFixtures) {
         installPackage: { event: "success" },
         uninstallPackage: { event: "success" },
         addRepository: { event: "success" },
-        deleteRepository: { event: "success" }
+        deleteRepository: { event: "success" },
       }
     );
 
-    Object.keys(window.actionTypes.CosmosPackagesActions).forEach(method => {
+    Object.keys(window.actionTypes.CosmosPackagesActions).forEach((method) => {
       CosmosPackagesActions[method] = RequestUtil.stubRequest(
         CosmosPackagesActions,
         "CosmosPackagesActions",

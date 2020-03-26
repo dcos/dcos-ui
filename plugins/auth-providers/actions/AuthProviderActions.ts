@@ -14,7 +14,7 @@ import {
   REQUEST_PROVIDER_SUCCESS,
   REQUEST_PROVIDER_ERROR,
   REQUEST_PROVIDERS_SUCCESS,
-  REQUEST_PROVIDERS_ERROR
+  REQUEST_PROVIDERS_ERROR,
 } from "../constants/ActionTypes";
 
 const SDK = require("../SDK").getSDK();
@@ -37,7 +37,7 @@ const AuthProviderActions = {
       if (data.oidc != null && data.saml != null) {
         SDK.dispatch({
           type: REQUEST_PROVIDERS_SUCCESS,
-          data
+          data,
         });
       }
     }
@@ -50,9 +50,9 @@ const AuthProviderActions = {
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_PROVIDERS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
 
     RequestUtil.json({
@@ -63,9 +63,9 @@ const AuthProviderActions = {
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_PROVIDERS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -77,7 +77,7 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_SUCCESS,
           data: response,
           providerID,
-          providerType
+          providerType,
         });
       },
       error(xhr) {
@@ -85,9 +85,9 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           providerID,
-          providerType
+          providerType,
         });
-      }
+      },
     });
   },
 
@@ -101,7 +101,7 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_CREATE_SUCCESS,
           data: response,
           providerID,
-          providerType
+          providerType,
         });
       },
       error(xhr) {
@@ -109,9 +109,9 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           providerID,
-          providerType
+          providerType,
         });
-      }
+      },
     });
   },
 
@@ -124,7 +124,7 @@ const AuthProviderActions = {
         SDK.dispatch({
           type: REQUEST_PROVIDER_UPDATE_SUCCESS,
           providerID,
-          providerType
+          providerType,
         });
       },
       error(xhr) {
@@ -132,9 +132,9 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           providerID,
-          providerType
+          providerType,
         });
-      }
+      },
     });
   },
 
@@ -147,7 +147,7 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_DELETE_SUCCESS,
           data: response,
           providerID,
-          providerType
+          providerType,
         });
       },
       error(xhr) {
@@ -155,9 +155,9 @@ const AuthProviderActions = {
           type: REQUEST_PROVIDER_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           providerID,
-          providerType
+          providerType,
         });
-      }
+      },
     });
   },
 
@@ -168,18 +168,18 @@ const AuthProviderActions = {
         SDK.dispatch({
           type: REQUEST_PROVIDER_CALLBACK_URL_SUCCESS,
           data: response,
-          providerID
+          providerID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_PROVIDER_CALLBACK_URL_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          providerID
+          providerID,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -189,7 +189,7 @@ if (Config.useFixtures) {
     ),
     fetch: import(
       /* providerFixture */ "../../../tests/_fixtures/OpenIDAuthProviders/provider.json"
-    )
+    ),
   };
 
   if (!window.actionTypes) {
@@ -197,15 +197,15 @@ if (Config.useFixtures) {
   }
   Promise.all(
     Object.keys(methodFixtureMapping).map(
-      method => methodFixtureMapping[method]
+      (method) => methodFixtureMapping[method]
     )
-  ).then(responses => {
+  ).then((responses) => {
     window.actionTypes.AuthProviderActions = getFixtureResponses(
       methodFixtureMapping,
       responses
     );
 
-    Object.keys(window.actionTypes.AuthProviderActions).forEach(method => {
+    Object.keys(window.actionTypes.AuthProviderActions).forEach((method) => {
       AuthProviderActions[method] = RequestUtil.stubRequest(
         AuthProviderActions,
         "AuthProviderActions",

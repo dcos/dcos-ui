@@ -8,7 +8,7 @@ class FilterButtons extends React.Component {
     onFilterChange() {},
     renderButtonContent(title) {
       return title;
-    }
+    },
   };
   static propTypes = {
     filters: PropTypes.array,
@@ -21,12 +21,12 @@ class FilterButtons extends React.Component {
     // Optional function to generate button text. args: (filter, count)
     renderButtonContent: PropTypes.func,
     // The filter in props.filters that is currently selected.
-    selectedFilter: PropTypes.string
+    selectedFilter: PropTypes.string,
   };
   getCount(items) {
     const counts = {};
 
-    items.forEach(value => {
+    items.forEach((value) => {
       if (typeof value === "string") {
         value = value.toLowerCase();
       }
@@ -50,21 +50,21 @@ class FilterButtons extends React.Component {
       filters,
       inverseStyle,
       itemList,
-      selectedFilter
+      selectedFilter,
     } = this.props;
 
     if (filterByKey) {
-      itemList = itemList.map(item => item[filterByKey]);
+      itemList = itemList.map((item) => item[filterByKey]);
     }
 
     const filterCount = this.getCount(itemList);
 
-    return filters.map(filter => {
+    return filters.map((filter) => {
       const isActive = filter.toLowerCase() === selectedFilter.toLowerCase();
 
       const classSet = classNames("button button-outline", {
         "button-inverse": inverseStyle,
-        active: isActive
+        active: isActive,
       });
 
       return (

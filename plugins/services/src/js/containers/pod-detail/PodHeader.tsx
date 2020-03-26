@@ -19,7 +19,7 @@ class PodHeader extends React.Component {
     onScale() {},
     onStop() {},
     pod: null,
-    tabs: []
+    tabs: [],
   };
   static propTypes = {
     onDestroy: PropTypes.func,
@@ -27,7 +27,7 @@ class PodHeader extends React.Component {
     onScale: PropTypes.func,
     onStop: PropTypes.func,
     pod: PropTypes.instanceOf(Pod).isRequired,
-    tabs: PropTypes.array
+    tabs: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -42,14 +42,14 @@ class PodHeader extends React.Component {
         className: "hidden",
         id: "__MORE__",
         html: "",
-        selectedHtml: "More"
+        selectedHtml: "More",
       },
       {
         className: classNames({
-          hidden: pod.getInstancesCount() === 0
+          hidden: pod.getInstancesCount() === 0,
         }),
         id: PodActionItem.STOP,
-        html: "Stop"
+        html: "Stop",
       },
       {
         id: PodActionItem.DELETE,
@@ -57,8 +57,8 @@ class PodHeader extends React.Component {
           <span className="text-danger">
             {StringUtil.capitalize(UserActions.DELETE)}
           </span>
-        )
-      }
+        ),
+      },
     ];
 
     const actionButtons = [
@@ -97,12 +97,12 @@ class PodHeader extends React.Component {
         onItemSelection={this.handleDropdownAction}
         transition={true}
         transitionName="dropdown-menu"
-      />
+      />,
     ];
 
     return actionButtons;
   }
-  handleDropdownAction = action => {
+  handleDropdownAction = (action) => {
     switch (action.id) {
       case PodActionItem.STOP:
         this.props.onStop();
@@ -128,17 +128,17 @@ class PodHeader extends React.Component {
       {
         classes: `media-object-item`,
         label: <Trans id={serviceStatus.displayName} />,
-        shouldShow: serviceHealth.key != null
+        shouldShow: serviceHealth.key != null,
       },
       {
         classes: "media-object-item",
         label: `${runningTasksCount} ${runningTasksSubHeader}`,
-        shouldShow: runningTasksCount != null && runningTasksSubHeader != null
+        shouldShow: runningTasksCount != null && runningTasksSubHeader != null,
       },
       {
         label: <ServiceStatusProgressBar service={pod} />,
-        shouldShow: true
-      }
+        shouldShow: true,
+      },
     ].map((item, index) => {
       if (!item.shouldShow) {
         return null;

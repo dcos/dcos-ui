@@ -9,17 +9,17 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import EndpointClipboardTrigger from "./EndpointClipboardTrigger";
 import Pod from "../../structs/Pod";
 
-const MesosDNSList = props => {
+const MesosDNSList = (props) => {
   const { service } = props;
   const servicesByFramework = MesosStateStore.getTasksByService(service)
-    .filter(task => task.state === "TASK_RUNNING")
+    .filter((task) => task.state === "TASK_RUNNING")
     .reduce(
       (acc, task) => ({
         ...acc,
         [MesosStateStore.getFrameworkByTask(task).name]: {
           ...acc[MesosStateStore.getFrameworkByTask(task).name],
-          [service instanceof Pod ? service.getName() : task.name]: true
-        }
+          [service instanceof Pod ? service.getName() : task.name]: true,
+        },
       }),
       {}
     );
@@ -32,8 +32,8 @@ const MesosDNSList = props => {
         <Trans>Mesos DNS</Trans>
       </ConfigurationMapHeading>
       {[].concat(
-        Object.keys(servicesByFramework).map(framework =>
-          Object.keys(servicesByFramework[framework]).map(service => (
+        Object.keys(servicesByFramework).map((framework) =>
+          Object.keys(servicesByFramework[framework]).map((service) => (
             <ConfigurationMapRow>
               <ConfigurationMapLabel>{framework}</ConfigurationMapLabel>
               <ConfigurationMapValue>

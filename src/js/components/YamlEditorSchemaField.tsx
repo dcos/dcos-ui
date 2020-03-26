@@ -9,7 +9,7 @@ import "brace/mode/yaml";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FieldError from "#SRC/js/components/form/FieldError";
 
-const YamlEditorSchemaField = props => {
+const YamlEditorSchemaField = (props) => {
   const { errorMessage, label, i18n } = props;
   const { formData, onChange } = props.fieldProps;
 
@@ -36,7 +36,7 @@ const YamlEditorSchemaField = props => {
           fontSize={14}
           showPrintMargin={false}
           tabSize={2}
-          onChange={value => onChange(btoa(value))}
+          onChange={(value) => onChange(btoa(value))}
         />
       </div>
       <FieldError>{errorMessage}</FieldError>
@@ -50,10 +50,10 @@ YamlEditorSchemaField.propTypes = {
   schema: PropTypes.object.isRequired,
   errorMessage: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+    PropTypes.node,
   ]),
   autofocus: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };
 
 export default withI18n()(YamlEditorSchemaField);

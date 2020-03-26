@@ -17,7 +17,7 @@ class LogView extends React.Component {
     hasLoadedTop: false,
     highlightText: "",
     fetchPreviousLogs() {},
-    onCountChange() {}
+    onCountChange() {},
   };
   static propTypes = {
     hasLoadedTop: PropTypes.bool,
@@ -25,7 +25,7 @@ class LogView extends React.Component {
     fetchPreviousLogs: PropTypes.func,
     onCountChange: PropTypes.func,
     logName: PropTypes.string,
-    watching: PropTypes.number
+    watching: PropTypes.number,
   };
   constructor(...args) {
     super(...args);
@@ -52,7 +52,7 @@ class LogView extends React.Component {
 
     this.handleWindowResize = throttle(this.handleWindowResize, 50, {
       leading: true,
-      trailing: false
+      trailing: false,
     });
   }
 
@@ -74,17 +74,17 @@ class LogView extends React.Component {
       "hasLoadedTop",
       "highlightText",
       "logName",
-      "watching"
+      "watching",
     ];
 
     const stateToCheck = [
       "isAtBottom",
-      "fullLog" // Check fullLog at the end, as this could be a long string
+      "fullLog", // Check fullLog at the end, as this could be a long string
     ];
 
     return (
-      propsToCheck.some(key => curProps[key] !== nextProps[key]) ||
-      stateToCheck.some(key => curState[key] !== nextState[key])
+      propsToCheck.some((key) => curProps[key] !== nextProps[key]) ||
+      stateToCheck.some((key) => curState[key] !== nextState[key])
     );
   }
 
@@ -244,7 +244,7 @@ class LogView extends React.Component {
       <pre
         key="log-container"
         className="flex-item-grow-1 flush-bottom prettyprint"
-        ref={ref => {
+        ref={(ref) => {
           this.logContainer = ref;
         }}
         onScroll={this.handleLogContainerScroll}
@@ -260,7 +260,7 @@ class LogView extends React.Component {
           {fullLog}
         </Highlight>
       </pre>,
-      this.getGoToBottomButton()
+      this.getGoToBottomButton(),
     ];
   }
 

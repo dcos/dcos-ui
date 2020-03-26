@@ -12,7 +12,7 @@ import BreadcrumbCaret from "./BreadcrumbCaret";
 class PageHeaderBreadcrumbs extends React.Component {
   static propTypes = {
     iconID: PropTypes.string.isRequired,
-    breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired
+    breadcrumbs: PropTypes.arrayOf(PropTypes.node).isRequired,
   };
   getCaret(key) {
     return <BreadcrumbCaret key={`caret-${key}`} />;
@@ -20,7 +20,7 @@ class PageHeaderBreadcrumbs extends React.Component {
 
   render() {
     const {
-      props: { breadcrumbs, iconID, iconRoute }
+      props: { breadcrumbs, iconID, iconRoute },
     } = this;
     const breadcrumbCount = breadcrumbs.length;
     const sectionIcon = (
@@ -67,7 +67,7 @@ class PageHeaderBreadcrumbs extends React.Component {
     );
 
     const breadcrumbClasses = classNames("breadcrumbs", {
-      "breadcrumbs--is-truncated": shouldTruncateBreadcrumbs
+      "breadcrumbs--is-truncated": shouldTruncateBreadcrumbs,
     });
 
     return <div className={breadcrumbClasses}>{breadcrumbElements}</div>;

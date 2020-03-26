@@ -60,7 +60,7 @@ class BaseConfig<T> extends React.Component<BaseConfigProps<T>, object> {
     const { values, tabViewID } = this.getDefinition();
 
     const configurationMapRows = values
-      .filter(row => {
+      .filter((row) => {
         // Some rows must be excluded if relevant data is missing.
         return !this.shouldExcludeItem(row);
       })

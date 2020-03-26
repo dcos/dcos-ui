@@ -39,7 +39,7 @@ const ScrollbarUtil = {
     if (containerRef instanceof GeminiScrollbar) {
       containerRef.scrollbar.update();
     }
-  }
+  },
 };
 
 export default ScrollbarUtil;

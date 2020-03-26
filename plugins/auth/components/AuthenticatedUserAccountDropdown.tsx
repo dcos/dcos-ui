@@ -39,18 +39,18 @@ class AuthenticatedUserAccountDropdown extends UserAccountDropdown {
         className: "dropdown-menu-section-header",
         html: <label className="text-overflow">{this.userLabel}</label>,
         id: "header-user-label",
-        selectable: false
+        selectable: false,
       },
       {
         html: `${Languages[UserLanguageStore.get()]} (${i18nMark("Change")})`,
         id: "language",
-        onClick: LanguageModalActions.open
+        onClick: LanguageModalActions.open,
       },
       {
         html: <Trans render="span">Sign Out</Trans>,
         id: "sign-out",
-        onClick: AuthStore.logout
-      }
+        onClick: AuthStore.logout,
+      },
     ];
 
     return menuItems;

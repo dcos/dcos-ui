@@ -11,7 +11,7 @@ export default class NestedServiceLinks extends React.Component {
   static defaultProps = {};
   static propTypes = {
     serviceLink: PropTypes.string.isRequired,
-    serviceID: PropTypes.string.isRequired
+    serviceID: PropTypes.string.isRequired,
   };
 
   getMinorLink(label, id, key, minorLinkClasses, minorLinkAnchorClasses) {
@@ -83,7 +83,7 @@ export default class NestedServiceLinks extends React.Component {
         style={{
           display: "block",
           overflow: "hidden",
-          textOverflow: "ellipsis"
+          textOverflow: "ellipsis",
         }}
       >
         {label}

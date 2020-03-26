@@ -20,7 +20,7 @@ describe("ServiceAttributeIsCatalogFilter", () => {
     const filters = [new ServiceAttributeIsCatalogFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 
@@ -40,7 +40,7 @@ describe("ServiceAttributeIsCatalogFilter", () => {
     const filters = [new ServiceAttributeIsCatalogFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

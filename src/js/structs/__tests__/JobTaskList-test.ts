@@ -9,8 +9,8 @@ describe("JobTaskList", () => {
         items: [
           { startedAt: "1990-01-03T00:00:00Z-1" },
           { startedAt: "1985-01-03T00:00:00Z-1" },
-          { startedAt: "1995-01-03T00:00:00Z-1" }
-        ]
+          { startedAt: "1995-01-03T00:00:00Z-1" },
+        ],
       });
 
       expect(activeRunList.getLongestRunningTask().getDateStarted()).toEqual(
@@ -25,8 +25,8 @@ describe("JobTaskList", () => {
           { foo: "bar" },
           { startedAt: "1990-10-03T00:00:00Z-1" },
           { bar: "baz" },
-          { startedAt: "1990-01-03T00:00:00Z-1" }
-        ]
+          { startedAt: "1990-01-03T00:00:00Z-1" },
+        ],
       });
 
       expect(activeRunList.getLongestRunningTask().getDateStarted()).toEqual(

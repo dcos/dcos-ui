@@ -7,7 +7,7 @@ export enum ErrorTypes {
   STRING_PATTERN = "STRING_PATTERN",
   GENERIC = "GENERIC",
   SERVICE_DEPLOYING = "SERVICE_DEPLOYING",
-  ITEMS_MIN = "ITEMS_MIN"
+  ITEMS_MIN = "ITEMS_MIN",
 }
 
 export interface FormError {
@@ -49,11 +49,11 @@ const FormUtil = {
     pathTranslationRules: ErrorPathMapping[],
     i18n: any
   ) {
-    const errorPaths = errors.map(error => error.path.join("."));
+    const errorPaths = errors.map((error) => error.path.join("."));
 
     return errorPaths.reduce(
       (errorsByTabObj: ErrorsByTab, pathString: string) => {
-        Object.keys(tabPathRegexes).forEach(tabId => {
+        Object.keys(tabPathRegexes).forEach((tabId) => {
           const errorMessage = ErrorMessageUtil.getUnanchoredErrorMessage(
             errors[errorPaths.indexOf(pathString)],
             pathTranslationRules,
@@ -74,7 +74,7 @@ const FormUtil = {
           ) {
             errorsByTabObj[tabId].push({
               parsedMessage: errorMessage,
-              errorObj: errors[errorPaths.indexOf(pathString)]
+              errorObj: errors[errorPaths.indexOf(pathString)],
             });
           }
         });
@@ -112,7 +112,7 @@ const FormUtil = {
       },
       {}
     );
-  }
+  },
 };
 
 export default FormUtil;

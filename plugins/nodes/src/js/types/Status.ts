@@ -39,7 +39,7 @@ const fromNode = (n: Node) => {
 export enum StatusAction {
   DRAIN = "drain",
   DEACTIVATE = "deactivate",
-  REACTIVATE = "reactivate"
+  REACTIVATE = "reactivate",
 }
 
 export const actionAllowed = (action: StatusAction, status: Status) => {
@@ -69,7 +69,7 @@ export const Status = {
     active,
     deactivated,
     draining,
-    drained
+    drained,
   },
-  fromNode
+  fromNode,
 };

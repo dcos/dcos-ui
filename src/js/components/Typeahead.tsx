@@ -13,7 +13,7 @@ class Typeahead extends FilterInputText {
     inverseStyle: false,
     items: [],
     selected: [],
-    placeholder: "Filter"
+    placeholder: "Filter",
   };
   static propTypes = {
     emptyLabel: PropTypes.string,
@@ -24,12 +24,12 @@ class Typeahead extends FilterInputText {
     items: PropTypes.arrayOf(
       PropTypes.shape({
         id: PropTypes.string,
-        name: PropTypes.node
+        name: PropTypes.node,
       })
     ),
     selected: PropTypes.array,
     placeholder: PropTypes.string,
-    searchString: PropTypes.string.isRequired
+    searchString: PropTypes.string.isRequired,
   };
   // Use this method to clear the input field with a ref.
   // See: https://github.com/mesosphere/react-typeahead#public-methods
@@ -49,7 +49,7 @@ class Typeahead extends FilterInputText {
       items,
       onDropdownItemSelection,
       placeholder,
-      selected
+      selected,
     } = this.props;
 
     if (selected === "") {
@@ -57,7 +57,7 @@ class Typeahead extends FilterInputText {
     }
 
     const classSet = classNames("typeahead", {
-      inverse: inverseStyle
+      inverse: inverseStyle,
     });
 
     return (
@@ -69,7 +69,7 @@ class Typeahead extends FilterInputText {
           onInputChange={handleFilterChange}
           options={items}
           placeholder={placeholder}
-          ref={ref => {
+          ref={(ref) => {
             if (ref) {
               this.typeahead = ref.getInstance();
             }

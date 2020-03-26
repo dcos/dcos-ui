@@ -8,16 +8,16 @@ class NotificationStore extends GetSetBaseStore {
     super(...args);
 
     this.getSet_data = {
-      notificationMap: {}
+      notificationMap: {},
     };
 
     PluginSDK.addStoreConfig({
       store: this,
       storeID: this.storeID,
       events: {
-        change: NOTIFICATION_CHANGE
+        change: NOTIFICATION_CHANGE,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
   }
 
@@ -56,7 +56,7 @@ class NotificationStore extends GetSetBaseStore {
     const notificationMap = this.get("notificationMap");
 
     if (Array.isArray(locations)) {
-      locations.forEach(location => {
+      locations.forEach((location) => {
         this.setLocationValue(notificationMap, location, notificationID, value);
       });
     } else {
@@ -78,7 +78,7 @@ class NotificationStore extends GetSetBaseStore {
     const notificationMap = this.get("notificationMap");
 
     if (Array.isArray(locations)) {
-      locations.forEach(location => {
+      locations.forEach((location) => {
         this.deleteLocation(notificationMap, location, notificationID);
       });
     } else {

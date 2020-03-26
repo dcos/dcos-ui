@@ -21,7 +21,7 @@ const SecretStore = getSecretStore();
 const { SECRET_STORE_SECRETS_SUCCESS } = EventTypes;
 
 function getNewID(data, index = data.length) {
-  return !data.find(item => item.key === `secret${index}`)
+  return !data.find((item) => item.key === `secret${index}`)
     ? `secret${index}`
     : getNewID(data, index + 1);
 }
@@ -34,19 +34,19 @@ class SingleContainerSecretsFormSection extends React.Component {
           exposures: PropTypes.arrayOf(
             PropTypes.shape({
               type: PropTypes.oneOf(["", "file", "envVar"]),
-              value: PropTypes.string
+              value: PropTypes.string,
             })
           ),
           key: PropTypes.string,
-          value: PropTypes.string
+          value: PropTypes.string,
         })
-      )
+      ),
     }).isRequired,
     errors: PropTypes.shape({
-      secrets: PropTypes.object
+      secrets: PropTypes.object,
     }).isRequired,
     onAddItem: PropTypes.func.isRequired,
-    onRemoveItem: PropTypes.func.isRequired
+    onRemoveItem: PropTypes.func.isRequired,
   };
 
   state = { secrets: SecretStore.getSecrets() };
@@ -66,7 +66,7 @@ class SingleContainerSecretsFormSection extends React.Component {
     this.setState({ secrets: SecretStore.getSecrets() });
   };
   getSecretsLines = (data, showErrors, errors) => {
-    const secrets = this.state.secrets.map(secret => secret.getPath());
+    const secrets = this.state.secrets.map((secret) => secret.getPath());
 
     return data.map((secret, secretIndex) => {
       const exposures =
@@ -100,7 +100,7 @@ class SingleContainerSecretsFormSection extends React.Component {
 
     const valueCounts = data.reduce(
       (counts, secret) => {
-        secret.exposures.forEach(exposure => {
+        secret.exposures.forEach((exposure) => {
           if (exposure.type === "") {
             return;
           }
@@ -219,8 +219,8 @@ class SingleContainerSecretsFormSection extends React.Component {
                   value: {
                     key: getNewID(data),
                     value: null,
-                    exposures: [{ type: "", value: "" }]
-                  }
+                    exposures: [{ type: "", value: "" }],
+                  },
                 })
               }
             >

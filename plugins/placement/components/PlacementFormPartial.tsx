@@ -25,7 +25,7 @@ function partitionConstraints(memo, constraint, index) {
   ) {
     memo.zone = {
       index,
-      constraint
+      constraint,
     };
 
     return memo;
@@ -38,7 +38,7 @@ function partitionConstraints(memo, constraint, index) {
   ) {
     memo.region = {
       index,
-      constraint
+      constraint,
     };
 
     return memo;
@@ -51,26 +51,26 @@ function partitionConstraints(memo, constraint, index) {
 export default class PlacementFormPartial extends React.Component {
   static defaultProps = {
     renderRegion: true,
-    onRemoveItem: () => {}
+    onRemoveItem: () => {},
   };
   static propTypes = {
     renderRegion: PropTypes.bool,
     data: PropTypes.object.isRequired,
     errors: PropTypes.object,
     onAddItem: PropTypes.func.isRequired,
-    onRemoveItem: PropTypes.func.isRequired
+    onRemoveItem: PropTypes.func.isRequired,
   };
   render() {
     const { data, errors, onAddItem, onRemoveItem, renderRegion } = this.props;
 
     const mappedData = data.constraints.reduce(partitionConstraints, {
       region: {
-        index: data.constraints.length
+        index: data.constraints.length,
       },
       zone: {
-        index: data.constraints.length
+        index: data.constraints.length,
       },
-      constraints: []
+      constraints: [],
     });
     const constraintsErrors = findNestedPropertyInObject(errors, "constraints");
     let errorNode = null;
@@ -121,7 +121,7 @@ export default class PlacementFormPartial extends React.Component {
               className="form-spacing-top"
               onClick={onAddItem.bind(this, {
                 path: "constraints",
-                value: { type: "default" }
+                value: { type: "default" },
               })}
             >
               <Trans render="span">Add Constraint</Trans>

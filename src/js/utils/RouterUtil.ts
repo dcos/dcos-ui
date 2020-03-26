@@ -7,7 +7,7 @@ import Util from "./Util";
 function findRedirect(queryString) {
   let redirectTo = false;
 
-  Object.keys(queryString).forEach(key => {
+  Object.keys(queryString).forEach((key) => {
     if (/redirect/.test(key)) {
       redirectTo = queryString[key];
     }
@@ -91,7 +91,7 @@ const RouterUtil = {
    * @return {Array} React tree of routes
    */
   createComponentsFromRoutes(routes) {
-    return routes.map(route => {
+    return routes.map((route) => {
       let args = [route.type, Util.omit(route, ["type", "children"])];
 
       if (
@@ -146,8 +146,8 @@ const RouterUtil = {
    */
   reconstructPathFromRoutes(routes) {
     const path = routes
-      .filter(route => !!route.path)
-      .map(route => route.path)
+      .filter((route) => !!route.path)
+      .map((route) => route.path)
       .join("/");
 
     return `/${path}`;
@@ -194,7 +194,7 @@ const RouterUtil = {
       const blob = new Blob([data], { type: "application/json" });
       window.navigator.msSaveOrOpenBlob(blob, filename);
     }
-  }
+  },
 };
 
 export default RouterUtil;

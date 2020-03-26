@@ -4,7 +4,7 @@ import { bindExtensionProvider } from "@extension-kid/core";
 import DataLayer, {
   DataLayerExtensionType,
   DataLayerType,
-  DataLayerExtensionInterface
+  DataLayerExtensionInterface,
 } from "./dataLayer";
 
 export {
@@ -12,7 +12,7 @@ export {
   DataLayerExtensionType,
   DataLayerType,
   DataLayerExtensionInterface,
-  DataLayer
+  DataLayer,
 };
 
 function getExtensionModule<T>(extension: new (...args: any[]) => T) {
@@ -20,17 +20,13 @@ function getExtensionModule<T>(extension: new (...args: any[]) => T) {
     return null;
   }
 
-  return new ContainerModule(bind => {
-    bind(DataLayerExtensionType)
-      .to(extension)
-      .inSingletonScope();
+  return new ContainerModule((bind) => {
+    bind(DataLayerExtensionType).to(extension).inSingletonScope();
   });
 }
 
 export default (_context = {}) =>
-  new ContainerModule(bind => {
+  new ContainerModule((bind) => {
     bindExtensionProvider(bind, DataLayerExtensionType);
-    bind(DataLayerType)
-      .to(DataLayer)
-      .inSingletonScope();
+    bind(DataLayerType).to(DataLayer).inSingletonScope();
   });

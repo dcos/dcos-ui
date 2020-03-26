@@ -29,8 +29,8 @@ const TaskUtil = {
     const portMappings = this.getPortMappings(task) || [];
     if (portMappings.length) {
       return {
-        ports: portMappings.map(mapping => mapping.host_port),
-        hosts: [hostName]
+        ports: portMappings.map((mapping) => mapping.host_port),
+        hosts: [hostName],
       };
     }
 
@@ -54,7 +54,7 @@ const TaskUtil = {
       return task.ports || [];
     }
 
-    return ports.map(port => port.number);
+    return ports.map((port) => port.number);
   },
 
   getTaskStatusSlug(task) {
@@ -104,7 +104,7 @@ const TaskUtil = {
         "statuses.0.container_status.network_infos.0.ip_addresses"
       ) || [];
 
-    return ipAddresses.map(item => item.ip_address);
+    return ipAddresses.map((item) => item.ip_address);
   },
 
   getRegionName(task) {
@@ -148,7 +148,7 @@ const TaskUtil = {
     const nodesList = CompositeState.getNodesList();
     const node = nodesList
       .filter({
-        ids: [task.slave_id]
+        ids: [task.slave_id],
       })
       .last();
 
@@ -165,7 +165,7 @@ const TaskUtil = {
     const {
       id: taskID,
       framework_id: frameworkID,
-      executor_id: executorID
+      executor_id: executorID,
     } = task;
     const framework = MesosStateUtil.getFramework(state, frameworkID);
     if (state == null || task == null || framework == null) {
@@ -176,7 +176,7 @@ const TaskUtil = {
     // Find matching executor or task to construct the task path
     []
       .concat(framework.executors, framework.completed_executors)
-      .every(executor => {
+      .every((executor) => {
         if (executor.id === executorID || executor.id === taskID) {
           // Use the executor task path construct if it's a "pod" / TaskGroup
           // executor (type: DEFAULT), otherwise fallback to the default
@@ -200,7 +200,7 @@ const TaskUtil = {
       });
 
     return taskPath;
-  }
+  },
 };
 
 export default TaskUtil;

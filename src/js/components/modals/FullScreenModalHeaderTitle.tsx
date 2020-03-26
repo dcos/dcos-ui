@@ -2,7 +2,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const FullScreenModalHeaderTitle = props => {
+const FullScreenModalHeaderTitle = (props) => {
   const { children, className } = props;
   const classes = classNames("modal-full-screen-header-title", className);
 
@@ -12,12 +12,12 @@ const FullScreenModalHeaderTitle = props => {
 const classProps = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 FullScreenModalHeaderTitle.propTypes = {
   children: PropTypes.node.isRequired,
-  className: classProps
+  className: classProps,
 };
 
 export default FullScreenModalHeaderTitle;

@@ -2,7 +2,7 @@ import Container from "@extension-kid/core/dist/src/Container";
 
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import { marbles, observe } from "rxjs-marbles/jest";
@@ -12,7 +12,7 @@ import gql from "graphql-tag";
 
 import extensionFactory from "#SRC/js/data/ui-update";
 import dataLayerContainerModuleFactory, {
-  DataLayerType
+  DataLayerType,
 } from "@extension-kid/data-layer";
 import DataLayer from "@extension-kid/data-layer/dataLayer";
 
@@ -46,17 +46,17 @@ describe("UI-Update Service data-layer", () => {
     describe("ui", () => {
       it(
         "handles a graphql query",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("--j|", {
             j: {
               response: {
                 default: false,
                 packageVersion: "2.50.1",
-                buildVersion: "master+v2.50.1+hfges"
+                buildVersion: "master+v2.50.1+hfges",
               },
               code: 200,
-              message: "OK"
-            }
+              message: "OK",
+            },
           });
           mockRequest.mockReturnValue(reqResp$);
 
@@ -84,10 +84,10 @@ describe("UI-Update Service data-layer", () => {
                   clientBuild: "v2.50.1",
                   packageVersion: "2.50.1",
                   packageVersionIsDefault: false,
-                  serverBuild: "v2.50.1"
-                }
-              }
-            }
+                  serverBuild: "v2.50.1",
+                },
+              },
+            },
           });
 
           m.expect(queryResult$).toBeObservable(expected$);
@@ -101,10 +101,10 @@ describe("UI-Update Service data-layer", () => {
             response: {
               default: false,
               packageVersion: "2.50.1",
-              buildVersion: "master+v2.50.1+hfges"
+              buildVersion: "master+v2.50.1+hfges",
             },
             code: 200,
-            message: "OK"
+            message: "OK",
           };
           mockRequest.mockReturnValue(of(reqResp));
 
@@ -123,14 +123,14 @@ describe("UI-Update Service data-layer", () => {
 
           return dl.query(query, {}).pipe(
             take(1),
-            tap(value => {
+            tap((value) => {
               expect(mockRequest.mock.calls.length).toEqual(0);
               expect(value).toEqual({
                 data: {
                   ui: {
-                    clientBuild: "v1.0.0"
-                  }
-                }
+                    clientBuild: "v1.0.0",
+                  },
+                },
               });
             })
           );
@@ -144,10 +144,10 @@ describe("UI-Update Service data-layer", () => {
             response: {
               default: false,
               packageVersion: "2.50.1",
-              buildVersion: "master+v2.50.1+hfges"
+              buildVersion: "master+v2.50.1+hfges",
             },
             code: 200,
-            message: "OK"
+            message: "OK",
           };
           mockRequest.mockReturnValue(of(reqResp));
 
@@ -174,13 +174,13 @@ describe("UI-Update Service data-layer", () => {
 
       it(
         "emits an error for non-2XX responses",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("j|", {
             j: {
               response: "There is a problem",
               code: 500,
-              message: "Internal Server Error"
-            }
+              message: "Internal Server Error",
+            },
           });
           mockRequest.mockReturnValue(reqResp$);
 
@@ -200,7 +200,7 @@ describe("UI-Update Service data-layer", () => {
           m.expect(queryResult$).toBeObservable(
             m.cold("#", undefined, {
               message: "There is a problem",
-              name: "Error"
+              name: "Error",
             })
           );
         })
@@ -213,7 +213,7 @@ describe("UI-Update Service data-layer", () => {
             of({
               response: "There is a problem",
               code: 500,
-              message: "Internal Server Error"
+              message: "Internal Server Error",
             })
           );
 
@@ -240,31 +240,31 @@ describe("UI-Update Service data-layer", () => {
 
       it(
         "can handle up to two errors",
-        marbles(m => {
+        marbles((m) => {
           const responses = [
             {
               response: "There is a problem",
               code: 500,
-              message: "Internal Server Error"
+              message: "Internal Server Error",
             },
             {
               response: "There is a problem",
               code: 500,
-              message: "Internal Server Error"
+              message: "Internal Server Error",
             },
             {
               response: {
                 default: false,
                 packageVersion: "2.50.1",
-                buildVersion: "master+v2.50.1+hfges"
+                buildVersion: "master+v2.50.1+hfges",
               },
               code: 200,
-              message: "OK"
-            }
+              message: "OK",
+            },
           ];
           mockRequest.mockImplementation(() =>
             m.cold("--j|", {
-              j: responses.shift()
+              j: responses.shift(),
             })
           );
 
@@ -287,10 +287,10 @@ describe("UI-Update Service data-layer", () => {
               data: {
                 ui: {
                   packageVersion: "2.50.1",
-                  packageVersionIsDefault: false
-                }
-              }
-            }
+                  packageVersionIsDefault: false,
+                },
+              },
+            },
           });
 
           m.expect(queryResult$).toBeObservable(expected$);
@@ -303,13 +303,13 @@ describe("UI-Update Service data-layer", () => {
     describe("#updateDCOSUI", () => {
       it(
         "handles executing a mutation",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("--j|", {
             j: {
               code: 200,
               message: "OK",
-              response: "Update to 1.1.0 completed"
-            }
+              response: "Update to 1.1.0 completed",
+            },
           });
           mockRequest.mockReturnValueOnce(reqResp$);
 
@@ -324,7 +324,7 @@ describe("UI-Update Service data-layer", () => {
 
           const mutationResult$ = dl
             .query(updateMutation, {
-              version: "1.1.0"
+              version: "1.1.0",
             })
             .pipe(take(1));
 
@@ -332,9 +332,9 @@ describe("UI-Update Service data-layer", () => {
             m.cold("--(j|)", {
               j: {
                 data: {
-                  updateDCOSUI: "Complete: Update to 1.1.0 completed"
-                }
-              }
+                  updateDCOSUI: "Complete: Update to 1.1.0 completed",
+                },
+              },
             })
           );
         })
@@ -342,13 +342,13 @@ describe("UI-Update Service data-layer", () => {
 
       it(
         "emits an error if request fails",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("--j|", {
             j: {
               code: 500,
               message: "Internal Server Error",
-              response: "Failed"
-            }
+              response: "Failed",
+            },
           });
           mockRequest.mockReturnValueOnce(reqResp$);
 
@@ -363,14 +363,14 @@ describe("UI-Update Service data-layer", () => {
 
           const mutationResult$ = dl
             .query(updateMutation, {
-              version: "1.1.0"
+              version: "1.1.0",
             })
             .pipe(take(1));
 
           m.expect(mutationResult$).toBeObservable(
             m.cold("--#", undefined, {
               message: "Failed",
-              name: "Error"
+              name: "Error",
             })
           );
         })
@@ -380,13 +380,13 @@ describe("UI-Update Service data-layer", () => {
     describe("#resetDCOSUI", () => {
       it(
         "handles executing a mutation",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("--j|", {
             j: {
               code: 200,
               message: "OK",
-              response: "OK"
-            }
+              response: "OK",
+            },
           });
           mockRequest.mockReturnValueOnce(reqResp$);
 
@@ -405,9 +405,9 @@ describe("UI-Update Service data-layer", () => {
             m.cold("--(j|)", {
               j: {
                 data: {
-                  resetDCOSUI: "Complete: OK"
-                }
-              }
+                  resetDCOSUI: "Complete: OK",
+                },
+              },
             })
           );
         })
@@ -415,13 +415,13 @@ describe("UI-Update Service data-layer", () => {
 
       it(
         "emits an error if request fails",
-        marbles(m => {
+        marbles((m) => {
           const reqResp$ = m.cold("--j|", {
             j: {
               code: 500,
               message: "Internal Server Error",
-              response: "Failed"
-            }
+              response: "Failed",
+            },
           });
           mockRequest.mockReturnValueOnce(reqResp$);
 
@@ -439,7 +439,7 @@ describe("UI-Update Service data-layer", () => {
           m.expect(mutationResult$).toBeObservable(
             m.cold("--#", undefined, {
               message: "Failed",
-              name: "Error"
+              name: "Error",
             })
           );
         })

@@ -5,7 +5,7 @@ import UIDetails from "#PLUGINS/ui-update/components/UIDetails";
 import FallbackScreen from "#PLUGINS/ui-update/components/FallbackScreen";
 import {
   loadNotifications,
-  UIUpdateNotificationsType
+  UIUpdateNotificationsType,
 } from "#PLUGINS/ui-update/notifications";
 import { Hooks } from "PluginSDK";
 
@@ -14,11 +14,11 @@ module.exports = {
   notifications: {
     updated: null,
     updateFailed: null,
-    rollbackFailed: null
+    rollbackFailed: null,
   },
 
   initialize() {
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -72,5 +72,5 @@ module.exports = {
   },
   redirectToLogin() {
     this.unregisterNotifications();
-  }
+  },
 };

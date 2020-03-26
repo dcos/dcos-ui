@@ -9,7 +9,7 @@ const ERROR_CODES_TO_DEFINITION_NAME: { [index: string]: string } = {
   ERR_USER_EXISTS: "uid",
   ERR_INVALID_USER_ID: "uid",
   ERR_INVALID_DATA: "description",
-  DEFAULT: "uid"
+  DEFAULT: "uid",
 };
 
 export interface ServiceAccountFormData {
@@ -73,6 +73,6 @@ export function defaultFormData(): ServiceAccountFormData {
     description: "",
     uid: "",
     public_key: "",
-    key_method: supportsWebCryptography() ? "auto-generate" : "manual"
+    key_method: supportsWebCryptography() ? "auto-generate" : "manual",
   };
 }

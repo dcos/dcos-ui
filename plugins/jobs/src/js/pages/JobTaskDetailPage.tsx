@@ -19,7 +19,7 @@ const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 class JobTaskDetailPage extends React.Component {
   static propTypes = {
     params: PropTypes.object,
-    routes: PropTypes.array
+    routes: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -44,7 +44,7 @@ class JobTaskDetailPage extends React.Component {
     const tabs = [
       { label: i18nMark("Details"), routePath: routePrefix + "/details" },
       { label: i18nMark("Files"), routePath: routePrefix + "/files" },
-      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
+      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" },
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -72,7 +72,7 @@ class JobTaskDetailPage extends React.Component {
       </Breadcrumbs>
     );
 
-    const dontScroll = dontScrollRoutes.some(regex =>
+    const dontScroll = dontScrollRoutes.some((regex) =>
       regex.test(location.pathname)
     );
 

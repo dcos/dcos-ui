@@ -15,16 +15,14 @@ describe("Services", () => {
     });
 
     afterEach(() => {
-      cy.window().then(win => {
+      cy.window().then((win) => {
         win.location.href = "about:blank";
       });
     });
 
     function selectMesosRuntime() {
       cy.contains("More Settings").click();
-      cy.get("label")
-        .contains("Universal Container Runtime (UCR)")
-        .click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
     }
 
     it("creates a simple app", () => {
@@ -42,22 +40,14 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -81,9 +71,7 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .contents("equal", "0.5");
+      cy.root().getFormGroupInputFor("CPUs *").contents("equal", "0.5");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
@@ -111,22 +99,16 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Also no Error should exist
       cy.get(".infoBoxWrapper").contains(dangerMessage);
@@ -146,15 +128,9 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Use some artifacts
       cy.contains("Add Artifact").click();
@@ -171,14 +147,10 @@ describe("Services", () => {
       );
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -204,9 +176,7 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       cy.root()
         .get('input[name="fetch.0.uri"]')
@@ -231,52 +201,33 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("80");
+      cy.root().getFormGroupInputFor("Container Port").type("80");
 
       // Switch to health checks
       cy.contains("Health Checks").click();
 
       // Add a health check
       cy.contains("Add Health Check").click();
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .select("Command");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type("sleep 5; exit 0");
+      cy.root().getFormGroupInputFor("Protocol").select("Command");
+      cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table")
@@ -315,10 +266,7 @@ describe("Services", () => {
         .should("have.value", "32");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
       cy.root()
@@ -352,51 +300,32 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("python:3");
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -433,15 +362,10 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
       cy.root()
@@ -474,55 +398,34 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("python:3");
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -539,7 +442,7 @@ describe("Services", () => {
         .get("a.table-cell-link-primary")
         .contains(serviceName)
         .click({
-          force: true
+          force: true,
         });
 
       // open edit screen
@@ -562,15 +465,10 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
       cy.root()
@@ -601,51 +499,32 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -682,15 +561,10 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
       cy.root()
@@ -722,18 +596,11 @@ describe("Services", () => {
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Environment Variable").click();
@@ -756,14 +623,10 @@ describe("Services", () => {
       cy.get('input[name="env.3.value"]').type("test");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -796,15 +659,10 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       cy.get('input[name="env.0.key"]').should("have.value", "camelCase");
       cy.get('input[name="env.0.value"]').should("have.value", "test");
@@ -830,59 +688,36 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("80");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("80");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Switch to health checks
       cy.contains("Health Checks").click();
 
       // Add a health check
       cy.contains("Add Health Check").click();
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .select("HTTP");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint")
-        .select("http");
-      cy.root()
-        .getFormGroupInputFor("Path")
-        .type("/");
+      cy.root().getFormGroupInputFor("Protocol").select("HTTP");
+      cy.root().getFormGroupInputFor("Service Endpoint").select("http");
+      cy.root().getFormGroupInputFor("Path").type("/");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table")
@@ -922,10 +757,7 @@ describe("Services", () => {
         .should("have.value", "nginx");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
       cy.root()
@@ -956,9 +788,7 @@ describe("Services", () => {
         .getFormGroupInputFor("Service Endpoint")
         .should("have.value", "0");
 
-      cy.root()
-        .getFormGroupInputFor("Path")
-        .should("have.value", "/");
+      cy.root().getFormGroupInputFor("Path").should("have.value", "/");
     });
 
     it("creates an app with labels", () => {
@@ -976,18 +806,11 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Label").click();
@@ -1010,14 +833,10 @@ describe("Services", () => {
       cy.get('input[name="labels.3.value"]').type("test");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -1050,15 +869,10 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .should("have.value", "10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .should("have.value", cmdline);
+      cy.root().getFormGroupInputFor("Command").should("have.value", cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.get('input[name="labels.0.key"]').should("have.value", "camelCase");
@@ -1095,18 +909,11 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.5");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Volumes section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
@@ -1114,22 +921,14 @@ describe("Services", () => {
       cy.root()
         .contains(".dropdown-select-item-title", "Local Persistent Volume")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Size (MiB)")
-        .type("128");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Size (MiB)").type("128");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Click Review and Run
-      cy.get("button.button-primary")
-        .contains("Review & Run")
-        .click();
+      cy.get("button.button-primary").contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".page-body-content .service-table").contains(serviceName);
@@ -1159,18 +958,13 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .should("have.value", `/${Cypress.env("TEST_UUID")}/${serviceName}`);
 
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       cy.root()
         .getFormGroupInputFor("Volume Type")
         .should("have.value", "PERSISTENT");
 
-      cy.root()
-        .getFormGroupInputFor("Size (MiB)")
-        .should("have.value", "128");
+      cy.root().getFormGroupInputFor("Size (MiB)").should("have.value", "128");
 
       cy.root()
         .getFormGroupInputFor("Container Path")
@@ -1189,53 +983,33 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       cy.get('input[name="portDefinitions.0.loadBalanced"]')
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
 
@@ -1253,37 +1027,23 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.0.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.0.name"]').type("http");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.1.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.1.name"]').type("mapped");
 
@@ -1295,17 +1055,11 @@ describe("Services", () => {
         .parents(".form-control-toggle")
         .click();
 
-      cy.root()
-        .getFormGroupInputFor("Host Port")
-        .type("4200");
+      cy.root().getFormGroupInputFor("Host Port").type("4200");
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
-      cy.get("button")
-        .contains("Run Service")
-        .click();
+      cy.get("button").contains("Run Service").click();
 
       cy.get(".page-body-content .service-table").contains(serviceName);
     });

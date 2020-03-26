@@ -41,7 +41,7 @@ const VIPBreadcrumbs = ({ vip: { vip, port, protocol } }) => {
           {vip}:{port}
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -57,16 +57,16 @@ class VIPDetail extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "networkingVIPs", events: ["detailSuccess", "detailError"] }
+      { name: "networkingVIPs", events: ["detailSuccess", "detailError"] },
     ];
 
     this.tabs_tabs = {
-      backends: i18nMark("Backends")
+      backends: i18nMark("Backends"),
     };
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
-      selectedDropdownItem: "success"
+      selectedDropdownItem: "success",
     };
 
     this.vipDetailSuccess = false;
@@ -106,7 +106,7 @@ class VIPDetail extends mixin(StoreMixin) {
           i18nMark("Successes and Failures per Minute"),
           backendCount
         ),
-        id: "success"
+        id: "success",
       },
       {
         html: <Trans render="span">Connection Latency</Trans>,
@@ -114,7 +114,7 @@ class VIPDetail extends mixin(StoreMixin) {
           i18nMark("Connection Latency per Minute"),
           backendCount
         ),
-        id: "connection-latency"
+        id: "connection-latency",
       },
       {
         html: (
@@ -124,7 +124,7 @@ class VIPDetail extends mixin(StoreMixin) {
           i18nMark("Application Availability and Reachability per Minute"),
           backendCount
         ),
-        id: "app-reachability"
+        id: "app-reachability",
       },
       {
         html: (
@@ -134,8 +134,8 @@ class VIPDetail extends mixin(StoreMixin) {
           i18nMark("Machine Availability and Reachability per Minute"),
           backendCount
         ),
-        id: "machine-reachability"
-      }
+        id: "machine-reachability",
+      },
     ];
   }
 
@@ -229,8 +229,8 @@ class VIPDetail extends mixin(StoreMixin) {
         label: i18nMark("Backends"),
         callback: () => {
           this.setState({ currentTab: "backends" });
-        }
-      }
+        },
+      },
     ];
 
     if (vipDetails.details && Object.keys(vipDetails.details).length) {
@@ -241,13 +241,13 @@ class VIPDetail extends mixin(StoreMixin) {
         label: i18nMark("Details"),
         callback: () => {
           this.setState({ currentTab: "details" });
-        }
+        },
       });
     }
 
     return tabs;
   }
-  handleVIPDetailDropdownChange = item => {
+  handleVIPDetailDropdownChange = (item) => {
     this.setState({ selectedDropdownItem: item.id });
   };
 

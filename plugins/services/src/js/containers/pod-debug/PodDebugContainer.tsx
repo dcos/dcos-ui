@@ -23,7 +23,7 @@ import RecentOffersSummary from "../../components/RecentOffersSummary";
 
 class PodDebugTabView extends React.Component {
   static propTypes = {
-    pod: PropTypes.instanceOf(Pod)
+    pod: PropTypes.instanceOf(Pod),
   };
   constructor(...args) {
     super(...args);
@@ -156,10 +156,10 @@ class PodDebugTabView extends React.Component {
 
     if (queue != null && queue.declinedOffers.summary != null) {
       const {
-        declinedOffers: { summary }
+        declinedOffers: { summary },
       } = queue;
       const {
-        roles: { offers = 0 }
+        roles: { offers = 0 },
       } = summary;
 
       introText = DeclinedOffersHelpText.summaryIntro;
@@ -176,7 +176,7 @@ class PodDebugTabView extends React.Component {
 
     return (
       <div
-        ref={ref => {
+        ref={(ref) => {
           this.offerSummaryRef = ref;
         }}
       >
@@ -289,7 +289,7 @@ class PodDebugTabView extends React.Component {
 }
 
 PodDebugTabView.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default PodDebugTabView;

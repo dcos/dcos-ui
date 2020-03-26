@@ -20,6 +20,6 @@ export default function getExecutorsAction(state, message) {
 
   return {
     ...state,
-    executors
+    executors,
   };
 }

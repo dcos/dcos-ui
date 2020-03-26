@@ -7,12 +7,12 @@ describe("Breadcrumbs", () => {
   const pathCases = [
     {
       name: "no path",
-      path: []
+      path: [],
     },
     {
       name: "a long path",
-      path: ["foo", "bar"]
-    }
+      path: ["foo", "bar"],
+    },
   ];
 
   for (const pathCase of pathCases) {

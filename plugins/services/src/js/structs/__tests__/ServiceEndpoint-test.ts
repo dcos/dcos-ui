@@ -11,15 +11,15 @@ describe("ServiceEndpoint", () => {
       endpointData: {
         address: ["address1", "address2"],
         dns: ["dns1", "dns2"],
-        vip: "vip1"
-      }
+        vip: "vip1",
+      },
     });
     thisEndpointFile = new ServiceEndpoint({
       serviceId: "/hdfs",
       contentType: "text/plain",
       endpointName: "core-site.xml",
       endpointData:
-        "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>"
+        "<endpoint1>master.elastic.l4lb.thisdcos.directory:9200</endpoint1>",
     });
   });
   describe("#getName", () => {

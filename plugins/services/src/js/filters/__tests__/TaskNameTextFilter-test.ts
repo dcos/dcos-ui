@@ -10,16 +10,16 @@ describe("TaskNameTextFilter", () => {
     thisMockItems = [
       {
         id: "cassandra.d9a2318d",
-        name: "cassandra"
+        name: "cassandra",
       },
       {
         id: "",
-        name: "node-1-server__1"
+        name: "node-1-server__1",
       },
       {
         id: "",
-        name: "node-0-server__2"
-      }
+        name: "node-0-server__2",
+      },
     ];
   });
 
@@ -31,7 +31,7 @@ describe("TaskNameTextFilter", () => {
 
     expect(expr.filter(filters, tasks).getItems()).toEqual([
       thisMockItems[1],
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 

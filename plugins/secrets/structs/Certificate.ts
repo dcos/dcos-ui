@@ -3,7 +3,7 @@ import DateUtil from "#SRC/js/utils/DateUtil";
 
 const STATUS_MAP = {
   good: "active",
-  revoked: "expired"
+  revoked: "expired",
 };
 
 export default class Certificate extends Item {

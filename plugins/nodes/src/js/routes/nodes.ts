@@ -24,12 +24,12 @@ export default [
   {
     type: Redirect,
     from: "/nodes",
-    to: "/nodes/agents/table"
+    to: "/nodes/agents/table",
   },
   {
     type: Redirect,
     from: "/nodes/grid",
-    to: "/nodes/agents/grid"
+    to: "/nodes/agents/grid",
   },
   {
     type: Route,
@@ -41,7 +41,7 @@ export default [
       {
         type: Redirect,
         from: "/nodes/agents",
-        to: "/nodes/agents/table"
+        to: "/nodes/agents/table",
       },
       {
         type: Route,
@@ -51,24 +51,24 @@ export default [
           {
             type: Route,
             component: NodesTableContainer,
-            path: "table"
+            path: "table",
           },
           {
             type: Route,
             component: NodesGridContainer,
-            path: "grid"
-          }
-        ]
+            path: "grid",
+          },
+        ],
       },
       {
         type: Route,
         path: "masters",
-        component: NodesMasters
+        component: NodesMasters,
       },
       {
         type: Redirect,
         from: "/nodes/:nodeID",
-        to: "/nodes/:nodeID/tasks"
+        to: "/nodes/:nodeID/tasks",
       },
       {
         type: Route,
@@ -79,26 +79,26 @@ export default [
             type: Route,
             title: "Tasks",
             path: "tasks",
-            component: NodeDetailTaskTab
+            component: NodeDetailTaskTab,
           },
           {
             type: Redirect,
             path: "/nodes/:nodeID/tasks/:taskID",
-            to: "/nodes/:nodeID/tasks/:taskID/details"
+            to: "/nodes/:nodeID/tasks/:taskID/details",
           },
           {
             type: Route,
             path: "health",
             title: "Health",
-            component: NodeDetailHealthTab
+            component: NodeDetailHealthTab,
           },
           {
             type: Route,
             path: "details",
             title: "Details",
-            component: NodeDetailTab
-          }
-        ]
+            component: NodeDetailTab,
+          },
+        ],
       },
       {
         type: Route,
@@ -109,7 +109,7 @@ export default [
             type: Route,
             component: TaskDetailsTab,
             title: "Details",
-            path: "details"
+            path: "details",
           },
           {
             component: TaskFilesTab,
@@ -121,14 +121,14 @@ export default [
                 component: TaskFileBrowser,
                 fileViewerRoutePath:
                   "/nodes/:nodeID/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                type: IndexRoute
+                type: IndexRoute,
               },
               {
                 component: TaskFileViewer,
                 path: "view(/:filePath(/:innerPath))",
-                type: Route
-              }
-            ]
+                type: Route,
+              },
+            ],
           },
           {
             component: TaskLogsContainer,
@@ -138,32 +138,32 @@ export default [
             children: [
               {
                 path: ":filePath",
-                type: Route
-              }
-            ]
+                type: Route,
+              },
+            ],
           },
           {
             component: VolumeTable,
             path: "volumes",
             title: "Volumes",
-            type: Route
-          }
-        ]
+            type: Route,
+          },
+        ],
       },
       // This route needs to be rendered outside of the tabs that are rendered
       // in the nodes-task-details route.
       {
         type: Route,
         path: ":nodeID/tasks/:taskID/volumes/:volumeID",
-        component: TaskVolumeContainer
+        component: TaskVolumeContainer,
       },
       // This needs to be outside of the children array of node routes
       // so that it can be responsible for rendering its own header.
       {
         type: Route,
         path: ":nodeID/health/:unitNodeID/:unitID",
-        component: NodesUnitsHealthDetailPage
-      }
-    ]
-  }
+        component: NodesUnitsHealthDetailPage,
+      },
+    ],
+  },
 ];

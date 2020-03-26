@@ -7,7 +7,7 @@ import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import {
   getColumnHeadingFn,
   getColumnClassNameFn,
-  getDisplayValue
+  getDisplayValue,
 } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput, JobLabels } from "../form/helpers/JobFormData";
@@ -34,7 +34,7 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>Labels</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "labels",
@@ -49,7 +49,7 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Value")),
@@ -57,8 +57,8 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-value"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             const data = Object.keys(labels).reduce((memo, labelKey) => {
@@ -77,9 +77,9 @@ class LabelsConfigSection extends BaseConfig<JobOutput> {
                 data={data}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

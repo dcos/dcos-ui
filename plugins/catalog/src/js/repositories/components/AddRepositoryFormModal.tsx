@@ -13,12 +13,12 @@ class AddRepositoryFormModal extends React.Component {
   static propTypes = {
     numberOfRepositories: PropTypes.number.isRequired,
     open: PropTypes.bool,
-    addRepository: PropTypes.func.isRequired
+    addRepository: PropTypes.func.isRequired,
   };
   constructor() {
     super();
   }
-  handleAddRepository = model => {
+  handleAddRepository = (model) => {
     this.props.addRepository(model);
   };
 
@@ -38,7 +38,7 @@ class AddRepositoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "text",
@@ -51,7 +51,7 @@ class AddRepositoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "number",
@@ -72,8 +72,8 @@ class AddRepositoryFormModal extends React.Component {
             ? ValidatorUtil.isInteger(value) && value >= 0
             : true;
         },
-        value: noRepositories ? "0" : ""
-      }
+        value: noRepositories ? "0" : "",
+      },
     ];
   }
 
@@ -84,15 +84,15 @@ class AddRepositoryFormModal extends React.Component {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: pendingRequest
           ? i18nMark("Adding...")
           : i18nMark("Add Repository"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
   }
 
@@ -120,7 +120,7 @@ class AddRepositoryFormModal extends React.Component {
               <Trans render="span">Add Repository</Trans>
             </ModalHeading>
           ),
-          showHeader: true
+          showHeader: true,
         }}
         onSubmit={this.handleAddRepository}
         onClose={props.onClose}

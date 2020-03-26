@@ -8,7 +8,7 @@ import {
   REQUEST_HEALTH_NODE_UNIT_ERROR,
   REQUEST_HEALTH_NODE_UNIT_SUCCESS,
   REQUEST_HEALTH_NODES_ERROR,
-  REQUEST_HEALTH_NODES_SUCCESS
+  REQUEST_HEALTH_NODES_SUCCESS,
 } from "#SRC/js/constants/ActionTypes";
 import {
   HEALTH_NODE_ERROR,
@@ -18,7 +18,7 @@ import {
   HEALTH_NODE_UNIT_ERROR,
   HEALTH_NODE_UNIT_SUCCESS,
   HEALTH_NODES_CHANGE,
-  HEALTH_NODES_ERROR
+  HEALTH_NODES_ERROR,
 } from "#SRC/js/constants/EventTypes";
 import AppDispatcher from "#SRC/js/events/AppDispatcher";
 import CompositeState from "#SRC/js/structs/CompositeState";
@@ -57,7 +57,7 @@ class NodeHealthStore extends GetSetBaseStore {
       nodes: [],
       nodesByID: {},
       unitsByNodeID: {},
-      unitsByID: {}
+      unitsByID: {},
     };
 
     PluginSDK.addStoreConfig({
@@ -71,12 +71,12 @@ class NodeHealthStore extends GetSetBaseStore {
         unitsSuccess: HEALTH_NODE_UNITS_SUCCESS,
         unitsError: HEALTH_NODE_UNITS_ERROR,
         unitSuccess: HEALTH_NODE_UNIT_SUCCESS,
-        unitError: HEALTH_NODE_UNIT_ERROR
+        unitError: HEALTH_NODE_UNIT_ERROR,
       },
-      unmountWhen: () => true
+      unmountWhen: () => true,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       const data = action.data;
 
@@ -132,7 +132,7 @@ class NodeHealthStore extends GetSetBaseStore {
 
   getNodes() {
     return new NodesList({
-      items: this.get("nodes")
+      items: this.get("nodes"),
     });
   }
 

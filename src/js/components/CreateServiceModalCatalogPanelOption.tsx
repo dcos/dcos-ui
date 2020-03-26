@@ -7,7 +7,7 @@ import CreateServiceModalServicePickerOption from "./CreateServiceModalServicePi
 import CreateServiceModalServicePickerOptionContent from "./CreateServiceModalServicePickerOptionContent";
 import CreateServiceModalServicePickerOptionImage from "./CreateServiceModalServicePickerOptionImage";
 
-const CreateServicePickerCatalogOption = props => {
+const CreateServicePickerCatalogOption = (props) => {
   const { columnClasses, onOptionSelect } = props;
 
   return (
@@ -15,7 +15,7 @@ const CreateServicePickerCatalogOption = props => {
       columnClasses={columnClasses}
       onOptionSelect={onOptionSelect.bind(null, {
         route: "/catalog",
-        type: "redirect"
+        type: "redirect",
       })}
     >
       <CreateServiceModalServicePickerOptionImage src={packageServiceImage} />
@@ -28,7 +28,7 @@ const CreateServicePickerCatalogOption = props => {
 
 CreateServicePickerCatalogOption.propTypes = {
   columnClasses: PropTypes.string,
-  onOptionSelect: PropTypes.func
+  onOptionSelect: PropTypes.func,
 };
 
 export default CreateServicePickerCatalogOption;

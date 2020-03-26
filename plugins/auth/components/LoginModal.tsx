@@ -15,10 +15,10 @@ import { Hooks } from "PluginSDK";
 export default withI18n()(
   class LoginModal extends mixin(StoreMixin) {
     static propTypes = {
-      target: PropTypes.string
+      target: PropTypes.string,
     };
     static contextTypes = {
-      router: routerShape
+      router: routerShape,
     };
 
     constructor() {
@@ -26,7 +26,7 @@ export default withI18n()(
 
       this.state = {
         disableLogin: false,
-        errorMsg: false
+        errorMsg: false,
       };
 
       // prettier-ignore
@@ -47,13 +47,13 @@ export default withI18n()(
 
       this.setState({
         disableLogin: false,
-        errorMsg
+        errorMsg,
       });
     }
-    handleLoginSubmit = model => {
+    handleLoginSubmit = (model) => {
       this.setState({
         disableLogin: true,
-        errorMsg: false
+        errorMsg: false,
       });
 
       AuthStore.login(model, this.props.target);
@@ -70,7 +70,7 @@ export default withI18n()(
         {
           fieldType: "text",
           formGroupClass: classNames("form-group", {
-            "form-group-danger": errorMsg
+            "form-group-danger": errorMsg,
           }),
           name: "uid",
           placeholder: "",
@@ -81,12 +81,12 @@ export default withI18n()(
           validation() {
             return true;
           },
-          value: ""
+          value: "",
         },
         {
           fieldType: "password",
           formGroupClass: classNames("form-group flush", {
-            "form-group-danger": errorMsg
+            "form-group-danger": errorMsg,
           }),
           name: "password",
           placeholder: "",
@@ -97,8 +97,8 @@ export default withI18n()(
           validation() {
             return true;
           },
-          value: ""
-        }
+          value: "",
+        },
       ];
     }
 
@@ -115,8 +115,8 @@ export default withI18n()(
         {
           text: buttonText,
           className: "button button-primary button-block flush",
-          isSubmit: true
-        }
+          isSubmit: true,
+        },
       ];
     }
 
@@ -143,7 +143,7 @@ export default withI18n()(
           <img src={dcosLogo} alt="Mesosphere DC/OS" className="login-logo" />
         ),
         modalClass: "modal modal-small login-modal",
-        showHeader: true
+        showHeader: true,
       };
 
       return (

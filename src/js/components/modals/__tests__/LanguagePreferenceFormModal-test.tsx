@@ -25,10 +25,7 @@ describe("LanguagePreferenceFormModalComponent", () => {
         <LanguagePreferenceFormModalComponent isOpen={true} />
       );
       expect(component.state("isOpen")).toBe(true);
-      component
-        .find(FormModal)
-        .props()
-        .onSubmit(mockFormData);
+      component.find(FormModal).props().onSubmit(mockFormData);
       expect(component.state("isOpen")).toBe(false);
     });
 
@@ -39,10 +36,7 @@ describe("LanguagePreferenceFormModalComponent", () => {
       );
       const component = shallow(<LanguagePreferenceFormModalComponent />);
       expect(handleLanguagePrefSubmitSpy).not.toHaveBeenCalled();
-      component
-        .find(FormModal)
-        .props()
-        .onSubmit(mockFormData);
+      component.find(FormModal).props().onSubmit(mockFormData);
       expect(handleLanguagePrefSubmitSpy).toHaveBeenCalledWith(mockFormData);
     });
 
@@ -51,10 +45,7 @@ describe("LanguagePreferenceFormModalComponent", () => {
       expect(UserSettingsStore.getKey(SAVED_STATE_KEY).language).toBe(
         defaultLanguage
       );
-      component
-        .find(FormModal)
-        .props()
-        .onSubmit(mockFormData);
+      component.find(FormModal).props().onSubmit(mockFormData);
       expect(UserSettingsStore.getKey(SAVED_STATE_KEY).language).toBe(
         newLanguage
       );
@@ -67,10 +58,7 @@ describe("LanguagePreferenceFormModalComponent", () => {
         <LanguagePreferenceFormModalComponent isOpen={true} />
       );
       expect(component.state("isOpen")).toBe(true);
-      component
-        .find(FormModal)
-        .props()
-        .onClose();
+      component.find(FormModal).props().onClose();
       expect(component.state("isOpen")).toBe(false);
     });
   });

@@ -5,27 +5,29 @@ import CreateServiceModalServicePickerOptionImage from "./CreateServiceModalServ
 import Panel from "./Panel";
 
 function getChildOfType(children, type) {
-  return React.Children.toArray(children).filter(child => child.type === type);
+  return React.Children.toArray(children).filter(
+    (child) => child.type === type
+  );
 }
 
 function CreateServiceModalServicePickerOption({
   children,
   columnClasses,
-  onOptionSelect
+  onOptionSelect,
 }) {
   const contentClasses = [
     "horizontal-center panel-cell flush-top",
     {
       "panel-cell-short": false,
-      "panel-cell-shorter": false
-    }
+      "panel-cell-shorter": false,
+    },
   ];
   const headingClasses = [
     "panel-cell-borderless horizontal-center panel-cell",
     {
       "panel-cell-light": false,
-      "panel-cell-shorter": false
-    }
+      "panel-cell-shorter": false,
+    },
   ];
 
   return (

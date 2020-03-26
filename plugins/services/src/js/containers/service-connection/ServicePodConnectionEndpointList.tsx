@@ -19,7 +19,7 @@ class ServicePodConnectionEndpointList extends React.Component {
   static propTypes = {
     onEditClick: PropTypes.func,
     errors: PropTypes.array,
-    service: PropTypes.instanceOf(Service)
+    service: PropTypes.instanceOf(Service),
   };
   constructor(...args) {
     super(...args);
@@ -117,11 +117,11 @@ class ServicePodConnectionEndpointList extends React.Component {
       service.spec.containers &&
       service.spec.containers.length > 0
     ) {
-      service.spec.containers.forEach(container => {
+      service.spec.containers.forEach((container) => {
         const containerEndpoints = container.endpoints
           ? container.endpoints.slice(0)
           : [];
-        containerEndpoints.forEach(containerEndpoint => {
+        containerEndpoints.forEach((containerEndpoint) => {
           containerEndpoint.containerName = container.name;
         });
         endpoints = endpoints.concat(containerEndpoints);
@@ -140,7 +140,7 @@ class ServicePodConnectionEndpointList extends React.Component {
 }
 
 ServicePodConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServicePodConnectionEndpointList;

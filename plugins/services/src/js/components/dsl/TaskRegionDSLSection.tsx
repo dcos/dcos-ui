@@ -13,18 +13,18 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {};
 
-const TaskRegionDSLSection = props => {
+const TaskRegionDSLSection = (props) => {
   const {
     expression,
     onChange,
-    defaultData: { regions }
+    defaultData: { regions },
   } = props;
 
   if (!regions || regions.length === 0) {
     return null;
   }
 
-  regions.forEach(region => {
+  regions.forEach((region) => {
     EXPRESSION_PARTS[`region_${region}`] = DSLExpressionPart.attribute(
       "region",
       region
@@ -46,7 +46,7 @@ const TaskRegionDSLSection = props => {
       <Trans render="label">Regions</Trans>
       <div className="row">
         <div className="column-12">
-          {regions.map(region => {
+          {regions.map((region) => {
             const regionName = `region_${region}`;
 
             return (
@@ -72,13 +72,13 @@ const TaskRegionDSLSection = props => {
 TaskRegionDSLSection.defaultProps = {
   expression: new DSLExpression(""),
   onChange() {},
-  defaultData: { regions: [] }
+  defaultData: { regions: [] },
 };
 
 TaskRegionDSLSection.propTypes = {
   expression: PropTypes.instanceOf(DSLExpression).isRequired,
   onChange: PropTypes.func.isRequired,
-  defaultData: PropTypes.object.isRequired
+  defaultData: PropTypes.object.isRequired,
 };
 
 export default TaskRegionDSLSection;

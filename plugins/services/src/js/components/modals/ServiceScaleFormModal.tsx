@@ -21,14 +21,14 @@ class ServiceScaleFormModal extends React.PureComponent {
     open: PropTypes.bool.isRequired,
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ]).isRequired
+      PropTypes.instanceOf(Service),
+    ]).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
     };
   }
 
@@ -114,8 +114,8 @@ class ServiceScaleFormModal extends React.PureComponent {
         value: instancesCount.toString(),
         required: true,
         showLabel: false,
-        writeType: "input"
-      }
+        writeType: "input",
+      },
     ];
   }
 
@@ -153,16 +153,16 @@ class ServiceScaleFormModal extends React.PureComponent {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: isPending ? i18nMark("Scaling...") : i18nMark("Scale Service"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
 
-    const onSubmit = model => {
+    const onSubmit = (model) => {
       this.props.scaleItem(model.instances, this.shouldForceUpdate());
     };
 
@@ -172,7 +172,7 @@ class ServiceScaleFormModal extends React.PureComponent {
         definition={this.getScaleFormDefinition()}
         modalProps={{
           header: this.getHeader(),
-          showHeader: true
+          showHeader: true,
         }}
         disabled={isPending}
         onClose={onClose}

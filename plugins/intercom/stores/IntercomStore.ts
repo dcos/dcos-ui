@@ -5,7 +5,7 @@ import {
   DCOS_METADATA_CHANGE,
   METADATA_CHANGE,
   HEALTH_NODES_CHANGE,
-  CLUSTER_CCID_SUCCESS
+  CLUSTER_CCID_SUCCESS,
 } from "#SRC/js/constants/EventTypes";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import ConfigStore from "#SRC/js/stores/ConfigStore";
@@ -31,9 +31,9 @@ class IntercomStore extends GetSetBaseStore<{
       store: this,
       storeID: this.storeID,
       events: {
-        intercomChange: INTERCOM_CHANGE
+        intercomChange: INTERCOM_CHANGE,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
   }
 
@@ -91,7 +91,7 @@ class IntercomStore extends GetSetBaseStore<{
       bootstrap_id: MetadataStore.bootstrapId,
       dcos_image_commit: MetadataStore.imageCommit,
       dcos_variant: MetadataStore.variant,
-      dcos_version: MetadataStore.version
+      dcos_version: MetadataStore.version,
     });
 
     this.emit(INTERCOM_CHANGE);
@@ -125,7 +125,7 @@ class IntercomStore extends GetSetBaseStore<{
 
     this.set({
       crypto_cluster_uuid: ccid.zbase32_public_key,
-      user_id: `${user.uid}+${ccid.zbase32_public_key}`
+      user_id: `${user.uid}+${ccid.zbase32_public_key}`,
     });
 
     this.emit(INTERCOM_CHANGE);

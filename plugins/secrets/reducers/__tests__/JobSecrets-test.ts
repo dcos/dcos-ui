@@ -2,7 +2,7 @@ import {
   jobSecretsReducers,
   jobResponseToSpec,
   jobJsonReducers,
-  jobSpecToOutput
+  jobSpecToOutput,
 } from "../JobSecrets";
 
 const Spec = () => ({
@@ -13,11 +13,11 @@ const Spec = () => ({
           exposureType: "envVar",
           exposureValue: "name",
           key: "secret0",
-          secretPath: "secret"
-        }
-      ]
-    }
-  }
+          secretPath: "secret",
+        },
+      ],
+    },
+  },
 });
 const passedReducerFn = jest.fn();
 
@@ -34,11 +34,11 @@ describe("JobSecrets", () => {
                   exposureType: "envVar",
                   exposureValue: newName,
                   key: "secret0",
-                  secretPath: "secret"
-                }
-              ]
-            }
-          }
+                  secretPath: "secret",
+                },
+              ],
+            },
+          },
         });
       });
 
@@ -54,11 +54,11 @@ describe("JobSecrets", () => {
                   exposureType: "envVar",
                   exposureValue: "name",
                   key: "secret0",
-                  secretPath: newSecret
-                }
-              ]
-            }
-          }
+                  secretPath: newSecret,
+                },
+              ],
+            },
+          },
         });
       });
     });
@@ -73,17 +73,17 @@ describe("JobSecrets", () => {
                   exposureType: "envVar",
                   exposureValue: "name",
                   key: "secret0",
-                  secretPath: "secret"
+                  secretPath: "secret",
                 },
                 {
                   exposureType: "",
                   exposureValue: "",
                   key: "secret1",
-                  secretPath: ""
-                }
-              ]
-            }
-          }
+                  secretPath: "",
+                },
+              ],
+            },
+          },
         });
       });
     });
@@ -93,9 +93,9 @@ describe("JobSecrets", () => {
         expect(jobSecretsReducers.REMOVE_ARRAY_ITEM(0, Spec())).toEqual({
           job: {
             run: {
-              secrets: []
-            }
-          }
+              secrets: [],
+            },
+          },
         });
       });
     });
@@ -108,16 +108,16 @@ describe("JobSecrets", () => {
           run: {
             env: [
               ["notSecret", "foo"],
-              ["test", { secret: "secret0" }]
-            ]
-          }
-        }
+              ["test", { secret: "secret0" }],
+            ],
+          },
+        },
       };
       const secret = {
         exposureType: "envVar",
         exposureValue: "test",
         key: "secret0",
-        secretPath: ""
+        secretPath: "",
       };
       expect(jobResponseToSpec(spec).job.run.secrets).toEqual([secret]);
     });
@@ -129,17 +129,17 @@ describe("JobSecrets", () => {
             volumes: [
               {
                 containerPath: "test",
-                secret: "secret0"
-              }
-            ]
-          }
-        }
+                secret: "secret0",
+              },
+            ],
+          },
+        },
       };
       const secret = {
         exposureType: "file",
         exposureValue: "test",
         key: "secret0",
-        secretPath: ""
+        secretPath: "",
       };
       expect(jobResponseToSpec(spec).job.run.secrets).toEqual([secret]);
     });
@@ -150,13 +150,13 @@ describe("JobSecrets", () => {
           run: {
             env: [
               ["notSecret", "foo"],
-              ["test", { secret: "secret0" }]
-            ]
-          }
-        }
+              ["test", { secret: "secret0" }],
+            ],
+          },
+        },
       };
       expect(jobResponseToSpec(spec).job.run.env).toEqual([
-        spec.job.run.env[0]
+        spec.job.run.env[0],
       ]);
     });
 
@@ -166,17 +166,17 @@ describe("JobSecrets", () => {
           run: {
             secrets: {
               secret0: {
-                source: "foo"
-              }
-            }
-          }
-        }
+                source: "foo",
+              },
+            },
+          },
+        },
       };
       const secret = {
         exposureType: "",
         exposureValue: "",
         key: "secret0",
-        secretPath: "foo"
+        secretPath: "foo",
       };
       expect(jobResponseToSpec(spec).job.run.secrets).toEqual([secret]);
     });
@@ -187,22 +187,22 @@ describe("JobSecrets", () => {
           run: {
             secrets: {
               secret0: {
-                source: "foo"
-              }
+                source: "foo",
+              },
             },
             env: [
               ["notSecret", "bar"],
-              ["test", { secret: "secret0" }]
-            ]
-          }
-        }
+              ["test", { secret: "secret0" }],
+            ],
+          },
+        },
       };
 
       const secret = {
         exposureType: "envVar",
         exposureValue: "test",
         key: "secret0",
-        secretPath: "foo"
+        secretPath: "foo",
       };
       expect(jobResponseToSpec(spec).job.run.secrets).toEqual([secret]);
     });
@@ -224,21 +224,21 @@ describe("JobSecrets", () => {
               env: {
                 a: "b",
                 test: {
-                  secret: "secret0"
-                }
-              }
-            }
-          }
+                  secret: "secret0",
+                },
+              },
+            },
+          },
         };
         const returnValue = {
           job: {
             run: {
               env: [
                 ["a", "b"],
-                ["test", { secret: "secret0" }]
-              ]
-            }
-          }
+                ["test", { secret: "secret0" }],
+              ],
+            },
+          },
         };
         const output = {
           job: {
@@ -249,11 +249,11 @@ describe("JobSecrets", () => {
                   exposureType: "envVar",
                   exposureValue: "test",
                   key: "secret0",
-                  secretPath: ""
-                }
-              ]
-            }
-          }
+                  secretPath: "",
+                },
+              ],
+            },
+          },
         };
         passedReducerFn.mockReturnValueOnce(returnValue);
         const reducerFn = jobJsonReducers(passedReducerFn);
@@ -267,11 +267,11 @@ describe("JobSecrets", () => {
             run: {
               secrets: {
                 secret0: {
-                  source: "foo"
-                }
-              }
-            }
-          }
+                  source: "foo",
+                },
+              },
+            },
+          },
         };
         const output = {
           job: {
@@ -281,11 +281,11 @@ describe("JobSecrets", () => {
                   exposureType: "",
                   exposureValue: "",
                   key: "secret0",
-                  secretPath: "foo"
-                }
-              ]
-            }
-          }
+                  secretPath: "foo",
+                },
+              ],
+            },
+          },
         };
         passedReducerFn.mockReturnValueOnce(spec);
         const reducerFn = jobJsonReducers(passedReducerFn);
@@ -299,15 +299,15 @@ describe("JobSecrets", () => {
             run: {
               secrets: {
                 secret0: {
-                  source: "foo"
-                }
+                  source: "foo",
+                },
               },
               env: [
                 ["a", "b"],
-                ["test", { secret: "secret0" }]
-              ]
-            }
-          }
+                ["test", { secret: "secret0" }],
+              ],
+            },
+          },
         };
         const output = {
           job: {
@@ -317,12 +317,12 @@ describe("JobSecrets", () => {
                   exposureType: "envVar",
                   exposureValue: "test",
                   key: "secret0",
-                  secretPath: "foo"
-                }
+                  secretPath: "foo",
+                },
               ],
-              env: [["a", "b"]]
-            }
-          }
+              env: [["a", "b"]],
+            },
+          },
         };
         passedReducerFn.mockReturnValueOnce(spec);
         const reducerFn = jobJsonReducers(passedReducerFn);
@@ -341,19 +341,19 @@ describe("JobSecrets", () => {
               exposureType: "envVar",
               exposureValue: "test",
               key: "secret0",
-              secretPath: ""
-            }
-          ]
-        }
+              secretPath: "",
+            },
+          ],
+        },
       };
       const output = {
         run: {
           env: {
             test: {
-              secret: "secret0"
-            }
-          }
-        }
+              secret: "secret0",
+            },
+          },
+        },
       };
       expect(jobSpecToOutput(spec)).toEqual(output);
     });
@@ -365,19 +365,19 @@ describe("JobSecrets", () => {
             {
               exposureValue: "",
               key: "secret0",
-              secretPath: "foo"
-            }
-          ]
-        }
+              secretPath: "foo",
+            },
+          ],
+        },
       };
       const output = {
         run: {
           secrets: {
             secret0: {
-              source: "foo"
-            }
-          }
-        }
+              source: "foo",
+            },
+          },
+        },
       };
       expect(jobSpecToOutput(spec)).toEqual(output);
     });
@@ -390,42 +390,42 @@ describe("JobSecrets", () => {
               exposureType: "",
               exposureValue: "",
               key: "secret0",
-              secretPath: "foo"
+              secretPath: "foo",
             },
             {
               exposureType: "envVar",
               exposureValue: "test",
               key: "secret1",
-              secretPath: ""
+              secretPath: "",
             },
             {
               exposureType: "envVar",
               exposureValue: "joined",
               key: "secret2",
-              secretPath: "bar"
-            }
-          ]
-        }
+              secretPath: "bar",
+            },
+          ],
+        },
       };
       const output = {
         run: {
           secrets: {
             secret0: {
-              source: "foo"
+              source: "foo",
             },
             secret2: {
-              source: "bar"
-            }
+              source: "bar",
+            },
           },
           env: {
             test: {
-              secret: "secret1"
+              secret: "secret1",
             },
             joined: {
-              secret: "secret2"
-            }
-          }
-        }
+              secret: "secret2",
+            },
+          },
+        },
       };
       expect(jobSpecToOutput(spec)).toEqual(output);
     });

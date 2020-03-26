@@ -25,11 +25,11 @@ describe("TaskUtil", () => {
             statuses: [
               {
                 container_status: {
-                  network_infos: [{ ip_addresses: [{ ip_address: "bar" }] }]
-                }
-              }
+                  network_infos: [{ ip_addresses: [{ ip_address: "bar" }] }],
+                },
+              },
             ],
-            container: { type: "FOO", foo: { network: "BRIDGE" } }
+            container: { type: "FOO", foo: { network: "BRIDGE" } },
           },
           new Node({ hostname: "quis" })
         )
@@ -44,9 +44,9 @@ describe("TaskUtil", () => {
               type: "FOO",
               foo: {
                 port_mappings: [{ host_port: "foo" }, { host_port: "bar" }],
-                network: "BRIDGE"
-              }
-            }
+                network: "BRIDGE",
+              },
+            },
           },
           new Node({ hostname: "quis" })
         )
@@ -74,7 +74,7 @@ describe("TaskUtil", () => {
 
     it("uses discovery ports if available", () => {
       const result = TaskUtil.getPorts({
-        discovery: { ports: { ports: [{ number: 3 }] } }
+        discovery: { ports: { ports: [{ number: 3 }] } },
       });
 
       expect(result).toEqual([3]);
@@ -83,7 +83,7 @@ describe("TaskUtil", () => {
     it("prefers discovery ports if both are available", () => {
       const result = TaskUtil.getPorts({
         ports: [1, 2],
-        discovery: { ports: { ports: [{ number: 3 }] } }
+        discovery: { ports: { ports: [{ number: 3 }] } },
       });
 
       expect(result).toEqual([3]);
@@ -95,8 +95,8 @@ describe("TaskUtil", () => {
       thisInstance = TaskUtil.getPortMappings({
         container: {
           type: "FOO",
-          foo: { port_mappings: ["foo", "bar", "baz"] }
-        }
+          foo: { port_mappings: ["foo", "bar", "baz"] },
+        },
       });
     });
 
@@ -123,7 +123,7 @@ describe("TaskUtil", () => {
     it("handles if port mappings are is not an array", () => {
       expect(
         TaskUtil.getPortMappings({
-          container: { type: "FOO", foo: { port_mappings: 0 } }
+          container: { type: "FOO", foo: { port_mappings: 0 } },
         })
       ).toEqual(null);
     });
@@ -140,7 +140,7 @@ describe("TaskUtil", () => {
     });
     it("returns N/A when no region name exists", () => {
       const task = {
-        ...NodeTask
+        ...NodeTask,
       };
       task.slave_id = "2";
       expect(TaskUtil.getRegionName(task)).toEqual("N/A");
@@ -160,7 +160,7 @@ describe("TaskUtil", () => {
     });
     it("returns N/A when no zone name exists", () => {
       const task = {
-        ...NodeTask
+        ...NodeTask,
       };
       task.slave_id = "2";
       expect(TaskUtil.getZoneName(task)).toEqual("N/A");
@@ -181,22 +181,22 @@ describe("TaskUtil", () => {
             executors: [
               {
                 id: "executor-foo",
-                directory: "foo"
+                directory: "foo",
               },
               {
                 id: "executor-bar",
-                directory: "bar"
-              }
-            ]
-          }
-        ]
+                directory: "bar",
+              },
+            ],
+          },
+        ],
       };
 
       it("gets the task path for a running task", () => {
         const task = {
           id: "executor-foo",
           framework_id: "framework-123",
-          executor_id: "executor-bar"
+          executor_id: "executor-bar",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual("foo/");
@@ -206,7 +206,7 @@ describe("TaskUtil", () => {
         const task = {
           id: "executor-bar",
           framework_id: "framework-123",
-          executor_id: "executor-bar"
+          executor_id: "executor-bar",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual("bar/");
@@ -215,7 +215,7 @@ describe("TaskUtil", () => {
       it("gets the task path for a task with unknown executor id", () => {
         const task = {
           id: "executor-bar",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual("bar/");
@@ -224,7 +224,7 @@ describe("TaskUtil", () => {
       it("appends provided path", () => {
         const task = {
           id: "executor-bar",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task, "test")).toEqual("bar/test");
@@ -243,24 +243,24 @@ describe("TaskUtil", () => {
                 directory: "foo",
                 completed_tasks: [{ id: "task-foo-completed" }],
                 tasks: [{ id: "task-foo-running" }],
-                type: "DEFAULT"
+                type: "DEFAULT",
               },
               {
                 id: "executor-bar",
                 directory: "bar",
                 completed_tasks: [{ id: "task-bar-completed" }],
-                type: "DEFAULT"
-              }
-            ]
-          }
-        ]
+                type: "DEFAULT",
+              },
+            ],
+          },
+        ],
       };
 
       it("gets the task path for a running task", () => {
         const task = {
           id: "task-foo-running",
           executor_id: "executor-foo",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual(
@@ -272,7 +272,7 @@ describe("TaskUtil", () => {
         const task = {
           id: "task-foo-completed",
           executor_id: "executor-foo",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual(
@@ -284,7 +284,7 @@ describe("TaskUtil", () => {
         const task = {
           id: "task-bar-completed",
           executor_id: "executor-bar",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task)).toEqual(
@@ -296,7 +296,7 @@ describe("TaskUtil", () => {
         const task = {
           id: "task-foo-running",
           executor_id: "executor-foo",
-          framework_id: "framework-123"
+          framework_id: "framework-123",
         };
 
         expect(TaskUtil.getTaskPath(state, task, "test")).toEqual(

@@ -10,7 +10,7 @@ import { Table, Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
@@ -26,7 +26,7 @@ import PermissionBuilderModal from "./PermissionBuilderModal";
 // This component is extended by Accounts and Groups
 class AdvancedACLsTab extends mixin(StoreMixin) {
   static propTypes = {
-    itemID: PropTypes.string.isRequired
+    itemID: PropTypes.string.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -41,11 +41,11 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
       itemPermissionsRequestErrors: 0,
       itemPermissionsRequestSuccess: false,
       permissionBuilderOpen: false,
-      permissionBuilderView: "builder" // [builder, bulk]
+      permissionBuilderView: "builder", // [builder, bulk]
     };
 
     this.store_listeners = [
-      { name: "acl", events: ["fetchResourceSuccess", "fetchResourceError"] }
+      { name: "acl", events: ["fetchResourceSuccess", "fetchResourceError"] },
     ];
   }
 
@@ -59,7 +59,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
       aclsToBeCreatedErrors: [],
       aclsToBeCreatedSuccess: 0,
       permissionBuilderOpen: false,
-      permissionBuilderView: "builder"
+      permissionBuilderView: "builder",
     });
   };
   handlePermissionBuilderOpen = () => {
@@ -70,7 +70,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
       aclsToBeCreated: 0,
       aclsToBeCreatedDupes: [],
       aclsToBeCreatedErrors: [],
-      aclsToBeCreatedSuccess: 0
+      aclsToBeCreatedSuccess: 0,
     };
 
     if (this.state.permissionBuilderView === "builder") {
@@ -85,7 +85,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
   onAclStorePermissionsSuccess() {
     this.setState({
       itemPermissionsRequestSuccess: true,
-      itemPermissionsRequestErrors: 0
+      itemPermissionsRequestErrors: 0,
     });
   }
 
@@ -99,7 +99,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
 
   onAclStoreCreateResponse(apiError, isDupe, resourceID, action) {
     const newState = {
-      aclsToBeCreated: this.state.aclsToBeCreated - 1
+      aclsToBeCreated: this.state.aclsToBeCreated - 1,
     };
 
     if (isDupe) {
@@ -112,8 +112,8 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
         {
           error: apiError,
           resourceID,
-          action
-        }
+          action,
+        },
       ]);
     } else {
       newState.aclsToBeCreatedSuccess = this.state.aclsToBeCreatedSuccess + 1;
@@ -132,12 +132,12 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
   handleGroupClick(groupID) {
     this.context.router.push(`/organization/groups/${groupID}`);
   }
-  handleFormSubmit = acls => {
+  handleFormSubmit = (acls) => {
     this.setState({
       aclsToBeCreated: acls.length,
       aclsToBeCreatedDupes: [],
       aclsToBeCreatedErrors: [],
-      aclsToBeCreatedSuccess: 0
+      aclsToBeCreatedSuccess: 0,
     });
   };
 
@@ -243,7 +243,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
   getColumns() {
     const className = ResourceTableUtil.getClassName;
     const descriptionHeading = ResourceTableUtil.renderHeading({
-      rid: i18nMark("Resource")
+      rid: i18nMark("Resource"),
     });
 
     return [
@@ -253,7 +253,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
         prop: "rid",
         sortable: true,
         heading: descriptionHeading,
-        render: this.renderID
+        render: this.renderID,
       },
       {
         className,
@@ -261,8 +261,8 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
         prop: "actions",
         render: this.renderActions,
         sortable: false,
-        heading: "Actions"
-      }
+        heading: "Actions",
+      },
     ];
   }
 
@@ -277,7 +277,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
       itemPermissionsRequestErrors,
       itemPermissionsRequestSuccess,
       permissionBuilderOpen,
-      permissionBuilderView
+      permissionBuilderView,
     } = this.state;
 
     if (aclsRequestErrors >= 3 || itemPermissionsRequestErrors >= 3) {
@@ -328,7 +328,7 @@ class AdvancedACLsTab extends mixin(StoreMixin) {
 }
 
 AdvancedACLsTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default AdvancedACLsTab;

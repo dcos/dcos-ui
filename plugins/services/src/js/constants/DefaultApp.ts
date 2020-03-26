@@ -7,5 +7,5 @@ export const DEFAULT_APP_SPEC = {
   portDefinitions: [],
   container: { type: MESOS },
   cpus: 0.1,
-  mem: 128
+  mem: 128,
 };

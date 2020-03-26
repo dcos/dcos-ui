@@ -12,14 +12,14 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
     it("handles object errors with message-only", () => {
       const marathonError = {
-        message: "Some error"
+        message: "Some error",
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -27,15 +27,15 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
     it("handles object errors with string details", () => {
       const marathonError = {
         message: "Some error",
-        details: "Some error details"
+        details: "Some error details",
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -43,14 +43,14 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error details",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
     it("handles object errors with null message", () => {
       const marathonError = {
-        message: null
+        message: null,
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -59,8 +59,8 @@ describe("MarathonErrorUtil", () => {
           message:
             "An unknown error occurred (Marathon did not provide any description)",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -70,9 +70,9 @@ describe("MarathonErrorUtil", () => {
         details: [
           {
             errors: ["First Error", "Second Error"],
-            path: "/"
-          }
-        ]
+            path: "/",
+          },
+        ],
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -80,14 +80,14 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "First Error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
+          variables: {},
         },
         {
           path: [],
           message: "Second Error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -97,9 +97,9 @@ describe("MarathonErrorUtil", () => {
         details: [
           {
             errors: ["First Error"],
-            path: "/some/property"
-          }
-        ]
+            path: "/some/property",
+          },
+        ],
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -107,8 +107,8 @@ describe("MarathonErrorUtil", () => {
           path: ["some", "property"],
           message: "First Error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -117,9 +117,9 @@ describe("MarathonErrorUtil", () => {
         message: "Some error",
         details: [
           {
-            path: "/some/property"
-          }
-        ]
+            path: "/some/property",
+          },
+        ],
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -127,8 +127,8 @@ describe("MarathonErrorUtil", () => {
           path: ["some", "property"],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -138,9 +138,9 @@ describe("MarathonErrorUtil", () => {
         details: [
           {
             errors: [],
-            path: "/some/property"
-          }
-        ]
+            path: "/some/property",
+          },
+        ],
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -148,8 +148,8 @@ describe("MarathonErrorUtil", () => {
           path: ["some", "property"],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -159,9 +159,9 @@ describe("MarathonErrorUtil", () => {
         details: [
           {
             errors: ["First Error"],
-            path: "/some/indexed(3)/property"
-          }
-        ]
+            path: "/some/indexed(3)/property",
+          },
+        ],
       };
 
       expect(MarathonErrorUtil.parseErrors(marathonError)).toEqual([
@@ -169,8 +169,8 @@ describe("MarathonErrorUtil", () => {
           path: ["some", "indexed", 3, "property"],
           message: "First Error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -182,8 +182,8 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -210,8 +210,8 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -224,8 +224,8 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -238,8 +238,8 @@ describe("MarathonErrorUtil", () => {
           path: [],
           message: "Some error",
           type: ServiceErrorTypes.GENERIC,
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 

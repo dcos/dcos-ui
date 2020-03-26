@@ -14,7 +14,7 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
       <BreadcrumbTextContent>
         <Trans render={<Link to={"/jobs/overview/"} />} id="Jobs" />
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (jobPath !== undefined) {
@@ -40,7 +40,7 @@ export default function Breadcrumbs({ jobPath, jobName, jobInfo, children }) {
           <Link to={"/jobs/detail/" + partId}>{jobName}</Link>
         </BreadcrumbTextContent>
         {jobInfo}
-      </Breadcrumb>
+      </Breadcrumb>,
     ]);
   }
 
@@ -60,5 +60,5 @@ Breadcrumbs.propTypes = {
   jobInfo: PropTypes.node,
   jobName: PropTypes.string,
   jobPath: PropTypes.arrayOf(PropTypes.string),
-  children: PropTypes.node
+  children: PropTypes.node,
 };

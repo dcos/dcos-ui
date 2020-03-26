@@ -6,7 +6,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyLightDarken1,
-  iconSizeS
+  iconSizeS,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Config from "#SRC/js/config/Config";
@@ -20,7 +20,7 @@ const displayedResourceValues = {
   gpus: <Trans>GPU</Trans>,
   mem: <Trans>Memory</Trans>,
   disk: <Trans>Disk</Trans>,
-  ports: <Trans>Ports</Trans>
+  ports: <Trans>Ports</Trans>,
 };
 
 const MAX_BAR_HEIGHT = 200;
@@ -47,7 +47,7 @@ function getGraphBar(resource, data, index) {
 
   const barGraphMatchedClasses = classNames("funnel-graph-item-bar-matched", {
     "funnel-graph-item-bar-matched-border-top":
-      percentageMatched > 0 && percentageMatched < 1
+      percentageMatched > 0 && percentageMatched < 1,
   });
 
   const offeredHeight = Math.ceil(MAX_BAR_HEIGHT * percentageOffered);
@@ -113,7 +113,7 @@ function getGraphSpacer({ key, showIcon = true }) {
 function getResourceTooltipContent(resource, data) {
   let { matched, offers, requested: requestedValue } = data[resource] || {
     offers: 0,
-    matched: 0
+    matched: 0,
   };
   let docsURI = null;
   let explanatoryText = null;
@@ -231,7 +231,7 @@ function RecentOffersSummary({ data }) {
     "mem",
     "disk",
     "gpus",
-    "ports"
+    "ports",
   ];
   const funnelGraphItems = funnelItems.reduce((accumulator, item, index) => {
     accumulator.push(getGraphBar(item, data, index));

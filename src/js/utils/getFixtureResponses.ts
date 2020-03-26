@@ -3,7 +3,7 @@ const getFixtureResponses = (methodFixtureMap, fixtureResponses) =>
     const index = Object.keys(methodFixtureMap).indexOf(curr);
     acc[curr] = {
       event: "success",
-      success: { response: fixtureResponses[index] }
+      success: { response: fixtureResponses[index] },
     };
 
     return acc;

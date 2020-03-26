@@ -41,7 +41,7 @@ const TemplateUtil = {
     const types = this.getTypesOfTemplateChildren(T);
 
     return React.Children.toArray(children).filter(
-      child => !types.includes(child.type)
+      (child) => !types.includes(child.type)
     );
   },
 
@@ -54,8 +54,8 @@ const TemplateUtil = {
    * @return {React.Component} a single child of type <T>.
    */
   getChildOfType(children, T) {
-    return React.Children.toArray(children).find(child => child.type === T);
-  }
+    return React.Children.toArray(children).find((child) => child.type === T);
+  },
 };
 
 export default TemplateUtil;

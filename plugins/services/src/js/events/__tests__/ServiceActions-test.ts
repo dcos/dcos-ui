@@ -14,7 +14,7 @@ describe("ServiceActions", () => {
       id: "/test",
       getId() {
         return "/test";
-      }
+      },
     };
 
     describe("#RequestUtil", () => {
@@ -24,11 +24,11 @@ describe("ServiceActions", () => {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
-            type: ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS
+            type: ActionTypes.REQUEST_MARATHON_GROUP_DELETE_SUCCESS,
           });
         });
 
@@ -36,13 +36,13 @@ describe("ServiceActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
             type: ActionTypes.REQUEST_MARATHON_GROUP_DELETE_ERROR,
             xhr: { error: {} },
-            data: {}
+            data: {},
           });
         });
 
@@ -56,7 +56,7 @@ describe("ServiceActions", () => {
       id: "/test",
       getId() {
         return "/test";
-      }
+      },
     };
 
     describe("#RequestUtil", () => {
@@ -66,11 +66,11 @@ describe("ServiceActions", () => {
         thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       });
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
-            type: ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS
+            type: ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_SUCCESS,
           });
         });
 
@@ -78,13 +78,13 @@ describe("ServiceActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
             type: ActionTypes.REQUEST_MARATHON_SERVICE_DELETE_ERROR,
             xhr: { error: {} },
-            data: {}
+            data: {},
           });
         });
 
@@ -100,7 +100,7 @@ describe("ServiceActions", () => {
         },
         getPackageName() {
           return "package1";
-        }
+        },
       };
       const frameworkDefinition = new Framework(serviceDefinition);
 
@@ -112,14 +112,14 @@ describe("ServiceActions", () => {
         });
 
         it("dispatches the correct action when successful framework deleted", () => {
-          const id = AppDispatcher.register(payload => {
+          const id = AppDispatcher.register((payload) => {
             const action = payload.action;
             AppDispatcher.unregister(id);
             expect(action).toEqual({
               appId: "/test",
               type: CosmosActionTypes.REQUEST_COSMOS_PACKAGE_UNINSTALL_SUCCESS,
               data: {},
-              packageName: "package1"
+              packageName: "package1",
             });
           });
 
@@ -127,7 +127,7 @@ describe("ServiceActions", () => {
         });
 
         it("dispatches the correct action when unsuccessful framework deleted", () => {
-          const id = AppDispatcher.register(payload => {
+          const id = AppDispatcher.register((payload) => {
             const action = payload.action;
             AppDispatcher.unregister(id);
             expect(action).toEqual({
@@ -135,7 +135,7 @@ describe("ServiceActions", () => {
               type: CosmosActionTypes.REQUEST_COSMOS_PACKAGE_UNINSTALL_ERROR,
               xhr: { error: {} },
               data: {},
-              packageName: "package1"
+              packageName: "package1",
             });
           });
 

@@ -7,7 +7,7 @@ import BaseConfig, { Value } from "#SRC/js/components/BaseConfig";
 import {
   getColumnHeadingFn,
   getColumnClassNameFn,
-  getDisplayValue
+  getDisplayValue,
 } from "#SRC/js/utils/ConfigDisplayUtil";
 
 import { JobOutput, DockerParameter } from "../form/helpers/JobFormData";
@@ -33,7 +33,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>Parameters</Trans>,
-          headingLevel: 2
+          headingLevel: 2,
         },
         {
           key: "run.docker.parameters",
@@ -48,7 +48,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Value")),
@@ -61,8 +61,8 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
                 className: getColumnClassNameFn(
                   "configuration-map-table-value"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             return (
@@ -73,9 +73,9 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
                 data={parameters}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

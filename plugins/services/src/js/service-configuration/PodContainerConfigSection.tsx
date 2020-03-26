@@ -34,12 +34,12 @@ const PodContainerConfigSection = ({
   containerConfig,
   appConfig,
   onEditClick,
-  index
+  index,
 }) => {
   const fields = {
     command: getCommand(containerConfig),
     resources: containerConfig.resources || {},
-    user: containerConfig.user || appConfig.user
+    user: containerConfig.user || appConfig.user,
   };
 
   let tabViewID = "services";
@@ -149,7 +149,7 @@ const PodContainerConfigSection = ({
 
 PodContainerConfigSection.propTypes = {
   index: PropTypes.number,
-  onEditClick: PropTypes.func
+  onEditClick: PropTypes.func,
 };
 
 export default PodContainerConfigSection;

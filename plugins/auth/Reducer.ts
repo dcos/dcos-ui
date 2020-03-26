@@ -1,7 +1,7 @@
 import { ACL_AUTH_USER_PERMISSIONS_CHANGED } from "./constants/EventTypes";
 
 const initialState = {
-  permissions: { direct: [], groups: [] }
+  permissions: { direct: [], groups: [] },
 };
 
 export default (state = initialState, action) => {

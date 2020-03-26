@@ -19,7 +19,7 @@ import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import PageHeaderNavigationDropdown from "#SRC/js/components/PageHeaderNavigationDropdown";
 import SplitPanel, {
   PrimaryPanel,
-  SidePanel
+  SidePanel,
 } from "#SRC/js/components/SplitPanel";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
@@ -62,7 +62,7 @@ const CONSTANTLY_UNMUTED_ERRORS = [
   /^constraints\.[0-9]+\./,
   /^portDefinitions\.[0-9]+\./,
   /^container.docker.portMappings\.[0-9]+\./,
-  /^volumes\.[0-9]+\./
+  /^volumes\.[0-9]+\./,
 ];
 
 function cleanConfig(config) {
@@ -74,19 +74,19 @@ function cleanConfig(config) {
   if (Object.keys(labels).length !== 0) {
     newServiceConfig = {
       labels,
-      ...newServiceConfig
+      ...newServiceConfig,
     };
   }
   if (Object.keys(env).length !== 0) {
     newServiceConfig = {
       env,
-      ...newServiceConfig
+      ...newServiceConfig,
     };
   }
   if (Object.keys(environment).length !== 0) {
     newServiceConfig = {
       environment,
-      ...newServiceConfig
+      ...newServiceConfig,
     };
   }
 
@@ -105,7 +105,7 @@ class CreateServiceModalForm extends React.Component {
     isJSONModeActive: false,
     onChange() {},
     onErrorStateChange() {},
-    showAllErrors: false
+    showAllErrors: false,
   };
   static propTypes = {
     activeTab: PropTypes.string,
@@ -117,7 +117,7 @@ class CreateServiceModalForm extends React.Component {
     onErrorStateChange: PropTypes.func,
     service: PropTypes.object,
     showAllErrors: PropTypes.bool,
-    resetExpandAdvancedSettings: PropTypes.func
+    resetExpandAdvancedSettings: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -141,7 +141,7 @@ class CreateServiceModalForm extends React.Component {
       ...this.getNewStateForJSON(
         newServiceConfig,
         this.props.service instanceof PodSpec
-      )
+      ),
     };
   }
 
@@ -235,7 +235,7 @@ class CreateServiceModalForm extends React.Component {
   getNewStateForJSON = (baseConfig = {}, isPod = this.state.isPod) => {
     const newState = {
       baseConfig,
-      isPod
+      isPod,
     };
 
     // Regenerate batch
@@ -251,13 +251,13 @@ class CreateServiceModalForm extends React.Component {
   handleConvertToPod = () => {
     this.props.onConvertToPod(this.getAppConfig());
   };
-  handleDropdownNavigationSelection = item => {
+  handleDropdownNavigationSelection = (item) => {
     this.props.handleTabChange(item.id);
   };
-  handleJSONChange = jsonObject => {
+  handleJSONChange = (jsonObject) => {
     this.setState(this.getNewStateForJSON(jsonObject));
   };
-  handleJSONPropertyChange = path => {
+  handleJSONPropertyChange = (path) => {
     const { editedFieldPaths } = this.state;
     const pathStr = path.join(".");
     if (path.length === 0) {
@@ -266,22 +266,22 @@ class CreateServiceModalForm extends React.Component {
 
     if (!editedFieldPaths.includes(pathStr)) {
       this.setState({
-        editedFieldPaths: editedFieldPaths.concat([pathStr])
+        editedFieldPaths: editedFieldPaths.concat([pathStr]),
       });
     }
   };
-  handleJSONErrorStateChange = errorMessage => {
+  handleJSONErrorStateChange = (errorMessage) => {
     if (errorMessage !== null) {
       this.props.onErrorsChange([{ message: errorMessage, path: [] }]);
     } else {
       this.props.onErrorsChange([]);
     }
   };
-  handleFormBlur = event => {
+  handleFormBlur = (event) => {
     const { editedFieldPaths } = this.state;
     const fieldName = event.target.getAttribute("name");
     const newState = {
-      editingFieldPath: null
+      editingFieldPath: null,
     };
 
     if (!fieldName) {
@@ -294,10 +294,10 @@ class CreateServiceModalForm extends React.Component {
     }
     this.setState(newState);
   };
-  handleFormFocus = event => {
+  handleFormFocus = (event) => {
     const fieldName = event.target.getAttribute("name");
     const newState = {
-      editingFieldPath: fieldName
+      editingFieldPath: fieldName,
     };
 
     if (!fieldName) {
@@ -306,7 +306,7 @@ class CreateServiceModalForm extends React.Component {
 
     this.setState(newState);
   };
-  handleFormChange = event => {
+  handleFormChange = (event) => {
     const fieldName = event.target.getAttribute("name");
     if (!fieldName) {
       return;
@@ -322,12 +322,12 @@ class CreateServiceModalForm extends React.Component {
 
     const newState = {
       appConfig: this.getAppConfig(batch),
-      batch
+      batch,
     };
 
     this.setState(newState);
   };
-  handleAddItem = event => {
+  handleAddItem = (event) => {
     const { value, path } = event;
     let { batch } = this.state;
 
@@ -337,7 +337,7 @@ class CreateServiceModalForm extends React.Component {
 
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
   };
-  handleRemoveItem = event => {
+  handleRemoveItem = (event) => {
     const { value, path } = event;
     let { batch } = this.state;
 
@@ -347,7 +347,7 @@ class CreateServiceModalForm extends React.Component {
 
     this.setState({ batch, appConfig: this.getAppConfig(batch) });
   };
-  handleClickItem = item => {
+  handleClickItem = (item) => {
     this.props.handleTabChange(item);
   };
 
@@ -381,7 +381,7 @@ class CreateServiceModalForm extends React.Component {
           className: "text-overflow",
           id: `container${index}`,
           label: getContainerNameWithIcon(fakeContainer),
-          isContainer: true
+          isContainer: true,
         };
       });
     }
@@ -457,7 +457,7 @@ class CreateServiceModalForm extends React.Component {
         className: classNames({ "page-header-menu-item-nested": isNested }),
         id: item.id,
         isActive: activeTab === item.id || (activeTab == null && index === 0),
-        label: item.label
+        label: item.label,
       });
 
       if (item.children) {
@@ -481,8 +481,8 @@ class CreateServiceModalForm extends React.Component {
       {
         id: "services",
         label: serviceLabel,
-        children: this.getContainerList(data)
-      }
+        children: this.getContainerList(data),
+      },
     ];
 
     if (this.state.isPod) {
@@ -491,18 +491,18 @@ class CreateServiceModalForm extends React.Component {
         {
           id: "networking",
           key: "multinetworking",
-          label: i18nMark("Networking")
+          label: i18nMark("Networking"),
         },
         { id: "volumes", key: "multivolumes", label: i18nMark("Volumes") },
         {
           id: "healthChecks",
           key: "multihealthChecks",
-          label: i18nMark("Health Checks")
+          label: i18nMark("Health Checks"),
         },
         {
           id: "environment",
           key: "multienvironment",
-          label: i18nMark("Environment")
+          label: i18nMark("Environment"),
         }
       );
       tabList = Hooks.applyFilter(
@@ -517,12 +517,12 @@ class CreateServiceModalForm extends React.Component {
         {
           id: "healthChecks",
           key: "healthChecks",
-          label: i18nMark("Health Checks")
+          label: i18nMark("Health Checks"),
         },
         {
           id: "environment",
           key: "environment",
-          label: i18nMark("Environment")
+          label: i18nMark("Environment"),
         }
       );
       tabList = Hooks.applyFilter(
@@ -546,7 +546,7 @@ class CreateServiceModalForm extends React.Component {
       this.props.i18n
     );
 
-    return navigationItems.map(item => {
+    return navigationItems.map((item) => {
       const finalErrorCount = item.isContainer
         ? findNestedPropertyInObject(
             FormErrorUtil.getContainerTabErrors(errorsByTab),
@@ -593,7 +593,7 @@ class CreateServiceModalForm extends React.Component {
       onAddItem: this.handleAddItem,
       onRemoveItem: this.handleRemoveItem,
       onTabChange: this.props.handleTabChange,
-      pathMapping: ServiceErrorPathMapping
+      pathMapping: ServiceErrorPathMapping,
     };
 
     if (this.state.isPod) {
@@ -674,7 +674,7 @@ class CreateServiceModalForm extends React.Component {
             onRemoveItem={this.handleRemoveItem}
             onAddItem={this.handleAddItem}
           />
-        </TabView>
+        </TabView>,
       ];
 
       return Hooks.applyFilter(
@@ -758,7 +758,7 @@ class CreateServiceModalForm extends React.Component {
           onRemoveItem={this.handleRemoveItem}
           onAddItem={this.handleAddItem}
         />
-      </TabView>
+      </TabView>,
     ];
 
     return Hooks.applyFilter("createServiceTabViews", tabs, pluginTabProps);
@@ -775,7 +775,7 @@ class CreateServiceModalForm extends React.Component {
     const { editedFieldPaths, editingFieldPath } = this.state;
     const errors = [].concat(...this.getErrors());
 
-    return errors.filter(error => {
+    return errors.filter((error) => {
       const errorPath = error.path.join(".");
 
       // Always mute the error on the field we are editing
@@ -784,14 +784,14 @@ class CreateServiceModalForm extends React.Component {
       }
 
       // Never mute fields in the CONSTANTLY_UNMUTED_ERRORS fields
-      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some(rule =>
+      const isUnmuted = CONSTANTLY_UNMUTED_ERRORS.some((rule) =>
         rule.test(errorPath)
       );
 
       return isUnmuted || showAllErrors || editedFieldPaths.includes(errorPath);
     });
   }
-  onEditorResize = newSize => {
+  onEditorResize = (newSize) => {
     this.setState({ editorWidth: newSize });
   };
 
@@ -805,7 +805,7 @@ class CreateServiceModalForm extends React.Component {
       isJSONModeActive,
       onConvertToPod,
       service,
-      showAllErrors
+      showAllErrors,
     } = this.props;
     const data = batch.reduce(this.props.inputConfigReducers, {});
     const unmutedErrors = this.getUnmutedErrors();

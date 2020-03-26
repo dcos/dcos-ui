@@ -11,7 +11,7 @@ import FluidGeminiScrollbar from "#SRC/js/components/FluidGeminiScrollbar";
 import JSONEditorLoading from "#SRC/js/components/JSONEditorLoading";
 import SplitPanel, {
   PrimaryPanel,
-  SidePanel
+  SidePanel,
 } from "#SRC/js/components/SplitPanel";
 import TabButton from "#SRC/js/components/TabButton";
 import TabButtonList from "#SRC/js/components/TabButtonList";
@@ -24,7 +24,7 @@ import {
   JobFormActionType,
   Action,
   JobSpec,
-  JobOutput
+  JobOutput,
 } from "./form/helpers/JobFormData";
 import GeneralFormSection from "./form/GeneralFormSection";
 import ContainerFormSection from "./form/ContainerFormSection";
@@ -35,7 +35,7 @@ import VolumesFormSection from "./form/VolumesFormSection";
 import PlacementSection from "./form/PlacementSection";
 import {
   jobSpecToOutputParser,
-  jobSpecToFormOutputParser
+  jobSpecToFormOutputParser,
 } from "./form/helpers/JobParsers";
 import { translateErrorMessages } from "./form/helpers/ErrorUtil";
 import JobErrorTabPathRegexes from "../constants/JobErrorTabPathRegexes";
@@ -77,14 +77,18 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     { id: "environment", key: "environment", label: i18nMark("Environment") },
     { id: "volumes", key: "volumes", label: i18nMark("Volumes") },
     { id: "placement", key: "placement", label: i18nMark("Placement") },
-    { id: "run_config", key: "runConfig", label: i18nMark("Run Configuration") }
+    {
+      id: "run_config",
+      key: "runConfig",
+      label: i18nMark("Run Configuration"),
+    },
   ];
 
   constructor(props: Readonly<JobsFormProps>) {
     super(props);
 
     this.state = {
-      editorWidth: undefined
+      editorWidth: undefined,
     };
 
     this.onInputChange = this.onInputChange.bind(this);
@@ -125,7 +129,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
     this.props.onChange({
       path: "json",
       type: JobFormActionType.Override,
-      value: jobJSON
+      value: jobJSON,
     });
   }
 
@@ -141,7 +145,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       const action = {
         type: JobFormActionType.AddArrayItem,
         path,
-        value: null
+        value: null,
       };
 
       onChange(action);
@@ -154,7 +158,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       const action = {
         type: JobFormActionType.RemoveArrayItem,
         path,
-        value: index
+        value: index,
       };
 
       onChange(action);
@@ -172,7 +176,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       hideTopLevelErrors: !showAllErrors,
       showErrors: showAllErrors,
       onAddItem: this.handleAddItem,
-      onRemoveItem: this.handleRemoveItem
+      onRemoveItem: this.handleRemoveItem,
     };
 
     const tabs = [
@@ -279,7 +283,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
           onAddItem={this.handleAddItem}
           onRemoveItem={this.handleRemoveItem}
         />
-      </TabView>
+      </TabView>,
     ];
 
     return Hooks.applyFilter("createJobTabViews", tabs, pluginTabProps);
@@ -304,7 +308,7 @@ class JobsForm extends React.Component<JobsFormProps, JobsFormState> {
       isJSONModeActive,
       jobSpec,
       errors,
-      i18n
+      i18n,
     } = this.props;
     const errorsByTab = FormErrorUtil.getTopLevelTabErrors(
       errors,
