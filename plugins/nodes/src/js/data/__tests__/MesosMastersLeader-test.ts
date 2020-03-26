@@ -33,6 +33,7 @@ describe("MesosMastersLeader", () => {
       marbles(m => {
         const expectedData = {
           electedTime: 12345789,
+          hostIp: undefined,
           hostPort: "127.0.0.1:8080",
           region: "us-east-1",
           startTime: 12345789,
