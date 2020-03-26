@@ -76,15 +76,23 @@ export default class NestedServiceLinks extends React.Component {
     const anchorClasses = classNames("table-cell-link-primary");
 
     return (
-      <Link className={anchorClasses} to={serviceLink} title={label}>
-        <span className="text-overflow">{label}</span>
+      <Link
+        className={anchorClasses}
+        to={serviceLink}
+        title={label}
+        style={{
+          display: "block",
+          overflow: "hidden",
+          textOverflow: "ellipsis"
+        }}
+      >
+        {label}
       </Link>
     );
   }
 
   getServicesLink(key) {
     const minorLinkClasses = classNames("text-overflow service-link");
-
     const minorLinkAnchorClasses = classNames("table-cell-link-secondary");
 
     return (
@@ -109,11 +117,6 @@ export default class NestedServiceLinks extends React.Component {
   render() {
     const classes = classNames("nested-service-links", "service-breadcrumb");
 
-    const majorLinkClasses = classNames(
-      "text-overflow",
-      "service-breadcrumb-service-id"
-    );
-
     const minorLinkWrapperClasses = classNames(
       "table-cell-details-secondary flex",
       "flex-align-items-center table-cell-flex-box",
@@ -122,7 +125,7 @@ export default class NestedServiceLinks extends React.Component {
 
     return (
       <div className={classes}>
-        <div className={majorLinkClasses}>{this.getMajorLink()}</div>
+        {this.getMajorLink()}
         <div className={minorLinkWrapperClasses}>{this.getMinorLinks()}</div>
       </div>
     );

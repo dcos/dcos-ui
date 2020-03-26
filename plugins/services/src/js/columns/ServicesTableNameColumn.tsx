@@ -39,17 +39,14 @@ const ServiceName = React.memo(
 
     return (
       <TextCell>
-        <div className="service-table-heading flex-box flex-box-align-vertical-center table-cell-flex-box text-overflow">
+        <div style={{ display: "flex" }}>
           <Link className="table-cell-icon" to={serviceLink}>
             {getImage(image, isGroup)}
           </Link>
-          <span
-            className="table-cell-value table-cell-flex-box"
-            style={{ marginRight: "7px" }}
-          >
+          <React.Fragment>
             {getServiceLink(id, name, isGroup, linkToQuota, isFiltered)}
             {getOpenInNewWindowLink(webUrl)}
-          </span>
+          </React.Fragment>
         </div>
       </TextCell>
     );
@@ -120,7 +117,11 @@ function getServiceLink(
   }
 
   return (
-    <Link className="table-cell-link-primary" to={serviceLink}>
+    <Link
+      className="table-cell-link-primary"
+      to={serviceLink}
+      style={{ overflow: "hidden", textOverflow: "ellipsis" }}
+    >
       {name}
     </Link>
   );
