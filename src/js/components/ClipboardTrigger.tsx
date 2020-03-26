@@ -8,7 +8,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 class ClipboardTrigger extends React.Component {
@@ -17,13 +17,13 @@ class ClipboardTrigger extends React.Component {
     className: PropTypes.string,
     copyText: PropTypes.string,
     onTextCopy: PropTypes.func,
-    useTooltip: PropTypes.bool
+    useTooltip: PropTypes.bool,
   };
   constructor() {
     super();
 
     this.state = {
-      hasCopiedToClipboard: false
+      hasCopiedToClipboard: false,
     };
 
     this.copyButtonRef = React.createRef();
@@ -32,7 +32,7 @@ class ClipboardTrigger extends React.Component {
   componentDidMount() {
     if (this.copyButtonRef) {
       this.clipboard = new Clipboard(this.copyButtonRef.current, {
-        text: () => this.props.copyText
+        text: () => this.props.copyText,
       });
 
       this.clipboard.on("success", this.handleCopy);

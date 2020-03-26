@@ -15,7 +15,7 @@ class TabButton extends React.Component {
     showErrorBadge: PropTypes.bool,
     count: PropTypes.number,
     description: PropTypes.node,
-    onClickBadge: PropTypes.func
+    onClickBadge: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -24,7 +24,7 @@ class TabButton extends React.Component {
   getChildren() {
     const { activeTab, children, onClick } = this.props;
 
-    return React.Children.map(children, tabChild => {
+    return React.Children.map(children, (tabChild) => {
       if (tabChild.type === TabButton) {
         return React.cloneElement(tabChild, { activeTab, onClick });
       }
@@ -53,7 +53,7 @@ class TabButton extends React.Component {
       </Tooltip>
     );
   }
-  handleClick = event => {
+  handleClick = (event) => {
     event.stopPropagation();
 
     if (this.props.onClick) {
@@ -69,12 +69,12 @@ class TabButton extends React.Component {
       label,
       labelClassName,
       id,
-      showErrorBadge
+      showErrorBadge,
     } = this.props;
     const classes = classNames(
       "menu-tabbed-item",
       {
-        active: active || activeTab === id
+        active: active || activeTab === id,
       },
       className
     );
@@ -99,7 +99,7 @@ class TabButton extends React.Component {
 const classProps = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 export default TabButton;

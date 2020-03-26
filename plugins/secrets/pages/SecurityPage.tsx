@@ -13,7 +13,7 @@ class SecurityPage extends React.Component {
 SecurityPage.routeConfig = {
   label: i18nMark("Secrets"),
   icon: <Icon shape={ProductIcons.LockInverse} size={iconSizeS} />,
-  matches: /^\/secrets/
+  matches: /^\/secrets/,
 };
 
 module.exports = SecurityPage;

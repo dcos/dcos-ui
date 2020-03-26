@@ -8,7 +8,7 @@ describe("Services", () => {
     });
 
     afterEach(() => {
-      cy.window().then(win => {
+      cy.window().then((win) => {
         win.location.href = "about:blank";
       });
     });

@@ -2,7 +2,7 @@ import { JobRunTask as MetronomeJobRunTask } from "#SRC/js/events/MetronomeClien
 import {
   JobTask,
   JobTaskTypeResolver,
-  JobTaskSchema
+  JobTaskSchema,
 } from "#PLUGINS/jobs/src/js/types/JobTask";
 
 export interface JobTaskConnection {
@@ -27,6 +27,6 @@ export function JobTaskConnectionTypeResolver(
       [...nodes].sort(
         (a, b) => (a.dateStarted || Infinity) - (b.dateStarted || Infinity)
       )[0] || null,
-    nodes
+    nodes,
   };
 }

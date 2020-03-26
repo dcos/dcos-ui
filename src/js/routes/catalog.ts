@@ -19,18 +19,18 @@ export default [
       {
         type: Route,
         path: "packages",
-        component: PackagesTab
+        component: PackagesTab,
       },
       {
         type: Route,
         path: "packages/:packageName",
-        component: PackageDetailTab
+        component: PackageDetailTab,
       },
       {
         type: Route,
         path: "packages/:packageName/deploy",
-        component: DeployFrameworkConfiguration
-      }
-    ]
-  }
+        component: DeployFrameworkConfiguration,
+      },
+    ],
+  },
 ];

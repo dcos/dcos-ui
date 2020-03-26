@@ -10,14 +10,14 @@ const TaskIpAddressesRow = require("../TaskIpAddressesRow").default;
 describe("TaskIpAddressesRow", () => {
   describe("with an Application", () => {
     const serviceMock = new Application({
-      tasks: [{ id: "foo", ipAddresses: [{ ipAddress: "127.0.0.1" }] }]
+      tasks: [{ id: "foo", ipAddresses: [{ ipAddress: "127.0.0.1" }] }],
     });
 
     beforeEach(() => {
       DCOSStore.serviceTree = {
         getServiceFromTaskID() {
           return serviceMock;
-        }
+        },
       };
     });
 
@@ -36,14 +36,14 @@ describe("TaskIpAddressesRow", () => {
 
   describe("with a Pod", () => {
     const serviceMock = new Pod({
-      instances: [{ id: "foo.bar", networks: [{ addresses: ["0.0.0.0"] }] }]
+      instances: [{ id: "foo.bar", networks: [{ addresses: ["0.0.0.0"] }] }],
     });
 
     beforeEach(() => {
       DCOSStore.serviceTree = {
         getServiceFromTaskID() {
           return serviceMock;
-        }
+        },
       };
     });
 

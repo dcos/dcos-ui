@@ -15,5 +15,5 @@ export const JobDockerTypeResolver = (
   docker: MetronomeJobDocker
 ): JobDocker | null => ({
   forcePullImage: docker.forcePullImage,
-  image: docker.image
+  image: docker.image,
 });

@@ -12,12 +12,12 @@ import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
-  getDisplayValue
+  getDisplayValue,
 } from "../utils/ServiceConfigDisplayUtil";
 
 const {
   type: { DOCKER, MESOS },
-  labelMap
+  labelMap,
 } = ContainerConstants;
 
 class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
@@ -79,15 +79,15 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
       values: [
         {
           heading: <Trans render="span">Service</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "id",
-          label: <Trans render="span">Service ID</Trans>
+          label: <Trans render="span">Service ID</Trans>,
         },
         {
           key: "instances",
-          label: <Trans render="span">Instances</Trans>
+          label: <Trans render="span">Instances</Trans>,
         },
         {
           key: "container.type",
@@ -96,11 +96,11 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             const transId = labelMap[runtime] || labelMap[MESOS];
 
             return <Trans render="span" id={transId} />;
-          }
+          },
         },
         {
           key: "cpus",
-          label: <Trans render="span">CPU</Trans>
+          label: <Trans render="span">CPU</Trans>,
         },
         {
           key: "mem",
@@ -111,7 +111,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return Units.formatResource("mem", value);
-          }
+          },
         },
         {
           key: "disk",
@@ -122,31 +122,31 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             }
 
             return Units.formatResource("disk", value);
-          }
+          },
         },
         {
           key: "gpus",
-          label: <Trans render="span">GPU</Trans>
+          label: <Trans render="span">GPU</Trans>,
         },
         {
           key: "backoffSeconds",
-          label: <Trans render="span">Backoff Seconds</Trans>
+          label: <Trans render="span">Backoff Seconds</Trans>,
         },
         {
           key: "backoffFactor",
-          label: <Trans render="span">Backoff Factor</Trans>
+          label: <Trans render="span">Backoff Factor</Trans>,
         },
         {
           key: "maxLaunchDelaySeconds",
-          label: <Trans render="span">Backoff Max Launch Delay</Trans>
+          label: <Trans render="span">Backoff Max Launch Delay</Trans>,
         },
         {
           key: "minHealthOpacity",
-          label: <Trans render="span">Upgrade Min Health Capacity</Trans>
+          label: <Trans render="span">Upgrade Min Health Capacity</Trans>,
         },
         {
           key: "maxOverCapacity",
-          label: <Trans render="span">Upgrade Max Overcapacity</Trans>
+          label: <Trans render="span">Upgrade Max Overcapacity</Trans>,
         },
         {
           key: "container.docker.image",
@@ -159,7 +159,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
 
             // Disabled for MESOS
             return getDisplayValue(value, runtime == null || runtime === MESOS);
-          }
+          },
         },
         {
           key: "container.docker.privileged",
@@ -176,7 +176,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
 
             // Cast boolean as a string.
             return String(Boolean(value));
-          }
+          },
         },
         {
           key: "container.docker.forcePullImage",
@@ -193,34 +193,34 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
 
             // Cast boolean as a string.
             return String(Boolean(value));
-          }
+          },
         },
         {
           key: "cmd",
           label: <Trans render="span">Command</Trans>,
-          type: "pre"
+          type: "pre",
         },
         {
           key: "acceptedResourceRoles",
           label: <Trans render="span">Resource Roles</Trans>,
           transformValue(value = []) {
             return value.join(", ");
-          }
+          },
         },
         {
           key: "dependencies",
           label: <Trans render="span">Dependencies</Trans>,
           transformValue(value = []) {
             return value.join(", ");
-          }
+          },
         },
         {
           key: "executor",
-          label: <Trans render="span">Executor</Trans>
+          label: <Trans render="span">Executor</Trans>,
         },
         {
           key: "user",
-          label: <Trans render="span">User</Trans>
+          label: <Trans render="span">User</Trans>,
         },
         {
           key: "args",
@@ -237,7 +237,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
             ));
 
             return <div>{args}</div>;
-          }
+          },
         },
         {
           key: "version",
@@ -251,12 +251,12 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 format={DateUtil.getFormatOptions()}
               />
             );
-          }
+          },
         },
         {
           key: "fetch",
           heading: <Trans render="span">Container Artifacts</Trans>,
-          headingLevel: 2
+          headingLevel: 2,
         },
         {
           key: "fetch",
@@ -273,8 +273,8 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 className: getColumnClassNameFn(
                   "configuration-map-table-label"
                 ),
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             if (onEditClick) {
@@ -293,7 +293,7 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
@@ -305,9 +305,9 @@ class ServiceGeneralConfigSection extends ServiceConfigBaseSectionDisplay {
                 data={data}
               />
             );
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

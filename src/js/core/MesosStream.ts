@@ -36,7 +36,7 @@ const concatBuffers = (fst: Uint8Array, snd: Uint8Array): Uint8Array => {
 const record$ = (
   reader: ReadableStreamDefaultReader<Uint8Array>
 ): Observable<Uint8Array> => {
-  return new Observable(observer => {
+  return new Observable((observer) => {
     // a buffer to temporarily hold binary data that is streamed. it might be
     // that mesos streams less than a full record - that's why we need to store
     // that temporarily.
@@ -77,10 +77,10 @@ const mesos$ = fromFetch("/mesos/api/v1?subscribe", {
   body: JSON.stringify({ type: "SUBSCRIBE" }),
   headers: {
     Accept: "application/x-protobuf",
-    "Content-Type": "application/json"
-  }
+    "Content-Type": "application/json",
+  },
 }).pipe(
-  switchMap(response => {
+  switchMap((response) => {
     if (!response) {
       throw Error("No response object returned for MesosStateStream");
     }

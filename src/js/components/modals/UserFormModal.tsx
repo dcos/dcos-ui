@@ -18,7 +18,7 @@ class UserFormModal extends mixin(StoreMixin) {
     this.state = {
       disableNewUser: false,
       errorMsg: false,
-      errorCode: null
+      errorCode: null,
     };
 
     // prettier-ignore
@@ -30,7 +30,7 @@ class UserFormModal extends mixin(StoreMixin) {
     this.setState({
       disableNewUser: false,
       errorMsg: false,
-      errorCode: null
+      errorCode: null,
     });
     this.props.onClose();
   };
@@ -39,25 +39,25 @@ class UserFormModal extends mixin(StoreMixin) {
     this.setState({
       disableNewUser: false,
       errorMsg,
-      errorCode: xhr.status
+      errorCode: xhr.status,
     });
   }
   handleClose = () => {
     this.setState({
       disableNewUser: false,
       errorMsg: false,
-      errorCode: null
+      errorCode: null,
     });
     this.props.onClose();
   };
-  handleNewUserSubmit = model => {
+  handleNewUserSubmit = (model) => {
     const { i18n } = this.props;
     const passwordsMessage = i18nMark("Passwords do not match.");
 
     if (model.password !== model.confirmPassword) {
       // Check if passwords match.
       return this.setState({
-        errorMsg: i18n._(passwordsMessage)
+        errorMsg: i18n._(passwordsMessage),
       });
     }
     delete model.confirmPassword; // We don't need to send this to the backend.
@@ -66,7 +66,7 @@ class UserFormModal extends mixin(StoreMixin) {
     const userModelObject = Hooks.applyFilter("userModelObject", {
       ...model,
       creator_uid: AuthStore.getUser().uid,
-      cluster_url: `${window.location.protocol}//${window.location.hostname}`
+      cluster_url: `${window.location.protocol}//${window.location.hostname}`,
     });
     UserStore.addUser(userModelObject);
   };
@@ -80,15 +80,15 @@ class UserFormModal extends mixin(StoreMixin) {
         {
           text: i18nMark("Cancel"),
           className: "button button-primary-link",
-          isClose: true
+          isClose: true,
         },
         {
           text: state.disableNewUser
             ? i18nMark("Adding...")
             : i18nMark("Add User"),
           className: "button button-primary",
-          isSubmit: true
-        }
+          isSubmit: true,
+        },
       ],
       props,
       state
@@ -112,8 +112,8 @@ class UserFormModal extends mixin(StoreMixin) {
           validation() {
             return true;
           },
-          value: ""
-        }
+          value: "",
+        },
       ],
       props,
       state
@@ -155,7 +155,7 @@ class UserFormModal extends mixin(StoreMixin) {
         disabled={this.state.disableNewUser}
         modalProps={{
           header: this.getHeader(),
-          showHeader: true
+          showHeader: true,
         }}
         onClose={this.handleClose}
         onSubmit={this.handleNewUserSubmit}

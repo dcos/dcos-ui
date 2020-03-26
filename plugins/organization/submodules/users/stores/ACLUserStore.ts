@@ -13,7 +13,7 @@ import {
   REQUEST_ACL_USER_UPDATE_SUCCESS,
   REQUEST_ACL_USER_UPDATE_ERROR,
   REQUEST_ACL_USER_DELETE_SUCCESS,
-  REQUEST_ACL_USER_DELETE_ERROR
+  REQUEST_ACL_USER_DELETE_ERROR,
 } from "../constants/ActionTypes";
 
 import {
@@ -34,7 +34,7 @@ import {
   ACL_USER_UPDATE_SUCCESS,
   ACL_USER_UPDATE_ERROR,
   ACL_USER_DELETE_SUCCESS,
-  ACL_USER_DELETE_ERROR
+  ACL_USER_DELETE_ERROR,
 } from "../constants/EventTypes";
 
 import ACLUsersActions from "../actions/ACLUsersActions";
@@ -63,12 +63,12 @@ class ACLUserStore extends BaseStore {
         createLDAPSuccess: ACL_LDAP_USER_CREATE_SUCCESS,
         createLDAPError: ACL_LDAP_USER_CREATE_ERROR,
         updateSuccess: ACL_USER_UPDATE_SUCCESS,
-        updateError: ACL_USER_UPDATE_ERROR
+        updateError: ACL_USER_UPDATE_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         // Get user details
         case REQUEST_ACL_USER_SUCCESS:
@@ -140,7 +140,7 @@ class ACLUserStore extends BaseStore {
     users[userID] = user;
     SDK.getSDK().dispatch({
       type: ACL_USER_SET_USER,
-      users
+      users,
     });
   }
 
@@ -168,7 +168,7 @@ class ACLUserStore extends BaseStore {
     usersFetching[userID] = { user: false, groups: false, permissions: false };
     SDK.getSDK().dispatch({
       type: ACL_USER_DETAILS_FETCH_START,
-      usersFetching
+      usersFetching,
     });
 
     ACLUsersActions.fetchUser(userID);
@@ -192,7 +192,7 @@ class ACLUserStore extends BaseStore {
     usersFetching[userID][type] = true;
 
     let fetchedAll = true;
-    Object.keys(usersFetching[userID]).forEach(key => {
+    Object.keys(usersFetching[userID]).forEach((key) => {
       if (usersFetching[userID][key] === false) {
         fetchedAll = false;
       }
@@ -202,7 +202,7 @@ class ACLUserStore extends BaseStore {
       delete usersFetching[userID];
       SDK.getSDK().dispatch({
         type: ACL_USER_DETAILS_FETCHED_SUCCESS,
-        usersFetching
+        usersFetching,
       });
       this.emit(ACL_USER_DETAILS_FETCHED_SUCCESS, userID);
     }
@@ -223,7 +223,7 @@ class ACLUserStore extends BaseStore {
     delete usersFetching[userID];
     SDK.getSDK().dispatch({
       type: ACL_USER_DETAILS_FETCHED_ERROR,
-      usersFetching
+      usersFetching,
     });
     this.emit(ACL_USER_DETAILS_FETCHED_ERROR, userID);
   }

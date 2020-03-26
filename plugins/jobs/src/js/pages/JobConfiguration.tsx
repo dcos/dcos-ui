@@ -14,5 +14,5 @@ export default function JobConfiguration({ job }) {
 }
 
 JobConfiguration.propTypes = {
-  job: PropTypes.object.isRequired
+  job: PropTypes.object.isRequired,
 };

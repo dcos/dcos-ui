@@ -4,11 +4,11 @@ import Cluster from "../structs/Cluster";
 
 import {
   REQUEST_CLUSTER_LIST_SUCCESS,
-  REQUEST_CLUSTER_LIST_ERROR
+  REQUEST_CLUSTER_LIST_ERROR,
 } from "../constants/ActionTypes";
 import {
   CLUSTER_LIST_SUCCESS,
-  CLUSTER_LIST_ERROR
+  CLUSTER_LIST_ERROR,
 } from "../constants/EventTypes";
 
 const SDK = require("../SDK");
@@ -24,12 +24,12 @@ class ClusterLinkingStore extends BaseStore {
       storeID: "cluster-linking",
       events: {
         clusterListSuccess: CLUSTER_LIST_SUCCESS,
-        clusterListError: CLUSTER_LIST_ERROR
+        clusterListError: CLUSTER_LIST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       const data = action.data;
 
       switch (action.type) {
@@ -56,7 +56,7 @@ class ClusterLinkingStore extends BaseStore {
   }
 
   getLinkedClusters() {
-    return this.clusters.map(cluster => new Cluster(cluster));
+    return this.clusters.map((cluster) => new Cluster(cluster));
   }
 
   processClusterListSuccess(cluster) {

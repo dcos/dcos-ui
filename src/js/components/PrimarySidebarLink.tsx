@@ -13,7 +13,7 @@ const PrimarySidebarLink = ({
   icon,
   isChildActive,
   isExpanded,
-  onClick
+  onClick,
 }) => {
   const notificationCount = NotificationStore.getNotificationCount(to);
 
@@ -38,7 +38,7 @@ const PrimarySidebarLink = ({
     const classes = classNames(
       {
         clickable: !isChildActive,
-        "is-expanded": isExpanded
+        "is-expanded": isExpanded,
       },
       "expandable"
     );

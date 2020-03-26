@@ -3,7 +3,7 @@ import Util from "../utils/Util";
 import UserSettingsStore from "./UserSettingsStore";
 import { SAVED_STATE_KEY } from "../constants/UserSettings";
 
-const getColumnWidths = tableId =>
+const getColumnWidths = (tableId) =>
   Util.findNestedPropertyInObject(
     UserSettingsStore.getKey(SAVED_STATE_KEY),
     tableId

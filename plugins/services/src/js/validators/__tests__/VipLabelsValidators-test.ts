@@ -15,7 +15,7 @@ describe("VipLabelsValidators", () => {
 
       it("returns no errors if Label for VIP is correct", () => {
         const spec = {
-          portDefinitions: [{ labels: { VIP_0: "endpoint-name:1000" } }]
+          portDefinitions: [{ labels: { VIP_0: "endpoint-name:1000" } }],
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
@@ -23,51 +23,51 @@ describe("VipLabelsValidators", () => {
       it("returns no errors if Label for VIP is correct", () => {
         const spec = {
           container: {
-            portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }]
-          }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:1000" } }],
+          },
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
 
       it("returns an error if Label for VIP contains no port", () => {
         const spec = {
-          portDefinitions: [{ labels: { VIP_0: "endpoint-name" } }]
+          portDefinitions: [{ labels: { VIP_0: "endpoint-name" } }],
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
               "Label for VIP must be in the following format: <ip-addres|name>:<port>",
-            path: ["portDefinitions", 0, "labels", "VIP_0"]
-          }
+            path: ["portDefinitions", 0, "labels", "VIP_0"],
+          },
         ]);
       });
 
       it("returns an error if Label for VIP contains non-integer port", () => {
         const spec = {
           container: {
-            portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }]
-          }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:port" } }],
+          },
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
               "Label for VIP must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "portMappings", 0, "labels", "VIP_0"]
-          }
+            path: ["container", "portMappings", 0, "labels", "VIP_0"],
+          },
         ]);
       });
 
       it("returns an error if Label for VIP contains an integer port that exceeds the max", () => {
         const spec = {
           container: {
-            portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }]
-          }
+            portMappings: [{ labels: { VIP_0: "0.0.0.0:10000000" } }],
+          },
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message: "Port should be an integer less than or equal to 65535",
-            path: ["container", "portMappings", 0, "labels", "VIP_0"]
-          }
+            path: ["container", "portMappings", 0, "labels", "VIP_0"],
+          },
         ]);
       });
 
@@ -78,21 +78,21 @@ describe("VipLabelsValidators", () => {
               { labels: { VIP_0: "0.0.0.0:port" } },
               { labels: { VIP_1: "0.0.0.0:65000" } },
               { labels: { VIP_2: "0.0.0.0:9090" } },
-              { labels: { VIP_3: ":9090" } }
-            ]
-          }
+              { labels: { VIP_3: ":9090" } },
+            ],
+          },
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
               "Label for VIP must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "portMappings", 0, "labels", "VIP_0"]
+            path: ["container", "portMappings", 0, "labels", "VIP_0"],
           },
           {
             message:
               "Label for VIP must be in the following format: <ip-addres|name>:<port>",
-            path: ["container", "portMappings", 3, "labels", "VIP_3"]
-          }
+            path: ["container", "portMappings", 3, "labels", "VIP_3"],
+          },
         ]);
       });
     });
@@ -107,9 +107,9 @@ describe("VipLabelsValidators", () => {
         const spec = {
           containers: [
             {
-              endpoints: [{ labels: { VIP_0: "0.0.0.0:9090" } }]
-            }
-          ]
+              endpoints: [{ labels: { VIP_0: "0.0.0.0:9090" } }],
+            },
+          ],
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([]);
       });
@@ -118,16 +118,16 @@ describe("VipLabelsValidators", () => {
         const spec = {
           containers: [
             {
-              endpoints: [{ labels: { VIP_0: ":9090" } }]
-            }
-          ]
+              endpoints: [{ labels: { VIP_0: ":9090" } }],
+            },
+          ],
         };
         expect(VipLabelsValidators.mustContainPort(spec)).toEqual([
           {
             message:
               "Label for VIP must be in the following format: <ip-addres|name>:<port>",
-            path: ["containers", 0, "endpoints", 0, "labels", "VIP_0"]
-          }
+            path: ["containers", 0, "endpoints", 0, "labels", "VIP_0"],
+          },
         ]);
       });
     });

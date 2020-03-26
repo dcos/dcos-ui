@@ -4,11 +4,11 @@ import * as React from "react";
 
 import { omit } from "../../utils/Util";
 
-const FieldHelp = props => {
+const FieldHelp = (props) => {
   const { className, textTransform } = props;
   const classes = classNames("form-control-feedback", className, {
     "text-uppercase": textTransform === "uppercase",
-    "text-no-transform": textTransform === "none"
+    "text-no-transform": textTransform === "none",
   });
 
   return (
@@ -17,7 +17,7 @@ const FieldHelp = props => {
 };
 
 FieldHelp.defaultProps = {
-  textTransform: "none"
+  textTransform: "none",
 };
 
 FieldHelp.propTypes = {
@@ -25,9 +25,9 @@ FieldHelp.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
-  textTransform: PropTypes.oneOf(["none", "uppercase"])
+  textTransform: PropTypes.oneOf(["none", "uppercase"]),
 };
 
 export default FieldHelp;

@@ -1,12 +1,12 @@
 import { jobFormOutputToSpecReducer } from "../JobReducers";
 import {
   getDefaultDocker,
-  getDefaultContainer
+  getDefaultContainer,
 } from "../../helpers/DefaultFormData";
 import {
   JobFormActionType,
   Container,
-  UcrImageKind
+  UcrImageKind,
 } from "../../helpers/JobFormData";
 
 const state = {
@@ -22,9 +22,9 @@ const state = {
       mem: 32,
       gpus: 0,
       docker: getDefaultDocker(),
-      ucr: getDefaultContainer()
-    }
-  }
+      ucr: getDefaultContainer(),
+    },
+  },
 };
 
 const stateWithContainer = {
@@ -40,9 +40,9 @@ const stateWithContainer = {
       mem: 32,
       gpus: 0,
       docker: getDefaultDocker(),
-      ucr: getDefaultContainer()
-    }
-  }
+      ucr: getDefaultContainer(),
+    },
+  },
 };
 
 describe("JobReducers", () => {
@@ -57,8 +57,8 @@ describe("JobReducers", () => {
             cpus: 1,
             disk: 0,
             mem: 32,
-            gpus: 0
-          }
+            gpus: 0,
+          },
         };
         const expected = {
           cmdOnly: true,
@@ -73,14 +73,14 @@ describe("JobReducers", () => {
               mem: 32,
               gpus: 0,
               docker: getDefaultDocker(),
-              ucr: getDefaultContainer()
-            }
-          }
+              ucr: getDefaultContainer(),
+            },
+          },
         };
         const action = {
           type: JobFormActionType.Override,
           path: "json",
-          value: jsonValue
+          value: jsonValue,
         };
 
         expect(jobFormOutputToSpecReducer(action, state)).toEqual(expected);
@@ -97,9 +97,9 @@ describe("JobReducers", () => {
             mem: 32,
             gpus: 0,
             docker: {
-              image: "bar"
-            }
-          }
+              image: "bar",
+            },
+          },
         };
         const expected = {
           cmdOnly: false,
@@ -114,21 +114,21 @@ describe("JobReducers", () => {
               mem: 32,
               gpus: 0,
               docker: {
-                image: "bar"
+                image: "bar",
               },
               ucr: {
                 image: {
                   id: "bar",
-                  kind: UcrImageKind.Docker
-                }
-              }
-            }
-          }
+                  kind: UcrImageKind.Docker,
+                },
+              },
+            },
+          },
         };
         const action = {
           type: JobFormActionType.Override,
           path: "json",
-          value: jsonValue
+          value: jsonValue,
         };
 
         expect(jobFormOutputToSpecReducer(action, state)).toEqual(expected);
@@ -142,7 +142,7 @@ describe("JobReducers", () => {
         const action = {
           type: JobFormActionType.Set,
           path: "containerImage",
-          value: "image"
+          value: "image",
         };
         const expected = {
           cmdOnly: false,
@@ -157,16 +157,16 @@ describe("JobReducers", () => {
               mem: 32,
               gpus: 0,
               docker: {
-                image: "image"
+                image: "image",
               },
               ucr: {
                 image: {
                   id: "image",
-                  kind: UcrImageKind.Docker
-                }
-              }
-            }
-          }
+                  kind: UcrImageKind.Docker,
+                },
+              },
+            },
+          },
         };
 
         expect(jobFormOutputToSpecReducer(action, stateWithContainer)).toEqual(
@@ -182,7 +182,7 @@ describe("JobReducers", () => {
         const action = {
           type: JobFormActionType.Set,
           path: "cmdOnly",
-          value: "true"
+          value: "true",
         };
         expect(jobFormOutputToSpecReducer(action, stateWithContainer)).toEqual(
           state
@@ -197,7 +197,7 @@ describe("JobReducers", () => {
         const action = {
           type: JobFormActionType.Set,
           path: "job.id",
-          value: "newId"
+          value: "newId",
         };
         const expected = {
           cmdOnly: true,
@@ -212,9 +212,9 @@ describe("JobReducers", () => {
               mem: 32,
               gpus: 0,
               docker: getDefaultDocker(),
-              ucr: getDefaultContainer()
-            }
-          }
+              ucr: getDefaultContainer(),
+            },
+          },
         };
 
         expect(jobFormOutputToSpecReducer(action, state)).toEqual(expected);

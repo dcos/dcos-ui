@@ -7,7 +7,7 @@ import {
   map,
   exhaustMap,
   publishReplay,
-  refCount
+  refCount,
 } from "rxjs/operators";
 import { request } from "@dcos/http-service";
 
@@ -16,7 +16,7 @@ function fetchUnit(unitID) {
 
   return request(unitUrl).pipe(
     map(({ response }) => response.nodes),
-    catchError(_err => of([]))
+    catchError((_err) => of([]))
   );
 }
 
@@ -29,9 +29,9 @@ export function replayStream(stream) {
 }
 
 function withHealthDescription(masters) {
-  return masters.map(master => ({
+  return masters.map((master) => ({
     ...master,
-    healthDescription: UnitHealthUtil.getHealth(parseInt(master.health, 10))
+    healthDescription: UnitHealthUtil.getHealth(parseInt(master.health, 10)),
   }));
 }
 

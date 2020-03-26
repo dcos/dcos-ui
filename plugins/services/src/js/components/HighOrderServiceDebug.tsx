@@ -6,7 +6,7 @@ import PodDebugContainer from "../containers/pod-debug/PodDebugContainer";
 import Service from "../structs/Service";
 import ServiceDebugContainer from "../containers/service-debug/ServiceDebugContainer";
 
-const HighOrderServiceDebug = props => {
+const HighOrderServiceDebug = (props) => {
   const { service } = props;
   if (service instanceof Pod) {
     return <PodDebugContainer pod={service} />;
@@ -18,8 +18,8 @@ const HighOrderServiceDebug = props => {
 HighOrderServiceDebug.propTypes = {
   service: PropTypes.oneOfType([
     PropTypes.instanceOf(Pod),
-    PropTypes.instanceOf(Service)
-  ])
+    PropTypes.instanceOf(Service),
+  ]),
 };
 
 export default HighOrderServiceDebug;

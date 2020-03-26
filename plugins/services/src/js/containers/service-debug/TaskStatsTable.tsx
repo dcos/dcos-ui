@@ -10,20 +10,20 @@ const taskStatus = [
   "getRunningTaskCount",
   "getHealthyTaskCount",
   "getUnhealthyTaskCount",
-  "getStagedTaskCount"
+  "getStagedTaskCount",
 ];
 const nameMapping = {
   startedAfterLastScaling: i18nMark("Started After Last Scaling"),
   withLatestConfig: i18nMark("With Latest Config"),
   withOutdatedConfig: i18nMark("With Outdated Config"),
-  totalSummary: i18nMark("Total Summary")
+  totalSummary: i18nMark("Total Summary"),
 };
 const headerMapping = {
   getRunningTaskCount: i18nMark("RUNNING"),
   getHealthyTaskCount: i18nMark("HEALTHY"),
   getUnhealthyTaskCount: i18nMark("UNHEALTHY"),
   getStagedTaskCount: i18nMark("STAGED"),
-  getMedianLifeTime: i18nMark("MEDIAN LIFETIME")
+  getMedianLifeTime: i18nMark("MEDIAN LIFETIME"),
 };
 
 class TaskStatsTable extends React.Component {
@@ -34,7 +34,7 @@ class TaskStatsTable extends React.Component {
     return classNames({
       active: prop === sortBy.prop,
       "text-align-right": shouldAlignRight,
-      "hidden-small-down": taskStatus.includes(prop)
+      "hidden-small-down": taskStatus.includes(prop),
     });
   }
 
@@ -51,7 +51,7 @@ class TaskStatsTable extends React.Component {
         render(prop, taskStats) {
           return <Trans id={nameMapping[taskStats.getName()]} />;
         },
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -59,7 +59,7 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getRunningTaskCount",
         render: this.getStatus,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -67,7 +67,7 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getHealthyTaskCount",
         render: this.getStatus,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -75,7 +75,7 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getUnhealthyTaskCount",
         render: this.getStatus,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -83,7 +83,7 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getStagedTaskCount",
         render: this.getStatus,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -91,8 +91,8 @@ class TaskStatsTable extends React.Component {
         heading,
         prop: "getMedianLifeTime",
         render: this.renderTime,
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   }
 

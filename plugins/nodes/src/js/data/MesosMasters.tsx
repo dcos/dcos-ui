@@ -15,9 +15,9 @@ function mastersInitialState() {
       version: undefined,
       electedTime: undefined,
       startTime: undefined,
-      region: undefined
+      region: undefined,
     },
-    masters: undefined
+    masters: undefined,
   };
 }
 
@@ -26,7 +26,7 @@ function filterLeader(leader, masters) {
     return undefined;
   }
 
-  return masters.filter(master => master.host_ip !== leader.hostIp);
+  return masters.filter((master) => master.host_ip !== leader.hostIp);
 }
 
 export function combineMasterData(leaderDataSource, mesosMastersHealth) {
@@ -39,7 +39,7 @@ export function combineMasterData(leaderDataSource, mesosMastersHealth) {
     mesosLeader$.pipe(
       combineLatest(mesosMasters$, (leader, masters) => ({
         leader,
-        masters: filterLeader(leader, masters)
+        masters: filterLeader(leader, masters),
       }))
     );
 }

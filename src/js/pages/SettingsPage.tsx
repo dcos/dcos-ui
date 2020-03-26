@@ -11,7 +11,7 @@ const SettingsPage = ({ children }) => {
 SettingsPage.routeConfig = {
   label: i18nMark("Settings"),
   icon: <Icon shape={ProductIcons.GearInverse} size={iconSizeS} />,
-  matches: /^\/settings/
+  matches: /^\/settings/,
 };
 
 export default SettingsPage;

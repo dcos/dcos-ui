@@ -25,7 +25,7 @@ import {
   COSMOS_REPOSITORY_ADD_ERROR,
   COSMOS_REPOSITORY_ADD_SUCCESS,
   COSMOS_REPOSITORY_DELETE_ERROR,
-  COSMOS_REPOSITORY_DELETE_SUCCESS
+  COSMOS_REPOSITORY_DELETE_SUCCESS,
 } from "../constants/EventTypes";
 import {
   REQUEST_COSMOS_PACKAGE_DESCRIBE_ERROR,
@@ -49,7 +49,7 @@ import {
   REQUEST_COSMOS_SERVICE_DESCRIBE_SUCCESS,
   REQUEST_COSMOS_SERVICE_DESCRIBE_ERROR,
   REQUEST_COSMOS_SERVICE_UPDATE_SUCCESS,
-  REQUEST_COSMOS_SERVICE_UPDATE_ERROR
+  REQUEST_COSMOS_SERVICE_UPDATE_ERROR,
 } from "../constants/ActionTypes";
 import RepositoryList from "../structs/RepositoryList";
 import UniverseInstalledPackagesList from "../structs/UniverseInstalledPackagesList";
@@ -69,7 +69,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
       serviceDetails: null,
       packageVersions: null,
       installedPackages: [],
-      repositories: []
+      repositories: [],
     };
 
     PluginSDK.addStoreConfig({
@@ -101,12 +101,12 @@ class CosmosPackagesStore extends GetSetBaseStore {
         serviceDescriptionError: COSMOS_SERVICE_DESCRIBE_ERROR,
 
         serviceUpdateSuccess: COSMOS_SERVICE_UPDATE_SUCCESS,
-        serviceUpdateError: COSMOS_SERVICE_UPDATE_ERROR
+        serviceUpdateError: COSMOS_SERVICE_UPDATE_ERROR,
       },
-      unmountWhen: (store, event) => event === "availableSuccess"
+      unmountWhen: (store, event) => event === "availableSuccess",
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       const data = action.data;
 
@@ -292,13 +292,13 @@ class CosmosPackagesStore extends GetSetBaseStore {
   /* Reducers */
   getAvailablePackages() {
     return new UniversePackagesList({
-      items: this.get("availablePackages") || []
+      items: this.get("availablePackages") || [],
     });
   }
 
   getInstalledPackages() {
     return new UniverseInstalledPackagesList({
-      items: this.get("installedPackages")
+      items: this.get("installedPackages"),
     });
   }
 
@@ -373,8 +373,8 @@ class CosmosPackagesStore extends GetSetBaseStore {
       ...this.get("packagesVersions"),
 
       [packageName]: {
-        packageVersions
-      }
+        packageVersions,
+      },
     };
 
     this.set({ packagesVersions });
@@ -385,7 +385,7 @@ class CosmosPackagesStore extends GetSetBaseStore {
   processPackageListVersionsError(error, packageName) {
     const packagesVersions = {
       ...this.get("packagesVersions"),
-      [packageName]: null
+      [packageName]: null,
     };
 
     this.set({ packagesVersions });

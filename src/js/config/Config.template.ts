@@ -7,38 +7,38 @@ export default {
   uiConfigurationFixture: {
     uiConfiguration: {
       features: {
-        quota: false
+        quota: false,
       },
       plugins: {
         banner: {
-          enabled: false
+          enabled: false,
         },
         intercom: {
           enabled: true,
-          appId: "wn4z9z0y"
+          appId: "wn4z9z0y",
         },
         mesos: {
-          "logging-strategy": "logrotate"
+          "logging-strategy": "logrotate",
         },
         oauth: {
           enabled: true,
-          authHost: "https://dcos.auth0.com"
+          authHost: "https://dcos.auth0.com",
         },
         "overview-detail": {
-          enabled: true
+          enabled: true,
         },
         tracking: {
-          enabled: false
-        }
-      }
+          enabled: false,
+        },
+      },
     },
     clusterConfiguration: {
       firstUser: true,
-      id: "ui-fixture-cluster-id"
-    }
+      id: "ui-fixture-cluster-id",
+    },
   },
   // Use fixtures to mock API requests
   useFixtures: false,
   // Use uiConfigurationFixture defined above
-  useUIConfigFixtures: false
+  useUIConfigFixtures: false,
 };

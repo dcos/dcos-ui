@@ -17,23 +17,23 @@ describe("#getMasterRegionName", () => {
             address: {
               hostname: "10.0.7.187",
               ip: "10.0.7.187",
-              port: 5050
+              port: 5050,
             },
             domain: {
               fault_domain: {
                 region: {
-                  name: "aws/eu-central-1"
+                  name: "aws/eu-central-1",
                 },
                 zone: {
-                  name: "aws/eu-central-1b"
-                }
-              }
+                  name: "aws/eu-central-1b",
+                },
+              },
             },
-            capabilities: [{ type: "AGENT_UPDATE" }]
+            capabilities: [{ type: "AGENT_UPDATE" }],
           },
           start_time: 1554119786.1644359,
-          elected_time: 1554119789.467335
-        }
+          elected_time: 1554119789.467335,
+        },
       })
     ).toPromise();
 

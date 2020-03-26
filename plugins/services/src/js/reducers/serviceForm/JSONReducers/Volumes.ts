@@ -6,10 +6,10 @@ import Transaction from "#SRC/js/structs/Transaction";
 import ContainerConstants from "../../../constants/ContainerConstants";
 
 const {
-  type: { MESOS, DOCKER }
+  type: { MESOS, DOCKER },
 } = ContainerConstants;
 
-const mapVolumes = function(volume) {
+const mapVolumes = function (volume) {
   if (volume.type === "EXTERNAL") {
     if (
       this.runtimeType === DOCKER &&
@@ -19,21 +19,21 @@ const mapVolumes = function(volume) {
       return {
         external: omit(volume.external, ["size"]),
         mode: volume.mode,
-        containerPath: volume.containerPath
+        containerPath: volume.containerPath,
       };
     }
 
     return {
       external: volume.external,
       mode: volume.mode,
-      containerPath: volume.containerPath
+      containerPath: volume.containerPath,
     };
   }
   if (volume.type === "PERSISTENT") {
     return {
       persistent: omit(volume.persistent, ["profileName"]),
       mode: volume.mode,
-      containerPath: volume.containerPath
+      containerPath: volume.containerPath,
     };
   }
 
@@ -41,17 +41,17 @@ const mapVolumes = function(volume) {
     return {
       persistent: {
         type: "mount",
-        ...volume.persistent
+        ...volume.persistent,
       },
       mode: volume.mode,
-      containerPath: volume.containerPath
+      containerPath: volume.containerPath,
     };
   }
 
   return {
     containerPath: volume.containerPath,
     hostPath: volume.hostPath,
-    mode: volume.mode
+    mode: volume.mode,
   };
 };
 
@@ -104,11 +104,11 @@ function reduceVolumes(state, { type, path, value }) {
             external: {
               name: null,
               provider: "dvdi",
-              options: { "dvdi/driver": "rexray" }
+              options: { "dvdi/driver": "rexray" },
             },
 
             mode: "RW",
-            ...value
+            ...value,
           });
           break;
         case REMOVE_ITEM:
@@ -180,7 +180,7 @@ export function JSONParser(state) {
 
   return state.container.volumes
     .filter(
-      item =>
+      (item) =>
         item.persistent != null ||
         item.external != null ||
         item.hostPath != null ||

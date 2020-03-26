@@ -12,12 +12,12 @@ module.exports = {
       "ServiceEditMessage:Modal"
     );
 
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 
   isEnabledSDKAction(actionID) {
     return actionID === ServiceActionItem.EDIT;
-  }
+  },
 };

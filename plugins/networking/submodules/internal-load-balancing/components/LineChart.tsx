@@ -17,7 +17,7 @@ class LineChart extends React.Component {
         strokeBorderColor: "#ffffff",
         strokeBorderWidth: 0.5,
         strokeWidth: 1.75,
-        highlightCircleSize: 3
+        highlightCircleSize: 3,
       },
       labelsDiv: "dygraph-hover-label",
       labelsSeparateLines: true,
@@ -27,21 +27,21 @@ class LineChart extends React.Component {
       strokeWidth: 1.25,
       axes: {
         y: {
-          axisLabelWidth: 35
-        }
-      }
-    }
+          axisLabelWidth: 35,
+        },
+      },
+    },
   };
   static propTypes = {
     labels: PropTypes.array.isRequired,
     data: PropTypes.arrayOf(PropTypes.array.isRequired).isRequired,
-    chartOptions: PropTypes.object
+    chartOptions: PropTypes.object,
   };
   constructor() {
     super();
 
     this.state = {
-      disabledSeries: {}
+      disabledSeries: {},
     };
 
     this.chartRef = React.createRef();
@@ -60,7 +60,7 @@ class LineChart extends React.Component {
   componentDidUpdate(prevProps) {
     const props = this.props;
     const options = Object.assign(this.getOptions(), {
-      file: this.getGraphData()
+      file: this.getGraphData(),
     });
 
     this.graph.updateOptions(options);
@@ -97,7 +97,7 @@ class LineChart extends React.Component {
     const visibleSeries = this.graph.visibility();
     const isEnabled = visibleSeries[seriesID];
     const disabledSeries = {
-      ...this.state.disabledSeries
+      ...this.state.disabledSeries,
     };
 
     if (isEnabled) {
@@ -117,7 +117,7 @@ class LineChart extends React.Component {
 
   getMaxLengthForSet(set) {
     let longestValue = 1;
-    set.forEach(value => {
+    set.forEach((value) => {
       const valueString = value.toString();
       if (valueString.length > longestValue) {
         longestValue = valueString.length;
@@ -132,7 +132,7 @@ class LineChart extends React.Component {
       height: this.props.height,
       width: this.props.width,
       ...LineChart.defaultProps.chartOptions,
-      ...this.props.chartOptions
+      ...this.props.chartOptions,
     };
 
     if (!this.hasYAxisFormatter(this.props.chartOptions)) {
@@ -193,12 +193,12 @@ class LineChart extends React.Component {
       const index = i - 1;
       const style = {
         // -1 because we don't have a color for x
-        backgroundColor: this.props.chartOptions.colors[index]
+        backgroundColor: this.props.chartOptions.colors[index],
       };
 
       const classes = classNames({
         clickable: true,
-        disabled: this.state.disabledSeries[index]
+        disabled: this.state.disabledSeries[index],
       });
 
       return (

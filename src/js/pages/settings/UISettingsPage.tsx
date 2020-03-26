@@ -31,7 +31,7 @@ const UISettingsBreadcrumbs = ({ i18n }) => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/settings/ui-settings" />}>UI Settings</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -55,7 +55,7 @@ class UISettingsPage extends React.Component {
   constructor(...args) {
     super(...args);
     this.state = {
-      configRefreshRateOpen: false
+      configRefreshRateOpen: false,
     };
     this.toggleRefreshModal = this.toggleRefreshModal.bind(this);
     this.saveRefreshRate = this.saveRefreshRate.bind(this);
@@ -122,31 +122,31 @@ class UISettingsPage extends React.Component {
             {
               text: i18n._(t`Cancel`),
               className: "button button-primary-link flush-left",
-              isClose: true
+              isClose: true,
             },
             {
               text: i18n._(t`Save`),
               className: "button button-primary",
-              isSubmit: true
-            }
+              isSubmit: true,
+            },
           ]}
           definition={[
             {
               fieldType: "select",
               label: i18n._(t`Select your Refresh Rate`),
               showLabel: true,
-              options: [2, 5, 10, 15, 30, 60].map(refreshRate => ({
+              options: [2, 5, 10, 15, 30, 60].map((refreshRate) => ({
                 html: i18n._(t`${refreshRate} seconds`),
-                id: `${refreshRate}seconds`
+                id: `${refreshRate}seconds`,
               })),
               value: `${Config.getRefreshRate() / 1000}seconds`,
               name: "refreshRate",
-              formElementClass: "languageDropdown-wrapper"
-            }
+              formElementClass: "languageDropdown-wrapper",
+            },
           ]}
           modalProps={{
             header: i18n._(t`Configure Refresh Rate`),
-            showHeader: true
+            showHeader: true,
           }}
           onClose={this.toggleRefreshModal}
           onSubmit={this.saveRefreshRate}
@@ -159,7 +159,7 @@ class UISettingsPage extends React.Component {
 
 UISettingsPage.routeConfig = {
   label: i18nMark("UI Settings"),
-  matches: /^\/settings\/ui-settings/
+  matches: /^\/settings\/ui-settings/,
 };
 
 export default withI18n()(UISettingsPage);

@@ -14,21 +14,21 @@ module.exports = {
   filters: ["loginModalContent", "applicationRoutes"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       SDK.Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
   },
 
   applicationRoutes(routes) {
     // Find the route we wish to modify, the index route.
-    const indexRoute = routes[0].children.find(route => route.id === "index");
+    const indexRoute = routes[0].children.find((route) => route.id === "index");
 
     // Find the settings route within the index route.
     const settingsRouteIndex = indexRoute.children.findIndex(
-      route => route.path === "settings"
+      (route) => route.path === "settings"
     );
 
     // Append the identity providers route to the settings route's children.
@@ -41,9 +41,9 @@ module.exports = {
       children: [
         {
           type: Route,
-          path: ":providerType/:providerID"
-        }
-      ]
+          path: ":providerType/:providerID",
+        },
+      ],
     });
 
     return routes;
@@ -51,5 +51,5 @@ module.exports = {
 
   loginModalContent(previousContent, updateHandler) {
     return <LoginModalProviders onUpdate={updateHandler} />;
-  }
+  },
 };

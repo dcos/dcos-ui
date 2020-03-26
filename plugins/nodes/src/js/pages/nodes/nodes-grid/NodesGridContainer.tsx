@@ -27,7 +27,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
       receivedEmptyMesosState: true,
       receivedNodeHealthResponse: false,
       resourcesByFramework: {},
-      serviceColors: {}
+      serviceColors: {},
     };
     // prettier-ignore
     this.store_listeners = [
@@ -40,9 +40,9 @@ class NodesGridContainer extends mixin(StoreMixin) {
     const {
       services,
       location: { query },
-      hosts
+      hosts,
     } = props;
-    const ids = services.map(service => service.id);
+    const ids = services.map((service) => service.id);
 
     const { serviceColors } = this.state;
 
@@ -54,7 +54,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
     const filters = {
       health: query.filterHealth || "all",
       name: query.searchString || "",
-      service: query.filterService || null
+      service: query.filterService || null,
     };
     this.setFilters(hosts, filters);
   }
@@ -77,7 +77,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   computeShownServices(services) {
     const hidden = services
       .slice(MAX_SERVICES_TO_SHOW)
-      .map(service => service.id);
+      .map((service) => service.id);
 
     this.setState({ hiddenServices: hidden });
   }
@@ -93,7 +93,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
     }
     const filters = {
       ...this.state.filters,
-      ...newFilters
+      ...newFilters,
     };
     const filteredNodes = nodes.filter(filters);
 
@@ -122,7 +122,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
   onNodeHealthStoreSuccess() {
     this.setState({
       filteredNodes: this.getFilteredNodes(),
-      receivedNodeHealthResponse: true
+      receivedNodeHealthResponse: true,
     });
   }
 
@@ -134,7 +134,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
       receivedEmptyMesosState,
       receivedNodeHealthResponse,
       resourcesByFramework,
-      serviceColors
+      serviceColors,
     } = this.state;
 
     const { services, selectedResource } = this.props;
@@ -157,7 +157,7 @@ class NodesGridContainer extends mixin(StoreMixin) {
 
 NodesGridContainer.contextTypes = {
   router: routerShape.isRequired,
-  selectedResource: PropTypes.string
+  selectedResource: PropTypes.string,
 };
 
 export default NodesGridContainer;

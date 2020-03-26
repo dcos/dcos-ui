@@ -2,7 +2,7 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const ToggleButton = props => {
+const ToggleButton = (props) => {
   const { checkboxClassName, checked, children, className, onChange } = props;
 
   const textClassName = { muted: !checked };
@@ -24,7 +24,7 @@ const ToggleButton = props => {
 ToggleButton.defaultProps = {
   checked: false,
   onChange: () => undefined,
-  checkboxClassName: "toggle-button"
+  checkboxClassName: "toggle-button",
 };
 
 ToggleButton.propTypes = {
@@ -35,13 +35,13 @@ ToggleButton.propTypes = {
   checkboxClassName: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default ToggleButton;

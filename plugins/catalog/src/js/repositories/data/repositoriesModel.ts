@@ -6,7 +6,7 @@ import { injectable, decorate } from "inversify";
 import {
   liveFetchRepositories,
   addRepository,
-  deleteRepository
+  deleteRepository,
 } from "#PLUGINS/catalog/src/js/repositories/data/PackageRepositoryClient";
 
 export const typeDefs = `
@@ -27,7 +27,7 @@ export const typeDefs = `
   }
 `;
 
-const getRepositoryList = filter => ({ response }) =>
+const getRepositoryList = (filter) => ({ response }) =>
   Object.values(
     new RepositoryList({ items: response.repositories })
       .filterItemsByText(filter)
@@ -37,7 +37,7 @@ const getRepositoryList = filter => ({ response }) =>
 export function resolvers({
   liveFetchRepositories,
   addRepository,
-  deleteRepository
+  deleteRepository,
 }) {
   return {
     Query: {
@@ -46,7 +46,7 @@ export function resolvers({
 
         // Filter Logic Backwards compatible with the previous struct/RepositoryList
         return liveFetchRepositories().pipe(map(getRepositoryList(filter)));
-      }
+      },
     },
     Mutation: {
       addPackageRepository: (parent, args) =>
@@ -54,15 +54,15 @@ export function resolvers({
           map(getRepositoryList(""))
         ),
       removePackageRepository: (parent, args) =>
-        deleteRepository(args.name, args.uri).pipe(map(getRepositoryList("")))
-    }
+        deleteRepository(args.name, args.uri).pipe(map(getRepositoryList(""))),
+    },
   };
 }
 
 const boundResolvers = resolvers({
   liveFetchRepositories,
   addRepository,
-  deleteRepository
+  deleteRepository,
 });
 
 const RepositoryType = Symbol("Repository");

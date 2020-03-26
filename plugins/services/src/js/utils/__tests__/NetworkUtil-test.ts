@@ -5,21 +5,21 @@ describe("NetworkUtil", () => {
     it("returns true if the network type is HOST", () => {
       expect(
         isHostNetwork({
-          networks: [{ mode: "HOST" }]
+          networks: [{ mode: "HOST" }],
         })
       ).toBe(true);
     });
     it("returns true if there are no networks", () => {
       expect(
         isHostNetwork({
-          networks: []
+          networks: [],
         })
       ).toBe(true);
     });
     it("returns false if the network type is not HOST", () => {
       expect(
         isHostNetwork({
-          networks: [{ mode: "BRIDGE" }]
+          networks: [{ mode: "BRIDGE" }],
         })
       ).toBe(false);
     });

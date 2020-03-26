@@ -12,23 +12,23 @@ describe("ServiceAttributeNoHealthchecksFilter", () => {
       {
         getHealth() {
           return HealthStatus.HEALTHY;
-        }
+        },
       },
       {
         getHealth() {
           return HealthStatus.UNHEALTHY;
-        }
+        },
       },
       {
         getHealth() {
           return HealthStatus.IDLE;
-        }
+        },
       },
       {
         getHealth() {
           return HealthStatus.NA;
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -39,7 +39,7 @@ describe("ServiceAttributeNoHealthchecksFilter", () => {
     const filters = [new ServiceAttributeNoHealthchecksFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[3]
+      thisMockItems[3],
     ]);
   });
 
@@ -59,7 +59,7 @@ describe("ServiceAttributeNoHealthchecksFilter", () => {
     const filters = [new ServiceAttributeNoHealthchecksFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[3]
+      thisMockItems[3],
     ]);
   });
 });

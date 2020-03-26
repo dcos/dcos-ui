@@ -16,8 +16,8 @@ describe("#ComponentList", () => {
         { id: "dcos-mesos-dns.service", health: 1, name: "Mesos DNS" },
         { id: "dcos-mesos-master.service", health: 0 },
         { id: "dcos-signal.service", health: 0, name: "A Signal Service" },
-        { id: "log-rotate", health: 3, name: "Log Rotate" }
-      ]
+        { id: "log-rotate", health: 3, name: "Log Rotate" },
+      ],
     });
     const displayCount = 2;
 
@@ -43,8 +43,8 @@ describe("#ComponentList", () => {
           _itemData: {
             id: "dcos-mesos-dns.service",
             health: 1,
-            name: "Mesos DNS"
-          }
+            name: "Mesos DNS",
+          },
         },
         {
           id: "log-rotate",
@@ -53,8 +53,8 @@ describe("#ComponentList", () => {
           _itemData: {
             id: "log-rotate",
             health: 3,
-            name: "Log Rotate"
-          }
+            name: "Log Rotate",
+          },
         },
         {
           id: "dcos-signal.service",
@@ -63,8 +63,8 @@ describe("#ComponentList", () => {
           _itemData: {
             id: "dcos-signal.service",
             health: 0,
-            name: "A Signal Service"
-          }
+            name: "A Signal Service",
+          },
         },
         {
           id: "dcos-marathon.service",
@@ -73,17 +73,17 @@ describe("#ComponentList", () => {
           _itemData: {
             id: "dcos-marathon.service",
             health: 0,
-            name: "Marathon"
-          }
+            name: "Marathon",
+          },
         },
         {
           id: "dcos-mesos-master.service",
           health: 0,
           _itemData: {
             id: "dcos-mesos-master.service",
-            health: 0
-          }
-        }
+            health: 0,
+          },
+        },
       ];
 
       expect(sortedUnits).toEqual(expectedResult);

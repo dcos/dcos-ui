@@ -4,7 +4,7 @@ import {
   map,
   publishReplay,
   refCount,
-  switchMap
+  switchMap,
 } from "rxjs/operators";
 
 import Config from "#SRC/js/config/Config";
@@ -30,7 +30,7 @@ function getUiMetadata$(): Observable<UIMetadata> {
 
   const actionsCompleteError$ = action$.pipe(
     filter(
-      uiAction =>
+      (uiAction) =>
         uiAction.action === UIActions.Completed ||
         uiAction.action === UIActions.Error
     )
@@ -51,7 +51,7 @@ function getUpdateAvailable$() {
   const cosmosVersions$ = queryCosmosForUIVersions();
   return combineLatest<[UIMetadata, Package]>([
     uiMetaData$,
-    cosmosVersions$
+    cosmosVersions$,
   ]).pipe(
     map(([uiMetaData, packageInfo]) =>
       versionUpdateAvailable(packageInfo, uiMetaData)

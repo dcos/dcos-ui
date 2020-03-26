@@ -5,7 +5,7 @@ import LoginModal from "./LoginModal";
 
 export default class LoginPage extends React.Component {
   static propTypes = {
-    location: locationShape.isRequired
+    location: locationShape.isRequired,
   };
   render() {
     const { target } = this.props.location.query;

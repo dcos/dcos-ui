@@ -98,11 +98,11 @@ MultiContainerFileInput.propTypes = {
   values: PropTypes.arrayOf(PropTypes.string).isRequired,
   containers: PropTypes.arrayOf(
     PropTypes.shape({
-      name: PropTypes.string
+      name: PropTypes.string,
     })
   ),
   showErrors: PropTypes.bool,
-  errors: PropTypes.object
+  errors: PropTypes.object,
 };
 
 export default MultiContainerFileInput;

@@ -16,7 +16,7 @@ const FilterByService = createReactClass({
     byFrameworkFilter: PropTypes.string,
     frameworks: PropTypes.array.isRequired,
     totalHostsCount: PropTypes.number.isRequired,
-    handleFilterChange: PropTypes.func
+    handleFilterChange: PropTypes.func,
   },
 
   getDefaultProps() {
@@ -24,7 +24,7 @@ const FilterByService = createReactClass({
       byFrameworkFilter: defaultId,
       frameworks: [],
       totalHostsCount: 0,
-      handleFilterChange() {}
+      handleFilterChange() {},
     };
   },
 
@@ -32,7 +32,7 @@ const FilterByService = createReactClass({
     if (obj.id === defaultId) {
       this.props.handleFilterChange(null, null);
     } else {
-      const framework = this.props.frameworks.find(f => f.id === obj.id);
+      const framework = this.props.frameworks.find((f) => f.id === obj.id);
       const filteredLength = framework ? framework.getNodeIDs().length : 0;
 
       this.props.handleFilterChange(obj.id, filteredLength);
@@ -55,11 +55,11 @@ const FilterByService = createReactClass({
       id: defaultId,
       name: i18nMark("All Frameworks"),
       // This is literally the worst way of doing this.
-      slave_ids: new Array(this.props.totalHostsCount)
+      slave_ids: new Array(this.props.totalHostsCount),
     });
     const items = [defaultItem].concat(this.props.frameworks);
 
-    return items.map(framework => {
+    return items.map((framework) => {
       const frameworkId = framework.get("id");
       const selectedHtml = this.getItemHtml(framework);
       const dropdownHtml = <a>{selectedHtml}</a>;
@@ -68,7 +68,7 @@ const FilterByService = createReactClass({
         id: framework.get("id"),
         name: framework.get("name"),
         html: dropdownHtml,
-        selectedHtml
+        selectedHtml,
       };
 
       if (frameworkId === this.props.byFrameworkFilter) {
@@ -98,14 +98,14 @@ const FilterByService = createReactClass({
         items={this.getDropdownItems()}
         initialID={this.props.byFrameworkFilter || defaultId}
         onItemSelection={this.handleItemSelection}
-        ref={ref => (this.dropdown = ref)}
+        ref={(ref) => (this.dropdown = ref)}
         scrollContainer=".gm-scroll-view"
         scrollContainerParentSelector=".gm-prevented"
         transition={true}
         transitionName="dropdown-menu"
       />
     );
-  }
+  },
 });
 
 export default FilterByService;

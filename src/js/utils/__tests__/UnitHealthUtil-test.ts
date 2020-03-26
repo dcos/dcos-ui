@@ -27,7 +27,7 @@ describe("UnitHealthUnit", () => {
         title: "Unhealthy",
         sortingValue: 0,
         value: 1,
-        classNames: "text-danger"
+        classNames: "text-danger",
       });
     });
 
@@ -44,7 +44,7 @@ describe("UnitHealthUnit", () => {
       const items = [
         { id: "food", health: 0 },
         { id: "bard", health: 0 },
-        { id: "bluh", health: 2 }
+        { id: "bluh", health: 2 },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ health: "healthy" }).getItems();

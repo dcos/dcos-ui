@@ -9,7 +9,7 @@ const ConfigActions = {
     if (window.APPLICATION_CONFIGURATION) {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_CONFIG_SUCCESS,
-        data: JSON.parse(window.APPLICATION_CONFIGURATION)
+        data: JSON.parse(window.APPLICATION_CONFIGURATION),
       });
     }
 
@@ -18,16 +18,16 @@ const ConfigActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CONFIG_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CONFIG_ERROR,
           data: xhr.message,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -37,17 +37,17 @@ const ConfigActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CLUSTER_CCID_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: ActionTypes.REQUEST_CLUSTER_CCID_ERROR,
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures || Config.useUIConfigFixtures) {
@@ -59,12 +59,12 @@ if (Config.useFixtures || Config.useUIConfigFixtures) {
     fetchConfig: {
       event: "success",
       success: {
-        response: Config.uiConfigurationFixture
-      }
-    }
+        response: Config.uiConfigurationFixture,
+      },
+    },
   };
 
-  Object.keys(window.actionTypes.ConfigActions).forEach(method => {
+  Object.keys(window.actionTypes.ConfigActions).forEach((method) => {
     ConfigActions[method] = RequestUtil.stubRequest(
       ConfigActions,
       "ConfigActions",

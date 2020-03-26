@@ -4,11 +4,11 @@ import LicensingSummary from "../structs/LicensingSummary";
 
 import {
   REQUEST_LICENSING_SUMMARY_ERROR,
-  REQUEST_LICENSING_SUMMARY_SUCCESS
+  REQUEST_LICENSING_SUMMARY_SUCCESS,
 } from "../constants/ActionTypes";
 import {
   LICENSING_SUMMARY_SUCCESS,
-  LICENSING_SUMMARY_ERROR
+  LICENSING_SUMMARY_ERROR,
 } from "../constants/EventTypes";
 
 const SDK = require("../SDK");
@@ -28,12 +28,12 @@ class LicensingStore extends BaseStore {
       storeID: "licensing",
       events: {
         licensingSummarySuccess: LICENSING_SUMMARY_SUCCESS,
-        licensingSummaryError: LICENSING_SUMMARY_ERROR
+        licensingSummaryError: LICENSING_SUMMARY_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       const data = action.data;
 
       switch (action.type) {

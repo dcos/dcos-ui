@@ -7,5 +7,5 @@ export default {
   STAGING: "staging",
   STABLE: "stable",
   DEGRADED: "degraded",
-  TERMINAL: "terminal"
+  TERMINAL: "terminal",
 };

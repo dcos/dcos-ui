@@ -2,11 +2,11 @@ import * as React from "react";
 import { CheckboxTable, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import {
   secretPathRenderer,
-  pathSorter
+  pathSorter,
 } from "./columns/SecretsTablePathColumn";
 import {
   actionsRenderer,
-  actionsWidth
+  actionsWidth,
 } from "./columns/SecretsTableActionColumn";
 
 import Secret from "../structs/Secret";
@@ -33,7 +33,7 @@ class ServicesTable extends React.PureComponent<
 
     this.state = {
       items: [],
-      sortDirection: "ASC"
+      sortDirection: "ASC",
     };
 
     this.handleSortClick = this.handleSortClick.bind(this);
@@ -94,7 +94,7 @@ class ServicesTable extends React.PureComponent<
 
     return {
       items: pathSorter(copiedData, sortDirection),
-      sortDirection
+      sortDirection,
     };
   }
 

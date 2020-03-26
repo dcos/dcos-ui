@@ -33,7 +33,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>Container</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "type",
@@ -47,7 +47,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
               return "Docker";
             }
             return getDisplayValue("");
-          }
+          },
         },
         {
           key: "containerImage",
@@ -61,7 +61,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
               return getDisplayValue(docker.image);
             }
             return getDisplayValue("");
-          }
+          },
         },
         {
           key: "kind",
@@ -72,7 +72,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
               return getDisplayValue(ucr.image && ucr.image.kind);
             }
             return getDisplayValue("");
-          }
+          },
         },
         {
           key: "forcePull",
@@ -92,7 +92,7 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
               }`;
             }
             return getDisplayValue("");
-          }
+          },
         },
         {
           key: "privileged",
@@ -106,9 +106,9 @@ class ContainerConfigSection extends BaseConfig<JobOutput> {
               return `${docker.privileged != null ? docker.privileged : ""}`;
             }
             return getDisplayValue("");
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

@@ -32,18 +32,18 @@ function getLogParameters(task, options) {
     containerID: MesosStateUtil.getTaskContainerID(task),
     executorID,
     frameworkID,
-    ...options
+    ...options,
   };
 }
 
 class TaskSystemLogsContainer extends mixin(StoreMixin) {
   static defaultProps = {
-    highlightText: ""
+    highlightText: "",
   };
   static propTypes = {
     task: PropTypes.shape({
-      slave_id: PropTypes.string
-    })
+      slave_id: PropTypes.string,
+    }),
   };
   constructor(...args) {
     super(...args);
@@ -54,7 +54,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       hasError: false,
       streams: [],
       isFetchingPrevious: false,
-      isLoading: true
+      isLoading: true,
     };
 
     // prettier-ignore
@@ -88,7 +88,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       "fullLog",
       "hasError",
       "isFetchingPrevious",
-      "isLoading"
+      "isLoading",
     ];
 
     const didHighlightTextChange = highlightText !== nextProps.highlightText;
@@ -101,7 +101,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       didHighlightTextChange ||
       didWatchingChange ||
       didSlaveIdChange ||
-      stateToCheck.some(key => curState[key] !== nextState[key]) ||
+      stateToCheck.some((key) => curState[key] !== nextState[key]) ||
       !isEqual(curState.streams, nextState.streams)
     );
   }
@@ -113,7 +113,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
 
     const newState = {
       hasError: true,
-      isLoading: false
+      isLoading: false,
     };
 
     // Only set isFetchingPrevious when we receive prepending log event
@@ -139,7 +139,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       hasError: false,
       direction,
       isLoading: false,
-      fullLog: SystemLogStore.getFullLog(subscriptionID)
+      fullLog: SystemLogStore.getFullLog(subscriptionID),
     };
 
     // Only set isFetchingPrevious when we receive prepending log event
@@ -164,13 +164,13 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const { task } = this.props;
     // See if we can find STDOUT, otherwise take the first entry
     const selectedStream =
-      streams.find(item => item === "STDOUT") || streams[0];
+      streams.find((item) => item === "STDOUT") || streams[0];
     // Limit 0 means continuous stream
     // Get a full page of previous log entries
     const params = getLogParameters(task, {
       filter: { STREAM: selectedStream },
       limit: 0,
-      skip_prev: 1
+      skip_prev: 1,
     });
     const subscriptionID = SystemLogStore.startTailing(task.slave_id, params);
 
@@ -197,7 +197,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: { STREAM: this.state.selectedStream },
       limit: PAGE_ENTRY_COUNT,
-      subscriptionID
+      subscriptionID,
     });
 
     SystemLogStore.fetchRange(task.slave_id, params);
@@ -210,7 +210,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       filter: { STREAM: selectedStream },
       limit: 0,
-      skip_prev: 1
+      skip_prev: 1,
     });
 
     // Unsubscribe and clean up stored log lines
@@ -224,7 +224,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const buttons = streams.map((name, index) => {
       const classes = classNames({
         "button button-outline": true,
-        active: name === selectedStream
+        active: name === selectedStream,
       });
 
       return (
@@ -244,12 +244,12 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       </div>
     );
   }
-  handleItemSelection = obj => {
+  handleItemSelection = (obj) => {
     this.handleViewChange.call(this, obj.value);
   };
 
   getDropdownItems() {
-    return this.state.streams.map(name => {
+    return this.state.streams.map((name) => {
       const selectedHtml = (
         <span className="flush dropdown-header">{name}</span>
       );
@@ -260,7 +260,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
         name,
         html: dropdownHtml,
         selectedHtml,
-        value: name
+        value: name,
       };
     }, this);
   }
@@ -296,7 +296,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
     const params = getLogParameters(task, {
       // This will be added to the name
       postfix: selectedStream && selectedStream.toLowerCase(),
-      filter: { STREAM: selectedStream }
+      filter: { STREAM: selectedStream },
     });
 
     // This is a hacky way of interacting with the API to be able to download
@@ -321,7 +321,7 @@ class TaskSystemLogsContainer extends mixin(StoreMixin) {
       fullLog,
       isLoading,
       selectedStream,
-      subscriptionID
+      subscriptionID,
     } = this.state;
 
     if (hasError) {
@@ -359,7 +359,7 @@ TaskSystemLogsContainer.propTypes = {
   logName: PropTypes.string,
   onCountChange: PropTypes.func,
   task: PropTypes.object.isRequired,
-  watching: PropTypes.number
+  watching: PropTypes.number,
 };
 
 export default TaskSystemLogsContainer;

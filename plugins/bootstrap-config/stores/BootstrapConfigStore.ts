@@ -2,11 +2,11 @@ import BaseStore from "#SRC/js/stores/BaseStore";
 
 import {
   REQUEST_BOOTSTRAP_CONFIG_ERROR,
-  REQUEST_BOOTSTRAP_CONFIG_SUCCESS
+  REQUEST_BOOTSTRAP_CONFIG_SUCCESS,
 } from "../constants/ActionTypes";
 import {
   BOOTSTRAP_CONFIG_ERROR,
-  BOOTSTRAP_CONFIG_SUCCESS
+  BOOTSTRAP_CONFIG_SUCCESS,
 } from "../constants/EventTypes";
 import BootstrapConfigActions from "../events/BootstrapConfigActions";
 
@@ -21,12 +21,12 @@ class BootstrapConfigStore extends BaseStore {
       storeID: "bootstrapConfig",
       events: {
         bootstrapSuccess: BOOTSTRAP_CONFIG_SUCCESS,
-        bootstrapError: BOOTSTRAP_CONFIG_ERROR
+        bootstrapError: BOOTSTRAP_CONFIG_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_BOOTSTRAP_CONFIG_SUCCESS:
           this.processBootstrapConfig(action.data);
@@ -61,7 +61,7 @@ class BootstrapConfigStore extends BaseStore {
   processBootstrapConfig(bootstrapConfig) {
     SDK.getSDK().dispatch({
       type: BOOTSTRAP_CONFIG_SUCCESS,
-      bootstrapConfig
+      bootstrapConfig,
     });
 
     this.emit(BOOTSTRAP_CONFIG_SUCCESS);

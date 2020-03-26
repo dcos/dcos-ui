@@ -15,18 +15,18 @@ describe("FrameworkConfigurationUtil", () => {
                 name: {
                   description: "Confluent Kafka",
                   type: "string",
-                  default: "confluent-kafka"
-                }
-              }
-            }
-          }
-        }
+                  default: "confluent-kafka",
+                },
+              },
+            },
+          },
+        },
       });
 
       it("returns activeTab and focusField", () => {
         expect(getFirstTabAndField(packageDetails)).toEqual({
           activeTab: "service",
-          focusField: "name"
+          focusField: "name",
         });
       });
     });
@@ -34,8 +34,8 @@ describe("FrameworkConfigurationUtil", () => {
     describe("with invalid schema", () => {
       const packageDetails = new UniversePackage({
         config: {
-          type: "object"
-        }
+          type: "object",
+        },
       });
 
       it("does not throw", () => {

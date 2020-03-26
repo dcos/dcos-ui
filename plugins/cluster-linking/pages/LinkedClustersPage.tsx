@@ -25,7 +25,7 @@ const LinkedClustersBreadcrumbs = () => {
           <Trans render="span">Linked Clusters</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -68,7 +68,7 @@ class LinkedClustersPage extends React.Component {
     super();
     this.state = {
       clusters: [],
-      loading: true
+      loading: true,
     };
   }
   componentDidMount() {
@@ -88,7 +88,7 @@ class LinkedClustersPage extends React.Component {
   onClusterLinksUpdated = () => {
     this.setState({
       clusters: ClusterLinkingStore.getLinkedClusters(),
-      loading: false
+      loading: false,
     });
   };
 
@@ -123,7 +123,7 @@ class LinkedClustersPage extends React.Component {
 
 LinkedClustersPage.routeConfig = {
   label: i18nMark("Linked Clusters"),
-  matches: /^\/cluster\/linked/
+  matches: /^\/cluster\/linked/,
 };
 
 export default LinkedClustersPage;

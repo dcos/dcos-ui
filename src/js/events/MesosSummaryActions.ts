@@ -4,7 +4,7 @@ import { Hooks } from "PluginSDK";
 import {
   REQUEST_SUMMARY_SUCCESS,
   REQUEST_SUMMARY_ERROR,
-  REQUEST_SUMMARY_ONGOING
+  REQUEST_SUMMARY_ONGOING,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -21,7 +21,7 @@ function requestFromMesos(resolve, reject) {
     success(response) {
       AppDispatcher.handleServerAction({
         type: REQUEST_SUMMARY_SUCCESS,
-        data: response
+        data: response,
       });
       resolve();
     },
@@ -29,13 +29,13 @@ function requestFromMesos(resolve, reject) {
       AppDispatcher.handleServerAction({
         type: REQUEST_SUMMARY_ERROR,
         data: xhr.message,
-        xhr
+        xhr,
       });
       reject();
     },
     hangingRequestCallback() {
       AppDispatcher.handleServerAction({ type: REQUEST_SUMMARY_ONGOING });
-    }
+    },
   });
 }
 
@@ -53,28 +53,28 @@ const MesosSummaryActions = {
       } else {
         AppDispatcher.handleServerAction({
           type: REQUEST_SUMMARY_SUCCESS,
-          data: MesosSummaryUtil.getEmptyState()
+          data: MesosSummaryUtil.getEmptyState(),
         });
       }
     },
     { delayAfterCount: Config.delayAfterErrorCount }
-  )
+  ),
 };
 
 if (Config.useFixtures) {
   import(/* summaryFixture */ "../../../tests/_fixtures/v0/summary").then(
-    summaryFixture => {
+    (summaryFixture) => {
       if (!window.actionTypes) {
         window.actionTypes = {};
       }
       window.actionTypes.MesosSummaryActions = {
         fetchSummary: {
           event: "success",
-          success: { response: summaryFixture.default }
-        }
+          success: { response: summaryFixture.default },
+        },
       };
 
-      Object.keys(window.actionTypes.MesosSummaryActions).forEach(method => {
+      Object.keys(window.actionTypes.MesosSummaryActions).forEach((method) => {
         MesosSummaryActions[method] = RequestUtil.stubRequest(
           MesosSummaryActions,
           "MesosSummaryActions",

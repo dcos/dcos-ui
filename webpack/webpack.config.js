@@ -7,7 +7,7 @@ const devServer = {
   open: false,
   overlay: true,
   port: 4200,
-  proxy: require("./proxy.dev.js")
+  proxy: require("./proxy.dev.js"),
 };
 
 if (process.env.NODE_ENV === "testing") {
@@ -19,7 +19,7 @@ if (process.env.NODE_ENV === "testing") {
   const delayTime = 1000 * 60 * 60 * 5;
   devServer.watchOptions = {
     aggregateTimeout: delayTime,
-    poll: delayTime
+    poll: delayTime,
   };
   devServer.proxy = {};
 }
@@ -29,8 +29,8 @@ const babelLoader = {
   options: {
     cacheDirectory: true,
     // babel-loader does not load the projects babel-config by default for some reason.
-    babelrc: true
-  }
+    babelrc: true,
+  },
 };
 
 module.exports = {
@@ -38,18 +38,18 @@ module.exports = {
   entry: "./src/js/index.tsx",
   output: {
     filename: "[name].[hash].js",
-    chunkFilename: "[name].[chunkhash].bundle.js"
+    chunkFilename: "[name].[chunkhash].bundle.js",
   },
   optimization: {
     runtimeChunk: "single",
     splitChunks: {
-      chunks: "all"
-    }
+      chunks: "all",
+    },
   },
   resolve: {
     extensions: [".ts", ".tsx", ".js", ".jsx"],
     alias: {
-      "@styles": path.resolve(__dirname, "../src/styles")
+      "@styles": path.resolve(__dirname, "../src/styles"),
     },
     modules: [
       // include packages
@@ -57,21 +57,21 @@ module.exports = {
       // load dependencies of main project from within packages
       path.resolve(__dirname, "../node_modules"),
       // load dependencies of packages themselves
-      "node_modules"
-    ]
+      "node_modules",
+    ],
   },
   node: {
-    fs: "empty" // Jison-generated files fail otherwise
+    fs: "empty", // Jison-generated files fail otherwise
   },
   plugins: [
     new EnvironmentPlugin(["NODE_ENV"]),
     new DefinePlugin({
-      "process.env.LATER_COV": false // prettycron fails otherwise
+      "process.env.LATER_COV": false, // prettycron fails otherwise
     }),
     new MiniCssExtractPlugin({
       filename: "[name].[hash].css",
-      disable: process.env.NODE_ENV !== "production"
-    })
+      disable: process.env.NODE_ENV !== "production",
+    }),
   ],
   module: {
     rules: [
@@ -79,16 +79,16 @@ module.exports = {
         type: "javascript/auto",
         test: /\.mjs$/,
         include: /node_modules/,
-        use: []
+        use: [],
       },
       {
         test: /\.html$/,
         use: {
           loader: "html-loader",
           options: {
-            attrs: ["link:href"]
-          }
-        }
+            attrs: ["link:href"],
+          },
+        },
       },
       {
         test: /\.tsx?$/,
@@ -99,18 +99,18 @@ module.exports = {
           {
             loader: "ts-loader",
             options: {
-              transpileOnly: true
-            }
-          }
-        ]
+              transpileOnly: true,
+            },
+          },
+        ],
       },
       {
         test: /\.jsx?$/,
-        exclude: absPath =>
+        exclude: (absPath) =>
           absPath.includes("/node_modules/") &&
           // this package needs to be babelized to work in browsers.
           !absPath.includes("/objektiv/"),
-        use: [babelLoader]
+        use: [babelLoader],
       },
       {
         test: /\.(svg|png|jpg|gif|ico|icns)$/,
@@ -119,16 +119,16 @@ module.exports = {
             loader: "file-loader",
             options: {
               name: "./[hash]-[name].[ext]",
-              esModule: false
-            }
+              esModule: false,
+            },
           },
           {
             loader: "image-webpack-loader",
             options: {
-              disable: process.env.NODE_ENV !== "production"
-            }
-          }
-        ]
+              disable: process.env.NODE_ENV !== "production",
+            },
+          },
+        ],
       },
       {
         test: /\.(less|css)$/,
@@ -137,37 +137,37 @@ module.exports = {
           {
             loader: "cache-loader",
             options: {
-              cacheDirectory: "./node_modules/.cache/cache-loader"
-            }
+              cacheDirectory: "./node_modules/.cache/cache-loader",
+            },
           },
           {
             loader: "css-loader",
             options: {
-              sourceMap: true
-            }
+              sourceMap: true,
+            },
           },
           {
             loader: "postcss-loader",
             options: {
               sourceMap: true,
               config: {
-                path: path.join(__dirname, "../postcss.config.js")
-              }
-            }
+                path: path.join(__dirname, "../postcss.config.js"),
+              },
+            },
           },
           {
             loader: "less-loader",
             options: {
               sourceMap: true,
-              plugins: [LessColorLighten]
-            }
-          }
-        ]
+              plugins: [LessColorLighten],
+            },
+          },
+        ],
       },
       {
         test: /\.raml$/,
-        loader: "raml-validator-loader"
-      }
-    ]
-  }
+        loader: "raml-validator-loader",
+      },
+    ],
+  },
 };

@@ -11,14 +11,14 @@ const DAY = 24 * DAY;
 export default class TimeAgo extends React.Component {
   static defaultProps = {
     autoUpdate: true,
-    suppressSuffix: false
+    suppressSuffix: false,
   };
   static propTypes = {
     autoUpdate: PropTypes.bool,
     className: PropTypes.string,
     prefix: PropTypes.node,
     suppressSuffix: PropTypes.bool,
-    time: PropTypes.oneOfType([PropTypes.object, PropTypes.number])
+    time: PropTypes.oneOfType([PropTypes.object, PropTypes.number]),
   };
   constructor(...args) {
     super(...args);
@@ -58,7 +58,7 @@ export default class TimeAgo extends React.Component {
   }
   updateTime = () => {
     this.setState({
-      interval: window.setTimeout(this.updateTime, this.getUpdateInterval())
+      interval: window.setTimeout(this.updateTime, this.getUpdateInterval()),
     });
   };
 

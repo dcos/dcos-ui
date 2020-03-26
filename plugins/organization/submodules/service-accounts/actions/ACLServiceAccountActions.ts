@@ -21,7 +21,7 @@ const {
   REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
   REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
   REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
-  REQUEST_ACL_SERVICE_ACCOUNTS_ERROR
+  REQUEST_ACL_SERVICE_ACCOUNTS_ERROR,
 } = ActionTypes;
 
 // Helper function to create a secret alongside the service account when
@@ -40,13 +40,13 @@ const addAccountSecretOrDeleteAccount = (serviceAccountID, data) => {
         login_endpoint: "https://leader.mesos/acs/api/v1/auth/login",
         schema: "RS256",
         private_key,
-        uid: serviceAccountID
-      })
+        uid: serviceAccountID,
+      }),
     },
     success() {
       SDK.dispatch({
         type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
-        serviceAccountID
+        serviceAccountID,
       });
     },
     error(xhr) {
@@ -67,9 +67,9 @@ const addAccountSecretOrDeleteAccount = (serviceAccountID, data) => {
         type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_ERROR,
         data: errorMessage,
         serviceAccountID,
-        xhr
+        xhr,
       });
-    }
+    },
   });
 };
 
@@ -82,7 +82,7 @@ const ACLServiceAccountActions = {
       "uid",
       "key_method",
       "secret_path",
-      "private_key"
+      "private_key",
     ]);
 
     if (!serviceAccountID && data.description) {
@@ -106,7 +106,7 @@ const ACLServiceAccountActions = {
 
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
@@ -114,9 +114,9 @@ const ACLServiceAccountActions = {
           type: REQUEST_ACL_SERVICE_ACCOUNT_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           serviceAccountID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -129,16 +129,16 @@ const ACLServiceAccountActions = {
       success() {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_DELETE_SUCCESS,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          serviceAccountID
+          serviceAccountID,
         });
-      }
+      },
     });
   },
 
@@ -151,16 +151,16 @@ const ACLServiceAccountActions = {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_SUCCESS,
           data: response,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          serviceAccountID
+          serviceAccountID,
         });
-      }
+      },
     });
   },
 
@@ -171,15 +171,15 @@ const ACLServiceAccountActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
-          data: response.array
+          data: response.array,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNTS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -192,16 +192,16 @@ const ACLServiceAccountActions = {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_SUCCESS,
           data: response.array,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          serviceAccountID
+          serviceAccountID,
         });
-      }
+      },
     });
   },
 
@@ -214,16 +214,16 @@ const ACLServiceAccountActions = {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_SUCCESS,
           data: response,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          serviceAccountID
+          serviceAccountID,
         });
-      }
+      },
     });
   },
 
@@ -238,18 +238,18 @@ const ACLServiceAccountActions = {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
           data: response,
-          serviceAccountID
+          serviceAccountID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          serviceAccountID
+          serviceAccountID,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -270,36 +270,38 @@ if (Config.useFixtures) {
   Promise.all([
     serviceAccountFixture,
     serviceAccountsFixture,
-    serviceAccountDetailsFixture
-  ]).then(responses => {
+    serviceAccountDetailsFixture,
+  ]).then((responses) => {
     window.actionTypes.ACLServiceAccountActions = {
       fetch: { event: "success", success: { response: responses[0] } },
       fetchAll: {
         event: "success",
-        success: { response: responses[1] }
+        success: { response: responses[1] },
       },
       fetchGroups: {
         event: "success",
         success: {
-          response: responses[2].groups
-        }
+          response: responses[2].groups,
+        },
       },
       fetchPermissions: {
         event: "success",
         success: {
-          response: responses[2].permissions
-        }
+          response: responses[2].permissions,
+        },
       },
-      update: { event: "success" }
+      update: { event: "success" },
     };
 
-    Object.keys(window.actionTypes.ACLServiceAccountActions).forEach(method => {
-      ACLServiceAccountActions[method] = RequestUtil.stubRequest(
-        ACLServiceAccountActions,
-        "ACLServiceAccountActions",
-        method
-      );
-    });
+    Object.keys(window.actionTypes.ACLServiceAccountActions).forEach(
+      (method) => {
+        ACLServiceAccountActions[method] = RequestUtil.stubRequest(
+          ACLServiceAccountActions,
+          "ACLServiceAccountActions",
+          method
+        );
+      }
+    );
   });
 }
 

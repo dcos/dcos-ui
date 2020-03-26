@@ -9,18 +9,18 @@ let thisMockItems;
 
 describe("TasksZoneFilter", () => {
   beforeEach(() => {
-    TaskUtil.getNode = item => item;
+    TaskUtil.getNode = (item) => item;
     thisMockItems = [
       {
         getZoneName() {
           return "zone-1";
-        }
+        },
       },
       {
         getZoneName() {
           return "zone-2";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -31,7 +31,7 @@ describe("TasksZoneFilter", () => {
     const filters = [new TasksZoneFilter(["zone-1"])];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

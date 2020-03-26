@@ -27,7 +27,7 @@ export default class AuthenticatedClusterDropdown extends ClusterDropdown {
     }
 
     return menuItems
-      .filter(item => {
+      .filter((item) => {
         if (!canAccessMetadataAPI && item.id === "public-ip") {
           return false;
         }
@@ -42,7 +42,7 @@ export default class AuthenticatedClusterDropdown extends ClusterDropdown {
 
         return true;
       })
-      .map(item => {
+      .map((item) => {
         // Replace the cluster's name with a generic label if the user can't
         // access one of the APIs that provides the data.
         if (!canAccessMesosAPI && item.id === "header-cluster-name") {

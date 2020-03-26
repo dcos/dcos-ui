@@ -19,7 +19,7 @@ let thisGroupStoreGetGroup, thisContainer, thisInstance;
 describe("GroupAdvancedACLsTab", () => {
   beforeEach(() => {
     thisGroupStoreGetGroup = ACLGroupStore.getGroup;
-    ACLGroupStore.getGroup = groupID => {
+    ACLGroupStore.getGroup = (groupID) => {
       if (groupID === "unicode") {
         return new Group(groupDetailsFixture);
       }
@@ -48,8 +48,8 @@ describe("GroupAdvancedACLsTab", () => {
         {
           rid: "dcos:adminrouter:service:marathon",
           actions: ["full"],
-          removable: true
-        }
+          removable: true,
+        },
       ]);
     });
   });

@@ -3,7 +3,7 @@ import { mount } from "enzyme";
 
 import DialChart from "../DialChart";
 
-const getInstanceWithProps = props => mount(<DialChart {...props} />);
+const getInstanceWithProps = (props) => mount(<DialChart {...props} />);
 
 let thisInstance;
 
@@ -12,7 +12,7 @@ describe("DialChart", () => {
     thisInstance = getInstanceWithProps({
       data: [],
       label: "Items",
-      unit: 100
+      unit: 100,
     });
   });
 
@@ -21,7 +21,7 @@ describe("DialChart", () => {
       const normalizedData = thisInstance.instance().getNormalizedData(
         [
           { name: "TASK_1", value: 0 },
-          { name: "TASK_2", value: 0 }
+          { name: "TASK_2", value: 0 },
         ],
         []
       );
@@ -33,17 +33,17 @@ describe("DialChart", () => {
       const normalizedData = thisInstance.instance().getNormalizedData(
         [
           { name: "TASK_1", value: 0 },
-          { name: "TASK_2", value: 0 }
+          { name: "TASK_2", value: 0 },
         ],
         [
           { name: "TASK_2", value: 10 },
-          { name: "TASK_3", value: 20 }
+          { name: "TASK_3", value: 20 },
         ]
       );
       expect(normalizedData).toEqual([
         { name: "TASK_1", value: 0 },
         { name: "TASK_2", value: 10 },
-        { name: "TASK_3", value: 20 }
+        { name: "TASK_3", value: 20 },
       ]);
     });
   });
@@ -74,15 +74,15 @@ describe("DialChart", () => {
       thisInstance = getInstanceWithProps({
         data: [
           { name: "TASK_1", value: 3 },
-          { name: "TASK_2", value: 1 }
-        ]
+          { name: "TASK_2", value: 1 },
+        ],
       });
     });
 
     it("when no data is present, it renders a single 'empty' slice to the DOM", () => {
       thisInstance = getInstanceWithProps({
         slices: [{ name: "TASK_1" }, { name: "TASK_2" }],
-        data: []
+        data: [],
       });
 
       expect(thisInstance.find(".arc").length).toEqual(1);
@@ -95,7 +95,7 @@ describe("DialChart", () => {
     it("does not remove 0-length slices from the DOM", () => {
       thisInstance = getInstanceWithProps({
         slices: [{ name: "TASK_1" }, { name: "TASK_2" }],
-        data: [{ name: "TASK_1", value: 4 }]
+        data: [{ name: "TASK_1", value: 4 }],
       });
       expect(thisInstance.find(".arc").length).toEqual(2);
     });

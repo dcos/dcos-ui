@@ -11,13 +11,13 @@ class JobStopRunModal extends React.Component {
   static propTypes = {
     jobID: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    jobRunID: PropTypes.string.isRequired
+    jobRunID: PropTypes.string.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      pendingRequest: false
+      pendingRequest: false,
     };
 
     this.handleButtonConfirm = this.handleButtonConfirm.bind(this);

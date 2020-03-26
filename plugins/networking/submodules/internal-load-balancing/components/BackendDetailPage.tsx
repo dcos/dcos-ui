@@ -30,7 +30,7 @@ const BackendBreadcrumbs = ({ params }) => {
     protocol,
     backend_vip,
     backend_port,
-    backend_protocol
+    backend_protocol,
   } = params;
 
   const crumbs = [
@@ -58,7 +58,7 @@ const BackendBreadcrumbs = ({ params }) => {
           {backend_vip}:{backend_port}
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -74,16 +74,16 @@ class BackendDetailPage extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "networkingBackendConnections", events: ["success", "error"] }
+      { name: "networkingBackendConnections", events: ["success", "error"] },
     ];
 
     this.tabs_tabs = {
-      clients: i18nMark("Clients")
+      clients: i18nMark("Clients"),
     };
 
     this.state = {
       currentTab: Object.keys(this.tabs_tabs).shift(),
-      selectedDropdownItem: "success"
+      selectedDropdownItem: "success",
     };
 
     this.backendConnectionRequestSuccess = false;
@@ -126,7 +126,7 @@ class BackendDetailPage extends mixin(StoreMixin) {
           i18nMark("Successes and Failures per Minute"),
           backendCount
         ),
-        id: "success"
+        id: "success",
       },
       {
         html: <Trans render="span">Connection Latency</Trans>,
@@ -134,8 +134,8 @@ class BackendDetailPage extends mixin(StoreMixin) {
           i18nMark("Connection Latency per Minute"),
           backendCount
         ),
-        id: "connection-latency"
-      }
+        id: "connection-latency",
+      },
     ];
   }
 
@@ -221,8 +221,8 @@ class BackendDetailPage extends mixin(StoreMixin) {
         label: "Clients",
         callback: () => {
           this.setState({ currentTab: "clients" });
-        }
-      }
+        },
+      },
     ];
 
     if (backendDetails.details && Object.keys(backendDetails.details).length) {
@@ -232,13 +232,13 @@ class BackendDetailPage extends mixin(StoreMixin) {
         label: "Details",
         callback: () => {
           this.setState({ currentTab: "details" });
-        }
+        },
       });
     }
 
     return tabs;
   }
-  handleBackendDetailDropdownChange = item => {
+  handleBackendDetailDropdownChange = (item) => {
     this.setState({ selectedDropdownItem: item.id });
   };
 

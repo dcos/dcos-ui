@@ -25,20 +25,20 @@ class EnvironmentFormSection extends React.Component {
     errors: {},
     onAddItem() {},
     onRemoveItem() {},
-    mountType: "CreateService:EnvironmentFormSection"
+    mountType: "CreateService:EnvironmentFormSection",
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
-    mountType: PropTypes.string
+    mountType: PropTypes.string,
   };
   getEnvironmentLines(data) {
     const errors = this.props.errors.env || {};
 
     return data
-      .filter(item => item.value == null || typeof item.value === "string")
+      .filter((item) => item.value == null || typeof item.value === "string")
       .map((env, key) => {
         const isValueWithoutKey = Boolean(!env.key && env.value);
 
@@ -77,7 +77,7 @@ class EnvironmentFormSection extends React.Component {
               <DeleteRowButton
                 onClick={this.props.onRemoveItem.bind(this, {
                   value: key,
-                  path: "env"
+                  path: "env",
                 })}
               />
             </FormGroup>
@@ -123,7 +123,7 @@ class EnvironmentFormSection extends React.Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {
                 value: key,
-                path: "labels"
+                path: "labels",
               })}
             />
           </FormGroup>
@@ -229,7 +229,7 @@ class EnvironmentFormSection extends React.Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path: "env"
+                path: "env",
               })}
             >
               <Trans render="span">Add Environment Variable</Trans>
@@ -288,7 +288,7 @@ class EnvironmentFormSection extends React.Component {
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
                 value: data.labels.length,
-                path: "labels"
+                path: "labels",
               })}
             >
               <Trans render="span">Add Label</Trans>
@@ -309,7 +309,7 @@ class EnvironmentFormSection extends React.Component {
 
 EnvironmentFormSection.configReducers = {
   env,
-  labels
+  labels,
 };
 
 export default EnvironmentFormSection;

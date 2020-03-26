@@ -25,11 +25,11 @@ module.exports = {
     "userFormModalHeader",
     "userModelObject",
     "usersPageContent",
-    "usersPageStoreListeners"
+    "usersPageStoreListeners",
   ],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
@@ -42,7 +42,7 @@ module.exports = {
     route.routes.push({
       type: Route,
       path: "users/:userID",
-      component: UserDetailPage
+      component: UserDetailPage,
     });
 
     return route;
@@ -61,15 +61,15 @@ module.exports = {
       {
         text: "Cancel",
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: state.disableNewUser
           ? i18nMark("Creating...")
           : i18nMark("Create User"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
   },
 
@@ -104,7 +104,7 @@ module.exports = {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "text",
@@ -117,7 +117,7 @@ module.exports = {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "password",
@@ -130,7 +130,7 @@ module.exports = {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "password",
@@ -143,8 +143,8 @@ module.exports = {
         validation() {
           return true;
         },
-        value: ""
-      }
+        value: "",
+      },
     ];
   },
 
@@ -167,7 +167,7 @@ module.exports = {
   userModelObject(userObject) {
     const definition = this.userFormModalDefinition(null, null, {});
     // Basically only return keys that this plugin cares about
-    const keys = definition.map(element => element.name);
+    const keys = definition.map((element) => element.name);
 
     return keys.reduce((accumulated, key) => {
       accumulated[key] = userObject[key];
@@ -177,7 +177,7 @@ module.exports = {
   },
 
   usersPageContent() {
-    const users = UsersStore.getUsers().map(u => new User(u));
+    const users = UsersStore.getUsers().map((u) => new User(u));
 
     // Discard content given and replace with new contents
     return <UsersPage items={users} />;
@@ -187,5 +187,5 @@ module.exports = {
     listeners.push({ name: "aclUser", events: ["updateSuccess"] });
 
     return listeners;
-  }
+  },
 };

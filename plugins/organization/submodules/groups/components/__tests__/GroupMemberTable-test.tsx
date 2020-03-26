@@ -27,7 +27,7 @@ describe("GroupMemberTable", () => {
   beforeEach(() => {
     thisGroupStoreGetGroup = ACLGroupStore.getGroupRaw;
 
-    ACLGroupStore.getGroupRaw = groupID => {
+    ACLGroupStore.getGroupRaw = (groupID) => {
       if (groupID === "unicode") {
         return groupDetailsFixture;
       }
@@ -54,7 +54,7 @@ describe("GroupMemberTable", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: "foo bar",
           groupID: "baz",
-          userID: "unicode"
+          userID: "unicode",
         });
       };
 
@@ -72,7 +72,7 @@ describe("GroupMemberTable", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           data: "foo bar",
           groupID: "baz",
-          userID: "unicode"
+          userID: "unicode",
         });
       };
       thisInstance
@@ -99,7 +99,7 @@ describe("GroupMemberTable", () => {
         .getConfirmModalContent({
           gid: "zed",
           description: "foo",
-          users: [{ user: { uid: "bar", description: "qux" } }]
+          users: [{ user: { uid: "bar", description: "qux" } }],
         });
 
       const component = shallow(modalContent);
@@ -117,16 +117,11 @@ describe("GroupMemberTable", () => {
           .instance()
           .getConfirmModalContent({
             description: "foo",
-            users: [{ user: { uid: "bar", description: "qux" } }]
+            users: [{ user: { uid: "bar", description: "qux" } }],
           })
       );
 
-      expect(
-        modalContent
-          .find("p")
-          .at(0)
-          .text()
-      ).toEqual("quux");
+      expect(modalContent.find("p").at(0).text()).toEqual("quux");
     });
   });
 
@@ -137,7 +132,7 @@ describe("GroupMemberTable", () => {
         .instance()
         .renderUserLabel("foo", {
           uid: "baz",
-          foo: "bar"
+          foo: "bar",
         });
       expect(label.props.to).toEqual("/organization/users/baz");
       expect(label.props.children).toEqual("bar");
@@ -159,7 +154,7 @@ describe("GroupMemberTable", () => {
         thisInstance.find("GroupMemberTable").instance().handleOpenConfirm.mock
           .calls[0][0]
       ).toEqual({
-        uid: "bar"
+        uid: "bar",
       });
     });
   });

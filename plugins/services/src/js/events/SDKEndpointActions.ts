@@ -5,7 +5,7 @@ import {
   REQUEST_SDK_ENDPOINTS_SUCCESS,
   REQUEST_SDK_ENDPOINTS_ERROR,
   REQUEST_SDK_ENDPOINT_SUCCESS,
-  REQUEST_SDK_ENDPOINT_ERROR
+  REQUEST_SDK_ENDPOINT_ERROR,
 } from "../constants/ActionTypes";
 
 const SDKEndpointsActions = {
@@ -17,7 +17,7 @@ const SDKEndpointsActions = {
       success(endpoints) {
         AppDispatcher.handleServerAction({
           type: REQUEST_SDK_ENDPOINTS_SUCCESS,
-          data: { serviceId, endpoints }
+          data: { serviceId, endpoints },
         });
       },
       error(xhr) {
@@ -25,11 +25,11 @@ const SDKEndpointsActions = {
           type: REQUEST_SDK_ENDPOINTS_ERROR,
           data: {
             serviceId,
-            error: RequestUtil.parseResponseBody(xhr)
+            error: RequestUtil.parseResponseBody(xhr),
           },
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -50,8 +50,8 @@ const SDKEndpointsActions = {
             ? JSON.parse(request.response)
             : request.response,
           contentType,
-          endpointName
-        }
+          endpointName,
+        },
       });
     };
 
@@ -60,13 +60,13 @@ const SDKEndpointsActions = {
         type: REQUEST_SDK_ENDPOINT_ERROR,
         data: {
           serviceId,
-          error: request.response
-        }
+          error: request.response,
+        },
       });
     };
 
     request.send();
-  }
+  },
 };
 
 export default SDKEndpointsActions;

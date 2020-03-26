@@ -17,7 +17,7 @@ import ModalHeading from "../modals/ModalHeading";
 const osTypes = {
   Windows: "windows",
   "OS X": "darwin",
-  Linux: "linux"
+  Linux: "linux",
 };
 
 class CliInstallModal extends React.Component {
@@ -26,7 +26,7 @@ class CliInstallModal extends React.Component {
     subHeaderContent: PropTypes.string,
     showFooter: PropTypes.bool.isRequired,
     footer: PropTypes.node,
-    onClose: PropTypes.func.isRequired
+    onClose: PropTypes.func.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -84,8 +84,8 @@ class CliInstallModal extends React.Component {
       `chmod +x ./dcos`,
       `sudo mv dcos /usr/local/bin`,
       `dcos cluster setup ${clusterUrl}`,
-      `dcos`
-    ].filter(instruction => instruction !== undefined);
+      `dcos`,
+    ].filter((instruction) => instruction !== undefined);
 
     return (
       <div>
@@ -107,9 +107,9 @@ class CliInstallModal extends React.Component {
     const steps = [
       `cd path/to/download/directory`,
       `dcos cluster setup ${clusterUrl}`,
-      `dcos`
+      `dcos`,
     ]
-      .filter(instruction => instruction !== undefined)
+      .filter((instruction) => instruction !== undefined)
       .map((instruction, index) => {
         const helpText =
           index === 0
@@ -155,7 +155,7 @@ class CliInstallModal extends React.Component {
     return Object.keys(osTypes).map((name, index) => {
       const classSet = classNames({
         "button button-outline": true,
-        active: name === selectedOS
+        active: name === selectedOS,
       });
 
       return (

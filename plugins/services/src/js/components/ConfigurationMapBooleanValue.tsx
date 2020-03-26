@@ -7,7 +7,7 @@ import ConfigurationMapValue from "#SRC/js/components/ConfigurationMapValue";
 import * as ValidatorUtil from "#SRC/js/utils/ValidatorUtil";
 import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 
-const ConfigurationMapBooleanValue = props => {
+const ConfigurationMapBooleanValue = (props) => {
   const { defaultValue, options } = props;
   let { value } = props;
 
@@ -26,18 +26,18 @@ ConfigurationMapBooleanValue.defaultProps = {
   defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   options: {
     truthy: i18nMark("Enabled"),
-    falsy: i18nMark("Disabled")
+    falsy: i18nMark("Disabled"),
   },
-  value: null
+  value: null,
 };
 
 ConfigurationMapBooleanValue.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   options: PropTypes.shape({
     truthy: PropTypes.any,
-    falsy: PropTypes.any
+    falsy: PropTypes.any,
   }),
-  value: PropTypes.any
+  value: PropTypes.any,
 };
 
 export default ConfigurationMapBooleanValue;

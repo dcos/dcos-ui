@@ -7,7 +7,7 @@ const AppDispatcher = Object.assign(new Dispatcher(), {
     }
 
     this.dispatch({ action });
-  }
+  },
 });
 
 export default AppDispatcher;

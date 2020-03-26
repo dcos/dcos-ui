@@ -57,7 +57,7 @@ const OPTIONS = [JSONOption, MultiContainerOption, SingleContainerOption];
 
 class CreateServiceModalServicePicker extends React.Component {
   static propTypes = {
-    onServiceSelect: PropTypes.func
+    onServiceSelect: PropTypes.func,
   };
   componentDidMount() {
     OPTIONS.forEach((component, index) => {
@@ -70,7 +70,7 @@ class CreateServiceModalServicePicker extends React.Component {
   }
 
   componentWillUnmount() {
-    OPTIONS.forEach(component => {
+    OPTIONS.forEach((component) => {
       MountService.MountService.unregisterComponent(
         component,
         "CreateService:ServicePicker:GridOptions"

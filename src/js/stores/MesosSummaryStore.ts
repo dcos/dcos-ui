@@ -3,14 +3,14 @@ import PluginSDK from "PluginSDK";
 import {
   REQUEST_SUMMARY_ERROR,
   REQUEST_SUMMARY_ONGOING,
-  REQUEST_SUMMARY_SUCCESS
+  REQUEST_SUMMARY_SUCCESS,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import CompositeState from "../structs/CompositeState";
 import Config from "../config/Config";
 import {
   MESOS_SUMMARY_CHANGE,
-  MESOS_SUMMARY_REQUEST_ERROR
+  MESOS_SUMMARY_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 import MesosSummaryActions from "../events/MesosSummaryActions";
@@ -50,12 +50,12 @@ class MesosSummaryStore extends GetSetBaseStore {
       storeID: this.storeID,
       events: {
         success: MESOS_SUMMARY_CHANGE,
-        error: MESOS_SUMMARY_REQUEST_ERROR
+        error: MESOS_SUMMARY_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       switch (action.type) {
         case REQUEST_SUMMARY_SUCCESS:
@@ -77,7 +77,7 @@ class MesosSummaryStore extends GetSetBaseStore {
     this.set({
       states: this.getInitialStates(),
       prevMesosStatusesMap: {},
-      statesProcessed: false
+      statesProcessed: false,
     });
 
     startPolling.call(this);
@@ -86,7 +86,7 @@ class MesosSummaryStore extends GetSetBaseStore {
   getInitialStates() {
     const initialStates = MesosSummaryUtil.getInitialStates().slice();
     const states = new SummaryList({ maxLength: Config.historyLength });
-    initialStates.forEach(state => {
+    initialStates.forEach((state) => {
       states.addSnapshot(state, state.date, false);
     });
 
@@ -114,16 +114,13 @@ class MesosSummaryStore extends GetSetBaseStore {
   }
 
   getActiveServices() {
-    return this.get("states")
-      .lastSuccessful()
-      .getServiceList()
-      .getItems();
+    return this.get("states").lastSuccessful().getServiceList().getItems();
   }
 
   getServiceFromName(name) {
     const services = this.getActiveServices();
 
-    return services.find(service => service.get("name") === name);
+    return services.find((service) => service.get("name") === name);
   }
 
   hasServiceUrl(serviceName) {

@@ -4,10 +4,10 @@ import * as React from "react";
 
 import { findNestedPropertyInObject, omit } from "../../utils/Util";
 
-const FieldLabel = props => {
+const FieldLabel = (props) => {
   const { children, className, matchInputHeight, required } = props;
   let isToggle = false;
-  React.Children.forEach(children, child => {
+  React.Children.forEach(children, (child) => {
     const type = findNestedPropertyInObject(child, "props.type");
     if (["radio", "checkbox"].includes(type)) {
       isToggle = true;
@@ -51,8 +51,8 @@ FieldLabel.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default FieldLabel;

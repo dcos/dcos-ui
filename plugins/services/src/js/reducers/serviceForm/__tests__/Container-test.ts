@@ -17,7 +17,7 @@ describe("Container", () => {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,
         type: null,
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -32,11 +32,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -52,11 +52,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -71,11 +71,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "MESOS",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -93,11 +93,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           privileged: true,
-          forcePullImage: null
+          forcePullImage: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -115,11 +115,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           privileged: false,
-          forcePullImage: null
+          forcePullImage: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -137,11 +137,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -159,11 +159,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: true,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -181,11 +181,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: false,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -198,7 +198,7 @@ describe("Container", () => {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,
         type: null,
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -217,11 +217,11 @@ describe("Container", () => {
         docker: {
           forcePullImage: true,
           image: "foo",
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "MESOS",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -241,11 +241,11 @@ describe("Container", () => {
         docker: {
           forcePullImage: true,
           image: "foo",
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -260,11 +260,11 @@ describe("Container", () => {
         docker: {
           image: "foo",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -279,11 +279,11 @@ describe("Container", () => {
         docker: {
           image: "bar",
           forcePullImage: null,
-          privileged: null
+          privileged: null,
         },
         portMappings: null,
         type: "DOCKER",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -296,7 +296,7 @@ describe("Container", () => {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,
         type: null,
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -318,7 +318,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -327,11 +327,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -359,7 +359,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -368,11 +368,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: null,
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -406,7 +406,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -415,11 +415,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "udp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -440,7 +440,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -449,11 +449,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -464,7 +464,7 @@ describe("Container", () => {
         expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
           portMappings: null,
           type: null,
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -483,11 +483,11 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: null,
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -512,7 +512,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -521,7 +521,7 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -529,11 +529,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -557,7 +557,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -566,11 +566,11 @@ describe("Container", () => {
               labels: null,
               name: "foo",
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -597,7 +597,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -606,11 +606,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -638,7 +638,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -647,11 +647,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -678,7 +678,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -687,11 +687,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "udp,tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -719,7 +719,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -728,7 +728,7 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -736,11 +736,11 @@ describe("Container", () => {
               labels: { VIP_1: ":0" },
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -771,7 +771,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -780,7 +780,7 @@ describe("Container", () => {
               name: null,
               protocol: "tcp",
               labels: { VIP_0: ":0" },
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -788,11 +788,11 @@ describe("Container", () => {
               name: null,
               protocol: "tcp",
               labels: { VIP_1: ":0" },
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -829,7 +829,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -838,7 +838,7 @@ describe("Container", () => {
               name: null,
               protocol: "tcp",
               labels: { VIP_0: ":8080" },
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -846,11 +846,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -882,7 +882,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -891,7 +891,7 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -899,11 +899,11 @@ describe("Container", () => {
               name: null,
               protocol: "tcp",
               labels: { VIP_1: "foo:0" },
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -935,7 +935,7 @@ describe("Container", () => {
           docker: {
             forcePullImage: null,
             image: "",
-            privileged: null
+            privileged: null,
           },
           portMappings: [
             {
@@ -944,7 +944,7 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
+              servicePort: null,
             },
             {
               containerPort: 0,
@@ -952,11 +952,11 @@ describe("Container", () => {
               name: null,
               protocol: "tcp",
               labels: { VIP_1: "foo:0" },
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "DOCKER",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -979,11 +979,11 @@ describe("Container", () => {
               labels: null,
               name: null,
               protocol: "tcp",
-              servicePort: null
-            }
+              servicePort: null,
+            },
           ],
           type: "MESOS",
-          volumes: []
+          volumes: [],
         });
       });
 
@@ -1011,11 +1011,11 @@ describe("Container", () => {
                 labels: null,
                 name: null,
                 protocol: "tcp",
-                servicePort: null
-              }
+                servicePort: null,
+              },
             ],
             type: "MESOS",
-            volumes: []
+            volumes: [],
           });
         });
 
@@ -1055,11 +1055,11 @@ describe("Container", () => {
                 labels: null,
                 name: null,
                 protocol: "udp",
-                servicePort: null
-              }
+                servicePort: null,
+              },
             ],
             type: "MESOS",
-            volumes: []
+            volumes: [],
           });
         });
 
@@ -1086,11 +1086,11 @@ describe("Container", () => {
                 labels: null,
                 name: null,
                 protocol: "tcp",
-                servicePort: null
-              }
+                servicePort: null,
+              },
             ],
             type: "MESOS",
-            volumes: []
+            volumes: [],
           });
         });
       });
@@ -1102,10 +1102,10 @@ describe("Container", () => {
           docker: {
             image: "nginx",
             pullConfig: {
-              some: "value"
-            }
-          }
-        }
+              some: "value",
+            },
+          },
+        },
       }).reduce((batch, transaction) => batch.add(transaction), new Batch());
 
       batch = batch.add(
@@ -1116,14 +1116,14 @@ describe("Container", () => {
         batch.reduce(Container.JSONReducer.bind({}), {
           docker: {
             image: "alpine",
-            forcePull: true
+            forcePull: true,
           },
-          type: "DOCKER"
+          type: "DOCKER",
         })
       ).toEqual({
         type: "MESOS",
         portMappings: null,
-        volumes: []
+        volumes: [],
       });
     });
   });
@@ -1136,10 +1136,10 @@ describe("Container", () => {
             docker: {
               image: "nginx",
               pullConfig: {
-                some: "value"
-              }
-            }
-          }
+                some: "value",
+              },
+            },
+          },
         })
           .reduce((batch, transaction) => batch.add(transaction), new Batch())
           .reduce(Container.JSONReducer.bind({}), {})
@@ -1150,11 +1150,11 @@ describe("Container", () => {
           forcePullImage: null,
           privileged: null,
           pullConfig: {
-            some: "value"
-          }
+            some: "value",
+          },
         },
         type: "MESOS",
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -1165,14 +1165,14 @@ describe("Container", () => {
           ["container"],
           {
             type: "MESOS",
-            linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } }
+            linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } },
           },
           SET
         )
       );
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         type: "MESOS",
-        linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } }
+        linuxInfo: { ipcInfo: { mode: "PRIVATE", shmSize: 128 } },
       });
     });
   });
@@ -1184,7 +1184,7 @@ describe("Container", () => {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,
         type: null,
-        volumes: []
+        volumes: [],
       });
     });
 
@@ -1203,11 +1203,11 @@ describe("Container", () => {
           {
             containerPath: null,
             persistent: {
-              size: null
+              size: null,
             },
-            mode: "RW"
-          }
-        ]
+            mode: "RW",
+          },
+        ],
       });
     });
 
@@ -1227,12 +1227,12 @@ describe("Container", () => {
               name: null,
               provider: "dvdi",
               options: {
-                "dvdi/driver": "rexray"
-              }
+                "dvdi/driver": "rexray",
+              },
             },
-            mode: "RW"
-          }
-        ]
+            mode: "RW",
+          },
+        ],
       });
     });
 
@@ -1255,9 +1255,9 @@ describe("Container", () => {
           {
             containerPath: null,
             persistent: {
-              size: null
+              size: null,
             },
-            mode: "RW"
+            mode: "RW",
           },
           {
             containerPath: null,
@@ -1265,12 +1265,12 @@ describe("Container", () => {
               name: null,
               provider: "dvdi",
               options: {
-                "dvdi/driver": "rexray"
-              }
+                "dvdi/driver": "rexray",
+              },
             },
-            mode: "RW"
-          }
-        ]
+            mode: "RW",
+          },
+        ],
       });
     });
 
@@ -1291,7 +1291,7 @@ describe("Container", () => {
       expect(batch.reduce(Container.JSONReducer.bind({}), {})).toEqual({
         portMappings: null,
         type: null,
-        volumes: []
+        volumes: [],
       });
     });
   });

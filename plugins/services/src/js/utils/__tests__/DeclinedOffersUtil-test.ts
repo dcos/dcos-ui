@@ -10,8 +10,8 @@ describe("DeclinedOffersUtil", () => {
       expect(
         DeclinedOffersUtil.getSummaryFromQueue({
           processedOffersSummary: {
-            unusedOffersCount: 0
-          }
+            unusedOffersCount: 0,
+          },
         })
       ).toEqual(null);
     });
@@ -25,7 +25,7 @@ describe("DeclinedOffersUtil", () => {
           disk: 0,
           ports: [10010],
           constraints: [["hostname", "UNIQUE"]],
-          acceptedResourceRoles: ["*"]
+          acceptedResourceRoles: ["*"],
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -34,88 +34,88 @@ describe("DeclinedOffersUtil", () => {
             {
               reason: "UnfulfilledRole",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "UnfulfilledConstraint",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "NoCorrespondingReservationFound",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientCpus",
               declined: 75,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientMemory",
               declined: 15,
-              processed: 48
+              processed: 48,
             },
             {
               reason: "InsufficientDisk",
               declined: 10,
-              processed: 33
+              processed: 33,
             },
             {
               reason: "InsufficientGpus",
               declined: 0,
-              processed: 23
+              processed: 23,
             },
             {
               reason: "InsufficientPorts",
               declined: 23,
-              processed: 23
-            }
-          ]
+              processed: 23,
+            },
+          ],
         },
         lastUnusedOffers: [
           {
-            foo: "bar"
-          }
-        ]
+            foo: "bar",
+          },
+        ],
       });
 
       expect(summary).toEqual({
         roles: {
           requested: "*",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         constraints: {
           requested: "hostname:UNIQUE",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         cpus: {
           requested: 0.5,
           offers: 123,
-          matched: 48
+          matched: 48,
         },
         gpus: {
           requested: 3,
           matched: 23,
-          offers: 23
+          offers: 23,
         },
         mem: {
           requested: 128,
           offers: 48,
-          matched: 33
+          matched: 33,
         },
         disk: {
           requested: 0,
           offers: 33,
-          matched: 23
+          matched: 23,
         },
         ports: {
           requested: "10010",
           offers: 23,
-          matched: 0
-        }
+          matched: 0,
+        },
       });
     });
 
@@ -128,35 +128,35 @@ describe("DeclinedOffersUtil", () => {
                 cpus: 1,
                 mem: 100,
                 disk: 200,
-                ports: [100]
-              }
+                ports: [100],
+              },
             },
             {
               resources: {
                 cpus: 2,
                 mem: 200,
                 disk: 400,
-                ports: [200, 300]
-              }
+                ports: [200, 300],
+              },
             },
             {
               resources: {
                 cpus: 3,
                 mem: 300,
                 disk: 600,
-                ports: [400, 500]
-              }
-            }
+                ports: [400, 500],
+              },
+            },
           ],
           scheduling: {
             placement: {
               acceptedResourceRoles: ["foo", "bar"],
               constraints: [
                 { fieldName: "hostname", operator: "LIKE", value: "hostname" },
-                { fieldName: "hostname", operator: "UNIQUE" }
-              ]
-            }
-          }
+                { fieldName: "hostname", operator: "UNIQUE" },
+              ],
+            },
+          },
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -165,88 +165,88 @@ describe("DeclinedOffersUtil", () => {
             {
               reason: "UnfulfilledRole",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "UnfulfilledConstraint",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "NoCorrespondingReservationFound",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientCpus",
               declined: 75,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientMemory",
               declined: 15,
-              processed: 48
+              processed: 48,
             },
             {
               reason: "InsufficientDisk",
               declined: 10,
-              processed: 33
+              processed: 33,
             },
             {
               reason: "InsufficientGpus",
               declined: 0,
-              processed: 23
+              processed: 23,
             },
             {
               reason: "InsufficientPorts",
               declined: 23,
-              processed: 23
-            }
-          ]
+              processed: 23,
+            },
+          ],
         },
         lastUnusedOffers: [
           {
-            foo: "bar"
-          }
-        ]
+            foo: "bar",
+          },
+        ],
       });
 
       expect(summary).toEqual({
         roles: {
           requested: "foo, bar",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         constraints: {
           requested: "hostname:LIKE:hostname, hostname:UNIQUE",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         cpus: {
           requested: 6,
           offers: 123,
-          matched: 48
+          matched: 48,
         },
         gpus: {
           requested: 0,
           matched: 23,
-          offers: 23
+          offers: 23,
         },
         mem: {
           requested: 600,
           offers: 48,
-          matched: 33
+          matched: 33,
         },
         disk: {
           requested: 1200,
           offers: 33,
-          matched: 23
+          matched: 23,
         },
         ports: {
           requested: "100, 200, 300, 400, 500",
           offers: 23,
-          matched: 0
-        }
+          matched: 0,
+        },
       });
     });
 
@@ -259,39 +259,39 @@ describe("DeclinedOffersUtil", () => {
                 cpus: 1,
                 mem: 100,
                 disk: 200,
-                ports: [100]
-              }
+                ports: [100],
+              },
             },
             {
               resources: {
                 cpus: 2,
                 mem: 200,
                 disk: 400,
-                ports: [200, 300]
-              }
+                ports: [200, 300],
+              },
             },
             {
               resources: {
                 cpus: 3,
                 mem: 300,
                 disk: 600,
-                ports: [400, 500]
-              }
-            }
+                ports: [400, 500],
+              },
+            },
           ],
           scheduling: {
             placement: {
               acceptedResourceRoles: ["foo", "bar"],
               constraints: [
-                ["foo.constraint.1", "foo.constraint.2", "foo.constraint.3"]
-              ]
-            }
+                ["foo.constraint.1", "foo.constraint.2", "foo.constraint.3"],
+              ],
+            },
           },
           executorResources: {
             cpus: 10,
             mem: 20,
-            disk: 30
-          }
+            disk: 30,
+          },
         },
         processedOffersSummary: {
           processedOffersCount: 10,
@@ -300,88 +300,88 @@ describe("DeclinedOffersUtil", () => {
             {
               reason: "UnfulfilledRole",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "UnfulfilledConstraint",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "NoCorrespondingReservationFound",
               declined: 0,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientCpus",
               declined: 75,
-              processed: 123
+              processed: 123,
             },
             {
               reason: "InsufficientMemory",
               declined: 15,
-              processed: 48
+              processed: 48,
             },
             {
               reason: "InsufficientDisk",
               declined: 10,
-              processed: 33
+              processed: 33,
             },
             {
               reason: "InsufficientGpus",
               declined: 0,
-              processed: 23
+              processed: 23,
             },
             {
               reason: "InsufficientPorts",
               declined: 23,
-              processed: 23
-            }
-          ]
+              processed: 23,
+            },
+          ],
         },
         lastUnusedOffers: [
           {
-            foo: "bar"
-          }
-        ]
+            foo: "bar",
+          },
+        ],
       });
 
       expect(summary).toEqual({
         roles: {
           requested: "foo, bar",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         constraints: {
           requested: "foo.constraint.1:foo.constraint.2:foo.constraint.3",
           offers: 123,
-          matched: 123
+          matched: 123,
         },
         cpus: {
           requested: 16,
           offers: 123,
-          matched: 48
+          matched: 48,
         },
         gpus: {
           requested: 0,
           matched: 23,
-          offers: 23
+          offers: 23,
         },
         mem: {
           requested: 620,
           offers: 48,
-          matched: 33
+          matched: 33,
         },
         disk: {
           requested: 1230,
           offers: 33,
-          matched: 23
+          matched: 23,
         },
         ports: {
           requested: "100, 200, 300, 400, 500",
           offers: 23,
-          matched: 0
-        }
+          matched: 0,
+        },
       });
     });
   });
@@ -391,7 +391,7 @@ describe("DeclinedOffersUtil", () => {
       expect(DeclinedOffersUtil.getOffersFromQueue({})).toEqual(null);
       expect(
         DeclinedOffersUtil.getOffersFromQueue({
-          lastUnusedOffers: []
+          lastUnusedOffers: [],
         })
       ).toEqual(null);
     });
@@ -410,12 +410,12 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
                   set: ["a", "b"],
-                  role: "*"
-                }
+                  role: "*",
+                },
               ],
               attributes: [
                 {
@@ -423,17 +423,17 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
-                  set: ["a", "b"]
-                }
-              ]
+                  set: ["a", "b"],
+                },
+              ],
             },
             timestamp: "2016-02-28T16:41:41.090Z",
-            reason: ["InsufficientMemory"]
-          }
-        ]
+            reason: ["InsufficientMemory"],
+          },
+        ],
       });
 
       expect(unusedOffers).toEqual([
@@ -444,9 +444,9 @@ describe("DeclinedOffersUtil", () => {
           offered: {
             constraints: "foo:1 – 5",
             cpus: 0,
-            roles: ["*"]
-          }
-        }
+            roles: ["*"],
+          },
+        },
       ]);
     });
 
@@ -465,12 +465,12 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
                   set: ["a", "b"],
-                  role: "*"
-                }
+                  role: "*",
+                },
               ],
               attributes: [
                 {
@@ -478,17 +478,17 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
-                  set: ["a", "b"]
-                }
-              ]
+                  set: ["a", "b"],
+                },
+              ],
             },
             timestamp: "2016-02-28T16:41:41.090Z",
-            reason: ["InsufficientMemory"]
-          }
-        ]
+            reason: ["InsufficientMemory"],
+          },
+        ],
       });
 
       expect(unusedOffers).toEqual([
@@ -499,9 +499,9 @@ describe("DeclinedOffersUtil", () => {
           offered: {
             constraints: "foo:1 – 5",
             cpus: 0,
-            roles: ["*"]
-          }
-        }
+            roles: ["*"],
+          },
+        },
       ]);
     });
 
@@ -520,12 +520,12 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
                   set: ["a", "b"],
-                  role: "*"
-                }
+                  role: "*",
+                },
               ],
               attributes: [
                 {
@@ -534,17 +534,17 @@ describe("DeclinedOffersUtil", () => {
                   ranges: [
                     {
                       begin: 1,
-                      end: 5
-                    }
+                      end: 5,
+                    },
                   ],
-                  set: ["a", "b"]
-                }
-              ]
+                  set: ["a", "b"],
+                },
+              ],
             },
             timestamp: "2016-02-28T16:41:41.090Z",
-            reason: ["InsufficientMemory"]
-          }
-        ]
+            reason: ["InsufficientMemory"],
+          },
+        ],
       });
 
       expect(unusedOffers).toEqual([
@@ -555,9 +555,9 @@ describe("DeclinedOffersUtil", () => {
           offered: {
             constraints: "foo:1 – 5",
             cpus: 23,
-            roles: ["*"]
-          }
-        }
+            roles: ["*"],
+          },
+        },
       ]);
     });
   });

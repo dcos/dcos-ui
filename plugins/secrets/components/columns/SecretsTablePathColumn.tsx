@@ -17,10 +17,7 @@ export const secretPathRenderer = (data: Secret) => {
 };
 
 const compareByPath = (a: Secret, b: Secret) => {
-  return a
-    .getPath()
-    .toLowerCase()
-    .localeCompare(b.getPath().toLowerCase());
+  return a.getPath().toLowerCase().localeCompare(b.getPath().toLowerCase());
 };
 
 const comparators = [compareByPath];

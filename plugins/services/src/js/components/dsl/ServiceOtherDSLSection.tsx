@@ -14,10 +14,10 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 const EXPRESSION_PARTS = {
   is_pod: DSLExpressionPart.attribute("is", "pod"),
   is_catalog: DSLExpressionPart.attribute("is", "catalog"),
-  has_volumes: DSLExpressionPart.attribute("has", "volumes")
+  has_volumes: DSLExpressionPart.attribute("has", "volumes"),
 };
 
-const ServiceOtherDSLSection = props => {
+const ServiceOtherDSLSection = (props) => {
   const { expression, onChange } = props;
   const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
   const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
@@ -75,7 +75,7 @@ const ServiceOtherDSLSection = props => {
 
 ServiceOtherDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
 };
 
 export default ServiceOtherDSLSection;

@@ -46,7 +46,7 @@ const JobDeleteModal = ({
   open,
   jobId,
   stopCurrentJobRuns,
-  i18n
+  i18n,
 }) => {
   const label = modalLabel(stopCurrentJobRuns, disabled);
 

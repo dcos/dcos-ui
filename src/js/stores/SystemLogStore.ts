@@ -6,14 +6,14 @@ import {
   REQUEST_PREVIOUS_SYSTEM_LOG_ERROR,
   REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
   REQUEST_SYSTEM_LOG_STREAM_TYPES_ERROR,
-  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS
+  REQUEST_SYSTEM_LOG_STREAM_TYPES_SUCCESS,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import {
   SYSTEM_LOG_CHANGE,
   SYSTEM_LOG_REQUEST_ERROR,
   SYSTEM_LOG_STREAM_TYPES_SUCCESS,
-  SYSTEM_LOG_STREAM_TYPES_ERROR
+  SYSTEM_LOG_STREAM_TYPES_ERROR,
 } from "../constants/EventTypes";
 import BaseStore from "./BaseStore";
 import Config from "../config/Config";
@@ -38,13 +38,13 @@ class SystemLogStore extends BaseStore {
         success: SYSTEM_LOG_CHANGE,
         error: SYSTEM_LOG_REQUEST_ERROR,
         streamSuccess: SYSTEM_LOG_STREAM_TYPES_SUCCESS,
-        streamError: SYSTEM_LOG_STREAM_TYPES_ERROR
+        streamError: SYSTEM_LOG_STREAM_TYPES_ERROR,
       },
       unmountWhen: () => false,
-      suppressUpdate: true
+      suppressUpdate: true,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const { data, firstEntry, subscriptionID, type } = payload.action;
 
       switch (type) {
@@ -74,7 +74,7 @@ class SystemLogStore extends BaseStore {
 
   addEntries(logData, entries, eventType) {
     const newLogData = {
-      ...logData
+      ...logData,
     };
     // Add new entries
     if (eventType === APPEND) {
@@ -102,10 +102,10 @@ class SystemLogStore extends BaseStore {
     // Formatting logs as we do in the CLI:
     // https://github.com/dcos/dcos-cli/pull/817/files#diff-8f3b06e62cf338c8e4e2ac6414447d26R260
     return entries
-      .filter(entry =>
+      .filter((entry) =>
         Boolean(findNestedPropertyInObject(entry, `fields.${MESSAGE}`))
       )
-      .map(entry => {
+      .map((entry) => {
         const { fields = {} } = entry;
         const lineData = [];
         // entry.realtime_timestamp returns a unix time in microseconds
@@ -143,7 +143,7 @@ class SystemLogStore extends BaseStore {
       cursor = entries[entries.length - 1].cursor;
       options = {
         ...options,
-        cursor
+        cursor,
       };
     }
 
@@ -186,7 +186,7 @@ class SystemLogStore extends BaseStore {
 
     SystemLogActions.fetchRange(nodeID, {
       cursor,
-      ...options
+      ...options,
     });
   }
 

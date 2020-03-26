@@ -17,8 +17,8 @@ describe("RoutingService", () => {
         {
           path: "/test",
           to: "/stage",
-          type: ReactRouter.Redirect
-        }
+          type: ReactRouter.Redirect,
+        },
       ]);
     });
   });
@@ -31,8 +31,8 @@ describe("RoutingService", () => {
         {
           path: "/test",
           component: Object,
-          type: ReactRouter.Route
-        }
+          type: ReactRouter.Route,
+        },
       ]);
     });
   });
@@ -51,10 +51,10 @@ describe("RoutingService", () => {
             {
               path: "path",
               component: Object,
-              type: ReactRouter.Route
-            }
-          ]
-        }
+              type: ReactRouter.Route,
+            },
+          ],
+        },
       ]);
     });
   });

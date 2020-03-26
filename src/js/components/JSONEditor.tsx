@@ -70,7 +70,7 @@ class JSONEditor extends React.Component {
     onFocus() {},
     onPropertyChange() {},
     value: {},
-    width: "100%"
+    width: "100%",
   };
   static propTypes = {
     errors: PropTypes.array,
@@ -82,7 +82,7 @@ class JSONEditor extends React.Component {
     onFocus: PropTypes.func,
     onPropertyChange: PropTypes.func,
     value: PropTypes.object,
-    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
+    width: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
   };
   constructor(...args) {
     super(...args);
@@ -97,8 +97,8 @@ class JSONEditor extends React.Component {
     // to it's internals, that I couldn't pinpoint yet.
     this.state = {
       aceEditorState: {
-        jsonText
-      }
+        jsonText,
+      },
     };
 
     //
@@ -200,7 +200,7 @@ class JSONEditor extends React.Component {
   componentDidUpdate() {
     this.updateEditorState();
   }
-  handleEditorLoad = editor => {
+  handleEditorLoad = (editor) => {
     this.aceEditor = editor;
 
     // Disable tab index for JSON editor
@@ -223,7 +223,7 @@ class JSONEditor extends React.Component {
    *
    * @param {DOMEvent} event - The event object
    */
-  handleBlur = event => {
+  handleBlur = (event) => {
     this.props.onBlur(event, this.jsonValue);
     this.isFocused = false;
   };
@@ -233,7 +233,7 @@ class JSONEditor extends React.Component {
    *
    * @param {string} jsonText - The new JSON string
    */
-  handleChange = jsonText => {
+  handleChange = (jsonText) => {
     const lastValue = this.jsonValue;
     const lastError = this.jsonError;
 
@@ -277,7 +277,7 @@ class JSONEditor extends React.Component {
    *
    * @param {DOMEvent} event - The event object
    */
-  handleFocus = event => {
+  handleFocus = (event) => {
     this.props.onFocus(event, this.jsonValue);
     this.isFocused = true;
   };
@@ -420,14 +420,14 @@ class JSONEditor extends React.Component {
         {
           row: errorLine,
           text: errorMsg,
-          type: "error"
-        }
+          type: "error",
+        },
       ];
     }
 
     const errors = [].concat(...this.externalErrors);
 
-    return errors.map(error => {
+    return errors.map((error) => {
       const { path, message } = error;
 
       // All errors with empty paths go to line 0
@@ -435,21 +435,21 @@ class JSONEditor extends React.Component {
         return {
           row: 0,
           text: message,
-          type: "error"
+          type: "error",
         };
       }
 
       // Check if there is a token that matches the path completely
       const errorPath = error.path.join(".");
       const token = this.jsonMeta.find(
-        token => token.path.join(".") === errorPath
+        (token) => token.path.join(".") === errorPath
       );
 
       if (token) {
         return {
           row: token.line - 1,
           text: message,
-          type: "error"
+          type: "error",
         };
       }
 
@@ -467,7 +467,7 @@ class JSONEditor extends React.Component {
           if (isMatch) {
             memo.push({
               path: token.path,
-              row: token.line - 1
+              row: token.line - 1,
             });
           }
 
@@ -488,7 +488,7 @@ class JSONEditor extends React.Component {
       return {
         row: candidate.row,
         text: `${prefixPath}: ${message}`,
-        type: "error"
+        type: "error",
       };
     });
   }

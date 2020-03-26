@@ -108,7 +108,7 @@ const SearchDSL = (() => {
       ")": 13,
       LABEL: 14,
       $accept: 0,
-      $end: 1
+      $end: 1,
     },
     terminals_: {
       2: "error",
@@ -120,7 +120,7 @@ const SearchDSL = (() => {
       11: "COMMA",
       12: "(",
       13: ")",
-      14: "LABEL"
+      14: "LABEL",
     },
     productions_: [
       0,
@@ -134,7 +134,7 @@ const SearchDSL = (() => {
       [4, 1],
       [4, 1],
       [4, 2],
-      [4, 1]
+      [4, 1],
     ],
     performAction(
       yytext,
@@ -158,8 +158,8 @@ const SearchDSL = (() => {
             {
               text: yytext,
               start: _$[$0].first_column,
-              end: _$[$0].last_column
-            }
+              end: _$[$0].last_column,
+            },
           ];
           break;
         case 4:
@@ -229,7 +229,7 @@ const SearchDSL = (() => {
       o($V6, [2, 6]),
       o($V6, [2, 7]),
       { 6: 18, 7: $V7, 8: $V8 },
-      o($V9, [2, 4])
+      o($V9, [2, 4]),
     ],
     defaultActions: { 7: [2, 1] },
     parseError(str, hash) {
@@ -343,7 +343,7 @@ const SearchDSL = (() => {
             token: this.terminals_[symbol] || symbol,
             line: lexer.yylineno,
             loc: yyloc,
-            expected
+            expected,
           });
         }
         if (action[0] instanceof Array && action.length > 1) {
@@ -381,12 +381,12 @@ const SearchDSL = (() => {
               first_line: lstack[lstack.length - (len || 1)].first_line,
               last_line: lstack[lstack.length - 1].last_line,
               first_column: lstack[lstack.length - (len || 1)].first_column,
-              last_column: lstack[lstack.length - 1].last_column
+              last_column: lstack[lstack.length - 1].last_column,
             };
             if (ranges) {
               yyval._$.range = [
                 lstack[lstack.length - (len || 1)].range[0],
-                lstack[lstack.length - 1].range[1]
+                lstack[lstack.length - 1].range[1],
               ];
             }
             r = this.performAction.apply(
@@ -398,7 +398,7 @@ const SearchDSL = (() => {
                 sharedState.yy,
                 action[1],
                 vstack,
-                lstack
+                lstack,
               ].concat(args)
             );
             if (typeof r !== "undefined") {
@@ -420,7 +420,7 @@ const SearchDSL = (() => {
         }
       }
       return true;
-    }
+    },
   };
 
   const Merge = DSLParserUtil.Merge;
@@ -450,7 +450,7 @@ const SearchDSL = (() => {
           first_line: 1,
           first_column: 0,
           last_line: 1,
-          last_column: 0
+          last_column: 0,
         };
         if (this.options.ranges) {
           this.yylloc.range = [0, 0];
@@ -510,7 +510,7 @@ const SearchDSL = (() => {
                 : 0) +
               oldLines[oldLines.length - lines.length].length -
               lines[0].length
-            : this.yylloc.first_column - len
+            : this.yylloc.first_column - len,
         };
 
         if (this.options.ranges) {
@@ -539,7 +539,7 @@ const SearchDSL = (() => {
             {
               text: "",
               token: null,
-              line: this.yylineno
+              line: this.yylineno,
             }
           );
         }
@@ -593,7 +593,7 @@ const SearchDSL = (() => {
               first_line: this.yylloc.first_line,
               last_line: this.last_line,
               first_column: this.yylloc.first_column,
-              last_column: this.yylloc.last_column
+              last_column: this.yylloc.last_column,
             },
             yytext: this.yytext,
             match: this.match,
@@ -605,7 +605,7 @@ const SearchDSL = (() => {
             _input: this._input,
             yy: this.yy,
             conditionStack: this.conditionStack.slice(0),
-            done: this.done
+            done: this.done,
           };
           if (this.options.ranges) {
             backup.yylloc.range = this.yylloc.range.slice(0);
@@ -623,7 +623,7 @@ const SearchDSL = (() => {
           last_column: lines
             ? lines[lines.length - 1].length -
               lines[lines.length - 1].match(/\r?\n?/)[0].length
-            : this.yylloc.last_column + match[0].length
+            : this.yylloc.last_column + match[0].length,
         };
         this.yytext += match[0];
         this.match += match[0];
@@ -713,7 +713,7 @@ const SearchDSL = (() => {
             {
               text: "",
               token: null,
-              line: this.yylineno
+              line: this.yylineno,
             }
           );
         }
@@ -826,11 +826,11 @@ const SearchDSL = (() => {
         /^(?:[^\s\(\)\:,]+)/,
         /^(?:\()/,
         /^(?:\))/,
-        /^(?:$)/
+        /^(?:$)/,
       ],
       conditions: {
-        INITIAL: { rules: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], inclusive: true }
-      }
+        INITIAL: { rules: [0, 1, 2, 3, 4, 5, 6, 7, 8, 9], inclusive: true },
+      },
     };
     return lexer;
   })();
@@ -846,7 +846,7 @@ const SearchDSL = (() => {
 export default {
   parser: SearchDSL,
   Parser: SearchDSL.Parser,
-  parse: function(...args) {
+  parse: function (...args) {
     return SearchDSL.parse(...args);
   },
   main: function commonjsMain(args) {
@@ -859,5 +859,5 @@ export default {
       "utf8"
     );
     return exports.parser.parse(source);
-  }
+  },
 };

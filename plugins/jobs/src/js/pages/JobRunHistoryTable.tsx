@@ -10,7 +10,7 @@ import { Dropdown } from "reactjs-components";
 
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import JobStates from "#PLUGINS/jobs/src/js/constants/JobStates";
@@ -31,7 +31,7 @@ const columnClasses = {
   startedAt: "job-run-history-table-column-started",
   finishedAt: "job-run-history-table-column-finished",
   runTime: "job-run-history-table-column-run-time",
-  actions: "job-run-history-table-column-actions"
+  actions: "job-run-history-table-column-actions",
 };
 
 const STOP = "Stop";
@@ -57,14 +57,14 @@ const colGroup = (
 
 class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor(props) {
     super(props);
 
     this.state = {
       selectedID: null,
-      mesosStateStoreLoaded: false
+      mesosStateStoreLoaded: false,
     };
 
     MesosStateStore.ready.then(() => {
@@ -82,7 +82,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
   getColumnHeading(prop, order, sortBy) {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null,
-      "caret--visible": prop === sortBy.prop
+      "caret--visible": prop === sortBy.prop,
     });
 
     const headingStrings = {
@@ -90,7 +90,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
       status: i18nMark("Status"),
       startedAt: i18nMark("Started"),
       finishedAt: i18nMark("Finished"),
-      runTime: i18nMark("Run Time")
+      runTime: i18nMark("Run Time"),
     };
 
     return (
@@ -104,7 +104,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
   getColumnClassName(prop, sortBy, row) {
     return classNames(columnClasses[prop], {
       active: prop === sortBy.prop,
-      clickable: row == null
+      clickable: row == null,
     });
   }
 
@@ -115,49 +115,49 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
         heading: this.getColumnHeading,
         prop: "jobID",
         render: this.renderJobIDColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "status",
         render: this.renderStatusColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "startedAt",
         render: this.renderTimeColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "finishedAt",
         render: this.renderTimeColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "runTime",
         render: this.renderRunTimeColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: "",
         prop: "actions",
         render: this.renderActionsColumn,
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   }
 
   getData(job) {
-    return job.jobRuns.nodes.map(jobRun => {
-      const children = jobRun.tasks.nodes.map(jobTask => {
+    return job.jobRuns.nodes.map((jobRun) => {
+      const children = jobRun.tasks.nodes.map((jobTask) => {
         const startedAt = jobTask.dateStarted;
         const finishedAt = jobTask.dateCompleted;
         const runTime = calculateRunTime(startedAt, finishedAt);
@@ -167,7 +167,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
           status: jobTask.status,
           startedAt,
           finishedAt,
-          runTime
+          runTime,
         };
       });
 
@@ -182,7 +182,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
         startedAt,
         status: jobRun.status,
         runTime,
-        children
+        children,
       };
     });
   }
@@ -252,7 +252,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
 
     if (row.children && row.children.length > 0) {
       const classes = classNames("expanding-table-primary-cell is-expandable", {
-        "is-expanded": rowOptions.isExpanded
+        "is-expanded": rowOptions.isExpanded,
       });
       const { clickHandler } = rowOptions;
 
@@ -274,7 +274,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
           status.stateTypes.includes("success") &&
           !status.stateTypes.includes("failure"),
         "text-danger": status.stateTypes.includes("failure"),
-        "text-neutral": status.stateTypes.includes("active")
+        "text-neutral": status.stateTypes.includes("active"),
       });
 
       return (
@@ -291,7 +291,7 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
       "text-success":
         status.stateTypes.includes("success") &&
         !status.stateTypes.includes("failure"),
-      "text-danger": status.stateTypes.includes("failure")
+      "text-danger": status.stateTypes.includes("failure"),
     });
 
     return (
@@ -322,12 +322,12 @@ class JobRunHistoryTable extends React.Component<{ job: { id: string } }> {
         html: "",
         selectedHtml: (
           <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-        )
+        ),
       },
       {
         id: STOP,
-        html: <Trans render="span" className="text-danger" id={STOP} />
-      }
+        html: <Trans render="span" className="text-danger" id={STOP} />,
+      },
     ];
 
     return (

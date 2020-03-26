@@ -11,7 +11,7 @@ import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 
-const SingleContainerFileInput = props => {
+const SingleContainerFileInput = (props) => {
   const { name, value, showErrors, errors } = props;
   const hasErrors =
     showErrors && errors && errors[name] && errors[name].length > 0;
@@ -53,7 +53,7 @@ SingleContainerFileInput.propTypes = {
   name: PropTypes.string.isRequired,
   showErrors: PropTypes.bool.isRequired,
   errors: PropTypes.object.isRequired,
-  value: PropTypes.string
+  value: PropTypes.string,
 };
 
 export default SingleContainerFileInput;

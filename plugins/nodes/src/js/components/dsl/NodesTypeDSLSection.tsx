@@ -13,10 +13,10 @@ import FormGroup from "#SRC/js/components/form/FormGroup";
 
 const EXPRESSION_PARTS = {
   is_private: DSLExpressionPart.attribute("is", "private"),
-  is_public: DSLExpressionPart.attribute("is", "public")
+  is_public: DSLExpressionPart.attribute("is", "public"),
 };
 
-const NodesTypeDSLSection = props => {
+const NodesTypeDSLSection = (props) => {
   const { expression, onChange } = props;
   const enabled = DSLUtil.canProcessParts(expression, EXPRESSION_PARTS);
   const data = DSLUtil.getPartValues(expression, EXPRESSION_PARTS);
@@ -65,7 +65,7 @@ const NodesTypeDSLSection = props => {
 
 NodesTypeDSLSection.propTypes = {
   onChange: PropTypes.func.isRequired,
-  expression: PropTypes.instanceOf(DSLExpression).isRequired
+  expression: PropTypes.instanceOf(DSLExpression).isRequired,
 };
 
 export default NodesTypeDSLSection;

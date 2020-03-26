@@ -39,7 +39,7 @@ const SystemOverviewBreadcrumbs = () => {
           <Trans render="span">Overview</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -60,7 +60,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       cluster: undefined,
       version: undefined,
       buildTime: undefined,
-      startTime: undefined
+      startTime: undefined,
     };
 
     // prettier-ignore
@@ -78,9 +78,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     MetadataStore.fetchDCOSBuildInfo();
 
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
-      response => {
+      (response) => {
         const cluster = JSON.parse(response).get_flags.flags.find(
-          flag => flag.name === "cluster"
+          (flag) => flag.name === "cluster"
         );
 
         if (cluster) {
@@ -90,25 +90,25 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     );
 
     request({ type: "GET_VERSION" }, "/mesos/api/v1?GET_VERSION").subscribe(
-      response => {
+      (response) => {
         const info = JSON.parse(response).get_version.version_info;
 
         if (info) {
           this.setState({
             version: info.version,
-            buildTime: info.build_time
+            buildTime: info.build_time,
           });
         }
       }
     );
 
-    container.get(MesosMasterRequestType).subscribe(response => {
+    container.get(MesosMasterRequestType).subscribe((response) => {
       const {
         get_master: {
           master_info: masterInfo,
           elected_time: electedTime,
-          start_time: startTime
-        }
+          start_time: startTime,
+        },
       } = JSON.parse(response);
 
       this.setState({ masterInfo, electedTime, startTime });
@@ -187,8 +187,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
         "Framework ID": marathonDetails.frameworkId,
         Leader: marathonDetails.leader,
         "Marathon Config": marathonDetails.marathon_config,
-        "ZooKeeper Config": marathonDetails.zookeeper_config
-      }
+        "ZooKeeper Config": marathonDetails.zookeeper_config,
+      },
     };
   }
 
@@ -196,8 +196,8 @@ class OverviewDetailTab extends mixin(StoreMixin) {
     return [
       {
         label: i18nMark("View Cluster Configuration"),
-        onItemSelect: this.handleClusterConfigModalOpen
-      }
+        onItemSelect: this.handleClusterConfigModalOpen,
+      },
     ];
   }
 
@@ -245,7 +245,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       buildTime,
       startTime,
       electedTime,
-      buildUser
+      buildUser,
     } = this.state;
 
     const mesosMasterInfo = masterInfo || this.getLoading();
@@ -347,7 +347,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
 OverviewDetailTab.routeConfig = {
   label: i18nMark("Overview"),
-  matches: /^\/overview\/details/
+  matches: /^\/overview\/details/,
 };
 
 export default OverviewDetailTab;

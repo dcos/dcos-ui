@@ -8,7 +8,7 @@ import * as Events from "../constants/EventTypes";
 
 const renderOption = ({ path }: { path: string }) => ({
   value: path,
-  label: path
+  label: path,
 });
 
 type Props = {

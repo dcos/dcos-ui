@@ -9,7 +9,7 @@ import {
   retryWhen,
   zip,
   take,
-  concat
+  concat,
 } from "rxjs/operators";
 
 import Framework from "#PLUGINS/services/src/js/structs/Framework";
@@ -20,7 +20,7 @@ import DCOSStore from "./DCOSStore";
 import GetSetBaseStore from "./GetSetBaseStore";
 import {
   MESOS_STATE_CHANGE,
-  MESOS_STATE_REQUEST_ERROR
+  MESOS_STATE_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
 import { linearBackoff } from "../utils/rxjsUtils";
@@ -43,12 +43,12 @@ class MesosStateStore extends GetSetBaseStore {
   constructor() {
     super();
 
-    this.ready = new Promise(resolve => {
+    this.ready = new Promise((resolve) => {
       this.resolve = resolve;
     });
 
     this.getSet_data = {
-      lastMesosState: {}
+      lastMesosState: {},
     };
 
     PluginSDK.addStoreConfig({
@@ -56,9 +56,9 @@ class MesosStateStore extends GetSetBaseStore {
       storeID: this.storeID,
       events: {
         success: MESOS_STATE_CHANGE,
-        error: MESOS_STATE_REQUEST_ERROR
+        error: MESOS_STATE_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
   }
 
@@ -81,7 +81,7 @@ class MesosStateStore extends GetSetBaseStore {
   subscribe() {
     const mesos$ = container.get(MesosStreamType);
     const masterRequest$ = container.get(MesosMasterRequestType).pipe(
-      tap(response => {
+      tap((response) => {
         const master = mesosStreamParsers.getMaster(
           this.getMaster(),
           JSON.parse(response)
@@ -93,8 +93,8 @@ class MesosStateStore extends GetSetBaseStore {
 
     const parsers = pipe(Object.values(mesosStreamParsers));
     const data$ = mesos$.pipe(
-      map(message => parsers(this.getLastMesosState(), message)),
-      tap(state => {
+      map((message) => parsers(this.getLastMesosState(), message)),
+      tap((state) => {
         this.set({ lastMesosState: state });
 
         // This is the moment that we first have full information from the
@@ -143,14 +143,14 @@ class MesosStateStore extends GetSetBaseStore {
       master_info: {},
       slaves: [],
       tasks: [],
-      ...this.get("lastMesosState")
+      ...this.get("lastMesosState"),
     };
   }
 
   getMaster() {
     return {
       master_info: {},
-      ...this.get("master")
+      ...this.get("master"),
     };
   }
 
@@ -172,7 +172,7 @@ class MesosStateStore extends GetSetBaseStore {
     const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
-      return nodes.find(node => node.id === id);
+      return nodes.find((node) => node.id === id);
     }
 
     return null;
@@ -182,7 +182,7 @@ class MesosStateStore extends GetSetBaseStore {
     const nodes = this.getLastMesosState().slaves;
 
     if (nodes) {
-      return nodes.find(node => node.hostname === hostname);
+      return nodes.find((node) => node.hostname === hostname);
     }
 
     return null;
@@ -198,7 +198,7 @@ class MesosStateStore extends GetSetBaseStore {
 
     return tasks
       .filter(({ slave_id }) => slave_id === nodeID)
-      .map(task =>
+      .map((task) =>
         MesosStateUtil.flagSDKTask(task, servicesMap[task.framework_id])
       );
   }
@@ -213,7 +213,7 @@ class MesosStateStore extends GetSetBaseStore {
   getFrameworkByTask(task) {
     const { frameworks } = this.getLastMesosState();
 
-    return frameworks.find(framework => framework.id === task.framework_id);
+    return frameworks.find((framework) => framework.id === task.framework_id);
   }
 
   getTasksByService(service) {
@@ -238,21 +238,24 @@ class MesosStateStore extends GetSetBaseStore {
     let serviceTasks = [];
     if (serviceIsFramework) {
       const framework = frameworks.find(
-        framework => framework.active && framework.name === serviceFrameworkName
+        (framework) =>
+          framework.active && framework.name === serviceFrameworkName
       );
 
       if (framework) {
-        serviceTasks = tasks.filter(task => task.framework_id === framework.id);
+        serviceTasks = tasks.filter(
+          (task) => task.framework_id === framework.id
+        );
       }
     }
 
     return tasks
       .filter(
-        task =>
+        (task) =>
           task.isStartedByMarathon && task.id.startsWith(`${taskIdPrefix}.`)
       )
       .concat(serviceTasks)
-      .map(task => MesosStateUtil.flagSDKTask(task, service));
+      .map((task) => MesosStateUtil.flagSDKTask(task, service));
   }
 
   getRunningTasksFromVirtualNetworkName(overlayName) {
@@ -266,7 +269,7 @@ class MesosStateStore extends GetSetBaseStore {
     this.emit(MESOS_STATE_CHANGE);
   };
 
-  onStreamError = error => {
+  onStreamError = (error) => {
     this.emit(MESOS_STATE_REQUEST_ERROR, error);
 
     // This was added in the past, so the stream does not swallow errors.
@@ -296,7 +299,7 @@ if (Config.useFixtures) {
 
   const { MesosStreamType } = require("../core/MesosStream");
 
-  Promise.all([getMasterFixture, subscribeFixture]).then(values => {
+  Promise.all([getMasterFixture, subscribeFixture]).then((values) => {
     container.rebind(MesosMasterRequestType).toConstantValue(of(values[0]));
 
     container

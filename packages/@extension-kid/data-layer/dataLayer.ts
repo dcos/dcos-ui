@@ -40,13 +40,13 @@ const baseResolver = {
   Query: {
     isPresent() {
       return true;
-    }
+    },
   },
   Mutation: {
     noOpMutation() {
       return true;
-    }
-  }
+    },
+  },
 };
 
 @injectable()
@@ -65,21 +65,23 @@ export default class DataLayer {
     this._schema$ = new BehaviorSubject(this.getExecutableSchema());
 
     this._extensionProvider.subscribe({
-      next: () => this._schema$.next(this.getExecutableSchema())
+      next: () => this._schema$.next(this.getExecutableSchema()),
     });
   }
 
   public getExecutableSchema(): GraphQLSchema {
     const extensions = this._extensionProvider.getAllExtensions();
-    const enabledIds = extensions.map(extension => extension.id);
+    const enabledIds = extensions.map((extension) => extension.id);
     const typeDefs = [
       baseQuery,
-      ...extensions.map(extension => extension.getTypeDefinitions(enabledIds))
+      ...extensions.map((extension) =>
+        extension.getTypeDefinitions(enabledIds)
+      ),
     ];
 
     const resolvers = [
       baseResolver,
-      ...extensions.map(extension => extension.getResolvers(enabledIds))
+      ...extensions.map((extension) => extension.getResolvers(enabledIds)),
     ];
 
     return makeExecutableSchema({ typeDefs, resolvers });
@@ -87,7 +89,7 @@ export default class DataLayer {
 
   public query(doc: any, context?: any): Observable<any> {
     return this._schema$.pipe(
-      switchMap(schema => graphqlObservable(doc, schema, context))
+      switchMap((schema) => graphqlObservable(doc, schema, context))
     );
   }
 }

@@ -11,12 +11,12 @@ describe("Artifacts", () => {
         new Transaction(["fetch"], { uri: "http://example.io" }, ADD_ITEM),
         new Transaction(["fetch", 0, "uri"], "http://example.io", SET),
         new Transaction(["fetch"], { uri: "http://example.com" }, ADD_ITEM),
-        new Transaction(["fetch", 1, "uri"], "http://example.com", SET)
+        new Transaction(["fetch", 1, "uri"], "http://example.com", SET),
       ]);
 
       expect(batch.reduce(FormReducer.bind({}), [])).toEqual([
         { uri: "http://example.io" },
-        { uri: "http://example.com" }
+        { uri: "http://example.com" },
       ]);
     });
   });

@@ -10,7 +10,7 @@ import SecretExposureTypeSelect from "./SecretExposureTypeSelect";
 import MultiContainerFileInput from "./MultiContainerFileInput";
 import {
   MultiContainerSecretContext,
-  MultiContainerSecretExposure
+  MultiContainerSecretExposure,
 } from "../../reducers/types";
 
 interface Props {
@@ -32,7 +32,7 @@ function containerRows(props: Props): null | JSX.Element {
     variable,
     containers,
     showErrors,
-    errors
+    errors,
   } = props;
   if (variable.type !== "file") {
     return null;
@@ -100,7 +100,7 @@ const MultiContainerSecret = (props: Props) => {
     variable,
     onRemoveItem,
     showErrors,
-    errors
+    errors,
   } = props;
 
   const removeTransaction =
@@ -149,22 +149,22 @@ MultiContainerSecret.propTypes = {
       PropTypes.shape({
         type: PropTypes.string,
         value: PropTypes.string,
-        mounts: PropTypes.arrayOf(PropTypes.string)
+        mounts: PropTypes.arrayOf(PropTypes.string),
       })
     ),
     key: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
   }),
   secrets: PropTypes.arrayOf(PropTypes.string),
   variable: PropTypes.shape({
     type: PropTypes.string,
     value: PropTypes.string,
-    mounts: PropTypes.arrayOf(PropTypes.string)
+    mounts: PropTypes.arrayOf(PropTypes.string),
   }),
   showErrors: PropTypes.bool,
   errors: PropTypes.object,
   onRemoveItem: PropTypes.func.isRequired,
-  containers: PropTypes.arrayOf(PropTypes.object)
+  containers: PropTypes.arrayOf(PropTypes.object),
 };
 
 export default MultiContainerSecret;

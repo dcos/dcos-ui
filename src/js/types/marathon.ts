@@ -67,7 +67,7 @@ export interface TaskSingle {
 }
 export enum TaskStatusCondition {
   running = "running",
-  staging = "staging"
+  staging = "staging",
 }
 export interface VersionInfo {
   lastScalingAt: Date;
@@ -128,7 +128,7 @@ export interface ContainerStatus {
 export enum PodState {
   DEGRADED = "DEGRADED",
   STABLE = "STABLE",
-  TERMINAL = "TERMINAL"
+  TERMINAL = "TERMINAL",
 }
 export interface PodInstanceStatus {
   id: string;
@@ -157,7 +157,7 @@ export enum PodInstanceState {
   STAGING = "STAGING",
   STABLE = "STABLE",
   DEGRADED = "DEGRADED",
-  TERMINAL = "TERMINAL"
+  TERMINAL = "TERMINAL",
 }
 export interface Resources {
   cpus: number;
@@ -192,11 +192,11 @@ export enum ConstraintOperator {
   LIKE = "LIKE",
   UNLIKE = "UNLIKE",
   MAX_PER = "MAX_PER",
-  IS = "IS"
+  IS = "IS",
 }
 export enum KillSelection {
   YOUNGEST_FIRST = "YOUNGEST_FIRST",
-  OLDEST_FIRST = "OLDEST_FIRST"
+  OLDEST_FIRST = "OLDEST_FIRST",
 }
 export interface Health {
   alive: boolean;
@@ -227,7 +227,7 @@ export enum AppHealthCheckProtocol {
   COMMAND = "COMMAND",
   MESOS_TCP = "MESOS_TCP",
   MESOS_HTTP = "MESOS_HTTP",
-  MESOS_HTTPS = "MESOS_HTTPS"
+  MESOS_HTTPS = "MESOS_HTTPS",
 }
 export interface AppHealthCheck {
   command?: AppCommandCheck;
@@ -249,7 +249,7 @@ export interface CommandCheck {
 
 export enum IpProtocol {
   IPv4 = "IPv4",
-  IPv6 = "IPv6"
+  IPv6 = "IPv6",
 }
 export interface DeploymentPlan {
   id: string;
@@ -307,7 +307,7 @@ export interface TaskReadinessCheckResult {
 }
 export enum HttpScheme {
   HTTP = "HTTP",
-  HTTPS = "HTTPS"
+  HTTPS = "HTTPS",
 }
 
 export interface ErrorDetail {
@@ -328,7 +328,7 @@ export enum LoggerLevel {
   debug = "debug",
   info = "info",
   warn = "warn",
-  error = "error"
+  error = "error",
 }
 
 export interface DeleteTasks {
@@ -369,11 +369,11 @@ export enum DockerNetwork {
   BRIDGE = "BRIDGE",
   HOST = "HOST",
   NONE = "NONE",
-  USER = "USER"
+  USER = "USER",
 }
 export enum EngineType {
   MESOS = "MESOS",
-  DOCKER = "DOCKER"
+  DOCKER = "DOCKER",
 }
 export interface ContainerPortMapping {
   containerPort: number;
@@ -387,7 +387,7 @@ export interface ContainerPortMapping {
 export enum NetworkProtocol {
   tcp = "tcp",
   udp = "udp",
-  udp_tcp = "udp,tcp"
+  udp_tcp = "udp,tcp",
 }
 
 export interface DockerPullConfig {
@@ -399,7 +399,7 @@ export interface UnreachableEnabled {
   expungeAfterSeconds?: number;
 }
 export enum UnreachableDisabled {
-  disabled = "disabled"
+  disabled = "disabled",
 }
 export enum Condition {
   Error = "Error",
@@ -414,7 +414,7 @@ export enum Condition {
   UnreachableInactive = "UnreachableInactive",
   Gone = "Gone",
   Dropped = "Dropped",
-  Unknown = "Unknown"
+  Unknown = "Unknown",
 }
 export enum MesosTaskState {
   TASK_ERROR = "TASK_ERROR",
@@ -427,7 +427,7 @@ export enum MesosTaskState {
   TASK_STARTING = "TASK_STARTING",
   TASK_UNREACHABLE = "TASK_UNREACHABLE",
   TASK_GONE = "TASK_GONE",
-  TASK_DROPPED = "TASK_DROPPED"
+  TASK_DROPPED = "TASK_DROPPED",
 }
 export interface Message {
   message: string;
@@ -435,16 +435,16 @@ export interface Message {
 
 export enum TaskLostBehavior {
   WAIT_FOREVER = "WAIT_FOREVER",
-  RELAUNCH_AFTER_TIMEOUT = "RELAUNCH_AFTER_TIMEOUT"
+  RELAUNCH_AFTER_TIMEOUT = "RELAUNCH_AFTER_TIMEOUT",
 }
 export enum Goal {
   Running = "Running",
   Stopped = "Stopped",
-  Decommissioned = "Decommissioned"
+  Decommissioned = "Decommissioned",
 }
 export enum ReadMode {
   RO = "RO",
-  RW = "RW"
+  RW = "RW",
 }
 
 export interface App {
@@ -544,7 +544,7 @@ export interface PodContainer {
 }
 export enum ImageType {
   DOCKER = "DOCKER",
-  APPC = "APPC"
+  APPC = "APPC",
 }
 
 export interface Check {
@@ -686,7 +686,7 @@ export interface PodHostVolume {
 export enum PersistentVolumeType {
   root = "root",
   path = "path",
-  mount = "mount"
+  mount = "mount",
 }
 export interface PodPersistentVolume {
   name: string;
@@ -762,7 +762,7 @@ export interface PodSchedulingBackoffStrategy {
   maxLaunchDelay?: number;
 }
 export enum PodScalingPolicyType {
-  fixed = "fixed"
+  fixed = "fixed",
 }
 export interface PodPlacementPolicy {
   constraints?: Constraint[];
@@ -971,7 +971,7 @@ export interface PortDefinition {
 export enum NetworkMode {
   container = "container",
   container_bridge = "container/bridge",
-  host = "host"
+  host = "host",
 }
 export interface Endpoint {
   name: string;
@@ -1012,5 +1012,5 @@ export enum DeploymentActionName {
   StopPod = "StopPod",
   ScalePod = "ScalePod",
   RestartPod = "RestartPod",
-  ResolveArtifacts = "ResolveArtifacts"
+  ResolveArtifacts = "ResolveArtifacts",
 }

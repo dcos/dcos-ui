@@ -13,11 +13,11 @@ export default {
   notifications: {
     updated: null,
     updateFailed: null,
-    rollbackFailed: null
+    rollbackFailed: null,
   },
 
   initialize() {
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -61,5 +61,5 @@ export default {
   },
   redirectToLogin() {
     this.unregisterNotifications();
-  }
+  },
 };

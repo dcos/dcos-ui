@@ -6,7 +6,7 @@ const JSONEditorLoading = ({ isSidePanel }: { isSidePanel?: boolean }) => (
   <div
     className={classNames("json-editor-loading", {
       "json-editor-loading--side-panel": isSidePanel,
-      "json-editor-loading--inset": !isSidePanel
+      "json-editor-loading--inset": !isSidePanel,
     })}
   >
     <Loader />

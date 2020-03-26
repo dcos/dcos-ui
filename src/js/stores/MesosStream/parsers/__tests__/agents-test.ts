@@ -1,7 +1,7 @@
 import {
   getAgentsAction,
   agentAddedAction,
-  agentRemovedAction
+  agentRemovedAction,
 } from "../agents";
 
 describe("agents parser", () => {
@@ -17,14 +17,14 @@ describe("agents parser", () => {
               agent_info: {
                 hostname: "myhost",
                 id: {
-                  value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0"
-                }
+                  value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
+                },
               },
               pid: "slave(3)@127.0.1.1:34626",
-              version: "1.1.0"
-            }
-          ]
-        }
+              version: "1.1.0",
+            },
+          ],
+        },
       };
 
       const result = getAgentsAction(state, message);
@@ -36,9 +36,9 @@ describe("agents parser", () => {
             hostname: "myhost",
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
             pid: "slave(3)@127.0.1.1:34626",
-            version: "1.1.0"
-          }
-        ]
+            version: "1.1.0",
+          },
+        ],
       });
     });
   });
@@ -54,13 +54,13 @@ describe("agents parser", () => {
             agent_info: {
               hostname: "myhost",
               id: {
-                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0"
-              }
+                value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
+              },
             },
             pid: "slave(3)@127.0.1.1:34626",
-            version: "1.1.0"
-          }
-        }
+            version: "1.1.0",
+          },
+        },
       };
 
       const result = agentAddedAction(state, message);
@@ -72,9 +72,9 @@ describe("agents parser", () => {
             hostname: "myhost",
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
             pid: "slave(3)@127.0.1.1:34626",
-            version: "1.1.0"
-          }
-        ]
+            version: "1.1.0",
+          },
+        ],
       });
     });
   });
@@ -88,17 +88,17 @@ describe("agents parser", () => {
             hostname: "myhost",
             id: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
             pid: "slave(3)@127.0.1.1:34626",
-            version: "1.1.0"
-          }
-        ]
+            version: "1.1.0",
+          },
+        ],
       };
       const message = {
         type: "AGENT_REMOVED",
         agent_removed: {
           agent_id: {
-            value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0"
-          }
-        }
+            value: "628984d0-4213-4140-bcb0-99d7ef46b1df-S0",
+          },
+        },
       };
 
       const result = agentRemovedAction(state, message);

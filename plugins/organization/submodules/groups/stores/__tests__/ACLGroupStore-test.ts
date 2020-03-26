@@ -22,11 +22,11 @@ describe("ACLGroupStore", () => {
 
     SDK.dispatch({
       type: EventTypes.ACL_GROUP_SET_GROUPS,
-      groups
+      groups,
     });
     SDK.dispatch({
       type: EventTypes.ACL_GROUP_SET_GROUPS_FETCHING,
-      groupsFetching
+      groupsFetching,
     });
   });
 
@@ -35,7 +35,7 @@ describe("ACLGroupStore", () => {
       const groups = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_GROUP_SET_GROUPS,
-        groups
+        groups,
       });
       expect(ACLGroupStore.getGroupRaw("foo")).toEqual({ bar: "baz" });
     });
@@ -46,7 +46,7 @@ describe("ACLGroupStore", () => {
       const groups = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_GROUP_SET_GROUPS,
-        groups
+        groups,
       });
       expect(ACLGroupStore.getGroup("foo") instanceof Group).toBeTruthy();
     });
@@ -55,7 +55,7 @@ describe("ACLGroupStore", () => {
       const groups = { foo: { bar: "baz" } };
       SDK.dispatch({
         type: EventTypes.ACL_GROUP_SET_GROUPS,
-        groups
+        groups,
       });
       expect(ACLGroupStore.getGroup("foo").get()).toEqual({ bar: "baz" });
     });
@@ -69,20 +69,20 @@ describe("ACLGroupStore", () => {
           serviceAccounts: [
             {
               user: {
-                description: "service_account"
-              }
+                description: "service_account",
+              },
             },
             {
               user: {
-                description: "A service account"
-              }
-            }
-          ]
-        }
+                description: "A service account",
+              },
+            },
+          ],
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_GROUP_SET_GROUPS,
-        groups
+        groups,
       });
     });
 
@@ -108,20 +108,20 @@ describe("ACLGroupStore", () => {
           users: [
             {
               user: {
-                description: "A user"
-              }
+                description: "A user",
+              },
             },
             {
               user: {
-                description: "Another user"
-              }
-            }
-          ]
-        }
+                description: "Another user",
+              },
+            },
+          ],
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_GROUP_SET_GROUPS,
-        groups
+        groups,
       });
     });
 
@@ -155,8 +155,8 @@ describe("ACLGroupStore", () => {
           group: false,
           users: false,
           permissions: false,
-          serviceAccounts: false
-        }
+          serviceAccounts: false,
+        },
       });
     });
 
@@ -177,26 +177,26 @@ describe("ACLGroupStore", () => {
       it("stores group when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SUCCESS,
-          data: { gid: "foo", bar: "baz" }
+          data: { gid: "foo", bar: "baz" },
         });
 
         expect(ACLGroupStore.getGroupRaw("foo")).toEqual({
           gid: "foo",
-          bar: "baz"
+          bar: "baz",
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_DETAILS_GROUP_CHANGE,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SUCCESS,
-          data: { gid: "foo" }
+          data: { gid: "foo" },
         });
       });
 
@@ -210,7 +210,7 @@ describe("ACLGroupStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ERROR,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
     });
@@ -220,25 +220,25 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_SUCCESS,
           data: { bar: "baz" },
-          groupID: "foo"
+          groupID: "foo",
         });
 
         expect(ACLGroupStore.getGroupRaw("foo")).toEqual({
-          users: { bar: "baz" }
+          users: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_DETAILS_GROUP_CHANGE,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_SUCCESS,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -252,7 +252,7 @@ describe("ACLGroupStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_ERROR,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
     });
@@ -262,25 +262,25 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_SUCCESS,
           data: { bar: "baz" },
-          groupID: "foo"
+          groupID: "foo",
         });
 
         expect(ACLGroupStore.getGroupRaw("foo")).toEqual({
-          permissions: { bar: "baz" }
+          permissions: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_DETAILS_PERMISSIONS_CHANGE,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_SUCCESS,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -295,7 +295,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_ERROR,
           groupID: "foo",
-          data: "bar"
+          data: "bar",
         });
       });
     });
@@ -310,21 +310,21 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS,
         });
       });
 
       it("emits success event with the groupID", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_CREATE_SUCCESS,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -337,7 +337,7 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR
+          type: ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR,
         });
       });
 
@@ -352,7 +352,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR,
           groupID: "foo",
-          data: "bar"
+          data: "bar",
         });
       });
     });
@@ -367,21 +367,21 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS,
         });
       });
 
       it("emits success event with the groupID", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_UPDATE_SUCCESS,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -394,7 +394,7 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR
+          type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR,
         });
       });
 
@@ -409,7 +409,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR,
           groupID: "foo",
-          data: "bar"
+          data: "bar",
         });
       });
 
@@ -425,7 +425,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR,
           groupID: "foo",
-          data: "bar"
+          data: "bar",
         });
       });
     });
@@ -440,21 +440,21 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS,
         });
       });
 
       it("emits success event with the groupID", () => {
         ACLGroupStore.addChangeListener(
           EventTypes.ACL_GROUP_DELETE_SUCCESS,
-          groupID => {
+          (groupID) => {
             expect(groupID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS,
-          groupID: "foo"
+          groupID: "foo",
         });
       });
 
@@ -467,7 +467,7 @@ describe("ACLGroupStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR
+          type: ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR,
         });
       });
 
@@ -483,7 +483,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR,
           groupID: "foo",
-          data: "error"
+          data: "error",
         });
       });
     });
@@ -500,7 +500,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
           groupID: "foo",
-          userID: "bar"
+          userID: "bar",
         });
       });
 
@@ -516,7 +516,7 @@ describe("ACLGroupStore", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_ERROR,
           data: "error",
           groupID: "foo",
-          userID: "bar"
+          userID: "bar",
         });
       });
     });
@@ -533,7 +533,7 @@ describe("ACLGroupStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           groupID: "foo",
-          userID: "bar"
+          userID: "bar",
         });
       });
 
@@ -549,7 +549,7 @@ describe("ACLGroupStore", () => {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: "error",
           groupID: "foo",
-          userID: "bar"
+          userID: "bar",
         });
       });
     });

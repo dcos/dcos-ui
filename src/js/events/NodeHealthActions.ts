@@ -8,7 +8,7 @@ import {
   REQUEST_HEALTH_NODE_UNIT_ERROR,
   REQUEST_HEALTH_NODE_UNIT_SUCCESS,
   REQUEST_HEALTH_NODES_ERROR,
-  REQUEST_HEALTH_NODES_SUCCESS
+  REQUEST_HEALTH_NODES_SUCCESS,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -21,16 +21,16 @@ const NodeHealthActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODES_SUCCESS,
-          data: response.nodes
+          data: response.nodes,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODES_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -41,7 +41,7 @@ const NodeHealthActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_SUCCESS,
           data: response,
-          nodeID
+          nodeID,
         });
       },
       error(xhr) {
@@ -49,9 +49,9 @@ const NodeHealthActions = {
           type: REQUEST_HEALTH_NODE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           nodeID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -62,7 +62,7 @@ const NodeHealthActions = {
         AppDispatcher.handleServerAction({
           type: REQUEST_HEALTH_NODE_UNITS_SUCCESS,
           data: response.units,
-          nodeID
+          nodeID,
         });
       },
       error(xhr) {
@@ -70,9 +70,9 @@ const NodeHealthActions = {
           type: REQUEST_HEALTH_NODE_UNITS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           nodeID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -84,7 +84,7 @@ const NodeHealthActions = {
           type: REQUEST_HEALTH_NODE_UNIT_SUCCESS,
           data: response,
           nodeID,
-          unitID
+          unitID,
         });
       },
       error(xhr) {
@@ -93,11 +93,11 @@ const NodeHealthActions = {
           data: RequestUtil.getErrorFromXHR(xhr),
           nodeID,
           unitID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -113,7 +113,7 @@ if (Config.useFixtures) {
     ),
     fetchNodeUnit: import(
       /* nodeUnitFixture */ "../../../tests/_fixtures/unit-health/node-unit.json"
-    )
+    ),
   };
 
   if (!window.actionTypes) {
@@ -122,15 +122,15 @@ if (Config.useFixtures) {
 
   Promise.all(
     Object.keys(methodFixtureMapping).map(
-      method => methodFixtureMapping[method]
+      (method) => methodFixtureMapping[method]
     )
-  ).then(responses => {
+  ).then((responses) => {
     window.actionTypes.NodeHealthActions = getFixtureResponses(
       methodFixtureMapping,
       responses
     );
 
-    Object.keys(window.actionTypes.NodeHealthActions).forEach(method => {
+    Object.keys(window.actionTypes.NodeHealthActions).forEach((method) => {
       NodeHealthActions[method] = RequestUtil.stubRequest(
         NodeHealthActions,
         "NodeHealthActions",

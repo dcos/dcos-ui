@@ -16,14 +16,14 @@ import ProviderTypes from "../constants/ProviderTypes";
 
 class AuthProvidersModalForm extends mixin(StoreMixin) {
   static defaultProps = {
-    onError() {}
+    onError() {},
   };
   static propTypes = {
     onClose: PropTypes.func.isRequired,
     onError: PropTypes.func,
     provider: PropTypes.instanceOf(AuthProvider),
     providerType: PropTypes.string,
-    triggerSubmit: PropTypes.func
+    triggerSubmit: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -36,24 +36,24 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
     this.state = {
       disableSubmit: false,
       errorCode: false,
-      errorMsg: false
+      errorMsg: false,
     };
   }
   onAuthProviderStoreCreateSuccess = () => {
     this.setState({
       disableSubmit: false,
-      errorMsg: false
+      errorMsg: false,
     });
     this.props.onClose();
   };
-  onAuthProviderStoreCreateError = errorMsg => {
+  onAuthProviderStoreCreateError = (errorMsg) => {
     const errorCode = "DEFAULT";
 
     this.setState(
       {
         disableSubmit: false,
         errorCode,
-        errorMsg
+        errorMsg,
       },
       this.props.onError
     );
@@ -61,15 +61,15 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
   onAuthProviderStoreUpdateSuccess = () => {
     this.setState({
       disableSubmit: false,
-      errorMsg: false
+      errorMsg: false,
     });
     this.props.onClose();
   };
-  onAuthProviderStoreUpdateError = errorMsg => {
+  onAuthProviderStoreUpdateError = (errorMsg) => {
     this.setState(
       {
         disableSubmit: false,
-        errorMsg
+        errorMsg,
       },
       this.props.onError
     );
@@ -77,11 +77,11 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
   handleAuthProviderClose = () => {
     this.setState({
       errorMsg: false,
-      errorCode: false
+      errorCode: false,
     });
     this.props.onClose();
   };
-  handleAuthProviderSubmit = model => {
+  handleAuthProviderSubmit = (model) => {
     this.setState({ disableSubmit: true });
 
     let { provider, providerType } = this.props;
@@ -112,14 +112,14 @@ class AuthProvidersModalForm extends mixin(StoreMixin) {
 
     const formDefinition = AuthProvidersFormDefinitions[providerType]
       .slice()
-      .map(def => ({ ...def, showLabel: i18n._(def.showLabel) }));
+      .map((def) => ({ ...def, showLabel: i18n._(def.showLabel) }));
 
     if (isEditMode) {
       const providerSettings = provider.getDetails();
       // Hide ProviderID field because it cannot be edited.
       formDefinition.shift();
 
-      return formDefinition.map(field => {
+      return formDefinition.map((field) => {
         const { showLabel } = field;
         if (Object.prototype.hasOwnProperty.call(providerSettings, showLabel)) {
           return { ...field, value: providerSettings[showLabel] };

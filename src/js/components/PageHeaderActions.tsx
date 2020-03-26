@@ -27,30 +27,30 @@ const getDropdownAction = (action, index) => {
 const classProps = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 const menuActionsProps = PropTypes.shape({
   className: classProps,
   onItemSelect: PropTypes.func.isRequired,
-  label: PropTypes.node.isRequired
+  label: PropTypes.node.isRequired,
 });
 
 export default class PageHeaderActions extends React.Component {
   static defaultProps = {
     actions: [],
-    actionsDisabled: false
+    actionsDisabled: false,
   };
   static propTypes = {
     addButton: PropTypes.oneOfType([
       PropTypes.arrayOf(menuActionsProps),
-      menuActionsProps
+      menuActionsProps,
     ]),
     actions: PropTypes.arrayOf(
       PropTypes.oneOfType([PropTypes.node, menuActionsProps])
     ),
     supplementalContent: PropTypes.node,
-    actionsDisabled: PropTypes.bool
+    actionsDisabled: PropTypes.bool,
   };
   renderActionsMenu() {
     const { actions, actionsDisabled } = this.props;

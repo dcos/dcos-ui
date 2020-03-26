@@ -14,10 +14,10 @@ export default {
   initialize(configuration) {
     this.configuration = configuration;
 
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -33,7 +33,7 @@ export default {
   },
 
   pluginsLoadedCheck(promiseArray) {
-    const promise = new Promise(resolve => {
+    const promise = new Promise((resolve) => {
       if (window.Intercom) {
         resolve();
       }
@@ -77,7 +77,7 @@ export default {
     window.Intercom("boot", {
       app_id: this.configuration.appId,
       email: user.email,
-      name: AuthStore.getUserLabel()
+      name: AuthStore.getUserLabel(),
     });
 
     IntercomStore.addChangeListener(
@@ -86,5 +86,5 @@ export default {
     );
 
     Hooks.doAction("intercomBoot");
-  }
+  },
 };

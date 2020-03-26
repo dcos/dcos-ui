@@ -24,7 +24,7 @@ const SecretStoreBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/settings/stores" />}>Secret Stores</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -39,7 +39,7 @@ class SecretStorePage extends mixin(StoreMixin) {
     this.state = { requestError: false };
 
     this.store_listeners = [
-      { name: "secrets", events: ["storesSuccess", "storesError"] }
+      { name: "secrets", events: ["storesSuccess", "storesError"] },
     ];
   }
 
@@ -98,7 +98,7 @@ class SecretStorePage extends mixin(StoreMixin) {
 
 SecretStorePage.routeConfig = {
   label: i18nMark("Secret Stores"),
-  matches: /^\/settings\/stores/
+  matches: /^\/settings\/stores/,
 };
 
 export default SecretStorePage;

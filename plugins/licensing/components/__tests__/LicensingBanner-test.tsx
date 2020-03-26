@@ -39,7 +39,7 @@ describe("LicensingBanner", () => {
 
       it("renders with expired breach message", () => {
         const copy = {
-          ...licensingFixture
+          ...licensingFixture,
         };
         copy.current_timestamp = "2020-01-26T10:05:00+04:00";
         copy.number_of_breaches = 1;
@@ -49,7 +49,7 @@ describe("LicensingBanner", () => {
 
       it("renders with node capacity and expired breach message", () => {
         const copy = {
-          ...licensingFixture
+          ...licensingFixture,
         };
         copy.current_timestamp = "2020-01-26T10:05:00+04:00";
         const instance = renderLicensingBanner(copy);
@@ -67,7 +67,7 @@ describe("LicensingBanner", () => {
 
       it("renders nothing when licensingSummary has no breaches", () => {
         const copy = {
-          ...licensingFixture
+          ...licensingFixture,
         };
         copy.number_of_breaches = 0;
         const summary = new LicensingSummary(copy);

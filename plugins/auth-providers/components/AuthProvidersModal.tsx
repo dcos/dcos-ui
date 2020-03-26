@@ -14,7 +14,7 @@ class AuthProvidersModal extends React.Component {
     onClose: PropTypes.func.isRequired,
     onSubmit: PropTypes.func,
     open: PropTypes.bool.isRequired,
-    provider: PropTypes.instanceOf(AuthProvider)
+    provider: PropTypes.instanceOf(AuthProvider),
   };
   constructor(...args) {
     super(...args);
@@ -22,10 +22,10 @@ class AuthProvidersModal extends React.Component {
     this.triggerFormSubmit = () => {};
 
     this.state = {
-      selectedProviderType: null
+      selectedProviderType: null,
     };
   }
-  handleIdentitySelection = selectedProviderType => {
+  handleIdentitySelection = (selectedProviderType) => {
     this.setState({ selectedProviderType });
   };
   onClose = () => {
@@ -39,12 +39,12 @@ class AuthProvidersModal extends React.Component {
     this.triggerFormSubmit();
     this.forceUpdate();
   };
-  getTriggerSubmit = trigger => {
+  getTriggerSubmit = (trigger) => {
     this.triggerFormSubmit = trigger;
   };
   resetModalState = () => {
     this.setState({
-      selectedProviderType: null
+      selectedProviderType: null,
     });
   };
 

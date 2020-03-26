@@ -3,11 +3,11 @@ import PropTypes from "prop-types";
 
 import { omit } from "../../utils/Util";
 
-const FieldFile = props => <input type="file" {...omit(props, ["type"])} />;
+const FieldFile = (props) => <input type="file" {...omit(props, ["type"])} />;
 
 FieldFile.defaultProps = {
   onChange: () => undefined,
-  value: ""
+  value: "",
 };
 
 FieldFile.propTypes = {
@@ -18,8 +18,8 @@ FieldFile.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default FieldFile;

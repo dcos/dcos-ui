@@ -44,8 +44,8 @@ describe("PackageDetailTab", () => {
         () =>
           new UniversePackageVersions({
             packageVersions: {
-              "1": "1"
-            }
+              "1": "1",
+            },
           })
       );
 
@@ -76,7 +76,7 @@ describe("PackageDetailTab", () => {
         expect(
           thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
-            { label: "bar", value: null }
+            { label: "bar", value: null },
           ])
         ).toEqual([]);
       });
@@ -86,7 +86,7 @@ describe("PackageDetailTab", () => {
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
-              { label: "bar", value: null }
+              { label: "bar", value: null },
             ],
             thisInstance.getItem
           ).length
@@ -98,7 +98,7 @@ describe("PackageDetailTab", () => {
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
-              { label: "bar", value: null }
+              { label: "bar", value: null },
             ],
             thisInstance.getItem
           )[0],
@@ -114,7 +114,7 @@ describe("PackageDetailTab", () => {
         expect(
           thisInstance.getItems.call(thisInstance, [
             { label: "foo", value: null },
-            { label: "bar", value: null }
+            { label: "bar", value: null },
           ])
         ).toEqual([]);
       });
@@ -124,7 +124,7 @@ describe("PackageDetailTab", () => {
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
-              { label: "bar", value: null }
+              { label: "bar", value: null },
             ],
             thisInstance.getSubItem
           ).length
@@ -136,7 +136,7 @@ describe("PackageDetailTab", () => {
           thisInstance.getItems(
             [
               { label: "foo", value: "baz" },
-              { label: "bar", value: null }
+              { label: "bar", value: null },
             ],
             thisInstance.getSubItem
           )[0],
@@ -181,7 +181,7 @@ describe("PackageDetailTab", () => {
       const licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: "qux" },
-        { name: "quux", url: "corge" }
+        { name: "quux", url: "corge" },
       ]);
 
       expect(licenses.length).toEqual(3);
@@ -191,7 +191,7 @@ describe("PackageDetailTab", () => {
       const licenses = thisInstance.mapLicenses([
         { name: "foo", url: "bar" },
         { name: "baz", url: null },
-        { name: "quux", url: "corge" }
+        { name: "quux", url: "corge" },
       ]);
 
       expect(licenses.length).toEqual(3);

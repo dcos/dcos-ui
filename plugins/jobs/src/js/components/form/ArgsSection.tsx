@@ -34,7 +34,7 @@ class ArgsSection extends React.Component<ArgsSectionProps> {
       formData: { args },
       onRemoveItem,
       errors,
-      showErrors
+      showErrors,
     } = this.props;
 
     const argTooltipContent = (

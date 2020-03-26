@@ -6,7 +6,7 @@ const LocalStorageUtil = {
   get(string: string): string {
     const item = window.localStorage.getItem(string);
     return typeof item === "string" ? item : "";
-  }
+  },
 };
 
 export default LocalStorageUtil;

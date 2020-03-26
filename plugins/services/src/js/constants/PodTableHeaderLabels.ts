@@ -10,5 +10,5 @@ export default {
   cpus: i18nMark("CPU"),
   mem: i18nMark("Mem"),
   updated: i18nMark("Updated"),
-  version: i18nMark("Version")
+  version: i18nMark("Version"),
 };

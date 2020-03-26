@@ -26,7 +26,7 @@ describe("ACLAuthenticatedUserActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PERMISSIONS_SUCCESS);
       });
@@ -35,7 +35,7 @@ describe("ACLAuthenticatedUserActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_PERMISSIONS_ERROR);
       });

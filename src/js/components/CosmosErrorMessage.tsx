@@ -16,21 +16,21 @@ const REPOSITORY_ERRORS = [
   "PackageFileNotJson",
   "RepositoryNotPresent",
   "RepositoryUriConnection",
-  "RepositoryUriSyntax"
+  "RepositoryUriSyntax",
 ];
 
 class CosmosErrorMessage extends React.Component {
   static defaultProps = {
     error: { message: i18nMark("Please try again.") },
-    flushBottom: false
+    flushBottom: false,
   };
   static propTypes = {
     error: PropTypes.shape({
       message: PropTypes.node,
       type: PropTypes.string,
-      data: PropTypes.object
+      data: PropTypes.object,
     }),
-    flushBottom: PropTypes.bool
+    flushBottom: PropTypes.bool,
   };
   getMessage() {
     const { error } = this.props;
@@ -90,7 +90,7 @@ class CosmosErrorMessage extends React.Component {
     }
 
     // Get an array of array of errors for every individual path
-    const errorsDetails = error.data.errors.map(errorDetail => {
+    const errorsDetails = error.data.errors.map((errorDetail) => {
       // Return early on unexpected error object format
       if (!errorDetail) {
         return [];
@@ -105,7 +105,7 @@ class CosmosErrorMessage extends React.Component {
         return [];
       }
 
-      return errors.map(error => (ErrorPaths[path] || path) + "." + error);
+      return errors.map((error) => (ErrorPaths[path] || path) + "." + error);
     });
 
     // Flatten elements in array and return

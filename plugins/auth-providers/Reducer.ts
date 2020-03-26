@@ -2,12 +2,12 @@ import {
   PROVIDER_CALLBACK_URL_SUCCESS,
   PROVIDER_DELETE_SUCCESS,
   PROVIDER_SUCCESS,
-  PROVIDERS_CHANGE
+  PROVIDERS_CHANGE,
 } from "./constants/EventTypes";
 
 const initialState = {
   providers: { oidc: {}, saml: {} },
-  providerDetail: { oidc: {}, saml: {} }
+  providerDetail: { oidc: {}, saml: {} },
 };
 
 module.exports = (state = initialState, action) => {
@@ -22,11 +22,11 @@ module.exports = (state = initialState, action) => {
 
       newProviderTypeDetail = {
         ...state.providerDetail[providerType],
-        [providerID]: { providerID, ...provider }
+        [providerID]: { providerID, ...provider },
       };
       newProviderDetail = {
         ...state.providerDetail,
-        [providerType]: newProviderTypeDetail
+        [providerType]: newProviderTypeDetail,
       };
 
       return { ...state, providerDetail: newProviderDetail };
@@ -36,7 +36,7 @@ module.exports = (state = initialState, action) => {
       provider.callbackURL = callbackURL;
       newProviderDetail = {
         ...state.providerDetail,
-        saml: { [providerID]: provider }
+        saml: { [providerID]: provider },
       };
       return { ...state, providerDetail: newProviderDetail };
 

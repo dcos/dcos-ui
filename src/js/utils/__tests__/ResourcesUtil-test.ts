@@ -17,7 +17,7 @@ describe("ResourcesUtil", () => {
       mem: 0,
       disk: 0,
       gpus: 0,
-      bananas: 0
+      bananas: 0,
     });
   });
 
@@ -31,7 +31,7 @@ describe("ResourcesUtil", () => {
       CompositeState.getNodesList = createFnWithNodeResources({
         cpus: 0,
         mem: 0,
-        disk: 0
+        disk: 0,
       });
 
       const resources = ResourcesUtil.getAdditionalResources();
@@ -64,7 +64,7 @@ describe("ResourcesUtil", () => {
         cpus: "CPU",
         disk: "Disk",
         gpus: "GPU",
-        mem: "Mem"
+        mem: "Mem",
       });
     });
   });
@@ -82,7 +82,7 @@ describe("ResourcesUtil", () => {
 
     it("returns color from available colors", () => {
       const color = ResourcesUtil.getResourceColor("bananas", {
-        availableColors: [9999, 1]
+        availableColors: [9999, 1],
       });
       expect(color).toEqual(9999);
     });
@@ -90,7 +90,7 @@ describe("ResourcesUtil", () => {
     it("returns color for given index", () => {
       const color = ResourcesUtil.getResourceColor("bananas", {
         availableColors: [1, 1, 1, 1, 123456, 1],
-        resourceList: [null, null, null, null, "bananas"]
+        resourceList: [null, null, null, null, "bananas"],
       });
       expect(color).toEqual(123456);
     });
@@ -104,7 +104,7 @@ describe("ResourcesUtil", () => {
         mem: 6,
         disk: 3,
         gpus: 8,
-        bananas: 1
+        bananas: 1,
       });
     });
   });

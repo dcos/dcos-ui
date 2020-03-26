@@ -90,7 +90,7 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
     maximumOverCapacity: findNestedPropertyInObject(
       appConfig,
       "scheduling.upgrade.maximumOverCapacity"
-    )
+    ),
   };
 
   let action;
@@ -200,7 +200,7 @@ const PodGeneralConfigSection = ({ appConfig, onEditClick }) => {
 };
 
 PodGeneralConfigSection.propTypes = {
-  onEditClick: PropTypes.func
+  onEditClick: PropTypes.func,
 };
 
 export default PodGeneralConfigSection;

@@ -3,7 +3,7 @@ import List from "#SRC/js/structs/List";
 
 class ACLList extends List {
   getItem(rid) {
-    return this.getItems().find(item => item.get("rid") === rid);
+    return this.getItems().find((item) => item.get("rid") === rid);
   }
 }
 

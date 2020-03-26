@@ -9,7 +9,7 @@ import PageHeaderNavigationDropdown from "./PageHeaderNavigationDropdown";
 
 class PageHeaderTabs extends React.Component {
   static defaultProps = {
-    tabs: []
+    tabs: [],
   };
   static propTypes = {
     tabs: PropTypes.arrayOf(
@@ -17,9 +17,9 @@ class PageHeaderTabs extends React.Component {
         isActive: PropTypes.bool,
         label: PropTypes.node.isRequired,
         routePath: PropTypes.string,
-        callback: PropTypes.func
+        callback: PropTypes.func,
       })
-    )
+    ),
   };
   constructor(...args) {
     super(...args);
@@ -28,7 +28,7 @@ class PageHeaderTabs extends React.Component {
   shouldComponentUpdate(nextProps) {
     return !isEqual(this.props.tabs, nextProps.tabs);
   }
-  handleNavigationItemSelection = navItem => {
+  handleNavigationItemSelection = (navItem) => {
     const { callback, routePath } = navItem;
 
     if (callback != null) {
@@ -42,14 +42,14 @@ class PageHeaderTabs extends React.Component {
 
   getTabs() {
     const {
-      props: { tabs }
+      props: { tabs },
     } = this;
 
     const tabElements = tabs.map((tab, index) => {
       const { isActive, callback, label, routePath } = tab;
       const classes = classNames("menu-tabbed-item", { active: isActive });
       const linkClasses = classNames("menu-tabbed-item-label", {
-        active: isActive
+        active: isActive,
       });
 
       const innerLinkSpan = (
@@ -103,7 +103,7 @@ class PageHeaderTabs extends React.Component {
         id,
         isActive: isActive || this.isRouteActive(routePath),
         callback,
-        routePath
+        routePath,
       };
     });
   }
@@ -126,7 +126,7 @@ class PageHeaderTabs extends React.Component {
 }
 
 PageHeaderTabs.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default PageHeaderTabs;

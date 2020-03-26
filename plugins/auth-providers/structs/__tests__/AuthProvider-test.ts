@@ -14,11 +14,11 @@ describe("AuthProvider", () => {
     thisInstance = {};
     const oidcProvider = {
       ...oidcProviderFixture,
-      providerType: "oidc"
+      providerType: "oidc",
     };
     const samlProvider = {
       ...samlProviderFixture,
-      providerType: "saml"
+      providerType: "saml",
     };
     thisInstance.oidc = new AuthProvider(oidcProvider);
     thisInstance.saml = new AuthProvider(samlProvider);
@@ -161,7 +161,7 @@ describe("AuthProvider", () => {
         Issuer: "https://accounts.google.com",
         "Client Secret": "xyz",
         "Client ID": "google.client.id",
-        "Base URI": "http://cluster.com/callback"
+        "Base URI": "http://cluster.com/callback",
       });
     });
   });
@@ -172,7 +172,7 @@ describe("AuthProvider", () => {
         "Provider ID": "saml_provider_id",
         Description: "A SAML provider",
         "Service Provider Base URL": "https://saml.com",
-        "IdP Metadata": samlProviderFixture.idp_metadata
+        "IdP Metadata": samlProviderFixture.idp_metadata,
       });
     });
   });

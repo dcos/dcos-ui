@@ -11,19 +11,19 @@ import AppLockedMessage from "./AppLockedMessage";
 
 const ACTION_DISPLAY_NAMES = {
   restart: i18nMark("Restart"),
-  stop: i18nMark("Stop")
+  stop: i18nMark("Stop"),
 };
 
 const ACTION_DISPLAY_NAMES_CONTINUOUS = {
   restart: i18nMark("Restarting..."),
-  stop: i18nMark("Stopping...")
+  stop: i18nMark("Stopping..."),
 };
 
 class KillTaskModal extends React.PureComponent {
   static defaultProps = {
     action: "restart",
     killTasks: () => {},
-    selectedItems: []
+    selectedItems: [],
   };
   static propTypes = {
     action: PropTypes.string,
@@ -32,13 +32,13 @@ class KillTaskModal extends React.PureComponent {
     killTasks: PropTypes.func,
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
-    selectedItems: PropTypes.array
+    selectedItems: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
     };
   }
 
@@ -130,7 +130,7 @@ class KillTaskModal extends React.PureComponent {
       onClose,
       open,
       selectedItems,
-      i18n
+      i18n,
     } = this.props;
 
     // L10NTODO: Pluralize

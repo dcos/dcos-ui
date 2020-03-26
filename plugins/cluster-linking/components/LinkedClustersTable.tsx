@@ -11,7 +11,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 
 class LinkedClustersTable extends React.Component {
   static propTypes = {
-    clusters: PropTypes.array
+    clusters: PropTypes.array,
   };
   constructor() {
     super();
@@ -34,14 +34,14 @@ class LinkedClustersTable extends React.Component {
         prop: "name",
         render: this.renderName,
         sortable: false,
-        heading: this.renderHeading
+        heading: this.renderHeading,
       },
       {
         className: "cluster-cell",
         prop: "url",
         render: this.renderUrl,
         sortable: false,
-        heading: this.renderHeading
+        heading: this.renderHeading,
       },
       {
         className: "cluster-actions-cell",
@@ -50,8 +50,8 @@ class LinkedClustersTable extends React.Component {
         sortable: false,
         heading() {
           return null;
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -66,7 +66,7 @@ class LinkedClustersTable extends React.Component {
   renderHeading(prop) {
     const headingDisplayNames = {
       name: i18nMark("Name"),
-      url: i18nMark("Cluster URL or Public IP")
+      url: i18nMark("Cluster URL or Public IP"),
     };
 
     return (
@@ -91,12 +91,12 @@ class LinkedClustersTable extends React.Component {
           size={iconSizeXs}
           color="currentColor"
         />
-      )
+      ),
     });
 
     actions.push({
       id: "switch",
-      html: <Trans render={<a href={row.getLoginUrl()} />}>Switch</Trans>
+      html: <Trans render={<a href={row.getLoginUrl()} />}>Switch</Trans>,
     });
 
     return (

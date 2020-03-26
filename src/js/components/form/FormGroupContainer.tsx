@@ -7,10 +7,10 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXxs
+  iconSizeXxs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-const FormGroupContainer = props => {
+const FormGroupContainer = (props) => {
   let removeButton = null;
   if (props.onRemove != null) {
     removeButton = (
@@ -33,7 +33,7 @@ const FormGroupContainer = props => {
   }
 
   const classes = classNames("panel pod-short", {
-    "panel-interactive clickable": props.onClick
+    "panel-interactive clickable": props.onClick,
   });
 
   return (
@@ -47,13 +47,13 @@ const FormGroupContainer = props => {
 };
 
 FormGroupContainer.defaultProps = {
-  onRemove: null
+  onRemove: null,
 };
 
 FormGroupContainer.propTypes = {
   children: PropTypes.node,
   onRemove: PropTypes.func,
-  onClick: PropTypes.func
+  onClick: PropTypes.func,
 };
 
 export default FormGroupContainer;

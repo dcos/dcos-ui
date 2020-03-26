@@ -12,7 +12,7 @@ export default class HealthUnitsList extends List<HealthUnit> {
       if (filters.title) {
         components = StringUtil.filterByString(
           components,
-          component => component.getTitle(),
+          (component) => component.getTitle(),
           filters.title
         );
       }

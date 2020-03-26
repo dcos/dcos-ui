@@ -166,12 +166,12 @@ export function deepCopy(obj) {
     copy = obj.slice(); // shallow copy
   } else if (isObject(obj)) {
     copy = {
-      ...obj
+      ...obj,
     };
   }
 
   if (copy != null) {
-    Object.keys(copy).forEach(key => {
+    Object.keys(copy).forEach((key) => {
       copy[key] = deepCopy(copy[key]);
     });
   } else {
@@ -189,7 +189,7 @@ export function deepCopy(obj) {
  */
 export function filterEmptyValues(obj) {
   return Object.keys(obj)
-    .filter(key => !ValidatorUtil.isEmpty(obj[key]))
+    .filter((key) => !ValidatorUtil.isEmpty(obj[key]))
     .reduce((memo, key) => {
       memo[key] = obj[key];
 
@@ -199,9 +199,10 @@ export function filterEmptyValues(obj) {
 
 export function objectToGetParams(obj) {
   const queryString = Object.keys(obj)
-    .filter(param => obj[param] != null)
+    .filter((param) => obj[param] != null)
     .map(
-      param => `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`
+      (param) =>
+        `${encodeURIComponent(param)}=${encodeURIComponent(obj[param])}`
     )
     .join("&");
 
@@ -277,7 +278,7 @@ export function parseUrl(url) {
     port: aElement.port,
     protocol: aElement.protocol,
     search: aElement.search,
-    username: aElement.username
+    username: aElement.username,
   };
 }
 
@@ -298,5 +299,5 @@ export default {
   toLowerCaseIfString,
   toUpperCaseIfString,
   isString,
-  parseUrl
+  parseUrl,
 };

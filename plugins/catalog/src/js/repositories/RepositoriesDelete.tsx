@@ -8,7 +8,7 @@ import {
   map,
   catchError,
   switchMap,
-  tap
+  tap,
 } from "rxjs/operators";
 
 import { DataLayerType } from "@extension-kid/data-layer";
@@ -44,16 +44,16 @@ const removePackageRepository = gql`
 const removePackageRepositoryGraphql = (name, uri) =>
   dataLayer.query(removePackageRepository, {
     name,
-    uri
+    uri,
   });
 
 const deleteEvent$ = new Subject();
 const pendingRequest$ = new BehaviorSubject(false);
 const deleteRepository$ = deleteEvent$.pipe(
-  switchMap(repository =>
+  switchMap((repository) =>
     removePackageRepositoryGraphql(repository.name, repository.url).pipe(
-      map(result => ({
-        result
+      map((result) => ({
+        result,
       })),
       tap(() => {
         pendingRequest$.next(false);
@@ -62,17 +62,17 @@ const deleteRepository$ = deleteEvent$.pipe(
     )
   ),
   startWith({ pendingRequest: false }),
-  catchError(error => {
+  catchError((error) => {
     pendingRequest$.next(false);
     return deleteRepository$.pipe(
       startWith({
-        error: getErrorMessage(error.response)
+        error: getErrorMessage(error.response),
       })
     );
   })
 );
 
-const RepositoriesDelete = componentFromStream(props$ =>
+const RepositoriesDelete = componentFromStream((props$) =>
   props$.pipe(
     combineLatest(
       pendingRequest$,
@@ -81,17 +81,17 @@ const RepositoriesDelete = componentFromStream(props$ =>
         open: !!props.repository || pendingRequest,
         isPending: pendingRequest,
         ...props,
-        ...response
+        ...response,
       })
     ),
-    map(props => (
+    map((props) => (
       <RepositoriesDeleteConfirm
         onCancel={props.onClose}
         onDelete={() => {
           pendingRequest$.next(true);
           return deleteEvent$.next({
             complete: props.onClose,
-            ...props.repository
+            ...props.repository,
           });
         }}
         pendingRequest={props.isPending}
@@ -100,7 +100,7 @@ const RepositoriesDelete = componentFromStream(props$ =>
         open={props.open}
       />
     )),
-    catchError(err => of(<RepositoriesError err={err} />))
+    catchError((err) => of(<RepositoriesError err={err} />))
   )
 );
 

@@ -26,7 +26,7 @@ describe("RequirePorts", () => {
     it("returns inverted value of requirePorts", () => {
       expect(
         RequirePorts.JSONParser({
-          requirePorts: true
+          requirePorts: true,
         })
       ).toEqual(new Transaction(["portsAutoAssign"], false));
     });

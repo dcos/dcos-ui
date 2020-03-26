@@ -1,19 +1,19 @@
 const listeners = {};
 let ID = 0;
 
-const pub = () => next => action => {
-  Object.keys(listeners).forEach(id => {
+const pub = () => (next) => (action) => {
+  Object.keys(listeners).forEach((id) => {
     listeners[id].call(null, action);
   });
 
   return next(action);
 };
 
-const unsubscribe = id => () => {
+const unsubscribe = (id) => () => {
   delete listeners[id];
 };
 
-const sub = callback => {
+const sub = (callback) => {
   listeners[++ID] = callback;
 
   return unsubscribe(ID);
@@ -21,5 +21,5 @@ const sub = callback => {
 
 export default {
   pub,
-  sub
+  sub,
 };

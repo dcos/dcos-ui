@@ -12,11 +12,11 @@ class PodContainerTerminationTable extends React.Component {
   static defaultProps = {
     className:
       "table table-flush table-borderless-outer table-borderless-inner-columns flush-bottom",
-    containers: []
+    containers: [],
   };
   static propTypes = {
     className: PropTypes.string,
-    containers: PropTypes.array.isRequired
+    containers: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -31,29 +31,29 @@ class PodContainerTerminationTable extends React.Component {
         headerClassName: getClassName,
         prop: i18nMark("Container ID"),
         heading: this.getColumnHeading,
-        render: this.renderColumnID
+        render: this.renderColumnID,
       },
       {
         className: getClassName,
         headerClassName: getClassName,
         prop: i18nMark("Last State"),
         heading: this.getColumnHeading,
-        render: this.renderColumnState
+        render: this.renderColumnState,
       },
       {
         className: getClassName,
         headerClassName: getClassName,
         prop: i18nMark("Code"),
         heading: this.getColumnHeading,
-        render: this.renderColumnTerminationCode
+        render: this.renderColumnTerminationCode,
       },
       {
         className: getClassName,
         headerClassName: getClassName,
         prop: i18nMark("Message"),
         heading: this.getColumnHeading,
-        render: this.renderColumnTerminationMessage
-      }
+        render: this.renderColumnTerminationMessage,
+      },
     ];
   }
 
@@ -70,7 +70,7 @@ class PodContainerTerminationTable extends React.Component {
   getColumnHeading = (prop, order, sortBy) => {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null,
-      "caret--visible": prop === sortBy.prop
+      "caret--visible": prop === sortBy.prop,
     });
 
     return (

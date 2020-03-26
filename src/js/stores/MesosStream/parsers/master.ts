@@ -9,11 +9,11 @@ export default function getMaster(state, message) {
   const enhancedMasterInfo = {
     ...master_info,
     elected_time,
-    start_time
+    start_time,
   };
 
   return {
     ...state,
-    master_info: enhancedMasterInfo
+    master_info: enhancedMasterInfo,
   };
 }

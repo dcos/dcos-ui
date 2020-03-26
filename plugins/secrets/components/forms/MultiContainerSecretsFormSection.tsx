@@ -26,20 +26,20 @@ class MultiContainerSecretsFormSection extends React.Component {
         PropTypes.shape({
           environmentVars: PropTypes.arrayOf(PropTypes.string),
           key: PropTypes.string,
-          value: PropTypes.string
+          value: PropTypes.string,
         })
-      )
+      ),
     }).isRequired,
     errors: PropTypes.shape({
       secrets: PropTypes.arrayOf(
         PropTypes.oneOf([
           PropTypes.string,
-          PropTypes.shape({ source: PropTypes.string })
+          PropTypes.shape({ source: PropTypes.string }),
         ])
-      )
+      ),
     }).isRequired,
     onAddItem: PropTypes.func.isRequired,
-    onRemoveItem: PropTypes.func.isRequired
+    onRemoveItem: PropTypes.func.isRequired,
   };
   constructor(props) {
     super(props);
@@ -76,7 +76,7 @@ class MultiContainerSecretsFormSection extends React.Component {
 
     let volumeCounts = containers.map(() => []);
     volumeCounts = secrets.reduce((volumes, secret) => {
-      secret.exposures.forEach(exposure => {
+      secret.exposures.forEach((exposure) => {
         if (exposure.type === "file") {
           exposure.mounts.forEach((mountPath, containerIndex) => {
             if (!mountPath || mountPath.length === 0) {
@@ -116,11 +116,11 @@ class MultiContainerSecretsFormSection extends React.Component {
     const env = this.props.data.env || [];
     const envCounts = {};
 
-    secrets.forEach(secret => {
+    secrets.forEach((secret) => {
       secret.exposures
-        .filter(exposure => exposure.type === "envVar")
-        .filter(exposure => exposure.value && exposure.value.length > 0)
-        .forEach(exposure => {
+        .filter((exposure) => exposure.type === "envVar")
+        .filter((exposure) => exposure.value && exposure.value.length > 0)
+        .forEach((exposure) => {
           if (envCounts[exposure.value]) {
             envCounts[exposure.value]++;
           } else {
@@ -129,8 +129,8 @@ class MultiContainerSecretsFormSection extends React.Component {
         });
     });
     env
-      .filter(envVar => envVar.key && envVar.key.length > 0)
-      .forEach(envVar => {
+      .filter((envVar) => envVar.key && envVar.key.length > 0)
+      .forEach((envVar) => {
         if (envCounts[envVar.key]) {
           envCounts[envVar.key]++;
         } else {
@@ -191,7 +191,7 @@ class MultiContainerSecretsFormSection extends React.Component {
           envVarCounts[exposure.value] > 1
         ) {
           secretErrors[`${exposureKey}.value`] = [
-            <Trans key="duplicateError">Name already in use.</Trans>
+            <Trans key="duplicateError">Name already in use.</Trans>,
           ];
         }
       });
@@ -201,7 +201,7 @@ class MultiContainerSecretsFormSection extends React.Component {
   }
 
   getSecretsLines(data, showErrors, errors) {
-    const secrets = this.state.secrets.map(secret => secret.getPath());
+    const secrets = this.state.secrets.map((secret) => secret.getPath());
 
     return data.map((secret, secretIndex) => {
       const containers = this.props.data.containers || [];
@@ -284,8 +284,8 @@ class MultiContainerSecretsFormSection extends React.Component {
                   value: {
                     key: null,
                     value: null,
-                    exposures: [{ type: "", value: "" }]
-                  }
+                    exposures: [{ type: "", value: "" }],
+                  },
                 })
               }
             >

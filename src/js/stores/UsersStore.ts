@@ -2,7 +2,7 @@ import PluginSDK from "PluginSDK";
 
 import {
   REQUEST_USERS_SUCCESS,
-  REQUEST_USERS_ERROR
+  REQUEST_USERS_ERROR,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import { USERS_CHANGE, USERS_REQUEST_ERROR } from "../constants/EventTypes";
@@ -21,12 +21,12 @@ class UsersStore extends GetSetBaseStore {
       storeID: this.storeID,
       events: {
         success: USERS_CHANGE,
-        error: USERS_REQUEST_ERROR
+        error: USERS_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       switch (action.type) {
         case REQUEST_USERS_SUCCESS:
@@ -45,7 +45,7 @@ class UsersStore extends GetSetBaseStore {
   }
 
   getUsers() {
-    return this.getUsersRaw().map(user => new Item(user));
+    return this.getUsersRaw().map((user) => new Item(user));
   }
 
   getUsersRaw() {

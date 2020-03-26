@@ -7,7 +7,7 @@ import MesosMasters from "../data/MesosMasters";
 const NodesMastersPage = ({ children }) => {
   const tabs = [
     { label: i18nMark("Agents"), routePath: "/nodes/agents" },
-    { label: i18nMark("Masters"), routePath: "/nodes/masters" }
+    { label: i18nMark("Masters"), routePath: "/nodes/masters" },
   ];
 
   return (

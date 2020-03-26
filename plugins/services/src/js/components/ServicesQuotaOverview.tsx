@@ -33,7 +33,7 @@ const ServicesQuotaOverview = componentFromStream(() => {
     )
     .pipe(
       map(({ data: { groups } }) => groups.filter(groupHasQuotaLimit)),
-      map(groups => {
+      map((groups) => {
         return groups.length > 0 ? (
           <GroupsQuotaOverviewTable groups={groups} />
         ) : (
@@ -54,7 +54,7 @@ class ServicesQuotaOverviewWithMesosState extends React.Component<
     this.onMesosStateChange = this.onMesosStateChange.bind(this);
 
     this.state = {
-      mesosStateLoaded: false
+      mesosStateLoaded: false,
     };
   }
 

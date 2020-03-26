@@ -2,7 +2,7 @@ import classNames from "classnames/dedupe";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const FullScreenModalHeaderSubTitle = props => {
+const FullScreenModalHeaderSubTitle = (props) => {
   const { children, className } = props;
   const classes = classNames("small", className);
 
@@ -12,12 +12,12 @@ const FullScreenModalHeaderSubTitle = props => {
 const classProps = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 FullScreenModalHeaderSubTitle.propTypes = {
   children: PropTypes.node.isRequired,
-  className: classProps
+  className: classProps,
 };
 
 export default FullScreenModalHeaderSubTitle;

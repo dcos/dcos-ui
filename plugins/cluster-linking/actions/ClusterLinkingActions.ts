@@ -2,7 +2,7 @@ import Config from "#SRC/js/config/Config";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import {
   REQUEST_CLUSTER_LIST_SUCCESS,
-  REQUEST_CLUSTER_LIST_ERROR
+  REQUEST_CLUSTER_LIST_ERROR,
 } from "../constants/ActionTypes";
 
 import SDK from "PluginSDK";
@@ -15,18 +15,18 @@ const ClusterLinkingActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_CLUSTER_LIST_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_CLUSTER_LIST_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -38,15 +38,15 @@ if (Config.useFixtures) {
     window.actionTypes = {};
   }
 
-  clusterListFixtureImportPromise.then(clusterListFixture => {
+  clusterListFixtureImportPromise.then((clusterListFixture) => {
     window.actionTypes.ClusterLinkingActions = {
       fetchClusterLinkingList: {
         event: "success",
-        success: { response: clusterListFixture }
-      }
+        success: { response: clusterListFixture },
+      },
     };
 
-    Object.keys(window.actionTypes.ClusterLinkingActions).forEach(method => {
+    Object.keys(window.actionTypes.ClusterLinkingActions).forEach((method) => {
       ClusterLinkingActions[method] = RequestUtil.stubRequest(
         ClusterLinkingActions,
         "ClusterLinkingActions",

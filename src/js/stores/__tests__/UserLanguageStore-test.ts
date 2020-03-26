@@ -19,7 +19,7 @@ describe("UserLanguageStore", () => {
       UserSettingsStore.setKey = jasmine.createSpy();
       UserLanguageStore.set("zh");
       expect(UserSettingsStore.setKey).toHaveBeenCalledWith(SAVED_STATE_KEY, {
-        language: "zh"
+        language: "zh",
       });
     });
   });

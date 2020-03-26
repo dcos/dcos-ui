@@ -7,7 +7,7 @@ import { Icon, TextCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import Node from "#SRC/js/structs/Node";
@@ -16,7 +16,7 @@ const NodeIp = React.memo(
   ({
     nodeID,
     headline,
-    isActive
+    isActive,
   }: {
     nodeID: string;
     headline: string;

@@ -7,7 +7,7 @@ import ServiceTree from "../ServiceTree";
 
 let thisInstance;
 
-const runningApp = opts =>
+const runningApp = (opts) =>
   new Application({
     tasksStaged: 0,
     tasksRunning: 1,
@@ -15,7 +15,7 @@ const runningApp = opts =>
     tasksUnhealthy: 0,
     instances: 1,
     deployments: [],
-    ...opts
+    ...opts,
   });
 
 describe("ServiceTree", () => {
@@ -26,31 +26,31 @@ describe("ServiceTree", () => {
         items: [
           {
             id: "group/test",
-            items: []
+            items: [],
           },
           {
-            id: "/group/alpha"
+            id: "/group/alpha",
           },
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
           },
           {
             id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: "random"
-            }
+              RANDOM_LABEL: "random",
+            },
           },
           new Application({ id: "a" }),
-          new Framework({ id: "b" })
+          new Framework({ id: "b" }),
         ],
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
     });
 
@@ -103,7 +103,7 @@ describe("ServiceTree", () => {
     it("adds items to current Tree", () => {
       const tree = new ServiceTree({
         id: "/test",
-        items: [new Application({ id: "a" })]
+        items: [new Application({ id: "a" })],
       });
       tree.add(new Application({ id: "b" }));
       tree.add(new Application({ id: "c" }));
@@ -123,34 +123,34 @@ describe("ServiceTree", () => {
             id: "group/test",
             items: [
               {
-                id: "group/test/foo"
+                id: "group/test/foo",
               },
               {
-                id: "group/test/bar"
-              }
-            ]
+                id: "group/test/bar",
+              },
+            ],
           },
           {
-            id: "/group/alpha"
+            id: "/group/alpha",
           },
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
           },
           {
             id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: "random"
-            }
-          }
+              RANDOM_LABEL: "random",
+            },
+          },
         ],
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
     });
 
@@ -181,23 +181,23 @@ describe("ServiceTree", () => {
         items: [
           {
             id: "/test",
-            items: []
+            items: [],
           },
           {
-            id: "/alpha"
-          }
+            id: "/alpha",
+          },
         ],
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
     });
 
     it("finds matching subtree", () => {
       expect(
-        thisInstance.findItem(item => item.getId() === "/test").getId()
+        thisInstance.findItem((item) => item.getId() === "/test").getId()
       ).toEqual("/test");
     });
   });
@@ -211,41 +211,41 @@ describe("ServiceTree", () => {
             id: "test2",
             items: [
               {
-                id: "test/testasd"
-              }
-            ]
+                id: "test/testasd",
+              },
+            ],
           },
           {
             id: "/test",
             items: [
               {
-                id: "/test/foo"
+                id: "/test/foo",
               },
               {
-                id: "/test/bar"
+                id: "/test/bar",
               },
               {
                 id: "/test/baz/boo",
                 items: [
                   {
-                    id: "/test/baz/boo/1"
-                  }
-                ]
-              }
-            ]
+                    id: "/test/baz/boo/1",
+                  },
+                ],
+              },
+            ],
           },
           {
             id: "/alpha",
-            cmd: "cmd"
+            cmd: "cmd",
           },
           {
             id: "/beta",
             cmd: "cmd",
             items: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
-          }
-        ]
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
+          },
+        ],
       });
     });
 
@@ -285,25 +285,25 @@ describe("ServiceTree", () => {
             id: "/test",
             items: [
               {
-                id: "/test/foo"
+                id: "/test/foo",
               },
               {
-                id: "/test/bar"
-              }
-            ]
+                id: "/test/bar",
+              },
+            ],
           },
           {
             id: "/alpha",
-            cmd: "cmd"
+            cmd: "cmd",
           },
           {
             id: "/beta",
             cmd: "cmd",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
-          }
-        ]
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
+          },
+        ],
       });
     });
 
@@ -328,28 +328,28 @@ describe("ServiceTree", () => {
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 1,
-      tasksUnhealthy: 0
+      tasksUnhealthy: 0,
     });
     const unhealthyService = new Application({
       healthChecks: [{ path: "", protocol: "HTTP" }],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 0,
-      tasksUnhealthy: 1
+      tasksUnhealthy: 1,
     });
     const idleService = new Application({
       healthChecks: [{ path: "", protocol: "HTTP" }],
       tasksStaged: 0,
       tasksRunning: 0,
       tasksHealthy: 0,
-      tasksUnhealthy: 0
+      tasksUnhealthy: 0,
     });
     const naService = new Application({
       healthChecks: [],
       tasksStaged: 0,
       tasksRunning: 1,
       tasksHealthy: 0,
-      tasksUnhealthy: 0
+      tasksUnhealthy: 0,
     });
 
     beforeEach(() => {
@@ -439,7 +439,7 @@ describe("ServiceTree", () => {
           mem: 2048,
           disk: 0,
           gpus: 2,
-          instances: 1
+          instances: 1,
         })
       );
       thisInstance.add(
@@ -448,7 +448,7 @@ describe("ServiceTree", () => {
           mem: 1024,
           disk: 6,
           gpus: 8,
-          instances: 1
+          instances: 1,
         })
       );
 
@@ -456,7 +456,7 @@ describe("ServiceTree", () => {
         cpus: 7,
         mem: 3072,
         disk: 6,
-        gpus: 10
+        gpus: 10,
       });
     });
   });
@@ -469,7 +469,7 @@ describe("ServiceTree", () => {
     it("returns correct number for instances for 0 instances", () => {
       thisInstance.add(
         new Application({
-          instances: 0
+          instances: 0,
         })
       );
 
@@ -479,7 +479,7 @@ describe("ServiceTree", () => {
     it("returns correct number for instances for 1 instance", () => {
       thisInstance.add(
         new Application({
-          instances: 1
+          instances: 1,
         })
       );
 
@@ -489,13 +489,13 @@ describe("ServiceTree", () => {
     it("returns correct number for instances for 5 instances", () => {
       thisInstance.add(
         new Application({
-          instances: 3
+          instances: 3,
         })
       );
 
       thisInstance.add(
         new Application({
-          instances: 2
+          instances: 2,
         })
       );
 
@@ -516,7 +516,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 1,
-          deployments: []
+          deployments: [],
         })
       );
 
@@ -533,7 +533,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: []
+          deployments: [],
         })
       );
 
@@ -550,7 +550,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
         })
       );
 
@@ -572,10 +572,10 @@ describe("ServiceTree", () => {
         status: ServiceStatus.StatusCategory.RUNNING,
         counts: {
           status: {
-            RUNNING: 1
+            RUNNING: 1,
           },
-          total: 1
-        }
+          total: 1,
+        },
       });
     });
 
@@ -587,7 +587,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: []
+          deployments: [],
         })
       );
 
@@ -595,10 +595,10 @@ describe("ServiceTree", () => {
         status: ServiceStatus.StatusCategory.STOPPED,
         counts: {
           status: {
-            STOPPED: 1
+            STOPPED: 1,
           },
-          total: 1
-        }
+          total: 1,
+        },
       });
     });
 
@@ -610,7 +610,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
         })
       );
 
@@ -618,10 +618,10 @@ describe("ServiceTree", () => {
         status: ServiceStatus.StatusCategory.LOADING,
         counts: {
           status: {
-            LOADING: 1
+            LOADING: 1,
           },
-          total: 1
-        }
+          total: 1,
+        },
       });
     });
 
@@ -633,10 +633,10 @@ describe("ServiceTree", () => {
         status: ServiceStatus.StatusCategory.RUNNING,
         counts: {
           status: {
-            RUNNING: 2
+            RUNNING: 2,
           },
-          total: 2
-        }
+          total: 2,
+        },
       });
     });
 
@@ -649,7 +649,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
         })
       );
       thisInstance.add(
@@ -661,8 +661,8 @@ describe("ServiceTree", () => {
           instances: 0,
           deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
           queue: {
-            delay: true
-          }
+            delay: true,
+          },
         })
       );
 
@@ -671,10 +671,10 @@ describe("ServiceTree", () => {
         counts: {
           status: {
             LOADING: 2,
-            RUNNING: 1
+            RUNNING: 1,
           },
-          total: 3
-        }
+          total: 3,
+        },
       });
     });
 
@@ -690,8 +690,8 @@ describe("ServiceTree", () => {
           instances: 0,
           deployments: [],
           queue: {
-            delay: true
-          }
+            delay: true,
+          },
         })
       );
 
@@ -701,10 +701,10 @@ describe("ServiceTree", () => {
           status: {
             LOADING: 1,
             STOPPED: 1,
-            RUNNING: 1
+            RUNNING: 1,
           },
-          total: 3
-        }
+          total: 3,
+        },
       });
     });
 
@@ -719,7 +719,7 @@ describe("ServiceTree", () => {
           tasksUnhealthy: 0,
           instances: 1,
           deployments: null,
-          queue: null
+          queue: null,
         })
       );
 
@@ -728,10 +728,10 @@ describe("ServiceTree", () => {
         counts: {
           status: {
             NA: 1,
-            RUNNING: 2
+            RUNNING: 2,
           },
-          total: 3
-        }
+          total: 3,
+        },
       });
     });
   });
@@ -755,7 +755,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: []
+          deployments: [],
         })
       );
 
@@ -770,7 +770,7 @@ describe("ServiceTree", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }]
+          deployments: [{ id: "4d08fc0d-d450-4a3e-9c85-464ffd7565f1" }],
         })
       );
 
@@ -785,29 +785,29 @@ describe("ServiceTree", () => {
         items: [
           {
             id: "group/test",
-            items: []
+            items: [],
           },
           {
-            id: "/group/alpha"
+            id: "/group/alpha",
           },
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
           },
           {
             id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: "random"
-            }
-          }
+              RANDOM_LABEL: "random",
+            },
+          },
         ],
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
     });
 
@@ -824,29 +824,29 @@ describe("ServiceTree", () => {
         items: [
           {
             id: "group/test",
-            items: []
+            items: [],
           },
           {
-            id: "/group/alpha"
+            id: "/group/alpha",
           },
           {
             id: "/group/beta",
             labels: {
-              DCOS_PACKAGE_FRAMEWORK_NAME: "beta"
-            }
+              DCOS_PACKAGE_FRAMEWORK_NAME: "beta",
+            },
           },
           {
             id: "/group/gamma",
             labels: {
-              RANDOM_LABEL: "random"
-            }
-          }
+              RANDOM_LABEL: "random",
+            },
+          },
         ],
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
     });
 
@@ -859,10 +859,10 @@ describe("ServiceTree", () => {
   describe("#getRunningInstancesCount", () => {
     const fooService = new Application();
     const barService = new Application({
-      tasks: [{ foo: "bar" }, { bar: "baz" }]
+      tasks: [{ foo: "bar" }, { bar: "baz" }],
     });
     const bazService = new Application({
-      tasks: [{ foo: "bar" }]
+      tasks: [{ foo: "bar" }],
     });
 
     it("returns the total number of reported tasks", () => {
@@ -889,7 +889,7 @@ describe("ServiceTree", () => {
           tasksStaged: 1,
           tasksRunning: 18,
           tasksHealthy: 15,
-          tasksUnhealthy: 1
+          tasksUnhealthy: 1,
         })
       );
 
@@ -899,7 +899,7 @@ describe("ServiceTree", () => {
         tasksHealthy: 16,
         tasksUnhealthy: 1,
         tasksUnknown: 2,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       });
     });
 
@@ -911,7 +911,7 @@ describe("ServiceTree", () => {
           tasksStaged: 1,
           tasksRunning: 18,
           tasksHealthy: 15,
-          tasksUnhealthy: 1
+          tasksUnhealthy: 1,
         })
       );
 
@@ -921,7 +921,7 @@ describe("ServiceTree", () => {
         tasksHealthy: 16,
         tasksUnhealthy: 1,
         tasksUnknown: 2,
-        tasksOverCapacity: 9
+        tasksOverCapacity: 9,
       });
     });
   });
@@ -939,9 +939,9 @@ describe("ServiceTree", () => {
             {
               containerPath: "data",
               mode: "RW",
-              persistent: { size: 100 }
-            }
-          ]
+              persistent: { size: 100 },
+            },
+          ],
         })
       );
 
@@ -952,9 +952,9 @@ describe("ServiceTree", () => {
             {
               containerPath: "data",
               mode: "RW",
-              persistent: { size: 100 }
-            }
-          ]
+              persistent: { size: 100 },
+            },
+          ],
         })
       );
 
@@ -971,13 +971,13 @@ describe("ServiceTree", () => {
     it("returns an array with all the Frameworks in the group", () => {
       thisInstance.add(
         new Framework({
-          id: "/metronome"
+          id: "/metronome",
         })
       );
 
       thisInstance.add(
         new Application({
-          id: "/sleeper"
+          id: "/sleeper",
         })
       );
 
@@ -996,8 +996,8 @@ describe("ServiceTree", () => {
         new Framework({
           id: "/metronome",
           labels: {
-            label_one: "value_one"
-          }
+            label_one: "value_one",
+          },
         })
       );
 
@@ -1006,14 +1006,14 @@ describe("ServiceTree", () => {
           id: "/cassandra",
           labels: {
             label_one: "value_two",
-            label_two: "value_three"
-          }
+            label_two: "value_three",
+          },
         })
       );
 
       thisInstance.add(
         new Application({
-          id: "/sleeper"
+          id: "/sleeper",
         })
       );
 
@@ -1022,14 +1022,14 @@ describe("ServiceTree", () => {
       expect(labels).toEqual([
         { key: "label_one", value: "value_one" },
         { key: "label_one", value: "value_two" },
-        { key: "label_two", value: "value_three" }
+        { key: "label_two", value: "value_three" },
       ]);
     });
 
     it("returns an empty array if no labels are found", () => {
       thisInstance.add(
         new Framework({
-          id: "/metronome"
+          id: "/metronome",
         })
       );
 
@@ -1054,8 +1054,8 @@ describe("ServiceTree", () => {
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
 
       expect(thisInstance.getEnforceRole()).toEqual(true);
@@ -1069,8 +1069,8 @@ describe("ServiceTree", () => {
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
 
       expect(thisInstance.getEnforceRole()).toEqual(false);
@@ -1083,8 +1083,8 @@ describe("ServiceTree", () => {
         filterProperties: {
           id(item) {
             return item.getId();
-          }
-        }
+          },
+        },
       });
 
       expect(thisInstance.getEnforceRole()).toBeUndefined();
@@ -1094,7 +1094,7 @@ describe("ServiceTree", () => {
   describe("#isRoot", () => {
     it("returns true when id is /", () => {
       thisInstance = new ServiceTree({
-        id: "/"
+        id: "/",
       });
 
       expect(thisInstance.isRoot()).toEqual(true);
@@ -1102,7 +1102,7 @@ describe("ServiceTree", () => {
 
     it("returns false when id is not /", () => {
       thisInstance = new ServiceTree({
-        id: "/group"
+        id: "/group",
       });
 
       expect(thisInstance.isRoot()).toEqual(false);
@@ -1112,7 +1112,7 @@ describe("ServiceTree", () => {
   describe("#isTopLevel", () => {
     it("returns true when the group is top level", () => {
       thisInstance = new ServiceTree({
-        id: "/group"
+        id: "/group",
       });
 
       expect(thisInstance.isTopLevel()).toEqual(true);
@@ -1120,7 +1120,7 @@ describe("ServiceTree", () => {
 
     it("returns false when the group is nested", () => {
       thisInstance = new ServiceTree({
-        id: "/group/group2"
+        id: "/group/group2",
       });
 
       expect(thisInstance.isTopLevel()).toEqual(false);
@@ -1128,7 +1128,7 @@ describe("ServiceTree", () => {
 
     it("returns false when the group is root", () => {
       thisInstance = new ServiceTree({
-        id: "/"
+        id: "/",
       });
 
       expect(thisInstance.isTopLevel()).toEqual(false);
@@ -1141,15 +1141,15 @@ describe("ServiceTree", () => {
         id: "/group",
         items: [
           {
-            role: "slave_public"
-          }
-        ]
+            role: "slave_public",
+          },
+        ],
       });
 
       expect(thisInstance.getQuotaRoleStats()).toEqual({
         count: 1,
         rolesCount: 1,
-        groupRoleCount: 0
+        groupRoleCount: 0,
       });
     });
 
@@ -1161,26 +1161,26 @@ describe("ServiceTree", () => {
             id: "/group/group2",
             items: [
               {
-                role: "group"
+                role: "group",
               },
               {
-                role: "slave_public"
-              }
-            ]
+                role: "slave_public",
+              },
+            ],
           }),
           {
-            role: "group"
+            role: "group",
           },
           {
-            role: "slave_public"
-          }
-        ]
+            role: "slave_public",
+          },
+        ],
       });
 
       expect(thisInstance.getQuotaRoleStats()).toEqual({
         count: 4,
         rolesCount: 4,
-        groupRoleCount: 2
+        groupRoleCount: 2,
       });
     });
   });

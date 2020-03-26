@@ -21,10 +21,10 @@ import TaskUtil from "../../utils/TaskUtil";
 
 class TaskDetailsTab extends React.Component {
   static defaultProps = {
-    task: {}
+    task: {},
   };
   static propTypes = {
-    task: PropTypes.object
+    task: PropTypes.object,
   };
   getContainerInfo(task) {
     if (task == null || !task.container) {

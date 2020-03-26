@@ -17,7 +17,7 @@ const VipLabelUtil = {
 
       return {
         ...labels,
-        [vipLabel]: vipValue
+        [vipLabel]: vipValue,
       };
     }
 
@@ -27,7 +27,7 @@ const VipLabelUtil = {
     if (labelsHadVip) {
       return {
         ...labels,
-        [vipLabel]: undefined
+        [vipLabel]: undefined,
       };
     }
 
@@ -43,7 +43,7 @@ const VipLabelUtil = {
 
   defaultVip(index) {
     return `VIP_${index}`;
-  }
+  },
 };
 
 export default VipLabelUtil;

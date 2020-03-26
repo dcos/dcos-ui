@@ -25,14 +25,14 @@ import Util from "../../../utils/Util";
 const headerMapping = {
   id: i18nMark("Task"),
   ip_address: i18nMark("Container IP"),
-  port_mappings: i18nMark("Port Mappings")
+  port_mappings: i18nMark("Port Mappings"),
 };
 
 const agentIPPath = "statuses.0.container_status.network_infos.0.ip_addresses";
 
 class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   static propTypes = {
-    overlay: PropTypes.instanceOf(Overlay)
+    overlay: PropTypes.instanceOf(Overlay),
   };
   constructor(...args) {
     super(...args);
@@ -40,11 +40,11 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     this.state = {
       errorMessage: null,
       searchString: "",
-      tasksDataReceived: false
+      tasksDataReceived: false,
     };
 
     this.store_listeners = [
-      { name: "state", events: ["success", "error"], suppressUpdate: true }
+      { name: "state", events: ["success", "error"], suppressUpdate: true },
     ];
   }
 
@@ -72,13 +72,14 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
     }
 
     return tasks.filter(
-      task => task.name.includes(searchString) || task.id.includes(searchString)
+      (task) =>
+        task.name.includes(searchString) || task.id.includes(searchString)
     );
   }
 
   getClassName(prop, sortBy) {
     return classNames({
-      active: prop === sortBy.prop
+      active: prop === sortBy.prop,
     });
   }
 
@@ -93,7 +94,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         heading,
         prop: "id",
         render: this.renderID,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -102,7 +103,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         heading,
         prop: "ip_address",
         render: this.renderAgentIP,
-        sortable: false
+        sortable: false,
       },
       {
         className: getClassName,
@@ -111,8 +112,8 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
         heading,
         prop: "port_mappings",
         render: this.renderPorts,
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   }
 
@@ -141,7 +142,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 
     const classes = classNames({
       "table-cell-link-primary": hierarchy.primary,
-      "table-cell-link-secondary": hierarchy.secondary
+      "table-cell-link-secondary": hierarchy.secondary,
     });
 
     const overlayName = this.props.overlay.name;
@@ -161,7 +162,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
   getTitle(portMappings) {
     return portMappings
       .map(
-        mapping =>
+        (mapping) =>
           `${mapping.container_port} > ${mapping.host_port} (${mapping.protocol})`
       )
       .join(", ");
@@ -174,7 +175,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
       return ipAddresses;
     }
 
-    return ipAddresses.map(ipAddress => ipAddress.ip_address).join(", ");
+    return ipAddresses.map((ipAddress) => ipAddress.ip_address).join(", ");
   }
   renderAgentIP = (prop, task) => {
     const ipAddress = this.getAgentIP(task);
@@ -234,7 +235,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
           <div className="table-cell-details-secondary flex-box flex-box-align-vertical-center table-cell-flex-box">
             <div className="text-overflow service-link">
               {this.getTaskLink(id, mapping.container_port, title, {
-                secondary: true
+                secondary: true,
               })}
               {mapTo}
             </div>
@@ -293,7 +294,7 @@ class VirtualNetworkTaskTab extends mixin(StoreMixin) {
 }
 
 VirtualNetworkTaskTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(VirtualNetworkTaskTab);

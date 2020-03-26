@@ -6,7 +6,7 @@ const {
   SERVER_HEALTHY,
   SERVER_NA,
   SERVER_UNHEALTHY,
-  SERVER_WARN
+  SERVER_WARN,
 } = UnitHealthTypes;
 /**
  * sortingValue = Order health types by it's label and number value
@@ -20,29 +20,29 @@ const UnitHealthStatus = {
     key: "HEALTHY",
     classNames: "text-success",
     sortingValue: 3,
-    value: SERVER_HEALTHY
+    value: SERVER_HEALTHY,
   },
   [SERVER_UNHEALTHY]: {
     title: i18nMark("Unhealthy"),
     key: "UNHEALTHY",
     classNames: "text-danger",
     sortingValue: 0,
-    value: SERVER_UNHEALTHY
+    value: SERVER_UNHEALTHY,
   },
   [SERVER_WARN]: {
     title: i18nMark("Warning"),
     key: "WAR",
     classNames: "text-warning",
     sortingValue: 2,
-    value: SERVER_WARN
+    value: SERVER_WARN,
   },
   [SERVER_NA]: {
     title: i18nMark("N/A"),
     key: "NA",
     classNames: "text-mute",
     sortingValue: 1,
-    value: SERVER_NA
-  }
+    value: SERVER_NA,
+  },
 };
 
 export default UnitHealthStatus;

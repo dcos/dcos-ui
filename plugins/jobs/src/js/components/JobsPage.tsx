@@ -4,7 +4,7 @@ import Page from "#SRC/js/components/Page";
 
 import Breadcrumbs from "./Breadcrumbs";
 
-export default props => (
+export default (props) => (
   <Page>
     <Page.Header
       addButton={props.addButton}

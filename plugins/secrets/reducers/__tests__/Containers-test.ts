@@ -22,7 +22,7 @@ describe("Secrets Containers", () => {
           ["secrets", 0, "exposures", 0],
           {
             type: "",
-            value: ""
+            value: "",
           },
           SET
         ),
@@ -31,7 +31,7 @@ describe("Secrets Containers", () => {
           ["secrets", 0, "exposures", 0, "mounts", 0],
           "secrets/sa",
           SET
-        )
+        ),
       ]);
     });
 
@@ -46,23 +46,23 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "secret0volume0",
-              mountPath: "secrets/sa"
-            }
-          ]
-        }
+              mountPath: "secrets/sa",
+            },
+          ],
+        },
       ]);
     });
 
@@ -73,9 +73,9 @@ describe("Secrets Containers", () => {
             volumeMounts: [
               {
                 name: "thing",
-                mountPath: ["data"]
-              }
-            ]
+                mountPath: ["data"],
+              },
+            ],
           }),
           [
             {
@@ -84,10 +84,10 @@ describe("Secrets Containers", () => {
               volumeMounts: [
                 {
                   name: "thing",
-                  mountPath: "data"
-                }
-              ]
-            }
+                  mountPath: "data",
+                },
+              ],
+            },
           ]
         )
       ).toEqual([
@@ -95,19 +95,19 @@ describe("Secrets Containers", () => {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "thing",
-              mountPath: "data"
+              mountPath: "data",
             },
             {
               name: "secret0volume0",
-              mountPath: "secrets/sa"
-            }
-          ]
-        }
+              mountPath: "secrets/sa",
+            },
+          ],
+        },
       ]);
     });
 
@@ -127,34 +127,34 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test-1",
-            resources: { cpu: 0.1, mem: 128 }
+            resources: { cpu: 0.1, mem: 128 },
           },
           {
             name: "test-2",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test-1",
           resources: {
             cpu: 0.1,
-            mem: 128
-          }
+            mem: 128,
+          },
         },
         {
           name: "test-2",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "secret0volume0",
-              mountPath: "secrets/sa"
-            }
-          ]
-        }
+              mountPath: "secrets/sa",
+            },
+          ],
+        },
       ]);
     });
 
@@ -176,9 +176,9 @@ describe("Secrets Containers", () => {
             volumeMounts: [
               {
                 name: "test-volume",
-                mountPath: ["my_path", ""]
-              }
-            ]
+                mountPath: ["my_path", ""],
+              },
+            ],
           }),
           [
             {
@@ -187,14 +187,14 @@ describe("Secrets Containers", () => {
               volumeMounts: [
                 {
                   name: "test-volume",
-                  mountPath: "my_path"
-                }
-              ]
+                  mountPath: "my_path",
+                },
+              ],
             },
             {
               name: "test-2",
-              resources: { cpu: 0.1, mem: 128 }
-            }
+              resources: { cpu: 0.1, mem: 128 },
+            },
           ]
         )
       ).toEqual([
@@ -202,28 +202,28 @@ describe("Secrets Containers", () => {
           name: "test-1",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "test-volume",
-              mountPath: "my_path"
-            }
-          ]
+              mountPath: "my_path",
+            },
+          ],
         },
         {
           name: "test-2",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "secret0volume0",
-              mountPath: "secrets/sa"
-            }
-          ]
-        }
+              mountPath: "secrets/sa",
+            },
+          ],
+        },
       ]);
     });
 
@@ -236,17 +236,17 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
-          }
-        }
+            mem: 128,
+          },
+        },
       ]);
     });
 
@@ -261,17 +261,17 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
-          }
-        }
+            mem: 128,
+          },
+        },
       ]);
     });
 
@@ -284,17 +284,17 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
-          }
-        }
+            mem: 128,
+          },
+        },
       ]);
     });
 
@@ -305,17 +305,17 @@ describe("Secrets Containers", () => {
         thisBatch.reduce(JSONReducer.bind({}), [
           {
             name: "test",
-            resources: { cpu: 0.1, mem: 128 }
-          }
+            resources: { cpu: 0.1, mem: 128 },
+          },
         ])
       ).toEqual([
         {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
-          }
-        }
+            mem: 128,
+          },
+        },
       ]);
     });
 
@@ -328,15 +328,15 @@ describe("Secrets Containers", () => {
             volumeMounts: [
               {
                 name: "thing",
-                mountPath: ["thing"]
-              }
-            ]
+                mountPath: ["thing"],
+              },
+            ],
           }),
           [
             {
               name: "test",
-              resources: { cpu: 0.1, mem: 128 }
-            }
+              resources: { cpu: 0.1, mem: 128 },
+            },
           ]
         )
       ).toEqual([
@@ -344,15 +344,15 @@ describe("Secrets Containers", () => {
           name: "test",
           resources: {
             cpu: 0.1,
-            mem: 128
+            mem: 128,
           },
           volumeMounts: [
             {
               name: "thing",
-              mountPath: "thing"
-            }
-          ]
-        }
+              mountPath: "thing",
+            },
+          ],
+        },
       ]);
     });
   });

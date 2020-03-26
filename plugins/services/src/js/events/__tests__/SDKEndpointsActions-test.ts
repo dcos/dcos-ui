@@ -33,15 +33,15 @@ describe("SDKEndpointsActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
             type: ActionTypes.REQUEST_SDK_ENDPOINTS_SUCCESS,
             data: {
               serviceId: "foo",
-              endpoints: ["endpoint1", "endpoint2"]
-            }
+              endpoints: ["endpoint1", "endpoint2"],
+            },
           });
         });
 
@@ -49,13 +49,13 @@ describe("SDKEndpointsActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action).toEqual({
             data: { error: {}, serviceId: "foo" },
             type: "REQUEST_SDK_ENDPOINTS_ERROR",
-            xhr: { error: {}, serviceId: "foo" }
+            xhr: { error: {}, serviceId: "foo" },
           });
         });
 
@@ -63,16 +63,16 @@ describe("SDKEndpointsActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const id = AppDispatcher.register(payload => {
+        const id = AppDispatcher.register((payload) => {
           const action = payload.action;
           AppDispatcher.unregister(id);
           expect(action.xhr).toEqual({
-            error: { description: "foo" }
+            error: { description: "foo" },
           });
         });
 
         thisConfiguration.error({
-          error: { description: "foo" }
+          error: { description: "foo" },
         });
       });
     });
@@ -92,8 +92,8 @@ describe("SDKEndpointsActions", () => {
         status: 200,
         getResponseHeader: () => "application/json",
         response: JSON.stringify({
-          data: "some data"
-        })
+          data: "some data",
+        }),
       };
 
       window.XMLHttpRequest = jest.fn(() => mockXhr);
@@ -120,7 +120,7 @@ describe("SDKEndpointsActions", () => {
     it("dispatches the correct action when successful JSON returned", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({
@@ -129,8 +129,8 @@ describe("SDKEndpointsActions", () => {
             contentType: "application/json",
             endpointData: { data: "some data" },
             endpointName: "arangodb",
-            serviceId: "foo"
-          }
+            serviceId: "foo",
+          },
         });
       });
 
@@ -140,7 +140,7 @@ describe("SDKEndpointsActions", () => {
     it("dispatches the correct action when successful text returned", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({
@@ -149,8 +149,8 @@ describe("SDKEndpointsActions", () => {
             contentType: "text/plain",
             endpointData: "endpoint raw string",
             endpointName: "arangodb",
-            serviceId: "foo"
-          }
+            serviceId: "foo",
+          },
         });
       });
 
@@ -163,15 +163,15 @@ describe("SDKEndpointsActions", () => {
       SDKEndpointsActions.fetchEndpoint(serviceId, endpointName);
       mockXhr.status = 500;
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action).toEqual({
           type: ActionTypes.REQUEST_SDK_ENDPOINT_ERROR,
           data: {
             error: '{"data":"some data"}',
-            serviceId: "foo"
-          }
+            serviceId: "foo",
+          },
         });
       });
 

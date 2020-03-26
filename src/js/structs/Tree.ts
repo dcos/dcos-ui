@@ -16,7 +16,7 @@ export default class Tree extends List {
     super(options);
 
     // Replace tree like items instances of Tree
-    this.list = this.list.map(item => {
+    this.list = this.list.map((item) => {
       if (
         item.items != null &&
         Array.isArray(item.items) &&
@@ -24,7 +24,7 @@ export default class Tree extends List {
       ) {
         return new this.constructor({
           filterProperties: this.getFilterProperties(),
-          ...item
+          ...item,
         });
       }
 
@@ -56,7 +56,7 @@ export default class Tree extends List {
    */
   filterItems(callback) {
     const items = this.getItems()
-      .map(item => {
+      .map((item) => {
         // Filter subtrees
         if (item instanceof Tree) {
           return item.filterItems(callback);
@@ -75,7 +75,7 @@ export default class Tree extends List {
 
     return new this.constructor({
       ...this,
-      items
+      items,
     });
   }
 
@@ -94,7 +94,7 @@ export default class Tree extends List {
       return this.filterItems((
         item // Filter items by property values
       ) =>
-        Object.keys(filterProperties).some(prop => {
+        Object.keys(filterProperties).some((prop) => {
           // We need different handlers for item getters since the property
           // there can be different ways of getting the value needed
 
@@ -121,7 +121,7 @@ export default class Tree extends List {
 
     return new this.constructor({
       ...this,
-      items: this.getItems()
+      items: this.getItems(),
     });
   }
 
@@ -150,7 +150,7 @@ export default class Tree extends List {
 
     return new this.constructor({
       ...this,
-      items
+      items,
     });
   }
 

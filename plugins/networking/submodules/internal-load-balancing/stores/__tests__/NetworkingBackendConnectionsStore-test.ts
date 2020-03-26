@@ -23,11 +23,11 @@ let thisRequestFn, thisBackendConnections, thisUseFixtures;
 describe("NetworkingBackendConnectionsStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(backendConnectionsFixture);
     };
     thisBackendConnections = {
-      ...backendConnectionsFixture
+      ...backendConnectionsFixture,
     };
   });
 
@@ -49,7 +49,7 @@ describe("NetworkingBackendConnectionsStore", () => {
     );
 
     expect(backendConnections).toEqual({
-      "foo:bar:baz": thisBackendConnections
+      "foo:bar:baz": thisBackendConnections,
     });
 
     Config.useFixtures = thisUseFixtures;
@@ -60,7 +60,7 @@ describe("NetworkingBackendConnectionsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
         data: { qux: "quux" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       const vipDetails = NetworkingBackendConnectionsStore.get(
@@ -73,7 +73,7 @@ describe("NetworkingBackendConnectionsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
         data: { qux: "quux", grault: "garply", waldo: "fred" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       const vipDetails = NetworkingBackendConnectionsStore.get(
@@ -82,7 +82,7 @@ describe("NetworkingBackendConnectionsStore", () => {
       expect(vipDetails["foo:bar:baz"]).toEqual({
         qux: "quux",
         grault: "garply",
-        waldo: "fred"
+        waldo: "fred",
       });
     });
 
@@ -95,7 +95,7 @@ describe("NetworkingBackendConnectionsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_SUCCESS,
         data: { qux: "quux", grault: "garply", waldo: "fred" },
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);
@@ -113,7 +113,7 @@ describe("NetworkingBackendConnectionsStore", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_BACKEND_CONNECTIONS_ERROR,
         data: "foo",
-        vip: "foo:bar:baz"
+        vip: "foo:bar:baz",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

@@ -12,7 +12,7 @@ import { Tooltip } from "reactjs-components";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import {
   JSONReducer,
-  JSONParser
+  JSONParser,
 } from "#PLUGINS/services/src/js/reducers/serviceForm/JSONReducers/Constraints";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 import { FormReducer } from "#PLUGINS/services/src/js/reducers/serviceForm/FormReducers/Constraints";
@@ -23,7 +23,7 @@ import PlacementValidators from "#PLUGINS/services/src/js/validators/PlacementsV
 
 const jsonReducer = combineReducers({ constraints: JSONReducer });
 
-const JsonField = props => (
+const JsonField = (props) => (
   <div>
     <FieldLabel>{props.label}</FieldLabel>
     <pre>{JSON.stringify(props.json, props.replacer, props.space)}</pre>
@@ -38,11 +38,11 @@ JsonField.propTypes = {
   label: PropTypes.string.isRequired,
   json: PropTypes.object.isRequired,
   replacer: PropTypes.func,
-  space: PropTypes.number
+  space: PropTypes.number,
 };
 
 JsonField.defaultProps = {
-  space: 2
+  space: 2,
 };
 
 export default class PlacementConstraintsSchemaField extends React.Component {
@@ -50,7 +50,7 @@ export default class PlacementConstraintsSchemaField extends React.Component {
     super(props);
 
     this.state = {
-      batch: new Batch()
+      batch: new Batch(),
     };
     this.state.batch = this.generateBatchFromInput();
 
@@ -60,7 +60,7 @@ export default class PlacementConstraintsSchemaField extends React.Component {
   UNSAFE_componentWillReceiveProps(nextProps) {
     if (nextProps.fieldProps.formData !== this.props.fieldProps.formData) {
       this.setState({
-        batch: this.generateBatchFromInput(nextProps)
+        batch: this.generateBatchFromInput(nextProps),
       });
     }
   }
@@ -153,7 +153,7 @@ export default class PlacementConstraintsSchemaField extends React.Component {
 }
 
 PlacementConstraintsSchemaField.defaultProps = {
-  onChange() {}
+  onChange() {},
 };
 
 PlacementConstraintsSchemaField.propTypes = {
@@ -162,8 +162,8 @@ PlacementConstraintsSchemaField.propTypes = {
   schema: PropTypes.object.isRequired,
   errorMessage: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.node),
-    PropTypes.node
+    PropTypes.node,
   ]),
   autofocus: PropTypes.bool,
-  onChange: PropTypes.func
+  onChange: PropTypes.func,
 };

@@ -19,12 +19,12 @@ const getLanguageModalState = () => LanguageModalStore.get("isVisible");
 export default class Modals extends React.Component {
   static propTypes = {
     showErrorModal: PropTypes.bool,
-    modalErrorMsg: PropTypes.node
+    modalErrorMsg: PropTypes.node,
   };
 
   static defaultProps = {
     showErrorModal: false,
-    modalErrorMsg: ""
+    modalErrorMsg: "",
   };
 
   state = {
@@ -33,13 +33,13 @@ export default class Modals extends React.Component {
     showingClusterLinkingModal: false,
     showingVersionsModal: false,
     showErrorModal: this.props.showErrorModal,
-    showLanguagePrefModal: false
+    showLanguagePrefModal: false,
   };
 
   UNSAFE_componentWillReceiveProps(props) {
     this.setState({
       modalErrorMsg: props.modalErrorMsg,
-      showErrorModal: props.showErrorModal
+      showErrorModal: props.showErrorModal,
     });
   }
 
@@ -89,7 +89,7 @@ export default class Modals extends React.Component {
           We are unable to retrieve the version {Config.productName} versions.
           Please try again.
         </Trans>
-      )
+      ),
     });
   };
 
@@ -122,23 +122,23 @@ export default class Modals extends React.Component {
             </button>
           </div>
         </div>
-      )
+      ),
     };
   };
 
-  getCliInstallModal = showModal => {
+  getCliInstallModal = (showModal) => {
     let options = {
       onClose() {},
       title: "",
       showFooter: true,
-      footer: <div />
+      footer: <div />,
     };
 
     if (this.state.showingCliModal) {
       Hooks.doAction("logFakePageView", {
         title: "CLI instructions",
         path: "/v/cli-instructions",
-        referrer: "https://mesosphere.com/"
+        referrer: "https://mesosphere.com/",
       });
 
       options = this.getCliModalOptions();
@@ -147,7 +147,7 @@ export default class Modals extends React.Component {
     return <CliInstallModal open={showModal} {...options} />;
   };
 
-  getClusterLinkingModal = showModal => {
+  getClusterLinkingModal = (showModal) => {
     const onClose = () => {
       this.setState({ showingClusterLinkingModal: false });
     };
@@ -161,7 +161,7 @@ export default class Modals extends React.Component {
     );
   };
 
-  getVersionsModal = showModal => {
+  getVersionsModal = (showModal) => {
     const onClose = () => {
       this.setState({ showingVersionsModal: false });
     };
@@ -177,7 +177,7 @@ export default class Modals extends React.Component {
     );
   };
 
-  getErrorModal = show => {
+  getErrorModal = (show) => {
     const onClose = () => {
       this.setState({ showErrorModal: false });
     };
@@ -190,7 +190,7 @@ export default class Modals extends React.Component {
     return <ErrorModal onClose={onClose} errorMsg={errorMsg} open={show} />;
   };
 
-  getLanguagePrefModal = showModal => {
+  getLanguagePrefModal = (showModal) => {
     return <LanguagePreferenceFormModal isOpen={showModal} />;
   };
 
@@ -200,7 +200,7 @@ export default class Modals extends React.Component {
       showingClusterLinkingModal,
       showingVersionsModal,
       showErrorModal,
-      showLanguagePrefModal
+      showLanguagePrefModal,
     } = this.state;
 
     return (

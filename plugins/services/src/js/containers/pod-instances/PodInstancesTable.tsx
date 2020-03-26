@@ -9,7 +9,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyLightDarken1,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
@@ -37,7 +37,7 @@ const tableColumnClasses = {
   cpus: "task-table-column-cpus",
   mem: "task-table-column-mem",
   updated: "task-table-column-updated",
-  version: "task-table-column-version"
+  version: "task-table-column-version",
 };
 
 class PodInstancesTable extends React.Component {
@@ -46,20 +46,20 @@ class PodInstancesTable extends React.Component {
     instances: null,
     inverseStyle: false,
     onSelectionChange() {},
-    pod: null
+    pod: null,
   };
   static propTypes = {
     filterText: PropTypes.string,
     instances: PropTypes.instanceOf(Array),
     inverseStyle: PropTypes.bool,
     onSelectionChange: PropTypes.func,
-    pod: PropTypes.instanceOf(Pod).isRequired
+    pod: PropTypes.instanceOf(Pod).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      checkedItems: {}
+      checkedItems: {},
     };
   }
 
@@ -82,14 +82,14 @@ class PodInstancesTable extends React.Component {
 
   triggerSelectionChange(checkedItems, instances) {
     const checkedItemInstances = instances.filter(
-      item => checkedItems[item.getId()]
+      (item) => checkedItems[item.getId()]
     );
     this.props.onSelectionChange(checkedItemInstances);
   }
-  handleItemCheck = idsChecked => {
+  handleItemCheck = (idsChecked) => {
     const checkedItems = {};
 
-    idsChecked.forEach(id => {
+    idsChecked.forEach((id) => {
       checkedItems[id] = true;
     });
     this.setState({ checkedItems });
@@ -118,7 +118,7 @@ class PodInstancesTable extends React.Component {
   getColumnHeading(prop, order, sortBy) {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null,
-      "caret--visible": prop === sortBy.prop
+      "caret--visible": prop === sortBy.prop,
     });
 
     return (
@@ -132,7 +132,7 @@ class PodInstancesTable extends React.Component {
   getColumnClassName(prop, sortBy, row) {
     return classNames(tableColumnClasses[prop], {
       active: prop === sortBy.prop,
-      clickable: row == null
+      clickable: row == null,
     });
   }
 
@@ -145,14 +145,14 @@ class PodInstancesTable extends React.Component {
         heading: this.getColumnHeading,
         prop: "name",
         render: this.renderColumnID,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "address",
         render: this.renderColumnAddress,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
@@ -160,9 +160,9 @@ class PodInstancesTable extends React.Component {
         prop: "region",
         render: this.renderRegion,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance =>
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, (instance) =>
           InstanceUtil.getRegionName(instance)
-        )
+        ),
       },
       {
         className: this.getColumnClassName,
@@ -170,64 +170,64 @@ class PodInstancesTable extends React.Component {
         prop: "zone",
         render: this.renderZone,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction(sortTieBreaker, instance =>
+        sortFunction: TableUtil.getSortFunction(sortTieBreaker, (instance) =>
           InstanceUtil.getZoneName(instance)
-        )
+        ),
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "status",
         render: this.renderColumnStatus,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "health",
         render: this.renderColumnHealth,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "logs",
         render: this.renderColumnLogs,
-        sortable: false
+        sortable: false,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "cpus",
         render: this.renderColumnResource,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "mem",
         render: this.renderColumnResource,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "updated",
         render: this.renderColumnUpdated,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "version",
         render: this.renderColumnVersion,
-        sortable: true
-      }
+        sortable: true,
+      },
     ];
   }
 
   getContainersWithResources(podSpec, containers, agentAddress) {
-    const children = containers.map(container => {
+    const children = containers.map((container) => {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
@@ -246,7 +246,7 @@ class PodInstancesTable extends React.Component {
         >
           {endpoint.allocatedHostPort}
         </a>,
-        " "
+        " ",
       ]);
 
       return {
@@ -258,7 +258,7 @@ class PodInstancesTable extends React.Component {
         mem: containerResources.mem,
         updated: container.getLastUpdated(),
         version: "",
-        isHistoricalInstance: container.isHistoricalInstance
+        isHistoricalInstance: container.isHistoricalInstance,
       };
     });
 
@@ -278,10 +278,10 @@ class PodInstancesTable extends React.Component {
   getTableDataFor(instances, filterText) {
     const podSpec = this.props.pod.getSpec();
 
-    return instances.map(instance => {
+    return instances.map((instance) => {
       const containers = instance
         .getContainers()
-        .filter(container =>
+        .filter((container) =>
           PodUtil.isContainerMatchingText(container, filterText)
         );
       const children = this.getContainersWithResources(
@@ -302,7 +302,7 @@ class PodInstancesTable extends React.Component {
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
         children,
-        podSpec
+        podSpec,
       };
     });
   }
@@ -333,7 +333,7 @@ class PodInstancesTable extends React.Component {
     }
 
     const classes = classNames("expanding-table-primary-cell is-expandable", {
-      "is-expanded": rowOptions.isExpanded
+      "is-expanded": rowOptions.isExpanded,
     });
 
     return this.renderWithClickHandler(
@@ -432,7 +432,7 @@ class PodInstancesTable extends React.Component {
           ? row.podSpec.executorResources[prop] || 0
           : 0;
       const childResources = row.children
-        .filter(child => !child.isHistoricalInstance)
+        .filter((child) => !child.isHistoricalInstance)
         .reduce((sum, current) => sum + (current[prop] || 0), 0);
       tooltipContent = (
         <Trans render="span">

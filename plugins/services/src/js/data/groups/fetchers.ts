@@ -34,8 +34,8 @@ export function fetchRoles(): Observable<MesosRole[]> {
     responseType: "text",
     headers: {
       "Content-Type": "application/json",
-      Accept: "application/json"
-    }
+      Accept: "application/json",
+    },
   }).pipe(
     map(({ response }: RequestResponse<string>) => response),
     map((response: string) => {
@@ -54,6 +54,6 @@ function rolesFromFixtures(): Observable<MesosRole[]> {
     /* quotaRolesFixture */ "../../../../../../tests/_fixtures/quota-management/roles.json"
   );
   return from(quotaRolesFixture).pipe(
-    map(response => response.roles as MesosRole[])
+    map((response) => response.roles as MesosRole[])
   );
 }

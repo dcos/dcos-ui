@@ -4,7 +4,7 @@ import {
   REQUEST_CLUSTER_CCID_ERROR,
   REQUEST_CLUSTER_CCID_SUCCESS,
   REQUEST_CONFIG_ERROR,
-  REQUEST_CONFIG_SUCCESS
+  REQUEST_CONFIG_SUCCESS,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import ConfigActions from "../events/ConfigActions";
@@ -13,7 +13,7 @@ import {
   CLUSTER_CCID_ERROR,
   CLUSTER_CCID_SUCCESS,
   CONFIG_ERROR,
-  CONFIG_LOADED
+  CONFIG_LOADED,
 } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 
@@ -27,7 +27,7 @@ class ConfigStore extends GetSetBaseStore<{ ccid: unknown; config: unknown }> {
 
     this.getSet_data = {
       ccid: {},
-      config: null
+      config: null,
     };
 
     PluginSDK.addStoreConfig({
@@ -37,12 +37,12 @@ class ConfigStore extends GetSetBaseStore<{ ccid: unknown; config: unknown }> {
         success: CONFIG_LOADED,
         error: CONFIG_ERROR,
         ccidSuccess: CLUSTER_CCID_SUCCESS,
-        ccidError: CLUSTER_CCID_ERROR
+        ccidError: CLUSTER_CCID_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       switch (action.type) {
         case REQUEST_CONFIG_SUCCESS:
@@ -70,7 +70,7 @@ class ConfigStore extends GetSetBaseStore<{ ccid: unknown; config: unknown }> {
     PluginSDK.dispatch({
       type: APP_STORE_CHANGE,
       storeID: this.storeID,
-      data: this.getSet_data
+      data: this.getSet_data,
     });
   }
 

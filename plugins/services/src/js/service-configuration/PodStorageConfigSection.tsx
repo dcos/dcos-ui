@@ -13,16 +13,16 @@ import VolumeConstants from "../constants/VolumeConstants";
 
 const BOOLEAN_OPTIONS = {
   truthy: i18nMark("TRUE"),
-  falsy: i18nMark("FALSE")
+  falsy: i18nMark("FALSE"),
 };
 
 class PodStorageConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
@@ -30,19 +30,19 @@ class PodStorageConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Volume</Trans>;
         },
-        prop: "volume"
+        prop: "volume",
       },
       {
         heading() {
           return <Trans render="span">Type</Trans>;
         },
-        prop: "type"
+        prop: "type",
       },
       {
         heading() {
           return <Trans render="span">Size (MiB)</Trans>;
         },
-        prop: "size"
+        prop: "size",
       },
       {
         heading() {
@@ -55,26 +55,26 @@ class PodStorageConfigSection extends React.Component {
           }
 
           return <Trans id={BOOLEAN_OPTIONS.falsy} />;
-        }
+        },
       },
       {
         heading() {
           return <Trans render="span">Container Mount Path</Trans>;
         },
-        prop: "mountPath"
+        prop: "mountPath",
       },
       {
         heading() {
           return <Trans render="span">Host Path</Trans>;
         },
-        prop: "hostPath"
+        prop: "hostPath",
       },
       {
         heading() {
           return <Trans render="span">Container</Trans>;
         },
-        prop: "container"
-      }
+        prop: "container",
+      },
     ];
   }
 
@@ -110,7 +110,7 @@ class PodStorageConfigSection extends React.Component {
         type,
         volume: volume.name,
         hostPath: volume.host,
-        size
+        size,
       };
 
       // Fetch all mounts for this volume in the containers
@@ -119,14 +119,14 @@ class PodStorageConfigSection extends React.Component {
 
         return cmMemo.concat(
           volumeMounts
-            .filter(volumeMount => volumeMount.name === volume.name)
-            .map(volumeMount => ({
+            .filter((volumeMount) => volumeMount.name === volume.name)
+            .map((volumeMount) => ({
               container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
                 container
               ),
 
               mountPath: volumeMount.mountPath,
-              readOnly: volumeMount.readOnly || false
+              readOnly: volumeMount.readOnly || false,
             }))
         );
       }, []);
@@ -143,7 +143,7 @@ class PodStorageConfigSection extends React.Component {
         (volumesMemo, mountInfo) =>
           volumesMemo.concat({
             ...volumeInfo,
-            ...mountInfo
+            ...mountInfo,
           }),
         memo
       );

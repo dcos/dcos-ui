@@ -22,7 +22,7 @@ const ServiceSpecUtil = {
     if (newSpec.scaling.kind !== "fixed") {
       newSpec.scaling = {
         kind: "fixed",
-        instances: 1
+        instances: 1,
       };
     }
 
@@ -79,7 +79,7 @@ const ServiceSpecUtil = {
     if (spec instanceof ApplicationSpec) {
       return ServiceSpecUtil.setApplicationInstances(spec, instancesCount);
     }
-  }
+  },
 };
 
 export default ServiceSpecUtil;

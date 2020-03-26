@@ -24,9 +24,9 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       ParametersConfigSection,
       ScheduleConfigSection,
       LabelsConfigSection,
-      EnvVarConfigSection
-    ]
-  }
+      EnvVarConfigSection,
+    ],
+  },
 ];
 
 const JobsErrorPathMapping: any[] = [];

@@ -11,7 +11,7 @@ NetworkPage.contextTypes = { router: routerShape };
 NetworkPage.routeConfig = {
   label: i18nMark("Networking"),
   icon: <Icon shape={ProductIcons.NetworkInverse} size={iconSizeS} />,
-  matches: /^\/networking/
+  matches: /^\/networking/,
 };
 
 export default NetworkPage;

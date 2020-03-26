@@ -37,7 +37,7 @@ export function JSONParser(state) {
 
   return state.fetch.reduce((memo, item, index) => {
     memo.push(new Transaction(["fetch"], item, ADD_ITEM));
-    Object.keys(item).forEach(key => {
+    Object.keys(item).forEach((key) => {
       memo.push(new Transaction(["fetch", index, key], item[key], SET));
     });
 

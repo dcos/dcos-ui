@@ -5,5 +5,5 @@
 export default {
   DEGRADED: "degraded",
   STABLE: "stable",
-  TERMINAL: "terminal"
+  TERMINAL: "terminal",
 };

@@ -15,13 +15,13 @@ describe("LicensingStore", () => {
   describe("#fetchLicensingSummary", () => {
     beforeEach(() => {
       thisRequestFn = RequestUtil.json;
-      RequestUtil.json = handlers => {
+      RequestUtil.json = (handlers) => {
         handlers.success({
-          ...licensingSummaryFixture
+          ...licensingSummaryFixture,
         });
       };
       thisLicensingSummaryFixture = {
-        ...licensingSummaryFixture
+        ...licensingSummaryFixture,
       };
     });
 
@@ -50,7 +50,7 @@ describe("LicensingStore", () => {
       it("stores licenseSummary when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_LICENSING_SUMMARY_SUCCESS,
-          data: { gid: "foo", bar: "baz" }
+          data: { gid: "foo", bar: "baz" },
         });
 
         const license = LicensingStore.getLicensingSummary();
@@ -66,7 +66,7 @@ describe("LicensingStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_LICENSING_SUMMARY_SUCCESS,
-          data: { gid: "foo", bar: "baz" }
+          data: { gid: "foo", bar: "baz" },
         });
 
         // Called twice because adding change listener starts polling
@@ -81,7 +81,7 @@ describe("LicensingStore", () => {
         );
         SDK.dispatch({
           type: ActionTypes.REQUEST_LICENSING_SUMMARY_ERROR,
-          data: { message: "error" }
+          data: { message: "error" },
         });
 
         expect(mockedFn.mock.calls.length).toEqual(1);

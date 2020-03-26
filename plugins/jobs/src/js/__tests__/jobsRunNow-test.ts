@@ -3,7 +3,7 @@ import { of } from "rxjs";
 import jobsRunNow from "../jobsRunNow";
 
 jest.mock("@dcos/data-service", () => ({
-  graphqlObservable: jest.fn()
+  graphqlObservable: jest.fn(),
 }));
 
 describe("JobsRunNow", () => {

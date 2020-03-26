@@ -12,13 +12,13 @@ import {
   REQUEST_MESOS_LOG_OFFSET_SUCCESS,
   REQUEST_MESOS_LOG_SUCCESS,
   REQUEST_PREVIOUS_MESOS_LOG_ERROR,
-  REQUEST_PREVIOUS_MESOS_LOG_SUCCESS
+  REQUEST_PREVIOUS_MESOS_LOG_SUCCESS,
 } from "../constants/ActionTypes";
 import {
   MESOS_INITIALIZE_LOG_CHANGE,
   MESOS_INITIALIZE_LOG_REQUEST_ERROR,
   MESOS_LOG_CHANGE,
-  MESOS_LOG_REQUEST_ERROR
+  MESOS_LOG_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import LogBuffer from "../structs/LogBuffer";
 import MesosLogActions from "../events/MesosLogActions";
@@ -38,13 +38,13 @@ class MesosLogStore extends BaseStore {
         success: MESOS_LOG_CHANGE,
         error: MESOS_LOG_REQUEST_ERROR,
         offsetSuccess: MESOS_INITIALIZE_LOG_CHANGE,
-        offsetError: MESOS_INITIALIZE_LOG_REQUEST_ERROR
+        offsetError: MESOS_INITIALIZE_LOG_REQUEST_ERROR,
       },
       unmountWhen: () => false,
-      suppressUpdate: true
+      suppressUpdate: true,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
 
       switch (action.type) {

@@ -26,14 +26,14 @@ describe("SystemLogStore", () => {
       const entries = [
         { fields: { MESSAGE: "foo" } },
         { fields: { MESSAGE: "bar" } },
-        { fields: { MESSAGE: "baz" } }
+        { fields: { MESSAGE: "baz" } },
       ];
       const logData = {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
-        totalSize: 6
+        totalSize: 6,
       };
       const result = SystemLogStore.addEntries(
         logData,
@@ -41,12 +41,12 @@ describe("SystemLogStore", () => {
         SystemLogTypes.APPEND
       );
 
-      expect(result.entries.map(entry => entry.fields.MESSAGE)).toEqual([
+      expect(result.entries.map((entry) => entry.fields.MESSAGE)).toEqual([
         "one",
         "two",
         "foo",
         "bar",
-        "baz"
+        "baz",
       ]);
       expect(result.totalSize).toEqual(15);
     });
@@ -55,15 +55,15 @@ describe("SystemLogStore", () => {
       const entires = [
         { fields: { MESSAGE: "" } },
         { fields: { MESSAGE: "" } },
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ];
       const logData = {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 500000
+        totalSize: 500000,
       };
       const result = SystemLogStore.addEntries(
         logData,
@@ -71,7 +71,7 @@ describe("SystemLogStore", () => {
         SystemLogTypes.APPEND
       );
 
-      const entries = result.entries.map(entry => entry.fields.MESSAGE);
+      const entries = result.entries.map((entry) => entry.fields.MESSAGE);
 
       expect(entries).toEqual(["one", "two", "", "", ""]);
       expect(result.totalSize).toEqual(500000);
@@ -81,14 +81,14 @@ describe("SystemLogStore", () => {
       const entires = [
         { fields: { MESSAGE: "foo" } },
         { fields: { MESSAGE: "bar" } },
-        { fields: { MESSAGE: "baz" } }
+        { fields: { MESSAGE: "baz" } },
       ];
       const logData = {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
-        totalSize: 6
+        totalSize: 6,
       };
       const result = SystemLogStore.addEntries(
         logData,
@@ -96,7 +96,7 @@ describe("SystemLogStore", () => {
         SystemLogTypes.PREPEND
       );
 
-      const entries = result.entries.map(entry => entry.fields.MESSAGE);
+      const entries = result.entries.map((entry) => entry.fields.MESSAGE);
 
       expect(entries).toEqual(["foo", "bar", "baz", "one", "two"]);
       expect(result.totalSize).toEqual(15);
@@ -106,15 +106,15 @@ describe("SystemLogStore", () => {
       const entries = [
         { fields: { MESSAGE: "" } },
         { fields: { MESSAGE: "" } },
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ];
       const logData = {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 500000
+        totalSize: 500000,
       };
       const result = SystemLogStore.addEntries(
         logData,
@@ -122,12 +122,12 @@ describe("SystemLogStore", () => {
         SystemLogTypes.PREPEND
       );
 
-      expect(result.entries.map(entry => entry.fields.MESSAGE)).toEqual([
+      expect(result.entries.map((entry) => entry.fields.MESSAGE)).toEqual([
         "",
         "",
         "",
         "one",
-        "two"
+        "two",
       ]);
       expect(result.totalSize).toEqual(500000);
     });
@@ -138,18 +138,18 @@ describe("SystemLogStore", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
-        totalSize: 6
+        totalSize: 6,
       });
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "foo" } }
+        { fields: { MESSAGE: "foo" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "bar" } }
+        { fields: { MESSAGE: "bar" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "baz" } }
+        { fields: { MESSAGE: "baz" } },
       ]);
 
       expect(SystemLogStore.getFullLog("subscriptionID")).toEqual(
@@ -161,20 +161,20 @@ describe("SystemLogStore", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 500000
+        totalSize: 500000,
       });
 
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ]);
 
       expect(SystemLogStore.getFullLog("subscriptionID")).toEqual("one\ntwo");
@@ -186,15 +186,15 @@ describe("SystemLogStore", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
-        totalSize: 6
+        totalSize: 6,
       });
 
       SystemLogStore.processLogPrepend("subscriptionID", false, [
         { fields: { MESSAGE: "foo" } },
         { fields: { MESSAGE: "bar" } },
-        { fields: { MESSAGE: "baz" } }
+        { fields: { MESSAGE: "baz" } },
       ]);
 
       expect(SystemLogStore.getFullLog("subscriptionID")).toEqual(
@@ -206,16 +206,16 @@ describe("SystemLogStore", () => {
       resetLogData("subscriptionID", {
         entries: [
           { fields: { MESSAGE: "one" } },
-          { fields: { MESSAGE: "two" } }
+          { fields: { MESSAGE: "two" } },
         ],
         // Allow room for one more entry, but not the two following
-        totalSize: 500000
+        totalSize: 500000,
       });
 
       SystemLogStore.processLogPrepend("subscriptionID", false, [
         { fields: { MESSAGE: "" } },
         { fields: { MESSAGE: "" } },
-        { fields: { MESSAGE: "" } }
+        { fields: { MESSAGE: "" } },
       ]);
 
       expect(SystemLogStore.getFullLog("subscriptionID")).toEqual("one\ntwo");
@@ -225,13 +225,13 @@ describe("SystemLogStore", () => {
   describe("#getFullLog", () => {
     it("returns full log", () => {
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "foo" } }
+        { fields: { MESSAGE: "foo" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "bar" } }
+        { fields: { MESSAGE: "bar" } },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "baz" } }
+        { fields: { MESSAGE: "baz" } },
       ]);
 
       const result = SystemLogStore.getFullLog("subscriptionID");
@@ -241,10 +241,10 @@ describe("SystemLogStore", () => {
 
     it("returns correct format", () => {
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "foo" }, realtime_timestamp: 10000000 }
+        { fields: { MESSAGE: "foo" }, realtime_timestamp: 10000000 },
       ]);
       SystemLogStore.processLogAppend("subscriptionID", [
-        { fields: { MESSAGE: "bar" } }
+        { fields: { MESSAGE: "bar" } },
       ]);
 
       const result = SystemLogStore.getFullLog("subscriptionID");
@@ -276,7 +276,7 @@ describe("SystemLogStore", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS,
         data: [{ fields: { MESSAGE: "foo" } }],
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
 
       expect(changeHandler).toHaveBeenCalledWith(
@@ -295,14 +295,14 @@ describe("SystemLogStore", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SYSTEM_LOG_ERROR,
         data: { error: "foo" },
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
 
       expect(changeHandler).toHaveBeenCalledWith(
         "subscriptionID",
         SystemLogTypes.APPEND,
         {
-          error: "foo"
+          error: "foo",
         }
       );
     });
@@ -318,7 +318,7 @@ describe("SystemLogStore", () => {
         type: ActionTypes.REQUEST_PREVIOUS_SYSTEM_LOG_SUCCESS,
         data: [{ fields: { MESSAGE: "foo" } }],
         firstEntry: false,
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
 
       expect(changeHandler).toHaveBeenCalledWith(
@@ -337,14 +337,14 @@ describe("SystemLogStore", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_SYSTEM_LOG_ERROR,
         data: { error: "foo" },
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
 
       expect(changeHandler).toHaveBeenCalledWith(
         "subscriptionID",
         SystemLogTypes.APPEND,
         {
-          error: "foo"
+          error: "foo",
         }
       );
     });

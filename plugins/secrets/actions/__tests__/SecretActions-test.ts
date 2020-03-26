@@ -28,7 +28,7 @@ describe("SecretActions", () => {
     thisUseFixtures = Config.useFixtures;
     Config.useFixtures = false;
     Config.rootUrl = "";
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
   });
@@ -47,10 +47,10 @@ describe("SecretActions", () => {
   describe("#fetchStoreInitializationStatus", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.fetchStoreInitializationStatus();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -59,15 +59,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.fetchStoreInitializationStatus();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -81,10 +81,10 @@ describe("SecretActions", () => {
   describe("#initializeStore", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.initializeStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -93,15 +93,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.initializeStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -120,10 +120,10 @@ describe("SecretActions", () => {
   describe("#fetchSealStatus", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.fetchSealStatus();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -132,15 +132,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.fetchSealStatus();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -154,10 +154,10 @@ describe("SecretActions", () => {
   describe("#unsealStore", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.unsealStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -166,15 +166,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.unsealStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -191,21 +191,21 @@ describe("SecretActions", () => {
   });
 
   describe("#fetchSecret", () => {
-    it("dispatches the correct action when successful", done => {
+    it("dispatches the correct action when successful", (done) => {
       httpService.request.mockReturnValueOnce(
         of({
           response: ['{ "bar": "baz" }'],
-          responseHeaders: { "content-type": "application/json" }
+          responseHeaders: { "content-type": "application/json" },
         })
       );
 
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           contentType: "application/json",
           type: ActionTypes.REQUEST_STORE_SECRET_SUCCESS,
           data: { bar: "baz" },
           storeName: "StoreName",
-          secretPath: "SecretPath"
+          secretPath: "SecretPath",
         });
         done();
       });
@@ -213,15 +213,15 @@ describe("SecretActions", () => {
       SecretActions.fetchSecret("StoreName", "SecretPath");
     });
 
-    it("dispatches the correct action when unsuccessful", done => {
+    it("dispatches the correct action when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(throwError("Error"));
 
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SECRET_ERROR,
           data: "Error",
           storeName: "StoreName",
-          secretPath: "SecretPath"
+          secretPath: "SecretPath",
         });
         done();
       });
@@ -234,10 +234,10 @@ describe("SecretActions", () => {
     it("dispatches the correct action when successful", () => {
       httpService.request.mockReturnValueOnce(of({ response: { bar: "baz" } }));
       SecretActions.createSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
     });
@@ -246,10 +246,10 @@ describe("SecretActions", () => {
       httpService.request.mockReturnValueOnce(throwError("Error"));
 
       SecretActions.createSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_CREATE_SECRET_ERROR,
-          data: { responseJSON: { description: { bar: "baz" } } }
+          data: { responseJSON: { description: { bar: "baz" } } },
         });
       });
     });
@@ -265,10 +265,10 @@ describe("SecretActions", () => {
     it("dispatches the correct action when successful", () => {
       httpService.request.mockReturnValueOnce(of({ response: { bar: "baz" } }));
       SecretActions.updateSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
     });
@@ -276,10 +276,10 @@ describe("SecretActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       httpService.request.mockReturnValueOnce(throwError("Error"));
       SecretActions.updateSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_UPDATE_SECRET_ERROR,
-          data: { responseJSON: { description: { bar: "baz" } } }
+          data: { responseJSON: { description: { bar: "baz" } } },
         });
       });
     });
@@ -294,10 +294,10 @@ describe("SecretActions", () => {
   describe("#deleteSecret", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.deleteSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -306,15 +306,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.deleteSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_DELETE_SECRET_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -333,10 +333,10 @@ describe("SecretActions", () => {
   describe("#fetchSecrets", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.fetchSecrets();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -345,15 +345,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.fetchSecrets();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SECRETS_ERROR,
-          data: { responseJSON: { description: { bar: "baz" } } }
+          data: { responseJSON: { description: { bar: "baz" } } },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -367,10 +367,10 @@ describe("SecretActions", () => {
   describe("#revokeSecret", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.revokeSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -379,15 +379,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.revokeSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_REVOKE_SECRET_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -406,10 +406,10 @@ describe("SecretActions", () => {
   describe("#renewSecret", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.renewSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -418,15 +418,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.renewSecret();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_RENEW_SECRET_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -445,10 +445,10 @@ describe("SecretActions", () => {
   describe("#fetchStores", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.fetchStores();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -457,15 +457,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.fetchStores();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ALL_STORES_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -479,10 +479,10 @@ describe("SecretActions", () => {
   describe("#fetchStore", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.fetchStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -491,15 +491,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.fetchStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -513,10 +513,10 @@ describe("SecretActions", () => {
   describe("#createStore", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.createStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -525,15 +525,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.createStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_CREATE_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 
@@ -552,10 +552,10 @@ describe("SecretActions", () => {
   describe("#deleteStore", () => {
     it("dispatches the correct action when successful", () => {
       SecretActions.deleteStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -564,15 +564,15 @@ describe("SecretActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       SecretActions.deleteStore();
-      unsubscribe = SDK.onDispatch(action => {
+      unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_BACKEND_DELETE_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 

@@ -22,7 +22,7 @@ describe("MultiContainerArtifacts", () => {
           SET
         ),
         new Transaction(["containers", 0, "artifacts"], 2, ADD_ITEM),
-        new Transaction(["containers", 0, "artifacts"], 3, ADD_ITEM)
+        new Transaction(["containers", 0, "artifacts"], 3, ADD_ITEM),
       ]);
 
       expect(
@@ -31,7 +31,7 @@ describe("MultiContainerArtifacts", () => {
         { uri: "http://mesosphere.io" },
         { uri: "http://mesosphere.com" },
         { uri: null },
-        { uri: null }
+        { uri: null },
       ]);
     });
 
@@ -53,7 +53,7 @@ describe("MultiContainerArtifacts", () => {
         new Transaction(["containers", 0, "artifacts"], 2, ADD_ITEM),
         new Transaction(["containers", 0, "artifacts"], 3, ADD_ITEM),
         new Transaction(["containers", 0, "artifacts"], 2, REMOVE_ITEM),
-        new Transaction(["containers", 0, "artifacts"], 1, REMOVE_ITEM)
+        new Transaction(["containers", 0, "artifacts"], 1, REMOVE_ITEM),
       ]);
 
       expect(

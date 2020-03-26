@@ -8,7 +8,7 @@ describe("ParserUtil", () => {
       return {
         type: SET,
         path: "id",
-        value: state.id
+        value: state.id,
       };
     }
 
@@ -22,46 +22,46 @@ describe("ParserUtil", () => {
         {
           type: SET,
           path: "id",
-          value: "test"
-        }
+          value: "test",
+        },
       ]);
     });
 
     it("has the right ordered TransactionLog with multiple parsers", () => {
       const parser = ParserUtil.combineParsers([
         idParser,
-        state => ({
+        (state) => ({
           type: SET,
           path: "cmd",
-          value: state.cmd
-        })
+          value: state.cmd,
+        }),
       ]);
       const appDefinition = {
         id: "test",
-        cmd: "sleep 100;"
+        cmd: "sleep 100;",
       };
       expect(parser(appDefinition)).toEqual([
         {
           type: SET,
           path: "id",
-          value: "test"
+          value: "test",
         },
         {
           type: SET,
           path: "cmd",
-          value: "sleep 100;"
-        }
+          value: "sleep 100;",
+        },
       ]);
     });
     it("has the right order for nested parsers", () => {
-      const containerParser = state => {
+      const containerParser = (state) => {
         if (state.container != null && state.container.docker != null) {
           return ParserUtil.combineParsers([
-            state => ({
+            (state) => ({
               type: SET,
               path: "container.docker.image",
-              value: state.container.docker.image
-            })
+              value: state.container.docker.image,
+            }),
           ])(state);
         }
 
@@ -74,22 +74,22 @@ describe("ParserUtil", () => {
         id: "docker",
         container: {
           docker: {
-            image: "nginx"
-          }
-        }
+            image: "nginx",
+          },
+        },
       };
 
       expect(parser(state)).toEqual([
         {
           type: SET,
           path: "id",
-          value: "docker"
+          value: "docker",
         },
         {
           type: SET,
           path: "container.docker.image",
-          value: "nginx"
-        }
+          value: "nginx",
+        },
       ]);
     });
   });

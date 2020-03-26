@@ -44,14 +44,14 @@ function getMesosHosts(state) {
     refreshRate: Config.getRefreshRate(),
     services: lastState.getServiceList().getItems(),
     totalNodes: nodes.getItems().length,
-    totalResources: lastState.getSlaveTotalResources()
+    totalResources: lastState.getSlaveTotalResources(),
   };
 }
 
 const DEFAULT_FILTER_OPTIONS = {
   filterExpression: new DSLExpression(""),
   byServiceFilter: null,
-  DSLFilteredLength: null
+  DSLFilteredLength: null,
 };
 
 const NodesAgents = createReactClass({
@@ -63,7 +63,7 @@ const NodesAgents = createReactClass({
     routeConfig: {
       label: i18nMark("Nodes"),
       icon: <Icon shape={ProductIcons.ServersInverse} />,
-      matches: /^\/nodes/
+      matches: /^\/nodes/,
     },
     // Static life cycle method from react router, that will be called
     // 'when a handler is about to render', i.e. on route change:
@@ -71,11 +71,11 @@ const NodesAgents = createReactClass({
     // blob/master/docs/api/components/RouteHandler.md
     willTransitionTo() {
       SidebarActions.close();
-    }
+    },
   },
 
   contextTypes: {
-    router: routerShape.isRequired
+    router: routerShape.isRequired,
   },
 
   getInitialState() {
@@ -86,7 +86,11 @@ const NodesAgents = createReactClass({
     this.mesosHosts = getMesosHosts(this.state);
 
     this.store_listeners = [
-      { name: "nodeHealth", events: ["success", "error"], suppressUpdate: true }
+      {
+        name: "nodeHealth",
+        events: ["success", "error"],
+        suppressUpdate: true,
+      },
     ];
   },
 
@@ -138,8 +142,8 @@ const NodesAgents = createReactClass({
       query: Util.omit(this.props.location.query, [
         "searchString",
         "filterExpression",
-        "filterService"
-      ])
+        "filterService",
+      ]),
     });
   },
 
@@ -187,11 +191,11 @@ const NodesAgents = createReactClass({
     );
 
     const listClassSet = classNames("button button-link", {
-      active: !isGridActive
+      active: !isGridActive,
     });
 
     const gridClassSet = classNames("button button-link", {
-      active: isGridActive
+      active: isGridActive,
     });
 
     const isFiltering =
@@ -224,7 +228,7 @@ const NodesAgents = createReactClass({
       filterExpression,
       byServiceFilter,
       selectedResource,
-      DSLFilteredLength
+      DSLFilteredLength,
     } = this.state;
     const data = this.mesosHosts;
     const nodesList = data.nodes || [];
@@ -247,7 +251,7 @@ const NodesAgents = createReactClass({
           breadcrumbs={<NodeBreadcrumbs />}
           tabs={[
             { label: i18nMark("Agents"), routePath: "/nodes/agents" },
-            { label: i18nMark("Masters"), routePath: "/nodes/masters" }
+            { label: i18nMark("Masters"), routePath: "/nodes/masters" },
           ]}
         />
         <HostsPageContent
@@ -295,7 +299,7 @@ const NodesAgents = createReactClass({
     return isEmpty
       ? this.getEmptyHostsPageContent()
       : this.getHostsPageContent();
-  }
+  },
 });
 
 export default NodesAgents;

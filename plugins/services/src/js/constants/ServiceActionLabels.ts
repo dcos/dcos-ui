@@ -25,7 +25,7 @@ const ServiceActionLabels: ServiceActionLabelsInterface = {
   scale_by: i18nMark("Scale By"),
   stop: i18nMark("Stop"),
   view_plans: i18nMark("View Plans"),
-  view_endpoints: i18nMark("View Endpoints")
+  view_endpoints: i18nMark("View Endpoints"),
 };
 
 export default ServiceActionLabels;

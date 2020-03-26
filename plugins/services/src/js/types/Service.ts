@@ -1,6 +1,6 @@
 import {
   ServicePlan,
-  compare as comparePlans
+  compare as comparePlans,
 } from "#PLUGINS/services/src/js/types/ServicePlan";
 
 export interface Service {

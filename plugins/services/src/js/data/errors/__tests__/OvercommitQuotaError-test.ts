@@ -38,8 +38,8 @@ describe("OvercommitQuotaError", () => {
       {
         resourceName: "cpus",
         consumed: 0.6,
-        requestedLimit: 0.5
-      }
+        requestedLimit: 0.5,
+      },
     ]);
   });
   it("parses multiple overcommitted resources from error", () => {
@@ -50,13 +50,13 @@ describe("OvercommitQuotaError", () => {
       {
         resourceName: "cpus",
         consumed: 0.6,
-        requestedLimit: 0.5
+        requestedLimit: 0.5,
       },
       {
         resourceName: "disk",
         consumed: 100,
-        requestedLimit: 0
-      }
+        requestedLimit: 0,
+      },
     ]);
   });
   it("parses a single overcommitted resources from error", () => {
@@ -67,8 +67,8 @@ describe("OvercommitQuotaError", () => {
       {
         resourceName: "cpus",
         consumed: 0.6,
-        requestedLimit: 0.5
-      }
+        requestedLimit: 0.5,
+      },
     ]);
   });
 });

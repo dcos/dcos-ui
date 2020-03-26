@@ -9,19 +9,19 @@ import PageHeaderActions from "./PageHeaderActions";
 import PageHeaderBreadcrumbs from "./PageHeaderBreadcrumbs";
 import PageHeaderTabs from "./PageHeaderTabs";
 
-const PageHeader = props => {
+const PageHeader = (props) => {
   const {
     actions,
     addButton,
     breadcrumbs,
     supplementalContent,
     tabs,
-    actionsDisabled
+    actionsDisabled,
   } = props;
 
   const editButton = actions
-    .filter(action => action.label === "Edit")
-    .map(action => (
+    .filter((action) => action.label === "Edit")
+    .map((action) => (
       <a
         key={action.label}
         className="button button-primary"
@@ -62,19 +62,19 @@ const PageHeader = props => {
 PageHeader.defaultProps = {
   actions: [],
   tabs: [],
-  actionsDisabled: false
+  actionsDisabled: false,
 };
 
 PageHeader.propTypes = {
   addButton: PropTypes.oneOfType([
     PropTypes.arrayOf(PropTypes.object),
-    PropTypes.object
+    PropTypes.object,
   ]),
   actions: PropTypes.array,
   breadcrumbs: PropTypes.node.isRequired,
   supplementalContent: PropTypes.node,
   tabs: PropTypes.array,
-  actionsDisabled: PropTypes.bool
+  actionsDisabled: PropTypes.bool,
 };
 
 PageHeader.Breadcrumbs = PageHeaderBreadcrumbs;

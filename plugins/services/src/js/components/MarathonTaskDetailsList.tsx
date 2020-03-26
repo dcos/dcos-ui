@@ -14,7 +14,7 @@ import TaskStates from "../constants/TaskStates";
 
 class MarathonTaskDetailsList extends React.Component {
   static propTypes = {
-    taskID: PropTypes.string.isRequired
+    taskID: PropTypes.string.isRequired,
   };
   getTaskPorts(task) {
     const { ports } = task;

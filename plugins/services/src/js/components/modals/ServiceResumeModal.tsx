@@ -23,15 +23,15 @@ class ServiceResumeModal extends React.PureComponent {
     resumeService: PropTypes.func.isRequired,
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Service)
-    ]).isRequired
+      PropTypes.instanceOf(Service),
+    ]).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       instancesFieldValue: 1,
-      errorMsg: null
+      errorMsg: null,
     };
   }
 
@@ -87,9 +87,9 @@ class ServiceResumeModal extends React.PureComponent {
 
     this.props.resumeService(instances, this.shouldForceUpdate());
   };
-  handleInstancesFieldChange = event => {
+  handleInstancesFieldChange = (event) => {
     this.setState({
-      instancesFieldValue: event.target.value
+      instancesFieldValue: event.target.value,
     });
   };
 
@@ -115,7 +115,7 @@ class ServiceResumeModal extends React.PureComponent {
 
   getModalContent() {
     const {
-      props: { service }
+      props: { service },
     } = this;
 
     if (

@@ -17,16 +17,11 @@ export default class Service extends Item {
   }
 
   getMesosId() {
-    return this.getId()
-      .split("/")
-      .slice(1)
-      .join("_");
+    return this.getId().split("/").slice(1).join("_");
   }
 
   getName() {
-    return this.getId()
-      .split("/")
-      .pop();
+    return this.getId().split("/").pop();
   }
 
   getSpec() {
@@ -103,7 +98,7 @@ export default class Service extends Item {
       tasksUnhealthy: 0,
       tasksUnknown: 0,
       tasksOverCapacity: 0,
-      tasksRunning: 0
+      tasksRunning: 0,
     };
   }
 
@@ -113,7 +108,7 @@ export default class Service extends Item {
       cpus = 0,
       mem = 0,
       gpus = 0,
-      disk = 0
+      disk = 0,
     } = this.getSpec().getResources();
     let executorCpus = 0;
     let executorMem = 0;
@@ -132,7 +127,7 @@ export default class Service extends Item {
       cpus: (cpus + executorCpus) * instances,
       mem: (mem + executorMem) * instances,
       gpus: (gpus + executorGpus) * instances,
-      disk: (disk + executorDisk) * instances
+      disk: (disk + executorDisk) * instances,
     };
   }
 
@@ -150,7 +145,7 @@ export default class Service extends Item {
 
     return mesosTasks.reduce(
       (roles, mesosTask) => {
-        const item = tasks.find(t => t.id === mesosTask.id);
+        const item = tasks.find((t) => t.id === mesosTask.id);
         roles.count++;
 
         if (!item) {

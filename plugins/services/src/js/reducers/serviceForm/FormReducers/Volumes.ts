@@ -16,10 +16,10 @@ export function FormReducer(state = [], { type, path, value }) {
             containerPath: null,
             size: null,
             profileName: null,
-            mode: "RW"
+            mode: "RW",
           };
           state.push({
-            ...(value || defaultVolume)
+            ...(value || defaultVolume),
           });
           break;
         case REMOVE_ITEM:

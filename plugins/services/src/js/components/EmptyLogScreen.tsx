@@ -19,7 +19,7 @@ function EmptyLogScreen({ logName }) {
 }
 
 EmptyLogScreen.propTypes = {
-  logName: PropTypes.string
+  logName: PropTypes.string,
 };
 
 export default EmptyLogScreen;

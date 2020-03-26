@@ -45,9 +45,9 @@ describe("ServiceList", () => {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           instances: 0,
-          deployments: []
-        }
-      ]
+          deployments: [],
+        },
+      ],
     });
 
     beforeEach(() => {

@@ -13,21 +13,21 @@ class VolumeTable extends React.Component {
   static propTypes = {
     volumes: PropTypes.array.isRequired,
     params: PropTypes.object.isRequired,
-    routes: PropTypes.array.isRequired
+    routes: PropTypes.array.isRequired,
   };
   constructor() {
     super();
   }
 
   getData(volumes) {
-    return volumes.map(volume => ({
+    return volumes.map((volume) => ({
       id: volume.id,
       host: volume.host,
       type: volume.type,
       profile: profileFromVolume(volume),
       path: volume.containerPath,
       size: volume.size,
-      status: statusFromVolume(volume)
+      status: statusFromVolume(volume),
     }));
   }
 
@@ -48,14 +48,14 @@ class VolumeTable extends React.Component {
     return classNames({
       active: prop === sortBy.prop,
       clickable: row == null,
-      "text-overflow": prop === "profile"
+      "text-overflow": prop === "profile",
     });
   }
 
   getColumnHeading(prop, order, sortBy) {
     const caretClassNames = classNames("caret", {
       [`caret--${order}`]: order != null,
-      "caret--visible": prop === sortBy.prop
+      "caret--visible": prop === sortBy.prop,
     });
 
     const headingStrings = {
@@ -65,7 +65,7 @@ class VolumeTable extends React.Component {
       profile: <Trans render="span">Volume Profile</Trans>,
       path: <Trans render="span">Path</Trans>,
       size: <Trans render="span">Size</Trans>,
-      status: <Trans render="span">Status</Trans>
+      status: <Trans render="span">Status</Trans>,
     };
 
     return (
@@ -83,45 +83,45 @@ class VolumeTable extends React.Component {
         heading: this.getColumnHeading,
         prop: "id",
         render: this.renderIDColumn,
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "host",
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "type",
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "profile",
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "path",
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "size",
-        sortable: true
+        sortable: true,
       },
       {
         className: this.getColumnClassName,
         heading: this.getColumnHeading,
         prop: "status",
         render: this.renderStatusColumn,
-        sortable: true
-      }
+        sortable: true,
+      },
     ];
   }
   renderIDColumn = (prop, row) => {
@@ -155,7 +155,7 @@ class VolumeTable extends React.Component {
     const value = row[prop];
     const classes = classNames({
       "text-danger": value === VolumeStatus.DETACHED,
-      "text-success": value === VolumeStatus.ATTACHED
+      "text-success": value === VolumeStatus.ATTACHED,
     });
 
     return <span className={classes}>{row[prop]}</span>;

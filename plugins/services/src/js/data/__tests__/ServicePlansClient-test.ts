@@ -1,6 +1,6 @@
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import { marbles } from "rxjs-marbles/jest";
@@ -31,14 +31,14 @@ describe("ServicePlansClient", () => {
 
     it(
       "emits an event when the data is received",
-      marbles(m => {
+      marbles((m) => {
         const expectedResult = ["plan01", "plan02", "plan03"];
         const expected$ = m.cold("--(j|)", {
           j: {
             response: expectedResult,
             code: 200,
-            message: "OK"
-          }
+            message: "OK",
+          },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -50,13 +50,13 @@ describe("ServicePlansClient", () => {
 
     it(
       "emits an error if non-2XX API response",
-      marbles(m => {
+      marbles((m) => {
         const mockResult$ = m.cold("--j", {
           j: {
             code: 500,
             message: "Internal Server Error",
-            response: []
-          }
+            response: [],
+          },
         });
 
         mockRequest.mockReturnValueOnce(mockResult$);
@@ -66,7 +66,7 @@ describe("ServicePlansClient", () => {
         const expected$ = m.cold("--#", undefined, {
           message:
             "Service Plans API request failed: 500 Internal Server Error:[]",
-          name: "Error"
+          name: "Error",
         });
 
         m.expect(result$).toBeObservable(expected$);
@@ -91,13 +91,13 @@ describe("ServicePlansClient", () => {
 
     it(
       "emits the successful request result",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--(j|)", {
           j: {
             response: planDetailData,
             code: 200,
-            message: "OK"
-          }
+            message: "OK",
+          },
         });
 
         mockRequest.mockReturnValueOnce(expected$);
@@ -112,13 +112,13 @@ describe("ServicePlansClient", () => {
 
     it(
       "emits an error if non-2XX API response",
-      marbles(m => {
+      marbles((m) => {
         const mockResult$ = m.cold("--j", {
           j: {
             code: 500,
             message: "Internal Server Error",
-            response: {}
-          }
+            response: {},
+          },
         });
 
         mockRequest.mockReturnValueOnce(mockResult$);
@@ -131,7 +131,7 @@ describe("ServicePlansClient", () => {
         const expected$ = m.cold("--#", undefined, {
           message:
             "Service Plan Detail API request failed: 500 Internal Server Error:{}",
-          name: "Error"
+          name: "Error",
         });
 
         m.expect(result$).toBeObservable(expected$);

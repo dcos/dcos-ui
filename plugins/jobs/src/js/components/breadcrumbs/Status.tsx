@@ -15,5 +15,5 @@ export default function Status({ status }) {
 }
 
 Status.propTypes = {
-  status: PropTypes.string.isRequired
+  status: PropTypes.string.isRequired,
 };

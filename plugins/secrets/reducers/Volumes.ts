@@ -4,7 +4,7 @@ import Transaction from "#SRC/js/structs/Transaction";
 import {
   processSecretTransaction,
   processPodSecretTransaction,
-  defaultSecretVolumeKey
+  defaultSecretVolumeKey,
 } from "./Secrets";
 import {
   SingleContainerServiceJSON,
@@ -12,7 +12,7 @@ import {
   Volume,
   ContainerDefinition,
   MultiContainerReducerContext,
-  MultiContainerVolume
+  MultiContainerVolume,
 } from "./types";
 
 function JSONSingleContainerReducer(
@@ -30,7 +30,7 @@ function JSONSingleContainerReducer(
   this.secrets = processSecretTransaction(this.secrets, {
     type,
     path,
-    value
+    value,
   });
   const secretVolumes: Volume[] = [];
 
@@ -39,12 +39,12 @@ function JSONSingleContainerReducer(
 
     if (Array.isArray(item.exposures) && key != null) {
       item.exposures
-        .filter(exposure => exposure.type === "file" && exposure.value)
-        .map(exposure => exposure.value)
-        .forEach(containerPath => {
+        .filter((exposure) => exposure.type === "file" && exposure.value)
+        .map((exposure) => exposure.value)
+        .forEach((containerPath) => {
           memo.push({
             containerPath,
-            secret: key
+            secret: key,
           });
         });
     }
@@ -61,7 +61,7 @@ function UnknownVolumesParser(
   }
 
   return state.container.volumes
-    .filter(item => {
+    .filter((item) => {
       return (
         item.persistent == null &&
         item.external == null &&
@@ -90,7 +90,7 @@ function JSONMultiContainerReducer(
   this.secrets = processPodSecretTransaction(this.secrets, {
     type,
     path,
-    value
+    value,
   });
   let secretVolumes: MultiContainerVolume[] = [];
 
@@ -103,8 +103,8 @@ function JSONMultiContainerReducer(
       secretKey.length > 0
     ) {
       item.exposures
-        .filter(exposure => exposure.type === "file")
-        .forEach(exposure => {
+        .filter((exposure) => exposure.type === "file")
+        .forEach((exposure) => {
           if (!exposure.mounts) {
             return;
           }
@@ -118,7 +118,7 @@ function JSONMultiContainerReducer(
           memo.push({
             name:
               exposure.value || defaultSecretVolumeKey(secretKey, secretIndex),
-            secret: secretKey
+            secret: secretKey,
           });
         });
     }
@@ -133,5 +133,5 @@ export {
   defaultSecretVolumeKey,
   JSONSingleContainerReducer,
   UnknownVolumesParser,
-  JSONMultiContainerReducer
+  JSONMultiContainerReducer,
 };

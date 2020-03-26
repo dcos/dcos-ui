@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXxs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 function AddButton({ children, className, icon, onClick }) {
@@ -23,7 +23,7 @@ function AddButton({ children, className, icon, onClick }) {
 }
 
 AddButton.defaultProps = {
-  icon: <Icon color={purple} shape={SystemIcons.Plus} size={iconSizeXxs} />
+  icon: <Icon color={purple} shape={SystemIcons.Plus} size={iconSizeXxs} />,
 };
 
 AddButton.propTypes = {
@@ -32,9 +32,9 @@ AddButton.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
-  icon: PropTypes.node
+  icon: PropTypes.node,
 };
 
 export default AddButton;

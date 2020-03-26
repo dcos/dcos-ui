@@ -2,7 +2,7 @@ import * as QuotaUtil from "../QuotaUtil";
 import {
   ServiceGroup,
   ServiceGroupQuota,
-  QuotaRolesStats
+  QuotaRolesStats,
 } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import { MesosRole } from "#PLUGINS/services/src/js/types/MesosRoles";
 import ServiceTree from "#PLUGINS/services/src/js/structs/ServiceTree";
@@ -20,8 +20,8 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         cpus: {
-          limit: 1
-        }
+          limit: 1,
+        },
       };
       expect(QuotaUtil.quotaHasLimit(value)).toEqual(true);
     });
@@ -30,8 +30,8 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         memory: {
-          limit: 1
-        }
+          limit: 1,
+        },
       };
       expect(QuotaUtil.quotaHasLimit(value)).toEqual(true);
     });
@@ -40,8 +40,8 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         disk: {
-          limit: 1
-        }
+          limit: 1,
+        },
       };
       expect(QuotaUtil.quotaHasLimit(value)).toEqual(true);
     });
@@ -50,8 +50,8 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         gpus: {
-          limit: 1
-        }
+          limit: 1,
+        },
       };
       expect(QuotaUtil.quotaHasLimit(value)).toEqual(true);
     });
@@ -60,17 +60,17 @@ describe("QuotaUtil", () => {
         enforced: false,
         limitStatus: "N/A",
         cpus: {
-          guarantee: 1
+          guarantee: 1,
         },
         memory: {
-          guarantee: 1
+          guarantee: 1,
         },
         disk: {
-          guarantee: 1
+          guarantee: 1,
         },
         gpus: {
-          guarantee: 1
-        }
+          guarantee: 1,
+        },
       };
       expect(QuotaUtil.quotaHasLimit(value)).toEqual(false);
     });
@@ -81,14 +81,14 @@ describe("QuotaUtil", () => {
       const value: ServiceGroup = {
         id: "/unit-test",
         name: "unit-test",
-        quota: null
+        quota: null,
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(false);
     });
     it("returns false if quota is undefined", () => {
       const value: ServiceGroup = {
         id: "/unit-test",
-        name: "unit-test"
+        name: "unit-test",
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(false);
     });
@@ -100,9 +100,9 @@ describe("QuotaUtil", () => {
           enforced: false,
           limitStatus: "N/A",
           cpus: {
-            limit: 1
-          }
-        }
+            limit: 1,
+          },
+        },
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(true);
     });
@@ -114,9 +114,9 @@ describe("QuotaUtil", () => {
           enforced: false,
           limitStatus: "N/A",
           memory: {
-            limit: 1
-          }
-        }
+            limit: 1,
+          },
+        },
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(true);
     });
@@ -128,9 +128,9 @@ describe("QuotaUtil", () => {
           enforced: false,
           limitStatus: "N/A",
           disk: {
-            limit: 1
-          }
-        }
+            limit: 1,
+          },
+        },
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(true);
     });
@@ -142,9 +142,9 @@ describe("QuotaUtil", () => {
           enforced: false,
           limitStatus: "N/A",
           gpus: {
-            limit: 1
-          }
-        }
+            limit: 1,
+          },
+        },
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(true);
     });
@@ -156,18 +156,18 @@ describe("QuotaUtil", () => {
           enforced: false,
           limitStatus: "N/A",
           cpus: {
-            guarantee: 1
+            guarantee: 1,
           },
           memory: {
-            guarantee: 1
+            guarantee: 1,
           },
           disk: {
-            guarantee: 1
+            guarantee: 1,
           },
           gpus: {
-            guarantee: 1
-          }
-        }
+            guarantee: 1,
+          },
+        },
       };
       expect(QuotaUtil.groupHasQuotaLimit(value)).toEqual(false);
     });
@@ -177,7 +177,7 @@ describe("QuotaUtil", () => {
     it("populates limit values", () => {
       const value: ServiceGroupQuota = {
         enforced: false,
-        limitStatus: "N/A"
+        limitStatus: "N/A",
       };
       const role: MesosRole = {
         name: "unit-test",
@@ -186,34 +186,34 @@ describe("QuotaUtil", () => {
           limit: {
             cpus: 3,
             mem: 100,
-            disk: 0
-          }
-        }
+            disk: 0,
+          },
+        },
       };
       expect(QuotaUtil.populateResourcesFromRole(value, role)).toEqual({
         enforced: false,
         limitStatus: "N/A",
         cpus: {
           consumed: 0,
-          limit: 3
+          limit: 3,
         },
         memory: {
           consumed: 0,
-          limit: 100
+          limit: 100,
         },
         disk: {
           consumed: 0,
-          limit: 0
+          limit: 0,
         },
         gpus: {
-          consumed: 0
-        }
+          consumed: 0,
+        },
       });
     });
     it("populates guarantee values", () => {
       const value: ServiceGroupQuota = {
         enforced: false,
-        limitStatus: "N/A"
+        limitStatus: "N/A",
       };
       const role: MesosRole = {
         name: "unit-test",
@@ -222,34 +222,34 @@ describe("QuotaUtil", () => {
           guarantee: {
             cpus: 3,
             mem: 100,
-            gpus: 1
-          }
-        }
+            gpus: 1,
+          },
+        },
       };
       expect(QuotaUtil.populateResourcesFromRole(value, role)).toEqual({
         enforced: false,
         limitStatus: "N/A",
         cpus: {
           consumed: 0,
-          guarantee: 3
+          guarantee: 3,
         },
         memory: {
           consumed: 0,
-          guarantee: 100
+          guarantee: 100,
         },
         disk: {
-          consumed: 0
+          consumed: 0,
         },
         gpus: {
           consumed: 0,
-          guarantee: 1
-        }
+          guarantee: 1,
+        },
       });
     });
     it("populates consumption values", () => {
       const value: ServiceGroupQuota = {
         enforced: false,
-        limitStatus: "N/A"
+        limitStatus: "N/A",
       };
       const role: MesosRole = {
         name: "unit-test",
@@ -259,39 +259,39 @@ describe("QuotaUtil", () => {
             cpus: 3,
             mem: 100,
             disk: 0,
-            gpus: 1
-          }
-        }
+            gpus: 1,
+          },
+        },
       };
       expect(QuotaUtil.populateResourcesFromRole(value, role)).toEqual({
         enforced: false,
         limitStatus: "N/A",
         cpus: {
-          consumed: 3
+          consumed: 3,
         },
         memory: {
-          consumed: 100
+          consumed: 100,
         },
         disk: {
-          consumed: 0
+          consumed: 0,
         },
         gpus: {
-          consumed: 1
-        }
+          consumed: 1,
+        },
       });
     });
     it("doesn't set resources if role doesn't have quota", () => {
       const value: ServiceGroupQuota = {
         enforced: false,
-        limitStatus: "N/A"
+        limitStatus: "N/A",
       };
       const role: MesosRole = {
         name: "unit-test",
-        weight: 0
+        weight: 0,
       };
       expect(QuotaUtil.populateResourcesFromRole(value, role)).toEqual({
         enforced: false,
-        limitStatus: "N/A"
+        limitStatus: "N/A",
       });
     });
   });
@@ -306,7 +306,7 @@ describe("QuotaUtil", () => {
     it("return Applied for 0 roles", () => {
       const value: QuotaRolesStats = {
         count: 0,
-        groupRoleCount: 0
+        groupRoleCount: 0,
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Applied");
     });
@@ -314,14 +314,14 @@ describe("QuotaUtil", () => {
     it("return Applied for all roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
-        groupRoleCount: 10
+        groupRoleCount: 10,
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Applied");
     });
     it("return Not Applied for 0 group roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
-        groupRoleCount: 0
+        groupRoleCount: 0,
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Not Applied");
     });
@@ -329,7 +329,7 @@ describe("QuotaUtil", () => {
     it("return Partially Applied for > 0 group roles", () => {
       const value: QuotaRolesStats = {
         count: 10,
-        groupRoleCount: 5
+        groupRoleCount: 5,
       };
       expect(QuotaUtil.getQuotaLimit(value)).toEqual("Partially Applied");
     });
@@ -349,21 +349,21 @@ describe("QuotaUtil", () => {
     it("returns false if role has not quota", () => {
       expect(
         QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
-          { name: "dev", weight: 1.0 }
+          { name: "dev", weight: 1.0 },
         ])
       ).toEqual(false);
     });
     it("returns false if role has quota, but no limits", () => {
       expect(
         QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
-          { name: "dev", weight: 1.0, quota: { limit: {} } }
+          { name: "dev", weight: 1.0, quota: { limit: {} } },
         ])
       ).toEqual(false);
     });
     it("returns true if role has quota and at least one limit", () => {
       expect(
         QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [
-          { name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } }
+          { name: "dev", weight: 1.0, quota: { limit: { cpus: 1.0 } } },
         ])
       ).toEqual(true);
     });

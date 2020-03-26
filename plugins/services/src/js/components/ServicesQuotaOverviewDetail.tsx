@@ -5,7 +5,7 @@ import {
   map,
   catchError,
   distinctUntilChanged,
-  switchMap
+  switchMap,
 } from "rxjs/operators";
 import { componentFromStream } from "@dcos/data-service";
 import gql from "graphql-tag";
@@ -78,7 +78,7 @@ function getQuotaConsumedOfLimit(
       id="{0} of {1}"
       values={{
         0: Units.filesize(consumed * 1024 * 1024, 0),
-        1: Units.filesize(limit * 1024 * 1024, 0)
+        1: Units.filesize(limit * 1024 * 1024, 0),
       }}
     />
   );
@@ -179,17 +179,17 @@ export interface ServicesQuotaOverviewDetailProps {
 
 const ServicesQuotaOverviewDetail = componentFromStream<
   ServicesQuotaOverviewDetailProps
->(props$ => {
+>((props$) => {
   const dl = container.get<DataLayer>(DataLayerType);
   const id$ = (props$ as Observable<ServicesQuotaOverviewDetailProps>).pipe(
-    map(props => props.id),
+    map((props) => props.id),
     distinctUntilChanged()
   );
 
   const serviceTree$ = (props$ as Observable<
     ServicesQuotaOverviewDetailProps
   >).pipe(
-    map(props => props.serviceTree),
+    map((props) => props.serviceTree),
     distinctUntilChanged()
   );
 
@@ -212,7 +212,7 @@ const ServicesQuotaOverviewDetail = componentFromStream<
     );
 
   const group$ = id$.pipe(
-    switchMap(id => quotaGroupQuery(id)),
+    switchMap((id) => quotaGroupQuery(id)),
     map(({ data: { group } }) => group)
   );
 

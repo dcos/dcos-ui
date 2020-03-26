@@ -7,7 +7,7 @@ class UsersActionsModal extends AccountActionsModal {
     super(...args);
 
     this.store_listeners = this.store_listeners.concat([
-      { name: "user", events: ["deleteError", "deleteSuccess"] }
+      { name: "user", events: ["deleteError", "deleteSuccess"] },
     ]);
   }
 

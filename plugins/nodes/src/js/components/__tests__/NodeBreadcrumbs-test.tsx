@@ -6,7 +6,7 @@ import Node from "#SRC/js/structs/Node";
 
 const mockUnitHealthStore = {
   getUnit: jest.fn(),
-  getNode: jest.fn()
+  getNode: jest.fn(),
 };
 jest.mock("#SRC/js/stores/UnitHealthStore", () => mockUnitHealthStore);
 
@@ -26,7 +26,7 @@ describe("NodeBreadcrumbs", () => {
   it("renders with node breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-      hostname: "foo.bar.baz"
+      hostname: "foo.bar.baz",
     });
     const tree = renderer.create(<NodeBreadcrumbs node={node} />).toJSON();
 
@@ -36,7 +36,7 @@ describe("NodeBreadcrumbs", () => {
   it("renders with taskID breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-      hostname: "foo.bar.baz"
+      hostname: "foo.bar.baz",
     });
     const tree = renderer
       .create(
@@ -54,19 +54,19 @@ describe("NodeBreadcrumbs", () => {
   it("renders with unitID breadcrumbs", () => {
     const node = new Node({
       id: "e99adb4a-eee7-4e48-ba86-79cd061d2215-S1",
-      hostname: "foo.bar.baz"
+      hostname: "foo.bar.baz",
     });
     mockUnitHealthStore.getUnit.mockReturnValue(
       new HealthUnit({
         title: "MyUnit",
-        hostname: "health-unit-hostname"
+        hostname: "health-unit-hostname",
       })
     );
     mockUnitHealthStore.getNode.mockReturnValue({
       getHealth: jest.fn(() => ({
         classNames: "green",
-        title: "All green"
-      }))
+        title: "All green",
+      })),
     });
     const tree = renderer
       .create(<NodeBreadcrumbs node={node} unitID="unit-ids-are-nice" />)

@@ -6,13 +6,13 @@ class FilterBar extends React.PureComponent {
     className: "filter-bar",
     leftChildrenClass: "filter-bar-left",
     rightAlignLastNChildren: 0,
-    rightChildrenClass: "filter-bar-right"
+    rightChildrenClass: "filter-bar-right",
   };
   static propTypes = {
     className: PropTypes.string,
     rightAlignLastNChildren: PropTypes.number,
     leftChildrenClass: PropTypes.string,
-    rightChildrenClass: PropTypes.string
+    rightChildrenClass: PropTypes.string,
   };
   getFilterBarLeft(filterItems, rightAlignCount) {
     if (filterItems.length === rightAlignCount) {

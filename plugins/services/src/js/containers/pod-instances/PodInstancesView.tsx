@@ -27,7 +27,7 @@ const DSL_FORM_SECTIONS = [
   TaskStatusDSLSection,
   TaskZoneDSLSection,
   TaskRegionDSLSection,
-  FuzzyTextDSLSection
+  FuzzyTextDSLSection,
 ];
 
 class PodInstancesView extends React.Component {
@@ -35,7 +35,7 @@ class PodInstancesView extends React.Component {
     inverseStyle: false,
     instances: [],
     totalInstances: 0,
-    handleExpressionChange() {}
+    handleExpressionChange() {},
   };
   static propTypes = {
     inverseStyle: PropTypes.bool,
@@ -43,13 +43,13 @@ class PodInstancesView extends React.Component {
     pod: PropTypes.instanceOf(Pod).isRequired,
     totalInstances: PropTypes.number.isRequired,
     handleExpressionChange: PropTypes.func.isRequired,
-    filters: PropTypes.instanceOf(Array)
+    filters: PropTypes.instanceOf(Array),
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      selectedItems: []
+      selectedItems: [],
     };
   }
 
@@ -79,10 +79,10 @@ class PodInstancesView extends React.Component {
 
     this.context.modalHandlers.killPodInstances({
       action: "restart",
-      selectedItems
+      selectedItems,
     });
   };
-  handleSelectionChange = selectedItems => {
+  handleSelectionChange = (selectedItems) => {
     this.setState({ selectedItems });
   };
 
@@ -91,14 +91,14 @@ class PodInstancesView extends React.Component {
       filters,
       filterExpression,
       handleExpressionChange,
-      defaultFilterData
+      defaultFilterData,
     } = this.props;
 
     const filterExpressionValue = filterExpression.value;
 
     const hostClasses = classNames({
       "column-medium-5": !filterExpressionValue,
-      "column-medium-12": filterExpressionValue
+      "column-medium-12": filterExpressionValue,
     });
 
     return (
@@ -121,7 +121,7 @@ class PodInstancesView extends React.Component {
       totalInstances,
       handleExpressionChange,
       filterExpression,
-      i18n
+      i18n,
     } = this.props;
 
     const { selectedItems } = this.state;
@@ -132,7 +132,7 @@ class PodInstancesView extends React.Component {
 
     if (filterExpression.ast) {
       filterTextExpression = filterExpression.ast.children.filter(
-        filter => filter.filterType === DSLFilterTypes.FUZZY
+        (filter) => filter.filterType === DSLFilterTypes.FUZZY
       );
 
       let filterParams = { text: "" };
@@ -186,9 +186,9 @@ class PodInstancesView extends React.Component {
 
 PodInstancesView.contextTypes = {
   modalHandlers: PropTypes.shape({
-    killPodInstances: PropTypes.func.isRequired
+    killPodInstances: PropTypes.func.isRequired,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(PodInstancesView);

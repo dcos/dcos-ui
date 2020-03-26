@@ -23,7 +23,7 @@ describe("SystemLogUtil", () => {
     it("concatenates range elements nicely together", () => {
       const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
-        limit: "lim&it"
+        limit: "lim&it",
       });
 
       expect(result).toEqual(
@@ -34,7 +34,7 @@ describe("SystemLogUtil", () => {
     it("includes filter after range element in the url", () => {
       const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
-        filter: { param1: "param1" }
+        filter: { param1: "param1" },
       });
 
       expect(result).toEqual(
@@ -44,7 +44,7 @@ describe("SystemLogUtil", () => {
 
     it("encodes filter element", () => {
       const result = SystemLogUtil.getUrl("foo", {
-        filter: { "param/1": "param/1" }
+        filter: { "param/1": "param/1" },
       });
 
       expect(result).toEqual(
@@ -57,7 +57,7 @@ describe("SystemLogUtil", () => {
         cursor: "cursor",
         limit: "lim&it",
         postfix: "postfix",
-        filter: { "param/1": "param/1", "param\\2": "param\\2" }
+        filter: { "param/1": "param/1", "param\\2": "param\\2" },
       });
 
       expect(result).toEqual(
@@ -67,7 +67,7 @@ describe("SystemLogUtil", () => {
 
     it("ignores anything that is not a param or filter", () => {
       const result = SystemLogUtil.getUrl("foo", {
-        bar: "bar"
+        bar: "bar",
       });
 
       expect(result.includes("bar")).toBe(false);
@@ -76,7 +76,7 @@ describe("SystemLogUtil", () => {
     it("uses stream by default", () => {
       const result = SystemLogUtil.getUrl("foo", {
         cursor: "cursor",
-        filter: { "param/1": "param/1" }
+        filter: { "param/1": "param/1" },
       });
 
       expect(result).toEqual(
@@ -89,7 +89,7 @@ describe("SystemLogUtil", () => {
         "foo",
         {
           cursor: "cursor",
-          filter: { "param/1": "param/1" }
+          filter: { "param/1": "param/1" },
         },
         false
       );
@@ -104,7 +104,7 @@ describe("SystemLogUtil", () => {
         "foo",
         {
           cursor: "cursor",
-          frameworkID: "bar"
+          frameworkID: "bar",
         },
         false
       );
@@ -119,7 +119,7 @@ describe("SystemLogUtil", () => {
         "foo",
         {
           cursor: "cursor",
-          executorID: "bar"
+          executorID: "bar",
         },
         false
       );
@@ -134,7 +134,7 @@ describe("SystemLogUtil", () => {
         "foo",
         {
           cursor: "cursor",
-          containerID: "bar"
+          containerID: "bar",
         },
         false
       );
@@ -151,7 +151,7 @@ describe("SystemLogUtil", () => {
           cursor: "cursor",
           frameworkID: "bar",
           executorID: "baz",
-          containerID: "quis"
+          containerID: "quis",
         },
         false
       );
@@ -169,7 +169,7 @@ describe("SystemLogUtil", () => {
           cursor: "cursor",
           frameworkID: "bar",
           executorID: "baz",
-          containerID: "quis"
+          containerID: "quis",
         },
         false,
         "/download"
@@ -218,11 +218,11 @@ describe("SystemLogUtil", () => {
       jest.runAllTimers();
 
       // Two calls will be invoked (once immediately) and once the wait is over.
-      expect(thisFunc.mock.calls[0][0].map(item => item[0])).toEqual(["foo"]);
+      expect(thisFunc.mock.calls[0][0].map((item) => item[0])).toEqual(["foo"]);
       expect(thisFunc.mock.calls[0][1]).toEqual(undefined);
-      expect(thisFunc.mock.calls[1][0].map(item => item[0])).toEqual([
+      expect(thisFunc.mock.calls[1][0].map((item) => item[0])).toEqual([
         "bar",
-        "baz"
+        "baz",
       ]);
       expect(thisFunc.mock.calls[1][1]).toEqual(undefined);
     });

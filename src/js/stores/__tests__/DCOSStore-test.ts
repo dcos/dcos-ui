@@ -20,7 +20,7 @@ describe("DCOSStore", () => {
     MarathonStore.__setKeyResponse(
       "deployments",
       new DeploymentsList({
-        items: []
+        items: [],
       })
     );
     MesosSummaryStore.__setKeyResponse(
@@ -28,9 +28,9 @@ describe("DCOSStore", () => {
       new SummaryList({
         items: [
           new StateSummary({
-            successful: true
-          })
-        ]
+            successful: true,
+          }),
+        ],
       })
     );
 
@@ -84,9 +84,9 @@ describe("DCOSStore", () => {
               version: "2001-01-01T01:01:01.001Z",
               affectedApps: ["/app1", "/app2"],
               currentStep: 2,
-              totalSteps: 3
-            }
-          ]
+              totalSteps: 3,
+            },
+          ],
         })
       );
       MarathonStore.__setKeyResponse(
@@ -94,8 +94,8 @@ describe("DCOSStore", () => {
         new ServiceTree({
           items: [
             { id: "/app1", cmd: "sleep 1000" },
-            { id: "/app2", cmd: "sleep 1000" }
-          ]
+            { id: "/app2", cmd: "sleep 1000" },
+          ],
         })
       );
       spyOn(NotificationStore, "addNotification");
@@ -176,13 +176,13 @@ describe("DCOSStore", () => {
                   {
                     id: "alpha-id",
                     name: "alpha",
-                    bar: "baz"
-                  }
-                ]
+                    bar: "baz",
+                  },
+                ],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -197,9 +197,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -214,9 +214,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -226,9 +226,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/beta",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "beta" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "beta" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -242,9 +242,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -260,9 +260,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/beta",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "beta" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "beta" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -277,9 +277,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -298,22 +298,22 @@ describe("DCOSStore", () => {
         new ServiceTree({
           items: [
             {
-              id: serviceId
-            }
-          ]
+              id: serviceId,
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
       DCOSStore.onMarathonQueueChange([
         {
           app: {
-            id: serviceId
+            id: serviceId,
           },
           delay: {
             timeLeftSeconds: 0,
-            overdue: true
-          }
-        }
+            overdue: true,
+          },
+        },
       ]);
     });
 
@@ -325,13 +325,13 @@ describe("DCOSStore", () => {
       DCOSStore.onMarathonQueueChange([
         {
           app: {
-            id: serviceId
+            id: serviceId,
           },
           delay: {
             timeLeftSeconds: 0,
-            overdue: false
-          }
-        }
+            overdue: false,
+          },
+        },
       ]);
 
       expect(DCOSStore.serviceTree.getItems()[0].getStatus()).toEqual(
@@ -353,13 +353,13 @@ describe("DCOSStore", () => {
       DCOSStore.onMarathonQueueChange([
         {
           app: {
-            id: serviceId
+            id: serviceId,
           },
           delay: {
             timeLeftSeconds: 0,
-            overdue: false
-          }
-        }
+            overdue: false,
+          },
+        },
       ]);
 
       expect(
@@ -377,15 +377,15 @@ describe("DCOSStore", () => {
         new ServiceTree({
           items: [
             {
-              id: "/alpha"
-            }
-          ]
+              id: "/alpha",
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
       DCOSStore.onMarathonServiceVersionsChange({
         serviceID: "/alpha",
-        versions: new Map([[versionID]])
+        versions: new Map([[versionID]]),
       });
     });
 
@@ -397,7 +397,7 @@ describe("DCOSStore", () => {
       DCOSStore.onMarathonServiceVersionChange({
         serviceID: "/alpha",
         versionID,
-        version: { foo: "bar" }
+        version: { foo: "bar" },
       });
 
       expect(DCOSStore.serviceTree.getItems()[0].getVersions()).toEqual(
@@ -409,7 +409,7 @@ describe("DCOSStore", () => {
       DCOSStore.onMarathonServiceVersionChange({
         serviceID: "/alpha",
         versionID,
-        version: { foo: "bar" }
+        version: { foo: "bar" },
       });
 
       expect(
@@ -428,9 +428,9 @@ describe("DCOSStore", () => {
         new ServiceTree({
           items: [
             {
-              id: "/beta"
-            }
-          ]
+              id: "/beta",
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -443,7 +443,7 @@ describe("DCOSStore", () => {
 
       DCOSStore.onMarathonServiceVersionsChange({
         serviceID: "/beta",
-        versions: new Map([[firstVersionID]])
+        versions: new Map([[firstVersionID]]),
       });
 
       expect(DCOSStore.serviceTree.getItems()[0].getVersions()).toEqual(
@@ -455,12 +455,12 @@ describe("DCOSStore", () => {
       DCOSStore.onMarathonServiceVersionChange({
         serviceID: "/beta",
         versionID: firstVersionID,
-        version: { foo: "bar" }
+        version: { foo: "bar" },
       });
 
       DCOSStore.onMarathonServiceVersionsChange({
         serviceID: "/beta",
-        versions: new Map([[firstVersionID], [secondVersionID]])
+        versions: new Map([[firstVersionID], [secondVersionID]]),
       });
 
       expect(DCOSStore.serviceTree.getItems()[0].getVersions()).toEqual(
@@ -471,7 +471,7 @@ describe("DCOSStore", () => {
     it("does not include _itemData", () => {
       DCOSStore.onMarathonServiceVersionsChange({
         serviceID: "/beta",
-        versions: new Map([[firstVersionID]])
+        versions: new Map([[firstVersionID]]),
       });
 
       expect(
@@ -488,9 +488,9 @@ describe("DCOSStore", () => {
           items: [
             {
               id: "/alpha",
-              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" }
-            }
-          ]
+              labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "alpha" },
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -505,11 +505,11 @@ describe("DCOSStore", () => {
           items: [
             new StateSummary({
               snapshot: {
-                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }]
+                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -524,11 +524,11 @@ describe("DCOSStore", () => {
           items: [
             new StateSummary({
               snapshot: {
-                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }]
+                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -545,11 +545,11 @@ describe("DCOSStore", () => {
           items: [
             new StateSummary({
               snapshot: {
-                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }]
+                frameworks: [{ id: "alpha-id", name: "alpha", bar: "baz" }],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -560,11 +560,11 @@ describe("DCOSStore", () => {
           items: [
             new StateSummary({
               snapshot: {
-                frameworks: [{ id: "alpha-id", name: "alpha", bar: "qux" }]
+                frameworks: [{ id: "alpha-id", name: "alpha", bar: "qux" }],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -579,11 +579,11 @@ describe("DCOSStore", () => {
           items: [
             new StateSummary({
               snapshot: {
-                frameworks: [{ id: "beta-id", name: "beta", foo: "bar" }]
+                frameworks: [{ id: "beta-id", name: "beta", foo: "bar" }],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -624,8 +624,8 @@ describe("DCOSStore", () => {
                   protocol: "MESOS_HTTP",
                   ipProtocol: "IPv4",
                   timeoutSeconds: 30,
-                  delaySeconds: 15
-                }
+                  delaySeconds: 15,
+                },
               ],
               instances: 1,
               labels: {
@@ -641,7 +641,7 @@ describe("DCOSStore", () => {
                 DCOS_PACKAGE_VERSION: "2.1.2-3.0.15-beta",
                 DCOS_COMMONS_API_VERSION: "v1",
                 DCOS_PACKAGE_NAME: "beta-cassandra",
-                MARATHON_SINGLE_INSTANCE_APP: "true"
+                MARATHON_SINGLE_INSTANCE_APP: "true",
               },
               maxLaunchDelaySeconds: 3600,
               mem: 1024,
@@ -652,24 +652,24 @@ describe("DCOSStore", () => {
                   port: 10000,
                   labels: { VIP_0: "/api.blip/cassandra:80" },
                   name: "api",
-                  protocol: "tcp"
-                }
+                  protocol: "tcp",
+                },
               ],
               requirePorts: false,
               upgradeStrategy: {
                 maximumOverCapacity: 0,
-                minimumHealthCapacity: 0
+                minimumHealthCapacity: 0,
               },
               user: "nobody",
               version: "2018-07-09T15:19:39.984Z",
               versionInfo: {
                 lastScalingAt: "2018-07-09T15:19:39.984Z",
-                lastConfigChangeAt: "2018-07-09T15:19:39.984Z"
+                lastConfigChangeAt: "2018-07-09T15:19:39.984Z",
               },
               killSelection: "YOUNGEST_FIRST",
               unreachableStrategy: {
                 inactiveAfterSeconds: 0,
-                expungeAfterSeconds: 0
+                expungeAfterSeconds: 0,
               },
               tasksStaged: 0,
               tasksRunning: 1,
@@ -677,9 +677,9 @@ describe("DCOSStore", () => {
               tasksUnhealthy: 0,
               deployments: [],
               tasks: [],
-              taskStats: {}
-            }
-          ]
+              taskStats: {},
+            },
+          ],
         })
       );
       DCOSStore.onMarathonGroupsChange();
@@ -699,7 +699,7 @@ describe("DCOSStore", () => {
                       mem: 4128,
                       gpus: 0,
                       cpus: 0.6,
-                      ports: "[7000-7001, 7199-7199, 9042-9042]"
+                      ports: "[7000-7001, 7199-7199, 9042-9042]",
                     },
                     offered_resources: { disk: 0, mem: 0, gpus: 0, cpus: 0 },
                     capabilities: ["RESERVATION_REFINEMENT"],
@@ -718,13 +718,13 @@ describe("DCOSStore", () => {
                     TASK_LOST: 0,
                     TASK_ERROR: 0,
                     TASK_UNREACHABLE: 0,
-                    slave_ids: ["3f420e28-ebcf-4bdb-8521-05aafa296335-S1"]
-                  }
-                ]
+                    slave_ids: ["3f420e28-ebcf-4bdb-8521-05aafa296335-S1"],
+                  },
+                ],
               },
-              successful: true
-            })
-          ]
+              successful: true,
+            }),
+          ],
         })
       );
       DCOSStore.onMesosSummaryChange();
@@ -738,32 +738,32 @@ describe("DCOSStore", () => {
         mem: 4128,
         gpus: 0,
         cpus: 0.6,
-        ports: "[7000-7001, 7199-7199, 9042-9042]"
+        ports: "[7000-7001, 7199-7199, 9042-9042]",
       });
     });
   });
 
   describe("#buildFlatServiceTree", () => {
-    beforeEach(function() {
+    beforeEach(function () {
       this.filterProperties = {
         id(item) {
           return item.id;
-        }
+        },
       };
     });
 
-    it("for an empty ServiceTree", function() {
+    it("for an empty ServiceTree", function () {
       const serviceTree = new ServiceTree({
         id: "/group",
         items: [],
-        filterProperties: this.filterProperties
+        filterProperties: this.filterProperties,
       });
 
       const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
       expect(Object.keys(flatTree).length).toEqual(0);
     });
 
-    it("for a tree with one element", function() {
+    it("for a tree with one element", function () {
       const serviceTree = new ServiceTree({
         id: "/group",
         items: [
@@ -777,20 +777,20 @@ describe("DCOSStore", () => {
                   {
                     healthCheckResults: [{ alive: true }],
                     version: "1.0",
-                    id: "bananas"
-                  }
-                ]
-              }
-            ]
-          }
+                    id: "bananas",
+                  },
+                ],
+              },
+            ],
+          },
         ],
-        filterProperties: this.filterProperties
+        filterProperties: this.filterProperties,
       });
 
       const flatTree = DCOSStore.buildFlatServiceTree(serviceTree);
       expect(flatTree.bananas).toEqual({
         healthCheckResults: [{ alive: true }],
-        version: "1.0"
+        version: "1.0",
       });
       expect(Object.keys(flatTree).length).toEqual(1);
     });

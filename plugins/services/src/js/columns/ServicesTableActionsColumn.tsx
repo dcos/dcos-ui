@@ -124,20 +124,20 @@ export function actionsRendererFactory(
       html: "",
       selectedHtml: (
         <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-      )
+      ),
     });
 
     if (!isGroup) {
       actions.push({
         id: VIEW_ENDPOINTS,
-        html: <Trans render="span" id={ServiceActionLabels.view_endpoints} />
+        html: <Trans render="span" id={ServiceActionLabels.view_endpoints} />,
       });
     }
 
     if (hasWebUI(service)) {
       actions.push({
         id: OPEN,
-        html: <Trans render="span" id={ServiceActionLabels.open} />
+        html: <Trans render="span" id={ServiceActionLabels.open} />,
       });
     }
 
@@ -145,14 +145,14 @@ export function actionsRendererFactory(
     if (!isGroup || isTopLevel) {
       actions.push({
         id: EDIT,
-        html: <Trans render="span" id={ServiceActionLabels.edit} />
+        html: <Trans render="span" id={ServiceActionLabels.edit} />,
       });
     }
 
     if (isSDK) {
       actions.push({
         id: VIEW_PLANS,
-        html: <Trans render="span" id={ServiceActionLabels.view_plans} />
+        html: <Trans render="span" id={ServiceActionLabels.view_plans} />,
       });
     }
 
@@ -161,7 +161,7 @@ export function actionsRendererFactory(
     if ((isGroup && instancesCount > 0) || (!isGroup && !isSingleInstanceApp)) {
       actions.push({
         id: SCALE,
-        html: <Trans render="span" id={scaleTextID} />
+        html: <Trans render="span" id={scaleTextID} />,
       });
     }
 
@@ -172,28 +172,28 @@ export function actionsRendererFactory(
     ) {
       actions.push({
         id: RESET_DELAYED,
-        html: <Trans render="span" id={ServiceActionLabels.reset_delayed} />
+        html: <Trans render="span" id={ServiceActionLabels.reset_delayed} />,
       });
     }
 
     if (!isPod && !isGroup && instancesCount > 0 && !isSDK) {
       actions.push({
         id: RESTART,
-        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />
+        html: <Trans render="span" id={ServiceActionLabels[RESTART]} />,
       });
     }
 
     if (instancesCount > 0 && !isSDK) {
       actions.push({
         id: STOP,
-        html: <Trans render="span" id={ServiceActionLabels[STOP]} />
+        html: <Trans render="span" id={ServiceActionLabels[STOP]} />,
       });
     }
 
     if (!isGroup && instancesCount === 0 && !isSDK) {
       actions.push({
         id: RESUME,
-        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />
+        html: <Trans render="span" id={ServiceActionLabels[RESUME]} />,
       });
     }
 
@@ -205,7 +205,7 @@ export function actionsRendererFactory(
           className="text-danger"
           id={ServiceActionLabels[DELETE]}
         />
-      )
+      ),
     });
 
     if (service.getServiceStatus() === ServiceStatus.DELETING) {

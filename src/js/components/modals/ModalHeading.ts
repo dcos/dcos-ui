@@ -2,13 +2,13 @@ import classNames from "classnames";
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const ModalHeading = props => {
+const ModalHeading = (props) => {
   const { children, level } = props;
 
   return React.createElement(
     `h${level}`,
     {
-      className: classNames(`modal-header-title`)
+      className: classNames(`modal-header-title`),
     },
     children
   );
@@ -16,12 +16,12 @@ const ModalHeading = props => {
 
 ModalHeading.defaultProps = {
   flush: true,
-  level: 2
+  level: 2,
 };
 
 ModalHeading.propTypes = {
   children: PropTypes.node,
-  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
 };
 
 export default ModalHeading;

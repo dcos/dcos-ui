@@ -114,7 +114,7 @@ const DeclinedOffersUtil = {
             Util.findNestedPropertyInObject(pod, "executorResources.mem") || 0,
           disk:
             Util.findNestedPropertyInObject(pod, "executorResources.disk") || 0,
-          ports: []
+          ports: [],
         }
       );
     } else {
@@ -128,7 +128,7 @@ const DeclinedOffersUtil = {
         gpus: app.gpus || 0,
         mem: app.mem || 0,
         disk: app.disk || 0,
-        ports: [app.ports] || [[]]
+        ports: [app.ports] || [[]],
       };
     }
 
@@ -136,7 +136,7 @@ const DeclinedOffersUtil = {
       roles: {
         requested: requestedResources.roles.join(", ") || UNAVAILABLE_TEXT,
         offers: roleOfferSummary.processed,
-        matched: roleOfferSummary.processed - roleOfferSummary.declined
+        matched: roleOfferSummary.processed - roleOfferSummary.declined,
       },
       constraints: {
         requested:
@@ -150,33 +150,33 @@ const DeclinedOffersUtil = {
               const { fieldName, operator, value } = constraint;
 
               return [fieldName, operator, value]
-                .filter(value => value && value !== "")
+                .filter((value) => value && value !== "")
                 .join(":");
             })
             .join(", ") || UNAVAILABLE_TEXT,
         offers: constraintOfferSummary.processed,
         matched:
-          constraintOfferSummary.processed - constraintOfferSummary.declined
+          constraintOfferSummary.processed - constraintOfferSummary.declined,
       },
       cpus: {
         requested: requestedResources.cpus,
         offers: cpuOfferSummary.processed,
-        matched: cpuOfferSummary.processed - cpuOfferSummary.declined
+        matched: cpuOfferSummary.processed - cpuOfferSummary.declined,
       },
       gpus: {
         requested: requestedResources.gpus,
         offers: gpuOfferSummary.processed,
-        matched: gpuOfferSummary.processed - gpuOfferSummary.declined
+        matched: gpuOfferSummary.processed - gpuOfferSummary.declined,
       },
       mem: {
         requested: requestedResources.mem,
         offers: memOfferSummary.processed,
-        matched: memOfferSummary.processed - memOfferSummary.declined
+        matched: memOfferSummary.processed - memOfferSummary.declined,
       },
       disk: {
         requested: requestedResources.disk,
         offers: diskOfferSummary.processed,
-        matched: diskOfferSummary.processed - diskOfferSummary.declined
+        matched: diskOfferSummary.processed - diskOfferSummary.declined,
       },
       ports: {
         requested:
@@ -184,8 +184,8 @@ const DeclinedOffersUtil = {
             .map((resourceArr = []) => resourceArr.join(", "))
             .join(", ") || UNAVAILABLE_TEXT,
         offers: portOfferSummary.processed,
-        matched: portOfferSummary.processed - portOfferSummary.declined
-      }
+        matched: portOfferSummary.processed - portOfferSummary.declined,
+      },
     };
   },
 
@@ -196,10 +196,10 @@ const DeclinedOffersUtil = {
       return null;
     }
 
-    return lastUnusedOffers.map(declinedOffer => {
+    return lastUnusedOffers.map((declinedOffer) => {
       const {
         offer: { attributes = [], hostname, resources = [] },
-        timestamp
+        timestamp,
       } = declinedOffer;
 
       return {
@@ -231,9 +231,9 @@ const DeclinedOffersUtil = {
           },
           {
             constraints: attributes.reduce(constraintsReducer, []).join(", "),
-            roles: []
+            roles: [],
           }
-        )
+        ),
       };
     });
   },
@@ -277,7 +277,7 @@ const DeclinedOffersUtil = {
       Date.now() - DateUtil.strToMs(DeclinedOffersUtil.getTimeWaiting(queue)) >=
       DEPLOYMENT_WARNING_DELAY_MS
     );
-  }
+  },
 };
 
 export default DeclinedOffersUtil;

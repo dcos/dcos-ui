@@ -31,14 +31,14 @@ class Highlight extends React.Component {
     matchClass: "highlight",
     searchDebounceDelay: 500,
     searchDebounceThreshold: 2,
-    selectedMatchClass: "highlight selected"
+    selectedMatchClass: "highlight selected",
   };
   static propTypes = {
     search: PropTypes.oneOfType([
       PropTypes.string,
       PropTypes.number,
       PropTypes.bool,
-      regExpPropType
+      regExpPropType,
     ]).isRequired,
     caseSensitive: PropTypes.bool,
     matchElement: PropTypes.string,
@@ -46,7 +46,7 @@ class Highlight extends React.Component {
     searchDebounceDelay: PropTypes.number,
     searchDebounceThreshold: PropTypes.number,
     selectedMatchClass: PropTypes.string,
-    watching: PropTypes.number
+    watching: PropTypes.number,
   };
   constructor(...args) {
     super(...args);
@@ -138,7 +138,7 @@ class Highlight extends React.Component {
     if (matches) {
       return {
         first: matches.index,
-        last: matches.index + matches[0].length
+        last: matches.index + matches[0].length,
       };
     }
   }

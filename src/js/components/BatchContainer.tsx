@@ -64,7 +64,7 @@ export default class BatchContainer extends React.Component<
       <div onChange={this.handleChange}>
         {React.cloneElement(children, {
           onAddItem: this.handleAddItem,
-          onRemoveItem: this.handleRemoveItem
+          onRemoveItem: this.handleRemoveItem,
         })}
       </div>
     );

@@ -40,7 +40,7 @@ export default class ServiceTree extends Tree {
 
     // Converts items into instances of ServiceTree, Application or Framework
     // based on their properties.
-    this.list = this.list.map(item => {
+    this.list = this.list.map((item) => {
       if (item instanceof ServiceTree || item instanceof Service) {
         return item;
       }
@@ -50,7 +50,7 @@ export default class ServiceTree extends Tree {
       if (item.items != null && Array.isArray(item.items)) {
         return new this.constructor({
           filterProperties: this.getFilterProperties(),
-          ...item
+          ...item,
         });
       }
 
@@ -111,7 +111,7 @@ export default class ServiceTree extends Tree {
       return null;
     }
 
-    return service.tasks.find(task => task.id === taskID);
+    return service.tasks.find((task) => task.id === taskID);
   }
 
   getItemParent(id, parent = null) {
@@ -148,7 +148,7 @@ export default class ServiceTree extends Tree {
       return this;
     }
 
-    return this.findItem(item => item.getId() === id);
+    return this.findItem((item) => item.getId() === id);
   }
 
   getInstancesCount() {
@@ -164,7 +164,7 @@ export default class ServiceTree extends Tree {
   getStatusCategoryCounts() {
     const categoryCounts = {
       status: {},
-      total: 0
+      total: 0,
     };
 
     return this.reduceItems((counts, item) => {
@@ -191,14 +191,12 @@ export default class ServiceTree extends Tree {
 
     return {
       status: status.category,
-      counts: statusCategoryCounts
+      counts: statusCategoryCounts,
     };
   }
 
   getName() {
-    return this.getId()
-      .split("/")
-      .pop();
+    return this.getId().split("/").pop();
   }
 
   getRootGroupName() {
@@ -277,7 +275,7 @@ export default class ServiceTree extends Tree {
             tasksRunning = 0,
             tasksOverCapacity = 0,
             tasksStaged = 0,
-            tasksUnhealthy = 0
+            tasksUnhealthy = 0,
           } = item.getTasksSummary();
 
           taskSummary.tasksHealthy += tasksHealthy;
@@ -298,7 +296,7 @@ export default class ServiceTree extends Tree {
         tasksStaged: 0,
         tasksUnhealthy: 0,
         tasksUnknown: 0,
-        tasksOverCapacity: 0
+        tasksOverCapacity: 0,
       }
     );
   }
@@ -367,11 +365,11 @@ export default class ServiceTree extends Tree {
         if (item instanceof Framework) {
           const tasks = getMesosTasksByService(item);
           if (tasks) {
-            tasks.forEach(t => {
+            tasks.forEach((t) => {
               roles.count++;
 
               const marathonTask = (item.get("tasks") || []).find(
-                marathonTask => marathonTask.id === t.id
+                (marathonTask) => marathonTask.id === t.id
               );
 
               if (marathonTask) {

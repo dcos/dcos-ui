@@ -2,7 +2,7 @@ import {
   GET_FRAMEWORKS,
   FRAMEWORK_ADDED,
   FRAMEWORK_UPDATED,
-  FRAMEWORK_REMOVED
+  FRAMEWORK_REMOVED,
 } from "../../../constants/MesosStreamMessageTypes";
 
 function processFramework({ framework_info, ...rest }) {
@@ -24,7 +24,7 @@ export function getFrameworksAction(state, message) {
 
   return {
     ...state,
-    frameworks
+    frameworks,
   };
 }
 
@@ -37,7 +37,7 @@ export function frameworkAddedAction(state, message) {
 
   return {
     ...state,
-    frameworks: [...state.frameworks, framework]
+    frameworks: [...state.frameworks, framework],
   };
 }
 
@@ -49,7 +49,7 @@ export function frameworkUpdatedAction(state, message) {
   const updatedFramework = processFramework(
     message.framework_updated.framework
   );
-  const frameworks = state.frameworks.map(framework => {
+  const frameworks = state.frameworks.map((framework) => {
     if (updatedFramework.id === framework.id) {
       return updatedFramework;
     }
@@ -59,7 +59,7 @@ export function frameworkUpdatedAction(state, message) {
 
   return {
     ...state,
-    frameworks
+    frameworks,
   };
 }
 
@@ -69,14 +69,14 @@ export function frameworkRemovedAction(state, message) {
   }
 
   const removedFramework = processFramework({
-    framework_info: message.framework_removed.framework_info
+    framework_info: message.framework_removed.framework_info,
   });
   const frameworks = state.frameworks.filter(
-    framework => removedFramework.id !== framework.id
+    (framework) => removedFramework.id !== framework.id
   );
 
   return {
     ...state,
-    frameworks
+    frameworks,
   };
 }

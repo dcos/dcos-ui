@@ -27,12 +27,12 @@ import TaskMergeDataUtil from "../../utils/TaskMergeDataUtil";
 
 import {
   REQUEST_MARATHON_POD_INSTANCE_KILL_ERROR,
-  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS
+  REQUEST_MARATHON_POD_INSTANCE_KILL_SUCCESS,
 } from "../../constants/ActionTypes";
 
 class PodInstancesContainer extends React.Component {
   static propTypes = {
-    pod: PropTypes.instanceOf(Pod)
+    pod: PropTypes.instanceOf(Pod),
   };
   constructor(...args) {
     super(...args);
@@ -43,7 +43,7 @@ class PodInstancesContainer extends React.Component {
       pendingActions: {},
       filterExpression: new DSLExpression(""),
       filters: [new PodInstanceStatusFilter(), new PodInstanceTextFilter()],
-      defaultFilterData: { zones: [], regions: [] }
+      defaultFilterData: { zones: [], regions: [] },
     };
   }
 
@@ -72,7 +72,7 @@ class PodInstancesContainer extends React.Component {
   handleExpressionChange = (filterExpression = { value: "" }) => {
     const { router } = this.context;
     const {
-      location: { pathname }
+      location: { pathname },
     } = this.props;
     router.push({ pathname, query: { q: filterExpression.value } });
 
@@ -91,7 +91,7 @@ class PodInstancesContainer extends React.Component {
 
     const {
       defaultFilterData: { regions, zones },
-      filterExpression
+      filterExpression,
     } = this.state;
 
     const query =
@@ -130,9 +130,9 @@ class PodInstancesContainer extends React.Component {
     // If no region/ zones added from props return
     if (
       newRegions.length === regions.length &&
-      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newRegions.every((region) => regions.indexOf(region) !== -1) &&
       newZones.length === zones.length &&
-      newZones.every(zone => zones.indexOf(zone) !== -1) &&
+      newZones.every((zone) => zones.indexOf(zone) !== -1) &&
       filterExpression.value === query
     ) {
       return;
@@ -142,19 +142,19 @@ class PodInstancesContainer extends React.Component {
       new PodInstanceStatusFilter(),
       new PodInstancesZoneFilter(newZones),
       new PodInstancesRegionFilter(newRegions),
-      new PodInstanceTextFilter()
+      new PodInstanceTextFilter(),
     ];
 
     this.setState({
       filterExpression: new DSLExpression(query),
       filters,
-      defaultFilterData: { regions: newRegions, zones: newZones }
+      defaultFilterData: { regions: newRegions, zones: newZones },
     });
   }
 
   getChildContext() {
     return {
-      modalHandlers: this.getModalHandlers()
+      modalHandlers: this.getModalHandlers(),
     };
   }
   killPodInstances = (...args) => {
@@ -164,10 +164,10 @@ class PodInstancesContainer extends React.Component {
   };
   handleMesosStateChange = () => {
     this.setState({
-      lastUpdate: Date.now()
+      lastUpdate: Date.now(),
     });
   };
-  handleServerAction = payload => {
+  handleServerAction = (payload) => {
     const { action } = payload;
 
     switch (action.type) {
@@ -179,7 +179,7 @@ class PodInstancesContainer extends React.Component {
         break;
     }
   };
-  handleModalClose = key => {
+  handleModalClose = (key) => {
     if (key) {
       this.clearActionError(key);
     }
@@ -205,7 +205,7 @@ class PodInstancesContainer extends React.Component {
         pendingActions,
         actionType,
         true
-      )
+      ),
     });
   }
   /**
@@ -228,10 +228,10 @@ class PodInstancesContainer extends React.Component {
         pendingActions,
         actionType,
         false
-      )
+      ),
     });
   }
-  clearActionError = actionType => {
+  clearActionError = (actionType) => {
     const { actionErrors } = this.state;
 
     this.setState({
@@ -239,7 +239,7 @@ class PodInstancesContainer extends React.Component {
         actionErrors,
         actionType,
         null
-      )
+      ),
     });
   };
 
@@ -249,20 +249,20 @@ class PodInstancesContainer extends React.Component {
       this.setState({
         modal: {
           ...props,
-          id
-        }
+          id,
+        },
       });
     };
 
     return {
-      killPodInstances: props =>
-        set(ServiceActionItem.KILL_POD_INSTANCES, props)
+      killPodInstances: (props) =>
+        set(ServiceActionItem.KILL_POD_INSTANCES, props),
     };
   }
 
   getActions() {
     return {
-      killPodInstances: this.killPodInstances
+      killPodInstances: this.killPodInstances,
     };
   }
 
@@ -270,7 +270,7 @@ class PodInstancesContainer extends React.Component {
     const { pod } = this.props;
     const modalProps = {
       pod,
-      ...this.state.modal
+      ...this.state.modal,
     };
 
     return (
@@ -297,7 +297,7 @@ class PodInstancesContainer extends React.Component {
 
     const totalInstances = instances.getItems().length;
 
-    instances = instances.mapItems(instance => {
+    instances = instances.mapItems((instance) => {
       const instanceAgent = MesosStateStore.getNodeFromHostname(
         instance.getAgentAddress()
       );
@@ -310,7 +310,7 @@ class PodInstancesContainer extends React.Component {
     });
 
     if (filterExpression.defined) {
-      instances = instances.mapItems(instance => {
+      instances = instances.mapItems((instance) => {
         instance.podSpec = pod.getSpec();
 
         return instance;
@@ -339,12 +339,12 @@ class PodInstancesContainer extends React.Component {
 // so any child can trigger the opening of modals
 PodInstancesContainer.childContextTypes = {
   modalHandlers: PropTypes.shape({
-    killPodInstances: PropTypes.func
-  })
+    killPodInstances: PropTypes.func,
+  }),
 };
 
 PodInstancesContainer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default PodInstancesContainer;

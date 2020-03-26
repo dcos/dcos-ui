@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
@@ -19,7 +19,7 @@ const ResourceSwitchDropdownTrigger = ({ onTrigger, children }) => (
 export default class ResourceSwitchDropdown extends React.Component {
   static propTypes = {
     selectedResource: PropTypes.string.isRequired,
-    onResourceSelectionChange: PropTypes.func.isRequired
+    onResourceSelectionChange: PropTypes.func.isRequired,
   };
   handleItemSelection(item) {
     if (item.onClick) {
@@ -29,7 +29,7 @@ export default class ResourceSwitchDropdown extends React.Component {
 
   getMenuItems() {
     const resourceLabels = ResourcesUtil.getResourceLabels();
-    const menuItems = ResourcesUtil.getDefaultResources().map(resource => {
+    const menuItems = ResourcesUtil.getDefaultResources().map((resource) => {
       const label = resourceLabels[resource];
       let html = <span>{label}</span>;
 
@@ -45,7 +45,7 @@ export default class ResourceSwitchDropdown extends React.Component {
       return {
         html,
         id: resource,
-        onClick: this.props.onResourceSelectionChange.bind(null, resource)
+        onClick: this.props.onResourceSelectionChange.bind(null, resource),
       };
     });
 

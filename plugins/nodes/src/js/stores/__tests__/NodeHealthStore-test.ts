@@ -14,11 +14,11 @@ let thisRequestFn, thisNodesFixture;
 describe("NodeHealthStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(nodesFixture);
     };
     thisNodesFixture = {
-      ...nodesFixture
+      ...nodesFixture,
     };
   });
 
@@ -50,9 +50,9 @@ describe("NodeHealthStore", () => {
           {
             host_ip: "167.114.218.155",
             "role:": "agent",
-            health: 0
-          }
-        ]
+            health: 0,
+          },
+        ],
       });
 
       const nodes = NodeHealthStore.getNodes().getItems();
@@ -68,7 +68,7 @@ describe("NodeHealthStore", () => {
       );
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_NODES_SUCCESS,
-        data: []
+        data: [],
       });
 
       expect(mockedFn.calls.count()).toEqual(2);
@@ -82,7 +82,7 @@ describe("NodeHealthStore", () => {
       );
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_HEALTH_NODES_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

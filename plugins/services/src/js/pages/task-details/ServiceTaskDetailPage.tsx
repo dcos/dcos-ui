@@ -11,7 +11,7 @@ import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 
 const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 
-const ServiceTaskDetailPage = props => {
+const ServiceTaskDetailPage = (props) => {
   const { location, params, routes } = props;
   const { id, taskID } = params;
 
@@ -21,7 +21,7 @@ const ServiceTaskDetailPage = props => {
   const tabs = [
     { label: i18nMark("Details"), routePath: routePrefix + "/details" },
     { label: i18nMark("Files"), routePath: routePrefix + "/files" },
-    { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
+    { label: i18nMark("Logs"), routePath: routePrefix + "/logs" },
   ];
 
   const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -38,7 +38,7 @@ const ServiceTaskDetailPage = props => {
     breadcrumbs = <ServiceBreadcrumbs serviceID={id} />;
   }
 
-  const dontScroll = dontScrollRoutes.some(regex =>
+  const dontScroll = dontScrollRoutes.some((regex) =>
     regex.test(location.pathname)
   );
 
@@ -58,7 +58,7 @@ const ServiceTaskDetailPage = props => {
 
 ServiceTaskDetailPage.propTypes = {
   params: PropTypes.object,
-  routes: PropTypes.array
+  routes: PropTypes.array,
 };
 
 export default ServiceTaskDetailPage;

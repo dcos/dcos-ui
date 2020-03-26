@@ -8,7 +8,7 @@ import ServiceConnectionEndpointList from "../containers/service-connection/Serv
 import ServicePodConnectionEndpointList from "../containers/service-connection/ServicePodConnectionEndpointList";
 import SDKServiceConnectionEndpointList from "../containers/service-connection/SDKServiceConnectionEndpointList";
 
-const ServiceConnectionContainer = props => {
+const ServiceConnectionContainer = (props) => {
   const { service } = props;
   if (isSDKService(service)) {
     return <SDKServiceConnectionEndpointList service={service} />;
@@ -22,7 +22,7 @@ const ServiceConnectionContainer = props => {
 };
 
 ServiceConnectionContainer.propTypes = {
-  service: PropTypes.instanceOf(Service)
+  service: PropTypes.instanceOf(Service),
 };
 
 export default ServiceConnectionContainer;

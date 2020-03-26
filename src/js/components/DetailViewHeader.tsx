@@ -6,7 +6,7 @@ import CollapsingString from "./CollapsingString";
 
 class DetailViewHeader extends React.Component {
   static defaultProps = {
-    actionButtons: []
+    actionButtons: [],
   };
   static propTypes = {
     actionButtons: PropTypes.arrayOf(PropTypes.element),
@@ -20,7 +20,7 @@ class DetailViewHeader extends React.Component {
     detailViewHeaderContentHeadingClassNames: classPropType,
     detailViewHeaderContentWrapperClassNames: classPropType,
     titleClassName: classPropType,
-    iconClassName: classPropType
+    iconClassName: classPropType,
   };
   getIcon() {
     const { icon, iconClassName } = this.props;
@@ -84,7 +84,7 @@ class DetailViewHeader extends React.Component {
       className,
       detailViewHeaderContentWrapperClassNames,
       detailViewHeaderContentHeadingClassNames,
-      navigationTabs
+      navigationTabs,
     } = this.props;
 
     const detailViewHeaderClasses = classNames(
@@ -129,7 +129,7 @@ class DetailViewHeader extends React.Component {
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 export default DetailViewHeader;

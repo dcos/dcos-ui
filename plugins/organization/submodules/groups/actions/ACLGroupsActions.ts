@@ -14,15 +14,15 @@ const ACLGroupsActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUPS_SUCCESS,
-          data: response.array
+          data: response.array,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUPS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -32,16 +32,16 @@ const ACLGroupsActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -52,16 +52,16 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_SUCCESS,
           data: response.array,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_PERMISSIONS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -72,16 +72,16 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_SUCCESS,
           data: response.array,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_USERS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -92,16 +92,16 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_SUCCESS,
           data: response.array,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_SERVICE_ACCOUNTS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -120,16 +120,16 @@ const ACLGroupsActions = {
       success() {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_SUCCESS,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -137,9 +137,9 @@ const ACLGroupsActions = {
     request(`${Config.rootUrl}${Config.acsAPIPrefix}/ldap/importgroup`, {
       method: "POST",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
-      body: JSON.stringify(data)
+      body: JSON.stringify(data),
     }).subscribe({
       next: ({ code, response }) => {
         if (code === 202) {
@@ -147,17 +147,17 @@ const ACLGroupsActions = {
             type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_PARTIAL_SUCCESS,
             groupID: data.groupname,
             data: {
-              importedUserCount: response.imported_user_count
-            }
+              importedUserCount: response.imported_user_count,
+            },
           });
         } else {
           SDK.dispatch({
             type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_SUCCESS,
-            groupID: data.groupname
+            groupID: data.groupname,
           });
         }
       },
-      error: error => {
+      error: (error) => {
         const { code, response } = error;
         const codeType = code ? code.toString().charAt(0) : "0";
         const defaultError = `Could not import group. Are you sure this group exists?
@@ -170,9 +170,9 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_LDAP_GROUP_CREATE_ERROR,
           data: codeType === "4" ? description : defaultError,
-          groupID: data.groupname
+          groupID: data.groupname,
         });
-      }
+      },
     });
   },
 
@@ -184,16 +184,16 @@ const ACLGroupsActions = {
       success() {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_SUCCESS,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_UPDATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -204,16 +204,16 @@ const ACLGroupsActions = {
       success() {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_SUCCESS,
-          groupID
+          groupID,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          groupID
+          groupID,
         });
-      }
+      },
     });
   },
 
@@ -225,7 +225,7 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_SUCCESS,
           groupID,
-          userID
+          userID,
         });
       },
       error(xhr) {
@@ -233,9 +233,9 @@ const ACLGroupsActions = {
           type: ActionTypes.REQUEST_ACL_GROUP_ADD_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID,
-          userID
+          userID,
         });
-      }
+      },
     });
   },
 
@@ -247,7 +247,7 @@ const ACLGroupsActions = {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_SUCCESS,
           groupID,
-          userID
+          userID,
         });
       },
       error(xhr) {
@@ -255,11 +255,11 @@ const ACLGroupsActions = {
           type: ActionTypes.REQUEST_ACL_GROUP_REMOVE_USER_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           groupID,
-          userID
+          userID,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -278,31 +278,31 @@ if (Config.useFixtures) {
   }
 
   Promise.all([groupsFixture, groupFixture, groupDetailsFixture]).then(
-    responses => {
+    (responses) => {
       window.actionTypes.ACLGroupsActions = {
         fetch: { event: "success", success: { response: responses[0] } },
         fetchGroup: { event: "success", success: { response: responses[1] } },
         fetchGroupPermissions: {
           event: "success",
           success: {
-            response: responses[2].permissions
-          }
+            response: responses[2].permissions,
+          },
         },
         fetchGroupUsers: {
           event: "success",
           success: {
-            response: responses[2].users
-          }
+            response: responses[2].users,
+          },
         },
         addGroup: { event: "success" },
         addLDAPGroup: { event: "success" },
         updateGroup: { event: "success" },
         deleteGroup: { event: "success" },
         addUser: { event: "success" },
-        deleteUser: { event: "success" }
+        deleteUser: { event: "success" },
       };
 
-      Object.keys(window.actionTypes.ACLGroupsActions).forEach(method => {
+      Object.keys(window.actionTypes.ACLGroupsActions).forEach((method) => {
         ACLGroupsActions[method] = RequestUtil.stubRequest(
           ACLGroupsActions,
           "ACLGroupsActions",

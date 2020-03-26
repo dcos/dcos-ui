@@ -23,7 +23,7 @@ let thisRequestFn, thisCertificatesFixture, thisUseFixtures;
 describe("CertificateStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(certificatesFixture);
     };
     thisCertificatesFixture = certificatesFixture.slice();
@@ -36,7 +36,7 @@ describe("CertificateStore", () => {
   it("returns all of the certificates it was given", () => {
     SDK.dispatch({
       type: EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS,
-      certificates: { result: certificatesFixture }
+      certificates: { result: certificatesFixture },
     });
 
     let certificates = CertificateStore.get("certificates");
@@ -47,7 +47,7 @@ describe("CertificateStore", () => {
   });
 
   it("dispatches correct event on error", () => {
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.error();
     };
     const mockedFn = jest.fn();
@@ -58,7 +58,7 @@ describe("CertificateStore", () => {
 
     SDK.dispatch({
       type: ActionTypes.REQUEST_ALL_CERTIFICATES_ERROR,
-      data: certificatesFixture
+      data: certificatesFixture,
     });
 
     expect(mockedFn.mock.calls.length).toEqual(1);
@@ -68,7 +68,7 @@ describe("CertificateStore", () => {
     it("stores certificates when event is dispatched", () => {
       SDK.dispatch({
         type: EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS,
-        certificates: { result: certificatesFixture }
+        certificates: { result: certificatesFixture },
       });
 
       let certificates = CertificateStore.get("certificates");
@@ -84,7 +84,7 @@ describe("CertificateStore", () => {
 
       SDK.dispatch({
         type: ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS,
-        data: certificatesFixture
+        data: certificatesFixture,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);

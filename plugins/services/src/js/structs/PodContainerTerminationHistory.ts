@@ -13,7 +13,7 @@ export default class PodContainerTerminationHistory extends Item {
     return (
       this.get("termination") || {
         exitCode: 0,
-        message: ""
+        message: "",
       }
     );
   }

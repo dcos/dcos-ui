@@ -34,7 +34,7 @@ import PodSpec from "../../structs/PodSpec";
 
 const {
   type: { MESOS, DOCKER },
-  labelMap
+  labelMap,
 } = ContainerConstants;
 
 const containerRuntimes = {
@@ -42,14 +42,14 @@ const containerRuntimes = {
     label: <Trans render="span" id={labelMap[MESOS]} />,
     helpText: i18nMark(
       "Universal Container Runtime using native Mesos engine. Supports Docker file format, multiple containers (Pods) and GPU resources."
-    )
+    ),
   },
   [DOCKER]: {
     label: <Trans render="span" id={labelMap[DOCKER]} />,
     helpText: i18nMark(
       "Docker’s container runtime. No support for multiple containers (Pods) or GPU resources."
-    )
-  }
+    ),
+  },
 };
 
 class GeneralServiceFormSection extends React.Component {
@@ -58,7 +58,7 @@ class GeneralServiceFormSection extends React.Component {
     errors: {},
     expandAdvancedSettings: false,
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
@@ -66,7 +66,7 @@ class GeneralServiceFormSection extends React.Component {
     expandAdvancedSettings: PropTypes.bool,
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
-    onClickItem: PropTypes.func
+    onClickItem: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -167,7 +167,7 @@ class GeneralServiceFormSection extends React.Component {
         key={index}
         onRemove={this.props.onRemoveItem.bind(this, {
           value: index,
-          path: "containers"
+          path: "containers",
         })}
         onClick={this.props.onClickItem.bind(this, `container${index}`)}
       >
@@ -183,7 +183,7 @@ class GeneralServiceFormSection extends React.Component {
         {containerElements}
         <AddButton
           onClick={this.props.onAddItem.bind(this, {
-            path: "containers"
+            path: "containers",
           })}
         >
           <Trans render="span">Add Container</Trans>
@@ -311,7 +311,7 @@ class GeneralServiceFormSection extends React.Component {
   shouldShowAdvancedOptions() {
     const {
       data,
-      data: { container }
+      data: { container },
     } = this.props;
     const { docker } = container || {};
 

@@ -20,7 +20,7 @@ function removeListener(store, hook, listener) {
   }
 
   // Find and remove listener in hook values
-  Object.values(store[hook]).forEach(listeners => {
+  Object.values(store[hook]).forEach((listeners) => {
     if (!Array.isArray(listeners)) {
       return;
     }
@@ -100,16 +100,16 @@ export default function Hooks() {
 
       // Clone listeners, this will guarantee they all get called
       listeners = {
-        ...listeners
+        ...listeners,
       };
 
       // Sort the listeners by priority
       const priorities = Object.keys(listeners);
       priorities.sort();
 
-      priorities.forEach(priority => {
+      priorities.forEach((priority) => {
         // Clone and call all listeners
-        listeners[priority].slice(0).forEach(listener => {
+        listeners[priority].slice(0).forEach((listener) => {
           // Creates new arguments array to call the listener with
           const groupedArgs = args.slice();
           groupedArgs.unshift(value);
@@ -159,19 +159,19 @@ export default function Hooks() {
 
       // Clone listeners, this will guarantee they all get called
       listeners = {
-        ...listeners
+        ...listeners,
       };
 
       // Sort the listeners by priority
       const priorities = Object.keys(listeners);
       priorities.sort();
 
-      priorities.forEach(priority => {
+      priorities.forEach((priority) => {
         // Clone and call all listeners
-        listeners[priority].slice(0).forEach(listener => {
+        listeners[priority].slice(0).forEach((listener) => {
           listener(...args);
         });
       });
-    }
+    },
   };
 }

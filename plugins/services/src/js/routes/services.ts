@@ -28,7 +28,7 @@ const serviceRoutes = [
   {
     type: Redirect,
     from: "/services",
-    to: "/services/overview"
+    to: "/services/overview",
   },
   {
     type: Route,
@@ -47,13 +47,13 @@ const serviceRoutes = [
             type: Route,
             path: "create",
             component: CreateServiceModal,
-            isFullscreenModal: true
+            isFullscreenModal: true,
           },
           {
             type: Route,
             path: "create_group",
             component: ServiceRootGroupModal,
-            isFullscreenModal: true
+            isFullscreenModal: true,
           },
           {
             type: Route,
@@ -63,11 +63,11 @@ const serviceRoutes = [
                 type: Route,
                 path: "create",
                 component: CreateServiceModal,
-                isFullscreenModal: true
-              }
-            ]
-          }
-        ]
+                isFullscreenModal: true,
+              },
+            ],
+          },
+        ],
       },
       // Service Quota routes
       {
@@ -77,19 +77,19 @@ const serviceRoutes = [
         children: [
           {
             type: Route,
-            path: ":id"
-          }
-        ]
+            path: ":id",
+          },
+        ],
       },
       {
         type: Redirect,
         from: "/services/detail/:id",
-        to: "/services/detail/:id/tasks"
+        to: "/services/detail/:id/tasks",
       },
       {
         type: Route,
         path: "404",
-        component: NotFoundPage
+        component: NotFoundPage,
       },
       {
         type: Route,
@@ -99,76 +99,76 @@ const serviceRoutes = [
           {
             type: Route,
             path: "create",
-            component: CreateServiceModal
+            component: CreateServiceModal,
           },
           {
             type: Route,
             path: "edit(/:version)",
-            component: EditServiceModal
+            component: EditServiceModal,
           },
           {
             type: Route,
             path: "frameworkconfiguration",
-            component: FrameworkConfiguration
+            component: FrameworkConfiguration,
           },
           // This route needs to be rendered outside of the tabs that are
           // rendered in the service-task-details route.
           {
             type: Route,
             path: "volumes/:volumeID",
-            component: ServiceVolumeContainer
+            component: ServiceVolumeContainer,
           },
           {
             type: Route,
             path: "podvolumes/:volumeID",
-            component: PodVolumeContainer
+            component: PodVolumeContainer,
           },
           {
             type: Route,
             path: "configuration",
             title: "Configuration",
-            component: HighOrderServiceConfiguration
+            component: HighOrderServiceConfiguration,
           },
           {
             type: Route,
             path: "plans",
             title: "Plans",
-            component: SDKPlans
+            component: SDKPlans,
           },
           {
             type: Route,
             path: "debug",
             title: "Debug",
-            component: HighOrderServiceDebug
+            component: HighOrderServiceDebug,
           },
           {
             type: Route,
             path: "volumes",
             title: "Volumes",
-            component: VolumeTable
+            component: VolumeTable,
           },
           {
             type: Route,
             path: "podvolumes",
             title: "Volumes",
-            component: PodVolumeTable
+            component: PodVolumeTable,
           },
           {
             type: Route,
             title: "Instances",
             path: "tasks",
-            component: HighOrderServiceInstances
+            component: HighOrderServiceInstances,
           },
           {
             type: Route,
             path: "endpoints",
             title: "Endpoints",
-            component: ServiceConnectionContainer
+            component: ServiceConnectionContainer,
           },
           {
             type: Redirect,
             path: "/services/detail/:id/tasks/:taskID",
-            to: "/services/detail/:id/tasks/:taskID/details"
+            to: "/services/detail/:id/tasks/:taskID/details",
           },
           {
             type: Route,
@@ -180,7 +180,7 @@ const serviceRoutes = [
                 type: Route,
                 component: TaskDetailsTab,
                 path: "details",
-                title: "Details"
+                title: "Details",
               },
               {
                 component: TaskFilesTab,
@@ -192,14 +192,14 @@ const serviceRoutes = [
                     component: TaskFileBrowser,
                     fileViewerRoutePath:
                       "/services/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                    type: IndexRoute
+                    type: IndexRoute,
                   },
                   {
                     component: TaskFileViewer,
                     path: "view(/:filePath(/:innerPath))",
-                    type: Route
-                  }
-                ]
+                    type: Route,
+                  },
+                ],
               },
               {
                 component: TaskLogsContainer,
@@ -209,33 +209,33 @@ const serviceRoutes = [
                 children: [
                   {
                     path: ":filePath",
-                    type: Route
-                  }
-                ]
+                    type: Route,
+                  },
+                ],
               },
               {
                 component: VolumeTable,
                 path: "volumes",
                 title: "Volumes",
-                type: Route
+                type: Route,
               },
               {
                 component: PodVolumeTable,
                 path: "podvolumes",
                 title: "Volumes",
-                type: Route
+                type: Route,
               },
               {
                 type: Route,
                 path: "volumes/:volumeID",
-                component: TaskVolumeContainer
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+                component: TaskVolumeContainer,
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];
 
 export default serviceRoutes;

@@ -18,7 +18,7 @@ describe("ServiceConfigurationContainer", () => {
     version: "2016-05-02T16:07:32.583Z",
     versionInfo: {
       lastConfigChangeAt: "2016-03-22T10:46:07.354Z",
-      lastScalingAt: "2016-03-22T10:46:07.354Z"
+      lastScalingAt: "2016-03-22T10:46:07.354Z",
     },
     versions: new Map([
       [
@@ -33,16 +33,16 @@ describe("ServiceConfigurationContainer", () => {
                   name: "someVolume",
                   provider: "dvdi",
                   options: {
-                    "dvdi/driver": "rexray"
-                  }
+                    "dvdi/driver": "rexray",
+                  },
                 },
-                mode: "RW"
-              }
-            ]
-          }
-        }
-      ]
-    ])
+                mode: "RW",
+              },
+            ],
+          },
+        },
+      ],
+    ]),
   });
 
   beforeEach(() => {

@@ -15,7 +15,7 @@ import { supportsWebCryptography } from "#SRC/js/utils/crypto";
 
 import {
   ServiceAccountFormData,
-  Errors
+  Errors,
 } from "../../../utils/ServiceAccountFormUtil";
 
 interface ServiceAccountFormProps {
@@ -39,7 +39,7 @@ class ServiceAccountForm extends React.Component<
 
     this.state = {
       manuallyEnteredSecretId: false,
-      generatedSecretId: ""
+      generatedSecretId: "",
     };
   }
 

@@ -11,10 +11,10 @@ const MULTIPLICANTS = {
   sec: 1000,
   min: 60000,
   h: 3600000,
-  d: 86400000
+  d: 86400000,
 };
 
-const ConfigurationMapDurationValue = props => {
+const ConfigurationMapDurationValue = (props) => {
   const { defaultValue, multiplicants, units, value } = props;
 
   // Bail early with default if empty
@@ -51,14 +51,14 @@ ConfigurationMapDurationValue.defaultProps = {
   defaultValue: <em>{EmptyStates.CONFIG_VALUE}</em>,
   multiplicants: MULTIPLICANTS,
   units: "ms",
-  value: 0
+  value: 0,
 };
 
 ConfigurationMapDurationValue.propTypes = {
   defaultValue: PropTypes.oneOfType([PropTypes.string, PropTypes.node]),
   multiplicants: PropTypes.object,
   units: PropTypes.oneOf(Object.keys(MULTIPLICANTS)),
-  value: PropTypes.number
+  value: PropTypes.number,
 };
 
 export default ConfigurationMapDurationValue;

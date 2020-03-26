@@ -34,7 +34,7 @@ function FormGroupHeadingContent({ className, children, primary, title }) {
   }
 
   const classes = classNames("form-group-heading-content", className, {
-    "form-group-heading-content-primary": primary
+    "form-group-heading-content-primary": primary,
   });
 
   if (primary && !title) {
@@ -49,7 +49,7 @@ function FormGroupHeadingContent({ className, children, primary, title }) {
 }
 
 FormGroupHeadingContent.defaultProps = {
-  primary: false
+  primary: false,
 };
 
 FormGroupHeadingContent.propTypes = {
@@ -57,10 +57,10 @@ FormGroupHeadingContent.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   primary: PropTypes.bool,
-  title: PropTypes.string
+  title: PropTypes.string,
 };
 
 export default FormGroupHeadingContent;

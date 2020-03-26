@@ -17,7 +17,7 @@ const ServiceActions = {
       return;
     }
     MarathonActions.deleteService(service, force);
-  }
+  },
 };
 
 export default ServiceActions;

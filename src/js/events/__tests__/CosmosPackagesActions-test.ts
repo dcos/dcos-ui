@@ -19,7 +19,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -31,12 +31,12 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({
           images: { undefined },
-          packages: [{ bar: "baz", resource: {} }]
+          packages: [{ bar: "baz", resource: {} }],
         });
       });
 
@@ -44,7 +44,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -56,7 +56,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ description: "bar" });
@@ -66,18 +66,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -112,7 +112,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -126,19 +126,19 @@ describe("CosmosPackagesActions", () => {
             appId: "foo",
             packageInformation: {
               packageDefinition: { name: "bar" },
-              resourceDefinition: { bar: "baz" }
-            }
-          }
-        ]
+              resourceDefinition: { bar: "baz" },
+            },
+          },
+        ],
       });
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([
-          { appId: "foo", name: "bar", resource: { bar: "baz" } }
+          { appId: "foo", name: "bar", resource: { bar: "baz" } },
         ]);
       });
 
@@ -148,15 +148,15 @@ describe("CosmosPackagesActions", () => {
             appId: "foo",
             packageInformation: {
               packageDefinition: { name: "bar" },
-              resourceDefinition: { bar: "baz" }
-            }
-          }
-        ]
+              resourceDefinition: { bar: "baz" },
+            },
+          },
+        ],
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -168,7 +168,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -178,18 +178,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -204,7 +204,7 @@ describe("CosmosPackagesActions", () => {
     it("sends query in request body", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: "foo",
-        appId: "bar"
+        appId: "bar",
       });
     });
 
@@ -213,7 +213,7 @@ describe("CosmosPackagesActions", () => {
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: undefined,
-        appId: undefined
+        appId: undefined,
       });
     });
 
@@ -230,7 +230,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -240,13 +240,13 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.success({
         results: {
-          "1.0.2": "0"
-        }
+          "1.0.2": "0",
+        },
       });
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ "1.0.2": "0" });
@@ -254,13 +254,13 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.success({
         results: {
-          "1.0.2": "0"
-        }
+          "1.0.2": "0",
+        },
       });
     });
 
     it("dispatches with the correct package name when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.packageName).toEqual("foo");
@@ -268,13 +268,13 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.success({
         results: {
-          "1.0.2": "0"
-        }
+          "1.0.2": "0",
+        },
       });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -284,13 +284,13 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.error({
         responseJSON: {
-          description: "not able to finish the request"
-        }
+          description: "not able to finish the request",
+        },
       });
     });
 
     it("dispatches with error message when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("not able to finish the request");
@@ -298,13 +298,13 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.error({
         responseJSON: {
-          description: "not able to finish the request"
-        }
+          description: "not able to finish the request",
+        },
       });
     });
 
     it("dispatches the package name when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.packageName).toEqual("foo");
@@ -312,24 +312,24 @@ describe("CosmosPackagesActions", () => {
 
       thisConfiguration.error({
         responseJSON: {
-          description: "not able to finish the request"
-        }
+          description: "not able to finish the request",
+        },
       });
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -342,7 +342,7 @@ describe("CosmosPackagesActions", () => {
     it("sends query in request body", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: "foo",
-        includePackageVersions: false
+        includePackageVersions: false,
       });
     });
 
@@ -351,7 +351,7 @@ describe("CosmosPackagesActions", () => {
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: undefined,
-        includePackageVersions: false
+        includePackageVersions: false,
       });
     });
 
@@ -368,7 +368,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -380,7 +380,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
@@ -390,7 +390,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -402,7 +402,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -412,18 +412,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -440,7 +440,7 @@ describe("CosmosPackagesActions", () => {
     it("sends query in request body", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: "foo",
-        packageVersion: "bar"
+        packageVersion: "bar",
       });
     });
 
@@ -449,7 +449,7 @@ describe("CosmosPackagesActions", () => {
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: undefined,
-        packageVersion: undefined
+        packageVersion: undefined,
       });
     });
 
@@ -466,7 +466,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -478,7 +478,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ package: { bar: "baz" } });
@@ -488,7 +488,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with serviceId when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.serviceId).toEqual("foo");
@@ -498,7 +498,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -510,7 +510,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -520,7 +520,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with serviceId when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.serviceId).toEqual("foo");
@@ -530,18 +530,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -555,7 +555,7 @@ describe("CosmosPackagesActions", () => {
 
     it("sends query in request body", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
-        appId: "foo"
+        appId: "foo",
       });
     });
 
@@ -563,7 +563,7 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.fetchPackageDescription();
       thisConfiguration = RequestUtil.json.calls.mostRecent().args[0];
       expect(JSON.parse(thisConfiguration.data)).toEqual({
-        appId: undefined
+        appId: undefined,
       });
     });
 
@@ -580,7 +580,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -592,7 +592,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -604,7 +604,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ description: "bar" });
@@ -614,18 +614,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -641,7 +641,7 @@ describe("CosmosPackagesActions", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         appId: "foo",
         options: { cpus: 3 },
-        replace: true
+        replace: true,
       });
     });
 
@@ -658,7 +658,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -670,7 +670,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
@@ -681,7 +681,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -693,7 +693,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -705,18 +705,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -734,7 +734,7 @@ describe("CosmosPackagesActions", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         packageName: "foo",
         packageVersion: "bar",
-        options: { baz: "qux" }
+        options: { baz: "qux" },
       });
     });
 
@@ -757,7 +757,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -769,7 +769,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
@@ -780,7 +780,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -792,7 +792,7 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -802,18 +802,18 @@ describe("CosmosPackagesActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
@@ -831,7 +831,7 @@ describe("CosmosPackagesActions", () => {
       expect(JSON.parse(thisConfiguration.data)).toEqual({
         appId: "baz",
         packageName: "foo",
-        all: true
+        all: true,
       });
     });
 
@@ -847,12 +847,12 @@ describe("CosmosPackagesActions", () => {
   });
 
   describe("#fetchRepositories", () => {
-    it("dispatches the correct action when successful", done => {
+    it("dispatches the correct action when successful", (done) => {
       httpService.request.mockReturnValueOnce(
         of({ repositories: [{ bar: "baz" }] })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -864,12 +864,12 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches with the correct data when successful", done => {
+    it("dispatches with the correct data when successful", (done) => {
       httpService.request.mockReturnValueOnce(
         of({ repositories: [{ bar: "baz" }] })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([{ bar: "baz" }]);
@@ -879,12 +879,12 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches the correct action when unsuccessful", done => {
+    it("dispatches the correct action when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ responseJSON: { description: "bar" } })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -896,12 +896,12 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.fetchRepositories();
     });
 
-    it("dispatches with the correct data when unsuccessful", done => {
+    it("dispatches with the correct data when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ response: { description: "bar" } })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -913,10 +913,10 @@ describe("CosmosPackagesActions", () => {
   });
 
   describe("#addRepository", () => {
-    it.skip("dispatches the correct action when successful", done => {
+    it.skip("dispatches the correct action when successful", (done) => {
       httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -928,10 +928,10 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it.skip("dispatches with the correct data when successful", done => {
+    it.skip("dispatches with the correct data when successful", (done) => {
       httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
@@ -943,11 +943,11 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches the correct action when unsuccessful", done => {
+    it("dispatches the correct action when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ responseJSON: { description: "bar" } })
       );
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -959,12 +959,12 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.addRepository("foo", "bar", 1);
     });
 
-    it("dispatches with the correct data when unsuccessful", done => {
+    it("dispatches with the correct data when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ response: { description: "bar" } })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -976,10 +976,10 @@ describe("CosmosPackagesActions", () => {
   });
 
   describe("#deleteRepository", () => {
-    it.skip("dispatches the correct action when successful", done => {
+    it.skip("dispatches the correct action when successful", (done) => {
       httpService.request.mockReturnValueOnce(of([""]));
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -991,10 +991,10 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it.skip("dispatches with the correct data when successful", done => {
+    it.skip("dispatches with the correct data when successful", (done) => {
       httpService.request.mockReturnValueOnce(of({ bar: "baz" }));
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({ bar: "baz" });
@@ -1006,12 +1006,12 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches the correct action when unsuccessful", done => {
+    it("dispatches the correct action when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ response: { description: "bar" } })
       );
 
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -1023,11 +1023,11 @@ describe("CosmosPackagesActions", () => {
       CosmosPackagesActions.deleteRepository("foo", "bar");
     });
 
-    it("dispatches with the correct data when unsuccessful", done => {
+    it("dispatches with the correct data when unsuccessful", (done) => {
       httpService.request.mockReturnValueOnce(
         throwError({ response: { description: "bar" } })
       );
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");

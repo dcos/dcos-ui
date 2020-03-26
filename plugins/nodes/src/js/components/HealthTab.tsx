@@ -17,17 +17,17 @@ class HealthTab extends React.PureComponent {
   static propTypes = {
     node: PropTypes.object.isRequired,
     units: PropTypes.object.isRequired,
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       healthFilter: "all",
-      searchString: ""
+      searchString: "",
     };
   }
-  handleHealthSelection = selectedHealth => {
+  handleHealthSelection = (selectedHealth) => {
     this.setState({ healthFilter: selectedHealth.id });
   };
   handleSearchStringChange = (searchString = "") => {
@@ -48,7 +48,7 @@ class HealthTab extends React.PureComponent {
     const headings = ResourceTableUtil.renderHeading({
       health: i18nMark("Health"),
       id: i18nMark("Health Check"),
-      role: i18nMark("Role")
+      role: i18nMark("Role"),
     });
     const sortFunction = UnitHealthUtil.getHealthSortFunction;
     const getHealthSorting = TableUtil.getHealthSortingOrder;
@@ -61,7 +61,7 @@ class HealthTab extends React.PureComponent {
         prop: "health",
         render: this.renderHealth,
         sortable: true,
-        sortFunction: getHealthSorting
+        sortFunction: getHealthSorting,
       },
       {
         className: classNameFn,
@@ -70,8 +70,8 @@ class HealthTab extends React.PureComponent {
         prop: "id",
         render: this.renderUnitHealthCheck,
         sortable: true,
-        sortFunction
-      }
+        sortFunction,
+      },
     ];
   }
 
@@ -87,7 +87,7 @@ class HealthTab extends React.PureComponent {
 
     this.setState({
       searchString: "",
-      healthFilter: "all"
+      healthFilter: "all",
     });
   };
   renderHealth = (prop, node) => {
@@ -143,7 +143,7 @@ class HealthTab extends React.PureComponent {
             dropdownMenuClassName="dropdown-menu"
             initialID="all"
             onHealthSelection={this.handleHealthSelection}
-            ref={ref => (this.healthFilter = ref)}
+            ref={(ref) => (this.healthFilter = ref)}
           />
         </FilterBar>
         <Table

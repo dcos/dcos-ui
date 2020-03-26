@@ -5,10 +5,10 @@ export default {
     localPersistent: "PERSISTENT",
     dss: "DSS",
     unknown: "UNKNOWN",
-    external: "EXTERNAL"
+    external: "EXTERNAL",
   },
   mode: {
     rw: "RW",
-    ro: "RO"
-  }
+    ro: "RO",
+  },
 };

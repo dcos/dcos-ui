@@ -68,14 +68,14 @@ describe("Environment Variables", () => {
       ).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
         { type: SET, value: "key", path: ["env", 0, "key"] },
-        { type: SET, value: "value", path: ["env", 0, "value"] }
+        { type: SET, value: "value", path: ["env", 0, "value"] },
       ]);
     });
 
     it("returns an array of transactions for empty env var", () => {
       expect(EnvironmentVariables.JSONParser({ env: { key: null } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
-        { type: SET, value: "key", path: ["env", 0, "key"] }
+        { type: SET, value: "key", path: ["env", 0, "key"] },
       ]);
     });
 
@@ -83,7 +83,7 @@ describe("Environment Variables", () => {
       expect(EnvironmentVariables.JSONParser({ env: { key: "" } })).toEqual([
         { type: ADD_ITEM, value: 0, path: ["env"] },
         { type: SET, value: "key", path: ["env", 0, "key"] },
-        { type: SET, value: "", path: ["env", 0, "value"] }
+        { type: SET, value: "", path: ["env", 0, "value"] },
       ]);
     });
 

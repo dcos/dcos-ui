@@ -10,7 +10,7 @@ import {
   Box,
   Icon,
   InfoBoxInline,
-  Tooltip as UIKitTooltip
+  Tooltip as UIKitTooltip,
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { ProductIcons } from "@dcos/ui-kit/dist/packages/icons/dist/product-icons-enum";
@@ -18,7 +18,7 @@ import {
   green,
   red,
   iconSizeL,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import classNames from "classnames";
 
@@ -42,8 +42,8 @@ import * as semver from "semver/preload";
 
 const runningServicesNames = (labels = []) =>
   labels
-    .filter(label => label.key === "DCOS_SERVICE_NAME")
-    .map(label => label.value);
+    .filter((label) => label.key === "DCOS_SERVICE_NAME")
+    .map((label) => label.value);
 
 const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
   const name = cosmosPackage.getName();
@@ -65,7 +65,7 @@ const PackageDetailBreadcrumbs = ({ cosmosPackage, isLoading }) => {
           </Link>
         </BreadcrumbTextContent>
       )}
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -85,7 +85,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       isConfirmOpen: false,
       isLoadingSelectedVersion: false,
       isLoadingVersions: false,
-      runningPackageNames: { state: "loading" }
+      runningPackageNames: { state: "loading" },
     };
 
     // prettier-ignore
@@ -119,8 +119,8 @@ class PackageDetailTab extends mixin(StoreMixin) {
     this.setState({
       runningPackageNames: {
         state: "success",
-        data: runningServicesNames(DCOSStore.serviceTree.getLabels())
-      }
+        data: runningServicesNames(DCOSStore.serviceTree.getLabels()),
+      },
     });
   };
 
@@ -152,14 +152,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
   onCosmosPackagesStorePackageDescriptionSuccess() {
     this.setState({
       hasError: false,
-      isLoadingSelectedVersion: false
+      isLoadingSelectedVersion: false,
     });
   }
 
   onCosmosPackagesStoreListVersionsSuccess() {
     this.setState({ isLoadingVersions: false });
   }
-  handleReviewAndRunClick = isCertified => {
+  handleReviewAndRunClick = (isCertified) => {
     if (isCertified) {
       return this.handleConfirmClick();
     }
@@ -179,10 +179,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   handleConfirmClose = () => {
     this.setState({ isConfirmOpen: false });
   };
-  handlePackageVersionChange = selection => {
+  handlePackageVersionChange = (selection) => {
     const query = {
       ...this.props.location.query,
-      version: selection.id
+      version: selection.id,
     };
 
     window.location.replace(
@@ -274,10 +274,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
 
   mapLicenses(licenses) {
-    return licenses.map(license => {
+    return licenses.map((license) => {
       const item = {
         label: license.name,
-        value: license.url
+        value: license.url,
       };
 
       return item;
@@ -339,11 +339,11 @@ class PackageDetailTab extends mixin(StoreMixin) {
       </Tooltip>
     );
   };
-  hasUnresolvedDependency = cosmosPackage => {
+  hasUnresolvedDependency = (cosmosPackage) => {
     const dep = dependency(cosmosPackage);
     return dep && !(this.state.runningPackageNames.data || []).includes(dep);
   };
-  renderReviewAndRunButton = cosmosPackage => {
+  renderReviewAndRunButton = (cosmosPackage) => {
     if (cosmosPackage.isCLIOnly()) {
       return this.renderCliHint();
     }
@@ -353,7 +353,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
       return this.renderInstallButton(
         {
           disabled: true,
-          tooltipContent: <Trans>Loading selected version</Trans>
+          tooltipContent: <Trans>Loading selected version</Trans>,
         },
         isCertified
       );
@@ -367,7 +367,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
             <Trans>
               Cannot run without {dependency(cosmosPackage)} package.
             </Trans>
-          )
+          ),
         },
         isCertified
       );
@@ -390,7 +390,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
               {cosmosPackage.minDcosReleaseVersion} or higher, but you are
               running DC/OS version {semver.coerce(MetadataStore.version)}
             </Trans>
-          )
+          ),
         },
         isCertified
       );
@@ -412,9 +412,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     const selectedVersion = cosmosPackage.getVersion();
-    const availableVersions = packageVersions.getVersions().map(version => ({
+    const availableVersions = packageVersions.getVersions().map((version) => ({
       html: version,
-      id: version
+      id: version,
     }));
 
     if (availableVersions.length === 0) {
@@ -445,7 +445,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
   }
   onInstalledSuccessModalClose = () => {
     const query = {
-      ...this.props.location.query
+      ...this.props.location.query,
     };
     delete query.appId;
 
@@ -531,7 +531,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
           <div
             dangerouslySetInnerHTML={StringUtil.parseMarkdown(description)}
           />
-        )
+        ),
       },
       {
         label: " ",
@@ -545,7 +545,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
               />
             }
           />
-        )
+        ),
       },
       {
         label: "Information",
@@ -553,14 +553,14 @@ class PackageDetailTab extends mixin(StoreMixin) {
         value: [
           { label: "SCM", value: cosmosPackage.getSCM() },
           { label: "Maintainer", value: cosmosPackage.getMaintainer() },
-          { value: updatedAt ? LastUpdated.render(updatedAt) : null }
-        ]
+          { value: updatedAt ? LastUpdated.render(updatedAt) : null },
+        ],
       },
       {
         label: "Licenses",
         type: "subItems",
-        value: this.mapLicenses(cosmosPackage.getLicenses())
-      }
+        value: this.mapLicenses(cosmosPackage.getLicenses()),
+      },
     ];
 
     const isLoading = this.state.runningPackageNames.state === "loading";
@@ -673,12 +673,12 @@ class PackageDetailTab extends mixin(StoreMixin) {
 }
 
 PackageDetailTab.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
-const dependency = cosmosPackage => (cosmosPackage.manager || {}).packageName;
+const dependency = (cosmosPackage) => (cosmosPackage.manager || {}).packageName;
 
-const renderUnresolvedDependency = dependency => (
+const renderUnresolvedDependency = (dependency) => (
   <div className="infoBoxWrapper">
     <InfoBoxInline
       message={

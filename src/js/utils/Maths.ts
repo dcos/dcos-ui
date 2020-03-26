@@ -9,7 +9,7 @@ const Maths = {
   sum(array) {
     let sum = 0;
 
-    array.forEach(function(value) {
+    array.forEach(function (value) {
       if (Array.isArray(value)) {
         sum += this.sum(value);
       } else {
@@ -67,7 +67,7 @@ const Maths = {
       return undefined;
     }
     return value;
-  }
+  },
 };
 
 export default Maths;

@@ -21,7 +21,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_USER_SUCCESS);
       });
@@ -30,7 +30,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -39,7 +39,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_USER_ERROR);
       });
@@ -48,7 +48,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -57,7 +57,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the userID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -74,7 +74,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_USER_GROUPS_SUCCESS
@@ -85,7 +85,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -94,7 +94,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the userID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -103,7 +103,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_USER_GROUPS_ERROR);
       });
@@ -112,7 +112,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -121,7 +121,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the userID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -138,7 +138,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_USER_PERMISSIONS_SUCCESS
@@ -149,7 +149,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual({ bar: "baz" });
       });
@@ -158,7 +158,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the userID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -167,7 +167,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_USER_PERMISSIONS_ERROR
@@ -178,7 +178,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -187,7 +187,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches with the userID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -216,7 +216,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_USER_UPDATE_SUCCESS
@@ -227,7 +227,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the userID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -236,7 +236,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_ACL_USER_UPDATE_ERROR);
       });
@@ -245,7 +245,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -254,7 +254,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the userID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });
@@ -285,7 +285,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_LDAP_USER_CREATE_SUCCESS
@@ -296,7 +296,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(
           ActionTypes.REQUEST_ACL_LDAP_USER_CREATE_ERROR
@@ -307,7 +307,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("bar");
       });
@@ -316,7 +316,7 @@ describe("ACLUsersActions", () => {
     });
 
     it("dispatches the userID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.userID).toEqual("foo");
       });

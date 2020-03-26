@@ -6,7 +6,7 @@ import Node from "#SRC/js/structs/Node";
 
 const NodeHealth = ({
   classNames,
-  title
+  title,
 }: {
   classNames: string;
   title: string;

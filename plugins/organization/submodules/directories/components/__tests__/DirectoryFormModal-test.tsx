@@ -33,13 +33,13 @@ describe("DirectoryFormModal", () => {
       "use-ldaps": true,
       "user-search": {
         "search-base": "qux",
-        "search-filter-template": "quux"
+        "search-filter-template": "quux",
       },
       "lookup-dn": null,
       "group-search": {
         "search-base": "corge",
-        "search-filter-template": "grault"
-      }
+        "search-filter-template": "grault",
+      },
     };
 
     ACLDirectoriesStore.addDirectory = () => {};
@@ -272,7 +272,7 @@ describe("DirectoryFormModal", () => {
         .instance()
         .handleFormChange(null, {
           fieldName: "template-bind-type",
-          fieldValue: [{ checked: true, name: "foo" }]
+          fieldValue: [{ checked: true, name: "foo" }],
         });
 
       expect(
@@ -296,10 +296,7 @@ describe("DirectoryFormModal", () => {
       );
 
       expect(
-        thisInstance
-          .find("DirectoryFormModal")
-          .instance()
-          .getBindTypeValue()
+        thisInstance.find("DirectoryFormModal").instance().getBindTypeValue()
       ).toEqual("anonymous-bind");
     });
 
@@ -315,10 +312,7 @@ describe("DirectoryFormModal", () => {
       );
 
       expect(
-        thisInstance
-          .find("DirectoryFormModal")
-          .instance()
-          .getBindTypeValue()
+        thisInstance.find("DirectoryFormModal").instance().getBindTypeValue()
       ).toEqual("anonymous-bind");
     });
 
@@ -334,10 +328,7 @@ describe("DirectoryFormModal", () => {
       );
 
       expect(
-        thisInstance
-          .find("DirectoryFormModal")
-          .instance()
-          .getBindTypeValue()
+        thisInstance.find("DirectoryFormModal").instance().getBindTypeValue()
       ).toEqual("ldap-credentials");
     });
   });
@@ -350,16 +341,16 @@ describe("DirectoryFormModal", () => {
         .processFormData({
           "account-setup": {
             foo: "bar",
-            bar: "baz"
+            bar: "baz",
           },
           configuration: {
             baz: "qux",
-            quux: "corge"
+            quux: "corge",
           },
           "group-import": {
             corge: "grault",
-            grault: "garply"
-          }
+            grault: "garply",
+          },
         });
 
       expect(transformedData).toEqual({
@@ -368,7 +359,7 @@ describe("DirectoryFormModal", () => {
         baz: "qux",
         quux: "corge",
         corge: "grault",
-        grault: "garply"
+        grault: "garply",
       });
     });
 
@@ -380,14 +371,14 @@ describe("DirectoryFormModal", () => {
           "account-setup": {
             foo: "bar",
             host: "foo",
-            port: "bar"
-          }
+            port: "bar",
+          },
         });
 
       expect(transformedData).toEqual({
         foo: "bar",
         host: "foo",
-        port: "bar"
+        port: "bar",
       });
     });
     it("transforms ssl-tls-configuration to two falsey keys", () => {
@@ -396,13 +387,13 @@ describe("DirectoryFormModal", () => {
         .instance()
         .processFormData({
           "account-setup": {
-            "ssl-tls-configuration": "foo"
-          }
+            "ssl-tls-configuration": "foo",
+          },
         });
 
       expect(transformedData).toEqual({
         "enforce-starttls": false,
-        "use-ldaps": false
+        "use-ldaps": false,
       });
     });
     it("transforms ssl-tls-configuration to proper truthy key", () => {
@@ -411,13 +402,13 @@ describe("DirectoryFormModal", () => {
         .instance()
         .processFormData({
           "account-setup": {
-            "ssl-tls-configuration": "enforce-starttls"
-          }
+            "ssl-tls-configuration": "enforce-starttls",
+          },
         });
 
       expect(transformedData).toEqual({
         "enforce-starttls": true,
-        "use-ldaps": false
+        "use-ldaps": false,
       });
     });
     it("transforms ssl-tls-configuration to proper truthy key", () => {
@@ -426,13 +417,13 @@ describe("DirectoryFormModal", () => {
         .instance()
         .processFormData({
           "account-setup": {
-            "ssl-tls-configuration": "use-ldaps"
-          }
+            "ssl-tls-configuration": "use-ldaps",
+          },
         });
 
       expect(transformedData).toEqual({
         "enforce-starttls": false,
-        "use-ldaps": true
+        "use-ldaps": true,
       });
     });
 
@@ -443,15 +434,15 @@ describe("DirectoryFormModal", () => {
         .processFormData({
           "group-import": {
             "group-search-base": "foo",
-            "group-search-filter-template": "bar"
-          }
+            "group-search-filter-template": "bar",
+          },
         });
 
       expect(transformedData).toEqual({
         "group-search": {
           "search-base": "foo",
-          "search-filter-template": "bar"
-        }
+          "search-filter-template": "bar",
+        },
       });
     });
 
@@ -462,15 +453,15 @@ describe("DirectoryFormModal", () => {
         .processFormData({
           configuration: {
             "user-search-base": "foo",
-            "user-search-filter-template": "bar"
-          }
+            "user-search-filter-template": "bar",
+          },
         });
 
       expect(transformedData).toEqual({
         "user-search": {
           "search-base": "foo",
-          "search-filter-template": "bar"
-        }
+          "search-filter-template": "bar",
+        },
       });
     });
   });

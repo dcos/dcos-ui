@@ -13,7 +13,7 @@ describe("ACLAuthenticatedUserStore", () => {
   SDK.Hooks.addFilter("instantiateUserStruct", () => ({
     getUniquePermissions() {
       return userPermissions;
-    }
+    },
   }));
 
   beforeEach(() => {
@@ -39,8 +39,8 @@ describe("ACLAuthenticatedUserStore", () => {
 
       const expectedResult = {
         "dcos:adminrouter:service:marathon": {
-          rid: "dcos:adminrouter:service:marathon"
-        }
+          rid: "dcos:adminrouter:service:marathon",
+        },
       };
       expect(ACLAuthenticatedUserStore(SDK).getPermissions()).toEqual(
         expectedResult
@@ -50,13 +50,13 @@ describe("ACLAuthenticatedUserStore", () => {
     it("returns unique permissions", () => {
       userPermissions = [
         { rid: "dcos:adminrouter:service:marathon" },
-        { rid: "dcos:adminrouter:service:marathon" }
+        { rid: "dcos:adminrouter:service:marathon" },
       ];
 
       const expectedResult = {
         "dcos:adminrouter:service:marathon": {
-          rid: "dcos:adminrouter:service:marathon"
-        }
+          rid: "dcos:adminrouter:service:marathon",
+        },
       };
       expect(ACLAuthenticatedUserStore(SDK).getPermissions()).toEqual(
         expectedResult

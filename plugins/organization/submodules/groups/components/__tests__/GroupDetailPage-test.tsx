@@ -34,11 +34,11 @@ describe("GroupDetailPage", () => {
 
     PluginSDK.__addReducer(APPLICATION, () => ({
       summary: {
-        statesProcessed: true
-      }
+        statesProcessed: true,
+      },
     }));
 
-    ACLGroupStore.getGroup = groupID => {
+    ACLGroupStore.getGroup = (groupID) => {
       if (groupID === "unicode") {
         return new Group(groupDetailsFixture);
       }
@@ -57,12 +57,7 @@ describe("GroupDetailPage", () => {
 
       ACLGroupStore.processGroupError({}, groupID);
 
-      expect(
-        thisInstance
-          .render()
-          .find("h3")
-          .text()
-      ).toEqual(
+      expect(thisInstance.render().find("h3").text()).toEqual(
         "DC/OS UI cannot retrieve the requested information at this moment."
       );
     });
@@ -70,8 +65,8 @@ describe("GroupDetailPage", () => {
     it("shows loading screen if still waiting on Store", () => {
       PluginSDK.__addReducer(APPLICATION, () => ({
         summary: {
-          statesProcessed: false
-        }
+          statesProcessed: false,
+        },
       }));
       const groupID = "unicode";
       thisInstance = mount(<WrappedComponent params={{ groupID }} />);

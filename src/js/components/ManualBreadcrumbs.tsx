@@ -15,15 +15,15 @@ const PADDED_ICON_WIDTH = 38; // Width of icon + padding
 
 class ManualBreadcrumbs extends React.Component {
   static defaultProps = {
-    crumbs: []
+    crumbs: [],
   };
   static propTypes = {
     breadcrumbClasses: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
-    crumbs: PropTypes.array
+    crumbs: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -31,7 +31,7 @@ class ManualBreadcrumbs extends React.Component {
     this.state = {
       availableWidth: null,
       collapsed: false,
-      expandedWidth: null
+      expandedWidth: null,
     };
 
     this.handleResize = this.handleResize.bind(this);
@@ -73,7 +73,7 @@ class ManualBreadcrumbs extends React.Component {
 
     this.setState({
       availableWidth,
-      collapsed: this.shouldCollapse(availableWidth, this.state.expandedWidth)
+      collapsed: this.shouldCollapse(availableWidth, this.state.expandedWidth),
     });
   }
 
@@ -84,7 +84,7 @@ class ManualBreadcrumbs extends React.Component {
     this.setState({
       availableWidth,
       expandedWidth,
-      collapsed: this.shouldCollapse(availableWidth, expandedWidth)
+      collapsed: this.shouldCollapse(availableWidth, expandedWidth),
     });
   }
 

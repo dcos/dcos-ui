@@ -6,13 +6,13 @@ import {
   REQUEST_USER_CREATE_SUCCESS,
   REQUEST_USER_CREATE_ERROR,
   REQUEST_USER_DELETE_SUCCESS,
-  REQUEST_USER_DELETE_ERROR
+  REQUEST_USER_DELETE_ERROR,
 } from "../constants/ActionTypes";
 import {
   USER_CREATE_SUCCESS,
   USER_CREATE_ERROR,
   USER_DELETE_SUCCESS,
-  USER_DELETE_ERROR
+  USER_DELETE_ERROR,
 } from "../constants/EventTypes";
 import UsersActions from "../events/UsersActions";
 
@@ -37,9 +37,9 @@ class UserStore extends EventEmitter {
         createSuccess: USER_CREATE_SUCCESS,
         createError: USER_CREATE_ERROR,
         deleteSuccess: USER_DELETE_SUCCESS,
-        deleteError: USER_DELETE_ERROR
+        deleteError: USER_DELETE_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     AppDispatcher.register(({ action }) => {

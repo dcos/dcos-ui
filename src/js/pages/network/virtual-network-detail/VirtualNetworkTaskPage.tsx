@@ -19,14 +19,14 @@ const NetworksDetailTaskBreadcrumbs = ({
   overlayID,
   overlay,
   taskID,
-  task
+  task,
 }) => {
   const crumbs = [
     <Breadcrumb key={0} title="Networks">
       <BreadcrumbTextContent>
         <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (overlay) {
@@ -75,7 +75,7 @@ const NetworksDetailTaskBreadcrumbs = ({
   );
 };
 
-const VirtualNetworkTaskPage = props => {
+const VirtualNetworkTaskPage = (props) => {
   const { location, params, routes } = props;
   const { overlayName, taskID } = params;
 
@@ -83,7 +83,7 @@ const VirtualNetworkTaskPage = props => {
   const tabs = [
     { label: i18nMark("Details"), routePath: routePrefix + "/details" },
     { label: i18nMark("Files"), routePath: routePrefix + "/files" },
-    { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
+    { label: i18nMark("Logs"), routePath: routePrefix + "/logs" },
   ];
 
   const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -92,7 +92,7 @@ const VirtualNetworkTaskPage = props => {
     ({ name }) => name === overlayName
   );
 
-  const dontScroll = dontScrollRoutes.some(regex =>
+  const dontScroll = dontScrollRoutes.some((regex) =>
     regex.test(location.pathname)
   );
 
@@ -119,7 +119,7 @@ const VirtualNetworkTaskPage = props => {
 
 VirtualNetworkTaskPage.propTypes = {
   params: PropTypes.object,
-  routes: PropTypes.array
+  routes: PropTypes.array,
 };
 
 export default VirtualNetworkTaskPage;

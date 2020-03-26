@@ -7,7 +7,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import AddButton from "#SRC/js/components/form/AddButton";
@@ -35,14 +35,14 @@ class MultiContainerHealthChecksFormSection extends React.Component {
     errors: {},
     handleTabChange() {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     handleTabChange: PropTypes.func,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   getAdvancedSettings(healthCheck, path, errorsLens) {
     const errors = errorsLens.get(this.props.errors);
@@ -346,7 +346,7 @@ class MultiContainerHealthChecksFormSection extends React.Component {
           </FieldLabel>
           <FieldError>{errors.protocol}</FieldError>
         </FormGroup>
-      </FormRow>
+      </FormRow>,
     ];
   }
 

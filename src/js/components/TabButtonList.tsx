@@ -9,10 +9,10 @@ class TabButtonList extends React.Component {
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     onChange: PropTypes.func,
-    vertical: PropTypes.bool
+    vertical: PropTypes.bool,
   };
   getChildren() {
     const { activeTab, children, onChange } = this.props;
@@ -36,7 +36,7 @@ class TabButtonList extends React.Component {
     const classes = classNames(
       "menu-tabbed",
       {
-        "menu-tabbed-vertical": vertical
+        "menu-tabbed-vertical": vertical,
       },
       className
     );

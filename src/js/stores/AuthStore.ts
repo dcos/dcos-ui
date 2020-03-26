@@ -4,13 +4,13 @@ import {
   REQUEST_LOGIN_SUCCESS,
   REQUEST_LOGIN_ERROR,
   REQUEST_LOGOUT_SUCCESS,
-  REQUEST_LOGOUT_ERROR
+  REQUEST_LOGOUT_ERROR,
 } from "../constants/ActionTypes";
 import {
   AUTH_USER_LOGIN_CHANGED,
   AUTH_USER_LOGOUT_SUCCESS,
   AUTH_USER_LOGIN_ERROR,
-  AUTH_USER_LOGOUT_ERROR
+  AUTH_USER_LOGOUT_ERROR,
 } from "../constants/EventTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import AuthActions from "../events/AuthActions";
@@ -28,12 +28,12 @@ class AuthStore extends GetSetBaseStore {
         success: AUTH_USER_LOGIN_CHANGED,
         error: AUTH_USER_LOGIN_ERROR,
         logoutSuccess: AUTH_USER_LOGOUT_SUCCESS,
-        logoutError: AUTH_USER_LOGOUT_ERROR
+        logoutError: AUTH_USER_LOGOUT_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       switch (action.type) {
         case REQUEST_LOGIN_SUCCESS:

@@ -29,7 +29,7 @@ describe("GetSetBaseStore", () => {
     it("allows for default state values", () => {
       const instance = new GetSetBaseStore();
       instance.getSet_data = {
-        foo: "bar"
+        foo: "bar",
       };
 
       expect(instance.get("foo")).toEqual("bar");

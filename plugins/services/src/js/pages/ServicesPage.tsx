@@ -11,19 +11,19 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 export default class ServicesPage extends mixin(StoreMixin) {
   public static contextTypes = {
-    router: routerShape
+    router: routerShape,
   };
 
   public static routeConfig = {
     label: i18nMark("Services"),
     icon: <Icon shape={ProductIcons.ServicesInverse} size={iconSizeS} />,
-    matches: /^\/services/
+    matches: /^\/services/,
   };
 
   constructor() {
     super(...arguments);
     this.store_listeners = [
-      { name: "notification", events: ["change"], suppressUpdate: true }
+      { name: "notification", events: ["change"], suppressUpdate: true },
     ];
   }
 

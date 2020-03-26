@@ -16,7 +16,7 @@ const HostUtil = {
 
     return string
       .split(".")
-      .filter(string => string !== "")
+      .filter((string) => string !== "")
       .map(HostUtil.stringToLabel)
       .join(".");
   },
@@ -61,7 +61,7 @@ const HostUtil = {
     }
 
     return string;
-  }
+  },
 };
 
 export default HostUtil;

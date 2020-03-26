@@ -43,10 +43,10 @@ class RoutingService extends EventEmitter {
         this.deferredTasks = [];
 
         // If Task is unable to resolve at this point of time it will re-defer itself
-        tasks.forEach(args => {
+        tasks.forEach((args) => {
           this.instance.registerTab(...args);
         });
-      }
+      },
     };
 
     this.getDefinition = this.getDefinition.bind(privateContext);
@@ -77,7 +77,7 @@ class RoutingService extends EventEmitter {
       return throwError(new Error("Please provide all required arguments"));
     }
 
-    const existingPage = this.definition.find(route => route.path === path);
+    const existingPage = this.definition.find((route) => route.path === path);
 
     if (existingPage && existingPage.component === component) {
       return;
@@ -89,7 +89,7 @@ class RoutingService extends EventEmitter {
     this.definition.push({
       component,
       path,
-      type: Route
+      type: Route,
     });
 
     this.instance.emit(ROUTING_CHANGE);
@@ -109,7 +109,7 @@ class RoutingService extends EventEmitter {
       return throwError(new Error("Please provide all required arguments"));
     }
 
-    const page = this.definition.find(route => route.path === pagePath);
+    const page = this.definition.find((route) => route.path === pagePath);
 
     if (!page) {
       return this.defer(arguments);
@@ -119,7 +119,7 @@ class RoutingService extends EventEmitter {
       page.children = [];
     }
 
-    const existingTab = page.children.find(route => route.path === tabPath);
+    const existingTab = page.children.find((route) => route.path === tabPath);
 
     if (existingTab && existingTab.component === component) {
       return;
@@ -133,7 +133,7 @@ class RoutingService extends EventEmitter {
     page.children.push({
       component,
       path: tabPath,
-      type: Route
+      type: Route,
     });
 
     this.instance.emit(ROUTING_CHANGE);
@@ -149,7 +149,7 @@ class RoutingService extends EventEmitter {
    */
   registerRedirect(path, to) {
     const existingRedirect = this.definition.find(
-      route => route.type === Redirect && route.path === path
+      (route) => route.type === Redirect && route.path === path
     );
 
     if (existingRedirect && existingRedirect.to === to) {
@@ -166,7 +166,7 @@ class RoutingService extends EventEmitter {
     this.definition.push({
       path,
       to,
-      type: Redirect
+      type: Redirect,
     });
 
     this.instance.emit(ROUTING_CHANGE);

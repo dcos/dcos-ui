@@ -6,13 +6,13 @@ import {
   REQUEST_SIDEBAR_WIDTH_CHANGE,
   REQUEST_SIDEBAR_TOGGLE,
   REQUEST_SIDEBAR_CLOSE,
-  REQUEST_SIDEBAR_OPEN
+  REQUEST_SIDEBAR_OPEN,
 } from "../constants/ActionTypes";
 import {
   SHOW_CLI_INSTRUCTIONS,
   SHOW_CLUSTER_LINKING,
   SIDEBAR_CHANGE,
-  SIDEBAR_WIDTH_CHANGE
+  SIDEBAR_WIDTH_CHANGE,
 } from "../constants/EventTypes";
 import { SAVED_STATE_KEY } from "../constants/UserSettings";
 
@@ -32,9 +32,9 @@ class SidebarStore extends GetSetBaseStore<{
       store: this,
       storeID: this.storeID,
       events: {
-        widthChange: SIDEBAR_WIDTH_CHANGE
+        widthChange: SIDEBAR_WIDTH_CHANGE,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     AppDispatcher.register(({ action }) => {
@@ -83,7 +83,7 @@ class SidebarStore extends GetSetBaseStore<{
 
     this.set({
       isVisible,
-      versions: {}
+      versions: {},
     });
   }
 

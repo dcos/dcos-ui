@@ -1,6 +1,6 @@
 import {
   ServicePlanPhase,
-  compare
+  compare,
 } from "#PLUGINS/services/src/js/types/ServicePlanPhase";
 
 describe("ServicePlanPhase", () => {
@@ -11,14 +11,14 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(true);
@@ -30,14 +30,14 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-02",
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);
@@ -49,14 +49,14 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
         name: "phase 02",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);
@@ -68,14 +68,14 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "IN_PROGRESS",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);
@@ -87,14 +87,14 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "COMPLETE",
         strategy: "parallel",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);
@@ -106,7 +106,7 @@ describe("ServicePlanPhase", () => {
         name: "phase 01",
         status: "COMPLETE",
         strategy: "serial",
-        steps: []
+        steps: [],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
@@ -118,9 +118,9 @@ describe("ServicePlanPhase", () => {
             id: "",
             name: "",
             status: "ERROR",
-            message: ""
-          }
-        ]
+            message: "",
+          },
+        ],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);
@@ -137,9 +137,9 @@ describe("ServicePlanPhase", () => {
             id: "step",
             name: "",
             status: "ERROR",
-            message: ""
-          }
-        ]
+            message: "",
+          },
+        ],
       };
       const phaseB: ServicePlanPhase = {
         id: "phase-01",
@@ -151,9 +151,9 @@ describe("ServicePlanPhase", () => {
             id: "step-01",
             name: "",
             status: "ERROR",
-            message: ""
-          }
-        ]
+            message: "",
+          },
+        ],
       };
 
       expect(compare(phaseA, phaseB)).toEqual(false);

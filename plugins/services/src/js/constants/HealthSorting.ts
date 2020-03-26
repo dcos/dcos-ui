@@ -9,7 +9,7 @@ const HealthSorting = {
   HEALTHY: 3,
   IDLE: 2,
   NA: 1,
-  WARN: 2
+  WARN: 2,
 };
 
 export default HealthSorting;

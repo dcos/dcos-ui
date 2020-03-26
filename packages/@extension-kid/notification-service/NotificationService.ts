@@ -32,10 +32,10 @@ class NotificationService {
   public push(notification: Notification): void {
     this._extensionProvider
       .getAllExtensions()
-      .filter(extension =>
+      .filter((extension) =>
         extension.supportedNotifications().includes(notification.type)
       )
-      .forEach(extension => {
+      .forEach((extension) => {
         extension.push(notification);
       });
   }
@@ -44,7 +44,7 @@ class NotificationService {
     extensionId: symbol
   ): NotificationServiceExtensionInterface | undefined {
     const exts = this._extensionProvider.getAllExtensions();
-    return exts.find(ext => {
+    return exts.find((ext) => {
       return ext.id === extensionId;
     });
   }
@@ -54,5 +54,5 @@ export {
   NotificationService as default,
   NotificationServiceExtensionType,
   NotificationServiceType,
-  NotificationServiceExtensionInterface
+  NotificationServiceExtensionInterface,
 };

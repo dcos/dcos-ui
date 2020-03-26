@@ -1,7 +1,7 @@
 import {
   simpleFloatReducer,
   simpleIntReducer,
-  simpleReducer
+  simpleReducer,
 } from "#SRC/js/utils/ReducerUtil";
 
 import { JSONReducer as constraints } from "./serviceForm/JSONReducers/Constraints";
@@ -32,5 +32,5 @@ export default {
   networks,
   portDefinitions,
   requirePorts,
-  residency
+  residency,
 };

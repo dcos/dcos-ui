@@ -8,7 +8,7 @@ describe("FrameworkUtil", () => {
   describe("#getImageSizeFromImagesObject", () => {
     beforeEach(() => {
       thisImages = {
-        "icon-medium": "foo.png"
+        "icon-medium": "foo.png",
       };
     });
 
@@ -36,8 +36,8 @@ describe("FrameworkUtil", () => {
     it("returns null if image value is empty", () => {
       const images = {
         images: {
-          "icon-large": ""
-        }
+          "icon-large": "",
+        },
       };
 
       const image = FrameworkUtil.getImageSizeFromImagesObject(images, "large");
@@ -50,7 +50,7 @@ describe("FrameworkUtil", () => {
       thisImages = {
         "icon-small": "foo.png",
         "icon-medium": "foo.png",
-        "icon-large": "foo.png"
+        "icon-large": "foo.png",
       };
     });
 
@@ -78,7 +78,7 @@ describe("FrameworkUtil", () => {
           "eyJuYW1lIjoic2VydmljZSIsImltYWdlcyI6eyJpY29" +
           "uLXNtYWxsIjoiaWNvbi1zZXJ2aWNlLXNtYWxsLnBuZyIsImljb24tbWVkaXVtIjoia" +
           "WNvbi1zZXJ2aWNlLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaWNvbi1zZXJ2aWN" +
-          "lLWxhcmdlLnBuZyJ9fQ=="
+          "lLWxhcmdlLnBuZyJ9fQ==",
       };
     });
 
@@ -94,8 +94,8 @@ describe("FrameworkUtil", () => {
         images: {
           "icon-small": "icon-service-small.png",
           "icon-medium": "icon-service-medium.png",
-          "icon-large": "icon-service-large.png"
-        }
+          "icon-large": "icon-service-large.png",
+        },
       });
     });
   });

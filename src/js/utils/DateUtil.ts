@@ -9,7 +9,7 @@ const DEFAULT_MULTIPLICANTS = {
   sec: 1000,
   min: 60000,
   h: 3600000,
-  d: 86400000
+  d: 86400000,
 };
 
 interface Multiplicants {
@@ -38,7 +38,7 @@ const longMonthDateTimeFormat: FormatOptions = {
   month: "long",
   year: "numeric",
   hour: "numeric",
-  minute: "numeric"
+  minute: "numeric",
 };
 const fullDateTimeFormat: FormatOptions = {
   year: "numeric",
@@ -46,7 +46,7 @@ const fullDateTimeFormat: FormatOptions = {
   day: "numeric",
   hour: "numeric",
   minute: "numeric",
-  second: "numeric"
+  second: "numeric",
 };
 
 const DateUtil = {
@@ -136,7 +136,7 @@ const DateUtil = {
   ): string {
     return formatDistanceStrict(ms || 0, Date.now(), {
       addSuffix: !suppressRelativeTime,
-      roundingMethod: "round"
+      roundingMethod: "round",
     });
   },
 
@@ -161,7 +161,7 @@ const DateUtil = {
 
     const date: Date = new Date(dateString);
     return date instanceof Date && !isNaN(date.getTime());
-  }
+  },
 };
 
 export default DateUtil;

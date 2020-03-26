@@ -1,3 +1,3 @@
 export const EmptyStates = {
-  CONFIG_VALUE: "\u2014"
+  CONFIG_VALUE: "\u2014",
 };

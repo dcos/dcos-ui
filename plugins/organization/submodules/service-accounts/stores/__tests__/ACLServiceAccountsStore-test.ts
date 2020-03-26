@@ -26,17 +26,17 @@ describe("ACLServiceAccountsStore", () => {
     // Reset state.serviceAccounts
     SDK.dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNTS_CHANGE,
-      serviceAccounts
+      serviceAccounts,
     });
     // Reset state.serviceAccountsDetail
     SDK.dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-      serviceAccounts: serviceAccountsDetails
+      serviceAccounts: serviceAccountsDetails,
     });
     // Reset state.serviceAccountsFetching
     SDK.dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCH_START,
-      serviceAccountsFetching
+      serviceAccountsFetching,
     });
   });
 
@@ -45,7 +45,7 @@ describe("ACLServiceAccountsStore", () => {
       const serviceAccounts = [{ bar: "baz" }, { baz: "bar" }];
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNTS_CHANGE,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(
@@ -54,9 +54,7 @@ describe("ACLServiceAccountsStore", () => {
       ).toBe(true);
 
       expect(
-        ACLServiceAccountsStore.getServiceAccounts()
-          .getItems()[0]
-          .get()
+        ACLServiceAccountsStore.getServiceAccounts().getItems()[0].get()
       ).toEqual(serviceAccounts[0]);
     });
   });
@@ -65,15 +63,15 @@ describe("ACLServiceAccountsStore", () => {
     it("returns the serviceAccountsDetail", () => {
       const serviceAccounts = {
         foo: {
-          bar: "baz"
+          bar: "baz",
         },
         foobar: {
-          baz: "bar"
-        }
+          baz: "bar",
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccountsDetail()).toEqual(
@@ -88,12 +86,12 @@ describe("ACLServiceAccountsStore", () => {
         foo: {
           groups: true,
           permissions: true,
-          serviceAccount: true
-        }
+          serviceAccount: true,
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCH_START,
-        serviceAccountsFetching
+        serviceAccountsFetching,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccountsFetching()).toEqual(
@@ -106,12 +104,12 @@ describe("ACLServiceAccountsStore", () => {
     it("returns {} if ServiceAccount does not exist", () => {
       const serviceAccounts = {
         foo: {
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccountRaw("foobar")).toEqual(
@@ -122,16 +120,16 @@ describe("ACLServiceAccountsStore", () => {
     it("returns the serviceAccount requested", () => {
       const serviceAccounts = {
         foo: {
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccountRaw("foo")).toEqual({
-        bar: "baz"
+        bar: "baz",
       });
     });
   });
@@ -140,12 +138,12 @@ describe("ACLServiceAccountsStore", () => {
     it("returns null if ServiceAccount does not exist", () => {
       const serviceAccounts = {
         foo: {
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccount("foobar")).toEqual(null);
@@ -154,16 +152,16 @@ describe("ACLServiceAccountsStore", () => {
     it("returns the serviceAccount requested", () => {
       const serviceAccounts = {
         foo: {
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts
+        serviceAccounts,
       });
 
       expect(ACLServiceAccountsStore.getServiceAccount("foo").get()).toEqual({
-        bar: "baz"
+        bar: "baz",
       });
 
       expect(
@@ -178,7 +176,7 @@ describe("ACLServiceAccountsStore", () => {
       ACLServiceAccountsStore.setServiceAccount("foo", { bar: "baz" });
 
       expect(ACLServiceAccountsStore.getServiceAccountsDetail()).toEqual({
-        foo: { bar: "baz" }
+        foo: { bar: "baz" },
       });
     });
   });
@@ -197,8 +195,8 @@ describe("ACLServiceAccountsStore", () => {
         foo: {
           serviceAccount: false,
           groups: false,
-          permissions: false
-        }
+          permissions: false,
+        },
       });
     });
 
@@ -219,17 +217,17 @@ describe("ACLServiceAccountsStore", () => {
       // Reset state.serviceAccounts
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNTS_CHANGE,
-        serviceAccounts
+        serviceAccounts,
       });
       // Reset state.serviceAccountsDetail
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-        serviceAccounts: serviceAccountsDetails
+        serviceAccounts: serviceAccountsDetails,
       });
       // Reset state.serviceAccountsFetching
       SDK.dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCH_START,
-        serviceAccountsFetching
+        serviceAccountsFetching,
       });
     });
 
@@ -246,7 +244,7 @@ describe("ACLServiceAccountsStore", () => {
       it("invokes fetchAll upon success", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
 
         expect(ACLServiceAccountsStore.fetchAll.mock.calls.length).toEqual(1);
@@ -255,7 +253,7 @@ describe("ACLServiceAccountsStore", () => {
       it("emits event after success event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
@@ -263,7 +261,7 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_CREATE_SUCCESS,
           data: { uid: "foo" },
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
@@ -277,7 +275,7 @@ describe("ACLServiceAccountsStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_CREATE_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -295,7 +293,7 @@ describe("ACLServiceAccountsStore", () => {
       it("invokes fetchAll upon success", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_DELETE_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
 
         expect(ACLServiceAccountsStore.fetchAll.mock.calls.length).toEqual(1);
@@ -304,7 +302,7 @@ describe("ACLServiceAccountsStore", () => {
       it("emits event after success event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DELETE_SUCCESS,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
@@ -312,7 +310,7 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_DELETE_SUCCESS,
           data: { uid: "foo" },
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
@@ -326,7 +324,7 @@ describe("ACLServiceAccountsStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_DELETE_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -335,40 +333,40 @@ describe("ACLServiceAccountsStore", () => {
       it("stores serviceAccount when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_SUCCESS,
-          data: { uid: "foo", bar: "baz" }
+          data: { uid: "foo", bar: "baz" },
         });
 
         expect(ACLServiceAccountsStore.getServiceAccountRaw("foo")).toEqual({
           uid: "foo",
-          bar: "baz"
+          bar: "baz",
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_SERVICE_ACCOUNT_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_SUCCESS,
-          data: { uid: "foo" }
+          data: { uid: "foo" },
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_SERVICE_ACCOUNT_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -377,13 +375,11 @@ describe("ACLServiceAccountsStore", () => {
       it("stores serviceAccounts when event is dispatched", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
-          data: [{ uid: "foo", bar: "baz" }]
+          data: [{ uid: "foo", bar: "baz" }],
         });
 
         expect(
-          ACLServiceAccountsStore.getServiceAccounts()
-            .getItems()[0]
-            .get()
+          ACLServiceAccountsStore.getServiceAccounts().getItems()[0].get()
         ).toEqual({ uid: "foo", bar: "baz" });
       });
 
@@ -396,7 +392,7 @@ describe("ACLServiceAccountsStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNTS_SUCCESS,
-          data: [{ uid: "foo" }]
+          data: [{ uid: "foo" }],
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -412,7 +408,7 @@ describe("ACLServiceAccountsStore", () => {
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNTS_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -422,39 +418,39 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_SUCCESS,
           data: { bar: "baz" },
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
 
         expect(ACLServiceAccountsStore.getServiceAccountRaw("foo")).toEqual({
-          groups: { bar: "baz" }
+          groups: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_GROUPS_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_GROUPS_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_GROUPS_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -464,39 +460,39 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_SUCCESS,
           data: { bar: "baz" },
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
 
         expect(ACLServiceAccountsStore.getServiceAccountRaw("foo")).toEqual({
-          permissions: { bar: "baz" }
+          permissions: { bar: "baz" },
         });
       });
 
       it("emits event after success event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_PERMISSIONS_CHANGE,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
       it("emits event after error event is dispatched", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_PERMISSIONS_ERROR,
-          id => {
+          (id) => {
             expect(id).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_PERMISSIONS_ERROR,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });
@@ -514,7 +510,7 @@ describe("ACLServiceAccountsStore", () => {
       it("invokes fetchAll upon success", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
 
         expect(ACLServiceAccountsStore.fetchAll.mock.calls.length).toEqual(1);
@@ -529,21 +525,21 @@ describe("ACLServiceAccountsStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
         });
       });
 
       it("emits success event with the serviceAccountID", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
-          serviceAccountID => {
+          (serviceAccountID) => {
             expect(serviceAccountID).toEqual("foo");
           }
         );
 
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
@@ -556,7 +552,7 @@ describe("ACLServiceAccountsStore", () => {
         );
 
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR
+          type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
         });
       });
 
@@ -571,14 +567,14 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
           data: "bar",
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
 
       it("emits error event with the error message", () => {
         ACLServiceAccountsStore.addChangeListener(
           EventTypes.ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
-          error => {
+          (error) => {
             expect(error).toEqual("bar");
           }
         );
@@ -586,7 +582,7 @@ describe("ACLServiceAccountsStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
           data: "bar",
-          serviceAccountID: "foo"
+          serviceAccountID: "foo",
         });
       });
     });

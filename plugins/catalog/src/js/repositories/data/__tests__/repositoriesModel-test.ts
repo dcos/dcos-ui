@@ -6,58 +6,58 @@ const data = [
   {
     name: "Universe",
     uri: "https://universe.mesosphere.com/repo",
-    priority: 0
+    priority: 0,
   },
   {
     name: "Marvel Universe",
     uri: "https://marvel.universe.mesosphere.com",
-    priority: 1
+    priority: 1,
   },
   {
     name: "DC Universe",
     uri: "https://dc.universe.mesosphere.com/batmans-repo",
-    priority: 2
-  }
+    priority: 2,
+  },
 ];
 
 describe("Repository Model", () => {
   describe("#packageRepository", () => {
     it(
       "returns all repositories without filter",
-      marbles(m => {
+      marbles((m) => {
         const queryResult = m.cold("a|", {
-          a: { response: { repositories: data } }
+          a: { response: { repositories: data } },
         });
         const expected = m.cold("a|", {
-          a: ["Universe", "Marvel Universe", "DC Universe"]
+          a: ["Universe", "Marvel Universe", "DC Universe"],
         });
 
         const result = resolvers({
-          liveFetchRepositories: () => queryResult
+          liveFetchRepositories: () => queryResult,
         }).Query.packageRepository(null, { filter: "" });
 
         m.expect(
-          result.pipe(map(item => item.map(({ name }) => name)))
+          result.pipe(map((item) => item.map(({ name }) => name)))
         ).toBeObservable(expected);
       })
     );
 
     it(
       "returns filtered repositories",
-      marbles(m => {
+      marbles((m) => {
         const queryResult = m.cold("a|", {
-          a: { response: { repositories: data } }
+          a: { response: { repositories: data } },
         });
         const expected = m.cold("a|", {
-          a: ["Marvel Universe"]
+          a: ["Marvel Universe"],
         });
 
         const result = resolvers({
-          liveFetchRepositories: () => queryResult
+          liveFetchRepositories: () => queryResult,
         }).Query.packageRepository(null, { filter: "Marvel" });
 
         m.expect(
-          result.pipe(map(item => item.map(({ name }) => name)))
+          result.pipe(map((item) => item.map(({ name }) => name)))
         ).toBeObservable(expected);
       })
     );
@@ -66,27 +66,27 @@ describe("Repository Model", () => {
   describe("#addPackageRepository", () => {
     it(
       "passes the result of the provider",
-      marbles(m => {
+      marbles((m) => {
         const mutation = m.cold("a|", {
-          a: { response: { repositories: data } }
+          a: { response: { repositories: data } },
         });
         const expected = m.cold("a|", {
-          a: ["Universe", "Marvel Universe", "DC Universe"]
+          a: ["Universe", "Marvel Universe", "DC Universe"],
         });
 
         const addRepository = jest.fn();
         addRepository.mockReturnValue(mutation);
 
         const result = resolvers({
-          addRepository
+          addRepository,
         }).Mutation.addPackageRepository(null, {
           name: "DC Universe",
           uri: "https://dc.universe.mesosphere.com/batmans-repo",
-          index: 2
+          index: 2,
         });
 
         m.expect(
-          result.pipe(map(item => item.map(({ name }) => name)))
+          result.pipe(map((item) => item.map(({ name }) => name)))
         ).toBeObservable(expected);
 
         expect(addRepository).toHaveBeenCalledWith(
@@ -99,18 +99,18 @@ describe("Repository Model", () => {
 
     it(
       "passes the error if provider fails",
-      marbles(m => {
+      marbles((m) => {
         const mutation = m.cold("#", {}, new Error("Could not add repository"));
         const expected = m.cold("#", {}, new Error("Could not add repository"));
         const addRepository = jest.fn();
         addRepository.mockReturnValueOnce(mutation);
 
         const result = resolvers({
-          addRepository
+          addRepository,
         }).Mutation.addPackageRepository(null, {
           name: "DC Universe",
           uri: "https://dc.universe.mesosphere.com/batmans-repo",
-          index: 2
+          index: 2,
         });
 
         m.expect(result).toBeObservable(expected);
@@ -127,26 +127,26 @@ describe("Repository Model", () => {
   describe("#removePackageRepository", () => {
     it(
       "passes the result of the provider",
-      marbles(m => {
+      marbles((m) => {
         const mutation = m.cold("a|", {
-          a: { response: { repositories: data } }
+          a: { response: { repositories: data } },
         });
         const expected = m.cold("a|", {
-          a: ["Universe", "Marvel Universe", "DC Universe"]
+          a: ["Universe", "Marvel Universe", "DC Universe"],
         });
 
         const deleteRepository = jest.fn();
         deleteRepository.mockReturnValueOnce(mutation);
 
         const result = resolvers({
-          deleteRepository
+          deleteRepository,
         }).Mutation.removePackageRepository(null, {
           name: "Marvel Universe",
-          uri: "https://marvel.universe.mesosphere.com"
+          uri: "https://marvel.universe.mesosphere.com",
         });
 
         m.expect(
-          result.pipe(map(item => item.map(({ name }) => name)))
+          result.pipe(map((item) => item.map(({ name }) => name)))
         ).toBeObservable(expected);
 
         expect(deleteRepository).toHaveBeenCalledWith(
@@ -158,7 +158,7 @@ describe("Repository Model", () => {
 
     it(
       "passes the error if provider fails",
-      marbles(m => {
+      marbles((m) => {
         const mutation = m.cold("#", {}, new Error("Could not add repository"));
         const expected = m.cold("#", {}, new Error("Could not add repository"));
 
@@ -166,7 +166,7 @@ describe("Repository Model", () => {
         deleteRepository.mockReturnValueOnce(mutation);
 
         const result = resolvers({
-          deleteRepository
+          deleteRepository,
         }).Mutation.removePackageRepository(null, {});
 
         m.expect(result).toBeObservable(expected);

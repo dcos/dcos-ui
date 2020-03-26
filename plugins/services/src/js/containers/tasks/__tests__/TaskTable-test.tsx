@@ -16,7 +16,7 @@ let thisTaskTable, thisGetNodeFromID;
 describe("TaskTable", () => {
   beforeEach(() => {
     DCOSStore.serviceTree = {
-      getTaskFromTaskID: jest.fn()
+      getTaskFromTaskID: jest.fn(),
     };
   });
 
@@ -28,7 +28,7 @@ describe("TaskTable", () => {
     it("treats tasks started not by Marathon as disabled", () => {
       const tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
-        { id: "2", state: "TASK_STARTING" }
+        { id: "2", state: "TASK_STARTING" },
       ];
       expect(thisTaskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });
@@ -36,7 +36,7 @@ describe("TaskTable", () => {
     it("it treats completed tasks as disabled", () => {
       const tasks = [
         { id: "1", state: "TASK_STARTING", isStartedByMarathon: true },
-        { id: "2", state: "TASK_FINISHED", isStartedByMarathon: true }
+        { id: "2", state: "TASK_FINISHED", isStartedByMarathon: true },
       ];
       expect(thisTaskTable.getDisabledItemsMap(tasks)).toEqual({ "2": true });
     });

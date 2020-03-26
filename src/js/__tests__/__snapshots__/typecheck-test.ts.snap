@@ -467,8 +467,8 @@ plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
-plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
+plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2345: Argument of type * is not assignable to parameter of type *.
 plugins/jobs/src/js/data/__tests__/JobModel-test.ts: error TS2322: type * is not assignable to type 'Observable<RequestResponse<JobDetailResponse>>'.
@@ -5596,13 +5596,13 @@ src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'yAxisRef' 
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'gridRef' does not exist on type 'TimeSeriesChart'.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'clipPathID' does not exist on type 'TimeSeriesChart'.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
-src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maskID' does not exist on type 'TimeSeriesChart'.
-src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'data' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'height' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'margin' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maxY' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'refreshRate' does not exist on type *.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'maskID' does not exist on type 'TimeSeriesChart'.
+src/js/components/charts/TimeSeriesChart.tsx: error TS2554: Expected 1 arguments, but got 0.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'width' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'yFormat' does not exist on type *.
 src/js/components/charts/TimeSeriesChart.tsx: error TS2339: Property 'y' does not exist on type *.

@@ -1,6 +1,6 @@
 import {
   ACL_RESOURCE_ACLS_CHANGE,
-  ACL_SCHEMA_CHANGE
+  ACL_SCHEMA_CHANGE,
 } from "./constants/EventTypes";
 
 module.exports = (state = {}, action) => {

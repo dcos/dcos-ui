@@ -2,7 +2,7 @@ import * as ServiceAccountFormUtil from "../ServiceAccountFormUtil";
 
 const formData = {
   foo: "bar",
-  fooBar: ""
+  fooBar: "",
 };
 
 describe("ServiceAccountFormUtil", () => {
@@ -64,7 +64,7 @@ describe("ServiceAccountFormUtil", () => {
 
     it("returns error message with default matcher if errorCode not in list", () => {
       expect(ServiceAccountFormUtil.getErrors("code", "message")).toEqual({
-        uid: "message"
+        uid: "message",
       });
     });
 

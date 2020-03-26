@@ -9,7 +9,7 @@ describe("Secret", () => {
   describe("#getAuthor", () => {
     it("returns description", () => {
       const secret = new Secret({
-        author: "kennytran"
+        author: "kennytran",
       });
 
       expect(secret.getAuthor()).toBe("kennytran");
@@ -19,7 +19,7 @@ describe("Secret", () => {
   describe("#getValue", () => {
     it("returns uid", () => {
       const secret = new Secret({
-        value: "foobar"
+        value: "foobar",
       });
 
       expect(secret.getValue()).toBe("foobar");
@@ -29,7 +29,7 @@ describe("Secret", () => {
   describe("#getCreatedAt", () => {
     it("returns an instance of Secret", () => {
       const secret = new Secret({
-        created: "10/19/1993"
+        created: "10/19/1993",
       });
 
       expect(secret.getCreatedAt()).toBe("10/19/1993");
@@ -39,7 +39,7 @@ describe("Secret", () => {
   describe("#isBinary", () => {
     it("returns true if contentType is application/octet-stream", () => {
       const secret = new Secret({
-        contentType: "application/octet-stream"
+        contentType: "application/octet-stream",
       });
 
       expect(secret.isBinary()).toBe(true);

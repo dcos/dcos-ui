@@ -15,7 +15,7 @@ const RouterStub = {
   setRouteLeaveHook() {},
   createPath() {},
   createHref() {},
-  isActive() {}
+  isActive() {},
 };
 
 // Default prototype functions when mocking timezone
@@ -41,12 +41,15 @@ const JestUtil = {
       60;
 
     Date.prototype.getTimezoneOffset = () => timezoneOffset;
-    Date.prototype.toLocaleString = function(locale = undefined, options = {}) {
+    Date.prototype.toLocaleString = function (
+      locale = undefined,
+      options = {}
+    ) {
       options.timeZone = options.timeZone || timezone;
 
       return defaultToLocaleString.call(this, locale, options);
     };
-    Intl.DateTimeFormat = function(locales, options) {
+    Intl.DateTimeFormat = function (locales, options) {
       options.timeZone = options.timeZone || timezone;
 
       return defaultDateTimeFormat.call(this, locales, options);
@@ -74,7 +77,7 @@ const JestUtil = {
         return {
           router: routerShape,
           routeDepth: PropTypes.number,
-          ...contextTypes
+          ...contextTypes,
         };
       }
 
@@ -82,7 +85,7 @@ const JestUtil = {
         return {
           router: { ...RouterStub, ...routerStubs },
           routeDepth: 0,
-          ...context
+          ...context,
         };
       }
 
@@ -112,7 +115,7 @@ const JestUtil = {
     Date.prototype.getTimezoneOffset = defaultGetTimezoneOffset;
     Date.prototype.toLocaleString = defaultToLocaleString;
     Intl.DateTimeFormat = defaultDateTimeFormat;
-  }
+  },
 };
 
 export default JestUtil;

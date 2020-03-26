@@ -23,11 +23,11 @@ let thisRequestFn, thisNodeMemberships, thisUseFixtures;
 describe("NetworkingNodeMembershipsStore", () => {
   beforeEach(() => {
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(nodeMembershipsFixture);
     };
     thisNodeMemberships = {
-      ...nodeMembershipsFixture
+      ...nodeMembershipsFixture,
     };
   });
 
@@ -53,7 +53,7 @@ describe("NetworkingNodeMembershipsStore", () => {
     it("stores node memberships when event is dispatched", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS,
-        data: [{ foo: "bar", baz: "qux", quux: "grault" }]
+        data: [{ foo: "bar", baz: "qux", quux: "grault" }],
       });
 
       const nodeMemberships = NetworkingNodeMembershipsStore.get(
@@ -63,7 +63,7 @@ describe("NetworkingNodeMembershipsStore", () => {
       expect(nodeMemberships[0]).toEqual({
         foo: "bar",
         baz: "qux",
-        quux: "grault"
+        quux: "grault",
       });
     });
 
@@ -75,7 +75,7 @@ describe("NetworkingNodeMembershipsStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_SUCCESS,
-        data: [{ foo: "bar", baz: "qux", quux: "grault" }]
+        data: [{ foo: "bar", baz: "qux", quux: "grault" }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -91,7 +91,7 @@ describe("NetworkingNodeMembershipsStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_NETWORKING_NODE_MEMBERSHIPS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

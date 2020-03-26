@@ -9,46 +9,46 @@ describe("TasksContainer", () => {
           name: "no new regions and zones",
           regions: [],
           zones: [],
-          expectedQuery: "is:active"
+          expectedQuery: "is:active",
         },
         {
           name: "new region and zone",
           regions: ["eu-central-1"],
           zones: ["eu-central-1b"],
-          expectedQuery: "is:active"
+          expectedQuery: "is:active",
         },
         {
           name: "no new region with custom query",
           regions: [],
           zones: [],
           query: "is:completed",
-          expectedQuery: "is:completed"
+          expectedQuery: "is:completed",
         },
         {
           name: "new region with custom query",
           regions: ["eu-central-1"],
           zones: ["eu-central-1b"],
           query: "is:completed",
-          expectedQuery: "is:completed"
-        }
+          expectedQuery: "is:completed",
+        },
       ];
 
       testCases.forEach(({ name, regions, zones, query, expectedQuery }) => {
         it(name, () => {
           TaskUtil.getNode = jest.fn(({ region, zone }) => ({
             getZoneName: jest.fn(() => zone),
-            getRegionName: jest.fn(() => region)
+            getRegionName: jest.fn(() => region),
           }));
 
           const setState = jest.fn();
           TasksContainer.prototype.propsToState.call(
             {
               state: { defaultFilterData: { zones: [], regions: [] } },
-              setState
+              setState,
             },
             {
               location: { query: { q: query } },
-              tasks: zones.map((zone, i) => ({ zone, region: regions[i] }))
+              tasks: zones.map((zone, i) => ({ zone, region: regions[i] })),
             }
           );
 

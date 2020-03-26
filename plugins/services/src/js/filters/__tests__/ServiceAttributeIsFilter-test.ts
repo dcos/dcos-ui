@@ -12,23 +12,23 @@ describe("ServiceAttributeIsFilter", () => {
       {
         getServiceStatus() {
           return ServiceStatus.DEPLOYING;
-        }
+        },
       },
       {
         getServiceStatus() {
           return ServiceStatus.RUNNING;
-        }
+        },
       },
       {
         getServiceStatus() {
           return ServiceStatus.STOPPED;
-        }
+        },
       },
       {
         getServiceStatus() {
           return ServiceStatus.NA;
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -39,7 +39,7 @@ describe("ServiceAttributeIsFilter", () => {
     const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 
@@ -50,7 +50,7 @@ describe("ServiceAttributeIsFilter", () => {
     const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[1]
+      thisMockItems[1],
     ]);
   });
 
@@ -61,7 +61,7 @@ describe("ServiceAttributeIsFilter", () => {
     const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 
@@ -81,7 +81,7 @@ describe("ServiceAttributeIsFilter", () => {
     const filters = [new ServiceAttributeIsFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

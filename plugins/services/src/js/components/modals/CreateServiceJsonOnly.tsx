@@ -22,20 +22,20 @@ class CreateServiceJsonOnly extends React.Component {
   static defaultProps = {
     onChange() {},
     onErrorsChange() {},
-    onPropertyChange() {}
+    onPropertyChange() {},
   };
   static propTypes = {
     errors: PropTypes.array.isRequired,
     onChange: PropTypes.func,
     onErrorsChange: PropTypes.func,
     onPropertyChange: PropTypes.func,
-    service: PropTypes.object
+    service: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      appConfig: ServiceUtil.getServiceJSON(this.props.service)
+      appConfig: ServiceUtil.getServiceJSON(this.props.service),
     };
   }
 
@@ -52,7 +52,7 @@ class CreateServiceJsonOnly extends React.Component {
     }
 
     this.setState({
-      appConfig: ServiceUtil.getServiceJSON(service)
+      appConfig: ServiceUtil.getServiceJSON(service),
     });
   }
 
@@ -61,7 +61,7 @@ class CreateServiceJsonOnly extends React.Component {
    *
    * @param {Object} jsonObject - The JSON object from which to build the spec
    */
-  handleJSONChange = jsonObject => {
+  handleJSONChange = (jsonObject) => {
     let newObject;
     if (ServiceValidatorUtil.isPodSpecDefinition(jsonObject)) {
       newObject = new PodSpec(jsonObject);
@@ -77,9 +77,9 @@ class CreateServiceJsonOnly extends React.Component {
    *
    * @param {Boolean} errorState - True if there are JSON syntax errors
    */
-  handleJSONErrorStateChange = errorState => {
+  handleJSONErrorStateChange = (errorState) => {
     const { errors, onErrorsChange, i18n } = this.props;
-    const hasJsonError = errors.some(error => error.type === SYNTAX_ERROR);
+    const hasJsonError = errors.some((error) => error.type === SYNTAX_ERROR);
 
     // Produce a JSON error if we have errors
     if (errorState && !hasJsonError) {
@@ -88,8 +88,8 @@ class CreateServiceJsonOnly extends React.Component {
           path: [],
           type: SYNTAX_ERROR,
           variables: {},
-          message: i18n._(t`The input entered is not a valid JSON string`)
-        }
+          message: i18n._(t`The input entered is not a valid JSON string`),
+        },
       ]);
     }
 

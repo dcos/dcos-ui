@@ -3,7 +3,7 @@ import {
   NETWORKING_VIPS_CHANGE,
   NETWORKING_VIPS_REQUEST_ERROR,
   NETWORKING_VIP_DETAIL_CHANGE,
-  NETWORKING_VIP_DETAIL_REQUEST_ERROR
+  NETWORKING_VIP_DETAIL_REQUEST_ERROR,
 } from "../constants/EventTypes";
 
 import {
@@ -11,7 +11,7 @@ import {
   REQUEST_NETWORKING_VIPS_ERROR,
   REQUEST_NETWORKING_VIP_DETAIL_SUCCESS,
   REQUEST_NETWORKING_VIP_DETAIL_ERROR,
-  REQUEST_NETWORKING_VIP_DETAIL_ONGOING
+  REQUEST_NETWORKING_VIP_DETAIL_ONGOING,
 } from "../constants/ActionTypes";
 
 import NetworkingActions from "../actions/NetworkingActions";
@@ -33,12 +33,12 @@ class NetworkingVIPsStore extends BaseStore {
         success: NETWORKING_VIPS_CHANGE,
         error: NETWORKING_VIPS_REQUEST_ERROR,
         detailSuccess: NETWORKING_VIP_DETAIL_CHANGE,
-        detailError: NETWORKING_VIP_DETAIL_REQUEST_ERROR
+        detailError: NETWORKING_VIP_DETAIL_REQUEST_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case REQUEST_NETWORKING_VIPS_SUCCESS:
           this.processVIPs(action.data);
@@ -103,7 +103,7 @@ class NetworkingVIPsStore extends BaseStore {
   processVIPs(vips) {
     SDK.getSDK().dispatch({
       type: NETWORKING_VIPS_CHANGE,
-      vips
+      vips,
     });
     this.emit(NETWORKING_VIPS_CHANGE);
   }
@@ -117,7 +117,7 @@ class NetworkingVIPsStore extends BaseStore {
     currentVIPDetail[vip] = vipDetail;
     SDK.getSDK().dispatch({
       type: NETWORKING_VIP_DETAIL_CHANGE,
-      vipDetail: currentVIPDetail
+      vipDetail: currentVIPDetail,
     });
     this.emit(NETWORKING_VIP_DETAIL_CHANGE, vip);
   }

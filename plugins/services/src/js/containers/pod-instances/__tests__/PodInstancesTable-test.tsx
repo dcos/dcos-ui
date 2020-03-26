@@ -96,7 +96,7 @@ describe("PodInstancesTable", () => {
       it("renders the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
@@ -106,7 +106,7 @@ describe("PodInstancesTable", () => {
           .find(
             ".task-table-column-host-address .collapsing-string-full-string"
           )
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["agent-1", "agent-2", "agent-3"]);
       });
@@ -114,7 +114,7 @@ describe("PodInstancesTable", () => {
       it("renders the region column", () => {
         const regions = thisInstance
           .find("td.task-table-column-region")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(regions).toEqual(["N/A", "N/A", "N/A"]);
       });
@@ -122,7 +122,7 @@ describe("PodInstancesTable", () => {
       it("renders the zone column", () => {
         const zones = thisInstance
           .find("td.task-table-column-zone")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(zones).toEqual(["N/A", "N/A", "N/A"]);
       });
@@ -130,7 +130,7 @@ describe("PodInstancesTable", () => {
       it("renders the status column", () => {
         const names = thisInstance
           .find(".task-table-column-status span.status-text")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["Running", "Running", "Staging"]);
       });
@@ -138,7 +138,7 @@ describe("PodInstancesTable", () => {
       it("renders the cpu column", () => {
         const names = thisInstance
           .find("td.task-table-column-cpus")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["1", "1", "1"]);
       });
@@ -146,7 +146,7 @@ describe("PodInstancesTable", () => {
       it("renders the mem column", () => {
         const names = thisInstance
           .find("td.task-table-column-mem")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["128 MiB", "128 MiB", "128 MiB"]);
       });
@@ -154,7 +154,7 @@ describe("PodInstancesTable", () => {
       it("renders the updated column", () => {
         const names = thisInstance
           .find("td.task-table-column-updated")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["1 day ago", "7 days ago", "13 days ago"]);
       });
@@ -162,7 +162,7 @@ describe("PodInstancesTable", () => {
       it("renders the version column", () => {
         const names = thisInstance
           .find("td.task-table-column-version")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([
           Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
@@ -173,7 +173,7 @@ describe("PodInstancesTable", () => {
           ),
           Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
-          )
+          ),
         ]);
       });
     });
@@ -194,16 +194,13 @@ describe("PodInstancesTable", () => {
         );
 
         // 1 click on the header (ascending)
-        thisInstance
-          .find(".task-table-column-primary")
-          .at(0)
-          .simulate("click");
+        thisInstance.find(".task-table-column-primary").at(0).simulate("click");
       });
 
       it("sorts the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["instance-1", "instance-2", "instance-3"]);
       });
@@ -234,7 +231,7 @@ describe("PodInstancesTable", () => {
       it("sorts the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual(["instance-3", "instance-2", "instance-1"]);
       });
@@ -258,7 +255,7 @@ describe("PodInstancesTable", () => {
         // Expand all table rows by clicking on each one of them
         thisInstance
           .find(".task-table-column-primary .is-expandable")
-          .forEach(el => {
+          .forEach((el) => {
             el.simulate("click");
           });
       });
@@ -266,7 +263,7 @@ describe("PodInstancesTable", () => {
       it("renders the name column", () => {
         const names = thisInstance
           .find(".task-table-column-primary .collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([
           "instance-1",
@@ -277,7 +274,7 @@ describe("PodInstancesTable", () => {
           "container-2",
           "instance-3",
           "container-1",
-          "container-2"
+          "container-2",
         ]);
       });
 
@@ -285,11 +282,11 @@ describe("PodInstancesTable", () => {
         const columns = thisInstance.find(".task-table-column-host-address");
         const agents = columns
           .find(".collapsing-string-full-string")
-          .map(el => el.text());
+          .map((el) => el.text());
         const ports = columns
           .find("a")
-          .filterWhere(el => !el.hasClass("table-cell-link-secondary"))
-          .map(el => el.text());
+          .filterWhere((el) => !el.hasClass("table-cell-link-secondary"))
+          .map((el) => el.text());
 
         expect(agents).toEqual(["agent-1", "agent-2", "agent-3"]);
         expect(ports).toEqual([
@@ -298,14 +295,14 @@ describe("PodInstancesTable", () => {
           "31011",
           "31012",
           "31021",
-          "31022"
+          "31022",
         ]);
       });
 
       it("renders the status column", () => {
         const names = thisInstance
           .find(".task-table-column-status span.status-text")
-          .map(el => el.text());
+          .map((el) => el.text());
         expect(names).toEqual([
           "Running",
           "Running",
@@ -315,14 +312,14 @@ describe("PodInstancesTable", () => {
           "Running",
           "Staging",
           "Staging",
-          "Staging"
+          "Staging",
         ]);
       });
 
       it("renders the cpu column", () => {
         const names = thisInstance
           .find("td.task-table-column-cpus div.tooltip-wrapper > span")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([
           "1",
@@ -333,14 +330,14 @@ describe("PodInstancesTable", () => {
           "0.5",
           "1",
           "0.5",
-          "0.5"
+          "0.5",
         ]);
       });
 
       it("renders the mem column", () => {
         const names = thisInstance
           .find("td.task-table-column-mem div.tooltip-wrapper > span")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([
           "128 MiB",
@@ -351,14 +348,14 @@ describe("PodInstancesTable", () => {
           "64 MiB",
           "128 MiB",
           "64 MiB",
-          "64 MiB"
+          "64 MiB",
         ]);
       });
 
       it("renders the updated column", () => {
         const names = thisInstance
           .find("td.task-table-column-updated time")
-          .map(el => el.text());
+          .map((el) => el.text());
 
         expect(names).toEqual([
           "1 day ago",
@@ -369,14 +366,14 @@ describe("PodInstancesTable", () => {
           "11 days ago",
           "13 days ago",
           "15 days ago",
-          "17 days ago"
+          "17 days ago",
         ]);
       });
 
       it("renders the version column", () => {
         const names = thisInstance
           .find("td.task-table-column-version")
-          .map(el => el.text().trim());
+          .map((el) => el.text().trim());
 
         expect(names).toEqual([
           Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
@@ -387,7 +384,7 @@ describe("PodInstancesTable", () => {
           ),
           Intl.DateTimeFormat("en", DateUtil.getFormatOptions()).format(
             new Date(PodFixture.spec.version)
-          )
+          ),
         ]);
       });
     });

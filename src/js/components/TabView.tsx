@@ -13,9 +13,9 @@ TabView.propTypes = {
   className: PropTypes.oneOf([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
-  id: PropTypes.string.isRequired
+  id: PropTypes.string.isRequired,
 };
 
 export default TabView;

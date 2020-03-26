@@ -45,7 +45,7 @@ describe("AuthHooks", () => {
 
     it("dissallows access to empty capability", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:superuser": {}
+        "dcos:superuser": {},
       });
 
       expect(AuthHooks(SDK).hasCapability(false, "")).toBeFalsy();
@@ -54,7 +54,7 @@ describe("AuthHooks", () => {
 
     it("allow all capabilities for superusers", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:superuser": {}
+        "dcos:superuser": {},
       });
 
       expect(AuthHooks(SDK).hasCapability(false, "foo")).toBeTruthy();
@@ -63,7 +63,7 @@ describe("AuthHooks", () => {
 
     it("returns truthy when acl is present", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:adminrouter:ops:mesos": {}
+        "dcos:adminrouter:ops:mesos": {},
       });
 
       expect(AuthHooks(SDK).hasCapability(false, "mesosAPI")).toBeTruthy();
@@ -71,7 +71,7 @@ describe("AuthHooks", () => {
 
     it("returns falsy when acl is not present", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:adminrouter:ops:mesos": {}
+        "dcos:adminrouter:ops:mesos": {},
       });
 
       expect(AuthHooks(SDK).hasCapability(false, "networkingAPI")).toBeFalsy();
@@ -92,7 +92,7 @@ describe("AuthHooks", () => {
         "/cluster",
         "/components",
         "/settings",
-        "/organization"
+        "/organization",
       ];
     });
 
@@ -102,7 +102,7 @@ describe("AuthHooks", () => {
 
     it("allows access to all menus if superuser", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:superuser": {}
+        "dcos:superuser": {},
       });
 
       expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
@@ -116,7 +116,7 @@ describe("AuthHooks", () => {
         "/cluster",
         "/components",
         "/settings",
-        "/organization"
+        "/organization",
       ]);
     });
 
@@ -125,26 +125,26 @@ describe("AuthHooks", () => {
 
       expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/secrets",
-        "/settings"
+        "/settings",
       ]);
     });
 
     it("allows single menu item given permission", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
-        "dcos:adminrouter:ops:networking": {}
+        "dcos:adminrouter:ops:networking": {},
       });
 
       expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
         "/networking",
         "/secrets", // always shown due to 'none permission
-        "/settings"
+        "/settings",
       ]);
     });
 
     it("allows multiple menu items given permissions", () => {
       ACLAuthenticatedUserStore(SDK).getPermissions = () => ({
         "dcos:adminrouter:service:marathon": {},
-        "dcos:adminrouter:ops:networking": {}
+        "dcos:adminrouter:ops:networking": {},
       });
 
       expect(AuthHooks(SDK).sidebarNavigation(thisMenuItems)).toEqual([
@@ -152,7 +152,7 @@ describe("AuthHooks", () => {
         "/services",
         "/networking",
         "/secrets", // always shown due to 'none permission
-        "/settings"
+        "/settings",
       ]);
     });
   });

@@ -18,21 +18,21 @@ const HostTimeSeriesChart = createReactClass({
     refreshRate: PropTypes.number.isRequired,
     roundUpValue: PropTypes.number,
     minMaxY: PropTypes.number,
-    colorIndex: PropTypes.number
+    colorIndex: PropTypes.number,
   },
 
   getDefaultProps() {
     return {
       roundUpValue: 5,
       minMaxY: 10,
-      colorIndex: 0
+      colorIndex: 0,
     };
   },
 
   getMaxY() {
     const props = this.props;
     const roundUpValue = props.roundUpValue;
-    const slavesCounts = props.data.map(agent => agent.slavesCount);
+    const slavesCounts = props.data.map((agent) => agent.slavesCount);
     const maxSlavesCount = Math.max(...slavesCounts);
 
     let maxY =
@@ -50,8 +50,8 @@ const HostTimeSeriesChart = createReactClass({
       {
         name: "Nodes",
         colorIndex: props.colorIndex,
-        values: props.data
-      }
+        values: props.data,
+      },
     ];
   },
 
@@ -84,7 +84,7 @@ const HostTimeSeriesChart = createReactClass({
         {this.getChart(props)}
       </div>
     );
-  }
+  },
 });
 
 export default withI18n()(HostTimeSeriesChart);

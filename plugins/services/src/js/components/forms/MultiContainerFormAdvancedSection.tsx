@@ -41,12 +41,12 @@ const MultiContainerFormAdvancedSection = ({ data, path }) => (
 
 MultiContainerFormAdvancedSection.defaultProps = {
   data: {},
-  path: "container"
+  path: "container",
 };
 
 MultiContainerFormAdvancedSection.propTypes = {
   data: PropTypes.object,
-  path: PropTypes.string
+  path: PropTypes.string,
 };
 
 export default MultiContainerFormAdvancedSection;

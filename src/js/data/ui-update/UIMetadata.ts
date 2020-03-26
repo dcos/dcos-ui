@@ -19,5 +19,5 @@ export const UIMetadataSchema = `
 `;
 
 export const DEFAULT_UI_METADATA: UIMetadata = {
-  clientBuild: defaultClientBuild
+  clientBuild: defaultClientBuild,
 };

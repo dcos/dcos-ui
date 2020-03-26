@@ -50,14 +50,14 @@ function valueRow(props) {
   );
 }
 
-const SingleContainerSecret = props => {
+const SingleContainerSecret = (props) => {
   const {
     secretIndex,
     variableIndex,
     secret,
     secrets,
     variable,
-    onRemoveItem
+    onRemoveItem,
   } = props;
   const secretKey = secret.key || `secret${secretIndex}`;
 
@@ -100,20 +100,20 @@ SingleContainerSecret.propTypes = {
     exposures: PropTypes.arrayOf(
       PropTypes.shape({
         type: PropTypes.oneOf(["", "file", "envVar"]),
-        value: PropTypes.string
+        value: PropTypes.string,
       })
     ),
     key: PropTypes.string,
-    value: PropTypes.string
+    value: PropTypes.string,
   }),
   secrets: PropTypes.arrayOf(PropTypes.string),
   variable: PropTypes.shape({
     type: PropTypes.oneOf(["", "file", "envVar"]),
-    value: PropTypes.string
+    value: PropTypes.string,
   }),
   showErrors: PropTypes.bool.isRequired,
   errors: PropTypes.object,
-  onRemoveItem: PropTypes.func.isRequired
+  onRemoveItem: PropTypes.func.isRequired,
 };
 
 export default SingleContainerSecret;

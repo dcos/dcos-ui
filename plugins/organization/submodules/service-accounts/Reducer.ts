@@ -3,7 +3,7 @@ import * as EventTypes from "./constants/EventTypes";
 const initialState = {
   serviceAccounts: [],
   serviceAccountsDetail: {},
-  serviceAccountsFetching: {}
+  serviceAccountsFetching: {},
 };
 
 module.exports = (state = initialState, action) => {
@@ -19,7 +19,7 @@ module.exports = (state = initialState, action) => {
     case EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCHED_ERROR:
       return {
         ...state,
-        serviceAccountsFetching: action.serviceAccountsFetching
+        serviceAccountsFetching: action.serviceAccountsFetching,
       };
 
     default:

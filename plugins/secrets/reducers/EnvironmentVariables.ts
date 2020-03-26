@@ -1,12 +1,12 @@
 import Transaction from "#SRC/js/structs/Transaction";
 import {
   processSecretTransaction,
-  processPodSecretTransaction
+  processPodSecretTransaction,
 } from "./Secrets";
 import {
   EnvironmentSecret,
   MultiContainerReducerContext,
-  SingleContainerReducerContext
+  SingleContainerReducerContext,
 } from "./types";
 
 export default {
@@ -25,7 +25,7 @@ export default {
     this.secrets = processSecretTransaction(this.secrets, {
       type,
       path,
-      value
+      value,
     });
 
     const result: Record<string, EnvironmentSecret> = {};
@@ -35,8 +35,8 @@ export default {
 
       if (Array.isArray(item.exposures) && key != null) {
         item.exposures
-          .filter(exposure => exposure.type === "envVar")
-          .map(exposure => exposure.value)
+          .filter((exposure) => exposure.type === "envVar")
+          .map((exposure) => exposure.value)
           .filter((envVar: string) => envVar != null && envVar.length > 0)
           .forEach((envVar: string) => {
             memo[envVar] = { secret: key };
@@ -61,7 +61,7 @@ export default {
     this.secrets = processPodSecretTransaction(this.secrets, {
       type,
       path,
-      value
+      value,
     });
 
     const result: Record<string, EnvironmentSecret> = {};
@@ -71,8 +71,8 @@ export default {
 
       if (Array.isArray(item.exposures) && key != null) {
         item.exposures
-          .filter(exposure => exposure.type === "envVar")
-          .map(exposure => exposure.value)
+          .filter((exposure) => exposure.type === "envVar")
+          .map((exposure) => exposure.value)
           .filter((envVar: string) => envVar != null && envVar.length > 0)
           .forEach((envVar: string) => {
             memo[envVar] = { secret: key };
@@ -81,5 +81,5 @@ export default {
 
       return memo;
     }, result);
-  }
+  },
 };

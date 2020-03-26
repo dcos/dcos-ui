@@ -33,28 +33,28 @@ class DSLExpression {
       ast: {
         value: ast,
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       defined: {
         value: Boolean(value),
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       filter: {
         value: filter,
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       hasErrors: {
         value: hasErrors,
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       value: {
         value,
         writable: false,
-        enumerable: true
-      }
+        enumerable: true,
+      },
     });
   }
 }

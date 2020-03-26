@@ -5,10 +5,10 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyLightDarken1,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
-const EndpointClipboardTrigger = props => {
+const EndpointClipboardTrigger = (props) => {
   const { command } = props;
 
   return (
@@ -32,7 +32,7 @@ const EndpointClipboardTrigger = props => {
 };
 
 EndpointClipboardTrigger.propTypes = {
-  command: PropTypes.string.isRequired
+  command: PropTypes.string.isRequired,
 };
 
 export default EndpointClipboardTrigger;

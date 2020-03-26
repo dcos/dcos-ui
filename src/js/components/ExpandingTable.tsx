@@ -13,7 +13,7 @@ class ExpandingTable extends React.Component {
     childRowClassName: "text-overflow",
     expandAll: false,
     expandRowsByDefault: false,
-    tableComponent: Table
+    tableComponent: Table,
   };
   static propTypes = {
     alignCells: PropTypes.oneOf(["top", "middle", "bottom"]),
@@ -21,11 +21,11 @@ class ExpandingTable extends React.Component {
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
     expandAll: PropTypes.bool,
     expandRowsByDefault: PropTypes.bool,
-    tableComponent: PropTypes.func
+    tableComponent: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -52,7 +52,7 @@ class ExpandingTable extends React.Component {
       let shouldSetState = false;
       const nextExpandedRows = this.state.expandedRows;
 
-      nextProps.data.forEach(row => {
+      nextProps.data.forEach((row) => {
         if (nextExpandedRows[row.id] == null) {
           shouldSetState = true;
           nextExpandedRows[row.id] = true;
@@ -71,7 +71,7 @@ class ExpandingTable extends React.Component {
 
   expandRow(row) {
     const expandedRows = {
-      ...this.state.expandedRows
+      ...this.state.expandedRows,
     };
     const rowID = this.getRowID(row);
 
@@ -87,9 +87,9 @@ class ExpandingTable extends React.Component {
 
   getColumns(columns) {
     // Replace the #render method on each column.
-    return columns.map(column => ({
+    return columns.map((column) => ({
       ...column,
-      render: this.getRenderer(column)
+      render: this.getRenderer(column),
     }));
   }
 
@@ -110,9 +110,9 @@ class ExpandingTable extends React.Component {
             hasChildren,
             isExpanded,
             isParent: true,
-            clickHandler: this.expandRow.bind(this, row)
+            clickHandler: this.expandRow.bind(this, row),
           })}
-        </div>
+        </div>,
       ];
 
       // If there are children, and the expanded row ID matches this row, then
@@ -147,7 +147,7 @@ class ExpandingTable extends React.Component {
   render() {
     const { props } = this;
     const classes = classNames("table-hover", props.className, {
-      [`table-align-${props.alignCells}`]: props.alignCells != null
+      [`table-align-${props.alignCells}`]: props.alignCells != null,
     });
     const TableComponent = props.tableComponent;
 

@@ -5,7 +5,7 @@ import { Link } from "react-router";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import NestedServiceLinks from "#SRC/js/components/NestedServiceLinks";
@@ -21,7 +21,7 @@ const ServiceName = React.memo(
     linkToQuota,
     name,
     image,
-    webUrl
+    webUrl,
   }: {
     isFiltered: boolean;
     id: string;

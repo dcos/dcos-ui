@@ -40,9 +40,9 @@ class ACLServiceAccountsStore extends BaseStore {
         permissionsError:
           EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_PERMISSIONS_ERROR,
         updateSuccess: EventTypes.ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
-        updateError: EventTypes.ACL_SERVICE_ACCOUNT_UPDATE_ERROR
+        updateError: EventTypes.ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
     getSDK().onDispatch((action: any) => {
@@ -191,7 +191,7 @@ class ACLServiceAccountsStore extends BaseStore {
 
     getSDK().dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNT_SET_SERVICE_ACCOUNT,
-      serviceAccounts
+      serviceAccounts,
     });
   }
 
@@ -206,12 +206,12 @@ class ACLServiceAccountsStore extends BaseStore {
     serviceAccountsFetching[serviceAccountID] = {
       serviceAccount: false,
       groups: false,
-      permissions: false
+      permissions: false,
     };
 
     getSDK().dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCH_START,
-      serviceAccountsFetching
+      serviceAccountsFetching,
     });
 
     ACLServiceAccountActions.fetch(serviceAccountID);
@@ -238,7 +238,7 @@ class ACLServiceAccountsStore extends BaseStore {
 
     const fetchedAll = !Object.keys(
       serviceAccountsFetching[serviceAccountID]
-    ).some(key => {
+    ).some((key) => {
       return !serviceAccountsFetching[serviceAccountID][key];
     });
 
@@ -246,7 +246,7 @@ class ACLServiceAccountsStore extends BaseStore {
       delete serviceAccountsFetching[serviceAccountID];
       getSDK().dispatch({
         type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCHED_SUCCESS,
-        serviceAccountsFetching
+        serviceAccountsFetching,
       });
       this.emit(
         EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCHED_SUCCESS,
@@ -271,7 +271,7 @@ class ACLServiceAccountsStore extends BaseStore {
 
     getSDK().dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCHED_ERROR,
-      serviceAccountsFetching
+      serviceAccountsFetching,
     });
     this.emit(
       EventTypes.ACL_SERVICE_ACCOUNT_DETAILS_FETCHED_ERROR,
@@ -317,7 +317,7 @@ class ACLServiceAccountsStore extends BaseStore {
   public processServiceAccounts(serviceAccounts: Array<{ uid: string }>) {
     getSDK().dispatch({
       type: EventTypes.ACL_SERVICE_ACCOUNTS_CHANGE,
-      serviceAccounts
+      serviceAccounts,
     });
     this.emit(EventTypes.ACL_SERVICE_ACCOUNTS_CHANGE);
   }

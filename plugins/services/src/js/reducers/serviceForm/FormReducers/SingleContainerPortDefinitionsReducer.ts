@@ -8,7 +8,7 @@ const FIELDS = [
   "name",
   "servicePort",
   "vip",
-  "vipPort"
+  "vipPort",
 ];
 
 /**
@@ -35,11 +35,11 @@ function SingleContainerPortDefinitionsReducer(state = [], action) {
             name: null,
             protocol: {
               tcp: false,
-              udp: false
+              udp: false,
             },
             servicePort: null,
             vip: null,
-            vipPort: null
+            vipPort: null,
           };
           const defaults = { protocol: { tcp: true } };
 

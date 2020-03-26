@@ -22,7 +22,7 @@ const UnitHealthNodeDetailBreadcrumbs = ({ node, unit }) => {
           <Trans render="span">Components</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (unit != null) {
@@ -70,7 +70,7 @@ class UnitsHealthNodeDetail extends mixin(StoreMixin) {
     this.state = {
       hasError: false,
       isLoadingUnit: true,
-      isLoadingNode: true
+      isLoadingNode: true,
     };
 
     // prettier-ignore

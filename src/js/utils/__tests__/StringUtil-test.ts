@@ -51,7 +51,7 @@ describe("StringUtil", () => {
         [
           { id: 0, foo: "bar" },
           { id: 1, foo: "baz" },
-          { id: 2, foo: "bar" }
+          { id: 2, foo: "bar" },
         ],
         "foo",
         "bar"
@@ -59,7 +59,7 @@ describe("StringUtil", () => {
 
       expect(_return).toEqual([
         { id: 0, foo: "bar" },
-        { id: 2, foo: "bar" }
+        { id: 2, foo: "bar" },
       ]);
     });
 
@@ -68,9 +68,9 @@ describe("StringUtil", () => {
         [
           { id: 0, foo: "bar" },
           { id: 1, foo: "baz" },
-          { id: 2, foo: "bar" }
+          { id: 2, foo: "bar" },
         ],
-        el => el.foo,
+        (el) => el.foo,
         "baz"
       );
       expect(_return).toEqual([{ id: 1, foo: "baz" }]);
@@ -263,7 +263,7 @@ describe("StringUtil", () => {
     it("allows the user to disable the serial comma", () => {
       expect(
         StringUtil.humanizeArray(["one", "two", "three"], {
-          serialComma: false
+          serialComma: false,
         })
       ).toEqual("one, two and three");
     });

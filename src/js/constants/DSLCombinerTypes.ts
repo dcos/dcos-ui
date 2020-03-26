@@ -3,7 +3,7 @@
  */
 const COMBINER_TYPES = {
   AND: 1,
-  OR: 2
+  OR: 2,
 };
 
 export default COMBINER_TYPES;

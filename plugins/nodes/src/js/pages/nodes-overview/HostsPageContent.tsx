@@ -31,7 +31,7 @@ const dslFormSections = () => [
   NodesTypeDSLSection,
   NodesStatusDSLSection,
   NodesRegionDSLFilter,
-  NodesZoneDSLFilter
+  NodesZoneDSLFilter,
 ];
 
 class HostsPageContent extends React.PureComponent {
@@ -48,7 +48,7 @@ class HostsPageContent extends React.PureComponent {
     selectedResource: PropTypes.string.isRequired,
     services: PropTypes.array.isRequired,
     totalNodeCount: PropTypes.number.isRequired,
-    viewTypeRadioButtons: PropTypes.node.isRequired
+    viewTypeRadioButtons: PropTypes.node.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -57,14 +57,14 @@ class HostsPageContent extends React.PureComponent {
       new NodesHealthFilter(),
       new NodesTextFilter(),
       new NodesTypeFilter(),
-      NodesStatusFilter
+      NodesStatusFilter,
     ];
 
     this.state = {
       expression: "",
       filterExpression: new DSLExpression(""),
       filters,
-      defaultFilterData: { regions: [], zones: [] }
+      defaultFilterData: { regions: [], zones: [] },
     };
   }
 
@@ -79,21 +79,21 @@ class HostsPageContent extends React.PureComponent {
     this.props.onResetFilter(...args);
 
     this.setState({
-      filterExpression: new DSLExpression("")
+      filterExpression: new DSLExpression(""),
     });
 
     if (this.serviceFilter !== null && this.serviceFilter.dropdown !== null) {
       this.serviceFilter.setDropdownValue("default");
     }
   };
-  onFilterChangeHandler = event => {
+  onFilterChangeHandler = (event) => {
     this.props.onFilterChange(
       new DSLExpression(event.value),
       this.state.filters
     );
     this.setState({
       expression: event.value,
-      filterExpression: new DSLExpression(event.value)
+      filterExpression: new DSLExpression(event.value),
     });
   };
 
@@ -120,17 +120,17 @@ class HostsPageContent extends React.PureComponent {
       new Set(
         allHosts
           .getItems()
-          .map(h => h.getRegionName())
-          .filter(name => name !== "N/A")
+          .map((h) => h.getRegionName())
+          .filter((name) => name !== "N/A")
       )
     );
 
     // If no region/ zones added from props return
     if (
       newRegions.length === regions.length &&
-      newRegions.every(region => regions.indexOf(region) !== -1) &&
+      newRegions.every((region) => regions.indexOf(region) !== -1) &&
       newZones.length === zones.length &&
-      newZones.every(zone => zones.indexOf(zone) !== -1)
+      newZones.every((zone) => zones.indexOf(zone) !== -1)
     ) {
       return;
     }
@@ -141,7 +141,7 @@ class HostsPageContent extends React.PureComponent {
       new NodesTypeFilter(),
       NodesRegionFilter,
       new NodesZoneFilter(newZones),
-      NodesStatusFilter
+      NodesStatusFilter,
     ];
 
     this.props.onFilterChange(new DSLExpression(query), filters);
@@ -149,7 +149,7 @@ class HostsPageContent extends React.PureComponent {
     this.setState({
       filterExpression: new DSLExpression(query),
       filters,
-      defaultFilterData: { regions: newRegions, zones: newZones }
+      defaultFilterData: { regions: newRegions, zones: newZones },
     });
   }
 
@@ -199,7 +199,7 @@ class HostsPageContent extends React.PureComponent {
       services,
       totalNodeCount,
       viewTypeRadioButtons,
-      i18n
+      i18n,
     } = this.props;
 
     return (
@@ -221,7 +221,7 @@ class HostsPageContent extends React.PureComponent {
             <FilterByFramework
               byFrameworkFilter={byServiceFilter}
               handleFilterChange={handleFilterChange}
-              ref={ref => (this.serviceFilter = ref)}
+              ref={(ref) => (this.serviceFilter = ref)}
               frameworks={services}
               totalHostsCount={totalNodeCount}
             />
@@ -232,7 +232,7 @@ class HostsPageContent extends React.PureComponent {
         {React.cloneElement(children, {
           hosts,
           selectedResource,
-          services
+          services,
         })}
       </div>
     );

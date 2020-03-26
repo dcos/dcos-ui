@@ -15,7 +15,7 @@ export default (props: {
 
   const classes = classNames("breadcrumb", {
     "breadcrumb--is-caret": isCaret,
-    "breadcrumb--is-icon": isIcon
+    "breadcrumb--is-icon": isIcon,
   });
 
   return <div className={classes}>{props.children}</div>;

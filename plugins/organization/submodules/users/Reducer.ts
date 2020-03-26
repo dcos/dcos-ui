@@ -3,13 +3,13 @@ import {
   ACL_USERS_CHANGE,
   ACL_USER_DETAILS_FETCH_START,
   ACL_USER_DETAILS_FETCHED_SUCCESS,
-  ACL_USER_DETAILS_FETCHED_ERROR
+  ACL_USER_DETAILS_FETCHED_ERROR,
 } from "./constants/EventTypes";
 
 const initialState = {
   users: [],
   userDetail: {},
-  usersFetching: {}
+  usersFetching: {},
 };
 
 module.exports = (state = initialState, action) => {

@@ -10,12 +10,12 @@ module.exports = {
   filters: ["networkRoutes", "service-addresses-subtabs"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
   },
 
-  "service-addresses-subtabs": tabs => tabs,
+  "service-addresses-subtabs": (tabs) => tabs,
 
   networkRoutes(routeConfig) {
     // Add loadbalancing tab
@@ -27,29 +27,29 @@ module.exports = {
       children: [
         {
           type: IndexRoute,
-          component: LoadBalancingTabContent
+          component: LoadBalancingTabContent,
         },
         {
           type: Route,
           path: "internal/service-address-detail/:vip/:protocol/:port",
-          component: VIPDetailPage
+          component: VIPDetailPage,
         },
         {
           type: Route,
           path:
             "internal/service-address-detail/:vip/:protocol/:port/backend-detail/:backend_vip/:backend_protocol(/:backend_port)",
-          component: BackendDetailPage
-        }
-      ]
+          component: BackendDetailPage,
+        },
+      ],
     });
 
     // Override redirect
     routeConfig.redirect = {
       type: Redirect,
       from: "/networking",
-      to: "/networking/networks"
+      to: "/networking/networks",
     };
 
     return routeConfig;
-  }
+  },
 };

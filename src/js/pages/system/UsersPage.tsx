@@ -24,7 +24,7 @@ const UsersBreadcrumbs = () => {
           <Trans render="span">Users</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -34,18 +34,18 @@ const UsersBreadcrumbs = () => {
 
 class UsersPage extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
 
     this.store_listeners = Hooks.applyFilter("usersPageStoreListeners", [
-      { name: "users", events: ["success", "error"], suppressUpdate: true }
+      { name: "users", events: ["success", "error"], suppressUpdate: true },
     ]);
 
     this.state = {
       usersStoreError: false,
-      usersStoreSuccess: false
+      usersStoreSuccess: false,
     };
   }
 
@@ -60,13 +60,13 @@ class UsersPage extends mixin(StoreMixin) {
   onUsersStoreSuccess = () => {
     this.setState({
       usersStoreError: false,
-      usersStoreSuccess: true
+      usersStoreSuccess: true,
     });
   };
   onUsersStoreError = () => {
     this.setState({
       usersStoreError: true,
-      usersStoreSuccess: false
+      usersStoreSuccess: false,
     });
   };
 
@@ -111,7 +111,7 @@ class UsersPage extends mixin(StoreMixin) {
 
 UsersPage.routeConfig = {
   label: i18nMark("Users"),
-  matches: /^\/organization\/users/
+  matches: /^\/organization\/users/,
 };
 
 export default UsersPage;

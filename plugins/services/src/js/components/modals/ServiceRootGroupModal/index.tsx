@@ -35,7 +35,7 @@ import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
   GroupFormData,
   GroupFormErrors,
-  GroupMutationResponse
+  GroupMutationResponse,
 } from "#PLUGINS/services/src/js/types/GroupForm";
 
 import GroupModalHeader from "./Header";
@@ -45,7 +45,7 @@ import {
   errorsFromOvercommitData,
   groupFormDataFromGraphql,
   getPathFromGroupId,
-  validateGroupFormData
+  validateGroupFormData,
 } from "./utils";
 import { Observable } from "rxjs";
 import { OvercommittedQuotaResource } from "#PLUGINS/services/src/js/data/errors/OvercommitQuotaError";
@@ -76,11 +76,11 @@ function getSaveAction(
 }> {
   if (!isEdit) {
     return dl.query(groupCreateMutation, {
-      data
+      data,
     });
   }
   return dl.query(groupEditMutation, {
-    data
+    data,
   });
 }
 
@@ -121,10 +121,10 @@ class ServiceRootGroupModal extends React.Component<
   ServiceRootGroupModalState
 > {
   public static contextTypes = {
-    router: routerShape
+    router: routerShape,
   };
   public static defaultProps = {
-    id: ""
+    id: "",
   };
 
   constructor() {
@@ -150,7 +150,7 @@ class ServiceRootGroupModal extends React.Component<
       isEdit: !!props.id,
       error: false,
       isForce: false,
-      hasValidated: false
+      hasValidated: false,
     };
   }
 
@@ -189,7 +189,7 @@ class ServiceRootGroupModal extends React.Component<
       const newID = formatQuotaID(data.id);
       data = (({ id, ...other }: GroupFormData): GroupFormData => ({
         id: newID,
-        ...other
+        ...other,
       }))(data);
     }
     if (isForce) {
@@ -198,7 +198,7 @@ class ServiceRootGroupModal extends React.Component<
     getSaveAction(data, isEdit)
       .pipe(take(1))
       .subscribe({
-        next: mutationResponse => {
+        next: (mutationResponse) => {
           let resp: GroupMutationResponse;
           if (mutationResponse.data.createGroup) {
             resp = mutationResponse.data.createGroup;
@@ -209,7 +209,7 @@ class ServiceRootGroupModal extends React.Component<
               code: 0,
               success: false,
               partialSuccess: false,
-              message: "Unknown response"
+              message: "Unknown response",
             };
           }
           if (resp.success) {
@@ -225,8 +225,8 @@ class ServiceRootGroupModal extends React.Component<
                 originalData: {
                   ...emptyGroupFormData(),
                   id,
-                  enforceRole
-                }
+                  enforceRole,
+                },
               });
             }
             this.handleSaveError(resp.message, true, resp.data || null);
@@ -234,10 +234,10 @@ class ServiceRootGroupModal extends React.Component<
             this.handleSaveError(resp.message);
           }
         },
-        error: e => {
+        error: (e) => {
           // Be done after edit mode supported.
           this.handleSaveError(e.message);
-        }
+        },
       });
   };
 
@@ -254,10 +254,10 @@ class ServiceRootGroupModal extends React.Component<
             form: [
               <Trans key="groupIdConflict">
                 A group with the same name already exists. Try a different name.
-              </Trans>
-            ]
+              </Trans>,
+            ],
           },
-          isPending: false
+          isPending: false,
         });
         return;
       case "Forbidden":
@@ -266,17 +266,17 @@ class ServiceRootGroupModal extends React.Component<
             form: [
               <Trans key="groupPermission">
                 You do not have permission to create a group.
-              </Trans>
-            ]
+              </Trans>,
+            ],
           },
-          isPending: false
+          isPending: false,
         });
         return;
       case "Overcommit":
         this.setState({
           errors: errorsFromOvercommitData(data),
           isPending: false,
-          isForce: true
+          isForce: true,
         });
         return;
       default:
@@ -307,9 +307,9 @@ class ServiceRootGroupModal extends React.Component<
         }
         this.setState({
           errors: {
-            form
+            form,
           },
-          isPending: false
+          isPending: false,
         });
         return;
     }
@@ -321,17 +321,17 @@ class ServiceRootGroupModal extends React.Component<
       getGroup(id)
         .pipe(take(1))
         .subscribe({
-          next: groupData => {
+          next: (groupData) => {
             const data = groupFormDataFromGraphql(groupData.data.group);
             this.setState({
               data,
               originalData: JSON.parse(JSON.stringify(data)),
-              expandAdvancedSettings: !data.enforceRole
+              expandAdvancedSettings: !data.enforceRole,
             });
           },
           error: () => {
             this.setState({ error: true });
-          }
+          },
         });
     }
   };
@@ -616,7 +616,7 @@ class ServiceRootGroupModal extends React.Component<
       this.setState({
         data: newData,
         errors: newErrors || {},
-        isForce: false
+        isForce: false,
       });
     } else {
       this.setState({ data: newData });

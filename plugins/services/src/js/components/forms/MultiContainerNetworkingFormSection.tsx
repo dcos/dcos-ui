@@ -7,7 +7,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
-  purple
+  purple,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { findNestedPropertyInObject, isObject } from "#SRC/js/utils/Util";
@@ -39,7 +39,7 @@ const { CONTAINER, HOST } = Networking.type;
 
 const getVirtualNetworks = () =>
   VirtualNetworksStore.getOverlays()
-    .filter(overlay => overlay.enabled && !overlay.subnet6)
+    .filter((overlay) => overlay.enabled && !overlay.subnet6)
     .map(({ name }) => (
       <Trans
         id="Virtual Network: {0}"
@@ -54,13 +54,13 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
     data: {},
     errors: {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   constructor(props) {
     super(props);
@@ -183,7 +183,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           />
           Assign Automatically
         </FieldLabel>
-      </FormGroup>
+      </FormGroup>,
     ];
   }
 
@@ -260,14 +260,14 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
         </FormGroup>
       </FormRow>,
       loadBalanced &&
-        this.getLoadBalancedPortField(endpoint, index, containerIndex)
+        this.getLoadBalancedPortField(endpoint, index, containerIndex),
     ];
   }
 
   getLoadBalancedPortField(endpoint, index, containerIndex) {
     const {
       errors,
-      data: { id, portsAutoAssign }
+      data: { id, portsAutoAssign },
     } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = isHostNetwork(this.props.data)
@@ -463,7 +463,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           key={index}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: index,
-            path: `containers.${containerIndex}.endpoints`
+            path: `containers.${containerIndex}.endpoints`,
           })}
         >
           <FormRow key="port-name-group">
@@ -546,7 +546,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
           <div>
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path: `containers.${index}.endpoints`
+                path: `containers.${index}.endpoints`,
               })}
             >
               <Trans render="span">Add Service Endpoint</Trans>
@@ -668,7 +668,7 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
 }
 
 MultiContainerNetworkingFormSection.configReducers = {
-  networks
+  networks,
 };
 
 export default MultiContainerNetworkingFormSection;

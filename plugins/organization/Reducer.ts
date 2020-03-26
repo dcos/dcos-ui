@@ -9,5 +9,5 @@ module.exports = (state = {}, action) => ({
   directories: directoriesReducer(state.directories, action),
   groups: groupsReducer(state.groups, action),
   serviceAccounts: serviceAccountsReducer(state.serviceAccounts, action),
-  users: usersReducer(state.users, action)
+  users: usersReducer(state.users, action),
 });

@@ -4,7 +4,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   textColorSecondary,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import BreadcrumbSupplementalContent from "#SRC/js/components/BreadcrumbSupplementalContent";
@@ -38,6 +38,6 @@ export default function ItemSchedule({ schedule }) {
 ItemSchedule.propTypes = {
   schedule: PropTypes.shape({
     enabled: PropTypes.bool.isRequired,
-    cron: PropTypes.string.isRequired
-  })
+    cron: PropTypes.string.isRequired,
+  }),
 };

@@ -26,7 +26,7 @@ const appPaths = {
   cpus: "cpus",
   image: "{basePath}.docker.image",
   mem: "mem",
-  type: "{basePath}.type"
+  type: "{basePath}.type",
 };
 
 const podPaths = {
@@ -35,7 +35,7 @@ const podPaths = {
   cpus: "{basePath}.resources.cpus",
   image: "{basePath}.image.id",
   mem: "{basePath}.resources.mem",
-  type: "{basePath}.type"
+  type: "{basePath}.type",
 };
 
 class ContainerServiceFormSection extends React.Component {
@@ -44,14 +44,14 @@ class ContainerServiceFormSection extends React.Component {
     errors: {},
     onAddItem() {},
     onRemoveItem() {},
-    path: "container"
+    path: "container",
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
-    path: PropTypes.string
+    path: PropTypes.string,
   };
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
@@ -273,7 +273,7 @@ class ContainerServiceFormSection extends React.Component {
 
 ContainerServiceFormSection.configReducers = {
   container: ContainerReducer,
-  containers: ContainersReducer
+  containers: ContainersReducer,
 };
 
 export default ContainerServiceFormSection;

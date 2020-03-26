@@ -15,14 +15,14 @@ export default {
           path: "users",
           component: UsersPage,
           isInSidebar: true,
-          children: []
-        }
+          children: [],
+        },
       ],
       redirect: {
         type: Redirect,
         from: "/organization",
-        to: "/organization/users"
-      }
+        to: "/organization/users",
+      },
     });
   },
 
@@ -38,8 +38,8 @@ export default {
         component: OrganizationPage,
         category: i18nMark("system"),
         isInSidebar: true,
-        children: routes
-      }
+        children: routes,
+      },
     ];
-  }
+  },
 };

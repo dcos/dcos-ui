@@ -8,7 +8,7 @@ describe("Deployment", () => {
         version: "2001-01-01T01:01:01.001Z",
         affectedApps: ["app1", "app2"],
         currentStep: 2,
-        totalSteps: 3
+        totalSteps: 3,
       });
       expect(deployment.getId()).toEqual("deployment-id");
       expect(deployment.getAffectedServiceIds()).toEqual(["app1", "app2"]);
@@ -46,8 +46,8 @@ describe("Deployment", () => {
           { id: "app1" },
           { id: "app2" },
           { id: "pod1" },
-          { id: "pod2" }
-        ]
+          { id: "pod2" },
+        ],
       });
       const affectedServices = deployment.getAffectedServices();
       expect(affectedServices.length).toEqual(4);
@@ -63,10 +63,10 @@ describe("Deployment", () => {
           {
             actions: [
               { app: "app1", type: "StartApplication" },
-              { app: "app1", type: "ScaleApplication" }
-            ]
-          }
-        ]
+              { app: "app1", type: "ScaleApplication" },
+            ],
+          },
+        ],
       });
 
       expect(deployment.isStarting()).toEqual(true);
@@ -78,9 +78,9 @@ describe("Deployment", () => {
         affectedApps: ["app1"],
         steps: [
           {
-            actions: [{ app: "app1", type: "ScaleApplication" }]
-          }
-        ]
+            actions: [{ app: "app1", type: "ScaleApplication" }],
+          },
+        ],
       });
 
       expect(deployment.isStarting()).toEqual(false);

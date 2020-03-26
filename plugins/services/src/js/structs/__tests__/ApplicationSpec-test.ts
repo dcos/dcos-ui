@@ -6,7 +6,7 @@ describe("ApplicationSpec", () => {
   describe("#getAcceptedResourceRoles", () => {
     it("returns correct user", () => {
       const service = new ApplicationSpec({
-        acceptedResourceRoles: ["public_slave"]
+        acceptedResourceRoles: ["public_slave"],
       });
 
       expect(service.getAcceptedResourceRoles()).toEqual(["public_slave"]);
@@ -16,7 +16,7 @@ describe("ApplicationSpec", () => {
   describe("#getCommand", () => {
     it("returns correct command", () => {
       const service = new ApplicationSpec({
-        cmd: "sleep 999"
+        cmd: "sleep 999",
       });
 
       expect(service.getCommand()).toEqual("sleep 999");
@@ -28,8 +28,8 @@ describe("ApplicationSpec", () => {
       thisInstance = new ApplicationSpec({
         constraints: [
           ["hostname", "LIKE", "test"],
-          ["hostname", "UNLIKE", "no-test"]
-        ]
+          ["hostname", "UNLIKE", "no-test"],
+        ],
       });
     });
 
@@ -40,7 +40,7 @@ describe("ApplicationSpec", () => {
     it("returns correct constraints", () => {
       expect(thisInstance.getConstraints()).toEqual([
         ["hostname", "LIKE", "test"],
-        ["hostname", "UNLIKE", "no-test"]
+        ["hostname", "UNLIKE", "no-test"],
       ]);
     });
   });
@@ -48,7 +48,7 @@ describe("ApplicationSpec", () => {
   describe("#getCpus", () => {
     it("returns the correct cpus", () => {
       const service = new ApplicationSpec({
-        cpus: 0.5
+        cpus: 0.5,
       });
 
       expect(service.getCpus()).toEqual(0.5);
@@ -58,7 +58,7 @@ describe("ApplicationSpec", () => {
   describe("#getDisk", () => {
     it("returns the correct disk", () => {
       const service = new ApplicationSpec({
-        disk: 125
+        disk: 125,
       });
 
       expect(service.getDisk()).toEqual(125);
@@ -73,9 +73,9 @@ describe("ApplicationSpec", () => {
             uri: "http://resource/uri",
             extract: true,
             executable: false,
-            cache: false
-          }
-        ]
+            cache: false,
+          },
+        ],
       });
     });
 
@@ -89,8 +89,8 @@ describe("ApplicationSpec", () => {
           uri: "http://resource/uri",
           extract: true,
           executable: false,
-          cache: false
-        }
+          cache: false,
+        },
       ]);
     });
   });
@@ -98,17 +98,17 @@ describe("ApplicationSpec", () => {
   describe("#getHealthChecks", () => {
     it("returns correct health check data", () => {
       const service = new ApplicationSpec({
-        healthChecks: [{ path: "", protocol: "HTTP" }]
+        healthChecks: [{ path: "", protocol: "HTTP" }],
       });
 
       expect(service.getHealthChecks()).toEqual([
-        { path: "", protocol: "HTTP" }
+        { path: "", protocol: "HTTP" },
       ]);
     });
 
     it('returns "cloned" objects, so that no one is accidentally mutating them', () => {
       const service = new ApplicationSpec({
-        healthChecks: [{ command: { value: "exit 0;" }, protocol: "COMMAND" }]
+        healthChecks: [{ command: { value: "exit 0;" }, protocol: "COMMAND" }],
       });
 
       service.getHealthChecks()[0].command = undefined;
@@ -116,8 +116,8 @@ describe("ApplicationSpec", () => {
       expect(service.getHealthChecks()).toEqual([
         {
           command: { value: "exit 0;" },
-          protocol: "COMMAND"
-        }
+          protocol: "COMMAND",
+        },
       ]);
     });
   });
@@ -125,7 +125,7 @@ describe("ApplicationSpec", () => {
   describe("#getInstancesCount", () => {
     it("returns correct instances", () => {
       const service = new ApplicationSpec({
-        instances: 1
+        instances: 1,
       });
 
       expect(service.getInstancesCount()).toEqual(1);
@@ -135,7 +135,7 @@ describe("ApplicationSpec", () => {
   describe("#getIpAddress", () => {
     it("returns the right ipAddress value", () => {
       const service = new ApplicationSpec({
-        ipAddress: { networkName: "d-overlay-1" }
+        ipAddress: { networkName: "d-overlay-1" },
       });
 
       expect(service.getIpAddress()).toEqual({ networkName: "d-overlay-1" });
@@ -147,13 +147,13 @@ describe("ApplicationSpec", () => {
       const service = new ApplicationSpec({
         labels: {
           label_1: "1",
-          label_2: "2"
-        }
+          label_2: "2",
+        },
       });
 
       expect(service.getLabels()).toEqual({
         label_1: "1",
-        label_2: "2"
+        label_2: "2",
       });
     });
   });
@@ -164,14 +164,14 @@ describe("ApplicationSpec", () => {
         cpus: 1,
         mem: 2048,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
 
       expect(service.getResources()).toEqual({
         cpus: 1,
         mem: 2048,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -182,7 +182,7 @@ describe("ApplicationSpec", () => {
         cpus: 0,
         mem: 0,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
   });

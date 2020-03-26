@@ -4,17 +4,17 @@ import { graphqlObservable } from "@dcos/data-service";
 import jobsToggleSchedule from "../jobsToggleSchedule";
 
 jest.mock("@dcos/data-service", () => ({
-  graphqlObservable: jest.fn()
+  graphqlObservable: jest.fn(),
 }));
 
 const enabledJob = {
   id: "enabled",
-  schedules: { nodes: [{ enabled: true }] }
+  schedules: { nodes: [{ enabled: true }] },
 };
 
 const disabledJob = {
   id: "disabled",
-  schedules: { nodes: [{ enabled: false }] }
+  schedules: { nodes: [{ enabled: false }] },
 };
 
 describe("JobsToggleSchedule", () => {
@@ -43,7 +43,7 @@ describe("JobsToggleSchedule", () => {
           expect.anything(),
           {
             jobId: "enabled",
-            data: { enabled: false }
+            data: { enabled: false },
           }
         );
       });
@@ -57,7 +57,7 @@ describe("JobsToggleSchedule", () => {
           expect.anything(),
           {
             jobId: "disabled",
-            data: { enabled: true }
+            data: { enabled: true },
           }
         );
       });

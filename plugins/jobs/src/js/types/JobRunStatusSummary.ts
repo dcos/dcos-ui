@@ -27,6 +27,6 @@ export function JobRunStatusSummaryTypeResolver(
   const lastSuccessAt = DateUtil.strToMs(summary.lastSuccessAt) || 0;
   return {
     status: lastSuccessAt >= lastFailureAt ? "Success" : "Failed",
-    time: Math.max(lastFailureAt, lastSuccessAt)
+    time: Math.max(lastFailureAt, lastSuccessAt),
   };
 }

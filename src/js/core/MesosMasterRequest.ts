@@ -4,7 +4,7 @@ import {
   retryWhen,
   shareReplay,
   catchError,
-  distinctUntilChanged
+  distinctUntilChanged,
 } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
@@ -27,13 +27,13 @@ export function getMasterRegionName(
 ): Observable<string> {
   return response$.pipe(
     map(
-      masterRequest =>
+      (masterRequest) =>
         Util.findNestedPropertyInObject(
           masterRequest,
           "get_master.master_info.domain.fault_domain.region.name"
         ) || "N/A"
     ),
-    catchError(err => {
+    catchError((err) => {
       console.error("Error getting the master region name", err);
 
       return of("N/A");

@@ -17,7 +17,7 @@ import DeleteRowButton from "#SRC/js/components/form/DeleteRowButton";
 import {
   FormOutput,
   FormError,
-  PlacementConstraint
+  PlacementConstraint,
 } from "./helpers/JobFormData";
 import { getFieldError } from "./helpers/ErrorUtil";
 import { OperatorTypes } from "./helpers/Constants";
@@ -41,7 +41,7 @@ class PlacementPartial extends React.Component<PlacementPartialProps, {}> {
       errors,
       showErrors,
       i18n,
-      getIsGenericConstraint
+      getIsGenericConstraint,
     } = this.props;
     let titleIndex = 0;
 

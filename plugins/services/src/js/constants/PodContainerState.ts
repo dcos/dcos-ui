@@ -15,5 +15,5 @@ export default {
   KILLED: "TASK_KILLED",
   FAILED: "TASK_FAILED",
   LOST: "TASK_LOST",
-  ERROR: "TASK_ERROR"
+  ERROR: "TASK_ERROR",
 };

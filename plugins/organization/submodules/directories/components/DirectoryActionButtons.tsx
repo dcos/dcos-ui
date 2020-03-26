@@ -19,7 +19,7 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
       formModalOpen: false,
       successModalOpen: false,
       deleteConfirm: false,
-      deleteConfirmDisabled: false
+      deleteConfirmDisabled: false,
     };
 
     // prettier-ignore
@@ -42,7 +42,7 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
       formModalOpen: false,
       formModalDisabled: false,
       successModalMessage: message,
-      successModalOpen: true
+      successModalOpen: true,
     });
   }
 
@@ -66,11 +66,11 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
   handleSuccessModalClose = () => {
     this.setState({ successModalOpen: false });
   };
-  handleFormModalSubmit = formData => {
+  handleFormModalSubmit = (formData) => {
     ACLDirectoriesStore.testDirectoryConnection(formData);
     this.setState({ formModalDisabled: true });
   };
-  changeFormModalOpenState = open => {
+  changeFormModalOpenState = (open) => {
     this.setState({ formModalOpen: open, formModalDisabled: false });
   };
 
@@ -88,7 +88,7 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: ""
+        value: "",
       },
       {
         fieldType: "password",
@@ -100,8 +100,8 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
         validation() {
           return true;
         },
-        value: ""
-      }
+        value: "",
+      },
     ];
   }
 
@@ -115,15 +115,15 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
       {
         text: i18nMark("Cancel"),
         className: "button button-primary-link flush-left",
-        isClose: true
+        isClose: true,
       },
       {
         text: this.state.formModalDisabled
           ? i18nMark("Testing...")
           : i18nMark("Test Connection"),
         className: "button button-primary",
-        isSubmit: true
-      }
+        isSubmit: true,
+      },
     ];
 
     return (
@@ -191,7 +191,7 @@ class DirectoryActionButtons extends mixin(StoreMixin) {
                 <Trans render="span">Test External Directory</Trans>
               </ModalHeading>
             ),
-            showHeader: true
+            showHeader: true,
           }}
           onClose={this.changeFormModalOpenState.bind(null, false)}
           onSubmit={this.handleFormModalSubmit}

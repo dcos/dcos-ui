@@ -7,7 +7,7 @@ import { Table, Tooltip } from "reactjs-components";
 import { Icon } from "@dcos/ui-kit";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 
@@ -16,7 +16,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 class SecretStoresTable extends React.Component {
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    stores: PropTypes.object
+    stores: PropTypes.object,
   };
   getColGroup() {
     return (
@@ -34,8 +34,8 @@ class SecretStoresTable extends React.Component {
   getRowAttributes(store) {
     return {
       className: classNames({
-        danger: store.getSealed() === true
-      })
+        danger: store.getSealed() === true,
+      }),
     };
   }
 
@@ -47,7 +47,7 @@ class SecretStoresTable extends React.Component {
         prop: "description",
         render: this.renderProp,
         sortable: false,
-        heading: this.renderHeading
+        heading: this.renderHeading,
       },
       {
         className: this.getClassName,
@@ -55,8 +55,8 @@ class SecretStoresTable extends React.Component {
         prop: "driver",
         render: this.renderProp,
         sortable: false,
-        heading: this.renderHeading
-      }
+        heading: this.renderHeading,
+      },
     ];
   }
 
@@ -88,7 +88,7 @@ class SecretStoresTable extends React.Component {
   renderHeading(prop) {
     const headingDisplayNames = {
       description: i18nMark("Name"),
-      driver: i18nMark("Type")
+      driver: i18nMark("Type"),
     };
 
     return (

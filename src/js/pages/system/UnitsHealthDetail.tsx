@@ -24,7 +24,7 @@ const UnitHealthDetailBreadcrumbs = ({ unit }) => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/components" />}>Components</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   if (unit != null) {
@@ -67,7 +67,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       healthFilter: "all",
       isLoadingUnit: true,
       isLoadingNodes: true,
-      searchString: ""
+      searchString: "",
     };
   }
 
@@ -93,7 +93,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
   onUnitHealthStoreNodeError() {
     this.setState({ hasError: true });
   }
-  handleHealthSelection = selectedHealth => {
+  handleHealthSelection = (selectedHealth) => {
     this.setState({ healthFilter: selectedHealth.id });
   };
   handleSearchStringChange = (searchString = "") => {
@@ -106,7 +106,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
 
     this.setState({
       searchString: "",
-      healthFilter: "all"
+      healthFilter: "all",
     });
   };
 
@@ -148,7 +148,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
       searchString,
       hasError,
       isLoadingUnit,
-      isLoadingNodes
+      isLoadingNodes,
     } = this.state;
     const { i18n } = this.props;
 
@@ -192,7 +192,7 @@ class UnitsHealthDetail extends mixin(StoreMixin) {
               dropdownMenuClassName="dropdown-menu"
               initialID="all"
               onHealthSelection={this.handleHealthSelection}
-              ref={ref => (this.healthFilter = ref)}
+              ref={(ref) => (this.healthFilter = ref)}
             />
           </FilterBar>
           <div className="flex-container-col flex-grow no-overflow">

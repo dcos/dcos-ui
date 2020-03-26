@@ -13,7 +13,7 @@ let thisInstance, thisMockFn, thisIframe;
 describe("BannerPlugin", () => {
   beforeEach(() => {
     BannerPlugin.configuration = {
-      ...defaultConfiguration
+      ...defaultConfiguration,
     };
   });
 
@@ -61,7 +61,7 @@ describe("BannerPlugin", () => {
       BannerPlugin.configure({
         headerTitle: null,
         headerContent: null,
-        footerContent: null
+        footerContent: null,
       });
 
       expect(BannerPlugin.isEnabled()).toBeFalsy();
@@ -72,7 +72,7 @@ describe("BannerPlugin", () => {
         headerTitle: null,
         headerContent: undefined,
         footerContent: "foo",
-        imagePath: false
+        imagePath: false,
       });
 
       expect(BannerPlugin.isEnabled()).toBeTruthy();
@@ -112,7 +112,7 @@ describe("BannerPlugin", () => {
       thisIframe = document.createElement("iframe");
       const mockFn = thisMockFn;
       thisIframe.__defineGetter__("contentWindow", () => ({
-        addEventListener: mockFn
+        addEventListener: mockFn,
       }));
       document.getElementById = jasmine
         .createSpy("HTML Element")
@@ -166,19 +166,19 @@ describe("BannerPlugin", () => {
     it("returns default colors when nothing is changed", () => {
       expect(BannerPlugin.getColorStyles()).toEqual({
         backgroundColor: "#1E232F",
-        color: "#FFFFFF"
+        color: "#FFFFFF",
       });
     });
 
     it("returns an object with provided colors", () => {
       BannerPlugin.configure({
         backgroundColor: "foo",
-        foregroundColor: "bar"
+        foregroundColor: "bar",
       });
 
       expect(BannerPlugin.getColorStyles()).toEqual({
         backgroundColor: "foo",
-        color: "bar"
+        color: "bar",
       });
     });
   });
@@ -186,7 +186,7 @@ describe("BannerPlugin", () => {
   describe("#getIcon", () => {
     it("returns null if imagePath is null", () => {
       BannerPlugin.configure({
-        imagePath: null
+        imagePath: null,
       });
 
       expect(BannerPlugin.getIcon()).toBeNull();
@@ -194,7 +194,7 @@ describe("BannerPlugin", () => {
 
     it("returns null if imagePath is empty string", () => {
       BannerPlugin.configure({
-        imagePath: ""
+        imagePath: "",
       });
 
       expect(BannerPlugin.getIcon()).toBeNull();
@@ -202,7 +202,7 @@ describe("BannerPlugin", () => {
 
     it("returns an element if imagePath is set", () => {
       BannerPlugin.configure({
-        imagePath: "foo"
+        imagePath: "foo",
       });
 
       expect(BannerPlugin.getIcon()).not.toBe(null);
@@ -212,7 +212,7 @@ describe("BannerPlugin", () => {
   describe("#getTitle", () => {
     it("returns null if headerTitle is null", () => {
       BannerPlugin.configure({
-        headerTitle: null
+        headerTitle: null,
       });
 
       expect(BannerPlugin.getTitle()).toBeNull();
@@ -220,7 +220,7 @@ describe("BannerPlugin", () => {
 
     it("returns null if headerTitle is empty string", () => {
       BannerPlugin.configure({
-        headerTitle: ""
+        headerTitle: "",
       });
 
       expect(BannerPlugin.getTitle()).toBeNull();
@@ -228,7 +228,7 @@ describe("BannerPlugin", () => {
 
     it("returns an element if headerTitle is set", () => {
       BannerPlugin.configure({
-        headerTitle: "foo"
+        headerTitle: "foo",
       });
 
       expect(BannerPlugin.getTitle()).not.toBe(null);
@@ -238,7 +238,7 @@ describe("BannerPlugin", () => {
   describe("#getHeaderContent", () => {
     it("returns null if headerContent is null", () => {
       BannerPlugin.configure({
-        headerContent: null
+        headerContent: null,
       });
 
       expect(BannerPlugin.getHeaderContent()).toBeNull();
@@ -246,7 +246,7 @@ describe("BannerPlugin", () => {
 
     it("returns null if headerContent is empty string", () => {
       BannerPlugin.configure({
-        headerContent: ""
+        headerContent: "",
       });
 
       expect(BannerPlugin.getHeaderContent()).toBeNull();
@@ -254,7 +254,7 @@ describe("BannerPlugin", () => {
 
     it("returns an element if headerContent is set", () => {
       BannerPlugin.configure({
-        headerContent: "foo"
+        headerContent: "foo",
       });
 
       expect(BannerPlugin.getHeaderContent()).not.toBe(null);
@@ -294,7 +294,7 @@ describe("BannerPlugin", () => {
   describe("#getFooter", () => {
     it("returns null if footerContent is null", () => {
       BannerPlugin.configure({
-        footerContent: null
+        footerContent: null,
       });
 
       expect(BannerPlugin.getFooter()).toBeNull();
@@ -302,7 +302,7 @@ describe("BannerPlugin", () => {
 
     it("returns null if footerContent is empty string", () => {
       BannerPlugin.configure({
-        footerContent: ""
+        footerContent: "",
       });
 
       expect(BannerPlugin.getFooter()).toBeNull();
@@ -310,7 +310,7 @@ describe("BannerPlugin", () => {
 
     it("returns an element if footerContent is set", () => {
       BannerPlugin.configure({
-        footerContent: "foo"
+        footerContent: "foo",
       });
 
       expect(BannerPlugin.getFooter()).not.toBe(null);

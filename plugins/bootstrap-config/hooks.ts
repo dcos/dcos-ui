@@ -7,5 +7,5 @@ module.exports = {
       BootstrapConfigHashMap,
       "OverviewDetailTab:AdditionalClusterDetails"
     );
-  }
+  },
 };

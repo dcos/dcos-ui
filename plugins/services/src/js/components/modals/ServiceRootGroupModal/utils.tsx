@@ -5,11 +5,11 @@ import {
   QuotaFieldLabels,
   quotaFields,
   QuotaFields,
-  QuotaFieldUnit
+  QuotaFieldUnit,
 } from "#PLUGINS/services/src/js/types/Quota";
 import {
   GroupFormData,
-  GroupFormErrors
+  GroupFormErrors,
 } from "#PLUGINS/services/src/js/types/GroupForm";
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";
 import ServiceValidatorUtil from "#PLUGINS/services/src/js/utils/ServiceValidatorUtil";
@@ -27,8 +27,8 @@ export function emptyGroupFormData(): GroupFormData {
       cpus: "",
       mem: "",
       disk: "",
-      gpus: ""
-    }
+      gpus: "",
+    },
   };
 }
 
@@ -47,8 +47,8 @@ export function groupFormDataFromGraphql(data: ServiceGroup): GroupFormData {
       cpus: cpus !== undefined ? cpus + "" : "",
       mem: mem !== undefined ? mem + "" : "",
       disk: disk !== undefined ? disk + "" : "",
-      gpus: gpus !== undefined ? gpus + "" : ""
-    }
+      gpus: gpus !== undefined ? gpus + "" : "",
+    },
   };
 }
 
@@ -152,12 +152,12 @@ export function errorsFromOvercommitData(
         <Trans key="quotaOvercommit">
           Quota value(s) exceed currently consumed resources. Please save again
           to force Quota limits.
-        </Trans>
-      ]
+        </Trans>,
+      ],
     };
   }
   let result: GroupFormErrors = {};
-  data.forEach(resource => {
+  data.forEach((resource) => {
     const resourceName = resource.resourceName as QuotaFields;
     result = addFormError(
       result,

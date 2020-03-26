@@ -10,7 +10,7 @@ import {
   EnvModel,
   JobSecretExposure,
   SecretVolume,
-  JobVolume
+  JobVolume,
 } from "#PLUGINS/jobs/src/js/components/form/helpers/JobFormData";
 
 export const jobSecretsReducers = {
@@ -44,7 +44,7 @@ export const jobSecretsReducers = {
       exposureType: "",
       exposureValue: "",
       key: `secret${secrets.length}`,
-      secretPath: ""
+      secretPath: "",
     });
     return stateCopy;
   },
@@ -58,7 +58,7 @@ export const jobSecretsReducers = {
       secrets.splice(index, 1);
     }
     return stateCopy;
-  }
+  },
 };
 
 type SpecSecrets = [
@@ -81,7 +81,7 @@ function rebuildSecrets(spec: any): JobSecretExposure[] {
         exposureType: "envVar",
         exposureValue: envName,
         secretPath: "",
-        key: (value as { secret: string }).secret
+        key: (value as { secret: string }).secret,
       });
     });
 
@@ -92,7 +92,7 @@ function rebuildSecrets(spec: any): JobSecretExposure[] {
         exposureType: "file",
         exposureValue: v.containerPath,
         secretPath: "",
-        key: v.secret
+        key: v.secret,
       });
     });
 
@@ -107,7 +107,7 @@ function rebuildSecrets(spec: any): JobSecretExposure[] {
     ? Object.entries(spec.job.run.secrets)
     : [];
 
-  result.forEach(existingSecret => {
+  result.forEach((existingSecret) => {
     const secretKey = existingSecret.key;
 
     specSecrets.forEach(([matchSecretKey, secret]) => {
@@ -122,13 +122,13 @@ function rebuildSecrets(spec: any): JobSecretExposure[] {
   // These are secrets without an entry in env/volumes. Add them back.
   specSecrets
     .filter(([_, secret]) => !secret.matched)
-    .forEach(unmatchedSecret => {
+    .forEach((unmatchedSecret) => {
       const [secretKey, secret] = unmatchedSecret;
       result.push({
         exposureType: secret.type,
         exposureValue: "",
         key: secretKey,
-        secretPath: secret.source
+        secretPath: secret.source,
       });
     });
 
@@ -146,7 +146,7 @@ export const jobResponseToSpec = (jobSpec: IntermediateSpec): JobSpec => {
       exposureType: "",
       exposureValue: "",
       key: secretKey,
-      secretPath: source
+      secretPath: source,
     }));
   } else {
     spec.job.run.secrets = rebuildSecrets(spec);
@@ -168,9 +168,9 @@ export const jobJsonReducers = (
     // oss/ee duality without leaking ee info into the open source distribution.
     return {
       ...ossState,
-      ...jobResponseToSpec((ossState as unknown) as IntermediateSpec)
+      ...jobResponseToSpec((ossState as unknown) as IntermediateSpec),
     };
-  }
+  },
 });
 
 export function isJobVolume(tbd: JobVolume | SecretVolume): tbd is JobVolume {
@@ -196,12 +196,12 @@ export const jobSpecToOutput = (jobSpec: JobOutput): JobOutput => {
       .forEach(({ exposureType, exposureValue, key }) => {
         if (exposureType === "envVar") {
           envSecrets[exposureValue] = {
-            secret: key
+            secret: key,
           };
         } else if (exposureType === "file") {
           fileSecrets.push({
             containerPath: exposureValue,
-            secret: key
+            secret: key,
           });
         }
       });
@@ -219,7 +219,7 @@ export const jobSpecToOutput = (jobSpec: JobOutput): JobOutput => {
     if (Object.keys(envSecrets).length) {
       specCopy.run.env = {
         ...specCopy.run.env,
-        ...envSecrets
+        ...envSecrets,
       };
     }
 
@@ -228,7 +228,7 @@ export const jobSpecToOutput = (jobSpec: JobOutput): JobOutput => {
       .filter(({ secretPath }) => secretPath != null && secretPath !== "")
       .forEach(({ key, secretPath }) => {
         sourceSecrets[key] = {
-          source: secretPath
+          source: secretPath,
         };
       });
     if (Object.keys(sourceSecrets).length) {

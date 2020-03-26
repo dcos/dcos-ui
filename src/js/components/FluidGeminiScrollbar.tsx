@@ -35,7 +35,7 @@ let styleElement = null;
 
 class FluidGeminiScrollbar extends React.Component {
   static propTypes = {
-    className: PropTypes.oneOfType([PropTypes.string, PropTypes.object])
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
   };
   constructor(...args) {
     super(...args);
@@ -108,7 +108,7 @@ class FluidGeminiScrollbar extends React.Component {
     return (
       <GeminiScrollbar
         className={classes}
-        ref={ref => (this.geminiRef = ref)}
+        ref={(ref) => (this.geminiRef = ref)}
         {...Util.omit(props, ["className"])}
       />
     );

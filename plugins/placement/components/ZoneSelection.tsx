@@ -10,7 +10,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 
-export default function(props) {
+export default function (props) {
   const { constraint = { value: "" }, index } = props.data;
 
   return (

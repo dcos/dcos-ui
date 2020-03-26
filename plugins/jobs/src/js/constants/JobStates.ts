@@ -17,43 +17,43 @@ const states: JobStates = {
   INITIAL: {
     stateTypes: ["active"],
     displayName: i18nMark("Starting"),
-    sortOrder: 3
+    sortOrder: 3,
   },
   STARTING: {
     stateTypes: ["active"],
     displayName: i18nMark("Starting"),
-    sortOrder: 3
+    sortOrder: 3,
   },
   ACTIVE: {
     stateTypes: ["active"],
     displayName: i18nMark("Running"),
-    sortOrder: 4
+    sortOrder: 4,
   },
   FAILED: {
     stateTypes: ["completed", "failure"],
     displayName: i18nMark("Failed"),
-    sortOrder: 0
+    sortOrder: 0,
   },
   SUCCESS: {
     stateTypes: ["success"],
     displayName: i18nMark("Success"),
-    sortOrder: 6
+    sortOrder: 6,
   },
   COMPLETED: {
     stateTypes: ["success"],
     displayName: i18nMark("Completed"),
-    sortOrder: 5
+    sortOrder: 5,
   },
   SCHEDULED: {
     stateTypes: [],
     displayName: i18nMark("Scheduled"),
-    sortOrder: 2
+    sortOrder: 2,
   },
   UNSCHEDULED: {
     stateTypes: [],
     displayName: i18nMark("Unscheduled"),
-    sortOrder: 1
-  }
+    sortOrder: 1,
+  },
 };
 
 export default states;

@@ -35,7 +35,7 @@ class FrameworkConfiguration extends React.Component {
     handleGoBack: PropTypes.func.isRequired,
     isInitialDeploy: PropTypes.bool,
     deployErrors: PropTypes.object,
-    defaultConfigWarning: PropTypes.string
+    defaultConfigWarning: PropTypes.string,
   };
   constructor(props) {
     super(props);
@@ -50,7 +50,7 @@ class FrameworkConfiguration extends React.Component {
       jsonEditorActive: UserSettingsStore.JSONEditorExpandedSetting,
       isConfirmOpen: false,
       isOpen: true,
-      liveValidate: false
+      liveValidate: false,
     };
   }
   deleteDeployErrors = () => {
@@ -63,7 +63,7 @@ class FrameworkConfiguration extends React.Component {
   handleFocusFieldChange = (activeTab, focusField) => {
     this.setState({ focusField, activeTab });
   };
-  handleActiveTabChange = activeTab => {
+  handleActiveTabChange = (activeTab) => {
     const { packageDetails } = this.props;
     const schema = packageDetails.getConfig();
 
@@ -143,8 +143,8 @@ class FrameworkConfiguration extends React.Component {
       {
         className: "button-primary-link button-flush-horizontal",
         clickHandler: this.handleGoBack,
-        label: reviewActive ? i18nMark("Back") : i18nMark("Cancel")
-      }
+        label: reviewActive ? i18nMark("Back") : i18nMark("Cancel"),
+      },
     ];
   }
 
@@ -161,8 +161,9 @@ class FrameworkConfiguration extends React.Component {
         clickHandler: this.handleServiceReview,
         label: isPending ? i18nMark("Installing...") : runButtonLabel,
         disabled:
-          isPending || Object.keys(formErrors).some(tab => formErrors[tab] > 0)
-      }
+          isPending ||
+          Object.keys(formErrors).some((tab) => formErrors[tab] > 0),
+      },
     ];
 
     if (!reviewActive) {
@@ -177,7 +178,7 @@ class FrameworkConfiguration extends React.Component {
           >
             <Trans render="span">JSON Editor</Trans>
           </ToggleButton>
-        )
+        ),
       });
     }
 
@@ -246,7 +247,7 @@ class FrameworkConfiguration extends React.Component {
       deployErrors,
       isInitialDeploy,
       formData,
-      defaultConfigWarning
+      defaultConfigWarning,
     } = this.props;
 
     let warningMessage = null;
@@ -328,7 +329,7 @@ class FrameworkConfiguration extends React.Component {
       reviewActive,
       jsonEditorActive,
       focusField,
-      activeTab
+      activeTab,
     } = this.state;
     const {
       packageDetails,
@@ -337,7 +338,7 @@ class FrameworkConfiguration extends React.Component {
       onFormDataChange,
       onFormErrorChange,
       defaultConfigWarning,
-      i18n
+      i18n,
     } = this.props;
 
     let pageContents;
@@ -358,7 +359,7 @@ class FrameworkConfiguration extends React.Component {
           onFormErrorChange={onFormErrorChange}
           onFormSubmit={this.handleFormSubmit}
           defaultConfigWarning={defaultConfigWarning}
-          submitRef={el => (this.submitButton = el)} // ref forwarding https://reactjs.org/docs/forwarding-refs.html
+          submitRef={(el) => (this.submitButton = el)} // ref forwarding https://reactjs.org/docs/forwarding-refs.html
           liveValidate={this.state.liveValidate}
         />
       );

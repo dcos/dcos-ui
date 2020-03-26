@@ -10,7 +10,7 @@ export default class Group extends Item {
       return permissions;
     }
 
-    return permissions.filter(acl => {
+    return permissions.filter((acl) => {
       if (!match.test(acl.rid)) {
         return false;
       }
@@ -29,7 +29,7 @@ export default class Group extends Item {
 
   getServiceAccounts() {
     const serviceAccounts = this.get("serviceAccounts");
-    const items = serviceAccounts.map(account => account.user);
+    const items = serviceAccounts.map((account) => account.user);
 
     return new ServiceAccountList({ items });
   }

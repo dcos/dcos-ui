@@ -26,7 +26,7 @@ describe("AuthProviderStore", () => {
         type: EventTypes.PROVIDER_SUCCESS,
         provider,
         providerID,
-        providerType
+        providerType,
       });
 
       expect(
@@ -60,7 +60,7 @@ describe("AuthProviderStore", () => {
           type: ActionTypes.REQUEST_PROVIDER_CREATE_SUCCESS,
           data: {},
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -82,7 +82,7 @@ describe("AuthProviderStore", () => {
           type: ActionTypes.REQUEST_PROVIDER_CREATE_ERROR,
           data: error,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -105,7 +105,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_UPDATE_SUCCESS,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -125,7 +125,7 @@ describe("AuthProviderStore", () => {
           type: ActionTypes.REQUEST_PROVIDER_UPDATE_SUCCESS,
           data: {},
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -147,7 +147,7 @@ describe("AuthProviderStore", () => {
           type: ActionTypes.REQUEST_PROVIDER_UPDATE_ERROR,
           data: error,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -164,7 +164,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_DELETE_SUCCESS,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(AuthProviderStore.getProvider(providerType, providerID)).toEqual(
@@ -185,7 +185,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_DELETE_SUCCESS,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -207,7 +207,7 @@ describe("AuthProviderStore", () => {
           type: ActionTypes.REQUEST_PROVIDER_DELETE_ERROR,
           data: error,
           providerID,
-          providerType
+          providerType,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -224,7 +224,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_CALLBACK_URL_SUCCESS,
           data: { "acs-callback-url": callbackURL },
-          providerID
+          providerID,
         });
 
         expect(
@@ -245,7 +245,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_CALLBACK_URL_SUCCESS,
           data: { "acs-callback-url": callbackURL },
-          providerID
+          providerID,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);
@@ -266,7 +266,7 @@ describe("AuthProviderStore", () => {
         SDK.dispatch({
           type: ActionTypes.REQUEST_PROVIDER_CALLBACK_URL_ERROR,
           data: error,
-          providerID
+          providerID,
         });
 
         expect(mockFn.mock.calls.length).toEqual(1);

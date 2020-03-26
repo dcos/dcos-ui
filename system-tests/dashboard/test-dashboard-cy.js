@@ -7,10 +7,10 @@ const serviceDefinition = {
   portDefinitions: [],
   container: {
     docker: {
-      image: "nginx"
+      image: "nginx",
     },
     type: "DOCKER",
-    volumes: []
+    volumes: [],
   },
   cpus: 0.1,
   mem: 10,
@@ -20,7 +20,7 @@ const serviceDefinition = {
   fetch: [],
   constraints: [],
   disk: 10,
-  cmd: "while true; do echo 'test' ; sleep 100 ; done"
+  cmd: "while true; do echo 'test' ; sleep 100 ; done",
 };
 
 function getAllocationElementFor(name) {
@@ -43,7 +43,7 @@ describe("Dashboard statistics", () => {
   it("changes when a service is started", () => {
     // SETUP
     cy.visitUrl("dashboard");
-    getAllocationElementFor("CPU Allocation").should($label => {
+    getAllocationElementFor("CPU Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.equal(0);
     });
 
@@ -51,15 +51,15 @@ describe("Dashboard statistics", () => {
     createService(serviceDefinition);
     cy.visitUrl("dashboard");
 
-    getAllocationElementFor("CPU Allocation").should($label => {
+    getAllocationElementFor("CPU Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(serviceDefinition.cpus);
     });
 
-    getAllocationElementFor("Memory Allocation").should($label => {
+    getAllocationElementFor("Memory Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(serviceDefinition.mem);
     });
 
-    getAllocationElementFor("Disk Allocation").should($label => {
+    getAllocationElementFor("Disk Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(serviceDefinition.disk);
     });
 
@@ -71,7 +71,7 @@ describe("Dashboard statistics", () => {
       .contains("dashboard-test-service");
 
     // new service increments task count in dashboard
-    getTaskCountElement().should($tasksCount => {
+    getTaskCountElement().should(($tasksCount) => {
       expect(parseFloat($tasksCount.text())).to.eq(1);
     });
   });
@@ -81,7 +81,7 @@ describe("Dashboard statistics", () => {
 
     // VERIFY THE SERVICE FROM THE PREVIOUS TEST IS STILL UP AND RUNNING
     // we know that's not atomic testing, but starting and stopping stuff is expensive.
-    getAllocationElementFor("CPU Allocation").should($label => {
+    getAllocationElementFor("CPU Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.equal(serviceDefinition.cpus);
     });
 
@@ -89,15 +89,15 @@ describe("Dashboard statistics", () => {
     deleteService(serviceDefinition.id);
 
     cy.visitUrl("dashboard");
-    getAllocationElementFor("CPU Allocation").should($label => {
+    getAllocationElementFor("CPU Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(0);
     });
 
-    getAllocationElementFor("Memory Allocation").should($label => {
+    getAllocationElementFor("Memory Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(0);
     });
 
-    getAllocationElementFor("Disk Allocation").should($label => {
+    getAllocationElementFor("Disk Allocation").should(($label) => {
       expect(parseFloat($label.text())).to.eq(0);
     });
 
@@ -110,7 +110,7 @@ describe("Dashboard statistics", () => {
 
     // new service decrements task count in dashboard when removed
 
-    getTaskCountElement().should($tasksCount => {
+    getTaskCountElement().should(($tasksCount) => {
       const newValue = parseFloat($tasksCount.text());
       expect(newValue).to.eq(0);
     });

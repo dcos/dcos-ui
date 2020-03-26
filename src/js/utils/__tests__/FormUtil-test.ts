@@ -8,12 +8,12 @@ describe("FormUtil", () => {
       thisDefinition = [
         {
           name: "key",
-          value: null
+          value: null,
         },
         {
           name: "value",
-          value: null
-        }
+          value: null,
+        },
       ];
     });
 
@@ -46,7 +46,7 @@ describe("FormUtil", () => {
         thisDefinition,
         {
           key: "kenny",
-          value: "tran"
+          value: "tran",
         }
       );
 
@@ -62,7 +62,7 @@ describe("FormUtil", () => {
         "uid[0].password": "secret",
         "uid[1].uid": "jane",
         "uid[1].password": "secret2",
-        unrelatedProp: "hellothere"
+        unrelatedProp: "hellothere",
       });
     });
 
@@ -90,7 +90,7 @@ describe("FormUtil", () => {
     it("returns true if field is instance of prop", () => {
       const fields = [
         { name: "variable[2].key", value: "kenny" },
-        { name: "variable[2].value", value: "tran" }
+        { name: "variable[2].value", value: "tran" },
       ];
       const result = FormUtil.isFieldInstanceOfProp("variable", fields, 2);
       expect(result).toEqual(true);
@@ -99,7 +99,7 @@ describe("FormUtil", () => {
     it("returns false if field is not instance of prop", () => {
       const fields = [
         { name: "variable[1].key", value: "kenny" },
-        { name: "variable[1].value", value: "tran" }
+        { name: "variable[1].value", value: "tran" },
       ];
       const result = FormUtil.isFieldInstanceOfProp("variable", fields, 2);
       expect(result).toEqual(false);
@@ -119,7 +119,7 @@ describe("FormUtil", () => {
         { name: "variable[1].key", value: "kenny" },
         { name: "variable[1].value", value: "tran" },
         { name: "variable[2].key", value: "mat" },
-        { name: "variable[2].value", value: "app" }
+        { name: "variable[2].value", value: "app" },
       ];
 
       FormUtil.removePropID(definition, "variable", 1);
@@ -127,7 +127,7 @@ describe("FormUtil", () => {
       const expectedResult = [
         { name: "password", value: "secret" },
         { name: "variable[2].key", value: "mat" },
-        { name: "variable[2].value", value: "app" }
+        { name: "variable[2].value", value: "app" },
       ];
 
       expect(definition).toEqual(expectedResult);
@@ -141,32 +141,32 @@ describe("FormUtil", () => {
           definition: [
             {
               name: "command",
-              fieldType: "text"
+              fieldType: "text",
             },
             {
               name: "cpu",
-              fieldType: "number"
-            }
-          ]
+              fieldType: "number",
+            },
+          ],
         },
         labels: {
           definition: [
             {
               name: "key",
-              fieldType: "text"
+              fieldType: "text",
             },
             {
               name: "value",
-              fieldType: "text"
-            }
-          ]
-        }
+              fieldType: "text",
+            },
+          ],
+        },
       };
     });
 
     it("correctly iterates through each definition", () => {
       const result = [];
-      FormUtil.forEachDefinition(thisDefinition, fieldDefinition => {
+      FormUtil.forEachDefinition(thisDefinition, (fieldDefinition) => {
         result.push(fieldDefinition.name);
       });
 

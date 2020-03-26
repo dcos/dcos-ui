@@ -166,10 +166,10 @@ export default class Pod extends Service {
       tasksStaged: 0,
       tasksRunning: 0,
       tasksUnknown: 0,
-      tasksOverCapacity: 0
+      tasksOverCapacity: 0,
     };
 
-    this.getInstanceList().mapItems(instance => {
+    this.getInstanceList().mapItems((instance) => {
       if (instance.isRunning()) {
         taskSummary.tasksRunning++;
         if (instance.hasHealthChecks()) {
@@ -198,7 +198,7 @@ export default class Pod extends Service {
 
   getTerminationHistoryList() {
     return new PodTerminationHistoryList({
-      items: this.get("terminationHistory") || []
+      items: this.get("terminationHistory") || [],
     });
   }
 
@@ -206,7 +206,7 @@ export default class Pod extends Service {
     const instanceId = PodUtil.getInstanceIdFromTaskId(taskId);
 
     return this.getInstanceList().findItem(
-      instance => instance.id === instanceId
+      (instance) => instance.id === instanceId
     );
   }
 

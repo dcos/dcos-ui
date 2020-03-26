@@ -9,7 +9,7 @@ const NodesPage = ({ children }) => children;
 NodesPage.routeConfig = {
   label: i18nMark("Nodes"),
   icon: <Icon shape={ProductIcons.ServersInverse} size={iconSizeS} />,
-  matches: /^\/nodes/
+  matches: /^\/nodes/,
 };
 
 export default NodesPage;

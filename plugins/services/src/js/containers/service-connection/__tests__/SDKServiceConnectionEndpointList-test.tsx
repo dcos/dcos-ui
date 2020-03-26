@@ -22,7 +22,7 @@ describe("SDKServiceConnectionEndpointList", () => {
           new ServiceEndpoint({
             endpointName,
             endpointData: endpoint.endpointData,
-            contentType: endpoint.contentType
+            contentType: endpoint.contentType,
           })
       );
     SDKEndpointStore.getServiceError = () => "";

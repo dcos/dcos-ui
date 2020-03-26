@@ -18,7 +18,7 @@ import TaskDirectoryStore from "../../stores/TaskDirectoryStore";
 class TaskDetail extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
-    routes: PropTypes.array
+    routes: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -27,7 +27,7 @@ class TaskDetail extends mixin(StoreMixin) {
       directory: null,
       expandClass: "large",
       selectedLogFile: null,
-      taskDirectoryErrorCount: 0
+      taskDirectoryErrorCount: 0,
     };
 
     // prettier-ignore
@@ -62,10 +62,10 @@ class TaskDetail extends mixin(StoreMixin) {
   }
   onTaskDirectoryStoreError = () => {
     this.setState({
-      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1
+      taskDirectoryErrorCount: this.state.taskDirectoryErrorCount + 1,
     });
   };
-  onTaskDirectoryStoreSuccess = taskID => {
+  onTaskDirectoryStoreSuccess = (taskID) => {
     if (this.props.params.taskID !== taskID) {
       this.handleFetchDirectory();
 
@@ -92,7 +92,7 @@ class TaskDetail extends mixin(StoreMixin) {
 
     this.setState({ directory: null });
   }
-  handleBreadcrumbClick = path => {
+  handleBreadcrumbClick = (path) => {
     const { router } = this.context;
     const { params, routes } = this.props;
     const task = MesosStateStore.getTaskFromTaskID(params.taskID);
@@ -119,13 +119,13 @@ class TaskDetail extends mixin(StoreMixin) {
   hasLoadingError() {
     return this.state.taskDirectoryErrorCount >= 3;
   }
-  handleOpenLogClick = selectedLogFile => {
+  handleOpenLogClick = (selectedLogFile) => {
     const { router } = this.context;
     const routes = this.props.routes;
     const params = {
       ...this.props.params,
       filePath: encodeURIComponent(selectedLogFile.get("path")),
-      innerPath: encodeURIComponent(TaskDirectoryStore.get("innerPath"))
+      innerPath: encodeURIComponent(TaskDirectoryStore.get("innerPath")),
     };
     const { fileViewerRoutePath } = routes[routes.length - 1];
     router.push(formatPattern(fileViewerRoutePath, params));
@@ -162,7 +162,7 @@ class TaskDetail extends mixin(StoreMixin) {
       return {
         className: "clickable",
         label: textValue,
-        onClick: this.handleBreadcrumbClick.bind(this, onClickPath)
+        onClick: this.handleBreadcrumbClick.bind(this, onClickPath),
       };
     });
 
@@ -189,7 +189,7 @@ class TaskDetail extends mixin(StoreMixin) {
             selectedLogFile,
             task,
             onOpenLogClick: this.handleOpenLogClick,
-            service
+            service,
           })}
       </div>
     );
@@ -212,7 +212,7 @@ class TaskDetail extends mixin(StoreMixin) {
 }
 
 TaskDetail.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default TaskDetail;

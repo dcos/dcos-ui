@@ -7,7 +7,7 @@ import {
   REQUEST_USER_CREATE_SUCCESS,
   REQUEST_USER_CREATE_ERROR,
   REQUEST_USER_DELETE_SUCCESS,
-  REQUEST_USER_DELETE_ERROR
+  REQUEST_USER_DELETE_ERROR,
 } from "../constants/ActionTypes";
 import AppDispatcher from "./AppDispatcher";
 import Config from "../config/Config";
@@ -19,16 +19,16 @@ const UsersActions = {
       success(response) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_SUCCESS,
-          data: response.array
+          data: response.array,
         });
       },
       error(xhr) {
         AppDispatcher.handleServerAction({
           type: REQUEST_USERS_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -49,7 +49,7 @@ const UsersActions = {
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_CREATE_SUCCESS,
-          userID
+          userID,
         });
       },
       error(xhr) {
@@ -57,9 +57,9 @@ const UsersActions = {
           type: REQUEST_USER_CREATE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
   },
 
@@ -71,7 +71,7 @@ const UsersActions = {
       success() {
         AppDispatcher.handleServerAction({
           type: REQUEST_USER_DELETE_SUCCESS,
-          userID
+          userID,
         });
       },
       error(xhr) {
@@ -79,11 +79,11 @@ const UsersActions = {
           type: REQUEST_USER_DELETE_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
           userID,
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -95,14 +95,14 @@ if (Config.useFixtures) {
     window.actionTypes = {};
   }
 
-  usersFixtureImportPromise.then(usersFixture => {
+  usersFixtureImportPromise.then((usersFixture) => {
     window.actionTypes.UsersActions = {
       fetch: { event: "success", success: { response: usersFixture } },
       addUser: { event: "success" },
-      deleteUser: { event: "success" }
+      deleteUser: { event: "success" },
     };
 
-    Object.keys(window.actionTypes.UsersActions).forEach(method => {
+    Object.keys(window.actionTypes.UsersActions).forEach((method) => {
       UsersActions[method] = RequestUtil.stubRequest(
         UsersActions,
         "UsersActions",

@@ -1,6 +1,6 @@
 const mockRequest = jest.fn();
 jest.mock("@dcos/http-service", () => ({
-  request: mockRequest
+  request: mockRequest,
 }));
 
 import { marbles } from "rxjs-marbles/jest";
@@ -30,31 +30,31 @@ describe("CosmosClient", () => {
         method: "POST",
         body: JSON.stringify({
           includePackageVersions: true,
-          packageName: "dcos-ui"
+          packageName: "dcos-ui",
         }),
         headers: {
           Accept:
             "application/vnd.dcos.package.list-versions-response+json;charset=utf-8;version=v1",
           "Content-type":
-            "application/vnd.dcos.package.list-versions-request+json;charset=utf-8;version=v1"
-        }
+            "application/vnd.dcos.package.list-versions-request+json;charset=utf-8;version=v1",
+        },
       });
     });
 
     it(
       "emits an event when the data is received",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--(j|)", {
           j: {
             response: {
               results: {
                 "1.0.0": "0",
-                "1.1.0": "1"
-              }
+                "1.1.0": "1",
+              },
             },
             code: 200,
-            message: "OK"
-          }
+            message: "OK",
+          },
         });
         mockRequest.mockReturnValueOnce(expected$);
 
@@ -66,13 +66,13 @@ describe("CosmosClient", () => {
 
     it(
       "emits an error for non-2XX responses",
-      marbles(m => {
+      marbles((m) => {
         const expected$ = m.cold("--(j|)", {
           j: {
             response: {},
             code: 500,
-            message: "Internal Server Error"
-          }
+            message: "Internal Server Error",
+          },
         });
         mockRequest.mockReturnValueOnce(expected$);
 
@@ -80,7 +80,7 @@ describe("CosmosClient", () => {
         m.expect(result$).toBeObservable(
           m.cold("--#", undefined, {
             message: "Internal Server Error",
-            name: "Error"
+            name: "Error",
           })
         );
       })

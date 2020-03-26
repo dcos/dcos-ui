@@ -5,5 +5,5 @@ const service = new NavigationService();
 
 export default {
   EventTypes,
-  NavigationService: service
+  NavigationService: service,
 };

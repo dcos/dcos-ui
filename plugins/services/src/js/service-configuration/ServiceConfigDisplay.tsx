@@ -35,8 +35,8 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       ServiceStorageConfigSection,
       ServiceHealthChecksConfigSection,
       ServiceEnvironmentVariablesConfigSection,
-      ServiceLabelsConfigSection
-    ]
+      ServiceLabelsConfigSection,
+    ],
   },
   {
     MOUNT_TYPE: "CreateService:ServiceConfigDisplay:Pod",
@@ -48,9 +48,9 @@ const DEFAULT_DISPLAY_COMPONENTS = [
       PodStorageConfigSection,
       PodHealthChecksConfigSection,
       PodEnvironmentVariablesConfigSection,
-      PodLabelsConfigSection
-    ]
-  }
+      PodLabelsConfigSection,
+    ],
+  },
 ];
 
 // Register default config display components (this needs to only happen once)
@@ -69,12 +69,12 @@ DEFAULT_DISPLAY_COMPONENTS.forEach(({ MOUNT_TYPE, COMPONENTS }) => {
 
 class ServiceConfigDisplay extends React.Component {
   static defaultProps = {
-    errors: []
+    errors: [],
   };
   static propTypes = {
     appConfig: PropTypes.object.isRequired,
     errors: PropTypes.array,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getMountType() {
     if (this.props.appConfig instanceof PodSpec) {

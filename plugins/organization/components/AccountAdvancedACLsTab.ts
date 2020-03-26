@@ -10,7 +10,7 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
   static propTypes = {
     fetchPermissions: PropTypes.func.isRequired,
     getAccountDetails: PropTypes.func.isRequired,
-    storeListenerName: PropTypes.string.isRequired
+    storeListenerName: PropTypes.string.isRequired,
   };
   constructor(props) {
     super(...arguments);
@@ -93,11 +93,11 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
   onPermissionsError() {
     this.props.fetchPermissions();
     this.setState({
-      itemPermissionsRequestErrors: this.state.itemPermissionsRequestErrors + 1
+      itemPermissionsRequestErrors: this.state.itemPermissionsRequestErrors + 1,
     });
   }
 
-  handleFormSubmit = acls => {
+  handleFormSubmit = (acls) => {
     acls.forEach(({ actions, resource }) => {
       ACLStore.grantUserActionToResource(this.props.itemID, actions, resource);
     });
@@ -105,7 +105,7 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
       aclsToBeCreated: acls.length,
       aclsToBeCreatedDupes: [],
       aclsToBeCreatedErrors: [],
-      aclsToBeCreatedSuccess: 0
+      aclsToBeCreatedSuccess: 0,
     });
   };
 
@@ -121,7 +121,7 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
     }
 
     this.revokeActionsRemaining = actions.length;
-    actions.forEach(action => {
+    actions.forEach((action) => {
       ACLStore.revokeUserActionToResource(
         this.props.itemID,
         action,
@@ -140,18 +140,18 @@ class AccountAdvancedACLsTab extends AdvancedACLsTab {
 
     const acls = [];
 
-    ["direct", "groups"].forEach(type => {
+    ["direct", "groups"].forEach((type) => {
       if (allACLs[type]) {
-        allACLs[type].forEach(acl => {
+        allACLs[type].forEach((acl) => {
           const actions = [];
-          acl.actions.forEach(action => {
+          acl.actions.forEach((action) => {
             actions.push(action.name);
           });
 
           acls.push({
             ...acl,
             actions,
-            removable: type === "direct"
+            removable: type === "direct",
           });
         });
       }

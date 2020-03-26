@@ -27,7 +27,7 @@ import { isHostNetwork } from "../../utils/NetworkUtil";
 import {
   MESOS_HTTP,
   MESOS_HTTPS,
-  COMMAND
+  COMMAND,
 } from "../../constants/HealthCheckProtocols";
 import { FormReducer as healthChecks } from "../../reducers/serviceForm/FormReducers/HealthChecks";
 import HealthCheckUtil from "../../utils/HealthCheckUtil";
@@ -39,13 +39,13 @@ class HealthChecksFormSection extends React.Component {
     data: {},
     errors: {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   getAdvancedSettings(healthCheck, key) {
     if (
@@ -398,7 +398,7 @@ class HealthChecksFormSection extends React.Component {
       </FormRow>,
       <FormRow key="IPv6">
         {this.getIpProtocol({ healthCheck, key, errors })}
-      </FormRow>
+      </FormRow>,
     ];
   }
 
@@ -415,7 +415,7 @@ class HealthChecksFormSection extends React.Component {
             key={key}
             onRemove={this.props.onRemoveItem.bind(this, {
               value: key,
-              path: "healthChecks"
+              path: "healthChecks",
             })}
           >
             <FieldLabel>
@@ -446,7 +446,7 @@ class HealthChecksFormSection extends React.Component {
           key={key}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: key,
-            path: "healthChecks"
+            path: "healthChecks",
           })}
         >
           <FormRow>
@@ -542,7 +542,7 @@ class HealthChecksFormSection extends React.Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path: "healthChecks"
+                path: "healthChecks",
               })}
             >
               <Trans render="span">Add Health Check</Trans>
@@ -555,13 +555,13 @@ class HealthChecksFormSection extends React.Component {
 }
 
 HealthChecksFormSection.configReducers = {
-  healthChecks
+  healthChecks,
 };
 
 HealthChecksFormSection.validationReducers = {
   healthChecks() {
     return [];
-  }
+  },
 };
 
 export default HealthChecksFormSection;

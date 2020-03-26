@@ -44,7 +44,7 @@ class NodesStatusDSLSection extends React.PureComponent<{
               checked: data[key],
               disabled: !enabled,
               label: status.displayName,
-              name: key
+              name: key,
             })
           )}
         </div>

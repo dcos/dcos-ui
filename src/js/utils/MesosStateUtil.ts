@@ -8,7 +8,7 @@ import Util from "./Util";
 
 const RESOURCE_KEYS = ["cpus", "disk", "mem"];
 
-const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter(taskState =>
+const COMPLETED_TASK_STATES = Object.keys(TaskStates).filter((taskState) =>
   TaskStates[taskState].stateTypes.includes("completed")
 );
 
@@ -23,10 +23,10 @@ const POD_TASK_REGEX = /^(.+)\.instance-([^_.]+)[._]([^_.]+)?.*$/;
  * @param {Array.<Object>} resourceList - Verbose resource information
  * @returns {Object} An object of only the resource values
  */
-const extractExecutorResources = resourceList => {
+const extractExecutorResources = (resourceList) => {
   const resources = {};
 
-  resourceList.forEach(resource => {
+  resourceList.forEach((resource) => {
     if (resource.type === "SCALAR") {
       resources[resource.name] = resource.scalar.value;
     }
@@ -48,7 +48,7 @@ const MesosStateUtil = {
     return {
       podID,
       instanceID,
-      taskName
+      taskName,
     };
   },
 
@@ -62,7 +62,7 @@ const MesosStateUtil = {
 
     return []
       .concat(frameworks, completed_frameworks)
-      .find(framework => framework != null && framework.id === frameworkID);
+      .find((framework) => framework != null && framework.id === frameworkID);
   },
 
   /**
@@ -75,16 +75,16 @@ const MesosStateUtil = {
    */
   getHostResourcesByFramework(state, filter = []) {
     const tasks = (state.tasks || []).filter(
-      task => !COMPLETED_TASK_STATES.includes(task.state)
+      (task) => !COMPLETED_TASK_STATES.includes(task.state)
     );
     const executors = state.executors || [];
 
     return tasks
       .concat(
-        executors.map(executor => ({
+        executors.map((executor) => ({
           slave_id: executor.agent_id.value,
           framework_id: executor.framework_id,
-          resources: extractExecutorResources(executor.resources)
+          resources: extractExecutorResources(executor.resources),
         }))
       )
       .reduce((memo, element) => {
@@ -102,7 +102,7 @@ const MesosStateUtil = {
           memo[element.slave_id][frameworkKey] = { ...resources };
         } else {
           // Aggregates used resources from each executor
-          RESOURCE_KEYS.forEach(key => {
+          RESOURCE_KEYS.forEach((key) => {
             memo[element.slave_id][frameworkKey][key] += resources[key];
           });
         }
@@ -112,7 +112,7 @@ const MesosStateUtil = {
   },
 
   getRunningTasksFromVirtualNetworkName({ tasks = [] } = {}, overlayName) {
-    return tasks.filter(task => {
+    return tasks.filter((task) => {
       const appPath = "container.network_infos.0.name";
       const podPath = "statuses.0.container_status.network_infos.0.name";
 
@@ -135,7 +135,7 @@ const MesosStateUtil = {
   getPodHistoricalInstances(state, pod) {
     const { frameworks = [], tasks = [] } = state;
     const marathon = frameworks.find(
-      framework => framework.name === "marathon"
+      (framework) => framework.name === "marathon"
     );
 
     if (!marathon) {
@@ -144,7 +144,7 @@ const MesosStateUtil = {
 
     const instancesMap = tasks
       .filter(
-        task =>
+        (task) =>
           task.framework_id === marathon.id &&
           COMPLETED_TASK_STATES.includes(task.state)
       )
@@ -183,7 +183,7 @@ const MesosStateUtil = {
               lastChanged: lastStatus.timestamp * 1000,
 
               lastUpdated: lastStatus.timestamp * 1000,
-              ...task
+              ...task,
             });
           }
         }
@@ -194,7 +194,7 @@ const MesosStateUtil = {
     // Try to compose actual PodInstance structures from the information we
     // have so far. Obviously we don't have any details, but we can populate
     // most of the UI-interesting fields by summarizing container details
-    return Object.keys(instancesMap).map(instanceID => {
+    return Object.keys(instancesMap).map((instanceID) => {
       const containers = instancesMap[instanceID];
       const summaryProperties = containers.reduce(
         (memo, instance) => {
@@ -217,7 +217,7 @@ const MesosStateUtil = {
         {
           resources: { cpus: 0, mem: 0, gpus: 0, disk: 0 },
           lastChanged: 0,
-          lastUpdated: 0
+          lastUpdated: 0,
         }
       );
 
@@ -226,7 +226,7 @@ const MesosStateUtil = {
         id: instanceID,
         status: PodInstanceState.TERMINAL,
         containers,
-        ...summaryProperties
+        ...summaryProperties,
       };
     });
   },
@@ -270,7 +270,7 @@ const MesosStateUtil = {
     if (task.sdkTask === undefined && isSDKService(service)) {
       return {
         ...task,
-        sdkTask: true
+        sdkTask: true,
       };
     }
 
@@ -280,14 +280,14 @@ const MesosStateUtil = {
   getFrameworkToServicesMap(frameworks, serviceTree) {
     return frameworks.reduce((acc, framework) => {
       acc[framework.id] = serviceTree.findItem(
-        item =>
+        (item) =>
           item instanceof Framework &&
           item.getFrameworkName() === framework.name
       );
 
       return acc;
     }, {});
-  }
+  },
 };
 
 export default MesosStateUtil;

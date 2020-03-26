@@ -1,7 +1,7 @@
 import { Container } from "@extension-kid/core";
 import dataLayerContainerModuleFactory, {
   DataLayer,
-  DataLayerType
+  DataLayerType,
 } from "@extension-kid/data-layer";
 
 import extensionFactory from "../extension";

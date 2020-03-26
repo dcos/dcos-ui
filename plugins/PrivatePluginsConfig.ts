@@ -7,7 +7,7 @@ interface Config {
 const PrivatePluginsConfig: Config = {
   secretsAPIPrefix: "/secrets/v1",
   secretsDefaultStore: "default",
-  certificatesAPIPrefix: "ca/api/v2"
+  certificatesAPIPrefix: "ca/api/v2",
 };
 
 export { PrivatePluginsConfig as default };

@@ -6,7 +6,7 @@ let mockMetadata$ = of({});
 let mockAction$: BehaviorSubject<any>;
 jest.mock("../streams", () => ({
   getAction$: () => mockAction$,
-  getUiMetadata$: () => mockMetadata$
+  getUiMetadata$: () => mockMetadata$,
 }));
 
 import { ToastNotification } from "@extension-kid/toast-notifications";
@@ -15,20 +15,20 @@ import {
   EMPTY_ACTION,
   UIAction,
   UIActions,
-  UIActionType
+  UIActionType,
 } from "../types/UIAction";
 import { TYPES } from "#SRC/js/types/containerTypes";
 import { NotificationServiceType } from "@extension-kid/notification-service";
 import {
   loadNotifications,
   UIUpdateNotifications,
-  UIUpdateNotificationsType
+  UIUpdateNotificationsType,
 } from "../notifications";
 import { setupI18n } from "@lingui/core";
 
 mockAction$ = new BehaviorSubject<UIAction>(EMPTY_ACTION);
 const mockNS = {
-  push: jest.fn()
+  push: jest.fn(),
 };
 
 describe("Notifications", () => {
@@ -54,14 +54,14 @@ describe("Notifications", () => {
   describe("UIUpdatedNotification", () => {
     it(
       "pushes notification when client build !== server build",
-      marbles(m => {
+      marbles((m) => {
         mockMetadata$ = m.cold("--j", {
           j: {
             clientBuild: "master+v1.0.1",
             packageVersion: "1.2.0",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.2.0"
-          }
+            serverBuild: "master+v1.2.0",
+          },
         });
         notifications.setupUIUpdatedNotification();
         m.flush();
@@ -71,14 +71,14 @@ describe("Notifications", () => {
     );
     it(
       "doesn't push a notification if build matches",
-      marbles(m => {
+      marbles((m) => {
         mockMetadata$ = m.cold("--j", {
           j: {
             clientBuild: "master+v1.0.1",
             packageVersion: "1.0.1",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.0.1"
-          }
+            serverBuild: "master+v1.0.1",
+          },
         });
         notifications.setupUIUpdatedNotification();
         m.flush();
@@ -88,14 +88,14 @@ describe("Notifications", () => {
     );
     it(
       "doesn't push a notification for local dev",
-      marbles(m => {
+      marbles((m) => {
         mockMetadata$ = m.cold("--j", {
           j: {
             clientBuild: "0.0.0-dev+semantic-release",
             packageVersion: "1.0.1",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.0.1"
-          }
+            serverBuild: "master+v1.0.1",
+          },
         });
         notifications.setupUIUpdatedNotification();
         m.flush();
@@ -105,20 +105,20 @@ describe("Notifications", () => {
     );
     it(
       "doesn't push second notification if first hasn't been dismissed",
-      marbles(m => {
+      marbles((m) => {
         mockMetadata$ = m.cold("--j--k", {
           j: {
             clientBuild: "master+v1.0.1",
             packageVersion: "1.2.0",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.2.0"
+            serverBuild: "master+v1.2.0",
           },
           k: {
             clientBuild: "master+v1.0.1",
             packageVersion: "1.2.0",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.2.0"
-          }
+            serverBuild: "master+v1.2.0",
+          },
         });
         notifications.setupUIUpdatedNotification();
         m.flush();
@@ -128,17 +128,17 @@ describe("Notifications", () => {
     );
     it(
       "calls location.reload for toast primary callback",
-      marbles(m => {
+      marbles((m) => {
         mockMetadata$ = m.cold("--j", {
           j: {
             clientBuild: "master+v1.0.1",
             packageVersion: "1.2.0",
             packageVersionIsDefault: false,
-            serverBuild: "master+v1.2.0"
-          }
+            serverBuild: "master+v1.2.0",
+          },
         });
         let notification: ToastNotification | null = null;
-        mockNS.push.mockImplementation(tn => (notification = tn));
+        mockNS.push.mockImplementation((tn) => (notification = tn));
         const reloadSpy = jest
           .spyOn(window.location, "reload")
           .mockImplementation(() => {
@@ -170,8 +170,8 @@ describe("Notifications", () => {
         action: UIActions.Error,
         value: {
           message: "Something bad happened",
-          data: "1.0.0"
-        }
+          data: "1.0.0",
+        },
       });
 
       expect(mockNS.push).toHaveBeenCalled();
@@ -184,8 +184,8 @@ describe("Notifications", () => {
         action: UIActions.Completed,
         value: {
           message: "Complete",
-          data: "1.0.0"
-        }
+          data: "1.0.0",
+        },
       });
 
       expect(mockNS.push).not.toHaveBeenCalled();
@@ -198,8 +198,8 @@ describe("Notifications", () => {
         action: UIActions.Error,
         value: {
           message: "Something bad happened",
-          data: "1.0.0"
-        }
+          data: "1.0.0",
+        },
       });
 
       expect(
@@ -213,8 +213,8 @@ describe("Notifications", () => {
         type: UIActionType.Update,
         action: UIActions.Error,
         value: {
-          message: "Something bad happened"
-        }
+          message: "Something bad happened",
+        },
       });
 
       expect(mockNS.push.mock.calls[0][0].primaryActionText).toBeUndefined();
@@ -231,8 +231,8 @@ describe("Notifications", () => {
         type: UIActionType.Reset,
         action: UIActions.Error,
         value: {
-          message: "Something bad happened"
-        }
+          message: "Something bad happened",
+        },
       });
 
       expect(mockNS.push).toHaveBeenCalled();
@@ -244,8 +244,8 @@ describe("Notifications", () => {
         type: UIActionType.Reset,
         action: UIActions.Completed,
         value: {
-          message: "Complete"
-        }
+          message: "Complete",
+        },
       });
 
       expect(mockNS.push).not.toHaveBeenCalled();

@@ -2,7 +2,7 @@ import Config from "#SRC/js/config/Config";
 import { RequestUtil } from "mesosphere-shared-reactjs";
 import {
   REQUEST_LICENSING_SUMMARY_ERROR,
-  REQUEST_LICENSING_SUMMARY_SUCCESS
+  REQUEST_LICENSING_SUMMARY_SUCCESS,
 } from "../constants/ActionTypes";
 import { licensingAPIPrefix } from "../config/LicensingConfig";
 
@@ -16,18 +16,18 @@ const LicensingActions = {
       success(response) {
         SDK.dispatch({
           type: REQUEST_LICENSING_SUMMARY_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: REQUEST_LICENSING_SUMMARY_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
-          xhr
+          xhr,
         });
-      }
+      },
     });
-  }
+  },
 };
 
 if (Config.useFixtures) {
@@ -39,15 +39,15 @@ if (Config.useFixtures) {
     window.actionTypes = {};
   }
 
-  licensingSummaryFixtureImportPromise.then(licensingSummaryFixture => {
+  licensingSummaryFixtureImportPromise.then((licensingSummaryFixture) => {
     window.actionTypes.LicensingActions = {
       fetchLicensingSummary: {
         event: "success",
-        success: { response: licensingSummaryFixture }
-      }
+        success: { response: licensingSummaryFixture },
+      },
     };
 
-    Object.keys(window.actionTypes.LicensingActions).forEach(method => {
+    Object.keys(window.actionTypes.LicensingActions).forEach((method) => {
       LicensingActions[method] = RequestUtil.stubRequest(
         LicensingActions,
         "LicensingActions",

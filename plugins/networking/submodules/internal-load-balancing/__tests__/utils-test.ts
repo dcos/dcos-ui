@@ -6,7 +6,7 @@ describe("utils", () => {
     it("returns the same number of arrays it receives", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 0: "bar" },
-        { 0: "baz" }
+        { 0: "baz" },
       ]);
       expect(normalizedData.length).toEqual(2);
     });
@@ -14,7 +14,7 @@ describe("utils", () => {
     it("returns arrays with the same number of values", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 0: "bar" },
-        { 0: "baz", 1: "qux" }
+        { 0: "baz", 1: "qux" },
       ]);
       expect(normalizedData[0].length).toEqual(normalizedData[1].length);
     });
@@ -31,7 +31,7 @@ describe("utils", () => {
     it("pads the arrays with the default number of data points if not specified", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 0: "bar" },
-        { 0: "baz", 1: "qux" }
+        { 0: "baz", 1: "qux" },
       ]);
       expect(normalizedData[0].length).toEqual(DEFAULT_MAX_INTERVALS);
       expect(normalizedData[1].length).toEqual(DEFAULT_MAX_INTERVALS);
@@ -40,7 +40,7 @@ describe("utils", () => {
     it("pads the arrays at their end if the data is older than one minute before now", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 1: "bar" },
-        { 1: "baz" }
+        { 1: "baz" },
       ]);
       expect(normalizedData[0][0]).toEqual("bar");
       expect(normalizedData[1][0]).toEqual("baz");
@@ -52,7 +52,7 @@ describe("utils", () => {
       const futureTimestamp = Date.now() * 1.5;
       const normalizedData = utils.normalizeTimeSeriesData([
         { [futureTimestamp]: "bar" },
-        { [futureTimestamp]: "baz" }
+        { [futureTimestamp]: "baz" },
       ]);
       expect(normalizedData[0][0]).toEqual(null);
       expect(normalizedData[1][0]).toEqual(null);
@@ -63,7 +63,7 @@ describe("utils", () => {
     it("matches values with corresponding timestamps to corresponding positions in the normalized arrays", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 1: "foo" },
-        { 0: "bar", 1: "baz" }
+        { 0: "bar", 1: "baz" },
       ]);
       expect(normalizedData[0].indexOf("foo")).toEqual(
         normalizedData[1].indexOf("baz")
@@ -73,7 +73,7 @@ describe("utils", () => {
     it("adds null values in positions where timestamps do not exist in the sibling data sets", () => {
       const normalizedData = utils.normalizeTimeSeriesData([
         { 0: "foo", 2: "qux" },
-        { 0: "bar", 1: "baz" }
+        { 0: "bar", 1: "baz" },
       ]);
       const unmatchedTimestampIndex = normalizedData[1].indexOf("baz");
       expect(normalizedData[0][unmatchedTimestampIndex]).toEqual(null);
@@ -83,7 +83,7 @@ describe("utils", () => {
       const normalizedData = utils.normalizeTimeSeriesData(
         [
           { 0: "foo", 1: "bar", 2: "baz" },
-          { 0: "qux", 1: "quux", 2: "grault" }
+          { 0: "qux", 1: "quux", 2: "grault" },
         ],
         { maxIntervals: 1 }
       );

@@ -3,7 +3,7 @@ import { Cell, Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import { ServiceGroup } from "#PLUGINS/services/src/js/types/ServiceGroup";

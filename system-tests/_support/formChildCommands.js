@@ -70,7 +70,7 @@ Cypress.Commands.add(
     matchedRows = matchedRows.filter((index, row) =>
       Array.prototype.slice
         .apply(row.childNodes)
-        .some(child => child.innerText.indexOf(contents) !== -1)
+        .some((child) => child.innerText.indexOf(contents) !== -1)
     );
 
     return Cypress.$(matchedRows);
@@ -126,7 +126,7 @@ Cypress.Commands.add(
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.Commands.add("contents", { prevSubject: true }, elements =>
+Cypress.Commands.add("contents", { prevSubject: true }, (elements) =>
   elements
     .map((index, element) => {
       const doc = element.ownerDocument;
@@ -172,9 +172,9 @@ Cypress.Commands.add(
  *
  * @param {jQuery.Element} elements - The DOM scope to search within
  */
-Cypress.Commands.add("asJson", { prevSubject: true }, contents => {
+Cypress.Commands.add("asJson", { prevSubject: true }, (contents) => {
   if (contents.length != null) {
-    return contents.map(content => JSON.parse(content));
+    return contents.map((content) => JSON.parse(content));
   } else {
     return JSON.parse(contents);
   }

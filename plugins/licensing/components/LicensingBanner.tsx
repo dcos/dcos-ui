@@ -10,7 +10,7 @@ class LicensingBanner extends React.Component {
     super(props);
 
     this.state = {
-      licensingSummary: LicensingStore.getLicensingSummary()
+      licensingSummary: LicensingStore.getLicensingSummary(),
     };
   }
 
@@ -115,7 +115,7 @@ class LicensingBanner extends React.Component {
 }
 
 LicensingBanner.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default LicensingBanner;

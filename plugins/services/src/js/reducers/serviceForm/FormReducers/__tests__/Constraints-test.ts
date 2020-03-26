@@ -11,11 +11,11 @@ describe("Constraints", () => {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
         new Transaction(["constraints", 0, "operator"], "JOIN", SET),
-        new Transaction(["constraints", 0, "value"], "param", SET)
+        new Transaction(["constraints", 0, "value"], "param", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
-        { fieldName: "hostname", operator: "JOIN", value: "param" }
+        { fieldName: "hostname", operator: "JOIN", value: "param" },
       ]);
     });
 
@@ -23,11 +23,11 @@ describe("Constraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
-        new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+        new Transaction(["constraints", 0, "operator"], "JOIN", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
-        { fieldName: "hostname", operator: "JOIN", value: null }
+        { fieldName: "hostname", operator: "JOIN", value: null },
       ]);
     });
 
@@ -35,7 +35,7 @@ describe("Constraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "fieldName"], "hostname", SET),
-        new Transaction(["constraints", 0, "operator"], "JOIN", SET)
+        new Transaction(["constraints", 0, "operator"], "JOIN", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), {})).toEqual({});
@@ -45,15 +45,15 @@ describe("Constraints", () => {
       const batch = new Batch([
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
-        new Transaction(["constraints", 0, "fieldName"], "HOSTNAME", SET)
+        new Transaction(["constraints", 0, "fieldName"], "HOSTNAME", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
         {
           fieldName: "HOSTNAME",
           operator: "UNIQUE",
-          value: null
-        }
+          value: null,
+        },
       ]);
     });
 
@@ -62,21 +62,21 @@ describe("Constraints", () => {
         new Transaction(["constraints"], null, ADD_ITEM),
         new Transaction(["constraints", 0, "operator"], "UNIQUE", SET),
         new Transaction(["constraints", 0, "fieldName"], "LOCAL", SET),
-        new Transaction(["constraints", 0, "operator"], "CLUSTER", SET)
+        new Transaction(["constraints", 0, "operator"], "CLUSTER", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([
         {
           fieldName: "LOCAL",
           operator: "CLUSTER",
-          value: null
-        }
+          value: null,
+        },
       ]);
     });
 
     it("does not crash when type is Set, name is type and newState[index] is undefined", () => {
       const batch = new Batch([
-        new Transaction(["constraints", 0, "type"], "hostname", SET)
+        new Transaction(["constraints", 0, "type"], "hostname", SET),
       ]);
 
       expect(batch.reduce(Constraints.FormReducer.bind({}), [])).toEqual([]);

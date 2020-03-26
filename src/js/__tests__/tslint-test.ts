@@ -10,7 +10,7 @@ test("tslint snapshot should be up to date", async () => {
     "--project",
     "tsconfig.json",
     "-o",
-    "/tmp/tslint"
+    "/tmp/tslint",
   ]).catch(() => {
     return "that's ok!";
   });

@@ -59,7 +59,7 @@ EnvironmentVariableInput.propTypes = {
   value: PropTypes.string,
   showErrors: PropTypes.bool,
   errors: PropTypes.object,
-  autofocus: PropTypes.bool
+  autofocus: PropTypes.bool,
 };
 
 export default EnvironmentVariableInput;

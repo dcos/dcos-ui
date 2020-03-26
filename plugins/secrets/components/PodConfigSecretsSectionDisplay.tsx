@@ -3,12 +3,12 @@ import * as React from "react";
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
 
 import ServiceConfigSecretsExposedAsEnvironmentVariable, {
-  SecretEnvExposure
+  SecretEnvExposure,
 } from "./ServiceConfigSecretsExposedAsEnvironmentVariable";
 
 import PodConfigSecretsExposedAsFile, {
   SecretPodFileExposure,
-  SecretContainerFileExposure
+  SecretContainerFileExposure,
 } from "./PodConfigSecretsExposedAsFile";
 
 interface Props {
@@ -37,14 +37,14 @@ function getEnvExposures(appConfig: any): SecretEnvExposure[] {
       const key = appConfig.environment[envName].secret;
       if (key && appConfig.secrets[key]) {
         const existing = acc.find(
-          exp => exp.secretPath === appConfig.secrets[key].source
+          (exp) => exp.secretPath === appConfig.secrets[key].source
         );
         if (existing) {
           existing.exposures.push(envName);
         } else {
           acc.push({
             secretPath: appConfig.secrets[key].source,
-            exposures: [envName]
+            exposures: [envName],
           });
         }
       }
@@ -75,7 +75,7 @@ function containerFilePaths(appConfig: any, secretKey: string) {
         if (secretMount) {
           acc.push({
             containerName: container.name,
-            containerPath: secretMount.mountPath as string
+            containerPath: secretMount.mountPath as string,
           });
         }
       }
@@ -95,7 +95,7 @@ function getFileExposures(appConfig: any): SecretPodFileExposure[] {
 
       acc.push({
         secretPath: appConfig.secrets[key].source,
-        containers: containerFilePaths(appConfig, key)
+        containers: containerFilePaths(appConfig, key),
       });
       return acc;
     },

@@ -5,7 +5,7 @@ import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
-  iconSizeXs
+  iconSizeXs,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import ConfigurationMap from "#SRC/js/components/ConfigurationMap";
@@ -17,13 +17,13 @@ import Util from "#SRC/js/utils/Util";
 
 class AuthProviderDetailTab extends React.Component {
   static propTypes = {
-    provider: PropTypes.object
+    provider: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      hideSecret: true
+      hideSecret: true,
     };
   }
   handleSecretToggle = () => {
@@ -57,7 +57,7 @@ class AuthProviderDetailTab extends React.Component {
     const providerType = provider.getProviderType();
     const details = Util.omit(provider.getDetails(), [
       "Description",
-      "Client Secret"
+      "Client Secret",
     ]);
     let samlRows = null;
     let secretRow = null;
@@ -91,11 +91,11 @@ class AuthProviderDetailTab extends React.Component {
           <ConfigurationMapValue>
             {provider.getEntityID()}
           </ConfigurationMapValue>
-        </ConfigurationMapRow>
+        </ConfigurationMapRow>,
       ];
     }
 
-    const detailRows = Object.keys(details).map(detailKey => {
+    const detailRows = Object.keys(details).map((detailKey) => {
       const value = details[detailKey];
 
       return (

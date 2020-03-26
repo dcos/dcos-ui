@@ -21,5 +21,5 @@ export const JobHistorySummaryTypeResolver = (
   failureCount: history.failureCount,
   lastFailureAt: history.lastFailureAt,
   lastSuccessAt: history.lastSuccessAt,
-  successCount: history.successCount
+  successCount: history.successCount,
 });

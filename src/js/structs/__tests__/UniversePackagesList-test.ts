@@ -40,7 +40,7 @@ describe("UniversePackagesList", () => {
       let items = [
         { tags: ["word", "foo", "bar"] },
         { tags: ["foo"] },
-        { tags: [] }
+        { tags: [] },
       ];
 
       const list = new UniversePackagesList({ items });
@@ -54,7 +54,7 @@ describe("UniversePackagesList", () => {
       const items = [
         { tags: ["foo", "bar"] },
         { tags: ["foo"] },
-        { tags: null }
+        { tags: null },
       ];
       const list = new UniversePackagesList({ items });
       expect(list.filterItemsByText.bind(list, "foo")).not.toThrow();

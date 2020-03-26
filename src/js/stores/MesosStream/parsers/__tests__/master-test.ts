@@ -15,14 +15,14 @@ function masterMessage() {
         domain: {
           fault_domain: {
             region: { name: "us-east-1" },
-            zone: { name: "us-east-1a" }
-          }
+            zone: { name: "us-east-1a" },
+          },
         },
-        capabilities: [{ type: "AGENT_UPDATE" }]
+        capabilities: [{ type: "AGENT_UPDATE" }],
       },
       start_time: 1532339115.87122,
-      elected_time: 1532340694.04573
-    }
+      elected_time: 1532340694.04573,
+    },
   };
 }
 
@@ -53,12 +53,12 @@ describe("#getMaster", () => {
       domain: {
         fault_domain: {
           region: { name: "us-east-1" },
-          zone: { name: "us-east-1a" }
-        }
+          zone: { name: "us-east-1a" },
+        },
       },
       capabilities: [{ type: "AGENT_UPDATE" }],
       start_time: 1532339115.87122,
-      elected_time: 1532340694.04573
+      elected_time: 1532340694.04573,
     });
   });
 

@@ -24,11 +24,11 @@ describe("ACLGroupsStore", () => {
     require("../../../../SDK").setSDK(SDK);
 
     thisRequestFn = RequestUtil.json;
-    RequestUtil.json = handlers => {
+    RequestUtil.json = (handlers) => {
       handlers.success(groupsFixture);
     };
     thisGroupsFixture = {
-      ...groupsFixture
+      ...groupsFixture,
     };
   });
 
@@ -54,7 +54,7 @@ describe("ACLGroupsStore", () => {
     it("stores groups when event is dispatched", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_GROUPS_SUCCESS,
-        data: [{ gid: "foo", bar: "baz" }]
+        data: [{ gid: "foo", bar: "baz" }],
       });
 
       const groups = ACLGroupsStore.getGroups().getItems();
@@ -67,7 +67,7 @@ describe("ACLGroupsStore", () => {
       ACLGroupsStore.addChangeListener(EventTypes.ACL_GROUPS_CHANGE, mockedFn);
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_GROUPS_SUCCESS,
-        data: [{ gid: "foo", bar: "baz" }]
+        data: [{ gid: "foo", bar: "baz" }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -81,7 +81,7 @@ describe("ACLGroupsStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_GROUPS_ERROR,
-        data: "foo"
+        data: "foo",
       });
 
       expect(mockedFn.calls.count()).toEqual(1);

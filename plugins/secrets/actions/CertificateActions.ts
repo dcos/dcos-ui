@@ -19,26 +19,26 @@ const CertificateActions = {
         success(response) {
           SDK.dispatch({
             type: ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS,
-            data: response
+            data: response,
           });
           resolve();
         },
         error(xhr) {
           SDK.dispatch({
             type: ActionTypes.REQUEST_ALL_CERTIFICATES_ERROR,
-            data: RequestUtil.getErrorFromXHR(xhr)
+            data: RequestUtil.getErrorFromXHR(xhr),
           });
           reject();
         },
         hangingRequestCallback() {
           AppDispatcher.handleServerAction({
-            type: ActionTypes.REQUEST_ALL_CERTIFICATES_ONGOING
+            type: ActionTypes.REQUEST_ALL_CERTIFICATES_ONGOING,
           });
-        }
+        },
       });
     },
     { delayAfterCount: Config.delayAfterErrorCount }
-  )
+  ),
 };
 
 if (Config.useFixtures) {
@@ -54,13 +54,13 @@ if (Config.useFixtures) {
     window.actionTypes.CertificateActions = {};
   }
 
-  certificatesFixturePromise.then(certificatesFixture => {
+  certificatesFixturePromise.then((certificatesFixture) => {
     window.actionTypes.CertificateActions.fetchCertificates = {
       event: "success",
-      success: { response: certificatesFixture }
+      success: { response: certificatesFixture },
     };
 
-    Object.keys(window.actionTypes.CertificateActions).forEach(method => {
+    Object.keys(window.actionTypes.CertificateActions).forEach((method) => {
       CertificateActions[method] = RequestUtil.stubRequest(
         CertificateActions,
         "CertificateActions",

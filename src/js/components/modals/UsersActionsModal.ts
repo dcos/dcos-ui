@@ -9,7 +9,7 @@ class UsersActionsModal extends ActionsModal {
     actionText: PropTypes.object.isRequired,
     itemID: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired
+    selectedItems: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -30,9 +30,9 @@ class UsersActionsModal extends ActionsModal {
 
   handleButtonConfirm() {
     const { itemID, selectedItems } = this.props;
-    const itemsByID = selectedItems.map(item => item[itemID]);
+    const itemsByID = selectedItems.map((item) => item[itemID]);
 
-    itemsByID.forEach(userID => {
+    itemsByID.forEach((userID) => {
       UserStore.deleteUser(userID);
     });
 

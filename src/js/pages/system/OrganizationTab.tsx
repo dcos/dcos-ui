@@ -26,7 +26,7 @@ import UsersStore from "../../stores/UsersStore";
 
 const USERS_CHANGE_EVENTS = [
   "onUserStoreCreateSuccess",
-  "onUserStoreDeleteSuccess"
+  "onUserStoreDeleteSuccess",
 ];
 
 const UsersBreadcrumbs = () => {
@@ -37,7 +37,7 @@ const UsersBreadcrumbs = () => {
           <Trans render="span">Users</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -49,7 +49,7 @@ class OrganizationTab extends mixin(StoreMixin) {
   static propTypes = {
     items: PropTypes.array.isRequired,
     itemID: PropTypes.string.isRequired,
-    itemName: PropTypes.string.isRequired
+    itemName: PropTypes.string.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -67,13 +67,13 @@ class OrganizationTab extends mixin(StoreMixin) {
       searchString: "",
       selectedAction: null,
       usersStoreError: false,
-      usersStoreSuccess: false
+      usersStoreSuccess: false,
     };
 
     Hooks.applyFilter(
       "organizationTabChangeEvents",
       USERS_CHANGE_EVENTS
-    ).forEach(event => {
+    ).forEach((event) => {
       this[event] = this.onUsersChange;
     });
 
@@ -104,14 +104,14 @@ class OrganizationTab extends mixin(StoreMixin) {
   onUsersChange() {
     UsersStore.fetchUsers();
   }
-  handleActionSelection = dropdownItem => {
+  handleActionSelection = (dropdownItem) => {
     this.setState({
-      selectedAction: dropdownItem.id
+      selectedAction: dropdownItem.id,
     });
   };
   handleActionSelectionClose = () => {
     this.setState({
-      selectedAction: null
+      selectedAction: null,
     });
     this.bulkCheck(false);
   };
@@ -125,7 +125,7 @@ class OrganizationTab extends mixin(StoreMixin) {
 
     this.setState({
       checkedCount,
-      showActionDropdown: checkedCount > 0
+      showActionDropdown: checkedCount > 0,
     });
   };
   handleHeadingCheckboxChange = (prevCheckboxState, eventObject) => {
@@ -180,8 +180,8 @@ class OrganizationTab extends mixin(StoreMixin) {
             fieldType: "checkbox",
             labelClass: "form-row-element form-element-checkbox",
             name: rowID,
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleCheckboxChange}
       />
@@ -214,8 +214,8 @@ class OrganizationTab extends mixin(StoreMixin) {
             indeterminate,
             labelClass: "form-row-element form-element-checkbox",
             name: "headingCheckbox",
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleHeadingCheckboxChange}
       />
@@ -233,7 +233,7 @@ class OrganizationTab extends mixin(StoreMixin) {
 
   getClassName(prop, sortBy, row) {
     return classNames({
-      clickable: row == null // this is a header
+      clickable: row == null, // this is a header
     });
   }
 
@@ -247,7 +247,7 @@ class OrganizationTab extends mixin(StoreMixin) {
         prop: "selected",
         render: this.renderCheckbox,
         sortable: false,
-        heading: this.renderHeadingCheckbox
+        heading: this.renderHeadingCheckbox,
       },
       {
         cacheCell: true,
@@ -260,8 +260,8 @@ class OrganizationTab extends mixin(StoreMixin) {
           this.props.itemID,
           (item, prop) => item.get(prop)
         ),
-        heading: ResourceTableUtil.renderHeading({ uid: i18nMark("USERNAME") })
-      }
+        heading: ResourceTableUtil.renderHeading({ uid: i18nMark("USERNAME") }),
+      },
     ];
   }
 
@@ -309,10 +309,10 @@ class OrganizationTab extends mixin(StoreMixin) {
   }
 
   getActionsDropdownItems(actionPhrases) {
-    return Object.keys(actionPhrases).map(action => ({
+    return Object.keys(actionPhrases).map((action) => ({
       html: actionPhrases[action].dropdownOption,
       id: action,
-      selectedHtml: "Actions"
+      selectedHtml: "Actions",
     }));
   }
 
@@ -321,13 +321,13 @@ class OrganizationTab extends mixin(StoreMixin) {
       const checkboxStates = this.selectedIDSet;
       const selectedItems = {};
 
-      Object.keys(checkboxStates).forEach(id => {
+      Object.keys(checkboxStates).forEach((id) => {
         if (checkboxStates[id] === true) {
           selectedItems[id] = true;
         }
       });
 
-      return items.filter(item => {
+      return items.filter((item) => {
         const itemID = item[itemIDName];
 
         return selectedItems[itemID] || false;
@@ -341,7 +341,7 @@ class OrganizationTab extends mixin(StoreMixin) {
     searchString = searchString.toLowerCase();
 
     if (searchString !== "") {
-      return items.filter(item => {
+      return items.filter((item) => {
         const description = item.get("description").toLowerCase();
         const id = item.get(this.props.itemID).toLowerCase();
 
@@ -374,7 +374,7 @@ class OrganizationTab extends mixin(StoreMixin) {
       />
     );
   }
-  getTableRowOptions = row => {
+  getTableRowOptions = (row) => {
     const selectedIDSet = this.selectedIDSet;
     if (selectedIDSet[row[this.props.itemID]]) {
       return { className: "selected" };
@@ -387,7 +387,7 @@ class OrganizationTab extends mixin(StoreMixin) {
     let checkedCount = 0;
     const selectedIDSet = this.selectedIDSet;
 
-    Object.keys(selectedIDSet).forEach(id => {
+    Object.keys(selectedIDSet).forEach((id) => {
       selectedIDSet[id] = isChecked;
     });
     this.selectedIDSet = selectedIDSet;
@@ -398,7 +398,7 @@ class OrganizationTab extends mixin(StoreMixin) {
 
     this.setState({
       checkedCount,
-      showActionDropdown: checkedCount > 0
+      showActionDropdown: checkedCount > 0,
     });
   }
 
@@ -410,7 +410,7 @@ class OrganizationTab extends mixin(StoreMixin) {
     let checkableCount = 0;
 
     // Initializing hash of items' IDs and corresponding checkbox state.
-    items.forEach(item => {
+    items.forEach((item) => {
       const id = item.get(itemID);
       checkableCount += 1;
       selectedIDSet[id] = false;
@@ -440,7 +440,7 @@ class OrganizationTab extends mixin(StoreMixin) {
           breadcrumbs={<UsersBreadcrumbs />}
           addButton={{
             onItemSelect: this.handleNewUserClick,
-            label: `New ${capitalizedItemName}`
+            label: `New ${capitalizedItemName}`,
           }}
         />
         <div className="flex-container-col">

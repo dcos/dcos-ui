@@ -14,7 +14,7 @@ import * as ResourcesUtil from "#SRC/js/utils/ResourcesUtil";
 
 const colors = {
   error: 2,
-  unused: "unused"
+  unused: "unused",
 };
 
 const NodesGridDials = createReactClass({
@@ -24,11 +24,11 @@ const NodesGridDials = createReactClass({
     hosts: PropTypes.array.isRequired,
     selectedResource: PropTypes.string.isRequired,
     serviceColors: PropTypes.object.isRequired,
-    resourcesByFramework: PropTypes.object.isRequired
+    resourcesByFramework: PropTypes.object.isRequired,
   },
 
   contextTypes: {
-    router: routerShape
+    router: routerShape,
   },
 
   handleDialClick(nodeID) {
@@ -45,7 +45,7 @@ const NodesGridDials = createReactClass({
       return config;
     }
 
-    Object.keys(resourcesByFramework).forEach(frameworkID => {
+    Object.keys(resourcesByFramework).forEach((frameworkID) => {
       const used =
         resourcesByFramework[frameworkID][props.selectedResource] || 0;
       const total = node.getUsageStats(props.selectedResource).total || 0;
@@ -55,7 +55,7 @@ const NodesGridDials = createReactClass({
       config.push({
         colorIndex: props.serviceColors[frameworkID],
         name: frameworkID,
-        percentage
+        percentage,
       });
     });
 
@@ -75,12 +75,12 @@ const NodesGridDials = createReactClass({
     config.push({
       colorIndex: colors.unused,
       name: "Unused",
-      percentage: 100 - percentage
+      percentage: 100 - percentage,
     });
 
     return {
       data: config,
-      usedPercentage: percentage
+      usedPercentage: percentage,
     };
   },
 
@@ -89,8 +89,8 @@ const NodesGridDials = createReactClass({
       {
         colorIndex: colors.error,
         name: "Error",
-        percentage: 100
-      }
+        percentage: 100,
+      },
     ];
   },
 
@@ -109,8 +109,8 @@ const NodesGridDials = createReactClass({
           </span>,
           <span className="unit-label text-muted" key={"unit-label"}>
             {resourceLabel}
-          </span>
-        ]
+          </span>,
+        ],
       };
     }
     return {
@@ -119,12 +119,12 @@ const NodesGridDials = createReactClass({
         <span className="error">
           <Icon shape={SystemIcons.Yield} color={greyDark} />
         </span>
-      )
+      ),
     };
   },
 
   getDials() {
-    return this.props.hosts.map(node => {
+    return this.props.hosts.map((node) => {
       const config = this.getDialConfig(node);
       let description = <div className="description">{config.description}</div>;
 
@@ -146,7 +146,7 @@ const NodesGridDials = createReactClass({
           key={node.get("id")}
         >
           <div className="chart">
-            <Chart calcHeight={w => w}>
+            <Chart calcHeight={(w) => w}>
               <DialChart data={config.data} value="percentage">
                 {description}
               </DialChart>
@@ -174,7 +174,7 @@ const NodesGridDials = createReactClass({
         {this.getSpacers()}
       </div>
     );
-  }
+  },
 });
 
 export default NodesGridDials;

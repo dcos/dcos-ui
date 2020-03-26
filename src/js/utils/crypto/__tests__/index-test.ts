@@ -13,7 +13,7 @@ describe("supportsWebCryptography", () => {
   describe("when window.subtle exists", () => {
     beforeEach(() => {
       window.crypto = {
-        subtle: {}
+        subtle: {},
       };
     });
 
@@ -36,15 +36,15 @@ describe("generatePrintableRSAKeypair", () => {
             dataView.setInt32(pos, 65 + ((pos / 4) % 26));
           }
 
-          return new Promise(resolve => {
+          return new Promise((resolve) => {
             resolve(buffer);
           });
         },
         generateKey: (_options, _exportable, _usage) =>
-          new Promise(resolve => {
+          new Promise((resolve) => {
             resolve(new MockCryptoKeyPair());
-          })
-      }
+          }),
+      },
     };
   });
 
@@ -60,7 +60,7 @@ describe("generatePrintableRSAKeypair", () => {
           hash: "SHA-256",
           modulusLength: 4096, // <-- not the default
           name: "RSA-OAEP",
-          publicExponent: new Uint8Array([0x01, 0x00, 0x01])
+          publicExponent: new Uint8Array([0x01, 0x00, 0x01]),
         },
         true,
         ["encrypt", "decrypt"]
@@ -68,7 +68,7 @@ describe("generatePrintableRSAKeypair", () => {
     });
   });
 
-  it("resolves to two base 64 encoded strings", done => {
+  it("resolves to two base 64 encoded strings", (done) => {
     expect(generatePrintableRSAKeypair()).resolves.toHaveLength(2);
 
     generatePrintableRSAKeypair()
@@ -77,23 +77,23 @@ describe("generatePrintableRSAKeypair", () => {
         expect(publicKey).toMatch(/-----BEGIN PUBLIC KEY-----/);
         done();
       })
-      .catch(err => {
+      .catch((err) => {
         done.fail(err);
       });
   });
 
-  it("generates a printable string, each line no longer than 64 characters", done => {
+  it("generates a printable string, each line no longer than 64 characters", (done) => {
     generatePrintableRSAKeypair()
       .then(([privateKey, publicKey]) => {
-        expect(privateKey.split("\n").every(line => line.length <= 64)).toBe(
+        expect(privateKey.split("\n").every((line) => line.length <= 64)).toBe(
           true
         );
-        expect(publicKey.split("\n").every(line => line.length <= 64)).toBe(
+        expect(publicKey.split("\n").every((line) => line.length <= 64)).toBe(
           true
         );
         done();
       })
-      .catch(err => {
+      .catch((err) => {
         done.fail(err);
       });
   });

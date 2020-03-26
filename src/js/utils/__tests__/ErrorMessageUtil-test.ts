@@ -8,8 +8,8 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [];
 
@@ -20,8 +20,8 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -31,15 +31,15 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [
         {
           type: "TYPE1",
           path: /^E/,
-          message: "message2"
-        }
+          message: "message2",
+        },
       ];
 
       expect(
@@ -49,8 +49,8 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -60,15 +60,15 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [
         {
           type: "TYPE2",
           path: /.*/,
-          message: "message2"
-        }
+          message: "message2",
+        },
       ];
 
       expect(
@@ -78,8 +78,8 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -89,15 +89,15 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message2"
-        }
+          message: "message2",
+        },
       ];
 
       expect(
@@ -107,8 +107,8 @@ describe("ErrorMessageUtil", () => {
           message: "message2",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -118,15 +118,15 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: ["foo", 0, "bar"],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message2"
-        }
+          message: "message2",
+        },
       ];
 
       expect(
@@ -136,8 +136,8 @@ describe("ErrorMessageUtil", () => {
           message: "message2",
           type: "TYPE1",
           path: ["foo", 0, "bar"],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -147,20 +147,20 @@ describe("ErrorMessageUtil", () => {
           message: "message1",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ];
       const translationRules = [
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message3"
+          message: "message3",
         },
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message2"
-        }
+          message: "message2",
+        },
       ];
 
       expect(
@@ -170,8 +170,8 @@ describe("ErrorMessageUtil", () => {
           message: "message3",
           type: "TYPE1",
           path: [],
-          variables: {}
-        }
+          variables: {},
+        },
       ]);
     });
 
@@ -182,16 +182,16 @@ describe("ErrorMessageUtil", () => {
           type: "TYPE1",
           path: [],
           variables: {
-            value: 3
-          }
-        }
+            value: 3,
+          },
+        },
       ];
       const translationRules = [
         {
           type: "TYPE1",
           path: /.*/,
-          message: "message2 is ||value||"
-        }
+          message: "message2 is ||value||",
+        },
       ];
 
       expect(
@@ -202,9 +202,9 @@ describe("ErrorMessageUtil", () => {
           type: "TYPE1",
           path: [],
           variables: {
-            value: 3
-          }
-        }
+            value: 3,
+          },
+        },
       ]);
     });
 
@@ -236,13 +236,13 @@ describe("ErrorMessageUtil", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: true,
-        path: []
+        path: [],
       };
       const pathTranslationRules = [];
       const i18n = {
         _(text) {
           return text;
-        }
+        },
       };
 
       expect(
@@ -258,7 +258,7 @@ describe("ErrorMessageUtil", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
-        path: []
+        path: [],
       };
       const pathTranslationRules = [];
 
@@ -274,13 +274,13 @@ describe("ErrorMessageUtil", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
-        path: []
+        path: [],
       };
       const pathTranslationRules = [
         {
           match: /^foo.*/,
-          name: "Unit test"
-        }
+          name: "Unit test",
+        },
       ];
 
       expect(
@@ -295,7 +295,7 @@ describe("ErrorMessageUtil", () => {
       const errorInput = {
         message: "An error message",
         isUnanchored: false,
-        path: ["foo", "bar"]
+        path: ["foo", "bar"],
       };
       const pathTranslationRules = [];
 
@@ -311,13 +311,13 @@ describe("ErrorMessageUtil", () => {
       const errorInput = {
         message: "Error occurred doing stuff",
         isUnanchored: false,
-        path: ["foo"]
+        path: ["foo"],
       };
       const pathTranslationRules = [
         {
           match: /^foo.*/,
-          name: "Unit test"
-        }
+          name: "Unit test",
+        },
       ];
 
       expect(
@@ -335,18 +335,18 @@ describe("ErrorMessageUtil", () => {
         const errorInput = {
           message: "Error occurred doing stuff",
           isUnanchored: false,
-          path: ["foo"]
+          path: ["foo"],
         };
         const pathTranslationRules = [
           {
             match: /^foo.*/,
-            name: "Unit test"
-          }
+            name: "Unit test",
+          },
         ];
         const i18n = {
           _() {
             return "Translated name";
-          }
+          },
         };
 
         expect(
@@ -366,20 +366,20 @@ describe("ErrorMessageUtil", () => {
             message: "message1",
             type: "TYPE1",
             path: [],
-            variables: {}
-          }
+            variables: {},
+          },
         ];
         const translationRules = [
           {
             type: "TYPE1",
             path: /.*/,
-            message: "message2"
-          }
+            message: "message2",
+          },
         ];
         const i18n = {
           _() {
             return "test2";
-          }
+          },
         };
 
         expect(
@@ -393,8 +393,8 @@ describe("ErrorMessageUtil", () => {
             message: "test2",
             type: "TYPE1",
             path: [],
-            variables: {}
-          }
+            variables: {},
+          },
         ]);
       });
 
@@ -405,22 +405,22 @@ describe("ErrorMessageUtil", () => {
             type: "TYPE1",
             path: [],
             variables: {
-              value: 3
-            }
-          }
+              value: 3,
+            },
+          },
         ];
         const translationRules = [
           {
             type: "TYPE1",
             path: /.*/,
-            message: "message2 is ||value||"
-          }
+            message: "message2 is ||value||",
+          },
         ];
 
         const i18n = {
           _() {
             return "Nachricht ist ||value||";
-          }
+          },
         };
 
         expect(
@@ -435,9 +435,9 @@ describe("ErrorMessageUtil", () => {
             type: "TYPE1",
             path: [],
             variables: {
-              value: 3
-            }
-          }
+              value: 3,
+            },
+          },
         ]);
       });
     });

@@ -45,7 +45,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the correct action when successful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.type).toEqual(
@@ -57,7 +57,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the serviceAccountID when successful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.serviceAccountID).toEqual("foo");
@@ -67,7 +67,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the correct action when unsuccessful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.type).toEqual(
@@ -79,7 +79,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the correct message when unsuccessful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.data).toEqual("bar");
@@ -89,7 +89,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the serviceAccountID when unsuccessful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.serviceAccountID).toEqual("foo");
@@ -99,18 +99,18 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the xhr when unsuccessful", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.xhr).toEqual({
             foo: "bar",
-            responseJSON: { description: "baz" }
+            responseJSON: { description: "baz" },
           });
         });
 
         thisConfiguration.error({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
     });
@@ -125,7 +125,7 @@ describe("ACLServiceAccountActions", () => {
           public_key: "BEGIN PUBLIC KEY\nABCD1234\nEND PUBLIC KEY",
           key_method: "auto-generate",
           secret_path: "my/secret",
-          private_key: "BEGIN PRIVATE KEY\nABCD1234\nEND PRIVATE KEY"
+          private_key: "BEGIN PRIVATE KEY\nABCD1234\nEND PRIVATE KEY",
         });
         thisConfiguration = RequestUtil.json.calls.all()[0].args[0];
         thisConfiguration.success({ foor: "bar" });
@@ -133,7 +133,7 @@ describe("ACLServiceAccountActions", () => {
       });
 
       it("dispatches the success action when secret succeeds", () => {
-        const unsubscribe = SDK.onDispatch(action => {
+        const unsubscribe = SDK.onDispatch((action) => {
           unsubscribe();
 
           expect(action.type).toEqual(
@@ -156,8 +156,8 @@ describe("ACLServiceAccountActions", () => {
             login_endpoint: "https://leader.mesos/acs/api/v1/auth/login",
             schema: "RS256",
             private_key: "BEGIN PRIVATE KEY\nABCD1234\nEND PRIVATE KEY",
-            uid: "foo"
-          })
+            uid: "foo",
+          }),
         });
       });
     });
@@ -192,7 +192,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -204,7 +204,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -214,7 +214,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -226,7 +226,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -236,7 +236,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -254,7 +254,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -265,7 +265,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual({ bar: "baz" });
@@ -274,7 +274,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -285,7 +285,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -294,7 +294,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -311,7 +311,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -322,7 +322,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual([{ bar: "baz" }]);
@@ -331,7 +331,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -342,7 +342,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -359,7 +359,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -370,7 +370,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual({ bar: "baz" });
@@ -379,7 +379,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -388,7 +388,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -399,7 +399,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.serviceAccountID).toEqual("foo");
       });
@@ -408,7 +408,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -425,7 +425,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -436,7 +436,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual({ bar: "baz" });
@@ -445,7 +445,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -454,7 +454,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -465,7 +465,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -474,7 +474,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -503,7 +503,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -514,7 +514,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");
@@ -523,7 +523,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.type).toEqual(
@@ -534,7 +534,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the correct message when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.data).toEqual("bar");
@@ -543,7 +543,7 @@ describe("ACLServiceAccountActions", () => {
     });
 
     it("dispatches the serviceAccountID when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
 
         expect(action.serviceAccountID).toEqual("foo");

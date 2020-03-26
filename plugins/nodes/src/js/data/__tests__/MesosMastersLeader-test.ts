@@ -5,7 +5,7 @@ import { mesosMasterLeaderQuery, getRegion } from "../MesosMastersLeader";
 
 function faultDomainData() {
   return {
-    region: { name: "us-east-1" }
+    region: { name: "us-east-1" },
   };
 }
 
@@ -14,15 +14,15 @@ function masterData(faultDomain) {
     master_info: {
       address: {
         hostname: "127.0.0.1",
-        port: "8080"
+        port: "8080",
       },
       start_time: 12345789.0,
       elected_time: 12345789.0,
       version: "1.2.2",
       domain: {
-        fault_domain: faultDomain
-      }
-    }
+        fault_domain: faultDomain,
+      },
+    },
   };
 }
 
@@ -30,13 +30,13 @@ describe("MesosMastersLeader", () => {
   describe("#mesosMasterInfo", () => {
     it(
       "emits correct master",
-      marbles(m => {
+      marbles((m) => {
         const expectedData = {
           electedTime: 12345789,
           hostPort: "127.0.0.1:8080",
           region: "us-east-1",
           startTime: 12345789,
-          version: "1.2.2"
+          version: "1.2.2",
         };
 
         const master$ = mesosMasterLeaderQuery(
@@ -44,7 +44,7 @@ describe("MesosMastersLeader", () => {
           m.time("--|")
         );
         const expected$ = m.cold("a-(a|)", {
-          a: expectedData
+          a: expectedData,
         });
 
         m.expect(master$.pipe(take(2))).toBeObservable(expected$);

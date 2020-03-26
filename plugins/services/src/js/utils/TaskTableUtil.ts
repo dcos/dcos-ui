@@ -69,7 +69,7 @@ const TaskTableUtil = {
 
       return item.get(prop);
     });
-  }
+  },
 };
 
 export default TaskTableUtil;

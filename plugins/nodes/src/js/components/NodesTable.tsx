@@ -3,7 +3,7 @@ import {
   Table,
   Column,
   SortableHeaderCell,
-  HeaderCell
+  HeaderCell,
 } from "@dcos/ui-kit/dist/packages";
 import { Trans } from "@lingui/macro";
 import isEqual from "lodash/isEqual";
@@ -66,7 +66,7 @@ const sorter = (
   sortDirection: SortDirection
 ): Node[] => {
   return sort(data, [comparator, compareByHostname], {
-    reverse: sortDirection !== "ASC"
+    reverse: sortDirection !== "ASC",
   });
 };
 export default class NodesTable extends React.Component<
@@ -82,7 +82,7 @@ export default class NodesTable extends React.Component<
     this.state = {
       data: null,
       sortColumn: "health",
-      sortDirection: "ASC"
+      sortDirection: "ASC",
     };
 
     this.regionRenderer = (data: Node) =>
@@ -136,7 +136,7 @@ export default class NodesTable extends React.Component<
       this.setState({
         data: this.sortData(this.state.data, columnName, toggledDirection),
         sortColumn: columnName,
-        sortDirection: toggledDirection
+        sortDirection: toggledDirection,
       });
     }
   };
@@ -145,7 +145,7 @@ export default class NodesTable extends React.Component<
     const savedColWidths = TableColumnResizeStore.get(columnWidthsStorageKey);
     TableColumnResizeStore.set(columnWidthsStorageKey, {
       ...savedColWidths,
-      [columnName]: resizedColWidth
+      [columnName]: resizedColWidth,
     });
   };
 
@@ -158,7 +158,7 @@ export default class NodesTable extends React.Component<
 
   public UNSAFE_componentWillReceiveProps(nextProps: NodesTableProps): void {
     this.setState({
-      data: nextProps.hosts ? this.sortData(nextProps.hosts.getItems()) : null
+      data: nextProps.hosts ? this.sortData(nextProps.hosts.getItems()) : null,
     });
   }
 
@@ -367,7 +367,7 @@ export default class NodesTable extends React.Component<
         growToFill={true}
         minWidth={24}
         maxWidth={36}
-      />
+      />,
     ].filter((col): col is React.ReactElement => col !== null);
 
     return (

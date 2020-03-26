@@ -1,7 +1,7 @@
 import {
   JobTaskConnection,
   JobTaskConnectionTypeResolver,
-  JobTaskConnectionSchema
+  JobTaskConnectionSchema,
 } from "#PLUGINS/jobs/src/js/types/JobTaskConnection";
 import { ActiveJobRun as MetronomeActiveJobRun } from "#SRC/js/events/MetronomeClient";
 import { JobStatus } from "#PLUGINS/jobs/src/js/types/JobStatus";
@@ -38,7 +38,7 @@ export const JobRunTypeResolver = (run: Run): JobRun => ({
   dateCreated: DateUtil.strToMs(run.createdAt),
   dateFinished: dateFinished(run),
   status: run.status,
-  tasks: JobTaskConnectionTypeResolver(run.tasks)
+  tasks: JobTaskConnectionTypeResolver(run.tasks),
 });
 function dateFinished(run: Run) {
   if (isActiveJobRun(run)) {

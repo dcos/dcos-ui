@@ -42,7 +42,7 @@ const AuthProviderDetailBreadcrumbs = ({ provider }) => {
           {providerID}
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -59,7 +59,7 @@ class AuthProviderDetailPage extends mixin(StoreMixin) {
       fetchedDetailsError: false,
       openDeleteConfirmation: false,
       openEditFormModal: false,
-      pendingRequest: false
+      pendingRequest: false,
     };
 
     // prettier-ignore
@@ -81,46 +81,46 @@ class AuthProviderDetailPage extends mixin(StoreMixin) {
   }
   handleDeleteCancel = () => {
     this.setState({
-      openDeleteConfirmation: false
+      openDeleteConfirmation: false,
     });
   };
   handleDeleteModalOpen = () => {
     this.setState({
       deleteUpdateError: null,
-      openDeleteConfirmation: true
+      openDeleteConfirmation: true,
     });
   };
   handleDeleteProvider = () => {
     const { providerID, providerType } = this.props.params;
 
     this.setState({
-      pendingRequest: true
+      pendingRequest: true,
     });
 
     AuthProviderStore.delete(providerType, providerID);
   };
   handleEditModalOpen = () => {
     this.setState({
-      openEditFormModal: true
+      openEditFormModal: true,
     });
   };
   handleEditCancel = () => {
     this.setState({
-      openEditFormModal: false
+      openEditFormModal: false,
     });
   };
 
   onAuthProviderStoreDeleteError(error) {
     this.setState({
       deleteUpdateError: error,
-      pendingRequest: false
+      pendingRequest: false,
     });
   }
 
   onAuthProviderStoreDeleteSuccess() {
     this.setState({
       openDeleteConfirmation: false,
-      pendingRequest: false
+      pendingRequest: false,
     });
 
     this.context.router.push("/settings/identity-providers");
@@ -152,12 +152,12 @@ class AuthProviderDetailPage extends mixin(StoreMixin) {
     return [
       {
         label: "Edit",
-        onItemSelect: this.handleEditModalOpen
+        onItemSelect: this.handleEditModalOpen,
       },
       {
         label: StringUtil.capitalize(UserActions.DELETE),
-        onItemSelect: this.handleDeleteModalOpen
-      }
+        onItemSelect: this.handleDeleteModalOpen,
+      },
     ];
   }
 
@@ -279,7 +279,7 @@ class AuthProviderDetailPage extends mixin(StoreMixin) {
 }
 
 AuthProviderDetailPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default withI18n()(AuthProviderDetailPage);

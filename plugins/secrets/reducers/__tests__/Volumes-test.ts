@@ -3,11 +3,11 @@ import Batch from "#SRC/js/structs/Batch";
 import Transaction from "#SRC/js/structs/Transaction";
 import {
   JSONSingleContainerReducer,
-  JSONMultiContainerReducer
+  JSONMultiContainerReducer,
 } from "../Volumes";
 import {
   emptySingleContainerSecret,
-  emptyMultiContainerSecret
+  emptyMultiContainerSecret,
 } from "../Secrets";
 
 import PluginSDK from "PluginSDK";
@@ -28,7 +28,7 @@ describe("Secrets Volumes", () => {
           ["secrets", 0, "exposures", 0],
           { type: "file", value: "secrets/sa" },
           SET
-        )
+        ),
       ]);
     });
 
@@ -47,8 +47,8 @@ describe("Secrets Volumes", () => {
       expect(definition).toEqual([
         {
           containerPath: "secrets/sa",
-          secret: "secret0"
-        }
+          secret: "secret0",
+        },
       ]);
     });
 
@@ -74,12 +74,12 @@ describe("Secrets Volumes", () => {
       expect(definition).toEqual([
         {
           containerPath: "secrets/sa",
-          secret: "secret0"
+          secret: "secret0",
         },
         {
           containerPath: "secrets/dev-sa.json",
-          secret: "secret1"
-        }
+          secret: "secret1",
+        },
       ]);
     });
 
@@ -101,7 +101,7 @@ describe("Secrets Volumes", () => {
           ["secrets", 0, "exposures", 0],
           {
             type: "",
-            value: ""
+            value: "",
           },
           SET
         ),
@@ -110,7 +110,7 @@ describe("Secrets Volumes", () => {
           ["secrets", 0, "exposures", 0, "mounts", 0],
           "secrets/sa",
           SET
-        )
+        ),
       ]);
     });
 
@@ -129,8 +129,8 @@ describe("Secrets Volumes", () => {
       expect(definition).toEqual([
         {
           name: "secret0volume0",
-          secret: "secret0"
-        }
+          secret: "secret0",
+        },
       ]);
     });
 
@@ -139,22 +139,22 @@ describe("Secrets Volumes", () => {
         {
           name: "existing",
           persistent: {
-            size: 100
-          }
-        }
+            size: 100,
+          },
+        },
       ]);
 
       expect(definition).toEqual([
         {
           name: "existing",
           persistent: {
-            size: 100
-          }
+            size: 100,
+          },
         },
         {
           name: "secret0volume0",
-          secret: "secret0"
-        }
+          secret: "secret0",
+        },
       ]);
     });
 
@@ -167,10 +167,10 @@ describe("Secrets Volumes", () => {
           {
             type: "file",
             value: null,
-            mounts: [""]
+            mounts: [""],
           },
           SET
-        )
+        ),
       ]);
 
       expect(batch.reduce(JSONMultiContainerReducer.bind({}), [])).toEqual([]);

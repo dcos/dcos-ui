@@ -4,7 +4,7 @@ import notificationServiceContainerModuleFactory, {
   Notification,
   NotificationService,
   NotificationServiceType,
-  NotificationServiceExtensionInterface
+  NotificationServiceExtensionInterface,
 } from "../index";
 import { injectable } from "inversify";
 

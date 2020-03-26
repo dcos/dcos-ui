@@ -6,7 +6,7 @@ import {
   COMMAND,
   HTTP,
   HTTPS,
-  TCP
+  TCP,
 } from "../../../constants/HealthCheckProtocols";
 
 import * as MultiContainerHealthChecks from "../MultiContainerHealthChecks";
@@ -65,7 +65,7 @@ describe("MultiContainerHealthChecks", () => {
             state
           )
         ).toEqual({
-          gracePeriodSeconds: 1
+          gracePeriodSeconds: 1,
         });
       });
 
@@ -81,7 +81,7 @@ describe("MultiContainerHealthChecks", () => {
             state
           )
         ).toEqual({
-          intervalSeconds: 1
+          intervalSeconds: 1,
         });
       });
 
@@ -97,7 +97,7 @@ describe("MultiContainerHealthChecks", () => {
             state
           )
         ).toEqual({
-          maxConsecutiveFailures: 1
+          maxConsecutiveFailures: 1,
         });
       });
 
@@ -113,7 +113,7 @@ describe("MultiContainerHealthChecks", () => {
             state
           )
         ).toEqual({
-          timeoutSeconds: 1
+          timeoutSeconds: 1,
         });
       });
 
@@ -129,7 +129,7 @@ describe("MultiContainerHealthChecks", () => {
             state
           )
         ).toEqual({
-          delaySeconds: 1
+          delaySeconds: 1,
         });
       });
     });
@@ -152,9 +152,9 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           exec: {
             command: {
-              shell: "test"
-            }
-          }
+              shell: "test",
+            },
+          },
         });
       });
 
@@ -178,9 +178,9 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           exec: {
             command: {
-              argv: ["test"]
-            }
-          }
+              argv: ["test"],
+            },
+          },
         });
       });
 
@@ -204,9 +204,9 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           exec: {
             command: {
-              argv: ["test"]
-            }
-          }
+              argv: ["test"],
+            },
+          },
         });
       });
     });
@@ -227,8 +227,8 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           http: {
             endpoint: "test",
-            scheme: "HTTP"
-          }
+            scheme: "HTTP",
+          },
         });
       });
 
@@ -247,8 +247,8 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           http: {
             path: "test",
-            scheme: "HTTP"
-          }
+            scheme: "HTTP",
+          },
         });
       });
 
@@ -266,8 +266,8 @@ describe("MultiContainerHealthChecks", () => {
           )
         ).toEqual({
           http: {
-            scheme: HTTPS
-          }
+            scheme: HTTPS,
+          },
         });
       });
 
@@ -285,8 +285,8 @@ describe("MultiContainerHealthChecks", () => {
           )
         ).toEqual({
           http: {
-            scheme: HTTP
-          }
+            scheme: HTTP,
+          },
         });
       });
     });
@@ -306,8 +306,8 @@ describe("MultiContainerHealthChecks", () => {
           )
         ).toEqual({
           tcp: {
-            endpoint: "test"
-          }
+            endpoint: "test",
+          },
         });
       });
     });
@@ -332,9 +332,9 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           exec: {
             command: {
-              shell: "test"
-            }
-          }
+              shell: "test",
+            },
+          },
         });
       });
 
@@ -357,9 +357,9 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           exec: {
             command: {
-              shell: "test"
-            }
-          }
+              shell: "test",
+            },
+          },
         });
       });
 
@@ -382,8 +382,8 @@ describe("MultiContainerHealthChecks", () => {
         ).toEqual({
           http: {
             endpoint: "test",
-            scheme: "HTTP"
-          }
+            scheme: "HTTP",
+          },
         });
       });
 
@@ -405,8 +405,8 @@ describe("MultiContainerHealthChecks", () => {
           )
         ).toEqual({
           tcp: {
-            endpoint: "test"
-          }
+            endpoint: "test",
+          },
         });
       });
     });
@@ -424,8 +424,8 @@ describe("MultiContainerHealthChecks", () => {
       ).toEqual({
         protocol: COMMAND,
         exec: {
-          command: {}
-        }
+          command: {},
+        },
       });
     });
 
@@ -445,9 +445,9 @@ describe("MultiContainerHealthChecks", () => {
         exec: {
           command: {
             argv: [],
-            type: MesosCommandTypes.ARGV
-          }
-        }
+            type: MesosCommandTypes.ARGV,
+          },
+        },
       });
     });
 
@@ -465,9 +465,9 @@ describe("MultiContainerHealthChecks", () => {
         exec: {
           command: {
             shell: "test",
-            value: "test"
-          }
-        }
+            value: "test",
+          },
+        },
       });
     });
 
@@ -484,8 +484,8 @@ describe("MultiContainerHealthChecks", () => {
         protocol: HTTP,
         http: {
           scheme: HTTPS,
-          https: true
-        }
+          https: true,
+        },
       });
     });
   });
@@ -496,15 +496,15 @@ describe("MultiContainerHealthChecks", () => {
         http: {
           endpoint: "foo",
           path: "/bar",
-          scheme: "HTTPS"
-        }
+          scheme: "HTTPS",
+        },
       };
       const transactions = [
         { type: ADD_ITEM, value: null, path: [] },
         { type: SET, value: HTTP, path: ["protocol"] },
         { type: SET, value: "foo", path: ["http", "endpoint"] },
         { type: SET, value: "/bar", path: ["http", "path"] },
-        { type: SET, value: true, path: ["http", "https"] }
+        { type: SET, value: true, path: ["http", "https"] },
       ];
 
       expect(
@@ -515,13 +515,13 @@ describe("MultiContainerHealthChecks", () => {
     it("populates `tcp` transactions", () => {
       const healthCheck = {
         tcp: {
-          endpoint: "foo"
-        }
+          endpoint: "foo",
+        },
       };
       const transactions = [
         { type: ADD_ITEM, value: null, path: [] },
         { type: SET, value: TCP, path: ["protocol"] },
-        { type: SET, value: "foo", path: ["tcp", "endpoint"] }
+        { type: SET, value: "foo", path: ["tcp", "endpoint"] },
       ];
 
       expect(
@@ -533,9 +533,9 @@ describe("MultiContainerHealthChecks", () => {
       const healthCheck = {
         exec: {
           command: {
-            shell: "test"
-          }
-        }
+            shell: "test",
+          },
+        },
       };
       const transactions = [
         { type: ADD_ITEM, value: null, path: [] },
@@ -543,9 +543,9 @@ describe("MultiContainerHealthChecks", () => {
         {
           type: SET,
           value: MesosCommandTypes.SHELL,
-          path: ["exec", "command", "type"]
+          path: ["exec", "command", "type"],
         },
-        { type: SET, value: "test", path: ["exec", "command", "value"] }
+        { type: SET, value: "test", path: ["exec", "command", "value"] },
       ];
 
       expect(
@@ -557,9 +557,9 @@ describe("MultiContainerHealthChecks", () => {
       const healthCheck = {
         exec: {
           command: {
-            argv: ["test"]
-          }
-        }
+            argv: ["test"],
+          },
+        },
       };
       const transactions = [
         { type: ADD_ITEM, value: null, path: [] },
@@ -567,9 +567,9 @@ describe("MultiContainerHealthChecks", () => {
         {
           type: SET,
           value: MesosCommandTypes.ARGV,
-          path: ["exec", "command", "type"]
+          path: ["exec", "command", "type"],
         },
-        { type: SET, value: "test", path: ["exec", "command", "value"] }
+        { type: SET, value: "test", path: ["exec", "command", "value"] },
       ];
 
       expect(

@@ -15,14 +15,14 @@ class ClientsTable extends React.Component {
     super();
 
     this.state = {
-      searchString: ""
+      searchString: "",
     };
   }
 
   componentDidMount() {
     this.mountedAt = Date.now();
   }
-  alignTableCellRight = prop => {
+  alignTableCellRight = (prop) => {
     return RIGHT_ALIGNED_TABLE_CELLS.indexOf(prop) > -1;
   };
 
@@ -44,7 +44,7 @@ class ClientsTable extends React.Component {
     const className = this.getTableCellClassNameFn();
     const heading = this.renderHeading({
       ip: i18nMark("Client"),
-      p99Latency: i18nMark("P99 Latency")
+      p99Latency: i18nMark("P99 Latency"),
     });
     const sortFunction = TableUtil.getSortFunction(
       "ip",
@@ -58,7 +58,7 @@ class ClientsTable extends React.Component {
         prop: "ip",
         sortable: true,
         sortFunction,
-        heading
+        heading,
       },
       {
         className,
@@ -66,8 +66,8 @@ class ClientsTable extends React.Component {
         prop: "p99Latency",
         render: this.renderMilliseconds,
         sortable: true,
-        heading
-      }
+        heading,
+      },
     ];
   }
 
@@ -83,7 +83,7 @@ class ClientsTable extends React.Component {
   getFailSuccessRenderFn(type) {
     const classes = classNames({
       "text-danger": type === "fail",
-      "text-success": type === "success"
+      "text-success": type === "success",
     });
 
     return (prop, item) => <span className={classes}>{item[prop]}</span>;
@@ -110,7 +110,7 @@ class ClientsTable extends React.Component {
       classNames({
         "text-align-right": alignTableCellRight(prop),
         active: prop === sortBy.prop,
-        clickable: row == null
+        clickable: row == null,
       });
   }
   handleSearchStringChange = (searchString = "") => {
@@ -118,9 +118,9 @@ class ClientsTable extends React.Component {
   };
 
   processClients(clientList) {
-    return clientList.getItems().map(client => ({
+    return clientList.getItems().map((client) => ({
       ip: client.getIP(),
-      p99Latency: client.getP99Latency()
+      p99Latency: client.getP99Latency(),
     }));
   }
 
@@ -129,11 +129,11 @@ class ClientsTable extends React.Component {
       const title = config[prop];
       const caret = {
         before: null,
-        after: null
+        after: null,
       };
       const caretClassSet = classNames("caret", {
         [`caret--${order}`]: order != null,
-        "caret--visible": prop === sortBy.prop
+        "caret--visible": prop === sortBy.prop,
       });
 
       if (this.alignTableCellRight(prop)) {

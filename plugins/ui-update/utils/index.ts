@@ -26,7 +26,7 @@ function versionUpdateAvailable(
   }
   // Compare to package versions to find the greatest available version
   const availableVersions = packageInfo.versions
-    .map(val => ({ display: semver.coerce(val.version), ...val }))
+    .map((val) => ({ display: semver.coerce(val.version), ...val }))
     .filter((val: FormattedPackageVersion) => val.display !== null)
     .filter(
       (val: FormattedPackageVersion) =>

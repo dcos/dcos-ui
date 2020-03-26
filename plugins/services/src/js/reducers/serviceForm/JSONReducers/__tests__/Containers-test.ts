@@ -20,7 +20,7 @@ describe("Containers", () => {
       );
 
       expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
-        DEFAULT_POD_CONTAINER
+        DEFAULT_POD_CONTAINER,
       ]);
     });
 
@@ -38,13 +38,13 @@ describe("Containers", () => {
             name: "container-1",
             image: {
               kind: "DOCKER",
-              id: "alpine"
+              id: "alpine",
             },
             resources: {
               cpus: 0.1,
-              mem: 128
-            }
-          }
+              mem: 128,
+            },
+          },
         ]);
       });
 
@@ -71,9 +71,9 @@ describe("Containers", () => {
             resources: {
               cpus: 0.2,
               disk: "",
-              mem: 128
-            }
-          }
+              mem: 128,
+            },
+          },
         ]);
       });
 
@@ -86,9 +86,9 @@ describe("Containers", () => {
                 id: "nginx",
                 kind: "DOCKER",
                 pullConfig: {
-                  some: "value"
-                }
-              }
+                  some: "value",
+                },
+              },
             },
             ADD_ITEM
           ),
@@ -98,12 +98,12 @@ describe("Containers", () => {
               id: "nginx",
               kind: "DOCKER",
               pullConfig: {
-                some: "value"
-              }
+                some: "value",
+              },
             },
             SET
           ),
-          new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET),
         ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
@@ -114,10 +114,10 @@ describe("Containers", () => {
               id: "nginx",
               kind: "DOCKER",
               pullConfig: {
-                some: "value"
-              }
-            }
-          }
+                some: "value",
+              },
+            },
+          },
         ]);
       });
 
@@ -130,9 +130,9 @@ describe("Containers", () => {
                 id: "nginx",
                 kind: "DOCKER",
                 pullConfig: {
-                  some: "value"
-                }
-              }
+                  some: "value",
+                },
+              },
             },
             ADD_ITEM
           ),
@@ -142,8 +142,8 @@ describe("Containers", () => {
               id: "nginx",
               kind: "DOCKER",
               pullConfig: {
-                some: "value"
-              }
+                some: "value",
+              },
             },
             SET
           ),
@@ -153,7 +153,7 @@ describe("Containers", () => {
             { uri: "http://mesosphere.io" },
             ADD_ITEM
           ),
-          new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+          new Transaction(["containers", 0, "image", "id"], "nginx", SET),
         ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
@@ -165,10 +165,10 @@ describe("Containers", () => {
               id: "nginx",
               kind: "DOCKER",
               pullConfig: {
-                some: "value"
-              }
-            }
-          }
+                some: "value",
+              },
+            },
+          },
         ]);
       });
 
@@ -176,7 +176,7 @@ describe("Containers", () => {
         const batch = [
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
-          new Transaction(["containers", 0, "image", "forcePull"], true, SET)
+          new Transaction(["containers", 0, "image", "forcePull"], true, SET),
         ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
@@ -186,9 +186,9 @@ describe("Containers", () => {
             image: {
               id: "nginx",
               kind: "DOCKER",
-              forcePull: true
-            }
-          }
+              forcePull: true,
+            },
+          },
         ]);
       });
 
@@ -198,14 +198,14 @@ describe("Containers", () => {
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
           new Transaction(["containers", 0, "image", "id"], "", SET),
-          new Transaction(["containers", 0, "image", "forcePull"], false, SET)
+          new Transaction(["containers", 0, "image", "forcePull"], false, SET),
         ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
             name: "container-1",
-            resources: { cpus: 0.1, mem: 128 }
-          }
+            resources: { cpus: 0.1, mem: 128 },
+          },
         ]);
       });
 
@@ -214,14 +214,14 @@ describe("Containers", () => {
           new Transaction(["containers"], {}, ADD_ITEM),
           new Transaction(["containers", 0, "image", "id"], "nginx", SET),
           new Transaction(["containers", 0, "image", "forcePull"], true, SET),
-          new Transaction(["containers", 0, "image", "id"], "", SET)
+          new Transaction(["containers", 0, "image", "id"], "", SET),
         ].reduce((b, transaction) => b.add(transaction), new Batch());
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
             name: "container-1",
-            resources: { cpus: 0.1, mem: 128 }
-          }
+            resources: { cpus: 0.1, mem: 128 },
+          },
         ]);
       });
     });
@@ -238,8 +238,8 @@ describe("Containers", () => {
           {
             name: "container-1",
             resources: { cpus: 0.1, mem: 128 },
-            someKey: "value"
-          }
+            someKey: "value",
+          },
         ]);
       });
     });
@@ -260,7 +260,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -268,10 +268,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 0,
                   labels: null,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -292,9 +292,9 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
-              }
-            }
+                mem: 128,
+              },
+            },
           ]);
         });
 
@@ -316,7 +316,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -324,10 +324,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 0,
                   labels: null,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -340,7 +340,7 @@ describe("Containers", () => {
           );
           batch = batch.add(
             new Transaction(["containers", 0, "endpoints", 0, "labels"], {
-              custom: "label"
+              custom: "label",
             })
           );
 
@@ -349,7 +349,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -357,10 +357,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 0,
                   labels: { custom: "label" },
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -395,7 +395,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -403,10 +403,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 8080,
                   labels: null,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -433,7 +433,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -441,10 +441,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 0,
                   labels: null,
-                  protocol: ["tcp", "udp"]
-                }
-              ]
-            }
+                  protocol: ["tcp", "udp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -471,7 +471,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -479,10 +479,10 @@ describe("Containers", () => {
                   networkNames: null,
                   hostPort: 0,
                   labels: null,
-                  protocol: ["tcp", "foo"]
-                }
-              ]
-            }
+                  protocol: ["tcp", "foo"],
+                },
+              ],
+            },
           ]);
         });
       });
@@ -504,7 +504,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -513,10 +513,10 @@ describe("Containers", () => {
                   hostPort: 0,
                   containerPort: null,
                   labels: null,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -540,7 +540,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -549,10 +549,10 @@ describe("Containers", () => {
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -566,7 +566,7 @@ describe("Containers", () => {
           );
           batch = batch.add(
             new Transaction(["containers", 0, "endpoints", 0, "labels"], {
-              custom: "label"
+              custom: "label",
             })
           );
 
@@ -575,7 +575,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -584,10 +584,10 @@ describe("Containers", () => {
                   hostPort: 0,
                   containerPort: null,
                   labels: { custom: "label" },
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -622,7 +622,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -631,10 +631,10 @@ describe("Containers", () => {
                   containerPort: null,
                   labels: null,
                   hostPort: 8080,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -661,7 +661,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -670,10 +670,10 @@ describe("Containers", () => {
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
-                  protocol: ["tcp", "udp"]
-                }
-              ]
-            }
+                  protocol: ["tcp", "udp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -700,7 +700,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -709,10 +709,10 @@ describe("Containers", () => {
                   containerPort: null,
                   labels: null,
                   hostPort: 0,
-                  protocol: ["tcp", "foo"]
-                }
-              ]
-            }
+                  protocol: ["tcp", "foo"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -739,7 +739,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -748,10 +748,10 @@ describe("Containers", () => {
                   containerPort: 8080,
                   labels: null,
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -786,7 +786,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -794,13 +794,13 @@ describe("Containers", () => {
                   networkNames: null,
                   containerPort: 8080,
                   labels: {
-                    VIP_0: "/foobar:8080"
+                    VIP_0: "/foobar:8080",
                   },
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -842,7 +842,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -850,13 +850,13 @@ describe("Containers", () => {
                   networkNames: null,
                   containerPort: 8080,
                   labels: {
-                    VIP_0: "1.3.3.7:8080"
+                    VIP_0: "1.3.3.7:8080",
                   },
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -893,7 +893,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -901,13 +901,13 @@ describe("Containers", () => {
                   networkNames: null,
                   containerPort: 8080,
                   labels: {
-                    VIP_0: "/barfoo:8080"
+                    VIP_0: "/barfoo:8080",
                   },
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
 
@@ -951,7 +951,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -959,13 +959,13 @@ describe("Containers", () => {
                   networkNames: null,
                   containerPort: 8080,
                   labels: {
-                    VIP_0: "1.3.3.7:8080"
+                    VIP_0: "1.3.3.7:8080",
                   },
                   hostPort: 0,
-                  protocol: ["tcp"]
-                }
-              ]
-            }
+                  protocol: ["tcp"],
+                },
+              ],
+            },
           ]);
         });
       });
@@ -988,21 +988,21 @@ describe("Containers", () => {
             "http://mesosphere.com",
             SET
           ),
-          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM)
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
         ]);
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
           {
             artifacts: [
               { uri: "http://mesosphere.io" },
-              { uri: "http://mesosphere.com" }
+              { uri: "http://mesosphere.com" },
             ],
             name: "container-1",
             resources: {
               cpus: 0.1,
-              mem: 128
-            }
-          }
+              mem: 128,
+            },
+          },
         ]);
       });
     });
@@ -1014,7 +1014,7 @@ describe("Containers", () => {
           new Transaction(["volumeMounts"], null, ADD_ITEM),
           new Transaction(["volumeMounts", 0, "name"], "extvol", SET),
           new Transaction(["volumeMounts", 0, "mountPath", 0], "mount", SET),
-          new Transaction(["volumeMounts"], 0, REMOVE_ITEM)
+          new Transaction(["volumeMounts"], 0, REMOVE_ITEM),
         ]);
 
         expect(batch.reduce(Containers.JSONReducer.bind({}))).toEqual([
@@ -1022,10 +1022,10 @@ describe("Containers", () => {
             name: "container-1",
             resources: {
               cpus: 0.1,
-              mem: 128
+              mem: 128,
             },
-            volumeMounts: []
-          }
+            volumeMounts: [],
+          },
         ]);
       });
     });
@@ -1037,18 +1037,18 @@ describe("Containers", () => {
         Containers.JSONParser({
           containers: [
             {
-              Random: "value"
-            }
-          ]
+              Random: "value",
+            },
+          ],
         })
       ).toEqual([
         new Transaction(
           ["containers"],
           {
-            Random: "value"
+            Random: "value",
           },
           ADD_ITEM
-        )
+        ),
       ]);
     });
 
@@ -1059,20 +1059,20 @@ describe("Containers", () => {
             Containers.JSONParser({
               networks: [
                 {
-                  mode: "container"
-                }
+                  mode: "container",
+                },
               ],
               containers: [
                 {
                   endpoints: [
                     {
                       labels: {
-                        VIP_0: "/:900"
-                      }
-                    }
-                  ]
-                }
-              ]
+                        VIP_0: "/:900",
+                      },
+                    },
+                  ],
+                },
+              ],
             })
           ).toEqual([
             new Transaction(
@@ -1081,17 +1081,17 @@ describe("Containers", () => {
                 endpoints: [
                   {
                     labels: {
-                      VIP_0: "/:900"
-                    }
-                  }
-                ]
+                      VIP_0: "/:900",
+                    },
+                  },
+                ],
               },
               ADD_ITEM
             ),
             new Transaction(
               ["containers", 0, "endpoints"],
               {
-                labels: { VIP_0: "/:900" }
+                labels: { VIP_0: "/:900" },
               },
               ADD_ITEM
             ),
@@ -1155,7 +1155,7 @@ describe("Containers", () => {
               ["containers", 0, "endpoints", 0, "protocol", "tcp"],
               false,
               SET
-            )
+            ),
           ]);
         });
 
@@ -1165,20 +1165,20 @@ describe("Containers", () => {
               Containers.JSONParser({
                 networks: [
                   {
-                    mode: "host"
-                  }
+                    mode: "host",
+                  },
                 ],
                 containers: [
                   {
                     endpoints: [
                       {
                         labels: {
-                          VIP_0: "/:900"
-                        }
-                      }
-                    ]
-                  }
-                ]
+                          VIP_0: "/:900",
+                        },
+                      },
+                    ],
+                  },
+                ],
               })
             ).toEqual([
               new Transaction(
@@ -1187,17 +1187,17 @@ describe("Containers", () => {
                   endpoints: [
                     {
                       labels: {
-                        VIP_0: "/:900"
-                      }
-                    }
-                  ]
+                        VIP_0: "/:900",
+                      },
+                    },
+                  ],
                 },
                 ADD_ITEM
               ),
               new Transaction(
                 ["containers", 0, "endpoints"],
                 {
-                  labels: { VIP_0: "/:900" }
+                  labels: { VIP_0: "/:900" },
                 },
                 ADD_ITEM
               ),
@@ -1255,7 +1255,7 @@ describe("Containers", () => {
                 ["containers", 0, "endpoints", 0, "protocol", "tcp"],
                 false,
                 SET
-              )
+              ),
             ]);
           });
         });
@@ -1271,10 +1271,10 @@ describe("Containers", () => {
                 artifacts: [
                   { uri: "http://mesosphere.io" },
                   null,
-                  { uri: "http://mesosphere.com" }
-                ]
-              }
-            ]
+                  { uri: "http://mesosphere.com" },
+                ],
+              },
+            ],
           })
         ).toEqual([
           new Transaction(
@@ -1283,8 +1283,8 @@ describe("Containers", () => {
               artifacts: [
                 { uri: "http://mesosphere.io" },
                 null,
-                { uri: "http://mesosphere.com" }
-              ]
+                { uri: "http://mesosphere.com" },
+              ],
             },
             ADD_ITEM
           ),
@@ -1308,7 +1308,7 @@ describe("Containers", () => {
             ["containers", 0, "artifacts", 2, "uri"],
             "http://mesosphere.com",
             SET
-          )
+          ),
         ]);
       });
     });
@@ -1322,11 +1322,11 @@ describe("Containers", () => {
                 id: "nginx",
                 kind: "DOCKER",
                 pullConfig: {
-                  some: "value"
-                }
-              }
-            }
-          ]
+                  some: "value",
+                },
+              },
+            },
+          ],
         })
       ).toEqual([
         new Transaction(
@@ -1336,9 +1336,9 @@ describe("Containers", () => {
               id: "nginx",
               kind: "DOCKER",
               pullConfig: {
-                some: "value"
-              }
-            }
+                some: "value",
+              },
+            },
           },
           ADD_ITEM
         ),
@@ -1348,12 +1348,12 @@ describe("Containers", () => {
             id: "nginx",
             kind: "DOCKER",
             pullConfig: {
-              some: "value"
-            }
+              some: "value",
+            },
           },
           SET
         ),
-        new Transaction(["containers", 0, "image", "id"], "nginx", SET)
+        new Transaction(["containers", 0, "image", "id"], "nginx", SET),
       ]);
     });
   });

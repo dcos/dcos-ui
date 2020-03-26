@@ -21,16 +21,16 @@ class Transaction {
     Object.defineProperties(this, {
       path: {
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       value: {
         writable: false,
-        enumerable: true
+        enumerable: true,
       },
       type: {
         writable: false,
-        enumerable: true
-      }
+        enumerable: true,
+      },
     });
   }
 }

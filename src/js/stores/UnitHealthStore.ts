@@ -8,7 +8,7 @@ import {
   REQUEST_HEALTH_UNIT_NODES_SUCCESS,
   REQUEST_HEALTH_UNIT_NODES_ERROR,
   REQUEST_HEALTH_UNIT_NODE_SUCCESS,
-  REQUEST_HEALTH_UNIT_NODE_ERROR
+  REQUEST_HEALTH_UNIT_NODE_ERROR,
 } from "../constants/ActionTypes";
 import {
   HEALTH_UNIT_SUCCESS,
@@ -18,7 +18,7 @@ import {
   HEALTH_UNIT_NODE_SUCCESS,
   HEALTH_UNIT_NODE_ERROR,
   HEALTH_UNITS_ERROR,
-  HEALTH_UNITS_CHANGE
+  HEALTH_UNITS_CHANGE,
 } from "../constants/EventTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import Config from "../config/Config";
@@ -56,7 +56,7 @@ class UnitHealthStore extends GetSetBaseStore {
       units: [],
       unitsByID: {},
       nodesByUnitID: {},
-      nodesByID: {}
+      nodesByID: {},
     };
 
     PluginSDK.addStoreConfig({
@@ -70,12 +70,12 @@ class UnitHealthStore extends GetSetBaseStore {
         nodesSuccess: HEALTH_UNIT_NODES_SUCCESS,
         nodesError: HEALTH_UNIT_NODES_ERROR,
         nodeSuccess: HEALTH_UNIT_NODE_SUCCESS,
-        nodeError: HEALTH_UNIT_NODE_ERROR
+        nodeError: HEALTH_UNIT_NODE_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
       const data = action.data;
 
@@ -132,7 +132,7 @@ class UnitHealthStore extends GetSetBaseStore {
 
   getUnits() {
     return new HealthUnitsList({
-      items: this.get("units")
+      items: this.get("units"),
     });
   }
 

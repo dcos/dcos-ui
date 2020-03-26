@@ -1,6 +1,6 @@
 import {
   ServicePlanPhase,
-  compare as comparePhases
+  compare as comparePhases,
 } from "#PLUGINS/services/src/js/types/ServicePlanPhase";
 import { ServicePlanStatus } from "#PLUGINS/services/src/js/types/ServicePlanStatus";
 import { ServicePlanStep } from "#PLUGINS/services/src/js/types/ServicePlanStep";
@@ -28,7 +28,7 @@ export const NO_DATA_SERVICE_PLAN_ELEMENT: ServicePlanElement = {
   type: "nodata",
   id: "",
   name: "",
-  status: "ERROR"
+  status: "ERROR",
 };
 
 export function flattenServicePlanPhases(
@@ -40,7 +40,7 @@ export function flattenServicePlanPhases(
         (step: ServicePlanStep): ServicePlanElement => ({
           type: "step",
           phaseId: phase.id,
-          ...step
+          ...step,
         })
       );
       acc.push({
@@ -49,7 +49,7 @@ export function flattenServicePlanPhases(
         name: phase.name,
         strategy: phase.strategy,
         status: phase.status,
-        steps: stepElements
+        steps: stepElements,
       });
       return acc.concat(stepElements);
     },

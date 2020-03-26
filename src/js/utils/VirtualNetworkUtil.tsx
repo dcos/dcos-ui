@@ -17,7 +17,7 @@ const VirtualNetworkUtil = {
         </p>
       </AlertPanel>
     );
-  }
+  },
 };
 
 export default VirtualNetworkUtil;

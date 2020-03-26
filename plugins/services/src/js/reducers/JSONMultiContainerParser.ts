@@ -45,5 +45,5 @@ export default [
   portMappings, // Note: must come after portDefinitions, as it uses its information!
   residency,
   scaling,
-  volumeMounts
+  volumeMounts,
 ];

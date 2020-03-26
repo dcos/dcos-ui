@@ -7,7 +7,7 @@ import {
   COMMAND,
   HTTP,
   HTTPS,
-  TCP
+  TCP,
 } from "../../constants/HealthCheckProtocols";
 import MesosCommandTypes from "../../constants/MesosCommandTypes";
 
@@ -42,10 +42,10 @@ function parseHttpHealthCheck(healthCheck, path) {
 
 function reduceHttpHealthCheck(state, field, value) {
   const newState = {
-    ...state
+    ...state,
   };
   newState.http = {
-    ...(newState.http || {})
+    ...(newState.http || {}),
   };
 
   switch (field) {
@@ -71,10 +71,10 @@ function reduceHttpHealthCheck(state, field, value) {
 
 function reduceFormHttpHealthCheck(state, field, value) {
   const newState = {
-    ...state
+    ...state,
   };
   newState.http = {
-    ...(newState.http || {})
+    ...(newState.http || {}),
   };
 
   switch (field) {
@@ -107,10 +107,10 @@ function parseTcpHealthCheck(healthCheck, path) {
 
 function reduceTcpHealthCheck(state, field, value) {
   const newState = {
-    ...state
+    ...state,
   };
   newState.tcp = {
-    ...(newState.tcp || {})
+    ...(newState.tcp || {}),
   };
 
   switch (field) {
@@ -171,13 +171,13 @@ function parseCommandHealthCheck(healthCheck, path) {
 
 function reduceCommandHealthCheck(state, field, value) {
   const newState = {
-    ...state
+    ...state,
   };
   newState.exec = {
-    ...(newState.exec || {})
+    ...(newState.exec || {}),
   };
   newState.exec.command = {
-    ...(newState.exec.command || {})
+    ...(newState.exec.command || {}),
   };
   const command = newState.exec.command;
 
@@ -223,13 +223,13 @@ function reduceCommandHealthCheck(state, field, value) {
 
 function reduceFormCommandHealthCheck(state, field, value) {
   const newState = {
-    ...state
+    ...state,
   };
   newState.exec = {
-    ...(newState.exec || {})
+    ...(newState.exec || {}),
   };
   newState.exec.command = {
-    ...(newState.exec.command || {})
+    ...(newState.exec.command || {}),
   };
   const command = newState.exec.command;
 
@@ -248,7 +248,7 @@ function reduceFormCommandHealthCheck(state, field, value) {
 
 export function JSONSegmentReducer(state, { type, path, value }) {
   const newState = {
-    ...state
+    ...state,
   };
   const [group, field, secondField] = path;
 
@@ -285,7 +285,7 @@ export function JSONSegmentReducer(state, { type, path, value }) {
     switch (value) {
       case COMMAND:
         newState.exec = {
-          command: {}
+          command: {},
         };
         delete newState.http;
         delete newState.tcp;
@@ -294,7 +294,7 @@ export function JSONSegmentReducer(state, { type, path, value }) {
       case HTTP:
         delete newState.exec;
         newState.http = {
-          scheme: HTTP
+          scheme: HTTP,
         };
         delete newState.tcp;
         break;

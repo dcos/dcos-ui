@@ -12,7 +12,7 @@ function SecretError({
   closeModal,
   openModal,
   breadcrumbs,
-  permissionErrorMessage
+  permissionErrorMessage,
 }) {
   const errorMessage =
     type === "permission" ? permissionErrorMessage : <RequestErrorMsg />;
@@ -23,7 +23,7 @@ function SecretError({
         breadcrumbs={breadcrumbs}
         addButton={{
           onItemSelect: openModal,
-          label: i18nMark("New Secret")
+          label: i18nMark("New Secret"),
         }}
       />
       {errorMessage}
@@ -36,7 +36,7 @@ SecretError.defaultProps = {
   open: false,
   closeModal: () => {},
   openModal: () => {},
-  permissionErrorMessage: <RequestErrorMsg />
+  permissionErrorMessage: <RequestErrorMsg />,
 };
 
 SecretError.propTypes = {
@@ -45,7 +45,7 @@ SecretError.propTypes = {
   closeModal: PropTypes.func,
   openModal: PropTypes.func,
   breadcrumbs: PropTypes.element,
-  permissionErrorMessage: PropTypes.element
+  permissionErrorMessage: PropTypes.element,
 };
 
 export default SecretError;

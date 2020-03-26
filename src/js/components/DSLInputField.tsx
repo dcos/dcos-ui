@@ -9,7 +9,7 @@ import {
   purple,
   red,
   white,
-  greyDark
+  greyDark,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DSLExpression from "../structs/DSLExpression";
@@ -43,7 +43,7 @@ class DSLInputField extends React.Component {
     onBlur() {},
     onDropdownClick() {},
     onFocus() {},
-    placeholder: i18nMark("Filter")
+    placeholder: i18nMark("Filter"),
   };
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
@@ -55,14 +55,14 @@ class DSLInputField extends React.Component {
     onDropdownClick: PropTypes.func,
     onFocus: PropTypes.func,
     placeholder: PropTypes.string,
-    expression: PropTypes.instanceOf(DSLExpression).isRequired
+    expression: PropTypes.instanceOf(DSLExpression).isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       expression: this.props.expression,
-      focus: false
+      focus: false,
     };
   }
 
@@ -97,7 +97,7 @@ class DSLInputField extends React.Component {
    */
   handleBlur = () => {
     this.setState({
-      focus: false
+      focus: false,
     });
     this.props.onBlur();
   };
@@ -107,7 +107,7 @@ class DSLInputField extends React.Component {
    *
    * @param {SyntheticEvent} event - The change event
    */
-  handleChange = event => {
+  handleChange = (event) => {
     this.setState({ expression: new DSLExpression(event.target.value) }, () =>
       this.props.onChange(this.state.expression)
     );
@@ -119,7 +119,7 @@ class DSLInputField extends React.Component {
    */
   handleFocus = () => {
     this.setState({
-      focus: true
+      focus: true,
     });
     this.props.onFocus();
   };
@@ -174,7 +174,7 @@ class DSLInputField extends React.Component {
       dropdownVisible,
       hasDropdown,
       inverseStyle,
-      onDropdownClick
+      onDropdownClick,
     } = this.props;
 
     if (!hasDropdown) {
@@ -210,7 +210,7 @@ class DSLInputField extends React.Component {
 
     const inputClasses = classNames({
       "form-control filter-input-text": true,
-      "form-control-inverse": inverseStyle
+      "form-control-inverse": inverseStyle,
     });
 
     return (
@@ -219,7 +219,7 @@ class DSLInputField extends React.Component {
         placeholder={i18n._(placeholder)}
         onChange={this.handleChange}
         onFocus={this.handleFocus}
-        ref={ref => (this.inputField = ref)}
+        ref={(ref) => (this.inputField = ref)}
         type="text"
         value={expression.value}
       />
@@ -245,7 +245,7 @@ class DSLInputField extends React.Component {
       {
         focus,
         "form-control form-control-group": true,
-        "form-control-inverse": inverseStyle
+        "form-control-inverse": inverseStyle,
       },
       inputContainerClass
     );

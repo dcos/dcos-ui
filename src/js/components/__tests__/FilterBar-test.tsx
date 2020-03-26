@@ -20,7 +20,7 @@ describe("FilterBar", () => {
     it('wraps items in array with "filter-bar-item"', () => {
       const filterItems = thisInstance.find(".filter-bar-item");
       expect(filterItems.length).toEqual(3);
-      [0, 1, 2].forEach(i => {
+      [0, 1, 2].forEach((i) => {
         expect(parseInt(filterItems.at(i).text(), 10)).toBe(i);
       });
     });

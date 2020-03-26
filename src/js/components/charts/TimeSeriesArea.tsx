@@ -13,7 +13,7 @@ const TimeSeriesArea = createReactClass({
     unavailableLine: PropTypes.string.isRequired,
     path: PropTypes.string.isRequired,
     position: PropTypes.array.isRequired,
-    transitionTime: PropTypes.number.isRequired
+    transitionTime: PropTypes.number.isRequired,
   },
 
   componentDidMount() {
@@ -55,7 +55,7 @@ const TimeSeriesArea = createReactClass({
         />
       </g>
     );
-  }
+  },
 });
 
 export default TimeSeriesArea;

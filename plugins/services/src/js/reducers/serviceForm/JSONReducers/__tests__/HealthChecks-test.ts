@@ -22,8 +22,8 @@ describe("HealthChecks", () => {
 
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([
         {
-          protocol: "COMMAND"
-        }
+          protocol: "COMMAND",
+        },
       ]);
     });
 
@@ -41,9 +41,9 @@ describe("HealthChecks", () => {
         {
           protocol: "COMMAND",
           command: {
-            value: "sleep 1000;"
-          }
-        }
+            value: "sleep 1000;",
+          },
+        },
       ]);
     });
 
@@ -58,8 +58,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([
         {
           protocol: "MESOS_HTTP",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -91,8 +91,8 @@ describe("HealthChecks", () => {
           gracePeriodSeconds: 1,
           intervalSeconds: 2,
           timeoutSeconds: 3,
-          maxConsecutiveFailures: 4
-        }
+          maxConsecutiveFailures: 4,
+        },
       ]);
     });
 
@@ -115,8 +115,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), {})).toEqual([
         {
           protocol: "MESOS_HTTP",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -147,8 +147,8 @@ describe("HealthChecks", () => {
           gracePeriodSeconds: 1,
           intervalSeconds: 2,
           timeoutSeconds: 3,
-          maxConsecutiveFailures: 4
-        }
+          maxConsecutiveFailures: 4,
+        },
       ]);
     });
     it("sets ipProtocol to IPv6 if set", () => {
@@ -168,8 +168,8 @@ describe("HealthChecks", () => {
         {
           protocol: "MESOS_HTTP",
           ipProtocol: "IPv6",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -191,8 +191,8 @@ describe("HealthChecks", () => {
         {
           protocol: "MESOS_HTTPS",
           ipProtocol: "IPv6",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -213,8 +213,8 @@ describe("HealthChecks", () => {
         {
           protocol: "MESOS_HTTP",
           ipProtocol: "IPv6",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -236,8 +236,8 @@ describe("HealthChecks", () => {
         {
           protocol: "MESOS_HTTP",
           path: "/test",
-          ipProtocol: "IPv4"
-        }
+          ipProtocol: "IPv4",
+        },
       ]);
     });
 
@@ -259,8 +259,8 @@ describe("HealthChecks", () => {
         {
           protocol: "MESOS_HTTPS",
           ipProtocol: "IPv6",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -282,8 +282,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.JSONReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTPS",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
   });
@@ -300,9 +300,9 @@ describe("HealthChecks", () => {
               gracePeriodSeconds: 300,
               intervalSeconds: 60,
               timeoutSeconds: 20,
-              maxConsecutiveFailures: 3
-            }
-          ]
+              maxConsecutiveFailures: 3,
+            },
+          ],
         })
       ).toEqual([
         {
@@ -314,45 +314,45 @@ describe("HealthChecks", () => {
             gracePeriodSeconds: 300,
             intervalSeconds: 60,
             timeoutSeconds: 20,
-            maxConsecutiveFailures: 3
+            maxConsecutiveFailures: 3,
           },
-          path: ["healthChecks"]
+          path: ["healthChecks"],
         },
         {
           type: SET,
           value: "MESOS_HTTP",
-          path: ["healthChecks", 0, "protocol"]
+          path: ["healthChecks", 0, "protocol"],
         },
         {
           type: SET,
           value: "/api/health",
-          path: ["healthChecks", 0, "path"]
+          path: ["healthChecks", 0, "path"],
         },
         {
           type: SET,
           value: 0,
-          path: ["healthChecks", 0, "portIndex"]
+          path: ["healthChecks", 0, "portIndex"],
         },
         {
           type: SET,
           value: 300,
-          path: ["healthChecks", 0, "gracePeriodSeconds"]
+          path: ["healthChecks", 0, "gracePeriodSeconds"],
         },
         {
           type: SET,
           value: 60,
-          path: ["healthChecks", 0, "intervalSeconds"]
+          path: ["healthChecks", 0, "intervalSeconds"],
         },
         {
           type: SET,
           value: 20,
-          path: ["healthChecks", 0, "timeoutSeconds"]
+          path: ["healthChecks", 0, "timeoutSeconds"],
         },
         {
           type: SET,
           value: 3,
-          path: ["healthChecks", 0, "maxConsecutiveFailures"]
-        }
+          path: ["healthChecks", 0, "maxConsecutiveFailures"],
+        },
       ]);
     });
   });

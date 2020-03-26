@@ -13,7 +13,7 @@ const NetworkingTooltipContent = {
     ),
     "machine-reachability": i18nMark(
       "Machine Availability and Reachability for all connections to this virtual address in the last hour."
-    )
+    ),
   },
   backend: {
     success: i18nMark(
@@ -21,8 +21,8 @@ const NetworkingTooltipContent = {
     ),
     "connection-latency": i18nMark(
       "Latency distribution (in milliseconds) for all connections to virtual addresses redirected to this backend in the last hour."
-    )
-  }
+    ),
+  },
 };
 
 export default NetworkingTooltipContent;

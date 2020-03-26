@@ -28,7 +28,7 @@ describe("PlacementSchemaField", () => {
         formData: "[['hostname', 'MAX_PER', '1']]",
         disabled: false,
         name: "placement_constraints",
-        schema: {}
+        schema: {},
       };
       thisInstance = renderer.create(
         <WrappedComponent fieldProps={fieldProps} label="label" schema={{}} />
@@ -54,7 +54,7 @@ describe("PlacementSchemaField", () => {
       const fieldProps = {
         formData: "['hostname', 'MAX_PER', '2']",
         disabled: false,
-        name: "placement_constraints"
+        name: "placement_constraints",
       };
 
       thisInstance = renderer.create(

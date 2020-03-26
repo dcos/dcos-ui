@@ -6,7 +6,7 @@ const functionMap = {
   withLatestConfig: "getStatsForTasksWithLatestConfig",
   startedAfterLastScaling: "getStatsForTasksStaredAfterLastScaling",
   withOutdatedConfig: "getStatsForTasksWithOutdatedConfig",
-  totalSummary: "getStatsForAllTasks"
+  totalSummary: "getStatsForAllTasks",
 };
 
 class TaskStats extends Item {
@@ -60,7 +60,7 @@ class TaskStats extends Item {
   getList() {
     const items = [];
 
-    Object.keys(functionMap).forEach(key => {
+    Object.keys(functionMap).forEach((key) => {
       const stat = this[functionMap[key]]();
       if (!stat.isEmpty()) {
         items.push(stat);

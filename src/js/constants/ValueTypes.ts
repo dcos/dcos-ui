@@ -1,6 +1,6 @@
 const ValueTypes = {
   PERCENTAGE: "percentage",
-  ABSOLUTE: "absolute"
+  ABSOLUTE: "absolute",
 };
 
 export default ValueTypes;

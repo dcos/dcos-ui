@@ -7,14 +7,14 @@ const markdownRenderer = {
   rendererReady: false,
   prepareMarkdownRenderer() {
     const renderer = new marked.Renderer();
-    renderer.link = function(...args) {
+    renderer.link = function (...args) {
       const out = marked.Renderer.prototype.link.apply(this, args);
 
       return out.replace(/^<a/, '<a target="_blank"');
     };
     marked.setOptions({ renderer });
     this.rendererReady = true;
-  }
+  },
 };
 
 const StringUtil = {
@@ -38,10 +38,10 @@ const StringUtil = {
     const extractor =
       typeof property === "function"
         ? property
-        : obj => [].concat(obj[property]);
+        : (obj) => [].concat(obj[property]);
 
     return search(searchString, objects, extractor).map(
-      scoredObject => scoredObject.obj
+      (scoredObject) => scoredObject.obj
     );
   },
 
@@ -109,7 +109,7 @@ const StringUtil = {
     return string
       .toLowerCase()
       .split(/[_-]/)
-      .map(word => this.capitalize(word))
+      .map((word) => this.capitalize(word))
       .join(" ");
   },
 
@@ -125,7 +125,7 @@ const StringUtil = {
     options = {
       serialComma: true,
       wrapValueFunction: false,
-      ...options
+      ...options,
     };
 
     const length = array.length;
@@ -147,7 +147,7 @@ const StringUtil = {
         return [
           options.wrapValueFunction(array[0], 0),
           conjunction,
-          options.wrapValueFunction(array[1], 1)
+          options.wrapValueFunction(array[1], 1),
         ];
       }
       return array.join(conjunction);
@@ -227,7 +227,7 @@ const StringUtil = {
     const splitID = id.reduce((accumulated, element) => {
       const splitWords = element.split(splitBy.shift());
 
-      splitWords.map(token => {
+      splitWords.map((token) => {
         accumulated.push(token);
       });
 
@@ -235,7 +235,7 @@ const StringUtil = {
     }, []);
 
     return this.idToTitle(splitID, splitBy, replace, removeConsecutive);
-  }
+  },
 };
 
 export default StringUtil;

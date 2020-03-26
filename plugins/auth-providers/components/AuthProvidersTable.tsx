@@ -10,7 +10,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 
 class AuthProvidersTable extends React.Component {
   static propTypes = {
-    data: PropTypes.array
+    data: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -19,7 +19,7 @@ class AuthProvidersTable extends React.Component {
   getClassName(prop, sortBy, row) {
     return classNames({
       active: prop === sortBy.prop,
-      clickable: row == null // this is a header
+      clickable: row == null, // this is a header
     });
   }
 
@@ -29,11 +29,11 @@ class AuthProvidersTable extends React.Component {
         className: this.getClassName,
         headerClassName: this.getClassName,
         heading: ResourceTableUtil.renderHeading({
-          description: i18nMark("Name")
+          description: i18nMark("Name"),
         }),
         prop: "description",
-        render: this.renderDescription
-      }
+        render: this.renderDescription,
+      },
     ];
   }
 

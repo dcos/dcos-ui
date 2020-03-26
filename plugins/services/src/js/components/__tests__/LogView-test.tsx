@@ -32,7 +32,7 @@ describe("LogView", () => {
       thisPreviousGetComputed = DOMUtils.getComputedDimensions;
 
       DOMUtils.getComputedDimensions = () => ({
-        height: 100
+        height: 100,
       });
     });
 

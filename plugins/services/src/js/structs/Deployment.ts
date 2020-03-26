@@ -78,8 +78,8 @@ export default class Deployment extends Item {
   isStarting() {
     const steps = this.get("steps");
     if (steps != null) {
-      return this.get("steps").some(step =>
-        step.actions.some(action => action.type === "StartApplication")
+      return this.get("steps").some((step) =>
+        step.actions.some((action) => action.type === "StartApplication")
       );
     }
   }

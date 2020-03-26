@@ -12,15 +12,15 @@ function parseResources(resources: string): Record<string, number> {
   const result: Record<string, number> = {};
   return resources
     .split(" ")
-    .map(rs => rs.replace(";", ""))
-    .map(rs => {
+    .map((rs) => rs.replace(";", ""))
+    .map((rs) => {
       const parts = rs.split(":");
       if (parts.length < 2) {
         return null;
       }
       return {
         resourceName: parts[0],
-        value: parseFloat(parts[1])
+        value: parseFloat(parts[1]),
       };
     })
     .reduce((resources, resource) => {
@@ -43,7 +43,7 @@ function parseResourcesFromMessage(
   const limitedResourcesString = matches[2];
   const consumedResources = parseResources(consumedResourcesString);
   const limitedResources = parseResources(limitedResourcesString);
-  Object.keys(consumedResources).forEach(resourceName => {
+  Object.keys(consumedResources).forEach((resourceName) => {
     if (!(resourceName in limitedResources)) {
       return;
     }
@@ -53,7 +53,7 @@ function parseResourcesFromMessage(
       result.push({
         resourceName,
         consumed,
-        requestedLimit
+        requestedLimit,
       });
     }
   });

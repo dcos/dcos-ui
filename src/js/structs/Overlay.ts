@@ -23,6 +23,6 @@ export const Overlay = {
     prefix: r.prefix,
     prefix6: r.prefix6,
     subnet: r.subnet,
-    subnet6: r.subnet6
-  })
+    subnet6: r.subnet6,
+  }),
 };

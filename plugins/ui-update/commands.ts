@@ -15,8 +15,8 @@ function rollbackUI(delayMs: number = 45000) {
     type: UIActionType.Reset,
     action: UIActions.Started,
     value: {
-      message: ""
-    }
+      message: "",
+    },
   });
   dl.query(
     gql`
@@ -28,22 +28,22 @@ function rollbackUI(delayMs: number = 45000) {
   )
     .pipe(take(1), delay(delayMs))
     .subscribe(
-      result => {
+      (result) => {
         uiServiceActions$.next({
           type: UIActionType.Reset,
           action: UIActions.Completed,
           value: {
-            message: result.data.resetDCOSUI || ""
-          }
+            message: result.data.resetDCOSUI || "",
+          },
         });
       },
-      error => {
+      (error) => {
         uiServiceActions$.next({
           type: UIActionType.Reset,
           action: UIActions.Error,
           value: {
-            message: error.message
-          }
+            message: error.message,
+          },
         });
       }
     );
@@ -55,8 +55,8 @@ function updateUI(version: string, delayMs: number = 45000) {
     action: UIActions.Started,
     value: {
       data: version,
-      message: ""
-    }
+      message: "",
+    },
   });
   dl.query(
     gql`
@@ -65,28 +65,28 @@ function updateUI(version: string, delayMs: number = 45000) {
       }
     `,
     {
-      version
+      version,
     }
   )
     .pipe(delay(delayMs), take(1))
     .subscribe(
-      result => {
+      (result) => {
         uiServiceActions$.next({
           type: UIActionType.Update,
           action: UIActions.Completed,
           value: {
-            message: result.data.updateDCOSUI
-          }
+            message: result.data.updateDCOSUI,
+          },
         });
       },
-      error => {
+      (error) => {
         uiServiceActions$.next({
           type: UIActionType.Update,
           action: UIActions.Error,
           value: {
             message: error.message ? error.message : error,
-            data: version
-          }
+            data: version,
+          },
         });
       }
     );

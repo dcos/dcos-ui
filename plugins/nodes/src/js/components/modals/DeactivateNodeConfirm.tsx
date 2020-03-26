@@ -22,7 +22,7 @@ function DeactivateNodeConfirm(props: Props) {
   const [inProgress, setInProgress] = React.useState<boolean>(false);
   const [
     networkError,
-    setNetworkError
+    setNetworkError,
   ] = React.useState<React.ReactElement | null>(null);
 
   const handleClose = () => {
@@ -52,7 +52,7 @@ function DeactivateNodeConfirm(props: Props) {
             </Trans>
           )
         );
-      }
+      },
     });
   };
 

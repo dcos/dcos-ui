@@ -16,7 +16,7 @@ import * as viewport from "../constants/Viewports";
 
 const {
   NavigationService,
-  EventTypes: { NAVIGATION_CHANGE }
+  EventTypes: { NAVIGATION_CHANGE },
 } = navigation;
 
 const defaultMenuItems = [
@@ -30,7 +30,7 @@ const defaultMenuItems = [
   "/cluster",
   "/components",
   "/settings",
-  "/organization"
+  "/organization",
 ];
 
 const { Hooks } = PluginSDK;
@@ -96,7 +96,7 @@ class Sidebar extends React.Component {
   onNavigationChange = () => {
     this.forceUpdate();
   };
-  handleKeyPress = event => {
+  handleKeyPress = (event) => {
     const nodeName = event.target.nodeName;
 
     if (
@@ -129,7 +129,7 @@ class Sidebar extends React.Component {
 
     this.setState({ expandedItems });
   }
-  handleSidebarTransitionEnd = event => {
+  handleSidebarTransitionEnd = (event) => {
     // Some elements (graphs and Gemini) need to update when the main content
     // width changes, so we emit an event.
     if (event.target === this.sidebarWrapperRef) {
@@ -173,7 +173,7 @@ class Sidebar extends React.Component {
       defaultMenuItems
     ).reduce((routesMap, path) => routesMap.set(path, true), new Map());
 
-    const filteredItems = group.children.filter(route =>
+    const filteredItems = group.children.filter((route) =>
       menuItems.has(route.path)
     );
 
@@ -212,7 +212,7 @@ class Sidebar extends React.Component {
       const itemClassSet = classNames("sidebar-menu-item", {
         selected: isParentActive && !isChildActive,
         open: isExpanded,
-        expandable: hasChildren
+        expandable: hasChildren,
       });
 
       return (
@@ -305,7 +305,7 @@ class Sidebar extends React.Component {
     return (
       <div
         className="sidebar-wrapper"
-        ref={ref => {
+        ref={(ref) => {
           this.sidebarWrapperRef = ref;
         }}
       >
@@ -313,7 +313,7 @@ class Sidebar extends React.Component {
           <GeminiScrollbar
             autoshow={true}
             className="flex-item-grow-1 flex-item-shrink-1 gm-scrollbar-container-flex gm-scrollbar-container-flex-view inverse"
-            ref={ref => (this.geminiRef = ref)}
+            ref={(ref) => (this.geminiRef = ref)}
           >
             <div className="sidebar-content-wrapper">
               <div className="sidebar-sections pod">
@@ -328,7 +328,7 @@ class Sidebar extends React.Component {
 }
 
 Sidebar.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default Sidebar;

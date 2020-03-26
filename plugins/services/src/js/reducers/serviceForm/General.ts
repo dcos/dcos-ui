@@ -12,5 +12,5 @@ export default {
   mem: simpleReducer("mem"),
   disk: simpleReducer("disk"),
   gpus: simpleReducer("gpus"),
-  cmd: simpleReducer("cmd")
+  cmd: simpleReducer("cmd"),
 };

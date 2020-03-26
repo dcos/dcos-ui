@@ -4,13 +4,13 @@ import * as React from "react";
 class ToggleValue extends React.Component {
   static propTypes = {
     primaryValue: PropTypes.string.isRequired,
-    secondaryValue: PropTypes.string.isRequired
+    secondaryValue: PropTypes.string.isRequired,
   };
   constructor(props) {
     super(props);
 
     this.state = {
-      toggled: false
+      toggled: false,
     };
   }
 

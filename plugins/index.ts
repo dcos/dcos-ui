@@ -25,5 +25,5 @@ export default {
   organization: require("./organization/index"),
   placement: require("./placement/index"),
   secrets: require("./secrets/index"),
-  tracking
+  tracking,
 };

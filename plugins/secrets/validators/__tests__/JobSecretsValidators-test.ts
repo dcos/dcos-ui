@@ -1,6 +1,6 @@
 import {
   JobSecretsValidators,
-  JobSpecValidator
+  JobSpecValidator,
 } from "../JobSecretsValidators";
 
 describe("JobSecretsValidators", () => {
@@ -11,16 +11,16 @@ describe("JobSecretsValidators", () => {
           run: {
             env: {
               var: {
-                secret: "secret0"
-              }
-            }
-          }
+                secret: "secret0",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.envHasMatchingSecret(spec)).toEqual([
           {
             path: ["run", "secrets", "secret0"],
-            message: "The secret cannot be empty"
-          }
+            message: "The secret cannot be empty",
+          },
         ]);
       });
 
@@ -29,15 +29,15 @@ describe("JobSecretsValidators", () => {
           run: {
             env: {
               var: {
-                secret: "secret0"
-              }
+                secret: "secret0",
+              },
             },
             secrets: {
               secret0: {
-                source: "foo"
-              }
-            }
-          }
+                source: "foo",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.envHasMatchingSecret(spec)).toEqual([]);
       });
@@ -46,16 +46,16 @@ describe("JobSecretsValidators", () => {
         const spec = {
           run: {
             env: {
-              a: "b"
-            }
-          }
+              a: "b",
+            },
+          },
         };
         expect(JobSecretsValidators.envHasMatchingSecret(spec)).toEqual([]);
       });
 
       it("does not return error when there are is no env", () => {
         const spec = {
-          run: {}
+          run: {},
         };
         expect(JobSecretsValidators.envHasMatchingSecret(spec)).toEqual([]);
       });
@@ -67,16 +67,16 @@ describe("JobSecretsValidators", () => {
           run: {
             volumes: [
               {
-                secret: "secret0"
-              }
-            ]
-          }
+                secret: "secret0",
+              },
+            ],
+          },
         };
         expect(JobSecretsValidators.volumeHasMatchingSecret(spec)).toEqual([
           {
             path: ["run", "secrets", "secret0"],
-            message: "The secret cannot be empty"
-          }
+            message: "The secret cannot be empty",
+          },
         ]);
       });
 
@@ -85,15 +85,15 @@ describe("JobSecretsValidators", () => {
           run: {
             volumes: [
               {
-                secret: "secret0"
-              }
+                secret: "secret0",
+              },
             ],
             secrets: {
               secret0: {
-                source: "foo"
-              }
-            }
-          }
+                source: "foo",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.volumeHasMatchingSecret(spec)).toEqual([]);
       });
@@ -105,17 +105,17 @@ describe("JobSecretsValidators", () => {
               {
                 containerPath: "b",
                 hostPath: "c",
-                mode: "RW"
-              }
-            ]
-          }
+                mode: "RW",
+              },
+            ],
+          },
         };
         expect(JobSecretsValidators.volumeHasMatchingSecret(spec)).toEqual([]);
       });
 
       it("does not return error when there are is no volumes", () => {
         const spec = {
-          run: {}
+          run: {},
         };
         expect(JobSecretsValidators.volumeHasMatchingSecret(spec)).toEqual([]);
       });
@@ -127,17 +127,17 @@ describe("JobSecretsValidators", () => {
           run: {
             secrets: {
               secret0: {
-                source: "foo"
-              }
-            }
-          }
+                source: "foo",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.namedSecretsAreProvided(spec)).toEqual([
           {
             path: ["run", "secrets", "secret0"],
             message:
-              "Secret must be provided as an environment variable or file"
-          }
+              "Secret must be provided as an environment variable or file",
+          },
         ]);
       });
 
@@ -146,15 +146,15 @@ describe("JobSecretsValidators", () => {
           run: {
             secrets: {
               secret0: {
-                source: "foo"
-              }
+                source: "foo",
+              },
             },
             env: {
               bar: {
-                secret: "secret0"
-              }
-            }
-          }
+                secret: "secret0",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.namedSecretsAreProvided(spec)).toEqual([]);
       });
@@ -164,15 +164,15 @@ describe("JobSecretsValidators", () => {
           run: {
             secrets: {
               secret0: {
-                source: "foo"
-              }
+                source: "foo",
+              },
             },
             volumes: [
               {
-                secret: "secret0"
-              }
-            ]
-          }
+                secret: "secret0",
+              },
+            ],
+          },
         };
         expect(JobSecretsValidators.namedSecretsAreProvided(spec)).toEqual([]);
       });
@@ -184,16 +184,16 @@ describe("JobSecretsValidators", () => {
           run: {
             env: {
               foo: {
-                secret: 123
-              }
-            }
-          }
+                secret: 123,
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.envSecretsAreStrings(spec)).toEqual([
           {
             path: ["run", "env", "foo"],
-            message: "Secret must be a non-empty string"
-          }
+            message: "Secret must be a non-empty string",
+          },
         ]);
       });
 
@@ -202,16 +202,16 @@ describe("JobSecretsValidators", () => {
           run: {
             env: {
               foo: {
-                secret: ""
-              }
-            }
-          }
+                secret: "",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.envSecretsAreStrings(spec)).toEqual([
           {
             path: ["run", "env", "foo"],
-            message: "Secret must be a non-empty string"
-          }
+            message: "Secret must be a non-empty string",
+          },
         ]);
       });
 
@@ -220,10 +220,10 @@ describe("JobSecretsValidators", () => {
           run: {
             env: {
               foo: {
-                secret: "123"
-              }
-            }
-          }
+                secret: "123",
+              },
+            },
+          },
         };
         expect(JobSecretsValidators.envSecretsAreStrings(spec)).toEqual([]);
       });
@@ -240,27 +240,27 @@ describe("JobSecretsValidators", () => {
                 exposureType: "envVar",
                 exposureValue: "a",
                 key: "key",
-                secretPath: "secret"
+                secretPath: "secret",
               },
               {
                 exposureType: "envVar",
                 exposureValue: "a",
                 key: "key2",
-                secretPath: "secret2"
-              }
-            ]
-          }
-        }
+                secretPath: "secret2",
+              },
+            ],
+          },
+        },
       };
       expect(JobSpecValidator([], spec)).toEqual([
         {
           path: ["run", "secrets", "0"],
-          message: "Cannot have duplicate variable names"
+          message: "Cannot have duplicate variable names",
         },
         {
           path: ["run", "secrets", "1"],
-          message: "Cannot have duplicate variable names"
-        }
+          message: "Cannot have duplicate variable names",
+        },
       ]);
     });
   });

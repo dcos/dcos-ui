@@ -38,7 +38,7 @@ const SecretExposureTypeSelect = (props: Props) => {
 SecretExposureTypeSelect.propTypes = {
   secretIndex: PropTypes.number.isRequired,
   variableIndex: PropTypes.number.isRequired,
-  type: PropTypes.string.isRequired
+  type: PropTypes.string.isRequired,
 };
 
 export default SecretExposureTypeSelect;

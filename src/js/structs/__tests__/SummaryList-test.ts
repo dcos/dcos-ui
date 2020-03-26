@@ -41,7 +41,7 @@ describe("SummaryList", () => {
 
       const expectedList = [
         { date: now, slavesCount: 1 },
-        { date: now + 1, slavesCount: 2 }
+        { date: now + 1, slavesCount: 2 },
       ];
 
       expect(list.getActiveNodesByState()).toEqual(expectedList);
@@ -68,14 +68,14 @@ describe("SummaryList", () => {
       const expectedState = {
         snapshot: {
           frameworks: [{ name: "service 3" }, { name: "service 4" }],
-          slaves: []
+          slaves: [],
         },
         metadata: {
           date: thisNow + 1,
           successfulSnapshot: true,
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
-        }
+          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+        },
       };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
@@ -89,14 +89,14 @@ describe("SummaryList", () => {
       const expectedState = {
         snapshot: {
           frameworks: [{ name: "service 1" }, { name: "service 2" }],
-          slaves: []
+          slaves: [],
         },
         metadata: {
           date: thisNow,
           successfulSnapshot: true,
           slaveUsedResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
-          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 }
-        }
+          slaveTotalResources: { cpus: 0, mem: 0, disk: 0, gpus: 0 },
+        },
       };
 
       expect(states.lastSuccessful()).toEqual(expectedState);
@@ -121,14 +121,14 @@ describe("SummaryList", () => {
             {
               id: 1,
               resources: { cpus: 5, mem: 5, disk: 5, gpus: 6 },
-              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 },
             },
             {
               id: 2,
               resources: { cpus: 5, mem: 5, disk: 5, gpus: 6 },
-              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
-            }
-          ]
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 },
+            },
+          ],
         },
         thisNow
       );
@@ -146,7 +146,7 @@ describe("SummaryList", () => {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
         disk: [{ date: thisNow, percentage: 20, value: 2 }],
-        gpus: [{ date: thisNow, percentage: 33, value: 4 }]
+        gpus: [{ date: thisNow, percentage: 33, value: 4 }],
       };
 
       expect(resources).toEqual(expectedResult);
@@ -158,7 +158,7 @@ describe("SummaryList", () => {
         cpus: [{ date: thisNow, percentage: 20, value: 1 }],
         mem: [{ date: thisNow, percentage: 60, value: 3 }],
         disk: [{ date: thisNow, percentage: 20, value: 1 }],
-        gpus: [{ date: thisNow, percentage: 33, value: 2 }]
+        gpus: [{ date: thisNow, percentage: 33, value: 2 }],
       };
 
       expect(resources).toEqual(expectedResult);
@@ -170,7 +170,7 @@ describe("SummaryList", () => {
         cpus: [{ date: thisNow, percentage: 20, value: 2 }],
         mem: [{ date: thisNow, percentage: 60, value: 6 }],
         disk: [{ date: thisNow, percentage: 20, value: 2 }],
-        gpus: [{ date: thisNow, percentage: 33, value: 4 }]
+        gpus: [{ date: thisNow, percentage: 33, value: 4 }],
       };
 
       expect(resources).toEqual(expectedResult);
@@ -183,14 +183,14 @@ describe("SummaryList", () => {
             {
               id: 1,
               resources: { cpus: 10, mem: 10, disk: 10, gpus: 6 },
-              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 },
             },
             {
               id: 2,
               resources: { cpus: 10, mem: 10, disk: 10, gpus: 6 },
-              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 }
-            }
-          ]
+              used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 2 },
+            },
+          ],
         },
         thisNow + 1
       );
@@ -199,20 +199,20 @@ describe("SummaryList", () => {
       const expectedResult = {
         cpus: [
           { date: thisNow, percentage: 20, value: 1 },
-          { date: thisNow + 1, percentage: 10, value: 1 }
+          { date: thisNow + 1, percentage: 10, value: 1 },
         ],
         mem: [
           { date: thisNow, percentage: 60, value: 3 },
-          { date: thisNow + 1, percentage: 30, value: 3 }
+          { date: thisNow + 1, percentage: 30, value: 3 },
         ],
         disk: [
           { date: thisNow, percentage: 20, value: 1 },
-          { date: thisNow + 1, percentage: 10, value: 1 }
+          { date: thisNow + 1, percentage: 10, value: 1 },
         ],
         gpus: [
           { date: thisNow, percentage: 33, value: 2 },
-          { date: thisNow + 1, percentage: 33, value: 2 }
-        ]
+          { date: thisNow + 1, percentage: 33, value: 2 },
+        ],
       };
 
       expect(resources).toEqual(expectedResult);
@@ -226,7 +226,7 @@ describe("SummaryList", () => {
         cpus: [{ date: thisNow, percentage: null, value: null }],
         mem: [{ date: thisNow, percentage: null, value: null }],
         disk: [{ date: thisNow, percentage: null, value: null }],
-        gpus: [{ date: thisNow, percentage: null, value: null }]
+        gpus: [{ date: thisNow, percentage: null, value: null }],
       };
 
       expect(resources).toEqual(expectedResult);

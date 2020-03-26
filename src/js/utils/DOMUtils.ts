@@ -2,13 +2,13 @@ const HEIGHT_ATTRIBUTES = [
   "paddingTop",
   "paddingBottom",
   "borderTopWidth",
-  "borderBottomWidth"
+  "borderBottomWidth",
 ];
 const WIDTH_ATTRIBUTES = [
   "paddingLeft",
   "paddingRight",
   "borderLeftWidth",
-  "borderRightWidth"
+  "borderRightWidth",
 ];
 
 const matchesFn = (() => {
@@ -19,7 +19,7 @@ const matchesFn = (() => {
     "msMatchesSelector",
     "oMatchesSelector",
     "mozMatchesSelector",
-    "webkitMatchesSelector"
+    "webkitMatchesSelector",
   ];
 
   for (let i = 0; i < names.length; i++) {
@@ -84,7 +84,7 @@ const DOMUtils = {
 
     return {
       width,
-      height
+      height,
     };
   },
 
@@ -133,7 +133,7 @@ const DOMUtils = {
     return inputTypes.includes(node.nodeName.toLowerCase())
       ? node
       : node.querySelector(inputTypes.join(", "));
-  }
+  },
 };
 
 export default DOMUtils;

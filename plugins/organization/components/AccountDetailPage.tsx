@@ -29,12 +29,12 @@ const EXTERNAL_CHANGE_EVENTS = [
   "onAclStoreUserGrantSuccess",
   "onAclStoreUserRevokeSuccess",
   "onAclGroupStoreAddUserSuccess",
-  "onAclGroupStoreDeleteUserSuccess"
+  "onAclGroupStoreDeleteUserSuccess",
 ];
 
 class AccountDetailPage extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
@@ -42,7 +42,7 @@ class AccountDetailPage extends mixin(StoreMixin) {
     this.tabs_tabs = {
       advancedACLs: i18nMark("Permissions"),
       membership: i18nMark("Group Membership"),
-      details: i18nMark("Details")
+      details: i18nMark("Details"),
     };
 
     this.state = {
@@ -51,7 +51,7 @@ class AccountDetailPage extends mixin(StoreMixin) {
       fetchedDetailsError: false,
       openDeleteConfirmation: false,
       openEditFormModal: false,
-      pendingRequest: false
+      pendingRequest: false,
     };
 
     // prettier-ignore
@@ -61,7 +61,7 @@ class AccountDetailPage extends mixin(StoreMixin) {
       { name: "summary", events: ["success"], unmountWhen: (store, event) => event === "success" && store.get("statesProcessed") }
     ];
 
-    EXTERNAL_CHANGE_EVENTS.forEach(event => {
+    EXTERNAL_CHANGE_EVENTS.forEach((event) => {
       // #onACLChange is defined in the child component after this runs
       // this is why we call #onACLChange in a closure
       this[event] = () => {
@@ -80,30 +80,30 @@ class AccountDetailPage extends mixin(StoreMixin) {
   }
   handleDeleteCancel = () => {
     this.setState({
-      openDeleteConfirmation: false
+      openDeleteConfirmation: false,
     });
   };
   handleDeleteModalOpen = () => {
     this.setState({
       deleteUpdateError: null,
-      openDeleteConfirmation: true
+      openDeleteConfirmation: true,
     });
   };
   handleDeleteAccount = () => {
     this.setState({
-      pendingRequest: true
+      pendingRequest: true,
     });
     this.deleteAccount();
   };
 
   handleEditModalOpen() {
     this.setState({
-      openEditFormModal: true
+      openEditFormModal: true,
     });
   }
   handleEditCancel = () => {
     this.setState({
-      openEditFormModal: false
+      openEditFormModal: false,
     });
   };
 
@@ -115,13 +115,13 @@ class AccountDetailPage extends mixin(StoreMixin) {
     return [
       {
         label: "Edit",
-        onItemSelect: this.handleEditModalOpen.bind(this)
+        onItemSelect: this.handleEditModalOpen.bind(this),
       },
       {
         className: "text-danger",
         label: StringUtil.capitalize(UserActions.DELETE),
-        onItemSelect: this.handleDeleteModalOpen.bind(this)
-      }
+        onItemSelect: this.handleDeleteModalOpen.bind(this),
+      },
     ];
   }
 
@@ -149,7 +149,7 @@ class AccountDetailPage extends mixin(StoreMixin) {
         <BreadcrumbTextContent>
           <Link to={`/organization/users/${accountID}`}>{title}</Link>
         </BreadcrumbTextContent>
-      </Breadcrumb>
+      </Breadcrumb>,
     ];
 
     return (
@@ -246,22 +246,22 @@ class AccountDetailPage extends mixin(StoreMixin) {
         callback: () => {
           this.setState({ currentTab: "advancedACLs" });
         },
-        isActive: currentTab === "advancedACLs"
+        isActive: currentTab === "advancedACLs",
       },
       {
         label: i18nMark("Group Membership"),
         callback: () => {
           this.setState({ currentTab: "membership" });
         },
-        isActive: currentTab === "membership"
+        isActive: currentTab === "membership",
       },
       {
         label: i18nMark("Details"),
         callback: () => {
           this.setState({ currentTab: "details" });
         },
-        isActive: currentTab === "details"
-      }
+        isActive: currentTab === "details",
+      },
     ];
 
     // L10NTODO: This class serves as a base class for several others. Adding withI18n
@@ -304,7 +304,7 @@ class AccountDetailPage extends mixin(StoreMixin) {
 }
 
 AccountDetailPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default AccountDetailPage;

@@ -3,7 +3,7 @@ import Transaction from "../structs/Transaction";
 
 type Parser = (a: {}) => Transaction | Transaction[];
 export function combineParsers(parsers: Parser[] = []) {
-  parsers = parsers.filter(parser => typeof parser === "function").reverse();
+  parsers = parsers.filter((parser) => typeof parser === "function").reverse();
 
   return (state = {}) => {
     let index = parsers.length;
@@ -27,7 +27,7 @@ export function combineParsers(parsers: Parser[] = []) {
 }
 
 export function simpleParser(path: string[]): Parser {
-  return state => {
+  return (state) => {
     const value = findNestedPropertyInObject(state, path.join("."));
     return value == null ? [] : new Transaction(path, value);
   };

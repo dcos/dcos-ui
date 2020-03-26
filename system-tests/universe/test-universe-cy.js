@@ -56,9 +56,7 @@ describe("Universe", () => {
     });
 
     it("installs a community package", () => {
-      cy.get("button")
-        .contains("Community")
-        .click();
+      cy.get("button").contains("Community").click();
 
       cy.contains("bitbucket").click();
 
@@ -69,9 +67,7 @@ describe("Universe", () => {
       cy.contains("Review & Run").click();
 
       // Click the Continue button
-      cy.get(".button-primary")
-        .contains("Continue")
-        .click();
+      cy.get(".button-primary").contains("Continue").click();
 
       // Move to the review screen
       cy.contains("Review & Run").click();
@@ -107,15 +103,9 @@ describe("Universe", () => {
       cy.get(".modal input[name=name]").retype(serviceName);
 
       // Wait for the new service to deploy
-      cy.get(".modal")
-        .contains("Review & Run")
-        .click();
-      cy.get(".modal")
-        .contains("Run Service")
-        .click();
-      cy.get(".modal.modal-small")
-        .contains("Open Service")
-        .click();
+      cy.get(".modal").contains("Review & Run").click();
+      cy.get(".modal").contains("Run Service").click();
+      cy.get(".modal.modal-small").contains("Open Service").click();
 
       // Go to the root services page
       cy.visitUrl("services/overview");
@@ -128,9 +118,7 @@ describe("Universe", () => {
       const packageName = "bitbucket";
       const serviceName = `${Cypress.env("TEST_UUID")}-${packageName}`;
 
-      cy.get("button")
-        .contains("Community")
-        .click();
+      cy.get("button").contains("Community").click();
 
       cy.contains(packageName).click();
 
@@ -140,9 +128,7 @@ describe("Universe", () => {
       cy.contains("Review & Run").click();
 
       // Click the Continue button
-      cy.get(".button-primary")
-        .contains("Continue")
-        .click();
+      cy.get(".button-primary").contains("Continue").click();
 
       // Click Edit Config button
       cy.contains("Edit Config").click();
@@ -151,15 +137,9 @@ describe("Universe", () => {
       cy.get(".modal input[name=name]").retype(serviceName);
 
       // Wait for the new service to deploy
-      cy.get(".modal")
-        .contains("Review & Run")
-        .click();
-      cy.get(".modal")
-        .contains("Run Service")
-        .click();
-      cy.get(".modal.modal-small")
-        .contains("Open Service")
-        .click();
+      cy.get(".modal").contains("Review & Run").click();
+      cy.get(".modal").contains("Run Service").click();
+      cy.get(".modal.modal-small").contains("Open Service").click();
 
       // Go to the root services page
       cy.visitUrl("services/overview");
@@ -177,13 +157,9 @@ describe("Universe", () => {
     it("plan is displayed", () => {
       const packageName = "confluent-kafka";
       // Check that it appears in the service list
-      cy.get(".page-body-content .service-table")
-        .contains(packageName)
-        .click();
+      cy.get(".page-body-content .service-table").contains(packageName).click();
 
-      cy.get(".page-header-navigation-tabs")
-        .contains("Plans")
-        .click();
+      cy.get(".page-header-navigation-tabs").contains("Plans").click();
 
       cy.contains("broker (serial)");
     });

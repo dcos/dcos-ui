@@ -12,7 +12,7 @@ const NodeMaintenanceActions = {
     node: Node,
     {
       onSuccess,
-      onError
+      onError,
     }: {
       onSuccess: () => void;
       onError: ({ code, message }: { code: number; message: string }) => void;
@@ -21,18 +21,18 @@ const NodeMaintenanceActions = {
     return request({
       type: "REACTIVATE_AGENT",
       reactivate_agent: {
-        agent_id: { value: node.getID() }
-      }
+        agent_id: { value: node.getID() },
+      },
     }).subscribe({
       next: onSuccess,
-      error: onError
+      error: onError,
     });
   },
   deactivateNode: (
     node: Node,
     {
       onSuccess,
-      onError
+      onError,
     }: {
       onSuccess: () => void;
       onError: ({ code, message }: { code: number; message: string }) => void;
@@ -41,11 +41,11 @@ const NodeMaintenanceActions = {
     return request({
       type: "DEACTIVATE_AGENT",
       deactivate_agent: {
-        agent_id: { value: node.getID() }
-      }
+        agent_id: { value: node.getID() },
+      },
     }).subscribe({
       next: onSuccess,
-      error: onError
+      error: onError,
     });
   },
   drainNode: (
@@ -56,7 +56,7 @@ const NodeMaintenanceActions = {
     },
     {
       onSuccess,
-      onError
+      onError,
     }: {
       onSuccess: () => void;
       onError: ({ code, message }: { code: number; message: string }) => void;
@@ -65,7 +65,7 @@ const NodeMaintenanceActions = {
     const options: MesosDrainAgentOptions = {};
     if (drainOptions.maxGracePeriod) {
       options.max_grace_period = {
-        seconds: drainOptions.maxGracePeriod
+        seconds: drainOptions.maxGracePeriod,
       };
     }
 
@@ -75,12 +75,12 @@ const NodeMaintenanceActions = {
 
     return request({
       type: "DRAIN_AGENT",
-      drain_agent: { agent_id: { value: node.getID() }, ...options }
+      drain_agent: { agent_id: { value: node.getID() }, ...options },
     }).subscribe({
       next: onSuccess,
-      error: onError
+      error: onError,
     });
-  }
+  },
 };
 
 export { NodeMaintenanceActions as default };

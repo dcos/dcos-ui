@@ -6,7 +6,7 @@ import {
   SortableHeaderCell,
   SpacingBox,
   InfoBoxInline,
-  Icon
+  Icon,
 } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import { iconSizeXs } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
@@ -72,7 +72,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     this.state = {
       groups: [],
       sortColumn: "name",
-      sortDirection: "ASC"
+      sortDirection: "ASC",
     };
   }
 
@@ -89,7 +89,7 @@ class GroupsQuotaOverviewTable extends React.Component<
     this.setState({
       groups: this.sortData(this.state.groups, columnName, toggledDirection),
       sortColumn: columnName,
-      sortDirection: toggledDirection
+      sortDirection: toggledDirection,
     });
   };
 
@@ -99,13 +99,13 @@ class GroupsQuotaOverviewTable extends React.Component<
     sortDirection: SortDirection = this.state.sortDirection
   ): ServiceGroup[] =>
     sort(groups.slice(), sortForColumn(sortColumn), {
-      reverse: sortDirection !== "ASC"
+      reverse: sortDirection !== "ASC",
     });
 
   public getNoLimitInfobox() {
     const { groups } = this.state;
     const noLimitGroups = groups.filter(
-      group =>
+      (group) =>
         group.quota && group.quota.limitStatus !== QuotaLimitStatuses.applied
     );
 

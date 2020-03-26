@@ -7,7 +7,7 @@ export default class User extends Account {
   // reference issues
   getGroups() {
     const groups = this.get("groups") || [];
-    const items = groups.map(groupMembership => groupMembership.group);
+    const items = groups.map((groupMembership) => groupMembership.group);
 
     return new GroupsList({ items });
   }

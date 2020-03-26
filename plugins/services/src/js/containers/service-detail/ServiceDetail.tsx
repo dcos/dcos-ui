@@ -29,7 +29,7 @@ class ServiceDetail extends React.Component<
     errors: PropTypes.object.isRequired,
     params: PropTypes.object.isRequired,
     service: PropTypes.instanceOf(Service).isRequired,
-    children: PropTypes.node
+    children: PropTypes.node,
   };
 
   constructor(a, ...args) {
@@ -37,7 +37,7 @@ class ServiceDetail extends React.Component<
 
     this.state = {
       actionDisabledID: null,
-      actionDisabledModalOpen: false
+      actionDisabledModalOpen: false,
     };
   }
 
@@ -53,7 +53,7 @@ class ServiceDetail extends React.Component<
     if (isGroup) {
       containsSDKService =
         service.findItem(
-          item => item instanceof Service && isSDKService(item)
+          (item) => item instanceof Service && isSDKService(item)
         ) != null;
     }
 
@@ -138,25 +138,25 @@ class ServiceDetail extends React.Component<
     ) {
       actions.push({
         label: ServiceActionLabels.open,
-        onItemSelect: this.onActionsItemSelection.bind(this, Action.OPEN)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.OPEN),
       });
     }
 
     actions.push({
       label: i18nMark("Edit"),
-      onItemSelect: this.onActionsItemSelection.bind(this, Action.EDIT)
+      onItemSelect: this.onActionsItemSelection.bind(this, Action.EDIT),
     });
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: i18nMark("Restart"),
-        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESTART)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESTART),
       });
     }
     if (!service.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: i18nMark("Scale"),
-        onItemSelect: this.onActionsItemSelection.bind(this, Action.SCALE)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.SCALE),
       });
     }
 
@@ -166,28 +166,28 @@ class ServiceDetail extends React.Component<
         onItemSelect: this.onActionsItemSelection.bind(
           this,
           Action.RESET_DELAYED
-        )
+        ),
       });
     }
 
     if (instanceCount > 0 && !isSDK) {
       actions.push({
         label: i18nMark("Stop"),
-        onItemSelect: this.onActionsItemSelection.bind(this, Action.STOP)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.STOP),
       });
     }
 
     if (instanceCount === 0 && !isSDK) {
       actions.push({
         label: i18nMark("Resume"),
-        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESUME)
+        onItemSelect: this.onActionsItemSelection.bind(this, Action.RESUME),
       });
     }
 
     actions.push({
       className: "text-danger",
       label: i18nMark("Delete"),
-      onItemSelect: this.onActionsItemSelection.bind(this, Action.DELETE)
+      onItemSelect: this.onActionsItemSelection.bind(this, Action.DELETE),
     });
 
     return actions;
@@ -208,14 +208,14 @@ class ServiceDetail extends React.Component<
     if (isSDKService(this.props.service)) {
       tabs.push({
         label: i18nMark("Plans"),
-        routePath: `${routePrefix}/plans`
+        routePath: `${routePrefix}/plans`,
       });
     }
 
     if (this.hasVolumes()) {
       tabs.push({
         label: i18nMark("Volumes"),
-        routePath: `${routePrefix}/volumes`
+        routePath: `${routePrefix}/volumes`,
       });
     }
 
@@ -241,11 +241,11 @@ class ServiceDetail extends React.Component<
       errors: MarathonErrorUtil.parseErrors(errors[ActionKeys.SERVICE_EDIT]),
       onClearError: this.handleEditClearError,
       onEditClick: actions.editService,
-      volumes: service.getVolumes()
+      volumes: service.getVolumes(),
     };
 
     // TODO (DCOS_OSS-1038): Move cloned props to route parameters
-    const clonedChildren = React.Children.map(children, child => {
+    const clonedChildren = React.Children.map(children, (child) => {
       // Only add props to children that are not ServiceModals
       if (child.type === ServiceModals) {
         return child;
@@ -286,9 +286,9 @@ ServiceDetail.contextTypes = {
     stopService: PropTypes.func,
     deleteService: PropTypes.func,
     openService: PropTypes.func,
-    resetDelayedService: PropTypes.func
+    resetDelayedService: PropTypes.func,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 export default ServiceDetail;

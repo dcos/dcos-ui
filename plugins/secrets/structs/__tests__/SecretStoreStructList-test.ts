@@ -25,7 +25,7 @@ describe("SecretStoreStructList", () => {
 
     it("returns 0 if list does not have any sealed stores", () => {
       const list = new SecretStoreStructList({
-        items: [{ sealed: false }]
+        items: [{ sealed: false }],
       });
 
       expect(list.getSealedCount()).toEqual(0);
@@ -37,8 +37,8 @@ describe("SecretStoreStructList", () => {
           { sealed: true },
           { sealed: true },
           { sealed: false },
-          { sealed: true }
-        ]
+          { sealed: true },
+        ],
       });
 
       expect(list.getSealedCount()).toEqual(3);

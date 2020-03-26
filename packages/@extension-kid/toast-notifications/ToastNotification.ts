@@ -4,13 +4,13 @@ enum ToastAppearance {
   Default = "default",
   Success = "success",
   Warning = "warning",
-  Danger = "danger"
+  Danger = "danger",
 }
 
 enum ToastCallbackType {
   Dismiss = "dismiss",
   Primary = "primary",
-  Secondary = "secondary"
+  Secondary = "secondary",
 }
 
 type ToastCallback = (
@@ -100,5 +100,5 @@ export {
   ToastNotification,
   ToastNotificationOptions,
   ToastAppearance,
-  ToastCallbackType
+  ToastCallbackType,
 };

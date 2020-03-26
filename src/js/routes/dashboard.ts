@@ -7,5 +7,5 @@ export default {
   type: Route,
   path: "dashboard",
   component: DashboardPage,
-  isInSidebar: true
+  isInSidebar: true,
 };

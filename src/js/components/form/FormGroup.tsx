@@ -20,10 +20,10 @@ const FormGroup = (
     errorClassName,
     hasNarrowMargins,
     applyLabelOffset,
-    showError
+    showError,
   } = props;
 
-  const clonedChildren = React.Children.map(children, child => {
+  const clonedChildren = React.Children.map(children, (child) => {
     if (child != null && !showError && child.type === FieldError) {
       return null;
     }
@@ -35,7 +35,7 @@ const FormGroup = (
     {
       [errorClassName]: showError,
       "form-group-without-top-label": applyLabelOffset,
-      "column-auto flush-left flush-right": hasNarrowMargins
+      "column-auto flush-left flush-right": hasNarrowMargins,
     },
     "form-group",
     className
@@ -51,13 +51,13 @@ const FormGroup = (
 FormGroup.defaultProps = {
   errorClassName: "form-group-danger",
   applyLabelOffset: false,
-  hasNarrowMargins: false
+  hasNarrowMargins: false,
 };
 
 const classPropType = PropTypes.oneOfType([
   PropTypes.array,
   PropTypes.object,
-  PropTypes.string
+  PropTypes.string,
 ]);
 
 FormGroup.propTypes = {
@@ -74,7 +74,7 @@ FormGroup.propTypes = {
   applyLabelOffset: PropTypes.bool,
   // When true, the component will apply specific styles for use with the delete
   // row button
-  hasNarrowMargins: PropTypes.bool
+  hasNarrowMargins: PropTypes.bool,
 };
 
 export default FormGroup;

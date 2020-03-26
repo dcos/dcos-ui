@@ -23,7 +23,7 @@ describe("SystemLogActions", () => {
     beforeEach(() => {
       SystemLogActions.startTail("foo", {
         cursor: "bar",
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
     });
 
@@ -43,7 +43,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_SUCCESS);
@@ -52,13 +52,13 @@ describe("SystemLogActions", () => {
       const event = {
         data: "{}",
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("message", event);
     });
 
     it("dispatches the correct information when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual([{}]);
@@ -68,13 +68,13 @@ describe("SystemLogActions", () => {
       const event = {
         data: "{}",
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("message", event);
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(ActionTypes.REQUEST_SYSTEM_LOG_ERROR);
@@ -84,7 +84,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({});
@@ -99,7 +99,7 @@ describe("SystemLogActions", () => {
     beforeEach(() => {
       SystemLogActions.startTail("foo", {
         cursor: "bar",
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
     });
 
@@ -117,7 +117,7 @@ describe("SystemLogActions", () => {
       const event = {
         data: "{}",
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("message", event);
 
@@ -130,7 +130,7 @@ describe("SystemLogActions", () => {
       SystemLogActions.fetchRange("foo", {
         cursor: "bar",
         limit: 3,
-        subscriptionID: "subscriptionID"
+        subscriptionID: "subscriptionID",
       });
     });
 
@@ -150,7 +150,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when closing connection", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -161,13 +161,13 @@ describe("SystemLogActions", () => {
       const event = {
         data: {},
         eventPhase: window.EventSource.CLOSED,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("error", event);
     });
 
     it("dispatches the correct information when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(3);
@@ -178,7 +178,7 @@ describe("SystemLogActions", () => {
       const messageEvent = {
         data: "{}",
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("message", messageEvent);
       thisEventSource.dispatchEvent("message", messageEvent);
@@ -186,13 +186,13 @@ describe("SystemLogActions", () => {
       const closeEvent = {
         data: {},
         eventPhase: window.EventSource.CLOSED,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("tells when the top has been reached", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data.length).toEqual(2);
@@ -203,7 +203,7 @@ describe("SystemLogActions", () => {
       const messageEvent = {
         data: "{}",
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("message", messageEvent);
       thisEventSource.dispatchEvent("message", messageEvent);
@@ -212,13 +212,13 @@ describe("SystemLogActions", () => {
       const closeEvent = {
         data: {},
         eventPhase: window.EventSource.CLOSED,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("reverses received data", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data[0].foo).toEqual(1);
@@ -228,25 +228,25 @@ describe("SystemLogActions", () => {
       thisEventSource.dispatchEvent("message", {
         data: '{"foo": 0}',
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       });
       thisEventSource.dispatchEvent("message", {
         data: '{"foo": 1}',
         eventPhase: window.EventSource.OPEN,
-        origin: window.location.origin
+        origin: window.location.origin,
       });
       // Close before we the 3 events we have requested to show
       // that we have reached the top
       const closeEvent = {
         data: {},
         eventPhase: window.EventSource.CLOSED,
-        origin: window.location.origin
+        origin: window.location.origin,
       };
       thisEventSource.dispatchEvent("error", closeEvent);
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -259,11 +259,11 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct information when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual({
-          eventPhase: window.EventSource.CONNECTING
+          eventPhase: window.EventSource.CONNECTING,
         });
         expect(action.subscriptionID).toEqual("subscriptionID");
       });
@@ -291,7 +291,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -303,7 +303,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct data when successful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual(["one", "two"]);
@@ -313,7 +313,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.type).toEqual(
@@ -325,7 +325,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the correct error when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("bar");
@@ -335,7 +335,7 @@ describe("SystemLogActions", () => {
     });
 
     it("dispatches the message when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.data).toEqual("baz");
@@ -343,23 +343,23 @@ describe("SystemLogActions", () => {
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const id = AppDispatcher.register(payload => {
+      const id = AppDispatcher.register((payload) => {
         const action = payload.action;
         AppDispatcher.unregister(id);
         expect(action.xhr).toEqual({
           foo: "bar",
-          responseJSON: { description: "baz" }
+          responseJSON: { description: "baz" },
         });
       });
 
       thisConfiguration.error({
         foo: "bar",
-        responseJSON: { description: "baz" }
+        responseJSON: { description: "baz" },
       });
     });
   });

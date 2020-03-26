@@ -3,7 +3,7 @@ import List from "#SRC/js/structs/List";
 
 import {
   REQUEST_PROVIDERS_SUCCESS,
-  REQUEST_PROVIDERS_ERROR
+  REQUEST_PROVIDERS_ERROR,
 } from "../constants/ActionTypes";
 
 import {
@@ -12,7 +12,7 @@ import {
   // Events triggered from AuthProviderStore
   PROVIDER_CREATE_SUCCESS,
   PROVIDER_DELETE_SUCCESS,
-  PROVIDER_UPDATE_SUCCESS
+  PROVIDER_UPDATE_SUCCESS,
 } from "../constants/EventTypes";
 
 import AuthProviderActions from "../actions/AuthProviderActions";
@@ -29,12 +29,12 @@ class AuthProvidersStore extends BaseStore {
       storeID: "authProviders",
       events: {
         change: PROVIDERS_CHANGE,
-        error: PROVIDERS_ERRORS
+        error: PROVIDERS_ERRORS,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.onDispatch(action => {
+    SDK.onDispatch((action) => {
       switch (action.type) {
         case REQUEST_PROVIDERS_SUCCESS:
           this.processProvidersSuccess(action.data);
@@ -69,11 +69,11 @@ class AuthProvidersStore extends BaseStore {
     return Object.keys(oidcProviders)
       .sort()
       .map(
-        providerID =>
+        (providerID) =>
           new AuthProvider({
             description: oidcProviders[providerID],
             providerType: "oidc",
-            providerID
+            providerID,
           })
       );
   }
@@ -84,11 +84,11 @@ class AuthProvidersStore extends BaseStore {
     return Object.keys(samlProviders)
       .sort()
       .map(
-        providerID =>
+        (providerID) =>
           new AuthProvider({
             description: samlProviders[providerID],
             providerType: "saml",
-            providerID
+            providerID,
           })
       );
   }
@@ -96,7 +96,7 @@ class AuthProvidersStore extends BaseStore {
   processProvidersSuccess(providers) {
     SDK.dispatch({
       type: PROVIDERS_CHANGE,
-      providers
+      providers,
     });
     this.emit(PROVIDERS_CHANGE);
   }

@@ -30,7 +30,7 @@ describe("Environment Variables", () => {
         batch.reduce(EnvironmentVariables.FormReducer.bind({}), [])
       ).toEqual([
         { key: "key", value: "value" },
-        { key: "key", value: "value2" }
+        { key: "key", value: "value2" },
       ]);
     });
 

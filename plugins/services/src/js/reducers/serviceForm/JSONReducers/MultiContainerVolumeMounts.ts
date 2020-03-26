@@ -8,14 +8,14 @@ export function JSONReducer(state = [], { type, path, value }) {
   if (base === "containers") {
     switch (type) {
       case ADD_ITEM:
-        newState = newState.map(volumeMount => {
+        newState = newState.map((volumeMount) => {
           volumeMount.mountPath.push("");
 
           return volumeMount;
         });
         break;
       case REMOVE_ITEM:
-        newState = newState.map(volumeMount => {
+        newState = newState.map((volumeMount) => {
           volumeMount.mountPath = volumeMount.mountPath.filter(
             (item, index) => index !== value
           );

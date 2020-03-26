@@ -51,13 +51,13 @@ Cypress.Commands.add(
 
     elements.each((index, element) => {
       const rows = [
-        ...element.querySelectorAll("div > .configuration-map-row")
+        ...element.querySelectorAll("div > .configuration-map-row"),
       ];
       if (Cypress.$(element).hasClass("configuration-map-row")) {
         rows.push(element);
       }
 
-      rows.forEach(row => {
+      rows.forEach((row) => {
         const labelElement = row.querySelector(".configuration-map-label");
         if (!labelElement) {
           return;

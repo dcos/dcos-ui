@@ -57,10 +57,10 @@ describe("MesosLogStore", () => {
               },
               getStart() {
                 return 0;
-              }
+              },
             };
           }
-        }
+        },
       };
 
       MesosLogActions.fetchPreviousLog = jasmine.createSpy();
@@ -96,10 +96,10 @@ describe("MesosLogStore", () => {
               },
               getStart() {
                 return 100;
-              }
+              },
             };
           }
-        }
+        },
       };
 
       MesosLogStore.getPreviousLogs.call(
@@ -126,10 +126,10 @@ describe("MesosLogStore", () => {
               },
               getStart() {
                 return 50100;
-              }
+              },
             };
           }
-        }
+        },
       };
 
       MesosLogStore.getPreviousLogs.call(
@@ -154,11 +154,11 @@ describe("MesosLogStore", () => {
       // Two next processes will be stored
       MesosLogStore.processLogEntry("foo", "/bar", {
         data: "foo",
-        offset: 100
+        offset: 100,
       });
       MesosLogStore.processLogEntry("foo", "/bar", {
         data: "bar",
-        offset: 103
+        offset: 103,
       });
       thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
     });
@@ -189,11 +189,11 @@ describe("MesosLogStore", () => {
       // Two next processes will be stored
       MesosLogStore.processLogPrepend("foo", "/bar", {
         data: "foo",
-        offset: 100
+        offset: 100,
       });
       MesosLogStore.processLogPrepend("foo", "/bar", {
         data: "bar",
-        offset: 103
+        offset: 103,
       });
 
       thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
@@ -251,7 +251,7 @@ describe("MesosLogStore", () => {
       thisLogBuffer = MesosLogStore.getLogBuffer("/bar");
       MesosLogStore.processLogPrependError("foo", "/bar", {
         data: "bar",
-        offset: 103
+        offset: 103,
       });
     });
 
@@ -309,14 +309,14 @@ describe("MesosLogStore", () => {
         type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS,
         data: { data: "", offset: 100 },
         path: "/bar",
-        slaveID: "foo"
+        slaveID: "foo",
       });
 
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_MESOS_LOG_SUCCESS,
         data: { data: "foo", offset: 100 },
         path: "/bar",
-        slaveID: "foo"
+        slaveID: "foo",
       });
 
       const log = MesosLogStore.getLogBuffer("/bar").getFullLog();
@@ -331,14 +331,14 @@ describe("MesosLogStore", () => {
         type: ActionTypes.REQUEST_MESOS_LOG_OFFSET_SUCCESS,
         data: { data: "", offset: 100 },
         path: "/bar",
-        slaveID: "foo"
+        slaveID: "foo",
       });
       // Actual data processing
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_MESOS_LOG_SUCCESS,
         data: { data: "foo", offset: 100 },
         path: "/bar",
-        slaveID: "foo"
+        slaveID: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -353,7 +353,7 @@ describe("MesosLogStore", () => {
       AppDispatcher.handleServerAction({
         type: ActionTypes.REQUEST_MESOS_LOG_ERROR,
         path: "/bar",
-        slaveID: "foo"
+        slaveID: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);

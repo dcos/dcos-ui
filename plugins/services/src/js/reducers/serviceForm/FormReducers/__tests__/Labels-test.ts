@@ -13,7 +13,7 @@ describe("Labels", () => {
       batch = batch.add(new Transaction(["labels", 0, "value"], "value"));
 
       expect(batch.reduce(Labels.FormReducer.bind({}), [])).toEqual([
-        { key: "key", value: "value" }
+        { key: "key", value: "value" },
       ]);
     });
     it("returns multiple labels, even if they have the same key", () => {
@@ -27,7 +27,7 @@ describe("Labels", () => {
 
       expect(batch.reduce(Labels.FormReducer.bind({}), [])).toEqual([
         { key: "key", value: "value" },
-        { key: "key", value: "value2" }
+        { key: "key", value: "value2" },
       ]);
     });
     it("keeps remove the first item", () => {
@@ -41,7 +41,7 @@ describe("Labels", () => {
       batch = batch.add(new Transaction(["labels"], 0, REMOVE_ITEM));
 
       expect(batch.reduce(Labels.FormReducer.bind({}), [])).toEqual([
-        { key: "second", value: "value" }
+        { key: "second", value: "value" },
       ]);
     });
   });

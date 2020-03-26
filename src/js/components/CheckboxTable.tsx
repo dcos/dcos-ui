@@ -17,7 +17,7 @@ class CheckboxTable extends React.Component {
     getColGroup() {},
     labelClass: {},
     onCheckboxChange() {},
-    sortOrder: "asc"
+    sortOrder: "asc",
   };
   static propTypes = {
     checkedItemsMap: PropTypes.object,
@@ -31,7 +31,7 @@ class CheckboxTable extends React.Component {
     onCheckboxChange: PropTypes.func,
     sortProp: PropTypes.string,
     sortOrder: PropTypes.string,
-    uniqueProperty: PropTypes.string.isRequired
+    uniqueProperty: PropTypes.string.isRequired,
   };
   constructor() {
     super();
@@ -40,7 +40,7 @@ class CheckboxTable extends React.Component {
     const {
       allowMultipleSelect,
       checkedItemsMap,
-      onCheckboxChange
+      onCheckboxChange,
     } = this.props;
     const isChecked = eventObject.fieldValue;
     const rowID = eventObject.fieldName;
@@ -71,13 +71,13 @@ class CheckboxTable extends React.Component {
       data,
       onCheckboxChange,
       uniqueProperty,
-      disabledItemsMap
+      disabledItemsMap,
     } = this.props;
 
-    data = data.filter(datum => !disabledItemsMap[datum[uniqueProperty]]);
+    data = data.filter((datum) => !disabledItemsMap[datum[uniqueProperty]]);
 
     if (isChecked) {
-      data.forEach(datum => {
+      data.forEach((datum) => {
         checkedIDs.push(datum[uniqueProperty]);
       });
 
@@ -100,7 +100,7 @@ class CheckboxTable extends React.Component {
       allowMultipleSelect,
       checkedItemsMap,
       disabledItemsMap,
-      data
+      data,
     } = this.props;
 
     if (!allowMultipleSelect) {
@@ -133,8 +133,8 @@ class CheckboxTable extends React.Component {
             indeterminate,
             labelClass: this.getLabelClass(),
             name: "headingCheckbox",
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleHeadingCheckboxChange}
       />
@@ -165,20 +165,20 @@ class CheckboxTable extends React.Component {
             fieldType: "checkbox",
             labelClass: this.getLabelClass(),
             name: rowID,
-            showLabel: false
-          }
+            showLabel: false,
+          },
         ]}
         onChange={this.handleCheckboxChange}
       />
     );
   };
-  getTableRowOptions = row => {
+  getTableRowOptions = (row) => {
     const { checkedItemsMap, inactiveItemsMap, uniqueProperty } = this.props;
 
     // Override the key from index to our task ID to help React know, which
     // row was rendered where and make its optimizations
     const rowAttributes = {
-      key: row[uniqueProperty]
+      key: row[uniqueProperty],
     };
 
     if (inactiveItemsMap[row[uniqueProperty]]) {
@@ -202,8 +202,8 @@ class CheckboxTable extends React.Component {
         prop: "selected",
         render: this.renderCheckbox,
         sortable: false,
-        heading: this.renderHeadingCheckbox
-      }
+        heading: this.renderHeadingCheckbox,
+      },
     ].concat(this.props.columns);
   }
 

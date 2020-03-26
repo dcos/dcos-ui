@@ -33,5 +33,5 @@ export default [
   portMappings, // Note: must come after portDefinitions, as it uses its information!
   requirePorts,
   residency,
-  UnknownVolumesJSONParser
+  UnknownVolumesJSONParser,
 ];

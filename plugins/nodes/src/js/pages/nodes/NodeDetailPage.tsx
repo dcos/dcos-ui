@@ -33,7 +33,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
     this.state = {
       mesosStateLoaded: false,
       selectedNodeToDrain: null,
-      selectedNodeToDeactivate: null
+      selectedNodeToDeactivate: null,
     };
 
     this.handleNodeAction = this.handleNodeAction.bind(this);
@@ -63,7 +63,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
   onSummaryStoreSuccess() {
     this.setState({
       summaryStatesProcessed: MesosSummaryStore.get("statesProcessed"),
-      summaryStates: MesosSummaryStore.get("states")
+      summaryStates: MesosSummaryStore.get("states"),
     });
   }
 
@@ -91,21 +91,21 @@ class NodeDetailPage extends mixin(StoreMixin) {
     if (actionAllowed(StatusAction.DRAIN, status)) {
       actions.push({
         label: "Drain",
-        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DRAIN)
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DRAIN),
       });
     }
 
     if (actionAllowed(StatusAction.DEACTIVATE, status)) {
       actions.push({
         label: "Deactivate",
-        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DEACTIVATE)
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.DEACTIVATE),
       });
     }
 
     if (actionAllowed(StatusAction.REACTIVATE, status)) {
       actions.push({
         label: "Reactivate",
-        onItemSelect: this.handleNodeAction.bind(this, StatusAction.REACTIVATE)
+        onItemSelect: this.handleNodeAction.bind(this, StatusAction.REACTIVATE),
       });
     }
 
@@ -123,7 +123,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
     } else if (action === "reactivate") {
       NodeMaintenanceActions.reactivateNode(node, {
         onSuccess: () => {},
-        onError: defaultNetworkErrorHandler
+        onError: defaultNetworkErrorHandler,
       });
     }
   }
@@ -131,7 +131,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
   handleCloseModal() {
     this.setState({
       selectedNodeToDeactivate: null,
-      selectedNodeToDrain: null
+      selectedNodeToDrain: null,
     });
   }
 
@@ -157,7 +157,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
     const tabs = [
       { label: i18nMark("Tasks"), routePath: `/nodes/${nodeID}/tasks` },
       { label: i18nMark("Health"), routePath: `/nodes/${nodeID}/health` },
-      { label: i18nMark("Details"), routePath: `/nodes/${nodeID}/details` }
+      { label: i18nMark("Details"), routePath: `/nodes/${nodeID}/details` },
     ];
 
     return (
@@ -184,7 +184,7 @@ class NodeDetailPage extends mixin(StoreMixin) {
 }
 
 NodeDetailPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default withNode(NodeDetailPage);

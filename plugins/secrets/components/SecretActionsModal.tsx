@@ -20,7 +20,7 @@ const i18n = container.get(TYPES.I18n);
 
 class SecretActionsModal extends mixin(StoreMixin) {
   static defaultProps = {
-    onSuccess() {}
+    onSuccess() {},
   };
   static propTypes = {
     action: PropTypes.string,
@@ -28,24 +28,24 @@ class SecretActionsModal extends mixin(StoreMixin) {
     onClose: PropTypes.func.isRequired,
     onSuccess: PropTypes.func,
     open: PropTypes.bool.isRequired,
-    selectedItems: PropTypes.array.isRequired
+    selectedItems: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.store_listeners = [
-      { name: "secrets", events: ["deleteSecretSuccess", "deleteSecretError"] }
+      { name: "secrets", events: ["deleteSecretSuccess", "deleteSecretError"] },
     ];
 
     this.state = {
       pendingRequest: false,
-      errorMsg: null
+      errorMsg: null,
     };
   }
   handleButtonConfirm = () => {
     const { action, selectedItems } = this.props;
     if (action === UserActions.DELETE) {
-      selectedItems.forEach(secret => {
+      selectedItems.forEach((secret) => {
         SecretStore.deleteSecret(
           PrivatePluginsConfig.secretsDefaultStore,
           secret.getPath()
@@ -104,7 +104,7 @@ class SecretActionsModal extends mixin(StoreMixin) {
       <div>{this.getConfirmTextBody(selectedItems, selectedItemsLength)}</div>
     );
   }
-  onSecretsStoreDeleteSecretError = error => {
+  onSecretsStoreDeleteSecretError = (error) => {
     this.setState({ errorMsg: error, pendingRequest: false });
   };
   getErrorMessage = () => {
@@ -130,7 +130,7 @@ class SecretActionsModal extends mixin(StoreMixin) {
 
     const rightButtonClassSet = classNames("button", {
       "button-danger": action === UserActions.DELETE || action === "disable",
-      "button-primary": action === "enable"
+      "button-primary": action === "enable",
     });
 
     const actionText = ((action, isPending) => {

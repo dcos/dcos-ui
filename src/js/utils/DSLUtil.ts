@@ -56,7 +56,7 @@ const DSLUtil = {
   canProcessParts(expression, partFilters) {
     const propNames = Object.keys(partFilters);
 
-    return propNames.every(prop => {
+    return propNames.every((prop) => {
       const matchAgainst = partFilters[prop];
       const matchingNodes = DSLUtil.findNodesByFilter(
         expression.ast,
@@ -99,7 +99,7 @@ const DSLUtil = {
         const { filterParams, filterType } = astFilter;
         const {
           filterParams: compareFilterParams,
-          filterType: compareFilterType
+          filterType: compareFilterType,
         } = filter;
 
         // Require types to match
@@ -110,7 +110,7 @@ const DSLUtil = {
         // Require only testing properties to match
         const compareParamNames = Object.keys(compareFilterParams);
         const comparePropMatches = compareParamNames.every(
-          prop => filterParams[prop] === compareFilterParams[prop]
+          (prop) => filterParams[prop] === compareFilterParams[prop]
         );
 
         if (compareParamNames.length === 0 || comparePropMatches) {
@@ -198,7 +198,7 @@ const DSLUtil = {
           }
 
           memo[prop] = matchingNodes
-            .map(ast => ast.filterParams.text)
+            .map((ast) => ast.filterParams.text)
             .join(" ");
 
           // Also append whatever whitespace remains at the end of the raw value
@@ -245,7 +245,7 @@ const DSLUtil = {
     }
 
     return memo;
-  }
+  },
 };
 
 export default DSLUtil;

@@ -13,7 +13,7 @@ class ServiceAccountsActionsModal extends AccountActionsModal {
 
     this.store_listeners = this.store_listeners.concat([
       // prettier-ignore
-      {name: "aclServiceAccounts", events: ["deleteError", "deleteSuccess"], suppressUpdate: true}
+      {name: "aclServiceAccounts", events: ["deleteError", "deleteSuccess"], suppressUpdate: true},
     ]);
   }
 
@@ -51,7 +51,7 @@ class ServiceAccountsActionsModal extends AccountActionsModal {
       return null;
     }
 
-    const hasEssentialItem = selectedItems.find(item =>
+    const hasEssentialItem = selectedItems.find((item) =>
       item.uid.startsWith("dcos_")
     );
 

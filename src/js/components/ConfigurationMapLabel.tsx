@@ -5,9 +5,11 @@ interface ConfigurationMapLabelProps {
   keepTextCase?: boolean;
 }
 
-const ConfigurationMapLabel: React.FunctionComponent<ConfigurationMapLabelProps> = props => {
+const ConfigurationMapLabel: React.FunctionComponent<ConfigurationMapLabelProps> = (
+  props
+) => {
   const labelClasses = classNames("configuration-map-label", {
-    "configuration-map-label-no-text-transform": props.keepTextCase
+    "configuration-map-label-no-text-transform": props.keepTextCase,
   });
 
   return <div className={labelClasses}>{props.children}</div>;

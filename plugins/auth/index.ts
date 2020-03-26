@@ -1,6 +1,6 @@
 import AuthenticationReducer from "./Reducer";
 
-export default SDK => {
+export default (SDK) => {
   const PluginHooks = require("./hooks").default;
 
   PluginHooks(SDK).initialize();

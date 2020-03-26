@@ -3,7 +3,7 @@ import MarathonAppValidators from "../MarathonAppValidators";
 import {
   PROP_MISSING_ONE,
   SYNTAX_ERROR,
-  GENERIC
+  GENERIC,
 } from "../../constants/ServiceErrorTypes";
 
 const APPCONTAINERID_ERRORS = [
@@ -12,9 +12,9 @@ const APPCONTAINERID_ERRORS = [
     message: "AppContainer id should start with 'sha512-'",
     type: "STRING_PATTERN",
     variables: {
-      pattern: "^sha512-"
-    }
-  }
+      pattern: "^sha512-",
+    },
+  },
 ];
 const CMDORDOCKERIMAGE_ERRORS = [
   {
@@ -23,8 +23,8 @@ const CMDORDOCKERIMAGE_ERRORS = [
     type: "PROP_MISSING_ONE",
     isUnanchored: true,
     variables: {
-      names: "cmd, args, container.docker.image"
-    }
+      names: "cmd, args, container.docker.image",
+    },
   },
   {
     path: ["args"],
@@ -32,8 +32,8 @@ const CMDORDOCKERIMAGE_ERRORS = [
     type: "PROP_MISSING_ONE",
     isUnanchored: true,
     variables: {
-      names: "cmd, args, container.docker.image"
-    }
+      names: "cmd, args, container.docker.image",
+    },
   },
   {
     path: ["container", "docker", "image"],
@@ -41,9 +41,9 @@ const CMDORDOCKERIMAGE_ERRORS = [
     type: "PROP_MISSING_ONE",
     isUnanchored: true,
     variables: {
-      names: "cmd, args, container.docker.image"
-    }
-  }
+      names: "cmd, args, container.docker.image",
+    },
+  },
 ];
 
 const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
@@ -52,8 +52,8 @@ const MUSTCONTAINIMAGEONDOCKER_ERRORS = [
     message:
       'Must be specified when using the Docker Engine runtime. You can change runtimes under "Advanced Settings"',
     type: "PROP_IS_MISSING",
-    variables: {}
-  }
+    variables: {},
+  },
 ];
 
 const NOTBOTHCMDARGS_ERRORS = [
@@ -64,8 +64,8 @@ const NOTBOTHCMDARGS_ERRORS = [
     isUnanchored: true,
     variables: {
       feature1: "cmd",
-      feature2: "args"
-    }
+      feature2: "args",
+    },
   },
   {
     path: ["args"],
@@ -74,9 +74,9 @@ const NOTBOTHCMDARGS_ERRORS = [
     isUnanchored: true,
     variables: {
       feature1: "cmd",
-      feature2: "args"
-    }
-  }
+      feature2: "args",
+    },
+  },
 ];
 
 describe("MarathonAppValidators", () => {
@@ -191,8 +191,8 @@ describe("MarathonAppValidators", () => {
     it("returns error if runtime is docker but image is missing", () => {
       const spec = {
         container: {
-          type: "DOCKER"
-        }
+          type: "DOCKER",
+        },
       };
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual(
         MUSTCONTAINIMAGEONDOCKER_ERRORS
@@ -202,8 +202,8 @@ describe("MarathonAppValidators", () => {
     it("does not return error if runtime is not docker and image is missing", () => {
       const spec = {
         container: {
-          type: "MESOS"
-        }
+          type: "MESOS",
+        },
       };
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
@@ -213,9 +213,9 @@ describe("MarathonAppValidators", () => {
         container: {
           type: "DOCKER",
           docker: {
-            image: "foo"
-          }
-        }
+            image: "foo",
+          },
+        },
       };
       expect(MarathonAppValidators.mustContainImageOnDocker(spec)).toEqual([]);
     });
@@ -230,69 +230,69 @@ describe("MarathonAppValidators", () => {
       const spec = {
         constraints: [
           ["hostname", "UNIQUE"],
-          ["CPUS", "MAX_PER", "123"]
-        ]
+          ["CPUS", "MAX_PER", "123"],
+        ],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
 
     it("returns an error when constraints is not an array", () => {
       const spec = {
-        constraints: ":)"
+        constraints: ":)",
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints"],
           message: "constraints needs to be an array of 2 or 3 element arrays",
-          type: "TYPE_NOT_ARRAY"
-        }
+          type: "TYPE_NOT_ARRAY",
+        },
       ]);
     });
 
     it("returns an error when a constraint is not an array", () => {
       const spec = {
-        constraints: [":)"]
+        constraints: [":)"],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints", 0],
           message: "Must be an array",
-          type: "TYPE_NOT_ARRAY"
-        }
+          type: "TYPE_NOT_ARRAY",
+        },
       ]);
     });
 
     it("returns an error when a constraint definition is wrong", () => {
       const spec = {
-        constraints: [["CPUS", "LIKE"]]
+        constraints: [["CPUS", "LIKE"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints", 0, "value"],
           message: "You must specify a value for operator LIKE",
           type: PROP_MISSING_ONE,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
     it("returns an error when empty parameter is required", () => {
       const spec = {
-        constraints: [["CPUS", "UNIQUE", "foo"]]
+        constraints: [["CPUS", "UNIQUE", "foo"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
           path: ["constraints", 0, "value"],
           message: "Value must be empty for operator UNIQUE",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
     it("returns an error when wrong characters are applied", () => {
       const spec = {
-        constraints: [["CPUS", "GROUP_BY", "2foo"]]
+        constraints: [["CPUS", "GROUP_BY", "2foo"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
@@ -300,21 +300,21 @@ describe("MarathonAppValidators", () => {
           message:
             "Must only contain characters between 0-9 for operator GROUP_BY",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
     it("doesn't return an error for empty optional fields", () => {
       const spec = {
-        constraints: [["hostname", "GROUP_BY"]]
+        constraints: [["hostname", "GROUP_BY"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
 
     it("returns an error when wrong characters are applied", () => {
       const spec = {
-        constraints: [["CPUS", "MAX_PER", "foo"]]
+        constraints: [["CPUS", "MAX_PER", "foo"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([
         {
@@ -322,14 +322,14 @@ describe("MarathonAppValidators", () => {
           message:
             "Must only contain characters between 0-9 for operator MAX_PER",
           type: SYNTAX_ERROR,
-          variables: { name: "value" }
-        }
+          variables: { name: "value" },
+        },
       ]);
     });
 
     it("accepts number strings for number-string fields", () => {
       const spec = {
-        constraints: [["CPUS", "MAX_PER", "2"]]
+        constraints: [["CPUS", "MAX_PER", "2"]],
       };
       expect(MarathonAppValidators.validateConstraints(spec)).toEqual([]);
     });
@@ -345,8 +345,8 @@ describe("MarathonAppValidators", () => {
       const spec = {
         labels: {
           foo: "bar",
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([]);
     });
@@ -355,8 +355,8 @@ describe("MarathonAppValidators", () => {
       const spec = {
         labels: {
           " foo": "bar",
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([
         {
@@ -364,9 +364,9 @@ describe("MarathonAppValidators", () => {
           path: ["labels. foo"],
           type: SYNTAX_ERROR,
           variables: {
-            name: "labels"
-          }
-        }
+            name: "labels",
+          },
+        },
       ]);
     });
 
@@ -374,8 +374,8 @@ describe("MarathonAppValidators", () => {
       const spec = {
         labels: {
           "foo ": "bar",
-          bar: "baz"
-        }
+          bar: "baz",
+        },
       };
       expect(MarathonAppValidators.validateLabels(spec)).toEqual([
         {
@@ -383,9 +383,9 @@ describe("MarathonAppValidators", () => {
           path: ["labels.foo "],
           type: SYNTAX_ERROR,
           variables: {
-            name: "labels"
-          }
-        }
+            name: "labels",
+          },
+        },
       ]);
     });
   });
@@ -407,10 +407,10 @@ describe("MarathonAppValidators", () => {
           volumes: [
             {
               containerPath: "path",
-              mode: "RW"
-            }
-          ]
-        }
+              mode: "RW",
+            },
+          ],
+        },
       };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -424,15 +424,15 @@ describe("MarathonAppValidators", () => {
                 name: "name",
                 provider: "dvdi",
                 options: {
-                  "dvdi/driver": "rexray"
+                  "dvdi/driver": "rexray",
                 },
-                size: 3
+                size: 3,
               },
               mode: "RW",
-              containerPath: "path"
-            }
-          ]
-        }
+              containerPath: "path",
+            },
+          ],
+        },
       };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -443,13 +443,13 @@ describe("MarathonAppValidators", () => {
           volumes: [
             {
               persistent: {
-                size: 3
+                size: 3,
               },
               mode: "RW",
-              containerPath: "path"
-            }
-          ]
-        }
+              containerPath: "path",
+            },
+          ],
+        },
       };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -462,13 +462,13 @@ describe("MarathonAppValidators", () => {
               persistent: {
                 type: "mount",
                 size: 3,
-                profileName: "profile"
+                profileName: "profile",
               },
               mode: "RW",
-              containerPath: "path"
-            }
-          ]
-        }
+              containerPath: "path",
+            },
+          ],
+        },
       };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([]);
     });
@@ -481,21 +481,21 @@ describe("MarathonAppValidators", () => {
               persistent: {
                 type: "root",
                 size: 3,
-                profileName: "profile"
+                profileName: "profile",
               },
               mode: "RW",
-              containerPath: "path"
-            }
-          ]
-        }
+              containerPath: "path",
+            },
+          ],
+        },
       };
       expect(MarathonAppValidators.validateProfileVolumes(spec)).toEqual([
         {
           path: ["container", "volumes", 0, "persistent", "type"],
           message: "Must be mount for volumes with profile name",
           type: GENERIC,
-          variables: { name: "type" }
-        }
+          variables: { name: "type" },
+        },
       ]);
     });
   });

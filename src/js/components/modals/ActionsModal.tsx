@@ -19,7 +19,7 @@ class ActionsModal extends mixin(StoreMixin) {
     itemID: PropTypes.string.isRequired,
     itemType: PropTypes.string.isRequired,
     onClose: PropTypes.func.isRequired,
-    selectedItems: PropTypes.array.isRequired
+    selectedItems: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
@@ -29,13 +29,13 @@ class ActionsModal extends mixin(StoreMixin) {
       requestErrors: [],
       requestsRemaining: 0,
       selectedItem: null,
-      validationError: null
+      validationError: null,
     };
   }
 
   UNSAFE_componentWillMount() {
     this.setState({
-      requestsRemaining: this.props.selectedItems.length
+      requestsRemaining: this.props.selectedItems.length,
     });
   }
 
@@ -53,7 +53,7 @@ class ActionsModal extends mixin(StoreMixin) {
     if (requestsRemaining === 0) {
       this.setState({
         pendingRequest: false,
-        requestsRemaining: this.props.selectedItems.length
+        requestsRemaining: this.props.selectedItems.length,
       });
     }
   }
@@ -63,28 +63,28 @@ class ActionsModal extends mixin(StoreMixin) {
       requestErrors: [],
       requestsRemaining: 0,
       selectedItem: null,
-      validationError: null
+      validationError: null,
     });
     this.props.onClose();
   };
-  handleItemSelection = item => {
+  handleItemSelection = (item) => {
     this.setState({
       requestErrors: [],
       selectedItem: item,
-      validationError: null
+      validationError: null,
     });
   };
-  onActionError = error => {
+  onActionError = (error) => {
     this.state.requestErrors.push(error);
 
     this.setState({
       requestErrors: this.state.requestErrors,
-      requestsRemaining: this.state.requestsRemaining - 1
+      requestsRemaining: this.state.requestsRemaining - 1,
     });
   };
   onActionSuccess = () => {
     this.setState({
-      requestsRemaining: this.state.requestsRemaining - 1
+      requestsRemaining: this.state.requestsRemaining - 1,
     });
   };
 
@@ -114,8 +114,8 @@ class ActionsModal extends mixin(StoreMixin) {
 
       // Create a string concatenating n-1 items
       const selectedItemsShownMinusOne = selectedItemsShown.slice(0, -1);
-      const itemIDs = selectedItemsShownMinusOne.map(item => item[itemID]);
-      itemIDs.forEach(_itemID => {
+      const itemIDs = selectedItemsShownMinusOne.map((item) => item[itemID]);
+      itemIDs.forEach((_itemID) => {
         selectedItemsString += `${_itemID}, `;
       });
 

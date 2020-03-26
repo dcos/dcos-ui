@@ -12,14 +12,14 @@ describe("TableUtil", () => {
       id: "foo",
       name: null,
       statuses: [{ timestamp: 1 }, { timestamp: 2 }],
-      version: "1.0.1"
+      version: "1.0.1",
     };
     thisBar = {
       equal: 0,
       id: "bar",
       name: "bar",
       statuses: [{ timestamp: 4 }],
-      version: undefined
+      version: undefined,
     };
   });
 
@@ -115,12 +115,12 @@ describe("TableUtil", () => {
       const units = [
         { id: "aa", health: "NA" },
         { id: "bb", health: "Healthy" },
-        { id: "cc", health: "Unhealthy" }
+        { id: "cc", health: "Unhealthy" },
       ];
       const expectedResult = [
         { id: "cc", health: "Unhealthy" },
         { id: "aa", health: "NA" },
-        { id: "bb", health: "Healthy" }
+        { id: "bb", health: "Healthy" },
       ];
       const sortingResult = units.sort(TableUtil.sortHealthValues);
 
@@ -131,12 +131,12 @@ describe("TableUtil", () => {
       const units = [
         { id: "aa", health: 3 },
         { id: "bb", health: 0 },
-        { id: "cc", health: 1 }
+        { id: "cc", health: 1 },
       ];
       const expectedResult = [
         { id: "cc", health: 1 },
         { id: "aa", health: 3 },
-        { id: "bb", health: 0 }
+        { id: "bb", health: 0 },
       ];
       const sortingResult = units.sort(TableUtil.sortHealthValues);
 

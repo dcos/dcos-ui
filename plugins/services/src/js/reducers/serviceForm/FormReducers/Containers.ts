@@ -9,7 +9,7 @@ import { FormReducer as multiContainerHealthFormReducer } from "../MultiContaine
 const containerReducer = combineReducers({
   cpus: simpleReducer("resources.cpus"),
   mem: simpleReducer("resources.mem"),
-  disk: simpleReducer("resources.disk")
+  disk: simpleReducer("resources.disk"),
 });
 
 export function FormReducer(state, { type, path = [], value }) {
@@ -44,7 +44,7 @@ export function FormReducer(state, { type, path = [], value }) {
 
         newState.push({
           ...DEFAULT_POD_CONTAINER,
-          name
+          name,
         });
         this.cache.push({});
         break;
@@ -98,7 +98,7 @@ export function FormReducer(state, { type, path = [], value }) {
   if (type === SET && joinedPath === `containers.${index}.exec.command.shell`) {
     newState[index].exec = {
       ...newState[index].exec,
-      command: { shell: value }
+      command: { shell: value },
     };
   }
 
@@ -116,14 +116,14 @@ export function FormReducer(state, { type, path = [], value }) {
   if (type === SET && joinedPath === `containers.${index}.image.id`) {
     newState[index].image = {
       ...newState[index].image,
-      id: value
+      id: value,
     };
   }
 
   if (type === SET && joinedPath === `containers.${index}.image.forcePull`) {
     newState[index].image = {
       ...newState[index].image,
-      forcePull: value
+      forcePull: value,
     };
   }
 

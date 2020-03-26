@@ -14,14 +14,14 @@ function getDefaultMessage() {
         id="You can also join us on our <0>Slack channel</0> or send us an email at <1></1>."
         components={[
           <a href={Config.slackChannel} target="_blank" />,
-          <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>
+          <a href={`mailto:${Config.supportEmail}`}>{Config.supportEmail}</a>,
         ]}
       />
     </p>
   );
 }
 
-const RequestErrorMsg = props => {
+const RequestErrorMsg = (props) => {
   const { header, message } = props;
   let { columnClasses } = props;
 
@@ -50,17 +50,17 @@ RequestErrorMsg.defaultProps = {
   header: i18nMark(
     "DC/OS UI cannot retrieve the requested information at this moment."
   ),
-  message: getDefaultMessage()
+  message: getDefaultMessage(),
 };
 
 RequestErrorMsg.propTypes = {
   columnClasses: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
   header: PropTypes.node,
-  message: PropTypes.node
+  message: PropTypes.node,
 };
 
 export default RequestErrorMsg;

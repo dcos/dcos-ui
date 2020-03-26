@@ -11,12 +11,12 @@ const defaultEndpointsFieldValues = {
   networkNames: null,
   protocol: {
     tcp: true,
-    udp: false
+    udp: false,
   },
   servicePort: null,
   vip: null,
   vipPort: null,
-  vipLabel: null
+  vipLabel: null,
 };
 
 export function JSONReducer(state = [], { type, path = [], value }) {
@@ -38,12 +38,12 @@ export function JSONReducer(state = [], { type, path = [], value }) {
 
       if (value == null) {
         newEndpoint = {
-          ...defaultEndpointsFieldValues
+          ...defaultEndpointsFieldValues,
         };
       }
 
       newEndpoint.protocol = {
-        ...newEndpoint.protocol
+        ...newEndpoint.protocol,
       };
       newState[index].push(newEndpoint);
       break;
@@ -62,7 +62,7 @@ export function JSONReducer(state = [], { type, path = [], value }) {
     "labels",
     "vip",
     "vipPort",
-    "vipLabel"
+    "vipLabel",
   ];
   const numericalFiledNames = ["containerPort", "hostPort"];
 

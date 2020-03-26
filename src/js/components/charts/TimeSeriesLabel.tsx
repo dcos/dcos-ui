@@ -15,13 +15,13 @@ const TimeSeriesLabel = createReactClass({
       .isRequired,
     subHeading: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
       .isRequired,
-    y: PropTypes.string
+    y: PropTypes.string,
   },
 
   getDefaultProps() {
     return {
       y: ValueTypes.PERCENTAGE,
-      colorIndex: 0
+      colorIndex: 0,
     };
   },
 
@@ -34,7 +34,7 @@ const TimeSeriesLabel = createReactClass({
     const props = this.props;
 
     const percentageClassSet = classNames({
-      hidden: props.y !== ValueTypes.PERCENTAGE
+      hidden: props.y !== ValueTypes.PERCENTAGE,
     });
 
     return (
@@ -50,7 +50,7 @@ const TimeSeriesLabel = createReactClass({
         </span>
       </div>
     );
-  }
+  },
 });
 
 export default TimeSeriesLabel;

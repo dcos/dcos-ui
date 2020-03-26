@@ -9,7 +9,7 @@ export default [
   {
     type: Redirect,
     from: "/settings",
-    to: "/settings/ui-settings"
+    to: "/settings/ui-settings",
   },
   {
     type: Route,
@@ -22,14 +22,14 @@ export default [
         type: Route,
         path: "ui-settings",
         component: UISettingsPage,
-        isInSidebar: true
+        isInSidebar: true,
       },
       {
         type: Route,
         path: "repositories",
         component: RepositoriesList,
-        isInSidebar: true
-      }
-    ]
-  }
+        isInSidebar: true,
+      },
+    ],
+  },
 ];

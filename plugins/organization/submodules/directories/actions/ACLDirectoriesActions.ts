@@ -14,15 +14,15 @@ export default {
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
           // TODO: Remove this array, currently we're forcing an array
           // even though the API is only storing one directory
-          data: [response]
+          data: [response],
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -35,15 +35,15 @@ export default {
       data,
       success() {
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS
+          type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -53,15 +53,15 @@ export default {
       method: "DELETE",
       success() {
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
-      }
+      },
     });
   },
 
@@ -73,20 +73,20 @@ export default {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_SUCCESS,
-          data: response
+          data: response,
         });
       },
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr)
+          data: RequestUtil.getErrorFromXHR(xhr),
         });
       },
       hangingRequestCallback() {
         SDK.dispatch({
-          type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ONGOING
+          type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ONGOING,
         });
-      }
+      },
     });
-  }
+  },
 };

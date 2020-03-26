@@ -23,7 +23,7 @@ class ServiceNameTextFilter extends DSLFilter {
    */
   filterApply(resultset, filterType, filterArguments) {
     return resultset.filterItems(
-      service => service.getName().indexOf(filterArguments.text) !== -1
+      (service) => service.getName().indexOf(filterArguments.text) !== -1
     );
   }
 }

@@ -12,8 +12,8 @@ describe("VipLabelUtil", () => {
           const portDefinition = {
             loadBalanced: false,
             labels: {
-              [vipLabel]: "viplabel:9090"
-            }
+              [vipLabel]: "viplabel:9090",
+            },
           };
           const result = VipLabelUtil.generateVipLabel(
             appID,
@@ -31,8 +31,8 @@ describe("VipLabelUtil", () => {
           const portDefinition = {
             loadBalanced: false,
             labels: {
-              otherLabel: "value"
-            }
+              otherLabel: "value",
+            },
           };
           const result = VipLabelUtil.generateVipLabel(
             appID,
@@ -51,7 +51,7 @@ describe("VipLabelUtil", () => {
         it("generates VIP", () => {
           const portDefinition = {
             loadBalanced: true,
-            vip: undefined
+            vip: undefined,
           };
           const result = VipLabelUtil.generateVipLabel(
             appID,
@@ -68,7 +68,7 @@ describe("VipLabelUtil", () => {
         it("generates VIP with new port value", () => {
           const portDefinition = {
             loadBalanced: true,
-            vip: "service-address:9091"
+            vip: "service-address:9091",
           };
           const result = VipLabelUtil.generateVipLabel(
             appID,
@@ -89,7 +89,7 @@ describe("VipLabelUtil", () => {
         VipLabelUtil.findVip({
           other: "not_vip",
           VIP1: "vip",
-          VIP2: "vip"
+          VIP2: "vip",
         })
       ).toEqual(["VIP1", "vip"]);
     });
@@ -99,7 +99,7 @@ describe("VipLabelUtil", () => {
         VipLabelUtil.findVip({
           other: "not_vip",
           vip1: "vip1",
-          vip2: "vip2"
+          vip2: "vip2",
         })
       ).toEqual(["vip1", "vip1"]);
     });
@@ -109,7 +109,7 @@ describe("VipLabelUtil", () => {
         VipLabelUtil.findVip({
           Vip: "not_vip",
           vIP: "vip1",
-          viP: "vip2"
+          viP: "vip2",
         })
       ).toEqual(undefined);
     });

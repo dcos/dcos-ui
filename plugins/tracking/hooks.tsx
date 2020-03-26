@@ -18,23 +18,23 @@ export default {
     "pluginsLoadedCheck",
     "userFormModalFooter",
     "userLoginPolicy",
-    "userAddPolicy"
+    "userAddPolicy",
   ],
 
   actions: [
     "pluginsConfigured",
     "userLoginSuccess",
     "userLogoutSuccess",
-    "routes"
+    "routes",
   ],
 
   initialize(configuration) {
     this.configuration = configuration;
 
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -48,7 +48,7 @@ export default {
   },
 
   pluginsLoadedCheck(promiseArray) {
-    const promise = new Promise(resolve => {
+    const promise = new Promise((resolve) => {
       window.analytics.ready(() => {
         resolve();
       });
@@ -79,7 +79,7 @@ export default {
           ...metadata,
           environment: process.env.NODE_ENV,
           dcosVersion: MetadataStore.version,
-          dcosVariant: MetadataStore.variant
+          dcosVariant: MetadataStore.variant,
         });
       };
 
@@ -138,5 +138,5 @@ export default {
         .
       </p>
     );
-  }
+  },
 };

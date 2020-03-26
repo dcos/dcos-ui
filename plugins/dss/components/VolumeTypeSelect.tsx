@@ -39,7 +39,7 @@ function VolumeTypeSelect(props) {
       placeholder={i18n._(t`Select ...`)}
     >
       {Object.keys(VolumeDefinitions)
-        .filter(type => !excludedTypesSingleContainer.includes(type))
+        .filter((type) => !excludedTypesSingleContainer.includes(type))
         .map(mapOptions)}
     </Select>
   );

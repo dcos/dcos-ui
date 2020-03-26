@@ -16,7 +16,7 @@ describe("ACLDirectoriesActions", () => {
   beforeEach(() => {
     thisConfiguration = null;
     thisRequestUtilJSON = RequestUtil.json;
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
     Config.rootUrl = "";
@@ -45,11 +45,11 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when successful", () => {
       ACLDirectoriesActions.fetchDirectories();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
-          data: [{ foo: "bar" }]
+          data: [{ foo: "bar" }],
         });
       });
 
@@ -59,11 +59,11 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       ACLDirectoriesActions.fetchDirectories();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORIES_ERROR,
-          data: "No LDAP configuration stored yet."
+          data: "No LDAP configuration stored yet.",
         });
       });
 
@@ -71,8 +71,8 @@ describe("ACLDirectoriesActions", () => {
         responseJSON: {
           title: "Bad Request",
           description: "No LDAP configuration stored yet.",
-          code: "ERR_LDAP_CONFIG_NOT_AVAILABLE"
-        }
+          code: "ERR_LDAP_CONFIG_NOT_AVAILABLE",
+        },
       });
     });
   });
@@ -101,10 +101,10 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when successful", () => {
       ACLDirectoriesActions.addDirectory({ port: 1 });
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
-          type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS
+          type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS,
         });
       });
 
@@ -114,18 +114,18 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       ACLDirectoriesActions.addDirectory({ port: 1 });
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_ERROR,
-          data: "Foo"
+          data: "Foo",
         });
       });
 
       thisConfiguration.error({
         responseJSON: {
-          description: "Foo"
-        }
+          description: "Foo",
+        },
       });
     });
   });
@@ -156,10 +156,10 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when successful", () => {
       ACLDirectoriesActions.deleteDirectory();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
-          type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
+          type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS,
         });
       });
 
@@ -169,18 +169,18 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       ACLDirectoriesActions.deleteDirectory();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_ERROR,
-          data: "Foo"
+          data: "Foo",
         });
       });
 
       thisConfiguration.error({
         responseJSON: {
-          description: "Foo"
-        }
+          description: "Foo",
+        },
       });
     });
   });
@@ -204,11 +204,11 @@ describe("ACLDirectoriesActions", () => {
       spyOn(RequestUtil, "json");
       ACLDirectoriesActions.testDirectoryConnection({
         uid: "foo",
-        password: "bar"
+        password: "bar",
       });
       expect(RequestUtil.json.calls.mostRecent().args[0].data).toEqual({
         uid: "foo",
-        password: "bar"
+        password: "bar",
       });
     });
 
@@ -223,11 +223,11 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when successful", () => {
       ACLDirectoriesActions.testDirectoryConnection();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_SUCCESS,
-          data: { description: "foo" }
+          data: { description: "foo" },
         });
       });
 
@@ -237,18 +237,18 @@ describe("ACLDirectoriesActions", () => {
     it("dispatches the correct action when unsuccessful", () => {
       ACLDirectoriesActions.testDirectoryConnection();
 
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ACL_DIRECTORY_TEST_ERROR,
-          data: "Foo"
+          data: "Foo",
         });
       });
 
       thisConfiguration.error({
         responseJSON: {
-          description: "Foo"
-        }
+          description: "Foo",
+        },
       });
     });
   });

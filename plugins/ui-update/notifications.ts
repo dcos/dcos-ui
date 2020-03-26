@@ -6,12 +6,12 @@ import { Unsubscribable } from "rxjs";
 import { filter, map, tap } from "rxjs/operators";
 import {
   NotificationService,
-  NotificationServiceType
+  NotificationServiceType,
 } from "@extension-kid/notification-service";
 import {
   ToastAppearance,
   ToastCallbackType,
-  ToastNotification
+  ToastNotification,
 } from "@extension-kid/toast-notifications";
 
 import { TYPES } from "#SRC/js/types/containerTypes";
@@ -41,7 +41,7 @@ class Notifications implements UIUpdateNotifications {
     "updateAvailableCallback",
     "dismissNotificationCallback",
     "rollbackFailedCallback",
-    "updateFailedCallback"
+    "updateFailedCallback",
   ];
   private readonly _notificationService: NotificationService;
   private readonly _i18n: I18n;
@@ -54,7 +54,7 @@ class Notifications implements UIUpdateNotifications {
     this._notificationService = notificationService;
     this._i18n = i18n;
 
-    Notifications._methodsToBind.forEach(method => {
+    Notifications._methodsToBind.forEach((method) => {
       this[method] = this[method].bind(this);
     });
   }
@@ -62,7 +62,7 @@ class Notifications implements UIUpdateNotifications {
   public setupUIUpdatedNotification(): Unsubscribable {
     return getUiMetadata$()
       .pipe(
-        filter(uiMetadata => {
+        filter((uiMetadata) => {
           const { clientBuild, serverBuild } = uiMetadata;
           const coercedClientBuild = semver.coerce(clientBuild || "");
           const coercedServerBuild = semver.coerce(serverBuild || "");
@@ -73,7 +73,7 @@ class Notifications implements UIUpdateNotifications {
             coercedClientBuild.raw !== LOCAL_DEV_VERSION
           );
         }),
-        map(uiMetadata => {
+        map((uiMetadata) => {
           const displayVersion = semver.coerce(uiMetadata.serverBuild);
           const title = this._i18n._(i18nMark("New UI Available"));
           const description = this._i18n._(
@@ -81,7 +81,7 @@ class Notifications implements UIUpdateNotifications {
               "DC/OS UI has been updated to {version}. Reload the UI for the updated version."
             ),
             {
-              version: displayVersion
+              version: displayVersion,
             }
           );
           const primaryActionText = this._i18n._(i18nMark("Reload"));
@@ -89,14 +89,14 @@ class Notifications implements UIUpdateNotifications {
             appearance: ToastAppearance.Success,
             callback: this.updateAvailableCallback,
             description,
-            primaryActionText
+            primaryActionText,
           });
         }),
         filter(
-          toastNotification =>
+          (toastNotification) =>
             !this._activeNotifications.includes(toastNotification.id)
         ),
-        tap(toastNotification =>
+        tap((toastNotification) =>
           this._activeNotifications.push(toastNotification.id)
         )
       )
@@ -106,11 +106,11 @@ class Notifications implements UIUpdateNotifications {
     return getAction$()
       .pipe(
         filter(
-          uiAction =>
+          (uiAction) =>
             uiAction.action === UIActions.Error &&
             uiAction.type === UIActionType.Update
         ),
-        map(uiAction => {
+        map((uiAction) => {
           let notification: ToastNotification;
           const title = this._i18n._(i18nMark("UI Upgrade Failure"));
           const description = this._i18n._(
@@ -133,22 +133,22 @@ class Notifications implements UIUpdateNotifications {
               appearance: ToastAppearance.Danger,
               callback: tryAgainCallback,
               description,
-              primaryActionText
+              primaryActionText,
             });
           } else {
             notification = new ToastNotification(title, {
               appearance: ToastAppearance.Danger,
               description,
-              callback: this.dismissNotificationCallback
+              callback: this.dismissNotificationCallback,
             });
           }
           return notification;
         }),
         filter(
-          toastNotification =>
+          (toastNotification) =>
             !this._activeNotifications.includes(toastNotification.id)
         ),
-        tap(toastNotification =>
+        tap((toastNotification) =>
           this._activeNotifications.push(toastNotification.id)
         )
       )
@@ -158,7 +158,7 @@ class Notifications implements UIUpdateNotifications {
     return getAction$()
       .pipe(
         filter(
-          uiAction =>
+          (uiAction) =>
             uiAction.action === UIActions.Error &&
             uiAction.type === UIActionType.Reset
         ),
@@ -172,14 +172,14 @@ class Notifications implements UIUpdateNotifications {
             appearance: ToastAppearance.Danger,
             callback: this.rollbackFailedCallback,
             description,
-            primaryActionText
+            primaryActionText,
           });
         }),
         filter(
-          toastNotification =>
+          (toastNotification) =>
             !this._activeNotifications.includes(toastNotification.id)
         ),
-        tap(toastNotification =>
+        tap((toastNotification) =>
           this._activeNotifications.push(toastNotification.id)
         )
       )
@@ -255,5 +255,5 @@ export {
   Notifications,
   UIUpdateNotifications,
   UIUpdateNotificationsType,
-  loadNotifications
+  loadNotifications,
 };

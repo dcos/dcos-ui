@@ -10,7 +10,7 @@ describe("HealthUnit", () => {
       const healthItem = new HealthUnit({
         id: "service_manager",
         description: "Service Manager",
-        health: 1
+        health: 1,
       });
 
       expect(healthItem.getHealth()).toEqual({
@@ -18,7 +18,7 @@ describe("HealthUnit", () => {
         title: "Unhealthy",
         sortingValue: 0,
         value: 1,
-        classNames: "text-danger"
+        classNames: "text-danger",
       });
     });
 
@@ -35,7 +35,7 @@ describe("HealthUnit", () => {
       thisUnit = new HealthUnit({
         id: "foo",
         name: "Foo Unit",
-        health: "0"
+        health: "0",
       });
     });
 
@@ -50,7 +50,7 @@ describe("HealthUnit", () => {
     it("returns pretty print title if name not available", () => {
       thisUnit = new HealthUnit({
         id: "foo",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo");
     });
@@ -60,7 +60,7 @@ describe("HealthUnit", () => {
     it("removes dcos prefix from ID", () => {
       thisUnit = new HealthUnit({
         id: "dcos-foo",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo");
     });
@@ -68,7 +68,7 @@ describe("HealthUnit", () => {
     it("removes dashes", () => {
       thisUnit = new HealthUnit({
         id: "foo-bar",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
@@ -76,7 +76,7 @@ describe("HealthUnit", () => {
     it("removes dots", () => {
       thisUnit = new HealthUnit({
         id: "foo.bar",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo Bar");
     });
@@ -84,7 +84,7 @@ describe("HealthUnit", () => {
     it("removes dashes and dots", () => {
       thisUnit = new HealthUnit({
         id: "foo-bar.qqq",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo Bar Qqq");
     });
@@ -92,7 +92,7 @@ describe("HealthUnit", () => {
     it("removes capitalizes DNS", () => {
       thisUnit = new HealthUnit({
         id: "foo-dns-bar",
-        health: "0"
+        health: "0",
       });
       expect(thisUnit.getTitle()).toEqual("Foo DNS Bar");
     });

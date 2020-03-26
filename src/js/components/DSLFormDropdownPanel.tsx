@@ -17,20 +17,20 @@ class DSLFormDropdownPanel extends React.Component {
   static defaultProps = {
     isVisible: false,
     onChange() {},
-    onClose() {}
+    onClose() {},
   };
   static propTypes = {
     expression: PropTypes.instanceOf(DSLExpression).isRequired,
     isVisible: PropTypes.bool,
     onChange: PropTypes.func,
     onClose: PropTypes.func,
-    sections: PropTypes.array.isRequired
+    sections: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      expression: this.props.expression
+      expression: this.props.expression,
     };
   }
 
@@ -70,7 +70,7 @@ class DSLFormDropdownPanel extends React.Component {
    *
    * @param {DSLExpression} expression - The new expression
    */
-  handleChange = expression => {
+  handleChange = (expression) => {
     this.setState({ expression });
     this.props.onChange(expression);
   };
@@ -84,7 +84,7 @@ class DSLFormDropdownPanel extends React.Component {
 
     const dropdownPanelClasses = classNames({
       "dsl-dropdown-panel dropdown-panel dropdown-panel-animated panel": true,
-      "is-visible": isVisible
+      "is-visible": isVisible,
     });
 
     return (

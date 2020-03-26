@@ -8,7 +8,7 @@ describe("PodContainer", () => {
     it("creates instances", () => {
       const containerSpec = PodFixture.instances[0].containers[0];
       const container = new PodContainer({
-        ...containerSpec
+        ...containerSpec,
       });
 
       expect(container.get()).toEqual(containerSpec);
@@ -18,7 +18,7 @@ describe("PodContainer", () => {
   describe("#getContainerStatus", () => {
     it("detects container in ERROR state", () => {
       const podContainer = new PodContainer({
-        status: "TASK_ERROR"
+        status: "TASK_ERROR",
       });
 
       // It has no health checks, so it returns ERROR
@@ -29,7 +29,7 @@ describe("PodContainer", () => {
 
     it("detects container in FAILED state", () => {
       const podContainer = new PodContainer({
-        status: "TASK_FAILED"
+        status: "TASK_FAILED",
       });
 
       // It has no health checks, so it returns FAILED
@@ -40,7 +40,7 @@ describe("PodContainer", () => {
 
     it("detects container in FINISHED state", () => {
       const podContainer = new PodContainer({
-        status: "TASK_FINISHED"
+        status: "TASK_FINISHED",
       });
 
       // It has no health checks, so it returns FINISHED
@@ -51,7 +51,7 @@ describe("PodContainer", () => {
 
     it("detects container in KILLED state", () => {
       const podContainer = new PodContainer({
-        status: "TASK_KILLED"
+        status: "TASK_KILLED",
       });
 
       // It has no health checks, so it returns KILLED
@@ -63,7 +63,7 @@ describe("PodContainer", () => {
     it("detects container in RUNNING state", () => {
       const podContainer = new PodContainer({
         status: "TASK_RUNNING",
-        conditions: []
+        conditions: [],
       });
 
       // It has no health checks, so it returns RUNNING
@@ -81,9 +81,9 @@ describe("PodContainer", () => {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "true"
-          }
-        ]
+            value: "true",
+          },
+        ],
       });
 
       // It has health-checks and it's healthy, so return HEALTHY
@@ -101,9 +101,9 @@ describe("PodContainer", () => {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "false"
-          }
-        ]
+            value: "false",
+          },
+        ],
       });
 
       // If even one health check fails, it should be unhealthy
@@ -114,7 +114,7 @@ describe("PodContainer", () => {
 
     it("handles unknown states", () => {
       const podContainer = new PodContainer({
-        status: "totallyrandom"
+        status: "totallyrandom",
       });
 
       // It has no health checks, so it returns KILLED
@@ -123,7 +123,7 @@ describe("PodContainer", () => {
 
     it("handles unknown states", () => {
       const podContainer = new PodContainer({
-        status: "TASK_TOTALLY_RANDOM"
+        status: "TASK_TOTALLY_RANDOM",
       });
 
       // It has no health checks, so it returns KILLED
@@ -202,14 +202,14 @@ describe("PodContainer", () => {
   describe("#getResources", () => {
     it("returns the correct value", () => {
       const podContainer = new PodContainer({
-        resources: { cpus: 0.5, mem: 64 }
+        resources: { cpus: 0.5, mem: 64 },
       });
 
       expect(podContainer.getResources()).toEqual({
         cpus: 0.5,
         mem: 64,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
 
@@ -219,7 +219,7 @@ describe("PodContainer", () => {
         cpus: 0,
         mem: 0,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
   });
@@ -227,7 +227,7 @@ describe("PodContainer", () => {
   describe("#hasHealthChecks", () => {
     it("returns false if no health checks defined", () => {
       const podContainer = new PodContainer({
-        conditions: []
+        conditions: [],
       });
 
       expect(podContainer.hasHealthChecks()).toBeFalsy();
@@ -241,9 +241,9 @@ describe("PodContainer", () => {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "true"
-          }
-        ]
+            value: "true",
+          },
+        ],
       });
 
       expect(podContainer.hasHealthChecks()).toEqual(true);
@@ -259,7 +259,7 @@ describe("PodContainer", () => {
   describe("#isHealthy", () => {
     it("returns true if no health checks defined", () => {
       const podContainer = new PodContainer({
-        conditions: []
+        conditions: [],
       });
 
       expect(podContainer.isHealthy()).toBeTruthy();
@@ -279,9 +279,9 @@ describe("PodContainer", () => {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "false"
-          }
-        ]
+            value: "false",
+          },
+        ],
       });
 
       expect(podContainer.isHealthy()).toBeFalsy();
@@ -295,9 +295,9 @@ describe("PodContainer", () => {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "true"
-          }
-        ]
+            value: "true",
+          },
+        ],
       });
 
       expect(podContainer.isHealthy()).toBeTruthy();

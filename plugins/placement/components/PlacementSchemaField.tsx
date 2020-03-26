@@ -10,7 +10,7 @@ import { Tooltip } from "reactjs-components";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import {
   JSONReducer,
-  JSONParser
+  JSONParser,
 } from "#PLUGINS/services/src/js/reducers/serviceForm/JSONReducers/Constraints";
 import { combineReducers } from "#SRC/js/utils/ReducerUtil";
 import { combineParsers } from "#SRC/js/utils/ParserUtil";
@@ -22,7 +22,7 @@ import PlacementValidators from "#PLUGINS/services/src/js/validators/PlacementsV
 
 import {
   augmentConstraintsReducer,
-  singleContainerJSONParser
+  singleContainerJSONParser,
 } from "../reducers/constraints";
 import PlacementFormPartial from "./PlacementFormPartial";
 
@@ -57,7 +57,7 @@ const JsonField = (props: {
 );
 
 JsonField.defaultProps = {
-  space: 2
+  space: 2,
 };
 
 export class PlacementSchemaField extends React.Component<{
@@ -73,7 +73,7 @@ export class PlacementSchemaField extends React.Component<{
 }> {
   static defaultProps = {
     renderRegion: true,
-    onChange() {}
+    onChange() {},
   };
 
   constructor(props) {
@@ -81,12 +81,12 @@ export class PlacementSchemaField extends React.Component<{
 
     this.state = {
       batch: new Batch(),
-      formData: this.props.fieldProps.formData
+      formData: this.props.fieldProps.formData,
     };
     this.state.batch = this.generateBatchFromInput();
   }
 
-  handleBatchChange = batch => {
+  handleBatchChange = (batch) => {
     const { onChange, schema } = this.props.fieldProps;
     const { constraints } = batch.reduce(jsonReducer, []);
 

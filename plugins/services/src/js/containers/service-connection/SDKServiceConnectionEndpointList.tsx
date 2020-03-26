@@ -23,13 +23,13 @@ import MesosDNSList from "./MesosDNSList";
 
 class SDKServiceConnectionEndpointList extends React.Component {
   static propTypes = {
-    service: PropTypes.instanceOf(Service)
+    service: PropTypes.instanceOf(Service),
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      servicePreviousState: ""
+      servicePreviousState: "",
     };
   }
   handleOpenEditConfigurationModal = () => {
@@ -116,7 +116,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
     }
 
     return endpoints
-      .filter(endpoint => endpoint.isJSON())
+      .filter((endpoint) => endpoint.isJSON())
       .map((endpoint, index) => this.getJSONEndpoint(endpoint, index));
   }
 
@@ -125,7 +125,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
       return null;
     }
 
-    const fileEndpoints = endpoints.filter(endpoint => !endpoint.isJSON());
+    const fileEndpoints = endpoints.filter((endpoint) => !endpoint.isJSON());
 
     if (fileEndpoints.length === 0) {
       return null;
@@ -161,7 +161,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 
     const endpointsLoaded =
       sdkServiceEndpoints &&
-      sdkServiceEndpoints.every(endpoint => endpoint.endpointData);
+      sdkServiceEndpoints.every((endpoint) => endpoint.endpointData);
 
     if (!endpointsLoaded && !sdkServiceError) {
       return <Loader />;
@@ -184,7 +184,7 @@ class SDKServiceConnectionEndpointList extends React.Component {
 }
 
 SDKServiceConnectionEndpointList.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default SDKServiceConnectionEndpointList;

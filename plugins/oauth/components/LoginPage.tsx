@@ -18,11 +18,11 @@ class LoginPage extends mixin(StoreMixin) {
     }
 
     this.store_listeners = [
-      { name: "auth", events: ["success", "error"], suppressUpdate: true }
+      { name: "auth", events: ["success", "error"], suppressUpdate: true },
     ];
 
     this.setState({
-      showClusterError: false
+      showClusterError: false,
     });
 
     window.addEventListener("message", this.onMessageReceived);
@@ -33,7 +33,7 @@ class LoginPage extends mixin(StoreMixin) {
 
     window.removeEventListener("message", this.onMessageReceived);
   }
-  onMessageReceived = event => {
+  onMessageReceived = (event) => {
     if (event.origin !== SDK.config.authHost) {
       console.warn(
         `Event Origin "${event.origin}" does not match allowed origin "${SDK.config.authHost}"`
@@ -118,7 +118,7 @@ class LoginPage extends mixin(StoreMixin) {
 }
 
 LoginPage.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default LoginPage;

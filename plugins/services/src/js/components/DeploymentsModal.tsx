@@ -31,13 +31,13 @@ const columnClasses = {
   id: "deployments-table-column-id",
   startTime: "deployments-table-column-start-time",
   status: "deployments-table-column-status",
-  action: "deployments-table-column-actions"
+  action: "deployments-table-column-actions",
 };
 const columnHeadings = ResourceTableUtil.renderHeading({
   id: i18nMark("Affected Services"),
   version: i18nMark("Started"),
   status: i18nMark("Status"),
-  action: null
+  action: null,
 });
 
 // collapsing columns are tightly coupled to the left-align caret property;
@@ -55,7 +55,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
     this.state = {
       dcosServiceDataReceived: false,
-      dcosDeploymentsList: []
+      dcosDeploymentsList: [],
     };
     // prettier-ignore
     this.store_listeners = [
@@ -67,11 +67,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
   onDcosStoreChange = () => {
     this.setState({
       dcosDeploymentsList: DCOSStore.deploymentsList.getItems(),
-      dcosServiceDataReceived: DCOSStore.serviceDataReceived
+      dcosServiceDataReceived: DCOSStore.serviceDataReceived,
     });
   };
 
-  onMarathonStoreDeploymentRollbackSuccess = data => {
+  onMarathonStoreDeploymentRollbackSuccess = (data) => {
     const { deploymentToRollback } = this.state;
     if (
       deploymentToRollback != null &&
@@ -80,11 +80,11 @@ class DeploymentsModal extends mixin(StoreMixin) {
       this.setState({
         awaitingRevertDeploymentResponse: false,
         deploymentToRollback: null,
-        deploymentRollbackError: null
+        deploymentRollbackError: null,
       });
     }
   };
-  onMarathonStoreDeploymentRollbackError = data => {
+  onMarathonStoreDeploymentRollbackError = (data) => {
     const { deploymentToRollback } = this.state;
     if (
       deploymentToRollback != null &&
@@ -92,7 +92,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     ) {
       this.setState({
         awaitingRevertDeploymentResponse: false,
-        deploymentRollbackError: data.error
+        deploymentRollbackError: data.error,
       });
     }
   };
@@ -102,14 +102,14 @@ class DeploymentsModal extends mixin(StoreMixin) {
       this.handleRollbackClick(deployment);
     }
   };
-  handleRollbackClick = deployment => {
+  handleRollbackClick = (deployment) => {
     this.setState({ deploymentToRollback: deployment });
   };
   handleRollbackCancel = () => {
     this.setState({
       awaitingRevertDeploymentResponse: false,
       deploymentToRollback: null,
-      deploymentRollbackError: null
+      deploymentRollbackError: null,
     });
   };
   handleRollbackConfirm = () => {
@@ -121,18 +121,18 @@ class DeploymentsModal extends mixin(StoreMixin) {
     }
   };
 
-  getChildTableData = deployment => [
-    ...deployment.getAffectedServices().map(service => {
+  getChildTableData = (deployment) => [
+    ...deployment.getAffectedServices().map((service) => {
       service.deployment = deployment;
       service.isStale = false;
 
       return service;
     }),
-    ...deployment.getStaleServiceIds().map(serviceID => ({
+    ...deployment.getStaleServiceIds().map((serviceID) => ({
       deployment,
       serviceID,
-      isStale: true
-    }))
+      isStale: true,
+    })),
   ];
 
   getColGroup() {
@@ -157,7 +157,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
         className: columnClassNameGetter,
         heading: columnHeadings,
         prop: "id",
-        render: this.renderAffectedServices
+        render: this.renderAffectedServices,
       },
       {
         className: columnClassNameGetter,
@@ -165,28 +165,28 @@ class DeploymentsModal extends mixin(StoreMixin) {
         prop: "version",
         render: this.renderStartTime,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: columnClassNameGetter,
         heading: columnHeadings,
         prop: "status",
-        render: this.renderStatus
+        render: this.renderStatus,
       },
       {
         className: columnClassNameGetter,
         heading: columnHeadings,
         prop: "action",
         render: this.renderActionsMenu,
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   };
 
-  getRollbackModalText = deploymentToRollback => {
+  getRollbackModalText = (deploymentToRollback) => {
     const serviceNames = deploymentToRollback
       .getAffectedServices()
-      .map(service => StringUtil.capitalize(service.getName()));
+      .map((service) => StringUtil.capitalize(service.getName()));
     const listOfServiceNames = StringUtil.humanizeArray(serviceNames);
     const serviceCount = serviceNames.length;
 
@@ -229,7 +229,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     );
   };
 
-  getServiceDisplayPath = service => {
+  getServiceDisplayPath = (service) => {
     // Remove the service's name from the end of the path.
     const servicePath = service
       .getId()
@@ -245,8 +245,8 @@ class DeploymentsModal extends mixin(StoreMixin) {
     );
   };
 
-  getTableData = deploymentsItems => {
-    return deploymentsItems.map(deployment => {
+  getTableData = (deploymentsItems) => {
+    return deploymentsItems.map((deployment) => {
       deployment.children = this.getChildTableData(deployment);
 
       return deployment;
@@ -256,7 +256,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const { children = [] } = deployment;
     const { i18n } = this.props;
 
-    const doesDeploymentContainSDKService = children.some(service =>
+    const doesDeploymentContainSDKService = children.some((service) =>
       ServiceUtil.isSDKService(service)
     );
 
@@ -277,12 +277,12 @@ class DeploymentsModal extends mixin(StoreMixin) {
           html: "",
           selectedHtml: (
             <Icon shape={SystemIcons.EllipsisVertical} size={iconSizeXs} />
-          )
+          ),
         },
         {
           id: "rollback",
-          html: <Trans id={actionText} render="span" className="text-danger" />
-        }
+          html: <Trans id={actionText} render="span" className="text-danger" />,
+        },
       ];
 
       return (
@@ -314,7 +314,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
 
       if (item.children && item.children.length > 0) {
         classes = classNames("expanding-table-primary-cell is-expandable", {
-          "is-expanded": rowOptions.isExpanded
+          "is-expanded": rowOptions.isExpanded,
         });
       }
 
@@ -387,7 +387,7 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const {
       awaitingRevertDeploymentResponse,
       deploymentToRollback,
-      deploymentRollbackError
+      deploymentRollbackError,
     } = this.state;
     const { i18n } = this.props;
 
@@ -470,13 +470,13 @@ class DeploymentsModal extends mixin(StoreMixin) {
     const data = [
       { className: "color-4", value: currentStep - 1 },
       { className: "staged", value: 1 },
-      { className: "", value: totalSteps - currentStep }
+      { className: "", value: totalSteps - currentStep },
     ];
 
     return <ProgressBar className="status-bar--large" data={data} />;
   };
 
-  renderTable = deploymentsItems => {
+  renderTable = (deploymentsItems) => {
     return (
       <div>
         <ExpandingTable

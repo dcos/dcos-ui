@@ -27,11 +27,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -59,11 +59,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -102,11 +102,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -139,11 +139,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: true
+              udp: true,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -177,11 +177,11 @@ describe("Endpoints", () => {
             protocol: {
               tcp: true,
               udp: false,
-              foo: true
+              foo: true,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
     });
@@ -209,11 +209,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -243,11 +243,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -288,11 +288,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -325,11 +325,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: true
+              udp: true,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -363,11 +363,11 @@ describe("Endpoints", () => {
             protocol: {
               foo: true,
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: null
-          }
+            containerPort: null,
+          },
         ]);
       });
 
@@ -400,11 +400,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: 8080
-          }
+            containerPort: 8080,
+          },
         ]);
       });
 
@@ -445,11 +445,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: 8080
-          }
+            containerPort: 8080,
+          },
         ]);
       });
 
@@ -497,11 +497,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: 8080
-          }
+            containerPort: 8080,
+          },
         ]);
       });
 
@@ -544,11 +544,11 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
             servicePort: null,
-            containerPort: 8080
-          }
+            containerPort: 8080,
+          },
         ]);
       });
 
@@ -599,10 +599,10 @@ describe("Endpoints", () => {
             vipPort: null,
             protocol: {
               tcp: true,
-              udp: false
+              udp: false,
             },
-            servicePort: null
-          }
+            servicePort: null,
+          },
         ]);
       });
     });

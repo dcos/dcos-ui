@@ -1,6 +1,6 @@
 import {
   SUBSCRIBED,
-  GET_STATE
+  GET_STATE,
 } from "../../../constants/MesosStreamMessageTypes";
 
 import getStateAction from "./state";
@@ -12,7 +12,7 @@ export default function subscribedAction(state, message) {
 
   const getStateMessage = {
     type: GET_STATE,
-    get_state: message.subscribed.get_state
+    get_state: message.subscribed.get_state,
   };
 
   return getStateAction({}, getStateMessage);

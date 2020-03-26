@@ -3,7 +3,7 @@ import Networking from "#SRC/js/constants/Networking";
 import HostUtil from "../utils/HostUtil";
 
 const ServiceConfigUtil = {
-  matchVIPLabel: str => Networking.VIP_LABEL_REGEX.test(str),
+  matchVIPLabel: (str) => Networking.VIP_LABEL_REGEX.test(str),
   findVIPLabel: (labels = {}) =>
     Object.keys(labels).find(ServiceConfigUtil.matchVIPLabel),
   hasVIPLabel: (labels = {}) => !!ServiceConfigUtil.findVIPLabel(labels),
@@ -26,7 +26,7 @@ const ServiceConfigUtil = {
     const hostname = HostUtil.stringToHostname(ipOrName);
 
     return `${hostname}${Networking.L4LB_ADDRESS}:${port}`;
-  }
+  },
 };
 
 export default ServiceConfigUtil;

@@ -11,26 +11,26 @@ describe("JSONMultiContainer", () => {
       const podDefinition = {
         id: "/podABCD",
         labels: {
-          POD_LABEL: "foo"
+          POD_LABEL: "foo",
         },
         volumes: [
           {
             name: "volume_1",
-            host: "/mnt/volume_1"
-          }
+            host: "/mnt/volume_1",
+          },
         ],
         environment: {
-          FOO: "bar"
+          FOO: "bar",
         },
         networks: [
           {
             mode: "container",
-            name: "dcos"
+            name: "dcos",
           },
           {
             mode: "container",
-            name: "dcos2"
-          }
+            name: "dcos2",
+          },
         ],
         containers: [
           {
@@ -42,20 +42,20 @@ describe("JSONMultiContainer", () => {
                 hostPort: 0,
                 protocol: ["tcp"],
                 labels: {
-                  vipDCOS: "1.2.3.4:80" // Custom VIP
-                }
+                  vipDCOS: "1.2.3.4:80", // Custom VIP
+                },
               },
               {
                 name: "nginx",
                 hostPort: 0,
                 protocol: ["tcp"],
                 labels: {
-                  VIP_0: "1.2.3.4:80" // Custom VIP
-                }
-              }
+                  VIP_0: "1.2.3.4:80", // Custom VIP
+                },
+              },
             ],
             resources: { cpus: 0.5, mem: 64, disk: "" },
-            volumeMounts: []
+            volumeMounts: [],
           },
           {
             name: "container-2",
@@ -67,39 +67,39 @@ describe("JSONMultiContainer", () => {
                 hostPort: 0,
                 protocol: ["udp", "tcp"],
                 labels: {
-                  VIP_0: "/podABCD:81" // App ID based VIP
-                }
-              }
+                  VIP_0: "/podABCD:81", // App ID based VIP
+                },
+              },
             ],
             resources: { cpus: 0.5, mem: 64, disk: "" },
-            volumeMounts: []
-          }
+            volumeMounts: [],
+          },
         ],
         fetch: [],
         scaling: {
           kind: "fixed",
-          instances: 10
+          instances: 10,
         },
         scheduling: {
           placement: {
             acceptedResourceRoles: ["*"],
-            constraints: [{ fieldName: "hostname", operator: "UNIQUE" }]
+            constraints: [{ fieldName: "hostname", operator: "UNIQUE" }],
           },
           backoff: {
             backoff: 1,
             backoffFactor: 1.15,
-            maxLaunchDelay: 30
+            maxLaunchDelay: 30,
           },
           upgrade: {
             minimumHealthCapacity: 1,
-            maximumOverCapacity: 1
+            maximumOverCapacity: 1,
           },
           killSelection: "YOUNGEST_FIRST",
           unreachableStrategy: {
             inactiveAfterSeconds: 0,
-            expungeAfterSeconds: 0
-          }
-        }
+            expungeAfterSeconds: 0,
+          },
+        },
       };
 
       const reducers = combineReducers(JSONMultiContainerReducers).bind({});

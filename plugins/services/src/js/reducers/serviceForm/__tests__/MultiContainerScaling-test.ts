@@ -23,7 +23,7 @@ describe("MultiContainerScaling", () => {
         batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
       ).toEqual({
         kind: "fixed",
-        instances: 1
+        instances: 1,
       });
     });
 
@@ -37,7 +37,7 @@ describe("MultiContainerScaling", () => {
         batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
       ).toEqual({
         kind: "wrong",
-        instances: 1
+        instances: 1,
       });
     });
 
@@ -50,7 +50,7 @@ describe("MultiContainerScaling", () => {
         batch.reduce(MultiContainerScaling.JSONReducer.bind({}), {})
       ).toEqual({
         kind: "fixed",
-        instances: 0
+        instances: 0,
       });
     });
   });
@@ -73,15 +73,15 @@ describe("MultiContainerScaling", () => {
     it("populates instances and scaling.kind", () => {
       const expectedObject = [
         { type: SET, value: 2, path: ["instances"] },
-        { type: SET, value: "random", path: ["scaling", "kind"] }
+        { type: SET, value: "random", path: ["scaling", "kind"] },
       ];
 
       expect(
         MultiContainerScaling.JSONParser({
           scaling: {
             instances: 2,
-            kind: "random"
-          }
+            kind: "random",
+          },
         })
       ).toEqual(expectedObject);
     });

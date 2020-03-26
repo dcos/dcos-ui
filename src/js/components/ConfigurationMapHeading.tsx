@@ -4,7 +4,7 @@ import * as React from "react";
 
 import DetailViewSectionHeading from "./DetailViewSectionHeading";
 
-const ConfigurationMapHeading = props => {
+const ConfigurationMapHeading = (props) => {
   const { children, className, level } = props;
   const classes = classNames("configuration-map-heading", className);
 
@@ -16,16 +16,16 @@ const ConfigurationMapHeading = props => {
 };
 
 ConfigurationMapHeading.defaultProps = {
-  level: 1
+  level: 1,
 };
 
 ConfigurationMapHeading.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
-  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6])
+  level: PropTypes.oneOf([1, 2, 3, 4, 5, 6]),
 };
 
 export default ConfigurationMapHeading;

@@ -1,7 +1,7 @@
 const NETWORK_MODES = [
   ["host", "HOST"],
   ["container", "CONTAINER"],
-  ["container/bridge", "BRIDGE"]
+  ["container/bridge", "BRIDGE"],
 ];
 
 const jsonToInternal = NETWORK_MODES.reduce((memo, tuple) => {
@@ -25,9 +25,9 @@ export default {
     BRIDGE: "BRIDGE",
     CONTAINER: "CONTAINER",
     HOST: "HOST",
-    USER: "USER"
+    USER: "USER",
   },
   L4LB_ADDRESS: ".marathon.l4lb.thisdcos.directory",
   VIP_LABEL_REGEX: /^VIP_[0-9]+$/,
-  VIP_LABEL_VALUE_REGEX: /([\w\d_\-./]+):(\d+)/
+  VIP_LABEL_VALUE_REGEX: /([\w\d_\-./]+):(\d+)/,
 };

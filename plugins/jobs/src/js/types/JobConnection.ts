@@ -59,7 +59,7 @@ export function JobConnectionTypeResolver(
     path,
     filteredCount: sortedJobs.length,
     totalCount: namespacedResponse.length,
-    nodes: sortedJobs
+    nodes: sortedJobs,
   };
 }
 

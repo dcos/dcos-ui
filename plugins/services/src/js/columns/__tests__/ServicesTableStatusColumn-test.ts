@@ -9,7 +9,7 @@ describe("ServicesTableStatusColumn", () => {
         "LOADING",
         "STOPPED",
         "ERROR",
-        "WARNING"
+        "WARNING",
       ];
 
       expect(statusKeys.sort(statusCategorySorter)).toEqual([
@@ -18,7 +18,7 @@ describe("ServicesTableStatusColumn", () => {
         "LOADING",
         "RUNNING",
         "STOPPED",
-        "NA"
+        "NA",
       ]);
     });
   });

@@ -3,7 +3,7 @@ import { pipe } from "rxjs";
 
 import {
   isObject as isObjectUtil,
-  findNestedPropertyInObject
+  findNestedPropertyInObject,
 } from "#SRC/js/utils/Util";
 
 import {
@@ -11,7 +11,7 @@ import {
   FormError,
   UcrImageKind,
   JobSpec,
-  ConstraintOperator
+  ConstraintOperator,
 } from "./JobFormData";
 import { OperatorTypes } from "./Constants";
 
@@ -39,35 +39,38 @@ const stringMsg = i18nMark("Must be a string");
 const presentMsg = i18nMark("Must be present");
 
 const isBoolean = validation<boolean | undefined>(
-  x => x === undefined || typeof x === "boolean",
+  (x) => x === undefined || typeof x === "boolean",
   i18nMark("Must be a boolean")
 );
 const isNumber = validation<number | undefined>(
-  x => x === undefined || typeof x === "number",
+  (x) => x === undefined || typeof x === "number",
   i18nMark("Must be a number")
 );
 const isObject = validation<object | undefined>(
-  x => x === undefined || isObjectUtil(x),
+  (x) => x === undefined || isObjectUtil(x),
   i18nMark("Must be an object")
 );
-const isPresent = validation<any>(x => x !== undefined && x !== "", presentMsg);
+const isPresent = validation<any>(
+  (x) => x !== undefined && x !== "",
+  presentMsg
+);
 const isString = validation<string | undefined>(
-  x => x === undefined || typeof x === "string",
+  (x) => x === undefined || typeof x === "string",
   stringMsg
 );
 const isArray = validation<any[] | undefined>(
-  x => x === undefined || Array.isArray(x),
+  (x) => x === undefined || Array.isArray(x),
   i18nMark("Constraints must be an array")
 );
 
 const allUniq = validation<any[]>(
-  list => new Set(list).size === list.length,
+  (list) => new Set(list).size === list.length,
   i18nMark("All elements must be unique")
 );
 
 const isUniqIn = <T>(list: T[]) =>
   validation<T>(
-    (el: T) => list.filter(x => x === el).length < 2,
+    (el: T) => list.filter((x) => x === el).length < 2,
     i18nMark("Must be unique")
   );
 
@@ -184,12 +187,12 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "cmd"],
-          message: notBothMessage
+          message: notBothMessage,
         },
         {
           path: ["run", "args"],
-          message: notBothMessage
-        }
+          message: notBothMessage,
+        },
       ];
     }
 
@@ -226,7 +229,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     return [
       { path: ["run", "cmd"], message },
       { path: ["run", "args"], message },
-      { path: containerImageErrorPath, message }
+      { path: containerImageErrorPath, message },
     ];
   },
 
@@ -241,8 +244,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
           path: ["run", "docker", "image"],
           message: i18nMark(
             "Must be specified when using the Docker Engine runtime"
-          )
-        }
+          ),
+        },
       ];
     }
 
@@ -251,8 +254,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "ucr", "image", "id"],
-          message: i18nMark("Must be specified when using UCR")
-        }
+          message: i18nMark("Must be specified when using UCR"),
+        },
       ];
     }
 
@@ -269,8 +272,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "gpus"],
-          message: i18nMark("GPUs are only available with UCR")
-        }
+          message: i18nMark("GPUs are only available with UCR"),
+        },
       ];
     }
 
@@ -284,12 +287,12 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "docker"],
-          message: i18nMark("Only one of UCR or Docker is allowed")
+          message: i18nMark("Only one of UCR or Docker is allowed"),
         },
         {
           path: ["run", "ucr"],
-          message: i18nMark("Only one of UCR or Docker is allowed")
-        }
+          message: i18nMark("Only one of UCR or Docker is allowed"),
+        },
       ];
     }
     return [];
@@ -312,7 +315,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     ) {
       errors.push({
         path: ["run", "ucr", "image", "kind"],
-        message: i18nMark("Image kind must be one of `docker` or `appc`")
+        message: i18nMark("Image kind must be one of `docker` or `appc`"),
       });
     }
     return errors;
@@ -327,21 +330,21 @@ export const MetronomeSpecValidators: MetronomeValidators = {
     if (cpus != undefined && typeof cpus === "number" && cpus < 0.01) {
       errors.push({
         path: ["run", "cpus"],
-        message: i18nMark("Minimum value is 0.01")
+        message: i18nMark("Minimum value is 0.01"),
       });
     }
 
     if (mem != undefined && typeof mem === "number" && mem < 32) {
       errors.push({
         path: ["run", "mem"],
-        message: i18nMark("Minimum value is 32")
+        message: i18nMark("Minimum value is 32"),
       });
     }
 
     if (disk != undefined && typeof disk === "number" && disk < 0) {
       errors.push({
         path: ["run", "disk"],
-        message: i18nMark("Minimum value is 0")
+        message: i18nMark("Minimum value is 0"),
       });
     }
 
@@ -354,8 +357,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "gpus"],
-          message: i18nMark("Minimum value is 0")
-        }
+          message: i18nMark("Minimum value is 0"),
+        },
       ];
     }
     return [];
@@ -369,7 +372,7 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         if (arg === "" || arg == undefined) {
           errors.push({
             path: ["run", "args", `${index}`],
-            message: i18nMark("Arg cannot be empty")
+            message: i18nMark("Arg cannot be empty"),
           });
         }
       });
@@ -385,8 +388,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["run", "args"],
-          message: i18nMark("Args can only be used with Docker")
-        }
+          message: i18nMark("Args can only be used with Docker"),
+        },
       ];
     }
     return [];
@@ -410,10 +413,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         dupIndex.push(index);
       });
 
-      dupIndex.forEach(errorIndex => {
+      dupIndex.forEach((errorIndex) => {
         errors.push({
           path: ["run", "args", `${errorIndex}`],
-          message: i18nMark("No duplicate args")
+          message: i18nMark("No duplicate args"),
         });
       });
     }
@@ -439,10 +442,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
         dupIndex.push(index);
       });
 
-      dupIndex.forEach(errorIndex => {
+      dupIndex.forEach((errorIndex) => {
         errors.push({
           path: ["run", "docker", "parameters", `${errorIndex}`],
-          message: i18nMark("No duplicate parameters")
+          message: i18nMark("No duplicate parameters"),
         });
       });
     }
@@ -460,8 +463,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedules", "0", "id"],
-          message: i18nMark("ID is required")
-        }
+          message: i18nMark("ID is required"),
+        },
       ];
     }
     return [];
@@ -478,8 +481,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedules", "0", "cron"],
-          message: i18nMark("CRON schedule is required")
-        }
+          message: i18nMark("CRON schedule is required"),
+        },
       ];
     }
     return [];
@@ -499,8 +502,8 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       return [
         {
           path: ["schedules", "0", "id"],
-          message: i18nMark("Schedule ID must be a string")
-        }
+          message: i18nMark("Schedule ID must be a string"),
+        },
       ];
     }
     return schedule && schedule.id && idRegex.test(schedule.id)
@@ -520,13 +523,13 @@ export const MetronomeSpecValidators: MetronomeValidators = {
       if (typeof schedules[0].startingDeadlineSeconds !== "number") {
         errors.push({
           path: ["schedules", "0", "startingDeadlineSeconds"],
-          message: i18nMark("Starting deadline must be a number")
+          message: i18nMark("Starting deadline must be a number"),
         });
       }
       if (schedules[0].startingDeadlineSeconds < 1) {
         errors.push({
           path: ["schedules", "0", "startingDeadlineSeconds"],
-          message: i18nMark("Minimum value is 1")
+          message: i18nMark("Minimum value is 1"),
         });
       }
     }
@@ -536,10 +539,10 @@ export const MetronomeSpecValidators: MetronomeValidators = {
   constraintsAreArray(formData: JobOutput): FormError[] {
     const path = "run.placement.constraints";
 
-    return isArray(_ => path, [
-      findNestedPropertyInObject(formData, `job.${path}`)
+    return isArray((_) => path, [
+      findNestedPropertyInObject(formData, `job.${path}`),
     ])([]);
-  }
+  },
 };
 
 function volumesAreComplete(formData: JobSpec) {
@@ -557,20 +560,20 @@ function volumesAreComplete(formData: JobSpec) {
       if (volume.containerPath == null || volume.containerPath === "") {
         errors.push({
           path: ["run", "volumes", `${index}`, "containerPath"],
-          message: i18nMark("Container path is required")
+          message: i18nMark("Container path is required"),
         });
       }
       if (!volume.hasOwnProperty("secret")) {
         if (volume.hostPath == null || volume.hostPath === "") {
           errors.push({
             path: ["run", "volumes", `${index}`, "hostPath"],
-            message: i18nMark("Host path is required")
+            message: i18nMark("Host path is required"),
           });
         }
         if (volume.mode == null || volume.mode === "") {
           errors.push({
             path: ["run", "volumes", `${index}`, "mode"],
-            message: i18nMark("Mode is required")
+            message: i18nMark("Mode is required"),
           });
         }
       }
@@ -594,25 +597,25 @@ function checkVolumePropertyTypes(formData: JobSpec) {
       if (typeof volume.containerPath !== "string") {
         errors.push({
           path: ["run", "volumes", `${index}`, "containerPath"],
-          message: stringMsg
+          message: stringMsg,
         });
       }
       if (!volume.hasOwnProperty("secret")) {
         if (typeof volume.hostPath !== "string") {
           errors.push({
             path: ["run", "volumes", `${index}`, "hostPath"],
-            message: stringMsg
+            message: stringMsg,
           });
         }
         if (typeof volume.mode !== "string") {
           errors.push({
             path: ["run", "volumes", `${index}`, "mode"],
-            message: stringMsg
+            message: stringMsg,
           });
         } else if (volume.mode !== "RO" && volume.mode !== "RW") {
           errors.push({
             path: ["run", "volumes", `${index}`, "mode"],
-            message: i18nMark("Mode must be one of: RO, RW")
+            message: i18nMark("Mode must be one of: RO, RW"),
           });
         }
       }
@@ -628,10 +631,10 @@ export function constraintOperatorsArePermitted(formData: JobSpec) {
   );
 
   return validation(
-    op => Object.values(ConstraintOperator).includes(op) || op === "EQ",
+    (op) => Object.values(ConstraintOperator).includes(op) || op === "EQ",
     i18nMark("Operator must be one of: IS, LIKE, UNLIKE, EQ")
   )(
-    i => `${path}.${i}.operator`,
+    (i) => `${path}.${i}.operator`,
     operators
   )([]);
 }
@@ -652,7 +655,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       if (operator == null || operator === "" || isOnlyWhitespace(operator)) {
         errors.push({
           path: ["run", "placement", "constraints", `${i}`, "operator"],
-          message: i18nMark("Operator is required")
+          message: i18nMark("Operator is required"),
         });
       }
       if (
@@ -662,7 +665,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       ) {
         errors.push({
           path: ["run", "placement", "constraints", `${i}`, "attribute"],
-          message: i18nMark("Field is required")
+          message: i18nMark("Field is required"),
         });
       }
       if (
@@ -671,7 +674,7 @@ export function constraintsAreComplete(formData: JobSpec) {
       ) {
         errors.push({
           path: ["run", "placement", "constraints", `${i}`, "value"],
-          message: i18nMark("Value is required")
+          message: i18nMark("Value is required"),
         });
       }
     });
@@ -705,29 +708,29 @@ export function validateSpec(jobSpec: JobSpec): FormError[] {
       if (k == null || k === "") {
         envVarsErrors.push({
           path: ["run", "env", `${i}`],
-          message: presentMsg
+          message: presentMsg,
         });
       }
       if (typeof v !== "string") {
         envVarsErrors.push({
           path: ["run", "env", k, "value", `${i}`],
-          message: stringMsg
+          message: stringMsg,
         });
       }
     }
     if (k && (v == null || v === "")) {
       envVarsErrors.push({
         path: ["run", "env", k, "value", `${i}`],
-        message: presentMsg
+        message: presentMsg,
       });
     }
   });
-  Object.keys(map).forEach(envVarKey => {
+  Object.keys(map).forEach((envVarKey) => {
     if (map[envVarKey].length > 1) {
-      map[envVarKey].forEach(index => {
+      map[envVarKey].forEach((index) => {
         envVarsErrors.push({
           path: ["run", "env", `${index}`],
-          message: envsMsg
+          message: envsMsg,
         });
       });
     }
@@ -741,8 +744,8 @@ export function validateSpec(jobSpec: JobSpec): FormError[] {
   );
 
   return pipe(
-    allUniq(_ => "labels", [labels], labelsMsg),
-    isUniqIn(labels)(i => `labels.${i}`, labels, labelsMsg)
+    allUniq((_) => "labels", [labels], labelsMsg),
+    isUniqIn(labels)((i) => `labels.${i}`, labels, labelsMsg)
   )([])
     .concat(envVarsErrors)
     .concat(volumesErrors)

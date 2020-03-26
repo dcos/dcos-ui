@@ -16,7 +16,7 @@ describe("User", () => {
     require("../../../../SDK").setSDK(SDK);
 
     thisUserFixture = {
-      ...userFixture
+      ...userFixture,
     };
     thisInstance = new User(thisUserFixture);
   });
@@ -71,10 +71,10 @@ describe("User", () => {
           direct: [
             { aclurl: "service-1" },
             { aclurl: "service-2" },
-            { aclurl: "service-3" }
+            { aclurl: "service-3" },
           ],
-          groups: [{ aclurl: "service-2" }]
-        }
+          groups: [{ aclurl: "service-2" }],
+        },
       };
 
       const user = new User(rawUser);
@@ -88,22 +88,22 @@ describe("User", () => {
         thisUserFixture.permissions = {
           direct: [
             { rid: "dcos:foo:bar", aclurl: "dcos:foo:bar" },
-            { rid: "dcos:qux:beez", aclurl: "dcos:qux:beez" }
+            { rid: "dcos:qux:beez", aclurl: "dcos:qux:beez" },
           ],
           groups: [
             {
               rid: "dcos:foo:bar/baz",
               aclurl: "dcos:foo:bar/baz",
-              gid: "geeks"
-            }
-          ]
+              gid: "geeks",
+            },
+          ],
         };
         thisInstance = new User(thisUserFixture);
       });
 
       it("filters single permission", () => {
         expect(thisInstance.getUniquePermissions(/^dcos:foo:bar$/)).toEqual([
-          { rid: "dcos:foo:bar", aclurl: "dcos:foo:bar" }
+          { rid: "dcos:foo:bar", aclurl: "dcos:foo:bar" },
         ]);
       });
 
@@ -113,9 +113,9 @@ describe("User", () => {
             rid: "dcos:foo:bar/baz",
             aclurl: "dcos:foo:bar/baz",
             gid: "geeks",
-            groupDescription: "These are the geeks, not the nerds."
+            groupDescription: "These are the geeks, not the nerds.",
           },
-          { rid: "dcos:foo:bar", aclurl: "dcos:foo:bar" }
+          { rid: "dcos:foo:bar", aclurl: "dcos:foo:bar" },
         ]);
       });
     });
@@ -129,7 +129,7 @@ describe("User", () => {
 
     it("returns true if user is remote", () => {
       const user = new User({
-        is_remote: true
+        is_remote: true,
       });
 
       expect(user.isRemote()).toEqual(true);

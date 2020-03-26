@@ -16,22 +16,22 @@ import RepositoriesDelete from "../RepositoriesDelete";
 
 class RepositoriesTable extends React.Component {
   static defaultProps = {
-    repositories: new List()
+    repositories: new List(),
   };
   static propTypes = {
     repositories: PropTypes.object.isRequired,
     removeRepository: PropTypes.func.isRequired,
     repositoryRemoveError: PropTypes.string,
-    pendingRequest: PropTypes.bool.isRequired
+    pendingRequest: PropTypes.bool.isRequired,
   };
   constructor() {
     super();
 
     this.state = {
-      repositoryToRemove: null
+      repositoryToRemove: null,
     };
   }
-  handleOpenConfirm = repositoryToRemove => {
+  handleOpenConfirm = (repositoryToRemove) => {
     this.setState({ repositoryToRemove });
   };
   handleDeleteCancel = () => {
@@ -42,7 +42,7 @@ class RepositoriesTable extends React.Component {
     return classNames({
       active: prop === sortBy.prop,
       clickable: row == null, // this is a header
-      "text-align-right": prop === "priority"
+      "text-align-right": prop === "priority",
     });
   }
 
@@ -68,7 +68,7 @@ class RepositoriesTable extends React.Component {
         prop: "name",
         render: this.getHeadline,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: getClassName,
@@ -77,7 +77,7 @@ class RepositoriesTable extends React.Component {
         prop: "uri",
         render: this.getUri,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: getClassName,
@@ -86,7 +86,7 @@ class RepositoriesTable extends React.Component {
         prop: "priority",
         render: this.getPriority,
         sortable: true,
-        sortFunction
+        sortFunction,
       },
       {
         className: getClassName,
@@ -94,8 +94,8 @@ class RepositoriesTable extends React.Component {
         heading() {},
         prop: "removed",
         render: this.getRemoveButton,
-        sortable: false
-      }
+        sortable: false,
+      },
     ];
   }
 

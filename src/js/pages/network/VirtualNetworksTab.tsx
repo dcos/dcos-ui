@@ -25,8 +25,8 @@ import { Overlay } from "src/js/structs/Overlay";
 const getFilteredOverlayList = (overlayList: Overlay[], searchString = "") =>
   searchString === ""
     ? overlayList
-    : overlayList.filter(o =>
-        [o.name, o.subnet, o.subnet6].some(d => d?.includes(searchString))
+    : overlayList.filter((o) =>
+        [o.name, o.subnet, o.subnet6].some((d) => d?.includes(searchString))
       );
 
 const emptyScreen = (
@@ -47,7 +47,7 @@ const NetworksBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/networking/networks" />}>Networks</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -65,11 +65,11 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
     this.state = {
       receivedVirtualNetworks: false,
       searchString: "",
-      errorCount: 0
+      errorCount: 0,
     };
 
     this.store_listeners = [
-      { name: "virtualNetworks", events: ["success", "error"] }
+      { name: "virtualNetworks", events: ["success", "error"] },
     ];
   }
 
@@ -142,7 +142,7 @@ class VirtualNetworksTabContent extends mixin(StoreMixin) {
 
 VirtualNetworksTabContent.routeConfig = {
   label: i18nMark("Networks"),
-  matches: /^\/networking\/networks/
+  matches: /^\/networking\/networks/,
 };
 
 export default withI18n()(VirtualNetworksTabContent);

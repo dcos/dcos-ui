@@ -22,7 +22,7 @@ const Actions = {
   actions: ["log", "logFakePageView"],
 
   initialize() {
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       SDK.Hooks.addAction(action, this[action].bind(this));
     });
 
@@ -57,7 +57,7 @@ const Actions = {
   mergeMetaData() {
     return {
       ...SDK.Store.getAppState().metadata.dcosMetadata,
-      clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID
+      clusterId: SDK.Store.getAppState().metadata.metadata.CLUSTER_ID,
     };
   },
 
@@ -83,7 +83,7 @@ const Actions = {
     this.stintID = md5(`session_${this.createdAt}`);
 
     hashHistory.listen(
-      Util.debounce(location => {
+      Util.debounce((location) => {
         Actions.setActivePage(location.pathname + location.search);
       }, 200)
     );
@@ -111,12 +111,12 @@ const Actions = {
   },
 
   drainQueue() {
-    this.logQueue.forEach(log => {
+    this.logQueue.forEach((log) => {
       this.log(log);
     });
     this.logQueue = [];
 
-    this.pageQueue.forEach(path => {
+    this.pageQueue.forEach((path) => {
       this.logPage(path);
     });
     this.pageQueue = [];
@@ -159,7 +159,7 @@ const Actions = {
     return {
       appVersion: Config.version,
       version: "@@VERSION",
-      ...this.dcosMetadata
+      ...this.dcosMetadata,
     };
   },
 
@@ -199,7 +199,7 @@ const Actions = {
               nextState.routes
             );
             if (nextState.params) {
-              Object.keys(nextState.params).forEach(param => {
+              Object.keys(nextState.params).forEach((param) => {
                 pathMatcher = pathMatcher.replace(`:${param}?`, `[${param}]`);
                 pathMatcher = pathMatcher.replace(`:${param}`, `[${param}]`);
               });
@@ -249,10 +249,10 @@ const Actions = {
         referrer: "",
         url: "",
         path: "",
-        title: ""
-      }
+        title: "",
+      },
     };
-  }
+  },
 };
 
 export default Actions;

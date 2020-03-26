@@ -1,7 +1,7 @@
 import {
   GET_TASKS,
   TASK_ADDED,
-  TASK_UPDATED
+  TASK_UPDATED,
 } from "../../../constants/MesosStreamMessageTypes";
 
 function convertResource(resource) {
@@ -60,7 +60,7 @@ export function getTasksAction(state, message) {
   const tasks = Object.keys(message.get_tasks).reduce(
     (acc, key) =>
       acc.concat(
-        message.get_tasks[key].map(task => {
+        message.get_tasks[key].map((task) => {
           const processedTask = processTask(task);
           processedTask.isStartedByMarathon =
             marathonId === processedTask.framework_id;
@@ -73,7 +73,7 @@ export function getTasksAction(state, message) {
 
   return {
     ...state,
-    tasks
+    tasks,
   };
 }
 
@@ -88,7 +88,7 @@ export function taskAddedAction(state, message) {
 
   return {
     ...state,
-    tasks: [...state.tasks, task]
+    tasks: [...state.tasks, task],
   };
 }
 
@@ -99,14 +99,14 @@ export function taskUpdatedAction(state, message) {
 
   const taskUpdate = message.task_updated;
   const task_id = taskUpdate.status.task_id.value;
-  const tasks = state.tasks.map(task => {
+  const tasks = state.tasks.map((task) => {
     if (task.id === task_id) {
       const statuses = task.statuses || [];
 
       return {
         ...task,
         state: taskUpdate.state,
-        statuses: [...statuses, taskUpdate.status]
+        statuses: [...statuses, taskUpdate.status],
       };
     }
 
@@ -115,6 +115,6 @@ export function taskUpdatedAction(state, message) {
 
   return {
     ...state,
-    tasks
+    tasks,
   };
 }

@@ -12,8 +12,8 @@ import ModalHeading from "./modals/ModalHeading";
 function getEventsFromStoreListeners(storeListeners) {
   const events = [];
 
-  storeListeners.forEach(store => {
-    store.events.forEach(storeEvent => {
+  storeListeners.forEach((store) => {
+    store.events.forEach((storeEvent) => {
       events.push(this.store_getChangeFunctionName(store.name, storeEvent));
     });
   });
@@ -27,23 +27,23 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
 
     this.state = {
       isOpen: false,
-      errors: []
+      errors: [],
     };
 
     this.store_listeners = Hooks.applyFilter("serverErrorModalListeners", []);
 
     const events = getEventsFromStoreListeners.call(this, this.store_listeners);
-    events.forEach(event => {
+    events.forEach((event) => {
       this[event] = this.handleServerError;
     });
   }
   handleModalClose = () => {
     this.setState({
       isOpen: false,
-      errors: []
+      errors: [],
     });
   };
-  handleServerError = errorMessage => {
+  handleServerError = (errorMessage) => {
     if (!errorMessage) {
       throw new Error("No error message defined!");
     }
@@ -54,7 +54,7 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
 
     this.setState({
       errors,
-      isOpen: !isLocked
+      isOpen: !isLocked,
     });
   };
 
@@ -80,7 +80,7 @@ export default class ServerErrorModal extends mixin(StoreMixin) {
     const errorMessages = errors.map((error, index) => {
       const errorMessageClass = classNames("text-align-center", {
         // Last error message doesn't have margin bottom.
-        "flush-bottom": index === lastErrorIndex
+        "flush-bottom": index === lastErrorIndex,
       });
 
       return (

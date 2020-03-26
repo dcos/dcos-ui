@@ -7,13 +7,13 @@ const testData = [
   {
     key: "#FFF",
     value: 40,
-    className: "status"
+    className: "status",
   },
   {
     key: "#000",
     value: 60,
-    className: "failed"
-  }
+    className: "failed",
+  },
 ];
 
 let thisContainer;
@@ -46,8 +46,8 @@ describe("#ProgressBar", () => {
         <ProgressBar
           data={[
             {
-              className: "status"
-            }
+              className: "status",
+            },
           ]}
         />,
         thisContainer
@@ -67,11 +67,11 @@ describe("#ProgressBar", () => {
           data={[
             {
               className: "status",
-              value: 10
+              value: 10,
             },
             {
-              className: "unknown"
-            }
+              className: "unknown",
+            },
           ]}
         />,
         thisContainer
@@ -90,8 +90,8 @@ describe("#ProgressBar", () => {
         <ProgressBar
           data={[
             {
-              value: 40
-            }
+              value: 40,
+            },
           ]}
         />,
         thisContainer
@@ -139,8 +139,8 @@ describe("#ProgressBar", () => {
           <ProgressBar
             data={[
               {
-                value: 40
-              }
+                value: 40,
+              },
             ]}
           />,
           thisContainer
@@ -179,22 +179,22 @@ describe("#ProgressBar", () => {
           <ProgressBar
             data={[
               {
-                value: 99
+                value: 99,
               },
               {
-                value: 1
-              }
+                value: 1,
+              },
             ]}
             className="test-bar"
           />,
           thisContainer
         );
         const percentages = [];
-        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach(el => {
+        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach((el) => {
           percentages.push(parseInt(el.style.width.replace("%", ""), 10));
         });
         expect(percentages.length).toBe(2);
-        expect(percentages.filter(percent => percent < 7).length).toBe(0);
+        expect(percentages.filter((percent) => percent < 7).length).toBe(0);
       });
 
       it("does not have .bar elements < 7% width when using scale", () => {
@@ -202,17 +202,17 @@ describe("#ProgressBar", () => {
           <ProgressBar
             data={[
               {
-                value: 0
+                value: 0,
               },
               {
-                value: 1
+                value: 1,
               },
               {
-                value: 1
+                value: 1,
               },
               {
-                value: 6
-              }
+                value: 6,
+              },
             ]}
             total={100}
             className="test-bar"
@@ -220,11 +220,11 @@ describe("#ProgressBar", () => {
           thisContainer
         );
         const percentages = [];
-        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach(el => {
+        [].slice.call(thisContainer.querySelectorAll(".bar")).forEach((el) => {
           percentages.push(parseInt(el.style.width.replace("%", ""), 10));
         });
         expect(percentages.length).toBe(3);
-        expect(percentages.filter(percent => percent < 7).length).toBe(0);
+        expect(percentages.filter((percent) => percent < 7).length).toBe(0);
       });
     });
   });

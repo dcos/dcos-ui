@@ -38,7 +38,7 @@ export default class Application extends Service {
     const {
       tasksHealthy,
       tasksUnhealthy,
-      tasksRunning
+      tasksRunning,
     } = this.getTasksSummary();
     const healthChecks = this.getSpec().getHealthChecks();
 
@@ -87,9 +87,7 @@ export default class Application extends Service {
   }
 
   getName() {
-    return this.getId()
-      .split("/")
-      .pop();
+    return this.getId().split("/").pop();
   }
 
   getPorts() {
@@ -155,7 +153,7 @@ export default class Application extends Service {
         this.get("tasksRunning") -
           this.get("tasksHealthy") -
           this.get("tasksUnhealthy")
-      )
+      ),
     };
 
     const tasksSum = Object.keys(healthData).reduce(
@@ -203,7 +201,7 @@ export default class Application extends Service {
   }
 
   findTaskById(taskId) {
-    return (this.get("tasks") || []).find(task => task.id === taskId);
+    return (this.get("tasks") || []).find((task) => task.id === taskId);
   }
 
   isDelayed() {

@@ -10,7 +10,7 @@ import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 
 class CertificatesTable extends React.Component {
   static propTypes = {
-    certificates: PropTypes.array
+    certificates: PropTypes.array,
   };
   constructor() {
     super();
@@ -20,7 +20,7 @@ class CertificatesTable extends React.Component {
     return classNames({
       "text-align-right": prop === "remove",
       active: prop === sortBy.prop,
-      clickable: row == null // this is a header
+      clickable: row == null, // this is a header
     });
   }
 
@@ -32,7 +32,7 @@ class CertificatesTable extends React.Component {
     const status = row.status;
     const dotClassSet = classNames("dot", {
       danger: status === "expired",
-      success: status === "active"
+      success: status === "active",
     });
 
     return (
@@ -49,7 +49,7 @@ class CertificatesTable extends React.Component {
     renderHeading = renderHeading({
       name: i18nMark("Name"),
       status: i18nMark("Status"),
-      expiresAt: i18nMark("Expires")
+      expiresAt: i18nMark("Expires"),
     });
 
     return [
@@ -61,9 +61,9 @@ class CertificatesTable extends React.Component {
         sortable: true,
         sortFunction: TableUtil.getSortFunction(
           "description",
-          item => item.name
+          (item) => item.name
         ),
-        heading: renderHeading
+        heading: renderHeading,
       },
       {
         className: getClassName,
@@ -71,8 +71,8 @@ class CertificatesTable extends React.Component {
         prop: "status",
         render: renderStatus,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction("name", item => item.status),
-        heading: renderHeading
+        sortFunction: TableUtil.getSortFunction("name", (item) => item.status),
+        heading: renderHeading,
       },
       {
         className: getClassName,
@@ -80,9 +80,12 @@ class CertificatesTable extends React.Component {
         prop: "expiresAt",
         render: renderProp,
         sortable: true,
-        sortFunction: TableUtil.getSortFunction("name", item => item.expiresAt),
-        heading: renderHeading
-      }
+        sortFunction: TableUtil.getSortFunction(
+          "name",
+          (item) => item.expiresAt
+        ),
+        heading: renderHeading,
+      },
     ];
   }
 

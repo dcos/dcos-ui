@@ -17,7 +17,7 @@ const dontScrollRoutes = [/\/files\/view.*$/, /\/logs.*$/];
 class NodesTaskDetailPage extends mixin(StoreMixin) {
   static propTypes = {
     params: PropTypes.object,
-    routes: PropTypes.array
+    routes: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
@@ -38,7 +38,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
     const tabs = [
       { label: i18nMark("Details"), routePath: routePrefix + "/details" },
       { label: i18nMark("Files"), routePath: routePrefix + "/files" },
-      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" }
+      { label: i18nMark("Logs"), routePath: routePrefix + "/logs" },
     ];
 
     const task = MesosStateStore.getTaskFromTaskID(taskID);
@@ -55,7 +55,7 @@ class NodesTaskDetailPage extends mixin(StoreMixin) {
       breadcrumbs = <NodeBreadcrumbs node={node} />;
     }
 
-    const dontScroll = dontScrollRoutes.some(regex =>
+    const dontScroll = dontScrollRoutes.some((regex) =>
       regex.test(location.pathname)
     );
 

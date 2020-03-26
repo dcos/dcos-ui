@@ -22,7 +22,7 @@ describe("TabButtonList", () => {
 
     const instances = thisInstance.find(TabButton);
 
-    instances.forEach(tabButtonInstance => {
+    instances.forEach((tabButtonInstance) => {
       expect(tabButtonInstance.prop("onClick")).toEqual(thisChangeHandler);
     });
   });
@@ -58,7 +58,7 @@ describe("TabButtonList", () => {
 
     const instances = thisInstance.find(TabButton);
 
-    instances.forEach(tabButtonInstance => {
+    instances.forEach((tabButtonInstance) => {
       if (tabButtonInstance.prop("id") === "bar") {
         expect(tabButtonInstance.prop("active")).toBeTruthy();
       } else {

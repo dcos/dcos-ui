@@ -22,7 +22,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -35,13 +35,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -63,7 +63,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -76,13 +76,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -115,7 +115,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -128,13 +128,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -161,7 +161,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -174,13 +174,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: true
+                    udp: true,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -207,7 +207,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -221,13 +221,13 @@ describe("Containers", () => {
                   protocol: {
                     tcp: true,
                     udp: false,
-                    foo: true
+                    foo: true,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
       });
@@ -249,7 +249,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -262,13 +262,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -292,7 +292,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -305,13 +305,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -346,7 +346,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -359,13 +359,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -392,7 +392,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -405,13 +405,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: true
+                    udp: true,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -438,7 +438,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -452,13 +452,13 @@ describe("Containers", () => {
                   protocol: {
                     foo: true,
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: null
-                }
-              ]
-            }
+                  containerPort: null,
+                },
+              ],
+            },
           ]);
         });
 
@@ -485,7 +485,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -498,13 +498,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: 8080
-                }
-              ]
-            }
+                  containerPort: 8080,
+                },
+              ],
+            },
           ]);
         });
 
@@ -539,7 +539,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -552,13 +552,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: 8080
-                }
-              ]
-            }
+                  containerPort: 8080,
+                },
+              ],
+            },
           ]);
         });
 
@@ -600,7 +600,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -613,13 +613,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: 8080
-                }
-              ]
-            }
+                  containerPort: 8080,
+                },
+              ],
+            },
           ]);
         });
 
@@ -656,7 +656,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -669,13 +669,13 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
                   servicePort: null,
-                  containerPort: 8080
-                }
-              ]
-            }
+                  containerPort: 8080,
+                },
+              ],
+            },
           ]);
         });
 
@@ -719,7 +719,7 @@ describe("Containers", () => {
               name: "container-1",
               resources: {
                 cpus: 0.1,
-                mem: 128
+                mem: 128,
               },
               endpoints: [
                 {
@@ -733,12 +733,12 @@ describe("Containers", () => {
                   vipPort: null,
                   protocol: {
                     tcp: true,
-                    udp: false
+                    udp: false,
                   },
-                  servicePort: null
-                }
-              ]
-            }
+                  servicePort: null,
+                },
+              ],
+            },
           ]);
         });
       });
@@ -761,7 +761,7 @@ describe("Containers", () => {
             SET
           ),
           new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
-          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM)
+          new Transaction(["containers", 0, "artifacts"], null, ADD_ITEM),
         ]);
 
         expect(batch.reduce(Containers.FormReducer.bind({}))).toEqual([
@@ -770,14 +770,14 @@ describe("Containers", () => {
               { uri: "http://mesosphere.io" },
               { uri: "http://mesosphere.com" },
               { uri: null },
-              { uri: null }
+              { uri: null },
             ],
             name: "container-1",
             resources: {
               cpus: 0.1,
-              mem: 128
-            }
-          }
+              mem: 128,
+            },
+          },
         ]);
       });
     });

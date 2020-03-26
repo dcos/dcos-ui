@@ -15,7 +15,7 @@ const filter: DSLFilter = {
    */
   filterApply: (resultSet, _filterType, { text }) =>
     resultSet.filterItems(
-      node => node.getRegionName().toLowerCase() === text.toLowerCase()
-    )
+      (node) => node.getRegionName().toLowerCase() === text.toLowerCase()
+    ),
 };
 export default filter;

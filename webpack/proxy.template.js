@@ -24,6 +24,6 @@ module.exports = {
   // },
   "*": {
     target: "https://m1.dcos",
-    secure: false
-  }
+    secure: false,
+  },
 };

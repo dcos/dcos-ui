@@ -11,14 +11,14 @@ import { EmptyStates } from "#SRC/js/constants/EmptyStates";
 import {
   getColumnClassNameFn,
   getColumnHeadingFn,
-  getDisplayValue
+  getDisplayValue,
 } from "../utils/ServiceConfigDisplayUtil";
 import ConfigurationMapDurationValue from "../components/ConfigurationMapDurationValue";
 import ServiceConfigBaseSectionDisplay from "./ServiceConfigBaseSectionDisplay";
 import {
   COMMAND,
   MESOS_HTTP,
-  MESOS_HTTPS
+  MESOS_HTTPS,
 } from "../constants/HealthCheckProtocols";
 
 function renderDuration(prop, row) {
@@ -78,13 +78,13 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 Health Checks
               </Trans>
             );
-          }
+          },
         },
         {
           key: "healthChecks",
           render(healthChecks) {
             const serviceEndpointHealthChecks = healthChecks.filter(
-              healthCheck =>
+              (healthCheck) =>
                 [MESOS_HTTP, MESOS_HTTPS].includes(healthCheck.protocol)
             );
 
@@ -100,7 +100,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                   );
                 },
                 className: getColumnClassNameFn(),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Path")),
@@ -113,28 +113,28 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                     </ConfigurationMapValue>
                   );
                 },
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Grace Period")),
                 prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Interval")),
                 prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Timeout")),
                 prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 className: getColumnClassNameFn(),
@@ -147,8 +147,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                     </ConfigurationMapValue>
                   );
                 },
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             if (onEditClick) {
@@ -167,7 +167,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
@@ -191,15 +191,15 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={serviceEndpointHealthChecks}
-              />
+              />,
             ];
-          }
+          },
         },
         {
           key: "healthChecks",
           render(healthChecks) {
             const commandHealthChecks = healthChecks.filter(
-              healthCheck => healthCheck.protocol === COMMAND
+              (healthCheck) => healthCheck.protocol === COMMAND
             );
 
             const columns = [
@@ -220,28 +220,28 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                   );
                 },
                 className: getColumnClassNameFn(),
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Grace Period")),
                 prop: "gracePeriodSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Interval")),
                 prop: "intervalSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 heading: getColumnHeadingFn(i18nMark("Timeout")),
                 prop: "timeoutSeconds",
                 className: getColumnClassNameFn(),
                 render: renderDuration,
-                sortable: true
+                sortable: true,
               },
               {
                 className: getColumnClassNameFn(),
@@ -254,8 +254,8 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                     </ConfigurationMapValue>
                   );
                 },
-                sortable: true
-              }
+                sortable: true,
+              },
             ];
 
             if (onEditClick) {
@@ -274,7 +274,7 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                       <Trans>Edit</Trans>
                     </a>
                   );
-                }
+                },
               });
             }
 
@@ -298,11 +298,11 @@ class ServiceHealthChecksConfigSection extends ServiceConfigBaseSectionDisplay {
                 className="table table-flush table-borderless-outer table-borderless-inner-columns vertical-align-top table-break-word table-fixed-layout flush-bottom"
                 columns={columns}
                 data={commandHealthChecks}
-              />
+              />,
             ];
-          }
-        }
-      ]
+          },
+        },
+      ],
     };
   }
 }

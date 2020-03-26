@@ -30,37 +30,37 @@ class GeneralConfigSection extends BaseConfig<JobOutput> {
       values: [
         {
           heading: <Trans>General</Trans>,
-          headingLevel: 1
+          headingLevel: 1,
         },
         {
           key: "id",
-          label: <Trans>Job ID</Trans>
+          label: <Trans>Job ID</Trans>,
         },
         {
           key: "description",
-          label: <Trans>Description</Trans>
+          label: <Trans>Description</Trans>,
         },
         {
           key: "run.cpus",
-          label: <Trans>CPU</Trans>
+          label: <Trans>CPU</Trans>,
         },
         {
           key: "run.mem",
-          label: <Trans>Mem</Trans>
+          label: <Trans>Mem</Trans>,
         },
         {
           key: "run.disk",
-          label: <Trans>Disk</Trans>
+          label: <Trans>Disk</Trans>,
         },
         {
           key: "run.gpus",
-          label: <Trans>GPU</Trans>
+          label: <Trans>GPU</Trans>,
         },
         {
           key: "run.cmd",
-          label: <Trans>Command</Trans>
-        }
-      ]
+          label: <Trans>Command</Trans>,
+        },
+      ],
     };
   }
 }

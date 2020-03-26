@@ -22,7 +22,7 @@ const ACLServiceAccountsStore = getACLServiceAccountsStore();
 class GroupAccountMembershipTab extends mixin(StoreMixin) {
   static propTypes = {
     accountType: PropTypes.string,
-    groupID: PropTypes.string
+    groupID: PropTypes.string,
   };
   constructor() {
     super();
@@ -35,13 +35,13 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
       requestUsersSuccess: false,
       searchString: "",
       selectedUser: [],
-      userID: null
+      userID: null,
     };
 
     this.store_listeners = [
       { name: "aclGroup", events: ["addUserSuccess"] },
       { name: "users", events: ["error", "success"] },
-      { name: "aclServiceAccounts", events: ["error", "change"] }
+      { name: "aclServiceAccounts", events: ["error", "change"] },
     ];
   }
 
@@ -55,7 +55,7 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
   onAclGroupStoreAddUserSuccess() {
     this.setState({
       searchString: "",
-      selectedUser: []
+      selectedUser: [],
     });
   }
   getAllAccounts = () => {
@@ -79,7 +79,7 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
         return ACLGroupStore.getServiceAccounts(this.props.groupID).getItems();
     }
   }
-  onUserSelection = selectedUsers => {
+  onUserSelection = (selectedUsers) => {
     const user = selectedUsers.shift();
 
     if (!user || !user.id) {
@@ -94,17 +94,17 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
   onUsersStoreError() {
     this.setState({
       requestUsersSuccess: false,
-      requestUsersError: true
+      requestUsersError: true,
     });
   }
 
   onUsersStoreSuccess() {
     this.setState({
       requestUsersSuccess: true,
-      requestUsersError: false
+      requestUsersError: false,
     });
   }
-  handleSearchStringChange = searchString => {
+  handleSearchStringChange = (searchString) => {
     this.setState({ searchString });
   };
 
@@ -112,18 +112,18 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
     const accounts = this.getAllAccounts();
     const groupMembers = this.getMembers();
 
-    const filteredUsers = accounts.filter(account => {
+    const filteredUsers = accounts.filter((account) => {
       // Filter out any account which is already part of the group.
       const accountID = account.uid;
 
       return !groupMembers.some(
-        currentMember => currentMember.uid === accountID
+        (currentMember) => currentMember.uid === accountID
       );
     });
 
-    return filteredUsers.map(member => ({
+    return filteredUsers.map((member) => ({
       id: member.uid,
-      name: member.uid
+      name: member.uid,
     }));
   }
 
@@ -154,7 +154,7 @@ class GroupAccountMembershipTab extends mixin(StoreMixin) {
             items={this.getDropdownItems()}
             onDropdownItemSelection={this.onUserSelection}
             placeholder={i18n._(t`Add User`)}
-            ref={ref => {
+            ref={(ref) => {
               if (ref) {
                 this.typeahead = ref;
               }

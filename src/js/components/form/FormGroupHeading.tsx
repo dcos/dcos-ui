@@ -28,7 +28,7 @@ function FormGroupHeading({ className, children, required }) {
 }
 
 FormGroupHeading.defaultProps = {
-  required: false
+  required: false,
 };
 
 FormGroupHeading.propTypes = {
@@ -36,9 +36,9 @@ FormGroupHeading.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
+    PropTypes.string,
   ]),
-  required: PropTypes.bool
+  required: PropTypes.bool,
 };
 
 export default FormGroupHeading;

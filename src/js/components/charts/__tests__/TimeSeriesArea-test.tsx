@@ -32,21 +32,21 @@ let thisProps,
 describe("TimeSeriesArea", () => {
   beforeEach(() => {
     thisProps = {
-      values: MockTimeSeriesData.firstSet
+      values: MockTimeSeriesData.firstSet,
     };
 
     thisAreaDef = d3.svg
       .area()
-      .x(d => d.date)
+      .x((d) => d.date)
       .y0(() => 0)
-      .y1(d => d.y)
+      .y1((d) => d.y)
       .interpolate("monotone");
     thisArea = thisAreaDef(thisProps.values);
 
     thisValueLineDef = d3.svg
       .line()
-      .x(d => d.date)
-      .y(d => d.y)
+      .x((d) => d.date)
+      .y((d) => d.y)
       .interpolate("monotone");
     thisValueLine = thisValueLineDef(thisProps.values);
 

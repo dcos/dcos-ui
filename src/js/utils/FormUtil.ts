@@ -13,7 +13,7 @@ function isNotMultipleProp(key) {
  * @param {Object} fieldDefinition Definition to check.
  * @return {Boolean} isFieldDefinition Whether it is a definition.
  */
-const isFieldDefinition = fieldDefinition =>
+const isFieldDefinition = (fieldDefinition) =>
   typeof fieldDefinition === "object" &&
   fieldDefinition != null &&
   Object.prototype.hasOwnProperty.call(fieldDefinition, "name") &&
@@ -48,7 +48,7 @@ const FormUtil = {
    * @param {Number} index To add to make name unique (should reuse same index).
    */
   getMultipleFieldDefinition(prop, id, definition, model, index = 0) {
-    return definition.map(definitionField => {
+    return definition.map((definitionField) => {
       definitionField = Util.deepCopy(definitionField);
       // Use index for key, so we can reuse same key for same field,
       // to not make react think it is a completely new field
@@ -74,10 +74,10 @@ const FormUtil = {
   modelToCombinedProps(model) {
     const propValues = {};
     model = {
-      ...model
+      ...model,
     };
 
-    Object.keys(model).forEach(key => {
+    Object.keys(model).forEach((key) => {
       if (isNotMultipleProp(key) || !FormUtil.getProp(key)) {
         return;
       }
@@ -99,21 +99,21 @@ const FormUtil = {
           ] = instanceValue;
         } else if (propValues[multipleProperty][valueIndex] == null) {
           propValues[multipleProperty][valueIndex] = {
-            [valueProperty]: instanceValue
+            [valueProperty]: instanceValue,
           };
         }
       }
     });
 
-    Object.keys(propValues).forEach(propValue => {
+    Object.keys(propValues).forEach((propValue) => {
       propValues[propValue] = propValues[propValue].filter(
-        item => item !== undefined
+        (item) => item !== undefined
       );
     });
 
     return {
       ...model,
-      ...propValues
+      ...propValues,
     };
   },
 
@@ -128,7 +128,7 @@ const FormUtil = {
    */
   isFieldInstanceOfProp(prop, field, id) {
     const isFieldArray = Array.isArray(field);
-    const recursiveCheck = nestedField =>
+    const recursiveCheck = (nestedField) =>
       this.isFieldInstanceOfProp(prop, nestedField, id);
 
     return (
@@ -149,13 +149,13 @@ const FormUtil = {
    */
   removePropID(definition, prop, id) {
     const fieldsToRemove = [];
-    definition.forEach(field => {
+    definition.forEach((field) => {
       if (this.isFieldInstanceOfProp(prop, field, id)) {
         fieldsToRemove.push(field);
       }
     });
 
-    fieldsToRemove.forEach(field => {
+    fieldsToRemove.forEach((field) => {
       definition.splice(definition.indexOf(field), 1);
     });
   },
@@ -213,7 +213,7 @@ const FormUtil = {
 
     // If an array of definitions, then call on each individual field.
     if (Array.isArray(definition)) {
-      definition.forEach(fieldDefinition => {
+      definition.forEach((fieldDefinition) => {
         FormUtil.forEachDefinition(fieldDefinition, callback);
       });
 
@@ -234,7 +234,7 @@ const FormUtil = {
 
     // This means we're at the root of a multiple definition.
     if (!React.isValidElement(definition)) {
-      Object.values(definition).forEach(nestedDefinition => {
+      Object.values(definition).forEach((nestedDefinition) => {
         const isNested = Object.prototype.hasOwnProperty.call(
           nestedDefinition,
           "definition"
@@ -244,7 +244,7 @@ const FormUtil = {
         }
       });
     }
-  }
+  },
 };
 
 export default FormUtil;

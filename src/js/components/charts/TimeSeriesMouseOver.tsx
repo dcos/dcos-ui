@@ -18,7 +18,7 @@ const TimeSeriesMouseOver = createReactClass({
     xScale: PropTypes.func.isRequired,
     y: PropTypes.string.isRequired,
     yScale: PropTypes.func.isRequired,
-    yCaption: PropTypes.string.isRequired
+    yCaption: PropTypes.string.isRequired,
   },
 
   componentDidMount() {
@@ -33,7 +33,7 @@ const TimeSeriesMouseOver = createReactClass({
     const boundingBox = this.props.getBoundingBox();
     const mouse = {
       x: e.clientX || e.pageX,
-      y: e.clientY || e.pageY
+      y: e.clientY || e.pageY,
     };
 
     if (
@@ -98,11 +98,11 @@ const TimeSeriesMouseOver = createReactClass({
 
     const mappedValue = Maths.mapValue(Math.round(_index), {
       min: firstDataSet.values.length - hiddenDataPoints,
-      max: 0
+      max: 0,
     });
     let value = Maths.unmapValue(mappedValue, {
       min: Math.abs(domain[1]),
-      max: Math.abs(domain[0])
+      max: Math.abs(domain[0]),
     });
     value = Math.round(value);
 
@@ -122,12 +122,8 @@ const TimeSeriesMouseOver = createReactClass({
   },
 
   handleMouseOut() {
-    d3.select(this.yMousePositionRef)
-      .interrupt()
-      .style("opacity", 0);
-    d3.select(this.xMousePositionRef)
-      .interrupt()
-      .style("opacity", 0);
+    d3.select(this.yMousePositionRef).interrupt().style("opacity", 0);
+    d3.select(this.xMousePositionRef).interrupt().style("opacity", 0);
     d3.select(this.xAxisCurrentRef).text("");
     d3.select(this.yAxisCurrentRef).text("");
   },
@@ -142,7 +138,7 @@ const TimeSeriesMouseOver = createReactClass({
         <g className="x axis">
           <text
             className="current-value shadow"
-            ref={ref => (this.xAxisCurrentRef = ref)}
+            ref={(ref) => (this.xAxisCurrentRef = ref)}
             dy=".71em"
             y="9"
             transform={"translate(0," + height + ")"}
@@ -151,7 +147,7 @@ const TimeSeriesMouseOver = createReactClass({
         <g className="y axis">
           <text
             className="current-value shadow"
-            ref={ref => (this.yAxisCurrentRef = ref)}
+            ref={(ref) => (this.yAxisCurrentRef = ref)}
             style={{ textAnchor: "end" }}
             dy=".32em"
             x="-9"
@@ -159,21 +155,21 @@ const TimeSeriesMouseOver = createReactClass({
         </g>
         <line
           className="chart-cursor-position-marker"
-          ref={ref => (this.xMousePositionRef = ref)}
+          ref={(ref) => (this.xMousePositionRef = ref)}
           style={{ opacity: 0 }}
           y1={0}
           y2={height}
         />
         <line
           className="chart-cursor-position-marker"
-          ref={ref => (this.yMousePositionRef = ref)}
+          ref={(ref) => (this.yMousePositionRef = ref)}
           style={{ opacity: 0 }}
           x1={0}
           x2={this.props.width}
         />
       </g>
     );
-  }
+  },
 });
 
 export default TimeSeriesMouseOver;

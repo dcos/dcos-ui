@@ -18,7 +18,7 @@ interface Props {
 
 function ServiceConfigSecretsExposedAsFile({
   onEditClick,
-  secretExposures
+  secretExposures,
 }: Props) {
   if (secretExposures.length === 0) {
     return null;
@@ -50,7 +50,7 @@ function ServiceConfigSecretsExposedAsFile({
               {se.secretPath}
             </ConfigurationMapHeading>
 
-            {se.paths.map(path => {
+            {se.paths.map((path) => {
               return (
                 <ConfigurationMapRow key={`secret-${path}`}>
                   <Trans render={<ConfigurationMapLabel />}>

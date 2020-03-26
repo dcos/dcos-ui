@@ -19,17 +19,13 @@ describe("Services", () => {
       cy.get(".modal-header").contains("Create New Secret");
 
       // Fill-in the secret details
-      cy.root()
-        .getFormGroupInputFor("ID *")
-        .type(SECRET_NAME);
+      cy.root().getFormGroupInputFor("ID *").type(SECRET_NAME);
       cy.root()
         .getFormGroupInputFor("Value *")
         .type("something super secret here");
 
       // Create it
-      cy.get(".modal-footer button.button-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-footer button.button-primary").contains("Create").click();
 
       // Wait for it to appear in the list
       cy.get(".page-body-content .table-wrapper").contains(SECRET_NAME);
@@ -46,9 +42,7 @@ describe("Services", () => {
 
     function selectUcrRuntime() {
       cy.contains("More Settings").click();
-      cy.get("label")
-        .contains("Universal Container Runtime (UCR)")
-        .click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
     }
 
     it("Create an app with secrets", () => {
@@ -62,21 +56,14 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       selectUcrRuntime();
 
       // Select Secrets section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);
@@ -104,7 +91,7 @@ describe("Services", () => {
             cmd: cmdline,
             container: {
               type: "MESOS",
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             cpus: 0.1,
@@ -117,15 +104,15 @@ describe("Services", () => {
             instances: 1,
             secrets: {
               secret0: {
-                source: SECRET_NAME
-              }
+                source: SECRET_NAME,
+              },
             },
             env: {
               TEST_SECRET: {
-                secret: "secret0"
-              }
-            }
-          }
+                secret: "secret0",
+              },
+            },
+          },
         ]);
 
       // Click Review and Run
@@ -159,9 +146,7 @@ describe("Services", () => {
         .contains("TEST_SECRET");
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".service-table").contains(serviceName);
@@ -178,21 +163,14 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       selectUcrRuntime();
 
       // Select Secrets section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);
@@ -222,9 +200,9 @@ describe("Services", () => {
               volumes: [
                 {
                   containerPath: "secrets/test",
-                  secret: "secret0"
-                }
-              ]
+                  secret: "secret0",
+                },
+              ],
             },
             cpus: 0.1,
             mem: 10,
@@ -236,10 +214,10 @@ describe("Services", () => {
             cmd: cmdline,
             secrets: {
               secret0: {
-                source: SECRET_NAME
-              }
-            }
-          }
+                source: SECRET_NAME,
+              },
+            },
+          },
         ]);
 
       // Click Review and Run
@@ -273,9 +251,7 @@ describe("Services", () => {
         .contains("secrets/test");
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
       cy.get(".service-table").contains(serviceName);
@@ -295,21 +271,12 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".panel")
-        .contains("container-1")
-        .click();
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.get(".panel").contains("container-1").click();
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Secrets section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Wait for a sec to populate the secrets
       cy.wait(500);
@@ -328,19 +295,13 @@ describe("Services", () => {
       cy.contains("Review & Run").click();
 
       // Run service
-      cy.get("button.button-primary")
-        .contains("Run Service")
-        .click();
+      cy.get("button.button-primary").contains("Run Service").click();
 
       // Wait for the table and the service to appear
-      cy.get(".service-table")
-        .contains(serviceName)
-        .click();
+      cy.get(".service-table").contains(serviceName).click();
 
       // Open the configuration tab
-      cy.get(".menu-tabbed-item")
-        .contains("Configuration")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Configuration").click();
 
       cy.get(".menu-tabbed-item .active").contains("Configuration");
     });

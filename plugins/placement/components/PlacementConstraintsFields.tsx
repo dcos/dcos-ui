@@ -25,7 +25,7 @@ class PlacementConstraintsFields extends React.Component {
   static propTypes = {
     data: PropTypes.array.isRequired,
     errors: PropTypes.object,
-    onRemoveItem: PropTypes.func.isRequired
+    onRemoveItem: PropTypes.func.isRequired,
   };
   getToolTip(fieldValue, content) {
     return (
@@ -195,7 +195,7 @@ class PlacementConstraintsFields extends React.Component {
             <DeleteRowButton
               onClick={props.onRemoveItem.bind(this, {
                 value: index,
-                path: "constraints"
+                path: "constraints",
               })}
             />
           </FormGroup>

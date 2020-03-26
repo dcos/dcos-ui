@@ -8,7 +8,7 @@ describe("ServiceProgressBar", () => {
     [0, 1],
     [0, 10],
     [3, 4],
-    [10, 10]
+    [10, 10],
   ]) {
     it(`displays a (${runningInstances} / ${instancesCount}) ProgressBar`, () => {
       expect(

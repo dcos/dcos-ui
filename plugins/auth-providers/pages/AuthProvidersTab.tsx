@@ -28,7 +28,7 @@ const AuthProvidersBreadcrumbs = () => {
           Identity Providers
         </Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -41,14 +41,14 @@ class AuthProvidersTab extends mixin(StoreMixin) {
     super(...args);
 
     this.store_listeners = [
-      { name: "authProviders", events: ["change", "error"] }
+      { name: "authProviders", events: ["change", "error"] },
     ];
 
     this.state = {
       openNewItemModal: false,
       searchString: "",
       storeFetchError: false,
-      storeFetchSuccess: false
+      storeFetchSuccess: false,
     };
   }
 
@@ -59,13 +59,13 @@ class AuthProvidersTab extends mixin(StoreMixin) {
   onAuthProvidersStoreChange = () => {
     this.setState({
       storeFetchError: false,
-      storeFetchSuccess: true
+      storeFetchSuccess: true,
     });
   };
   onAuthProvidersStoreError = () => {
     this.setState({
       storeFetchError: true,
-      storeFetchSuccess: false
+      storeFetchSuccess: false,
     });
   };
 
@@ -85,7 +85,7 @@ class AuthProvidersTab extends mixin(StoreMixin) {
 
   getVisibleItems(items, searchString) {
     return items
-      .filterItems(item => item.getDescription().includes(searchString))
+      .filterItems((item) => item.getDescription().includes(searchString))
       .getItems();
   }
 
@@ -125,7 +125,7 @@ class AuthProvidersTab extends mixin(StoreMixin) {
           breadcrumbs={<AuthProvidersBreadcrumbs />}
           addButton={{
             onItemSelect: this.handleNewItemClick,
-            label: "Add Provider"
+            label: "Add Provider",
           }}
         />
         <div className="flex-container-col">
@@ -159,7 +159,7 @@ class AuthProvidersTab extends mixin(StoreMixin) {
 
 AuthProvidersTab.routeConfig = {
   label: i18nMark("Identity Providers"),
-  matches: /^\/settings\/identity-providers/
+  matches: /^\/settings\/identity-providers/,
 };
 
 export default AuthProvidersTab;

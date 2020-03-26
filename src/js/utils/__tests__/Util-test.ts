@@ -47,7 +47,7 @@ describe("Util", () => {
     it("omits key given", () => {
       const obj = {
         foo: "bar",
-        qq: "zzz"
+        qq: "zzz",
       };
       const newObject = Util.omit(obj, ["qq"]);
 
@@ -60,7 +60,7 @@ describe("Util", () => {
       const obj = {
         foo: "bar",
         qq: "zzz",
-        three: "pie"
+        three: "pie",
       };
       const newObject = Util.omit(obj, ["foo", "three"]);
 
@@ -84,7 +84,7 @@ describe("Util", () => {
       const obj = {
         foo: "bar",
         qq: "zzz",
-        three: "pie"
+        three: "pie",
       };
       const newObject = Util.pluck(obj, ["foo", "three"]);
 
@@ -149,26 +149,26 @@ describe("Util", () => {
   describe("#findLastIndex", () => {
     it("returns -1 if empty array", () => {
       const array = [];
-      const index = Util.findLastIndex(array, obj => obj === 1);
+      const index = Util.findLastIndex(array, (obj) => obj === 1);
       expect(index).toEqual(-1);
     });
     it("returns -1 if not found", () => {
       const array = [1, 2, 3, 4, 5];
-      const index = Util.findLastIndex(array, obj => obj === 6);
+      const index = Util.findLastIndex(array, (obj) => obj === 6);
       expect(index).toEqual(-1);
     });
     it("returns 4", () => {
       const array = [3, 3, 2, 3, 3, 5];
-      const index = Util.findLastIndex(array, obj => obj === 3);
+      const index = Util.findLastIndex(array, (obj) => obj === 3);
       expect(index).toEqual(4);
     });
     it("returns 1", () => {
       const array = [
         { a: "a", b: "bbb" },
         { a: "a", b: "bbb" },
-        { a: "a", b: "b" }
+        { a: "a", b: "b" },
       ];
-      const index = Util.findLastIndex(array, obj => obj.b === "bbb");
+      const index = Util.findLastIndex(array, (obj) => obj.b === "bbb");
       expect(index).toEqual(1);
     });
   });
@@ -177,8 +177,8 @@ describe("Util", () => {
     beforeEach(() => {
       thisSearchObject = {
         hello: {
-          is: { it: { me: { you: { are: { looking: { for: "?" } } } } } }
-        }
+          is: { it: { me: { you: { are: { looking: { for: "?" } } } } } },
+        },
       };
       thisSearchString = "hello.is.it.me.you.are.looking.for";
     });
@@ -233,10 +233,10 @@ describe("Util", () => {
   });
 
   describe("#debounce", () => {
-    beforeEach(function() {
+    beforeEach(function () {
       thisFunc = jest.fn();
       thisDebounced = Util.debounce(thisFunc, 200).bind(this, {
-        nativeEvent: {}
+        nativeEvent: {},
       });
     });
 
@@ -283,13 +283,13 @@ describe("Util", () => {
             date: currentDate,
             obj3: {
               array2: ["a", "b"],
-              number3: 3
-            }
-          }
+              number3: 3,
+            },
+          },
         },
         string1: "string1",
         number1: 1,
-        array1: [1, 2]
+        array1: [1, 2],
       };
 
       const copiedObject = Util.deepCopy(originalObject);
@@ -307,13 +307,13 @@ describe("Util", () => {
             date: currentDate,
             obj3: {
               array2: ["a", "b"],
-              number3: 3
-            }
-          }
+              number3: 3,
+            },
+          },
         },
         string1: "string1",
         number1: 1,
-        array1: [1, 2]
+        array1: [1, 2],
       };
 
       // An exact replica of the originalObject
@@ -325,13 +325,13 @@ describe("Util", () => {
             date: currentDate,
             obj3: {
               array2: ["a", "b"],
-              number3: 3
-            }
-          }
+              number3: 3,
+            },
+          },
         },
         string1: "string1",
         number1: 1,
-        array1: [1, 2]
+        array1: [1, 2],
       };
 
       const copiedObject = Util.deepCopy(originalObject);
@@ -343,8 +343,8 @@ describe("Util", () => {
     it("does not clone out of bounds items in arrays", () => {
       const originalObject = {
         obj1: {
-          array1: [1, 2]
-        }
+          array1: [1, 2],
+        },
       };
 
       const number = 83864234234;
@@ -357,12 +357,12 @@ describe("Util", () => {
 
     it("does clone an array with normal indices", () => {
       const originalObject = {
-        array: []
+        array: [],
       };
       originalObject.array[0] = "test";
 
       const expectedObject = {
-        array: []
+        array: [],
       };
       expectedObject.array[0] = "test";
 
@@ -371,12 +371,12 @@ describe("Util", () => {
 
     it("does clone an array with unusual small indices", () => {
       const originalObject = {
-        array: []
+        array: [],
       };
       originalObject.array[2] = "test";
 
       const expectedObject = {
-        array: []
+        array: [],
       };
       expectedObject.array[2] = "test";
 
@@ -392,7 +392,7 @@ describe("Util", () => {
         string: "string",
         array: [1, 2, 3],
         object: { a: 1 },
-        number: 123
+        number: 123,
       };
 
       expect(
@@ -407,7 +407,7 @@ describe("Util", () => {
           object: { a: 1 },
           number: 123,
           nullValue: null,
-          undefinedValue: undefined
+          undefinedValue: undefined,
         })
       ).toEqual(expectedObject);
     });
@@ -484,7 +484,7 @@ describe("Util", () => {
         port: "",
         protocol: "http:",
         search: "",
-        username: ""
+        username: "",
       };
       const url = "http://google.com";
 

@@ -9,18 +9,18 @@ let thisMockItems;
 
 describe("PodInstancesZoneFilter", () => {
   beforeEach(() => {
-    InstanceUtil.getNode = item => item;
+    InstanceUtil.getNode = (item) => item;
     thisMockItems = [
       {
         getZoneName() {
           return "zone-1";
-        }
+        },
       },
       {
         getZoneName() {
           return "zone-2";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -31,7 +31,7 @@ describe("PodInstancesZoneFilter", () => {
     const filters = [new PodInstancesZoneFilter(["zone-1"])];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

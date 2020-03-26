@@ -9,7 +9,7 @@ class LoadBalancing extends React.Component {
 
 LoadBalancing.routeConfig = {
   label: i18nMark("Service Addresses"),
-  matches: /^\/networking\/service-addresses/
+  matches: /^\/networking\/service-addresses/,
 };
 
 export default LoadBalancing;

@@ -144,7 +144,7 @@ export default class List<A = {}> {
       items = StringUtil.filterByString(
         items,
         (item: A) => {
-          const searchFields = Object.keys(filterProperties).map(prop => {
+          const searchFields = Object.keys(filterProperties).map((prop) => {
             // We need different handlers for item getters since the property
             // since there can be different ways of getting the value needed
 

@@ -22,7 +22,7 @@ describe("Secrets Container", () => {
           ["secrets", 0, "exposures", 0],
           { type: "file", value: "secrets/sa" },
           SET
-        )
+        ),
       ]);
     });
 
@@ -36,9 +36,9 @@ describe("Secrets Container", () => {
         volumes: [
           {
             containerPath: "secrets/sa",
-            secret: "secret0"
-          }
-        ]
+            secret: "secret0",
+          },
+        ],
       });
     });
 
@@ -48,9 +48,9 @@ describe("Secrets Container", () => {
         volumes: [
           {
             mode: "RW",
-            containerPath: "data"
-          }
-        ]
+            containerPath: "data",
+          },
+        ],
       };
       const definition = thisBatch.reduce(
         JSONSingleContainerReducer.bind({}),
@@ -62,13 +62,13 @@ describe("Secrets Container", () => {
         volumes: [
           {
             mode: "RW",
-            containerPath: "data"
+            containerPath: "data",
           },
           {
             containerPath: "secrets/sa",
-            secret: "secret0"
-          }
-        ]
+            secret: "secret0",
+          },
+        ],
       });
     });
   });

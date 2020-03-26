@@ -5,14 +5,14 @@ import {
   REQUEST_DCOS_METADATA,
   REQUEST_DCOS_BUILD_INFO_ERROR,
   REQUEST_DCOS_BUILD_INFO_SUCCESS,
-  REQUEST_METADATA
+  REQUEST_METADATA,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import {
   DCOS_METADATA_CHANGE,
   DCOS_BUILD_INFO_ERROR,
   DCOS_BUILD_INFO_CHANGE,
-  METADATA_CHANGE
+  METADATA_CHANGE,
 } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 import MetadataActions from "../events/MetadataActions";
@@ -30,12 +30,12 @@ class MetadataStore extends GetSetBaseStore {
         success: METADATA_CHANGE,
         dcosSuccess: DCOS_METADATA_CHANGE,
         dcosBuildInfoChange: DCOS_BUILD_INFO_CHANGE,
-        dcosBuildInfoError: DCOS_BUILD_INFO_ERROR
+        dcosBuildInfoError: DCOS_BUILD_INFO_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const action = payload.action;
 
       switch (action.type) {
@@ -81,7 +81,7 @@ class MetadataStore extends GetSetBaseStore {
   init() {
     this.set({
       metadata: {},
-      dcosBuildInfo: null
+      dcosBuildInfo: null,
     });
 
     MetadataActions.fetch();

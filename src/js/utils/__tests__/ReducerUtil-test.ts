@@ -18,11 +18,11 @@ describe("ReducerUtil", () => {
       thisItems = [
         {
           path: ["id"],
-          value: "foo"
-        }
+          value: "foo",
+        },
       ];
       thisReducers = ReducerUtil.combineReducers({
-        id: idReducer
+        id: idReducer,
       });
     });
 
@@ -59,17 +59,17 @@ describe("ReducerUtil", () => {
           }
 
           return state;
-        }
+        },
       });
       let array = [
         {
           path: ["id"],
-          value: "foo"
+          value: "foo",
         },
         {
           path: ["port"],
-          value: "8080"
-        }
+          value: "8080",
+        },
       ];
 
       const state = array.reduce(reducers, {});
@@ -77,15 +77,15 @@ describe("ReducerUtil", () => {
       array = [
         {
           path: ["id"],
-          value: "bar"
-        }
+          value: "bar",
+        },
       ];
 
       const secondState = array.reduce(reducers, {});
 
       expect([state, secondState]).toEqual([
         { id: "foo", vip: "foo:8080" },
-        { id: "bar", vip: undefined }
+        { id: "bar", vip: undefined },
       ]);
     });
 
@@ -107,18 +107,18 @@ describe("ReducerUtil", () => {
             }
 
             return state;
-          }
-        })
+          },
+        }),
       });
       let array = [
         {
           path: ["id"],
-          value: "foo"
+          value: "foo",
         },
         {
           path: ["port"],
-          value: "8080"
-        }
+          value: "8080",
+        },
       ];
 
       const state = array.reduce(reducers, {});
@@ -126,8 +126,8 @@ describe("ReducerUtil", () => {
       array = [
         {
           path: ["id"],
-          value: "bar"
-        }
+          value: "bar",
+        },
       ];
 
       const secondState = array.reduce(reducers, {});
@@ -135,12 +135,12 @@ describe("ReducerUtil", () => {
       expect([state, secondState]).toEqual([
         {
           id: "foo",
-          container: { vip: "foo:8080" }
+          container: { vip: "foo:8080" },
         },
         {
           id: "bar",
-          container: { vip: undefined }
-        }
+          container: { vip: undefined },
+        },
       ]);
     });
 
@@ -155,7 +155,7 @@ describe("ReducerUtil", () => {
           }
 
           return state;
-        }
+        },
       });
 
       const reducers = ReducerUtil.combineReducers({
@@ -183,8 +183,8 @@ describe("ReducerUtil", () => {
             }
 
             return state;
-          }
-        })
+          },
+        }),
       });
 
       let state = {};
@@ -193,18 +193,18 @@ describe("ReducerUtil", () => {
         {
           action: "SET",
           path: ["id"],
-          value: "foo"
+          value: "foo",
         },
         {
           action: "SET",
           path: ["cmd"],
-          value: "sleep 100;"
+          value: "sleep 100;",
         },
         {
           action: "SET",
           path: ["container", "docker"],
-          value: "nginx"
-        }
+          value: "nginx",
+        },
       ];
 
       state = actions.reduce((state, action) => {
@@ -216,7 +216,7 @@ describe("ReducerUtil", () => {
       expect(state).toEqual({
         id: "foo",
         cmd: "sleep 100;",
-        container: { docker: { id: "nginx" } }
+        container: { docker: { id: "nginx" } },
       });
     });
 
@@ -257,7 +257,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["something", "else"],
         type: TransactionType.SET,
-        value: "something"
+        value: "something",
       };
       expect(simpleReducer(undefined, action)).toEqual("default");
     });
@@ -267,7 +267,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["path"],
         type: TransactionType.SET,
-        value: "something"
+        value: "something",
       };
       expect(simpleReducer(undefined, action)).toEqual("something");
     });
@@ -280,7 +280,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar", "deep", "nest"],
         type: TransactionType.SET,
-        value: "something"
+        value: "something",
       };
       expect(simpleReducer(undefined, action)).toEqual("something");
     });
@@ -296,7 +296,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "quis"
+        value: "quis",
       };
       expect(simpleIntReducer(undefined, action)).toEqual("default");
     });
@@ -309,7 +309,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "a1bc"
+        value: "a1bc",
       };
       expect(simpleIntReducer(undefined, action)).toEqual("a1bc");
     });
@@ -322,7 +322,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "1.0"
+        value: "1.0",
       };
       expect(simpleIntReducer(undefined, action)).toEqual(1);
     });
@@ -341,7 +341,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "quis"
+        value: "quis",
       };
       expect(simpleFloatReducer(undefined, action)).toEqual("default");
     });
@@ -354,7 +354,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "a1.05bc"
+        value: "a1.05bc",
       };
       expect(simpleFloatReducer(undefined, action)).toEqual("a1.05bc");
     });
@@ -367,7 +367,7 @@ describe("ReducerUtil", () => {
       const action = {
         path: ["foo", "bar"],
         type: TransactionType.SET,
-        value: "1.05"
+        value: "1.05",
       };
       expect(simpleFloatReducer(undefined, action)).toEqual(1.05);
     });
@@ -378,7 +378,7 @@ describe("ReducerUtil", () => {
     const action = {
       path: ["something", "else"],
       type: TransactionType.SET,
-      value: "something"
+      value: "something",
     };
     expect(simpleReducer("old", action)).toEqual("old");
   });
@@ -388,7 +388,7 @@ describe("ReducerUtil", () => {
     const action = {
       path: ["path"],
       type: TransactionType.SET,
-      value: "new value"
+      value: "new value",
     };
     expect(simpleReducer("old", action)).toEqual("new value");
   });

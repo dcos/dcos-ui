@@ -90,7 +90,7 @@ const containerJSONReducer = combineReducers({
     if (type === SET && joinedPath === "container.docker") {
       this.internalState = {
         ...this.internalState,
-        ...value
+        ...value,
       };
     }
 
@@ -100,7 +100,7 @@ const containerJSONReducer = combineReducers({
 
     if (!ValidatorUtil.isEmpty(this.internalState)) {
       return {
-        ...this.internalState
+        ...this.internalState,
       };
     }
   },
@@ -109,7 +109,7 @@ const containerJSONReducer = combineReducers({
     if (!this.appState) {
       this.appState = {
         id: "",
-        networkType: HOST
+        networkType: HOST,
       };
     }
     if (!this.containerType) {
@@ -156,7 +156,7 @@ const containerJSONReducer = combineReducers({
       const networkNames = portDefinition.networkNames;
       let hostPort = Number(portDefinition.hostPort) || 0;
       let protocol = PROTOCOLS.filter(
-        protocol => portDefinition.protocol[protocol]
+        (protocol) => portDefinition.protocol[protocol]
       ).join(",");
 
       // Do not expose hostPort or protocol, when portMapping is turned off
@@ -184,10 +184,10 @@ const containerJSONReducer = combineReducers({
         networkNames,
         protocol,
         servicePort,
-        name: portDefinition.name
+        name: portDefinition.name,
       };
     });
-  }
+  },
 });
 
 const containerReducer = combineReducers({
@@ -222,9 +222,9 @@ const containerReducer = combineReducers({
 
     if (!ValidatorUtil.isEmpty(this.internalState)) {
       const newState = {
-        ...this.internalState
+        ...this.internalState,
       };
-      Object.keys(this.internalState).forEach(key => {
+      Object.keys(this.internalState).forEach((key) => {
         if (ValidatorUtil.isEmpty(this.internalState[key])) {
           delete newState[key];
         }
@@ -232,7 +232,7 @@ const containerReducer = combineReducers({
 
       return newState;
     }
-  }
+  },
 });
 
 export function JSONReducer(_, ...args) {
@@ -251,7 +251,7 @@ export function JSONReducer(_, ...args) {
   }
 
   let newState = {
-    ...containerJSONReducer.apply(this, [this.internalState, ...args])
+    ...containerJSONReducer.apply(this, [this.internalState, ...args]),
   };
 
   this.internalState = newState;
@@ -287,7 +287,7 @@ export function FormReducer(_, ...args) {
   }
 
   const newState = {
-    ...containerReducer.apply(this, [this.internalState, ...args])
+    ...containerReducer.apply(this, [this.internalState, ...args]),
   };
 
   this.internalState = newState;
@@ -316,8 +316,8 @@ export function FormReducer(_, ...args) {
 }
 
 export const JSONParser = combineParsers([
-  state => new Transaction(["container"], state.container),
-  state =>
+  (state) => new Transaction(["container"], state.container),
+  (state) =>
     new Transaction(["container", "type"], state.container?.type ?? MESOS),
   simpleParser(["container", DOCKER.toLowerCase()]),
   simpleParser(["container", DOCKER.toLowerCase(), "image"]),
@@ -325,5 +325,5 @@ export const JSONParser = combineParsers([
   simpleParser(["container", DOCKER.toLowerCase(), "forcePullImage"]),
   simpleParser(["container", MESOS.toLowerCase(), "forcePullImage"]),
   simpleParser(["container", DOCKER.toLowerCase(), "privileged"]),
-  simpleParser(["container", MESOS.toLowerCase(), "privileged"])
+  simpleParser(["container", MESOS.toLowerCase(), "privileged"]),
 ]);

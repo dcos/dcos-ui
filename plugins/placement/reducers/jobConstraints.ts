@@ -11,12 +11,12 @@ export const jobRegionConstraintReducers = {
       attribute: "@region",
       operator: "IS",
       value,
-      type: "region"
+      type: "region",
     };
     if (!placement) {
       // Add placement object with empty constraints array if none exists
       const blankPlacement = {
-        constraints: []
+        constraints: [],
       };
       stateCopy.job.run.placement = blankPlacement;
       placement = blankPlacement;
@@ -36,7 +36,7 @@ export const jobRegionConstraintReducers = {
       placement.constraints[index] = regionConstraint;
     }
     return stateCopy;
-  }
+  },
 };
 
 type ReducerFn = (value: string, state: JobSpec, path: string[]) => JobSpec;
@@ -60,7 +60,7 @@ export const jobJsonReducers = (ossJsonReducerFn: ReducerFn) => ({
       }
     }
     return ossState;
-  }
+  },
 });
 
 export const jobResponseToSpec = (jobSpec: JobSpec): JobSpec => {

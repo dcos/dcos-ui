@@ -13,7 +13,7 @@ const VersionsModal = createReactClass({
 
   propTypes: {
     onClose: PropTypes.func.isRequired,
-    versionDump: PropTypes.object.isRequired
+    versionDump: PropTypes.object.isRequired,
   },
 
   onClose() {
@@ -41,7 +41,7 @@ const VersionsModal = createReactClass({
         </ClickToSelect>
       </Modal>
     );
-  }
+  },
 });
 
 export default VersionsModal;

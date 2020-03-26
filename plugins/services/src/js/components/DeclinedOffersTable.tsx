@@ -11,7 +11,7 @@ import {
   green,
   iconSizeS,
   iconSizeXs,
-  red
+  red,
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import DateUtil from "#SRC/js/utils/DateUtil";
@@ -41,7 +41,7 @@ class DeclinedOffersTable extends React.Component {
   getColumnClassNameFn(classes) {
     return (prop, sortBy) =>
       classNames(classes, {
-        active: prop === sortBy.prop
+        active: prop === sortBy.prop,
       });
   }
 
@@ -49,7 +49,7 @@ class DeclinedOffersTable extends React.Component {
     return (prop, order, sortBy) => {
       const caretClassNames = classNames("caret", {
         [`caret--${order}`]: order != null,
-        "caret--visible": sortBy.prop === prop
+        "caret--visible": sortBy.prop === prop,
       });
 
       const columnHeading = defaultHeading || prop;
@@ -108,7 +108,7 @@ class DeclinedOffersTable extends React.Component {
       const { unmatchedResource = [] } = row;
       const isResourceUnmatched = unmatchedResource.includes(resource);
       let receivedResourceClasses = classNames({
-        "text-danger": isResourceUnmatched
+        "text-danger": isResourceUnmatched,
       });
 
       let requestedResource = (summary[prop] || { requested: 0 }).requested;
@@ -226,7 +226,7 @@ class DeclinedOffersTable extends React.Component {
             </Tooltip>
           );
         },
-        sortable: true
+        sortable: true,
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Role"), i18nMark("RLE")),
@@ -239,7 +239,7 @@ class DeclinedOffersTable extends React.Component {
         sortFunction: TableUtil.getSortFunction(
           "timestamp",
           this.getMatchedResourcesSortFn(DeclinedOffersReasons.UNFULFILLED_ROLE)
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(
@@ -257,7 +257,7 @@ class DeclinedOffersTable extends React.Component {
           this.getMatchedResourcesSortFn(
             DeclinedOffersReasons.UNFULFILLED_CONSTRAINT
           )
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("CPU/MEM/DSK")),
@@ -282,7 +282,7 @@ class DeclinedOffersTable extends React.Component {
         sortFunction: TableUtil.getSortFunction(
           "timestamp",
           this.getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_CPU)
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("CPU")),
@@ -297,7 +297,7 @@ class DeclinedOffersTable extends React.Component {
         sortFunction: TableUtil.getSortFunction(
           "timestamp",
           this.getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_CPU)
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Mem")),
@@ -312,7 +312,7 @@ class DeclinedOffersTable extends React.Component {
         sortFunction: TableUtil.getSortFunction(
           "timestamp",
           this.getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_MEM)
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Disk"), i18nMark("DSK")),
@@ -329,7 +329,7 @@ class DeclinedOffersTable extends React.Component {
           this.getMatchedResourcesSortFn(
             DeclinedOffersReasons.INSUFFICIENT_DISK
           )
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("GPU")),
@@ -342,7 +342,7 @@ class DeclinedOffersTable extends React.Component {
         sortFunction: TableUtil.getSortFunction(
           "timestamp",
           this.getMatchedResourcesSortFn(DeclinedOffersReasons.INSUFFICIENT_GPU)
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Port"), i18nMark("PRT")),
@@ -357,7 +357,7 @@ class DeclinedOffersTable extends React.Component {
           this.getMatchedResourcesSortFn(
             DeclinedOffersReasons.INSUFFICIENT_PORTS
           )
-        )
+        ),
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Scarce Resources")),
@@ -384,7 +384,7 @@ class DeclinedOffersTable extends React.Component {
           );
         },
 
-        sortable: true
+        sortable: true,
       },
       {
         heading: this.getColumnHeadingFn(i18nMark("Received")),
@@ -393,8 +393,8 @@ class DeclinedOffersTable extends React.Component {
           "text-align-right hidden-small-down"
         ),
         render: (prop, row) => <TimeAgo time={DateUtil.strToMs(row[prop])} />,
-        sortable: true
-      }
+        sortable: true,
+      },
     ];
   }
 

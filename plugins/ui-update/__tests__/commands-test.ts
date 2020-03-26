@@ -1,9 +1,9 @@
 const mockDataLayer = {
-  query: jest.fn()
+  query: jest.fn(),
 };
 jest.mock("#SRC/js/container", () => {
   return {
-    get: () => mockDataLayer
+    get: () => mockDataLayer,
   };
 });
 import { marbles } from "rxjs-marbles/jest";
@@ -19,14 +19,14 @@ describe("commands", () => {
   describe("#rollbackUI", () => {
     it(
       "emits two actions",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                resetDCOSUI: "OK"
-              }
-            }
+                resetDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -38,14 +38,14 @@ describe("commands", () => {
     );
     it(
       "emits Reset started action",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                resetDCOSUI: "OK"
-              }
-            }
+                resetDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -55,21 +55,21 @@ describe("commands", () => {
           {
             type: "UIReset",
             action: "start",
-            value: { message: "" }
-          }
+            value: { message: "" },
+          },
         ]);
       })
     );
     it(
       "emits Reset completed action",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                resetDCOSUI: "OK"
-              }
-            }
+                resetDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -80,18 +80,18 @@ describe("commands", () => {
           {
             type: "UIReset",
             action: "complete",
-            value: { message: "OK" }
-          }
+            value: { message: "OK" },
+          },
         ]);
       })
     );
     it(
       "emits error if mutation fails",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-#", undefined, {
             message: "On No Something bad happened",
-            name: "Error"
+            name: "Error",
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -102,8 +102,8 @@ describe("commands", () => {
           {
             type: "UIReset",
             action: "error",
-            value: { message: "On No Something bad happened" }
-          }
+            value: { message: "On No Something bad happened" },
+          },
         ]);
       })
     );
@@ -111,14 +111,14 @@ describe("commands", () => {
   describe("#updateUI", () => {
     it(
       "emits two actions",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                updateDCOSUI: "OK"
-              }
-            }
+                updateDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -130,14 +130,14 @@ describe("commands", () => {
     );
     it(
       "emits Update started action",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                updateDCOSUI: "OK"
-              }
-            }
+                updateDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -149,22 +149,22 @@ describe("commands", () => {
             action: "start",
             value: {
               data: "1.0.0",
-              message: ""
-            }
-          }
+              message: "",
+            },
+          },
         ]);
       })
     );
     it(
       "emits Update completed action",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-j|", {
             j: {
               data: {
-                updateDCOSUI: "OK"
-              }
-            }
+                updateDCOSUI: "OK",
+              },
+            },
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -175,18 +175,18 @@ describe("commands", () => {
           {
             type: "UIUpdate",
             action: "complete",
-            value: { message: "OK" }
-          }
+            value: { message: "OK" },
+          },
         ]);
       })
     );
     it(
       "emits error if mutation fails",
-      marbles(m => {
+      marbles((m) => {
         mockDataLayer.query.mockReturnValueOnce(
           m.cold("-#", undefined, {
             message: "On No Something bad happened",
-            name: "Error"
+            name: "Error",
           })
         );
         const actionSpy = jest.spyOn(getAction$(), "next");
@@ -199,9 +199,9 @@ describe("commands", () => {
             action: "error",
             value: {
               data: "1.0.1",
-              message: "On No Something bad happened"
-            }
-          }
+              message: "On No Something bad happened",
+            },
+          },
         ]);
       })
     );

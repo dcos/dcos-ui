@@ -20,7 +20,7 @@ import OrganizationTab from "../../../components/OrganizationTab";
 
 const USERS_CHANGE_EVENTS = [
   "onUserStoreCreateSuccess",
-  "onUserStoreDeleteSuccess"
+  "onUserStoreDeleteSuccess",
 ];
 
 const UsersBreadcrumbs = () => {
@@ -29,7 +29,7 @@ const UsersBreadcrumbs = () => {
       <BreadcrumbTextContent>
         <Trans render={<Link to="/organization/users" />}>Users</Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -39,14 +39,14 @@ const UsersBreadcrumbs = () => {
 
 class UsersPage extends mixin(StoreMixin) {
   static propTypes = {
-    items: PropTypes.array.isRequired
+    items: PropTypes.array.isRequired,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
       openNewLDAPUserModal: false,
-      openNewUserModal: false
+      openNewUserModal: false,
     };
 
     // prettier-ignore
@@ -59,7 +59,7 @@ class UsersPage extends mixin(StoreMixin) {
     Hooks.applyFilter(
       "organizationTabChangeEvents",
       USERS_CHANGE_EVENTS
-    ).forEach(event => {
+    ).forEach((event) => {
       this[event] = this.onUsersChange;
     });
 
@@ -100,19 +100,19 @@ class UsersPage extends mixin(StoreMixin) {
     if (!hasDirectories) {
       return {
         label: i18nMark("New User"),
-        onItemSelect: this.handleNewUserClick
+        onItemSelect: this.handleNewUserClick,
       };
     }
 
     return [
       {
         label: i18nMark("Add Local User"),
-        onItemSelect: this.handleNewUserClick
+        onItemSelect: this.handleNewUserClick,
       },
       {
         label: i18nMark("Import LDAP User"),
-        onItemSelect: this.handleLDAPUserClick
-      }
+        onItemSelect: this.handleLDAPUserClick,
+      },
     ];
   }
 

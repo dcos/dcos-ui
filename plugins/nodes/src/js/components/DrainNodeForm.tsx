@@ -35,7 +35,7 @@ function DrainNodeForm(props: Props) {
     onChange({
       maxGracePeriod: el.checkValidity()
         ? parseInt(el.value, 10)
-        : formData.maxGracePeriod
+        : formData.maxGracePeriod,
     });
   };
 

@@ -1,7 +1,7 @@
 import PropTypes from "prop-types";
 import * as React from "react";
 
-const TaskFilesTab = props => {
+const TaskFilesTab = (props) => {
   const { children, directory, onOpenLogClick, task } = props;
 
   return (
@@ -10,7 +10,7 @@ const TaskFilesTab = props => {
         React.cloneElement(children, {
           directory,
           task,
-          onOpenLogClick
+          onOpenLogClick,
         })}
     </div>
   );
@@ -19,11 +19,11 @@ const TaskFilesTab = props => {
 TaskFilesTab.propTypes = {
   children: PropTypes.node,
   directory: PropTypes.object,
-  task: PropTypes.object
+  task: PropTypes.object,
 };
 
 TaskFilesTab.defaultProps = {
-  task: {}
+  task: {},
 };
 
 export default TaskFilesTab;

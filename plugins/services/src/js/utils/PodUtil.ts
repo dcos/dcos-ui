@@ -27,7 +27,9 @@ const PodUtil = {
       ? true
       : instance
           .getContainers()
-          .some(container => PodUtil.isContainerMatchingText(container, text));
+          .some((container) =>
+            PodUtil.isContainerMatchingText(container, text)
+          );
   },
 
   /**
@@ -68,15 +70,15 @@ const PodUtil = {
 
         let combinedContainers = [].concat(
           podInstance.containers,
-          historicalInstance.containers.map(container => ({
+          historicalInstance.containers.map((container) => ({
             ...container,
-            isHistoricalInstance: true
+            isHistoricalInstance: true,
           }))
         );
 
         // Filter combined container list to remove potential duplicates
         const containerIds = new Map();
-        combinedContainers = combinedContainers.filter(container => {
+        combinedContainers = combinedContainers.filter((container) => {
           if (
             container.containerId != null &&
             !containerIds.has(container.containerId)
@@ -98,18 +100,15 @@ const PodUtil = {
 
     // Re-compose PodInstances from plain objects
     const instances = Object.values(combinedInstanceMap).map(
-      instance => new PodInstance(instance)
+      (instance) => new PodInstance(instance)
     );
 
     return new PodInstanceList({ items: instances });
   },
 
   getInstanceIdFromTaskId(taskId) {
-    return taskId
-      .split(".")
-      .slice(0, 2)
-      .join(".");
-  }
+    return taskId.split(".").slice(0, 2).join(".");
+  },
 };
 
 export default PodUtil;

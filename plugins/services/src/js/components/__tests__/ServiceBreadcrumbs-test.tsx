@@ -15,7 +15,7 @@ describe("ServiceBreadcrumbs", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return new Service({ id: "/test" });
-        }
+        },
       };
     });
 
@@ -48,9 +48,9 @@ describe("ServiceBreadcrumbs", () => {
           findItemById() {
             return new ServiceTree({
               id: "/foo",
-              groups: [{ id: "/foo/bar" }]
+              groups: [{ id: "/foo/bar" }],
             });
-          }
+          },
         };
         const instance = mount(<ServiceBreadcrumbs serviceID="/foo/bar" />);
 
@@ -120,7 +120,7 @@ describe("ServiceBreadcrumbs", () => {
       wrapper.setProps({
         serviceID: "/service",
         taskID: "1234",
-        taskName: "success"
+        taskName: "success",
       });
       expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
     });
@@ -138,7 +138,7 @@ describe("ServiceBreadcrumbs", () => {
       wrapper.setProps({
         serviceID: "/service",
         taskID: "1234",
-        taskName: "test"
+        taskName: "test",
       });
       expect(componentDidUpdateSpy.mock.calls.length).toBe(0);
     });
@@ -155,7 +155,7 @@ describe("ServiceBreadcrumbs", () => {
       );
       wrapper.setProps({
         serviceID: "/service",
-        extra: <span>changed</span>
+        extra: <span>changed</span>,
       });
       expect(componentDidUpdateSpy.mock.calls.length).toBe(1);
     });
@@ -172,7 +172,7 @@ describe("ServiceBreadcrumbs", () => {
       );
       wrapper.setProps({
         serviceID: "/service",
-        extra: <span>same</span>
+        extra: <span>same</span>,
       });
       expect(componentDidUpdateSpy.mock.calls.length).toBe(0);
     });

@@ -13,13 +13,13 @@ describe("VIPSummary", () => {
       vip: {
         port: "foo",
         ip: "bar",
-        protocol: "baz"
+        protocol: "baz",
       },
       success_last_minute: "500",
       fail_last_minute: "400",
       application_reachability_pct: "300",
       machine_reachability_pct: "200",
-      p99_latency_ms: "100"
+      p99_latency_ms: "100",
     };
 
     thisVipSummary = new VIPSummary(thisVipSummaryFixture);
@@ -77,13 +77,13 @@ describe("VIPSummary", () => {
         vip: {
           port: "foo",
           ip: "bar",
-          protocol: "baz"
+          protocol: "baz",
         },
         success_last_minute: "0",
         fail_last_minute: "400",
         application_reachability_pct: "0",
         machine_reachability_pct: "0",
-        p99_latency_ms: "0"
+        p99_latency_ms: "0",
       });
 
       expect(String(vipSummary.getFailPercent())).toEqual("100");
@@ -94,13 +94,13 @@ describe("VIPSummary", () => {
         vip: {
           port: "foo",
           ip: "bar",
-          protocol: "baz"
+          protocol: "baz",
         },
         success_last_minute: "199",
         fail_last_minute: "1",
         application_reachability_pct: "0",
         machine_reachability_pct: "0",
-        p99_latency_ms: "0"
+        p99_latency_ms: "0",
       });
 
       expect(String(vipSummary.getFailPercent())).toEqual("0.5");
@@ -111,13 +111,13 @@ describe("VIPSummary", () => {
         vip: {
           port: "foo",
           ip: "bar",
-          protocol: "baz"
+          protocol: "baz",
         },
         success_last_minute: "1",
         fail_last_minute: "2",
         application_reachability_pct: "0",
         machine_reachability_pct: "0",
-        p99_latency_ms: "0"
+        p99_latency_ms: "0",
       });
 
       expect(String(vipSummary.getFailPercent())).toEqual("66.6667");
@@ -127,7 +127,7 @@ describe("VIPSummary", () => {
       const vipSummaryWithNoCalls = new VIPSummary({
         ...thisVipSummaryFixture,
         success_last_minute: 0,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(vipSummaryWithNoCalls.getFailPercent()).toEqual(0);
@@ -137,7 +137,7 @@ describe("VIPSummary", () => {
       const vipSummaryWithNoFails = new VIPSummary({
         ...thisVipSummaryFixture,
         success_last_minute: 10,
-        fail_last_minute: 0
+        fail_last_minute: 0,
       });
 
       expect(vipSummaryWithNoFails.getFailPercent()).toEqual(0);
@@ -147,7 +147,7 @@ describe("VIPSummary", () => {
       const vipSummaryWithNoSuccesses = new VIPSummary({
         ...thisVipSummaryFixture,
         success_last_minute: 0,
-        fail_last_minute: 10
+        fail_last_minute: 10,
       });
 
       expect(vipSummaryWithNoSuccesses.getFailPercent()).toEqual(100);
@@ -183,13 +183,13 @@ describe("VIPSummary", () => {
           port: "foo",
           ip: "bar",
           protocol: "baz",
-          name: "qux"
+          name: "qux",
         },
         success_last_minute: "0",
         fail_last_minute: "400",
         application_reachability_pct: "0",
         machine_reachability_pct: "0",
-        p99_latency_ms: "0"
+        p99_latency_ms: "0",
       });
 
       expect(new VIPSummary(vipSummary).getName()).toEqual("qux");
@@ -200,13 +200,13 @@ describe("VIPSummary", () => {
         vip: {
           port: "foo",
           ip: "bar",
-          protocol: "baz"
+          protocol: "baz",
         },
         success_last_minute: "0",
         fail_last_minute: "400",
         application_reachability_pct: "0",
         machine_reachability_pct: "0",
-        p99_latency_ms: "0"
+        p99_latency_ms: "0",
       });
 
       expect(new VIPSummary(vipSummary).getName()).toEqual("bar:foo");

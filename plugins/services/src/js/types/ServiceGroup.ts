@@ -23,7 +23,7 @@ export const QuotaLimitStatuses: {
   applied: i18nMark("Applied"),
   notApplied: i18nMark("Not Applied"),
   partiallyApplied: i18nMark("Partially Applied"),
-  na: i18nMark("N/A")
+  na: i18nMark("N/A"),
 };
 
 export type ServiceGroupQuota = {
@@ -61,5 +61,5 @@ const getQuota = (
 
 export const ServiceGroup = {
   getQuota,
-  getQuotaPercentage
+  getQuotaPercentage,
 };

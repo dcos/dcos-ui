@@ -18,7 +18,7 @@ const NotFoundPage = createReactClass({
     // blob/master/docs/api/components/RouteHandler.md
     willTransitionTo() {
       SidebarActions.close();
-    }
+    },
   },
 
   render() {
@@ -36,7 +36,7 @@ const NotFoundPage = createReactClass({
         </AlertPanel>
       </Page>
     );
-  }
+  },
 });
 
 export default NotFoundPage;

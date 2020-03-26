@@ -6,12 +6,12 @@ import ProviderTypes from "../constants/ProviderTypes";
 
 class AuthProvidersModalButtonContents extends React.Component {
   static propTypes = {
-    onClick: PropTypes.func
+    onClick: PropTypes.func,
   };
   getButtons() {
     const { onClick } = this.props;
 
-    return Object.keys(ProviderTypes).map(function(providerType) {
+    return Object.keys(ProviderTypes).map(function (providerType) {
       const provider = ProviderTypes[providerType];
 
       return (

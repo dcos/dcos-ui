@@ -22,7 +22,7 @@ describe("NodesList", () => {
       const items = [
         { id: 1, hostname: "foo" },
         { id: 2, hostname: "bar" },
-        { id: "3", hostname: "baz" }
+        { id: "3", hostname: "baz" },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ ids: [2, "3"] }).getItems();
@@ -35,7 +35,7 @@ describe("NodesList", () => {
       const items = [
         { hostname: "foo" },
         { hostname: "bar" },
-        { hostname: "baz" }
+        { hostname: "baz" },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ name: "ba" }).getItems();
@@ -48,7 +48,7 @@ describe("NodesList", () => {
       const items = [
         { host_ip: "foo", framework_ids: [1, 2] },
         { host_ip: "bar", framework_ids: [3] },
-        { host_ip: "baz", framework_ids: [2] }
+        { host_ip: "baz", framework_ids: [2] },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ service: 2 }).getItems();
@@ -61,7 +61,7 @@ describe("NodesList", () => {
       const items = [
         { hostname: "foo", framework_ids: [1, 2] },
         { hostname: "bar", framework_ids: [3] },
-        { hostname: "baz", framework_ids: [2] }
+        { hostname: "baz", framework_ids: [2] },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ service: 2 }).getItems();
@@ -74,7 +74,7 @@ describe("NodesList", () => {
       const items = [
         { id: "foo", health: 0 },
         { id: "bar", health: 0 },
-        { id: "bluh", health: 2 }
+        { id: "bluh", health: 2 },
       ];
       const list = new NodesList({ items });
       const filteredList = list.filter({ health: "healthy" }).getItems();
@@ -91,19 +91,19 @@ describe("NodesList", () => {
         cpus: 0,
         mem: 0,
         disk: 0,
-        gpus: 0
+        gpus: 0,
       });
     });
 
     it("returns used resources when there's one service", () => {
       const list = new NodesList({
-        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }]
+        items: [{ used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }],
       });
       expect(list.sumUsedResources()).toEqual({
         cpus: 1,
         mem: 3,
         disk: 1,
-        gpus: 0
+        gpus: 0,
       });
     });
 
@@ -111,14 +111,14 @@ describe("NodesList", () => {
       const list = new NodesList({
         items: [
           { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
-          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } }
-        ]
+          { used_resources: { cpus: 1, mem: 3, disk: 1, gpus: 0 } },
+        ],
       });
       expect(list.sumUsedResources()).toEqual({
         cpus: 2,
         mem: 6,
         disk: 2,
-        gpus: 0
+        gpus: 0,
       });
     });
   });

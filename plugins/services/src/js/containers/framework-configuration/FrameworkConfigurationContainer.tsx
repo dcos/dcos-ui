@@ -15,7 +15,7 @@ import CosmosPackagesStore from "#SRC/js/stores/CosmosPackagesStore";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import {
   COSMOS_SERVICE_DESCRIBE_CHANGE,
-  COSMOS_SERVICE_DESCRIBE_ERROR
+  COSMOS_SERVICE_DESCRIBE_ERROR,
 } from "#SRC/js/constants/EventTypes";
 import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
@@ -23,8 +23,8 @@ class FrameworkConfigurationContainer extends React.Component {
   static propTypes = {
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(Framework),
-      PropTypes.instanceOf(Application)
-    ]).isRequired
+      PropTypes.instanceOf(Application),
+    ]).isRequired,
   };
   constructor(props) {
     super(props);
@@ -34,7 +34,7 @@ class FrameworkConfigurationContainer extends React.Component {
     this.state = {
       frameworkData: null,
       packageDetails: null,
-      cosmosError: null
+      cosmosError: null,
     };
 
     CosmosPackagesStore.fetchServiceDescription(service.getId());
@@ -74,7 +74,7 @@ class FrameworkConfigurationContainer extends React.Component {
 
     this.setState({ frameworkData, packageDetails, cosmosError: null });
   };
-  onCosmosPackagesStoreServiceDescriptionError = cosmosError => {
+  onCosmosPackagesStoreServiceDescriptionError = (cosmosError) => {
     this.setState({ cosmosError });
   };
   handleEditClick = () => {
@@ -117,7 +117,7 @@ class FrameworkConfigurationContainer extends React.Component {
 }
 
 FrameworkConfigurationContainer.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default FrameworkConfigurationContainer;

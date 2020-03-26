@@ -1,7 +1,7 @@
 import {
   GET_AGENTS,
   AGENT_ADDED,
-  AGENT_REMOVED
+  AGENT_REMOVED,
 } from "../../../constants/MesosStreamMessageTypes";
 
 function processAgent(agentMessage) {
@@ -30,7 +30,7 @@ export function getAgentsAction(state, message) {
 
   return {
     ...state,
-    slaves: agents
+    slaves: agents,
   };
 }
 
@@ -43,7 +43,7 @@ export function agentAddedAction(state, message) {
 
   return {
     ...state,
-    slaves: [...state.slaves, agent]
+    slaves: [...state.slaves, agent],
   };
 }
 
@@ -53,10 +53,10 @@ export function agentRemovedAction(state, message) {
   }
 
   const removedAgentID = message.agent_removed.agent_id.value;
-  const slaves = state.slaves.filter(agent => removedAgentID !== agent.id);
+  const slaves = state.slaves.filter((agent) => removedAgentID !== agent.id);
 
   return {
     ...state,
-    slaves
+    slaves,
   };
 }

@@ -35,7 +35,7 @@ function getMesosState() {
     usedResourcesStates: states.getResourceStatesForNodeIDs(),
     usedResources: last.getSlaveUsedResources(),
     tasks: last.getServiceList().sumTaskStates(),
-    totalResources: last.getSlaveTotalResources()
+    totalResources: last.getSlaveTotalResources(),
   };
 }
 
@@ -61,7 +61,7 @@ const DashboardBreadcrumbs = () => {
           <Trans render="span">Dashboard</Trans>
         </Link>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -73,16 +73,16 @@ export default class DashboardPage extends mixin(StoreMixin) {
   static routeConfig = {
     label: i18nMark("Dashboard"),
     icon: <Icon shape={ProductIcons.GraphInverse} size={iconSizeS} />,
-    matches: /^\/dashboard/
+    matches: /^\/dashboard/,
   };
 
   static contextTypes = {
-    router: routerShape
+    router: routerShape,
   };
 
   static defaultProps = {
     componentsListLength: 5,
-    servicesListLength: 5
+    servicesListLength: 5,
   };
 
   constructor(props) {
@@ -91,43 +91,47 @@ export default class DashboardPage extends mixin(StoreMixin) {
     this.state = {
       dcosServices: [],
       unitHealthUnits: new HealthUnitsList({ items: [] }),
-      mesosState: getMesosState()
+      mesosState: getMesosState(),
     };
 
     this.store_listeners = [
       { name: "dcos", events: ["change"], suppressUpdate: true },
       { name: "summary", events: ["success", "error"], suppressUpdate: true },
-      { name: "unitHealth", events: ["success", "error"], suppressUpdate: true }
+      {
+        name: "unitHealth",
+        events: ["success", "error"],
+        suppressUpdate: true,
+      },
     ];
   }
 
   onDcosStoreChange = () => {
     this.setState({
-      dcosServices: DCOSStore.serviceTree.getServices().getItems()
+      dcosServices: DCOSStore.serviceTree.getServices().getItems(),
     });
   };
 
   onSummaryStoreSuccess = () => {
     this.setState({
-      mesosState: { ...this.state.mesosState, ...getMesosState() }
+      mesosState: { ...this.state.mesosState, ...getMesosState() },
     });
   };
 
   onSummaryStoreError = () => {
     this.setState({
-      mesosState: { ...this.state.mesosState, ...getMesosState() }
+      mesosState: { ...this.state.mesosState, ...getMesosState() },
     });
   };
 
   onUnitHealthStoreSuccess = () => {
     this.setState({
-      unitHealthUnits: UnitHealthStore.getUnits()
+      unitHealthUnits: UnitHealthStore.getUnits(),
     });
   };
 
   onUnitHealthStoreError = () => {
     this.setState({
-      unitHealthUnits: UnitHealthStore.getUnits()
+      unitHealthUnits: UnitHealthStore.getUnits(),
     });
   };
 

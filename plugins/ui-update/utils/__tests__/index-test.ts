@@ -10,26 +10,26 @@ describe("utils", () => {
         versions: [
           {
             version: "1.0.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "1.5.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "2.0.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "2.1.0",
-            revision: "0"
-          }
-        ]
+            revision: "0",
+          },
+        ],
       };
       const fakeUiMetadata: UIMetadata = {
         packageVersionIsDefault: true,
         packageVersion: "Default",
-        serverBuild: "master+v1.0.0"
+        serverBuild: "master+v1.0.0",
       };
       const result = utils.versionUpdateAvailable(
         fakePackageInfo,
@@ -45,26 +45,26 @@ describe("utils", () => {
         versions: [
           {
             version: "1.0.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "1.5.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "2.0.0",
-            revision: "0"
+            revision: "0",
           },
           {
             version: "2.1.0",
-            revision: "0"
-          }
-        ]
+            revision: "0",
+          },
+        ],
       };
       const fakeUiMetadata: UIMetadata = {
         packageVersionIsDefault: false,
         packageVersion: "1.1.0",
-        serverBuild: "master+v0.0.0"
+        serverBuild: "master+v0.0.0",
       };
       const result = utils.versionUpdateAvailable(
         fakePackageInfo,
@@ -80,14 +80,14 @@ describe("utils", () => {
         versions: [
           {
             version: "1.0.0",
-            revision: "0"
-          }
-        ]
+            revision: "0",
+          },
+        ],
       };
       const fakeUiMetadata: UIMetadata = {
         packageVersionIsDefault: false,
         packageVersion: "1.1.0",
-        serverBuild: "master+v0.0.0"
+        serverBuild: "master+v0.0.0",
       };
       const result = utils.versionUpdateAvailable(
         fakePackageInfo,
@@ -101,14 +101,14 @@ describe("utils", () => {
         versions: [
           {
             version: "3.0.0",
-            revision: "0"
-          }
-        ]
+            revision: "0",
+          },
+        ],
       };
       const fakeUiMetadata: UIMetadata = {
         packageVersionIsDefault: false,
         packageVersion: "1.1.0",
-        serverBuild: "master+v0.0.0"
+        serverBuild: "master+v0.0.0",
       };
       const result = utils.versionUpdateAvailable(
         fakePackageInfo,

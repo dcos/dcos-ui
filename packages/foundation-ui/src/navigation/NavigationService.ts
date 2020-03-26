@@ -13,7 +13,7 @@ class NavigationService extends EventEmitter {
       deferredTasks: [],
       definition: [
         // The only default is root, so it goes first no matter what
-        { category: "root", children: [] }
+        { category: "root", children: [] },
       ],
       defer(method, args) {
         this.deferredTasks.push({ method, args });
@@ -26,7 +26,7 @@ class NavigationService extends EventEmitter {
         tasks.forEach(({ method, args }) => {
           method.apply(this.instance, args);
         });
-      }
+      },
     };
 
     this.getDefinition = this.getDefinition.bind(privateContext);
@@ -57,10 +57,10 @@ class NavigationService extends EventEmitter {
    * @param  {String} category Category name
    */
   registerCategory(category) {
-    if (!this.definition.find(element => element.category === category)) {
+    if (!this.definition.find((element) => element.category === category)) {
       this.definition.push({
         category,
-        children: []
+        children: [],
       });
 
       this.instance.emit(NAVIGATION_CHANGE);
@@ -79,7 +79,7 @@ class NavigationService extends EventEmitter {
   registerPrimary(path, label, options = {}) {
     const { category = "root" } = options;
     const categoryElement = this.definition.find(
-      element => element.category === category
+      (element) => element.category === category
     );
 
     if (!categoryElement) {
@@ -87,7 +87,7 @@ class NavigationService extends EventEmitter {
     }
 
     const existingElement = categoryElement.children.find(
-      element => element.path === path
+      (element) => element.path === path
     );
 
     if (existingElement) {
@@ -102,7 +102,7 @@ class NavigationService extends EventEmitter {
       path,
       label,
       options,
-      children: []
+      children: [],
     });
 
     this.instance.emit(NAVIGATION_CHANGE);
@@ -126,7 +126,7 @@ class NavigationService extends EventEmitter {
     );
 
     const parentElement = primaryElements.find(
-      element => element.path === parentPath
+      (element) => element.path === parentPath
     );
 
     if (!parentElement) {
@@ -134,7 +134,7 @@ class NavigationService extends EventEmitter {
     }
 
     const existingElement = parentElement.children.find(
-      element => element.path === path
+      (element) => element.path === path
     );
 
     if (existingElement) {
@@ -153,7 +153,7 @@ class NavigationService extends EventEmitter {
       label,
       options,
       path: `${parentPath}/${path}`,
-      children: []
+      children: [],
     });
 
     this.instance.emit(NAVIGATION_CHANGE);

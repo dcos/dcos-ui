@@ -12,7 +12,7 @@ import StringUtil from "#SRC/js/utils/StringUtil";
 const ServiceInstances = React.memo(
   ({
     instancesCount,
-    runningInstances
+    runningInstances,
   }: {
     instancesCount: number;
     runningInstances: number;

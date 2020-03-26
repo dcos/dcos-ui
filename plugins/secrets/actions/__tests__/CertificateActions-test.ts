@@ -21,7 +21,7 @@ describe("CertificateActions", () => {
     thisUseFixtures = Config.useFixtures;
     Config.useFixtures = false;
     Config.rootUrl = "";
-    RequestUtil.json = configuration => {
+    RequestUtil.json = (configuration) => {
       thisConfiguration = configuration;
     };
   });
@@ -35,11 +35,11 @@ describe("CertificateActions", () => {
   describe("#fetchCertificates", () => {
     it("dispatches the correct action when successful", () => {
       CertificateActions.fetchCertificates();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
@@ -48,16 +48,16 @@ describe("CertificateActions", () => {
 
     it("dispatches the correct action when unsuccessful", () => {
       CertificateActions.fetchCertificates();
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ALL_CERTIFICATES_ERROR,
-          data: { bar: "baz" }
+          data: { bar: "baz" },
         });
       });
 
       thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } }
+        responseJSON: { description: { bar: "baz" } },
       });
     });
 

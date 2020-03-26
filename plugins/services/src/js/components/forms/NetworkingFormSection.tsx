@@ -39,13 +39,13 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     data: {},
     errors: {},
     onAddItem() {},
-    onRemoveItem() {}
+    onRemoveItem() {},
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
-    onRemoveItem: PropTypes.func
+    onRemoveItem: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -128,7 +128,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
         <FieldError>{hostPortError}</FieldError>
       </FormGroup>,
       !isHostNetwork(this.props.data) &&
-        this.getNonHostNetworkPortsAutoAssignSection(portDefinition, index)
+        this.getNonHostNetworkPortsAutoAssignSection(portDefinition, index),
     ];
   }
 
@@ -196,14 +196,14 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           </FieldLabel>
         </FormGroup>
       </FormRow>,
-      loadBalanced && this.getLoadBalancedPortField(endpoint, index)
+      loadBalanced && this.getLoadBalancedPortField(endpoint, index),
     ];
   }
 
   getLoadBalancedPortField(endpoint, index) {
     const {
       errors,
-      data: { id, portsAutoAssign }
+      data: { id, portsAutoAssign },
     } = this.props;
     const { hostPort, containerPort, vip, vipPort } = endpoint;
     const defaultVipPort = isHostNetwork(this.props.data)
@@ -459,7 +459,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
   getServiceEndpoints() {
     const {
       errors,
-      data: { networks }
+      data: { networks },
     } = this.props;
     const networkType = findNestedPropertyInObject(networks, "0.mode") || HOST;
 
@@ -498,7 +498,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           key={index}
           onRemove={this.props.onRemoveItem.bind(this, {
             value: index,
-            path: "portDefinitions"
+            path: "portDefinitions",
           })}
         >
           <FormRow>
@@ -623,7 +623,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path: "portDefinitions"
+                path: "portDefinitions",
               })}
             >
               <Trans render="span">Add Service Endpoint</Trans>
@@ -693,7 +693,7 @@ class NetworkingFormSection extends mixin(StoreMixin) {
     if (networks != null && networks.length > 1) {
       networks = networks.map(({ mode, name }) => ({
         name,
-        mode: Networking.internalToJson[mode]
+        mode: Networking.internalToJson[mode],
       }));
 
       return (
@@ -758,7 +758,7 @@ NetworkingFormSection.configReducers = {
     }
 
     return state;
-  }
+  },
 };
 
 export default NetworkingFormSection;

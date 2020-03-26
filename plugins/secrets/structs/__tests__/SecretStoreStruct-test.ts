@@ -9,7 +9,7 @@ describe("SecretStoreStruct", () => {
   describe("#getDescription", () => {
     it("returns description", () => {
       const store = new SecretStoreStruct({
-        description: "kennytran is awesome"
+        description: "kennytran is awesome",
       });
 
       expect(store.getDescription()).toBe("kennytran is awesome");
@@ -19,7 +19,7 @@ describe("SecretStoreStruct", () => {
   describe("#getDriver", () => {
     it("returns driver", () => {
       const store = new SecretStoreStruct({
-        driver: "foobar"
+        driver: "foobar",
       });
 
       expect(store.getDriver()).toBe("foobar");
@@ -29,7 +29,7 @@ describe("SecretStoreStruct", () => {
   describe("#getInitialized", () => {
     it("returns initialized", () => {
       const store = new SecretStoreStruct({
-        initialized: "foobar"
+        initialized: "foobar",
       });
 
       expect(store.getInitialized()).toBe("foobar");
@@ -39,7 +39,7 @@ describe("SecretStoreStruct", () => {
   describe("#getSealed", () => {
     it("returns sealed status", () => {
       const store = new SecretStoreStruct({
-        sealed: true
+        sealed: true,
       });
 
       expect(store.getSealed()).toBe(true);

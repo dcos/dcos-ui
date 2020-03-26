@@ -16,7 +16,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
     it("stores directories when event is dispatched", () => {
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
-        data: [{ foo: "bar" }]
+        data: [{ foo: "bar" }],
       });
 
       const directories = ACLDirectoriesStore.getDirectories().getItems();
@@ -31,7 +31,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_DIRECTORIES_SUCCESS,
-        data: [{ foo: "bar" }]
+        data: [{ foo: "bar" }],
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -45,7 +45,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_DIRECTORIES_ERROR,
-        message: "foo"
+        message: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -60,7 +60,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
         mockedFn
       );
       SDK.dispatch({
-        type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS
+        type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_SUCCESS,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -74,7 +74,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_DIRECTORY_ADD_ERROR,
-        message: "foo"
+        message: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -87,7 +87,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
       expect(ACLDirectoriesStore.getDirectories().getItems()).toEqual(["foo"]);
 
       SDK.dispatch({
-        type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
+        type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS,
       });
 
       expect(ACLDirectoriesStore.getDirectories().getItems()).toEqual([]);
@@ -100,7 +100,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
         mockedFn
       );
       SDK.dispatch({
-        type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS
+        type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_SUCCESS,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -114,7 +114,7 @@ describe("ACLDirectoriesStore dispatcher", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ACL_DIRECTORY_DELETE_ERROR,
-        message: "foo"
+        message: "foo",
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);

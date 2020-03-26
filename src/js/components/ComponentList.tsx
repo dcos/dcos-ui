@@ -7,15 +7,15 @@ import * as React from "react";
 
 class ComponentList extends React.PureComponent {
   static defaultProps = {
-    displayCount: 0
+    displayCount: 0,
   };
   static propTypes = {
     displayCount: PropTypes.number,
     // Required object of type HealthUnitsList.
-    units: PropTypes.object.isRequired
+    units: PropTypes.object.isRequired,
   };
   getComponentListContent(units) {
-    return units.map(unit => {
+    return units.map((unit) => {
       const health = unit.getHealth();
       const healthClasses = classNames("text-align-right", health.classNames);
       const unitID = unit.get("id");
@@ -32,7 +32,7 @@ class ComponentList extends React.PureComponent {
                 {unit.getTitle()}
               </Link>
             ),
-            tag: "span"
+            tag: "span",
           },
           {
             className: "dashboard-health-list-health-label",
@@ -41,9 +41,9 @@ class ComponentList extends React.PureComponent {
                 {health.title}
               </div>
             ),
-            tag: "div"
-          }
-        ]
+            tag: "div",
+          },
+        ],
       };
     });
   }

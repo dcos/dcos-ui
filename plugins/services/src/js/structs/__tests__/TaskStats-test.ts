@@ -6,7 +6,7 @@ describe("TaskStats", () => {
   describe("#getStatsForTasksWithLatestConfig", () => {
     it("returns task stat instance", () => {
       const statistics = new TaskStats({
-        withLatestConfig: {}
+        withLatestConfig: {},
       }).getStatsForTasksWithLatestConfig();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
@@ -16,9 +16,9 @@ describe("TaskStats", () => {
       const statistics = new TaskStats({
         withLatestConfig: {
           stats: {
-            counts: { healthy: 1 }
-          }
-        }
+            counts: { healthy: 1 },
+          },
+        },
       }).getStatsForTasksWithLatestConfig();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
@@ -28,7 +28,7 @@ describe("TaskStats", () => {
   describe("#getStatsForTasksStaredAfterLastScaling", () => {
     it("returns task stat instance", () => {
       const statistics = new TaskStats({
-        startedAfterLastScaling: {}
+        startedAfterLastScaling: {},
       }).getStatsForTasksStaredAfterLastScaling();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
@@ -38,9 +38,9 @@ describe("TaskStats", () => {
       const statistics = new TaskStats({
         startedAfterLastScaling: {
           stats: {
-            counts: { healthy: 1 }
-          }
-        }
+            counts: { healthy: 1 },
+          },
+        },
       }).getStatsForTasksStaredAfterLastScaling();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
@@ -50,7 +50,7 @@ describe("TaskStats", () => {
   describe("#getStatsForTasksWithOutdatedConfig", () => {
     it("returns task stat instance", () => {
       const statistics = new TaskStats({
-        withOutdatedConfig: {}
+        withOutdatedConfig: {},
       }).getStatsForTasksWithOutdatedConfig();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
@@ -60,9 +60,9 @@ describe("TaskStats", () => {
       const statistics = new TaskStats({
         withOutdatedConfig: {
           stats: {
-            counts: { healthy: 1 }
-          }
-        }
+            counts: { healthy: 1 },
+          },
+        },
       }).getStatsForTasksWithOutdatedConfig();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
@@ -72,7 +72,7 @@ describe("TaskStats", () => {
   describe("#getStatsForAllTasks", () => {
     it("returns task stat instance", () => {
       const statistics = new TaskStats({
-        totalSummary: {}
+        totalSummary: {},
       }).getStatsForAllTasks();
 
       expect(statistics instanceof TaskStat).toBeTruthy();
@@ -82,9 +82,9 @@ describe("TaskStats", () => {
       const statistics = new TaskStats({
         totalSummary: {
           stats: {
-            counts: { healthy: 1 }
-          }
-        }
+            counts: { healthy: 1 },
+          },
+        },
       }).getStatsForAllTasks();
 
       expect(statistics.getHealthyTaskCount()).toEqual(1);
@@ -102,18 +102,18 @@ describe("TaskStats", () => {
       const statisticsList = new TaskStats({
         totalSummary: {
           stats: {
-            counts: { healthy: 1 }
-          }
+            counts: { healthy: 1 },
+          },
         },
         startedAfterLastScaling: {
           stats: {
-            counts: { healthy: 1 }
-          }
+            counts: { healthy: 1 },
+          },
         },
         withOutdatedConfig: {
-          stats: {}
+          stats: {},
         },
-        withLatestConfig: {}
+        withLatestConfig: {},
       }).getList();
 
       expect(statisticsList.getItems().length).toEqual(2);

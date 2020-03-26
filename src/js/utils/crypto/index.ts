@@ -37,7 +37,7 @@ function privateKeyToPem(privateKey: CryptoKey): Promise<string> {
     getCryptoApi()
       .exportKey("pkcs8", privateKey)
       .then(
-        exportedPrivateKey => {
+        (exportedPrivateKey) => {
           const b64 = arrayBufferToBase64(exportedPrivateKey);
           resolve(
             "-----BEGIN PRIVATE KEY-----\n" +
@@ -45,7 +45,7 @@ function privateKeyToPem(privateKey: CryptoKey): Promise<string> {
               "-----END PRIVATE KEY-----"
           );
         },
-        error => {
+        (error) => {
           reject(error);
         }
       );
@@ -57,7 +57,7 @@ function publicKeyToPem(publicKey: CryptoKey): Promise<string> {
     getCryptoApi()
       .exportKey("spki", publicKey)
       .then(
-        exportedPublicKey => {
+        (exportedPublicKey) => {
           const b64 = arrayBufferToBase64(exportedPublicKey);
           resolve(
             "-----BEGIN PUBLIC KEY-----\n" +
@@ -65,7 +65,7 @@ function publicKeyToPem(publicKey: CryptoKey): Promise<string> {
               "-----END PUBLIC KEY-----"
           );
         },
-        error => {
+        (error) => {
           reject(error);
         }
       );
@@ -84,10 +84,10 @@ function generatePrintableRSAKeypair(
         (pair: CryptoKeyPair) => {
           Promise.all<string, string>([
             privateKeyToPem(pair.privateKey),
-            publicKeyToPem(pair.publicKey)
+            publicKeyToPem(pair.publicKey),
           ]).then(resolve);
         },
-        error => {
+        (error) => {
           reject(error);
         }
       );
@@ -99,7 +99,7 @@ const DEFAULTS = {
   hash: "SHA-256",
   modulusLength: 2048,
   name: "RSA-OAEP",
-  publicExponent: new Uint8Array([0x01, 0x00, 0x01]) // == 65537
+  publicExponent: new Uint8Array([0x01, 0x00, 0x01]), // == 65537
 };
 
 function supportsWebCryptography() {

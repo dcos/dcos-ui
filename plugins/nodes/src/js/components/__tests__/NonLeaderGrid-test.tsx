@@ -11,10 +11,10 @@ const masters = [
       key: "HEALTHY",
       sortingValue: 3,
       title: "Healthy",
-      value: 0
+      value: 0,
     },
     host_ip: "172.31.10.48",
-    role: "master"
+    role: "master",
   },
   {
     health: 0,
@@ -23,11 +23,11 @@ const masters = [
       key: "HEALTHY",
       sortingValue: 3,
       title: "Healthy",
-      value: 0
+      value: 0,
     },
     host_ip: "172.31.10.49",
-    role: "master"
-  }
+    role: "master",
+  },
 ];
 
 describe("LeaderGrid", () => {

@@ -11,7 +11,7 @@ import uiMetadataExtensionFactor from "./data/ui-update";
 
 import mesosStream, { MesosStreamType } from "./core/MesosStream";
 import mesosMasterRequest, {
-  MesosMasterRequestType
+  MesosMasterRequestType,
 } from "./core/MesosMasterRequest";
 import { TYPES } from "./types/containerTypes";
 import { i18n } from "./i18n";
@@ -29,7 +29,7 @@ const factories = {
   repositoriesExtension: repositoriesExtensionFactory,
   services: servicesExtensionFactory,
   cosmos: cosmosExtensionFactory,
-  uiMetadata: uiMetadataExtensionFactor
+  uiMetadata: uiMetadataExtensionFactor,
 };
 
 Object.entries(factories).forEach(([name, factory]) => {

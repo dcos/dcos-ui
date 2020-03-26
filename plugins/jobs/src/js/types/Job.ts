@@ -2,36 +2,36 @@ import {
   GenericJobResponse as MetronomeGenericJobResponse,
   JobResponse as MetronomeJobResponse,
   isDetailResponse as isMetronomeJobDetailResponse,
-  HistoricJobRun
+  HistoricJobRun,
 } from "#SRC/js/events/MetronomeClient";
 import {
   JobRunConnection,
   JobRunConnectionTypeResolver,
-  JobRunConnectionSchema
+  JobRunConnectionSchema,
 } from "#PLUGINS/jobs/src/js/types/JobRunConnection";
 import {
   JobHistorySummary,
   JobHistorySummaryTypeResolver,
-  JobHistorySummarySchema
+  JobHistorySummarySchema,
 } from "#PLUGINS/jobs/src/js/types/JobHistorySummary";
 import {
   JobRunStatusSummary,
   JobRunStatusSummaryTypeResolver,
-  JobRunStatusSummarySchema
+  JobRunStatusSummarySchema,
 } from "#PLUGINS/jobs/src/js/types/JobRunStatusSummary";
 import {
   JobScheduleConnection,
   JobScheduleConnectionTypeResolver,
-  JobScheduleConnectionSchema
+  JobScheduleConnectionSchema,
 } from "#PLUGINS/jobs/src/js/types/JobScheduleConnection";
 import {
   JobStatus,
-  JobStatusSchema
+  JobStatusSchema,
 } from "#PLUGINS/jobs/src/js/types/JobStatus";
 import {
   JobDockerTypeResolver,
   JobDocker,
-  JobDockerSchema
+  JobDockerSchema,
 } from "#PLUGINS/jobs/src/js/types/JobDocker";
 import { JobLabel, LabelSchema } from "#PLUGINS/jobs/src/js/types/JobLabel";
 import { cleanJobJSON } from "#SRC/js/utils/CleanJSONUtil";
@@ -120,7 +120,7 @@ export function JobTypeResolver(job: MetronomeGenericJobResponse): Job {
     name: job.id.split(".").pop() || "",
     path: job.id.split(".").slice(0, -1),
     schedules: JobScheduleConnectionTypeResolver(job.schedules),
-    scheduleStatus: scheduleStatus(job)
+    scheduleStatus: scheduleStatus(job),
   };
 }
 
@@ -163,8 +163,8 @@ function convertHistoricJobRuns(
       id,
       status: taskStatus,
       createdAt: run.createdAt,
-      finishedAt: run.finishedAt
-    }))
+      finishedAt: run.finishedAt,
+    })),
   });
 
   return JobRunConnectionTypeResolver([
@@ -174,6 +174,6 @@ function convertHistoricJobRuns(
     ),
     ...(job.history.failedFinishedRuns || []).map(
       toJobRunTask("FAILED", "TASK_FAILED")
-    )
+    ),
   ]);
 }

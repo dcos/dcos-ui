@@ -3,9 +3,9 @@ import PluginSDK from "PluginSDK";
 jest.setMock("react-router", {
   hashHistory: {
     location: "/foo",
-    listen() {}
+    listen() {},
   },
-  match() {}
+  match() {},
 });
 
 const SDK = PluginSDK.__getSDK("tracking", { enabled: true });
@@ -15,13 +15,13 @@ const Actions = require("../Actions").default;
 window.analytics = {
   initialized: true,
   page() {},
-  track() {}
+  track() {},
 };
 
 const DCOS_METADATA = {
   clusterId: "cluster",
   "dcos-image-commit": "commit",
-  "bootstrap-id": "bootstrap"
+  "bootstrap-id": "bootstrap",
 };
 
 const routes = [{ path: "/foo" }];

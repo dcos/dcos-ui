@@ -12,11 +12,11 @@ import PlacementConstraintsUtil from "../utils/PlacementConstraintsUtil";
 
 class PodPlacementConstraintsConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
@@ -24,20 +24,20 @@ class PodPlacementConstraintsConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Operator</Trans>;
         },
-        prop: "operator"
+        prop: "operator",
       },
       {
         heading() {
           return <Trans render="span">Field Name</Trans>;
         },
-        prop: "fieldName"
+        prop: "fieldName",
       },
       {
         heading() {
           return <Trans render="span">Value</Trans>;
         },
-        prop: "value"
-      }
+        prop: "value",
+      },
     ];
   }
 

@@ -3,7 +3,7 @@ import PluginHooks from "./hooks";
 const EXAMPLE_PLUGIN_EVENT = "EXAMPLE_PLUGIN_EVENT";
 
 const initialPluginState = {
-  countSoFar: 0
+  countSoFar: 0,
 };
 
 const performComplexMath = (Store, prevState, action, factor) => {
@@ -18,7 +18,7 @@ const performComplexMath = (Store, prevState, action, factor) => {
   return { ...prevState, ...newState };
 };
 
-export default PluginSDK => {
+export default (PluginSDK) => {
   const { Hooks, config, Store, dispatch } = PluginSDK;
 
   // Set plugin's hooks
@@ -28,7 +28,7 @@ export default PluginSDK => {
     setInterval(() => {
       dispatch({
         type: EXAMPLE_PLUGIN_EVENT,
-        payload: 1
+        payload: 1,
       });
     }, 5000);
   }

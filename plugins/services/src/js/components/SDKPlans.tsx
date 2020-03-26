@@ -6,7 +6,7 @@ import {
   throwError,
   of,
   combineLatest,
-  BehaviorSubject
+  BehaviorSubject,
 } from "rxjs";
 import {
   map,
@@ -17,7 +17,7 @@ import {
   catchError,
   startWith,
   concat,
-  switchMap
+  switchMap,
 } from "rxjs/operators";
 import gql from "graphql-tag";
 import { Trans } from "@lingui/macro";
@@ -28,7 +28,7 @@ import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 
 import {
   Service,
-  compare as ServiceCompare
+  compare as ServiceCompare,
 } from "#PLUGINS/services/src/js/types/Service";
 import SDKPlansTab from "#PLUGINS/services/src/js/components/SDKPlansTab";
 import DataLayer, { DataLayerType } from "@extension-kid/data-layer/dataLayer";
@@ -69,7 +69,7 @@ const handleSelectPlan = (name: string) => {
   selectedPlan$.next(name);
 };
 
-const SDKPlans = componentFromStream(props$ => {
+const SDKPlans = componentFromStream((props$) => {
   const serviceId$ = (props$ as Observable<{
     service: { getId: () => string };
   }>).pipe(
@@ -115,7 +115,7 @@ const SDKPlans = componentFromStream(props$ => {
         />
       );
     }),
-    retryWhen(errors =>
+    retryWhen((errors) =>
       errors.pipe(delay(1000), take(180), concat(throwError(errors)))
     ),
     catchError(() => of(<RequestErrorMsg />)),

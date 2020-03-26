@@ -4,7 +4,7 @@ describe("Service", () => {
   describe("#getId", () => {
     it("returns correct id", () => {
       const service = new Service({
-        id: "/test/cmd"
+        id: "/test/cmd",
       });
 
       expect(service.getId()).toEqual("/test/cmd");
@@ -14,7 +14,7 @@ describe("Service", () => {
   describe("#getMesosId", () => {
     it("returns correct id prefix", () => {
       const service = new Service({
-        id: "/test/cmd"
+        id: "/test/cmd",
       });
 
       expect(service.getMesosId()).toEqual("test_cmd");
@@ -27,7 +27,7 @@ describe("Service", () => {
         cpus: 0,
         mem: 0,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -44,20 +44,20 @@ describe("Service", () => {
                   cpus: 20,
                   mem: 10,
                   gpus: 0,
-                  disk: 0
+                  disk: 0,
                 };
-              }
+              },
             };
           },
           getInstancesCount() {
             return 1;
-          }
+          },
         }).getResources()
       ).toEqual({
         cpus: 20,
         mem: 10,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -74,20 +74,20 @@ describe("Service", () => {
                   cpus: 20,
                   mem: 10,
                   gpus: 0,
-                  disk: 0
+                  disk: 0,
                 };
-              }
+              },
             };
           },
           getInstancesCount() {
             return 2;
-          }
+          },
         }).getResources()
       ).toEqual({
         cpus: 40,
         mem: 20,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -104,26 +104,26 @@ describe("Service", () => {
                   cpus: 20,
                   mem: 10,
                   gpus: 0,
-                  disk: 0
+                  disk: 0,
                 };
               },
               executorResources: {
                 cpus: 10,
                 mem: 10,
                 gpus: 0,
-                disk: 0
-              }
+                disk: 0,
+              },
             };
           },
           getInstancesCount() {
             return 1;
-          }
+          },
         }).getResources()
       ).toEqual({
         cpus: 30,
         mem: 20,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
 
@@ -140,26 +140,26 @@ describe("Service", () => {
                   cpus: 20,
                   mem: 10,
                   gpus: 0,
-                  disk: 0
+                  disk: 0,
                 };
               },
               executorResources: {
                 cpus: 10,
                 mem: 10,
                 gpus: 0,
-                disk: 0
-              }
+                disk: 0,
+              },
             };
           },
           getInstancesCount() {
             return 2;
-          }
+          },
         }).getResources()
       ).toEqual({
         cpus: 60,
         mem: 40,
         gpus: 0,
-        disk: 0
+        disk: 0,
       });
     });
   });
@@ -174,8 +174,8 @@ describe("Service", () => {
             { region: "a" },
             { region: "a" },
             { region: "b" },
-            {}
-          ]
+            {},
+          ],
         }).getRegions()
       ).toEqual(["a", "b"]);
     });
@@ -187,7 +187,7 @@ describe("Service", () => {
   describe("#getRunningInstancesCount", () => {
     it("returns the number of reported tasks", () => {
       const service = new Service({
-        tasks: [{ foo: "bar" }, { bar: "baz" }]
+        tasks: [{ foo: "bar" }, { bar: "baz" }],
       });
 
       expect(service.getRunningInstancesCount()).toEqual(2);
@@ -195,7 +195,7 @@ describe("Service", () => {
 
     it("returns 0 when the tasks array is empty", () => {
       const service = new Service({
-        tasks: []
+        tasks: [],
       });
 
       expect(service.getRunningInstancesCount()).toEqual(0);
@@ -203,7 +203,7 @@ describe("Service", () => {
 
     it("defaults to 0 if the tasks key is omitted", () => {
       const service = new Service({
-        id: "/foo/bar"
+        id: "/foo/bar",
       });
 
       expect(service.getRunningInstancesCount()).toEqual(0);

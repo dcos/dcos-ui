@@ -28,7 +28,7 @@ const ServiceAccountsBreadcrumbs = () => {
           Service Accounts
         </Trans>
       </BreadcrumbTextContent>
-    </Breadcrumb>
+    </Breadcrumb>,
   ];
 
   return (
@@ -38,20 +38,20 @@ const ServiceAccountsBreadcrumbs = () => {
 
 class ServiceAccountsPage extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object
+    params: PropTypes.object,
   };
   constructor(...args) {
     super(...args);
 
     this.store_listeners = [
       { name: "marathon", events: ["success"] },
-      { name: "aclServiceAccounts", events: ["change", "error"] }
+      { name: "aclServiceAccounts", events: ["change", "error"] },
     ];
 
     this.state = {
       serviceAccountsStoreError: false,
       serviceAccountsStoreSuccess: false,
-      openNewGroupModal: false
+      openNewGroupModal: false,
     };
   }
 
@@ -62,13 +62,13 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
   onAclServiceAccountsStoreChange = () => {
     this.setState({
       serviceAccountsStoreError: false,
-      serviceAccountsStoreSuccess: true
+      serviceAccountsStoreSuccess: true,
     });
   };
   onAclServiceAccountsStoreError = () => {
     this.setState({
       serviceAccountsStoreError: true,
-      serviceAccountsStoreSuccess: false
+      serviceAccountsStoreSuccess: false,
     });
   };
   handleNewGroupClick = () => {
@@ -113,7 +113,7 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
           breadcrumbs={<ServiceAccountsBreadcrumbs />}
           addButton={{
             label: i18nMark("New Service Account"),
-            onItemSelect: this.handleNewGroupClick
+            onItemSelect: this.handleNewGroupClick,
           }}
         />
         {this.getContents()}
@@ -128,7 +128,7 @@ class ServiceAccountsPage extends mixin(StoreMixin) {
 
 ServiceAccountsPage.routeConfig = {
   label: i18nMark("Service Accounts"),
-  matches: /^\/organization\/service-accounts/
+  matches: /^\/organization\/service-accounts/,
 };
 
 export default ServiceAccountsPage;

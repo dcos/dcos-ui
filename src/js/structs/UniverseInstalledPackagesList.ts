@@ -17,7 +17,7 @@ class UniverseInstalledPackagesList extends List {
         },
         tags(item) {
           return item.getTags().join(" ");
-        }
+        },
       };
     }
 
@@ -25,7 +25,7 @@ class UniverseInstalledPackagesList extends List {
     super(options, ...Array.prototype.slice(arguments, 1));
 
     // Replace list items instances of UniversePackage.
-    this.list = this.list.map(item => {
+    this.list = this.list.map((item) => {
       if (item instanceof UniversePackage) {
         return item;
       }

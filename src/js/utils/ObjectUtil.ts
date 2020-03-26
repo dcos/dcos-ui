@@ -11,7 +11,7 @@ export default {
     Object.defineProperty(obj, "___object_mark___", {
       value: mark,
       enumerable: false,
-      writable: true
+      writable: true,
     });
 
     return obj;
@@ -26,5 +26,5 @@ export default {
    */
   objectHasMark(obj: any, mark: any) {
     return obj.___object_mark___ === mark;
-  }
+  },
 };

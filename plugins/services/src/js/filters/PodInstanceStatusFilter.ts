@@ -5,7 +5,7 @@ const LABEL = "is";
 
 const LABEL_TO_STATUS = {
   active: "active",
-  completed: "completed"
+  completed: "completed",
 };
 
 /**
@@ -34,7 +34,7 @@ class PodInstanceStatusFilter extends DSLFilter {
   filterApply(resultSet, filterType, filterArguments) {
     const testStatus = LABEL_TO_STATUS[filterArguments.text.toLowerCase()];
 
-    return resultSet.filterItems(instance => {
+    return resultSet.filterItems((instance) => {
       let instanceStatus = "completed";
 
       if (instance.isStaging()) {

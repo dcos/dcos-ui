@@ -11,17 +11,17 @@ import ConfigurationMapTable from "../components/ConfigurationMapTable";
 
 const BOOLEAN_OPTIONS = {
   truthy: i18nMark("TRUE"),
-  falsy: i18nMark("FALSE")
+  falsy: i18nMark("FALSE"),
 };
 
 class PodContainerArtifactsConfigSection extends React.Component {
   static defaultProps = {
-    artifacts: []
+    artifacts: [],
   };
   static propTypes = {
     artifacts: PropTypes.array,
     index: PropTypes.number,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
@@ -29,7 +29,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Artifact URI</Trans>;
         },
-        prop: "uri"
+        prop: "uri",
       },
       {
         heading() {
@@ -43,7 +43,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
               value={row[prop]}
             />
           );
-        }
+        },
       },
       {
         heading() {
@@ -57,7 +57,7 @@ class PodContainerArtifactsConfigSection extends React.Component {
               value={row[prop]}
             />
           );
-        }
+        },
       },
       {
         heading() {
@@ -71,14 +71,14 @@ class PodContainerArtifactsConfigSection extends React.Component {
               value={row[prop]}
             />
           );
-        }
+        },
       },
       {
         heading() {
           return <Trans render="span">Destination Path</Trans>;
         },
-        prop: "destPath"
-      }
+        prop: "destPath",
+      },
     ];
   }
 

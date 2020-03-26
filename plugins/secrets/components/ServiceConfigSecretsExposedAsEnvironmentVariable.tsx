@@ -19,7 +19,7 @@ interface Props {
 
 function ServiceConfigSecretsExposedAsEnvironmentVariable({
   onEditClick,
-  secretExposures
+  secretExposures,
 }: Props) {
   if (secretExposures.length === 0) {
     return null;
@@ -51,7 +51,7 @@ function ServiceConfigSecretsExposedAsEnvironmentVariable({
               {se.secretPath}
             </ConfigurationMapHeading>
 
-            {se.exposures.map(envExp => {
+            {se.exposures.map((envExp) => {
               return (
                 <ConfigurationMapRow key={`secret-${envExp}`}>
                   <Trans render={<ConfigurationMapLabel />}>

@@ -17,7 +17,7 @@ export default (
     title,
     description,
     appearance: toastNotification.appearance,
-    autodismiss: toastNotification.autodismiss
+    autodismiss: toastNotification.autodismiss,
   };
   toastProps.onDismiss = () => {
     extension.dismissToast(toastNotification.id);

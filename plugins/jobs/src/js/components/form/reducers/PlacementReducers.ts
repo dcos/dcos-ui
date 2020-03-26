@@ -9,11 +9,11 @@ export const placementReducers = {
     const emptyConstraint = {
       operator: "",
       attribute: "",
-      value: ""
+      value: "",
     };
     if (!placement) {
       placement = {
-        constraints: []
+        constraints: [],
       };
       stateCopy.job.run.placement = placement;
     }
@@ -54,11 +54,11 @@ export const placementReducers = {
         placement.constraints[index] = {
           property: "",
           attribute: "",
-          value: ""
+          value: "",
         };
       }
       placement.constraints[index][prop] = value;
     }
     return stateCopy;
-  }
+  },
 };

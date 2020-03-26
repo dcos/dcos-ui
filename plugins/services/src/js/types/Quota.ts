@@ -12,11 +12,11 @@ export const QuotaFieldLabels = {
   cpus: "CPU",
   mem: "Mem",
   disk: "Disk",
-  gpus: "GPU"
+  gpus: "GPU",
 };
 export const QuotaFieldUnit = {
   cpus: "cores",
   mem: "MiB",
   disk: "MiB",
-  gpus: "cores"
+  gpus: "cores",
 };

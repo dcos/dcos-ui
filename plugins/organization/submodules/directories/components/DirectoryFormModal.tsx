@@ -20,7 +20,7 @@ const BLACKLISTED_FORM_FIELDS = [
   "user-search-base",
   "user-search-filter-template",
   "ca-certs",
-  "client-cert"
+  "client-cert",
 ];
 
 class DirectoryFormModal extends React.Component {
@@ -28,14 +28,14 @@ class DirectoryFormModal extends React.Component {
     changeModalOpenState() {},
     editMode: true,
     model: {},
-    onFormSubmit() {}
+    onFormSubmit() {},
   };
   static propTypes = {
     changeModalOpenState: PropTypes.func,
     editMode: PropTypes.bool,
     model: PropTypes.object,
     modalOpen: PropTypes.bool.isRequired,
-    onFormSubmit: PropTypes.func
+    onFormSubmit: PropTypes.func,
   };
   constructor(...args) {
     super(...args);
@@ -44,8 +44,8 @@ class DirectoryFormModal extends React.Component {
       isCACertRequired: false,
       formData: {
         "ssl-tls-configuration": null,
-        "template-bind-type": null
-      }
+        "template-bind-type": null,
+      },
     };
 
     this.triggerTabFormSubmit = null;
@@ -60,13 +60,15 @@ class DirectoryFormModal extends React.Component {
       fieldName === "template-bind-type" ||
       fieldName === "authentication-bind-type"
     ) {
-      const selectedOption = fieldValue.find(radioValue => radioValue.checked);
+      const selectedOption = fieldValue.find(
+        (radioValue) => radioValue.checked
+      );
 
       this.setState({
         formData: {
           ...this.state.formData,
-          [fieldName]: selectedOption.name
-        }
+          [fieldName]: selectedOption.name,
+        },
       });
     } else if (fieldName === "client-cert") {
       const isCACertRequired =
@@ -77,7 +79,7 @@ class DirectoryFormModal extends React.Component {
       }
     }
   };
-  handleFormSubmit = formData => {
+  handleFormSubmit = (formData) => {
     ACLDirectoriesStore.addDirectory(this.processFormData(formData));
     this.props.onFormSubmit();
   };
@@ -203,7 +205,7 @@ class DirectoryFormModal extends React.Component {
 
     return "simple-bind-template";
   }
-  getTriggerTabFormSubmit = submitTrigger => {
+  getTriggerTabFormSubmit = (submitTrigger) => {
     this.triggerTabFormSubmit = submitTrigger;
   };
 
@@ -225,7 +227,7 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("host")
+          value: this.getFieldValue("host"),
         },
         {
           fieldType: "text",
@@ -235,8 +237,8 @@ class DirectoryFormModal extends React.Component {
             <Trans render="label" id={FieldDefinitions.port.displayName} />
           ),
           writeType: "input",
-          value: this.getFieldValue("port")
-        }
+          value: this.getFieldValue("port"),
+        },
       ],
       {
         buttonClassName: "button-outline button-split-content",
@@ -255,7 +257,7 @@ class DirectoryFormModal extends React.Component {
                 />
               </div>
             ),
-            id: "use-ldaps"
+            id: "use-ldaps",
           },
           {
             html: (
@@ -267,7 +269,7 @@ class DirectoryFormModal extends React.Component {
                 />
               </div>
             ),
-            id: "enforce-starttls"
+            id: "enforce-starttls",
           },
           {
             html: (
@@ -282,8 +284,8 @@ class DirectoryFormModal extends React.Component {
                 />
               </div>
             ),
-            id: "ssl-tls-configuration-default-value"
-          }
+            id: "ssl-tls-configuration-default-value",
+          },
         ],
         required: false,
         showLabel: (
@@ -296,7 +298,7 @@ class DirectoryFormModal extends React.Component {
           return true;
         },
         value: this.getFieldValue("ssl-tls-configuration"),
-        wrapperClassName: "dropdown dropdown-wide"
+        wrapperClassName: "dropdown dropdown-wide",
       },
       {
         fieldType: "textarea",
@@ -315,7 +317,7 @@ class DirectoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: this.getFieldValue("client-cert")
+        value: this.getFieldValue("client-cert"),
       },
       {
         fieldType: "textarea",
@@ -329,8 +331,8 @@ class DirectoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: this.getFieldValue("ca-certs")
-      }
+        value: this.getFieldValue("ca-certs"),
+      },
     ];
   }
 
@@ -354,7 +356,7 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("lookup-dn")
+          value: this.getFieldValue("lookup-dn"),
         },
         {
           fieldType: "password",
@@ -372,9 +374,9 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("lookup-password")
-        }
-      ]
+          value: this.getFieldValue("lookup-password"),
+        },
+      ],
     };
 
     return [
@@ -400,7 +402,7 @@ class DirectoryFormModal extends React.Component {
             ),
             checked:
               this.getFieldValue("authentication-bind-type") ===
-              "anonymous-bind"
+              "anonymous-bind",
           },
           {
             name: "ldap-credentials",
@@ -410,10 +412,10 @@ class DirectoryFormModal extends React.Component {
             ),
             checked:
               this.getFieldValue("authentication-bind-type") ===
-              "ldap-credentials"
-          }
-        ]
-      }
+              "ldap-credentials",
+          },
+        ],
+      },
     ].concat(
       conditionalAuthenticationBindFields[
         this.getFieldValue("authentication-bind-type")
@@ -440,8 +442,8 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("dntemplate")
-        }
+          value: this.getFieldValue("dntemplate"),
+        },
       ],
       "search-bind": [
         {
@@ -460,7 +462,7 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("user-search.search-base")
+          value: this.getFieldValue("user-search.search-base"),
         },
         {
           fieldType: "text",
@@ -482,9 +484,9 @@ class DirectoryFormModal extends React.Component {
           validation() {
             return true;
           },
-          value: this.getFieldValue("user-search.search-filter-template")
-        }
-      ]
+          value: this.getFieldValue("user-search.search-filter-template"),
+        },
+      ],
     };
 
     return [
@@ -510,17 +512,17 @@ class DirectoryFormModal extends React.Component {
             ),
             checked:
               this.getFieldValue("template-bind-type") ===
-              "simple-bind-template"
+              "simple-bind-template",
           },
           {
             name: "search-bind",
             label: i18n._(
               FieldDefinitions["template-bind-type.search-bind"].displayName
             ),
-            checked: this.getFieldValue("template-bind-type") === "search-bind"
-          }
-        ]
-      }
+            checked: this.getFieldValue("template-bind-type") === "search-bind",
+          },
+        ],
+      },
     ].concat(
       conditionalTemplateBindFields[this.getFieldValue("template-bind-type")] ||
         []
@@ -568,7 +570,7 @@ class DirectoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: this.getFieldValue("group-search.search-base")
+        value: this.getFieldValue("group-search.search-base"),
       },
       {
         fieldType: "text",
@@ -590,8 +592,8 @@ class DirectoryFormModal extends React.Component {
         validation() {
           return true;
         },
-        value: this.getFieldValue("group-search.search-filter-template")
-      }
+        value: this.getFieldValue("group-search.search-filter-template"),
+      },
     ];
   }
 
@@ -602,31 +604,31 @@ class DirectoryFormModal extends React.Component {
       connection: {
         title: i18n._("Connection"),
         selectValue: "connection",
-        definition: this.getConnectionDefinition()
+        definition: this.getConnectionDefinition(),
       },
       "authentication-method": {
         title: i18n._("Authentication"),
         selectValue: "authentication-method",
-        definition: this.getAuthenticationMethodDefinition()
+        definition: this.getAuthenticationMethodDefinition(),
       },
       "group-import": {
         title: i18n._("Group Import (Optional)"),
         selectValue: "group-import",
-        definition: this.getGroupImportDefinition()
-      }
+        definition: this.getGroupImportDefinition(),
+      },
     };
   }
 
   processFormData(formData) {
     const processedData = {
-      ...this.props.model
+      ...this.props.model,
     };
 
     // Transform the nested form definition into an object that the API expects.
-    Object.keys(formData).forEach(formGroupName => {
+    Object.keys(formData).forEach((formGroupName) => {
       const fieldGroup = formData[formGroupName];
 
-      Object.keys(fieldGroup).forEach(fieldName => {
+      Object.keys(fieldGroup).forEach((fieldName) => {
         const fieldValue = fieldGroup[fieldName];
 
         // This dropdown's value determines two fields, which must be explicitly

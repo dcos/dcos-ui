@@ -34,9 +34,9 @@ export function JSONReducer(state = [], { type, path, value }) {
     }
   }
 
-  return this.networks.map(network => ({
+  return this.networks.map((network) => ({
     ...network,
-    mode: Networking.internalToJson[network.mode]
+    mode: Networking.internalToJson[network.mode],
   }));
 }
 

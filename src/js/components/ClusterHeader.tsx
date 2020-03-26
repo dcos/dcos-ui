@@ -57,7 +57,7 @@ export default class ClusterHeader extends mixin(StoreMixin) {
         className: "dropdown-menu-section-header",
         html: <label className="text-overflow">{clusterName}</label>,
         id: "header-cluster-name",
-        selectable: false
+        selectable: false,
       },
       {
         className: "user-account-dropdown-menu-public-ip",
@@ -74,14 +74,14 @@ export default class ClusterHeader extends mixin(StoreMixin) {
             />
           </ClipboardTrigger>
         ),
-        id: "public-ip"
+        id: "public-ip",
       },
       {
         html: <Trans render="span">Overview</Trans>,
         id: "overview",
         onClick: () => {
           this.context.router.push("/cluster/overview");
-        }
+        },
       },
       {
         html: (
@@ -90,35 +90,35 @@ export default class ClusterHeader extends mixin(StoreMixin) {
         id: "cluster-linking",
         onClick: () => {
           SidebarActions.openClusterLinkingModal();
-        }
+        },
       },
       {
         className: "dropdown-menu-section-header",
         html: <Trans render="label">Support</Trans>,
         id: "header-support",
-        selectable: false
+        selectable: false,
       },
       {
         html: <Trans render="span">Support Portal</Trans>,
         id: "support-portal",
         onClick() {
           window.open(Config.supportPortalURI, "_blank");
-        }
+        },
       },
       {
         html: <Trans render="span">Documentation</Trans>,
         id: "documentation",
         onClick() {
           window.open(MetadataStore.buildDocsURI("/"), "_blank");
-        }
+        },
       },
       {
         html: <Trans render="span">Install CLI</Trans>,
         id: "install-cli",
         onClick() {
           SidebarActions.openCliInstructions();
-        }
-      }
+        },
+      },
     ];
   }
 
@@ -136,5 +136,5 @@ export default class ClusterHeader extends mixin(StoreMixin) {
 }
 
 ClusterHeader.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };

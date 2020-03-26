@@ -20,7 +20,7 @@ describe("ServiceAttributeIsPodFilter", () => {
     const filters = [new ServiceAttributeIsPodFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 
@@ -40,7 +40,7 @@ describe("ServiceAttributeIsPodFilter", () => {
     const filters = [new ServiceAttributeIsPodFilter()];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[2]
+      thisMockItems[2],
     ]);
   });
 });

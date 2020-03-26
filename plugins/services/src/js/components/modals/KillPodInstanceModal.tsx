@@ -12,12 +12,12 @@ import Pod from "../../structs/Pod";
 
 const ACTION_DISPLAY_NAMES = {
   restart: i18nMark("Restart"),
-  stop: i18nMark("Stop")
+  stop: i18nMark("Stop"),
 };
 
 const ACTION_DISPLAY_NAMES_CONTINUOUS = {
   restart: i18nMark("Restarting..."),
-  stop: i18nMark("Stopping...")
+  stop: i18nMark("Stopping..."),
 };
 
 class KillPodInstanceModal extends React.PureComponent {
@@ -25,7 +25,7 @@ class KillPodInstanceModal extends React.PureComponent {
     action: "restart",
     killPodInstances: () => {},
     pod: new Pod(),
-    selectedItems: []
+    selectedItems: [],
   };
   static propTypes = {
     action: PropTypes.string,
@@ -35,13 +35,13 @@ class KillPodInstanceModal extends React.PureComponent {
     onClose: PropTypes.func.isRequired,
     open: PropTypes.bool.isRequired,
     pod: PropTypes.instanceOf(Pod),
-    selectedItems: PropTypes.array
+    selectedItems: PropTypes.array,
   };
   constructor(...args) {
     super(...args);
 
     this.state = {
-      errorMsg: null
+      errorMsg: null,
     };
   }
 
@@ -134,7 +134,7 @@ class KillPodInstanceModal extends React.PureComponent {
       open,
       pod,
       selectedItems,
-      i18n
+      i18n,
     } = this.props;
 
     let buttonText = i18n._(ACTION_DISPLAY_NAMES[action]);
@@ -150,7 +150,7 @@ class KillPodInstanceModal extends React.PureComponent {
     const killAction = () =>
       killPodInstances(
         pod,
-        selectedItems.map(item => item.id),
+        selectedItems.map((item) => item.id),
         this.shouldForceUpdate()
       );
 

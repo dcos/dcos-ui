@@ -35,7 +35,7 @@ const Index = createReactClass({
       showErrorModal: false,
       modalErrorMsg: "",
       configErrorCount: 0,
-      previousWindowWidth: window.innerWidth
+      previousWindowWidth: window.innerWidth,
     };
   },
 
@@ -52,7 +52,7 @@ const Index = createReactClass({
     // We want to always request the summary endpoint. This will ensure that
     // our charts always have data to render.
     this.store_listeners = [
-      { name: "summary", events: ["success", "error"], suppressUpdate: true }
+      { name: "summary", events: ["success", "error"], suppressUpdate: true },
     ];
   },
 
@@ -109,7 +109,7 @@ const Index = createReactClass({
 
   onSummaryStoreError() {
     this.setState({
-      mesosSummaryErrorCount: this.state.mesosSummaryErrorCount + 1
+      mesosSummaryErrorCount: this.state.mesosSummaryErrorCount + 1,
     });
   },
 
@@ -142,7 +142,7 @@ const Index = createReactClass({
       !hasViewportChanged(this.state.previousWindowWidth, currentWindowWidth)
     ) {
       this.setState({
-        previousWindowWidth: currentWindowWidth
+        previousWindowWidth: currentWindowWidth,
       });
 
       return;
@@ -157,7 +157,7 @@ const Index = createReactClass({
     }
 
     this.setState({
-      previousWindowWidth: currentWindowWidth
+      previousWindowWidth: currentWindowWidth,
     });
   },
 
@@ -176,7 +176,7 @@ const Index = createReactClass({
 
     const classSet = classNames("application-wrapper", {
       "sidebar-visible": isVisible,
-      "sidebar-docked": isVisible
+      "sidebar-docked": isVisible,
     });
 
     return (
@@ -196,7 +196,7 @@ const Index = createReactClass({
         </div>
       </div>
     );
-  }
+  },
 });
 
 export default Index;

@@ -16,7 +16,7 @@ import FormRow from "#SRC/js/components/form/FormRow";
 
 const errorsLens = Objektiv.attr("container", {}).attr("volumes", []);
 
-export default function(props) {
+export default function (props) {
   const { volume, index } = props;
   if (volume.type !== "DSS") {
     return null;

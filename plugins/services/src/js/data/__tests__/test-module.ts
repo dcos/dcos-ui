@@ -1,6 +1,6 @@
 import {
   DataLayerExtensionInterface,
-  getExtensionModule
+  getExtensionModule,
 } from "@extension-kid/data-layer";
 import { ContainerModule, injectable } from "inversify";
 
@@ -11,7 +11,7 @@ import { resolvers } from "../resolvers";
 import {
   fetchPlanDetails as fetchServicePlanDetail,
   fetchPlans as fetchServicePlans,
-  ServicePlanResponse
+  ServicePlanResponse,
 } from "../ServicePlansClient";
 import { IResolvers } from "graphql-tools";
 import { Observable } from "rxjs";
@@ -40,7 +40,7 @@ function makeResolvers(
   let resolverArgs = {
     fetchServicePlans,
     fetchServicePlanDetail,
-    pollingInterval: Config.getRefreshRate()
+    pollingInterval: Config.getRefreshRate(),
   };
   if (args) {
     resolverArgs = { ...resolverArgs, ...args };

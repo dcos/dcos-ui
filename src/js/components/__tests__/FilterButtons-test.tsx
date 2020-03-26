@@ -12,7 +12,7 @@ describe("FilterButtons", () => {
     thisItemList = [
       { name: "obj 0", key: "f0" },
       { name: "obj 1", key: "f0" },
-      { name: "obj 2", key: "f1" }
+      { name: "obj 2", key: "f1" },
     ];
     thisInstance = shallow(
       <FilterButtons
@@ -68,7 +68,7 @@ describe("FilterButtons", () => {
       const expectedCounts = {
         f0: 2,
         f1: 1,
-        all: 3
+        all: 3,
       };
 
       expect(counts).toEqual(expectedCounts);

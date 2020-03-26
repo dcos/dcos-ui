@@ -18,14 +18,14 @@ describe("JSONEditor", () => {
       id: "/",
       instances: 1,
       cpus: 1,
-      mem: 128
+      mem: 128,
     };
     const updatedValue = {
       id: "/test",
       instances: 1,
       cpus: 1,
       mem: 128,
-      cmd: "while true; do sleep 10; done"
+      cmd: "while true; do sleep 10; done",
     };
 
     it("prevents unnecessary component updates", () => {
@@ -36,7 +36,7 @@ describe("JSONEditor", () => {
 
       const nextProps = {
         ...instance.props,
-        value: updatedValue
+        value: updatedValue,
       };
       const nextState = instance.state;
 
@@ -153,7 +153,7 @@ describe("JSONEditor", () => {
         jest.runOnlyPendingTimers();
 
         instance.UNSAFE_componentWillReceiveProps({
-          value: JSON.parse(initialJSONText)
+          value: JSON.parse(initialJSONText),
         });
       });
 
@@ -209,7 +209,7 @@ describe("JSONEditor", () => {
         jsonText: "[]",
         jsonError: [{ path: "id", message: "Required" }],
         jsonValue: [],
-        jsonMeta: [{ path: "id", line: 1 }]
+        jsonMeta: [{ path: "id", line: 1 }],
       });
 
       expect(instance.jsonText).toEqual("[]");
@@ -239,7 +239,7 @@ describe("JSONEditor", () => {
         jsonError: "SyntaxError: Unexpected end of JSON input",
         jsonMeta: [],
         jsonText: "{",
-        jsonValue: {}
+        jsonValue: {},
       });
     });
 
@@ -257,11 +257,11 @@ describe("JSONEditor", () => {
             path: [0],
             position: [2, 7],
             type: "literal",
-            value: "foo"
-          }
+            value: "foo",
+          },
         ],
         jsonText: '[\n"foo"\n]',
-        jsonValue: ["foo"]
+        jsonValue: ["foo"],
       });
     });
   });

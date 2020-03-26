@@ -16,12 +16,12 @@ class CertificateStore extends EventEmitter {
       storeID: "certificates",
       events: {
         certificatesSuccess: EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS,
-        certificatesError: EventTypes.CERTIFICATE_ALL_CERTIFICATES_ERROR
+        certificatesError: EventTypes.CERTIFICATE_ALL_CERTIFICATES_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.getSDK().onDispatch(action => {
+    SDK.getSDK().onDispatch((action) => {
       switch (action.type) {
         case ActionTypes.REQUEST_ALL_CERTIFICATES_SUCCESS:
           this.processCertificates(action.data);
@@ -56,7 +56,7 @@ class CertificateStore extends EventEmitter {
   processCertificates(response) {
     SDK.getSDK().dispatch({
       type: EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS,
-      certificates: response
+      certificates: response,
     });
 
     this.emit(EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS);

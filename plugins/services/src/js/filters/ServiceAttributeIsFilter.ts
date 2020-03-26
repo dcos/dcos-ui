@@ -29,7 +29,7 @@ class ServiceAttribIsFilter extends DSLFilter {
     const testStatus = ServiceStatus[filterArguments.text.toUpperCase()];
 
     return resultset.filterItems(
-      service => service.getServiceStatus() === testStatus
+      (service) => service.getServiceStatus() === testStatus
     );
   }
 }

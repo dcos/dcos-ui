@@ -6,7 +6,7 @@ export default class PodTerminationHistory extends Item {
     const containers = this.get("containers") || [];
 
     return containers.map(
-      container => new PodContainerTerminationHistory(container)
+      (container) => new PodContainerTerminationHistory(container)
     );
   }
 

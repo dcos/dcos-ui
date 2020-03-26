@@ -4,7 +4,7 @@ import Transaction from "#SRC/js/structs/Transaction";
 import { isEmpty } from "#SRC/js/utils/ValidatorUtil";
 import {
   JSONParser as parser,
-  JSONReducer as reducer
+  JSONReducer as reducer,
 } from "../common/Constraints";
 
 export function JSONReducer(state, transaction) {

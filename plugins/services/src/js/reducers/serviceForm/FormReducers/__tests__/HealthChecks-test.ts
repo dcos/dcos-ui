@@ -22,8 +22,8 @@ describe("HealthChecks", () => {
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
-          protocol: "COMMAND"
-        }
+          protocol: "COMMAND",
+        },
       ]);
     });
 
@@ -40,8 +40,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "COMMAND",
-          command: "sleep 1000;"
-        }
+          command: "sleep 1000;",
+        },
       ]);
     });
 
@@ -56,8 +56,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTP",
-          path: "/test"
-        }
+          path: "/test",
+        },
       ]);
     });
 
@@ -89,8 +89,8 @@ describe("HealthChecks", () => {
           gracePeriodSeconds: 1,
           intervalSeconds: 2,
           timeoutSeconds: 3,
-          maxConsecutiveFailures: 4
-        }
+          maxConsecutiveFailures: 4,
+        },
       ]);
     });
 
@@ -125,8 +125,8 @@ describe("HealthChecks", () => {
           gracePeriodSeconds: 300,
           intervalSeconds: 60,
           timeoutSeconds: 20,
-          maxConsecutiveFailures: 3
-        }
+          maxConsecutiveFailures: 3,
+        },
       ]);
     });
 
@@ -146,8 +146,8 @@ describe("HealthChecks", () => {
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
-          protocol: "MESOS_HTTPS"
-        }
+          protocol: "MESOS_HTTPS",
+        },
       ]);
     });
 
@@ -168,8 +168,8 @@ describe("HealthChecks", () => {
 
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
-          protocol: "MESOS_HTTP"
-        }
+          protocol: "MESOS_HTTP",
+        },
       ]);
     });
 
@@ -184,8 +184,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTP",
-          isIPv6: true
-        }
+          isIPv6: true,
+        },
       ]);
     });
 
@@ -201,8 +201,8 @@ describe("HealthChecks", () => {
       expect(batch.reduce(HealthChecks.FormReducer.bind({}), [])).toEqual([
         {
           protocol: "MESOS_HTTPS",
-          isIPv6: true
-        }
+          isIPv6: true,
+        },
       ]);
     });
   });

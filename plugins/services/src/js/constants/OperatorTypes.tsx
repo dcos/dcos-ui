@@ -11,7 +11,7 @@ const OperatorTypes = {
       <Trans render="span">The unique operator does not accept a value.</Trans>
     ),
     name: i18nMark("Unique"),
-    description: i18nMark("Run each app task on a unique attribute ID")
+    description: i18nMark("Run each app task on a unique attribute ID"),
   },
   CLUSTER: {
     requiresValue: true,
@@ -21,7 +21,7 @@ const OperatorTypes = {
     name: i18nMark("Cluster"),
     description: i18nMark(
       "Run app tasks on nodes that share a certain attribute ID"
-    )
+    ),
   },
   GROUP_BY: {
     requiresValue: false,
@@ -31,7 +31,7 @@ const OperatorTypes = {
     name: i18nMark("Group By"),
     description: i18nMark(
       "Run app tasks evenly distributed across a certain attribute"
-    )
+    ),
   },
   IS: {
     requiresValue: true,
@@ -41,7 +41,7 @@ const OperatorTypes = {
     name: i18nMark("Is"),
     description: i18nMark(
       "Run app tasks on nodes having attribute ID with a specific value"
-    )
+    ),
   },
   LIKE: {
     requiresValue: true,
@@ -49,7 +49,7 @@ const OperatorTypes = {
     stringNumberValue: false,
     tooltipContent: null,
     name: i18nMark("Like"),
-    description: i18nMark("Run app tasks on a particular set of attribute IDs")
+    description: i18nMark("Run app tasks on a particular set of attribute IDs"),
   },
   UNLIKE: {
     requiresValue: true,
@@ -59,7 +59,7 @@ const OperatorTypes = {
     name: i18nMark("Unlike"),
     description: i18nMark(
       "Don't run app tasks on a particular set of attribute IDs"
-    )
+    ),
   },
   MAX_PER: {
     requiresValue: true,
@@ -67,8 +67,8 @@ const OperatorTypes = {
     stringNumberValue: true,
     tooltipContent: null,
     name: i18nMark("Max Per"),
-    description: i18nMark("Run max number of app tasks on each attribute ID")
-  }
+    description: i18nMark("Run max number of app tasks on each attribute ID"),
+  },
 };
 
 export default OperatorTypes;

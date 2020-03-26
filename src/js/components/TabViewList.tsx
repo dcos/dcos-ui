@@ -9,8 +9,8 @@ class TabViewList extends React.Component {
     className: PropTypes.oneOf([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
-    ])
+      PropTypes.string,
+    ]),
   };
   getChildren() {
     const { activeTab, children } = this.props;

@@ -31,7 +31,7 @@ const UnitHealthUtil = {
    */
   getHealth(health) {
     const healthKey = Object.keys(UnitHealthStatus).find(
-      key => UnitHealthStatus[key].value === health
+      (key) => UnitHealthStatus[key].value === health
     );
 
     return (
@@ -52,14 +52,14 @@ const UnitHealthUtil = {
       return items;
     }
 
-    return items.filter(datum => {
+    return items.filter((datum) => {
       if (health.length > 1) {
         return Util.toLowerCaseIfString(datum.getHealth().title) === health;
       }
 
       return datum.getHealth().value === +health;
     });
-  }
+  },
 };
 
 export default UnitHealthUtil;

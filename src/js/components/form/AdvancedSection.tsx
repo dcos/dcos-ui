@@ -12,9 +12,9 @@ class AdvancedSection extends React.Component {
     className: PropTypes.oneOfType([
       PropTypes.array,
       PropTypes.object,
-      PropTypes.string
+      PropTypes.string,
     ]),
-    shouldExpand: PropTypes.bool
+    shouldExpand: PropTypes.bool,
   };
   static getDerivedStateFromProps(nextProps) {
     if (nextProps.shouldExpand) {
@@ -32,11 +32,11 @@ class AdvancedSection extends React.Component {
   };
 
   getChildren() {
-    return React.Children.map(this.props.children, child => {
+    return React.Children.map(this.props.children, (child) => {
       if (child.type === AdvancedSectionLabel) {
         return React.cloneElement(child, {
           onClick: this.handleHeadingClick,
-          isExpanded: this.state.isExpanded
+          isExpanded: this.state.isExpanded,
         });
       }
 

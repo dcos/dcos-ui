@@ -15,7 +15,7 @@ import { getDefaultFormState } from "react-jsonschema-form/lib/utils";
 
 class EditFrameworkConfiguration extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       formData: null,
       formErrors: {},
       cosmosErrors: null,
-      defaultConfigWarning: null
+      defaultConfigWarning: null,
     };
 
     // prettier-ignore
@@ -58,7 +58,7 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       cosmosErrors: null,
       packageDetails,
       formData,
-      defaultConfigWarning
+      defaultConfigWarning,
     });
   }
 
@@ -110,7 +110,7 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
       formData,
       formErrors,
       cosmosErrors,
-      defaultConfigWarning
+      defaultConfigWarning,
     } = this.state;
 
     if (cosmosErrors) {
@@ -149,7 +149,7 @@ class EditFrameworkConfiguration extends mixin(StoreMixin) {
 }
 
 EditFrameworkConfiguration.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default EditFrameworkConfiguration;

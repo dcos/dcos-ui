@@ -20,7 +20,7 @@ import {
   hasErrors,
   defaultFormData,
   validUid,
-  validSecretPath
+  validSecretPath,
 } from "../../../utils/ServiceAccountFormUtil";
 
 const ACLServiceAccountsStore = getACLServiceAccountsStore();
@@ -29,7 +29,7 @@ const {
   ACL_SERVICE_ACCOUNT_DELETE_ERROR,
   ACL_SERVICE_ACCOUNT_CREATE_ERROR,
   ACL_SERVICE_ACCOUNT_UPDATE_SUCCESS,
-  ACL_SERVICE_ACCOUNT_UPDATE_ERROR
+  ACL_SERVICE_ACCOUNT_UPDATE_ERROR,
 } = EventTypes;
 
 interface ServiceAccountFormModalProps {
@@ -65,7 +65,7 @@ class ServiceAccountFormModal extends React.Component<
       failedToComplete: false,
       formData: this.getFormDataFromAccount(props.account) || defaultFormData(),
       manuallyEnteredSecretId: false,
-      errors: {}
+      errors: {},
     };
   }
 
@@ -132,7 +132,7 @@ class ServiceAccountFormModal extends React.Component<
   public getFormDataFromAccount(account: any): ServiceAccountFormData | null {
     if (account != null) {
       return {
-        description: account.description
+        description: account.description,
       };
     }
     return null;
@@ -164,7 +164,7 @@ class ServiceAccountFormModal extends React.Component<
       errors: {},
       formData: defaultFormData(),
       failedToComplete: false,
-      manuallyEnteredSecretId: false
+      manuallyEnteredSecretId: false,
     });
     this.props.onClose();
   };
@@ -190,8 +190,8 @@ class ServiceAccountFormModal extends React.Component<
               Please delete this service account and try again or use the CLI.
             </Trans>
           </div>
-        )
-      }
+        ),
+      },
     });
   };
 
@@ -211,14 +211,14 @@ class ServiceAccountFormModal extends React.Component<
 
     this.setState({
       pendingRequest: false,
-      errors
+      errors,
     });
   };
 
   public onAclStoreUpdateSuccess = (): void => {
     this.setState({
       pendingRequest: false,
-      errors: {}
+      errors: {},
     });
     this.props.onClose();
   };
@@ -227,8 +227,8 @@ class ServiceAccountFormModal extends React.Component<
     this.setState({
       pendingRequest: false,
       errors: {
-        description: errorMsg
-      }
+        description: errorMsg,
+      },
     });
   };
 
@@ -239,7 +239,7 @@ class ServiceAccountFormModal extends React.Component<
       failedToComplete: false,
       pendingRequest: false,
       manuallyEnteredSecretId: false,
-      formData: this.getFormDataFromAccount(account) || defaultFormData()
+      formData: this.getFormDataFromAccount(account) || defaultFormData(),
     });
     onClose();
   };
@@ -258,7 +258,7 @@ class ServiceAccountFormModal extends React.Component<
     const validationErrors = this.validateFormData();
     if (hasErrors(validationErrors)) {
       this.setState({
-        errors: validationErrors
+        errors: validationErrors,
       });
       return;
     }
@@ -289,17 +289,17 @@ class ServiceAccountFormModal extends React.Component<
     const { formData } = this.state;
     const newFormData = {
       ...formData,
-      [name]: value
+      [name]: value,
     };
 
     if (name === "secret_path") {
       this.setState({
         manuallyEnteredSecretId: true,
-        formData: newFormData
+        formData: newFormData,
       });
     } else {
       this.setState({
-        formData: this.prefillSecretIdMaybe(newFormData)
+        formData: this.prefillSecretIdMaybe(newFormData),
       });
     }
   };

@@ -14,7 +14,7 @@ export default [
   {
     type: Redirect,
     from: "/jobs",
-    to: "/jobs/overview"
+    to: "/jobs/overview",
   },
   {
     type: Route,
@@ -30,14 +30,14 @@ export default [
         children: [
           {
             type: Route,
-            path: ":path"
-          }
-        ]
+            path: ":path",
+          },
+        ],
       },
       {
         type: Redirect,
         from: "/job/detail/:id",
-        to: "/job/detail/:id/tasks"
+        to: "/job/detail/:id/tasks",
       },
       {
         type: Route,
@@ -47,7 +47,7 @@ export default [
           {
             type: Redirect,
             path: "/jobs/detail/:id/tasks/:taskID",
-            to: "/jobs/detail/:id/tasks/:taskID/details"
+            to: "/jobs/detail/:id/tasks/:taskID/details",
           },
           {
             type: Route,
@@ -58,7 +58,7 @@ export default [
                 component: TaskDetailsTab,
                 path: "details",
                 title: "Details",
-                type: Route
+                type: Route,
               },
               {
                 component: TaskFilesTab,
@@ -70,14 +70,14 @@ export default [
                     component: TaskFileBrowser,
                     fileViewerRoutePath:
                       "/jobs/detail/:id/tasks/:taskID/files/view(/:filePath(/:innerPath))",
-                    type: IndexRoute
+                    type: IndexRoute,
                   },
                   {
                     component: TaskFileViewer,
                     path: "view(/:filePath(/:innerPath))",
-                    type: Route
-                  }
-                ]
+                    type: Route,
+                  },
+                ],
               },
               {
                 component: TaskLogsContainer,
@@ -87,14 +87,14 @@ export default [
                 children: [
                   {
                     path: ":filePath",
-                    type: Route
-                  }
-                ]
-              }
-            ]
-          }
-        ]
-      }
-    ]
-  }
+                    type: Route,
+                  },
+                ],
+              },
+            ],
+          },
+        ],
+      },
+    ],
+  },
 ];

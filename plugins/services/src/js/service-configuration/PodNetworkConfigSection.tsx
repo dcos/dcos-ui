@@ -16,7 +16,7 @@ import ConfigurationMapValueWithDefault from "../components/ConfigurationMapValu
 
 const NETWORK_MODE_NAME = {
   container: i18nMark("Container"),
-  host: i18nMark("Host")
+  host: i18nMark("Host"),
 };
 
 function getNetworkTypes(networks, i18n) {
@@ -41,11 +41,11 @@ function getNetworkNames(networks) {
 
 class PodNetworkConfigSection extends React.Component {
   static defaultProps = {
-    appConfig: {}
+    appConfig: {},
   };
   static propTypes = {
     appConfig: PropTypes.object,
-    onEditClick: PropTypes.func
+    onEditClick: PropTypes.func,
   };
   getColumns() {
     return [
@@ -53,33 +53,33 @@ class PodNetworkConfigSection extends React.Component {
         heading() {
           return <Trans render="span">Name</Trans>;
         },
-        prop: "name"
+        prop: "name",
       },
       {
         heading() {
           return <Trans render="span">Protocol</Trans>;
         },
-        prop: "protocol"
+        prop: "protocol",
       },
       {
         heading() {
           return <Trans render="span">Port</Trans>;
         },
-        prop: "port"
+        prop: "port",
       },
       {
         heading() {
           return <Trans render="span">Load Balanced Address</Trans>;
         },
         prop: "lbAddress",
-        placeholder: <Trans render="em">Not Enabled</Trans>
+        placeholder: <Trans render="em">Not Enabled</Trans>,
       },
       {
         heading() {
           return <Trans render="span">Container</Trans>;
         },
-        prop: "container"
-      }
+        prop: "container",
+      },
     ];
   }
 
@@ -109,7 +109,7 @@ class PodNetworkConfigSection extends React.Component {
             lbAddress: lbAddress.join(", "),
             container: ServiceConfigDisplayUtil.getContainerNameWithIcon(
               container
-            )
+            ),
           };
         })
       );

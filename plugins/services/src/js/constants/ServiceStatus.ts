@@ -8,7 +8,7 @@ enum StatusCategory {
   RUNNING = "RUNNING",
   LOADING = "LOADING",
   WARNING = "WARNING",
-  ERROR = "ERROR"
+  ERROR = "ERROR",
 }
 
 interface Status {
@@ -24,22 +24,22 @@ interface Status {
 const CREATION_ERROR: Status = {
   priority: 33,
   displayName: i18nMark("Error Creating Service"),
-  category: StatusCategory.ERROR
+  category: StatusCategory.ERROR,
 };
 const UNAVAILABLE = {
   priority: 32,
   displayName: i18nMark("Service Unavailable"),
-  category: StatusCategory.ERROR
+  category: StatusCategory.ERROR,
 };
 const ERROR = {
   priority: 31,
   displayName: i18nMark("Error"),
-  category: StatusCategory.ERROR
+  category: StatusCategory.ERROR,
 };
 const DEGRADED_AWAITING_RESOURCES: Status = {
   priority: 30,
   displayName: i18nMark("Degraded (Awaiting Resources)"),
-  category: StatusCategory.ERROR
+  category: StatusCategory.ERROR,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -49,27 +49,27 @@ const DEGRADED_AWAITING_RESOURCES: Status = {
 const DEGRADED: Status = {
   priority: 25,
   displayName: i18nMark("Degraded"),
-  category: StatusCategory.WARNING
+  category: StatusCategory.WARNING,
 };
 const DEGRADED_RECOVERING: Status = {
   priority: 23,
   displayName: i18nMark("Degraded (Recovering)"),
-  category: StatusCategory.WARNING
+  category: StatusCategory.WARNING,
 };
 const DEPLOYING_AWAITING_RESOURCES: Status = {
   priority: 22,
   displayName: i18nMark("Deploying (Awaiting Resources)"),
-  category: StatusCategory.WARNING
+  category: StatusCategory.WARNING,
 };
 const DELAYED: Status = {
   priority: 21,
   displayName: i18nMark("Delayed"),
-  category: StatusCategory.WARNING
+  category: StatusCategory.WARNING,
 };
 const WARNING: Status = {
   priority: 20,
   displayName: i18nMark("Warning"),
-  category: StatusCategory.WARNING
+  category: StatusCategory.WARNING,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -79,42 +79,42 @@ const WARNING: Status = {
 const RESTORING: Status = {
   priority: 17,
   displayName: i18nMark("Restoring"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const RECOVERING: Status = {
   priority: 16,
   displayName: i18nMark("Recovering"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const UPGRADE_DOWNGRADE_ROLLBACK: Status = {
   priority: 15,
   displayName: i18nMark("Upgrade / Rollback / Downgrade"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const DEPLOYING: Status = {
   priority: 14,
   displayName: i18nMark("Deploying"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const BACKING_UP: Status = {
   priority: 13,
   displayName: i18nMark("Backing up"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const DELETING: Status = {
   priority: 12,
   displayName: i18nMark("Deleting"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const INITIALIZING: Status = {
   priority: 11,
   displayName: i18nMark("Initializing"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 const WAITING: Status = {
   priority: 10,
   displayName: i18nMark("Waiting"),
-  category: StatusCategory.LOADING
+  category: StatusCategory.LOADING,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -124,17 +124,17 @@ const WAITING: Status = {
 const STOPPED: Status = {
   priority: 1,
   displayName: i18nMark("Stopped"),
-  category: StatusCategory.STOPPED
+  category: StatusCategory.STOPPED,
 };
 const RUNNING: Status = {
   priority: 2,
   displayName: i18nMark("Running"),
-  category: StatusCategory.RUNNING
+  category: StatusCategory.RUNNING,
 };
 const NA: Status = {
   priority: 0,
   displayName: i18nMark("N/A"),
-  category: StatusCategory.NA
+  category: StatusCategory.NA,
 };
 
 ///////////////////////////////////////////////////////////////////////////////
@@ -155,7 +155,7 @@ function fromHttpCode(code: number): Status | null {
     321: RESTORING,
     326: UPGRADE_DOWNGRADE_ROLLBACK,
     500: CREATION_ERROR,
-    503: UNAVAILABLE
+    503: UNAVAILABLE,
   };
   return map[code];
 }
@@ -241,5 +241,5 @@ export {
   UNAVAILABLE,
   UPGRADE_DOWNGRADE_ROLLBACK,
   WAITING,
-  WARNING
+  WARNING,
 };

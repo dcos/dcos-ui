@@ -11,7 +11,7 @@ const FIELDS = [
   "name",
   "servicePort",
   "vip",
-  "vipPort"
+  "vipPort",
 ];
 
 /**
@@ -42,11 +42,11 @@ function SingleContainerPortMappingsReducer(state = [], action) {
               portMapping: false,
               protocol: {
                 tcp: true,
-                udp: false
+                udp: false,
               },
               servicePort: null,
               vip: null,
-              vipPort: null
+              vipPort: null,
             }
           );
           break;

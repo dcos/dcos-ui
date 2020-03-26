@@ -47,8 +47,8 @@ class ServiceStatusIcon extends React.Component<{
     service: PropTypes.oneOfType([
       PropTypes.instanceOf(Service),
       PropTypes.instanceOf(ServiceTree),
-      PropTypes.instanceOf(Pod)
-    ])
+      PropTypes.instanceOf(Pod),
+    ]),
   };
 
   public getDeclinedOffersWarning(service: TreeNode) {

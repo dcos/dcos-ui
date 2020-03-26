@@ -5,7 +5,7 @@ import pluginsList from "#PLUGINS";
 
 import {
   APPLICATION,
-  PLUGIN_LOAD_TIMEOUT
+  PLUGIN_LOAD_TIMEOUT,
 } from "#SRC/js/constants/PluginConstants";
 import { APP_STORE_CHANGE } from "../constants/EventTypes";
 import ActionsPubSub from "./middleware/ActionsPubSub";
@@ -24,11 +24,11 @@ const existingFluxStores = {};
 
 const constants = {
   APPLICATION,
-  APP_STORE_CHANGE
+  APP_STORE_CHANGE,
 };
 
 const reducers = {
-  [APPLICATION]: AppReducer
+  [APPLICATION]: AppReducer,
 };
 
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -56,8 +56,8 @@ export const Store = createStore(
  *
  * @param {Object} pluginsConfig - Plugin configuration
  */
-const initialize = pluginsConfig => {
-  Object.keys(pluginsConfig).forEach(pluginID => {
+const initialize = (pluginsConfig) => {
+  Object.keys(pluginsConfig).forEach((pluginID) => {
     // Make sure plugin is bundled
     if (!(pluginID in pluginsList)) {
       if (Config.environment === "development") {
@@ -100,7 +100,7 @@ const initialize = pluginsConfig => {
  * @param  {PluginSDK} SDK - PluginSDK
  * @return {Object}     - API for registering/requesting actions
  */
-const getActionsAPI = SDK => ({
+const getActionsAPI = (SDK) => ({
   registerActions(actions, name) {
     if (SDK.pluginID in REGISTERED_ACTIONS) {
       throw new Error(`${SDK.pluginID} already has registered actions.`);
@@ -129,7 +129,7 @@ const getActionsAPI = SDK => ({
     }
 
     return REGISTERED_ACTIONS[name];
-  }
+  },
 });
 
 /**
@@ -139,7 +139,7 @@ const getActionsAPI = SDK => ({
  * @param  {Object} definition - Store definition
  * @return {Object}            - Created store
  */
-const addStoreConfig = definition => {
+const addStoreConfig = (definition) => {
   if (definition) {
     if (!definition.storeID) {
       throw new Error("Must define a valid storeID to expose events");
@@ -161,7 +161,7 @@ const addStoreConfig = definition => {
  * @param  {String} root - root of the slice to return
  * @return {Function}      Returns state at root
  */
-const getStateRootedAt = root => () => Store.getState()[root];
+const getStateRootedAt = (root) => () => Store.getState()[root];
 
 /**
  * Extends the PluginSDK
@@ -169,7 +169,7 @@ const getStateRootedAt = root => () => Store.getState()[root];
  * @param  {Object} obj  - Key value pairs to be added to SDK
  */
 const extendSDK = (SDK, obj) => {
-  Object.keys(obj).forEach(methodName => {
+  Object.keys(obj).forEach((methodName) => {
     SDK[methodName] = obj[methodName].bind(SDK);
   });
 };
@@ -193,7 +193,7 @@ const getSDK = (pluginID, config) => {
       subscribe: Store.subscribe.bind(Store),
       getState: Store.getState.bind(Store),
       getOwnState: getStateRootedAt(pluginID),
-      getAppState: getStateRootedAt(APPLICATION)
+      getAppState: getStateRootedAt(APPLICATION),
     };
   }
 
@@ -210,7 +210,7 @@ const getSDK = (pluginID, config) => {
 
     // helpers for testing
     __getSDK: getSDK,
-    __addReducer
+    __addReducer,
   };
 
   extendSDK(SDK, getActionsAPI(SDK));

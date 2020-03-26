@@ -61,7 +61,7 @@ describe("MesosLogContainer", () => {
     it("calls startTailing when new path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
-        task: { slave_id: "foo" }
+        task: { slave_id: "foo" },
       });
       expect(MesosLogStore.startTailing.calls.count()).toEqual(2);
     });
@@ -69,7 +69,7 @@ describe("MesosLogContainer", () => {
     it("calls stopTailing when new path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/other/file/path",
-        task: { slave_id: "foo" }
+        task: { slave_id: "foo" },
       });
       expect(MesosLogStore.stopTailing.calls.count()).toEqual(1);
     });
@@ -77,7 +77,7 @@ describe("MesosLogContainer", () => {
     it("doesn't call startTailing when same path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
-        task: { slave_id: "foo" }
+        task: { slave_id: "foo" },
       });
       expect(MesosLogStore.startTailing.calls.count()).toEqual(1);
     });
@@ -85,7 +85,7 @@ describe("MesosLogContainer", () => {
     it("doesn't call stopTailing when same path is provided", () => {
       thisInstance.UNSAFE_componentWillReceiveProps({
         filePath: "/some/file/path",
-        task: { slave_id: "foo" }
+        task: { slave_id: "foo" },
       });
       expect(MesosLogStore.stopTailing.calls.count()).toEqual(0);
     });

@@ -19,7 +19,7 @@ describe("ClusterLinkingActions", () => {
     });
 
     it("dispatches the correct action when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_LIST_SUCCESS);
       });
@@ -28,7 +28,7 @@ describe("ClusterLinkingActions", () => {
     });
 
     it("dispatches with the correct data when successful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual(clusterLinkingListFixture);
       });
@@ -37,7 +37,7 @@ describe("ClusterLinkingActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.type).toEqual(ActionTypes.REQUEST_CLUSTER_LIST_ERROR);
       });
@@ -46,7 +46,7 @@ describe("ClusterLinkingActions", () => {
     });
 
     it("dispatches with the correct data when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.data).toEqual("error");
       });
@@ -55,7 +55,7 @@ describe("ClusterLinkingActions", () => {
     });
 
     it("dispatches the xhr when unsuccessful", () => {
-      const unsubscribe = SDK.onDispatch(action => {
+      const unsubscribe = SDK.onDispatch((action) => {
         unsubscribe();
         expect(action.xhr).toEqual({ message: "error" });
       });

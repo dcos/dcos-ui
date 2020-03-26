@@ -11,13 +11,13 @@ describe("NodesZoneFilter", () => {
       {
         getZoneName() {
           return "zone-1";
-        }
+        },
       },
       {
         getZoneName() {
           return "zone-2";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -27,11 +27,8 @@ describe("NodesZoneFilter", () => {
 
     const filters = [new NodesZoneFilter(["zone-1"])];
 
-    expect(
-      expr
-        .filter(filters, nodes)
-        .getItems()[0]
-        .getZoneName()
-    ).toEqual(thisMockItems[0].getZoneName());
+    expect(expr.filter(filters, nodes).getItems()[0].getZoneName()).toEqual(
+      thisMockItems[0].getZoneName()
+    );
   });
 });

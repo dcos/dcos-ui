@@ -20,7 +20,7 @@ function checkServiceEndpoints(ports, pathPrefix) {
         return errorsMemo.concat({
           path: pathPrefix.concat([index, "labels", label]),
           message:
-            "Label for VIP must be in the following format: <ip-addres|name>:<port>"
+            "Label for VIP must be in the following format: <ip-addres|name>:<port>",
         });
       }
 
@@ -29,7 +29,7 @@ function checkServiceEndpoints(ports, pathPrefix) {
       if (!NetworkValidatorUtil.isValidPort(vipPort)) {
         return errorsMemo.concat({
           path: pathPrefix.concat([index, "labels", label]),
-          message: "Port should be an integer less than or equal to 65535"
+          message: "Port should be an integer less than or equal to 65535",
         });
       }
 
@@ -64,7 +64,7 @@ const VipLabelsValidators = {
 
       return memo.concat(checkServiceEndpoints(endpoints, pathPrefix));
     }, []);
-  }
+  },
 };
 
 export default VipLabelsValidators;

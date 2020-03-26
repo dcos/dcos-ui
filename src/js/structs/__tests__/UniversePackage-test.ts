@@ -9,14 +9,14 @@ describe("UniversePackage", () => {
           images: {
             "icon-small": "small.png",
             "icon-medium": "medium.png",
-            "icon-large": "large.png"
-          }
-        }
+            "icon-large": "large.png",
+          },
+        },
       });
       expect(pkg.getIcons()).toEqual({
         "icon-small": "small.png",
         "icon-medium": "medium.png",
-        "icon-large": "large.png"
+        "icon-large": "large.png",
       });
     });
 
@@ -63,7 +63,7 @@ describe("UniversePackage", () => {
   describe("#getConfig", () => {
     it("returns config passed into package", () => {
       const pkg = new UniversePackage({
-        config: { properties: {}, type: "object" }
+        config: { properties: {}, type: "object" },
       });
       expect(pkg.getConfig()).toEqual({ properties: {}, type: "object" });
     });

@@ -11,7 +11,7 @@ class CollapsingString extends React.Component {
     truncatedStringEndClassName: "collapsing-string-truncated-end",
     truncatedStringStartClassName: "collapsing-string-truncated-start",
     truncatedWrapperClassName: "collapsing-string-truncated-wrapper",
-    wrapperClassName: "collapsing-string"
+    wrapperClassName: "collapsing-string",
   };
   static propTypes = {
     // The number of characters to keep visible at the end of the string.
@@ -24,7 +24,7 @@ class CollapsingString extends React.Component {
     truncatedStringEndClassName: PropTypes.string,
     truncatedStringStartClassName: PropTypes.string,
     truncatedWrapperClassName: PropTypes.string,
-    wrapperClassName: PropTypes.string
+    wrapperClassName: PropTypes.string,
   };
   constructor(...args) {
     super(...args);
@@ -32,7 +32,7 @@ class CollapsingString extends React.Component {
     this.state = {
       collapsed: false,
       parentWidth: null,
-      stringWidth: null
+      stringWidth: null,
     };
 
     this.fullStringRef = React.createRef();
@@ -134,7 +134,7 @@ class CollapsingString extends React.Component {
     this.setState({
       collapsed: this.shouldCollapse(parentWidth, stringWidth),
       parentWidth,
-      stringWidth
+      stringWidth,
     });
   };
 

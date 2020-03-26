@@ -44,7 +44,7 @@ describe("ServicesContainer", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return storeService;
-        }
+        },
       };
     });
 
@@ -83,7 +83,7 @@ describe("ServicesContainer", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return undefined;
-        }
+        },
       };
       const modalProps = thisInstance
         .instance()
@@ -98,7 +98,7 @@ describe("ServicesContainer", () => {
       DCOSStore.serviceTree = {
         findItemById() {
           return undefined;
-        }
+        },
       };
       const modalProps = thisInstance
         .instance()

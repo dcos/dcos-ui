@@ -18,7 +18,7 @@ import { Hooks } from "PluginSDK";
 
 let configResponseCallback = null;
 const defaultOrganizationRoute = {
-  routes: []
+  routes: [],
 };
 
 export default {
@@ -28,25 +28,25 @@ export default {
     "AJAXRequestError",
     "userLoginSuccess",
     "userLogoutSuccess",
-    "redirectToLogin"
+    "redirectToLogin",
   ],
 
   filters: [
     "applicationRoutes",
     "organizationRoutes",
     "serverErrorModalListeners",
-    "userAddPolicy"
+    "userAddPolicy",
   ],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
     this.store_initializeListeners([
-      { name: "config", events: ["success", "error"] }
+      { name: "config", events: ["success", "error"] },
     ]);
 
     this.registerUserAccountDropdown();
@@ -93,7 +93,7 @@ export default {
 
   applicationRoutes(routes) {
     // Override handler of index to be 'authenticated'
-    routes[0].children.forEach(child => {
+    routes[0].children.forEach((child) => {
       if (child.id === "index") {
         child.component = new Authenticated(child.component);
         child.onEnter = child.component.willTransitionTo;
@@ -105,12 +105,12 @@ export default {
       {
         component: AccessDeniedPage,
         path: "/access-denied",
-        type: Route
+        type: Route,
       },
       {
         component: LoginPage,
         path: "/login",
-        type: Route
+        type: Route,
       }
     );
 
@@ -136,10 +136,10 @@ export default {
     const userRoute = {
       type: Route,
       path: "users",
-      component: UsersPage
+      component: UsersPage,
     };
     const usersRouteIndex = routeDefinition.routes.findIndex(
-      route => route.name === userRoute.name
+      (route) => route.name === userRoute.name
     );
     // Replace by new definition
     if (usersRouteIndex !== -1) {
@@ -154,7 +154,7 @@ export default {
     routeDefinition.redirect = {
       type: Redirect,
       from: "/organization",
-      to: "/organization/users"
+      to: "/organization/users",
     };
 
     return routeDefinition;
@@ -218,5 +218,5 @@ export default {
         .
       </p>
     );
-  }
+  },
 };

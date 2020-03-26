@@ -13,22 +13,22 @@ describe("tasks parser", () => {
           {
             id: "2",
             task_id: {
-              value: "2"
+              value: "2",
             },
             slave_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
             agent_id: {
-              value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+              value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
             },
             executor_id: "default",
             framework_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-0000",
             resources: {},
             labels: undefined,
-            isStartedByMarathon: false
+            isStartedByMarathon: false,
           },
           {
             slave_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
             agent_id: {
-              value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+              value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
             },
             executor_id: "default",
             framework_id: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-0000",
@@ -40,9 +40,9 @@ describe("tasks parser", () => {
               ports: [
                 {
                   begin: 31000,
-                  end: 32000
-                }
-              ]
+                  end: 32000,
+                },
+              ],
             },
             state: "TASK_RUNNING",
             status_update_state: "TASK_RUNNING",
@@ -50,49 +50,49 @@ describe("tasks parser", () => {
             statuses: [
               {
                 agent_id: {
-                  value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0"
+                  value: "d4bd102f-e25f-46dc-bb5d-8b10bca133d8-S0",
                 },
                 container_status: {
                   network_infos: [
                     {
                       ip_addresses: [
                         {
-                          ip_address: "127.0.1.1"
-                        }
-                      ]
-                    }
-                  ]
+                          ip_address: "127.0.1.1",
+                        },
+                      ],
+                    },
+                  ],
                 },
                 executor_id: {
-                  value: "default"
+                  value: "default",
                 },
                 source: "SOURCE_EXECUTOR",
                 state: "TASK_RUNNING",
                 task_id: {
-                  value: "1"
+                  value: "1",
                 },
                 timestamp: 1470820172.32565,
-                uuid: "ycLTRBo8TjKFTrh4vsBERg=="
-              }
+                uuid: "ycLTRBo8TjKFTrh4vsBERg==",
+              },
             ],
             labels: [
               {
                 key: "LABEL_1",
-                value: "VALUE_1"
+                value: "VALUE_1",
               },
               {
                 key: "DCOS_COMMONS_API_VERSION",
-                value: "1"
-              }
+                value: "1",
+              },
             ],
             id: "1",
             task_id: {
-              value: "1"
+              value: "1",
             },
             isStartedByMarathon: false,
-            sdkTask: true
-          }
-        ]
+            sdkTask: true,
+          },
+        ],
       });
     });
   });
@@ -105,17 +105,17 @@ describe("tasks parser", () => {
         task_added: {
           task: {
             task_id: {
-              value: "1"
+              value: "1",
             },
             agent_id: {
-              value: "1"
+              value: "1",
             },
             framework_id: {
-              value: "1"
+              value: "1",
             },
-            resources: []
-          }
-        }
+            resources: [],
+          },
+        },
       };
 
       const result = taskAddedAction(state, message);
@@ -125,18 +125,18 @@ describe("tasks parser", () => {
           {
             slave_id: "1",
             agent_id: {
-              value: "1"
+              value: "1",
             },
             framework_id: "1",
             task_id: {
-              value: "1"
+              value: "1",
             },
             id: "1",
             resources: {},
             labels: undefined,
-            isStartedByMarathon: false
-          }
-        ]
+            isStartedByMarathon: false,
+          },
+        ],
       });
     });
   });
@@ -152,27 +152,27 @@ describe("tasks parser", () => {
             executor_id: undefined,
             framework_id: "f1",
             task_id: {
-              value: "1"
+              value: "1",
             },
             id: "1",
             resources: {},
-            labels: undefined
-          }
-        ]
+            labels: undefined,
+          },
+        ],
       };
       const message = {
         type: "TASK_UPDATED",
         task_updated: {
           state: "TASK_RUNNING",
           framework_id: {
-            value: "f1"
+            value: "f1",
           },
           status: {
             task_id: {
-              value: "1"
-            }
-          }
-        }
+              value: "1",
+            },
+          },
+        },
       };
 
       const result = taskUpdatedAction(state, message);
@@ -186,13 +186,13 @@ describe("tasks parser", () => {
             executor_id: undefined,
             framework_id: "f1",
             task_id: {
-              value: "1"
+              value: "1",
             },
             id: "1",
             resources: {},
-            labels: undefined
-          }
-        ]
+            labels: undefined,
+          },
+        ],
       });
     });
   });

@@ -3,7 +3,7 @@ import * as React from "react";
 
 class ClickToSelect extends React.Component {
   static propTypes = {
-    children: PropTypes.any
+    children: PropTypes.any,
   };
   constructor() {
     super();

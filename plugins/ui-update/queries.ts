@@ -7,7 +7,7 @@ import container from "#SRC/js/container";
 import { Package } from "#SRC/js/data/cosmos/Package";
 import {
   DEFAULT_UI_METADATA,
-  UIMetadata
+  UIMetadata,
 } from "#SRC/js/data/ui-update/UIMetadata";
 
 const dl = container.get<DataLayer>(DataLayerType);
@@ -25,7 +25,7 @@ function queryCosmosForUIVersions(): Observable<Package> {
       `,
       { packageName: "dcos-ui" }
     )
-    .pipe(map(result => result.data.package));
+    .pipe(map((result) => result.data.package));
 }
 
 function queryUIServiceForMetadata(): Observable<UIMetadata> {
@@ -44,7 +44,7 @@ function queryUIServiceForMetadata(): Observable<UIMetadata> {
       { packageName: "dcos-ui" }
     )
     .pipe(
-      map(result => result.data.ui),
+      map((result) => result.data.ui),
       catchError(() => of(DEFAULT_UI_METADATA))
     );
 }

@@ -39,7 +39,7 @@ const ReactUtil = {
     }
 
     return getUnwrappedElements(elements, alwaysWrap);
-  }
+  },
 };
 
 export default ReactUtil;

@@ -8,7 +8,7 @@ export default [
   {
     type: Redirect,
     from: "/cluster",
-    to: "/cluster/overview"
+    to: "/cluster/overview",
   },
   {
     type: Route,
@@ -22,8 +22,8 @@ export default [
         type: Route,
         path: "overview",
         component: OverviewDetailTab,
-        isInSidebar: true
-      }
-    ]
-  }
+        isInSidebar: true,
+      },
+    ],
+  },
 ];

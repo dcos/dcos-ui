@@ -5,7 +5,7 @@ import { Dropdown } from "reactjs-components";
 export default class UserAccountDropdown extends React.Component {
   static propTypes = {
     menuItems: PropTypes.arrayOf(PropTypes.object),
-    trigger: PropTypes.node
+    trigger: PropTypes.node,
   };
   handleItemSelection(item) {
     if (item.onClick) {

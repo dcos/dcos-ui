@@ -61,7 +61,9 @@ export function JSONParser(state) {
   }
 
   return Object.keys(state.env)
-    .filter(key => state.env[key] == null || typeof state.env[key] === "string")
+    .filter(
+      (key) => state.env[key] == null || typeof state.env[key] === "string"
+    )
     .reduce((memo, key, index) => {
       /**
        * For the environment variables which are a key => value based object

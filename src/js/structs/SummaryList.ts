@@ -22,11 +22,11 @@ class SummaryList extends List {
 
   getActiveNodesByState() {
     return this.getItems()
-      .map(state => ({
+      .map((state) => ({
         date: state.getSnapshotDate(),
         slavesCount: state.isSnapshotSuccessful()
           ? state.getActiveSlaves().length
-          : null
+          : null,
       }))
       .sort((a, b) => a.date - b.date);
   }
@@ -36,31 +36,25 @@ class SummaryList extends List {
     return (
       this.getItems()
         .reverse()
-        .find(r => r.isSnapshotSuccessful()) ||
+        .find((r) => r.isSnapshotSuccessful()) ||
       new StateSummary({ successful: false })
     );
   }
 
   getResourceStatesForNodeIDs(ids) {
-    const stateResources = this.getItems().map(state => {
+    const stateResources = this.getItems().map((state) => {
       let resources = null,
         totalResources = null;
 
       if (state.isSnapshotSuccessful()) {
-        resources = state
-          .getNodesList()
-          .filter({ ids })
-          .sumUsedResources();
-        totalResources = state
-          .getNodesList()
-          .filter({ ids })
-          .sumResources();
+        resources = state.getNodesList().filter({ ids }).sumUsedResources();
+        totalResources = state.getNodesList().filter({ ids }).sumResources();
       }
 
       return {
         date: state.getSnapshotDate(),
         resources,
-        totalResources
+        totalResources,
       };
     });
 

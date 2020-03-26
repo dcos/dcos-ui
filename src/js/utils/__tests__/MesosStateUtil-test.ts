@@ -13,14 +13,14 @@ describe("MesosStateUtil", () => {
       const frameworks = [{ name: "foo", id: "foo_1" }];
       const fooFramework = new Framework({
         name: "foo",
-        labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "foo" }
+        labels: { DCOS_PACKAGE_FRAMEWORK_NAME: "foo" },
       });
       const serviceTree = new ServiceTree({ items: [fooFramework] });
 
       expect(
         MesosStateUtil.getFrameworkToServicesMap(frameworks, serviceTree)
       ).toEqual({
-        foo_1: fooFramework
+        foo_1: fooFramework,
       });
     });
   });
@@ -30,13 +30,13 @@ describe("MesosStateUtil", () => {
       frameworks: [
         {
           id: "framework-123",
-          name: "test-1"
+          name: "test-1",
         },
         {
           id: "framework-abc",
-          name: "test-2"
-        }
-      ]
+          name: "test-2",
+        },
+      ],
     };
 
     it("returns the matching framework", () => {
@@ -64,22 +64,22 @@ describe("MesosStateUtil", () => {
             { id: "foo" },
             { id: "bar" },
             { id: "baz" },
-            { id: "qux" }
+            { id: "qux" },
           ],
           tasks: [
             {
               state: "TASK_RUNNING",
-              container: { network_infos: [{ name: "alpha" }] }
+              container: { network_infos: [{ name: "alpha" }] },
             },
             {
               state: "TASK_KILLED",
-              container: { network_infos: [{ name: "alpha" }] }
+              container: { network_infos: [{ name: "alpha" }] },
             },
             {
               state: "TASK_RUNNING",
-              container: { network_infos: [{ name: "beta" }] }
-            }
-          ]
+              container: { network_infos: [{ name: "beta" }] },
+            },
+          ],
         },
         "alpha"
       );
@@ -111,8 +111,8 @@ describe("MesosStateUtil", () => {
       expect(thisInstance).toEqual([
         {
           state: "TASK_RUNNING",
-          container: { network_infos: [{ name: "alpha" }] }
-        }
+          container: { network_infos: [{ name: "alpha" }] },
+        },
       ]);
     });
   });
@@ -168,13 +168,13 @@ describe("MesosStateUtil", () => {
         cpus: 0.4,
         mem: 48,
         disk: 16,
-        gpus: 0
+        gpus: 0,
       });
       expect(instances[1].resources).toEqual({
         cpus: 0.1,
         mem: 16,
         disk: 0,
-        gpus: 1
+        gpus: 1,
       });
     });
 
@@ -232,7 +232,7 @@ describe("MesosStateUtil", () => {
       ).toEqual({
         podID: "failing-pod",
         instanceID: "c4a70195-5aaa-11e9-bc3e-5abede31217b",
-        taskName: "container-1"
+        taskName: "container-1",
       });
     });
   });
@@ -243,7 +243,7 @@ describe("MesosStateUtil", () => {
         executors: [
           {
             agent_id: {
-              value: "slave-uid"
+              value: "slave-uid",
             },
             name: "spark",
             framework_id: "marathon_1",
@@ -253,25 +253,25 @@ describe("MesosStateUtil", () => {
                 name: "cpus",
                 type: "SCALAR",
                 scalar: {
-                  value: 0.5
-                }
+                  value: 0.5,
+                },
               },
               {
                 name: "mem",
                 type: "SCALAR",
                 scalar: {
-                  value: 256
-                }
+                  value: 256,
+                },
               },
               {
                 name: "disk",
                 type: "SCALAR",
                 scalar: {
-                  value: 100
-                }
-              }
-            ]
-          }
+                  value: 100,
+                },
+              },
+            ],
+          },
         ],
         tasks: [
           {
@@ -279,30 +279,30 @@ describe("MesosStateUtil", () => {
             framework_id: "marathon_1",
             id: "spark.1",
             slave_id: "slave-uid",
-            resources: { cpus: 1, mem: 128, disk: 100 }
+            resources: { cpus: 1, mem: 128, disk: 100 },
           },
           {
             name: "spark",
             framework_id: "marathon_1",
             id: "spark.2",
             slave_id: "slave-uid",
-            resources: { cpus: 1, mem: 128, disk: 100 }
+            resources: { cpus: 1, mem: 128, disk: 100 },
           },
           {
             name: "alpha",
             framework_id: "marathon_2",
             id: "alpha.2",
             slave_id: "slave-uid",
-            resources: { cpus: 0.5, mem: 256, disk: 150 }
+            resources: { cpus: 0.5, mem: 256, disk: 150 },
           },
           {
             name: "nginx",
             framework_id: "marathon_3",
             id: "nginx.1",
             slave_id: "slave-uid",
-            resources: { cpus: 1, mem: 128, disk: 100 }
-          }
-        ]
+            resources: { cpus: 1, mem: 128, disk: 100 },
+          },
+        ],
       };
     });
 
@@ -314,19 +314,19 @@ describe("MesosStateUtil", () => {
           marathon_1: {
             cpus: 2.5,
             mem: 512,
-            disk: 300
+            disk: 300,
           },
           marathon_2: {
             cpus: 0.5,
             mem: 256,
-            disk: 150
+            disk: 150,
           },
           marathon_3: {
             cpus: 1,
             mem: 128,
-            disk: 100
-          }
-        }
+            disk: 100,
+          },
+        },
       });
     });
 
@@ -342,14 +342,14 @@ describe("MesosStateUtil", () => {
           marathon_1: {
             cpus: 2.5,
             mem: 512,
-            disk: 300
+            disk: 300,
           },
           other: {
             cpus: 1.5,
             mem: 384,
-            disk: 250
-          }
-        }
+            disk: 250,
+          },
+        },
       });
     });
 
@@ -360,7 +360,7 @@ describe("MesosStateUtil", () => {
         id: "spark.4",
         slave_id: "slave-uid",
         state: "TASK_FAILED",
-        resources: { cpus: 1, mem: 128, disk: 100 }
+        resources: { cpus: 1, mem: 128, disk: 100 },
       });
       expect(
         MesosStateUtil.getHostResourcesByFramework(thisMesosState)
@@ -369,19 +369,19 @@ describe("MesosStateUtil", () => {
           marathon_1: {
             cpus: 2.5,
             mem: 512,
-            disk: 300
+            disk: 300,
           },
           marathon_2: {
             cpus: 0.5,
             mem: 256,
-            disk: 150
+            disk: 150,
           },
           marathon_3: {
             cpus: 1,
             mem: 128,
-            disk: 100
-          }
-        }
+            disk: 100,
+          },
+        },
       });
     });
 

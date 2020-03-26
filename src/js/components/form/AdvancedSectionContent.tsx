@@ -13,8 +13,8 @@ AdvancedSectionContent.propTypes = {
   className: PropTypes.oneOfType([
     PropTypes.array,
     PropTypes.object,
-    PropTypes.string
-  ])
+    PropTypes.string,
+  ]),
 };
 
 export default AdvancedSectionContent;

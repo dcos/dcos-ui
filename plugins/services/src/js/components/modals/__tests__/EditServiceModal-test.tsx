@@ -8,8 +8,8 @@ jest.mock("#SRC/js/stores/DCOSStore");
 const pushMock = jest.fn();
 jest.setMock("react-router", {
   hashHistory: {
-    push: pushMock
-  }
+    push: pushMock,
+  },
 });
 
 const EditServiceModal = require("../EditServiceModal").default;
@@ -20,7 +20,7 @@ describe("EditServiceModal", () => {
     DCOSStore.serviceTree = {
       findItemById() {
         return null;
-      }
+      },
     };
 
     const wrapper = shallow(
@@ -34,7 +34,7 @@ describe("EditServiceModal", () => {
     DCOSStore.serviceTree = {
       findItemById() {
         return null;
-      }
+      },
     };
 
     mount(<EditServiceModal params={{ id: "/my-non-existant-service" }} />);
@@ -49,9 +49,9 @@ describe("EditServiceModal", () => {
         return {
           getLabels() {
             return { DCOS_PACKAGE_DEFINITION: "some-value" };
-          }
+          },
         };
-      }
+      },
     };
 
     const wrapper = shallow(
@@ -67,9 +67,9 @@ describe("EditServiceModal", () => {
         return {
           getLabels() {
             return { DCOS_PACKAGE_DEFINITION: null };
-          }
+          },
         };
-      }
+      },
     };
 
     const wrapper = shallow(

@@ -5,7 +5,7 @@ const TaskDirectoryHeaderLabels = {
   mode: i18nMark("Permissions"),
   uid: i18nMark("Owner"),
   size: i18nMark("Size"),
-  mtime: i18nMark("Modified")
+  mtime: i18nMark("Modified"),
 };
 
 export default TaskDirectoryHeaderLabels;

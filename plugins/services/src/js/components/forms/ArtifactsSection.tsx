@@ -19,10 +19,10 @@ class ArtifactsSection extends React.Component {
   static propTypes = {
     data: PropTypes.arrayOf(
       PropTypes.shape({
-        uri: PropTypes.string
+        uri: PropTypes.string,
       })
     ),
-    path: PropTypes.string
+    path: PropTypes.string,
   };
   getArtifactsLabel() {
     const tooltipContent = (
@@ -93,7 +93,7 @@ class ArtifactsSection extends React.Component {
             <DeleteRowButton
               onClick={this.props.onRemoveItem.bind(this, {
                 path,
-                value: index
+                value: index,
               })}
             />
           </FormGroup>
@@ -112,7 +112,7 @@ class ArtifactsSection extends React.Component {
           <FormGroup className="column-12">
             <AddButton
               onClick={this.props.onAddItem.bind(this, {
-                path
+                path,
               })}
             >
               <Trans render="span">Add Artifact</Trans>

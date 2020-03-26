@@ -1,13 +1,13 @@
 export {
   getAgentsAction,
   agentAddedAction,
-  agentRemovedAction
+  agentRemovedAction,
 } from "./agents";
 export {
   getFrameworksAction,
   frameworkAddedAction,
   frameworkUpdatedAction,
-  frameworkRemovedAction
+  frameworkRemovedAction,
 } from "./frameworks";
 export { getTasksAction, taskAddedAction, taskUpdatedAction } from "./tasks";
 export { default as getExecutorsAction } from "./executors";

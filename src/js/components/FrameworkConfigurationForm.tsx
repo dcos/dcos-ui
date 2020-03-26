@@ -18,7 +18,7 @@ import UniversePackage from "#SRC/js/structs/UniversePackage";
 import SchemaField from "#SRC/js/components/SchemaField";
 import SplitPanel, {
   PrimaryPanel,
-  SidePanel
+  SidePanel,
 } from "#SRC/js/components/SplitPanel";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import PlacementConstraintsSchemaField from "#SRC/js/components/PlacementConstraintsSchemaField";
@@ -34,7 +34,7 @@ const YamlEditorSchemaField = React.lazy(() =>
   )
 );
 
-const YamlEditorSchemaFieldWrapper = props => (
+const YamlEditorSchemaFieldWrapper = (props) => (
   <React.Suspense fallback={<JSONEditorLoading />}>
     <YamlEditorSchemaField {...props} />
   </React.Suspense>
@@ -57,7 +57,7 @@ class FrameworkConfigurationForm extends React.Component {
   static defaultProps = {
     deployErrors: null,
     submitRef: () => {},
-    liveValidate: false
+    liveValidate: false,
   };
   static propTypes = {
     packageDetails: PropTypes.instanceOf(UniversePackage).isRequired,
@@ -78,13 +78,13 @@ class FrameworkConfigurationForm extends React.Component {
     //
     // See https://github.com/mozilla-services/react-jsonschema-form#tips-and-tricks
     submitRef: PropTypes.func,
-    liveValidate: PropTypes.bool
+    liveValidate: PropTypes.bool,
   };
   constructor(props) {
     super(props);
 
     this.state = {
-      errorSchema: null
+      errorSchema: null,
     };
   }
   handleBadgeClick = (activeTab, event) => {
@@ -94,13 +94,13 @@ class FrameworkConfigurationForm extends React.Component {
     const { formData, handleFocusFieldChange } = this.props;
 
     const fieldsWithErrors = Object.keys(errorSchema[activeTab]).filter(
-      field =>
+      (field) =>
         errorSchema[activeTab][field].__errors &&
         errorSchema[activeTab][field].__errors.length > 0
     );
 
     // first field with errors in the current tab
-    const fieldToFocus = Object.keys(formData[activeTab]).find(field =>
+    const fieldToFocus = Object.keys(formData[activeTab]).find((field) =>
       fieldsWithErrors.includes(field)
     );
 
@@ -112,7 +112,7 @@ class FrameworkConfigurationForm extends React.Component {
     const schema = packageDetails.getConfig();
 
     // the config will have 2-levels, we will render first level as the tabs
-    return Object.keys(schema.properties).map(tabName => {
+    return Object.keys(schema.properties).map((tabName) => {
       const issueCount = formErrors[tabName];
 
       return (
@@ -131,10 +131,10 @@ class FrameworkConfigurationForm extends React.Component {
       );
     });
   }
-  handleTabChange = activeTab => {
+  handleTabChange = (activeTab) => {
     this.props.handleActiveTabChange(activeTab);
   };
-  handleDropdownNavigationSelection = item => {
+  handleDropdownNavigationSelection = (item) => {
     this.props.handleActiveTabChange(item.id);
   };
 
@@ -142,10 +142,10 @@ class FrameworkConfigurationForm extends React.Component {
     const { packageDetails, activeTab } = this.props;
     const schema = packageDetails.getConfig();
 
-    return Object.keys(schema.properties).map(tabName => ({
+    return Object.keys(schema.properties).map((tabName) => ({
       id: tabName,
       isActive: activeTab === tabName,
-      label: tabName
+      label: tabName,
     }));
   }
 
@@ -154,12 +154,12 @@ class FrameworkConfigurationForm extends React.Component {
 
     const uiSchema = {
       [activeTab]: {
-        [focusField]: { "ui:autofocus": true }
-      }
+        [focusField]: { "ui:autofocus": true },
+      },
     };
 
     // hide all tabs not selected
-    Object.keys(formData).forEach(tabName => {
+    Object.keys(formData).forEach((tabName) => {
       if (tabName !== activeTab) {
         if (uiSchema[tabName] == null) {
           uiSchema[tabName] = {};
@@ -170,7 +170,7 @@ class FrameworkConfigurationForm extends React.Component {
 
     return uiSchema;
   }
-  handleJSONChange = formData => {
+  handleJSONChange = (formData) => {
     this.props.onFormDataChange(formData);
   };
 
@@ -179,7 +179,7 @@ class FrameworkConfigurationForm extends React.Component {
       return;
     }
     if (Util.isObject(formData) && schema.properties) {
-      Object.keys(formData).forEach(property => {
+      Object.keys(formData).forEach((property) => {
         this.writeErrors(
           formData[property],
           schema.properties[property],
@@ -208,10 +208,10 @@ class FrameworkConfigurationForm extends React.Component {
     const currentLevelErrors = errorSchemaLevel.__errors.length > 0 ? 1 : 0;
 
     return Object.keys(errorSchemaLevel)
-      .map(key => this.getTotalErrorsForLevel(errorSchemaLevel[key]))
+      .map((key) => this.getTotalErrorsForLevel(errorSchemaLevel[key]))
       .reduce((a, b) => a + b, currentLevelErrors);
   }
-  handleFormChange = form => {
+  handleFormChange = (form) => {
     const { formData } = form;
 
     this.props.onFormDataChange(formData);
@@ -224,7 +224,7 @@ class FrameworkConfigurationForm extends React.Component {
   handleFormError = () => {
     this.probeErrorsSchemaForm();
   };
-  onEditorResize = newSize => {
+  onEditorResize = (newSize) => {
     this.setState({ editorWidth: newSize });
   };
 
@@ -233,7 +233,7 @@ class FrameworkConfigurationForm extends React.Component {
 
     if (errorSchema) {
       const formErrors = {};
-      Object.keys(errorSchema).forEach(tab => {
+      Object.keys(errorSchema).forEach((tab) => {
         formErrors[tab] = this.getTotalErrorsForLevel(errorSchema[tab]);
       });
 
@@ -254,13 +254,13 @@ class FrameworkConfigurationForm extends React.Component {
     if (!errorSchema.__errors) {
       return [];
     }
-    const currentLevelErrors = errorSchema.__errors.map(message => ({
+    const currentLevelErrors = errorSchema.__errors.map((message) => ({
       message,
-      path
+      path,
     }));
 
     return Object.keys(errorSchema)
-      .map(key => this.formatErrorForJSON(errorSchema[key], path.concat(key)))
+      .map((key) => this.formatErrorForJSON(errorSchema[key], path.concat(key)))
       .reduce((a, b) => a.concat(b), currentLevelErrors);
   }
 
@@ -281,14 +281,14 @@ class FrameworkConfigurationForm extends React.Component {
       .filter(({ name }) => name !== "type")
       .map(({ message, ...rest }) => ({
         message: StringUtil.capitalize(message),
-        ...rest
+        ...rest,
       }));
   }
-  jsonSchemaErrorList = props => {
+  jsonSchemaErrorList = (props) => {
     return (
       <ErrorsAlert
-        errors={props.errors.map(error => ({
-          message: error.stack
+        errors={props.errors.map((error) => ({
+          message: error.stack,
         }))}
       />
     );
@@ -304,10 +304,10 @@ class FrameworkConfigurationForm extends React.Component {
       onFormSubmit,
       liveValidate,
       submitRef,
-      i18n
+      i18n,
     } = this.props;
 
-    const TitleField = props => {
+    const TitleField = (props) => {
       const level = props.formContext.level;
       if (level === FrameworkConfigurationConstants.headingLevel.H1) {
         return (
@@ -384,7 +384,7 @@ class FrameworkConfigurationForm extends React.Component {
                       ErrorList={this.jsonSchemaErrorList}
                       transformErrors={this.transformErrors}
                       noHtml5Validate={true}
-                      ref={form => {
+                      ref={(form) => {
                         this.schemaForm = form;
                       }}
                     >

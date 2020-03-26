@@ -13,7 +13,7 @@ function resize(): void {
 
 // run the actual callbacks
 function runHandlers(): void {
-  handlers.forEach(handler => handler());
+  handlers.forEach((handler) => handler());
   running = false;
 }
 
@@ -26,7 +26,7 @@ function hasHandlers(): boolean {
 }
 
 function removeHandler(callback: () => void) {
-  handlers = handlers.filter(existing => existing !== callback);
+  handlers = handlers.filter((existing) => existing !== callback);
 }
 
 export default {
@@ -46,5 +46,5 @@ export default {
       window.removeEventListener("resize", resize);
       running = false;
     }
-  }
+  },
 };

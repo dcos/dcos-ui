@@ -10,7 +10,7 @@ import {
   REQUEST_PROVIDER_SUCCESS,
   REQUEST_PROVIDER_ERROR,
   REQUEST_PROVIDER_UPDATE_SUCCESS,
-  REQUEST_PROVIDER_UPDATE_ERROR
+  REQUEST_PROVIDER_UPDATE_ERROR,
 } from "../constants/ActionTypes";
 
 import {
@@ -23,7 +23,7 @@ import {
   PROVIDER_SUCCESS,
   PROVIDER_ERROR,
   PROVIDER_UPDATE_SUCCESS,
-  PROVIDER_UPDATE_ERROR
+  PROVIDER_UPDATE_ERROR,
 } from "../constants/EventTypes";
 
 import AuthProviderActions from "../actions/AuthProviderActions";
@@ -48,12 +48,12 @@ class AuthProviderStore extends EventEmitter {
         updateSuccess: PROVIDER_UPDATE_SUCCESS,
         updateError: PROVIDER_UPDATE_ERROR,
         callbackUrlSuccess: PROVIDER_CALLBACK_URL_SUCCESS,
-        callbackUrlError: PROVIDER_CALLBACK_URL_ERROR
+        callbackUrlError: PROVIDER_CALLBACK_URL_ERROR,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    SDK.onDispatch(action => {
+    SDK.onDispatch((action) => {
       switch (action.type) {
         case REQUEST_PROVIDER_CREATE_SUCCESS:
           this.processCreateProvider(action.providerID, action.providerType);
@@ -139,7 +139,7 @@ class AuthProviderStore extends EventEmitter {
 
     return new AuthProvider({
       ...provider,
-      providerType
+      providerType,
     });
   }
 
@@ -167,7 +167,7 @@ class AuthProviderStore extends EventEmitter {
     SDK.dispatch({
       type: PROVIDER_CREATE_SUCCESS,
       providerID,
-      providerType
+      providerType,
     });
     this.emit(PROVIDER_CREATE_SUCCESS, providerID, providerType);
   }
@@ -180,7 +180,7 @@ class AuthProviderStore extends EventEmitter {
     SDK.dispatch({
       type: PROVIDER_DELETE_SUCCESS,
       providerID,
-      providerType
+      providerType,
     });
     this.emit(PROVIDER_DELETE_SUCCESS, providerID, providerType);
   }
@@ -194,7 +194,7 @@ class AuthProviderStore extends EventEmitter {
       type: PROVIDER_SUCCESS,
       provider,
       providerID,
-      providerType
+      providerType,
     });
     this.emit(PROVIDER_SUCCESS, providerID, providerType);
   }
@@ -207,7 +207,7 @@ class AuthProviderStore extends EventEmitter {
     SDK.dispatch({
       type: PROVIDER_CALLBACK_URL_SUCCESS,
       callbackURL,
-      providerID
+      providerID,
     });
 
     this.emit(PROVIDER_CALLBACK_URL_SUCCESS, providerID, callbackURL);
@@ -217,7 +217,7 @@ class AuthProviderStore extends EventEmitter {
     SDK.dispatch({
       type: PROVIDER_UPDATE_SUCCESS,
       providerID,
-      providerType
+      providerType,
     });
     this.emit(PROVIDER_UPDATE_SUCCESS, providerID, providerType);
   }

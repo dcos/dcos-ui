@@ -15,7 +15,7 @@ import { UIAction } from "#PLUGINS/ui-update/types/UIAction";
 import {
   getAction$,
   getUiMetadata$,
-  getUpdateAvailable$
+  getUpdateAvailable$,
 } from "#PLUGINS/ui-update/streams";
 import { FormattedPackageVersion } from "#PLUGINS/ui-update/types/FormattedPackageVersion";
 
@@ -31,7 +31,7 @@ const UIDetails = componentFromStream(() => {
   return combineLatest<[UIMetadata, FormattedPackageVersion, UIAction]>([
     getUiMetadata$(),
     getUpdateAvailable$(),
-    getAction$()
+    getAction$(),
   ]).pipe(
     map(([uiMetadata, latestUpdateAvailable, uiAction]) => {
       return (

@@ -19,7 +19,7 @@ import { JSONReducer as containersJSONReducer } from "./reducers/Containers";
 import envReducer from "./reducers/EnvironmentVariables";
 import {
   UnknownVolumesParser,
-  JSONMultiContainerReducer as volumesJSONMultiContainerReducer
+  JSONMultiContainerReducer as volumesJSONMultiContainerReducer,
 } from "./reducers/Volumes";
 import * as SecretsReducers from "./reducers/Secrets";
 import SecretDetail from "./pages/SecretDetail";
@@ -36,13 +36,13 @@ import JobSecretsFormSection from "./components/forms/JobSecretsFormSection";
 import SecretValidators from "./validators/SecretsValidators";
 import {
   JobSecretsValidators,
-  JobSpecValidator
+  JobSpecValidator,
 } from "./validators/JobSecretsValidators";
 import {
   jobSecretsReducers,
   jobResponseToSpec,
   jobSpecToOutput,
-  jobJsonReducers
+  jobJsonReducers,
 } from "./reducers/JobSecrets";
 import JobVolumesFBS from "./components/forms/JobVolumesFBS";
 
@@ -66,11 +66,11 @@ module.exports = {
   },
 
   addHooks(filters, actions) {
-    filters.forEach(filter => {
+    filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
 
-    actions.forEach(action => {
+    actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
   },
@@ -135,7 +135,7 @@ module.exports = {
       "jobResponseToSpecParser",
       "jobSpecToOutputParser",
       "metronomeValidators",
-      "jobsValidateSpec"
+      "jobsValidateSpec",
     ];
 
     const deprecatedFilters = [
@@ -146,13 +146,13 @@ module.exports = {
       "serviceFormSchema",
       "serviceToAppDefinition",
       "serviceVariableValue",
-      "variablesGetter"
+      "variablesGetter",
     ];
 
     const deprecatedActions = [
       "serviceFormMount",
       "serviceFormChange",
-      "serviceFormUpdate"
+      "serviceFormUpdate",
     ];
 
     this.addHooks(filters.concat(deprecatedFilters), deprecatedActions);
@@ -180,12 +180,12 @@ module.exports = {
       return;
     }
 
-    variablesDefinition.forEach(field => {
+    variablesDefinition.forEach((field) => {
       if (!Array.isArray(field)) {
         return;
       }
 
-      field.forEach(fieldColumn => {
+      field.forEach((fieldColumn) => {
         const propKey = FormUtil.getPropKey(fieldColumn.name);
         if (
           FormUtil.isFieldInstanceOfProp(prop, fieldColumn, propIndex) &&
@@ -223,12 +223,12 @@ module.exports = {
    * @param  {type} definition
    */
   resetDefinition(definition) {
-    definition.forEach(field => {
+    definition.forEach((field) => {
       if (!Array.isArray(field)) {
         return;
       }
 
-      const isUsingSecret = field.some(fieldColumn => {
+      const isUsingSecret = field.some((fieldColumn) => {
         const prop = FormUtil.getProp(fieldColumn.name);
         const propKey = FormUtil.getPropKey(fieldColumn.name);
         const propIndex = FormUtil.getPropIndex(fieldColumn.name);
@@ -246,7 +246,7 @@ module.exports = {
         return;
       }
 
-      field.forEach(fieldColumn => {
+      field.forEach((fieldColumn) => {
         const prop = FormUtil.getProp(fieldColumn.name);
         const propKey = FormUtil.getPropKey(fieldColumn.name);
         const propIndex = FormUtil.getPropIndex(fieldColumn.name);
@@ -267,7 +267,7 @@ module.exports = {
    * @return {type}  description
    */
   environmentVariableValueList() {
-    let secrets = SecretStore.getSecrets().map(secret => ({
+    let secrets = SecretStore.getSecrets().map((secret) => ({
       html: secret.getPath(),
       id: secret.getPath(),
       value: secret.getPath(),
@@ -276,7 +276,7 @@ module.exports = {
         <span className="text-overflow text-overflow-word-break">
           {secret.getPath()}
         </span>
-      )
+      ),
     }));
 
     secrets = secrets || [];
@@ -287,8 +287,8 @@ module.exports = {
         selectedHtml: "Select Secret",
         id: "default",
         value: "",
-        html: ""
-      }
+        html: "",
+      },
     ].concat(secrets);
   },
 
@@ -302,7 +302,7 @@ module.exports = {
   serviceFormErrorResponseMap(errorResponseMap) {
     return {
       ...errorResponseMap,
-      "/secrets/secret{INDEX}/source": "Environment variable secret"
+      "/secrets/secret{INDEX}/source": "Environment variable secret",
     };
   },
 
@@ -396,7 +396,7 @@ module.exports = {
       label: "Use a secret",
       showLabel: false,
       type: "boolean",
-      className: "form-row-element-mixed-label-presence"
+      className: "form-row-element-mixed-label-presence",
     };
 
     schema.properties.environmentVariables.description = (
@@ -463,7 +463,7 @@ module.exports = {
 
   applicationRoutes(routes) {
     // Find the route we wish to modify, the index route.
-    const indexRoute = routes[0].children.find(route => route.id === "index");
+    const indexRoute = routes[0].children.find((route) => route.id === "index");
 
     // Append the security routes to the index route's children.
     indexRoute.children.push({
@@ -471,24 +471,24 @@ module.exports = {
       path: "secrets",
       component: SecretsPage,
       category: i18nMark("resources"),
-      isInSidebar: true
+      isInSidebar: true,
     });
 
     indexRoute.children.push({
       type: Route,
       path: "secrets/:secretPath",
-      component: SecretDetail
+      component: SecretDetail,
     });
 
     // Find the settings route within the index route.
     const settingsRouteIndex = indexRoute.children.findIndex(
-      route => route.path === "settings"
+      (route) => route.path === "settings"
     );
 
     // Find the repositories route within the settings route.
     const repositoriesRouteIndex = indexRoute.children[
       settingsRouteIndex
-    ].children.findIndex(route => route.path === "repositories");
+    ].children.findIndex((route) => route.path === "repositories");
 
     // Insert the stores route directly after the repositories route.
     indexRoute.children[settingsRouteIndex].children.splice(
@@ -498,7 +498,7 @@ module.exports = {
         type: Route,
         path: "stores",
         component: SecretStorePage,
-        isInSidebar: true
+        isInSidebar: true,
       }
     );
 
@@ -509,21 +509,21 @@ module.exports = {
     return [
       SecretValidators.envMustHaveSecretPart,
       SecretValidators.appVolumeMustHaveSecretPart,
-      SecretValidators.appSecretVolumesSupported
+      SecretValidators.appSecretVolumesSupported,
     ];
   },
 
   podValidators() {
     return [
       SecretValidators.envMustHaveSecretPart,
-      SecretValidators.podVolumeMustHaveSecretPart
+      SecretValidators.podVolumeMustHaveSecretPart,
     ];
   },
 
   serviceCreateJsonParserReducers(parserReducers = []) {
     // Filter out the "UnknownVolumesJSONParser" and replace with our "UnknownVolumesParser"
     const result = parserReducers.filter(
-      parser =>
+      (parser) =>
         typeof parser === "function" &&
         parser.name !== "UnknownVolumesJSONParser"
     );
@@ -547,7 +547,7 @@ module.exports = {
         // thus we're binding `this` here
         return {
           ...envReducer.JSONReducer.call(this, ...args),
-          ...reducers.env.call(this, ...args)
+          ...reducers.env.call(this, ...args),
         };
       },
 
@@ -564,26 +564,26 @@ module.exports = {
         this.internalState = newState;
 
         return newState;
-      }
+      },
     };
   },
 
   serviceInputConfigReducers(reducers) {
     return {
       ...reducers,
-      secrets: SecretsReducers.FormSingleContainerReducer
+      secrets: SecretsReducers.FormSingleContainerReducer,
     };
   },
 
   multiContainerCreateJsonParserReducers(parserReducers = []) {
     // MultiContainerVolumeMountsJSONParser
     const servicesPodVolumeParser = parserReducers.find(
-      parser =>
+      (parser) =>
         typeof parser === "function" &&
         parser.name === "MultiContainerVolumeMountsJSONParser"
     );
     if (servicesPodVolumeParser) {
-      const servicesPodVolumeParserWrapper = state =>
+      const servicesPodVolumeParserWrapper = (state) =>
         servicesPodVolumeParser(SecretsReducers.removeSecretVolumes(state));
       const parserIndex = parserReducers.indexOf(servicesPodVolumeParser);
       parserReducers[parserIndex] = servicesPodVolumeParserWrapper;
@@ -600,7 +600,7 @@ module.exports = {
       environment(...args) {
         return {
           ...envReducer.MultiContainerJSONReducer.call(this, ...args),
-          ...reducers.environment.call(this, ...args)
+          ...reducers.environment.call(this, ...args),
         };
       },
 
@@ -619,14 +619,14 @@ module.exports = {
         const containersState = reducers.containers.call(this, ...arguments);
 
         return containersJSONReducer.call(this, containersState, action, index);
-      }
+      },
     };
   },
 
   multiContainerInputConfigReducers(reducers) {
     return {
       ...reducers,
-      secrets: SecretsReducers.FormMultiContainerReducer
+      secrets: SecretsReducers.FormMultiContainerReducer,
     };
   },
 
@@ -641,7 +641,7 @@ module.exports = {
     return {
       key: variable.key,
       value,
-      usingSecret
+      usingSecret,
     };
   },
 
@@ -649,7 +649,7 @@ module.exports = {
     tabList.push({
       id: "secrets",
       key: "secrets",
-      label: i18nMark("Secrets")
+      label: i18nMark("Secrets"),
     });
 
     return tabList;
@@ -659,7 +659,7 @@ module.exports = {
     tabList.push({
       id: "secrets",
       key: "secrets",
-      label: i18nMark("Secrets")
+      label: i18nMark("Secrets"),
     });
 
     return tabList;
@@ -728,14 +728,14 @@ module.exports = {
 
   createJobTabList(tabList) {
     return tabList.concat([
-      { id: "secrets", key: "secrets", label: i18nMark("Secrets") }
+      { id: "secrets", key: "secrets", label: i18nMark("Secrets") },
     ]);
   },
 
   jobSpecToFormOutputParser(formOutput, jobSpec) {
     const output = {
       ...formOutput,
-      secrets: jobSpec.job.run.secrets || []
+      secrets: jobSpec.job.run.secrets || [],
     };
 
     return output;
@@ -747,7 +747,7 @@ module.exports = {
     return {
       ...reducers,
       json: jobJsonReducers(ossJsonOverrideReducer),
-      secrets: jobSecretsReducers
+      secrets: jobSecretsReducers,
     };
   },
 
@@ -762,11 +762,11 @@ module.exports = {
   metronomeValidators(validators) {
     return {
       ...validators,
-      ...JobSecretsValidators
+      ...JobSecretsValidators,
     };
   },
 
   jobsValidateSpec(errors, jobSpec) {
     return JobSpecValidator(errors, jobSpec);
-  }
+  },
 };

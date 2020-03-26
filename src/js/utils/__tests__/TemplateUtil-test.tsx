@@ -29,7 +29,7 @@ describe("Template Util", () => {
       TemplateUtil.defineChildren(thisDummyPage, { Footer: DummyFooter });
       expect(TemplateUtil.getTypesOfTemplateChildren(thisDummyPage)).toEqual([
         DummyHeader,
-        DummyFooter
+        DummyFooter,
       ]);
     });
 
@@ -44,9 +44,9 @@ describe("Template Util", () => {
       const children = TemplateUtil.filterTemplateChildren(thisDummyPage, [
         <DummyHeader />,
         <p>A regular child 1</p>,
-        <p>A regular child 2</p>
+        <p>A regular child 2</p>,
       ]);
-      expect(children.map(child => child.type)).toEqual(["p", "p"]);
+      expect(children.map((child) => child.type)).toEqual(["p", "p"]);
     });
   });
 

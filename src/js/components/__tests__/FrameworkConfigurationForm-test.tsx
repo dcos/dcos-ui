@@ -30,15 +30,15 @@ describe("FrameworkConfigurationForm", () => {
       const addError = jest.fn();
       const formData = {
         foo: "",
-        bar: 0
+        bar: 0,
       };
       const formErrors = {
         foo: {
-          addError
+          addError,
         },
         bar: {
-          addError
-        }
+          addError,
+        },
       };
       const testPackage = new UniversePackage({
         config: {
@@ -46,14 +46,14 @@ describe("FrameworkConfigurationForm", () => {
           properties: {
             foo: {
               type: "string",
-              default: "foo"
+              default: "foo",
             },
             bar: {
-              type: "number"
-            }
+              type: "number",
+            },
           },
-          required: ["foo"]
-        }
+          required: ["foo"],
+        },
       });
 
       const instance = createWrapper(formData, testPackage).instance();
@@ -70,17 +70,17 @@ describe("FrameworkConfigurationForm", () => {
         bar: [
           {
             key: "env",
-            value: "MYTEST=true"
-          }
-        ]
+            value: "MYTEST=true",
+          },
+        ],
       };
       const formErrors = {
         foo: {
-          addError
+          addError,
         },
         bar: {
-          addError
-        }
+          addError,
+        },
       };
       const testPackage = new UniversePackage({
         config: {
@@ -88,14 +88,14 @@ describe("FrameworkConfigurationForm", () => {
           properties: {
             foo: {
               type: "string",
-              default: "foo"
+              default: "foo",
             },
             bar: {
-              type: "array"
-            }
+              type: "array",
+            },
           },
-          required: []
-        }
+          required: [],
+        },
       });
 
       const instance = createWrapper(formData, testPackage).instance();

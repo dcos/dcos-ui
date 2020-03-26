@@ -9,7 +9,7 @@ const ContainerUtil = {
   adjustActionErrors(actionErrors, actionType, error) {
     return {
       ...actionErrors,
-      [actionType]: error
+      [actionType]: error,
     };
   },
   /**
@@ -22,19 +22,19 @@ const ContainerUtil = {
   adjustPendingActions(pendingActions, actionType, isPending) {
     return {
       ...pendingActions,
-      [actionType]: isPending
+      [actionType]: isPending,
     };
   },
 
   getNewContainerName(containerLength, newState) {
     const name = `container-${containerLength + 1}`;
-    const matchingNames = newState.filter(item => item.name === name);
+    const matchingNames = newState.filter((item) => item.name === name);
 
     if (matchingNames.length > 0) {
       return this.getNewContainerName(++containerLength, newState);
     }
     return name;
-  }
+  },
 };
 
 export default ContainerUtil;

@@ -77,7 +77,7 @@ class EnvVarPartial extends React.Component<EnvVarPartialProps, {}> {
       formData,
       errors,
       onAddItem,
-      showErrors
+      showErrors,
     } = this.props;
 
     const environmentLines = getEnvironmentLines(

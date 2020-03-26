@@ -3,7 +3,7 @@ import UsersPage from "#SRC/js/pages/system/UsersPage";
 import { Hooks } from "PluginSDK";
 
 const defaultOrganizationRoute = {
-  routes: []
+  routes: [],
 };
 
 module.exports = {
@@ -12,10 +12,10 @@ module.exports = {
   filters: ["organizationRoutes"],
 
   initialize() {
-    this.filters.forEach(filter => {
+    this.filters.forEach((filter) => {
       Hooks.addFilter(filter, this[filter].bind(this));
     });
-    this.actions.forEach(action => {
+    this.actions.forEach((action) => {
       Hooks.addAction(action, this[action].bind(this));
     });
   },
@@ -26,10 +26,10 @@ module.exports = {
       type: Route,
       path: "users",
       component: UsersPage,
-      isInSidebar: true
+      isInSidebar: true,
     };
     const usersRouteIndex = routeDefinition.routes.findIndex(
-      route => route.path === userRoute.path
+      (route) => route.path === userRoute.path
     );
     // Replace by new definition
     if (usersRouteIndex !== -1) {
@@ -44,9 +44,9 @@ module.exports = {
     routeDefinition.redirect = {
       type: Redirect,
       from: "/organization",
-      to: "/organization/users"
+      to: "/organization/users",
     };
 
     return routeDefinition;
-  }
+  },
 };

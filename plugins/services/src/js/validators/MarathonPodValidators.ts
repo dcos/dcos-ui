@@ -21,7 +21,7 @@ const MarathonPodValidators = {
             path: ["volumes", index, "persistent", "type"],
             message: "Must be mount for volumes with profile name",
             type: GENERIC,
-            variables: { name: "type" }
+            variables: { name: "type" },
           });
         }
 
@@ -31,7 +31,7 @@ const MarathonPodValidators = {
 
     // No errors
     return [];
-  }
+  },
 };
 
 export default MarathonPodValidators;

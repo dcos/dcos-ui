@@ -39,10 +39,7 @@ describe("Tabs", () => {
   it("calls handleTabChange function", () => {
     const tabButtons = thisInstance.find(".menu-tabbed-item");
 
-    tabButtons
-      .at(1)
-      .find(".menu-tabbed-item-label")
-      .simulate("click");
+    tabButtons.at(1).find(".menu-tabbed-item-label").simulate("click");
     expect(thisHandleTabChange.mock.calls[0]).toEqual(["bar"]);
   });
 
@@ -54,7 +51,7 @@ describe("Tabs", () => {
     ).toEqual("Foo");
 
     thisInstance.setProps({
-      activeTab: "qux"
+      activeTab: "qux",
     });
 
     expect(
@@ -67,38 +64,26 @@ describe("Tabs", () => {
   it("passes the activeTab prop to its children", () => {
     thisInstance
       .find(".menu-tabbed-item-label")
-      .filterWhere(n => n.text() === "Foo")
+      .filterWhere((n) => n.text() === "Foo")
       .simulate("click");
 
-    expect(
-      thisInstance
-        .find(TabViewList)
-        .first()
-        .prop("activeTab")
-    ).toEqual("foo");
-    expect(
-      thisInstance
-        .find(TabButtonList)
-        .first()
-        .prop("activeTab")
-    ).toEqual("foo");
+    expect(thisInstance.find(TabViewList).first().prop("activeTab")).toEqual(
+      "foo"
+    );
+    expect(thisInstance.find(TabButtonList).first().prop("activeTab")).toEqual(
+      "foo"
+    );
   });
 
   it("passes the change handler to TabButtonList", () => {
-    expect(
-      thisInstance
-        .find(TabButtonList)
-        .first()
-        .prop("onChange")
-    ).toEqual(thisHandleTabChange);
+    expect(thisInstance.find(TabButtonList).first().prop("onChange")).toEqual(
+      thisHandleTabChange
+    );
   });
 
   it("passes the vertical prop to TabButtonList", () => {
-    expect(
-      thisInstance
-        .find(TabButtonList)
-        .first()
-        .prop("vertical")
-    ).toEqual(true);
+    expect(thisInstance.find(TabButtonList).first().prop("vertical")).toEqual(
+      true
+    );
   });
 });

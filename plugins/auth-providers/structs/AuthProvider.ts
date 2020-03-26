@@ -104,7 +104,7 @@ class AuthProvider extends Item {
       [i18nMark("Issuer")]: this.getIssuer(),
       [i18nMark("Base URI")]: this.getBaseURI(),
       [i18nMark("Client ID")]: this.getClientID(),
-      [i18nMark("Client Secret")]: this.getClientSecret()
+      [i18nMark("Client Secret")]: this.getClientSecret(),
     };
   }
 
@@ -113,7 +113,7 @@ class AuthProvider extends Item {
       [i18nMark("Provider ID")]: this.getID(),
       [i18nMark("Description")]: this.getDescription(),
       [i18nMark("Service Provider Base URL")]: this.getSPBaseUrl(),
-      [i18nMark("IdP Metadata")]: this.getIDPMetaData()
+      [i18nMark("IdP Metadata")]: this.getIDPMetaData(),
     };
   }
 }

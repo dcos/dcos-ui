@@ -15,7 +15,7 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 
 class DeployFrameworkConfiguration extends mixin(StoreMixin) {
   static propTypes = {
-    params: PropTypes.object.isRequired
+    params: PropTypes.object.isRequired,
   };
   constructor(props) {
     super(props);
@@ -26,7 +26,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       formErrors: {},
       formData: null,
       hasError: false,
-      isPending: false
+      isPending: false,
     };
 
     // prettier-ignore
@@ -57,7 +57,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
     const query = {
       ...location.query,
-      appId
+      appId,
     };
 
     router.push(
@@ -68,10 +68,10 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 
     this.setState({ isPending: false });
   }
-  onCosmosPackagesStoreInstallError = deployErrors => {
+  onCosmosPackagesStoreInstallError = (deployErrors) => {
     this.setState({
       deployErrors,
-      isPending: false
+      isPending: false,
     });
   };
   handleRun = () => {
@@ -87,14 +87,14 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
     const { router } = this.context;
     router.goBack();
   };
-  onFormDataChange = formData => {
+  onFormDataChange = (formData) => {
     if (isEqual(formData, this.state.formData)) {
       return false;
     }
 
     this.setState({ formData });
   };
-  onFormErrorChange = formErrors => {
+  onFormErrorChange = (formErrors) => {
     if (isEqual(formErrors, this.state.formErrors)) {
       return false;
     }
@@ -108,7 +108,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
       deployErrors,
       formData,
       formErrors,
-      hasError
+      hasError,
     } = this.state;
 
     if (packageDetails == null) {
@@ -144,7 +144,7 @@ class DeployFrameworkConfiguration extends mixin(StoreMixin) {
 }
 
 DeployFrameworkConfiguration.contextTypes = {
-  router: routerShape
+  router: routerShape,
 };
 
 export default DeployFrameworkConfiguration;

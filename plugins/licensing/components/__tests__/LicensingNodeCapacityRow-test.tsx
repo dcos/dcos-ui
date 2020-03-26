@@ -43,7 +43,7 @@ describe("LicensingNodeCapacityRow", () => {
 
     it("does not render icon when no breach in nodes", () => {
       const copy = {
-        ...licensingFixture
+        ...licensingFixture,
       };
       copy.number_of_breaches = 0;
       const summary = new LicensingSummary(copy);

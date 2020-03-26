@@ -9,18 +9,18 @@ let thisMockItems;
 
 describe("TaskRegionFilter", () => {
   beforeEach(() => {
-    TaskUtil.getNode = item => item;
+    TaskUtil.getNode = (item) => item;
     thisMockItems = [
       {
         getRegionName() {
           return "region-1";
-        }
+        },
       },
       {
         getRegionName() {
           return "region-2";
-        }
-      }
+        },
+      },
     ];
   });
 
@@ -31,7 +31,7 @@ describe("TaskRegionFilter", () => {
     const filters = [new TasksRegionFilter(["region-1"])];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
-      thisMockItems[0]
+      thisMockItems[0],
     ]);
   });
 });

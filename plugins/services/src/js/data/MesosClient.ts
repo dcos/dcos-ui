@@ -39,7 +39,7 @@ function limitsFromQuotaFormData(
     const value = (quotaData[field] + "").trim();
     if (!ValidatorUtil.isEmpty(value)) {
       result[field] = {
-        value: parseFloat(value)
+        value: parseFloat(value),
       };
     }
   }
@@ -52,9 +52,9 @@ function makeUpdateQuota(groupId: string, quotaData: QuotaData): UpdateQuota {
     quota_configs: [
       {
         role: roleFromGroupId(groupId),
-        limits: limitsFromQuotaFormData(quotaData)
-      }
-    ]
+        limits: limitsFromQuotaFormData(quotaData),
+      },
+    ],
   };
 }
 
@@ -64,7 +64,7 @@ export function updateQuota(
 ): Observable<string> {
   const updateQuotaReq: UpdateQuotaRequest = {
     type: "UPDATE_QUOTA",
-    update_quota: makeUpdateQuota(groupId, quotaData)
+    update_quota: makeUpdateQuota(groupId, quotaData),
   };
   return request(updateQuotaReq, "/mesos/api/v1?UPDATE_QUOTA").pipe(
     map((response: string) => {
@@ -76,7 +76,7 @@ export function updateQuota(
       }
       throw new UpdateQuotaError(response);
     }),
-    catchError(resp => {
+    catchError((resp) => {
       const message = resp.response || resp.message;
       if (OvercommitQuotaError.isOvercommitError(message)) {
         throw new OvercommitQuotaError(message, resp.code);

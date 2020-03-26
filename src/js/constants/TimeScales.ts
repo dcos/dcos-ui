@@ -1,7 +1,7 @@
 const TimeScales = {
   MINUTE: "minute",
   HOUR: "hour",
-  DAY: "day"
+  DAY: "day",
 };
 
 export default TimeScales;

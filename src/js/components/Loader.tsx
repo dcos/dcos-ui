@@ -12,7 +12,7 @@ const typeMap = {
   ballBeat: { className: "ball-beat", divCount: 3 },
   ballScale: { className: "ball-scale", divCount: 1 },
   ballSpinFadeLoader: { className: "ball-spin-fade-loader", divCount: 8 },
-  lineSpinFadeLoader: { className: "line-spin-fade-loader", divCount: 8 }
+  lineSpinFadeLoader: { className: "line-spin-fade-loader", divCount: 8 },
 
   /* Other available loaders: */
   // ballClipRotate: {className: 'ball-clip-rotate', divCount: 1},
@@ -48,7 +48,7 @@ export default class Loader extends React.Component {
     className: "",
     innerClassName: "",
     type: "ballScale",
-    suppressHorizontalCenter: false
+    suppressHorizontalCenter: false,
   };
   static propTypes = {
     suppressHorizontalCenter: PropTypes.bool,
@@ -59,8 +59,8 @@ export default class Loader extends React.Component {
       "ballBeat",
       "ballScale",
       "ballSpinFadeLoader",
-      "lineSpinFadeLoader"
-    ])
+      "lineSpinFadeLoader",
+    ]),
   };
   getDivs(length) {
     return Array.from({ length }).map((_, index) => (
@@ -72,13 +72,13 @@ export default class Loader extends React.Component {
     const { className, flip, size, type } = this.props;
     const config = typeMap[type] || typeMap.ballScale;
     const classes = classNames("loader", className, {
-      "horizontal-center": !this.props.suppressHorizontalCenter
+      "horizontal-center": !this.props.suppressHorizontalCenter,
     });
 
     const innerClasses = classNames(config.className, {
       "loader--small": size === "small",
       "loader--mini": size === "mini",
-      [`loader--flip-${flip}`]: flip != null
+      [`loader--flip-${flip}`]: flip != null,
     });
 
     return (

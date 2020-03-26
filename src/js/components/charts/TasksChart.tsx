@@ -13,15 +13,15 @@ import DialChart from "./DialChart";
 const TASKS_PER_ROW = 3;
 const TASK_INFO = {
   TASK_RUNNING: { label: i18nMark("Tasks running"), colorIndex: 4 },
-  TASK_STAGING: { label: i18nMark("Tasks staging"), colorIndex: 1 }
+  TASK_STAGING: { label: i18nMark("Tasks staging"), colorIndex: 1 },
 };
 const DISPLAYED_TASK_KEYS = Object.keys(TASK_INFO);
 
 function getEmptyTaskData() {
-  return DISPLAYED_TASK_KEYS.map(key => ({
+  return DISPLAYED_TASK_KEYS.map((key) => ({
     name: key,
     colorIndex: TASK_INFO[key].colorIndex,
-    value: 0
+    value: 0,
   }));
 }
 
@@ -30,7 +30,7 @@ const TasksChart = createReactClass({
 
   propTypes: {
     // {TASK_RUNNING: 0, TASK_STAGING: 4}
-    tasks: PropTypes.object.isRequired
+    tasks: PropTypes.object.isRequired,
   },
 
   shouldComponentUpdate(nextProps) {
@@ -48,14 +48,14 @@ const TasksChart = createReactClass({
 
     const numberOfTasks = DISPLAYED_TASK_KEYS.length;
 
-    return DISPLAYED_TASK_KEYS.map(key => {
+    return DISPLAYED_TASK_KEYS.map((key) => {
       const info = TASK_INFO[key];
-      let task = tasks.find(task => task.name === key);
+      let task = tasks.find((task) => task.name === key);
       if (task === undefined) {
         task = { value: 0 };
       }
       const classes = {
-        "unit-bordered-horizontal-small text-align-center column-12": true
+        "unit-bordered-horizontal-small text-align-center column-12": true,
       };
       // equalize columns for units
       if (numberOfTasks > TASKS_PER_ROW) {
@@ -89,10 +89,10 @@ const TasksChart = createReactClass({
   },
 
   getTasks(tasks = {}) {
-    return DISPLAYED_TASK_KEYS.map(key => ({
+    return DISPLAYED_TASK_KEYS.map((key) => ({
       colorIndex: TASK_INFO[key].colorIndex,
       name: key,
-      value: tasks[key]
+      value: tasks[key],
     }));
   },
 
@@ -132,7 +132,7 @@ const TasksChart = createReactClass({
         <div className="row">{this.getTaskInfo(tasks)}</div>
       </div>
     );
-  }
+  },
 });
 
 export default TasksChart;

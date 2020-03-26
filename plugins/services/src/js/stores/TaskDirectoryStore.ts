@@ -9,13 +9,13 @@ import {
   REQUEST_NODE_STATE_ERROR,
   REQUEST_NODE_STATE_SUCCESS,
   REQUEST_TASK_DIRECTORY_ERROR,
-  REQUEST_TASK_DIRECTORY_SUCCESS
+  REQUEST_TASK_DIRECTORY_SUCCESS,
 } from "../constants/ActionTypes";
 import {
   NODE_STATE_ERROR,
   NODE_STATE_SUCCESS,
   TASK_DIRECTORY_CHANGE,
-  TASK_DIRECTORY_ERROR
+  TASK_DIRECTORY_ERROR,
 } from "../constants/EventTypes";
 import TaskDirectory from "../structs/TaskDirectory";
 import TaskDirectoryActions from "../events/TaskDirectoryActions";
@@ -45,7 +45,7 @@ class TaskDirectoryStore extends GetSetBaseStore {
 
     this.getSet_data = {
       directory: null,
-      innerPath: ""
+      innerPath: "",
     };
 
     PluginSDK.addStoreConfig({
@@ -55,12 +55,12 @@ class TaskDirectoryStore extends GetSetBaseStore {
         error: TASK_DIRECTORY_ERROR,
         success: TASK_DIRECTORY_CHANGE,
         nodeStateError: REQUEST_NODE_STATE_ERROR,
-        nodeStateSuccess: REQUEST_NODE_STATE_SUCCESS
+        nodeStateSuccess: REQUEST_NODE_STATE_SUCCESS,
       },
-      unmountWhen: () => false
+      unmountWhen: () => false,
     });
 
-    AppDispatcher.register(payload => {
+    AppDispatcher.register((payload) => {
       const { data, innerPath, task, type } = payload.action;
       switch (type) {
         case REQUEST_TASK_DIRECTORY_SUCCESS:

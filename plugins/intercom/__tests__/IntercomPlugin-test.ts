@@ -5,13 +5,13 @@ import PluginSDK from "PluginSDK";
 jest.setMock("react-router", {
   hashHistory: {
     location: { pathname: "/foo" },
-    listen() {}
-  }
+    listen() {},
+  },
 });
 
 const mockAuthStore = {
   getUser: jest.fn(),
-  isLoggedIn: jest.fn()
+  isLoggedIn: jest.fn(),
 };
 
 jest.mock("#SRC/js/stores/AuthStore", () => mockAuthStore);

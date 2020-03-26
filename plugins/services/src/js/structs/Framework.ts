@@ -11,11 +11,11 @@ import FrameworkSpec from "./FrameworkSpec";
 const ROUTE_ACCESS_PREFIX = "dcos:adminrouter:service:";
 const FRAMEWORK_ID_VALID_CHARACTERS = "\\w-";
 
-const getHighestPriorityStatus = tasks => {
+const getHighestPriorityStatus = (tasks) => {
   const statuses = tasks
-    .map(t => findNestedPropertyInObject(t, "checkResult.http.statusCode"))
+    .map((t) => findNestedPropertyInObject(t, "checkResult.http.statusCode"))
     .map(ServiceStatus.fromHttpCode)
-    .filter(status => status);
+    .filter((status) => status);
 
   return statuses.length !== 0
     ? statuses.reduce((acc, cur) => (cur.priority > acc.priority ? cur : acc))
@@ -102,7 +102,7 @@ export default class Framework extends Application {
     const MesosStateStore = require("#SRC/js/stores/MesosStateStore").default;
 
     const tasksSummary = {
-      ...super.getTasksSummary()
+      ...super.getTasksSummary(),
     };
     const tasks = MesosStateStore.getTasksByService(this) || [];
     const tasksRunning = this.get("TASK_RUNNING") || 0;
@@ -149,7 +149,7 @@ export default class Framework extends Application {
       cpus: 0,
       mem: 0,
       gpus: 0,
-      disk: 0
+      disk: 0,
     };
 
     // Framework doesn't know how many resources its scheduler consumes.
@@ -161,7 +161,7 @@ export default class Framework extends Application {
       cpus: allocatedFrameworkResources.cpus + schedulerResources.cpus,
       mem: allocatedFrameworkResources.mem + schedulerResources.mem,
       gpus: allocatedFrameworkResources.gpus + schedulerResources.gpus,
-      disk: allocatedFrameworkResources.disk + schedulerResources.disk
+      disk: allocatedFrameworkResources.disk + schedulerResources.disk,
     };
   }
 }

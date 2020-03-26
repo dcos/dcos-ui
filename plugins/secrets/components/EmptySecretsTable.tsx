@@ -5,7 +5,7 @@ import AlertPanel from "#SRC/js/components/AlertPanel";
 import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
 
 const EmptySecretsTable = ({
-  handleSecretFormOpen
+  handleSecretFormOpen,
 }: {
   handleSecretFormOpen: () => void;
 }) => (

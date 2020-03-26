@@ -12,9 +12,9 @@ describe("TimeSeriesChart", () => {
         {
           values: [
             { date: 0, y: 0 },
-            { date: 1, y: 0 }
-          ]
-        }
+            { date: 1, y: 0 },
+          ],
+        },
       ];
 
       thisContainer = window.document.createElement("div");
@@ -32,7 +32,7 @@ describe("TimeSeriesChart", () => {
     it("calls #renderAxis", () => {
       const props = {
         foo: "bar",
-        ...thisInstance.props
+        ...thisInstance.props,
       };
       thisInstance.shouldComponentUpdate(props);
 
@@ -48,7 +48,7 @@ describe("TimeSeriesChart", () => {
     it("returns truthy", () => {
       const props = {
         foo: "bar",
-        ...thisInstance.props
+        ...thisInstance.props,
       };
       const _return = thisInstance.shouldComponentUpdate(props);
 
@@ -61,14 +61,14 @@ describe("TimeSeriesChart", () => {
           values: [
             { date: 0, y: 0 },
             { date: 1, y: 0 },
-            { date: 2, y: 0 }
-          ]
-        }
+            { date: 2, y: 0 },
+          ],
+        },
       ];
 
       const props = { data };
 
-      Object.keys(thisInstance.props).forEach(key => {
+      Object.keys(thisInstance.props).forEach((key) => {
         if (props[key] == null) {
           props[key] = thisInstance.props[key];
         }

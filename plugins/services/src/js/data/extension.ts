@@ -1,6 +1,6 @@
 import {
   DataLayerExtensionInterface,
-  getExtensionModule
+  getExtensionModule,
 } from "@extension-kid/data-layer";
 import { injectable } from "inversify";
 
@@ -11,13 +11,13 @@ import { resolvers } from "./resolvers";
 
 import {
   fetchPlanDetails as fetchServicePlanDetail,
-  fetchPlans as fetchServicePlans
+  fetchPlans as fetchServicePlans,
 } from "./ServicePlansClient";
 
 const serviceResolvers = resolvers({
   fetchServicePlans,
   fetchServicePlanDetail,
-  pollingInterval: Config.getRefreshRate()
+  pollingInterval: Config.getRefreshRate(),
 });
 
 const ServicesType = Symbol("ServiceDataLayer");

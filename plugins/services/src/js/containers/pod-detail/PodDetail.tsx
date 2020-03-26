@@ -28,14 +28,14 @@ const RESET_DELAYED = ServiceActionItem.RESET_DELAYED;
 class PodDetail extends React.Component<{ pod }> {
   static propTypes = {
     children: PropTypes.node,
-    pod: PropTypes.instanceOf(Pod)
+    pod: PropTypes.instanceOf(Pod),
   };
   constructor(a, ...args) {
     super(a, ...args);
 
     this.state = {
       actionDisabledID: null,
-      actionDisabledModalOpen: false
+      actionDisabledModalOpen: false,
     };
   }
 
@@ -46,7 +46,7 @@ class PodDetail extends React.Component<{ pod }> {
 
     if (isGroup) {
       containsSDKService =
-        pod.findItem(item => item instanceof Service && isSDKService(item)) !=
+        pod.findItem((item) => item instanceof Service && isSDKService(item)) !=
         null;
     }
 
@@ -96,7 +96,7 @@ class PodDetail extends React.Component<{ pod }> {
         break;
     }
   }
-  handleActionDisabledModalOpen = actionDisabledID => {
+  handleActionDisabledModalOpen = (actionDisabledID) => {
     this.setState({ actionDisabledModalOpen: true, actionDisabledID });
   };
   handleActionDisabledModalClose = () => {
@@ -116,47 +116,47 @@ class PodDetail extends React.Component<{ pod }> {
     ) {
       actions.push({
         label: ServiceActionLabels.open,
-        onItemSelect: this.onActionsItemSelection.bind(this, OPEN)
+        onItemSelect: this.onActionsItemSelection.bind(this, OPEN),
       });
     }
 
     actions.push({
       label: i18nMark("Edit"),
-      onItemSelect: this.onActionsItemSelection.bind(this, EDIT)
+      onItemSelect: this.onActionsItemSelection.bind(this, EDIT),
     });
 
     if (!pod.getLabels().MARATHON_SINGLE_INSTANCE_APP) {
       actions.push({
         label: i18nMark("Scale"),
-        onItemSelect: this.onActionsItemSelection.bind(this, SCALE)
+        onItemSelect: this.onActionsItemSelection.bind(this, SCALE),
       });
     }
 
     if (pod.isDelayed()) {
       actions.push({
         label: i18nMark("Reset Delay"),
-        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED)
+        onItemSelect: this.onActionsItemSelection.bind(this, RESET_DELAYED),
       });
     }
 
     if (instanceCount > 0) {
       actions.push({
         label: i18nMark("Stop"),
-        onItemSelect: this.onActionsItemSelection.bind(this, STOP)
+        onItemSelect: this.onActionsItemSelection.bind(this, STOP),
       });
     }
 
     if (instanceCount === 0) {
       actions.push({
         label: i18nMark("Resume"),
-        onItemSelect: this.onActionsItemSelection.bind(this, RESUME)
+        onItemSelect: this.onActionsItemSelection.bind(this, RESUME),
       });
     }
 
     actions.push({
       className: "text-danger",
       label: i18nMark("Delete"),
-      onItemSelect: this.onActionsItemSelection.bind(this, DELETE)
+      onItemSelect: this.onActionsItemSelection.bind(this, DELETE),
     });
 
     return actions;
@@ -174,16 +174,16 @@ class PodDetail extends React.Component<{ pod }> {
       { label: i18nMark("Tasks"), routePath: `${routePrefix}/tasks` },
       {
         label: i18nMark("Configuration"),
-        routePath: `${routePrefix}/configuration`
+        routePath: `${routePrefix}/configuration`,
       },
       { label: i18nMark("Debug"), routePath: `${routePrefix}/debug` },
-      { label: i18nMark("Endpoints"), routePath: `${routePrefix}/endpoints` }
+      { label: i18nMark("Endpoints"), routePath: `${routePrefix}/endpoints` },
     ];
 
     if (this.hasVolumes()) {
       tabs.push({
         label: i18nMark("Volumes"),
-        routePath: `${routePrefix}/podvolumes`
+        routePath: `${routePrefix}/podvolumes`,
       });
     }
 
@@ -198,7 +198,7 @@ class PodDetail extends React.Component<{ pod }> {
 
     // TODO (DCOS_OSS-1038): Move cloned props to route parameters
     const clonedProps = { service: pod };
-    const clonedChildren = React.Children.map(children, child => {
+    const clonedChildren = React.Children.map(children, (child) => {
       // Only add props to children that are not ServiceModals
       if (child.type === ServiceModals) {
         return child;
@@ -239,9 +239,9 @@ PodDetail.contextTypes = {
   modalHandlers: PropTypes.shape({
     scaleService: PropTypes.func,
     stopService: PropTypes.func,
-    deleteService: PropTypes.func
+    deleteService: PropTypes.func,
   }).isRequired,
-  router: routerShape
+  router: routerShape,
 };
 
 export default PodDetail;
