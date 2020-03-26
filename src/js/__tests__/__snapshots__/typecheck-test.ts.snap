@@ -858,7 +858,6 @@ plugins/nodes/src/js/data/MesosMasters.tsx: error TS2339: Property 'masters' doe
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2339: Property 'leader' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/data/MesosMasters.tsx: error TS2322: type * is not assignable to type *.
 plugins/nodes/src/js/data/MesosMastersHealth.ts: error TS2571: Object is of type 'unknown'.
-plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2769: No overload matches this call.
 plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/nodes/src/js/filters/NodesHealthFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/nodes/src/js/filters/NodesTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
