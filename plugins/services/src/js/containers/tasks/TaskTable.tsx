@@ -41,7 +41,8 @@ const tableColumnClasses = {
   updated: "task-table-column-updated",
 };
 
-const getService = taskId => DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+const getService = (taskId) =>
+  DCOSStore.serviceTree.getServiceFromTaskID(taskId);
 
 class TaskTable extends React.Component {
   static defaultProps = {
@@ -365,7 +366,7 @@ class TaskTable extends React.Component {
             render="span"
             values={{
               resource: Units.formatResource("mem", task.resources.mem),
-              limit: Units.formatResource("mem", memLimit)
+              limit: Units.formatResource("mem", memLimit),
             }}
           />
         </Tooltip>
@@ -390,7 +391,7 @@ class TaskTable extends React.Component {
             render="span"
             values={{
               resource: Units.formatResource("cpus", task.resources.cpus),
-              limit: Units.formatResource("cpus", cpusLimit)
+              limit: Units.formatResource("cpus", cpusLimit),
             }}
           />
         </Tooltip>

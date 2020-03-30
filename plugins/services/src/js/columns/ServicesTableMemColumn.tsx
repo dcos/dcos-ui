@@ -10,7 +10,7 @@ import Units from "#SRC/js/utils/Units";
 export const ServiceMem = React.memo(
   ({
     resource,
-    limit
+    limit,
   }: {
     resource: string;
     limit: number | string | null;
@@ -32,7 +32,7 @@ export const ServiceMem = React.memo(
               render="span"
               values={{
                 resource: Units.formatResource("mem", resource),
-                limit: Units.formatResource("mem", limit)
+                limit: Units.formatResource("mem", limit),
               }}
             />
           </Tooltip>

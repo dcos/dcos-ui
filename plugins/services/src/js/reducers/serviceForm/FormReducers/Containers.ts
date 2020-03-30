@@ -15,7 +15,7 @@ const containerReducer = combineReducers({
 
 const limits = combineReducers({
   cpus: resourceLimitReducer("cpus", parseFloat),
-  mem: resourceLimitReducer("mem")
+  mem: resourceLimitReducer("mem"),
 });
 
 export function FormReducer(

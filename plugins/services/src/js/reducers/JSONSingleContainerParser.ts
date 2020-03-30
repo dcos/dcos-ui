@@ -23,7 +23,7 @@ export default [
   simpleParser(["disk"]),
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
-  state => {
+  (state) => {
     const transactions: transaction[] = [];
     if (state.resourceLimits == null) {
       return transactions;

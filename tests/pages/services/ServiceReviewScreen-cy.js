@@ -1485,19 +1485,11 @@ describe("Services", () => {
           .getFormGroupInputFor("Service ID *")
           .type(`{selectall}{rightarrow}${serviceName}`);
 
-        cy.root()
-          .getFormGroupInputFor("CPUs *")
-          .type("{selectall}0.5");
+        cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-        cy.root()
-          .getFormGroupInputFor("Memory (MiB) *")
-          .type("{selectall}32");
-        cy.root()
-          .getFormGroupInputFor("Container Image")
-          .type(containerImage);
-        cy.root()
-          .getFormGroupInputFor("Command")
-          .type(command);
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+        cy.root().getFormGroupInputFor("Container Image").type(containerImage);
+        cy.root().getFormGroupInputFor("Command").type(command);
 
         cy.contains("More Settings").click();
         cy.root()
@@ -1509,14 +1501,12 @@ describe("Services", () => {
           .filter("input[name='limits.mem']")
           .type("{selectall}42");
 
-        cy.get("button")
-          .contains("Review & Run")
-          .click();
+        cy.get("button").contains("Review & Run").click();
 
         [
           { section: "CPUs Limit", value: "1" },
-          { section: "Memory Limit", value: "42" }
-        ].map(test => {
+          { section: "Memory Limit", value: "42" },
+        ].map((test) => {
           cy.root()
             .configurationSection(test.section)
             .configurationMapValue(test.value);

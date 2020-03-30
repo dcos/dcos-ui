@@ -137,7 +137,7 @@ export default class Service extends Item {
 
     return {
       cpus: cpus !== "unlimited" ? cpus * instances : cpus,
-      mem: mem !== "unlimited" ? mem * instances : mem
+      mem: mem !== "unlimited" ? mem * instances : mem,
     };
   }
 

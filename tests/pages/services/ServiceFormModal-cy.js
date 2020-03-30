@@ -2227,7 +2227,7 @@ describe("Service Form Modal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-empty-group",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({ url: "/services/overview/create" });
     });
@@ -2243,9 +2243,7 @@ describe("Service Form Modal", () => {
           .getFormGroupInputFor("Memory (MiB)")
           .filter("input[name='limits.mem']")
           .type("{selectall}42");
-        cy.get("label")
-          .contains("JSON Editor")
-          .click();
+        cy.get("label").contains("JSON Editor").click();
 
         cy.get("#brace-editor")
           .contents()
@@ -2257,7 +2255,7 @@ describe("Service Form Modal", () => {
               portDefinitions: [],
               container: {
                 type: "MESOS",
-                volumes: []
+                volumes: [],
               },
               cpus: 0.1,
               mem: 128,
@@ -2268,21 +2266,17 @@ describe("Service Form Modal", () => {
               constraints: [],
               resourceLimits: {
                 cpus: 1,
-                mem: 42
-              }
-            }
+                mem: 42,
+              },
+            },
           ]);
       });
       it("parses unlimited and number values", () => {
         cy.contains("Single Container").click();
-        cy.get("label")
-          .contains("JSON Editor")
-          .click();
+        cy.get("label").contains("JSON Editor").click();
 
-        cy.get(".ace_text-input")
-          .focus()
-          .type(
-            `{selectall}{backspace}{
+        cy.get(".ace_text-input").focus().type(
+          `{selectall}{backspace}{
 "id": "/",
 "instances": 1,
 "portDefinitions": [],
@@ -2299,8 +2293,8 @@ describe("Service Form Modal", () => {
 "resourceLimits": {
 "cpus": "unlimited",
 "mem": 42`,
-            { force: true }
-          );
+          { force: true }
+        );
 
         cy.contains("More Settings").click();
         cy.root()
@@ -2316,9 +2310,7 @@ describe("Service Form Modal", () => {
     describe("Multi Container", () => {
       it("is available in the Form", () => {
         cy.contains("Multi-container (Pod)").click();
-        cy.get(".menu-tabbed-item")
-          .contains("container-1")
-          .click();
+        cy.get(".menu-tabbed-item").contains("container-1").click();
         cy.contains("More Settings").click();
         cy.root()
           .getFormGroupInputFor("CPUs")
@@ -2328,9 +2320,7 @@ describe("Service Form Modal", () => {
           .getFormGroupInputFor("Memory (MiB)")
           .filter("input[name='containers.0.limits.mem']")
           .type("{selectall}42");
-        cy.get("label")
-          .contains("JSON Editor")
-          .click();
+        cy.get("label").contains("JSON Editor").click();
 
         cy.get("#brace-editor")
           .contents()
@@ -2343,41 +2333,39 @@ describe("Service Form Modal", () => {
                   name: "container-1",
                   resources: {
                     cpus: 0.1,
-                    mem: 128
+                    mem: 128,
                   },
                   resourceLimits: {
                     mem: 42,
-                    cpus: 0.5
-                  }
-                }
+                    cpus: 0.5,
+                  },
+                },
               ],
               scaling: {
                 instances: 1,
-                kind: "fixed"
+                kind: "fixed",
               },
               networks: [
                 {
-                  mode: "host"
-                }
+                  mode: "host",
+                },
               ],
               volumes: [],
               fetch: [],
               scheduling: {
                 placement: {
-                  constraints: []
-                }
-              }
-            }
+                  constraints: [],
+                },
+              },
+            },
           ]);
       });
 
       it("parses unlimited and number values", () => {
         cy.contains("Multi-container (Pod)").click();
-        cy.get("label")
-          .contains("JSON Editor")
-          .click();
+        cy.get("label").contains("JSON Editor").click();
 
-        cy.window().then(window => {
+        cy.window().then((window) => {
           const editor = window.ace.edit("brace-editor");
 
           editor.setValue(

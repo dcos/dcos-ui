@@ -1,10 +1,10 @@
 function resourceLimitReducer(resourceField: string, parseFn = parseInt) {
-  return function(
+  return function (
     this: { cache?: number | string | null },
     state: string | number | null,
     args: { path: string; value: number | boolean | "unlimited" | null } = {
       path: "",
-      value: null
+      value: null,
     }
   ) {
     const { path, value } = args;
@@ -52,14 +52,14 @@ export function JSONReducer(
   this.cpu = this.cpu == null ? {} : this.cpu;
   const cpus = resourceLimitReducer("cpus", parseFloat).apply(this.cpu, [
     state.cpus,
-    { path, value }
+    { path, value },
   ]);
   const mem = resourceLimitReducer("mem", parseInt).apply(this.mem, [
     state.mem,
-    { path, value }
+    { path, value },
   ]);
   return {
     cpus,
-    mem
+    mem,
   };
 }
