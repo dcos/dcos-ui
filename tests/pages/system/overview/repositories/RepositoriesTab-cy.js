@@ -2,7 +2,7 @@ describe("Installed Packages Tab", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
-      universePackages: true
+      universePackages: true,
     }).visitUrl({ url: "/settings/repositories" });
   });
 
@@ -25,7 +25,7 @@ describe("Installed Packages Tab", () => {
     cy.get("table.table > tbody > tr td:first-child").as("itemNames");
 
     cy.get("@filterTextbox").type("universe");
-    cy.get("@itemNames").should($itemNames => {
+    cy.get("@itemNames").should(($itemNames) => {
       expect($itemNames.length).to.equal(1);
       expect($itemNames.eq(0)).to.contain("Universe");
     });
@@ -34,13 +34,11 @@ describe("Installed Packages Tab", () => {
   it("displays 'No data' when it has filtered out all packages", () => {
     cy.get('.page-body-content input[type="text"]').as("filterTextbox");
     cy.get("table.table > tbody > tr").as("tableRows");
-    cy.get("@tableRows")
-      .get("td")
-      .as("tableRowCell");
+    cy.get("@tableRows").get("td").as("tableRowCell");
 
     cy.get("@filterTextbox").type("foo_bar_baz_qux");
 
-    cy.get("@tableRowCell").should($tableCell => {
+    cy.get("@tableRowCell").should(($tableCell) => {
       expect($tableCell[0].textContent).to.equal("No data");
     });
   });

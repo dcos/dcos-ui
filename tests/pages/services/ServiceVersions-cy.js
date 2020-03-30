@@ -4,7 +4,7 @@ describe("Service Versions", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
 
         cy.visitUrl({ url: "/services/detail/%2Fsleep" });
@@ -48,9 +48,9 @@ describe("Service Versions", () => {
           url: /marathon\/v2\/apps\/\/sleep/,
           response: {
             deploymentId: "5ed4c0c5-9ff8-4a6f-a0cd-f57f59a34b43",
-            version: "2015-09-29T15:59:51.164Z"
+            version: "2015-09-29T15:59:51.164Z",
           },
-          delay: 0
+          delay: 0,
         });
 
         cy.get("@dropdown")
@@ -68,9 +68,7 @@ describe("Service Versions", () => {
           new Date("2015-02-28T05:12:12.221Z").toLocaleString()
         );
 
-        cy.get(".page-body-content .button")
-          .contains("Apply")
-          .click();
+        cy.get(".page-body-content .button").contains("Apply").click();
       });
 
       it("opens correct edit modal of the selected service version", () => {
@@ -85,9 +83,7 @@ describe("Service Versions", () => {
           .contains(new Date("2015-02-28T05:12:12.221Z").toLocaleString())
           .click();
 
-        cy.get(".page-body-content .button")
-          .contains("Edit")
-          .click();
+        cy.get(".page-body-content .button").contains("Edit").click();
 
         cy.get('.modal .menu-tabbed-view textarea[name="cmd"]').contains(
           "sleep 1000"
@@ -99,10 +95,10 @@ describe("Service Versions", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-sdk-service",
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({
-          url: "/services/detail/%2Fservices%2Fsdk-sleep/configuration"
+          url: "/services/detail/%2Fservices%2Fsdk-sleep/configuration",
         });
       });
 

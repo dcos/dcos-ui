@@ -2,8 +2,8 @@
   "message": "Object is not valid",
   "details": [
     {
-      "path":"/group.id.map(_.toPath)",
-      "errors":["Path needs to be top-level"]
+      "path": "/group.id.map(_.toPath)",
+      "errors": ["Path needs to be top-level"]
     }
   ]
 }

@@ -6,15 +6,17 @@
     "project": "metronome",
     "stage": "test"
   },
-  "schedule": [{
-    "id": "every-once-in-a-while",
-    "description": "lorem ipsum",
-    "cron": "0 1 6 9 *",
-    "timezone": "America/Chicago",
-    "startingDeadlineSeconds": 60,
-    "concurrencyPolicy": "allow",
-    "enabled": true
-  }],
+  "schedule": [
+    {
+      "id": "every-once-in-a-while",
+      "description": "lorem ipsum",
+      "cron": "0 1 6 9 *",
+      "timezone": "America/Chicago",
+      "startingDeadlineSeconds": 60,
+      "concurrencyPolicy": "allow",
+      "enabled": true
+    }
+  ],
   "run": {
     "cpus": 1,
     "mem": 1,

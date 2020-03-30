@@ -3,7 +3,7 @@ describe("DirectoryFormModal", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "directories"
+        plugins: "directories",
       });
 
       cy.setCookie(
@@ -25,8 +25,8 @@ describe("DirectoryFormModal", () => {
         response: {
           code: "ERR_LDAP_CONFIG_NOT_AVAILABLE",
           description: "No LDAP configuration stored yet",
-          title: "400 Bad Request"
-        }
+          title: "400 Bad Request",
+        },
       });
 
       // Stub every other route that could give 401
@@ -43,9 +43,7 @@ describe("DirectoryFormModal", () => {
         .contains("Authentication")
         .click();
 
-      cy.get(".form-control-toggle")
-        .contains("Anonymous Bind")
-        .click();
+      cy.get(".form-control-toggle").contains("Anonymous Bind").click();
 
       cy.get(".row.authentication-method").should("have.length", 3);
     });
@@ -55,9 +53,7 @@ describe("DirectoryFormModal", () => {
         .contains("Authentication")
         .click();
 
-      cy.get(".form-control-toggle")
-        .contains("LDAP Credentials")
-        .click();
+      cy.get(".form-control-toggle").contains("LDAP Credentials").click();
 
       cy.contains("Lookup DN");
 

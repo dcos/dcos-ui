@@ -8,5 +8,5 @@ export default {
    */
   getContents(element) {
     return element.innerText.replace(/[\r\n\s+]+/g, " ").trim();
-  }
+  },
 };

@@ -43,9 +43,7 @@
         "cpus": 2.5,
         "ports": "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]"
       },
-      "attributes": {
-        
-      },
+      "attributes": {},
       "active": true,
       "version": "1.2.0",
       "TASK_STAGING": 0,
@@ -115,9 +113,7 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "framework_ids": [
-        
-      ]
+      "framework_ids": []
     }
   ],
   "frameworks": [
@@ -138,9 +134,7 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [
-        
-      ],
+      "capabilities": [],
       "hostname": "ip-10-0-2-121.us-west-2.compute.internal",
       "webui_url": "",
       "active": true,
@@ -155,9 +149,7 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "slave_ids": [
-        "74f1836b-6784-4030-816e-aacbdd45ff57-S1"
-      ]
+      "slave_ids": ["74f1836b-6784-4030-816e-aacbdd45ff57-S1"]
     },
     {
       "id": "74f1836b-6784-4030-816e-aacbdd45ff57-0001",
@@ -176,10 +168,7 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [
-        "TASK_KILLING_STATE",
-        "PARTITION_AWARE"
-      ],
+      "capabilities": ["TASK_KILLING_STATE", "PARTITION_AWARE"],
       "hostname": "10.0.4.58",
       "webui_url": "https://10.0.4.58:8443",
       "active": true,
@@ -194,9 +183,7 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "slave_ids": [
-        "74f1836b-6784-4030-816e-aacbdd45ff57-S1"
-      ]
+      "slave_ids": ["74f1836b-6784-4030-816e-aacbdd45ff57-S1"]
     },
     {
       "id": "74f1836b-6784-4030-816e-aacbdd45ff57-0000",
@@ -214,9 +201,7 @@
         "gpus": 0,
         "cpus": 0
       },
-      "capabilities": [
-        
-      ],
+      "capabilities": [],
       "hostname": "10.0.4.58",
       "webui_url": "http://10.0.4.58:9090",
       "active": true,
@@ -231,9 +216,7 @@
       "TASK_FAILED": 0,
       "TASK_LOST": 0,
       "TASK_ERROR": 0,
-      "slave_ids": [
-        
-      ]
+      "slave_ids": []
     }
   ]
 }

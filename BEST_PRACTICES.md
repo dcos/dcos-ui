@@ -75,7 +75,7 @@ return (
 this.state = {
   disableSubmit: false,
   openModal: false,
-  services: []
+  services: [],
 };
 ```
 

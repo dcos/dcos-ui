@@ -2,7 +2,7 @@ describe("Add Repository Form Modal", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
-      universePackages: true
+      universePackages: true,
     })
       .visitUrl({ url: "/settings/repositories" })
       .get(".page-header-actions button")
@@ -56,8 +56,8 @@ describe("Add Repository Form Modal", () => {
       url: /repository\/add/,
       status: 409,
       response: {
-        message: "Conflict with " + url
-      }
+        message: "Conflict with " + url,
+      },
     })
       .get(".modal input")
       .eq(0)
@@ -81,7 +81,7 @@ describe("Add Repository Form Modal", () => {
       method: "POST",
       url: /repository\/add/,
       status: 400,
-      response: {}
+      response: {},
     })
       .get(".modal input")
       .eq(0)

@@ -2,9 +2,7 @@
 function setFilter(param) {
   cy.visitUrl({ url: "/services/overview" });
   cy.get("[placeholder='Filter']").click();
-  cy.get("label")
-    .contains(param)
-    .click();
+  cy.get("label").contains(param).click();
 }
 
 function testFilterByStatus(param) {
@@ -14,7 +12,7 @@ function testFilterByStatus(param) {
     .getTableColumn("Status")
     .get(".status-bar-text")
     .contents()
-    .each(v => {
+    .each((v) => {
       expect(v).to.eq(param);
     });
 }
@@ -25,7 +23,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -38,7 +36,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-service-suspended",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -52,7 +50,7 @@ describe("Services Filter", () => {
         cy.configureCluster({
           mesos: "1-service-recovering",
           nodeHealth: true,
-          mesosStream: true
+          mesosStream: true,
         });
       });
 
@@ -65,7 +63,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-service-deleting",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -79,7 +77,7 @@ describe("Services Filter", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        nodeHealth: true
+        nodeHealth: true,
       });
     });
 
@@ -90,7 +88,7 @@ describe("Services Filter", () => {
         .getTableColumn("Name")
         .get(".table-cell-link-primary")
         .contents()
-        .each(v => {
+        .each((v) => {
           expect(v).to.eq("sleep");
         });
     });
@@ -120,7 +118,7 @@ describe("Services Filter", () => {
           "group-with-pods",
           "net",
           "podEFGH",
-          "podEFGH"
+          "podEFGH",
         ]);
     });
   });
@@ -130,7 +128,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-sdk-service",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -153,7 +151,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -164,7 +162,7 @@ describe("Services Filter", () => {
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(v => {
+          .each((v) => {
             expect(v).to.eq("podEFGH");
           });
       });
@@ -174,7 +172,7 @@ describe("Services Filter", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
       });
 
@@ -185,7 +183,7 @@ describe("Services Filter", () => {
           .getTableColumn("Name")
           .get(".table-cell-link-primary")
           .contents()
-          .each(v => {
+          .each((v) => {
             expect(v).to.eq("sleep");
           });
       });

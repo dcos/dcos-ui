@@ -4,33 +4,33 @@ export default {
     version: "2016-08-29T01:01:01.001",
     user: "root",
     labels: {
-      POD_LABEL: "foo"
+      POD_LABEL: "foo",
     },
     volumes: [
       {
         name: "volume_1",
-        host: "/mnt/volume_1"
-      }
+        host: "/mnt/volume_1",
+      },
     ],
     environment: {
       FOO: "bar",
       SECRET_BAR: {
-        secret: "baz"
-      }
+        secret: "baz",
+      },
     },
     secrets: {
       pod_secret_1: {
-        source: "bar_source"
-      }
+        source: "bar_source",
+      },
     },
     networks: [
       {
         name: "network_1",
         mode: "host",
         labels: {
-          network_label_1_name: "network_label_1"
-        }
-      }
+          network_label_1_name: "network_label_1",
+        },
+      },
     ],
     containers: [
       {
@@ -43,9 +43,9 @@ export default {
             hostPort: 0,
             protocol: "http",
             labels: {
-              VIP_0: "1.2.3.4:80"
-            }
-          }
+              VIP_0: "1.2.3.4:80",
+            },
+          },
         ],
         conditions: [
           {
@@ -53,10 +53,10 @@ export default {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "true"
-          }
+            value: "true",
+          },
         ],
-        resources: { cpus: 0.5, mem: 64 }
+        resources: { cpus: 0.5, mem: 64 },
       },
       {
         name: "container-2",
@@ -68,9 +68,9 @@ export default {
             hostPort: 0,
             protocol: "http",
             labels: {
-              VIP_0: "1.2.3.4:80"
-            }
-          }
+              VIP_0: "1.2.3.4:80",
+            },
+          },
         ],
         conditions: [
           {
@@ -78,22 +78,22 @@ export default {
             lastUpdated: "2019-01-01T12:00:00.000Z",
             name: "healthy",
             reason: "health-reported-by-mesos",
-            value: "true"
-          }
+            value: "true",
+          },
         ],
-        resources: { cpus: 0.5, mem: 64 }
-      }
+        resources: { cpus: 0.5, mem: 64 },
+      },
     ],
     scaling: {
       kind: "fixed",
-      instances: 10
+      instances: 10,
     },
     scheduling: {
       placement: {
         constraints: [{ fieldName: "hostname", operator: "UNIQUE" }],
-        acceptedResourceRoles: ["slave_public"]
-      }
-    }
+        acceptedResourceRoles: ["slave_public"],
+      },
+    },
   },
   status: "stable",
   statusSince: "2016-08-31T01:01:01.001",
@@ -122,11 +122,11 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
+          lastChanged: "2016-08-31T01:01:01.001",
         },
         {
           name: "container-2",
@@ -140,13 +140,13 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
-        }
-      ]
+          lastChanged: "2016-08-31T01:01:01.001",
+        },
+      ],
     },
     {
       id: "instance-2",
@@ -169,11 +169,11 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
+          lastChanged: "2016-08-31T01:01:01.001",
         },
         {
           name: "container-2",
@@ -187,13 +187,13 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
-        }
-      ]
+          lastChanged: "2016-08-31T01:01:01.001",
+        },
+      ],
     },
     {
       id: "instance-3",
@@ -216,11 +216,11 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
+          lastChanged: "2016-08-31T01:01:01.001",
         },
         {
           name: "container-2",
@@ -234,13 +234,13 @@ export default {
               lastUpdated: "2019-01-01T12:00:00.000Z",
               name: "healthy",
               reason: "health-reported-by-mesos",
-              value: "true"
-            }
+              value: "true",
+            },
           ],
           lastUpdated: "2016-08-31T01:01:01.001",
-          lastChanged: "2016-08-31T01:01:01.001"
-        }
-      ]
-    }
-  ]
+          lastChanged: "2016-08-31T01:01:01.001",
+        },
+      ],
+    },
+  ],
 };

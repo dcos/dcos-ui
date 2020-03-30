@@ -45,9 +45,7 @@
           "portName": "api",
           "intervalSeconds": 30,
           "timeoutSeconds": 10,
-          "httpStatusCodesForReady": [
-            200
-          ],
+          "httpStatusCodesForReady": [200],
           "preserveLastResponse": true
         }
       ],
@@ -82,10 +80,7 @@
         "expungeAfterSeconds": 604800
       },
       "killSelection": "YoungestFirst",
-      "ports": [
-        10001,
-        1
-      ],
+      "ports": [10001, 1],
       "portDefinitions": [
         {
           "port": 10001,
@@ -124,10 +119,7 @@
           ],
           "stagedAt": "2017-01-09T20:02:12.154Z",
           "state": "TASK_RUNNING",
-          "ports": [
-            24348,
-            24349
-          ],
+          "ports": [24348, 24349],
           "startedAt": "2017-01-09T20:02:26.435Z",
           "version": "2017-01-09T20:02:12.029Z",
           "id": "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1",
@@ -230,9 +222,7 @@
         "expungeAfterSeconds": 604800
       },
       "killSelection": "YoungestFirst",
-      "ports": [
-        10000
-      ],
+      "ports": [10000],
       "portDefinitions": [
         {
           "port": 10000,
@@ -260,9 +250,7 @@
           ],
           "stagedAt": "2017-01-09T20:02:03.826Z",
           "state": "TASK_RUNNING",
-          "ports": [
-            29557
-          ],
+          "ports": [29557],
           "startedAt": "2017-01-09T20:02:04.600Z",
           "version": "2017-01-09T20:02:03.443Z",
           "id": "no-healthcheck.7d61432d-d6a6-11e6-a564-8605ecf0a9df",

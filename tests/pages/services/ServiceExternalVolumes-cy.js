@@ -14,10 +14,10 @@ describe("Services", () => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({
-        url: `services/overview/create`
+        url: `services/overview/create`,
       });
     });
 
@@ -37,24 +37,15 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}64");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}64");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Universal Container Runtime (UCR)
       cy.contains("More Settings").click();
-      cy.get("label")
-        .contains("Universal Container Runtime (UCR)")
-        .click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
 
       // Select Volumes section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
@@ -62,15 +53,9 @@ describe("Services", () => {
       cy.root()
         .contains(".dropdown-select-item-title", "External Persistent Volume")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Name")
-        .type(volumeName);
-      cy.root()
-        .getFormGroupInputFor("Size (GiB)")
-        .type("1");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Name").type(volumeName);
+      cy.root().getFormGroupInputFor("Size (GiB)").type("1");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -94,22 +79,22 @@ describe("Services", () => {
                     name: volumeName,
                     provider: "dvdi",
                     options: {
-                      "dvdi/driver": "rexray"
+                      "dvdi/driver": "rexray",
                     },
-                    size: 1
+                    size: 1,
                   },
-                  mode: "RW"
-                }
+                  mode: "RW",
+                },
               ],
-              type: "MESOS"
+              type: "MESOS",
             },
             portDefinitions: [],
             requirePorts: false,
             networks: [],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run

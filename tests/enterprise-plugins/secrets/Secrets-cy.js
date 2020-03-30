@@ -3,7 +3,7 @@ describe("Secrets", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "secrets"
+        plugins: "secrets",
       });
       cy.route(
         /secrets\/v1\/store(\?_timestamp=[0-9]+)?$/,
@@ -21,9 +21,7 @@ describe("Secrets", () => {
 
     it("shows a delete option when opening the actions dropdown", () => {
       cy.visitUrl({ url: "/secrets" });
-      cy.get(".dropdown")
-        .eq(0)
-        .click();
+      cy.get(".dropdown").eq(0).click();
       cy.get("li.is-selectable").contains("Delete");
     });
 
@@ -33,8 +31,8 @@ describe("Secrets", () => {
         url: /secrets\/v1\/store(\?_timestamp=[0-9]+)?$/,
         status: 403,
         response: {
-          message: "Not authorized to perform that action"
-        }
+          message: "Not authorized to perform that action",
+        },
       });
       cy.visitUrl({ url: "/secrets" });
       cy.get(".table-cell-link-primary").should("have.length", 3);
@@ -48,17 +46,13 @@ describe("Secrets", () => {
       });
 
       it("shows error for empty ID", () => {
-        cy.get(".button-primary")
-          .contains("Create Secret")
-          .click();
+        cy.get(".button-primary").contains("Create Secret").click();
         cy.get(".form-control-feedback").contains("This field is required.");
       });
 
       it("shows error for slash at the beginning", () => {
         cy.get('input.form-control[name="path"]').type("/123");
-        cy.get(".button-primary")
-          .contains("Create Secret")
-          .click();
+        cy.get(".button-primary").contains("Create Secret").click();
         cy.get(".form-control-feedback").contains(
           "Invalid syntax. Cannot use slashes at the beginning or end."
         );
@@ -66,9 +60,7 @@ describe("Secrets", () => {
 
       it("shows error for invalid symbols", () => {
         cy.get('input.form-control[name="path"]').type("@");
-        cy.get(".button-primary")
-          .contains("Create Secret")
-          .click();
+        cy.get(".button-primary").contains("Create Secret").click();
         cy.get(".form-control-feedback").contains(
           "Alphanumerical, dashes, underscores and slashes are allowed."
         );
@@ -81,8 +73,8 @@ describe("Secrets", () => {
         url: /secrets\/v1\/secret\/default\/a\/list/,
         status: 403,
         response: {
-          message: "Not authorized to perform that action"
-        }
+          message: "Not authorized to perform that action",
+        },
       });
       cy.visitUrl({ url: "/secrets" });
       cy.contains("a/list").click();
@@ -92,47 +84,31 @@ describe("Secrets", () => {
     it("shows an error if we submit a secret with no value", () => {
       cy.visitUrl({ url: "/secrets" });
       cy.get(".button-primary-link").click();
-      cy.get(".form-group")
-        .find('.form-control[name="path"]')
-        .type("id");
-      cy.get(".button-primary")
-        .contains("Create Secret")
-        .click();
+      cy.get(".form-group").find('.form-control[name="path"]').type("id");
+      cy.get(".button-primary").contains("Create Secret").click();
       cy.get(".form-control-feedback").contains("This field is required.");
     });
 
     it("shows a non-persisting error if we submit a secret with insufficient permissions", () => {
       cy.visitUrl({ url: "/secrets" });
       cy.get(".button-primary-link").click();
-      cy.get(".form-group")
-        .find('.form-control[name="path"]')
-        .type("id");
+      cy.get(".form-group").find('.form-control[name="path"]').type("id");
 
       cy.get(".form-group")
         .find('.form-control[name="textValue"]')
         .type("value");
-      cy.get(".button-primary")
-        .contains("Create Secret")
-        .click();
+      cy.get(".button-primary").contains("Create Secret").click();
       cy.get("div").contains("An error has occurred."); // Error message.
 
-      cy.get(".button")
-        .contains("Cancel")
-        .click(); // Close the modal.
+      cy.get(".button").contains("Cancel").click(); // Close the modal.
       cy.get(".button-primary-link").click(); // Open it again.
       cy.get(".form-control-feedback").should("not.exist"); // No error is visible.
     });
     it("shows error when trying to delete a secret with insufficient permissions", () => {
       cy.visitUrl({ url: "/secrets" });
-      cy.get(".dropdown")
-        .eq(0)
-        .click();
-      cy.get("li.is-selectable")
-        .contains("Delete")
-        .click();
-      cy.get(".button-danger")
-        .contains("Delete")
-        .click();
+      cy.get(".dropdown").eq(0).click();
+      cy.get("li.is-selectable").contains("Delete").click();
+      cy.get(".button-danger").contains("Delete").click();
       cy.contains("An error has occurred.");
     });
   });
@@ -141,7 +117,7 @@ describe("Secrets", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "auth-secrets" // fixture that enables auth, org and secrets plugins
+        plugins: "auth-secrets", // fixture that enables auth, org and secrets plugins
       });
 
       // Forge a cookie for the auth plugin
@@ -181,10 +157,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -220,10 +193,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -251,7 +221,7 @@ describe("Secrets", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "auth-secrets" // fixture that enables auth, org and secrets plugins
+        plugins: "auth-secrets", // fixture that enables auth, org and secrets plugins
       });
 
       // Forge a cookie for the auth plugin
@@ -291,10 +261,7 @@ describe("Secrets", () => {
         .click();
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add a secret
       cy.contains("Add Secret").click();
@@ -326,7 +293,7 @@ describe("Secrets", () => {
         jobDetails: true,
         mesos: "1-for-each-health",
         nodeHealth: true,
-        plugins: "auth-secrets" // fixture that enables auth, org and secrets plugins
+        plugins: "auth-secrets", // fixture that enables auth, org and secrets plugins
       });
 
       // Forge a cookie for the auth plugin
@@ -374,20 +341,11 @@ describe("Secrets", () => {
       cy.root()
         .getFormGroupInputFor("Job ID *")
         .type(`{selectall}${fullJobName}`);
-      cy.root()
-        .getFormGroupInputFor("Mem (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .get("label")
-        .contains("Command Only")
-        .click();
-      cy.root()
-        .getFormGroupInputFor("Command *")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
+      cy.root().get("label").contains("Command Only").click();
+      cy.root().getFormGroupInputFor("Command *").type(cmdline);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Secrets")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Secrets").click();
 
       // Add environment variable secret
       cy.contains("Add Secret").click();
@@ -437,25 +395,25 @@ describe("Secrets", () => {
               cmd: cmdline,
               secrets: {
                 secret0: {
-                  source: "TEST_SECRET"
+                  source: "TEST_SECRET",
                 },
                 secret1: {
-                  source: "TEST_SECRET2"
-                }
+                  source: "TEST_SECRET2",
+                },
               },
               env: {
                 environment: {
-                  secret: "secret0"
-                }
+                  secret: "secret0",
+                },
               },
               volumes: [
                 {
                   containerPath: "test/file-based-secret",
-                  secret: "secret1"
-                }
-              ]
-            }
-          }
+                  secret: "secret1",
+                },
+              ],
+            },
+          },
         ]);
     });
   });

@@ -9,18 +9,16 @@ describe("Services", () => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({
-        url: `services/overview/create`
+        url: `services/overview/create`,
       });
     });
 
     function selectMesosRuntime() {
       cy.contains("More Settings").click();
-      cy.get("label")
-        .contains("Universal Container Runtime (UCR)")
-        .click();
+      cy.get("label").contains("Universal Container Runtime (UCR)").click();
     }
 
     it("renders proper review screen and JSON for a simple app", () => {
@@ -37,12 +35,8 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -60,14 +54,14 @@ describe("Services", () => {
             portDefinitions: [],
             container: {
               type: "MESOS",
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -110,15 +104,9 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Use some artifacts
       cy.contains("Add Artifact").click();
@@ -151,24 +139,24 @@ describe("Services", () => {
             portDefinitions: [],
             container: {
               type: "MESOS",
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [],
             healthChecks: [],
             fetch: [
               {
-                uri: "http://lorempicsum.com/simpsons/600/400/1"
+                uri: "http://lorempicsum.com/simpsons/600/400/1",
               },
               {
-                uri: "http://lorempicsum.com/simpsons/600/400/2"
+                uri: "http://lorempicsum.com/simpsons/600/400/2",
               },
               {
-                uri: "http://lorempicsum.com/simpsons/600/400/3"
-              }
+                uri: "http://lorempicsum.com/simpsons/600/400/3",
+              },
             ],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -211,7 +199,7 @@ describe("Services", () => {
         .should("deep.equal", [
           "http://lorempicsum.com/simpsons/600/400/1",
           "http://lorempicsum.com/simpsons/600/400/2",
-          "http://lorempicsum.com/simpsons/600/400/3"
+          "http://lorempicsum.com/simpsons/600/400/3",
         ]);
     });
 
@@ -225,42 +213,27 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("80");
+      cy.root().getFormGroupInputFor("Container Port").type("80");
 
       // Switch to health checks
       cy.contains("Health Checks").click();
 
       // Add a health check
       cy.contains("Add Health Check").click();
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .select("Command");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type("sleep 5; exit 0");
+      cy.root().getFormGroupInputFor("Protocol").select("Command");
+      cy.root().getFormGroupInputFor("Command").type("sleep 5; exit 0");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -277,15 +250,15 @@ describe("Services", () => {
               type: "MESOS",
               volumes: [],
               docker: {
-                image: "nginx"
+                image: "nginx",
               },
               portMappings: [
                 {
                   containerPort: 80,
                   hostPort: 0,
-                  protocol: "tcp"
-                }
-              ]
+                  protocol: "tcp",
+                },
+              ],
             },
             cpus: 0.1,
             mem: 32,
@@ -293,19 +266,19 @@ describe("Services", () => {
               {
                 protocol: "COMMAND",
                 command: {
-                  value: "sleep 5; exit 0"
-                }
-              }
+                  value: "sleep 5; exit 0",
+                },
+              },
             ],
             requirePorts: false,
             networks: [
               {
-                mode: "container/bridge"
-              }
+                mode: "container/bridge",
+              },
             ],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -361,39 +334,24 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("python:3");
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
       cy.get("input[name=cpus]").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -413,27 +371,27 @@ describe("Services", () => {
               type: "MESOS",
               volumes: [],
               docker: {
-                image: "python:3"
+                image: "python:3",
               },
               portMappings: [
                 {
                   containerPort: 8080,
                   hostPort: 0,
                   protocol: "tcp",
-                  name: "http"
-                }
-              ]
+                  name: "http",
+                },
+              ],
             },
             requirePorts: false,
             networks: [
               {
-                mode: "container/bridge"
-              }
+                mode: "container/bridge",
+              },
             ],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -491,42 +449,25 @@ describe("Services", () => {
       cy.root()
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("python:3");
+      cy.root().getFormGroupInputFor("Container Image").type("python:3");
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -546,27 +487,27 @@ describe("Services", () => {
               type: "MESOS",
               volumes: [],
               docker: {
-                image: "python:3"
+                image: "python:3",
               },
               portMappings: [
                 {
                   containerPort: 8080,
                   hostPort: 0,
                   protocol: "tcp",
-                  name: "http"
-                }
-              ]
+                  name: "http",
+                },
+              ],
             },
             requirePorts: false,
             networks: [
               {
-                mode: "container/bridge"
-              }
+                mode: "container/bridge",
+              },
             ],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -625,38 +566,23 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -680,20 +606,20 @@ describe("Services", () => {
                   containerPort: 8080,
                   hostPort: 0,
                   protocol: "tcp",
-                  name: "http"
-                }
-              ]
+                  name: "http",
+                },
+              ],
             },
             requirePorts: false,
             networks: [
               {
-                mode: "container/bridge"
-              }
+                mode: "container/bridge",
+              },
             ],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -752,18 +678,11 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Environment Variable").click();
@@ -803,19 +722,19 @@ describe("Services", () => {
               camelCase: "test",
               snake_case: "test",
               lowercase: "test",
-              UPPERCASE: "test"
+              UPPERCASE: "test",
             },
             portDefinitions: [],
             container: {
               type: "MESOS",
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -852,7 +771,7 @@ describe("Services", () => {
           "camelCase",
           "snake_case",
           "lowercase",
-          "UPPERCASE"
+          "UPPERCASE",
         ]);
       cy.root()
         .configurationSection("Environment Variables")
@@ -873,49 +792,32 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
 
       // Select Networking section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Networking").click();
 
       // Select "Bridge"
-      cy.root()
-        .getFormGroupInputFor("Network Type")
-        .select("Bridge");
+      cy.root().getFormGroupInputFor("Network Type").select("Bridge");
 
       // Click "Add Service Endpoint"
       cy.contains("Add Service Endpoint").click();
 
       // Setup HTTP endpoint
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("80");
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Container Port").type("80");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       // Switch to health checks
       cy.contains("Health Checks").click();
 
       // Add a health check
       cy.contains("Add Health Check").click();
-      cy.root()
-        .getFormGroupInputFor("Protocol")
-        .select("HTTP");
+      cy.root().getFormGroupInputFor("Protocol").select("HTTP");
       cy.root()
         .getFormGroupInputFor("Service Endpoint")
         .select("http (tcp/$PORT0)");
-      cy.root()
-        .getFormGroupInputFor("Path")
-        .type("/");
+      cy.root().getFormGroupInputFor("Path").type("/");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -934,33 +836,33 @@ describe("Services", () => {
               {
                 portIndex: 0,
                 protocol: "MESOS_HTTP",
-                path: "/"
-              }
+                path: "/",
+              },
             ],
             container: {
               type: "MESOS",
               docker: {
-                image: "nginx"
+                image: "nginx",
               },
               portMappings: [
                 {
                   name: "http",
                   hostPort: 0,
                   containerPort: 80,
-                  protocol: "tcp"
-                }
+                  protocol: "tcp",
+                },
               ],
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [
               {
-                mode: "container/bridge"
-              }
+                mode: "container/bridge",
+              },
             ],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -1033,18 +935,11 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Label").click();
@@ -1084,19 +979,19 @@ describe("Services", () => {
               camelCase: "test",
               snake_case: "test",
               lowercase: "test",
-              UPPERCASE: "test"
+              UPPERCASE: "test",
             },
             portDefinitions: [],
             container: {
               type: "MESOS",
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [],
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
       // Click Review and Run
@@ -1133,7 +1028,7 @@ describe("Services", () => {
           "camelCase",
           "snake_case",
           "lowercase",
-          "UPPERCASE"
+          "UPPERCASE",
         ]);
       cy.root()
         .configurationSection("Labels")
@@ -1159,18 +1054,11 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
       cy.get("input[name=cpus]").type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Volumes section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Volumes").click();
 
       // Add an environment variable
       cy.contains("Add Volume").click();
@@ -1178,12 +1066,8 @@ describe("Services", () => {
       cy.root()
         .contains(".dropdown-select-item-title", "Local Persistent Volume")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Size (MiB)")
-        .type("128");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Size (MiB)").type("128");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -1202,12 +1086,12 @@ describe("Services", () => {
               volumes: [
                 {
                   persistent: {
-                    size: 128
+                    size: 128,
                   },
                   mode: "RW",
-                  containerPath: "test"
-                }
-              ]
+                  containerPath: "test",
+                },
+              ],
             },
             cpus: 0.1,
             mem: 10,
@@ -1216,8 +1100,8 @@ describe("Services", () => {
             healthChecks: [],
             fetch: [],
             constraints: [],
-            cmd: "while true ; do echo 'test' > test/echo ; sleep 100 ; done"
-          }
+            cmd: "while true ; do echo 'test' > test/echo ; sleep 100 ; done",
+          },
         ]);
 
       // Click Review and Run
@@ -1268,49 +1152,31 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos-1");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       cy.get('input[name="portDefinitions.0.loadBalanced"]')
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -1325,35 +1191,33 @@ describe("Services", () => {
             container: {
               type: "MESOS",
               docker: {
-                image: containerImage
+                image: containerImage,
               },
               portMappings: [
                 {
                   name: "http",
                   containerPort: 8080,
                   labels: {
-                    VIP_0: `/${serviceName}:8080`
-                  }
-                }
+                    VIP_0: `/${serviceName}:8080`,
+                  },
+                },
               ],
-              volumes: []
+              volumes: [],
             },
             requirePorts: false,
             networks: [
               {
                 mode: "container",
-                name: "dcos-1"
-              }
+                name: "dcos-1",
+              },
             ],
             fetch: [],
             constraints: [],
-            healthChecks: []
-          }
+            healthChecks: [],
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -1439,7 +1303,7 @@ describe("Services", () => {
         .getTableColumn("Load Balanced Address")
         .contents()
         .should("deep.equal", [
-          `${serviceName}.marathon.l4lb.thisdcos.directory:8080`
+          `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
         ]);
     });
 
@@ -1454,37 +1318,23 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.5");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos-1");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.0.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.0.name"]').type("http");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
       cy.get('input[name="portDefinitions.1.containerPort"]').type("8080");
       cy.get('input[name="portDefinitions.1.name"]').type("mapped");
 
@@ -1496,13 +1346,9 @@ describe("Services", () => {
         .parents(".form-control-toggle")
         .click();
 
-      cy.root()
-        .getFormGroupInputFor("Host Port")
-        .type("{selectAll}4200");
+      cy.root().getFormGroupInputFor("Host Port").type("{selectAll}4200");
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -1518,37 +1364,35 @@ describe("Services", () => {
               type: "MESOS",
               volumes: [],
               docker: {
-                image: containerImage
+                image: containerImage,
               },
               portMappings: [
                 {
                   name: "http",
-                  containerPort: 8080
+                  containerPort: 8080,
                 },
                 {
                   name: "mapped",
                   hostPort: 4200,
                   containerPort: 8080,
-                  protocol: "tcp"
-                }
-              ]
+                  protocol: "tcp",
+                },
+              ],
             },
             networks: [
               {
                 name: "dcos-1",
-                mode: "container"
-              }
+                mode: "container",
+              },
             ],
             requirePorts: false,
             healthChecks: [],
             fetch: [],
-            constraints: []
-          }
+            constraints: [],
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")

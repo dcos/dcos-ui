@@ -6,10 +6,7 @@
     "releaseVersion": 10,
     "maintainer": "support@mesosphere.io",
     "description": "A container orchestration platform for Mesos and DCOS. Documentation: https://docs.mesosphere.com/1.11/deploying-services/marathon-api/",
-    "tags": [
-      "init",
-      "long-running"
-    ],
+    "tags": ["init", "long-running"],
     "selected": true,
     "scm": "https://github.com/mesosphere/marathon.git",
     "framework": true,
@@ -95,9 +92,7 @@
               "type": "integer"
             },
             "uris": {
-              "default": [
-
-              ],
+              "default": [],
               "description": "List of URIs that will be downloaded and made available in the current working directory of Marathon. For example this can be used to download a Java keystore file for SSL configuration.",
               "items": {
                 "pattern": "^[\\s]+",
@@ -122,11 +117,7 @@
               "default": "[]"
             }
           },
-          "required": [
-            "cpus",
-            "mem",
-            "instances"
-          ],
+          "required": ["cpus", "mem", "instances"],
           "type": "object"
         },
         "jvm": {
@@ -150,10 +141,7 @@
               "type": "string"
             }
           },
-          "required": [
-            "heap-min",
-            "heap-max"
-          ],
+          "required": ["heap-min", "heap-max"],
           "type": "object"
         },
         "marathon": {
@@ -528,17 +516,11 @@
               "default": 10000
             }
           },
-          "required": [
-            "master"
-          ],
+          "required": ["master"],
           "type": "object"
         }
       },
-      "required": [
-        "service",
-        "jvm",
-        "marathon"
-      ],
+      "required": ["service", "jvm", "marathon"],
       "type": "object"
     }
   }

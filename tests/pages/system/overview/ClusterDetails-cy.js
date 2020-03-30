@@ -12,9 +12,7 @@ describe("Cluster Details", () => {
     cy.visitUrl({ url: "/cluster/overview" });
     cy.get(".breadcrumb__content").contains("Overview");
 
-    cy.root()
-      .configurationSection("Mesos Details")
-      .as("mesosDetailsSection");
+    cy.root().configurationSection("Mesos Details").as("mesosDetailsSection");
 
     cy.get("@mesosDetailsSection")
       .configurationMapValue("Cluster")

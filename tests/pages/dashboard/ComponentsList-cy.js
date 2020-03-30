@@ -4,10 +4,10 @@ describe("ComponentsList [10b]", () => {
     it("shows error when components not found [10d]", () => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        componentHealth: false
+        componentHealth: false,
       }).visitUrl({ url: "/dashboard", identify: true });
 
-      cy.get(".dashboard-panel-list-component-health h3").should($error => {
+      cy.get(".dashboard-panel-list-component-health h3").should(($error) => {
         expect($error).to.contain("Components Not Found");
       });
     });
@@ -17,16 +17,14 @@ describe("ComponentsList [10b]", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        componentHealth: true
+        componentHealth: true,
       }).visitUrl({ url: "/dashboard", identify: true });
     });
 
     it("shows an acceptable number of components [10f]", () => {
       cy.get(".dashboard-panel-list-component-health").within(() => {
-        cy.get("li").should($components => {
-          expect($components.length)
-            .to.be.at.least(1)
-            .and.to.be.lte(5);
+        cy.get("li").should(($components) => {
+          expect($components.length).to.be.at.least(1).and.to.be.lte(5);
         });
       });
     });

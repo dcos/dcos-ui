@@ -6,9 +6,7 @@ const groupNameError =
 describe("Group Modals", () => {
   function openDropdown(serviceName) {
     cy.get(".filter-input-text").type(serviceName); // filter to find the correct service
-    cy.get(".form-control-group-add-on")
-      .eq(-1)
-      .click(); // close filter window
+    cy.get(".form-control-group-add-on").eq(-1).click(); // close filter window
 
     // scrolling right several times, as we (or react virtualized) seem to change the width of the table while scrolling as of today
     for (const i of [1, 2, 3]) {
@@ -16,15 +14,11 @@ describe("Group Modals", () => {
         .eq(-1) // bottom right grid
         .scrollTo("right", { duration: i * 200 }); // scroll to the actions column
     }
-    cy.get(".actions-dropdown")
-      .eq(0)
-      .click();
+    cy.get(".actions-dropdown").eq(0).click();
   }
 
   function clickDropdownAction(actionText) {
-    cy.get(".dropdown-menu-items")
-      .contains(actionText)
-      .click();
+    cy.get(".dropdown-menu-items").contains(actionText).click();
   }
 
   function getInput(id) {
@@ -35,7 +29,7 @@ describe("Group Modals", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -43,15 +37,11 @@ describe("Group Modals", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
     });
 
     it("displays proper errors ", () => {
-      cy.get(".form-group")
-        .find('.form-control[name="id"]')
-        .as("idInput");
+      cy.get(".form-group").find('.form-control[name="id"]').as("idInput");
 
       cy.get(".modal-full-screen-actions-primary")
         .contains("Create")
@@ -153,19 +143,13 @@ describe("Group Modals", () => {
 
         cy.log("shows and hides the advanced settings");
         cy.get(".advanced-section-content").should("not.exist");
-        cy.get(".advanced-section-label")
-          .contains("Advanced Settings")
-          .click();
+        cy.get(".advanced-section-label").contains("Advanced Settings").click();
         cy.get(".advanced-section-content");
-        cy.get(".advanced-section-label")
-          .contains("Advanced Settings")
-          .click();
+        cy.get(".advanced-section-label").contains("Advanced Settings").click();
         cy.get(".advanced-section-content").should("not.exist");
 
         cy.log("shows role enforcement labels and checkboxes");
-        cy.get(".advanced-section-label")
-          .contains("Advanced Settings")
-          .click();
+        cy.get(".advanced-section-label").contains("Advanced Settings").click();
         cy.get(".form-group-heading-content").contains("Role Enforcement");
         cy.get(".form-control-toggle").contains("Use Group Role");
         cy.get(".form-control-toggle").contains("Recommended");
@@ -180,12 +164,11 @@ describe("Group Modals", () => {
 
       it("fails to submit", () => {
         const submit = () => {
-          cy.get(".button-primary")
-            .contains("Create")
-            .click();
+          cy.get(".button-primary").contains("Create").click();
         };
-        const msgContains = msg => cy.get(".errorsAlert-message").contains(msg);
-        const hintContains = msg =>
+        const msgContains = (msg) =>
+          cy.get(".errorsAlert-message").contains(msg);
+        const hintContains = (msg) =>
           cy.get(".form-control-feedback").contains(msg);
 
         cy.log("if name is invalid");
@@ -300,14 +283,10 @@ describe("Group Modals", () => {
 
     it("opens the edit modal from group detail page", () => {
       cy.visitUrl({ url: "/services/overview" });
-      cy.get(".table-cell-link-primary")
-        .contains("services")
-        .click();
+      cy.get(".table-cell-link-primary").contains("services").click();
 
       cy.get(".page-header-actions button.button-narrow").click();
-      cy.get("li.is-selectable")
-        .contains("Edit Group")
-        .click();
+      cy.get("li.is-selectable").contains("Edit Group").click();
       cy.get(".modal-full-screen-header-title").contains("Edit Group");
     });
 
@@ -318,12 +297,8 @@ describe("Group Modals", () => {
 
     it("does not have an edit action for non-top-level groups", () => {
       cy.visitUrl({ url: "/services/overview" });
-      cy.get(".table-cell-link-primary")
-        .contains("services")
-        .click();
-      cy.get(".table-cell-link-primary")
-        .contains("services2")
-        .click();
+      cy.get(".table-cell-link-primary").contains("services").click();
+      cy.get(".table-cell-link-primary").contains("services2").click();
       cy.get("button.button-narrow").should("not.exist");
     });
   });
@@ -335,8 +310,8 @@ describe("Group Modals", () => {
         nodeHealth: true,
         groups: {
           marathonCreate: "create-success",
-          mesosQuotaUpdate: "updateQuotaSuccess"
-        }
+          mesosQuotaUpdate: "updateQuotaSuccess",
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -344,18 +319,14 @@ describe("Group Modals", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
 
       cy.get(".modal-full-screen");
 
       getInput("id").type("test");
       getInput("quota.cpus").type("1");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Create").click();
 
       cy.wait("@updateQuota");
 
@@ -368,8 +339,8 @@ describe("Group Modals", () => {
         nodeHealth: true,
         groups: {
           marathonCreate: "create-conflict",
-          marathonCreateStatus: 409
-        }
+          marathonCreateStatus: 409,
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -377,17 +348,13 @@ describe("Group Modals", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
 
       cy.get(".modal-full-screen");
 
       getInput("id").type("test");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Create").click();
 
       cy.wait("@createGroup");
 
@@ -406,8 +373,8 @@ describe("Group Modals", () => {
         nodeHealth: true,
         groups: {
           marathonCreate: "create-invalid",
-          marathonCreateStatus: 422
-        }
+          marathonCreateStatus: 422,
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -415,17 +382,13 @@ describe("Group Modals", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
 
       cy.get(".modal-full-screen");
 
       getInput("id").type("test");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Create").click();
 
       cy.wait("@createGroup");
 
@@ -439,8 +402,8 @@ describe("Group Modals", () => {
         groups: {
           marathonCreate: "create-success",
           mesosQuotaUpdate: "updateQuotaFailed",
-          mesosQuotaUpdateStatus: 400
-        }
+          mesosQuotaUpdateStatus: 400,
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -448,18 +411,14 @@ describe("Group Modals", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
 
       cy.get(".modal-full-screen");
 
       getInput("id").type("test");
       getInput("quota.cpus").type("1");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Create").click();
 
       cy.wait("@updateQuota");
 
@@ -481,8 +440,8 @@ describe("Group Modals", () => {
         nodeHealth: true,
         groups: {
           marathonEdit: "create-success",
-          mesosQuotaUpdate: "updateQuotaSuccess"
-        }
+          mesosQuotaUpdate: "updateQuotaSuccess",
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -498,9 +457,7 @@ describe("Group Modals", () => {
       getInput("quota.cpus").type("1.0");
       getInput("quota.mem").type("2048");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Update")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Update").click();
 
       cy.wait("@updateQuota");
 
@@ -514,8 +471,8 @@ describe("Group Modals", () => {
         groups: {
           marathonEdit: "create-success",
           mesosQuotaUpdate: "updateQuotaOvercommit",
-          mesosQuotaUpdateStatus: 400
-        }
+          mesosQuotaUpdateStatus: 400,
+        },
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -531,9 +488,7 @@ describe("Group Modals", () => {
       getInput("quota.cpus").type("1.0");
       getInput("quota.mem").type("2048");
 
-      cy.get(".modal-full-screen-actions-primary")
-        .contains("Update")
-        .click();
+      cy.get(".modal-full-screen-actions-primary").contains("Update").click();
 
       cy.wait("@updateQuota");
 
@@ -549,21 +504,17 @@ describe("Group Modals", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview" });
-      cy.get(".table-cell-link-primary")
-        .contains("services")
-        .click();
+      cy.get(".table-cell-link-primary").contains("services").click();
     });
     it("displays a small group modal for non-top-level groups", () => {
       cy.get(".page-header-actions [data-cy='primaryDropdownButton']")
         .contains("New")
         .click();
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
 
       cy.get(".modal-small");
       cy.get(".modal-full-screen").should("not.exist");
@@ -571,9 +522,7 @@ describe("Group Modals", () => {
 
     it("does not show the edit action for non-top-level groups", () => {
       openDropdown("services2");
-      cy.get(".dropdown-menu-items li")
-        .contains("Edit")
-        .should("not.exist");
+      cy.get(".dropdown-menu-items li").contains("Edit").should("not.exist");
     });
   });
 });

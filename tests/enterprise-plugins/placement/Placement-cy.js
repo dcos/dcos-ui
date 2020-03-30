@@ -5,7 +5,7 @@ describe("Placement", () => {
         jobDetails: true,
         mesos: "1-for-each-health",
         nodeHealth: true,
-        plugins: "placement"
+        plugins: "placement",
       });
 
       // Forge a cookie for the auth plugin
@@ -36,7 +36,7 @@ describe("Placement", () => {
       const constraint = {
         attribute: "a",
         operator: "IS",
-        value: "b"
+        value: "b",
       };
 
       // Click 'Create a job'
@@ -50,36 +50,20 @@ describe("Placement", () => {
       cy.root()
         .getFormGroupInputFor("Job ID *")
         .type(`{selectall}${fullJobName}`);
-      cy.root()
-        .getFormGroupInputFor("Mem (MiB) *")
-        .type("{selectall}32");
-      cy.root()
-        .get("label")
-        .contains("Command Only")
-        .click();
-      cy.root()
-        .getFormGroupInputFor("Command *")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Mem (MiB) *").type("{selectall}32");
+      cy.root().get("label").contains("Command Only").click();
+      cy.root().getFormGroupInputFor("Command *").type(cmdline);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Placement")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Placement").click();
 
       // Add a region constraint
       cy.get('select[name="0.regionConstraint"]').select("eu-central-1");
 
-      cy.root()
-        .get(".button")
-        .contains("Add Constraint")
-        .click();
+      cy.root().get(".button").contains("Add Constraint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Field")
-        .type(constraint.attribute);
+      cy.root().getFormGroupInputFor("Field").type(constraint.attribute);
 
-      cy.root()
-        .getFormGroupInputFor("Value")
-        .type(constraint.value);
+      cy.root().getFormGroupInputFor("Value").type(constraint.value);
 
       cy.get(".button.dropdown-toggle").click();
 
@@ -106,13 +90,13 @@ describe("Placement", () => {
                   {
                     attribute: "@region",
                     operator: "IS",
-                    value: "eu-central-1"
+                    value: "eu-central-1",
                   },
-                  constraint
-                ]
-              }
-            }
-          }
+                  constraint,
+                ],
+              },
+            },
+          },
         ]);
     });
   });

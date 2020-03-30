@@ -9,9 +9,6 @@
   "maintainer": "help@dcos.io",
   "name": "cassandra",
   "scm": "https://github.com/mesosphere/cassandra-mesos.git",
-  "tags": [
-    "mesosphere",
-    "framework"
-  ],
+  "tags": ["mesosphere", "framework"],
   "version": "0.1.0-SNAPSHOT-424-master-5c6e140d5b"
 }

@@ -2,26 +2,24 @@ describe("Volumes", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-with-volumes",
-      nodeHealth: true
+      nodeHealth: true,
     });
   });
 
   context("Volumes Table", () => {
     beforeEach(() => {
       cy.visitUrl({ url: "/services/detail/%2Fsleep" });
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
     });
 
     it("shows the correct number of volumes in the table", () => {
-      cy.get(".table tbody tr").should($rows => {
+      cy.get(".table tbody tr").should(($rows) => {
         expect($rows.length).to.equal(3);
       });
     });
 
     it("renders the correct IDs in the table", () => {
-      cy.get(".table tbody tr").should($rows => {
+      cy.get(".table tbody tr").should(($rows) => {
         const children = $rows[0].children;
         expect(children[0].textContent).to.equal(
           "sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201"
@@ -39,9 +37,7 @@ describe("Volumes", () => {
   context("Volume Details", () => {
     beforeEach(() => {
       cy.visitUrl({ url: "/services/detail/%2Fsleep" });
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
       cy.get(".table tbody tr a")
         .contains("sleep#data-1#c1fbf257-efb2-11e6-a361-5edc614b8201")
         .click({ force: true });
@@ -67,7 +63,7 @@ describe("Volumes", () => {
 
     it("displays the details of the volume", () => {
       cy.get(".configuration-map-row .configuration-map-value").should(
-        $descriptionListEls => {
+        ($descriptionListEls) => {
           expect($descriptionListEls[0].textContent).to.equal("data-1");
           expect($descriptionListEls[1].textContent).to.equal("RW");
           expect($descriptionListEls[2].textContent).to.equal("1");
