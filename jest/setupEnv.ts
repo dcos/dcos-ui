@@ -20,7 +20,7 @@ global.macro_1 = {
   DateFormat,
   Plural: ({ one }) => one,
   Trans,
-  t: (...args) => args.join("")
+  t: (...args) => args.join(""),
 };
 
 /*
@@ -37,7 +37,7 @@ global.EventSource = () => {
     addEventListener: eventEmitter.addListener,
     close: eventEmitter.removeAllListeners,
     dispatchEvent: eventEmitter.emit,
-    removeEventListener: eventEmitter.removeListener
+    removeEventListener: eventEmitter.removeListener,
   };
 };
 

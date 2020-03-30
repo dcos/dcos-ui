@@ -32,7 +32,7 @@ const containerSettings = {
     ),
     unavailableText: i18nMark(
       "Grant runtime privileges option isn't supported by selected runtime."
-    )
+    ),
   },
   forcePullImage: {
     runtimes: [DOCKER, MESOS],
@@ -42,8 +42,8 @@ const containerSettings = {
     ),
     unavailableText: i18nMark(
       "Force pull image on launch option isn't supported by selected runtime."
-    )
-  }
+    ),
+  },
 };
 
 const appPaths = {
@@ -58,7 +58,7 @@ const appPaths = {
   mem: "mem",
   privileged: "{basePath}.docker.privileged",
   type: "{basePath}.type",
-  limits: "limits"
+  limits: "limits",
 };
 
 const podPaths = {
@@ -72,7 +72,7 @@ const podPaths = {
   image: "{basePath}.image.id",
   mem: "{basePath}.resources.mem",
   privileged: "",
-  type: "{basePath}.type"
+  type: "{basePath}.type",
 };
 
 type resourceLimitType = { value: number; unlimited: boolean };
@@ -90,14 +90,14 @@ class ContainerServiceFormAdvancedSection extends React.Component<
     errors: {},
     onAddItem() {},
     onRemoveItem() {},
-    path: "container"
+    path: "container",
   };
   static propTypes = {
     data: PropTypes.object,
     errors: PropTypes.object,
     onAddItem: PropTypes.func,
     onRemoveItem: PropTypes.func,
-    path: PropTypes.string
+    path: PropTypes.string,
   };
   getFieldPath(basePath, fieldName) {
     if (this.props.service instanceof PodSpec) {
@@ -188,14 +188,14 @@ class ContainerServiceFormAdvancedSection extends React.Component<
           runtimes,
           helpText,
           label,
-          unavailableText
+          unavailableText,
         } = containerSettings[settingName];
         const settingsPath = this.getFieldPath(path, settingName);
         const checked = findNestedPropertyInObject(data, settingsPath);
         const isDisabled = !runtimes.includes(containerType);
         const labelNodeClasses = classNames({
           "disabled muted": isDisabled,
-          "flush-bottom": index === sectionCount - 1
+          "flush-bottom": index === sectionCount - 1,
         });
 
         let labelNode = (
@@ -354,7 +354,7 @@ class ContainerServiceFormAdvancedSection extends React.Component<
 
 ContainerServiceFormAdvancedSection.configReducers = {
   container: ContainerReducer,
-  containers: ContainersReducer
+  containers: ContainersReducer,
 };
 
 export default ContainerServiceFormAdvancedSection;

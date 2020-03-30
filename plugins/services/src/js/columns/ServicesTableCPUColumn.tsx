@@ -11,7 +11,7 @@ export const ServiceCPU = React.memo(
   ({
     resource,
     limit,
-    id
+    id,
   }: {
     resource: string;
     limit?: number | string;
@@ -33,7 +33,7 @@ export const ServiceCPU = React.memo(
               render="span"
               values={{
                 resource: Units.formatResource("cpus", resource),
-                limit: Units.formatResource("cpus", limit)
+                limit: Units.formatResource("cpus", limit),
               }}
             />
           </Tooltip>

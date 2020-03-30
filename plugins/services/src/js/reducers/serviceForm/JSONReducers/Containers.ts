@@ -354,7 +354,7 @@ export function JSONReducer(
   {
     type,
     path = [],
-    value
+    value,
   }: { type: symbol; path: Array<string | number>; value: unknown },
   containerIndex: number
 ) {

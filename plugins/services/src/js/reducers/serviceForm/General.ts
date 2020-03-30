@@ -17,6 +17,6 @@ export default {
   cmd: simpleReducer("cmd"),
   limits: combineReducers({
     cpus: resourceLimitReducer("cpus", parseFloat),
-    mem: resourceLimitReducer("mem", parseInt)
-  })
+    mem: resourceLimitReducer("mem", parseInt),
+  }),
 };

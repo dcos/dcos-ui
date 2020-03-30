@@ -18,7 +18,7 @@ const resourceLimitReducer = (resourceField: string, parseFn = parseInt) => {
         // in that case we do return the old nummeric value and set unlimited to a boolean.
         {
           value: state?.value || null,
-          unlimited: value === "unlimited" || value === true
+          unlimited: value === "unlimited" || value === true,
         };
   };
 };

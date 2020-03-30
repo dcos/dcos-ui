@@ -248,7 +248,7 @@ export default class Pod extends Service {
       .getContainers()
       .reduce((limits, container) => {
         if (container.resourceLimits != null) {
-          Object.keys(container.resourceLimits).forEach(key => {
+          Object.keys(container.resourceLimits).forEach((key) => {
             if (limits[key] == null) {
               limits[key] = 0;
             }

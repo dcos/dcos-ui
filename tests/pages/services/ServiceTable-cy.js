@@ -484,16 +484,13 @@ describe("Service Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         groups: { marathonResourceLimits: true },
-        mesos: "1-task-healthy"
+        mesos: "1-task-healthy",
       });
 
       cy.visitUrl({ url: "/services/overview" });
     });
     it("contains alpine", () => {
-      cy.contains("alpine")
-        .root()
-        .get("body")
-        .type("[");
+      cy.contains("alpine").root().get("body").type("[");
       cy.get(
         "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row2']"
       ).contains("0.3 / 1");
