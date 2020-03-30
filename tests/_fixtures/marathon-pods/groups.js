@@ -1,6 +1,6 @@
 const createFrameworks = () =>
   [318, 200, 500, 204, 202, 203, 205, 206, 208, 320, 321, 326, 503].map(
-    statusCode => ({
+    (statusCode) => ({
       id: `/${statusCode}-hello-world`,
       backoffFactor: 1.15,
       backoffSeconds: 1,
@@ -15,11 +15,11 @@ const createFrameworks = () =>
         http: {
           portIndex: 0,
           path: "/v1/health",
-          scheme: "HTTP"
+          scheme: "HTTP",
         },
         intervalSeconds: 30,
         timeoutSeconds: 30,
-        delaySeconds: 15
+        delaySeconds: 15,
       },
       instances: 1,
       labels: {
@@ -34,38 +34,38 @@ const createFrameworks = () =>
         DCOS_PACKAGE_VERSION: "stub-universe",
         DCOS_COMMONS_API_VERSION: "v1",
         DCOS_PACKAGE_NAME: "hello-world",
-        MARATHON_SINGLE_INSTANCE_APP: "true"
+        MARATHON_SINGLE_INSTANCE_APP: "true",
       },
       maxLaunchDelaySeconds: 300,
       mem: 1024,
       gpus: 0,
       networks: [
         {
-          mode: "host"
-        }
+          mode: "host",
+        },
       ],
       portDefinitions: [
         {
           port: 10000,
           name: "api",
-          protocol: "tcp"
-        }
+          protocol: "tcp",
+        },
       ],
       requirePorts: false,
       upgradeStrategy: {
         maximumOverCapacity: 0,
-        minimumHealthCapacity: 0
+        minimumHealthCapacity: 0,
       },
       user: "nobody",
       version: "2019-03-25T12:02:05.516Z",
       versionInfo: {
         lastScalingAt: "2019-03-25T12:02:05.516Z",
-        lastConfigChangeAt: "2019-03-25T12:02:05.516Z"
+        lastConfigChangeAt: "2019-03-25T12:02:05.516Z",
       },
       killSelection: "YOUNGEST_FIRST",
       unreachableStrategy: {
         inactiveAfterSeconds: 0,
-        expungeAfterSeconds: 0
+        expungeAfterSeconds: 0,
       },
       tasksStaged: 0,
       tasksRunning: 1,
@@ -78,8 +78,8 @@ const createFrameworks = () =>
           healthCheckResults: [],
           checkResult: {
             http: {
-              statusCode
-            }
+              statusCode,
+            },
           },
           host: "10.0.1.162",
           id:
@@ -87,8 +87,8 @@ const createFrameworks = () =>
           ipAddresses: [
             {
               ipAddress: "10.0.1.162",
-              protocol: "IPv4"
-            }
+              protocol: "IPv4",
+            },
           ],
           ports: [15457],
           servicePorts: [],
@@ -99,8 +99,8 @@ const createFrameworks = () =>
           version: "2019-03-25T12:02:05.516Z",
           localVolumes: [],
           region: "aws/eu-central-1",
-          zone: "aws/eu-central-1a"
-        }
+          zone: "aws/eu-central-1a",
+        },
       ],
       taskStats: {
         startedAfterLastScaling: {
@@ -109,13 +109,13 @@ const createFrameworks = () =>
               staged: 0,
               running: 1,
               healthy: 0,
-              unhealthy: 0
+              unhealthy: 0,
             },
             lifeTime: {
               averageSeconds: 600.297,
-              medianSeconds: 600.297
-            }
-          }
+              medianSeconds: 600.297,
+            },
+          },
         },
         withLatestConfig: {
           stats: {
@@ -123,13 +123,13 @@ const createFrameworks = () =>
               staged: 0,
               running: 1,
               healthy: 0,
-              unhealthy: 0
+              unhealthy: 0,
             },
             lifeTime: {
               averageSeconds: 600.297,
-              medianSeconds: 600.297
-            }
-          }
+              medianSeconds: 600.297,
+            },
+          },
         },
         totalSummary: {
           stats: {
@@ -137,15 +137,15 @@ const createFrameworks = () =>
               staged: 0,
               running: 1,
               healthy: 0,
-              unhealthy: 0
+              unhealthy: 0,
             },
             lifeTime: {
               averageSeconds: 600.297,
-              medianSeconds: 600.297
-            }
-          }
-        }
-      }
+              medianSeconds: 600.297,
+            },
+          },
+        },
+      },
     })
   );
 module.exports = {
@@ -175,7 +175,7 @@ module.exports = {
       dependencies: [],
       upgradeStrategy: {
         minimumHealthCapacity: 1,
-        maximumOverCapacity: 1
+        maximumOverCapacity: 1,
       },
       labels: {},
       acceptedResourceRoles: null,
@@ -184,15 +184,15 @@ module.exports = {
       tasksRunning: 1,
       tasksHealthy: 0,
       tasksUnhealthy: 0,
-      deployments: []
-    }
+      deployments: [],
+    },
   ],
   dependencies: [],
   groups: [
     {
       id: "/10000_apps",
       enforceRole: true,
-      apps: [...Array(10000).keys()].map(i => ({
+      apps: [...Array(10000).keys()].map((i) => ({
         id: `/sleep_${i}`,
         cmd: "sleep 3000",
         args: null,
@@ -216,7 +216,7 @@ module.exports = {
         dependencies: [],
         upgradeStrategy: {
           minimumHealthCapacity: 1,
-          maximumOverCapacity: 1
+          maximumOverCapacity: 1,
         },
         labels: {},
         acceptedResourceRoles: null,
@@ -225,17 +225,17 @@ module.exports = {
         tasksRunning: 1,
         tasksHealthy: 0,
         tasksUnhealthy: 0,
-        deployments: []
+        deployments: [],
       })),
       dependencies: [],
       groups: [],
       pods: [],
-      version: "2015-08-28T01:26:14.620Z"
+      version: "2015-08-28T01:26:14.620Z",
     },
     {
       id: "/10_apps",
       enforceRole: true,
-      apps: [...Array(10).keys()].map(i => ({
+      apps: [...Array(10).keys()].map((i) => ({
         id: `/10_apps/sleep_${i}`,
         cmd: "sleep 3000",
         args: null,
@@ -259,7 +259,7 @@ module.exports = {
         dependencies: [],
         upgradeStrategy: {
           minimumHealthCapacity: 1,
-          maximumOverCapacity: 1
+          maximumOverCapacity: 1,
         },
         labels: {},
         acceptedResourceRoles: null,
@@ -269,12 +269,12 @@ module.exports = {
         tasksHealthy: 0,
         tasksUnhealthy: 0,
         deployments: [],
-        role: "slave_public"
+        role: "slave_public",
       })),
       dependencies: [],
       groups: [],
       pods: [],
-      version: "2015-08-28T01:26:14.620Z"
+      version: "2015-08-28T01:26:14.620Z",
     },
     {
       id: "/2_apps",
@@ -304,7 +304,7 @@ module.exports = {
           dependencies: [],
           upgradeStrategy: {
             minimumHealthCapacity: 1,
-            maximumOverCapacity: 1
+            maximumOverCapacity: 1,
           },
           labels: {},
           acceptedResourceRoles: null,
@@ -314,7 +314,7 @@ module.exports = {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           deployments: [],
-          role: "2_apps"
+          role: "2_apps",
         },
         {
           id: "/2_apps/sleep_no_limit",
@@ -340,7 +340,7 @@ module.exports = {
           dependencies: [],
           upgradeStrategy: {
             minimumHealthCapacity: 1,
-            maximumOverCapacity: 1
+            maximumOverCapacity: 1,
           },
           labels: {},
           acceptedResourceRoles: null,
@@ -350,13 +350,13 @@ module.exports = {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           deployments: [],
-          role: "slave_public"
-        }
+          role: "slave_public",
+        },
       ],
       dependencies: [],
       groups: [],
       pods: [],
-      version: "2015-08-28T01:26:14.620Z"
+      version: "2015-08-28T01:26:14.620Z",
     },
     {
       id: "/1_app",
@@ -386,7 +386,7 @@ module.exports = {
           dependencies: [],
           upgradeStrategy: {
             minimumHealthCapacity: 1,
-            maximumOverCapacity: 1
+            maximumOverCapacity: 1,
           },
           labels: {},
           acceptedResourceRoles: null,
@@ -396,15 +396,15 @@ module.exports = {
           tasksHealthy: 0,
           tasksUnhealthy: 0,
           deployments: [],
-          role: "1_app"
-        }
+          role: "1_app",
+        },
       ],
       dependencies: [],
       groups: [],
       pods: [],
-      version: "2019-01-01T01:26:14.620Z"
-    }
+      version: "2019-01-01T01:26:14.620Z",
+    },
   ],
   pods: [],
-  id: "/"
+  id: "/",
 };

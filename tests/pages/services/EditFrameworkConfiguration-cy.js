@@ -2,7 +2,7 @@ describe("Edit Framework Configuration", () => {
   context("Missing package", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-for-each-health"
+        mesos: "1-for-each-health",
       });
 
       cy.route({
@@ -12,8 +12,8 @@ describe("Edit Framework Configuration", () => {
         response: JSON.stringify({
           type: "VersionNotFound",
           message: "Version [0.2.0-1] of package [cassandra] not found",
-          data: { packageName: "cassandra", packageVersion: "0.2.0-1" }
-        })
+          data: { packageName: "cassandra", packageVersion: "0.2.0-1" },
+        }),
       }).as("describeService");
     });
 

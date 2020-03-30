@@ -3,7 +3,7 @@ describe("UI Settings", () => {
     it("displays UI version details", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -27,7 +27,7 @@ describe("UI Settings", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -50,7 +50,7 @@ describe("UI Settings", () => {
     it("displays update when not on default version", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
-        "ui-settings": "v0.1.0"
+        "ui-settings": "v0.1.0",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -69,7 +69,7 @@ describe("UI Settings", () => {
     it("displays update when not on default version", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
-        "ui-settings": "v0.1.1"
+        "ui-settings": "v0.1.1",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -89,7 +89,7 @@ describe("UI Settings", () => {
       cy.configureCluster({
         cosmos: "error",
         plugins: "ui-update-enabled",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -117,7 +117,7 @@ describe("UI Settings", () => {
     it("Displays Rollback, Update, Refresh", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
-        "ui-settings": "v0.1.0"
+        "ui-settings": "v0.1.0",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -141,7 +141,7 @@ describe("UI Settings", () => {
       cy.configureCluster({
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -160,7 +160,7 @@ describe("UI Settings", () => {
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
         "update-service": "reset-pass",
-        "ui-settings": "v0.1.0"
+        "ui-settings": "v0.1.0",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -174,13 +174,11 @@ describe("UI Settings", () => {
         url: /dcos-ui-update-service\/api\/v1\/version\//,
         response: "fx:ui-settings/default-version",
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       }).as("getUiVersionRefresh");
 
-      cy.get("#uiDetailsRollback")
-        .contains("Rollback")
-        .click();
+      cy.get("#uiDetailsRollback").contains("Rollback").click();
 
       cy.wait("@resetUiVersion");
 
@@ -199,7 +197,7 @@ describe("UI Settings", () => {
         cosmos: "no-versions",
         plugins: "ui-update-enabled",
         "update-service": "reset-fail",
-        "ui-settings": "v0.1.0"
+        "ui-settings": "v0.1.0",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -208,9 +206,7 @@ describe("UI Settings", () => {
       cy.wait("@getUiVersion");
       cy.wait("@cosmosListVersions");
 
-      cy.get("#uiDetailsRollback")
-        .contains("Rollback")
-        .click();
+      cy.get("#uiDetailsRollback").contains("Rollback").click();
 
       cy.wait("@resetUiVersion");
 
@@ -224,7 +220,7 @@ describe("UI Settings", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "update-service": "update-pass",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });
@@ -239,8 +235,8 @@ describe("UI Settings", () => {
         url: /dcos-ui-update-service\/api\/v1\/version\//,
         response: "fx:ui-settings/version-011",
         headers: {
-          "Content-Type": "application/json"
-        }
+          "Content-Type": "application/json",
+        },
       }).as("getUiVersionRefresh");
 
       cy.get("div.configuration-map").as("dcosUIDetails");
@@ -281,7 +277,7 @@ describe("UI Settings", () => {
       cy.configureCluster({
         plugins: "ui-update-enabled",
         "update-service": "update-fail",
-        "ui-settings": "default"
+        "ui-settings": "default",
       });
 
       cy.visitUrl({ url: "/settings/ui-settings" });

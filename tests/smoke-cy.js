@@ -2,15 +2,13 @@ describe("DC/OS UI [00j]", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
-      nodeHealth: true
+      nodeHealth: true,
     }).visitUrl({ url: "/", identify: true });
   });
 
   context("Dashboard [00k]", () => {
     beforeEach(() => {
-      cy.get(".sidebar-menu-item")
-        .contains("Dashboard")
-        .click({ force: true });
+      cy.get(".sidebar-menu-item").contains("Dashboard").click({ force: true });
     });
 
     it("can change hash to dashboard page [00l]", () => {
@@ -18,17 +16,13 @@ describe("DC/OS UI [00j]", () => {
     });
 
     it("has eight panels [00m]", () => {
-      cy.get("#application")
-        .find(".panel")
-        .should("to.have.length", 8);
+      cy.get("#application").find(".panel").should("to.have.length", 8);
     });
   });
 
   xcontext("Services [00n]", () => {
     beforeEach(() => {
-      cy.get(".sidebar-menu-item")
-        .contains("Services")
-        .click();
+      cy.get(".sidebar-menu-item").contains("Services").click();
       cy.get("table tbody tr").as("tableRows");
     });
 
@@ -47,9 +41,7 @@ describe("DC/OS UI [00j]", () => {
 
   context("Nodes [00r]", () => {
     beforeEach(() => {
-      cy.get(".sidebar-menu-item")
-        .contains("Nodes")
-        .click({ force: true });
+      cy.get(".sidebar-menu-item").contains("Nodes").click({ force: true });
     });
 
     it("can change hash to nodes page [00s]", () => {

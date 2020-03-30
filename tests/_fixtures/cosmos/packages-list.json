@@ -9,10 +9,7 @@
           "version": "0.11.1",
           "maintainer": "help@dcos.io",
           "description": "A cluster-wide init and control system for services in cgroups or Docker containers.",
-          "tags": [
-            "init",
-            "long-running"
-          ],
+          "tags": ["init", "long-running"],
           "scm": "https://github.com/mesosphere/marathon.git",
           "website": null,
           "framework": true,
@@ -53,12 +50,7 @@
           "version": "0.3.5",
           "maintainer": "help@dcos.io",
           "description": "A distributed free and open-source database with a flexible data model for documents, graphs, and key-values. Build high performance applications using a convenient SQL-like query language or JavaScript extensions.",
-          "tags": [
-            "arangodb",
-            "NoSQL",
-            "database",
-            "framework"
-          ],
+          "tags": ["arangodb", "NoSQL", "database", "framework"],
           "scm": "https://github.com/mesosphere/marathon.git",
           "website": null,
           "framework": true,

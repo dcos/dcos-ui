@@ -9,10 +9,10 @@ describe("Services", () => {
       cy.configureCluster({
         jobDetails: true,
         mesos: "1-for-each-health",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({
-        url: `services/overview/create`
+        url: `services/overview/create`,
       });
     });
 
@@ -26,25 +26,15 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -57,37 +47,35 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
-                }
-              }
+                    shell: command,
+                  },
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -155,64 +143,41 @@ describe("Services", () => {
         .type(`{selectall}{rightarrow}${serviceName}`);
 
       // Select first container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("container-1").click();
 
       // Configure container
       cy.root()
         .getFormGroupInputFor("Container Name")
         .type("{selectall}first-container");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Go back to Service
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Service")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
 
       // Add a container
       cy.contains("Add Container").click();
 
       // Ensure the name changes to 'Services'
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Services");
+      cy.root().get(".menu-tabbed-item").contains("Services");
 
       // Select second container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("container-2")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("container-2").click();
 
       // Configure container
       cy.root()
         .getFormGroupInputFor("Container Name")
         .type("{selectall}second-container");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Check JSON view
       cy.contains("JSON Editor").click();
@@ -229,52 +194,52 @@ describe("Services", () => {
                 name: "first-container",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 image: {
                   id: "nginx",
-                  kind: "DOCKER"
+                  kind: "DOCKER",
                 },
                 exec: {
                   command: {
-                    shell: cmdline
-                  }
-                }
+                    shell: cmdline,
+                  },
+                },
               },
               {
                 name: "second-container",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: cmdline
-                  }
+                    shell: cmdline,
+                  },
                 },
                 image: {
                   id: "nginx",
-                  kind: "DOCKER"
-                }
-              }
+                  kind: "DOCKER",
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
       // Click Review and Run
@@ -342,53 +307,33 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos-1");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
       cy.get('input[name="containers.0.endpoints.0.loadBalanced"]')
         .parents(".form-control-toggle")
         .click();
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -401,7 +346,7 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 32
+                  mem: 32,
                 },
                 endpoints: [
                   {
@@ -410,44 +355,42 @@ describe("Services", () => {
                     hostPort: 0,
                     protocol: ["tcp"],
                     labels: {
-                      VIP_0: `/${serviceName}:8080`
-                    }
-                  }
+                      VIP_0: `/${serviceName}:8080`,
+                    },
+                  },
                 ],
                 image: {
                   id: containerImage,
-                  kind: "DOCKER"
+                  kind: "DOCKER",
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
-                }
-              }
+                    shell: command,
+                  },
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
                 name: "dcos-1",
-                mode: "container"
-              }
+                mode: "container",
+              },
             ],
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -511,7 +454,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Service Endpoints")
-        .then($serviceEndpointsSection => {
+        .then(($serviceEndpointsSection) => {
           // Ensure the section itself exists.
           expect($serviceEndpointsSection.get().length).to.equal(1);
           const $tableRows = $serviceEndpointsSection
@@ -525,10 +468,10 @@ describe("Services", () => {
             "8080",
             `${serviceName}.marathon.l4lb.thisdcos.directory:8080`,
             "container-1",
-            "Edit"
+            "Edit",
           ];
 
-          $tableCells.each(function(index) {
+          $tableCells.each(function (index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
           });
         });
@@ -544,53 +487,35 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".advanced-section")
-        .contains("More Settings")
-        .click();
+      cy.get(".advanced-section").contains("More Settings").click();
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.0.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/1"
       );
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.1.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/2"
       );
 
-      cy.get(".button")
-        .contains("Add Artifact")
-        .click();
+      cy.get(".button").contains("Add Artifact").click();
 
       cy.get('input[name="containers.0.artifacts.2.uri"]').type(
         "http://lorempicsum.com/simpsons/600/400/3"
       );
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -603,48 +528,46 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
+                    shell: command,
+                  },
                 },
                 artifacts: [
                   {
-                    uri: "http://lorempicsum.com/simpsons/600/400/1"
+                    uri: "http://lorempicsum.com/simpsons/600/400/1",
                   },
                   {
-                    uri: "http://lorempicsum.com/simpsons/600/400/2"
+                    uri: "http://lorempicsum.com/simpsons/600/400/2",
                   },
                   {
-                    uri: "http://lorempicsum.com/simpsons/600/400/3"
-                  }
-                ]
-              }
+                    uri: "http://lorempicsum.com/simpsons/600/400/3",
+                  },
+                ],
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -703,7 +626,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Container Artifacts")
-        .then($containerArtifacts => {
+        .then(($containerArtifacts) => {
           // Ensure the section itself exists.
           expect($containerArtifacts.get().length).to.equal(1);
 
@@ -716,13 +639,13 @@ describe("Services", () => {
           const cellValues = [
             ["http://lorempicsum.com/simpsons/600/400/1", "Edit"],
             ["http://lorempicsum.com/simpsons/600/400/2", "Edit"],
-            ["http://lorempicsum.com/simpsons/600/400/3", "Edit"]
+            ["http://lorempicsum.com/simpsons/600/400/3", "Edit"],
           ];
 
           $tableRows.each((rowIndex, row) => {
             const $tableCells = Cypress.$(row).find("td");
 
-            $tableCells.each(function(cellIndex) {
+            $tableCells.each(function (cellIndex) {
               expect(this.textContent.trim()).to.equal(
                 cellValues[rowIndex][cellIndex]
               );
@@ -742,49 +665,29 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}32");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
 
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type(containerImage);
+      cy.root().getFormGroupInputFor("Container Image").type(containerImage);
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Networking")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Networking").click();
 
       cy.root()
         .getFormGroupInputFor("Network Type")
         .select("Virtual Network: dcos-1");
 
-      cy.get(".button")
-        .contains("Add Service Endpoint")
-        .click();
+      cy.get(".button").contains("Add Service Endpoint").click();
 
-      cy.root()
-        .getFormGroupInputFor("Container Port")
-        .type("8080");
+      cy.root().getFormGroupInputFor("Container Port").type("8080");
 
-      cy.root()
-        .getFormGroupInputFor("Service Endpoint Name")
-        .type("http");
+      cy.root().getFormGroupInputFor("Service Endpoint Name").type("http");
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -797,50 +700,48 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 32
+                  mem: 32,
                 },
                 endpoints: [
                   {
                     name: "http",
                     containerPort: 8080,
                     hostPort: 0,
-                    protocol: ["tcp"]
-                  }
+                    protocol: ["tcp"],
+                  },
                 ],
                 image: {
                   id: "python:3",
-                  kind: "DOCKER"
+                  kind: "DOCKER",
                 },
                 exec: {
                   command: {
-                    shell: "python3 -m http.server 8080"
-                  }
-                }
-              }
+                    shell: "python3 -m http.server 8080",
+                  },
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
                 name: "dcos-1",
-                mode: "container"
-              }
+                mode: "container",
+              },
             ],
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -899,7 +800,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Service Endpoints")
-        .then($serviceEndpointsSection => {
+        .then(($serviceEndpointsSection) => {
           const $tableRow = $serviceEndpointsSection
             .find("tbody tr")
             .filter((index, row) => row.style.display !== "none");
@@ -908,7 +809,7 @@ describe("Services", () => {
 
           expect($tableCells.length).to.equal(5);
 
-          $tableCells.each(function(index) {
+          $tableCells.each(function (index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
           });
         });
@@ -924,39 +825,23 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.get(".button")
-        .contains("Add Volume")
-        .click();
+      cy.get(".button").contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
       cy.root()
         .contains(".dropdown-select-item-title", "Ephemeral Storage")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Name")
-        .type("test");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Name").type("test");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
 
       cy.get("#brace-editor")
         .contents()
@@ -969,47 +854,45 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
+                    shell: command,
+                  },
                 },
                 volumeMounts: [
                   {
                     name: "test",
-                    mountPath: "test"
-                  }
-                ]
-              }
+                    mountPath: "test",
+                  },
+                ],
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             volumes: [
               {
-                name: "test"
-              }
+                name: "test",
+              },
             ],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -1068,7 +951,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Volumes")
-        .then($storageSection => {
+        .then(($storageSection) => {
           const $tableRow = $storageSection
             .find("tbody tr")
             .filter((index, row) => row.style.display !== "none");
@@ -1079,12 +962,12 @@ describe("Services", () => {
             "FALSE",
             "test",
             "container-1",
-            "Edit"
+            "Edit",
           ];
 
           expect($tableCells.length).to.equal(6);
 
-          $tableCells.each(function(index) {
+          $tableCells.each(function (index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
           });
         });
@@ -1100,74 +983,46 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
       // Go back to Service
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Service")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Service").click();
 
       // Add a container
       cy.contains("Add Container").click();
 
       // Ensure the name changes to 'Services'
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Services");
+      cy.root().get(".menu-tabbed-item").contains("Services");
 
       // Select second container
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("container-2")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("container-2").click();
 
       // Configure container
       cy.root()
         .getFormGroupInputFor("Container Name")
         .type("{selectall}second-container");
-      cy.root()
-        .getFormGroupInputFor("Container Image")
-        .type("nginx");
+      cy.root().getFormGroupInputFor("Container Image").type("nginx");
 
       cy.root()
         .getFormGroupInputFor("Memory (MiB) *")
         .type("{backspace}{backspace}{backspace}{backspace}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
 
-      cy.get(".button")
-        .contains("Add Volume")
-        .click();
+      cy.get(".button").contains("Add Volume").click();
       cy.get(".button.dropdown-toggle").click();
       cy.root()
         .contains(".dropdown-select-item-title", "Ephemeral Storage")
         .click();
-      cy.root()
-        .getFormGroupInputFor("Name")
-        .type("test");
-      cy.root()
-        .getFormGroupInputFor("Container Path")
-        .type("test");
+      cy.root().getFormGroupInputFor("Name").type("test");
+      cy.root().getFormGroupInputFor("Container Path").type("test");
       cy.get('input[name="volumeMounts.0.mountPath.1"]').type("/etc/test");
 
       cy.get("#brace-editor")
@@ -1181,69 +1036,67 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
+                    shell: command,
+                  },
                 },
                 volumeMounts: [
                   {
                     name: "test",
-                    mountPath: "test"
-                  }
-                ]
+                    mountPath: "test",
+                  },
+                ],
               },
               {
                 name: "second-container",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
+                    shell: command,
+                  },
                 },
                 image: {
                   id: "nginx",
-                  kind: "DOCKER"
+                  kind: "DOCKER",
                 },
                 volumeMounts: [
                   {
                     name: "test",
-                    mountPath: "/etc/test"
-                  }
-                ]
-              }
+                    mountPath: "/etc/test",
+                  },
+                ],
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             volumes: [
               {
-                name: "test"
-              }
+                name: "test",
+              },
             ],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -1319,7 +1172,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Volumes")
-        .then($storageSection => {
+        .then(($storageSection) => {
           const $tableRow = $storageSection
             .find("tbody tr")
             .filter((index, row) => row.style.display !== "none");
@@ -1336,12 +1189,12 @@ describe("Services", () => {
             "FALSE",
             "/etc/test",
             "second-container",
-            "Edit"
+            "Edit",
           ];
 
           expect($tableCells.length).to.equal(12);
 
-          $tableCells.each(function(index) {
+          $tableCells.each(function (index) {
             expect(this.textContent.trim()).to.equal(cellValues[index]);
           });
         });
@@ -1356,77 +1209,41 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains("container-1")
-        .click();
+      cy.get(".menu-tabbed-item").contains("container-1").click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
 
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
 
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(command);
+      cy.root().getFormGroupInputFor("Command").type(command);
 
-      cy.get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Environment").click();
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.0.key"]')
-        .type("camelCase");
+      cy.root().get('input[name="env.0.key"]').type("camelCase");
 
-      cy.root()
-        .get('input[name="env.0.value"]')
-        .type("test");
+      cy.root().get('input[name="env.0.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.1.key"]')
-        .type("snake_case");
+      cy.root().get('input[name="env.1.key"]').type("snake_case");
 
-      cy.root()
-        .get('input[name="env.1.value"]')
-        .type("test");
+      cy.root().get('input[name="env.1.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.2.key"]')
-        .type("lowercase");
+      cy.root().get('input[name="env.2.key"]').type("lowercase");
 
-      cy.root()
-        .get('input[name="env.2.value"]')
-        .type("test");
+      cy.root().get('input[name="env.2.value"]').type("test");
 
-      cy.get(".button")
-        .contains("Add Environment Variable")
-        .click();
+      cy.get(".button").contains("Add Environment Variable").click();
 
-      cy.root()
-        .get('input[name="env.3.key"]')
-        .type("UPPERCASE");
+      cy.root().get('input[name="env.3.key"]').type("UPPERCASE");
 
-      cy.root()
-        .get('input[name="env.3.value"]')
-        .type("test");
+      cy.root().get('input[name="env.3.value"]').type("test");
 
-      cy.get("label")
-        .contains("JSON Editor")
-        .click();
+      cy.get("label").contains("JSON Editor").click();
 
       cy.get("#brace-editor")
         .contents()
@@ -1439,43 +1256,41 @@ describe("Services", () => {
                 name: "container-1",
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: command
-                  }
-                }
-              }
+                    shell: command,
+                  },
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             environment: {
               camelCase: "test",
               snake_case: "test",
               lowercase: "test",
-              UPPERCASE: "test"
+              UPPERCASE: "test",
             },
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
-      cy.get("button")
-        .contains("Review & Run")
-        .click();
+      cy.get("button").contains("Review & Run").click();
 
       cy.root()
         .configurationSection("Service")
@@ -1534,7 +1349,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Environment Variables")
-        .then($envSection => {
+        .then(($envSection) => {
           expect($envSection.get().length).to.equal(1);
 
           const $tableRows = $envSection
@@ -1544,7 +1359,7 @@ describe("Services", () => {
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],
             ["lowercase", "test", "Shared", "Edit"],
-            ["UPPERCASE", "test", "Shared", "Edit"]
+            ["UPPERCASE", "test", "Shared", "Edit"],
           ];
 
           $tableRows.each((rowIndex, row) => {
@@ -1552,7 +1367,7 @@ describe("Services", () => {
 
             expect($tableCells.length).to.equal(4);
 
-            $tableCells.each(function(cellIndex) {
+            $tableCells.each(function (cellIndex) {
               expect(this.textContent.trim()).to.equal(
                 cellValues[rowIndex][cellIndex]
               );
@@ -1574,25 +1389,14 @@ describe("Services", () => {
         .getFormGroupInputFor("Service ID *")
         .type(`{selectall}{rightarrow}${serviceName}`);
 
-      cy.get(".menu-tabbed-item")
-        .contains(containerName)
-        .click();
+      cy.get(".menu-tabbed-item").contains(containerName).click();
 
-      cy.root()
-        .getFormGroupInputFor("CPUs *")
-        .type("{selectall}0.1");
-      cy.root()
-        .getFormGroupInputFor("Memory (MiB) *")
-        .type("{selectall}10");
-      cy.root()
-        .getFormGroupInputFor("Command")
-        .type(cmdline);
+      cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
+      cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+      cy.root().getFormGroupInputFor("Command").type(cmdline);
 
       // Select Environment section
-      cy.root()
-        .get(".menu-tabbed-item")
-        .contains("Environment")
-        .click();
+      cy.root().get(".menu-tabbed-item").contains("Environment").click();
 
       // Add an environment variable
       cy.contains("Add Label").click();
@@ -1629,38 +1433,38 @@ describe("Services", () => {
                 name: containerName,
                 resources: {
                   cpus: 0.1,
-                  mem: 10
+                  mem: 10,
                 },
                 exec: {
                   command: {
-                    shell: cmdline
-                  }
-                }
-              }
+                    shell: cmdline,
+                  },
+                },
+              },
             ],
             scaling: {
               kind: "fixed",
-              instances: 1
+              instances: 1,
             },
             networks: [
               {
-                mode: "host"
-              }
+                mode: "host",
+              },
             ],
             labels: {
               camelCase: "test",
               snake_case: "test",
               lowercase: "test",
-              UPPERCASE: "test"
+              UPPERCASE: "test",
             },
             volumes: [],
             fetch: [],
             scheduling: {
               placement: {
-                constraints: []
-              }
-            }
-          }
+                constraints: [],
+              },
+            },
+          },
         ]);
 
       // Click Review and Run
@@ -1724,7 +1528,7 @@ describe("Services", () => {
 
       cy.root()
         .configurationSection("Labels")
-        .then($section => {
+        .then(($section) => {
           expect($section.get().length).to.equal(1);
 
           const $tableRows = $section
@@ -1735,7 +1539,7 @@ describe("Services", () => {
             ["camelCase", "test", "Shared", "Edit"],
             ["snake_case", "test", "Shared", "Edit"],
             ["lowercase", "test", "Shared", "Edit"],
-            ["UPPERCASE", "test", "Shared", "Edit"]
+            ["UPPERCASE", "test", "Shared", "Edit"],
           ];
 
           $tableRows.each((rowIndex, row) => {
@@ -1743,7 +1547,7 @@ describe("Services", () => {
 
             expect($tableCells.length).to.equal(4);
 
-            $tableCells.each(function(cellIndex) {
+            $tableCells.each(function (cellIndex) {
               expect(this.textContent.trim()).to.equal(
                 cellValues[rowIndex][cellIndex]
               );

@@ -5,7 +5,7 @@ describe("Service Search Filters", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-for-each-health",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({ url: "/services/overview" });
     });
@@ -28,7 +28,7 @@ describe("Service Search Filters", () => {
     it("sets the correct search string filter query params", () => {
       cy.get(".filter-input-text").as("filterInputText");
       cy.get("@filterInputText").type("cassandra-healthy");
-      cy.hash().should(hash => {
+      cy.hash().should((hash) => {
         const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter)).to.equal(
           "q=cassandra-healthy"
@@ -44,7 +44,7 @@ describe("Service Search Filters", () => {
         .eq(1)
         .click();
 
-      cy.hash().should(hash => {
+      cy.hash().should((hash) => {
         const searchParameter = getSearchParameter(hash);
         expect(decodeURIComponent(searchParameter)).to.equal("q=");
       });

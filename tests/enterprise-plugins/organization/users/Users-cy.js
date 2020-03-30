@@ -3,7 +3,7 @@ describe("Users", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "organization"
+        plugins: "organization",
       });
 
       cy.route(
@@ -115,13 +115,9 @@ describe("Users", () => {
         .click();
 
       cy.get(".modal").contains("Passwords do not match.");
-      cy.get(".button-primary-link")
-        .contains("Cancel")
-        .click();
+      cy.get(".button-primary-link").contains("Cancel").click();
       cy.get("button.button-primary-link").click();
-      cy.get(".modal")
-        .contains("Passwords do not match.")
-        .should("not.exist");
+      cy.get(".modal").contains("Passwords do not match.").should("not.exist");
     });
   });
 });

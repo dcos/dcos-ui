@@ -1,14 +1,14 @@
 const nestedRoutesToTest = [
   { url: "/networking/networks", parentMenuLabel: "Networking" },
   { url: "/settings/repositories", parentMenuLabel: "Settings" },
-  { url: "/organization/users", parentMenuLabel: "Organization" }
+  { url: "/organization/users", parentMenuLabel: "Organization" },
 ];
 
 describe("Sidebar", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
-      componentHealth: false
+      componentHealth: false,
     });
   });
 
@@ -21,7 +21,7 @@ describe("Sidebar", () => {
         .as("settingsMenuItem");
 
       // The menu item should not contain a nested list.
-      cy.get("@settingsMenuItem").should($anchorTag => {
+      cy.get("@settingsMenuItem").should(($anchorTag) => {
         const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
         expect($parentMenuItem.hasClass("open")).to.equal(false);
         expect($parentMenuItem.find("ul li").length).to.equal(0);
@@ -30,7 +30,7 @@ describe("Sidebar", () => {
       cy.get("@settingsMenuItem").click();
 
       // Now the menu item should be expanded, so it contains a nested list.
-      cy.get("@settingsMenuItem").should($anchorTag => {
+      cy.get("@settingsMenuItem").should(($anchorTag) => {
         const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
         expect($parentMenuItem.hasClass("open")).to.equal(true);
         expect($parentMenuItem.find("ul li").length).to.equal(2);
@@ -45,7 +45,7 @@ describe("Sidebar", () => {
         .as("jobsMenuItem");
 
       // The jobs menu item should not be marked as selected.
-      cy.get("@jobsMenuItem").should($anchorTag => {
+      cy.get("@jobsMenuItem").should(($anchorTag) => {
         const $liElement = $anchorTag.closest("li");
         expect($liElement.hasClass("selected")).to.equal(false);
       });
@@ -53,13 +53,13 @@ describe("Sidebar", () => {
       cy.get("@jobsMenuItem").click();
 
       // The jobs menu item should be marked as selected.
-      cy.get("@jobsMenuItem").should($anchorTag => {
+      cy.get("@jobsMenuItem").should(($anchorTag) => {
         const $liElement = $anchorTag.closest("li");
         expect($liElement.hasClass("selected")).to.equal(true);
       });
     });
 
-    nestedRoutesToTest.forEach(nestedRoute => {
+    nestedRoutesToTest.forEach((nestedRoute) => {
       it(`renders nested route ${nestedRoute.url} with parent selected when visiting directly`, () => {
         cy.visitUrl({ url: nestedRoute.url, identify: true });
 
@@ -69,7 +69,7 @@ describe("Sidebar", () => {
 
         // Now the menu item should be expanded, so it contains a nested list
         // with at least one item.
-        cy.get("@parentMenuItem").should($anchorTag => {
+        cy.get("@parentMenuItem").should(($anchorTag) => {
           const $parentMenuItem = $anchorTag.closest("li.sidebar-menu-item");
           expect($parentMenuItem.hasClass("open")).to.equal(true);
           expect($parentMenuItem.find("ul li").length).to.be.at.least(1);
@@ -80,10 +80,10 @@ describe("Sidebar", () => {
 
   context("Sidebar Wrapper", () => {
     it("is exactly the same width as the sidebar", () => {
-      cy.get(".sidebar").then($sidebar => {
+      cy.get(".sidebar").then(($sidebar) => {
         const sidebarWidth = $sidebar.get(0).getBoundingClientRect().width;
 
-        cy.get(".sidebar-wrapper").then($sidebarWrapper => {
+        cy.get(".sidebar-wrapper").then(($sidebarWrapper) => {
           expect($sidebarWrapper.get(0).getBoundingClientRect().width).to.equal(
             sidebarWidth
           );
@@ -99,7 +99,7 @@ describe("Sidebar", () => {
     });
 
     it("adds the proper class to the .sidebar-wrapper element", () => {
-      cy.get(".application-wrapper").then($sidebarWrapper => {
+      cy.get(".application-wrapper").then(($sidebarWrapper) => {
         expect($sidebarWrapper.hasClass("sidebar-docked")).to.equal(true);
       });
     });

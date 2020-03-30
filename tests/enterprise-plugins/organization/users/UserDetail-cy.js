@@ -3,7 +3,7 @@ describe("User Detail", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "organization"
+        plugins: "organization",
       });
 
       // Stub group/user API requests
@@ -43,23 +43,16 @@ describe("User Detail", () => {
     it("Can add users to groups", () => {
       cy.visitUrl({ url: "/organization/users/quis" });
 
-      cy.get(".menu-tabbed-item-label")
-        .contains("Group Membership")
-        .click();
+      cy.get(".menu-tabbed-item-label").contains("Group Membership").click();
 
       // Opens list of users to add
       cy.get(".rbt-input-main").focus();
 
       // Add first group
-      cy.get(".rbt-menu li")
-        .should("to.be.visible")
-        .eq(0)
-        .click();
+      cy.get(".rbt-menu li").should("to.be.visible").eq(0).click();
 
       // Assert that add user to group API was called
-      cy.wait("@addGroup")
-        .its("response.body")
-        .should("equal", "successful");
+      cy.wait("@addGroup").its("response.body").should("equal", "successful");
     });
   });
 
@@ -67,7 +60,7 @@ describe("User Detail", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "organization"
+        plugins: "organization",
       });
 
       cy.route(
@@ -101,9 +94,7 @@ describe("User Detail", () => {
       );
 
       cy.visitUrl({ url: "/organization/users/myserviceaccount" });
-      cy.get(".page-header-actions")
-        .contains("Edit")
-        .click();
+      cy.get(".page-header-actions").contains("Edit").click();
     });
 
     it("opens the edit modal", () => {
@@ -119,9 +110,7 @@ describe("User Detail", () => {
 
       cy.get(".form-control[name='confirmPassword']").type("testpassword2");
 
-      cy.get(".modal-footer button.button-primary")
-        .contains("Save")
-        .click();
+      cy.get(".modal-footer button.button-primary").contains("Save").click();
 
       cy.get(".modal").contains("Passwords do not match.");
     });
@@ -133,9 +122,7 @@ describe("User Detail", () => {
 
       cy.get(".form-control[name='confirmPassword']").type("test123");
 
-      cy.get(".modal-footer button.button-primary")
-        .contains("Save")
-        .click();
+      cy.get(".modal-footer button.button-primary").contains("Save").click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -145,7 +132,7 @@ describe("User Detail", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "organization"
+        plugins: "organization",
       });
       // Stub group/user API requests
       cy.route(
@@ -181,9 +168,7 @@ describe("User Detail", () => {
       ).as("addGroup");
 
       cy.visitUrl({ url: "/organization/users/quis" });
-      cy.get(".button-primary")
-        .contains("Add Permission")
-        .click();
+      cy.get(".button-primary").contains("Add Permission").click();
     });
 
     it("opens the permissions modal", () => {
@@ -195,9 +180,7 @@ describe("User Detail", () => {
 
     context("Permissions strings", () => {
       beforeEach(() => {
-        cy.get(".muted")
-          .contains("Insert Permission String")
-          .click();
+        cy.get(".muted").contains("Insert Permission String").click();
       });
 
       it("opens the permissions string input", () => {
@@ -208,9 +191,7 @@ describe("User Detail", () => {
 
       it("shows an error for an incorrect permission", () => {
         cy.get(".content-editable").type("123");
-        cy.get(".button-primary")
-          .contains("Add Permissions")
-          .click();
+        cy.get(".button-primary").contains("Add Permissions").click();
         cy.wait(2500);
         cy.get(".errorsAlert-message").contains("Unable to add 1 permission:");
       });
@@ -219,9 +200,7 @@ describe("User Detail", () => {
         cy.get(".content-editable").type(
           "a{enter}b{enter}c{enter}d{enter}e{enter}f{enter}g{enter}h{enter}i{enter}j{enter}k{enter}l{enter}m{enter}n{enter}o{enter}p"
         );
-        cy.get(".button-primary")
-          .contains("Add Permissions")
-          .click();
+        cy.get(".button-primary").contains("Add Permissions").click();
         cy.wait(2500);
         cy.get(".errorsAlert-message").contains(
           "Unable to add 16 permissions:"

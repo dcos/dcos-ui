@@ -2,7 +2,7 @@ describe("Package Detail Tab", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-task-healthy",
-      universePackages: true
+      universePackages: true,
     }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
   });
 
@@ -102,10 +102,8 @@ describe("Package Detail Tab", () => {
 
     it("select available version on dropdown", () => {
       cy.get(".dropdown-toggle").click();
-      cy.get(".is-selectable")
-        .eq(3)
-        .click();
-      cy.window().then(window => {
+      cy.get(".is-selectable").eq(3).click();
+      cy.window().then((window) => {
         const result = window.location.hash.includes("0.2.1");
         expect(result).to.equal(true);
       });
@@ -130,7 +128,7 @@ describe("Package Detail Tab", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          universePackages: "dependencyPackage"
+          universePackages: "dependencyPackage",
         }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
       });
 
@@ -149,7 +147,7 @@ describe("Package Detail Tab", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          universePackages: "communityPackage"
+          universePackages: "communityPackage",
         }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
         cy.get(".page-body-content .package-action-buttons button")
           .contains("Review & Run")
@@ -164,16 +162,12 @@ describe("Package Detail Tab", () => {
       });
 
       it("Goes back when Cancel is clicked", () => {
-        cy.get(".button-primary-link")
-          .contains("Cancel")
-          .click();
+        cy.get(".button-primary-link").contains("Cancel").click();
         cy.get(".breadcrumb__content--text").contains("marathon");
       });
 
       it("Goes to package configuration when Continue is clicked", () => {
-        cy.get(".button-primary")
-          .contains("Continue")
-          .click();
+        cy.get(".button-primary").contains("Continue").click();
         cy.get(".modal-full-screen-header-title").contains(
           "Edit Configuration"
         );
@@ -196,9 +190,9 @@ describe("Package Detail Tab", () => {
       it("Shows a label if the package has information about when it was last updated", () => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          universePackages: "old"
+          universePackages: "old",
         }).visitUrl({
-          url: "/catalog/packages/marathon?version=1.4.6"
+          url: "/catalog/packages/marathon?version=1.4.6",
         });
 
         cy.get("[data-cy=last-updated]");
@@ -211,7 +205,7 @@ describe("Package Detail Tab", () => {
       it("Shows a yellow warning if the package has not been updated for over a year", () => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          universePackages: "older"
+          universePackages: "older",
         }).visitUrl({ url: "/catalog/packages/marathon?version=1.4.6" });
 
         cy.get("[data-cy=outdated-warning]");
@@ -236,9 +230,7 @@ describe("Package Detail Tab", () => {
         .contains("Review & Run")
         .click();
 
-      cy.get(".modal .modal-header button")
-        .contains("Review & Run")
-        .click();
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
     });
 
     it("opens framework configuration when Review & Run clicked", () => {
@@ -256,9 +248,7 @@ describe("Package Detail Tab", () => {
     });
 
     it("goes to form when back button is clicked", () => {
-      cy.get(".modal .modal-header button")
-        .contains("Back")
-        .click();
+      cy.get(".modal .modal-header button").contains("Back").click();
 
       cy.get('.modal .menu-tabbed-container input[name="group"]').type(
         `{selectall}group-1`
@@ -266,17 +256,13 @@ describe("Package Detail Tab", () => {
     });
 
     it("changes cancel button to back when on review screen", () => {
-      cy.get(".modal button")
-        .contains("Edit Config")
-        .click();
+      cy.get(".modal button").contains("Edit Config").click();
 
       cy.get('.modal .menu-tabbed-container input[name="group"]').type(
         `{selectall}group-1`
       );
 
-      cy.get(".modal .modal-header button")
-        .contains("Review & Run")
-        .click();
+      cy.get(".modal .modal-header button").contains("Review & Run").click();
 
       cy.get(".modal .modal-header button")
         .contains("Back")
@@ -295,9 +281,7 @@ describe("Package Detail Tab", () => {
 
     context("Framework: Placement", () => {
       beforeEach(() => {
-        cy.get(".modal button")
-          .contains("Edit Config")
-          .click();
+        cy.get(".modal button").contains("Edit Config").click();
       });
 
       context("Add Placement Constraint", () => {
@@ -344,9 +328,7 @@ describe("Package Detail Tab", () => {
         });
 
         it("Should disable the field value when Unique is selected in operator dropdown", () => {
-          cy.get("@tabView")
-            .find(".button.dropdown-toggle")
-            .click();
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
 
           cy.contains(".dropdown-select-item-title", "Unique").click();
 

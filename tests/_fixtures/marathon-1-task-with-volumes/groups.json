@@ -5,27 +5,17 @@
       "cmd": "sleep 3000",
       "args": null,
       "user": null,
-      "env": {
-        
-      },
+      "env": {},
       "instances": 1,
       "cpus": 1,
       "mem": 128,
       "disk": 0,
       "gpus": 0,
       "executor": "",
-      "constraints": [
-        
-      ],
-      "uris": [
-        
-      ],
-      "fetch": [
-        
-      ],
-      "storeUrls": [
-        
-      ],
+      "constraints": [],
+      "uris": [],
+      "fetch": [],
+      "storeUrls": [],
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
@@ -58,47 +48,33 @@
           }
         ]
       },
-      "healthChecks": [
-        
-      ],
-      "readinessChecks": [
-        
-      ],
-      "dependencies": [
-        
-      ],
+      "healthChecks": [],
+      "readinessChecks": [],
+      "dependencies": [],
       "upgradeStrategy": {
         "minimumHealthCapacity": 0.5,
         "maximumOverCapacity": 0
       },
-      "labels": {
-        
-      },
+      "labels": {},
       "ipAddress": null,
       "version": "2017-02-10T17:02:51.890Z",
       "residency": {
         "relaunchEscalationTimeoutSeconds": 10,
         "taskLostBehavior": "WAIT_FOREVER"
       },
-      "secrets": {
-        
-      },
+      "secrets": {},
       "taskKillGracePeriodSeconds": null,
       "unreachableStrategy": {
         "inactiveAfterSeconds": 3600,
         "expungeAfterSeconds": 604800
       },
       "killSelection": "YOUNGEST_FIRST",
-      "ports": [
-        10000
-      ],
+      "ports": [10000],
       "portDefinitions": [
         {
           "port": 10000,
           "protocol": "tcp",
-          "labels": {
-            
-          }
+          "labels": {}
         }
       ],
       "requirePorts": false,
@@ -110,9 +86,7 @@
       "tasksRunning": 1,
       "tasksHealthy": 0,
       "tasksUnhealthy": 0,
-      "deployments": [
-        
-      ],
+      "deployments": [],
       "tasks": [
         {
           "localVolumes": [
@@ -137,9 +111,7 @@
           ],
           "stagedAt": "2017-02-10T17:02:52.369Z",
           "state": "TASK_RUNNING",
-          "ports": [
-            27676
-          ],
+          "ports": [27676],
           "startedAt": "2017-02-10T17:02:52.515Z",
           "version": "2017-02-10T17:02:51.890Z",
           "id": "sleep.c1fc196a-efb2-11e6-a361-5edc614b8201",
@@ -194,8 +166,6 @@
       }
     }
   ],
-  "groups": [
-    
-  ],
+  "groups": [],
   "id": "/"
 }

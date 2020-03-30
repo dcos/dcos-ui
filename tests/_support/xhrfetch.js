@@ -1,4 +1,4 @@
-export default function(url, options) {
+export default function (url, options) {
   options = options || {};
   return new Promise((resolve, reject) => {
     const request = new XMLHttpRequest();
@@ -18,9 +18,9 @@ export default function(url, options) {
       headers: {
         keys: () => keys,
         entries: () => all,
-        get: n => headers[n.toLowerCase()],
-        has: n => n.toLowerCase() in headers
-      }
+        get: (n) => headers[n.toLowerCase()],
+        has: (n) => n.toLowerCase() in headers,
+      },
     });
 
     request.open(options.method || "get", url, true);

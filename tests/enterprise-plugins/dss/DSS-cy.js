@@ -5,7 +5,7 @@ describe("DC/OS Storage Service", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "dss"
+        plugins: "dss",
       });
 
       cy.visitUrl({ url: "/services/overview/%2F/create" });
@@ -16,9 +16,7 @@ describe("DC/OS Storage Service", () => {
 
     context("Service: Volumes", () => {
       beforeEach(() => {
-        cy.get(".menu-tabbed-item")
-          .contains("Volumes")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Volumes").click();
 
         // Alias tab view for cached lookups
         cy.get(".menu-tabbed-view").as("tabView");
@@ -33,9 +31,7 @@ describe("DC/OS Storage Service", () => {
 
         it('adds new set of form fields when "DC/OS Storage Volume" is selected as volume type', () => {
           cy.get("@tabView").contains(".form-group", "Volume Type");
-          cy.get("@tabView")
-            .find(".button.dropdown-toggle")
-            .click();
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy.contains(
             ".dropdown-select-item-title",
             "DC/OS Storage Volume"
@@ -48,17 +44,13 @@ describe("DC/OS Storage Service", () => {
         });
 
         it('removes "Volume" form fields when remove button clicked', () => {
-          cy.get("@tabView")
-            .find(".button.dropdown-toggle")
-            .click();
+          cy.get("@tabView").find(".button.dropdown-toggle").click();
           cy.contains(
             ".dropdown-select-item-title",
             "Local Persistent Volume"
           ).click();
 
-          cy.get("@tabView")
-            .find(".panel .button.button-primary-link")
-            .click();
+          cy.get("@tabView").find(".panel .button.button-primary-link").click();
 
           cy.get('.form-control[name="volumes.0.containerPath"]').should(
             "not.exist"
@@ -81,9 +73,7 @@ describe("DC/OS Storage Service", () => {
           .type("{selectall}{backspace}")
           .type("nginx");
 
-        cy.get(".menu-tabbed-item")
-          .contains("Volumes")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Volumes").click();
 
         // Select Volume Section
         cy.get(".menu-tabbed-view .button.button-primary-link")
@@ -94,9 +84,7 @@ describe("DC/OS Storage Service", () => {
 
         // Add a DSS volume
         cy.get("@tabView").contains(".form-group", "Volume Type");
-        cy.get("@tabView")
-          .find(".button.dropdown-toggle")
-          .click();
+        cy.get("@tabView").find(".button.dropdown-toggle").click();
         cy.contains(
           ".dropdown-select-item-title",
           "DC/OS Storage Volume"
@@ -122,7 +110,7 @@ describe("DC/OS Storage Service", () => {
         //
         // To test this, we filter for H1's and assert that only 2 exist - one
         // for General field and one for Network field
-        cy.get("h1.configuration-map-heading").should($h1 => {
+        cy.get("h1.configuration-map-heading").should(($h1) => {
           // Should have found 2 elements
           expect($h1).to.have.length(3);
 
@@ -149,9 +137,7 @@ describe("DC/OS Storage Service", () => {
 
       it('navigates back to the form when "edit" button is clicked', () => {
         // Click back
-        cy.get(".modal-full-screen-actions")
-          .contains("button", "Back")
-          .click();
+        cy.get(".modal-full-screen-actions").contains("button", "Back").click();
 
         // Verify form has correct Service ID
         cy.get('.form-control[name="id"]').should(
@@ -165,9 +151,7 @@ describe("DC/OS Storage Service", () => {
           "nginx"
         );
 
-        cy.get(".menu-tabbed-item")
-          .contains("Volumes")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Volumes").click();
 
         cy.get('.form-control[name="volumes.0.containerPath"]').should(
           "to.have.value",
@@ -189,7 +173,7 @@ describe("DC/OS Storage Service", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "dss"
+        plugins: "dss",
       });
 
       cy.visitUrl({ url: "/services/overview/%2F/create" });
@@ -208,9 +192,7 @@ describe("DC/OS Storage Service", () => {
       });
 
       it("adds DSS volume", () => {
-        cy.get(".menu-tabbed-item")
-          .contains("Volumes")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Volumes").click();
         // Select Volume Section
         cy.get(".menu-tabbed-view .button.button-primary-link")
           .contains("Add Volume")
@@ -219,9 +201,7 @@ describe("DC/OS Storage Service", () => {
 
         // Add a DSS volume
         cy.get("@tabView").contains(".form-group", "Volume Type");
-        cy.get("@tabView")
-          .find(".button.dropdown-toggle")
-          .click();
+        cy.get("@tabView").find(".button.dropdown-toggle").click();
         cy.contains(
           ".dropdown-select-item-title",
           "DC/OS Storage Volume"
@@ -242,7 +222,7 @@ describe("DC/OS Storage Service", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "dss"
+        plugins: "dss",
       });
 
       cy.visitUrl({ url: "/services/overview/%2F/create" });
@@ -257,9 +237,7 @@ describe("DC/OS Storage Service", () => {
         .type("/test-review-and-run");
 
       // Select Volume Section
-      cy.get(".menu-tabbed-item")
-        .contains("Volumes")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Volumes").click();
       cy.get(".menu-tabbed-view .button.button-primary-link")
         .contains("Add Volume")
         .click();
@@ -267,9 +245,7 @@ describe("DC/OS Storage Service", () => {
 
       // Add a DSS volume
       cy.get("@tabView").contains(".form-group", "Volume Type");
-      cy.get("@tabView")
-        .find(".button.dropdown-toggle")
-        .click();
+      cy.get("@tabView").find(".button.dropdown-toggle").click();
       cy.contains(
         ".dropdown-select-item-title",
         "DC/OS Storage Volume"

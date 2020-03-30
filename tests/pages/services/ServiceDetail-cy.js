@@ -3,14 +3,14 @@ describe("Service Detail Page", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        nodeHealth: true
+        nodeHealth: true,
       });
     });
 
     context("Navigate to service page", () => {
       it("shows the Page Not Found alert panel", () => {
         cy.visitUrl({
-          url: "/services/non-existing-service"
+          url: "/services/non-existing-service",
         });
         cy.get(".page-body-content").contains("Page not found");
       });
@@ -19,14 +19,14 @@ describe("Service Detail Page", () => {
     context("Navigate to service detail page", () => {
       it("shows the Service Not Found alert panel in page contents", () => {
         cy.visitUrl({
-          url: "/services/detail/non-existing-service"
+          url: "/services/detail/non-existing-service",
         });
         cy.get(".page-body-content").contains("Service not found");
       });
 
       it("shows instances tab per default", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep"
+          url: "/services/detail/%2Fsleep",
         });
 
         cy.get(".menu-tabbed-item .active")
@@ -39,12 +39,10 @@ describe("Service Detail Page", () => {
 
       it("shows configuration tab when clicked", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep"
+          url: "/services/detail/%2Fsleep",
         });
 
-        cy.get(".menu-tabbed-item")
-          .contains("Configuration")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Configuration").click();
 
         cy.get(".menu-tabbed-item .active")
           .contains("Configuration")
@@ -58,12 +56,10 @@ describe("Service Detail Page", () => {
 
       it("shows debug tab when clicked", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep"
+          url: "/services/detail/%2Fsleep",
         });
 
-        cy.get(".menu-tabbed-item")
-          .contains("Debug")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Debug").click();
 
         cy.get(".menu-tabbed-item .active")
           .contains("Debug")
@@ -78,12 +74,10 @@ describe("Service Detail Page", () => {
 
       it("shows endpoints tab when clicked", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep"
+          url: "/services/detail/%2Fsleep",
         });
 
-        cy.get(".menu-tabbed-item")
-          .contains("Endpoints")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Endpoints").click();
 
         cy.get("h1.configuration-map-heading").contains("124");
 
@@ -123,12 +117,10 @@ describe("Service Detail Page", () => {
 
       it("shows volumes tab when clicked", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep"
+          url: "/services/detail/%2Fsleep",
         });
 
-        cy.get(".menu-tabbed-item")
-          .contains("Volumes")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Volumes").click();
 
         cy.get(".menu-tabbed-item .active").contains("Volumes");
 
@@ -146,11 +138,11 @@ describe("Service Detail Page", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
 
         cy.visitUrl({
-          url: "/services/detail/%2Fsleep/tasks"
+          url: "/services/detail/%2Fsleep/tasks",
         });
       });
 
@@ -160,7 +152,7 @@ describe("Service Detail Page", () => {
 
       it("can filter tasks by status", () => {
         cy.get('use[*|href$="#system-funnel"]').click({
-          force: true
+          force: true,
         });
 
         // Disable active
@@ -180,7 +172,7 @@ describe("Service Detail Page", () => {
 
       it("can filter tasks by name", () => {
         cy.get('use[*|href$="#system-funnel"]').click({
-          force: true
+          force: true,
         });
 
         // Disable active
@@ -204,7 +196,7 @@ describe("Service Detail Page", () => {
         cy.wait(2500);
 
         cy.get('use[*|href$="#system-funnel"]').click({
-          force: true
+          force: true,
         });
         // Enable zone
         cy.contains("ap-northeast-1a").click({ force: true });
@@ -231,14 +223,14 @@ describe("Service Detail Page", () => {
       cy.configureCluster({
         mesos: "1-for-each-health",
         nodeHealth: true,
-        universePackages: true
+        universePackages: true,
       });
     });
 
     context("Configuration Tab", () => {
       it("shows configuration of a service", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fcassandra-healthy/configuration"
+          url: "/services/detail/%2Fcassandra-healthy/configuration",
         });
         cy.get("h1").contains("Service");
         cy.get("h1").contains("Elasticsearch");
@@ -250,15 +242,15 @@ describe("Service Detail Page", () => {
 
       it("handles network errors", () => {
         cy.visitUrl({
-          url: "/services/detail/%2Fcassandra-healthy/configuration"
+          url: "/services/detail/%2Fcassandra-healthy/configuration",
         });
         cy.route({
           method: "POST",
           url: /cosmos\/service\/describe(\?_timestamp=[0-9]+)?$/,
           status: 400,
           response: {
-            message: "Version doesn't exists"
-          }
+            message: "Version doesn't exists",
+          },
         }).as("cosmosDescribe");
 
         cy.wait("@cosmosDescribe");
@@ -269,12 +261,10 @@ describe("Service Detail Page", () => {
 
     it("edit config button opens the edit flow", () => {
       cy.visitUrl({
-        url: "/services/detail/%2Fcassandra-healthy/configuration"
+        url: "/services/detail/%2Fcassandra-healthy/configuration",
       });
 
-      cy.get(".container")
-        .contains("Edit Config")
-        .click();
+      cy.get(".container").contains("Edit Config").click();
 
       cy.location()
         .its("hash")
@@ -283,7 +273,7 @@ describe("Service Detail Page", () => {
 
     it("download button exists", () => {
       cy.visitUrl({
-        url: "/services/detail/%2Fcassandra-healthy/configuration"
+        url: "/services/detail/%2Fcassandra-healthy/configuration",
       });
 
       cy.get(".container").contains("Download Config");
@@ -294,18 +284,16 @@ describe("Service Detail Page", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-delayed",
-        nodeHealth: true
+        nodeHealth: true,
       });
     });
 
     it("shows debug tab when clicked", () => {
       cy.visitUrl({
-        url: "/services/detail/%2Fsleep"
+        url: "/services/detail/%2Fsleep",
       });
 
-      cy.get(".menu-tabbed-item")
-        .contains("Debug")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Debug").click();
 
       cy.get(".menu-tabbed-item .active")
         .contains("Debug")
@@ -314,16 +302,12 @@ describe("Service Detail Page", () => {
       cy.contains(
         "DC/OS has delayed the launching of this service due to failures."
       );
-      cy.get("a")
-        .contains("More information")
-        .should("have.attr", "href");
-      cy.get("a")
-        .contains("Retry now")
-        .click();
+      cy.get("a").contains("More information").should("have.attr", "href");
+      cy.get("a").contains("Retry now").click();
       cy.route({
         method: "DELETE",
         url: /marathon\/v2\/queue\/\/sleep\/delay/,
-        response: []
+        response: [],
       });
       cy.get(".toasts-container");
       cy.hash().should("match", /services\/detail\/%2Fsleep\/debug.*/);
@@ -336,9 +320,7 @@ describe("Service Detail Page", () => {
     }
 
     function clickDropdownAction(actionText) {
-      cy.get(".dropdown-menu-items")
-        .contains(actionText)
-        .click();
+      cy.get(".dropdown-menu-items").contains(actionText).click();
     }
 
     context("Reset Delay Action", () => {
@@ -346,10 +328,10 @@ describe("Service Detail Page", () => {
         beforeEach(() => {
           cy.configureCluster({
             mesos: "1-task-delayed",
-            nodeHealth: true
+            nodeHealth: true,
           });
           cy.visitUrl({
-            url: "/services/detail/%2Fsleep"
+            url: "/services/detail/%2Fsleep",
           });
           openDropdown("sleep");
           clickDropdownAction("Reset Delay");
@@ -359,7 +341,7 @@ describe("Service Detail Page", () => {
           cy.route({
             method: "DELETE",
             url: /marathon\/v2\/queue\/\/sleep\/delay/,
-            response: []
+            response: [],
           });
           cy.get(".toasts-container");
         });
@@ -369,10 +351,10 @@ describe("Service Detail Page", () => {
         beforeEach(() => {
           cy.configureCluster({
             mesos: "1-task-healthy",
-            nodeHealth: true
+            nodeHealth: true,
           });
           cy.visitUrl({
-            url: "/services/detail/%2Fsleep"
+            url: "/services/detail/%2Fsleep",
           });
           openDropdown("sleep");
         });

@@ -4,7 +4,7 @@ describe("Units Tab [0e2]", () => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         plugins: "organization-enabled",
-        componentHealth: true
+        componentHealth: true,
       }).visitUrl({ url: "/components", identify: true });
 
       cy.get(".units-health-table-header").within(() => {
@@ -14,23 +14,21 @@ describe("Units Tab [0e2]", () => {
     });
 
     it("renders filter buttons [0e4]", () => {
-      cy.get("@filterButtons").should($buttons => {
+      cy.get("@filterButtons").should(($buttons) => {
         expect($buttons.length).to.equal(3);
         expect($buttons).to.contain("Healthy");
       });
     });
 
     it("renders string filter input box [0e5]", () => {
-      cy.get("@filterTextbox").should($input => {
+      cy.get("@filterTextbox").should(($input) => {
         expect($input.length).to.equal(1);
       });
     });
 
     it("filters by node health [0e7]", () => {
-      cy.get("@filterButtons")
-        .last()
-        .click();
-      cy.get("tr a").should($row => {
+      cy.get("@filterButtons").last().click();
+      cy.get("tr a").should(($row) => {
         expect($row).to.contain("Mesos DNS");
         expect($row.length).to.equal(1);
       });
@@ -38,26 +36,22 @@ describe("Units Tab [0e2]", () => {
 
     it("filters by node name [0e6]", () => {
       cy.get("@filterTextbox").type("signal");
-      cy.get("tr a").should($row => {
+      cy.get("tr a").should(($row) => {
         expect($row.length).to.equal(1);
       });
     });
 
     it("filters by node health and name at the same time [0e8]", () => {
-      cy.get("@filterButtons")
-        .eq(1)
-        .click();
+      cy.get("@filterButtons").eq(1).click();
       cy.get("@filterTextbox").type("mesos");
-      cy.get("tr a").should($row => {
+      cy.get("tr a").should(($row) => {
         expect($row).to.contain("Mesos Master Service");
         expect($row.length).to.equal(1);
       });
     });
 
     it("opens unit detail side panel [0ed]", () => {
-      cy.get("tr a")
-        .contains("Mesos DNS")
-        .click();
+      cy.get("tr a").contains("Mesos DNS").click();
       cy.hash().should("match", /dcos-mesos-dns\.service/);
     });
   });
@@ -67,10 +61,10 @@ describe("Units Tab [0e2]", () => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         plugins: "organization-enabled",
-        componentHealth: true
+        componentHealth: true,
       }).visitUrl({
         url: "/components/dcos-mesos-dns.service",
-        identify: true
+        identify: true,
       });
     });
 
@@ -81,30 +75,23 @@ describe("Units Tab [0e2]", () => {
     it("renders unit health [0eb]", () => {
       cy.get(".page-header")
         .find(".text-danger")
-        .should($health => {
+        .should(($health) => {
           expect($health).to.contain("Unhealthy");
         });
     });
 
     it("filters by node health [0ec]", () => {
-      cy.get(".page-body-content button")
-        .contains("All Health Checks")
-        .click();
-      cy.get(".dropdown-menu")
-        .find("li")
-        .contains("Healthy")
-        .click();
+      cy.get(".page-body-content button").contains("All Health Checks").click();
+      cy.get(".dropdown-menu").find("li").contains("Healthy").click();
       cy.get("tr")
         .contains("Healthy")
-        .should($row => {
+        .should(($row) => {
           expect($row.length).to.equal(1);
         });
     });
 
     it("opens unit node detail side panel [0ee]", () => {
-      cy.get(".page-body-content tr a")
-        .contains("10.10.0.236")
-        .click();
+      cy.get(".page-body-content tr a").contains("10.10.0.236").click();
       cy.hash().should("match", /10\.10\.0\.236/);
     });
   });
@@ -114,10 +101,10 @@ describe("Units Tab [0e2]", () => {
       cy.configureCluster({
         mesos: "1-task-healthy",
         plugins: "organization-enabled",
-        componentHealth: true
+        componentHealth: true,
       }).visitUrl({
         url: "/components/dcos-mesos-dns.service/nodes/10.10.0.236",
-        identify: true
+        identify: true,
       });
     });
 
@@ -128,7 +115,7 @@ describe("Units Tab [0e2]", () => {
     it("renders node health [0ej]", () => {
       cy.get(".page-header")
         .find(".text-success")
-        .should($health => {
+        .should(($health) => {
           expect($health).to.contain("Healthy");
         });
     });
@@ -136,7 +123,7 @@ describe("Units Tab [0e2]", () => {
     it("renders health check output [0ek]", () => {
       cy.get(".page-body-content")
         .find("pre")
-        .should($output => {
+        .should(($output) => {
           expect($output).to.contain("journald");
         });
     });

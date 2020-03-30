@@ -290,8 +290,8 @@ This test verifies that unit `decomposePodTaskId` when given the input string
 `instanceID` and `taskName respectively`.
 
 ```js
-describe("#decomposePodTaskId", function() {
-  it("de-composes task ids", function() {
+describe("#decomposePodTaskId", function () {
+  it("de-composes task ids", function () {
     expect(
       MesosStateUtil.decomposePodTaskId(
         "podname.instance-instancename.taskname"
@@ -299,7 +299,7 @@ describe("#decomposePodTaskId", function() {
     ).toEqual({
       podID: "podname",
       instanceID: "instancename",
-      taskName: "taskname"
+      taskName: "taskname",
     });
   });
 });
@@ -330,7 +330,7 @@ import { marbles } from "rxjs-marbles/jest";
 
 it(
   "tests marbles",
-  marble(function(m) {
+  marble(function (m) {
     // My test case
   })
 );
@@ -344,12 +344,12 @@ it will inject the Context conventionally named `m` that exposes the helpers API
 import { marbles } from "rxjs-marbles/jest";
 import { linearBackoff } from "../rxjsUtils";
 
-describe("linearBackoff", function() {
+describe("linearBackoff", function () {
   it(
     "retries maxRetries times",
     // To setup marbles test env pass your function wrapped with `marbels`
     // it will inject Context as the first argument named `m` by convention
-    marbles(function(m) {
+    marbles(function (m) {
       // with `m.bind` we bind all time dependent operators to a TestScheduler
       // so that we can use mocked time intervals.
       // But we also could create our own TestScheduler and use it instead.

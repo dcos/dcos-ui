@@ -1,10 +1,10 @@
 describe("Page Header Component", () => {
   beforeEach(() => {
     cy.configureCluster({
-      mesos: "1-task-healthy"
+      mesos: "1-task-healthy",
     });
     cy.visitUrl({
-      url: "/services/overview/%2Fsome%2Fgroup-with-pods"
+      url: "/services/overview/%2Fsome%2Fgroup-with-pods",
     });
   });
 
@@ -14,7 +14,7 @@ describe("Page Header Component", () => {
     });
 
     it("doesn't ellipsis breadcrumb items", () => {
-      cy.get(".breadcrumb").each($currentBreadcrumb => {
+      cy.get(".breadcrumb").each(($currentBreadcrumb) => {
         expect(
           $currentBreadcrumb[0].classList.value.indexOf(
             "breadcrumb--is-ellipsis"
@@ -34,7 +34,7 @@ describe("Page Header Component", () => {
     });
 
     it("last two breadcrumbs are visible", () => {
-      cy.get(".breadcrumb").then($breadcrumbs => {
+      cy.get(".breadcrumb").then(($breadcrumbs) => {
         const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
 
@@ -44,7 +44,7 @@ describe("Page Header Component", () => {
     });
 
     it("ellipsis breadcrumb in between first breadcrumb and two last breadcrumbs", () => {
-      cy.get(".breadcrumb").then($breadcrumbs => {
+      cy.get(".breadcrumb").then(($breadcrumbs) => {
         const firstItem = $breadcrumbs[0];
         const beforeLastItem = $breadcrumbs[$breadcrumbs.length - 3];
         const lastItem = $breadcrumbs[$breadcrumbs.length - 1];
@@ -64,19 +64,15 @@ describe("Page Header Component", () => {
     });
 
     it("display path when hovering ellipsis", () => {
-      cy.get(".breadcrumb--force-ellipsis")
-        .eq(0)
-        .trigger("mouseover");
+      cy.get(".breadcrumb--force-ellipsis").eq(0).trigger("mouseover");
 
       cy.get(".tooltip").contains("some");
     });
 
     it("route back to services overview", () => {
-      cy.get(".breadcrumb")
-        .eq(0)
-        .click();
+      cy.get(".breadcrumb").eq(0).click();
 
-      cy.window().then($window => {
+      cy.window().then(($window) => {
         const hash = $window.location.hash;
         const formattedHash = hash.substring(0, hash.indexOf("?"));
 
@@ -103,7 +99,7 @@ describe("Page Header Component", () => {
     });
 
     it("header tab active indicator is aligned with bottom page header component", () => {
-      cy.get(".page-header").then($pageHeader => {
+      cy.get(".page-header").then(($pageHeader) => {
         const pageHeaderBottomPosition = $pageHeader[0].getBoundingClientRect()
           .bottom;
         const $pageHeaderActiveTab = $pageHeader.find(

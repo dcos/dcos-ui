@@ -1,7 +1,7 @@
 describe("Login Page", () => {
   beforeEach(() => {
     cy.configureCluster({
-      plugins: "auth-secrets"
+      plugins: "auth-secrets",
     });
 
     cy.route(
@@ -24,13 +24,9 @@ describe("Login Page", () => {
       .type("{selectall}{backspace}")
       .type("deleteme");
 
-    cy.get("button.button-primary")
-      .contains("Log In")
-      .click();
+    cy.get("button.button-primary").contains("Log In").click();
 
-    cy.wait("@login")
-      .its("response.body")
-      .should("equal", "successful");
+    cy.wait("@login").its("response.body").should("equal", "successful");
   });
 
   it("validates when password is missing", () => {
@@ -38,9 +34,7 @@ describe("Login Page", () => {
       .type("{selectall}{backspace}")
       .type("{selectall}{backspace}");
 
-    cy.get("button.button-primary")
-      .contains("Log In")
-      .click();
+    cy.get("button.button-primary").contains("Log In").click();
 
     cy.get("form .form-control-feedback").should(
       "have.text",

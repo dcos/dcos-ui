@@ -87,14 +87,8 @@
             ],
             "offered": {
               "constraints": "public_ip: true",
-              "roles": [
-                "slave_public"
-              ],
-              "ports": [
-                "1 u2013 21",
-                "23 u2013 5050",
-                "5052 u2013 32000"
-              ],
+              "roles": ["slave_public"],
+              "ports": ["1 u2013 21", "23 u2013 5050", "5052 u2013 32000"],
               "disk": 75853,
               "cpus": 2,
               "mem": 6659
@@ -103,14 +97,10 @@
           {
             "hostname": "10.0.3.53",
             "timestamp": "2019-04-05T12: 13: 49.774Z",
-            "unmatchedResource": [
-              "InsufficientMemory"
-            ],
+            "unmatchedResource": ["InsufficientMemory"],
             "offered": {
               "constraints": "",
-              "roles": [
-                "*"
-              ],
+              "roles": ["*"],
               "ports": [
                 "1025 u2013 2180",
                 "2182 u2013 3887",

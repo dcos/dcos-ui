@@ -3,7 +3,7 @@ describe("Tasks Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-service-with-executor-task",
-        nodeHealth: true
+        nodeHealth: true,
       });
     });
 
@@ -16,7 +16,7 @@ describe("Tasks Table", () => {
     context("Files tab", () => {
       beforeEach(() => {
         cy.visitUrl({
-          url: "/services/detail/%2Fcassandra/tasks/server-0_10a"
+          url: "/services/detail/%2Fcassandra/tasks/server-0_10a",
         });
         cy.get(".page-header-navigation .menu-tabbed-item")
           .contains("Files")
@@ -25,7 +25,7 @@ describe("Tasks Table", () => {
 
       it("shows the contents of the Mesos sandbox", () => {
         const numberOfItems = 13;
-        cy.get(".page-body-content tbody tr").should($rows => {
+        cy.get(".page-body-content tbody tr").should(($rows) => {
           expect($rows.length).to.equal(numberOfItems);
         });
       });
@@ -40,11 +40,11 @@ describe("Tasks Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-service-with-executor-task",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({
-        url: "/services/detail/%2Fcassandra/tasks/server-0_10a"
+        url: "/services/detail/%2Fcassandra/tasks/server-0_10a",
       });
       cy.get(".page-header-navigation .menu-tabbed-item")
         .contains("Logs")
@@ -73,7 +73,7 @@ describe("Tasks Table", () => {
   context("For a Service", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "healthy-tasks-in-mesos-and-marathon"
+        mesos: "healthy-tasks-in-mesos-and-marathon",
       });
       cy.viewport("macbook-15");
       cy.visitUrl({ url: "/services/detail/%2Fconfluent-kafka" });
@@ -89,16 +89,11 @@ describe("Tasks Table", () => {
       });
 
       it("correctly shows status", () => {
-        cy.get("@tds")
-          .eq(6)
-          .contains("Running");
+        cy.get("@tds").eq(6).contains("Running");
       });
 
       it("correctly shows health", () => {
-        cy.get("@tds")
-          .eq(7)
-          .find(".dot")
-          .trigger("mouseover");
+        cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
         cy.get(".tooltip").contains("No health checks available");
       });
     });
@@ -115,9 +110,7 @@ describe("Tasks Table", () => {
       });
 
       it("correctly shows status", () => {
-        cy.get("@tds")
-          .eq(6)
-          .contains("Running");
+        cy.get("@tds").eq(6).contains("Running");
       });
 
       it("correctly shows health", () => {
@@ -133,12 +126,10 @@ describe("Tasks Table", () => {
   context("Service tasks checkbox", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-service-with-executor-task"
+        mesos: "1-service-with-executor-task",
       });
       cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
-      cy.get("table tr")
-        .find(".form-element-checkbox")
-        .as("checkboxes");
+      cy.get("table tr").find(".form-element-checkbox").as("checkboxes");
     });
 
     function assertCheckboxLength() {
@@ -156,20 +147,18 @@ describe("Tasks Table", () => {
 
     it("Select all tasks available and confirm action buttons exist", () => {
       assertCheckboxLength();
-      cy.get("@checkboxes")
-        .eq(0)
-        .click();
+      cy.get("@checkboxes").eq(0).click();
       cy.get("@checkboxes")
         .eq(0)
         .find("input")
-        .should($checkbox => {
+        .should(($checkbox) => {
           expect($checkbox[0].name).to.equal("headingCheckbox");
           expect($checkbox[0].checked).to.equal(true);
         });
       cy.get("@checkboxes")
         .eq(1)
         .find("input")
-        .should($checkbox => {
+        .should(($checkbox) => {
           expect($checkbox[0].name).to.equal(
             "cassandra.instance-f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
           );
@@ -183,19 +172,17 @@ describe("Tasks Table", () => {
       cy.get("@checkboxes")
         .eq(1)
         .find("input")
-        .should($checkbox => {
+        .should(($checkbox) => {
           expect($checkbox[0].name).to.equal(
             "cassandra.instance-f3c25eea-da3d-11e5-af84-0242fa37187c._app.1"
           );
           expect($checkbox[0].checked).to.equal(false);
         });
-      cy.get("@checkboxes")
-        .eq(1)
-        .click();
+      cy.get("@checkboxes").eq(1).click();
       cy.get("@checkboxes")
         .eq(1)
         .find("input")
-        .should($checkbox => {
+        .should(($checkbox) => {
           expect($checkbox[0].checked).to.equal(true);
         });
       assertActionButtons();
@@ -205,13 +192,13 @@ describe("Tasks Table", () => {
   context("Task DSL filters", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-service-with-executor-task"
+        mesos: "1-service-with-executor-task",
       });
       cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
     });
 
     it("Has by default the is:active filter", () => {
-      cy.get(".form-control.filter-input-text").should($input => {
+      cy.get(".form-control.filter-input-text").should(($input) => {
         expect($input.val()).to.equal("is:active");
       });
     });
@@ -262,22 +249,20 @@ describe("Tasks Table", () => {
   context("Service tasks region", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-service-with-executor-task"
+        mesos: "1-service-with-executor-task",
       });
     });
 
     it("Shows the correct region", () => {
       cy.visitUrl({ url: "/services/detail/%2Fcassandra/tasks?_k=rh67gf" });
-      cy.get("td.task-table-column-zone-address")
-        .eq(1)
-        .contains("N/A");
+      cy.get("td.task-table-column-zone-address").eq(1).contains("N/A");
     });
   });
 
   describe("Sorting", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-task-healthy"
+        mesos: "1-task-healthy",
       });
     });
 

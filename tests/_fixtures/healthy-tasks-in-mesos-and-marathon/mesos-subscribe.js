@@ -7,11 +7,11 @@ const response = JSON.stringify({
           {
             executor_info: {
               executor_id: {
-                value: "broker-0__d7edb331-2d31-46ad-a1f9-5aa34bc3b1a7"
+                value: "broker-0__d7edb331-2d31-46ad-a1f9-5aa34bc3b1a7",
               },
               name: "broker-0",
               framework_id: {
-                value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002"
+                value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002",
               },
               command: {
                 value:
@@ -21,74 +21,74 @@ const response = JSON.stringify({
                   variables: [
                     {
                       name: "KAFKA_ZOOKEEPER_URI",
-                      value: "master.mesos:2181"
+                      value: "master.mesos:2181",
                     },
                     {
                       name: "JAVA_HOME",
-                      value: "jre1.8.0_91"
+                      value: "jre1.8.0_91",
                     },
                     {
                       name: "FRAMEWORK_NAME",
-                      value: "confluent-kafka"
+                      value: "confluent-kafka",
                     },
                     {
                       name: "CONFIG_ID",
-                      value: "2e5ec32e-a6b9-4ed4-91c6-b9787c60e78f"
+                      value: "2e5ec32e-a6b9-4ed4-91c6-b9787c60e78f",
                     },
                     {
                       name: "KAFKA_OVERRIDE_BROKER_ID",
-                      value: "0"
+                      value: "0",
                     },
                     {
                       name: "API_PORT",
-                      value: "1025"
-                    }
-                  ]
+                      value: "1025",
+                    },
+                  ],
                 },
                 uris: [
                   {
                     value:
                       "https://downloads.mesosphere.com/kafka/assets/jre-8u91-linux-x64.tar.gz",
-                    executable: false
+                    executable: false,
                   },
                   {
                     value:
                       "https://packages.confluent.io/archive/3.1/confluent-oss-3.1.1-mesos.tgz",
-                    executable: false
+                    executable: false,
                   },
                   {
                     value:
                       "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/overrider.zip",
-                    executable: false
+                    executable: false,
                   },
                   {
                     value:
                       "https://downloads.mesosphere.com/kafka/assets/1.1.16-0.10.0.0/executor.zip",
-                    executable: false
-                  }
-                ]
+                    executable: false,
+                  },
+                ],
               },
               resources: {
                 disk: 0,
                 mem: 256,
                 gpus: 0,
                 cpus: 0.5,
-                ports: "[1025-1025]"
-              }
+                ports: "[1025-1025]",
+              },
             },
             agent_id: {
-              value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1"
-            }
-          }
-        ]
+              value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1",
+            },
+          },
+        ],
       },
       get_frameworks: {
         frameworks: [
           {
             framework_info: {
               id: {
-                value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002"
-              }
+                value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002",
+              },
             },
             name: "confluent-kafka",
             pid:
@@ -98,13 +98,13 @@ const response = JSON.stringify({
               mem: 2560,
               gpus: 0,
               cpus: 1.5,
-              ports: "[1025-1025, 9234-9234]"
+              ports: "[1025-1025, 9234-9234]",
             },
             offered_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             capabilities: [],
             hostname: "ip-10-0-2-121.us-west-2.compute.internal",
@@ -123,14 +123,14 @@ const response = JSON.stringify({
               mem: 2560,
               gpus: 0,
               cpus: 1.5,
-              ports: "[1025-1025, 9234-9234]"
+              ports: "[1025-1025, 9234-9234]",
             },
             role: "confluent-kafka-role",
-            offers: []
+            offers: [],
           },
           {
             framework_info: {
-              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001" }
+              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001" },
             },
             name: "marathon",
             pid:
@@ -140,13 +140,13 @@ const response = JSON.stringify({
               mem: 1262,
               gpus: 0,
               cpus: 1.01,
-              ports: "[24348-24349, 29557-29557]"
+              ports: "[24348-24349, 29557-29557]",
             },
             offered_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             capabilities: ["TASK_KILLING_STATE", "PARTITION_AWARE"],
             hostname: "10.0.4.58",
@@ -165,14 +165,14 @@ const response = JSON.stringify({
               mem: 1262,
               gpus: 0,
               cpus: 1.01,
-              ports: "[24348-24349, 29557-29557]"
+              ports: "[24348-24349, 29557-29557]",
             },
             role: "slave_public",
-            offers: []
+            offers: [],
           },
           {
             framework_info: {
-              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0000" }
+              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-0000" },
             },
             name: "metronome",
             pid:
@@ -181,13 +181,13 @@ const response = JSON.stringify({
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             offered_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             capabilities: [],
             hostname: "10.0.4.58",
@@ -205,23 +205,23 @@ const response = JSON.stringify({
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             role: "*",
-            offers: []
-          }
-        ]
+            offers: [],
+          },
+        ],
       },
       get_tasks: {
         tasks: [
           {
             task_id: {
               value:
-                "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1"
+                "confluent-kafka.instance-825e1e2e-d6a6-11e6-a564-8605ecf0a9df._app.1",
             },
             name: "confluent-kafka",
             framework_id: {
-              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001"
+              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001",
             },
             executor_id: { value: "" },
             agent_id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1" },
@@ -230,7 +230,7 @@ const response = JSON.stringify({
               {
                 name: "disk",
                 type: "SCALAR",
-                scalar: { value: 0 }
+                scalar: { value: 0 },
               },
               { name: "mem", type: "SCALAR", scalar: { value: 1230 } },
               { name: "gpus", type: "SCALAR", scalar: { value: 0 } },
@@ -238,8 +238,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[24348-24349]" }
-              }
+                ranges: { range: "[24348-24349]" },
+              },
             ],
             statuses: [
               {
@@ -247,85 +247,85 @@ const response = JSON.stringify({
                 timestamp: 1483992146.43917,
                 container_status: {
                   container_id: {
-                    value: "abc0e34b-2b09-446e-b781-21cedf601885"
+                    value: "abc0e34b-2b09-446e-b781-21cedf601885",
                   },
                   network_infos: [
                     {
                       ip_addresses: [
                         {
-                          ip_address: "10.0.2.121"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
+                          ip_address: "10.0.2.121",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
             ],
             labels: {
               labels: [
                 {
                   key: "DCOS_PACKAGE_RELEASE",
-                  value: "10"
+                  value: "10",
                 },
                 {
                   key: "DCOS_SERVICE_SCHEME",
-                  value: "http"
+                  value: "http",
                 },
                 {
                   key: "DCOS_PACKAGE_SOURCE",
-                  value: "https://universe.mesosphere.com/repo"
+                  value: "https://universe.mesosphere.com/repo",
                 },
                 {
                   key: "DCOS_PACKAGE_COMMAND",
                   value:
-                    "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ=="
+                    "eyJwaXAiOlsiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20va2Fma2EvYXNzZXRzLzEuMS4xNi0wLjEwLjAuMC9iaW5fd3JhcHBlci0wLjAuMS1weTIucHkzLW5vbmUtYW55LndobCJdfQ==",
                 },
                 {
                   key: "DCOS_PACKAGE_METADATA",
                   value:
-                    "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0="
+                    "eyJwYWNrYWdpbmdWZXJzaW9uIjoiMy4wIiwibmFtZSI6ImNvbmZsdWVudC1rYWZrYSIsInZlcnNpb24iOiIxLjEuMTYtMy4xLjEiLCJtYWludGFpbmVyIjoicGFydG5lci1zdXBwb3J0QGNvbmZsdWVudC5pbyIsImRlc2NyaXB0aW9uIjoiQXBhY2hlIEthZmthIGJ5IENvbmZsdWVudCIsInRhZ3MiOlsibWVzc2FnZSIsImJyb2tlciIsInB1YnN1YiIsImthZmthIiwiY29uZmx1ZW50Il0sInNlbGVjdGVkIjp0cnVlLCJmcmFtZXdvcmsiOnRydWUsInBvc3RJbnN0YWxsTm90ZXMiOiJBcGFjaGUgS2Fma2EgYnkgQ29uZmx1ZW50IGlzIGJlaW5nIGluc3RhbGxlZC5cblxuXHREb2N1bWVudGF0aW9uOiBodHRwczovL3d3dy5jb25mbHVlbnQuaW8vd2hpdGVwYXBlci9kZXBsb3lpbmctY29uZmx1ZW50LXBsYXRmb3JtLXdpdGgtbWVzb3NwaGVyZVxuXHRDb21tdW5pdHkgU3VwcG9ydDogaHR0cHM6Ly9ncm91cHMuZ29vZ2xlLmNvbS9mb3J1bS8jIWZvcnVtL2NvbmZsdWVudC1wbGF0Zm9ybSIsInBvc3RVbmluc3RhbGxOb3RlcyI6IkFwYWNoZSBLYWZrYSBieSBDb25mbHVlbnQgaGFzIGJlZW4gdW5pbnN0YWxsZWQuXG5QbGVhc2UgZm9sbG93IHRoZSBpbnN0cnVjdGlvbnMgYXQgaHR0cHM6Ly9kb2NzLm1lc29zcGhlcmUuY29tL2N1cnJlbnQvdXNhZ2Uvc2VydmljZS1ndWlkZXMva2Fma2EvdW5pbnN0YWxsIHRvIHJlbW92ZSBhbnkgcGVyc2lzdGVudCBzdGF0ZSBpZiByZXF1aXJlZC4iLCJsaWNlbnNlcyI6W3sibmFtZSI6IkFwYWNoZSBMaWNlbnNlIHYyIiwidXJsIjoiaHR0cHM6Ly9yYXcuZ2l0aHVidXNlcmNvbnRlbnQuY29tL2NvbmZsdWVudGluYy9rYWZrYS90cnVuay9MSUNFTlNFIn1dLCJpbWFnZXMiOnsiaWNvbi1zbWFsbCI6Imh0dHBzOi8vZG93bmxvYWRzLm1lc29zcGhlcmUuY29tL3VuaXZlcnNlL2Fzc2V0cy9pY29uLXNlcnZpY2Uta2Fma2Etc21hbGwucG5nIiwiaWNvbi1tZWRpdW0iOiJodHRwczovL2Rvd25sb2Fkcy5tZXNvc3BoZXJlLmNvbS91bml2ZXJzZS9hc3NldHMvaWNvbi1zZXJ2aWNlLWthZmthLW1lZGl1bS5wbmciLCJpY29uLWxhcmdlIjoiaHR0cHM6Ly9kb3dubG9hZHMubWVzb3NwaGVyZS5jb20vdW5pdmVyc2UvYXNzZXRzL2ljb24tc2VydmljZS1rYWZrYS1sYXJnZS5wbmcifX0=",
                 },
                 {
                   key: "DCOS_PACKAGE_REGISTRY_VERSION",
-                  value: "3.0"
+                  value: "3.0",
                 },
                 {
                   key: "DCOS_SERVICE_NAME",
-                  value: "confluent-kafka"
+                  value: "confluent-kafka",
                 },
                 {
                   key: "DCOS_PACKAGE_FRAMEWORK_NAME",
-                  value: "confluent-kafka"
+                  value: "confluent-kafka",
                 },
                 {
                   key: "DCOS_SERVICE_PORT_INDEX",
-                  value: "1"
+                  value: "1",
                 },
                 {
                   key: "DCOS_PACKAGE_VERSION",
-                  value: "1.1.16-3.1.1"
+                  value: "1.1.16-3.1.1",
                 },
                 {
                   key: "DCOS_MIGRATION_API_PATH",
-                  value: "/v1/plan"
+                  value: "/v1/plan",
                 },
                 {
                   key: "DCOS_PACKAGE_NAME",
-                  value: "confluent-kafka"
+                  value: "confluent-kafka",
                 },
                 {
                   key: "MARATHON_SINGLE_INSTANCE_APP",
-                  value: "true"
+                  value: "true",
                 },
                 {
                   key: "DCOS_MIGRATION_API_VERSION",
-                  value: "v1"
+                  value: "v1",
                 },
                 {
                   key: "DCOS_SPACE",
-                  value: "/confluent-kafka"
-                }
-              ]
+                  value: "/confluent-kafka",
+                },
+              ],
             },
             discovery: {
               visibility: "FRAMEWORK",
@@ -335,24 +335,24 @@ const response = JSON.stringify({
                   {
                     number: 24348,
                     name: "health",
-                    protocol: "tcp"
+                    protocol: "tcp",
                   },
                   {
                     number: 24349,
                     name: "api",
-                    protocol: "tcp"
-                  }
-                ]
-              }
-            }
+                    protocol: "tcp",
+                  },
+                ],
+              },
+            },
           },
           {
             task_id: {
-              value: "no-healthcheck.7d61432d-d6a6-11e6-a564-8605ecf0a9df"
+              value: "no-healthcheck.7d61432d-d6a6-11e6-a564-8605ecf0a9df",
             },
             name: "no-healthcheck",
             framework_id: {
-              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001"
+              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0001",
             },
             executor_id: { value: "" },
             agent_id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1" },
@@ -361,7 +361,7 @@ const response = JSON.stringify({
               {
                 name: "disk",
                 type: "SCALAR",
-                scalar: { value: 0 }
+                scalar: { value: 0 },
               },
               { name: "mem", type: "SCALAR", scalar: { value: 32 } },
               { name: "gpus", type: "SCALAR", scalar: { value: 0 } },
@@ -369,8 +369,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[29557-29557]" }
-              }
+                ranges: { range: "[29557-29557]" },
+              },
             ],
             statuses: [
               {
@@ -378,25 +378,25 @@ const response = JSON.stringify({
                 timestamp: 1483992124.59842,
                 container_status: {
                   container_id: {
-                    value: "4e2be439-6091-4b43-a797-e132a4c74ce2"
+                    value: "4e2be439-6091-4b43-a797-e132a4c74ce2",
                   },
                   network_infos: [
                     {
                       ip_addresses: [
                         {
-                          ip_address: "10.0.2.121"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
+                          ip_address: "10.0.2.121",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
             ],
             labels: [
               {
                 key: "DCOS_SPACE",
-                value: "/no-healthcheck"
-              }
+                value: "/no-healthcheck",
+              },
             ],
             discovery: {
               visibility: "FRAMEWORK",
@@ -405,22 +405,22 @@ const response = JSON.stringify({
                 ports: [
                   {
                     number: 29557,
-                    protocol: "tcp"
-                  }
-                ]
-              }
-            }
+                    protocol: "tcp",
+                  },
+                ],
+              },
+            },
           },
           {
             task_id: {
-              value: "broker-0__3c7ab984-a9b9-41fb-bb73-0569f88c657e"
+              value: "broker-0__3c7ab984-a9b9-41fb-bb73-0569f88c657e",
             },
             name: "broker-0",
             framework_id: {
-              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002"
+              value: "74f1836b-6784-4030-816e-aacbdd45ff57-0002",
             },
             executor_id: {
-              value: "broker-0__d7edb331-2d31-46ad-a1f9-5aa34bc3b1a7"
+              value: "broker-0__d7edb331-2d31-46ad-a1f9-5aa34bc3b1a7",
             },
             agent_id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1" },
             state: "TASK_RUNNING",
@@ -428,7 +428,7 @@ const response = JSON.stringify({
               {
                 name: "disk",
                 type: "SCALAR",
-                scalar: { value: 5000 }
+                scalar: { value: 5000 },
               },
               { name: "mem", type: "SCALAR", scalar: { value: 2304 } },
               { name: "gpus", type: "SCALAR", scalar: { value: 0 } },
@@ -436,8 +436,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[9234-9234]" }
-              }
+                ranges: { range: "[9234-9234]" },
+              },
             ],
             statuses: [
               {
@@ -445,35 +445,35 @@ const response = JSON.stringify({
                 timestamp: 1483992176.80824,
                 container_status: {
                   container_id: {
-                    value: "dde2ffda-afcf-4f73-8568-bd8b11d02c76"
+                    value: "dde2ffda-afcf-4f73-8568-bd8b11d02c76",
                   },
                   network_infos: [
                     {
                       ip_addresses: [
                         {
-                          ip_address: "10.0.2.121"
-                        }
-                      ]
-                    }
-                  ]
-                }
-              }
+                          ip_address: "10.0.2.121",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              },
             ],
             labels: {
               labels: [
                 {
                   key: "target_configuration",
-                  value: "2e5ec32e-a6b9-4ed4-91c6-b9787c60e78f"
+                  value: "2e5ec32e-a6b9-4ed4-91c6-b9787c60e78f",
                 },
                 {
                   key: "offer_attributes",
-                  value: ""
+                  value: "",
                 },
                 {
                   key: "task_type",
-                  value: "broker"
-                }
-              ]
+                  value: "broker",
+                },
+              ],
             },
             discovery: {
               visibility: "EXTERNAL",
@@ -487,22 +487,22 @@ const response = JSON.stringify({
                       labels: [
                         {
                           key: "VIP_d92dae85-6e61-4aea-ae98-28595df4da28",
-                          value: "broker:9092"
-                        }
-                      ]
-                    }
-                  }
-                ]
-              }
-            }
-          }
-        ]
+                          value: "broker:9092",
+                        },
+                      ],
+                    },
+                  },
+                ],
+              },
+            },
+          },
+        ],
       },
       get_agents: {
         agents: [
           {
             agent_info: {
-              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1" }
+              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S1" },
             },
             pid: "slave(1)@10.0.2.121:5051",
             hostname: "10.0.2.121",
@@ -513,20 +513,20 @@ const response = JSON.stringify({
               gpus: 0,
               cpus: 4,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             used_resources: {
               disk: 5000,
               mem: 3822,
               gpus: 0,
               cpus: 2.51,
-              ports: "[1025-1025, 9234-9234, 24348-24349, 29557-29557]"
+              ports: "[1025-1025, 9234-9234, 24348-24349, 29557-29557]",
             },
             offered_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             reserved_resources: {
               "confluent-kafka-role": {
@@ -534,8 +534,8 @@ const response = JSON.stringify({
                 mem: 2560,
                 gpus: 0,
                 cpus: 1.5,
-                ports: "[1025-1025, 9234-9234]"
-              }
+                ports: "[1025-1025, 9234-9234]",
+              },
             },
             unreserved_resources: {
               disk: 30577,
@@ -543,15 +543,15 @@ const response = JSON.stringify({
               gpus: 0,
               cpus: 2.5,
               ports:
-                "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]"
+                "[1026-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-9233, 9235-32000]",
             },
             attributes: {},
             active: true,
-            version: "1.2.0"
+            version: "1.2.0",
           },
           {
             agent_info: {
-              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S0" }
+              id: { value: "74f1836b-6784-4030-816e-aacbdd45ff57-S0" },
             },
             pid: "slave(1)@10.0.6.244:5051",
             hostname: "10.0.6.244",
@@ -561,19 +561,19 @@ const response = JSON.stringify({
               mem: 14018,
               gpus: 0,
               cpus: 4,
-              ports: "[1-21, 23-5050, 5052-32000]"
+              ports: "[1-21, 23-5050, 5052-32000]",
             },
             used_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             offered_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             reserved_resources: {
               slave_public: {
@@ -581,25 +581,25 @@ const response = JSON.stringify({
                 mem: 14018,
                 gpus: 0,
                 cpus: 4,
-                ports: "[1-21, 23-5050, 5052-32000]"
-              }
+                ports: "[1-21, 23-5050, 5052-32000]",
+              },
             },
             unreserved_resources: {
               disk: 0,
               mem: 0,
               gpus: 0,
-              cpus: 0
+              cpus: 0,
             },
             attributes: {
-              public_ip: "true"
+              public_ip: "true",
             },
             active: true,
-            version: "1.2.0"
-          }
-        ]
-      }
-    }
-  }
+            version: "1.2.0",
+          },
+        ],
+      },
+    },
+  },
 });
 
 export default response;

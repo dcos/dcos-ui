@@ -11,13 +11,13 @@ const response = JSON.stringify({
             failover_timeout: 604800,
             hostname: "dcos-01",
             framework_info: {
-              id: { value: "20150827-210452-1695027628-5050-1445-0000" }
+              id: { value: "20150827-210452-1695027628-5050-1445-0000" },
             },
             name: "marathon",
             offered_resources: {
               cpus: 0,
               disk: 0,
-              mem: 0
+              mem: 0,
             },
             offers: [],
             pid:
@@ -30,8 +30,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             role: "slave_public",
             unregistered_time: 0,
@@ -42,24 +42,24 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             user: "root",
-            webui_url: "http://$($MESOS_IP_DISCOVERY_COMMAND):8080"
-          }
-        ]
+            webui_url: "http://$($MESOS_IP_DISCOVERY_COMMAND):8080",
+          },
+        ],
       },
       get_tasks: {
         tasks: [
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-3b430455-6986-11e5-a953-08002719334a._app.1"
+                "sleep.instance-3b430455-6986-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -70,30 +70,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1443846094.6048
+                timestamp: 1443846094.6048,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1443996197.14069
-              }
-            ]
+                timestamp: 1443996197.14069,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-b7fd2856-6ae3-11e5-a953-08002719334a._app.1"
+                "sleep.instance-b7fd2856-6ae3-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -104,30 +104,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1443996198.21829
+                timestamp: 1443996198.21829,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1443999198.2245
-              }
-            ]
+                timestamp: 1443999198.2245,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-b4b0b847-6aea-11e5-a953-08002719334a._app.1"
+                "sleep.instance-b4b0b847-6aea-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -138,30 +138,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1443999199.15845
+                timestamp: 1443999199.15845,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444002199.18058
-              }
-            ]
+                timestamp: 1444002199.18058,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-b0f29aa8-6af1-11e5-a953-08002719334a._app.1"
+                "sleep.instance-b0f29aa8-6af1-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -172,30 +172,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444002199.3564
+                timestamp: 1444002199.3564,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444005199.3805
-              }
-            ]
+                timestamp: 1444005199.3805,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-ad30ac79-6af8-11e5-a953-08002719334a._app.1"
+                "sleep.instance-ad30ac79-6af8-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -206,30 +206,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444005199.53381
+                timestamp: 1444005199.53381,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444008199.60506
-              }
-            ]
+                timestamp: 1444008199.60506,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-a9ce918a-6aff-11e5-a953-08002719334a._app.1"
+                "sleep.instance-a9ce918a-6aff-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -240,30 +240,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444008200.33441
+                timestamp: 1444008200.33441,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444011200.42012
-              }
-            ]
+                timestamp: 1444011200.42012,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-a6489aeb-6b06-11e5-a953-08002719334a._app.1"
+                "sleep.instance-a6489aeb-6b06-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -274,30 +274,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444011200.89914
+                timestamp: 1444011200.89914,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444014200.97995
-              }
-            ]
+                timestamp: 1444014200.97995,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-a30f3dac-6b0d-11e5-a953-08002719334a._app.1"
+                "sleep.instance-a30f3dac-6b0d-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -308,30 +308,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444014201.96757
+                timestamp: 1444014201.96757,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444017201.99879
-              }
-            ]
+                timestamp: 1444017201.99879,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-9f6ff2ad-6b14-11e5-a953-08002719334a._app.1"
+                "sleep.instance-9f6ff2ad-6b14-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -342,30 +342,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444017202.36779
+                timestamp: 1444017202.36779,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444020202.4466
-              }
-            ]
+                timestamp: 1444020202.4466,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-9c0b189e-6b1b-11e5-a953-08002719334a._app.1"
+                "sleep.instance-9c0b189e-6b1b-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -376,30 +376,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444020203.14604
+                timestamp: 1444020203.14604,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444023203.21804
-              }
-            ]
+                timestamp: 1444023203.21804,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-98a2e32f-6b22-11e5-a953-08002719334a._app.1"
+                "sleep.instance-98a2e32f-6b22-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -410,30 +410,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444023203.91109
+                timestamp: 1444023203.91109,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444026203.9707
-              }
-            ]
+                timestamp: 1444026203.9707,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-9566c6d0-6b29-11e5-a953-08002719334a._app.1"
+                "sleep.instance-9566c6d0-6b29-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -444,30 +444,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444026204.96326
+                timestamp: 1444026204.96326,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444029204.97044
-              }
-            ]
+                timestamp: 1444029204.97044,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-91c88d41-6b30-11e5-a953-08002719334a._app.1"
+                "sleep.instance-91c88d41-6b30-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -478,30 +478,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444029205.36863
+                timestamp: 1444029205.36863,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444032205.46451
-              }
-            ]
+                timestamp: 1444032205.46451,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-8e505242-6b37-11e5-a953-08002719334a._app.1"
+                "sleep.instance-8e505242-6b37-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -512,30 +512,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444032206.02287
+                timestamp: 1444032206.02287,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444035206.10147
-              }
-            ]
+                timestamp: 1444035206.10147,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-8b0e1b63-6b3e-11e5-a953-08002719334a._app.1"
+                "sleep.instance-8b0e1b63-6b3e-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -546,30 +546,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444035207.03334
+                timestamp: 1444035207.03334,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444038207.10142
-              }
-            ]
+                timestamp: 1444038207.10142,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-87d22614-6b45-11e5-a953-08002719334a._app.1"
+                "sleep.instance-87d22614-6b45-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -580,30 +580,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444038208.08709
+                timestamp: 1444038208.08709,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444041208.14045
-              }
-            ]
+                timestamp: 1444041208.14045,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-843c9f15-6b4c-11e5-a953-08002719334a._app.1"
+                "sleep.instance-843c9f15-6b4c-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -614,30 +614,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444041208.54866
+                timestamp: 1444041208.54866,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444044208.57445
-              }
-            ]
+                timestamp: 1444044208.57445,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-81025776-6b53-11e5-a953-08002719334a._app.1"
+                "sleep.instance-81025776-6b53-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -648,30 +648,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444044209.61482
+                timestamp: 1444044209.61482,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444047209.64726
-              }
-            ]
+                timestamp: 1444047209.64726,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-7dcddc37-6b5a-11e5-a953-08002719334a._app.1"
+                "sleep.instance-7dcddc37-6b5a-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -682,30 +682,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444047210.71503
+                timestamp: 1444047210.71503,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444050210.77893
-              }
-            ]
+                timestamp: 1444050210.77893,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-7a315058-6b61-11e5-a953-08002719334a._app.1"
+                "sleep.instance-7a315058-6b61-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -716,30 +716,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444050211.12949
+                timestamp: 1444050211.12949,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444053211.20732
-              }
-            ]
+                timestamp: 1444053211.20732,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-76f33829-6b68-11e5-a953-08002719334a._app.1"
+                "sleep.instance-76f33829-6b68-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -750,30 +750,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444053212.16655
+                timestamp: 1444053212.16655,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444056212.25805
-              }
-            ]
+                timestamp: 1444056212.25805,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-73c880ea-6b6f-11e5-a953-08002719334a._app.1"
+                "sleep.instance-73c880ea-6b6f-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -784,30 +784,30 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_FINISHED",
             statuses: [
               {
                 state: "TASK_RUNNING",
-                timestamp: 1444056213.33406
+                timestamp: 1444056213.33406,
               },
               {
                 state: "TASK_FINISHED",
-                timestamp: 1444059213.41515
-              }
-            ]
+                timestamp: 1444059213.41515,
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-7084272b-6b76-11e5-a953-08002719334a._app.1"
+                "sleep.instance-7084272b-6b76-11e5-a953-08002719334a._app.1",
             },
             labels: [],
             name: "sleep",
@@ -818,8 +818,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S0" },
             state: "TASK_RUNNING",
@@ -829,37 +829,37 @@ const response = JSON.stringify({
                 timestamp: 1444059214.32713,
                 container_status: {
                   container_id: {
-                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2",
                   },
                   network_infos: [
                     {
                       labels: [
                         {
                           key: "DCOS_SPACE",
-                          value: "/sleep"
-                        }
+                          value: "/sleep",
+                        },
                       ],
                       ip_addresses: [
                         {
                           protocol: "IPv4",
-                          ip_address: "9.0.2.34"
-                        }
+                          ip_address: "9.0.2.34",
+                        },
                       ],
-                      name: "dcos-1"
-                    }
-                  ]
-                }
-              }
-            ]
+                      name: "dcos-1",
+                    },
+                  ],
+                },
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-7084272b-6b76-11e5-a953-08002719334b._app.1"
+                "sleep.instance-7084272b-6b76-11e5-a953-08002719334b._app.1",
             },
             labels: [],
             name: "sleep",
@@ -870,8 +870,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S1" },
             state: "TASK_RUNNING",
@@ -881,37 +881,37 @@ const response = JSON.stringify({
                 timestamp: 1444059214.32713,
                 container_status: {
                   container_id: {
-                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2",
                   },
                   network_infos: [
                     {
                       labels: [
                         {
                           key: "DCOS_SPACE",
-                          value: "/sleep"
-                        }
+                          value: "/sleep",
+                        },
                       ],
                       ip_addresses: [
                         {
                           protocol: "IPv4",
-                          ip_address: "9.0.2.34"
-                        }
+                          ip_address: "9.0.2.34",
+                        },
                       ],
-                      name: "dcos-1"
-                    }
-                  ]
-                }
-              }
-            ]
+                      name: "dcos-1",
+                    },
+                  ],
+                },
+              },
+            ],
           },
           {
             executor_id: { value: "" },
             framework_id: {
-              value: "20150827-210452-1695027628-5050-1445-0000"
+              value: "20150827-210452-1695027628-5050-1445-0000",
             },
             task_id: {
               value:
-                "sleep.instance-7084272b-6b76-11e5-a953-08002719334c._app.1"
+                "sleep.instance-7084272b-6b76-11e5-a953-08002719334c._app.1",
             },
             labels: [],
             name: "sleep",
@@ -922,8 +922,8 @@ const response = JSON.stringify({
               {
                 name: "ports",
                 type: "RANGES",
-                ranges: { range: "[10000-10000]" }
-              }
+                ranges: { range: "[10000-10000]" },
+              },
             ],
             agent_id: { value: "20151002-000353-1695027628-5050-1177-S2" },
             state: "TASK_RUNNING",
@@ -933,30 +933,30 @@ const response = JSON.stringify({
                 timestamp: 1444059214.32713,
                 container_status: {
                   container_id: {
-                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2"
+                    value: "2f6cd6c5-cc11-4ea6-adbe-a4f02439d9d2",
                   },
                   network_infos: [
                     {
                       labels: [
                         {
                           key: "DCOS_SPACE",
-                          value: "/sleep"
-                        }
+                          value: "/sleep",
+                        },
                       ],
                       ip_addresses: [
                         {
                           protocol: "IPv4",
-                          ip_address: "9.0.2.34"
-                        }
+                          ip_address: "9.0.2.34",
+                        },
                       ],
-                      name: "dcos-1"
-                    }
-                  ]
-                }
-              }
-            ]
-          }
-        ]
+                      name: "dcos-1",
+                    },
+                  ],
+                },
+              },
+            ],
+          },
+        ],
       },
       get_agents: {
         agents: [
@@ -968,15 +968,15 @@ const response = JSON.stringify({
             offered_resources: {
               cpus: 0,
               disk: 0,
-              mem: 0
+              mem: 0,
             },
             domain: {
               fault_domain: {
                 region: {
-                  name: "eu-central-1"
+                  name: "eu-central-1",
                 },
-                zone: { name: "eu-central-1c" }
-              }
+                zone: { name: "eu-central-1c" },
+              },
             },
             pid: "slave(1)@172.17.8.101:5051",
             registered_time: 1443995289.19971,
@@ -987,21 +987,21 @@ const response = JSON.stringify({
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             unreserved_resources: {
               cpus: 4,
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             used_resources: {
               cpus: 0.1,
               disk: 0,
               mem: 16,
-              ports: "[10000-10000]"
-            }
+              ports: "[10000-10000]",
+            },
           },
           {
             active: true,
@@ -1011,15 +1011,15 @@ const response = JSON.stringify({
             offered_resources: {
               cpus: 0,
               disk: 0,
-              mem: 0
+              mem: 0,
             },
             domain: {
               fault_domain: {
                 region: {
-                  name: "eu-central-1"
+                  name: "eu-central-1",
                 },
-                zone: { name: "eu-central-1b" }
-              }
+                zone: { name: "eu-central-1b" },
+              },
             },
             pid: "slave(1)@172.17.8.101:5051",
             registered_time: 1443995289.19971,
@@ -1030,21 +1030,21 @@ const response = JSON.stringify({
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             unreserved_resources: {
               cpus: 4,
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             used_resources: {
               cpus: 0.1,
               disk: 0,
               mem: 16,
-              ports: "[10000-10000]"
-            }
+              ports: "[10000-10000]",
+            },
           },
           {
             active: true,
@@ -1054,15 +1054,15 @@ const response = JSON.stringify({
             offered_resources: {
               cpus: 0,
               disk: 0,
-              mem: 0
+              mem: 0,
             },
             domain: {
               fault_domain: {
                 region: {
-                  name: "ap-northeast-1"
+                  name: "ap-northeast-1",
                 },
-                zone: { name: "ap-northeast-1a" }
-              }
+                zone: { name: "ap-northeast-1a" },
+              },
             },
             pid: "slave(1)@172.17.8.101:5051",
             registered_time: 1443995289.19971,
@@ -1073,26 +1073,26 @@ const response = JSON.stringify({
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             unreserved_resources: {
               cpus: 4,
               disk: 10823,
               mem: 2933,
               ports:
-                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
+                "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]",
             },
             used_resources: {
               cpus: 0.1,
               disk: 0,
               mem: 16,
-              ports: "[10000-10000]"
-            }
-          }
-        ]
-      }
-    }
-  }
+              ports: "[10000-10000]",
+            },
+          },
+        ],
+      },
+    },
+  },
 });
 
 export default response;

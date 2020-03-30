@@ -40,9 +40,7 @@
       ]
     },
     "cmd": "/foo",
-    "args": [
-
-    ],
+    "args": [],
     "user": "marathon",
     "env": {
       "DRY_RUN": "false",

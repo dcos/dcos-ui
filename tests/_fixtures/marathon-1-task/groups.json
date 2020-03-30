@@ -133,9 +133,7 @@
       "cmd": "sleep 3000",
       "args": null,
       "user": null,
-      "env": {
-
-      },
+      "env": {},
       "instances": 1,
       "cpus": 0.1,
       "mem": 16,
@@ -160,29 +158,17 @@
           "status": "Detached"
         }
       ],
-      "constraints": [
-
-      ],
-      "uris": [
-
-      ],
-      "storeUrls": [
-
-      ],
-      "ports": [
-        10000
-      ],
+      "constraints": [],
+      "uris": [],
+      "storeUrls": [],
+      "ports": [10000],
       "requirePorts": false,
       "backoffSeconds": 1,
       "backoffFactor": 1.15,
       "maxLaunchDelaySeconds": 3600,
       "container": null,
-      "healthChecks": [
-
-      ],
-      "dependencies": [
-
-      ],
+      "healthChecks": [],
+      "dependencies": [],
       "upgradeStrategy": {
         "minimumHealthCapacity": 1,
         "maximumOverCapacity": 1
@@ -201,9 +187,7 @@
       "tasksRunning": 1,
       "tasksHealthy": 1,
       "tasksUnhealthy": 0,
-      "deployments": [
-
-      ],
+      "deployments": [],
       "portDefinitions": [
         {
           "labels": {
@@ -225,40 +209,24 @@
           "cmd": "sleep 3000",
           "args": null,
           "user": null,
-          "env": {
-
-          },
+          "env": {},
           "instances": 1,
           "cpus": 0.1,
           "mem": 16,
           "disk": 0,
           "executor": "",
-          "volumes": [
-
-          ],
-          "constraints": [
-
-          ],
-          "uris": [
-
-          ],
-          "storeUrls": [
-
-          ],
-          "ports": [
-            10000
-          ],
+          "volumes": [],
+          "constraints": [],
+          "uris": [],
+          "storeUrls": [],
+          "ports": [10000],
           "requirePorts": false,
           "backoffSeconds": 1,
           "backoffFactor": 1.15,
           "maxLaunchDelaySeconds": 3600,
           "container": null,
-          "healthChecks": [
-
-          ],
-          "dependencies": [
-
-          ],
+          "healthChecks": [],
+          "dependencies": [],
           "upgradeStrategy": {
             "minimumHealthCapacity": 1,
             "maximumOverCapacity": 1
@@ -276,30 +244,19 @@
           "tasksRunning": 1,
           "tasksHealthy": 1,
           "tasksUnhealthy": 1,
-          "deployments": [
-
-          ]
+          "deployments": []
         }
       ],
-      "dependencies": [
-      ],
-      "groups": [
-      ],
-      "pods": [
-      ],
+      "dependencies": [],
+      "groups": [],
+      "pods": [],
       "version": "2015-08-28T01:26:14.620Z"
     },
     {
       "id": "/some/group-with-pods",
-      "apps": [
-
-      ],
-      "dependencies": [
-
-      ],
-      "groups": [
-
-      ],
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
       "pods": [
         {
           "id": "/some/group-with-pods/podEFGH",
@@ -328,10 +285,7 @@
                 },
                 "exec": {
                   "command": {
-                    "argv": [
-                      "sleep",
-                      "100"
-                    ]
+                    "argv": ["sleep", "100"]
                   }
                 },
                 "environment": {
@@ -458,9 +412,7 @@
                     "operator": "UNIQUE"
                   }
                 ],
-                "acceptedResourceRoles": [
-                  "slave_public"
-                ]
+                "acceptedResourceRoles": ["slave_public"]
               }
             }
           },
@@ -563,66 +515,36 @@
     {
       "id": "/10_apps",
       "enforceRole": true,
-      "apps": [
-
-      ],
-      "dependencies": [
-
-      ],
-      "groups": [
-
-      ],
-      "pods": [
-
-      ],
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
+      "pods": [],
       "version": "2019-07-01T01:26:14.620Z"
     },
     {
       "id": "/10000_apps",
       "enforceRole": true,
-      "apps": [
-
-      ],
-      "dependencies": [
-
-      ],
-      "groups": [
-
-      ],
-      "pods": [
-
-      ],
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
+      "pods": [],
       "version": "2019-07-01T01:26:14.620Z"
     },
     {
       "id": "/1_app",
       "enforceRole": true,
-      "apps": [
-
-      ],
-      "dependencies": [
-
-      ],
-      "groups": [
-
-      ],
-      "pods": [
-
-      ],
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
+      "pods": [],
       "version": "2019-07-01T01:26:14.620Z"
     },
     {
       "id": "/2_apps",
       "enforceRole": true,
-      "apps": [
-
-      ],
-      "dependencies": [
-
-      ],
-      "groups": [
-
-      ],
+      "apps": [],
+      "dependencies": [],
+      "groups": [],
       "pods": [
         {
           "id": "/2_apps/podEFGH",
@@ -651,10 +573,7 @@
                 },
                 "exec": {
                   "command": {
-                    "argv": [
-                      "sleep",
-                      "100"
-                    ]
+                    "argv": ["sleep", "100"]
                   }
                 },
                 "environment": {
@@ -781,9 +700,7 @@
                     "operator": "UNIQUE"
                   }
                 ],
-                "acceptedResourceRoles": [
-                  "slave_public"
-                ]
+                "acceptedResourceRoles": ["slave_public"]
               }
             }
           },

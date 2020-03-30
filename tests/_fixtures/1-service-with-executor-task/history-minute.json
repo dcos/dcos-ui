@@ -39,9 +39,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -52,9 +50,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ],
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"],
         "domain": {
           "fault_domain": {
             "region": {
@@ -102,9 +98,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -115,9 +109,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -140,18 +132,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -162,9 +150,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -202,9 +188,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -215,9 +199,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -266,9 +248,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -292,18 +272,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -314,9 +290,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -335,9 +309,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -370,11 +342,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -384,9 +354,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -430,9 +398,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -443,9 +409,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -483,9 +447,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -496,9 +458,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -521,18 +481,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -543,9 +499,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -583,9 +537,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -596,9 +548,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -647,9 +597,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -673,18 +621,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -695,9 +639,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -716,9 +658,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -751,11 +691,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -765,9 +703,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -811,9 +747,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -824,9 +758,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -864,9 +796,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -877,9 +807,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -902,18 +830,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -924,9 +848,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -964,9 +886,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -977,9 +897,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -1028,9 +946,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -1054,18 +970,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1076,9 +988,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -1097,9 +1007,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -1132,11 +1040,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -1146,9 +1052,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -1192,9 +1096,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1205,9 +1107,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -1245,9 +1145,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1258,9 +1156,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -1283,18 +1179,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1305,9 +1197,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -1345,9 +1235,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1358,9 +1246,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -1409,9 +1295,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -1435,18 +1319,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1457,9 +1337,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -1478,9 +1356,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -1513,11 +1389,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -1527,9 +1401,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -1573,9 +1445,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1586,9 +1456,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -1626,9 +1494,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1639,9 +1505,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -1664,18 +1528,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1686,9 +1546,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -1726,9 +1584,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1739,9 +1595,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -1790,9 +1644,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -1816,18 +1668,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1838,9 +1686,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -1859,9 +1705,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -1894,11 +1738,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -1908,9 +1750,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -1954,9 +1794,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -1967,9 +1805,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -2007,9 +1843,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2020,9 +1854,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -2045,18 +1877,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2067,9 +1895,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -2107,9 +1933,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2120,9 +1944,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -2171,9 +1993,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -2197,18 +2017,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2219,9 +2035,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -2240,9 +2054,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -2275,11 +2087,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -2289,9 +2099,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -2335,9 +2143,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2348,9 +2154,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -2388,9 +2192,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2401,9 +2203,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -2426,18 +2226,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2448,9 +2244,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -2488,9 +2282,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2501,9 +2293,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -2552,9 +2342,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -2578,18 +2366,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2600,9 +2384,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -2621,9 +2403,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -2656,11 +2436,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -2670,9 +2448,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -2716,9 +2492,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2729,9 +2503,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -2769,9 +2541,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2782,9 +2552,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -2807,18 +2575,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2829,9 +2593,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -2869,9 +2631,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2882,9 +2642,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -2933,9 +2691,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -2959,18 +2715,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -2981,9 +2733,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -3002,9 +2752,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -3037,11 +2785,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -3051,9 +2797,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -3097,9 +2841,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3110,9 +2852,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -3150,9 +2890,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3163,9 +2901,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -3188,18 +2924,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3210,9 +2942,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -3250,9 +2980,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3263,9 +2991,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -3314,9 +3040,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -3340,18 +3064,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3362,9 +3082,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -3383,9 +3101,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -3418,11 +3134,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -3432,9 +3146,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -3478,9 +3190,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3491,9 +3201,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -3531,9 +3239,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3544,9 +3250,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -3569,18 +3273,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3591,9 +3291,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -3631,9 +3329,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3644,9 +3340,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -3695,9 +3389,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -3721,18 +3413,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3743,9 +3431,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -3764,9 +3450,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -3799,11 +3483,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -3813,9 +3495,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -3859,9 +3539,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3872,9 +3550,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -3912,9 +3588,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3925,9 +3599,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -3950,18 +3622,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -3972,9 +3640,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -4012,9 +3678,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4025,9 +3689,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -4076,9 +3738,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -4102,18 +3762,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4124,9 +3780,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -4145,9 +3799,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -4180,11 +3832,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -4194,9 +3844,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -4240,9 +3888,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4253,9 +3899,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -4293,9 +3937,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4306,9 +3948,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -4331,18 +3971,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4353,9 +3989,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -4393,9 +4027,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4406,9 +4038,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -4457,9 +4087,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -4483,18 +4111,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4505,9 +4129,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -4526,9 +4148,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -4561,11 +4181,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -4575,9 +4193,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -4621,9 +4237,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4634,9 +4248,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -4674,9 +4286,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4687,9 +4297,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -4712,18 +4320,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4734,9 +4338,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -4774,9 +4376,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4787,9 +4387,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -4838,9 +4436,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -4864,18 +4460,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -4886,9 +4478,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -4907,9 +4497,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -4942,11 +4530,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -4956,9 +4542,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -5002,9 +4586,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5015,9 +4597,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -5055,9 +4635,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5068,9 +4646,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -5093,18 +4669,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5115,9 +4687,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -5155,9 +4725,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5168,9 +4736,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -5219,9 +4785,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -5245,18 +4809,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5267,9 +4827,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -5288,9 +4846,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -5323,11 +4879,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -5337,9 +4891,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -5383,9 +4935,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5396,9 +4946,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -5436,9 +4984,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5449,9 +4995,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -5474,18 +5018,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5496,9 +5036,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -5536,9 +5074,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5549,9 +5085,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -5600,9 +5134,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -5626,18 +5158,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5648,9 +5176,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -5669,9 +5195,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -5704,11 +5228,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -5718,9 +5240,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -5764,9 +5284,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5777,9 +5295,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -5817,9 +5333,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5830,9 +5344,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -5855,18 +5367,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5877,9 +5385,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -5917,9 +5423,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -5930,9 +5434,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -5981,9 +5483,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -6007,18 +5507,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6029,9 +5525,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -6050,9 +5544,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -6085,11 +5577,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -6099,9 +5589,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -6145,9 +5633,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6158,9 +5644,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -6198,9 +5682,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6211,9 +5693,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -6236,18 +5716,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6258,9 +5734,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -6298,9 +5772,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6311,9 +5783,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -6362,9 +5832,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -6388,18 +5856,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6410,9 +5874,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -6431,9 +5893,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -6466,11 +5926,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -6480,9 +5938,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -6526,9 +5982,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6539,9 +5993,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -6579,9 +6031,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6592,9 +6042,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -6617,18 +6065,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6639,9 +6083,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -6679,9 +6121,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6692,9 +6132,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -6743,9 +6181,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -6769,18 +6205,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6791,9 +6223,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -6812,9 +6242,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -6847,11 +6275,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -6861,9 +6287,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -6907,9 +6331,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6920,9 +6342,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -6960,9 +6380,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -6973,9 +6391,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -6998,18 +6414,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7020,9 +6432,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -7060,9 +6470,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7073,9 +6481,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -7124,9 +6530,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -7150,18 +6554,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7172,9 +6572,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -7193,9 +6591,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -7228,11 +6624,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -7242,9 +6636,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -7288,9 +6680,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7301,9 +6691,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -7341,9 +6729,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7354,9 +6740,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -7379,18 +6763,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7401,9 +6781,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -7441,9 +6819,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7454,9 +6830,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -7505,9 +6879,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -7531,18 +6903,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7553,9 +6921,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -7574,9 +6940,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -7609,11 +6973,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -7623,9 +6985,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -7669,9 +7029,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7682,9 +7040,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -7722,9 +7078,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7735,9 +7089,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -7760,18 +7112,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7782,9 +7130,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -7822,9 +7168,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7835,9 +7179,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -7886,9 +7228,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -7912,18 +7252,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -7934,9 +7270,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -7955,9 +7289,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -7990,11 +7322,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -8004,9 +7334,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -8050,9 +7378,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8063,9 +7389,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -8103,9 +7427,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8116,9 +7438,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -8141,18 +7461,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8163,9 +7479,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -8203,9 +7517,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8216,9 +7528,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -8267,9 +7577,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -8293,18 +7601,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8315,9 +7619,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -8336,9 +7638,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -8371,11 +7671,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -8385,9 +7683,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -8431,9 +7727,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8444,9 +7738,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -8484,9 +7776,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8497,9 +7787,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -8522,18 +7810,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8544,9 +7828,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -8584,9 +7866,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8597,9 +7877,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -8648,9 +7926,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -8674,18 +7950,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8696,9 +7968,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -8717,9 +7987,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -8752,11 +8020,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -8766,9 +8032,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -8812,9 +8076,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8825,9 +8087,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -8865,9 +8125,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8878,9 +8136,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -8903,18 +8159,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8925,9 +8177,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -8965,9 +8215,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -8978,9 +8226,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -9029,9 +8275,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -9055,18 +8299,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9077,9 +8317,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -9098,9 +8336,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -9133,11 +8369,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -9147,9 +8381,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -9193,9 +8425,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9206,9 +8436,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -9246,9 +8474,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9259,9 +8485,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -9284,18 +8508,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9306,9 +8526,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -9346,9 +8564,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9359,9 +8575,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -9410,9 +8624,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -9436,18 +8648,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9458,9 +8666,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -9479,9 +8685,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -9514,11 +8718,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -9528,9 +8730,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -9574,9 +8774,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9587,9 +8785,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -9627,9 +8823,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9640,9 +8834,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -9665,18 +8857,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9687,9 +8875,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -9727,9 +8913,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9740,9 +8924,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -9791,9 +8973,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -9817,18 +8997,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9839,9 +9015,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -9860,9 +9034,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -9895,11 +9067,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -9909,9 +9079,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -9955,9 +9123,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -9968,9 +9134,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -10008,9 +9172,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10021,9 +9183,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -10046,18 +9206,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10068,9 +9224,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -10108,9 +9262,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10121,9 +9273,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -10172,9 +9322,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -10198,18 +9346,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10220,9 +9364,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -10241,9 +9383,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -10276,11 +9416,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -10290,9 +9428,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -10336,9 +9472,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10349,9 +9483,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -10389,9 +9521,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10402,9 +9532,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -10427,18 +9555,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10449,9 +9573,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -10489,9 +9611,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10502,9 +9622,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -10553,9 +9671,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -10579,18 +9695,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10601,9 +9713,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -10622,9 +9732,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -10657,11 +9765,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -10671,9 +9777,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -10717,9 +9821,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10730,9 +9832,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -10770,9 +9870,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10783,9 +9881,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -10808,18 +9904,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10830,9 +9922,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -10870,9 +9960,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10883,9 +9971,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -10934,9 +10020,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -10960,18 +10044,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -10982,9 +10062,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -11003,9 +10081,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -11038,11 +10114,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -11052,9 +10126,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   },
@@ -11098,9 +10170,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -11111,9 +10181,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S4",
@@ -11151,9 +10219,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -11164,9 +10230,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S3",
@@ -11189,18 +10253,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -11211,9 +10271,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S2",
@@ -11251,9 +10309,7 @@
           "mem": 9155.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-6999, 7002-7198, 7200-8079, 8082-8180, 8182-8999, 9002-9041, 9043-9159, 9161-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -11264,9 +10320,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0001"]
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S1",
@@ -11315,9 +10369,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          
-        ]
+        "framework_ids": []
       },
       {
         "id": "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0",
@@ -11341,18 +10393,14 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "reserved_resources": {
-          
-        },
+        "reserved_resources": {},
         "unreserved_resources": {
           "cpus": 4.0,
           "disk": 32541.0,
           "mem": 14019.0,
           "ports": "[1025-2180, 2182-3887, 3889-5049, 5052-8079, 8082-8180, 8182-32000]"
         },
-        "attributes": {
-          
-        },
+        "attributes": {},
         "active": true,
         "version": "0.27.0",
         "TASK_STAGING": 0,
@@ -11363,9 +10411,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "framework_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"
-        ]
+        "framework_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-0000"]
       }
     ],
     "frameworks": [
@@ -11384,9 +10430,7 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "ip-10-0-1-110.us-west-2.compute.internal",
         "webui_url": "",
         "active": true,
@@ -11419,11 +10463,9 @@
           "disk": 0.0,
           "mem": 0.0
         },
-        "capabilities": [
-          
-        ],
+        "capabilities": [],
         "hostname": "10.0.7.122",
-        "webui_url": "http:\/\/10.0.7.122:8080",
+        "webui_url": "http://10.0.7.122:8080",
         "active": true,
         "TASK_STAGING": 0,
         "TASK_STARTING": 0,
@@ -11433,9 +10475,7 @@
         "TASK_FAILED": 0,
         "TASK_LOST": 0,
         "TASK_ERROR": 0,
-        "slave_ids": [
-          "b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"
-        ]
+        "slave_ids": ["b3bd182c-c6d7-463e-8bf0-06cd5807df4e-S0"]
       }
     ]
   }

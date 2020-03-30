@@ -52,5 +52,5 @@ module.exports = {
     }
 
     cy.fixture(desiredFixtureString).then(callback);
-  }
+  },
 };

@@ -2,14 +2,14 @@ describe("Pod Detail Page", () => {
   beforeEach(() => {
     cy.configureCluster({
       mesos: "1-pod",
-      nodeHealth: true
+      nodeHealth: true,
     });
   });
 
   context("Navigate to service detail page", () => {
     it("shows the Service Not Found alert panel in page contents", () => {
       cy.visitUrl({
-        url: "/services/detail/non-existing-service"
+        url: "/services/detail/non-existing-service",
       });
       cy.get(".page-body-content").contains("Service not found");
     });
@@ -17,7 +17,7 @@ describe("Pod Detail Page", () => {
     context("Show tabs", () => {
       beforeEach(() => {
         cy.visitUrl({
-          url: "/services/detail/%2Fpodses"
+          url: "/services/detail/%2Fpodses",
         });
       });
 
@@ -31,9 +31,7 @@ describe("Pod Detail Page", () => {
       });
 
       it("shows configuration tab when clicked", () => {
-        cy.get(".menu-tabbed-item")
-          .contains("Configuration")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Configuration").click();
 
         cy.get(".menu-tabbed-item .active")
           .contains("Configuration")
@@ -46,9 +44,7 @@ describe("Pod Detail Page", () => {
       });
 
       it("shows debug tab when clicked", () => {
-        cy.get(".menu-tabbed-item")
-          .contains("Debug")
-          .click();
+        cy.get(".menu-tabbed-item").contains("Debug").click();
 
         cy.get(".menu-tabbed-item .active")
           .contains("Debug")
@@ -60,9 +56,7 @@ describe("Pod Detail Page", () => {
 
       context("Endpoints tab", () => {
         beforeEach(() => {
-          cy.get(".menu-tabbed-item")
-            .contains("Endpoints")
-            .click();
+          cy.get(".menu-tabbed-item").contains("Endpoints").click();
         });
 
         it("shows endpoints tab with correct values when clicked", () => {
@@ -100,7 +94,7 @@ describe("Pod Detail Page", () => {
     context("Sorting", () => {
       beforeEach(() => {
         cy.visitUrl({
-          url: "/services/detail/%2Fpodses"
+          url: "/services/detail/%2Fpodses",
         });
       });
 
@@ -179,18 +173,16 @@ describe("Pod Detail Page", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-pod-delayed",
-        nodeHealth: true
+        nodeHealth: true,
       });
     });
 
     it("shows debug tab when clicked", () => {
       cy.visitUrl({
-        url: "/services/detail/%2Fpodses"
+        url: "/services/detail/%2Fpodses",
       });
 
-      cy.get(".menu-tabbed-item")
-        .contains("Debug")
-        .click();
+      cy.get(".menu-tabbed-item").contains("Debug").click();
 
       cy.get(".menu-tabbed-item .active")
         .contains("Debug")
@@ -199,16 +191,12 @@ describe("Pod Detail Page", () => {
       cy.contains(
         "DC/OS has delayed the launching of this service due to failures."
       );
-      cy.get("a")
-        .contains("More information")
-        .should("have.attr", "href");
-      cy.get("a")
-        .contains("Retry now")
-        .click();
+      cy.get("a").contains("More information").should("have.attr", "href");
+      cy.get("a").contains("Retry now").click();
       cy.route({
         method: "DELETE",
         url: /marathon\/v2\/queue\/\/podses\/delay/,
-        response: []
+        response: [],
       });
       cy.get(".toasts-container");
       cy.hash().should("match", /services\/detail\/%2Fpodses\/debug.*/);
@@ -221,9 +209,7 @@ describe("Pod Detail Page", () => {
     }
 
     function clickDropdownAction(actionText) {
-      cy.get(".dropdown-menu-items")
-        .contains(actionText)
-        .click();
+      cy.get(".dropdown-menu-items").contains(actionText).click();
     }
 
     context("Reset Delay Action", () => {
@@ -231,10 +217,10 @@ describe("Pod Detail Page", () => {
         beforeEach(() => {
           cy.configureCluster({
             mesos: "1-pod-delayed",
-            nodeHealth: true
+            nodeHealth: true,
           });
           cy.visitUrl({
-            url: "/services/detail/%2Fpodses"
+            url: "/services/detail/%2Fpodses",
           });
           openDropdown("podses");
           clickDropdownAction("Reset Delay");
@@ -244,7 +230,7 @@ describe("Pod Detail Page", () => {
           cy.route({
             method: "DELETE",
             url: /marathon\/v2\/queue\/\/podses\/delay/,
-            response: []
+            response: [],
           });
           cy.get(".toasts-container");
         });
@@ -254,10 +240,10 @@ describe("Pod Detail Page", () => {
         beforeEach(() => {
           cy.configureCluster({
             mesos: "1-pod",
-            nodeHealth: true
+            nodeHealth: true,
           });
           cy.visitUrl({
-            url: "/services/detail/%2Fpodses"
+            url: "/services/detail/%2Fpodses",
           });
           openDropdown("podses");
         });

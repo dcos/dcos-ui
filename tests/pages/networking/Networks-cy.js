@@ -4,20 +4,20 @@ describe("Networks", () => {
   context("Networks Table", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-task-healthy"
+        mesos: "1-task-healthy",
       });
       cy.visitUrl({ url: "/networking/networks" });
     });
 
     it("displays all of the networks in the table", () => {
-      cy.get("tbody tr").should($tableRows => {
+      cy.get("tbody tr").should(($tableRows) => {
         expect(getVisibleTableRows($tableRows).length).to.equal(4);
       });
     });
 
     it("displays all columns for each network", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
-        cy.get("tbody tr").should($tableRows => {
+      cy.getAPIResponse("/mesos/overlay-master/state", (fixture) => {
+        cy.get("tbody tr").should(($tableRows) => {
           getVisibleTableRows($tableRows).forEach((tableRow, index) => {
             const overlayData = fixture.network.overlays[index];
             const tableCells = tableRow.querySelectorAll("td");
@@ -33,9 +33,9 @@ describe("Networks", () => {
     });
 
     it("allows users to filter the table", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
+      cy.getAPIResponse("/mesos/overlay-master/state", (fixture) => {
         cy.get("input.form-control").type(fixture.network.overlays[0].name);
-        cy.get("tbody tr").should($tableRows => {
+        cy.get("tbody tr").should(($tableRows) => {
           expect(getVisibleTableRows($tableRows).length).to.equal(1);
         });
       });
@@ -45,16 +45,16 @@ describe("Networks", () => {
   context("Network Detail", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-task-healthy"
+        mesos: "1-task-healthy",
       });
       cy.visitUrl({ url: "/networking/networks" });
       cy.get("table tr:nth-child(2) a").click();
     });
 
     it("displays all columns for each network", () => {
-      cy.getAPIResponse("/mesos/overlay-master/state", fixture => {
-        cy.get("tbody tr").should($tableRows => {
-          getVisibleTableRows($tableRows).forEach(tableRow => {
+      cy.getAPIResponse("/mesos/overlay-master/state", (fixture) => {
+        cy.get("tbody tr").should(($tableRows) => {
+          getVisibleTableRows($tableRows).forEach((tableRow) => {
             const tableCells = tableRow.querySelectorAll("td");
             const task = fixture.frameworks[0].tasks[0];
 
@@ -75,7 +75,7 @@ describe("Networks", () => {
       cy.get(
         ".filter-bar-item .filter-input-text"
       ).type("sleep.7084272b-6b76-11e5-a953-08002719334a", { force: true });
-      cy.get("tbody tr").should($tableRows => {
+      cy.get("tbody tr").should(($tableRows) => {
         expect(getVisibleTableRows($tableRows).length).to.equal(1);
       });
     });

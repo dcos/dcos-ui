@@ -3,16 +3,14 @@ describe("Quota Tab", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy-with-region",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({ url: "/services/quota" });
     });
 
     it("Shows the quota tab", () => {
       cy.visitUrl({ url: "/services/overview" });
-      cy.get(".menu-tabbed-item-label-text")
-        .contains("Quota")
-        .click();
+      cy.get(".menu-tabbed-item-label-text").contains("Quota").click();
     });
 
     it("Shows the no quota message", () => {
@@ -20,9 +18,7 @@ describe("Quota Tab", () => {
     });
 
     it("Shows a working back to services button", () => {
-      cy.get(".button-primary")
-        .contains("Back to Services")
-        .click();
+      cy.get(".button-primary").contains("Back to Services").click();
       cy.get(".service-table");
     });
 
@@ -40,9 +36,7 @@ describe("Quota Tab", () => {
         .contains("New")
         .click();
 
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Run a Service")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Run a Service").click();
       cy.get(".create-service-modal-service-picker-options");
       cy.get(".text-align-center").contains("Single Container");
     });
@@ -52,9 +46,7 @@ describe("Quota Tab", () => {
         .contains("New")
         .click();
 
-      cy.get("[data-cy='PopoverListItem']")
-        .contains("Create Group")
-        .click();
+      cy.get("[data-cy='PopoverListItem']").contains("Create Group").click();
       cy.get(".create-service-modal-form-container");
       cy.get(".modal-full-screen-header-title").contains("New Group");
     });
@@ -64,7 +56,7 @@ describe("Quota Tab", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy-with-quota",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({ url: "/services/quota" });
     });
@@ -91,9 +83,7 @@ describe("Quota Tab", () => {
       }
 
       function clickHeading(name) {
-        cy.get(".TopRightGrid_ScrollWrapper")
-          .contains(name)
-          .click();
+        cy.get(".TopRightGrid_ScrollWrapper").contains(name).click();
       }
 
       it("Shows the quota table", () => {
@@ -107,9 +97,7 @@ describe("Quota Tab", () => {
       });
 
       it("Shows the correct headings", () => {
-        cy.get(".ReactVirtualized__Grid")
-          .eq(0)
-          .contains("Name");
+        cy.get(".ReactVirtualized__Grid").eq(0).contains("Name");
         cy.get(".TopRightGrid_ScrollWrapper").contains("Quota Limit");
         cy.get(".TopRightGrid_ScrollWrapper").contains("CPU Consumed");
         cy.get(".TopRightGrid_ScrollWrapper").contains("Memory Consumed");
@@ -127,17 +115,11 @@ describe("Quota Tab", () => {
       });
 
       it("Sorts the table by name", () => {
-        cy.get(".ReactVirtualized__Grid")
-          .eq(0)
-          .contains("Name")
-          .click();
+        cy.get(".ReactVirtualized__Grid").eq(0).contains("Name").click();
         getFirstRowName("2_apps");
         getSecondRowName("10000_apps");
 
-        cy.get(".ReactVirtualized__Grid")
-          .eq(0)
-          .contains("Name")
-          .click();
+        cy.get(".ReactVirtualized__Grid").eq(0).contains("Name").click();
         getFirstRowName("1_app");
         getSecondRowName("10_apps");
       });
@@ -195,9 +177,7 @@ describe("Quota Tab", () => {
 
     context("Quota Detail", () => {
       beforeEach(() => {
-        cy.get(".table-cell-link-primary")
-          .contains("10_apps")
-          .click();
+        cy.get(".table-cell-link-primary").contains("10_apps").click();
       });
 
       it("Opens the quota detail page when we click on a group", () => {
@@ -230,33 +210,17 @@ describe("Quota Tab", () => {
       });
 
       it("Shows percent or N/A for each card", () => {
-        cy.get(".quota-card-main")
-          .eq(0)
-          .contains("25%");
-        cy.get(".quota-card-main")
-          .eq(1)
-          .contains("13%");
-        cy.get(".quota-card-main")
-          .eq(2)
-          .contains("50%");
-        cy.get(".quota-card-main")
-          .eq(3)
-          .contains("N/A");
+        cy.get(".quota-card-main").eq(0).contains("25%");
+        cy.get(".quota-card-main").eq(1).contains("13%");
+        cy.get(".quota-card-main").eq(2).contains("50%");
+        cy.get(".quota-card-main").eq(3).contains("N/A");
       });
 
       it("Shows consumed of limit or no limit for each card", () => {
-        cy.get(".quota-card-label")
-          .eq(0)
-          .contains("0.5 of 2 Cores");
-        cy.get(".quota-card-label")
-          .eq(1)
-          .contains("128 MiB of 1 GiB");
-        cy.get(".quota-card-label")
-          .eq(2)
-          .contains("5 MiB of 10 MiB");
-        cy.get(".quota-card-label")
-          .eq(3)
-          .contains("No Limit");
+        cy.get(".quota-card-label").eq(0).contains("0.5 of 2 Cores");
+        cy.get(".quota-card-label").eq(1).contains("128 MiB of 1 GiB");
+        cy.get(".quota-card-label").eq(2).contains("5 MiB of 10 MiB");
+        cy.get(".quota-card-label").eq(3).contains("No Limit");
       });
 
       it("Shows progress bars", () => {

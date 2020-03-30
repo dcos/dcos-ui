@@ -3,13 +3,9 @@
     {
       "app": {
         "id": "/podses",
-        "labels": {
-
-        },
+        "labels": {},
         "version": "2017-04-20T22:04:18.48Z",
-        "environment": {
-
-        },
+        "environment": {},
         "containers": [
           {
             "name": "container-1",
@@ -19,25 +15,15 @@
               "disk": 0,
               "gpus": 0
             },
-            "endpoints": [
-
-            ],
+            "endpoints": [],
             "image": {
               "kind": "DOCKER",
               "id": "redis"
             },
-            "environment": {
-
-            },
-            "volumeMounts": [
-
-            ],
-            "artifacts": [
-
-            ],
-            "labels": {
-
-            }
+            "environment": {},
+            "volumeMounts": [],
+            "artifacts": [],
+            "labels": {}
           },
           {
             "name": "container-2",
@@ -47,39 +33,23 @@
               "disk": 0,
               "gpus": 0
             },
-            "endpoints": [
-
-            ],
+            "endpoints": [],
             "image": {
               "kind": "DOCKER",
               "id": "nginx"
             },
-            "environment": {
-
-            },
-            "volumeMounts": [
-
-            ],
-            "artifacts": [
-
-            ],
-            "labels": {
-
-            }
+            "environment": {},
+            "volumeMounts": [],
+            "artifacts": [],
+            "labels": {}
           }
         ],
-        "secrets": {
-
-        },
-        "volumes": [
-
-        ],
+        "secrets": {},
+        "volumes": [],
         "networks": [
           {
             "mode": "host",
-            "labels": {
-
-            }
+            "labels": {}
           }
         ],
         "scaling": {
@@ -97,12 +67,8 @@
             "maximumOverCapacity": 1
           },
           "placement": {
-            "constraints": [
-
-            ],
-            "acceptedResourceRoles": [
-
-            ]
+            "constraints": [],
+            "acceptedResourceRoles": []
           },
           "killSelection": "YOUNGEST_FIRST",
           "unreachableStrategy": {
@@ -165,14 +131,8 @@
             ],
             "offered": {
               "constraints": "public_ip: true",
-              "roles": [
-                "slave_public"
-              ],
-              "ports": [
-                "1 u2013 21",
-                "23 u2013 5050",
-                "5052 u2013 32000"
-              ],
+              "roles": ["slave_public"],
+              "ports": ["1 u2013 21", "23 u2013 5050", "5052 u2013 32000"],
               "disk": 75853,
               "cpus": 2,
               "mem": 6659
@@ -181,14 +141,10 @@
           {
             "hostname": "10.0.3.53",
             "timestamp": "2019-04-05T12: 13: 49.774Z",
-            "unmatchedResource": [
-              "InsufficientMemory"
-            ],
+            "unmatchedResource": ["InsufficientMemory"],
             "offered": {
               "constraints": "",
-              "roles": [
-                "*"
-              ],
+              "roles": ["*"],
               "ports": [
                 "1025 u2013 2180",
                 "2182 u2013 3887",

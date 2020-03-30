@@ -1,20 +1,12 @@
 {
-  "apps": [
-    
-  ],
+  "apps": [],
   "groups": [
     {
       "id": "/my-group",
-      "dependencies": [
-        
-      ],
+      "dependencies": [],
       "version": "2016-06-20T16:28:19.283Z",
-      "apps": [
-        
-      ],
-      "groups": [
-        
-      ]
+      "apps": [],
+      "groups": []
     }
   ],
   "id": "/"

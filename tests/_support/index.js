@@ -4,7 +4,7 @@ const router = require("./utils/router");
 require("./formChildCommands");
 require("./utils/ServicesUtil");
 
-Cypress.Commands.add("configureCluster", configuration => {
+Cypress.Commands.add("configureCluster", (configuration) => {
   router.clearRoutes();
   cy.server();
 
@@ -16,21 +16,21 @@ Cypress.Commands.add("configureCluster", configuration => {
     method: "POST",
     url: /mesos\/api\/v1\?GET_VERSION/,
     response: require("../_fixtures/v1/get_version"),
-    headers: { "Content-Type": "application/json" }
+    headers: { "Content-Type": "application/json" },
   })
     .route({
       method: "POST",
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     })
     .route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     });
 
   // //////////////////////////////////////////////////////////////////////////
@@ -42,19 +42,19 @@ Cypress.Commands.add("configureCluster", configuration => {
       method: "POST",
       url: /mesos\/api\/v1\?GET_FLAGS/,
       response: require("../_fixtures/v1/get_flags"),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     }).as("getFlags");
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_VERSION/,
       response: require("../_fixtures/v1/get_version"),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     }).as("getVersion");
     cy.route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: require("../_fixtures/v1/get_master"),
-      headers: { "Content-Type": "application/json" }
+      headers: { "Content-Type": "application/json" },
     }).as("getMaster");
   }
 
@@ -171,15 +171,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -203,15 +203,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       response: require("../_fixtures/1-service-with-executor-task/mesos-subscribe"),
       delay: 100,
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:1-service-with-executor-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -257,15 +257,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -282,15 +282,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/healthy-tasks-in-mesos-and-marathon//mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -313,15 +313,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -407,15 +407,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -437,8 +437,8 @@ Cypress.Commands.add("configureCluster", configuration => {
         url: /package\/search(\?_timestamp=[0-9]+)?$/,
         response: require("../_fixtures/marathon-1-task/package-search"),
         headers: {
-          "Content-Type": "application/vnd.dcos.package.search-request+json"
-        }
+          "Content-Type": "application/vnd.dcos.package.search-request+json",
+        },
       });
   }
 
@@ -448,15 +448,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -477,15 +477,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
 
     router
@@ -527,62 +527,62 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /package\/describe/,
         status: 200,
-        response: "fx:cosmos/package-describe"
+        response: "fx:cosmos/package-describe",
       })
       .route({
         method: "POST",
         url: /service\/describe/,
         status: 200,
-        response: "fx:cosmos/service-describe"
+        response: "fx:cosmos/service-describe",
       })
       .route({
         method: "POST",
         url: /service\/update/,
         status: 200,
-        response: "fx:cosmos/service-update"
+        response: "fx:cosmos/service-update",
       })
       .route({
         method: "POST",
         url: /package\/list/,
         status: 200,
-        response: "fx:cosmos/packages-list"
+        response: "fx:cosmos/packages-list",
       })
       .route({
         method: "POST",
         url: /package\/list-versions/,
         status: 200,
-        response: "fx:cosmos/package-list-versions"
+        response: "fx:cosmos/package-list-versions",
       })
       .route({
         method: "POST",
         url: /package\/search/,
         status: 200,
-        response: "fx:cosmos/packages-search"
+        response: "fx:cosmos/packages-search",
       })
       .route({
         method: "POST",
         url: /package\/install/,
         status: 200,
-        response: "fx:cosmos/package-install"
+        response: "fx:cosmos/package-install",
       })
       // Repositories
       .route({
         method: "POST",
         url: /repository\/list/,
         status: 200,
-        response: "fx:cosmos/repositories-list"
+        response: "fx:cosmos/repositories-list",
       })
       .route({
         method: "POST",
         url: /repository\/add/,
         status: 200,
-        response: "fx:cosmos/repositories-list"
+        response: "fx:cosmos/repositories-list",
       })
       .route({
         method: "POST",
         url: /repository\/delete/,
         status: 200,
-        response: "fx:cosmos/repositories-list"
+        response: "fx:cosmos/repositories-list",
       });
   }
   if (configuration.universePackages === "communityPackage") {
@@ -592,7 +592,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /package\/describe/,
         status: 200,
-        response: "fx:cosmos/community-package-describe"
+        response: "fx:cosmos/community-package-describe",
       });
   }
 
@@ -603,7 +603,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /package\/describe/,
         status: 200,
-        response: "fx:cosmos/dependency-package-describe"
+        response: "fx:cosmos/dependency-package-describe",
       });
   }
 
@@ -614,7 +614,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /package\/describe/,
         status: 200,
-        response: "fx:cosmos/old-package-describe"
+        response: "fx:cosmos/old-package-describe",
       });
   }
   if (configuration.universePackages === "older") {
@@ -624,7 +624,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /package\/describe/,
         status: 200,
-        response: "fx:cosmos/older-package-describe"
+        response: "fx:cosmos/older-package-describe",
       });
   }
 
@@ -634,15 +634,15 @@ Cypress.Commands.add("configureCluster", configuration => {
       url: /mesos\/api\/v1\?subscribe/,
       response: require("../_fixtures/marathon-1-task/mesos-subscribe"),
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     }).route({
       method: "POST",
       url: /mesos\/api\/v1\?GET_MASTER/,
       response: "fx:marathon-1-task/mesos-get-master",
       headers: {
-        "Content-Type": "application/json"
-      }
+        "Content-Type": "application/json",
+      },
     });
   }
 
@@ -695,8 +695,8 @@ Cypress.Commands.add("configureCluster", configuration => {
           url: /dcos-ui-update-service\/api\/v1\/version\//,
           response: "fx:ui-settings/default-version",
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }).as("getUiVersion");
         break;
       case "v0.1.0":
@@ -705,8 +705,8 @@ Cypress.Commands.add("configureCluster", configuration => {
           url: /dcos-ui-update-service\/api\/v1\/version\//,
           response: "fx:ui-settings/version-010",
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }).as("getUiVersion");
         break;
       case "v0.1.1":
@@ -715,8 +715,8 @@ Cypress.Commands.add("configureCluster", configuration => {
           url: /dcos-ui-update-service\/api\/v1\/version\//,
           response: "fx:ui-settings/version-011",
           headers: {
-            "Content-Type": "application/json"
-          }
+            "Content-Type": "application/json",
+          },
         }).as("getUiVersion");
         break;
       case "error":
@@ -724,7 +724,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "GET",
           url: /dcos-ui-update-service\/api\/v1\/version\//,
           response: "Internal Server Error",
-          status: 500
+          status: 500,
         }).as("getUiVersion");
         break;
     }
@@ -734,7 +734,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "POST",
           url: /package\/list-versions/,
           status: 200,
-          response: "fx:ui-settings/package-versions-none"
+          response: "fx:ui-settings/package-versions-none",
         }).as("cosmosListVersions");
         break;
       case "error":
@@ -742,7 +742,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "POST",
           url: /package\/list-versions/,
           status: 500,
-          response: "Internal Server Error"
+          response: "Internal Server Error",
         }).as("cosmosListVersions");
         break;
       default:
@@ -750,7 +750,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "POST",
           url: /package\/list-versions/,
           status: 200,
-          response: "fx:ui-settings/package-versions"
+          response: "fx:ui-settings/package-versions",
         }).as("cosmosListVersions");
         break;
     }
@@ -761,8 +761,8 @@ Cypress.Commands.add("configureCluster", configuration => {
           url: /dcos-ui-update-service\/api\/v1\/reset\//,
           response: "OK",
           headers: {
-            "Content-Type": "text/plain"
-          }
+            "Content-Type": "text/plain",
+          },
         }).as("resetUiVersion");
         break;
       case "reset-fail":
@@ -770,7 +770,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "DELETE",
           url: /dcos-ui-update-service\/api\/v1\/reset\//,
           response: "Internal Server Error",
-          status: 500
+          status: 500,
         }).as("resetUiVersion");
         break;
       case "update-pass":
@@ -779,8 +779,8 @@ Cypress.Commands.add("configureCluster", configuration => {
           url: /dcos-ui-update-service\/api\/v1\/update\/([\w\d.-]+)\//,
           response: "OK",
           headers: {
-            "Content-Type": "text/plain"
-          }
+            "Content-Type": "text/plain",
+          },
         }).as("updateUiVersion");
         break;
       case "update-fail":
@@ -788,7 +788,7 @@ Cypress.Commands.add("configureCluster", configuration => {
           method: "POST",
           url: /dcos-ui-update-service\/api\/v1\/update\/([\w\d.-]+)\//,
           response: "Internal Server Error",
-          status: 500
+          status: 500,
         }).as("updateUiVersion");
         break;
     }
@@ -801,7 +801,7 @@ Cypress.Commands.add("configureCluster", configuration => {
       marathonEdit,
       marathonEditStatus,
       mesosQuotaUpdate,
-      mesosQuotaUpdateStatus
+      mesosQuotaUpdateStatus,
     } = configuration.groups;
 
     if (marathonCreate) {
@@ -809,7 +809,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /service\/marathon\/v2\/groups/,
         status: marathonCreateStatus || 200,
-        response: `fx:marathon-group-management/${marathonCreate}`
+        response: `fx:marathon-group-management/${marathonCreate}`,
       }).as("createGroup");
     }
     if (marathonEdit) {
@@ -817,7 +817,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "PATCH",
         url: /service\/marathon\/v2\/groups/,
         status: marathonEditStatus || 200,
-        response: `fx:marathon-group-management/${marathonEdit}`
+        response: `fx:marathon-group-management/${marathonEdit}`,
       }).as("editGroup");
     }
     if (mesosQuotaUpdate) {
@@ -825,7 +825,7 @@ Cypress.Commands.add("configureCluster", configuration => {
         method: "POST",
         url: /mesos\/api\/v1\?UPDATE_QUOTA/,
         status: mesosQuotaUpdateStatus || 201,
-        response: `fx:quota-management/${mesosQuotaUpdate}`
+        response: `fx:quota-management/${mesosQuotaUpdate}`,
       }).as("updateQuota");
     }
   }
@@ -838,7 +838,7 @@ Cypress.Commands.add("configureCluster", configuration => {
   router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
 });
 
-Cypress.Commands.add("visitUrl", options => {
+Cypress.Commands.add("visitUrl", (options) => {
   cy.visit(Cypress.env("CLUSTER_URL") + "/#" + options.url, {
     onBeforeLoad(win) {
       win.document.cookie =
@@ -853,7 +853,7 @@ Cypress.Commands.add("visitUrl", options => {
         initialized: true,
         page() {},
         push() {},
-        track() {}
+        track() {},
       };
 
       // cypress is currently not capable of intercepting requests made with the
@@ -862,7 +862,7 @@ Cypress.Commands.add("visitUrl", options => {
       // to. we need to eval our own fetch on the inner iframe to cross the
       // barrier between cypress and the "test-frame".
       win.eval(`window.fetch = ${xhrfetch.toString()}`);
-    }
+    },
   });
 });
 

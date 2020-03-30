@@ -1,8 +1,6 @@
 describe("Job Create Form", () => {
   function openTab(tab) {
-    cy.get(".menu-tabbed-item-label")
-      .contains(tab)
-      .click();
+    cy.get(".menu-tabbed-item-label").contains(tab).click();
   }
 
   function submit() {
@@ -23,7 +21,7 @@ describe("Job Create Form", () => {
     cy.configureCluster({
       jobDetails: true,
       mesos: "1-for-each-health",
-      nodeHealth: true
+      nodeHealth: true,
     });
     cy.visitUrl({ url: "/jobs/overview" });
   });
@@ -40,10 +38,7 @@ describe("Job Create Form", () => {
     context("General tab", () => {
       it("displays an error badge for the missing id", () => {
         // Fill-in the input elements
-        cy.root()
-          .get("label")
-          .contains("Command Only")
-          .click();
+        cy.root().get("label").contains("Command Only").click();
         cy.root()
           .getFormGroupInputFor("Command *")
           .type("while true; do echo 'test' ; sleep 100 ; done");
@@ -52,14 +47,12 @@ describe("Job Create Form", () => {
         submit();
 
         // Error banner lists errors
-        cy.get(".errorsAlert-listItem").should($items => {
+        cy.get(".errorsAlert-listItem").should(($items) => {
           expect($items.length).to.equal(1);
         });
 
         // Error badge appears
-        getActiveTabErrorBadge()
-          .contains("1")
-          .should("be.visible");
+        getActiveTabErrorBadge().contains("1").should("be.visible");
 
         // Fix error
         cy.root()
@@ -74,12 +67,8 @@ describe("Job Create Form", () => {
     context("Container Runtime tab", () => {
       it("displays an error badge for parameters", () => {
         openTab("Container Runtime");
-        cy.get(".form-control-toggle")
-          .contains("Docker Engine")
-          .click();
-        cy.get(".button-primary-link")
-          .contains("Add Parameter")
-          .click();
+        cy.get(".form-control-toggle").contains("Docker Engine").click();
+        cy.get(".button-primary-link").contains("Add Parameter").click();
         typeInInput("key.0.dockerParams", " ");
         submit();
         getActiveTabErrorBadge().contains("1");
@@ -116,9 +105,7 @@ describe("Job Create Form", () => {
     context("Volumes tab", () => {
       it("displays an error badge for volume", () => {
         openTab("Volumes");
-        cy.get(".button-primary-link")
-          .contains("Add Volume")
-          .click();
+        cy.get(".button-primary-link").contains("Add Volume").click();
         typeInInput("containerPath.0.volumes", " ");
         submit();
         getActiveTabErrorBadge().contains("2");

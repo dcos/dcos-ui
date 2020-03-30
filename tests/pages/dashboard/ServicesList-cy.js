@@ -2,16 +2,14 @@ describe("ServicesList", () => {
   context("Service List Widget", () => {
     beforeEach(() => {
       cy.configureCluster({
-        mesos: "1-task-healthy"
+        mesos: "1-task-healthy",
       }).visitUrl({ url: "/dashboard", identify: true });
     });
 
     it("shows an acceptable number of components", () => {
       cy.get(".dashboard-panel-list-service-health").within(() => {
-        cy.get("li").should($components => {
-          expect($components.length)
-            .to.be.at.least(1)
-            .and.to.be.lte(5);
+        cy.get("li").should(($components) => {
+          expect($components.length).to.be.at.least(1).and.to.be.lte(5);
         });
       });
     });

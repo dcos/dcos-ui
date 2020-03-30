@@ -7,9 +7,7 @@ describe("Service Table", () => {
       // filter to find the correct service
     }
 
-    cy.get(".form-control-group-add-on")
-      .eq(-1)
-      .click(); // close filter window
+    cy.get(".form-control-group-add-on").eq(-1).click(); // close filter window
     // scrolling right several times, as we (or react virtualized) seem to change the width of the table while scrolling as of today
     for (const i of [1, 2, 3]) {
       cy.get(".ReactVirtualized__Grid")
@@ -17,22 +15,18 @@ describe("Service Table", () => {
         .scrollTo("right", { duration: i * 200 }); // scroll to the actions column
     }
     cy.get(".actions-dropdown").should("not.to.have.length", 0);
-    cy.get(".actions-dropdown")
-      .eq(0)
-      .click();
+    cy.get(".actions-dropdown").eq(0).click();
   }
 
   function clickDropdownAction(actionText) {
-    cy.get(".dropdown-menu-items")
-      .contains(actionText)
-      .click();
+    cy.get(".dropdown-menu-items").contains(actionText).click();
   }
 
   context("Service status", () => {
     it("shows correct status and icon for a delayed service", () => {
       cy.configureCluster({
         mesos: "1-service-delayed",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -46,7 +40,7 @@ describe("Service Table", () => {
     it("shows correct status and icon for a delayed pod", () => {
       cy.configureCluster({
         mesos: "1-pod-delayed",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -62,7 +56,7 @@ describe("Service Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        nodeHealth: true
+        nodeHealth: true,
       });
       cy.visitUrl({ url: "/services/overview" });
 
@@ -75,7 +69,7 @@ describe("Service Table", () => {
         method: "DELETE",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
-        delay: SERVER_RESPONSE_DELAY
+        delay: SERVER_RESPONSE_DELAY,
       });
       cy.get(".modal-small .button-danger").should("have.class", "disabled");
     });
@@ -85,14 +79,14 @@ describe("Service Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-service-suspended",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.route({
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
-        delay: SERVER_RESPONSE_DELAY
+        delay: SERVER_RESPONSE_DELAY,
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -102,9 +96,7 @@ describe("Service Table", () => {
       openDropdown();
 
       // hides stop
-      cy.get(".dropdown-menu-items li")
-        .contains("Stop")
-        .should("not.exist");
+      cy.get(".dropdown-menu-items li").contains("Stop").should("not.exist");
 
       // shows resume
       cy.get(".dropdown-menu-items li")
@@ -134,7 +126,7 @@ describe("Service Table", () => {
       // opens the resume dialog without the instances textbox if the single app instance label exists
       cy.configureCluster({
         mesos: "1-service-suspended-single-instance",
-        nodeHealth: true
+        nodeHealth: true,
       });
       openDropdown();
       clickDropdownAction("Resume");
@@ -148,8 +140,8 @@ describe("Service Table", () => {
         status: 409,
         url: /marathon\/v2\/apps\/\/sleep/,
         response: {
-          message: "App is locked by one or more deployments."
-        }
+          message: "App is locked by one or more deployments.",
+        },
       });
 
       openDropdown();
@@ -168,8 +160,8 @@ describe("Service Table", () => {
         status: 403,
         url: /marathon\/v2\/apps\/\/sleep/,
         response: {
-          message: "Not Authorized to perform this action!"
-        }
+          message: "Not Authorized to perform this action!",
+        },
       });
 
       openDropdown();
@@ -187,15 +179,13 @@ describe("Service Table", () => {
         method: "PUT",
         url: /marathon\/v2\/apps\/\/sleep/,
         response: [],
-        delay: SERVER_RESPONSE_DELAY
+        delay: SERVER_RESPONSE_DELAY,
       });
 
       openDropdown();
       clickDropdownAction("Resume");
 
-      cy.get(".modal-footer .button-primary")
-        .as("primaryButton")
-        .click();
+      cy.get(".modal-footer .button-primary").as("primaryButton").click();
       cy.get("@primaryButton").should("have.class", "disabled");
       cy.get("@primaryButton").should("not.have.class", "disabled");
     });
@@ -204,9 +194,7 @@ describe("Service Table", () => {
       openDropdown();
       clickDropdownAction("Resume");
 
-      cy.get(".modal-footer .button")
-        .contains("Cancel")
-        .click();
+      cy.get(".modal-footer .button").contains("Cancel").click();
       cy.get(".modal-body").should("to.have.length", 0);
     });
   });
@@ -216,7 +204,7 @@ describe("Service Table", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-delayed",
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
 
@@ -228,7 +216,7 @@ describe("Service Table", () => {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/queue\/\/sleep\/delay/,
-          response: []
+          response: [],
         });
         cy.get(".toasts-container");
       });
@@ -238,7 +226,7 @@ describe("Service Table", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-task-healthy",
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
 
@@ -256,7 +244,7 @@ describe("Service Table", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-pod-delayed",
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
 
@@ -268,7 +256,7 @@ describe("Service Table", () => {
         cy.route({
           method: "DELETE",
           url: /marathon\/v2\/queue\/\/podses\/delay/,
-          response: []
+          response: [],
         });
         cy.get(".toasts-container");
       });
@@ -278,7 +266,7 @@ describe("Service Table", () => {
       beforeEach(() => {
         cy.configureCluster({
           mesos: "1-pod",
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
         openDropdown("podses");
@@ -296,7 +284,7 @@ describe("Service Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview/%2Fservices" });
@@ -321,14 +309,10 @@ describe("Service Table", () => {
       openDropdown("sleep");
 
       // restart does not exist
-      cy.get(".dropdown-menu-items")
-        .contains("restart")
-        .should("not.exist");
+      cy.get(".dropdown-menu-items").contains("restart").should("not.exist");
 
       // stop does not exist
-      cy.get(".dropdown-menu-items")
-        .contains("stop")
-        .should("not.exist");
+      cy.get(".dropdown-menu-items").contains("stop").should("not.exist");
 
       // opens the destroy dialog
       openDropdown("sleep");
@@ -341,9 +325,7 @@ describe("Service Table", () => {
       cy.get(".modal-body p").contains("sdk-sleep");
       cy.get(".modal .filter-input-text");
 
-      cy.get(".modal button")
-        .contains("Cancel")
-        .click();
+      cy.get(".modal button").contains("Cancel").click();
 
       cy.get(".modal").should("not.exist");
 
@@ -359,9 +341,7 @@ describe("Service Table", () => {
         "dcos test --name=/services/sdk-sleep update start --options=options.json"
       );
 
-      cy.get(".modal button")
-        .contains("Close")
-        .click();
+      cy.get(".modal button").contains("Close").click();
 
       cy.get(".modal").should("not.exist");
 
@@ -383,7 +363,7 @@ describe("Service Table", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-sdk-service",
-        nodeHealth: true
+        nodeHealth: true,
       });
 
       cy.visitUrl({ url: "/services/overview" });
@@ -402,9 +382,7 @@ describe("Service Table", () => {
       );
       cy.get(".modal .filter-input-text").should("not.exist");
 
-      cy.get(".modal button")
-        .contains("OK")
-        .click();
+      cy.get(".modal button").contains("OK").click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -425,9 +403,7 @@ describe("Service Table", () => {
         "dcos marathon app update /services/sleep options.json"
       );
 
-      cy.get(".modal button")
-        .contains("Close")
-        .click();
+      cy.get(".modal button").contains("Close").click();
 
       cy.get(".modal").should("not.exist");
     });
@@ -439,16 +415,14 @@ describe("Service Table", () => {
         cy.configureCluster({
           mesos: "1-task-healthy-with-region",
           regions: 1,
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
       });
 
       it("does contain the right region", () => {
         cy.get(".filter-input-text").type("sleep");
-        cy.get(".form-control-group-add-on")
-          .eq(-1)
-          .click(); // close filter window
+        cy.get(".form-control-group-add-on").eq(-1).click(); // close filter window
 
         cy.get(".ReactVirtualized__Grid")
           .eq(-1) // bottom right grid
@@ -462,16 +436,14 @@ describe("Service Table", () => {
         cy.configureCluster({
           mesos: "1-task-healthy-with-region",
           regions: 2,
-          nodeHealth: true
+          nodeHealth: true,
         });
         cy.visitUrl({ url: "/services/overview" });
       });
 
       it("does contain the right region", () => {
         cy.get(".filter-input-text").type("sleep");
-        cy.get(".form-control-group-add-on")
-          .eq(-1)
-          .click(); // close filter window
+        cy.get(".form-control-group-add-on").eq(-1).click(); // close filter window
 
         cy.get(".ReactVirtualized__Grid")
           .eq(-1) // bottom right grid
@@ -484,20 +456,16 @@ describe("Service Table", () => {
   it("renders groups", () => {
     cy.configureCluster({
       mesos: "1-sdk-service",
-      nodeHealth: true
+      nodeHealth: true,
     });
 
     cy.visitUrl({ url: "/services/overview" });
 
     // group status shows the highest priority
-    cy.get(".status-bar-text")
-      .eq(0)
-      .contains("Running (1 of 2)");
+    cy.get(".status-bar-text").eq(0).contains("Running (1 of 2)");
 
     // group status is an aggregate of children"
-    cy.get(".status-bar-text")
-      .eq(1)
-      .contains("Running (3 of 3)");
+    cy.get(".status-bar-text").eq(1).contains("Running (3 of 3)");
 
     // shows service status counts in group tooltip
     cy.get(".service-status-icon-wrapper > .tooltip-wrapper")

@@ -3,7 +3,7 @@ describe("Groups", () => {
     beforeEach(() => {
       cy.configureCluster({
         mesos: "1-task-healthy",
-        plugins: "organization"
+        plugins: "organization",
       });
 
       cy.route(
@@ -28,11 +28,9 @@ describe("Groups", () => {
         .type("{selectall}{backspace}")
         .type("{selectall}{backspace}");
 
-      cy.get(".modal-footer button.button-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-footer button.button-primary").contains("Create").click();
 
-      cy.get(".form-control-feedback").should($p => {
+      cy.get(".form-control-feedback").should(($p) => {
         // Should have found 2 elements
         expect($p.eq(0)).to.have.text("Field cannot be empty.");
       });
@@ -48,9 +46,7 @@ describe("Groups", () => {
         .type("{selectall}{backspace}")
         .type("mygroup");
 
-      cy.get(".modal-footer button.button-primary")
-        .contains("Create")
-        .click();
+      cy.get(".modal-footer button.button-primary").contains("Create").click();
     });
   });
 });

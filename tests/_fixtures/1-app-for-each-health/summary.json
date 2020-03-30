@@ -19,9 +19,7 @@
         "mem": 0
       },
       "pid": "scheduler-88e0ffb7-5d54-4bc4-984b-e546d4b1ebb1@172.17.8.101:47277",
-      "slave_ids": [
-        "20151002-000353-1695027628-5050-1177-S0"
-      ],
+      "slave_ids": ["20151002-000353-1695027628-5050-1177-S0"],
       "used_resources": {
         "cpus": 0.1,
         "disk": 0,
@@ -48,9 +46,7 @@
         "mem": 0
       },
       "pid": "scheduler-88e0ffb7-5d54-4bc4-984b-e546d4b1ebb1@172.17.8.101:47277",
-      "slave_ids": [
-        "20151002-000353-1695027628-5050-1177-S1"
-      ],
+      "slave_ids": ["20151002-000353-1695027628-5050-1177-S1"],
       "used_resources": {
         "cpus": 0.1,
         "disk": 0,
@@ -77,9 +73,7 @@
         "mem": 0
       },
       "pid": "scheduler-88e0ffb7-5d54-4bc4-984b-e546d4b1ebb1@172.17.8.101:47277",
-      "slave_ids": [
-        
-      ],
+      "slave_ids": [],
       "used_resources": {
         "cpus": 0.1,
         "disk": 0,
@@ -106,9 +100,7 @@
         "mem": 0
       },
       "pid": "scheduler-88e0ffb7-5d54-4bc4-984b-e546d4b1ebb1@172.17.8.101:47277",
-      "slave_ids": [
-        
-      ],
+      "slave_ids": [],
       "used_resources": {
         "cpus": 0.1,
         "disk": 0,
@@ -130,12 +122,8 @@
       "TASK_STAGING": 0,
       "TASK_STARTING": 0,
       "active": true,
-      "attributes": {
-        
-      },
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0000"
-      ],
+      "attributes": {},
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0000"],
       "hostname": "dcos-01",
       "id": "20151002-000353-1695027628-5050-1177-S0",
       "offered_resources": {
@@ -146,9 +134,7 @@
       "pid": "slave(1)@172.17.8.101:5051",
       "registered_time": 1443995289.19971,
       "reregistered_time": 1443995289.19981,
-      "reserved_resources": {
-        
-      },
+      "reserved_resources": {},
       "resources": {
         "cpus": 4,
         "disk": 10823,
@@ -178,14 +164,10 @@
       "TASK_STAGING": 0,
       "TASK_STARTING": 0,
       "active": true,
-      "attributes": {
-        
-      },
+      "attributes": {},
       "deactivated": true,
       "drain_info": { "state": "DRAINING", "config": {} },
-      "framework_ids": [
-        "20150827-210452-1695027628-5050-1445-0001"
-      ],
+      "framework_ids": ["20150827-210452-1695027628-5050-1445-0001"],
       "hostname": "167.114.218.155",
       "id": "20151002-000353-1695027628-5050-1177-S1",
       "offered_resources": {
@@ -196,9 +178,7 @@
       "pid": "slave(1)@167.114.218.155:5051",
       "registered_time": 1443995289.19971,
       "reregistered_time": 1443995289.19981,
-      "reserved_resources": {
-        
-      },
+      "reserved_resources": {},
       "resources": {
         "cpus": 4,
         "disk": 10823,
@@ -228,12 +208,8 @@
       "TASK_STAGING": 0,
       "TASK_STARTING": 0,
       "active": true,
-      "attributes": {
-        
-      },
-      "framework_ids": [
-        
-      ],
+      "attributes": {},
+      "framework_ids": [],
       "hostname": "167.114.218.156",
       "id": "20151002-000353-1695027628-5050-1177-S2",
       "offered_resources": {
@@ -244,9 +220,7 @@
       "pid": "slave(1)@167.114.218.156:5051",
       "registered_time": 1443995289.19971,
       "reregistered_time": 1443995289.19981,
-      "reserved_resources": {
-        
-      },
+      "reserved_resources": {},
       "resources": {
         "cpus": 16,
         "disk": 10823,
