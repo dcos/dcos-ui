@@ -1063,7 +1063,7 @@ describe("Services", () => {
 
       cy.get(".page-body-content .service-table").contains(serviceName);
     });
-    describe.skip("Vertical Bursting", () => {
+    describe("Vertical Bursting", () => {
       it("persists resource limits settings", () => {
         const serviceName = "resource-limit";
         cy.contains("Single Container").click();
