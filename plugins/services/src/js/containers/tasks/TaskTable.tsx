@@ -3,8 +3,7 @@ import classNames from "classnames";
 import { routerShape, Link } from "react-router";
 import PropTypes from "prop-types";
 import * as React from "react";
-import { Tooltip } from "reactjs-components";
-import { Icon } from "@dcos/ui-kit";
+import { Icon, Tooltip } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   iconSizeXs,
@@ -15,6 +14,7 @@ import {
 } from "@dcos/ui-kit/dist/packages/design-tokens/build/js/designTokens";
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
+import DCOSStore from "#SRC/js/stores/DCOSStore";
 import ResourceTableUtil from "#SRC/js/utils/ResourceTableUtil";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import Units from "#SRC/js/utils/Units";
@@ -41,6 +41,9 @@ const tableColumnClasses = {
   updated: "task-table-column-updated",
 };
 
+const getService = (taskId) =>
+  DCOSStore.serviceTree.getServiceFromTaskID(taskId);
+
 class TaskTable extends React.Component {
   static defaultProps = {
     className:
@@ -52,12 +55,10 @@ class TaskTable extends React.Component {
     className: PropTypes.string,
     onCheckboxChange: PropTypes.func,
     params: PropTypes.object.isRequired,
+    service: PropTypes.object.isRequired,
     tasks: PropTypes.array.isRequired,
     i18n: PropTypes.object,
   };
-  constructor(props) {
-    super(props);
-  }
   getStatValue(task, prop) {
     return task.resources[prop] || 0;
   }
@@ -163,7 +164,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "cpus",
-        render: this.renderStats,
+        render: this.renderCpus,
         sortable: true,
         sortFunction,
       },
@@ -174,7 +175,7 @@ class TaskTable extends React.Component {
         headerClassName: className,
         heading,
         prop: "mem",
-        render: this.renderStats,
+        render: this.renderMem,
         sortable: true,
         sortFunction,
       },
@@ -290,16 +291,18 @@ class TaskTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <Tooltip
-          content="View logs"
-          wrapperClassName="tooltip-wrapper text-align-center description"
+          id={`logs${task.id}`}
+          trigger={
+            <Link to={linkTo} title={title}>
+              <Icon
+                color={greyLightDarken1}
+                shape={SystemIcons.PageDocument}
+                size={iconSizeXs}
+              />
+            </Link>
+          }
         >
-          <Link to={linkTo} title={title}>
-            <Icon
-              color={greyLightDarken1}
-              shape={SystemIcons.PageDocument}
-              size={iconSizeXs}
-            />
-          </Link>
+          <Trans id="View Logs" />
         </Tooltip>
       </div>
     );
@@ -344,6 +347,63 @@ class TaskTable extends React.Component {
   renderStats = (prop, task) => {
     return (
       <span>{Units.formatResource(prop, this.getStatValue(task, prop))}</span>
+    );
+  };
+  renderMem = (_, task) => {
+    const memLimit = getService(task.id)?.getResourceLimits().mem;
+    if (memLimit != null && memLimit !== 0) {
+      return (
+        <Tooltip
+          id={`mem{task.id}`}
+          trigger={`${Units.formatResource(
+            "mem",
+            task.resources.mem
+          )} / ${Units.formatResource("mem", memLimit)}`}
+          maxWidth={150}
+        >
+          <Trans
+            id="{resource} are being guaranteed with a limit of {limit}"
+            render="span"
+            values={{
+              resource: Units.formatResource("mem", task.resources.mem),
+              limit: Units.formatResource("mem", memLimit),
+            }}
+          />
+        </Tooltip>
+      );
+    }
+    return <span>{Units.formatResource("mem", task.resources.mem)}</span>;
+  };
+  renderCpus = (_, task) => {
+    const cpusLimit = getService(task.id)?.getResourceLimits().cpus;
+    if (cpusLimit != null && cpusLimit !== 0) {
+      return (
+        <Tooltip
+          id={`cpu${task.id}`}
+          trigger={`${Units.formatResource(
+            "cpus",
+            task.resources.cpus
+          )} / ${Units.formatResource("cpus", cpusLimit)}`}
+          maxWidth={150}
+        >
+          <Trans
+            id="{resource} cpus are being guaranteed with a limit of {limit} cpus"
+            render="span"
+            values={{
+              resource: Units.formatResource("cpus", task.resources.cpus),
+              limit: Units.formatResource("cpus", cpusLimit),
+            }}
+          />
+        </Tooltip>
+      );
+    }
+    return (
+      <span>
+        {Units.formatResource("cpus", task.resources.cpus)}{" "}
+        {cpusLimit !== 0
+          ? ` / ${Units.formatResource("cpus", cpusLimit)}`
+          : null}
+      </span>
     );
   };
   renderStatus = (prop, task) => {
@@ -426,8 +486,8 @@ class TaskTable extends React.Component {
     return (
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon table-cell-task-dot task-status-indicator">
-          <Tooltip anchor="center" content={tooltipContent}>
-            {getStatusIcon()}
+          <Tooltip id={`health${task.id}`} trigger={getStatusIcon()}>
+            {tooltipContent}
           </Tooltip>
         </div>
       </div>

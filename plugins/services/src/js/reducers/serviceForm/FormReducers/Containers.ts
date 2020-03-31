@@ -5,6 +5,7 @@ import { DEFAULT_POD_CONTAINER } from "../../../constants/DefaultPod";
 import { FormReducer as endpointsFormReducer } from "./Endpoints";
 import { FormReducer as multiContainerArtifacts } from "./MultiContainerArtifacts";
 import { FormReducer as multiContainerHealthFormReducer } from "../MultiContainerHealthChecks";
+import { resourceLimitReducer } from "./resourceLimits";
 
 const containerReducer = combineReducers({
   cpus: simpleReducer("resources.cpus"),
@@ -12,8 +13,17 @@ const containerReducer = combineReducers({
   disk: simpleReducer("resources.disk"),
 });
 
-export function FormReducer(state, { type, path = [], value }) {
-  const [_, index, field, subField] = path;
+const limits = combineReducers({
+  cpus: resourceLimitReducer("cpus", parseFloat),
+  mem: resourceLimitReducer("mem"),
+});
+
+export function FormReducer(
+  this: { cache: null | any[]; healthCheckState: null | any[] },
+  state: any,
+  { type, path, value }: { type: symbol; path: string[]; value: any }
+) {
+  const [, index, field, subField] = path || [];
 
   if (!path.includes("containers")) {
     return state;
@@ -49,8 +59,12 @@ export function FormReducer(state, { type, path = [], value }) {
         this.cache.push({});
         break;
       case REMOVE_ITEM:
-        newState = newState.filter((item, index) => index !== value);
-        this.cache = this.cache.filter((item, index) => index !== value);
+        newState = newState.filter(
+          (_: unknown, itemIndex: number) => itemIndex !== value
+        );
+        this.cache = this.cache.filter(
+          (_item, itemIndex: number) => itemIndex !== value
+        );
         break;
     }
 
@@ -109,6 +123,15 @@ export function FormReducer(state, { type, path = [], value }) {
     newState[index].resources = containerReducer.call(
       this.cache[index],
       newState[index].resources,
+      { type, value, path: [field, subField] }
+    );
+  }
+
+  if (type === SET && "limits" === field) {
+    // Parse numbers
+    newState[index].limits = limits.call(
+      this.cache[index],
+      newState[index].limits,
       { type, value, path: [field, subField] }
     );
   }

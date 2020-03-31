@@ -73,19 +73,19 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
     });
@@ -168,27 +168,27 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Command")
         .contains(cmdline);
       cy.root()
@@ -290,23 +290,23 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("nginx");
       cy.root()
@@ -403,23 +403,23 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("python:3");
 
@@ -519,23 +519,23 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.5");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("python:3");
 
@@ -631,23 +631,23 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.5");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("\u2014");
 
@@ -746,19 +746,19 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
@@ -874,23 +874,23 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains("nginx");
 
@@ -1003,19 +1003,19 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
@@ -1113,19 +1113,19 @@ describe("Services", () => {
         .configurationMapValue("Service ID")
         .contains(`/${serviceName}`);
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.1");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("10 MiB");
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
@@ -1225,37 +1225,37 @@ describe("Services", () => {
         .contains(`/${serviceName}`);
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Instances")
         .contains("1");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.5");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Disk")
         .contains("\u2014");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Command")
         .contains(command);
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains(containerImage);
 
@@ -1400,32 +1400,32 @@ describe("Services", () => {
         .contains(`/${serviceName}`);
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Runtime")
         .contains("Universal Container Runtime (UCR)");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Instances")
         .contains(1);
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("CPU")
         .contains("0.5");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("Resources")
         .configurationMapValue("Memory")
         .contains("32 MiB");
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Container Image")
         .contains(containerImage);
 
       cy.root()
-        .configurationSection("Service")
+        .configurationSection("General")
         .configurationMapValue("Command")
         .contains(command);
 
@@ -1473,6 +1473,45 @@ describe("Services", () => {
         .getTableColumn("Load Balanced Address")
         .contents()
         .should("deep.equal", ["Not Enabled", "Not Enabled"]);
+    });
+    describe("Vertical Bursting", () => {
+      it("Limits appear in the review screen", () => {
+        const serviceName = "app-with-resource-limits";
+        const command = "python3 -m http.server 8080";
+        const containerImage = "python:3";
+
+        cy.contains("Single Container").click();
+        cy.root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+
+        cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.5");
+
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}32");
+        cy.root().getFormGroupInputFor("Container Image").type(containerImage);
+        cy.root().getFormGroupInputFor("Command").type(command);
+
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='limits.cpus']")
+          .type("{selectall}1");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='limits.mem']")
+          .type("{selectall}42");
+
+        cy.get("button").contains("Review & Run").click();
+
+        [
+          { section: "CPUs Limit", value: "1" },
+          { section: "Memory Limit", value: "42" },
+        ].map((test) => {
+          cy.root()
+            .configurationSection(test.section)
+            .configurationMapValue(test.value);
+        });
+      });
     });
   });
 });

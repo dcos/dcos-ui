@@ -25,6 +25,7 @@ export default [
   simpleParser(["disk"]),
   simpleParser(["gpus"]),
   simpleParser(["cmd"]),
+  simpleParser(["legacySharedCgroups"]),
   function scheduling(state) {
     if (state == null || state.scheduling == null) {
       return [];
