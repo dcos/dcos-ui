@@ -1061,28 +1061,20 @@ describe("Service Form Modal", () => {
             .children("option:eq(1)")
             .should("have.value", "BRIDGE");
 
-          // CALICO
-          cy.get("@networkType")
-            .children("option:eq(2)")
-            .should("have.value", "CONTAINER.calico");
-
           // CONTAINER.dcos-1
           cy.get("@networkType")
-            .children("option:eq(3)")
+            .children("option:eq(2)")
             .should("have.value", "CONTAINER.dcos-1");
 
           // User.dcos-2
           cy.get("@networkType")
-            .children("option:eq(4)")
+            .children("option:eq(3)")
             .should("have.value", "CONTAINER.dcos-2");
 
           // dcos-3
           cy.get("@networkType")
-            .children("option:eq(5)")
+            .children("option:eq(4)")
             .should("have.value", "CONTAINER.dcos-3");
-
-          // dcos-4
-          cy.get("@networkType").children("option:eq(6)").should("not.exist");
         });
 
         it('has all available enabled types without subnet6 when "Universal Container Runtime (UCR)" selected', () => {
@@ -1101,23 +1093,15 @@ describe("Service Form Modal", () => {
             .children("option:eq(1)")
             .should("have.value", "BRIDGE");
 
-          // CALICO
-          cy.get("@networkType")
-            .children("option:eq(2)")
-            .should("have.value", "CONTAINER.calico");
-
           // CONTAINER.dcos-1
           cy.get("@networkType")
-            .children("option:eq(3)")
+            .children("option:eq(2)")
             .should("have.value", "CONTAINER.dcos-1");
 
           // User.dcos-2
           cy.get("@networkType")
-            .children("option:eq(4)")
+            .children("option:eq(3)")
             .should("have.value", "CONTAINER.dcos-2");
-
-          // dcos-3
-          cy.get("@networkType").children("option:eq(5)").should("not.exist");
         });
       });
 

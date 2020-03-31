@@ -558,13 +558,25 @@ class MultiContainerNetworkingFormSection extends mixin(StoreMixin) {
   }
 
   getTypeSelections() {
-    const { mode, name } = this.props.data?.networks?.[0] || {};
-    const selectedValue = name ? `${mode}.${name}` : mode;
+    const networkType = findNestedPropertyInObject(
+      this.props.data,
+      "networks.0.mode"
+    );
+    const networkName = findNestedPropertyInObject(
+      this.props.data,
+      "networks.0.name"
+    );
+
+    let network = networkType;
+    if (networkName) {
+      network = `${networkType}.${networkName}`;
+    }
 
     return (
-      <FieldSelect name="networks.0" value={selectedValue}>
-        <Trans key="host" id="Host" render={<option value={HOST} />} />
-        <option value={`${CONTAINER}.calico`}>Virtual Network: Calico</option>
+      <FieldSelect name="networks.0" value={network}>
+        <Trans key="host" render={<option value={HOST} key="host" />}>
+          Host
+        </Trans>
         {getVirtualNetworks()}
       </FieldSelect>
     );
