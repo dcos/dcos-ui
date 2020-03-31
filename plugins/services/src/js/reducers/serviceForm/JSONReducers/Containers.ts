@@ -16,6 +16,7 @@ import {
 } from "../MultiContainerHealthChecks";
 import { PROTOCOLS } from "../../../constants/PortDefinitionConstants";
 import VipLabelUtil from "../../../utils/VipLabelUtil";
+import { JSONReducer as resourceLimitsReducer } from "./resourceLimits";
 
 const { CONTAINER, HOST } = Networking.type;
 
@@ -123,6 +124,26 @@ function containersParser(state) {
           new Transaction(
             ["containers", index, "resources", "disk"],
             resources.disk
+          )
+        );
+      }
+    }
+    if (item.resourceLimits != null) {
+      const { resourceLimits } = item;
+      if (resourceLimits.cpus != null) {
+        memo.push(
+          new Transaction(
+            ["containers", index, "limits", "cpus"],
+            resourceLimits.cpus
+          )
+        );
+      }
+
+      if (resourceLimits.mem != null) {
+        memo.push(
+          new Transaction(
+            ["containers", index, "limits", "mem"],
+            resourceLimits.mem
           )
         );
       }
@@ -328,9 +349,14 @@ function shouldDeleteContainerImage(image) {
 }
 
 export function JSONReducer(
-  state = [],
-  { type, path = [], value },
-  containerIndex
+  this: { networkType: string },
+  state: any[] = [],
+  {
+    type,
+    path = [],
+    value,
+  }: { type: symbol; path: Array<string | number>; value: unknown },
+  containerIndex: number
 ) {
   if (containerIndex === 0) {
     state = [];
@@ -521,6 +547,15 @@ export function JSONReducer(
     newState[index].resources = containerFloatReducer.call(
       this.cache[index],
       newState[index].resources,
+      { type, value, path: [field, subField] }
+    );
+  }
+
+  if (type === SET && "limits" === field) {
+    // Parse numbers
+    newState[index].resourceLimits = resourceLimitsReducer.call(
+      this.cache[index],
+      newState[index].resourceLimits,
       { type, value, path: [field, subField] }
     );
   }

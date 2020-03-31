@@ -11,6 +11,7 @@ import FieldHelp from "#SRC/js/components/form/FieldHelp";
 import FieldInput from "#SRC/js/components/form/FieldInput";
 import FieldLabel from "#SRC/js/components/form/FieldLabel";
 import FormGroup from "#SRC/js/components/form/FormGroup";
+import FormGroupHeading from "#SRC/js/components/form/FormGroupHeading";
 import FormGroupHeadingContent from "#SRC/js/components/form/FormGroupHeadingContent";
 import FormRow from "#SRC/js/components/form/FormRow";
 
@@ -57,6 +58,7 @@ const appPaths = {
   mem: "mem",
   privileged: "{basePath}.docker.privileged",
   type: "{basePath}.type",
+  limits: "limits",
 };
 
 const podPaths = {
@@ -73,7 +75,16 @@ const podPaths = {
   type: "{basePath}.type",
 };
 
-class ContainerServiceFormAdvancedSection extends React.Component {
+type resourceLimitType = { value: number; unlimited: boolean };
+
+class ContainerServiceFormAdvancedSection extends React.Component<
+  unknown & {
+    errors: unknown & { limits: string };
+    data: unknown & {
+      limits: { cpus: resourceLimitType; mem: resourceLimitType };
+    };
+  }
+> {
   static defaultProps = {
     data: {},
     errors: {},
@@ -239,6 +250,7 @@ class ContainerServiceFormAdvancedSection extends React.Component {
       findNestedPropertyInObject(errors, artifactsPath) || [];
     const diskPath = this.getFieldPath(path, "disk");
     const diskErrors = findNestedPropertyInObject(errors, diskPath);
+    const limitsErrors = errors?.limits;
 
     return (
       <div>
@@ -266,6 +278,66 @@ class ContainerServiceFormAdvancedSection extends React.Component {
               autoFocus={Boolean(diskErrors)}
             />
             <FieldError>{diskErrors}</FieldError>
+          </FormGroup>
+        </FormRow>
+        <Trans render="h2" className="short-bottom">
+          Limits
+        </Trans>
+        <Trans render="p">Limits settings for cpu and mem.</Trans>
+        <FormRow>
+          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeading>
+                <FormGroupHeadingContent>
+                  <Trans render="span">CPUs</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput
+              min="0"
+              name="limits.cpus"
+              step="0.01"
+              type="number"
+              value={data?.limits?.cpus?.value ?? ""}
+              autoFocus={Boolean(limitsErrors)}
+              disabled={data?.limits?.cpus?.unlimited === true}
+            />
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput
+                name="limits.cpus.unlimited"
+                type="checkbox"
+                checked={data?.limits?.cpus?.unlimited}
+              />
+              unlimited
+            </FieldLabel>
+            <FieldError>{limitsErrors}</FieldError>
+          </FormGroup>
+          <FormGroup className="column-4" showError={Boolean(limitsErrors)}>
+            <FieldLabel className="text-no-transform">
+              <FormGroupHeading>
+                <FormGroupHeadingContent>
+                  <Trans render="span">Memory (MiB)</Trans>
+                </FormGroupHeadingContent>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput
+              min="0"
+              name="limits.mem"
+              step="0.01"
+              type="number"
+              value={data?.limits?.mem?.value ?? ""}
+              autoFocus={Boolean(limitsErrors)}
+              disabled={data?.limits?.mem?.unlimited === true}
+            />
+            <FieldLabel matchInputHeight={true}>
+              <FieldInput
+                name="limits.mem.unlimited"
+                type="checkbox"
+                checked={data?.limits?.mem?.unlimited}
+              />
+              unlimited
+            </FieldLabel>
+            <FieldError>{limitsErrors}</FieldError>
           </FormGroup>
         </FormRow>
         <ArtifactsSection

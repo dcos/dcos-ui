@@ -8,13 +8,7 @@ import sort from "array-sort";
 import { componentFromStream } from "@dcos/data-service";
 import { combineLatest, pipe } from "rxjs";
 import { map } from "rxjs/operators";
-import {
-  Icon,
-  Table,
-  Column,
-  SortableHeaderCell,
-  NumberCell,
-} from "@dcos/ui-kit";
+import { Icon, Table, Column, SortableHeaderCell } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
   greyDark,
@@ -44,11 +38,9 @@ import { instancesRenderer } from "../../columns/ServicesTableInstancesColumn";
 import { memRenderer } from "../../columns/ServicesTableMemColumn";
 import { diskRenderer } from "../../columns/ServicesTableDiskColumn";
 import { gpuRenderer } from "../../columns/ServicesTableGPUColumn";
+import { cpuRenderer } from "../../columns/ServicesTableCPUColumn";
 
 import { actionsRendererFactory } from "../../columns/ServicesTableActionsColumn";
-import Service from "../../structs/Service";
-import Pod from "../../structs/Pod";
-import Units from "#SRC/js/utils/Units";
 
 const DELETE = ServiceActionItem.DELETE;
 const EDIT = ServiceActionItem.EDIT;
@@ -129,12 +121,6 @@ function sortData(
 const widthFor = (col: string) =>
   TableColumnResizeStore.get(columnWidthsStorageKey)?.[col];
 
-const cpuRenderer = (service: Service | Pod | ServiceTree): React.ReactNode => (
-  <NumberCell>
-    <span>{Units.formatResource("cpus", service.getResources()[`cpus`])}</span>
-  </NumberCell>
-);
-
 export const columnWidthsStorageKey = "servicesTableColWidths";
 
 class ServicesTable extends React.Component {
@@ -147,7 +133,7 @@ class ServicesTable extends React.Component {
     services: PropTypes.array,
   };
   constructor(props) {
-    super(...arguments);
+    super(props);
     this.actionsRenderer = actionsRendererFactory(
       this.handleActionDisabledModalOpen.bind(this),
       this.handleServiceAction.bind(this)

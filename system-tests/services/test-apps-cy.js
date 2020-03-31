@@ -1063,5 +1063,35 @@ describe("Services", () => {
 
       cy.get(".page-body-content .service-table").contains(serviceName);
     });
+    describe.skip("Vertical Bursting", () => {
+      it("persists resource limits settings", () => {
+        const serviceName = "resource-limit";
+        cy.contains("Single Container").click();
+        cy.root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+
+        cy.root()
+          .getFormGroupInputFor("Command")
+          .type("while true; do sleep 10000; done;");
+        cy.root().getFormGroupInputFor("Container Image").type("alpine");
+        cy.contains("More Settings").click();
+        cy.root().getFormGroupInputFor("CPUs").type("{selectall}1");
+        cy.root().getFormGroupInputFor("Memory (MiB)").type("{selectall}42");
+        cy.get("label").contains("JSON Editor").click();
+        cy.get("button").contains("Review & Run").click();
+
+        cy.get("button").contains("Run Service").click();
+
+        cy.get(".page-body-content .service-table").contains(serviceName);
+        cy.root().contains(serviceName).click();
+        cy.root().contains("Edit").click();
+
+        cy.root().getFormGroupInputFor("CPUs").should("have.value", "1");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .should("have.value", "42");
+      });
+    });
   });
 });

@@ -7,32 +7,33 @@ import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
 
-export const ServiceMem = React.memo(
+export const ServiceCPU = React.memo(
   ({
     resource,
     limit,
+    id,
   }: {
     resource: string;
-    limit: number | string | null;
+    limit?: number | string;
     id: string;
   }) => {
     if (limit != null && limit !== 0) {
       return (
         <NumberCell>
           <Tooltip
-            id={`mem{id}`}
+            id={`cpu${id}`}
             trigger={`${Units.formatResource(
-              "mem",
+              "cpus",
               resource
-            )} / ${Units.formatResource("mem", limit)}`}
+            )} / ${Units.formatResource("cpus", limit)}`}
             maxWidth={150}
           >
             <Trans
-              id="{resource} are being guaranteed with a limit of {limit}"
+              id="{resource} cpus are being guaranteed with a limit of {limit} cpus"
               render="span"
               values={{
-                resource: Units.formatResource("mem", resource),
-                limit: Units.formatResource("mem", limit),
+                resource: Units.formatResource("cpus", resource),
+                limit: Units.formatResource("cpus", limit),
               }}
             />
           </Tooltip>
@@ -41,20 +42,20 @@ export const ServiceMem = React.memo(
     }
     return (
       <NumberCell>
-        <span>{Units.formatResource("mem", resource)}</span>
+        <span>{Units.formatResource("cpus", resource)}</span>
       </NumberCell>
     );
   }
 );
 
-export function memRenderer(
+export function cpuRenderer(
   service: Service | Pod | ServiceTree
 ): React.ReactNode {
   return (
-    <ServiceMem
+    <ServiceCPU
       id={service.getId()}
-      resource={service.getResources().mem}
-      limit={service.getResourceLimits().mem}
+      resource={service.getResources().cpus}
+      limit={service.getResourceLimits().cpus}
     />
   );
 }

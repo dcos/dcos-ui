@@ -1555,5 +1555,48 @@ describe("Services", () => {
           });
         });
     });
+    describe("Vertical Bursting", () => {
+      it("Limits appear in the review screen", () => {
+        const serviceName = "pod-with-resource-limits";
+        const cmdline = "while true; do echo 'test' ; sleep 100 ; done";
+        const containerName = "container-1";
+
+        // Select 'Multi-container (Pod)'
+        cy.contains("Multi-container (Pod)").click();
+
+        // Fill-in the input elements
+        cy.root()
+          .getFormGroupInputFor("Service ID *")
+          .type(`{selectall}{rightarrow}${serviceName}`);
+
+        cy.get(".menu-tabbed-item").contains(containerName).click();
+
+        cy.root().getFormGroupInputFor("CPUs *").type("{selectall}0.1");
+        cy.root().getFormGroupInputFor("Memory (MiB) *").type("{selectall}10");
+        cy.root().getFormGroupInputFor("Command").type(cmdline);
+
+        cy.contains("More Settings").click();
+        cy.root()
+          .getFormGroupInputFor("CPUs")
+          .filter("input[name='containers.0.limits.cpus']")
+          .type("{selectall}1");
+        cy.root()
+          .getFormGroupInputFor("Memory (MiB)")
+          .filter("input[name='containers.0.limits.mem.unlimited']")
+          .check({ force: true });
+
+        cy.get("button").contains("Review & Run").click();
+
+        [
+          { section: "CPUs Limit", value: "1" },
+          { section: "Memory Limit", value: "unlimited" },
+        ].map((test) => {
+          cy.root()
+            .configurationSection("container-1")
+            .configurationMapValue(test.section)
+            .contains(test.value);
+        });
+      });
+    });
   });
 });

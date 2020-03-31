@@ -1,7 +1,7 @@
 const glob = require("glob");
 
 // Return directories within the given path.
-const dirs = path => (path ? glob.sync(`${path}/*/`) : []);
+const dirs = (path) => (path ? glob.sync(`${path}/*/`) : []);
 
 /**
  * List of root (test path) directories
@@ -20,13 +20,13 @@ module.exports = {
   testURL: "http://localhost/",
   globals: {
     "ts-jest": {
-      useBabelrc: true
-    }
+      useBabelrc: true,
+    },
   },
   roots,
   transform: {
     "^.+\\.jsx?$": "ts-jest",
-    "^.+\\.tsx?$": "ts-jest"
+    "^.+\\.tsx?$": "ts-jest",
   },
   setupFilesAfterEnv: ["./jest/setupTestFramework.ts"],
   setupFiles: ["./jest/setupEnv.ts"],
@@ -34,9 +34,9 @@ module.exports = {
   moduleFileExtensions: ["js", "jsx", "json", "ts", "tsx"],
   modulePathIgnorePatterns: ["/tmp/", "/node_modules/", "/.module-cache/"],
   moduleNameMapper: {
-    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.ts"
+    "\\.(jpe?g|png|gif|bmp|svg|less|raml)$": "<rootDir>/jest/fileMock.ts",
   },
   timers: "fake",
   coverageReporters: ["json", "lcov", "cobertura", "text"],
-  testPathIgnorePatterns: ["/tmp/", "/node_modules/"]
+  testPathIgnorePatterns: ["/tmp/", "/node_modules/"],
 };

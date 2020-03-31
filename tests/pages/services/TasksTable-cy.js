@@ -94,7 +94,9 @@ describe("Tasks Table", () => {
 
       it("correctly shows health", () => {
         cy.get("@tds").eq(7).find(".dot").trigger("mouseover");
-        cy.get(".tooltip").contains("No health checks available");
+        cy.get('[data-cy="tooltipContent"]').contains(
+          "No health checks available"
+        );
       });
     });
 
@@ -118,7 +120,7 @@ describe("Tasks Table", () => {
           .eq(7)
           .find(".task-status-indicator")
           .trigger("mouseover");
-        cy.get(".tooltip").contains("Healthy");
+        cy.get('[data-cy="tooltipContent"]').contains("Healthy");
       });
     });
   });
