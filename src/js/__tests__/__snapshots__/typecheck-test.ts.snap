@@ -1895,7 +1895,7 @@ plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2339: Proper
 plugins/secrets/components/forms/JobSecretsFormSection.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2741: Property 'onClick' is missing in type '{}' but required in type *.
 plugins/secrets/components/forms/JobsEnvSecretsPartial.tsx: error TS2322: Type 'void' is not assignable to type *.
-plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 284 more.
+plugins/secrets/components/forms/MultiContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, slot, and 284 more.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'errors' does not exist on type *.
@@ -1914,7 +1914,7 @@ plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2
 plugins/secrets/components/forms/MultiContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
 plugins/secrets/components/forms/SecretExposureTypeSelect.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/forms/SecretInput.tsx: error TS2322: Type 'RefObject<HTMLInputElement>' is not assignable to type 'string'.
-plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, select, and 284 more.
+plugins/secrets/components/forms/SingleContainerSecret.tsx: error TS2740: type * is missing the following properties from type *: id, title, form, slot, and 284 more.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2345: Argument of type 'Element' is not assignable to parameter of type 'never'.
 plugins/secrets/components/forms/SingleContainerSecretsFormSection.tsx: error TS2339: Property 'data' does not exist on type *.
