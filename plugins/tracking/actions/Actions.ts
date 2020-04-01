@@ -31,14 +31,8 @@ const Actions = {
   },
 
   metadataLoaded() {
-    const metadata = SDK.Store.getAppState().metadata;
-
-    return (
-      metadata &&
-      metadata.dcosMetadata &&
-      metadata.metadata &&
-      metadata.metadata.CLUSTER_ID
-    );
+    const { metadata } = SDK.Store.getAppState();
+    return metadata?.dcosMetadata && metadata?.metadata?.CLUSTER_ID;
   },
 
   listenForDcosMetadata() {

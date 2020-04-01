@@ -50,7 +50,7 @@ class MetadataStore extends GetSetBaseStore {
           }
           break;
         case REQUEST_DCOS_METADATA:
-          const oldDCOSMetadata = this.get("dcosMetadata");
+          const oldDCOSMetadata = this.dcosMetadata;
           const dcosMetadata = action.data;
 
           // only emitting on change
@@ -79,11 +79,7 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   init() {
-    this.set({
-      metadata: {},
-      dcosBuildInfo: null,
-    });
-
+    this.set({ metadata: {}, dcosBuildInfo: null });
     MetadataActions.fetch();
   }
 
@@ -109,40 +105,29 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   get bootstrapId() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["bootstrap-id"];
+    return this.dcosMetadata?.["bootstrap-id"];
   }
 
   get clusterId() {
-    const metadata = this.get("metadata");
-
-    return metadata && metadata.CLUSTER_ID;
+    return this.metadata?.CLUSTER_ID;
   }
 
   get imageCommit() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["dcos-image-commit"];
+    return this.dcosMetadata?.["dcos-image-commit"];
   }
 
   get variant() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["dcos-variant"];
+    return this.dcosMetadata?.["dcos-variant"];
   }
 
   get version() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata.version;
+    return this.dcosMetadata?.version;
   }
 
   get parsedVersion() {
-    let version = this.version || "latest";
-    version = version.split("-")[0];
-
-    return version.replace(/(.*?)\.(.*?)\..*/, "$1.$2");
+    return (this.version || "latest")
+      .split("-")[0]
+      .replace(/(.*?)\.(.*?)\..*/, "$1.$2");
   }
 }
 
