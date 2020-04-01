@@ -1,24 +1,19 @@
 import * as MesosClient from "@dcos/mesos-client";
 import {
   map,
-  retryWhen,
   shareReplay,
   catchError,
   distinctUntilChanged,
 } from "rxjs/operators";
 import { Observable, of } from "rxjs";
 
-import { linearBackoff } from "../utils/rxjsUtils";
-import Util from "#SRC/js/utils/Util";
-
+import { retryWithLinearBackoff } from "../utils/rxjsUtils";
 const { request } = MesosClient;
-const MAX_RETRIES = 5;
-const RETRY_DELAY = 500;
 
 export const MesosMasterRequestType = Symbol("MesosMasterRequest");
 
 export default request({ type: "GET_MASTER" }, "/mesos/api/v1?GET_MASTER").pipe(
-  retryWhen(linearBackoff(RETRY_DELAY, MAX_RETRIES)),
+  retryWithLinearBackoff(),
   shareReplay()
 );
 
@@ -28,10 +23,8 @@ export function getMasterRegionName(
   return response$.pipe(
     map(
       (masterRequest) =>
-        Util.findNestedPropertyInObject(
-          masterRequest,
-          "get_master.master_info.domain.fault_domain.region.name"
-        ) || "N/A"
+        masterRequest?.get_master?.master_info?.domain?.fault_domain?.region
+          ?.name || "N/A"
     ),
     catchError((err) => {
       console.error("Error getting the master region name", err);

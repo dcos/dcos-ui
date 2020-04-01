@@ -23,14 +23,11 @@ import {
   MESOS_STATE_REQUEST_ERROR,
 } from "../constants/EventTypes";
 import MesosStateUtil from "../utils/MesosStateUtil";
-import { linearBackoff } from "../utils/rxjsUtils";
+import { retryWithLinearBackoff } from "../utils/rxjsUtils";
 import { MesosStreamType } from "../core/MesosStream";
 import { MesosMasterRequestType } from "../core/MesosMasterRequest";
 import container from "../container";
 import * as mesosStreamParsers from "./MesosStream/parsers";
-
-const RETRY_DELAY = 500;
-const MAX_RETRY_DELAY = 5000;
 
 const pipe = (callables: any[]) => (state, ...rest) =>
   callables.reduce((acc, c) => c.call(c, acc, ...rest), state);
@@ -128,7 +125,7 @@ class MesosStateStore extends GetSetBaseStore {
       .pipe(
         concat(eventTrigger$),
         sampleTime(Config.getRefreshRate() * 0.5),
-        retryWhen(linearBackoff(RETRY_DELAY, -1, MAX_RETRY_DELAY))
+        retryWithLinearBackoff()
       )
       .subscribe(
         () => Promise.resolve().then(this.onStreamData),

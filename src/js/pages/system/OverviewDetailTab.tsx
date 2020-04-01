@@ -30,6 +30,7 @@ import MetadataStore from "../../stores/MetadataStore";
 import Page from "../../components/Page";
 import VersionsModal from "../../components/modals/VersionsModal";
 import { isEmpty } from "../../utils/ValidatorUtil";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const SystemOverviewBreadcrumbs = () => {
   const crumbs = [
@@ -61,13 +62,13 @@ class OverviewDetailTab extends mixin(StoreMixin) {
       version: undefined,
       buildTime: undefined,
       startTime: undefined,
+      dcosVersion: undefined,
     };
 
-    // prettier-ignore
     this.store_listeners = [
       { name: "config", events: ["ccidSuccess"] },
       { name: "marathon", events: ["instanceInfoSuccess"] },
-      {name: "metadata", events: ["dcosBuildInfoChange", "dcosSuccess", "success"]}
+      { name: "metadata", events: ["dcosBuildInfoChange", "success"] },
     ];
   }
 
@@ -76,6 +77,9 @@ class OverviewDetailTab extends mixin(StoreMixin) {
 
     MarathonStore.fetchMarathonInstanceInfo();
     MetadataStore.fetchDCOSBuildInfo();
+    dcosVersion$.subscribe(({ version }) => {
+      this.setState({ dcosVersion: version });
+    });
 
     request({ type: "GET_FLAGS" }, "/mesos/api/v1?GET_FLAGS").subscribe(
       (response) => {
@@ -128,7 +132,7 @@ class OverviewDetailTab extends mixin(StoreMixin) {
   getClusterDetails() {
     let ccid = ConfigStore.get("ccid");
     let publicIP = this.getPublicIP();
-    let productVersion = MetadataStore.version;
+    let productVersion = this.state.dcosVersion;
 
     if (Object.keys(ccid).length) {
       ccid = ccid.zbase32_public_key;

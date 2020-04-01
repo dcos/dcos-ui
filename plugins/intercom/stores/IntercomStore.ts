@@ -2,7 +2,6 @@ import PluginSDK from "PluginSDK";
 
 import GetSetBaseStore from "#SRC/js/stores/GetSetBaseStore";
 import {
-  DCOS_METADATA_CHANGE,
   METADATA_CHANGE,
   HEALTH_NODES_CHANGE,
   CLUSTER_CCID_SUCCESS,
@@ -10,6 +9,7 @@ import {
 import AuthStore from "#SRC/js/stores/AuthStore";
 import ConfigStore from "#SRC/js/stores/ConfigStore";
 import MetadataStore from "#SRC/js/stores/MetadataStore";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 import NodeHealthStore from "../../nodes/src/js/stores/NodeHealthStore";
 
 import { INTERCOM_CHANGE } from "../constants/EventTypes";
@@ -35,14 +35,20 @@ class IntercomStore extends GetSetBaseStore<{
       },
       unmountWhen: () => false,
     });
+
+    dcosVersion$.subscribe((data) => {
+      this.set({
+        bootstrap_id: data.bootstrapId,
+        dcos_image_commit: data.imageCommit,
+        dcos_variant: data.variant,
+        dcos_version: data.version,
+      });
+
+      this.emit(INTERCOM_CHANGE);
+    });
   }
 
   removeStoreListeners() {
-    MetadataStore.removeChangeListener(
-      DCOS_METADATA_CHANGE,
-      this.onDCOSMetadataChange
-    );
-
     MetadataStore.removeChangeListener(METADATA_CHANGE, this.onMetadataChange);
 
     ConfigStore.removeChangeListener(
@@ -60,11 +66,6 @@ class IntercomStore extends GetSetBaseStore<{
   }
 
   addStoreListeners() {
-    MetadataStore.addChangeListener(
-      DCOS_METADATA_CHANGE,
-      this.onDCOSMetadataChange
-    );
-
     MetadataStore.addChangeListener(METADATA_CHANGE, this.onMetadataChange);
 
     NodeHealthStore.addChangeListener(
@@ -85,17 +86,6 @@ class IntercomStore extends GetSetBaseStore<{
 
     this.on(eventName, callback);
   }
-
-  onDCOSMetadataChange = () => {
-    this.set({
-      bootstrap_id: MetadataStore.bootstrapId,
-      dcos_image_commit: MetadataStore.imageCommit,
-      dcos_variant: MetadataStore.variant,
-      dcos_version: MetadataStore.version,
-    });
-
-    this.emit(INTERCOM_CHANGE);
-  };
 
   onMetadataChange = () => {
     this.set({ cluster_id: MetadataStore.clusterId });

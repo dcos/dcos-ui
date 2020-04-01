@@ -39,6 +39,7 @@ import { DCOS_CHANGE } from "#SRC/js/constants/EventTypes";
 import * as LastUpdated from "#SRC/js/components/LastUpdated";
 import FrameworkUtil from "#PLUGINS/services/src/js/utils/FrameworkUtil";
 import * as semver from "semver/preload";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const runningServicesNames = (labels = []) =>
   labels
@@ -128,6 +129,9 @@ class PackageDetailTab extends mixin(StoreMixin) {
     super.componentDidMount(...args);
 
     DCOSStore.addChangeListener(DCOS_CHANGE, this.onStoreChange);
+    dcosVersion$.subscribe(({ version }) => {
+      this.setState({ version });
+    });
     this.retrievePackageInfo(
       this.props.params.packageName,
       this.props.location.query.version
@@ -374,10 +378,10 @@ class PackageDetailTab extends mixin(StoreMixin) {
     }
 
     if (
-      MetadataStore.version &&
+      this.state.version &&
       cosmosPackage.minDcosReleaseVersion &&
       semver.compare(
-        semver.coerce(MetadataStore.version),
+        semver.coerce(this.state.version),
         semver.coerce(cosmosPackage.minDcosReleaseVersion)
       ) < 0
     ) {
@@ -388,7 +392,7 @@ class PackageDetailTab extends mixin(StoreMixin) {
             <Trans>
               This version of {cosmosPackage.getName()} requires DC/OS version{" "}
               {cosmosPackage.minDcosReleaseVersion} or higher, but you are
-              running DC/OS version {semver.coerce(MetadataStore.version)}
+              running DC/OS version {semver.coerce(this.state.version)}
             </Trans>
           ),
         },
