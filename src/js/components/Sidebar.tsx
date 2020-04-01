@@ -97,7 +97,7 @@ class Sidebar extends React.Component {
     this.forceUpdate();
   };
   handleKeyPress = (event) => {
-    const nodeName = event.target.nodeName;
+    const { nodeName } = event.target;
 
     if (
       event.keyCode === keyCodes.leftBracket &&
@@ -287,12 +287,8 @@ class Sidebar extends React.Component {
   }
 
   getVersion() {
-    const data = MetadataStore.get("dcosMetadata");
-    if (data == null || data.version == null) {
-      return null;
-    }
-
-    return <span className="version-number">v.{data.version}</span>;
+    const version = MetadataStore.dcosMetadata?.version;
+    return version ? <span className="version-number">v.{version}</span> : null;
   }
 
   toggleSidebarDocking() {
