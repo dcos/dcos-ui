@@ -21,6 +21,7 @@ MountService.MountService.registerComponent(
 export default class ClusterHeader extends mixin(StoreMixin) {
   constructor(...args) {
     super(...args);
+    MetadataStore.init();
 
     // prettier-ignore
     this.store_listeners = [

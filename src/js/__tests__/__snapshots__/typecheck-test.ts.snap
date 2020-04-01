@@ -904,11 +904,9 @@ plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Pr
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'onFilterChange' does not exist on type *.
 plugins/nodes/src/js/pages/nodes-overview/HostsPageContent.tsx: error TS2339: Property 'filters' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailHealthTab.tsx: error TS2322: type * is not assignable to type *.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
-plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS6133: 'RouterUtil' is declared but its value is never read.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'node' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'summaryStatesProcessed' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'mesosStateLoaded' does not exist on type 'Readonly<{}>'.
@@ -928,6 +926,7 @@ plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2345: Argument of t
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2339: Property 'node' does not exist on type *.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: type * is not assignable to type 'never'.
+plugins/nodes/src/js/pages/nodes/NodeDetailPage.tsx: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2339: Property 'masterRegion' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/NodeDetailTab.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
@@ -4789,8 +4788,6 @@ plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'anal
 plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/hooks.tsx: error TS2339: Property 'configuration' does not exist on type *.
 plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
 plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
@@ -5370,22 +5367,9 @@ src/js/components/SideTabs.tsx: error TS2339: Property 'selectedTab' does not ex
 src/js/components/SideTabs.tsx: error TS2339: Property 'tabs' does not exist on type *.
 src/js/components/SideTabs.tsx: error TS2339: Property 'dropdownOpen' does not exist on type 'Readonly<{}>'.
 src/js/components/Sidebar.tsx: error TS2339: Property 'expandedItems' does not exist on type 'Readonly<{}>'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
 src/js/components/Sidebar.tsx: error TS2322: Type 'Element' is not assignable to type 'null'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'location' does not exist on type *.
 src/js/components/Sidebar.tsx: error TS2339: Property 'expandedItems' does not exist on type 'Readonly<{}>'.
 src/js/components/Sidebar.tsx: error TS2322: type * is not assignable to type 'boolean'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'location' does not exist on type *.
-src/js/components/Sidebar.tsx: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'geminiRef' does not exist on type 'Sidebar'.
-src/js/components/Sidebar.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-src/js/components/Sidebar.tsx: error TS2554: Expected 1-2 arguments, but got 0.
-src/js/components/Sidebar.tsx: error TS2339: Property 'location' does not exist on type *.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
-src/js/components/Sidebar.tsx: error TS2339: Property 'sidebarWrapperRef' does not exist on type 'Sidebar'.
 src/js/components/TabButton.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
 src/js/components/TabButton.tsx: error TS2448: Block-scoped variable 'classProps' used before its declaration.
 src/js/components/TabButton.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
@@ -5725,6 +5709,7 @@ src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error T
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2571: Object is of type 'unknown'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2571: Object is of type 'unknown'.
 src/js/components/modals/__tests__/LanguagePreferenceFormModal-test.tsx: error TS2322: type * is not assignable to type *.
+src/js/core/MesosMasterRequest.ts: error TS2339: Property 'get_master' does not exist on type 'object'.
 src/js/core/MesosStream.ts: error TS2345: Argument of type * is not assignable to parameter of type 'Uint8Array'.
 src/js/core/MesosStream.ts: error TS2339: Property 'toObject' does not exist on type 'ReflectionObject'.
 src/js/core/MesosStream.ts: error TS2531: Object is possibly 'null'.
@@ -5795,7 +5780,6 @@ src/js/pages/DashboardPage.tsx: error TS2339: Property 'unitHealthUnits' does no
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/DashboardPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'DashboardPage'.
-src/js/pages/Index.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'deployErrors' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/DeployFrameworkConfiguration.tsx: error TS2339: Property 'formData' does not exist on type 'Readonly<{}>'.
@@ -5829,12 +5813,15 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type 'any' 
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'runningPackageNames' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2307: Cannot find module '#PLUGINS/services/src/img/icon-service-default-large@2x.png'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'version' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2531: Object is possibly 'null'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'key' does not exist on type 'never'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'location' does not exist on type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'value' does not exist on type 'never'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'hasError' does not exist on type 'Readonly<{}>'.
@@ -5849,8 +5836,8 @@ src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSele
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
-src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isConfirmOpen' does not exist on type 'Readonly<{}>'.
+src/js/pages/catalog/PackageDetailTab.tsx: error TS2322: type * is not assignable to type *.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2339: Property 'isLoadingSelectedVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
 src/js/pages/catalog/PackageDetailTab.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
@@ -5979,6 +5966,7 @@ src/js/pages/system/OrganizationTab.tsx: error TS2722: Cannot invoke an object w
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
 src/js/pages/system/OrganizationTab.tsx: error TS2339: Property 'items' does not exist on type *.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
+src/js/pages/system/OverviewDetailTab.tsx: error TS2339: Property 'dcosVersion' does not exist on type 'Readonly<{}>'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2769: No overload matches this call.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2571: Object is of type 'unknown'.
 src/js/pages/system/OverviewDetailTab.tsx: error TS2322: Type 'unknown' is not assignable to type 'ReactNode'.
@@ -6127,6 +6115,7 @@ src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"lastMesosSt
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type '\\"master\\"' is not assignable to parameter of type 'never'.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStateStore.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+src/js/stores/MesosStateStore.ts: error TS6133: 'retryWhen' is declared but its value is never read.
 src/js/stores/MesosStateStore.ts: error TS2571: Object is of type 'unknown'.
 src/js/stores/MesosStream/parsers/__tests__/master-test.ts: error TS2339: Property 'start_time' does not exist on type *.
 src/js/stores/MesosStream/parsers/tasks.ts: error TS2339: Property 'id' does not exist on type '{}'.
@@ -6142,13 +6131,8 @@ src/js/stores/MesosSummaryStore.ts: error TS2531: Object is possibly 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2339: Property 'silent' does not exist on type '{}'.
 src/js/stores/MesosSummaryStore.ts: error TS2322: Type 'Timeout' is not assignable to type 'null'.
 src/js/stores/MesosSummaryStore.ts: error TS2769: No overload matches this call.
-src/js/stores/MetadataStore.ts: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
 src/js/stores/MetadataStore.ts: error TS2339: Property 'metadata' does not exist on type 'MetadataStore'.
-src/js/stores/MetadataStore.ts: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
-src/js/stores/MetadataStore.ts: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
-src/js/stores/MetadataStore.ts: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"metadata\\"' is not assignable to parameter of type 'never'.
-src/js/stores/MetadataStore.ts: error TS2339: Property 'dcosMetadata' does not exist on type 'MetadataStore'.
 src/js/stores/MetadataStore.ts: error TS2345: Argument of type '\\"dcosBuildInfo\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2345: Argument of type '\\"notificationMap\\"' is not assignable to parameter of type 'never'.
 src/js/stores/NotificationStore.ts: error TS2531: Object is possibly 'null'.

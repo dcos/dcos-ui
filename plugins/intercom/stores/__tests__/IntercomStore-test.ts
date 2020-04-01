@@ -24,17 +24,6 @@ describe("IntercomStore", () => {
       IntercomStore.removeAllListeners(INTERCOM_CHANGE);
     });
 
-    it("triggers an action upon dcos metadata change", () => {
-      const mockedFn = jest.fn();
-      IntercomStore.onDCOSMetadataChange = mockedFn;
-
-      addIntercomChangeListener();
-
-      MetadataStore.emit(EventTypes.DCOS_METADATA_CHANGE);
-
-      expect(mockedFn.mock.calls.length).toEqual(1);
-    });
-
     it("triggers an action upon metadata change", () => {
       const mockedFn = jest.fn();
       IntercomStore.onMetadataChange = mockedFn;

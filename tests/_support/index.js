@@ -12,6 +12,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   //                                 DEFAULTS                                //
   // //////////////////////////////////////////////////////////////////////////
 
+  cy.route(/dcos-version/, "fx:dcos/dcos-version");
   cy.route({
     method: "POST",
     url: /mesos\/api\/v1\?GET_VERSION/,
