@@ -16,7 +16,6 @@ import DeploymentStatusIndicator from "../../components/DeploymentStatusIndicato
 import ServiceBreadcrumbs from "../../components/ServiceBreadcrumbs";
 import ServicesQuotaOverview from "../../components/ServicesQuotaOverview";
 import ServicesQuotaOverviewDetail from "../../components/ServicesQuotaOverviewDetail";
-
 import ServiceTree from "../../structs/ServiceTree";
 
 interface ServicesQuotaViewProps {
@@ -41,20 +40,13 @@ class ServicesQuotaView extends React.Component<ServicesQuotaViewProps, {}> {
 
   public getTabs() {
     const { serviceTree } = this.props;
+    const id = serviceTree.isRoot()
+      ? ""
+      : `/${encodeURIComponent(serviceTree.getId())}`;
 
     return [
-      {
-        label: i18nMark("Services"),
-        routePath: serviceTree.isRoot()
-          ? "/services/overview"
-          : `/services/overview/${encodeURIComponent(serviceTree.getId())}`,
-      },
-      {
-        label: i18nMark("Quota"),
-        routePath: serviceTree.isRoot()
-          ? "/services/quota"
-          : `/services/quota/${encodeURIComponent(serviceTree.getId())}`,
-      },
+      { label: i18nMark("Services"), routePath: `/services/overview${id}` },
+      { label: i18nMark("Quota"), routePath: `/services/quota${id}` },
     ];
   }
 

@@ -1,15 +1,11 @@
 import compareVersions from "compare-versions";
-
-import Service from "../structs/Service";
-import Pod from "../structs/Pod";
+import Service from "plugins/services/src/js/structs/Service";
+import Pod from "plugins/services/src/js/structs/Pod";
 
 type Version = string;
 
 /**
- * Tell whether a version string is semver formatted
- * @param {string} version
- * @returns {boolean} true if "version" is semver formatted,
- * false otherwise.
+ * Tell whether a string represents a semver version.
  */
 const isSemver = (version: string) =>
   /^v?(?:\d+)(\.(?:[x*]|\d+)(\.(?:[x*]|\d+)(\.(?:[x*]|\d+))?(?:-[\da-z-]+(?:\.[\da-z-]+)*)?(?:\+[\da-z-]+(?:\.[\da-z-]+)*)?)?)?$/i.test(

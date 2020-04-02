@@ -1,6 +1,6 @@
-import Application from "../../structs/Application";
-import Framework from "../../structs/Framework";
-import * as Version from "../../utils/Version";
+import Application from "#PLUGINS/services/src/js/structs/Application";
+import Framework from "#PLUGINS/services/src/js/structs/Framework";
+import * as Version from "#SRC/js/utils/Version";
 
 describe("Version", () => {
   describe("#fromService", () => {

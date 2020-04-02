@@ -1,5 +1,6 @@
 import Config from "#SRC/js/config/Config";
 import container from "#SRC/js/container";
+import * as Version from "#SRC/js/utils/Version";
 import {
   NotificationService,
   NotificationServiceType,
@@ -18,6 +19,7 @@ type DCOSData = {
   imageCommit: string;
   variant: string;
   version: string;
+  hasQuotaSupport: boolean;
 };
 
 export default fromFetch(
@@ -30,6 +32,7 @@ export default fromFetch(
         imageCommit: json["dcos-image-commit"],
         bootstrapId: json["bootstrap-id"],
         variant: json["dcos-variant"],
+        hasQuotaSupport: Version.compare(json.version, "2.0.0") >= 0,
       }))
     )
   ),

@@ -29,6 +29,7 @@ import ServicesTable from "./ServicesTable";
 import ServiceStatusDSLSection from "../../components/dsl/ServiceStatusDSLSection";
 import ServiceTree from "../../structs/ServiceTree";
 import { serviceTreeHasQuota } from "../../utils/QuotaUtil";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const DSL_FORM_SECTIONS = [
   ServiceStatusDSLSection,
@@ -57,6 +58,14 @@ class ServiceTreeView extends React.Component {
     serviceTree: PropTypes.instanceOf(ServiceTree),
     roles: PropTypes.array,
   };
+  state = { hasQuotaSupport: false };
+
+  componentDidMount() {
+    dcosVersion$.subscribe(({ hasQuotaSupport }) => {
+      this.setState({ hasQuotaSupport });
+    });
+  }
+
   getFilterBar() {
     const { filters, filterExpression, onFilterExpressionChange } = this.props;
 
@@ -102,24 +111,16 @@ class ServiceTreeView extends React.Component {
       return [];
     }
     const { serviceTree } = this.props;
-    const id = serviceTree.getId();
-    if (serviceTree.isRoot() || hasQuota) {
-      return [
-        {
-          label: i18nMark("Services"),
-          routePath: serviceTree.isRoot()
-            ? "/services/overview"
-            : `/services/overview/${encodeURIComponent(id)}`,
-        },
-        {
-          label: i18nMark("Quota"),
-          routePath: serviceTree.isRoot()
-            ? "/services/quota"
-            : `/services/quota/${encodeURIComponent(id)}`,
-        },
-      ];
-    }
-    return [];
+    const id = serviceTree.isRoot()
+      ? ""
+      : `/${encodeURIComponent(serviceTree.getId())}`;
+
+    return hasQuota
+      ? [
+          { label: i18nMark("Services"), routePath: `/services/overview${id}` },
+          { label: i18nMark("Quota"), routePath: `/services/quota${id}` },
+        ]
+      : [];
   }
 
   editGroup() {
@@ -144,7 +145,8 @@ class ServiceTreeView extends React.Component {
     const { modalHandlers } = this.context;
     // Only add id if service is not root
     const isRoot = serviceTree.isRoot();
-    const hasQuota = serviceTreeHasQuota(serviceTree, roles);
+    const hasQuota =
+      serviceTreeHasQuota(serviceTree, roles) && this.state.hasQuotaSupport;
 
     const routePath = isRoot
       ? "/services/overview/create"
@@ -213,19 +215,18 @@ class ServiceTreeView extends React.Component {
       },
     ];
 
+    const actions =
+      serviceTree.isTopLevel() && this.state.hasQuotaSupport
+        ? editGroupActions
+        : [];
+
     if (isEmpty) {
       // We don't want an empty "+" dropdown.
-      const pageHeader = serviceTree.isTopLevel() ? (
+      const pageHeader = (
         <Page.Header
           breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
           supplementalContent={<DeploymentStatusIndicator />}
-          actions={editGroupActions}
-          tabs={tabs}
-        />
-      ) : (
-        <Page.Header
-          breadcrumbs={<ServiceBreadcrumbs serviceID={serviceTree.id} />}
-          supplementalContent={<DeploymentStatusIndicator />}
+          actions={actions}
           tabs={tabs}
         />
       );
@@ -252,7 +253,7 @@ class ServiceTreeView extends React.Component {
             </React.Fragment>
           }
           tabs={tabs}
-          actions={serviceTree.isTopLevel() ? editGroupActions : []}
+          actions={actions}
         />
         <div className="flex-item-grow-1 flex flex-direction-top-to-bottom">
           {this.getFilterBar()}
