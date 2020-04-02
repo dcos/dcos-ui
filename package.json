@@ -208,7 +208,7 @@
     "test:watch": "npm test -- --watch",
     "test": "lingui compile && tsc > /dev/null; jest --no-cache",
     "typecheck": "jest typecheck",
-    "updateTSSnapshots": "jest typecheck -u; jest tslint -u",
+    "updateTSSnapshots": "jest typecheck tslint -u",
     "util:env:validate": "node ./scripts/validate-engine-versions.js",
     "util:lingui:extract": "lingui extract --config ./linguirc",
     "util:lingui:check": "./scripts/lingui-ensure-extracted",

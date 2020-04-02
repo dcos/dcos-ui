@@ -10,6 +10,20 @@ The DC/OS UI is used by datacenter operators to administer and manage a datacent
 
 ![DC/OS UI](./.github/dcos-ui.gif)
 
+## Compatibility
+
+We support the current version of DC/OS as well as the 2 point releases before
+that. In order to do that we have multiple release-channels (e.g. to backport
+fixes). A channel can be compatible with multiple versions of DC/OS.
+
+| DC/OS  | DC/OS UI |
+| ------ | -------- |
+| 2.1.x  | 5.x      |
+| 2.0.x  | 4.x      |
+| 1.13.x | 4.x      |
+
+To release
+
 ## Usage
 
 You can choose from two ways of developing this repository.
