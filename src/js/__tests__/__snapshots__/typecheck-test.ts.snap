@@ -1,7 +1,8 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TypeScript snapshot should be up to date 1`] = `
-"packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'type' does not exist on type *.
+"packages/@extension-kid/data-layer/dataLayer.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'type' does not exist on type *.
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'type' does not exist on type *.
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'type' does not exist on type *.
 packages/foundation-ui/src/mount/Mount.tsx: error TS2339: Property 'alwaysWrap' does not exist on type *.
@@ -860,6 +861,13 @@ plugins/nodes/src/js/data/MesosMasters.tsx: error TS2322: type * is not assignab
 plugins/nodes/src/js/data/MesosMastersHealth.ts: error TS2571: Object is of type 'unknown'.
 plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2769: No overload matches this call.
 plugins/nodes/src/js/data/__tests__/MesosMastersLeader-test.ts: error TS2554: Expected 1 arguments, but got 0.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/data/__tests__/NodesNetworkResolver-test.ts: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
 plugins/nodes/src/js/filters/NodesHealthFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/nodes/src/js/filters/NodesTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/nodes/src/js/filters/NodesTypeFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
@@ -981,9 +989,8 @@ plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS23
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'selectedNodeToDrain' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'selectedNodeToDeactivate' does not exist on type 'Readonly<{}>'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type *.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'networks' does not exist on type 'object'.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2769: No overload matches this call.
-plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2345: Argument of type * is not assignable to parameter of type *.
+plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2345: Argument of type 'GraphQLSchema' is not assignable to parameter of type 'Schema'.
+plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2571: Object is of type 'unknown'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'store_listeners' does not exist on type 'NodesTableContainer'.
 plugins/nodes/src/js/pages/nodes/nodes-table/NodesTableContainer.tsx: error TS2339: Property 'location' does not exist on type *.
