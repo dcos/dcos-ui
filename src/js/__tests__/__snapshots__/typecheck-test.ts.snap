@@ -4719,8 +4719,6 @@ plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: O
 plugins/services/src/js/utils/__tests__/ServiceSpecUtil-test.ts: error TS2532: Object is possibly 'undefined'.
 plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
 plugins/services/src/js/utils/__tests__/TaskUtil-test.ts: error TS2322: type * is not assignable to type 'Node[]'.
-plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Framework' is not assignable to parameter of type *.
-plugins/services/src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Application' is not assignable to parameter of type *.
 plugins/services/src/js/utils/__tests__/VipLabelUtil-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type *.
 plugins/services/src/js/validators/MarathonAppValidators.ts: error TS2322: Type 'string[]' is not assignable to type 'never'.
 plugins/services/src/js/validators/MarathonAppValidators.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
@@ -6706,6 +6704,8 @@ src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1-2 arguments, but got 0.
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/ValidatorUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
+src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Framework' is not assignable to parameter of type *.
+src/js/utils/__tests__/Version-test.ts: error TS2345: Argument of type 'Application' is not assignable to parameter of type *.
 src/js/utils/__tests__/WindowResizeUtil-test.ts: error TS2554: Expected 1 arguments, but got 0.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type 'null' is not assignable to parameter of type 'string'.
 src/js/utils/__tests__/search-test.ts: error TS2345: Argument of type '10' is not assignable to parameter of type 'string'.

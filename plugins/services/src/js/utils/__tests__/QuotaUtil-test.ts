@@ -336,11 +336,6 @@ describe("QuotaUtil", () => {
   });
 
   describe("#serviceTreeHasQuota", () => {
-    it("returns false if serviceTree is root", () => {
-      expect(QuotaUtil.serviceTreeHasQuota(new ServiceTree(), [])).toEqual(
-        false
-      );
-    });
     it("returns false if there is no matching role", () => {
       expect(
         QuotaUtil.serviceTreeHasQuota(new ServiceTree({ id: "/dev" }), [])

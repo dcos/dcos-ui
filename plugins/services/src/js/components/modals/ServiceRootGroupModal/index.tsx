@@ -30,6 +30,7 @@ import FieldError from "#SRC/js/components/form/FieldError";
 import InfoTooltipIcon from "#SRC/js/components/form/InfoTooltipIcon";
 import Loader from "#SRC/js/components/Loader";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 import { formatQuotaID } from "#PLUGINS/services/src/js/utils/QuotaUtil";
 import {
@@ -110,6 +111,7 @@ interface ServiceRootGroupModalState {
   error: boolean;
   isForce: boolean;
   hasValidated: boolean;
+  showQuotaOptions: boolean;
 }
 
 interface ServiceRootGroupModalProps {
@@ -135,6 +137,9 @@ class ServiceRootGroupModal extends React.Component<
 
   public componentDidMount() {
     this.getGroupFormData();
+    dcosVersion$.subscribe(({ hasQuotaSupport }) => {
+      this.setState({ showQuotaOptions: hasQuotaSupport });
+    });
   }
 
   public getInitialState(
@@ -151,6 +156,7 @@ class ServiceRootGroupModal extends React.Component<
       error: false,
       isForce: false,
       hasValidated: false,
+      showQuotaOptions: false,
     };
   }
 
@@ -396,104 +402,9 @@ class ServiceRootGroupModal extends React.Component<
                   <div>{getPathFromGroupId(data.id)}</div>
                 </FormGroup>
               </FormRow>
-              <h2 className="short-bottom">
-                <FormGroupHeading>
-                  <Trans render={<FormGroupHeadingContent primary={true} />}>
-                    Quota
-                  </Trans>
-                </FormGroupHeading>
-              </h2>
-              <Trans render="p">
-                Define the maximum amount of resources that can be used by
-                services in this group.
-              </Trans>
-              <FormRow>
-                <FormGroup
-                  className="column-2"
-                  showError={errors.quota && Boolean(errors.quota.cpus)}
-                >
-                  <FieldLabel>
-                    <FormGroupHeading>
-                      <Trans render={<FormGroupHeadingContent />}>CPUs</Trans>
-                    </FormGroupHeading>
-                  </FieldLabel>
-                  <FieldAutofocus>
-                    <FieldInput
-                      name="quota.cpus"
-                      type="text"
-                      value={data.quota.cpus}
-                    />
-                    <FieldError>
-                      {errors.quota && errors.quota.cpus
-                        ? errors.quota.cpus
-                        : null}
-                    </FieldError>
-                  </FieldAutofocus>
-                </FormGroup>
-                <FormGroup
-                  className="column-2"
-                  showError={errors.quota && Boolean(errors.quota.mem)}
-                >
-                  <FieldLabel>
-                    <FormGroupHeading>
-                      <Trans render={<FormGroupHeadingContent />}>
-                        Mem (MiB)
-                      </Trans>
-                    </FormGroupHeading>
-                  </FieldLabel>
-                  <FieldInput
-                    name="quota.mem"
-                    type="text"
-                    value={data.quota.mem}
-                  />
-                  <FieldError>
-                    {errors.quota && errors.quota.mem ? errors.quota.mem : null}
-                  </FieldError>
-                </FormGroup>
-                <FormGroup
-                  className="column-2"
-                  showError={errors.quota && Boolean(errors.quota.disk)}
-                >
-                  <FieldLabel>
-                    <FormGroupHeading>
-                      <Trans render={<FormGroupHeadingContent />}>
-                        Disk (MiB)
-                      </Trans>
-                    </FormGroupHeading>
-                  </FieldLabel>
-                  <FieldInput
-                    name="quota.disk"
-                    type="text"
-                    value={data.quota.disk}
-                  />
-                  <FieldError>
-                    {errors.quota && errors.quota.disk
-                      ? errors.quota.disk
-                      : null}
-                  </FieldError>
-                </FormGroup>
-                <FormGroup
-                  className="column-2"
-                  showError={errors.quota && Boolean(errors.quota.gpus)}
-                >
-                  <FieldLabel>
-                    <FormGroupHeading>
-                      <Trans render={<FormGroupHeadingContent />}>GPUs</Trans>
-                    </FormGroupHeading>
-                  </FieldLabel>
-                  <FieldInput
-                    name="quota.gpus"
-                    type="text"
-                    value={data.quota.gpus}
-                  />
-                  <FieldError>
-                    {errors.quota && errors.quota.gpus
-                      ? errors.quota.gpus
-                      : null}
-                  </FieldError>
-                </FormGroup>
-              </FormRow>
-              {this.getAdvancedSettings()}
+              {this.state.showQuotaOptions
+                ? this.renderQuotaOptions(data, errors)
+                : null}
             </form>
           </div>
         </FluidGeminiScrollbar>
@@ -622,6 +533,89 @@ class ServiceRootGroupModal extends React.Component<
       this.setState({ data: newData });
     }
   };
+
+  renderQuotaOptions(data, errors) {
+    return (
+      <React.Fragment>
+        <h2 className="short-bottom">
+          <FormGroupHeading>
+            <Trans render={<FormGroupHeadingContent primary={true} />}>
+              Quota
+            </Trans>
+          </FormGroupHeading>
+        </h2>
+        <Trans render="p">
+          Define the maximum amount of resources that can be used by services in
+          this group.
+        </Trans>
+        <FormRow>
+          <FormGroup
+            className="column-2"
+            showError={errors.quota && Boolean(errors.quota.cpus)}
+          >
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent />}>CPUs</Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldAutofocus>
+              <FieldInput
+                name="quota.cpus"
+                type="text"
+                value={data.quota.cpus}
+              />
+              <FieldError>
+                {errors.quota && errors.quota.cpus ? errors.quota.cpus : null}
+              </FieldError>
+            </FieldAutofocus>
+          </FormGroup>
+          <FormGroup
+            className="column-2"
+            showError={errors.quota && Boolean(errors.quota.mem)}
+          >
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent />}>Mem (MiB)</Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput name="quota.mem" type="text" value={data.quota.mem} />
+            <FieldError>
+              {errors.quota && errors.quota.mem ? errors.quota.mem : null}
+            </FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-2"
+            showError={errors.quota && Boolean(errors.quota.disk)}
+          >
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent />}>Disk (MiB)</Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput name="quota.disk" type="text" value={data.quota.disk} />
+            <FieldError>
+              {errors.quota && errors.quota.disk ? errors.quota.disk : null}
+            </FieldError>
+          </FormGroup>
+          <FormGroup
+            className="column-2"
+            showError={errors.quota && Boolean(errors.quota.gpus)}
+          >
+            <FieldLabel>
+              <FormGroupHeading>
+                <Trans render={<FormGroupHeadingContent />}>GPUs</Trans>
+              </FormGroupHeading>
+            </FieldLabel>
+            <FieldInput name="quota.gpus" type="text" value={data.quota.gpus} />
+            <FieldError>
+              {errors.quota && errors.quota.gpus ? errors.quota.gpus : null}
+            </FieldError>
+          </FormGroup>
+        </FormRow>
+        {this.getAdvancedSettings()}
+      </React.Fragment>
+    );
+  }
 
   public render() {
     const { isEdit, isForce } = this.state;

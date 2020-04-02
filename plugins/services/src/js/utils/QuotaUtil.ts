@@ -102,7 +102,7 @@ export function serviceTreeHasQuota(
   roles: MesosRole[]
 ): boolean {
   if (item.isRoot()) {
-    return false;
+    return true;
   }
   const splitId = item.getId().split("/");
   if (splitId.length < 2) {
