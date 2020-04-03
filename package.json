@@ -92,7 +92,7 @@
     "@types/classnames": "2.2.10",
     "@types/events": "3.0.0",
     "@types/graphql": "14.2.3",
-    "@types/jest": "25.1.5",
+    "@types/jest": "25.2.1",
     "@types/lingui__core": "2.2.1",
     "@types/lingui__macro": "2.7.3",
     "@types/lingui__react": "2.8.2",
