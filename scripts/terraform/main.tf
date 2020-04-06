@@ -13,6 +13,11 @@ variable "cluster_name" {
   type        = "string"
 }
 
+variable "custom_dcos_download_path" {
+  type = "string"
+  default = "https://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh"
+}
+
 provider "aws" {
   region = "us-west-2"
 }
@@ -43,7 +48,7 @@ module "dcos" {
     expiration = "1h"
   }
 
-  dcos_version = "2.0.1"
+  custom_dcos_download_path = "${var.custom_dcos_download_path}"
 
   # ee / open
   dcos_variant              = "${var.variant}"
