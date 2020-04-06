@@ -149,7 +149,7 @@
     "node": "10.19.0",
     "postcss": "7.0.27",
     "postcss-loader": "3.0.0",
-    "prettier": "2.0.2",
+    "prettier": "2.0.4",
     "pretty-quick": "2.0.1",
     "purify-css": "1.2.5",
     "raml-validator-loader": "0.1.11",
