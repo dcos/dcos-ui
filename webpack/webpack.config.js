@@ -75,21 +75,7 @@ module.exports = {
   ],
   module: {
     rules: [
-      {
-        type: "javascript/auto",
-        test: /\.mjs$/,
-        include: /node_modules/,
-        use: [],
-      },
-      {
-        test: /\.html$/,
-        use: {
-          loader: "html-loader",
-          options: {
-            attrs: ["link:href"],
-          },
-        },
-      },
+      { test: /\.html$/, use: { loader: "html-loader" } },
       {
         test: /\.tsx?$/,
         exclude: /node_modules/,
