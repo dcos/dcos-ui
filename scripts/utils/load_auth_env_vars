@@ -30,13 +30,12 @@ CLEAR_CLUSTER_AUTH_INFO=$( [ "$VARIANT" = "enterprise" ] \
   || echo '{"uid": "albert@bekstil.net", "description": "albert" }' \
 )
 
-# infortunately osx and linux have different base64 implementations
+# unfortunately osx and linux have different base64 implementations
 export CLUSTER_AUTH_INFO=$( [[ "$OSTYPE" == "darwin"* ]] \
   && echo $CLEAR_CLUSTER_AUTH_INFO | base64 \
   || echo $CLEAR_CLUSTER_AUTH_INFO | base64 -w0 \
 )
 
-# infortunately osx has a different implementation of base64 than linux-distros
 
 #
 # From : https://github.com/dcos/dcos/blob/master/test_util/helpers.py#L35
@@ -70,4 +69,4 @@ export CYPRESS_CLUSTER_AUTH_INFO="$CLUSTER_AUTH_INFO"
 export CYPRESS_CLUSTER_AUTH_TOKEN="$CLUSTER_AUTH_TOKEN"
 export CYPRESS_CLUSTER_URL="$CLUSTER_URL"
 # usually only set in a CI env
-export CYPRESS_TEST_UUID="$TEST_UUID"
+export CYPRESS_TEST_UUID=${TEST_UUID:-local}

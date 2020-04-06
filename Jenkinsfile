@@ -119,6 +119,7 @@ pipeline {
             DCOS_DIR = "/tmp/.dcos-OSS"
             REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
             TF_VAR_variant = "open"
+            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
