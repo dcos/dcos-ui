@@ -18,12 +18,11 @@ function getExtensionModule(extension) {
   });
 }
 
-function bindService(_context = {}) {
-  return new ContainerModule((bind) => {
+const bindService = (_context = {}) =>
+  new ContainerModule((bind) => {
     bindExtensionProvider(bind, NotificationServiceExtensionType);
     bind(NotificationServiceType).to(NotificationService).inSingletonScope();
   });
-}
 
 export {
   bindService as default,

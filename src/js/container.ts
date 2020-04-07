@@ -21,24 +21,13 @@ container.bind(MesosStreamType).toConstantValue(mesosStream);
 container.bind(MesosMasterRequestType).toConstantValue(mesosMasterRequest);
 container.bind(TYPES.I18n).toConstantValue(i18n);
 
-const factories = {
-  notification: notificationServiceFactory,
-  toast: toastsExtensionFactory,
-  dataLayer: dataLayerExtensionFactory,
-  jobs: jobsExtensionFactory,
-  repositoriesExtension: repositoriesExtensionFactory,
-  services: servicesExtensionFactory,
-  cosmos: cosmosExtensionFactory,
-  uiMetadata: uiMetadataExtensionFactor,
-};
-
-Object.entries(factories).forEach(([name, factory]) => {
-  const containerModule = factory();
-  if (containerModule) {
-    container.load(containerModule);
-  } else {
-    console.error(`Could not load ${name} extension, please check export`);
-  }
-});
+container.load(notificationServiceFactory());
+container.load(toastsExtensionFactory());
+container.load(dataLayerExtensionFactory());
+container.load(jobsExtensionFactory());
+container.load(repositoriesExtensionFactory());
+container.load(servicesExtensionFactory());
+container.load(cosmosExtensionFactory());
+container.load(uiMetadataExtensionFactor());
 
 export default container;

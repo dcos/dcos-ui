@@ -15,15 +15,10 @@ export {
   DataLayer,
 };
 
-function getExtensionModule<T>(extension: new (...args: any[]) => T) {
-  if (!extension) {
-    return null;
-  }
-
-  return new ContainerModule((bind) => {
+const getExtensionModule = <T>(extension: new (...args: any[]) => T) =>
+  new ContainerModule((bind) => {
     bind(DataLayerExtensionType).to(extension).inSingletonScope();
   });
-}
 
 export default (_context = {}) =>
   new ContainerModule((bind) => {

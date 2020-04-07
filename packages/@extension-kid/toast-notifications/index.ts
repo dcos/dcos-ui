@@ -7,10 +7,7 @@ import {
   ToastCallbackType,
 } from "./ToastNotification";
 
-function bindExtension(_context = {}) {
-  return getExtensionModule(ToastExtension);
-}
-
+const bindExtension = (_context = {}) => getExtensionModule(ToastExtension);
 export {
   bindExtension as default,
   makeToastContainer,
