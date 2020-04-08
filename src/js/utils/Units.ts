@@ -1,7 +1,15 @@
 import Maths from "./Maths";
 
 const Units = {
+  formatResources(prop, request, limit) {
+    const req = Units.formatResource(prop, request);
+    const lim = Units.formatResource(prop, limit);
+    return req === lim ? req : `${req} / ${lim}`;
+  },
   formatResource(resource, value) {
+    if (typeof value === "string" && value.toLowerCase().match(/unlimited/)) {
+      return "unlimited";
+    }
     value = Maths.round(value, 2);
 
     if (resource !== "cpus" && resource !== "gpus") {

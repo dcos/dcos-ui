@@ -16,15 +16,12 @@ export const ServiceMem = React.memo(
     limit: number | string | null;
     id: string;
   }) => {
-    if (limit != null && limit !== 0) {
+    if (limit != null && limit !== 0 && limit !== resource) {
       return (
         <NumberCell>
           <Tooltip
             id={`mem{id}`}
-            trigger={`${Units.formatResource(
-              "mem",
-              resource
-            )} / ${Units.formatResource("mem", limit)}`}
+            trigger={Units.formatResources("mem", resource, limit)}
             maxWidth={150}
           >
             <Trans

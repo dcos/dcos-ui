@@ -120,14 +120,6 @@ describe("PodInstancesContainer", () => {
           "container-1",
         ]);
       });
-
-      it("always shows instance total resources", () => {
-        const mem = thisInstance
-          .find("td.task-table-column-mem span")
-          .map((el) => el.text());
-
-        expect(mem).toEqual(["128 MiB", "64 MiB", "128 MiB", "64 MiB"]);
-      });
     });
 
     describe("show all", () => {

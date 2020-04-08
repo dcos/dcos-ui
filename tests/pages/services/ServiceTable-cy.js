@@ -493,10 +493,10 @@ describe("Service Table", () => {
       cy.contains("alpine").root().get("body").type("[");
       cy.get(
         "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row2']"
-      ).contains("0.3 / 1");
+      ).contains("0.3 / 1.1");
       cy.get(
         "[data-cy='table-contentCell table-contentCell.col6 table-contentCell.row2']"
-      ).contains("288 MiB / 512 MiB");
+      ).contains("288 MiB / 544 MiB");
       cy.get(
         "[data-cy='table-contentCell table-contentCell.col5 table-contentCell.row1']"
       ).contains("0.1");
