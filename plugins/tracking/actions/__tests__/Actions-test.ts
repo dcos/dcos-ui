@@ -66,38 +66,6 @@ describe("Actions", () => {
     });
   });
 
-  describe("#setDcosMetadata", () => {
-    beforeEach(() => {
-      Actions.dcosMetadata = null;
-      spyOn(window.analytics, "track");
-    });
-
-    it("doesn't track any logs when there's no metadata", () => {
-      Actions.log("Test");
-      expect(window.analytics.track).not.toHaveBeenCalled();
-    });
-
-    it("sets the dcosMetadata", () => {
-      Actions.setDcosMetadata(DCOS_METADATA);
-      Actions.setRoutes(routes);
-      expect(Actions.dcosMetadata).toEqual(DCOS_METADATA);
-    });
-
-    it("runs queued logs when metadata is set", () => {
-      Actions.log("foo");
-      Actions.log("bar");
-      Actions.log("baz");
-      spyOn(Actions, "log");
-      Actions.setDcosMetadata(DCOS_METADATA);
-      Actions.setRoutes(routes);
-      expect(Actions.log.calls.count()).toEqual(3);
-      const calls = Actions.log.calls.all();
-      ["foo", "bar", "baz"].forEach((log, i) => {
-        expect(calls[i].args[0]).toEqual(log);
-      });
-    });
-  });
-
   describe("#setRoutes", () => {
     beforeEach(() => {
       Actions.dcosMetadata = null;

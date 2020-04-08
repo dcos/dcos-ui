@@ -43,16 +43,6 @@ const MetadataActions = {
         });
       },
     });
-
-    RequestUtil.json({
-      url: Config.rootUrl + "/dcos-metadata/dcos-version.json",
-      success(response) {
-        AppDispatcher.handleServerAction({
-          type: ActionTypes.REQUEST_DCOS_METADATA,
-          data: response,
-        });
-      },
-    });
   },
 };
 
