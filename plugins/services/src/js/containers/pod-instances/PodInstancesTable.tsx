@@ -4,7 +4,7 @@ import isEqual from "lodash.isequal";
 import PropTypes from "prop-types";
 import * as React from "react";
 import { Link } from "react-router";
-import { Tooltip } from "reactjs-components";
+import { Tooltip } from "@dcos/ui-kit";
 import { Icon } from "@dcos/ui-kit";
 import { SystemIcons } from "@dcos/ui-kit/dist/packages/icons/dist/system-icons-enum";
 import {
@@ -256,6 +256,8 @@ class PodInstancesTable extends React.Component {
         address: addressComponents,
         cpus: containerResources.cpus,
         mem: containerResources.mem,
+        resourceLimits:
+          containerSpec.resourceLimits || containerSpec.resources || {},
         updated: container.getLastUpdated(),
         version: "",
         isHistoricalInstance: container.isHistoricalInstance,
@@ -301,13 +303,14 @@ class PodInstancesTable extends React.Component {
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
+        resourceLimits: { cpu: "peter", mem: "pan" },
         children,
         podSpec,
       };
     });
   }
 
-  renderWithClickHandler(rowOptions, content, className) {
+  renderWithClickHandler(rowOptions, content, className?) {
     return (
       <div onClick={rowOptions.clickHandler} className={className}>
         {content}
@@ -412,48 +415,85 @@ class PodInstancesTable extends React.Component {
     if (healthStatus === "NA") {
       tooltipContent = <Trans render="span">No health checks available</Trans>;
     }
+    const trigger = (
+      <span className={classNames("flush", status.dotClassName)} />
+    );
 
     return this.renderWithClickHandler(
       rowOptions,
       <div className="flex-box flex-box-align-vertical-center table-cell-flex-box flex-align-items-center flex-direction-top-to-bottom">
         <div className="table-cell-icon">
-          <Tooltip anchor="center" content={tooltipContent}>
-            <span className={classNames("flush", status.dotClassName)} />
+          <Tooltip id={row.id + prop} trigger={trigger}>
+            {tooltipContent}
           </Tooltip>
         </div>
       </div>
     );
   };
   renderColumnResource = (prop, row, rowOptions = {}) => {
-    let tooltipContent;
     if (rowOptions.hasChildren) {
-      const executorResource =
-        row.podSpec && row.podSpec.executorResources
-          ? row.podSpec.executorResources[prop] || 0
-          : 0;
-      const childResources = row.children
-        .filter((child) => !child.isHistoricalInstance)
-        .reduce((sum, current) => sum + (current[prop] || 0), 0);
-      tooltipContent = (
-        <Trans render="span">
-          Containers: {Units.formatResource(prop, childResources)}, Executor:{" "}
-          {Units.formatResource(prop, executorResource)}
-        </Trans>
+      const executorResource = row.podSpec?.executorResources?.[prop] ?? 0;
+      const childResources = row.children.filter(
+        (child) => !child.isHistoricalInstance
       );
-    } else {
-      const activeResource = row.isHistoricalInstance ? 0 : row[prop] || 0;
-      const totalResource = row[prop];
-      tooltipContent = (
-        <Trans render="span">
-          Using {activeResource}/{Units.formatResource(prop, totalResource)}
-        </Trans>
+
+      const requests = childResources.reduce(
+        (sum, current) => sum + (current[prop] || 0),
+        0
       );
+      const limits = childResources.reduce(
+        (sum, current) =>
+          sum + (current.resourceLimits[prop] || current[prop] || 0),
+        0
+      );
+
+      const containerMsg =
+        requests === limits
+          ? Units.formatResource(prop, requests)
+          : `${Units.formatResource(prop, requests)} guaranteed
+      with a limit of ${Units.formatResource(prop, limits)}`;
+
+      const trigger_ = Units.formatResources(
+        prop,
+        requests + executorResource,
+        limits + executorResource
+      );
+
+      return this.renderWithClickHandler(
+        rowOptions,
+        <Tooltip
+          id={row.id + prop}
+          trigger={trigger_}
+          preferredDirections={["top-right"]}
+        >
+          <Trans render="span">
+            Containers: {containerMsg}, Executor:{" "}
+            {Units.formatResource(prop, executorResource)}
+          </Trans>
+        </Tooltip>
+      );
+    }
+
+    const request = Units.formatResource(prop, row[prop]);
+    const limit = Units.formatResource(
+      prop,
+      row.resourceLimits[prop] || row[prop] || 0
+    );
+
+    if (request === limit) {
+      return this.renderWithClickHandler(rowOptions, request);
     }
 
     return this.renderWithClickHandler(
       rowOptions,
-      <Tooltip anchor="center" content={tooltipContent}>
-        <span>{Units.formatResource(prop, row[prop])}</span>
+      <Tooltip
+        id={row.id + prop}
+        trigger={`${request} / ${limit}`}
+        preferredDirections={["top-right"]}
+      >
+        <Trans render="span">
+          {request} are guaranteed with a limit of {limit}
+        </Trans>
       </Tooltip>
     );
   };

@@ -2071,6 +2071,8 @@ plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS255
 plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
+plugins/services/src/js/columns/ServicesTableCPUColumn.tsx: error TS2339: Property 'cpus' does not exist on type '{}'.
+plugins/services/src/js/columns/ServicesTableMemColumn.tsx: error TS2339: Property 'mem' does not exist on type '{}'.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'summary' does not exist on type *.
@@ -3099,19 +3101,12 @@ plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'hasChildren' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
+plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
+plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2554: Expected 3 arguments, but got 2.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
@@ -4406,6 +4401,8 @@ plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not 
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
+plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
@@ -6463,12 +6460,12 @@ src/js/utils/TemplateUtil.ts: error TS2339: Property 'type' does not exist on ty
 src/js/utils/TemplateUtil.ts: error TS2339: Property 'type' does not exist on type *.
 src/js/utils/UnitHealthUtil.ts: error TS2556: Expected 2 arguments, but got 0 or more.
 src/js/utils/UnitHealthUtil.ts: error TS2538: Type 'undefined' cannot be used as an index type.
+src/js/utils/Units.ts: error TS2554: Expected 1 arguments, but got 2.
+src/js/utils/Units.ts: error TS2322: type * is not assignable to type 'string'.
+src/js/utils/Units.ts: error TS2554: Expected 5 arguments, but got 2.
 src/js/utils/Units.ts: error TS2322: Type 'string' is not assignable to type 'number'.
 src/js/utils/Units.ts: error TS2339: Property 'indexOf' does not exist on type 'number'.
 src/js/utils/Units.ts: error TS2339: Property 'replace' does not exist on type 'number'.
-src/js/utils/Units.ts: error TS2554: Expected 5 arguments, but got 2.
-src/js/utils/Units.ts: error TS2554: Expected 1 arguments, but got 2.
-src/js/utils/Units.ts: error TS2322: type * is not assignable to type 'string'.
 src/js/utils/Util.ts: error TS2769: No overload matches this call.
 src/js/utils/Util.ts: error TS2322: Type 'number' is not assignable to type 'null'.
 src/js/utils/ValidatorUtil.ts: error TS2339: Property 'min' does not exist on type '{}'.

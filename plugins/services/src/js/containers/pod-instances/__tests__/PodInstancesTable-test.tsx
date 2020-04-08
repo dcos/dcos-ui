@@ -316,42 +316,6 @@ describe("PodInstancesTable", () => {
         ]);
       });
 
-      it("renders the cpu column", () => {
-        const names = thisInstance
-          .find("td.task-table-column-cpus div.tooltip-wrapper > span")
-          .map((el) => el.text());
-
-        expect(names).toEqual([
-          "1",
-          "0.5",
-          "0.5",
-          "1",
-          "0.5",
-          "0.5",
-          "1",
-          "0.5",
-          "0.5",
-        ]);
-      });
-
-      it("renders the mem column", () => {
-        const names = thisInstance
-          .find("td.task-table-column-mem div.tooltip-wrapper > span")
-          .map((el) => el.text());
-
-        expect(names).toEqual([
-          "128 MiB",
-          "64 MiB",
-          "64 MiB",
-          "128 MiB",
-          "64 MiB",
-          "64 MiB",
-          "128 MiB",
-          "64 MiB",
-          "64 MiB",
-        ]);
-      });
-
       it("renders the updated column", () => {
         const names = thisInstance
           .find("td.task-table-column-updated time")
