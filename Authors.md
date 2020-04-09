@@ -2,7 +2,6 @@
 
 | Name                  | Email                            | Status             |
 | --------------------- | -------------------------------- | ------------------ |
-| Philipp Hinrichsen    | philipph@d2iq.com                | Current Maintainer |
 | Pierre Beitz          | pbeitz@d2iq.com                  | Current Maintainer |
 | Orlando Hohmeier      | orlando@d2iq.com                 | Current Maintainer |
 | Brandon Croft         | bcroft@d2iq.com                  | Contributor        |
