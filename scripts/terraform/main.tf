@@ -1,9 +1,4 @@
-variable "variant" {
-  type        = "string"
-  description = "The cluster variant to spawn."
-}
-
-variable "license_key" {
+variable "LICENSE_KEY" {
   type        = "string"
   description = "The license key to spawn an ee-cluster with."
   default     = ""
@@ -36,7 +31,7 @@ module "dcos" {
   }
 
   cluster_name        = "${var.cluster_name}"
-  ssh_public_key_file = "~/.ssh/${var.variant}.pub"
+  ssh_public_key_file = "~/.ssh/ui_test.pub"
   admin_ips           = ["${data.http.whatismyip.body}/32"]
 
   num_masters        = 1
@@ -51,8 +46,7 @@ module "dcos" {
   custom_dcos_download_path = "${var.custom_dcos_download_path}"
 
   # ee / open
-  dcos_variant              = "${var.variant}"
-  dcos_license_key_contents = "${var.license_key}"
+  dcos_license_key_contents = "${var.LICENSE_KEY}"
 
   dcos_instance_os             = "centos_7.5"
   bootstrap_instance_type      = "m5.xlarge"
