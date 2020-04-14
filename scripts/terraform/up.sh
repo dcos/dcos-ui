@@ -2,8 +2,8 @@
 
 eval "$(ssh-agent -s)"
 
-ssh-keygen -t rsa -N "" -f ~/.ssh/$TF_VAR_variant
-ssh-add ~/.ssh/$TF_VAR_variant
+ssh-keygen -t rsa -N "" -f ~/.ssh/$STAGE_ID
+ssh-add ~/.ssh/$STAGE_ID
 
 echo "Running terraform init"
 for i in {1..3}; do terraform init && break; done

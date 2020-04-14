@@ -7,6 +7,92 @@ def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", 
 def aws_id = string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID")
 def aws_key = string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
 
+def test_oss(version: String) = {
+  def safe_version = version.replaceAll("\\W+", "")
+
+  return stage("System Test OSS") {
+    environment {
+      // as we have multiple DCOS-CLIs running in parallel, we isolate them.
+      DCOS_DIR = f"/tmp/.dcos-open-$safe_version%s"
+      REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+      STAGE_ID = f"open-$safe_version%s"
+      TF_VAR_custom_dcos_download_path = f"https://downloads.dcos.io/dcos/$version%s/dcos_generate_config.sh"
+    }
+    steps {
+      withCredentials([ aws_id, aws_key ]) {
+        sh '''
+          export TF_VAR_cluster_name="ui-\$(date +%s)-$STAGE_ID"
+          echo $TF_VAR_cluster_name > /tmp/cluster_name-$STAGE_ID
+          rsync -aH ./scripts/terraform/ ./scripts/terraform-$STAGE_ID/
+          export CLUSTER_URL=$(cd scripts/terraform-$STAGE_ID && ./up.sh | tail -n1)
+          . scripts/utils/load_auth_env_vars
+
+          DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+          npm run test:system
+        '''
+      }
+    }
+
+    post {
+      always {
+        withCredentials([ aws_id, aws_key ]) {
+          sh '''
+          export TF_VAR_cluster_name=$(cat /tmp/cluster_name-$STAGE_ID)
+          cd scripts/terraform && ./down.sh
+          '''
+        }
+        archiveArtifacts "cypress/**/*"
+        junit "cypress/result-system.xml"
+      }
+    }
+  }
+}
+
+
+def test_ee(version: String) = {
+  def safe_version = version.replaceAll("\\W+", "")
+
+  return stage("System Test EE") {
+    environment {
+      // as we have multiple DCOS-CLIs running in parallel, we isolate them.
+      DCOS_DIR = f"/tmp/.dcos-ee-$safe_version%s"
+      REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+      STAGE_ID = f"ee-$safe_version%s"
+      TF_VAR_custom_dcos_download_path = f"https://downloads.mesosphere.com/dcos-enterprise/$version%s/dcos_generate_config.sh"
+    }
+    steps {
+      withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
+        sh '''
+        export TF_VAR_license_key="$LICENSE_KEY"
+        rsync -aH ./system-tests/ ./system-tests-ee/
+
+        export TF_VAR_cluster_name="ui-\$(date +%s)-$STAGE_ID"
+        echo $TF_VAR_cluster_name > /tmp/cluster_name-$STAGE_ID
+        rsync -aH ./scripts/terraform/ ./scripts/terraform-$STAGE_ID/
+        export CLUSTER_URL=$(cd scripts/terraform-$STAGE_ID && ./up.sh | tail -n1)
+        . scripts/utils/load_auth_env_vars
+
+        DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+        export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
+        PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
+        '''
+      }
+    }
+
+    post {
+      always {
+        withCredentials([ aws_id, aws_key ]) {
+          sh '''
+            export TF_VAR_cluster_name=$(cat /tmp/cluster_name-$STAGE_ID)
+            cd scripts/terraform && ./down.sh
+          '''
+        }
+        archiveArtifacts "cypress/**/*"
+        junit "cypress/result-system.xml"
+      }
+    }
+  }
+}
 
 pipeline {
   agent {
@@ -114,79 +200,10 @@ pipeline {
           }
         }
 
-        stage("System Test OSS") {
-          environment {
-            DCOS_DIR = "/tmp/.dcos-OSS"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-            TF_VAR_variant = "open"
-            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
-          }
-          steps {
-            withCredentials([ aws_id, aws_key ]) {
-              sh '''
-                export TF_VAR_cluster_name="ui-\$(date +%s)"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-open
-                export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
-
-                . scripts/utils/load_auth_env_vars
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
-                npm run test:system
-              '''
-            }
-          }
-
-          post {
-            always {
-              withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-open)
-                  cd scripts/terraform && ./down.sh
-                '''
-              }
-              archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
-            }
-          }
-        }
-
-        stage("System Test EE") {
-          environment {
-            DCOS_DIR = "/tmp/.dcos-EE"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-            TF_VAR_variant = "ee"
-          }
-          steps {
-            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
-              sh '''
-                export TF_VAR_license_key="$LICENSE_KEY"
-                export TF_VAR_cluster_name="ui-\$(date +%s)-$TF_VAR_variant"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-ee
-                rsync -aH ./system-tests/ ./system-tests-ee/
-                rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
-                export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)
-
-                . scripts/utils/load_auth_env_vars
-
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
-                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
-                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
-              '''
-            }
-          }
-
-          post {
-            always {
-              withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-ee)
-                  cd scripts/terraform-ee && ./down.sh
-                '''
-              }
-              archiveArtifacts "cypress/**/*"
-              junit "cypress/result-system.xml"
-            }
-          }
-        }
+        test_oss("stable/1.13.7")
+        test_oss("stable/2.0.2")
+        test_ee("stable/1.13.7")
+        test_ee("stable/2.0.2")
       }
     }
 
