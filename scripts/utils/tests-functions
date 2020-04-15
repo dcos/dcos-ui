@@ -111,7 +111,7 @@ function setup() {
     fi
     npx http-server -sp "${PROXY_PORT}" --proxy "${CLUSTER_URL}" --proxy-secure=false "${PROJECT_ROOT}/dist" &
     PROXY_PID=$!
-    CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
+    CYPRESS_CLUSTER_URL="http://127.0.0.1:${PROXY_PORT}"
     echo "===> done (PID: ${PROXY_PID})."
   fi
 }

@@ -106,7 +106,7 @@ pipeline {
             DCOS_DIR = "/tmp/.dcos-OSS"
             PROXY_PORT = "4201"
             TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
-            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/1.13.7/dcos_generate_config.sh"
             TF_VAR_variant = "open"
           }
           steps {
@@ -137,7 +137,7 @@ pipeline {
             DCOS_DIR = "/tmp/.dcos-EE"
             PROXY_PORT = "4202"
             TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
-            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh"
+            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/1.13.7/dcos_generate_config.ee.sh"
             TF_VAR_variant = "ee"
 
             // EE-stuff
