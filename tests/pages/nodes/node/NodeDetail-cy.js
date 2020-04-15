@@ -1,5 +1,3 @@
-require("../../../_support/utils/ServicesUtil");
-
 describe("Nodes Detail Page", () => {
   beforeEach(() => {
     cy.configureCluster({

@@ -1,5 +1,3 @@
-require("../_support/utils/ServicesUtil");
-
 describe("Universe", () => {
   describe("on catalog/packages", () => {
     beforeEach(() => {
