@@ -1,4 +1,5 @@
 require("./formChildCommands");
+require("./utils/ServicesUtil");
 /**
  * Visit the specified (Routed) URL
  *
@@ -46,17 +47,21 @@ function validateServiceId(id) {
  * @param {Object} serviceDefinition - The service JSON definition file
  *
  */
-export function createService(serviceDefinition) {
-  validateServiceId(serviceDefinition.id);
-  const serviceName = serviceDefinition.id.split("/").pop();
+Cypress.Commands.add(
+  "createService",
+  { prevSubject: false },
+  (serviceDefinition) => {
+    validateServiceId(serviceDefinition.id);
+    const serviceName = serviceDefinition.id.split("/").pop();
 
-  cy.exec(
-    `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
-  );
-  cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
-  cy.get(".page-body-content .service-table").contains(serviceName);
-  cy.get(".page-body-content .service-table").contains("Running");
-}
+    cy.exec(
+      `echo '${JSON.stringify(serviceDefinition)}' | dcos marathon app add`
+    );
+    cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
+    cy.get(".page-body-content .service-table").contains(serviceName);
+    cy.get(".page-body-content .service-table").contains("Running");
+  }
+);
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
   cy.wrap(subject).type(`{selectall}${text}`)
@@ -68,11 +73,11 @@ Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
  * @param {String} serviceId - The service id which it will delete
  *
  */
-export function deleteService(serviceId) {
+Cypress.Commands.add("deleteService", { prevSubject: false }, (serviceId) => {
   validateServiceId(serviceId);
   const serviceName = serviceId.split("/").pop();
 
   cy.exec(`dcos marathon app remove ${serviceId}`);
   cy.visitUrl(`services/overview/%2F${Cypress.env("TEST_UUID")}`);
   cy.get(".page-body-content").contains(serviceName).should("not.exist");
-}
+});

@@ -1,6 +1,3 @@
-require("../_support/utils/ServicesUtil");
-const { createService, deleteService } = require("../_support/index");
-
 const serviceDefinition = {
   id: `/${Cypress.env("TEST_UUID")}/dashboard-test-service`,
   instances: 1,
@@ -48,7 +45,7 @@ describe("Dashboard statistics", () => {
     });
 
     // CREATE SERVICE AND RUN ASSERTIONS
-    createService(serviceDefinition);
+    cy.createService(serviceDefinition);
     cy.visitUrl("dashboard");
 
     getAllocationElementFor("CPU Allocation").should(($label) => {
@@ -86,7 +83,7 @@ describe("Dashboard statistics", () => {
     });
 
     // DELETE SERVICE AND RUN ASSERTIONS
-    deleteService(serviceDefinition.id);
+    cy.deleteService(serviceDefinition.id);
 
     cy.visitUrl("dashboard");
     getAllocationElementFor("CPU Allocation").should(($label) => {

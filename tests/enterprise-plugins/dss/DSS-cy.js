@@ -1,5 +1,3 @@
-require("../../_support/utils/ServicesUtil");
-
 describe("DC/OS Storage Service", () => {
   context("DSS (Single Container)", () => {
     beforeEach(() => {
