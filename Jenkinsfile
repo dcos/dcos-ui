@@ -76,16 +76,6 @@ pipeline {
           // we separate type-related tests for now as they seem to be flaky
           steps { sh "npx jest typecheck" }
         }
-        stage("Setup Data Dog") {
-          steps {
-            withCredentials([
-              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
-              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
-            ]) {
-              sh "./scripts/ci/createDatadogConfig.sh"
-            }
-          }
-        }
         stage("Check Translations") {
           steps { sh "npm run util:lingui:check" }
         }
@@ -99,9 +89,6 @@ pipeline {
           steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
         }
         stage("Integration Test") {
-          environment {
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-          }
           steps {
             sh "npm run test:integration"
           }
@@ -117,7 +104,6 @@ pipeline {
         stage("System Test OSS") {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
             TF_VAR_variant = "open"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
           }
@@ -152,7 +138,6 @@ pipeline {
         stage("System Test EE") {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
             TF_VAR_variant = "ee"
           }
           steps {
@@ -169,7 +154,7 @@ pipeline {
 
                 DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
                 export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
-                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
+                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee npm run test:system
               '''
             }
           }
