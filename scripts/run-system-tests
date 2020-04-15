@@ -24,11 +24,6 @@ NODE_ENV="testing"
 PROJECT_ROOT=$(cd "$SCRIPT_PATH/../" && pwd)
 TESTS_FOLDER=${TESTS_FOLDER:-"system-tests"}
 
-# Used for datadog reporting
-REPORT=${REPORT_TO_DATADOG:-true}
-DISTRIBUTION=${REPORT_DISTRIBUTION:-oss}
-BRANCH=${REPORT_BRANCH:-$BRANCH_NAME}
-
 # System test related Variables
 TEST_UUID="${TEST_UUID:-system-tests-$(date +%s)}"
 CYPRESS_CONFIG_FILE=cypress.system-tests.json
