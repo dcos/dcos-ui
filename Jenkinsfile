@@ -115,7 +115,7 @@ pipeline {
                 export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+                dcos cluster setup $CLUSTER_URL --provider=dcos-oidc-auth0 --insecure
                 npm run test:system
               '''
             }
@@ -155,7 +155,7 @@ pipeline {
 
                 . scripts/utils/load_auth_env_vars
 
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
+                dcos cluster setup $CLUSTER_URL --provider=dcos-users --insecure
                 npm run test:system
               '''
             }
