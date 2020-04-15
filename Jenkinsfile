@@ -139,6 +139,9 @@ pipeline {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE"
             TF_VAR_variant = "ee"
+            PROXY_PORT = "4201"
+            TESTS_FOLDER = "system-tests-ee"
+            ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
           }
           steps {
             withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
@@ -153,8 +156,7 @@ pipeline {
                 . scripts/utils/load_auth_env_vars
 
                 DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
-                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
-                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee npm run test:system
+                npm run test:system
               '''
             }
           }
