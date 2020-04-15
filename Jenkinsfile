@@ -6,7 +6,7 @@ def master_branches = ["master", ] as String[]
 def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
 def aws_id = string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID")
 def aws_key = string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
-
+def cluster_suffix = BRANCH_NAME.replaceAll("[^a-zA-Z0-9]", "");
 
 pipeline {
   agent {
@@ -106,12 +106,11 @@ pipeline {
             DCOS_DIR = "/tmp/.dcos-OSS"
             TF_VAR_variant = "open"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+            TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
               sh '''
-                export TF_VAR_cluster_name="ui-\$(date +%s)"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-open
                 export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
@@ -124,10 +123,7 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-open)
-                  cd scripts/terraform && ./down.sh
-                '''
+                sh "cd scripts/terraform && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
@@ -142,19 +138,16 @@ pipeline {
             PROXY_PORT = "4201"
             TESTS_FOLDER = "system-tests-ee"
             ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
+            TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
           }
           steps {
-            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
+            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
               sh '''
-                export TF_VAR_license_key="$LICENSE_KEY"
-                export TF_VAR_cluster_name="ui-\$(date +%s)-$TF_VAR_variant"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-ee
                 rsync -aH ./system-tests/ ./system-tests-ee/
                 rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
                 export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
-
                 dcos cluster setup $CLUSTER_URL --provider=dcos-users --insecure
                 npm run test:system
               '''
@@ -164,10 +157,7 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-ee)
-                  cd scripts/terraform-ee && ./down.sh
-                '''
+                sh "cd scripts/terraform-ee && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
