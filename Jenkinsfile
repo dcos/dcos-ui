@@ -104,9 +104,10 @@ pipeline {
         stage("System Test OSS") {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS"
-            TF_VAR_variant = "open"
-            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+            PROXY_PORT = "4201"
             TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+            TF_VAR_variant = "open"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
@@ -134,11 +135,14 @@ pipeline {
         stage("System Test EE") {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE"
-            TF_VAR_variant = "ee"
-            PROXY_PORT = "4201"
-            TESTS_FOLDER = "system-tests-ee"
-            ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
+            PROXY_PORT = "4202"
             TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh"
+            TF_VAR_variant = "ee"
+
+            // EE-stuff
+            ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
+            TESTS_FOLDER = "system-tests-ee"
           }
           steps {
             withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
