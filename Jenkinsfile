@@ -6,7 +6,7 @@ def master_branches = ["master", ] as String[]
 def slack_creds = string(credentialsId: "8b793652-f26a-422f-a9ba-0d1e47eb9d89", variable: "SLACK_TOKEN")
 def aws_id = string(credentialsId: "1ddc25d8-0873-4b6f-949a-ae803b074e7a", variable: "AWS_ACCESS_KEY_ID")
 def aws_key = string(credentialsId: "875cfce9-90ca-4174-8720-816b4cb7f10f", variable: "AWS_SECRET_ACCESS_KEY")
-
+def cluster_suffix = BRANCH_NAME.replaceAll("[^a-zA-Z0-9]", "");
 
 pipeline {
   agent {
@@ -63,7 +63,7 @@ pipeline {
             }
           }
           steps {
-            sh 'npm run lint:commits -- --from "${CHANGE_TARGET}"'
+            sh 'npm run lint:commits -- --from "origin/${CHANGE_TARGET}"'
           }
         }
         stage("Lint") {
@@ -75,16 +75,6 @@ pipeline {
         stage("Test Types") {
           // we separate type-related tests for now as they seem to be flaky
           steps { sh "npx jest typecheck" }
-        }
-        stage("Setup Data Dog") {
-          steps {
-            withCredentials([
-              string(credentialsId: '66c40969-a46d-470e-b8a2-6f04f2b3f2d5', variable: 'DATADOG_API_KEY'),
-              string(credentialsId: 'MpukWtJqTC3OUQ1aClsA', variable: 'DATADOG_APP_KEY'),
-            ]) {
-              sh "./scripts/ci/createDatadogConfig.sh"
-            }
-          }
         }
         stage("Check Translations") {
           steps { sh "npm run util:lingui:check" }
@@ -99,9 +89,6 @@ pipeline {
           steps { sh "npm run test -- --runInBand --testPathIgnorePatterns tslint typecheck" }
         }
         stage("Integration Test") {
-          environment {
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-          }
           steps {
             sh "npm run test:integration"
           }
@@ -117,19 +104,18 @@ pipeline {
         stage("System Test OSS") {
           environment {
             DCOS_DIR = "/tmp/.dcos-OSS"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
-            TF_VAR_variant = "open"
+            PROXY_PORT = "4201"
+            TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
+            TF_VAR_variant = "open"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
               sh '''
-                export TF_VAR_cluster_name="ui-\$(date +%s)"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-open
                 export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-oidc-auth0 --insecure
+                dcos cluster setup $CLUSTER_URL --provider=dcos-oidc-auth0 --insecure
                 npm run test:system
               '''
             }
@@ -138,10 +124,7 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-open)
-                  cd scripts/terraform && ./down.sh
-                '''
+                sh "cd scripts/terraform && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
@@ -152,24 +135,25 @@ pipeline {
         stage("System Test EE") {
           environment {
             DCOS_DIR = "/tmp/.dcos-EE"
-            REPORT_TO_DATADOG = master_branches.contains(BRANCH_NAME)
+            PROXY_PORT = "4202"
+            TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/testing/master/dcos_generate_config.ee.sh"
             TF_VAR_variant = "ee"
+
+            // EE-stuff
+            ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
+            TESTS_FOLDER = "system-tests-ee"
           }
           steps {
-            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "LICENSE_KEY")]) {
+            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
               sh '''
-                export TF_VAR_license_key="$LICENSE_KEY"
-                export TF_VAR_cluster_name="ui-\$(date +%s)-$TF_VAR_variant"
-                echo $TF_VAR_cluster_name > /tmp/cluster_name-ee
                 rsync -aH ./system-tests/ ./system-tests-ee/
                 rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
                 export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
-
-                DCOS_CLUSTER_SETUP_ACS_TOKEN="\$CLUSTER_AUTH_TOKEN" dcos cluster setup "\$CLUSTER_URL" --provider=dcos-users --insecure
-                export ADDITIONAL_CYPRESS_CONFIG=",integrationFolder=system-tests-ee"
-                PROXY_PORT=4201 TESTS_FOLDER=system-tests-ee REPORT_DISTRIBUTION='ee' npm run test:system
+                dcos cluster setup $CLUSTER_URL --provider=dcos-users --insecure
+                npm run test:system
               '''
             }
           }
@@ -177,10 +161,7 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh '''
-                  export TF_VAR_cluster_name=$(cat /tmp/cluster_name-ee)
-                  cd scripts/terraform-ee && ./down.sh
-                '''
+                sh "cd scripts/terraform-ee && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
