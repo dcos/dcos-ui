@@ -82,7 +82,8 @@ pipeline {
       }
     }
 
-    stage("Test current versions") {
+    // We need to split system tests, as the CI-node can't handle 5 cypresses and the unit tests at once.
+    stage("Most System Tests") {
       parallel {
         stage("Unit Tests") {
           // at this point we already ran tslint and the typecheck, see above!
@@ -101,18 +102,20 @@ pipeline {
           }
         }
 
-        stage("System Test OSS") {
+        stage("System Test OSS 1.13.7") {
           environment {
-            DCOS_DIR = "/tmp/.dcos-OSS"
-            PROXY_PORT = "4201"
-            TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
+            DCOS_DIR = "/tmp/.dcos-OSS-1137"
+            PROXY_PORT = "4300"
+            TERRAFORM_DIR = "./scripts/terraform-oss-1137"
+            TF_VAR_cluster_name = "ui-o1137-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/1.13.7/dcos_generate_config.sh"
             TF_VAR_variant = "open"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
               sh '''
-                export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
+                rsync -aH ./scripts/terraform/ $TERRAFORM_DIR
+                export CLUSTER_URL=$(cd $TERRAFORM_DIR && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
                 dcos cluster setup $CLUSTER_URL --provider=dcos-oidc-auth0 --insecure
@@ -124,7 +127,7 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh "cd scripts/terraform && ./down.sh"
+                sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
@@ -132,11 +135,49 @@ pipeline {
           }
         }
 
-        stage("System Test EE") {
+        stage("System Test OSS 2.0.2") {
           environment {
-            DCOS_DIR = "/tmp/.dcos-EE"
-            PROXY_PORT = "4202"
-            TF_VAR_cluster_name = "ui-ee-${cluster_suffix}-${BUILD_NUMBER}"
+            DCOS_DIR = "/tmp/.dcos-OSS-202"
+            PROXY_PORT = "4301"
+            TERRAFORM_DIR = "./scripts/terraform-oss-202"
+            TF_VAR_cluster_name = "ui-o202-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/stable/2.0.2/dcos_generate_config.sh"
+            TF_VAR_variant = "open"
+          }
+          steps {
+            withCredentials([ aws_id, aws_key ]) {
+              sh '''
+                rsync -aH ./scripts/terraform/ $TERRAFORM_DIR
+                export CLUSTER_URL=$(cd $TERRAFORM_DIR && ./up.sh | tail -n1)
+
+                . scripts/utils/load_auth_env_vars
+                dcos cluster setup $CLUSTER_URL --provider=dcos-oidc-auth0 --insecure
+                npm run test:system
+              '''
+            }
+          }
+
+          post {
+            always {
+              withCredentials([ aws_id, aws_key ]) {
+                sh "cd $TERRAFORM_DIR && ./down.sh"
+              }
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/result-system.xml"
+            }
+          }
+        }
+      }
+    }
+
+    stage("System Tests EE") {
+      parallel {
+        stage("System Test EE 1.13.7") {
+          environment {
+            DCOS_DIR = "/tmp/.dcos-EE-113"
+            PROXY_PORT = "4400"
+            TERRAFORM_DIR = "./scripts/terraform-ee-1337"
+            TF_VAR_cluster_name = "ui-ee113-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/1.13.7/dcos_generate_config.ee.sh"
             TF_VAR_variant = "ee"
 
@@ -147,12 +188,13 @@ pipeline {
           steps {
             withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
               sh '''
-                rsync -aH ./system-tests/ ./system-tests-ee/
-                rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
-                export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)
+                rsync -aH ./scripts/terraform/ $TERRAFORM_DIR
+                export CLUSTER_URL=$(cd $TERRAFORM_DIR && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
                 dcos cluster setup $CLUSTER_URL --provider=dcos-users --insecure
+
+                rsync -aH ./system-tests/ ./system-tests-ee/
                 npm run test:system
               '''
             }
@@ -161,7 +203,46 @@ pipeline {
           post {
             always {
               withCredentials([ aws_id, aws_key ]) {
-                sh "cd scripts/terraform-ee && ./down.sh"
+                sh "cd $TERRAFORM_DIR && ./down.sh"
+              }
+              archiveArtifacts "cypress/**/*"
+              junit "cypress/result-system.xml"
+            }
+          }
+        }
+
+        stage("System Test EE 2.0.2") {
+          environment {
+            DCOS_DIR = "/tmp/.dcos-EE-202"
+            PROXY_PORT = "4401"
+            TERRAFORM_DIR = "./scripts/terraform-ee-202"
+            TF_VAR_cluster_name = "ui-ee202-${cluster_suffix}-${BUILD_NUMBER}"
+            TF_VAR_custom_dcos_download_path = "https://downloads.mesosphere.com/dcos-enterprise/stable/2.0.2/dcos_generate_config.ee.sh"
+            TF_VAR_variant = "ee"
+
+            // EE-stuff
+            ADDITIONAL_CYPRESS_CONFIG = ",integrationFolder=system-tests-ee"
+            TESTS_FOLDER = "system-tests-ee"
+          }
+          steps {
+            withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
+              sh '''
+                rsync -aH ./scripts/terraform/ $TERRAFORM_DIR
+                export CLUSTER_URL=$(cd $TERRAFORM_DIR && ./up.sh | tail -n1)
+
+                . scripts/utils/load_auth_env_vars
+                dcos cluster setup $CLUSTER_URL --provider=dcos-users --insecure
+
+                rsync -aH ./system-tests/ ./system-tests-ee/
+                npm run test:system
+              '''
+            }
+          }
+
+          post {
+            always {
+              withCredentials([ aws_id, aws_key ]) {
+                sh "cd $TERRAFORM_DIR && ./down.sh"
               }
               archiveArtifacts "cypress/**/*"
               junit "cypress/result-system.xml"
