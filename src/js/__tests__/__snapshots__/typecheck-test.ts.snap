@@ -4695,38 +4695,6 @@ plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argume
 plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
-plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2698: Spread types may only be created from object types.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS6133: 'redirectLocation' is declared but its value is never read.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'lastLogDate' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'configuration' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
 plugins/ui-update-private/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.

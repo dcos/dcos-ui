@@ -526,11 +526,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'isUnanchored'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'type'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'variables'
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
-/plugins/tracking/actions/Actions.ts - require statement not part of an import statement
-/plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
-/plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
 /src/js/components/CollapsingString.tsx - Use a conditional expression instead of assigning to 'parent' in multiple places.
 /src/js/components/CosmosErrorMessage.tsx - Shadowed name: 'error'
 /src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.

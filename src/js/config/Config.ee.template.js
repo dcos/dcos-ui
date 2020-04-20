@@ -52,9 +52,6 @@ const ConfigDev = {
         secrets: {
           enabled: enterprise,
         },
-        tracking: {
-          enabled: true,
-        },
       },
     },
     clusterConfiguration: {
