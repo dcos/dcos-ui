@@ -27,9 +27,6 @@ export default {
         "overview-detail": {
           enabled: true,
         },
-        tracking: {
-          enabled: false,
-        },
       },
     },
     clusterConfiguration: {

@@ -124,7 +124,6 @@ export default withI18n()(
       return (
         <div className="login-modal-product-name small inverse flush-bottom text-align-center">
           <p>{Config.fullProductName}</p>
-          {Hooks.applyFilter("userLoginPolicy", null)}
         </div>
       );
     }
