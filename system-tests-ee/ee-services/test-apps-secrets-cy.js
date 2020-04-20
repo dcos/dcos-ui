@@ -1,5 +1,3 @@
-require("../_support/utils/ServicesUtil");
-
 describe("Services", () => {
   const SECRET_NAME = `${Cypress.env("TEST_UUID")}-secret`;
 
@@ -119,31 +117,12 @@ describe("Services", () => {
       cy.contains("Review & Run").click();
 
       // Verify the review screen
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection(SECRET_NAME)
-        .configurationMapValue("Environment Name")
-        .contains("TEST_SECRET");
+      cy.contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      cy.contains("Universal Container Runtime (UCR)");
+      cy.contains("0.1");
+      cy.contains("10 MiB");
+      cy.contains("\u2014");
+      cy.contains("TEST_SECRET");
 
       // Run service
       cy.get("button.button-primary").contains("Run Service").click();
@@ -224,31 +203,12 @@ describe("Services", () => {
       cy.contains("Review & Run").click();
 
       // Verify the review screen
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Service ID")
-        .contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Container Runtime")
-        .contains("Universal Container Runtime (UCR)");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("CPU")
-        .contains("0.1");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Memory")
-        .contains("10 MiB");
-      cy.root()
-        .configurationSection("Service")
-        .configurationMapValue("Disk")
-        .contains("\u2014");
-
-      cy.root()
-        .configurationSection(SECRET_NAME)
-        .configurationMapValue("Container Path & Filename")
-        .contains("secrets/test");
+      cy.contains(`/${Cypress.env("TEST_UUID")}/${serviceName}`);
+      cy.contains("Universal Container Runtime (UCR)");
+      cy.contains("0.1");
+      cy.contains("10 MiB");
+      cy.contains("\u2014");
+      cy.contains("secrets/test");
 
       // Run service
       cy.get("button.button-primary").contains("Run Service").click();

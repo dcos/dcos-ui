@@ -1,17 +1,16 @@
 import xhrfetch from "./xhrfetch";
 
-const router = require("./utils/router");
 require("./formChildCommands");
 require("./utils/ServicesUtil");
 
 Cypress.Commands.add("configureCluster", (configuration) => {
-  router.clearRoutes();
   cy.server();
 
   // //////////////////////////////////////////////////////////////////////////
   //                                 DEFAULTS                                //
   // //////////////////////////////////////////////////////////////////////////
 
+  cy.route(/dcos-version/, "fx:dcos/dcos-version");
   cy.route({
     method: "POST",
     url: /mesos\/api\/v1\?GET_VERSION/,
@@ -65,8 +64,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     configuration.mesos === "1-task-delayed" ||
     configuration.mesos === "1-task-healthy-with-quota"
   ) {
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app")
       .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/apps\/\/sleep\/versions/,
@@ -91,34 +89,34 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       .route(/overlay-master\/state/, "fx:mesos/overlay-master");
 
     if (configuration.mesos === "1-task-healthy-with-offers") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/offers-queue"
       );
     }
 
     if (configuration.mesos === "1-task-delayed") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/delayed-queue"
       );
     }
 
     if (configuration.mesos === "1-task-healthy-with-quota") {
-      router.route(/mesos\/roles/, "fx:quota-management/roles");
+      cy.route(/mesos\/roles/, "fx:quota-management/roles");
     }
   }
 
   if (configuration.mesos === "1-task-healthy-with-region") {
     switch (configuration.regions) {
       case 1:
-        router.route(
+        cy.route(
           /service\/marathon\/v2\/groups/,
           "fx:marathon-1-task/groups-region"
         );
         break;
       default:
-        router.route(
+        cy.route(
           /service\/marathon\/v2\/groups/,
           "fx:marathon-1-task/groups-two-regions"
         );
@@ -130,17 +128,17 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     configuration.mesos === "1-pod" ||
     configuration.mesos === "1-pod-delayed"
   ) {
-    router.route(/state-summary/, "fx:marathon-1-pod-group/summary");
+    cy.route(/state-summary/, "fx:marathon-1-pod-group/summary");
 
     if (configuration.mesos === "1-pod") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-pod-group/groups"
       );
     }
 
     if (configuration.mesos === "1-pod-delayed") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-pod-group/groups-delayed"
       );
@@ -148,8 +146,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.mesos === "1-pod-delayed") {
-    router
-      .route(/state-summary/, "fx:marathon-1-pod-group/summary")
+    cy.route(/state-summary/, "fx:marathon-1-pod-group/summary")
       .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-pod-group/groups")
       .route(
         /service\/marathon\/v2\/deployments/,
@@ -162,7 +159,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.mesos === "1-empty-group") {
-    router.route(/marathon\/v2\/groups/, "fx:marathon-1-group/groups");
+    cy.route(/marathon\/v2\/groups/, "fx:marathon-1-group/groups");
   }
 
   if (configuration.mesos === "1-for-each-health") {
@@ -182,8 +179,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:1-app-for-each-health/app")
       .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(/service\/marathon\/v2\/groups/, "fx:1-app-for-each-health/groups")
       .route(
@@ -214,11 +210,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(
-        /service\/marathon\/v2\/apps/,
-        "fx:1-service-with-executor-task/app"
-      )
+    cy.route(
+      /service\/marathon\/v2\/apps/,
+      "fx:1-service-with-executor-task/app"
+    )
       .route(/net\/v1\/nodes/, "fx:1-app-for-each-health/nodes")
       .route(
         /service\/marathon\/v2\/groups/,
@@ -268,8 +263,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(/marathon\/v2\/apps/, "fx:marathon-1-task/app")
+    cy.route(/marathon\/v2\/apps/, "fx:marathon-1-task/app")
       .route(/marathon\/v2\/groups/, "fx:marathon-1-task-with-volumes/groups")
       .route(/marathon\/v2\/deployments/, "fx:marathon-1-task/deployments")
       .route(/dcos-version/, "fx:dcos/dcos-version")
@@ -293,18 +287,17 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(
-        /marathon\/v2\/groups/,
-        "fx:healthy-tasks-in-mesos-and-marathon/groups"
-      )
-      .route(/state-summary/, "fx:healthy-tasks-in-mesos-and-marathon/summary");
+    cy.route(
+      /marathon\/v2\/groups/,
+      "fx:healthy-tasks-in-mesos-and-marathon/groups"
+    ).route(/state-summary/, "fx:healthy-tasks-in-mesos-and-marathon/summary");
   }
 
   if (configuration.deployments === "one-deployment") {
-    router
-      .route(/marathon\/v2\/deployments/, "fx:deployments/one-deployment")
-      .route(/service\/marathon\/v2\/groups/, "fx:marathon-1-group/kafka");
+    cy.route(
+      /marathon\/v2\/deployments/,
+      "fx:deployments/one-deployment"
+    ).route(/service\/marathon\/v2\/groups/, "fx:marathon-1-group/kafka");
   }
 
   if (configuration.mesos === "1-service-suspended") {
@@ -324,8 +317,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app-suspended")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/app-suspended")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/groups-suspended"
@@ -341,8 +333,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
     configuration.mesos === "1-service-recovering" ||
     configuration.mesos === "1-service-delayed"
   ) {
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/recovering/groups"
@@ -354,14 +345,14 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       .route(/state-summary/, "fx:marathon-1-task/summary");
 
     if (configuration.mesos === "1-service-recovering") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/recovering/queue"
       );
     }
 
     if (configuration.mesos === "1-service-delayed") {
-      router.route(
+      cy.route(
         /service\/marathon\/v2\/queue/,
         "fx:marathon-1-task/delayed/queue"
       );
@@ -369,8 +360,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.mesos === "1-service-delayed") {
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/recovering/app")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/recovering/groups"
@@ -384,8 +374,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.mesos === "1-service-deleting") {
-    router
-      .route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/deleting/app")
+    cy.route(/service\/marathon\/v2\/apps/, "fx:marathon-1-task/deleting/app")
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/deleting/groups"
@@ -418,11 +407,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(
-        /service\/marathon\/v2\/groups/,
-        "fx:marathon-1-task/groups-sdk-services"
-      )
+    cy.route(
+      /service\/marathon\/v2\/groups/,
+      "fx:marathon-1-task/groups-sdk-services"
+    )
       .route(
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
@@ -459,11 +447,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(
-        /service\/marathon\/v2\/groups/,
-        "fx:marathon-1-task/groups-suspended-sdk-services"
-      )
+    cy.route(
+      /service\/marathon\/v2\/groups/,
+      "fx:marathon-1-task/groups-suspended-sdk-services"
+    )
       .route(
         /service\/marathon\/v2\/deployments/,
         "fx:marathon-1-task/deployments"
@@ -488,11 +475,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       },
     });
 
-    router
-      .route(
-        /service\/marathon\/v2\/apps/,
-        "fx:marathon-1-task/app-suspended-single-instance"
-      )
+    cy.route(
+      /service\/marathon\/v2\/apps/,
+      "fx:marathon-1-task/app-suspended-single-instance"
+    )
       .route(
         /service\/marathon\/v2\/groups/,
         "fx:marathon-1-task/groups-suspended-single-instance"
@@ -505,23 +491,21 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.mesos === "no-agents") {
-    router
-      .route(
-        /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
-        "fx:no-agents/nodes"
-      )
-      .route(/state-summary/, "fx:no-agents/summary");
+    cy.route(
+      /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
+      "fx:no-agents/nodes"
+    ).route(/state-summary/, "fx:no-agents/summary");
   }
 
   if (configuration.networkVIPSummaries) {
-    router.route(
+    cy.route(
       /networking\/api\/v1\/summary/,
       "fx:networking/networking-vip-summaries"
     );
   }
 
   if (configuration.universePackages === true) {
-    router
+    cy
       // Packages
       .route({
         method: "POST",
@@ -586,7 +570,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       });
   }
   if (configuration.universePackages === "communityPackage") {
-    router
+    cy
       // Packages
       .route({
         method: "POST",
@@ -597,7 +581,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.universePackages === "dependencyPackage") {
-    router
+    cy
       // Packages
       .route({
         method: "POST",
@@ -608,7 +592,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.universePackages === "old") {
-    router
+    cy
       // Packages
       .route({
         method: "POST",
@@ -618,7 +602,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
       });
   }
   if (configuration.universePackages === "older") {
-    router
+    cy
       // Packages
       .route({
         method: "POST",
@@ -647,8 +631,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.componentHealth) {
-    router
-      .route(/system\/health\/v1\/units/, "fx:unit-health/units")
+    cy.route(/system\/health\/v1\/units/, "fx:unit-health/units")
       .route(
         /system\/health\/v1\/units\/dcos-mesos-dns\.service/,
         "fx:unit-health/unit"
@@ -664,11 +647,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.nodeHealth) {
-    router
-      .route(
-        /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
-        "fx:unit-health/nodes"
-      )
+    cy.route(
+      /system\/health\/v1\/nodes(\?_timestamp=[0-9]+)?$/,
+      "fx:unit-health/nodes"
+    )
       .route(
         /system\/health\/v1\/nodes\/172\.17\.8\.101/,
         "fx:unit-health/node"
@@ -684,7 +666,7 @@ Cypress.Commands.add("configureCluster", (configuration) => {
   }
 
   if (configuration.jobDetails) {
-    router.route(/jobs\/(.*)/, "fx:metronome/job");
+    cy.route(/jobs\/(.*)/, "fx:metronome/job");
   }
 
   if (configuration["ui-settings"]) {
@@ -841,10 +823,10 @@ Cypress.Commands.add("configureCluster", (configuration) => {
 
   // The app won't load until plugins are loaded
   const pluginsFixture = configuration.plugins || "no-plugins";
-  router.route(/ui-config/, "fx:config/" + pluginsFixture + ".json");
+  cy.route(/ui-config/, "fx:config/" + pluginsFixture + ".json");
 
   // Metadata
-  router.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
+  cy.route(/metadata(\?_timestamp=[0-9]+)?$/, "fx:dcos/metadata");
 });
 
 Cypress.Commands.add("visitUrl", (options) => {
@@ -873,10 +855,6 @@ Cypress.Commands.add("visitUrl", (options) => {
       win.eval(`window.fetch = ${xhrfetch.toString()}`);
     },
   });
-});
-
-Cypress.Commands.add("getAPIResponse", (endpoint, callback) => {
-  router.getAPIResponse(endpoint, callback);
 });
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>

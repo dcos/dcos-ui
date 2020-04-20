@@ -1,5 +1,3 @@
-require("../../_support/utils/ServicesUtil");
-
 describe("Services", () => {
   /**
    * Test the applications

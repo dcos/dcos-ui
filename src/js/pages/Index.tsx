@@ -8,7 +8,6 @@ import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import Config from "../config/Config";
 import ConfigStore from "../stores/ConfigStore";
 import * as EventTypes from "../constants/EventTypes";
-import MetadataStore from "../stores/MetadataStore";
 import MesosStateStore from "../stores/MesosStateStore";
 import Modals from "../components/Modals";
 import RequestErrorMsg from "../components/RequestErrorMsg";
@@ -40,7 +39,6 @@ const Index = createReactClass({
   },
 
   UNSAFE_componentWillMount() {
-    MetadataStore.init();
     SidebarStore.init();
     MesosStateStore.addChangeListener(
       EventTypes.MESOS_STATE_CHANGE,

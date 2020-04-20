@@ -5,7 +5,7 @@ import Framework from "../structs/Framework";
 import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
-import * as Version from "../utils/Version";
+import * as Version from "#SRC/js/utils/Version";
 
 const ServiceVersion = React.memo(({ rawVersion }: { rawVersion: string }) => (
   <TextCell>

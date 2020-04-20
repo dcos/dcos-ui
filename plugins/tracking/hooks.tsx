@@ -3,11 +3,10 @@ import * as React from "react";
 import AuthStore from "#SRC/js/stores/AuthStore";
 import Config from "#SRC/js/config/Config";
 import DOMUtils from "#SRC/js/utils/DOMUtils";
-import * as EventTypes from "#SRC/js/constants/EventTypes";
-import MetadataStore from "#SRC/js/stores/MetadataStore";
 import Util from "#SRC/js/utils/Util";
 import { Hooks } from "PluginSDK";
 import Actions from "./actions/Actions";
+import dcosVersion$ from "#SRC/js/stores/dcos-version";
 
 const ANALYTICS_LOAD_TIMEOUT = 2000;
 
@@ -69,28 +68,25 @@ export default {
     const metadata =
       Util.findNestedPropertyInObject(this, "configuration.metadata") || {};
 
-    window.analytics.ready(() => {
-      const setContext = () => {
-        if (!window.Raven) {
-          return;
+    dcosVersion$.subscribe(({ version, variant }) => {
+      window.analytics.ready(() => {
+        const setContext = () => {
+          if (!window.Raven) {
+            return;
+          }
+
+          window.Raven.setTagsContext({
+            ...metadata,
+            environment: process.env.NODE_ENV,
+            dcosVersion: version,
+            dcosVariant: variant,
+          });
+        };
+
+        if (version) {
+          setContext();
         }
-
-        window.Raven.setTagsContext({
-          ...metadata,
-          environment: process.env.NODE_ENV,
-          dcosVersion: MetadataStore.version,
-          dcosVariant: MetadataStore.variant,
-        });
-      };
-
-      if (!MetadataStore.version) {
-        MetadataStore.addChangeListener(
-          EventTypes.DCOS_METADATA_CHANGE,
-          setContext
-        );
-      } else {
-        setContext();
-      }
+      });
     });
   },
 

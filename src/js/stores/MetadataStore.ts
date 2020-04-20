@@ -2,23 +2,23 @@ import isEqual from "lodash.isequal";
 import PluginSDK from "PluginSDK";
 
 import {
-  REQUEST_DCOS_METADATA,
   REQUEST_DCOS_BUILD_INFO_ERROR,
   REQUEST_DCOS_BUILD_INFO_SUCCESS,
   REQUEST_METADATA,
 } from "../constants/ActionTypes";
 import AppDispatcher from "../events/AppDispatcher";
 import {
-  DCOS_METADATA_CHANGE,
   DCOS_BUILD_INFO_ERROR,
   DCOS_BUILD_INFO_CHANGE,
   METADATA_CHANGE,
 } from "../constants/EventTypes";
 import GetSetBaseStore from "./GetSetBaseStore";
 import MetadataActions from "../events/MetadataActions";
+import dcosVersion$ from "./dcos-version";
 
 class MetadataStore extends GetSetBaseStore {
   storeID = "metadata";
+  version?: string;
 
   constructor() {
     super();
@@ -28,7 +28,6 @@ class MetadataStore extends GetSetBaseStore {
       storeID: this.storeID,
       events: {
         success: METADATA_CHANGE,
-        dcosSuccess: DCOS_METADATA_CHANGE,
         dcosBuildInfoChange: DCOS_BUILD_INFO_CHANGE,
         dcosBuildInfoError: DCOS_BUILD_INFO_ERROR,
       },
@@ -47,16 +46,6 @@ class MetadataStore extends GetSetBaseStore {
           if (!isEqual(oldMetadata, metadata)) {
             this.set({ metadata });
             this.emitChange(METADATA_CHANGE);
-          }
-          break;
-        case REQUEST_DCOS_METADATA:
-          const oldDCOSMetadata = this.get("dcosMetadata");
-          const dcosMetadata = action.data;
-
-          // only emitting on change
-          if (!isEqual(oldDCOSMetadata, dcosMetadata)) {
-            this.set({ dcosMetadata });
-            this.emitChange(DCOS_METADATA_CHANGE);
           }
           break;
         case REQUEST_DCOS_BUILD_INFO_ERROR:
@@ -79,12 +68,11 @@ class MetadataStore extends GetSetBaseStore {
   }
 
   init() {
-    this.set({
-      metadata: {},
-      dcosBuildInfo: null,
-    });
-
+    this.set({ metadata: {}, dcosBuildInfo: null });
     MetadataActions.fetch();
+    dcosVersion$.subscribe(({ version }) => {
+      this.version = version;
+    });
   }
 
   // TODO: DCOS-7430 - Remove emitChange method
@@ -108,41 +96,14 @@ class MetadataStore extends GetSetBaseStore {
     MetadataActions.fetchDCOSBuildInfo();
   }
 
-  get bootstrapId() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["bootstrap-id"];
-  }
-
   get clusterId() {
-    const metadata = this.get("metadata");
-
-    return metadata && metadata.CLUSTER_ID;
-  }
-
-  get imageCommit() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["dcos-image-commit"];
-  }
-
-  get variant() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata["dcos-variant"];
-  }
-
-  get version() {
-    const metadata = this.get("dcosMetadata");
-
-    return metadata && metadata.version;
+    return this.metadata?.CLUSTER_ID;
   }
 
   get parsedVersion() {
-    let version = this.version || "latest";
-    version = version.split("-")[0];
-
-    return version.replace(/(.*?)\.(.*?)\..*/, "$1.$2");
+    return (this.version || "latest")
+      .split("-")[0]
+      .replace(/(.*?)\.(.*?)\..*/, "$1.$2");
   }
 }
 

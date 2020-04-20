@@ -8,7 +8,7 @@
     "mochaFile": "cypress/result-system-[hash].xml"
   },
   "screenshotsFolder": "cypress/screenshots",
-  "supportFile": "system-tests/_support",
+  "supportFile": "system-tests/_support/index.js",
   "videosFolder": "cypress/videos",
   "waitForAnimations": true
 }

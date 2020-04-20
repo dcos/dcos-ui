@@ -17,15 +17,12 @@ export const ServiceCPU = React.memo(
     limit?: number | string;
     id: string;
   }) => {
-    if (limit != null && limit !== 0) {
+    if (limit != null && limit !== 0 && limit !== resource) {
       return (
         <NumberCell>
           <Tooltip
             id={`cpu${id}`}
-            trigger={`${Units.formatResource(
-              "cpus",
-              resource
-            )} / ${Units.formatResource("cpus", limit)}`}
+            trigger={Units.formatResources("cpus", resource, limit)}
             maxWidth={150}
           >
             <Trans

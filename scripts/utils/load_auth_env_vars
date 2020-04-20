@@ -30,13 +30,12 @@ CLEAR_CLUSTER_AUTH_INFO=$( [ "$VARIANT" = "enterprise" ] \
   || echo '{"uid": "albert@bekstil.net", "description": "albert" }' \
 )
 
-# infortunately osx and linux have different base64 implementations
+# unfortunately osx and linux have different base64 implementations
 export CLUSTER_AUTH_INFO=$( [[ "$OSTYPE" == "darwin"* ]] \
   && echo $CLEAR_CLUSTER_AUTH_INFO | base64 \
   || echo $CLEAR_CLUSTER_AUTH_INFO | base64 -w0 \
 )
 
-# infortunately osx has a different implementation of base64 than linux-distros
 
 #
 # From : https://github.com/dcos/dcos/blob/master/test_util/helpers.py#L35
@@ -56,6 +55,7 @@ BODY_OSS="{\"token\": \"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsImtpZCI6Ik9UQkVOakZF
 BODY_EE='{ "uid": "'$DCOS_USERNAME'", "password": "'$DCOS_PASSWORD'" }'
 BODY=$( [ "$VARIANT" = "enterprise" ] && echo $BODY_EE || echo $BODY_OSS)
 export CLUSTER_AUTH_TOKEN=$(curl -s --insecure -X "POST" -H "Content-Type: application/json" --data "$BODY" "$CLUSTER_URL/acs/api/v1/auth/login" | jq -r ".token")
+export DCOS_CLUSTER_SETUP_ACS_TOKEN=$CLUSTER_AUTH_TOKEN
 
 if [[ ! $CLUSTER_AUTH_TOKEN || $CLUSTER_AUTH_TOKEN == "null" ]]; then
   echo "\n===================================== ERROR ===================================="
@@ -70,4 +70,4 @@ export CYPRESS_CLUSTER_AUTH_INFO="$CLUSTER_AUTH_INFO"
 export CYPRESS_CLUSTER_AUTH_TOKEN="$CLUSTER_AUTH_TOKEN"
 export CYPRESS_CLUSTER_URL="$CLUSTER_URL"
 # usually only set in a CI env
-export CYPRESS_TEST_UUID="$TEST_UUID"
+export CYPRESS_TEST_UUID=${TEST_UUID:-local}

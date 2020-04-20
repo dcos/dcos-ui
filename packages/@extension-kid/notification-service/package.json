@@ -15,7 +15,7 @@
     "inversify": "5.0.1"
   },
   "devDependencies": {
-    "@types/md5": "2.1.33"
+    "@types/md5": "2.2.0"
   },
   "jest-webpack-alias": {
     "configFile": "../../webpack/webpack.config.js"

@@ -1,5 +1,3 @@
-require("../_support/utils/ServicesUtil");
-
 // creates an app with ucr config and command
 // creates an app with persistent volume
 describe("Services", () => {

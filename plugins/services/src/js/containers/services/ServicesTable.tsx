@@ -28,7 +28,7 @@ import container from "#SRC/js/container";
 import { ServiceActionItem } from "../../constants/ServiceActionItem";
 import ServiceTree from "../../structs/ServiceTree";
 import ServiceActionDisabledModal from "../../components/modals/ServiceActionDisabledModal";
-import * as Version from "../../utils/Version";
+import * as Version from "#SRC/js/utils/Version";
 
 import { nameRenderer } from "../../columns/ServicesTableNameColumn";
 import { statusRenderer } from "../../columns/ServicesTableStatusColumn";

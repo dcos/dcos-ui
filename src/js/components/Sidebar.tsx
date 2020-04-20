@@ -7,8 +7,6 @@ import { navigation } from "foundation-ui";
 import { Trans } from "@lingui/macro";
 
 import keyCodes from "../utils/KeyboardUtil";
-import * as EventTypes from "../constants/EventTypes";
-import MetadataStore from "../stores/MetadataStore";
 import PrimarySidebarLink from "../components/PrimarySidebarLink";
 import SidebarActions from "../events/SidebarActions";
 import { getCurrentViewport } from "../utils/ViewportUtil";
@@ -35,9 +33,18 @@ const defaultMenuItems = [
 
 const { Hooks } = PluginSDK;
 
-class Sidebar extends React.Component {
-  constructor() {
-    super();
+export default class Sidebar extends React.Component<{
+  location: Location;
+}> {
+  static contextTypes = {
+    router: routerShape,
+  };
+
+  geminiRef?: HTMLDivElement | null;
+  sidebarWrapperRef?: HTMLDivElement | null;
+
+  constructor(props) {
+    super(props);
 
     this.state = { expandedItems: [] };
   }
@@ -55,17 +62,10 @@ class Sidebar extends React.Component {
   componentDidMount() {
     NavigationService.on(NAVIGATION_CHANGE, this.onNavigationChange);
 
-    MetadataStore.addChangeListener(
-      EventTypes.DCOS_METADATA_CHANGE,
-      this.onDCOSMetadataChange
+    this.sidebarWrapperRef?.addEventListener(
+      "transitionend",
+      this.handleSidebarTransitionEnd
     );
-
-    if (this.sidebarWrapperRef) {
-      this.sidebarWrapperRef.addEventListener(
-        "transitionend",
-        this.handleSidebarTransitionEnd
-      );
-    }
 
     window.addEventListener("keydown", this.handleKeyPress, true);
   }
@@ -74,11 +74,6 @@ class Sidebar extends React.Component {
     NavigationService.removeListener(
       NAVIGATION_CHANGE,
       this.onNavigationChange
-    );
-
-    MetadataStore.removeChangeListener(
-      EventTypes.DCOS_METADATA_CHANGE,
-      this.onDCOSMetadataChange
     );
 
     if (this.sidebarWrapperRef) {
@@ -97,7 +92,7 @@ class Sidebar extends React.Component {
     this.forceUpdate();
   };
   handleKeyPress = (event) => {
-    const nodeName = event.target.nodeName;
+    const { nodeName } = event.target;
 
     if (
       event.keyCode === keyCodes.leftBracket &&
@@ -286,15 +281,6 @@ class Sidebar extends React.Component {
     return [<ul>{menuItems}</ul>, isChildActive];
   }
 
-  getVersion() {
-    const data = MetadataStore.get("dcosMetadata");
-    if (data == null || data.version == null) {
-      return null;
-    }
-
-    return <span className="version-number">v.{data.version}</span>;
-  }
-
   toggleSidebarDocking() {
     window.requestAnimationFrame(() => {
       SidebarActions.toggle();
@@ -326,9 +312,3 @@ class Sidebar extends React.Component {
     );
   }
 }
-
-Sidebar.contextTypes = {
-  router: routerShape,
-};
-
-export default Sidebar;
