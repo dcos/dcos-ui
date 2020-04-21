@@ -19,14 +19,37 @@ import RequestErrorMsg from "#SRC/js/components/RequestErrorMsg";
 import StoreMixin from "#SRC/js/mixins/StoreMixin";
 import StringUtil from "#SRC/js/utils/StringUtil";
 import UserActions from "#SRC/js/constants/UserActions";
-
-import SealedStoreAlert from "../components/SealedStoreAlert";
 import SecretActionsModal from "../components/SecretActionsModal";
 import SecretFormModal from "../components/SecretFormModal";
 import SecretsTable from "../components/SecretsTable";
 import getSecretStore from "../stores/SecretStore";
 import SecretsError from "../components/SecretsError";
 import EmptySecretsTable from "../components/EmptySecretsTable";
+import AlertPanel from "#SRC/js/components/AlertPanel";
+import AlertPanelHeader from "#SRC/js/components/AlertPanelHeader";
+import MetadataStore from "#SRC/js/stores/MetadataStore";
+
+const SealedStoreAlert = () => {
+  const docsLink = MetadataStore.buildDocsURI(
+    "/security/ent/secrets/unseal-store/"
+  );
+
+  return (
+    <AlertPanel>
+      <AlertPanelHeader>
+        <Trans render="span">Secret store sealed</Trans>
+      </AlertPanelHeader>
+      <Trans render="p" className="flush-bottom">
+        The contents of this secret store cannot be accessed until it is
+        unsealed. See{" "}
+        <a href={docsLink} target="_blank">
+          instructions
+        </a>{" "}
+        on how to access sealed secret stores.
+      </Trans>
+    </AlertPanel>
+  );
+};
 
 const SecretStore = getSecretStore();
 
@@ -220,6 +243,16 @@ class SecretsPage extends mixin(StoreMixin) {
       selectedAction,
     } = this.state;
 
+    // the list-request will fail, thus this needs to be before the SecretsError-component
+    if (SecretStore.getStores().some((s) => s.sealed)) {
+      return (
+        <Page>
+          <Page.Header breadcrumbs={<SecretsBreadcrumbs />} />
+          <SealedStoreAlert />
+        </Page>
+      );
+    }
+
     if (requestErrorType !== null) {
       return (
         <SecretsError
@@ -246,16 +279,6 @@ class SecretsPage extends mixin(StoreMixin) {
       requestErrorType === "permission" ? [] : SecretStore.getSecrets();
 
     const visibleItems = this.getVisibleItems(secrets, searchString);
-
-    const secretStores = SecretStore.getStores();
-    if (secretStores && secretStores.getSealedCount() > 0) {
-      return (
-        <Page>
-          <Page.Header breadcrumbs={<SecretsBreadcrumbs />} />
-          <SealedStoreAlert />
-        </Page>
-      );
-    }
 
     return (
       <Page dontScroll={true} flushBottom={true}>

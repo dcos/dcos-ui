@@ -1958,6 +1958,8 @@ plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'store_listene
 plugins/secrets/pages/SecretStorePage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'requestError' does not exist on type 'Readonly<{}>'.
 plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
+plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretsPage'.
+plugins/secrets/pages/SecretsPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'secretToRemove' does not exist on type 'Readonly<{}>'.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'secretToRemove' does not exist on type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'checkedItems' does not exist on type *.
@@ -1975,8 +1977,6 @@ plugins/secrets/pages/SecretsPage.tsx: error TS2322: type * is not assignable to
 plugins/secrets/pages/SecretsPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretsPage'.
-plugins/secrets/pages/SecretsPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecurityPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 plugins/secrets/pages/__tests__/SecretDetail-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/secrets/pages/__tests__/SecretDetail-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -2014,9 +2014,6 @@ plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/stores/SecretStore.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
-plugins/secrets/structs/SecretStoreStructList.ts: error TS2339: Property 'getSealed' does not exist on type '{}'.
-plugins/secrets/structs/SecretStoreStructList.ts: error TS2365: Operator '+' cannot be applied to types '{}' and 'number'.
-plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.

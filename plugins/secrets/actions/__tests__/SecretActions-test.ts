@@ -336,11 +336,11 @@ describe("SecretActions", () => {
       unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-          data: { bar: "baz" },
+          data: [{ bar: "baz" }],
         });
       });
 
-      thisConfiguration.success({ bar: "baz" });
+      thisConfiguration.success({ array: [{ bar: "baz" }] });
     });
 
     it("dispatches the correct action when unsuccessful", () => {
