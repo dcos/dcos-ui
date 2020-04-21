@@ -322,7 +322,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
-/plugins/secrets/actions/__tests__/CertificateActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
@@ -355,14 +354,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/reducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
 /plugins/secrets/reducers/__tests__/Secrets-test.ts - require statement not part of an import statement
 /plugins/secrets/reducers/__tests__/Volumes-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/CertificateStore.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'thisUseFixtures' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'secrets' is never reassigned; use 'const' instead of 'let'.
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'stores' is never reassigned; use 'const' instead of 'let'.
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
@@ -372,11 +363,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/Certificate.ts - All 'name' signatures should be adjacent
-/plugins/secrets/structs/Certificate.ts - All 'status' signatures should be adjacent
-/plugins/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/CertificatesList-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/SecretStoreStruct-test.ts - require statement not part of an import statement

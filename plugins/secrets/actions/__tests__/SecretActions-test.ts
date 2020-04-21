@@ -44,82 +44,9 @@ describe("SecretActions", () => {
     jest.clearAllMocks();
   });
 
-  describe("#fetchStoreInitializationStatus", () => {
-    it("dispatches the correct action when successful", () => {
-      SecretActions.fetchStoreInitializationStatus();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.success({ bar: "baz" });
-    });
-
-    it("dispatches the correct action when unsuccessful", () => {
-      SecretActions.fetchStoreInitializationStatus();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } },
-      });
-    });
-
-    it("calls #json from the RequestUtil", () => {
-      spyOn(RequestUtil, "json");
-      SecretActions.fetchStoreInitializationStatus();
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-  });
-
-  describe("#initializeStore", () => {
-    it("dispatches the correct action when successful", () => {
-      SecretActions.initializeStore();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.success({ bar: "baz" });
-    });
-
-    it("dispatches the correct action when unsuccessful", () => {
-      SecretActions.initializeStore();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } },
-      });
-    });
-
-    it("calls #json from the RequestUtil", () => {
-      spyOn(RequestUtil, "json");
-      SecretActions.initializeStore();
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("uses PUT for the request method", () => {
-      SecretActions.initializeStore();
-      expect(thisConfiguration.method).toEqual("PUT");
-    });
-  });
-
   describe("#fetchSealStatus", () => {
     it("dispatches the correct action when successful", () => {
-      SecretActions.fetchSealStatus();
+      SecretActions.fetchSealStatus("default");
       unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_SUCCESS,
@@ -131,7 +58,7 @@ describe("SecretActions", () => {
     });
 
     it("dispatches the correct action when unsuccessful", () => {
-      SecretActions.fetchSealStatus();
+      SecretActions.fetchSealStatus("default");
       unsubscribe = SDK.onDispatch((action) => {
         expect(action).toEqual({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
@@ -146,47 +73,8 @@ describe("SecretActions", () => {
 
     it("calls #json from the RequestUtil", () => {
       spyOn(RequestUtil, "json");
-      SecretActions.fetchSealStatus();
+      SecretActions.fetchSealStatus("default");
       expect(RequestUtil.json).toHaveBeenCalled();
-    });
-  });
-
-  describe("#unsealStore", () => {
-    it("dispatches the correct action when successful", () => {
-      SecretActions.unsealStore();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.success({ bar: "baz" });
-    });
-
-    it("dispatches the correct action when unsuccessful", () => {
-      SecretActions.unsealStore();
-      unsubscribe = SDK.onDispatch((action) => {
-        expect(action).toEqual({
-          type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
-          data: { bar: "baz" },
-        });
-      });
-
-      thisConfiguration.error({
-        responseJSON: { description: { bar: "baz" } },
-      });
-    });
-
-    it("calls #json from the RequestUtil", () => {
-      spyOn(RequestUtil, "json");
-      SecretActions.unsealStore();
-      expect(RequestUtil.json).toHaveBeenCalled();
-    });
-
-    it("uses PUT for the request method", () => {
-      SecretActions.unsealStore();
-      expect(thisConfiguration.method).toEqual("PUT");
     });
   });
 

@@ -1762,19 +1762,10 @@ plugins/sdk-services/SDK.ts: error TS2451: Cannot redeclare block-scoped variabl
 plugins/sdk-services/index.ts: error TS2306: File '/plugins/sdk-services/SDK.ts' is not a module.
 plugins/secrets/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
+plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 plugins/secrets/actions/SecretActions.ts: error TS2571: Object is of type 'unknown'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
-plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
-plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
@@ -1799,7 +1790,6 @@ plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
@@ -1808,14 +1798,6 @@ plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/components/CertificatesTable.tsx: error TS2339: Property 'certificates' does not exist on type *.
-plugins/secrets/components/CertificatesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
-plugins/secrets/components/CertificatesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/secrets/components/CertificatesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
@@ -1944,14 +1926,6 @@ plugins/secrets/hooks.tsx: error TS6133: 'state' is declared but its value is ne
 plugins/secrets/hooks.tsx: error TS2554: Expected 3 arguments, but got 4.
 plugins/secrets/hooks.tsx: error TS2769: No overload matches this call.
 plugins/secrets/index.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'healthFilter' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'isLoading' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'requestError' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'CertificatesPage'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretDetail.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/secrets/pages/SecretDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretDetail'.
 plugins/secrets/pages/SecretDetail.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
@@ -2039,13 +2013,9 @@ plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of
 plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobSpec'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
-plugins/secrets/stores/CertificateStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/secrets/stores/SecretStore.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
-plugins/secrets/structs/Certificate.ts: error TS2551: Property '_name' does not exist on type 'Certificate'. Did you mean 'name'?
-plugins/secrets/structs/Certificate.ts: error TS2551: Property '_status' does not exist on type 'Certificate'. Did you mean 'status'?
 plugins/secrets/structs/SecretStoreStructList.ts: error TS2339: Property 'getSealed' does not exist on type '{}'.
 plugins/secrets/structs/SecretStoreStructList.ts: error TS2365: Operator '+' cannot be applied to types '{}' and 'number'.
-plugins/secrets/structs/__tests__/CertificatesList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
