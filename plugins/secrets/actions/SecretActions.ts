@@ -13,44 +13,6 @@ function isFile(value) {
 }
 
 const SecretActions = {
-  fetchStoreInitializationStatus(storeName) {
-    RequestUtil.json({
-      url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/init/${storeName}`,
-      success(response) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_SUCCESS,
-          data: response,
-        });
-      },
-      error(xhr) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_STATUS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
-        });
-      },
-    });
-  },
-
-  initializeStore(initializationRequest, storeName) {
-    RequestUtil.json({
-      url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/init/${storeName}`,
-      method: "PUT",
-      data: initializationRequest,
-      success(response) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_SUCCESS,
-          data: response,
-        });
-      },
-      error(xhr) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_INITIALIZATION_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
-        });
-      },
-    });
-  },
-
   fetchSealStatus(storeName) {
     RequestUtil.json({
       url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/seal-status/${storeName}`,
@@ -63,26 +25,6 @@ const SecretActions = {
       error(xhr) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_STORE_SEAL_STATUS_ERROR,
-          data: RequestUtil.getErrorFromXHR(xhr),
-        });
-      },
-    });
-  },
-
-  unsealStore(unsealRequest, storeName) {
-    RequestUtil.json({
-      url: `${Config.rootUrl}${PrivatePluginsConfig.secretsAPIPrefix}/unseal/${storeName}`,
-      method: "PUT",
-      data: unsealRequest,
-      success(response) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_UNSEAL_SUCCESS,
-          data: response,
-        });
-      },
-      error(xhr) {
-        SDK.dispatch({
-          type: ActionTypes.REQUEST_STORE_UNSEAL_ERROR,
           data: RequestUtil.getErrorFromXHR(xhr),
         });
       },
@@ -365,13 +307,7 @@ const SecretActions = {
 
 if (Config.useFixtures) {
   const methodFixtureMapping = {
-    fetchStoreInitializationStatus: import(
-      /* storeInitializationStatus */ "../../../tests/_fixtures/secrets/store-initialization-status.json"
-    ),
     fetchSealStatus: import(
-      /* storeSealStatus */ "../../../tests/_fixtures/secrets/store-seal-status.json"
-    ),
-    unsealStore: import(
       /* storeSealStatus */ "../../../tests/_fixtures/secrets/store-seal-status.json"
     ),
     fetchSecret: import(
@@ -410,10 +346,6 @@ if (Config.useFixtures) {
     window.actionTypes.SecretActions = Object.assign(
       getFixtureResponses(methodFixtureMapping, responses),
       {
-        initializeStore: {
-          event: "success",
-          success: { response: {} },
-        },
         deleteSecret: {
           event: "success",
           success: { response: "Secret deleted." },
