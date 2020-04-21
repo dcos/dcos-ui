@@ -36,19 +36,6 @@ describe("PodSpec", () => {
     });
   });
 
-  describe("#getContainerCount", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getContainerCount()).toEqual(2);
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getContainerCount()).toEqual(0);
-    });
-  });
-
   describe("#getLabels", () => {
     it("returns the correct value", () => {
       const podSpec = new PodSpec(PodFixture.spec);
@@ -111,32 +98,6 @@ describe("PodSpec", () => {
     });
   });
 
-  describe("#getEnvironment", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getEnvironment()).toEqual(PodFixture.spec.environment);
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getEnvironment()).toEqual({});
-    });
-  });
-
-  describe("#getScaling", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getScaling()).toEqual(PodFixture.spec.scaling);
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getScaling()).toEqual({});
-    });
-  });
-
   describe("#getVolumes", () => {
     it("returns the correct value", () => {
       const podSpec = new PodSpec(PodFixture.spec);
@@ -147,19 +108,6 @@ describe("PodSpec", () => {
     it("returns the correct default value", () => {
       const podSpec = new PodSpec();
       expect(podSpec.getVolumes()).toEqual([]);
-    });
-  });
-
-  describe("#getNetworks", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getNetworks()).toEqual(PodFixture.spec.networks);
-    });
-
-    it("returns the correct default value", () => {
-      const podSpec = new PodSpec();
-      expect(podSpec.getNetworks()).toEqual([]);
     });
   });
 });
