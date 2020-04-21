@@ -234,7 +234,7 @@ const SecretActions = {
       success(response) {
         SDK.dispatch({
           type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-          data: response,
+          data: response.array,
         });
       },
       error(xhr) {

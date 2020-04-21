@@ -5,7 +5,6 @@ import * as ActionTypes from "../constants/ActionTypes";
 import * as EventTypes from "../constants/EventTypes";
 import SecretActions from "../actions/SecretActions";
 import Secret from "../structs/Secret";
-import SecretStoreStructList from "../structs/SecretStoreStructList";
 import PrivatePluginsConfig from "../../PrivatePluginsConfig";
 
 import { getSDK } from "../SDK";
@@ -16,6 +15,12 @@ const NOTIFICATION_LOCATIONS = [
   "system-security-stores",
 ];
 const NOTIFICATION_ID = "sealedStores";
+
+// stores: Array<{
+//   driver?: string;
+//   description?: string;
+//   sealed?: boolean;
+// }>;
 
 class SecretStore extends EventEmitter {
   constructor() {
@@ -173,7 +178,7 @@ class SecretStore extends EventEmitter {
   }
 
   public getStores() {
-    return new SecretStoreStructList({ items: this.get("stores") });
+    return this.get("stores");
   }
 
   public getSecretDetail() {
@@ -190,16 +195,12 @@ class SecretStore extends EventEmitter {
   }
 
   public processStores(stores: any) {
-    getSDK().dispatch({
-      type: EventTypes.SECRET_ALL_STORES_SUCCESS,
-      stores: stores.array,
-    });
-    const storesList = new SecretStoreStructList({ items: stores.array });
+    getSDK().dispatch({ type: EventTypes.SECRET_ALL_STORES_SUCCESS, stores });
     const notificationCount = NotificationStore.getNotificationCount(
       "system-security-stores"
     );
 
-    if (storesList.getSealedCount() > 0) {
+    if (stores.some((s) => s.sealed)) {
       NotificationStore.addNotification(
         NOTIFICATION_LOCATIONS,
         NOTIFICATION_ID,

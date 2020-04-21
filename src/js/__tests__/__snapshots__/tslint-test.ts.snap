@@ -344,7 +344,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
-/plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
@@ -355,7 +354,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/reducers/__tests__/Secrets-test.ts - require statement not part of an import statement
 /plugins/secrets/reducers/__tests__/Volumes-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'secrets' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'stores' is never reassigned; use 'const' instead of 'let'.
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
@@ -365,8 +363,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretStoreStruct-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts - require statement not part of an import statement
 /plugins/secrets/validators/__tests__/SecretsValidators-test.ts - require statement not part of an import statement
 /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/components/DeploymentsModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
