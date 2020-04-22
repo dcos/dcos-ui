@@ -93,14 +93,7 @@ class Node extends Item {
   }
 
   getResources() {
-    return (
-      this.get("used_resources") || {
-        cpus: 0,
-        mem: 0,
-        gpus: 0,
-        disk: 0,
-      }
-    );
+    return this.get("used_resources") || { cpus: 0, mem: 0, gpus: 0, disk: 0 };
   }
 
   isPublic() {

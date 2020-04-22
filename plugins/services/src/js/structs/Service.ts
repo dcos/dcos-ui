@@ -133,7 +133,7 @@ export default class Service extends Item {
 
   getResourceLimits() {
     const instances = this.getInstancesCount();
-    const { cpus = 0, mem = 0 } = this.get("resourceLimits") || {};
+    const { cpus = 0, mem = 0 } = this.resourceLimits || {};
 
     return {
       cpus: cpus !== "unlimited" ? cpus * instances : cpus,

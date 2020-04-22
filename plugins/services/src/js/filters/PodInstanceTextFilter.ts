@@ -1,10 +1,9 @@
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
-import DSLFilter from "#SRC/js/structs/DSLFilter";
 
 /**
  * This filter handles the `text` attributes against pod instance's `id` value
  */
-class PodInstanceTextFilter extends DSLFilter {
+export default {
   /**
    * Handle all `id` attribute filters that we can handle.
    *
@@ -14,27 +13,15 @@ class PodInstanceTextFilter extends DSLFilter {
     return (
       filterType === DSLFilterTypes.EXACT || filterType === DSLFilterTypes.FUZZY
     );
-  }
+  },
 
   /**
    * Keep only tasks whose id contains part of the filter's text
    *
    * @override
    */
-  filterApply(resultSet, filterType, filterArguments) {
-    const filteredItems = resultSet.filterItems(
-      (instance) => instance.id.indexOf(filterArguments.text) !== -1
-    );
-
-    if (
-      filteredItems.getItems().length !== 0 &&
-      filteredItems.getItems().length < resultSet.getItems().length
-    ) {
-      return filteredItems;
-    }
-
-    return resultSet;
-  }
-}
-
-export default PodInstanceTextFilter;
+  filterApply(resultSet, _filterType, { text }) {
+    const filteredItems = resultSet.filterItems(({ id }) => id.includes(text));
+    return filteredItems.list.length !== 0 ? filteredItems : resultSet;
+  },
+};

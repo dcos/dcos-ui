@@ -58,13 +58,7 @@ export default class PodContainer extends Item {
   }
 
   getResources() {
-    return {
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0,
-      ...this.get("resources"),
-    };
+    return { cpus: 0, mem: 0, gpus: 0, disk: 0, ...this.get("resources") };
   }
 
   hasHealthChecks() {

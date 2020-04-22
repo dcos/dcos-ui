@@ -231,7 +231,9 @@ class PodInstancesTable extends React.Component {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
-      const containerSpec = podSpec.getContainerSpec(container.name);
+      const containerSpec = podSpec
+        .getContainers()
+        .find(({ name }) => container.name === name);
       if (containerSpec) {
         containerResources = containerSpec.resources;
       }
@@ -257,7 +259,7 @@ class PodInstancesTable extends React.Component {
         cpus: containerResources.cpus,
         mem: containerResources.mem,
         resourceLimits:
-          containerSpec.resourceLimits || containerSpec.resources || {},
+          containerSpec?.resourceLimits || containerSpec?.resources || {},
         updated: container.getLastUpdated(),
         version: "",
         isHistoricalInstance: container.isHistoricalInstance,

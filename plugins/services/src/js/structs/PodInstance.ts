@@ -12,9 +12,7 @@ export default class PodInstance extends Item {
   }
 
   getContainers() {
-    const containers = this.get("containers") || [];
-
-    return containers.map((container) => new PodContainer(container));
+    return (this.get("containers") || []).map((c) => new PodContainer(c));
   }
 
   getId() {
@@ -90,15 +88,7 @@ export default class PodInstance extends Item {
   }
 
   getResources() {
-    const resources = this.get("resources") || {};
-
-    return {
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0,
-      ...resources,
-    };
+    return { cpus: 0, mem: 0, gpus: 0, disk: 0, ...this.get("resources") };
   }
 
   getIpAddresses() {

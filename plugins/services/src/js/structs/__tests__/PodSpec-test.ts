@@ -26,16 +26,6 @@ describe("PodSpec", () => {
     });
   });
 
-  describe("#getContainerSpec", () => {
-    it("returns the correct value", () => {
-      const podSpec = new PodSpec(PodFixture.spec);
-
-      expect(podSpec.getContainerSpec("container-1")).toEqual(
-        PodFixture.spec.containers[0]
-      );
-    });
-  });
-
   describe("#getLabels", () => {
     it("returns the correct value", () => {
       const podSpec = new PodSpec(PodFixture.spec);

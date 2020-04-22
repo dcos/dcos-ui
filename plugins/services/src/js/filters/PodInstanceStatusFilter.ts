@@ -1,53 +1,40 @@
 import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
-import DSLFilter from "#SRC/js/structs/DSLFilter";
 
-const LABEL = "is";
-
-const LABEL_TO_STATUS = {
-  active: "active",
-  completed: "completed",
-};
+const getStatus = (label) =>
+  ({
+    active: "active",
+    completed: "completed",
+  }[label.toLowerCase()]);
 
 /**
  * This filter handles the `is:state` for instances
  */
-class PodInstanceStatusFilter extends DSLFilter {
+export default {
   /**
    * Handle all `is:XXXX` attribute filters that we can handle.
-   *
-   * @override
    */
-  filterCanHandle(filterType, filterArguments) {
+  filterCanHandle(filterType, { label, text }) {
     return (
-      filterType === DSLFilterTypes.ATTRIB &&
-      filterArguments.label === LABEL &&
-      LABEL_TO_STATUS[filterArguments.text.toLowerCase()] != null
+      filterType === DSLFilterTypes.ATTRIB && label === "is" && getStatus(text)
     );
-  }
+  },
 
   /**
-   * Keep only instances whose state matches the value of
-   * the `is` label
-   *
-   * @override
+   * Keep only instances whose state matches the value of the `is` label
    */
-  filterApply(resultSet, filterType, filterArguments) {
-    const testStatus = LABEL_TO_STATUS[filterArguments.text.toLowerCase()];
+  filterApply(resultSet, _filterType, { text }) {
+    const testStatus = getStatus(text);
 
     return resultSet.filterItems((instance) => {
       let instanceStatus = "completed";
-
       if (instance.isStaging()) {
         instanceStatus = "staging";
       }
-
       if (instance.isRunning()) {
         instanceStatus = "active";
       }
 
       return instanceStatus === testStatus;
     });
-  }
-}
-
-export default PodInstanceStatusFilter;
+  },
+};
