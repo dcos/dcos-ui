@@ -595,12 +595,12 @@ class SecretFormModal extends mixin(StoreMixin) {
         showFooter={true}
         showHeader={true}
       >
-        <form onChange={this.handleFormChange}>
+        <div onChange={this.handleFormChange}>
           {this.getErrorMessage()}
           {this.getPathRow()}
           {this.getTypeRow()}
           {valueField}
-        </form>
+        </div>
       </Modal>
     );
   }
