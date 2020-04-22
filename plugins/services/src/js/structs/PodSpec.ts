@@ -10,10 +10,6 @@ export default class PodSpec extends ServiceSpec {
     return this.get("containers") || [];
   }
 
-  getContainerSpec(name) {
-    return this.getContainers().find((container) => container.name === name);
-  }
-
   getLabels() {
     return this.get("labels") || {};
   }

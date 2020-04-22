@@ -33,16 +33,12 @@ const InstanceUtil = {
   },
 
   getNode(task) {
-    if (!task || !task.agentId) {
+    if (!task?.agentId) {
       return null;
     }
 
-    const nodesList = CompositeState.getNodesList();
-
-    return nodesList
-      .filter({
-        ids: [task.agentId],
-      })
+    return CompositeState.getNodesList()
+      .filter({ ids: [task.agentId] })
       .last();
   },
 };

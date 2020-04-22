@@ -3033,8 +3033,6 @@ plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2556: Expec
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'onScale' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'onEdit' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2556: Expected 3 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'actionErrors' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'pendingActions' does not exist on type 'Readonly<{}>'.
@@ -3052,12 +3050,9 @@ plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: erro
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'childContextTypes' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'location' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'defaultFilterData' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'filterExpression' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
@@ -3438,16 +3433,6 @@ plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: 
 plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2739: type * is missing the following properties from type *: DONE, HEADERS_RECEIVED, LOADING, OPENED, UNSENT
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/filters/PodInstanceStatusFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstanceTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
 plugins/services/src/js/filters/ServiceAttributeHealthFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/ServiceAttributeIsFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/ServiceNameTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
@@ -3461,9 +3446,6 @@ plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zone
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
-plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
@@ -4371,6 +4353,7 @@ plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does n
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
+plugins/services/src/js/structs/Service.ts: error TS2339: Property 'resourceLimits' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.

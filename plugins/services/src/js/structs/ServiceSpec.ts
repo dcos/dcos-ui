@@ -6,11 +6,6 @@ export default class ServiceSpec extends Item {
   }
 
   getResources() {
-    return {
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0,
-    };
+    return { cpus: 0, mem: 0, gpus: 0, disk: 0 };
   }
 }
