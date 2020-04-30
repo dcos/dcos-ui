@@ -162,7 +162,7 @@
     "stylelint": "13.3.3",
     "stylelint-config-standard": "20.0.0",
     "ts-jest": "22.4.6",
-    "ts-loader": "7.0.1",
+    "ts-loader": "7.0.2",
     "tslint": "5.20.1",
     "tslint-config-prettier": "1.18.0",
     "tslint-consistent-codestyle": "1.16.0",
