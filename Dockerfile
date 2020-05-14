@@ -13,7 +13,7 @@ RUN set -x \
   && apt-get update \
   && apt-get install -y awscli lsof wget jq curl rsync openssh-client \
   && apt-get clean \
-  && curl -o /usr/local/bin/dcos https://downloads.dcos.io/cli/testing/binaries/dcos/linux/x86-64/master/dcos \
+  && curl -o /usr/local/bin/dcos https://downloads.dcos.io/cli/releases/binaries/dcos/linux/x86-64/latest/dcos \
   && chmod +x /usr/local/bin/dcos \
   && npm install -g dogapi
 
