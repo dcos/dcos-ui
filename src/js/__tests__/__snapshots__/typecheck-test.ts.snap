@@ -2038,8 +2038,8 @@ plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS255
 plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
-plugins/services/src/js/columns/ServicesTableCPUColumn.tsx: error TS2339: Property 'cpus' does not exist on type '{}'.
-plugins/services/src/js/columns/ServicesTableMemColumn.tsx: error TS2339: Property 'mem' does not exist on type '{}'.
+plugins/services/src/js/columns/resourceLimits.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
+plugins/services/src/js/columns/resourceLimits.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'summary' does not exist on type *.
@@ -3053,34 +3053,9 @@ plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: erro
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'location' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isExpanded' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'hasChildren' does not exist on type '{}'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'filterText' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'onSelectionChange' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'instances' does not exist on type *.
@@ -4350,10 +4325,7 @@ plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not 
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
-plugins/services/src/js/structs/Service.ts: error TS2339: Property 'resourceLimits' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
@@ -4881,6 +4853,7 @@ src/js/components/ErrorsAlert.tsx: error TS2339: Property 'isPermissive' does no
 src/js/components/ErrorsAlert.tsx: error TS2339: Property 'path' does not exist on type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandAll' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'childRowClassName' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'className' does not exist on type *.
@@ -4890,7 +4863,6 @@ src/js/components/ExpandingTable.tsx: error TS2339: Property 'tableComponent' do
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'columns' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
-src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandAll' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'leftChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'rightChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'className' does not exist on type *.

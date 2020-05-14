@@ -221,10 +221,6 @@ export default class ServiceTree extends Tree {
     );
   }
 
-  getResourceLimits() {
-    return {};
-  }
-
   getStatus() {
     return this.getServiceStatus().displayName;
   }

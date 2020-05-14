@@ -8,6 +8,10 @@ import * as ServiceStatus from "../constants/ServiceStatus";
 import ServiceSpec from "./ServiceSpec";
 
 export default class Service extends Item {
+  resourceLimits?: {
+    cpus?: "unlimited" | number;
+    mem?: "unlimited" | number;
+  };
   constructor(...args) {
     super(...args);
     this._regions = undefined;
@@ -128,16 +132,6 @@ export default class Service extends Item {
       mem: (mem + executorMem) * instances,
       gpus: (gpus + executorGpus) * instances,
       disk: (disk + executorDisk) * instances,
-    };
-  }
-
-  getResourceLimits() {
-    const instances = this.getInstancesCount();
-    const { cpus = 0, mem = 0 } = this.resourceLimits || {};
-
-    return {
-      cpus: cpus !== "unlimited" ? cpus * instances : cpus,
-      mem: mem !== "unlimited" ? mem * instances : mem,
     };
   }
 
