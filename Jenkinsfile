@@ -108,10 +108,18 @@ pipeline {
             TF_VAR_cluster_name = "ui-oss-${cluster_suffix}-${BUILD_NUMBER}"
             TF_VAR_custom_dcos_download_path = "https://downloads.dcos.io/dcos/testing/master/dcos_generate_config.sh"
             TF_VAR_variant = "open"
+            DCOS_VERBOSITY = "2"
           }
           steps {
             withCredentials([ aws_id, aws_key ]) {
-              sh '''
+              sh '''#!/bin/bash
+                dcos --version
+                echo "--------------------"
+                dcos --version
+                dcos --version
+                dcos --version
+                dcos --version
+                dcos --version
                 export CLUSTER_URL=$(cd scripts/terraform && ./up.sh | tail -n1)
 
                 . scripts/utils/load_auth_env_vars
@@ -146,7 +154,7 @@ pipeline {
           }
           steps {
             withCredentials([ aws_id, aws_key, string(credentialsId: "8667643a-6ad9-426e-b761-27b4226983ea", variable: "TF_VAR_license_key")]) {
-              sh '''
+              sh '''#!/bin/bash
                 rsync -aH ./system-tests/ ./system-tests-ee/
                 rsync -aH ./scripts/terraform/ ./scripts/terraform-ee/
                 export CLUSTER_URL=$(cd scripts/terraform-ee && ./up.sh | tail -n1)

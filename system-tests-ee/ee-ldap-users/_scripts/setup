@@ -1,5 +1,5 @@
 #!/bin/bash
 
 if [ -z "$(dcos package list | grep dcos-enterprise-cli)" ]; then
-  dcos package install --cli dcos-enterprise-cli --yes
+  dcos package install dcos-enterprise-cli --yes
 fi
