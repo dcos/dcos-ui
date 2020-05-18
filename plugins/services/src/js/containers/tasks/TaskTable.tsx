@@ -24,6 +24,7 @@ import TaskStates from "../../constants/TaskStates";
 import TaskTableHeaderLabels from "../../constants/TaskTableHeaderLabels";
 import TaskTableUtil from "../../utils/TaskTableUtil";
 import TaskUtil from "../../utils/TaskUtil";
+import { getResourceLimits } from "../../columns/resourceLimits";
 
 const tableColumnClasses = {
   checkbox: "task-table-column-checkbox",
@@ -350,7 +351,8 @@ class TaskTable extends React.Component {
     );
   };
   renderMem = (_, task) => {
-    const memLimit = getService(task.id)?.getResourceLimits().mem;
+    const service = getService(task.id);
+    const memLimit = service && getResourceLimits(service).mem;
     if (memLimit != null && memLimit !== 0) {
       return (
         <Tooltip
@@ -375,7 +377,8 @@ class TaskTable extends React.Component {
     return <span>{Units.formatResource("mem", task.resources.mem)}</span>;
   };
   renderCpus = (_, task) => {
-    const cpusLimit = getService(task.id)?.getResourceLimits().cpus;
+    const service = getService(task.id);
+    const cpusLimit = service && getResourceLimits(service).cpus;
     if (cpusLimit != null && cpusLimit !== 0) {
       return (
         <Tooltip

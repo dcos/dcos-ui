@@ -6,6 +6,7 @@ import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
+import { getResourceLimits } from "./resourceLimits";
 
 export const ServiceCPU = React.memo(
   ({
@@ -45,14 +46,11 @@ export const ServiceCPU = React.memo(
   }
 );
 
-export function cpuRenderer(
-  service: Service | Pod | ServiceTree
-): React.ReactNode {
-  return (
-    <ServiceCPU
-      id={service.getId()}
-      resource={service.getResources().cpus}
-      limit={service.getResourceLimits().cpus}
-    />
-  );
-}
+type TreeItem = Service | Pod | ServiceTree;
+export const cpuRenderer = (service: TreeItem): React.ReactNode => (
+  <ServiceCPU
+    id={service.getId()}
+    resource={service.getResources().cpus}
+    limit={getResourceLimits(service).cpus}
+  />
+);
