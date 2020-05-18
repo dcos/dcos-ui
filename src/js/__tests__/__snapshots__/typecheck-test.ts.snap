@@ -1433,21 +1433,6 @@ plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: e
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'isCACertRequired' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'onFormSubmit' does not exist on type *.
 plugins/organization/submodules/directories/components/DirectoryFormModal.tsx: error TS2339: Property 'model' does not exist on type *.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
-plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx: error TS2769: No overload matches this call.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2339: Property 'modalEditMode' does not exist on type 'Readonly<{}>'.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/organization/submodules/directories/pages/DirectoriesPage.tsx: error TS2339: Property 'modalDisabled' does not exist on type 'Readonly<{}>'.
