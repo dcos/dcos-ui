@@ -6,6 +6,7 @@ import Pod from "../structs/Pod";
 import Service from "../structs/Service";
 import ServiceTree from "../structs/ServiceTree";
 import Units from "#SRC/js/utils/Units";
+import { getResourceLimits } from "./resourceLimits";
 
 export const ServiceMem = React.memo(
   ({
@@ -44,14 +45,11 @@ export const ServiceMem = React.memo(
   }
 );
 
-export function memRenderer(
-  service: Service | Pod | ServiceTree
-): React.ReactNode {
-  return (
-    <ServiceMem
-      id={service.getId()}
-      resource={service.getResources().mem}
-      limit={service.getResourceLimits().mem}
-    />
-  );
-}
+type TreeItem = Service | Pod | ServiceTree;
+export const memRenderer = (service: TreeItem): React.ReactNode => (
+  <ServiceMem
+    id={service.getId()}
+    resource={service.getResources().mem}
+    limit={getResourceLimits(service).mem}
+  />
+);
