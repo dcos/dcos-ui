@@ -99,7 +99,7 @@
     "@types/md5": "2.2.0",
     "@types/prop-types": "15.7.3",
     "@types/react": "16.9.35",
-    "@types/react-router": "2.0.56",
+    "@types/react-router": "2.0.57",
     "@types/recompose": "0.30.7",
     "@types/semver": "7.1.0",
     "autoprefixer": "9.7.6",
