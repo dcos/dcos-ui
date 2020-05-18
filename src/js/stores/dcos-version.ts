@@ -22,9 +22,9 @@ type DCOSData = {
   hasQuotaSupport: boolean;
 };
 
-export default fromFetch(
-  `${Config.rootUrl}/dcos-metadata/dcos-version.json`
-).pipe(
+export default fromFetch(`${Config.rootUrl}/dcos-metadata/dcos-version.json`, {
+  cache: "no-cache",
+}).pipe(
   switchMap((response) =>
     from(
       response.json().then((json) => ({
