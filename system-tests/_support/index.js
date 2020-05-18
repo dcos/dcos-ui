@@ -64,7 +64,7 @@ Cypress.Commands.add(
 );
 
 Cypress.Commands.add("retype", { prevSubject: true }, (subject, text) =>
-  cy.wrap(subject).type(`{selectall}${text}`)
+  cy.wrap(subject).type(`{selectall}{backspace}${text}`)
 );
 
 /**
