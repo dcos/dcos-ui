@@ -402,7 +402,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - don't declare variable actionButtons to return it immediately
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Missing \\"key\\" prop for element.
