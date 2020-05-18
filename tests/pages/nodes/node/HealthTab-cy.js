@@ -1,9 +1,6 @@
 describe("Node Health Tab [0fa]", () => {
   beforeEach(() => {
-    cy.configureCluster({
-      mesos: "1-task-healthy",
-      nodeHealth: true,
-    });
+    cy.configureCluster({ mesos: "1-task-healthy", nodeHealth: true });
   });
 
   context("Navigate to tab [0fb]", () => {

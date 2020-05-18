@@ -6,8 +6,6 @@ import DSLFilterTypes from "#SRC/js/constants/DSLFilterTypes";
 export default {
   /**
    * Handle all `id` attribute filters that we can handle.
-   *
-   * @override
    */
   filterCanHandle(filterType) {
     return (
