@@ -1,15 +1,9 @@
-const {
-  DefinePlugin,
-  optimize: { ModuleConcatenationPlugin },
-} = require("webpack");
-
+const { optimize } = require("webpack");
 const CompressionPlugin = require("compression-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const ScriptExtHtmlWebpackPlugin = require("script-ext-html-webpack-plugin");
 const merge = require("webpack-merge");
 const path = require("path");
-
-const packageInfo = require("../package");
 const common = require("./webpack.config.js");
 
 module.exports = merge(common, {
@@ -23,16 +17,8 @@ module.exports = merge(common, {
   },
   devtool: "source-map",
   plugins: [
-    new ModuleConcatenationPlugin(),
-    new DefinePlugin({
-      "process.env.version": JSON.stringify(packageInfo.version),
-    }),
-    new CompressionPlugin({
-      algorithm: "gzip",
-      test: /\.js$|\.css$|\.html$/,
-      threshold: 10240,
-      minRatio: 0.8,
-    }),
+    new optimize.ModuleConcatenationPlugin(),
+    new CompressionPlugin({ test: /\.js$|\.css$|\.html$/, threshold: 10240 }),
     new HtmlWebpackPlugin({
       template: "./src/index.html",
       filename: "../index.html",
