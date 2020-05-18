@@ -1,9 +1,0 @@
-{
-  "uiConfiguration": {
-    "plugins": {
-      "tracking": {
-        "enabled": false
-      }
-    }
-  }
-}

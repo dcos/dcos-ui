@@ -14,13 +14,15 @@ import {
 
 import CheckboxTable from "#SRC/js/components/CheckboxTable";
 import CollapsingString from "#SRC/js/components/CollapsingString";
-import ExpandingTable from "#SRC/js/components/ExpandingTable";
+import ExpandingTable, { RowOptions } from "#SRC/js/components/ExpandingTable";
 import TimeAgo from "#SRC/js/components/TimeAgo";
 import Units from "#SRC/js/utils/Units";
 import TableUtil from "#SRC/js/utils/TableUtil";
 import DateUtil from "#SRC/js/utils/DateUtil";
 
 import Pod from "../../structs/Pod";
+import PodInstance from "../../structs/PodInstance";
+import PodSpec from "../../structs/PodSpec";
 import PodUtil from "../../utils/PodUtil";
 import InstanceUtil from "../../utils/InstanceUtil";
 import PodTableHeaderLabels from "../../constants/PodTableHeaderLabels";
@@ -40,7 +42,12 @@ const tableColumnClasses = {
   version: "task-table-column-version",
 };
 
-class PodInstancesTable extends React.Component {
+class PodInstancesTable extends React.Component<{
+  filterText: string;
+  instances: PodInstance[];
+  onSelectionChange: (a: {}) => void;
+  pod: Pod;
+}> {
   static defaultProps = {
     filterText: "",
     instances: null,
@@ -55,13 +62,8 @@ class PodInstancesTable extends React.Component {
     onSelectionChange: PropTypes.func,
     pod: PropTypes.instanceOf(Pod).isRequired,
   };
-  constructor(...args) {
-    super(...args);
 
-    this.state = {
-      checkedItems: {},
-    };
-  }
+  state = { checkedItems: {} };
 
   UNSAFE_componentWillReceiveProps(nextProps) {
     const { checkedItems } = this.state;
@@ -71,22 +73,18 @@ class PodInstancesTable extends React.Component {
     // When the `instances` property is changed and we have selected
     // items, re-trigger selection change in order to remove checked
     // entries that are no longer present.
-
-    if (
-      Object.keys(checkedItems).length &&
-      !isEqual(prevInstances, nextInstances)
-    ) {
+    if (!isEqual(prevInstances, nextInstances)) {
       this.triggerSelectionChange(checkedItems, nextProps.instances);
     }
   }
 
-  triggerSelectionChange(checkedItems, instances) {
+  triggerSelectionChange(checkedItems: {}, instances: PodInstance[]) {
     const checkedItemInstances = instances.filter(
       (item) => checkedItems[item.getId()]
     );
     this.props.onSelectionChange(checkedItemInstances);
   }
-  handleItemCheck = (idsChecked) => {
+  handleItemCheck = (idsChecked: number[]) => {
     const checkedItems = {};
 
     idsChecked.forEach((id) => {
@@ -226,15 +224,15 @@ class PodInstancesTable extends React.Component {
     ];
   }
 
-  getContainersWithResources(podSpec, containers, agentAddress) {
-    const children = containers.map((container) => {
+  getContainersWithResources(podSpec: PodSpec, containers, agentAddress) {
+    return containers.map((container) => {
       let containerResources = container.getResources();
 
       // TODO: Remove the following 4 lines when DCOS-10098 is addressed
-      const containerSpec = podSpec.getContainerSpec(container.name);
-      if (containerSpec) {
-        containerResources = containerSpec.resources;
-      }
+      const containerSpec = podSpec
+        .getContainers()
+        .find(({ name }) => container.name === name);
+      containerResources = containerSpec?.resources ?? containerResources;
 
       const addressComponents = container.getEndpoints().map((endpoint, i) => [
         <a
@@ -257,14 +255,12 @@ class PodInstancesTable extends React.Component {
         cpus: containerResources.cpus,
         mem: containerResources.mem,
         resourceLimits:
-          containerSpec.resourceLimits || containerSpec.resources || {},
+          containerSpec?.resourceLimits || containerSpec?.resources || {},
         updated: container.getLastUpdated(),
         version: "",
         isHistoricalInstance: container.isHistoricalInstance,
       };
     });
-
-    return children;
   }
 
   getDisabledItemsMap(instances) {
@@ -277,7 +273,7 @@ class PodInstancesTable extends React.Component {
     }, {});
   }
 
-  getTableDataFor(instances, filterText) {
+  getTableDataFor(instances: PodInstance[], filterText) {
     const podSpec = this.props.pod.getSpec();
 
     return instances.map((instance) => {
@@ -303,21 +299,21 @@ class PodInstancesTable extends React.Component {
         updated: instance.getLastUpdated(),
         status: instance.getInstanceStatus(),
         version: podSpec.getVersion(),
-        resourceLimits: { cpu: "peter", mem: "pan" },
+        resourceLimits: { cpu: 0, mem: 0 },
         children,
         podSpec,
       };
     });
   }
 
-  renderWithClickHandler(rowOptions, content, className?) {
+  renderWithClickHandler(rowOptions: RowOptions, content, className?) {
     return (
       <div onClick={rowOptions.clickHandler} className={className}>
         {content}
       </div>
     );
   }
-  renderColumnID = (prop, col, rowOptions = {}) => {
+  renderColumnID = (_prop, col, rowOptions: RowOptions) => {
     const { id: taskID, name: taskName } = col;
     if (!rowOptions.isParent) {
       const id = encodeURIComponent(this.props.pod.getId());
@@ -345,7 +341,7 @@ class PodInstancesTable extends React.Component {
       classes
     );
   };
-  renderColumnLogs = (prop, row, rowOptions = {}) => {
+  renderColumnLogs = (_prop, row, rowOptions: RowOptions) => {
     if (rowOptions.isParent) {
       // Because elements are just stacked we need a spacer
       return <span>&nbsp;</span>;
@@ -364,7 +360,7 @@ class PodInstancesTable extends React.Component {
       </Link>
     );
   };
-  renderColumnAddress = (prop, row, rowOptions = {}) => {
+  renderColumnAddress = (_prop, row, rowOptions: RowOptions) => {
     const { address } = row;
 
     if (rowOptions.isParent) {
@@ -391,7 +387,7 @@ class PodInstancesTable extends React.Component {
 
     return this.renderWithClickHandler(rowOptions, address);
   };
-  renderColumnStatus = (prop, row, rowOptions = {}) => {
+  renderColumnStatus = (_prop, row, rowOptions: RowOptions) => {
     const { status } = row;
 
     return this.renderWithClickHandler(
@@ -403,7 +399,7 @@ class PodInstancesTable extends React.Component {
       />
     );
   };
-  renderColumnHealth = (prop, row, rowOptions = {}) => {
+  renderColumnHealth = (prop, row, rowOptions: RowOptions) => {
     const { status } = row;
     const { healthStatus } = status;
     let tooltipContent = <Trans render="span">Healthy</Trans>;
@@ -430,8 +426,9 @@ class PodInstancesTable extends React.Component {
       </div>
     );
   };
-  renderColumnResource = (prop, row, rowOptions = {}) => {
-    if (rowOptions.hasChildren) {
+  // TODO rendering for pods
+  renderColumnResource = (prop, row, rowOptions: RowOptions) => {
+    if (rowOptions.isParent) {
       const executorResource = row.podSpec?.executorResources?.[prop] ?? 0;
       const childResources = row.children.filter(
         (child) => !child.isHistoricalInstance
@@ -497,13 +494,13 @@ class PodInstancesTable extends React.Component {
       </Tooltip>
     );
   };
-  renderColumnUpdated = (prop, row, rowOptions = {}) => {
+  renderColumnUpdated = (_prop, row, rowOptions: RowOptions) => {
     return this.renderWithClickHandler(
       rowOptions,
       <TimeAgo time={row.updated} />
     );
   };
-  renderColumnVersion = (prop, row, rowOptions = {}) => {
+  renderColumnVersion = (_prop, row, rowOptions: RowOptions) => {
     if (!row.version) {
       return null;
     }
@@ -520,7 +517,7 @@ class PodInstancesTable extends React.Component {
       <span>{localeVersion}</span>
     );
   };
-  renderRegion = (prop, instance, rowOptions) => {
+  renderRegion = (_prop, instance, rowOptions) => {
     if (!rowOptions.isParent) {
       return null;
     }
@@ -533,7 +530,7 @@ class PodInstancesTable extends React.Component {
       </div>
     );
   };
-  renderZone = (prop, instance, rowOptions) => {
+  renderZone = (_prop, instance, rowOptions) => {
     if (!rowOptions.isParent) {
       return null;
     }

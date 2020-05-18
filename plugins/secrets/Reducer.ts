@@ -1,7 +1,6 @@
 import * as EventTypes from "./constants/EventTypes";
 
 const initialState = {
-  certificates: [],
   secrets: [],
   stores: [],
   secretDetail: {},
@@ -23,9 +22,6 @@ module.exports = (state = initialState, action) => {
 
     case EventTypes.SECRET_STORE_SECRETS_SUCCESS:
       return { ...state, secrets: action.secrets };
-
-    case EventTypes.CERTIFICATE_ALL_CERTIFICATES_SUCCESS:
-      return { ...state, certificates: action.certificates.result };
 
     default:
       return state;

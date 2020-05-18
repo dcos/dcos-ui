@@ -7,17 +7,16 @@ import PodInstanceStatus from "../constants/PodInstanceStatus";
 import PodInstanceState from "../constants/PodInstanceState";
 
 export default class PodInstance extends Item {
-  getAgentAddress() {
+  agentId?: string;
+  getAgentAddress(): string {
     return this.get("agentHostname") || "";
   }
 
-  getContainers() {
-    const containers = this.get("containers") || [];
-
-    return containers.map((container) => new PodContainer(container));
+  getContainers(): PodContainer[] {
+    return (this.get("containers") || []).map((c) => new PodContainer(c));
   }
 
-  getId() {
+  getId(): string {
     return this.get("id") || "";
   }
 
@@ -25,7 +24,7 @@ export default class PodInstance extends Item {
     return this.getId();
   }
 
-  getStatus() {
+  getStatus(): string {
     // API returns mix of uppercase and lowercase depending on status :(
     return this.get("status").toLowerCase();
   }
@@ -77,11 +76,11 @@ export default class PodInstance extends Item {
     return new Date(this.get("lastChanged"));
   }
 
-  getAgentRegion() {
+  getAgentRegion(): string {
     return this.get("agentRegion") || "";
   }
 
-  getAgentZone() {
+  getAgentZone(): string {
     return this.get("agentZone") || "";
   }
 
@@ -90,15 +89,7 @@ export default class PodInstance extends Item {
   }
 
   getResources() {
-    const resources = this.get("resources") || {};
-
-    return {
-      cpus: 0,
-      mem: 0,
-      gpus: 0,
-      disk: 0,
-      ...resources,
-    };
+    return { cpus: 0, mem: 0, gpus: 0, disk: 0, ...this.get("resources") };
   }
 
   getIpAddresses() {

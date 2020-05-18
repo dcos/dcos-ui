@@ -67,7 +67,7 @@ class SecretStorePage extends mixin(StoreMixin) {
 
   render() {
     const stores = SecretStore.getStores();
-    const storeCount = stores.getItems().length;
+    const storeCount = stores.length;
     if (this.state.requestError) {
       return this.getRequestErrorMsg();
     }

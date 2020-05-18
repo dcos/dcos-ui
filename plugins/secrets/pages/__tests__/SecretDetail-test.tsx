@@ -1,4 +1,5 @@
 import PluginSDK from "PluginSDK";
+import getSecretStore from "../../stores/SecretStore";
 
 jest.mock("#SRC/js/components/Page", () => {
   const Page = ({ children }) => <div>{children}</div>;
@@ -13,7 +14,6 @@ require("../../SDK").setSDK(SDK);
 const React = require("react");
 const renderer = require("react-test-renderer");
 const Secret = require("../../structs/Secret").default;
-const getSecretStore = require("../../stores/SecretStore").default;
 
 const SecretDetail = require("../SecretDetail").default;
 

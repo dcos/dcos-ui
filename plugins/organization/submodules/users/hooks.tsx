@@ -160,10 +160,6 @@ module.exports = {
     return null;
   },
 
-  userLoginPolicy() {
-    return null;
-  },
-
   userModelObject(userObject) {
     const definition = this.userFormModalDefinition(null, null, {});
     // Basically only return keys that this plugin cares about

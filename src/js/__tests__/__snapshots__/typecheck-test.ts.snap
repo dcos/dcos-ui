@@ -1762,19 +1762,10 @@ plugins/sdk-services/SDK.ts: error TS2451: Cannot redeclare block-scoped variabl
 plugins/sdk-services/index.ts: error TS2306: File '/plugins/sdk-services/SDK.ts' is not a module.
 plugins/secrets/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
+plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
+plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
 plugins/secrets/actions/SecretActions.ts: error TS2571: Object is of type 'unknown'.
 plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
-plugins/secrets/actions/SecretActions.ts: error TS2345: Argument of type 'unknown' is not assignable to parameter of type 'string'.
-plugins/secrets/actions/SecretActions.ts: error TS2339: Property 'responseHeaders' does not exist on type 'RequestResponse<unknown>'.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 3 arguments, but got 0.
@@ -1799,7 +1790,6 @@ plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
@@ -1808,14 +1798,6 @@ plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
 plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 1 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/actions/__tests__/SecretActions-test.ts: error TS2554: Expected 2 arguments, but got 0.
-plugins/secrets/components/CertificatesTable.tsx: error TS2339: Property 'certificates' does not exist on type *.
-plugins/secrets/components/CertificatesTable.tsx: error TS2554: Expected 1-2 arguments, but got 0.
-plugins/secrets/components/CertificatesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/secrets/components/CertificatesTable.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'selectedItems' does not exist on type *.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'errorMsg' does not exist on type 'Readonly<{}>'.
 plugins/secrets/components/SecretActionsModal.tsx: error TS2339: Property 'onClose' does not exist on type *.
@@ -1944,14 +1926,6 @@ plugins/secrets/hooks.tsx: error TS6133: 'state' is declared but its value is ne
 plugins/secrets/hooks.tsx: error TS2554: Expected 3 arguments, but got 4.
 plugins/secrets/hooks.tsx: error TS2769: No overload matches this call.
 plugins/secrets/index.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'healthFilter' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'isLoading' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'requestError' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'searchString' does not exist on type 'Readonly<{}>'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'CertificatesPage'.
-plugins/secrets/pages/CertificatesPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretDetail.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/secrets/pages/SecretDetail.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretDetail'.
 plugins/secrets/pages/SecretDetail.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
@@ -1984,6 +1958,8 @@ plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'store_listene
 plugins/secrets/pages/SecretStorePage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'requestError' does not exist on type 'Readonly<{}>'.
 plugins/secrets/pages/SecretStorePage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
+plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretsPage'.
+plugins/secrets/pages/SecretsPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'secretToRemove' does not exist on type 'Readonly<{}>'.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'secretToRemove' does not exist on type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'checkedItems' does not exist on type *.
@@ -2001,8 +1977,6 @@ plugins/secrets/pages/SecretsPage.tsx: error TS2322: type * is not assignable to
 plugins/secrets/pages/SecretsPage.tsx: error TS2322: type * is not assignable to type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 plugins/secrets/pages/SecretsPage.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/secrets/pages/SecretsPage.tsx: error TS2339: Property 'store_listeners' does not exist on type 'SecretsPage'.
-plugins/secrets/pages/SecretsPage.tsx: error TS2722: Cannot invoke an object which is possibly 'undefined'.
 plugins/secrets/pages/SecurityPage.tsx: error TS2339: Property 'routeConfig' does not exist on type *.
 plugins/secrets/pages/__tests__/SecretDetail-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/secrets/pages/__tests__/SecretDetail-test.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
@@ -2039,14 +2013,7 @@ plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of
 plugins/secrets/reducers/__tests__/JobSecrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobSpec'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
 plugins/secrets/reducers/__tests__/Secrets-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'SingleContainerServiceJSON'.
-plugins/secrets/stores/CertificateStore.ts: error TS2556: Expected 0 arguments, but got 1 or more.
 plugins/secrets/stores/SecretStore.ts: error TS2306: File '/plugins/secrets/SDK.ts' is not a module.
-plugins/secrets/structs/Certificate.ts: error TS2551: Property '_name' does not exist on type 'Certificate'. Did you mean 'name'?
-plugins/secrets/structs/Certificate.ts: error TS2551: Property '_status' does not exist on type 'Certificate'. Did you mean 'status'?
-plugins/secrets/structs/SecretStoreStructList.ts: error TS2339: Property 'getSealed' does not exist on type '{}'.
-plugins/secrets/structs/SecretStoreStructList.ts: error TS2365: Operator '+' cannot be applied to types '{}' and 'number'.
-plugins/secrets/structs/__tests__/CertificatesList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
-plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts: error TS2322: Type '{}[]' is not assignable to type *.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
 plugins/secrets/validators/__tests__/JobSecretsValidators-test.ts: error TS2345: Argument of type * is not assignable to parameter of type 'JobOutput'.
@@ -2071,8 +2038,8 @@ plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS255
 plugins/services/src/js/columns/QuotaOverviewDiskConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
 plugins/services/src/js/columns/QuotaOverviewMemoryConsumedColumn.tsx: error TS2554: Expected 5 arguments, but got 2.
-plugins/services/src/js/columns/ServicesTableCPUColumn.tsx: error TS2339: Property 'cpus' does not exist on type '{}'.
-plugins/services/src/js/columns/ServicesTableMemColumn.tsx: error TS2339: Property 'mem' does not exist on type '{}'.
+plugins/services/src/js/columns/resourceLimits.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
+plugins/services/src/js/columns/resourceLimits.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/ConfigurationMapTable.tsx: error TS2683: 'this' implicitly has type 'any' because it does not have a type annotation.
 plugins/services/src/js/components/DeclinedOffersTable.tsx: error TS2339: Property 'summary' does not exist on type *.
@@ -3066,8 +3033,6 @@ plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2556: Expec
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'pod' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'onScale' does not exist on type *.
 plugins/services/src/js/containers/pod-detail/PodHeader.tsx: error TS2339: Property 'onEdit' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2345: Argument of type 'string[]' is not assignable to parameter of type 'never[]'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2556: Expected 3 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'actionErrors' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'pendingActions' does not exist on type 'Readonly<{}>'.
@@ -3085,40 +3050,12 @@ plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: erro
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'childContextTypes' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2551: Property 'contextTypes' does not exist on type *. Did you mean 'contextType'?
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'dispatcher' does not exist on type 'PodInstancesContainer'.
 plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'location' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'defaultFilterData' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-instances/PodInstancesContainer.tsx: error TS2339: Property 'filterExpression' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isExpanded' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'isParent' does not exist on type '{}'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'hasChildren' does not exist on type '{}'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: Type 'string' is not assignable to type 'Direction'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS6133: 'prop' is declared but its value is never read.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'pod' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'filterText' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
 plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2322: type * is not assignable to type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2556: Expected 1-2 arguments, but got 0 or more.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'checkedItems' does not exist on type 'Readonly<{}>'.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'onSelectionChange' does not exist on type *.
-plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx: error TS2339: Property 'instances' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2322: type * is not assignable to type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'inverseStyle' does not exist on type *.
 plugins/services/src/js/containers/pod-instances/PodInstancesView.tsx: error TS2339: Property 'instances' does not exist on type *.
@@ -3471,16 +3408,6 @@ plugins/services/src/js/events/__tests__/MarathonActions-test.ts: error TS2554: 
 plugins/services/src/js/events/__tests__/SDKEndpointsActions-test.ts: error TS2739: type * is missing the following properties from type *: DONE, HEADERS_RECEIVED, LOADING, OPENED, UNSENT
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
 plugins/services/src/js/events/__tests__/ServiceActions-test.ts: error TS2554: Expected 2 arguments, but got 1.
-plugins/services/src/js/filters/PodInstanceStatusFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstanceTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesRegionFilter.ts: error TS2339: Property 'regions' does not exist on type 'PodInstancesRegionFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
-plugins/services/src/js/filters/PodInstancesZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'PodInstancesZoneFilter'.
 plugins/services/src/js/filters/ServiceAttributeHealthFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/ServiceAttributeIsFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/ServiceNameTextFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
@@ -3494,9 +3421,6 @@ plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zone
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS6133: 'filterType' is declared but its value is never read.
 plugins/services/src/js/filters/TasksZoneFilter.ts: error TS2339: Property 'zones' does not exist on type 'TasksZoneFilter'.
-plugins/services/src/js/filters/__tests__/PodInstanceTextFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
-plugins/services/src/js/filters/__tests__/PodInstancesZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/filters/__tests__/TaskRegionFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/filters/__tests__/TaskZoneFilter-test.ts: error TS2322: Type 'string' is not assignable to type 'never'.
 plugins/services/src/js/pages/EditFrameworkConfiguration.tsx: error TS2339: Property 'packageDetails' does not exist on type 'Readonly<{}>'.
@@ -4401,8 +4325,6 @@ plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_spec' does not 
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Pod.ts: error TS2339: Property '_regions' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
-plugins/services/src/js/structs/Pod.ts: error TS2339: Property 'spec' does not exist on type 'Pod'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
 plugins/services/src/js/structs/Service.ts: error TS2339: Property '_regions' does not exist on type 'Service'.
@@ -4728,38 +4650,6 @@ plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argume
 plugins/services/src/js/validators/PlacementsValidators.ts: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
 plugins/services/src/js/validators/VipLabelsValidators.ts: error TS2769: No overload matches this call.
-plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/__tests__/TrackingPlugin-test.ts: error TS2339: Property 'calls' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2698: Spread types may only be created from object types.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS6133: 'redirectLocation' is declared but its value is never read.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2345: Argument of type 'any' is not assignable to parameter of type 'never'.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'lastLogDate' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'stintID' does not exist on type *.
-plugins/tracking/actions/Actions.ts: error TS2339: Property 'createdAt' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/actions/__tests__/Actions-test.ts: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'configuration' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'analytics' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
-plugins/tracking/hooks.tsx: error TS2339: Property 'Raven' does not exist on type *.
 plugins/ui-update-private/SDK.ts: error TS2451: Cannot redeclare block-scoped variable 'SDK'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
 plugins/ui-update-private/hooks.ts: error TS2571: Object is of type 'unknown'.
@@ -4963,6 +4853,7 @@ src/js/components/ErrorsAlert.tsx: error TS2339: Property 'isPermissive' does no
 src/js/components/ErrorsAlert.tsx: error TS2339: Property 'path' does not exist on type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
 src/js/components/ErrorsAlert.tsx: error TS2345: Argument of type 'string' is not assignable to parameter of type 'never'.
+src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandAll' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'childRowClassName' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'className' does not exist on type *.
@@ -4972,7 +4863,6 @@ src/js/components/ExpandingTable.tsx: error TS2339: Property 'tableComponent' do
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'columns' does not exist on type *.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
 src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandedRows' does not exist on type 'Readonly<{}>'.
-src/js/components/ExpandingTable.tsx: error TS2339: Property 'expandAll' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'leftChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'rightChildrenClass' does not exist on type *.
 src/js/components/FilterBar.tsx: error TS2339: Property 'className' does not exist on type *.

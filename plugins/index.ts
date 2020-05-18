@@ -2,7 +2,6 @@ import authentication from "./auth";
 import banner from "./banner/index";
 import intercom from "./intercom/index";
 import oauth from "./oauth/index";
-import tracking from "./tracking/index";
 import uiUpdate from "./ui-update/index";
 
 export default {
@@ -25,5 +24,4 @@ export default {
   organization: require("./organization/index"),
   placement: require("./placement/index"),
   secrets: require("./secrets/index"),
-  tracking,
 };

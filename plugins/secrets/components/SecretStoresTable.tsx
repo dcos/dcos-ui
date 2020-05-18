@@ -16,7 +16,7 @@ import TableUtil from "#SRC/js/utils/TableUtil";
 class SecretStoresTable extends React.Component {
   static propTypes = {
     className: PropTypes.oneOfType([PropTypes.string, PropTypes.object]),
-    stores: PropTypes.object,
+    stores: PropTypes.array,
   };
   getColGroup() {
     return (
@@ -34,7 +34,7 @@ class SecretStoresTable extends React.Component {
   getRowAttributes(store) {
     return {
       className: classNames({
-        danger: store.getSealed() === true,
+        danger: store.sealed,
       }),
     };
   }
@@ -67,7 +67,7 @@ class SecretStoresTable extends React.Component {
       cellValue = <span className="table-cell-emphasized">{cellValue}</span>;
     }
 
-    if (row.getSealed() && prop === "description") {
+    if (row.sealed && prop === "description") {
       return (
         <Tooltip anchor="start" content="This store is sealed.">
           <span className="icon-margin-right">
@@ -119,7 +119,7 @@ class SecretStoresTable extends React.Component {
         columns={columns}
         colGroup={this.getColGroup()}
         containerSelector=".gm-scroll-view"
-        data={stores.getItems()}
+        data={stores}
         itemHeight={TableUtil.getRowHeight()}
         sortBy={{ prop: "description", order: "asc" }}
       />

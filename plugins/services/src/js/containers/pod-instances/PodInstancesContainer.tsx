@@ -8,8 +8,6 @@ import * as EventTypes from "#SRC/js/constants/EventTypes";
 import MesosStateStore from "#SRC/js/stores/MesosStateStore";
 import DSLExpression from "#SRC/js/structs/DSLExpression";
 
-import Util from "#SRC/js/utils/Util";
-
 import PodInstanceStatusFilter from "#PLUGINS/services/src/js/filters/PodInstanceStatusFilter";
 import PodInstancesZoneFilter from "#PLUGINS/services/src/js/filters/PodInstancesZoneFilter";
 import PodInstancesRegionFilter from "#PLUGINS/services/src/js/filters/PodInstancesRegionFilter";
@@ -34,16 +32,35 @@ class PodInstancesContainer extends React.Component {
   static propTypes = {
     pod: PropTypes.instanceOf(Pod),
   };
-  constructor(...args) {
-    super(...args);
+  constructor(props) {
+    super(props);
+
+    const instances = PodUtil.mergeHistoricalInstanceList(
+      props.pod.getInstanceList(),
+      MesosStateStore.getPodHistoricalInstances(props.pod)
+    ).getItems();
+
+    const nodes = TaskMergeDataUtil.mergeTaskData(instances).map(
+      InstanceUtil.getNode
+    );
 
     this.state = {
       actionErrors: {},
       lastUpdate: 0,
       pendingActions: {},
-      filterExpression: new DSLExpression(""),
-      filters: [new PodInstanceStatusFilter(), new PodInstanceTextFilter()],
-      defaultFilterData: { zones: [], regions: [] },
+      filterExpression: new DSLExpression(
+        props?.location?.query?.q || "is:active"
+      ),
+      filters: [
+        PodInstanceStatusFilter,
+        PodInstancesZoneFilter,
+        PodInstancesRegionFilter,
+        PodInstanceTextFilter,
+      ],
+      defaultFilterData: {
+        regions: nodes.map((i) => i?.getRegionName()).filter(interesting),
+        zones: nodes.map((i) => i?.getZoneName()).filter(interesting),
+      },
     };
   }
 
@@ -57,10 +74,6 @@ class PodInstancesContainer extends React.Component {
     this.dispatcher = AppDispatcher.register(this.handleServerAction);
   }
 
-  UNSAFE_componentWillMount() {
-    this.setFilterOptions(this.props);
-  }
-
   componentWillUnmount() {
     MesosStateStore.removeChangeListener(
       EventTypes.MESOS_STATE_CHANGE,
@@ -71,86 +84,11 @@ class PodInstancesContainer extends React.Component {
   }
   handleExpressionChange = (filterExpression = { value: "" }) => {
     const { router } = this.context;
-    const {
-      location: { pathname },
-    } = this.props;
+    const { pathname } = this.props.location;
     router.push({ pathname, query: { q: filterExpression.value } });
 
     this.setState({ filterExpression });
   };
-
-  setFilterOptions(props) {
-    const historicalInstances = MesosStateStore.getPodHistoricalInstances(
-      props.pod
-    );
-
-    const instances = PodUtil.mergeHistoricalInstanceList(
-      props.pod.getInstanceList(),
-      historicalInstances
-    );
-
-    const {
-      defaultFilterData: { regions, zones },
-      filterExpression,
-    } = this.state;
-
-    const query =
-      Util.findNestedPropertyInObject(props, "location.query.q") || "is:active";
-
-    const mergedInstances = TaskMergeDataUtil.mergeTaskData(
-      instances.getItems()
-    );
-
-    const newZones = Object.keys(
-      mergedInstances.reduce((prev, instance) => {
-        const node = InstanceUtil.getNode(instance);
-
-        if (!node || node.getZoneName() === "N/A") {
-          return prev;
-        }
-        prev[node.getZoneName()] = "";
-
-        return prev;
-      }, {})
-    );
-
-    const newRegions = Object.keys(
-      mergedInstances.reduce((prev, instance) => {
-        const node = InstanceUtil.getNode(instance);
-
-        if (!node || node.getRegionName() === "N/A") {
-          return prev;
-        }
-        prev[node.getRegionName()] = "";
-
-        return prev;
-      }, {})
-    );
-
-    // If no region/ zones added from props return
-    if (
-      newRegions.length === regions.length &&
-      newRegions.every((region) => regions.indexOf(region) !== -1) &&
-      newZones.length === zones.length &&
-      newZones.every((zone) => zones.indexOf(zone) !== -1) &&
-      filterExpression.value === query
-    ) {
-      return;
-    }
-
-    const filters = [
-      new PodInstanceStatusFilter(),
-      new PodInstancesZoneFilter(newZones),
-      new PodInstancesRegionFilter(newRegions),
-      new PodInstanceTextFilter(),
-    ];
-
-    this.setState({
-      filterExpression: new DSLExpression(query),
-      filters,
-      defaultFilterData: { regions: newRegions, zones: newZones },
-    });
-  }
 
   getChildContext() {
     return {
@@ -334,6 +272,8 @@ class PodInstancesContainer extends React.Component {
     );
   }
 }
+
+const interesting = (i) => i && i !== "N/A";
 
 // Make these modal handlers available via context
 // so any child can trigger the opening of modals

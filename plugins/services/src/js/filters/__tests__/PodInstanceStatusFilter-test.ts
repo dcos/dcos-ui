@@ -24,7 +24,7 @@ describe("PodInstanceStatusFilter", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:active");
 
-    const filters = [new PodInstanceStatusFilter()];
+    const filters = [PodInstanceStatusFilter];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[0],
@@ -35,7 +35,7 @@ describe("PodInstanceStatusFilter", () => {
     const services = new List({ items: thisMockItems });
     const expr = SearchDSL.parse("is:completed");
 
-    const filters = [new PodInstanceStatusFilter()];
+    const filters = [PodInstanceStatusFilter];
 
     expect(expr.filter(filters, services).getItems()).toEqual([
       thisMockItems[1],

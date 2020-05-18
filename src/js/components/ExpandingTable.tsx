@@ -7,6 +7,13 @@ import Util from "../utils/Util";
 
 const WHITESPACE = "\u00A0";
 
+export type RowOptions = {
+  hasChildren: boolean;
+  isExpanded: boolean;
+  isParent: boolean;
+  clickHandler: () => {};
+};
+
 class ExpandingTable extends React.Component {
   static defaultProps = {
     alignCells: "top",

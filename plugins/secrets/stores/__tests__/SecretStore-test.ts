@@ -8,7 +8,7 @@ import Config from "#SRC/js/config/Config";
 import * as ActionTypes from "../../constants/ActionTypes";
 const EventTypes = require("../../constants/EventTypes");
 const secretsFixture = require("../../../../tests/_fixtures/secrets/secrets.json");
-const storesFixture = require("../../../../tests/_fixtures/secrets/stores.json");
+const stores = require("../../../../tests/_fixtures/secrets/stores.json").array;
 const secretFixture = require("../../../../tests/_fixtures/secrets/secret.json");
 
 const SDK = PluginSDK.__getSDK("secrets", { enabled: true });
@@ -75,7 +75,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_STORE_SECRETS_SUCCESS,
-        data: secretsFixture,
+        data: secretsFixture.array,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -150,13 +150,8 @@ describe("SecretStore", () => {
     });
 
     it("stores stores when event is dispatched", () => {
-      SDK.dispatch({
-        type: EventTypes.SECRET_ALL_STORES_SUCCESS,
-        stores: storesFixture.array,
-      });
-
-      let stores = SecretStore.get("stores");
-      expect(stores.length).toEqual(storesFixture.array.length);
+      SDK.dispatch({ type: EventTypes.SECRET_ALL_STORES_SUCCESS, stores });
+      expect(SecretStore.get("stores").length).toEqual(stores.length);
     });
 
     it("dispatches the correct event upon secret request success", () => {
@@ -167,9 +162,8 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ALL_STORES_SUCCESS,
-        data: storesFixture,
+        data: stores,
       });
-
       expect(mockedFn.mock.calls.length).toEqual(1);
     });
 
@@ -181,7 +175,7 @@ describe("SecretStore", () => {
       );
       SDK.dispatch({
         type: ActionTypes.REQUEST_ALL_STORES_ERROR,
-        data: storesFixture,
+        data: stores,
       });
 
       expect(mockedFn.mock.calls.length).toEqual(1);
@@ -191,15 +185,13 @@ describe("SecretStore", () => {
       NotificationStore.removeNotification = jasmine.createSpy();
       NotificationStore.getNotificationCount = () => 1;
 
-      SecretStore.processStores(storesFixture.array);
+      SecretStore.processStores(stores);
       expect(NotificationStore.removeNotification).toHaveBeenCalled();
     });
 
     it("creates a notification if there are stores sealed", () => {
       NotificationStore.addNotification = jasmine.createSpy();
-      SecretStore.processStores({
-        array: [{ sealed: true }],
-      });
+      SecretStore.processStores([{ sealed: true }]);
 
       expect(NotificationStore.addNotification).toHaveBeenCalled();
     });

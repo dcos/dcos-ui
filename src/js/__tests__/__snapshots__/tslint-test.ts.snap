@@ -322,7 +322,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
 /plugins/placement/components/__tests__/SchemaRegionSelection-test.tsx - require statement not part of an import statement
-/plugins/secrets/actions/__tests__/CertificateActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
 /plugins/secrets/actions/__tests__/SecretActions-test.ts - require statement not part of an import statement
@@ -345,7 +344,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
-/plugins/secrets/pages/__tests__/SecretDetail-test.tsx - require statement not part of an import statement
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
 /plugins/secrets/reducers/Secrets.ts - Shadowed name: 'index'
@@ -355,16 +353,7 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/reducers/__tests__/EnvironmentVariables-test.ts - require statement not part of an import statement
 /plugins/secrets/reducers/__tests__/Secrets-test.ts - require statement not part of an import statement
 /plugins/secrets/reducers/__tests__/Volumes-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/CertificateStore.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'certificates' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - Identifier 'thisUseFixtures' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
-/plugins/secrets/stores/__tests__/CertificateStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'secrets' is never reassigned; use 'const' instead of 'let'.
-/plugins/secrets/stores/__tests__/SecretStore-test.ts - Identifier 'stores' is never reassigned; use 'const' instead of 'let'.
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
@@ -372,15 +361,8 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
 /plugins/secrets/stores/__tests__/SecretStore-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/Certificate.ts - All 'name' signatures should be adjacent
-/plugins/secrets/structs/Certificate.ts - All 'status' signatures should be adjacent
-/plugins/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/Certificate-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/CertificatesList-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
 /plugins/secrets/structs/__tests__/Secret-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretStoreStruct-test.ts - require statement not part of an import statement
-/plugins/secrets/structs/__tests__/SecretStoreStructList-test.ts - require statement not part of an import statement
 /plugins/secrets/validators/__tests__/SecretsValidators-test.ts - require statement not part of an import statement
 /plugins/services/src/js/columns/ServicesTableActionsColumn.tsx - The function has a cyclomatic complexity of 27 which is higher than the threshold of 20
 /plugins/services/src/js/components/DeploymentsModal.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
@@ -420,7 +402,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - Missing \\"key\\" prop for element.
 /plugins/services/src/js/containers/pod-detail/PodHeader.tsx - don't declare variable actionButtons to return it immediately
-/plugins/services/src/js/containers/pod-instances/PodInstancesTable.tsx - don't declare variable children to return it immediately
 /plugins/services/src/js/containers/service-configuration/ServiceConfiguration.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-configuration/__tests__/ServiceConfigurationContainer-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/services/src/js/containers/service-connection/MesosDNSList.tsx - Missing \\"key\\" prop for element.
@@ -544,11 +525,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'isUnanchored'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'type'
 /plugins/services/src/js/validators/MarathonAppValidators.ts - Shadowed name: 'variables'
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
-/plugins/tracking/__tests__/TrackingPlugin-test.ts - require statement not part of an import statement
-/plugins/tracking/actions/Actions.ts - require statement not part of an import statement
-/plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
-/plugins/tracking/actions/__tests__/Actions-test.ts - require statement not part of an import statement
 /src/js/components/CollapsingString.tsx - Use a conditional expression instead of assigning to 'parent' in multiple places.
 /src/js/components/CosmosErrorMessage.tsx - Shadowed name: 'error'
 /src/js/components/ExpandingTable.tsx - Use a conditional expression instead of assigning to 'expandedRows[rowID]' in multiple places.
