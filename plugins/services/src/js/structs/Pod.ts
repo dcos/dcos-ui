@@ -243,32 +243,6 @@ export default class Pod extends Service {
     return this._regions;
   }
 
-  getResourceLimits() {
-    const instances = this.getInstancesCount();
-
-    const { cpus, mem } = this.spec.containers.reduce(
-      (accLimits, container) => {
-        const limits = { ...container.resources, ...container.resourceLimits };
-        Object.entries(limits).forEach(([key, limit]) => {
-          accLimits[key] = (accLimits[key] || 0) + limit;
-        });
-        return accLimits;
-      },
-      { ...this.spec.executorResources }
-    );
-
-    return {
-      cpus:
-        typeof cpus === "string" && cpus.match(/unlimited/)
-          ? "unlimited"
-          : cpus * instances,
-      mem:
-        typeof mem === "string" && mem.match(/unlimited/)
-          ? "unlimited"
-          : mem * instances,
-    };
-  }
-
   isDelayed() {
     const queue = this.getQueue();
     return findNestedPropertyInObject(queue, "delay.overdue") === false;
