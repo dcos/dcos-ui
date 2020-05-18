@@ -201,36 +201,6 @@ exports[`tslint snapshot should be up to date 1`] = `
 /plugins/organization/submodules/directories/actions/__tests__/ACLDirectoriesActions-test.ts - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/DirectoryFormModal.tsx - Binds are forbidden in JSX attributes due to their rendering performance impact
 /plugins/organization/submodules/directories/components/DirectoryFormModal.tsx - Don't bind scopes to arrow lambdas, as they already have a bound scope.
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
-/plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - Lambdas are forbidden in JSX attributes due to their rendering performance impact
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
 /plugins/organization/submodules/directories/components/__tests__/DirectoryFormModal-test.tsx - require statement not part of an import statement
