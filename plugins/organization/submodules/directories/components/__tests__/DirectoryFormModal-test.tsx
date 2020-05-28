@@ -13,7 +13,8 @@ const List = require("#SRC/js/structs/List").default;
 const ACLDirectoriesStore = require("../../stores/ACLDirectoriesStore").default;
 const DirectoryFormModal = require("../DirectoryFormModal").default;
 
-const WrappedComponent = JestUtil.withI18nProvider(DirectoryFormModal);
+const WrappedComponent: any = JestUtil.withI18nProvider(DirectoryFormModal);
+const noop = () => {};
 
 let thisStoreAddDirectory,
   thisStoreGetDirectories,
@@ -42,17 +43,11 @@ describe("DirectoryFormModal", () => {
       },
     };
 
-    ACLDirectoriesStore.addDirectory = () => {};
+    ACLDirectoriesStore.addDirectory = noop;
     ACLDirectoriesStore.getDirectories = () =>
       new List({ items: [thisDirectoryConfig] });
 
-    thisInstance = mount(
-      <WrappedComponent
-        modalOpen={true}
-        onFormSubmit={() => {}}
-        changeModalOpenState={() => {}}
-      />
-    );
+    thisInstance = mount(<WrappedComponent modalOpen={true} />);
   });
 
   afterEach(() => {
@@ -63,12 +58,7 @@ describe("DirectoryFormModal", () => {
   describe("#getFieldValue", () => {
     it("retrieves a value from the model", () => {
       const formModalInstance = mount(
-        <WrappedComponent
-          model={{ foo: "bar" }}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent model={{ foo: "bar" }} modalOpen={true} />
       );
 
       expect(
@@ -81,12 +71,7 @@ describe("DirectoryFormModal", () => {
 
     it("retrieves a nested value from the model", () => {
       const formModalInstance = mount(
-        <WrappedComponent
-          model={{ foo: { bar: "baz" } }}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent model={{ foo: { bar: "baz" } }} modalOpen={true} />
       );
 
       expect(
@@ -99,12 +84,7 @@ describe("DirectoryFormModal", () => {
 
     it("returns an empty string by default", () => {
       const formModalInstance = mount(
-        <WrappedComponent
-          model={{}}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent model={{}} modalOpen={true} />
       );
 
       expect(
@@ -125,12 +105,7 @@ describe("DirectoryFormModal", () => {
   describe("#getSSLTLSConfigValue", () => {
     it('returns "enforce-starttls" if not in edit mode', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={false}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={false} modalOpen={true} />
       );
 
       expect(
@@ -143,13 +118,7 @@ describe("DirectoryFormModal", () => {
 
     it('returns "ssl-tls-configuration-default-value" if in edit mode and model does not contain the relevant keys', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={true}
-          model={{}}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={true} model={{}} modalOpen={true} />
       );
 
       expect(
@@ -166,8 +135,6 @@ describe("DirectoryFormModal", () => {
           editMode={true}
           model={{ "use-ldaps": true }}
           modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
         />
       );
 
@@ -185,8 +152,6 @@ describe("DirectoryFormModal", () => {
           editMode={true}
           model={{ "enforce-starttls": true }}
           modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
         />
       );
 
@@ -202,12 +167,7 @@ describe("DirectoryFormModal", () => {
   describe("#getTemplateBindTypeValue", () => {
     it('returns "simple-bind-template" if not in edit mode', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={false}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={false} modalOpen={true} />
       );
 
       expect(
@@ -220,13 +180,7 @@ describe("DirectoryFormModal", () => {
 
     it('returns "none" if in edit mode and model does not contain the relevant keys', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={true}
-          model={{}}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={true} model={{}} modalOpen={true} />
       );
 
       expect(
@@ -243,8 +197,6 @@ describe("DirectoryFormModal", () => {
           editMode={true}
           model={{ "user-search": { foo: "bar" } }}
           modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
         />
       );
 
@@ -262,8 +214,6 @@ describe("DirectoryFormModal", () => {
           editMode={true}
           model={{ "user-search": { foo: "bar" } }}
           modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
         />
       );
 
@@ -287,12 +237,7 @@ describe("DirectoryFormModal", () => {
   describe("#getBindTypeValue", () => {
     it('returns "anonymous-bind" if not in edit mode', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={false}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={false} modalOpen={true} />
       );
 
       expect(
@@ -302,13 +247,7 @@ describe("DirectoryFormModal", () => {
 
     it('returns "anonymous-bind" if in edit mode and model does not contain the relevant keys', () => {
       thisInstance = mount(
-        <WrappedComponent
-          editMode={true}
-          model={{}}
-          modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
-        />
+        <WrappedComponent editMode={true} model={{}} modalOpen={true} />
       );
 
       expect(
@@ -322,8 +261,6 @@ describe("DirectoryFormModal", () => {
           editMode={true}
           model={{ "lookup-dn": "bar" }}
           modalOpen={true}
-          onFormSubmit={() => {}}
-          changeModalOpenState={() => {}}
         />
       );
 
